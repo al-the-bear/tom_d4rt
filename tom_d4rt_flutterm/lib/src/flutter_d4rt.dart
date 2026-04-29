@@ -11,27 +11,18 @@ import 'd4rt_runtime_registrations.dart';
 /// and provides [build] / [buildAsync] methods to execute D4rt scripts
 /// and extract native Flutter objects from the results.
 ///
-/// ## Example
-///
 /// ```dart
 /// final d4rt = FlutterD4rt();
-///
-/// // Sync build (script must be sync)
-/// final widget = d4rt.build<Widget>(bundle, context);
-///
-/// // Async build
-/// final widget = await d4rt.buildAsync<Widget>(bundle, context);
-///
-/// // Build without BuildContext (for non-widget objects)
-/// final color = d4rt.build<Color>(bundle);
+/// final widget = d4rt.build<Widget>(bundle, context);          // sync
+/// final widget = await d4rt.buildAsync<Widget>(bundle, context); // async
+/// final color  = d4rt.build<Color>(bundle);                     // no context
 /// ```
 ///
-/// All four entry points (`build`, `buildAsync`, `execute`, `executeAsync`)
+/// All four entry points ([build], [buildAsync], [execute], [executeAsync])
 /// route through `D4rt.executeBundleAs<T>` / `executeBundleAsAsync<T>`,
-/// which apply the shared `D4.unwrapAs<T>` helper. The local
-/// [FlutterD4rtException] type is preserved as the public exception
-/// contract — any [D4UnwrapException] surfacing from the runner is
-/// re-thrown wrapped in [FlutterD4rtException].
+/// which apply the shared `D4.unwrapAs<T>` helper. Any `D4UnwrapException`
+/// surfacing from the runner is re-thrown as [FlutterD4rtException] so
+/// the public exception contract is preserved.
 class FlutterD4rt {
   final D4rt _interpreter;
 
@@ -51,39 +42,24 @@ class FlutterD4rt {
   }
 
   void _registerBridges() {
-    // Step 6: bridge registration uses the runner's extension hook for
-    // the post-material work — the comment-driven "must run AFTER
-    // bridges" rule is now enforced by the runner.
-    //
-    // Important ordering: user-bridge relaxers and runtime extensions
-    // run BEFORE FlutterMaterialBridges.register. Generic constructor
-    // factories chain newest-first; if the user-bridge factory for a
-    // type like `ValueNotifier<T>` registers AFTER material's
-    // auto-generated factory, the user-bridge factory becomes the
-    // primary and breaks scripts whose `T` differs from the
-    // user-bridge's hard-coded cast (e.g. `ValueNotifier<int>(0)`
-    // hitting a `double?` cast). Keeping user-bridge registrations
-    // first puts material's auto-gen factory on top of the chain,
-    // matching the order proven by the step-5 baseline.
-    //
-    // GEN-079: auto-generated generic type relaxers.
+    // Pre-material: user-bridge relaxers and runtime extensions must
+    // register their generic-constructor factories BEFORE material so
+    // material's auto-gen factory ends up on top of the
+    // newest-first chain. Putting them after material flips the chain
+    // and breaks scripts like `ValueNotifier<int>(0)` (the user-bridge
+    // factory hard-casts to `double?`).
     registerRelaxers();
-    // RC-2 (TODO): once d4rtgen emits `registerGenericConstructors()` in
-    // flutter_relaxers.b.dart, uncomment the call below. Today the
-    // generic constructor factories live in
-    // `registerD4rtRuntimeExtensions()`.
-    // registerGenericConstructors();
     registerD4rtRuntimeExtensions();
     FlutterMaterialBridges.register(_interpreter);
-    // Bug-103: registerD4rtInterfaceProxyOverrides re-registers a
-    // handful of <dynamic>-parameterised proxies with concrete type
-    // arguments and must run AFTER FlutterMaterialBridges.register.
-    // The runner runs the queued callback at finalize time — either via
-    // the explicit `finalizeBridges()` below, or implicitly on the
-    // first script execution if the embedder skips it.
-    _interpreter.registerExtensions('tom_d4rt_flutterm', () {
-      registerD4rtInterfaceProxyOverrides();
-    });
+    // Post-material: `registerD4rtInterfaceProxyOverrides` rewrites a
+    // handful of `<dynamic>`-parameterised proxies with concrete type
+    // arguments and depends on material's proxy registrations being in
+    // place. The extension hook fires it after material at finalize
+    // time (explicit below, or implicitly on the first execute).
+    _interpreter.registerExtensions(
+      'tom_d4rt_flutterm',
+      registerD4rtInterfaceProxyOverrides,
+    );
     _interpreter.finalizeBridges();
   }
 
