@@ -495,6 +495,44 @@ class D4rt {
     return false;
   }
 
+  // ============================================================================
+  // Step 6 — Extension hook (forwards to inner D4rtRunner)
+  // ============================================================================
+
+  /// Whether [finalizeBridges] has been called. Step 6.
+  ///
+  /// State lives on the inner [D4rtRunner]; both the bundle and classic
+  /// (`execute()`) execution paths consult it.
+  bool get bridgesFinalized => _runner.bridgesFinalized;
+
+  /// Registers a [body] callback that runs additional bridge wiring (e.g.
+  /// `registerRelaxers()`, `registerD4rtRuntimeExtensions()`,
+  /// `registerD4rtInterfaceProxyOverrides()`) **after** the main bridge
+  /// registrations for [packageName].
+  ///
+  /// The body is queued, not run immediately. It runs when
+  /// [finalizeBridges] is called (or implicitly on the first execute
+  /// call). See [D4rtRunner.registerExtensions] for the full contract.
+  ///
+  /// **Idempotent on package name:** repeated calls with the same
+  /// [packageName] overwrite the body.
+  ///
+  /// Throws [StateError] if [finalizeBridges] has already run.
+  void registerExtensions(String packageName, void Function() body) =>
+      _runner.registerExtensions(packageName, body);
+
+  /// Runs every queued extension callback (in registration order) and
+  /// freezes the runner. Step 6.
+  ///
+  /// Both [executeBundle] and the classic [execute] path call this
+  /// implicitly on first invocation, so embedders rarely need to call
+  /// it directly. Calling it explicitly is supported and lets you
+  /// trigger the wiring at a deterministic moment (e.g. before the
+  /// first script).
+  ///
+  /// **Idempotent:** repeat calls return without re-running anything.
+  void finalizeBridges() => _runner.finalizeBridges();
+
   /// Returns a complete configuration snapshot of this interpreter instance.
   ///
   /// This method provides a comprehensive view of the interpreter's current state,
@@ -924,6 +962,12 @@ class D4rt {
     Map<String, Object?>? namedArgs,
     String? library,
   }) {
+    // Step 6: implicit finalize on first execution. Same hook as the
+    // [D4rtRunner._executeInEnvironment] path — the classic `execute()`
+    // path bypasses the runner's execute*, so we ensure the extension
+    // callbacks fire here too. No-op if the embedder already called
+    // [finalizeBridges] explicitly.
+    _runner.finalizeBridges();
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {

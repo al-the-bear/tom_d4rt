@@ -153,11 +153,27 @@ class D4rtRunner {
   Environment? _globalEnvironment;
   bool _hasExecutedOnce = false;
 
+  /// Step 6: extension callbacks registered by bridge packages, keyed by
+  /// package name. Insertion order is preserved (Dart `Map` literals are
+  /// `LinkedHashMap`) so [finalizeBridges] runs callbacks deterministically.
+  ///
+  /// Re-registering with the same `packageName` overwrites the previous
+  /// body — the contract is one extension callback per bridge package,
+  /// which makes the call idempotent if a process spins up multiple
+  /// runners that each fire the same package's `register*` shape.
+  final Map<String, void Function()> _extensionCallbacks = {};
+
+  /// Step 6: whether [finalizeBridges] has run on this runner.
+  bool _bridgesFinalized = false;
+
   /// Creates a D4rtRunner instance for executing pre-parsed AST.
   D4rtRunner();
 
   /// Gets the current interpreter visitor instance.
   InterpreterVisitor? get visitor => _visitor;
+
+  /// Whether [finalizeBridges] has been called on this runner. Step 6.
+  bool get bridgesFinalized => _bridgesFinalized;
 
   // =========================================================================
   // Bridge Data Access (for AstModuleLoader)
@@ -387,6 +403,73 @@ class D4rtRunner {
       }
     }
     return false;
+  }
+
+  // =========================================================================
+  // Step 6 — Extension hook
+  // =========================================================================
+
+  /// Registers a [body] callback that wires additional bridge state
+  /// (e.g. `registerRelaxers()`, `registerD4rtRuntimeExtensions()`,
+  /// `registerD4rtInterfaceProxyOverrides()`) **after** the main
+  /// `registerBridgedClass`/`registerBridgedEnum`/etc. registrations
+  /// for [packageName] have happened.
+  ///
+  /// The body is *not* run immediately — the runner queues it and runs
+  /// every queued body in registration order when [finalizeBridges] is
+  /// called (or implicitly on the first `execute*`/`executeBundle*` call
+  /// that follows). This replaces the comment-driven "must run AFTER
+  /// bridges" rule (formerly enforced by code ordering inside
+  /// `FlutterD4rt._registerBridges`) with an enforced mechanism: bridge
+  /// packages declare their wiring up front, and the runner controls
+  /// when it runs.
+  ///
+  /// **Idempotent on package name:** a second call with the same
+  /// [packageName] overwrites the previous body — the contract is one
+  /// extension callback per bridge package. The body itself must
+  /// internally tolerate being run more than once if the embedder
+  /// constructs multiple [D4rtRunner] instances in the same process,
+  /// since the D4 / BridgedClass registries it touches are static.
+  /// (Step 5 made all the per-key D4 registries idempotent on factory
+  /// identity, so this contract is satisfied for the standard
+  /// `register*` calls.)
+  ///
+  /// Throws [StateError] if [finalizeBridges] has already run on this
+  /// runner — adding extensions after finalization is a misuse.
+  void registerExtensions(String packageName, void Function() body) {
+    if (_bridgesFinalized) {
+      throw StateError(
+        'Cannot registerExtensions("$packageName"): finalizeBridges() has '
+        'already been called on this D4rtRunner. Register all extensions '
+        'before the first execute*/executeBundle* call (or call '
+        'finalizeBridges() explicitly after the last registerExtensions).',
+      );
+    }
+    _extensionCallbacks[packageName] = body;
+  }
+
+  /// Runs every extension callback registered via [registerExtensions]
+  /// in registration order, then marks the runner as finalized.
+  ///
+  /// `execute*`/`executeBundle*` invoke this implicitly on first run if
+  /// it has not been called already, so embedders don't have to
+  /// remember to call it. Calling it explicitly first is supported and
+  /// preferred when an embedder needs deterministic timing (e.g. a
+  /// constructor of a Flutter helper that touches bridges before the
+  /// first script runs).
+  ///
+  /// **Idempotent:** repeat calls return without re-running any
+  /// callback — the contract is "run once, then frozen". After this
+  /// call returns, [registerExtensions] throws [StateError].
+  void finalizeBridges() {
+    if (_bridgesFinalized) return;
+    _bridgesFinalized = true;
+    for (final entry in _extensionCallbacks.entries) {
+      Logger.debug(
+        '[D4rtRunner.finalizeBridges] Running extensions for "${entry.key}"',
+      );
+      entry.value();
+    }
   }
 
   // =========================================================================
@@ -749,6 +832,12 @@ class D4rtRunner {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
   }) {
+    // Step 6: implicit finalize on first execution. Any callbacks
+    // registered via [registerExtensions] run here in registration
+    // order before pass 1, so bridges are fully wired before the
+    // declaration visitor sees a single line of script. No-op if the
+    // embedder already called [finalizeBridges] explicitly.
+    finalizeBridges();
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
