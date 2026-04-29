@@ -289,3 +289,53 @@ class PatternMatchD4rtException extends D4rtException {
   @override
   String toString() => "PatternMatchException: $message";
 }
+
+/// Exception thrown by [D4.unwrapAs] when an interpreter result cannot be
+/// converted to the requested native type [T].
+///
+/// Carries enough context (the requested type description, the actual runtime
+/// type, and an optional source description) to make the failure actionable
+/// for embedders that translate interpreter results to native Dart values.
+///
+/// Example:
+/// ```dart
+/// try {
+///   final widget = D4.unwrapAs<Widget>(result, visitor: visitor);
+/// } on D4UnwrapException catch (e) {
+///   print(e); // -> Expected Widget but got String (from raw value)
+/// }
+/// ```
+class D4UnwrapException extends D4rtException {
+  /// String description of the expected type (typically `T.toString()`).
+  final String expectedType;
+
+  /// String description of the value's actual runtime type.
+  final String actualType;
+
+  /// Optional human-readable description of where the value came from
+  /// (e.g. `BridgedInstance<Widget>` or `InterpretedInstance(MyClass)`).
+  final String? source;
+
+  /// Creates a new unwrap exception.
+  D4UnwrapException({
+    required this.expectedType,
+    required this.actualType,
+    this.source,
+    String? extra,
+  }) : super(_buildMessage(expectedType, actualType, source, extra));
+
+  static String _buildMessage(
+    String expectedType,
+    String actualType,
+    String? source,
+    String? extra,
+  ) {
+    final base = source == null
+        ? 'Expected $expectedType but got $actualType'
+        : 'Expected $expectedType but got $actualType (from $source)';
+    return extra == null ? base : '$base — $extra';
+  }
+
+  @override
+  String toString() => 'D4UnwrapException: $message';
+}
