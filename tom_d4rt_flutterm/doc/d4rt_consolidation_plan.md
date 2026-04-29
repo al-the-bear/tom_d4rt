@@ -371,7 +371,41 @@ it is the highest-risk one — the regression battery here is the gate.
 - Capture all four `.log.txt` and `.result.json` to
   `doc/testlog_consol_03_<id>/`.
 
-**Status.** _pending_
+**Status.** _done_ — landed on 2026-04-29.
+
+`FlutterD4rt._unwrap<T>` (45 lines) deleted from
+`tom_d4rt_flutterm/lib/src/flutter_d4rt.dart`. All four entry points
+(`build`, `buildAsync`, `execute`, `executeAsync`) are now thin
+wrappers around `_interpreter.executeBundleAs<T>` /
+`executeBundleAsAsync<T>`. The unwrap path is identical to step 2
+since both go through `D4.unwrapAs<T>`.
+
+Public exception contract preserved: a small `_wrapUnwrap` /
+`_wrapUnwrapAsync` helper catches `D4UnwrapException` and re-throws
+as `FlutterD4rtException(e.message)`, so the test app's
+`on FlutterD4rtException catch (e) { ... e.message ... }` paths
+keep working without change.
+
+Bridge registration cleanup: factored the duplicate body of the two
+constructors into a single `_registerBridges()` method.
+
+Final size: 172 lines (file includes ~30 lines of class-level
+dartdoc and per-method dartdoc — the *executable* body is ~80
+lines, down from ~135).
+
+Regression vs `testlog_20260429-1054-consol-baseline` /
+`testlog_20260429-step2-executeBundleAs`:
+
+- flutterm 3-suite: 108 / 164 / 653~1 — exact baseline match.
+- tom_d4rt_ast: +101 −2 — exact step-2 match.
+- tom_d4rt_exec: +2234 −26 — exact step-2 match.
+- tom_d4rt: +1733 −6 ~1 — exact step-2 match.
+- tom_d4rt_dcli: +706 / 0 — exact baseline match.
+- tom_dcli_exec: +72 −8 — exact baseline match.
+- tom_d4rt_generator: +639 −21 — exact baseline match.
+- tom_ast_generator: +504 −6 — exact step-2 match.
+
+No regressions across any suite. The behavioural cutover is safe.
 
 ---
 
@@ -528,7 +562,7 @@ Update this section as each step completes, reverts, or defers.
 |------|-------|--------|-----------|---------|---------|
 | 1 | claude | done | 5a68848a, e01582b8, 611dbd4f | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
 | 2 | claude | done | (this session) | testlog_20260429-step2-executeBundleAs/ | `D4rtRunner.executeBundleAs<T>` / `executeBundleAsAsync<T>` added on tom_d4rt_ast; mirrored on tom_d4rt_exec `D4rt`. 16 new tests (5 ast + 11 exec) all green. Flutterm 3-suite matches baseline 108 / 164 / 653~1; tom_d4rt_exec +2234 −26 vs baseline +2223 −26 (+11 new); tom_d4rt_ast +101 −2 vs +84 −2 (+17 cumulative w/ step 1). |
-| 3 | — | pending | — | — | — |
+| 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
 | 4 | — | pending | — | — | — |
 | 5 | — | pending | — | — | — |
 | 6 | — | pending | — | — | — |
