@@ -670,7 +670,61 @@ quest-level docs.
 - 4-suite flutterm battery, with the post-step results recorded in this
   document for the historical record.
 
-**Status.** _pending_
+**Status.** _done_ — landed on 2026-04-29 (testlog
+`testlog_20260429-step7-final-shrink/_summary.md`).
+
+`tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` shrunk to its final
+shape (175 → 158 lines; ~80-line executable body, the rest dartdoc
+plus the `FlutterD4rtException` shell). The executable body is
+byte-identical to step 6's post-fix shape — only the dartdoc and
+`_registerBridges()` comments changed. The pre-material ordering
+comment is kept (it pins the `ValueNotifier<int>(0)` regression
+fence) and the post-material comment is kept (it points at
+`extension_registration.md` for the contract).
+
+`tom_d4rt_ast/doc/extension_registration.md` (new) documents the
+`registerExtensions / finalizeBridges` API: the four contracts
+pinned by `extension_hook_test.dart`, the canonical `FlutterD4rt`
+example with both pre-material (inline) and post-material (queued)
+patterns, and "when to use / when not" guidance. Linked from the
+quest overview.
+
+`_ai/quests/d4rt/overview.d4rt.md` Architecture section gained a
+"Typed execution and extension-hook API" paragraph with a six-line
+code example. The Bridging System list also picks up `D4.unwrapAs<T>`
+next to the pre-existing helpers.
+
+This is a doc-only step from the test runner's perspective. The
+4-suite flutter battery and the dart battery were nonetheless
+re-run end-to-end to capture a final canonical baseline.
+
+Final 4-suite numbers (vs pre-migration baseline
+`testlog_20260429-1054-consol-baseline`):
+
+| Suite | Pre-migration | Step 7 final | Δ |
+|-------|---------------|--------------|---|
+| `essential_classes_test` | 108/0/0 | 108/0/0 | 0 |
+| `important_classes_test` | 164/0/0 | 164/0/0 | 0 |
+| `secondary_classes_test` | 653/0/1 | 653/0/1 | 0 |
+| `generator_interpreter_issues_test` | 81/2/0 | 81/2/0 | 0 |
+
+Format: `passing/skipped/failing`. Zero behavioural change end-to-end.
+
+Final dart-battery numbers (cleared `.dart_tool/test` cache before
+the canonical run after a one-time stale-cache flake on
+`tom_d4rt_exec`):
+
+| Project | Result |
+|---------|--------|
+| `tom_d4rt` | +1733 ~1 −6 |
+| `tom_d4rt_ast` | +115 −2 |
+| `tom_d4rt_exec` | +2234 −26 |
+| `tom_d4rt_generator` | +639 −21 |
+| `tom_ast_generator` | +503 −7 |
+| `tom_d4rt_dcli` | +706 / 0 (all passed) |
+| `tom_dcli_exec` | +72 −8 |
+
+All match the step 6 baseline exactly.
 
 ---
 
@@ -686,7 +740,7 @@ Update this section as each step completes, reverts, or defers.
 | 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ + testlog_20260429-step4-sync-third-twin/ + testlog_20260429-step4-recursive-sync/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>` across **all three** copies (initial land: tom_d4rt_ast/interpreter_visitor.dart + tom_d4rt/d4rt_base.dart leaf branch; sync addendum: tom_d4rt/interpreter_visitor.dart). Recursive sync addendum: ported the recursive list/map/record top-level unwrap from `tom_d4rt/d4rt_base.dart:1938` to `tom_d4rt_ast/d4rt_runner.dart`'s `_executeInEnvironment` (the recursion was a fork omission, not a deliberate asymmetry — corrected in this session). All 10 suites match step-3 baselines exactly across all three runs — zero regressions. |
 | 5 | claude | done | (this session) | testlog_20260429-step5-idempotency/ | `registerGenericConstructor` and `registerGenericTypeWrapper` made idempotent via per-key `Set<Factory>` identity dedupe (chained-on-itself was the load-bearing reason `_relaxersRegistered` existed). The three already-idempotent overwrite registries (`registerInterfaceProxy`, `registerTypeCoercion`, `registerSupplementaryMethod`) plus `BridgedClass.registerSupertypes` got explicit "**Idempotent:**" docstring tags. `_relaxersRegistered` static-bool guard removed from `flutter_d4rt.dart`. Sync between tom_d4rt and tom_d4rt_ast preserved. New file `register_idempotency_test.dart` adds 7 register-twice tests (all green). 10-suite battery matches step-4 baselines exactly; `tom_d4rt_ast` gains +7 from the new tests. |
 | 6 | claude | done | (this session) | testlog_20260429-step6-extension-hook/ | `D4rtRunner.registerExtensions(packageName, body)` + `finalizeBridges()` added on tom_d4rt_ast (insertion-order, package-name-overwrite, idempotent finalize, throws after finalize, implicit finalize on first execute). Mirrored on `D4rt` in tom_d4rt_exec. 7 new contract tests (`extension_hook_test.dart`) all green. `flutter_d4rt.dart` switched to the hook for `registerD4rtInterfaceProxyOverrides` only — `registerRelaxers` / `registerD4rtRuntimeExtensions` stay BEFORE material to keep material's auto-gen ValueNotifier factory on top of the chain (initial naive port putting all three in the callback regressed `widgets/gesture_detector_adv_test.dart` — fix preserves step-5 ordering). 4-suite flutterm battery matches step-5 baseline exactly: 108/0/0, 164/0/0, 653/0/1, 81/2/0. Dart battery green vs baseline. |
-| 7 | — | pending | — | — | — |
+| 7 | claude | done | (this session) | testlog_20260429-step7-final-shrink/ | Final shrink + doc cleanup. `flutter_d4rt.dart` 175 → 158 lines (executable body unchanged from step 6; dartdoc/comments tightened). `tom_d4rt_ast/doc/extension_registration.md` added with the four `registerExtensions / finalizeBridges` contracts and the canonical FlutterD4rt example. `_ai/quests/d4rt/overview.d4rt.md` Architecture section updated with the typed-execute / extension-hook API note + `D4.unwrapAs<T>` mention. 4-suite flutter battery 108/0/0, 164/0/0, 653/0/1, 81/2/0 — exact step-6 match. Dart battery green vs step-6 baseline (one transient `tom_d4rt_exec` cache flake cleared with `rm -rf .dart_tool/test`). Migration totals: `flutter_d4rt.dart` 228 → 158 lines from pre-migration to final, with the unwrap, ordering rules, and registry idempotency now enforced upstream contracts instead of comments. |
 
 ---
 
