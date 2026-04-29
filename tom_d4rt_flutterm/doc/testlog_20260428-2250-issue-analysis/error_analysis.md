@@ -41,6 +41,16 @@ the `[fa1-2250-sentinel]` group; `scroll_deceleration_rate_test`
 closed under E8). Sentinel re-verified at 7/7 with FE counts
 unchanged from baseline. See cluster C-Fa1 §Resolution below.
 
+**Update 2026-04-29:** carry-over cluster **C-E4** flipped to
+**Reverted/Deferred** — documentation twin of N2.
+Symptom-closed via the N2 script-side workaround (FE=0 on both
+`restorable_property_test` and `restorable_string_test`); the
+architectural interpreter route (thread bridged
+`RestorableProperty.value` setter through the visitor's
+`_setBridgedInstanceField` path) stays deferred and is captured
+in `interpreter_unfixable.md` §N2. See cluster C-E4 §Resolution
+below.
+
 | Suite | Pass / Skip / Fail | FE-bearing scripts | Notes |
 |---|---:|---:|---|
 | `essential_classes_test`            | 108 / 0 / 0 | 0 | clean |
@@ -386,7 +396,7 @@ unchanged. Tracked under D2 follow-up + C20d deferral mitigation.
 
 ## C-E4 — late-field uninit on restoration scripts (carry-over from 1333 §E4 / N2)
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · Symptom-closed via N2 script-side workaround (2026-04-29); architectural interpreter route deferred · **Severity:** Medium · **Owner:** interpreter (architectural fix); scripts (symptomatic close)
 
 Re-confirmed by N2 above: `widgets/restorable_property_test.dart`
 still emits `LateInitializationError: '_value'`. Single-FE shape;
@@ -396,6 +406,37 @@ no test failure today.
 setter through to the script-side late field via the same path
 already used for ordinary instance setters (interpreter visitor
 `_setBridgedInstanceField`).
+
+### Resolution (2026-04-29)
+
+C-E4 is the documentation twin of cluster **N2** above. The
+symptomatic closure already landed under N2 via three small
+script-side edits in `widgets/restorable_property_test.dart`
+(eager-seed `_value`, swap `List.unmodifiable` → `List.from` in
+the list getter, and add `_favoritesSnapshot()` for defensive
+iteration). N2's resolution explicitly notes that the 1333 §E4
+work item is covered by the same edits — both re-surfaces
+(`restorable_property_test`, `restorable_string_test`) record
+FE=0 in the post-fix `secondary_post3.log.txt`.
+
+The "closing route" listed above (threading the bridged
+`RestorableProperty.value` setter through the interpreter
+visitor's `_setBridgedInstanceField` path) is the **architectural
+interpreter fix** for the same root cause — bridged
+`RestorationMixin` proxy lifecycle dispatch under cross-script
+ordering. That work item is non-trivial (touches both
+`tom_d4rt` and `tom_d4rt_ast` interpreter visitors and risks
+broader regression) and stays deferred. The deferral is captured
+in `interpreter_unfixable.md` §N2 alongside the script-side
+workaround.
+
+**No code or test changes for this cluster.** Per regression
+rule (a) only the docs change — no test re-run required. The
+previous N2 verification (full secondary suite re-run with FE=0
+on `restorable_property_test`) is the authoritative evidence.
+
+Status: **Reverted/Deferred** (architectural route deferred);
+symptom-level closure is achieved via N2.
 
 ## C-E10 — `render_animated_size_state` 2.0 px overflow (carry-over from 1333 §E10)
 

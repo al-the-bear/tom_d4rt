@@ -913,6 +913,41 @@ demo still renders coherently with no FE.
 eager-init + defensive iteration; underlying interpreter
 limitation remains the same one catalogued for D3/D4).
 
+### Deferred architectural fix (C-E4 closing route)
+
+The carry-over cluster **C-E4** (`testlog_20260428-2250` /
+1333 §E4) lists an alternative closing route: thread the
+bridged `RestorableProperty.value` setter through the
+interpreter visitor's `_setBridgedInstanceField` path so that
+the assignment performed by the bridged constructor pipeline
+reaches the script-side late field. This would close the
+late-init path at the interpreter level and remove the need
+for the script-side eager-seed step (1) above. The other two
+steps (`List.from` getter swap and `_favoritesSnapshot()`)
+would still be required for the iteration shape, which is a
+separate manifestation of the same proxy-dispatch limitation.
+
+**Why deferred:**
+
+- The fix touches both `tom_d4rt/lib/src/interpreter_visitor.dart`
+  and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+  (sync rule), and the bridged-mixin field-storage path is
+  consumed by every `RestorationMixin`-derived script —
+  regression risk is broad.
+- Symptomatic closure is already in place (FE=0 on
+  `restorable_property_test` and `restorable_string_test`),
+  so the architectural fix has no remaining test-side urgency.
+- The scope overlaps the larger D3/D4 architectural limitation
+  catalogued above; the right place to land it is alongside a
+  more general bridged-mixin lifecycle pass, not as a
+  property-class-specific shim.
+
+**Re-opening trigger:** any new `RestorableProperty` subclass
+in the test corpus that cannot be made FE=0 by the script-side
+recipe above; or a planned interpreter pass on
+bridged-mixin field-storage / proxy lifecycle that would
+naturally fold this in.
+
 ---
 
 ## Change Log
