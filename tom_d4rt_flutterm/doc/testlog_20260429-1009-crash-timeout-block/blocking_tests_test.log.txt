@@ -1,0 +1,14 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/blocking_tests_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Blocking tests - W1-W5 isolated W1: retest/widgets/context_action_test.dart
+[METRIC] script=retest/widgets/context_action_test.dart sourceBytes=90358 sourceChars=87366 bundleJsonBytes=854084 clearMs=89 readMs=5 bundleMs=323 httpMs=1285 totalMs=1704 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:13 +1: Blocking tests - W1-W5 isolated W2: retest/widgets/default_text_editing_shortcuts_test.dart
+[METRIC] script=retest/widgets/default_text_editing_shortcuts_test.dart sourceBytes=38581 sourceChars=38581 bundleJsonBytes=467959 clearMs=93 readMs=1 bundleMs=84 httpMs=860 totalMs=11039 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +2: Blocking tests - W1-W5 isolated W3: retest/widgets/live_text_input_status_test.dart
+[METRIC] script=retest/widgets/live_text_input_status_test.dart sourceBytes=48469 sourceChars=46799 bundleJsonBytes=483460 clearMs=73 readMs=3 bundleMs=98 httpMs=953 totalMs=11129 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+00:35 +3: Blocking tests - W1-W5 isolated W4: retest/widgets/lock_state_test.dart
+[METRIC] script=retest/widgets/lock_state_test.dart sourceBytes=49891 sourceChars=48235 bundleJsonBytes=488122 clearMs=61 readMs=1 bundleMs=51 httpMs=787 totalMs=902 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:36 +4: Blocking tests - W1-W5 isolated W5: widgets/animated_switcher_test.dart
+[METRIC] script=widgets/animated_switcher_test.dart sourceBytes=59802 sourceChars=54682 bundleJsonBytes=631989 clearMs=66 readMs=0 bundleMs=64 httpMs=903 totalMs=1035 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:37 +5: (tearDownAll)
+00:38 +5: All tests passed!

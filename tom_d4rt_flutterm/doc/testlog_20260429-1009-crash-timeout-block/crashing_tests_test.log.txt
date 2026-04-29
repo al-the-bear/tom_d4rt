@@ -1,0 +1,14 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/crashing_tests_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Test App Health app is running
+00:11 +1: widgets/ individual (crashing) directionality_test.dart (from secondary_classes)
+[METRIC] script=widgets/directionality_test.dart sourceBytes=49962 sourceChars=49962 bundleJsonBytes=714371 clearMs=51 readMs=1 bundleMs=298 httpMs=1407 totalMs=1758 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:13 +2: widgets/ individual (crashing) extend_selection_to_line_break_intent_test.dart (from hardly_relevant_classes_4)
+[METRIC] script=widgets/extend_selection_to_line_break_intent_test.dart sourceBytes=44425 sourceChars=44349 bundleJsonBytes=289731 clearMs=64 readMs=4 bundleMs=70 httpMs=682 totalMs=822 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +3: widgets/ individual (crashing) display_feature_sub_screen_test.dart (from secondary_classes)
+[METRIC] script=widgets/display_feature_sub_screen_test.dart sourceBytes=61056 sourceChars=61056 bundleJsonBytes=833865 clearMs=37 readMs=0 bundleMs=119 httpMs=1078 totalMs=1237 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/display_feature_sub_screen_test.dart (1 error(s)):
+       A RenderFlex overflowed by 40 pixels on the bottom.
+00:15 +4: (tearDownAll)
+00:15 +4: All tests passed!
