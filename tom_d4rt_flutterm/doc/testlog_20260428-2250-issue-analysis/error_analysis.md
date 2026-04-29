@@ -41,6 +41,14 @@ the `[fa1-2250-sentinel]` group; `scroll_deceleration_rate_test`
 closed under E8). Sentinel re-verified at 7/7 with FE counts
 unchanged from baseline. See cluster C-Fa1 §Resolution below.
 
+**Update 2026-04-29:** carry-over cluster **C-E10**
+(`render_animated_size_state` 2.0 px overflow) flipped to
+**Fixed** — targeted single-script retest reports FE=0 and
+passes, matching the 2250 full `gir` 53/5/0 result (no failure
+at TID 31). Two independent confirmations; no code changes.
+Log: `doc/testlog_ce10_fix/single_test.log.txt`. See cluster
+C-E10 §Resolution below.
+
 **Update 2026-04-29:** carry-over cluster **C-E4** flipped to
 **Reverted/Deferred** — documentation twin of N2.
 Symptom-closed via the N2 script-side workaround (FE=0 on both
@@ -440,7 +448,7 @@ symptom-level closure is achieved via N2.
 
 ## C-E10 — `render_animated_size_state` 2.0 px overflow (carry-over from 1333 §E10)
 
-- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Severity:** Low · **Owner:** interpreter
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · Closed via targeted re-verification (2026-04-29) · **Severity:** Low · **Owner:** interpreter
 
 Logged in `interpreter_unfixable.md` as a single-rounding-site issue
 in `_InterpretedSlottedRenderBox` intrinsic pass. 1 gir failure
@@ -448,6 +456,40 @@ in `_InterpretedSlottedRenderBox` intrinsic pass. 1 gir failure
 matches 1333's 56/5/2 minus the 2 E1 cases that just closed). Likely
 benefited from an unrelated rendering-pipeline tightening; needs a
 direct verification before declaring closed. Marked Open for now.
+
+### Resolution (2026-04-29)
+
+Targeted re-verification confirms closure. Re-ran the single
+test in isolation:
+
+```
+D4RT_SKIP_BRIDGE_REGEN=1 flutter test \
+  test/generator_interpreter_retest_test.dart \
+  --plain-name 'render_animated_size_state'
+```
+
+Result: 1 of 1 passing, `frameworkErrors=0`, no overflow
+diagnostic emitted. Log captured at
+`doc/testlog_ce10_fix/single_test.log.txt`. Combined with the
+2250 full-`gir` 53/5/0 result (no failure at TID 31), this is
+two independent confirmations that the previously-tracked 2.0 px
+overflow no longer surfaces. The intrinsic-pass audit on
+`_InterpretedSlottedRenderBox` listed as the closing route is
+no longer required to remove the symptom — most likely the
+overflow was eliminated by an unrelated rendering pipeline
+tightening that landed between 1333 and 2250.
+
+**No code, generator or test changes** for this cluster — pure
+verification + documentation update. Per regression rule, no
+broader re-run is needed because nothing changed.
+
+**Re-opening trigger:** any future gir run that reproduces a
+2.0 px overflow on `retest/rendering/render_animated_size_state_test.dart`,
+or another `_InterpretedSlottedRenderBox` consumer that exhibits
+the same single-pixel rounding shape.
+
+Status: **Fixed** (verified by single-script run + 2250 full
+gir 53/5/0).
 
 ## C-E11 — `back_button_listener` Router routerDelegate adapter (carry-over from 1333 §E11)
 
