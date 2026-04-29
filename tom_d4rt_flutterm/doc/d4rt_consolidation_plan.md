@@ -479,6 +479,51 @@ Regression vs `testlog_20260429-step3-flutterD4rt-cutover`:
 
 Zero regressions across all 10 suites.
 
+#### Sync addendum (2026-04-29) — third leaf-unwrap copy in `tom_d4rt/interpreter_visitor.dart`
+
+Audit after the initial step-4 landing surfaced a **third** copy of
+`_bridgeInterpreterValueToNative` in
+`tom_d4rt/lib/src/interpreter_visitor.dart` (line 9152, called from
+`_evaluateArguments` / `_evaluateArgumentsAsync` on lines 9129, 9144,
+9224, 9241). Its body was the verbatim three-branch original, structurally
+identical to `tom_d4rt_ast`'s pre-step-4 version that this step had
+already collapsed to `D4.unwrapAs<Object?>`. Per the quest sync rule,
+this twin was synced with the same one-liner delegation. `D4` is already
+re-exported via `package:tom_d4rt/d4rt.dart`; no new import needed.
+
+#### Deferred — recursive top-level unwrap asymmetry between `tom_d4rt` and `tom_d4rt_ast`
+
+`tom_d4rt/lib/src/d4rt_base.dart` carries a **structurally larger**
+`_bridgeInterpreterValueToNative` (line 1938) that recursively walks
+`List`, `Map`, and `InterpretedRecord` (with native-record creation up to
+16 positional fields) before bottoming out on the leaf cases. It is
+called from `_executeInEnvironment`, `_executeClassic`, `eval`, and
+`_tryFunction` to convert script return values to native form.
+
+`tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart` has **no equivalent
+recursive pass** at its top-level entry points; `executeBundleAs<T>` /
+`executeBundleAsAsync<T>` apply only the single-level `D4.unwrapAs<T>`.
+
+This asymmetry is **deliberate** and predates step 4 — `D4` documents
+the design constraint explicitly on `unwrapInterpreterValue`:
+
+> Lists and Maps are NOT recursively unwrapped because doing so destroys
+> Dart's reified generic type information. For example,
+> `Map<String, String>` would become `Map<Object?, Object?>` after
+> `.map()`. If a callback returns a List/Map containing BridgedInstance
+> values, the generated bridge code must handle the element-level
+> unwrapping explicitly.
+
+Forcing `tom_d4rt_ast` to mirror the recursion would regress that
+property. Forcing `tom_d4rt` to drop the recursion risks the 1733
+passing tests in its corpus that depend on the legacy unwrap. The
+correct resolution is a separate consolidation step that either (a)
+extracts the recursion into a clearly-named `D4.unwrapDeepAs<T>` helper
+and dual-lands it at top-level entry points only (preserving leaf-level
+type fidelity in everything below), or (b) deprecates the recursion in
+`tom_d4rt` after the corpus is migrated. Tracked here for follow-up; not
+addressed by step 4.
+
 ---
 
 ### Step 5 — Idempotency on registries; remove `_relaxersRegistered`
@@ -604,7 +649,7 @@ Update this section as each step completes, reverts, or defers.
 | 1 | claude | done | 5a68848a, e01582b8, 611dbd4f | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
 | 2 | claude | done | (this session) | testlog_20260429-step2-executeBundleAs/ | `D4rtRunner.executeBundleAs<T>` / `executeBundleAsAsync<T>` added on tom_d4rt_ast; mirrored on tom_d4rt_exec `D4rt`. 16 new tests (5 ast + 11 exec) all green. Flutterm 3-suite matches baseline 108 / 164 / 653~1; tom_d4rt_exec +2234 −26 vs baseline +2223 −26 (+11 new); tom_d4rt_ast +101 −2 vs +84 −2 (+17 cumulative w/ step 1). |
 | 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
-| 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>`. tom_d4rt_ast version reduced to a one-line delegation; tom_d4rt version narrowed to the BridgedInstance/BridgedEnumValue branches only (recursive list/map/record handling intentionally retained — out of scope for the single-level helper). All 10 suites match step-3 baselines exactly — zero regressions. |
+| 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ + testlog_20260429-step4-sync-third-twin/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>` across **all three** copies (initial land: tom_d4rt_ast/interpreter_visitor.dart + tom_d4rt/d4rt_base.dart leaf branch; sync addendum: tom_d4rt/interpreter_visitor.dart that the initial land had missed). The recursive list/map/record handling in `tom_d4rt/d4rt_base.dart` is intentionally retained (out of scope for the single-level helper); the absence of an equivalent in `tom_d4rt_ast/d4rt_runner.dart` is a deeper deliberate design asymmetry — documented as a deferred follow-up under step 4's status note. All 10 suites match step-3 baselines exactly across both runs — zero regressions. |
 | 5 | — | pending | — | — | — |
 | 6 | — | pending | — | — | — |
 | 7 | — | pending | — | — | — |
