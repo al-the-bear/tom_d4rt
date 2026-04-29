@@ -812,6 +812,43 @@ rows for the brass-rimmed-lens / chameleon-card visual
 composition; pinning a height changes the demo's appearance.
 Deferred until a per-script visual rework is prioritised.
 
+**Update 2026-04-29 — empirical findings (widget_state_color closed):**
+
+`widgets/widget_state_color_test.dart` was promoted out of
+this deferral on 2026-04-29; only `text_magnifier_configuration`
+remains in the C3 sub-pocket. Working through it confirmed:
+
+- **Workaround 1 (stretch → start) is sufficient and simplest.**
+  Both `Row(crossAxisAlignment: stretch)` sites in
+  `_WscAnatomyFactories.build` and `_WscFromMapVsResolveWith.build`
+  were switched to `CrossAxisAlignment.start`. FE drops from 9
+  to 0. The visual cost is the loss of guaranteed equal-height
+  between the two cards in each row; in practice this script's
+  cards have nearly identical natural heights, so the visual
+  difference is minimal. No SizedBox pin or `IntrinsicHeight`
+  wrap was needed — the Expanded's horizontal flex is preserved
+  intact, and each card simply sizes to its own intrinsic
+  vertical extent.
+
+- **Not all `CrossAxisAlignment.stretch` instances need to
+  be flipped.** A `Column(crossAxisAlignment: stretch)` whose
+  parent has a *bounded width* (e.g., a Container inside an
+  Expanded) is safe: the Column's cross-axis is horizontal, so
+  the stretch operates on the bounded axis only. The third
+  stretch site in `_constructorCard`'s inner Column was left
+  in place after verifying FE=0 in both the home suite and the
+  fa1 sentinel. The cascade only fires when the stretch axis
+  matches the unbounded axis the SliverList feeds (i.e., a
+  vertical-stretch on a Row inside a sliver-fed extent).
+
+- **Workaround 3 (`IntrinsicHeight + Row(stretch)`) was
+  attempted first** as a way to preserve the equal-height
+  visual that `stretch` was guaranteeing, but produced a
+  fragile structure that wrapped each Expanded child individually
+  with no clean closing recipe. Workaround 1 (drop stretch) is
+  preferred for its readability — the demo's narrative survives
+  unchanged either way.
+
 ### Sentinel test
 
 `test/fa1_bisect_test.dart` carries a recurring sentinel group

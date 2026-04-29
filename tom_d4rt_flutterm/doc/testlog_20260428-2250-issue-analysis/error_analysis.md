@@ -140,7 +140,7 @@ Source: `[METRIC] script=… frameworkErrors=N` lines with N ≥ 1.
 | `hr5`       | `widgets/select_all_text_intent_test.dart`   | 3 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
 | `hr5`       | `widgets/snapshot_mode_test.dart`            | 1 | RenderFlex overflowed by 14 px |
 | `hr5`       | `widgets/transpose_characters_intent_test.dart` | 2 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
-| `hr5`       | `widgets/widget_state_color_test.dart`       | 9 | Infinite-height BoxConstraints + null-check cascade in sliver_multi_box_adaptor |
+| `hr5`       | ~~`widgets/widget_state_color_test.dart`~~ (closed 2026-04-29) | ~~9~~ → 0 | ~~Infinite-height BoxConstraints + null-check cascade in sliver_multi_box_adaptor~~ |
 | **TOTAL**   |                                              | **26** | 4 distinct shapes, all pre-known |
 
 ---
@@ -209,7 +209,7 @@ test-failure impact** does not justify the surface area.
    - `widgets/select_all_text_intent_test.dart` — EditableText, FE=3
    - `widgets/transpose_characters_intent_test.dart` — EditableText, FE=2
    - `widgets/restoration_mixin_test.dart` — EditableText, FE=3
-   - `widgets/widget_state_color_test.dart` — C3 sliver-row, FE=9
+   - ~~`widgets/widget_state_color_test.dart` — C3 sliver-row, FE=9~~ (closed 2026-04-29 — stretch→start, FE 9→0)
    - `widgets/text_magnifier_configuration_test.dart` — C3 sliver-row, FE=6
    - (`restorable_double_test.dart` left un-annotated: its FE
      count flakes between 0 and 1 across runs and depends on
@@ -343,7 +343,7 @@ harness).
 **Open scripts in this run's set:**
 - ~~`widgets/select_all_text_intent_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: Tier-A live `TextField(maxLines: 3)` swapped for `SelectableText` rendering the same copy; SizedBox pinning didn't stabilise the InputDecorator's intrinsic measurements, so the script took the alternate closing route documented in its own header. SelectAllTextIntent narrative preserved through SelectableText's Actions chain. FE drops to 0). Sentinel keeps watching for regression.
 - ~~`widgets/transpose_characters_intent_test.dart` (2 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: all three live `TextField`s replaced with `SelectableText` rendering descriptive copy. `SizedBox(height:)` pin and bare `EditableText` were both tried first — neither helped because the FE originates inside `_RenderEditableCustomPaint` itself, common to TextField and EditableText. SelectableText uses `_RenderParagraph` (no editable render path). TransposeCharactersIntent dispatch is preserved end-to-end through Scenarios 2 and 3 — Custom-Action card's CallbackAction still fires on keyboard shortcut + button, Manual-Dispatch card's button still calls `Actions.invoke` directly. Only the per-keystroke "live transpose" preview is lost. FE drops to 0). Sentinel keeps watching for regression.
-- `widgets/widget_state_color_test.dart` (9 FE) — C3-deferred sub-pocket
+- ~~`widgets/widget_state_color_test.dart` (9 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket: both `Row(crossAxisAlignment: stretch)` sites in `_WscAnatomyFactories.build` and `_WscFromMapVsResolveWith.build` switched to `CrossAxisAlignment.start` per the script header's primary prescription, dropping the Row's vertical demand back up the outer `ListView`'s `SliverList`. The third stretch site — the inner `Column.stretch` inside `_constructorCard` — was left in place because its parent `Container` has finite width from the surrounding `Expanded`, so its cross-axis stretch operates on a bounded axis only. FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/text_magnifier_configuration_test.dart` (6 FE) — C3-deferred sub-pocket
 - `widgets/scroll_deceleration_rate_test.dart` (E8-deferred; not visible this run as it lives in another suite)
 - ~~`widgets/snapshot_mode_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow pocket: AppBar `preferredSize` 72 → 88 to match 44 px shutter + 38 px padding; FE drops to 0). Sentinel keeps watching for regression.
@@ -401,6 +401,30 @@ annotated scripts continue to carry the
 post-fix counts: `(0, 0, 3, 3, 2, 9, 6)` — only the
 `snapshot_mode` slot moved. Log:
 `doc/testlog_snapshot_mode_fix/sentinel_post.log.txt`.
+
+**Update (2026-04-29 — fifth partial promote):** the first
+of the two remaining C3 sliver-row sub-pocket scripts,
+`widgets/widget_state_color_test.dart`, was also fixed.
+Both `Row(crossAxisAlignment: stretch)` sites in the file
+(`_WscAnatomyFactories.build`, `_WscFromMapVsResolveWith.build`)
+were switched to `CrossAxisAlignment.start` per the closing
+route the script's own header had prescribed since the
+campaign began. The change drops the Row's vertical demand
+back up the outer `ListView`'s `SliverList` (which feeds
+unbounded vertical extent), letting each `Expanded` card
+size to its own intrinsic height instead. The third stretch
+site (the inner `Column.stretch` inside `_constructorCard`)
+was left in place — its parent `Container` has finite width
+from the surrounding `Expanded`, so the Column's cross-axis
+stretch operates on a bounded horizontal axis and does not
+participate in the vertical cascade. Visual diff is minimal
+because both cards naturally have very similar heights
+already; the explicit equal-height that `stretch` was
+guaranteeing is given up. The script header was rewritten
+to record the close. Sentinel post-fix counts:
+`(0, 0, 0, 0, 0, 0, 6)` — only the `widget_state_color`
+slot moved (9 → 0). Log:
+`doc/testlog_widget_state_color_fix/sentinel_post.log.txt`.
 
 **Update (2026-04-29 — fourth partial promote):** the last
 remaining EditableText sub-pocket script

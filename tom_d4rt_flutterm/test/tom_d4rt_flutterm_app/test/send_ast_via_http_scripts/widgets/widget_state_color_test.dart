@@ -74,33 +74,20 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 C3-deferred sub-pocket)
+// Closed 2026-04-29 — Fa1 C3 sub-pocket. Originally emitted 9 FE in
+// a single cascade triggered by `Row(crossAxisAlignment: stretch)`
+// with `Expanded` children inside the body's outer ListView (which
+// internally feeds a SliverList with unbounded vertical extent).
+// The Sliver protocol gives unbounded vertical extent which
+// Row(stretch) cannot resolve, so every grandchild failed to lay
+// out and the null-check operator hit in the downstream paint walk.
 //
-// Emits 9 FE in a single cascade:
-//   - "BoxConstraints forces an infinite height" provided to
-//     `RenderConstrainedBox`'s layout()
-//   - "RenderBox was not laid out" on RenderFlex (×2),
-//     RenderRepaintBoundary, sliver_multi_box_adaptor.dart:629
-//     ('child.hasSize' assertion)
-//   - "Null check operator used on a null value" (×2) — the layout
-//     pass tries to read `firstChild`/`lastChild` of a sliver that
-//     never sized.
-//
-// Triggered by the chameleon terrarium's wide horizontally-scrolling
-// strip, which uses `Row(crossAxisAlignment: stretch)` with
-// `Expanded` children inside a `SliverToBoxAdapter` inside a
-// `CustomScrollView`. The Sliver protocol gives unbounded vertical
-// extent which Row(stretch) cannot resolve, so every grandchild
-// fails to lay out and the null-check operator hits in the
-// downstream paint walk.
-//
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (C3 sub-pocket): drop `crossAxisAlignment: stretch` (use
-// `crossAxisAlignment: start`) and let each card decide its own
-// height, or pin a finite parent height with
-// `SliverToBoxAdapter(child: SizedBox(height: <fixed>, child: Row(...)))`.
-// Deferred — the visual demo's hero strip leans on the stretched
-// row to align card chrome; a non-trivial visual rework.
+// Closing route applied: dropped `CrossAxisAlignment.stretch` on
+// the two Row sites (`_WscAnatomyFactories`, `_WscFromMapVsResolveWith`)
+// in favour of `CrossAxisAlignment.start`, per the route
+// documented in interpreter_unfixable.md §Fa1-N1 (C3 sub-pocket).
+// Each card now decides its own height; the Row imposes no
+// vertical demand back up the SliverList.
 //
 // Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
 
@@ -954,8 +941,17 @@ class _WscAnatomyFactories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Closed 2026-04-29 — Fa1 C3 sub-pocket. Originally used
+    // `crossAxisAlignment: stretch` here. Combined with the
+    // Expanded children inside the outer ListView's SliverList,
+    // the cascade documented in interpreter_unfixable.md §Fa1-N1
+    // (C3 sub-pocket) fired: the Row demanded a vertical extent
+    // it could not derive (SliverList feeds unbounded height),
+    // and every grandchild failed to lay out. Switched to `start`
+    // per the script header's primary prescription: each card
+    // decides its own height, no Row-level vertical demand.
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           child: _sigCard(
@@ -1826,8 +1822,12 @@ class _WscFromMapVsResolveWith extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Closed 2026-04-29 — Fa1 C3 sub-pocket. See _WscAnatomyFactories
+    // for the rationale: switched stretch → start so the Expanded
+    // children no longer pull a Row-level vertical demand from the
+    // outer ListView's SliverList.
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           child: _constructorCard(
