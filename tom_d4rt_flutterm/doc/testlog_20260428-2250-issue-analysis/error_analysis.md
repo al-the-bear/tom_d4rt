@@ -49,6 +49,16 @@ at TID 31). Two independent confirmations; no code changes.
 Log: `doc/testlog_ce10_fix/single_test.log.txt`. See cluster
 C-E10 §Resolution below.
 
+**Update 2026-04-29:** carry-over cluster **C-Fa6** stays
+**Reverted/Deferred** with the closing criterion explicitly
+re-verified — `test/fa6_repro_test.dart` runs 3/3 green with
+the expected FE pattern (canary FE=1 calibration; both real
+shapes FE=0). The architectural codegen substrate for
+auto-generating composite render-object proxies remains
+deferred; the existing hardcoded proxy stack covers the
+current corpus. Log: `doc/testlog_cfa6_fix/fa6_repro.log.txt`.
+See cluster C-Fa6 §Resolution below.
+
 **Update 2026-04-29:** carry-over cluster **C-E4** flipped to
 **Reverted/Deferred** — documentation twin of N2.
 Symptom-closed via the N2 script-side workaround (FE=0 on both
@@ -510,7 +520,7 @@ manual `_Interpreted…Proxy` shape.
 
 ## C-Fa6 — D7 Option 2 composite render-object proxy generator (carry-over from 1333 Fa6)
 
-- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Severity:** Medium (architectural debt) · **Owner:** generator (proxy generator) + flutterm registrations
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · Architectural codegen substrate stays deferred; reproducer harness re-verified green (2026-04-29) · **Severity:** Medium (architectural debt) · **Owner:** generator (proxy generator) + flutterm registrations
 
 Status as of 1333: deferred — sibling of Fa4. Reproducers landed
 under `repro_fa6/` and `test/fa6_repro_test.dart`. No new FE shape
@@ -518,6 +528,54 @@ in this run that the existing hardcoded proxies don't already cover.
 Re-opening trigger: any multi-mixin composite RO that is not
 satisfied by `_InterpretedRenderBoxContainer` or
 `_InterpretedSlottedRenderBox`.
+
+### Resolution (2026-04-29)
+
+C-Fa6 stays **Reverted/Deferred** — the architectural fix
+(an auto-generating composite render-object proxy generator
+in `tom_d4rt_generator/lib/src/proxy_generator.dart`, plus
+matching `flutterm` registrations) remains a multi-day codegen
+substrate task and is not in scope for this campaign. The
+closing criterion in the deferral was always "no new FE shape
+that the existing hardcoded proxies don't already cover";
+that criterion is verified for this campaign by re-running
+the dedicated reproducer harness.
+
+**Verification** — re-ran `test/fa6_repro_test.dart` under
+`D4RT_SKIP_BRIDGE_REGEN=1`:
+
+```
+D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/fa6_repro_test.dart
+```
+
+Result: 3/3 tests pass with the expected FE pattern:
+
+| Reproducer | FE | Expected |
+|---|---:|---|
+| `repro_fa6/canary_must_fail.dart` | 1 | calibration — verifies the harness records FE>0 for thrown errors |
+| `repro_fa6/two_mixin_container_render_box.dart` | 0 | hand-written `_InterpretedRenderBoxContainer` (Container + Defaults) covers the 2-mixin shape |
+| `repro_fa6/three_mixin_relayout_container.dart` | 0 | Option-2 motivator: 3-mixin composite (Container + Defaults + `RelayoutWhenSystemFontsChangeMixin`) — currently satisfied without an auto-generated proxy |
+
+Log captured at `doc/testlog_cfa6_fix/fa6_repro.log.txt`. The
+canary's deliberate `Bad state: fa6-canary` throw is recorded
+as expected (it is the "harness recorded an error" calibration,
+not a real defect). The two real shapes are FE=0; the Option-1
+hardcoded proxy stack covers the current corpus.
+
+**Why not Fixed:** the architectural debt — needing a new
+hand-written proxy variant for every additional mixin combo —
+still exists. Any future composite RO with a mixin set not
+already in the hardcoded inventory will re-open the cluster.
+The reproducer harness is the early-warning signal for that
+reopen.
+
+**Re-opening trigger** (unchanged): any multi-mixin composite
+RO that is not satisfied by `_InterpretedRenderBoxContainer`
+or `_InterpretedSlottedRenderBox`.
+
+**No code, generator or test changes** for this cluster — the
+verification command runs the existing harness; per regression
+rule, no broader re-run is needed because nothing changed.
 
 ## C-Fa7 — META: test-app watchdog (carry-over from 1333 Fa7)
 
