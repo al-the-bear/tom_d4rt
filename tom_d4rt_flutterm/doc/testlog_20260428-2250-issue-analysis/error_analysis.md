@@ -346,7 +346,7 @@ harness).
 - `widgets/widget_state_color_test.dart` (9 FE) — C3-deferred sub-pocket
 - `widgets/text_magnifier_configuration_test.dart` (6 FE) — C3-deferred sub-pocket
 - `widgets/scroll_deceleration_rate_test.dart` (E8-deferred; not visible this run as it lives in another suite)
-- `widgets/snapshot_mode_test.dart` (1 FE) — small-overflow sub-pocket (newly visible vs 1333 fa1 harness)
+- ~~`widgets/snapshot_mode_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow pocket: AppBar `preferredSize` 72 → 88 to match 44 px shutter + 38 px padding; FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/restorable_double_test.dart` (1 FE) — small-overflow sub-pocket
 - `widgets/restoration_mixin_test.dart` (3 FE) — EditableText sub-pocket (newly visible vs 1333 fa1 harness)
 
@@ -389,6 +389,18 @@ passes 7/7 with FE counts identical to baseline (1, 0, 3, 3, 2,
 9, 6). Log captured at
 `doc/testlog_n2_fix/fa1_sentinel_cfa1_check.log.txt`. No
 regression observed.
+
+**Update (2026-04-29 — partial promote):** the small-overflow
+sub-pocket `widgets/snapshot_mode_test.dart` was actually fixed
+in a follow-up pass (AppBar `preferredSize` adjusted from 72 →
+88 px so the 44 px shutter + 38 px padding fit cleanly). The
+script's annotation header was rewritten to record the close,
+and the sentinel now reports it at FE=0. The remaining 5
+annotated scripts continue to carry the
+`D4RT-SCRIPT-LIMITATION: layout cascade` header. Sentinel
+post-fix counts: `(0, 0, 3, 3, 2, 9, 6)` — only the
+`snapshot_mode` slot moved. Log:
+`doc/testlog_snapshot_mode_fix/sentinel_post.log.txt`.
 
 Status: **Reverted/Deferred** via the documented annotation
 closure path. Future rewrites of any individual script may flip

@@ -2,22 +2,16 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 small-overflow pocket)
-//
-// Emits 1 FE: "A RenderFlex overflowed by 14 pixels on the bottom."
-// The offending Flex is one of the panel-level Columns; the demo
-// renders correctly at suite level (no test failure), but flutter's
-// debug overlay records the overflow each frame.
-//
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (small-overflow sub-pocket) — wrap the panel column in
-// `SingleChildScrollView`, shrink fixed `SizedBox(height:)` spacers
-// by 14 px in aggregate, or convert the panel Column to a `ListView`
-// like shortcut_activator_test.dart did. Deferred because the
-// surface-area-vs-no-failure ratio doesn't justify the surgery.
-//
-// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] — flips
-// to FE=0 if the underlying flutter behaviour changes.
+// Previously emitted 1 FE ("A RenderFlex overflowed by 14 pixels on
+// the bottom") in the small-overflow sub-pocket of cluster Fa1/N1.
+// Closed 2026-04-29 by re-sizing the AppBar slot: `_SmodeAppBar`
+// preferred-height bumped from 72 → 88 to match the actual content
+// (44 px `_SmodeShutterIndicator` + 38 px vertical Container
+// padding), and the top padding shaved by 2 px to keep the visual
+// proportions. FE drops to 0 in `hardly_relevant_classes_5_test`
+// without altering the demo's appearance. The fa1 sentinel
+// (`test/fa1_bisect_test.dart [fa1-2250-sentinel]`) now reports
+// `snapshot_mode_test` at FE=0.
 
 // ---------------------------------------------------------------------------
 // SnapshotMode — Darkroom Gallery
@@ -208,7 +202,7 @@ class _SmodeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AnimationController safelight;
 
   @override
-  Size get preferredSize => const Size.fromHeight(72);
+  Size get preferredSize => const Size.fromHeight(88);
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +235,12 @@ class _SmodeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-          padding: EdgeInsets.fromLTRB(20, 28 + sway * 0.2, 20, 12),
+          // The AppBar's preferredSize (88 px) holds the 44 px
+          // `_SmodeShutterIndicator` plus 26 + 12 = 38 px of vertical
+          // padding (sway adds at most 0.4 px). A 72 px slot was 14 px
+          // short and produced the small-overflow FE; this padding +
+          // height combination has no overflow.
+          padding: EdgeInsets.fromLTRB(20, 26 + sway * 0.2, 20, 12),
           child: Row(
             children: <Widget>[
               _SmodeSafelightBadge(progress: pulse.value),
