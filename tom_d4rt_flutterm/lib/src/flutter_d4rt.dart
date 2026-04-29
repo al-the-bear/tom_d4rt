@@ -51,29 +51,40 @@ class FlutterD4rt {
   }
 
   void _registerBridges() {
-    // Step 5: All D4 / BridgedClass registries are idempotent — the per-key
-    // overwrite / set-add / factory-identity-dedupe semantics make these
-    // calls safe to fire on every `FlutterD4rt` instance. The previous
-    // `_relaxersRegistered` static-bool guard was load-bearing only because
-    // `registerGenericConstructor` and `registerGenericTypeWrapper`
-    // would otherwise chain/append duplicate factories on each call; both
-    // now no-op when invoked with the same factory identity twice.
+    // Step 6: bridge registration uses the runner's extension hook for
+    // the post-material work — the comment-driven "must run AFTER
+    // bridges" rule is now enforced by the runner.
+    //
+    // Important ordering: user-bridge relaxers and runtime extensions
+    // run BEFORE FlutterMaterialBridges.register. Generic constructor
+    // factories chain newest-first; if the user-bridge factory for a
+    // type like `ValueNotifier<T>` registers AFTER material's
+    // auto-generated factory, the user-bridge factory becomes the
+    // primary and breaks scripts whose `T` differs from the
+    // user-bridge's hard-coded cast (e.g. `ValueNotifier<int>(0)`
+    // hitting a `double?` cast). Keeping user-bridge registrations
+    // first puts material's auto-gen factory on top of the chain,
+    // matching the order proven by the step-5 baseline.
     //
     // GEN-079: auto-generated generic type relaxers.
     registerRelaxers();
     // RC-2 (TODO): once d4rtgen emits `registerGenericConstructors()` in
-    // flutter_relaxers.b.dart, uncomment the call below. Today the generic
-    // constructor factories live in `registerD4rtRuntimeExtensions()`.
+    // flutter_relaxers.b.dart, uncomment the call below. Today the
+    // generic constructor factories live in
+    // `registerD4rtRuntimeExtensions()`.
     // registerGenericConstructors();
     registerD4rtRuntimeExtensions();
-
     FlutterMaterialBridges.register(_interpreter);
-    // Bug-103: Run AFTER material bridges — the generator's
-    // registerProxyFactories() emits <dynamic>-parameterised proxies for
-    // a handful of delegate classes; we re-register with concrete type
-    // arguments so bridge boundaries typed on `CustomClipper<Path>` etc.
-    // resolve correctly.
-    registerD4rtInterfaceProxyOverrides();
+    // Bug-103: registerD4rtInterfaceProxyOverrides re-registers a
+    // handful of <dynamic>-parameterised proxies with concrete type
+    // arguments and must run AFTER FlutterMaterialBridges.register.
+    // The runner runs the queued callback at finalize time — either via
+    // the explicit `finalizeBridges()` below, or implicitly on the
+    // first script execution if the embedder skips it.
+    _interpreter.registerExtensions('tom_d4rt_flutterm', () {
+      registerD4rtInterfaceProxyOverrides();
+    });
+    _interpreter.finalizeBridges();
   }
 
   /// The underlying [D4rt] interpreter.
