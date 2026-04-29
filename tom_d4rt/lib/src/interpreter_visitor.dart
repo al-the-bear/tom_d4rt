@@ -9150,15 +9150,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   }
 
   Object? _bridgeInterpreterValueToNative(Object? interpreterValue) {
-    if (interpreterValue is BridgedInstance) {
-      return interpreterValue.nativeObject;
-    }
-
-    if (interpreterValue is BridgedEnumValue) {
-      return interpreterValue.nativeValue;
-    }
-
-    return interpreterValue;
+    // Step 4 of the d4rt consolidation plan: delegate the leaf-level
+    // BridgedInstance/BridgedEnumValue/null/passthrough logic to the shared
+    // [D4.unwrapAs] helper. With T == Object? the helper returns:
+    //   * BridgedInstance.nativeObject
+    //   * BridgedEnumValue.nativeValue
+    //   * null when input is null
+    //   * value as-is otherwise (the `value is T` branch matches Object? for
+    //     every non-null value, including InterpretedInstance / Callable)
+    // — exactly the original three-branch contract.
+    return D4.unwrapAs<Object?>(interpreterValue, visitor: this);
   }
 
   /// Wraps a native return value from a bridged call in a [BridgedInstance]
