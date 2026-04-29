@@ -13,6 +13,7 @@ import 'package:tom_d4rt/src/module_loader.dart';
 import 'package:tom_d4rt/src/exceptions.dart';
 import 'package:tom_d4rt/src/callable.dart';
 import 'package:tom_d4rt/src/declaration_visitor.dart';
+import 'package:tom_d4rt/src/generator/d4.dart';
 import 'package:tom_d4rt/src/stdlib/stdlib.dart';
 import 'package:tom_d4rt/src/bridge/registration.dart';
 import 'package:tom_d4rt/src/security/permissions.dart';
@@ -1941,12 +1942,14 @@ class D4rt {
         interpreterValue is bool) {
       return interpreterValue;
     }
-    if (interpreterValue is BridgedInstance) {
-      return interpreterValue.nativeObject;
-    }
-
-    if (interpreterValue is BridgedEnumValue) {
-      return interpreterValue.nativeValue;
+    // Step 4 of the d4rt consolidation plan: delegate the leaf-level
+    // BridgedInstance/BridgedEnumValue branches to the shared [D4.unwrapAs]
+    // helper. The recursive list/map/record handling below is intentionally
+    // *not* delegated — it is a separate native-bridging concern that the
+    // [D4.unwrapAs] single-level contract does not cover.
+    if (interpreterValue is BridgedInstance ||
+        interpreterValue is BridgedEnumValue) {
+      return D4.unwrapAs<Object?>(interpreterValue, visitor: _visitor);
     }
     if (interpreterValue is List) {
       return interpreterValue.map(_bridgeInterpreterValueToNative).toList();
