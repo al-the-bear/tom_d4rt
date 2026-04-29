@@ -586,6 +586,17 @@ while leaving 6 px headroom. FE → 0 across single-script,
 x-script (`restorable_(date_time|double)`), sentinel, and full
 secondary suite contexts.
 
+**Also closed 2026-04-29 (crashing-suite, single-script
+context):** ~~`widgets/display_feature_sub_screen_test.dart` —
+emitted FE=1 (40 px bottom overflow) in the `crashing_tests_test`
+suite. Closed by aligning `MediaQuery.size` with the surrounding
+`SizedBox` extent in `_ComparisonCard.build` for the
+`horizontalFold` mode of `_FeatureComparisonScene`.~~ See
+"Small-overflow pocket — DFSS MediaQuery / SizedBox mismatch
+2026-04-29" subsection below for the full diagnosis. FE → 0
+under single-script retest (regression rule (a) — test-script-
+only change).
+
 ### Sub-pocket rewrite recipes (the closing routes)
 
 #### Small-overflow pocket (snapshot_mode)
@@ -667,6 +678,72 @@ panel was designed with the bar/shaft height precisely matching
 parent height − padding − labels, that's a fragile measurement
 that *will* surface as a small-overflow FE under some preceding
 test ordering.
+
+##### Small-overflow pocket — DFSS MediaQuery / SizedBox mismatch 2026-04-29
+
+A third script in this pocket was closed with a manual rewrite,
+and is recorded here because the trigger is structurally
+distinct from the font-drift cases above:
+
+- **`widgets/display_feature_sub_screen_test.dart` (1 FE, 40 px
+  bottom):** closed by aligning `MediaQuery.size` with the
+  surrounding `SizedBox` extent in `_ComparisonCard.build`
+  (scene `_FeatureComparisonScene`, `horizontalFold` mode).
+  Original used `MQ size = Size(360, 220)` inside an outer
+  `SizedBox(width: 300)` and inner `SizedBox(width: 300, height:
+  180)`; fix uses `canvas = Size(300, 220)` for both MQ and the
+  inner SizedBox, with the outer SizedBox bumped to 324 (=300 +
+  Container padding 12 × 2) so the inner 300 px width is not
+  clamped.
+
+**Triggering Flutter codepath.**
+`DisplayFeatureSubScreen.build` (see
+`flutter/lib/src/widgets/display_feature_sub_screen.dart` lines
+111–118) wraps `child` in a `Padding` whose insets are computed
+from `mediaQuery.size` minus the closest sub-screen rect:
+
+```dart
+return Padding(
+  padding: EdgeInsets.only(
+    left: closestSubScreen.left,
+    top: closestSubScreen.top,
+    right: parentSize.width - closestSubScreen.right,
+    bottom: parentSize.height - closestSubScreen.bottom,
+  ),
+  child: MediaQuery(data: mediaQuery.removeDisplayFeatures(...), child: child),
+);
+```
+
+When `mediaQuery.size` is *larger* than the actual parent box
+(here: 360×220 declared inside a 300×180 SizedBox), the Padding
+insets are computed against the wider/taller parent and then
+applied inside the smaller box. For `horizontalFold` with
+default LTR anchor `(120, 140)`, the closest sub-screen is the
+bottom half (`y = 118 .. 220`), so `Padding.top = 118`. The
+parent SizedBox only provides 180 px of height, leaving
+`180 − 118 = 62 px` for the child's intrinsic Column inside
+`_MiniPaneCard` (which needs ~91 px), producing the 40 px bottom
+overflow.
+
+**Workaround pattern — same functional result, no FE:** keep
+`MediaQuery.size` *exactly* equal to the parent SizedBox extent
+that hosts the DFSS subtree, and ensure each candidate
+sub-screen rect produced by the configured display features has
+enough room for the child's intrinsic Column. For
+`horizontalFold` on a 300×220 canvas, each sub-screen is `220/2
+− 8 = 102 px` tall, leaving ~11 px headroom over `_MiniPaneCard`'s
+~91 px column — comfortably inside the 4–8 px headroom rule.
+
+**Mental model.** DFSS is unique in this pocket because the
+overflow is not driven by font metric drift; it is a deliberate
+geometric placement. Any DFSS-using widget that synthesises its
+own `MediaQuery` (rather than passing the ambient one through)
+must keep `MQ.size == hosting SizedBox`, and must size the
+SizedBox so that every candidate sub-screen — top/bottom for
+horizontal folds, left/right for vertical hinges — has enough
+room for the child Column at its intrinsic height plus the
+4–8 px headroom. Otherwise some anchor + posture combination
+will pin the child to a sub-screen that cannot hold it.
 
 #### EditableText pocket (select_all_text_intent, transpose_characters_intent, restoration_mixin)
 

@@ -1,0 +1,6 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/crashing_tests_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/ individual (crashing) display_feature_sub_screen_test.dart (from secondary_classes)
+[METRIC] script=widgets/display_feature_sub_screen_test.dart sourceBytes=61989 sourceChars=61986 bundleJsonBytes=834431 clearMs=100 readMs=9 bundleMs=357 httpMs=1558 totalMs=2025 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:13 +1: (tearDownAll)
+00:14 +1: All tests passed!

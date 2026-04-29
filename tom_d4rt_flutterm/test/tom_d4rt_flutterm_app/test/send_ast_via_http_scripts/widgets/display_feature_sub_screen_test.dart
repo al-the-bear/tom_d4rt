@@ -1221,16 +1221,28 @@ class _ComparisonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Preview canvas dimensions. The MediaQuery size MUST match the
+    // surrounding SizedBox: DisplayFeatureSubScreen positions its child via
+    // a Padding whose insets are computed from `mediaQuery.size − closest
+    // sub-screen edges` (see flutter/lib/src/widgets/display_feature_sub_screen.dart
+    // line 111-118). When MQ size > parent box, the top/bottom padding can
+    // exceed the available height (e.g. horizontalFold's bottom sub-screen
+    // pushed content 40 px below the box), triggering a `RenderFlex
+    // overflowed by 40 px on the bottom` framework error from `_MiniPaneCard`.
+    // Keeping MQ size == SizedBox size means DFSS Padding fits exactly and
+    // each sub-screen has enough room for the card's intrinsic Column height.
+    const Size canvas = Size(300, 220);
     final query = baseQuery.copyWith(
-      size: const Size(360, 220),
-      displayFeatures: _featuresForMode(spec.mode, const Size(360, 220), halfOpened),
+      size: canvas,
+      displayFeatures: _featuresForMode(spec.mode, canvas, halfOpened),
     );
 
     final avoid = DisplayFeatureSubScreen.avoidBounds(query).toList();
     final subScreens = DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & query.size, avoid).toList();
 
     return SizedBox(
-      width: 300,
+      width: 324, // canvas.width (300) + Container padding (12 × 2) so the
+                  // inner SizedBox fits its declared 300 px without clamping
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -1251,8 +1263,8 @@ class _ComparisonCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                width: 300,
-                height: 180,
+                width: canvas.width,
+                height: canvas.height,
                 child: MediaQuery(
                   data: query,
                   child: Stack(
