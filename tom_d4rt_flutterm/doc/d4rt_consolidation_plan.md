@@ -605,7 +605,8 @@ construction; the runner runs all callbacks in deterministic order
   on first execution. Document both contracts.
 - `tom_d4rt_exec/lib/src/d4rt_base.dart` — mirror the methods on
   `D4rt`, forwarding to the inner runner.
-- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` — both constructors:
+- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` — both constructors.
+  The plan-spec sketch was:
   ```dart
   FlutterMaterialBridges.register(_interpreter);
   _interpreter.registerExtensions('tom_d4rt_flutterm', () {
@@ -615,6 +616,18 @@ construction; the runner runs all callbacks in deterministic order
   });
   _interpreter.finalizeBridges();
   ```
+  **Implementation deviates intentionally**: only
+  `registerD4rtInterfaceProxyOverrides()` is queued in the post-material
+  callback. `registerRelaxers()` and `registerD4rtRuntimeExtensions()`
+  still run BEFORE `FlutterMaterialBridges.register`, matching the
+  step-5 ordering. Reason: generic constructor factories chain
+  newest-first; the user-bridge factory for `ValueNotifier<T>` casts
+  to `double?` and would shadow material's correctly-typed auto-gen
+  factory if it were registered later, breaking
+  `ValueNotifier<int>(0)` (caught by `widgets/gesture_detector_adv_test.dart`).
+  Only the proxy overrides actually need to run AFTER material
+  (Bug-103 — `<dynamic>`-parameterised proxies re-registered with
+  concrete type arguments depend on material's proxy registrations).
 - New tests in `tom_d4rt_ast`: ordering test (two extensions register,
   assert callback execution order matches registration order), error
   test (calling `finalizeBridges()` twice is a no-op the second time).
@@ -624,7 +637,7 @@ construction; the runner runs all callbacks in deterministic order
 - `dart test` in `tom_d4rt_ast` and `tom_d4rt`.
 - 4-suite flutterm battery.
 
-**Status.** _pending_
+**Status.** _done_ (testlog_20260429-step6-extension-hook/_summary.md)
 
 ---
 
@@ -672,7 +685,7 @@ Update this section as each step completes, reverts, or defers.
 | 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
 | 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ + testlog_20260429-step4-sync-third-twin/ + testlog_20260429-step4-recursive-sync/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>` across **all three** copies (initial land: tom_d4rt_ast/interpreter_visitor.dart + tom_d4rt/d4rt_base.dart leaf branch; sync addendum: tom_d4rt/interpreter_visitor.dart). Recursive sync addendum: ported the recursive list/map/record top-level unwrap from `tom_d4rt/d4rt_base.dart:1938` to `tom_d4rt_ast/d4rt_runner.dart`'s `_executeInEnvironment` (the recursion was a fork omission, not a deliberate asymmetry — corrected in this session). All 10 suites match step-3 baselines exactly across all three runs — zero regressions. |
 | 5 | claude | done | (this session) | testlog_20260429-step5-idempotency/ | `registerGenericConstructor` and `registerGenericTypeWrapper` made idempotent via per-key `Set<Factory>` identity dedupe (chained-on-itself was the load-bearing reason `_relaxersRegistered` existed). The three already-idempotent overwrite registries (`registerInterfaceProxy`, `registerTypeCoercion`, `registerSupplementaryMethod`) plus `BridgedClass.registerSupertypes` got explicit "**Idempotent:**" docstring tags. `_relaxersRegistered` static-bool guard removed from `flutter_d4rt.dart`. Sync between tom_d4rt and tom_d4rt_ast preserved. New file `register_idempotency_test.dart` adds 7 register-twice tests (all green). 10-suite battery matches step-4 baselines exactly; `tom_d4rt_ast` gains +7 from the new tests. |
-| 6 | — | pending | — | — | — |
+| 6 | claude | done | (this session) | testlog_20260429-step6-extension-hook/ | `D4rtRunner.registerExtensions(packageName, body)` + `finalizeBridges()` added on tom_d4rt_ast (insertion-order, package-name-overwrite, idempotent finalize, throws after finalize, implicit finalize on first execute). Mirrored on `D4rt` in tom_d4rt_exec. 7 new contract tests (`extension_hook_test.dart`) all green. `flutter_d4rt.dart` switched to the hook for `registerD4rtInterfaceProxyOverrides` only — `registerRelaxers` / `registerD4rtRuntimeExtensions` stay BEFORE material to keep material's auto-gen ValueNotifier factory on top of the chain (initial naive port putting all three in the callback regressed `widgets/gesture_detector_adv_test.dart` — fix preserves step-5 ordering). 4-suite flutterm battery matches step-5 baseline exactly: 108/0/0, 164/0/0, 653/0/1, 81/2/0. Dart battery green vs baseline. |
 | 7 | — | pending | — | — | — |
 
 ---
