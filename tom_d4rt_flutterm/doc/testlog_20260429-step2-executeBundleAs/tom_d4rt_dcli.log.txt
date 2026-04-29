@@ -1,0 +1,794 @@
+00:00 +0: loading test/stdin/stdin_preprocessing_test.dart
+00:00 +0: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+══════════════════════════════════════════════════════════════
+  dcli --stdin Smart Preprocessing Tests
+══════════════════════════════════════════════════════════════
+
+Case 1: Bare statements (auto-import, auto-wrap)
+  ✓ bare print statement exits 0 (exit=0)
+  ✓ bare print statement output
+  ✓ bare return int → exit code 42 (exit=42)
+  ✓ bare return 0 → exit code 0 (exit=0)
+  ✓ multi-line bare statements exit 0 (exit=0)
+  ✓ multi-line bare computes correctly
+  ✓ stdlib bridges available in bare mode (exit=0)
+  ✓ dart:math max() works
+  ✓ dart:io Platform available in bare mode (exit=0)
+
+Case 2: main() without imports (auto-prefix imports)
+  ✓ void main without imports exits 0 (exit=0)
+  ✓ void main output correct
+  ✓ Object main with bridge usage exits 0 (exit=0)
+  ✓ bridge imports auto-prefixed for main
+  ✓ int main() return value used as exit code (exit=7)
+
+Case 3: Complete script (imports + main)
+  ✓ complete script exits 0 (exit=0)
+  ✓ complete script output correct
+  ✓ complete script with dart:io exits 0 (exit=0)
+  ✓ complete script accesses dart:io
+
+Error handling
+  ✓ empty stdin exits 1 (exit=1)
+  ✓ empty stdin error message
+  ✓ syntax error exits 2 (exit=2)
+  ✓ runtime error exits 2 (exit=2)
+
+══════════════════════════════════════════════════════════════
+  All 22 tests passed ✓
+══════════════════════════════════════════════════════════════
+
+03:22 +1: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should print output and exit 0
+03:36 +2: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should use int return as exit code
+03:50 +3: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should auto-import dart:math (stdlib bridge)
+04:05 +4: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should auto-import dart:io
+04:19 +5: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should execute void main and exit 0
+04:33 +6: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should auto-prefix imports for bridge usage
+04:47 +7: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should use int return from main as exit code
+05:02 +8: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — complete script should execute complete script as-is
+05:16 +9: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 1 on empty stdin
+05:30 +10: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 2 on runtime error
+05:44 +11: loading test/cli_api_script_test.dart
+05:44 +11: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+05:45 +12: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence modify variable in continued execution
+05:45 +13: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence variables persist across multiple evals
+05:45 +14: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define multiple variables in one script
+05:45 +15: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence variable shadowing in new execution
+20
+05:45 +16: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence define function, call it later
+05:45 +17: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence define multiple functions
+05:45 +18: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence recursive function
+05:45 +19: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence function using captured variable
+05:45 +20: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence higher-order function
+05:45 +21: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence define class, create instance
+05:45 +22: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with constructor
+05:45 +23: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with named constructor
+05:45 +24: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class inheritance
+05:45 +25: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+05:45 +26: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists function definition
+05:45 +27: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists class definition
+05:45 +28: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline script returns last expression
+05:45 +29: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline file adds to environment
+05:45 +30: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline execute runs in fresh environment
+fresh
+05:45 +31: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution execute file defines variables accessible later
+05:45 +32: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution .file command shares environment
+05:45 +33: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution script file executes line by line
+05:45 +34: test/cli_api_script_test.dart: CLI API Script Execution - State Modification replay file execution replay file executes commands
+05:45 +35: test/cli_api_script_test.dart: CLI API Script Execution - State Modification replay file execution load file shows output
+05:45 +36: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios build up state incrementally
+05:45 +37: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios use collections across executions
+05:45 +38: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios async code execution
+05:45 +39: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+05:45 +40: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios enum definition and use
+05:45 +41: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios extension methods
+05:45 +42: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios typedef and function types
+05:45 +43: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios mixin usage
+05:45 +44: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios late variables
+05:45 +45: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios null safety features
+05:45 +46: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios cascade operator
+05:45 +47: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios spread operator
+05:45 +48: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios collection if and for
+05:45 +49: test/cli_api_script_test.dart: CLI API Script Execution - State Modification output capture capture print output
+05:45 +50: test/cli_api_script_test.dart: CLI API Script Execution - State Modification output capture capture multiple prints
+05:45 +51: test/cli_api_script_test.dart: CLI API Script Execution - State Modification output capture capture loop output
+05:45 +52: loading test/environment_test.dart
+05:45 +52: test/environment_test.dart: env gets HOME variable
+05:45 +53: test/environment_test.dart: env gets PATH variable
+05:45 +54: test/environment_test.dart: env gets USER variable
+05:45 +55: test/environment_test.dart: env returns null for non-existent variable
+05:45 +56: test/environment_test.dart: env handles empty values
+05:45 +57: test/environment_test.dart: env can set environment variable
+05:45 +58: test/environment_test.dart: env can unset environment variable
+05:45 +59: test/environment_test.dart: env handles special characters in value
+05:45 +60: test/environment_test.dart: env handles equals sign in value
+05:45 +61: test/environment_test.dart: envs returns all environment variables
+05:45 +62: test/environment_test.dart: envs contains common variables
+05:45 +63: test/environment_test.dart: envs envs and env return same values
+05:45 +64: test/environment_test.dart: HOME returns home directory
+05:45 +65: test/environment_test.dart: HOME equals env HOME
+05:45 +66: test/environment_test.dart: HOME home directory contains expected subdirectories
+05:45 +67: test/environment_test.dart: PATH operations PATH contains standard directories
+05:45 +68: test/environment_test.dart: PATH operations which finds common commands
+05:45 +69: test/environment_test.dart: PATH operations which finds sh
+05:45 +70: test/environment_test.dart: PATH operations isOnPATH returns false for non-existent command
+05:45 +71: test/environment_test.dart: PATH operations can find executable with which
+05:45 +72: test/environment_test.dart: Env class acts as map
+05:45 +73: test/environment_test.dart: Env class allows bracket notation
+05:45 +74: test/environment_test.dart: withEnvironment temporarily sets environment
+05:45 +75: test/environment_test.dart: withEnvironment restores previous value after block
+05:45 +76: test/environment_test.dart: withEnvironment handles null restoration
+05:45 +77: test/environment_test.dart: withEnvironment multiple variables
+05:45 +78: test/environment_test.dart: platform detection detects current platform
+05:45 +79: test/environment_test.dart: platform detection has valid path separator
+05:45 +80: test/environment_test.dart: real-world scenarios build path from HOME
+05:45 +81: test/environment_test.dart: real-world scenarios check required tools are available
+05:45 +82: test/environment_test.dart: real-world scenarios build path with HOME constant
+05:45 +83: test/environment_test.dart: real-world scenarios use env in command
+05:45 +84: test/environment_test.dart: edge cases env var with leading/trailing spaces
+05:45 +85: test/environment_test.dart: edge cases env var with newlines
+05:45 +86: test/environment_test.dart: edge cases env var with unicode
+05:45 +87: test/environment_test.dart: edge cases very long env var value
+05:45 +88: loading test/repl_base_search_filter_test.dart
+05:46 +88: test/repl_base_search_filter_test.dart: parseSearchFilter returns null for empty query
+05:46 +89: test/repl_base_search_filter_test.dart: parseSearchFilter exact match is case-insensitive by default
+05:46 +90: test/repl_base_search_filter_test.dart: parseSearchFilter exact match can be case-sensitive with double quotes
+05:46 +91: test/repl_base_search_filter_test.dart: parseSearchFilter exact match can be case-sensitive with single quotes
+05:46 +92: test/repl_base_search_filter_test.dart: parseSearchFilter startsWith match is case-insensitive with trailing asterisk
+05:46 +93: test/repl_base_search_filter_test.dart: parseSearchFilter startsWith match can be case-sensitive with quotes
+05:46 +94: test/repl_base_search_filter_test.dart: parseSearchFilter contains match is case-insensitive with surrounding asterisks
+05:46 +95: test/repl_base_search_filter_test.dart: parseSearchFilter contains match can be case-sensitive with quotes
+05:46 +96: test/repl_base_search_filter_test.dart: parseSearchFilterDetails exact match mode with no wildcards
+05:46 +97: test/repl_base_search_filter_test.dart: parseSearchFilterDetails case-sensitive exact match with quotes
+05:46 +98: test/repl_base_search_filter_test.dart: parseSearchFilterDetails startsWith match mode with trailing asterisk
+05:46 +99: test/repl_base_search_filter_test.dart: parseSearchFilterDetails contains match mode with surrounding asterisks
+05:46 +100: loading test/file_operations_test.dart
+05:46 +100: test/file_operations_test.dart: copy copies file to new location
+05:46 +101: test/file_operations_test.dart: copy copies file preserving content
+05:46 +102: test/file_operations_test.dart: copy throws when source does not exist
+05:46 +103: test/file_operations_test.dart: copy overwrites existing file when overwrite is true
+05:46 +104: test/file_operations_test.dart: copy throws when dest exists and overwrite is false
+05:46 +105: test/file_operations_test.dart: copy copies empty file
+05:46 +106: test/file_operations_test.dart: copy copies binary file
+05:46 +107: test/file_operations_test.dart: copy copies to subdirectory
+05:46 +108: test/file_operations_test.dart: move moves file to new location
+05:46 +109: test/file_operations_test.dart: move preserves content when moving
+05:46 +110: test/file_operations_test.dart: move throws when source does not exist
+05:46 +111: test/file_operations_test.dart: move renames file in same directory
+05:46 +112: test/file_operations_test.dart: move overwrites when overwrite is true
+05:46 +113: test/file_operations_test.dart: delete deletes existing file
+05:46 +114: test/file_operations_test.dart: delete throws when file does not exist
+05:46 +115: test/file_operations_test.dart: delete deletes file with content
+05:46 +116: test/file_operations_test.dart: touch creates new file when create is true
+05:46 +117: test/file_operations_test.dart: touch throws when file does not exist and create is false
+05:46 +118: test/file_operations_test.dart: touch updates timestamp of existing file
+05:46 +119: test/file_operations_test.dart: touch returns the path
+05:46 +120: test/file_operations_test.dart: cat prints file content
+05:46 +121: test/file_operations_test.dart: cat handles empty file
+05:46 +122: test/file_operations_test.dart: cat throws when file does not exist
+05:46 +123: test/file_operations_test.dart: read returns iterable of lines
+05:46 +124: test/file_operations_test.dart: read handles single line file
+05:46 +125: test/file_operations_test.dart: read handles file with trailing newline
+05:46 +126: test/file_operations_test.dart: read throws when file does not exist
+05:46 +127: test/file_operations_test.dart: head returns first n lines
+05:46 +128: test/file_operations_test.dart: head returns all lines if file has fewer lines
+05:46 +129: test/file_operations_test.dart: head handles single line request
+05:46 +130: test/file_operations_test.dart: tail returns last n lines
+05:46 +131: test/file_operations_test.dart: tail returns all lines if file has fewer lines
+05:46 +132: test/file_operations_test.dart: tail handles single line request
+05:46 +133: test/file_operations_test.dart: replace replaces text in file
+05:46 +134: test/file_operations_test.dart: replace replaces first occurrence by default
+05:46 +135: test/file_operations_test.dart: replace replaces all occurrences when all is true
+05:46 +136: test/file_operations_test.dart: replace returns count of replacements
+05:46 +137: test/file_operations_test.dart: replace returns 0 when no match found
+05:46 +138: test/file_operations_test.dart: replace handles regex pattern
+05:46 +139: test/file_operations_test.dart: copyTree copies directory tree
+05:46 +140: test/file_operations_test.dart: copyTree copies nested directories
+05:46 +141: test/file_operations_test.dart: copyTree preserves file content
+05:46 +142: test/file_operations_test.dart: moveTree moves directory tree
+05:46 +143: loading test/tom_d4rt_dcli_test.dart
+05:47 +143: test/tom_d4rt_dcli_test.dart: version is defined
+05:47 +144: test/tom_d4rt_dcli_test.dart: TomD4rtDcliBridge registers without error
+05:47 +145: loading test/path_operations_test.dart
+05:47 +145: test/path_operations_test.dart: truepath expands relative path
+05:47 +146: test/path_operations_test.dart: truepath treats ~ as literal character (no shell expansion)
+05:47 +147: test/path_operations_test.dart: truepath treats ~/subfolder as literal (no shell expansion)
+05:47 +148: test/path_operations_test.dart: truepath normalizes path separators
+05:47 +149: test/path_operations_test.dart: truepath handles absolute path
+05:47 +150: test/path_operations_test.dart: truepath removes trailing slashes
+05:47 +151: test/path_operations_test.dart: truepath handles . and .. segments
+05:47 +152: test/path_operations_test.dart: truepath accepts multiple path parts
+05:47 +153: test/path_operations_test.dart: join joins two path segments
+05:47 +154: test/path_operations_test.dart: join joins multiple segments
+05:47 +155: test/path_operations_test.dart: join handles empty segments
+05:47 +156: test/path_operations_test.dart: join handles absolute segments
+05:47 +157: test/path_operations_test.dart: join handles trailing separators
+05:47 +158: test/path_operations_test.dart: dirname returns parent directory
+05:47 +159: test/path_operations_test.dart: dirname returns . for filename only
+05:47 +160: test/path_operations_test.dart: dirname returns / for root directory file
+05:47 +161: test/path_operations_test.dart: dirname strips trailing filename
+05:47 +162: test/path_operations_test.dart: dirname handles paths with trailing slash
+05:47 +163: test/path_operations_test.dart: basename returns filename from path
+05:47 +164: test/path_operations_test.dart: basename returns filename with extension
+05:47 +165: test/path_operations_test.dart: basename handles path without directory
+05:47 +166: test/path_operations_test.dart: basename returns directory name for path ending in dir
+05:47 +167: test/path_operations_test.dart: basename handles paths with multiple extensions
+05:47 +168: test/path_operations_test.dart: extension returns file extension with dot
+05:47 +169: test/path_operations_test.dart: extension returns last extension for multiple
+05:47 +170: test/path_operations_test.dart: extension returns empty for no extension
+05:47 +171: test/path_operations_test.dart: extension handles hidden files
+05:47 +172: test/path_operations_test.dart: extension handles hidden files with extension
+05:47 +173: test/path_operations_test.dart: extension returns multiple extensions with level param
+05:47 +174: test/path_operations_test.dart: relative creates relative path from absolute
+05:47 +175: test/path_operations_test.dart: relative handles same directory
+05:47 +176: test/path_operations_test.dart: relative handles parent directory
+05:47 +177: test/path_operations_test.dart: relative handles sibling directory
+05:47 +178: test/path_operations_test.dart: absolute returns absolute path for relative
+05:47 +179: test/path_operations_test.dart: absolute returns same path for absolute
+05:47 +180: test/path_operations_test.dart: normalize removes double slashes
+05:47 +181: test/path_operations_test.dart: normalize resolves . segments
+05:47 +182: test/path_operations_test.dart: normalize resolves .. segments
+05:47 +183: test/path_operations_test.dart: normalize handles trailing separator
+05:47 +184: test/path_operations_test.dart: isAbsolute returns true for absolute path
+05:47 +185: test/path_operations_test.dart: isAbsolute returns false for relative path
+05:47 +186: test/path_operations_test.dart: isAbsolute returns false for empty string
+05:47 +187: test/path_operations_test.dart: isAbsolute handles ~ as relative
+05:47 +188: test/path_operations_test.dart: isRelative returns false for absolute path
+05:47 +189: test/path_operations_test.dart: isRelative returns true for relative path
+05:47 +190: test/path_operations_test.dart: split splits path into components
+05:47 +191: test/path_operations_test.dart: split splits relative path
+05:47 +192: test/path_operations_test.dart: split handles single component
+05:47 +193: test/path_operations_test.dart: withoutExtension removes extension from path
+05:47 +194: test/path_operations_test.dart: withoutExtension removes only last extension
+05:47 +195: test/path_operations_test.dart: withoutExtension handles no extension
+05:47 +196: test/path_operations_test.dart: withoutExtension preserves directory path
+05:47 +197: test/path_operations_test.dart: setExtension adds extension to path
+05:47 +198: test/path_operations_test.dart: setExtension replaces existing extension
+05:47 +199: test/path_operations_test.dart: setExtension handles empty new extension
+05:47 +200: test/path_operations_test.dart: real-world scenarios build output path from source
+05:47 +201: test/path_operations_test.dart: real-world scenarios resolve config file relative to project
+05:47 +202: test/path_operations_test.dart: real-world scenarios create backup filename
+05:47 +203: loading test/cli_api_comprehensive_test.dart
+05:48 +203: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+05:48 +204: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties dataDirectory returns configured path
+05:48 +205: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties d4rt returns interpreter instance
+05:48 +206: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties configuration is available
+05:48 +207: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties runtime provides access to process info
+05:48 +208: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties currentSessionId is null when no session active
+05:48 +209: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cwd returns current directory
+05:48 +210: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd changes to subdirectory
+05:48 +211: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd with absolute path
+05:48 +212: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd with relative parent path
+05:48 +213: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd with tilde expansion
+05:48 +214: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd to nonexistent directory throws
+05:48 +215: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation home returns to data directory
+05:48 +216: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation ls lists files and directories
+05:48 +217: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation ls with path argument
+05:48 +218: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation ls nonexistent path throws
+05:48 +219: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file listings sessions lists session files
+05:48 +220: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file listings scripts lists script files
+05:48 +221: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file listings plays lists replay files
+05:48 +222: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file listings executes lists executable files
+05:48 +223: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines define creates alias
+05:48 +224: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines undefine removes alias
+05:48 +225: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines undefine returns false for nonexistent
+05:48 +226: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines invokeDefine expands template
+05:48 +227: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines invokeDefine with positional args
+05:48 +228: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines invokeDefine unknown returns null
+05:48 +229: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines expandDefine parses define invocation
+05:48 +230: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines loadDefines from file
+05:48 +231: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods defines loadDefines returns -1 for missing file
+05:48 +232: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection help returns help text
+05:48 +233: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection info without name returns tool info
+05:48 +234: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection info with package name
+05:48 +235: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection classes returns list
+05:48 +236: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection enums returns list
+05:48 +237: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection methods returns list
+05:48 +238: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection variables returns list
+05:48 +239: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection imports returns list
+05:48 +240: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredClasses returns list
+05:48 +241: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredEnums returns list
+05:48 +242: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredMethods returns list
+05:48 +243: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredVariables returns list
+05:48 +244: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredImports returns list
+05:48 +245: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection showInit returns initialization source
+05:48 +246: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode initially not in multiline mode
+05:48 +247: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode startScript enters script mode
+05:48 +248: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode startDefine enters define mode
+05:48 +249: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode startFile enters file mode
+05:48 +250: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode startExecute enters execute mode
+05:48 +251: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode clearMultilineBuffer clears and exits mode
+05:48 +252: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode end executes multiline buffer
+05:48 +253: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode processPrompt accumulates in multiline mode
+05:48 +254: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods multiline mode starting mode when already in mode throws
+05:48 +255: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution execute runs fresh program
+42
+05:48 +256: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution execute with error returns failure
+05:48 +257: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeContinued shares environment
+05:48 +258: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution eval evaluates expression
+05:48 +259: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution eval with variables
+05:48 +260: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeFile runs file
+from file
+05:48 +261: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeFile throws for missing file
+05:48 +262: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution file runs in current environment
+05:48 +263: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution script runs line by line
+05:48 +264: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution load replays with output
+05:48 +265: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution replay replays silently
+05:48 +266: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file content loading loadFile reads exec.dart file
+05:48 +267: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file content loading loadScript reads script.txt file
+05:48 +268: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file content loading loadReplay reads replay.txt file
+05:48 +269: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods file content loading loadSession reads session.txt file
+05:48 +270: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles empty lines
+05:48 +271: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles comments
+05:48 +272: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles help command
+05:48 +273: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles classes command
+05:48 +274: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles enums command
+05:48 +275: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles methods command
+05:48 +276: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles variables command
+05:48 +277: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles imports command
+05:48 +278: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles cwd command
+05:48 +279: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles cd command
+05:48 +280: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles home command
+05:48 +281: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles ls command
+05:48 +282: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles define command
+05:48 +283: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles undefine command
+05:48 +284: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles defines command
+05:48 +285: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles .start-script command
+05:48 +286: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles .start-define command
+05:48 +287: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles .start-file command
+05:48 +288: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles .start-execute command
+05:48 +289: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles .end command
+05:48 +290: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles expression evaluation
+05:48 +291: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt processPrompts handles multiple lines
+05:48 +292: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt processPrompts continues on error when requested
+05:48 +293: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands clear does not throw
+05:48 +294: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands sessions command
+05:48 +295: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands scripts command
+05:48 +296: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands plays command
+05:48 +297: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands executes command
+05:48 +298: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands registered-classes command
+05:48 +299: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands registered-enums command
+05:48 +300: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands registered-methods command
+05:48 +301: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands registered-variables command
+05:48 +302: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands registered-imports command
+05:48 +303: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods other commands show-init command
+05:48 +304: loading test/directory_operations_test.dart
+05:48 +304: test/directory_operations_test.dart: createDir creates single directory
+05:48 +305: test/directory_operations_test.dart: createDir creates nested directories with recursive
+05:48 +306: test/directory_operations_test.dart: createDir throws without recursive when parent missing
+05:48 +307: test/directory_operations_test.dart: createDir does not throw if directory already exists with recursive
+05:48 +308: test/directory_operations_test.dart: createDir returns the path
+05:48 +309: test/directory_operations_test.dart: createDir creates directory with spaces in name
+05:48 +310: test/directory_operations_test.dart: createDir creates directory with special characters
+05:48 +311: test/directory_operations_test.dart: createDir creates deeply nested structure
+05:48 +312: test/directory_operations_test.dart: deleteDir deletes empty directory
+05:48 +313: test/directory_operations_test.dart: deleteDir throws on non-empty directory without recursive
+05:48 +314: test/directory_operations_test.dart: deleteDir deletes non-empty directory with recursive
+05:48 +315: test/directory_operations_test.dart: deleteDir deletes nested structure recursively
+05:48 +316: test/directory_operations_test.dart: deleteDir throws when directory does not exist
+05:48 +317: test/directory_operations_test.dart: find finds files by pattern
+05:48 +318: test/directory_operations_test.dart: find finds files recursively
+05:48 +319: test/directory_operations_test.dart: find returns empty when no matches
+05:48 +320: test/directory_operations_test.dart: find finds by exact name
+05:48 +321: test/directory_operations_test.dart: find handles multiple file types
+05:48 +322: test/directory_operations_test.dart: find includes hidden files when specified
+05:49 +323: test/directory_operations_test.dart: find case-insensitive matching when specified [fails on Macos]
+05:49 +324: test/directory_operations_test.dart: find finds directories when type specified
+05:49 +325: test/directory_operations_test.dart: exists returns true for existing file
+05:49 +326: test/directory_operations_test.dart: exists returns true for existing directory
+05:49 +327: test/directory_operations_test.dart: exists returns false for non-existent path
+05:49 +328: test/directory_operations_test.dart: exists returns true for symlink
+05:49 +329: test/directory_operations_test.dart: isDirectory returns true for directory
+05:49 +330: test/directory_operations_test.dart: isDirectory returns false for file
+05:49 +331: test/directory_operations_test.dart: isDirectory returns false for non-existent path
+05:49 +332: test/directory_operations_test.dart: isFile returns true for file
+05:49 +333: test/directory_operations_test.dart: isFile returns false for directory
+05:49 +334: test/directory_operations_test.dart: isFile returns false for non-existent path
+05:49 +335: test/directory_operations_test.dart: isLink returns true for symlink
+05:49 +336: test/directory_operations_test.dart: isLink returns false for regular file
+05:49 +337: test/directory_operations_test.dart: isLink returns false for directory
+05:49 +338: test/directory_operations_test.dart: isEmpty returns true for empty directory
+05:49 +339: test/directory_operations_test.dart: isEmpty returns false for non-empty directory
+05:49 +340: test/directory_operations_test.dart: isEmpty returns false for directory with subdirectory
+05:49 +341: test/directory_operations_test.dart: moveDir moves directory to new location
+05:49 +342: test/directory_operations_test.dart: moveDir throws when source does not exist
+05:49 +343: test/directory_operations_test.dart: temp operations createTempDir creates in system temp
+05:49 +344: test/directory_operations_test.dart: temp operations createTempFile creates file
+05:49 +345: test/directory_operations_test.dart: temp operations createTempFilename returns unique name
+05:49 +346: loading test/cli_api_bridges_test.dart
+05:49 +346: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+05:49 +347: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns false for non-existent file
+05:49 +348: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing directory
+05:49 +349: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isFile() returns true for files
+05:49 +350: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isFile() returns false for directories
+05:49 +351: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isFile() returns false for non-existent path
+05:49 +352: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isDirectory() returns true for directories
+05:49 +353: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isDirectory() returns false for files
+05:49 +354: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isDirectory() returns false for non-existent path
+05:49 +355: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isEmpty() returns true for empty directory
+05:49 +356: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isEmpty() returns false for non-empty directory
+05:49 +357: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isLink() returns false for regular files
+05:49 +358: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isLink() returns true for symbolic links
+05:49 +359: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations touch() creates new file
+05:49 +360: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations touch() updates existing file timestamp
+05:49 +361: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations delete() removes file
+05:49 +362: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations delete() with ask: false removes file silently
+05:49 +363: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations copy() copies file to new location
+05:49 +364: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations copy() preserves original file
+05:49 +365: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations copy() with overwrite replaces existing file
+05:49 +366: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations move() moves file to new location
+05:49 +367: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations move() with overwrite replaces existing file
+05:49 +368: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations fileLength() returns correct file size
+05:49 +369: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations fileLength() returns 0 for empty file
+05:49 +370: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+05:49 +371: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+05:49 +372: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns consistent hash for same content
+05:49 +373: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations replace() replaces text in file
+05:49 +374: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations replace() replaces multiple occurrences
+05:49 +375: test/cli_api_bridges_test.dart: DCli Global Functions - File Reading read() returns Progress object
+05:49 +376: test/cli_api_bridges_test.dart: DCli Global Functions - File Reading head() returns Progress object
+05:49 +377: test/cli_api_bridges_test.dart: DCli Global Functions - File Reading head() returns Progress with lines property
+05:49 +378: test/cli_api_bridges_test.dart: DCli Global Functions - File Reading tail() returns Progress object
+05:49 +379: test/cli_api_bridges_test.dart: DCli Global Functions - File Reading cat() outputs file content
+05:49 +380: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createDir() creates directory
+05:49 +381: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createDir() with recursive creates nested directories
+05:49 +382: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createDir() creates parent directories when recursive
+05:49 +383: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations deleteDir() removes empty directory
+05:49 +384: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations deleteDir() with recursive removes non-empty directory
+05:50 +385: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations moveDir() moves directory to new location
+05:50 +386: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations copyTree() copies directory tree
+05:50 +387: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations copyTree() preserves file contents
+05:50 +388: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createTempDir() creates temporary directory
+05:50 +389: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createTempDir() with suffix parameter
+05:50 +390: test/cli_api_bridges_test.dart: DCli Global Functions - Find find() returns FindProgress object
+05:50 +391: test/cli_api_bridges_test.dart: DCli Global Functions - Find find() with recursive: true parameter
+05:50 +392: test/cli_api_bridges_test.dart: DCli Global Functions - Find find() with recursive: false parameter
+05:50 +393: test/cli_api_bridges_test.dart: DCli Global Functions - Find find() returns FindProgress object for type filtering
+05:50 +394: test/cli_api_bridges_test.dart: DCli Global Functions - Find find() supports caseSensitive parameter
+05:50 +395: test/cli_api_bridges_test.dart: DCli Global Functions - Symlinks createSymLink() creates symbolic link
+05:50 +396: test/cli_api_bridges_test.dart: DCli Global Functions - Symlinks createSymLink() link points to target
+05:50 +397: test/cli_api_bridges_test.dart: DCli Global Functions - Symlinks resolveSymLink() resolves link to target
+05:50 +398: test/cli_api_bridges_test.dart: DCli Global Functions - Symlinks deleteSymlink() removes link but keeps target
+05:50 +399: test/cli_api_bridges_test.dart: DCli Global Functions - Backup/Restore backupFile() is callable with file path
+05:50 +400: test/cli_api_bridges_test.dart: DCli Global Functions - Backup/Restore backupFile() supports ignoreMissing parameter
+05:50 +401: test/cli_api_bridges_test.dart: DCli Global Functions - Backup/Restore restoreFile() is callable after backup
+05:50 +402: test/cli_api_bridges_test.dart: DCli Global Functions - Backup/Restore restoreFile() with ignoreMissing handles missing backup
+05:50 +403: test/cli_api_bridges_test.dart: DCli Global Functions - Temp Files createTempFilename() returns path string
+05:50 +404: test/cli_api_bridges_test.dart: DCli Global Functions - Temp Files createTempFilename() with suffix adds suffix
+05:50 +405: test/cli_api_bridges_test.dart: DCli Global Functions - Temp Files createTempFile() creates actual file
+05:50 +406: test/cli_api_bridges_test.dart: DCli Global Functions - Temp Files createTempFile() with suffix adds suffix to filename
+05:50 +407: test/cli_api_bridges_test.dart: DCli Global Functions - Echo/Print echo() is callable
+Hello Echo05:50 +408: test/cli_api_bridges_test.dart: DCli Global Functions - Echo/Print echo() with newline parameter is callable
+no newlineafter05:50 +409: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep sleep() with milliseconds pauses execution
+05:50 +410: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep Interval.seconds enum value is available
+05:50 +411: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep Interval.milliseconds enum value is available
+05:50 +412: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep Interval.minutes enum value is available
+05:50 +413: test/cli_api_bridges_test.dart: DCli Global Functions - Which which() finds dart executable
+05:50 +414: test/cli_api_bridges_test.dart: DCli Global Functions - Which which() returns path when found
+05:50 +415: test/cli_api_bridges_test.dart: DCli Global Functions - Which which() returns not found for nonexistent command
+05:50 +416: test/cli_api_bridges_test.dart: DCli Classes - DartSdk DartSdk() constructor creates instance
+05:50 +417: test/cli_api_bridges_test.dart: DCli Classes - DartSdk DartSdk.dartExeName returns dart
+05:50 +418: test/cli_api_bridges_test.dart: DCli Classes - DartSdk DartSdk().pathToDartExe returns path
+05:50 +419: test/cli_api_bridges_test.dart: DCli Classes - DartSdk DartSdk().version returns version string
+05:50 +420: test/cli_api_bridges_test.dart: DCli Classes - DartSdk DartSdk().pathToSdk returns path
+05:50 +421: test/cli_api_bridges_test.dart: DCli Classes - Shell Shell.current returns shell instance
+05:50 +422: test/cli_api_bridges_test.dart: DCli Classes - DCliPaths DCliPaths() constructor creates instance
+05:50 +423: test/cli_api_bridges_test.dart: DCli Classes - DCliPaths DCliPaths().pathToDCli returns path
+05:50 +424: test/cli_api_bridges_test.dart: DCli Classes - DartProject DartProject.fromPath() with valid project
+05:50 +425: test/cli_api_bridges_test.dart: DCli Classes - DartProject DartProject.fromPath().pathToProjectRoot returns path
+05:50 +426: test/cli_api_bridges_test.dart: DCli Classes - DartScript DartScript.fromFile() parses script
+05:50 +427: test/cli_api_bridges_test.dart: DCli Classes - DartScript DartScript.fromFile().pathToScript returns path
+05:50 +428: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync.tempFile() creates temp file
+05:50 +429: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync write and read
+05:50 +430: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync.append() adds to file
+05:50 +431: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock() constructor creates instance
+05:50 +432: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLock() executes callback (deprecated in dcli 8.4.2, throws UnsupportedError)
+05:50 +433: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLock() with timeout (deprecated in dcli 8.4.2, throws UnsupportedError)
+05:50 +434: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLockAsync() executes callback
+05:50 +435: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLockAsync() with timeout
+05:50 +436: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.print() creates instance
+05:50 +437: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.capture() creates instance
+05:50 +438: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.devNull() creates instance
+05:50 +439: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails() constructor creates instance
+05:50 +440: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails.pid returns process ID
+05:50 +441: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails.name returns process name
+05:50 +442: test/cli_api_bridges_test.dart: DCli Classes - PubCache PubCache() constructor creates instance
+05:50 +443: test/cli_api_bridges_test.dart: DCli Classes - PubCache PubCache().pathTo returns path
+05:50 +444: test/cli_api_bridges_test.dart: DCli Classes - Settings Settings() constructor creates instance
+05:50 +445: test/cli_api_bridges_test.dart: DCli Classes - Settings Settings().isVerbose returns boolean
+05:50 +446: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState constructor creates instance
+05:50 +447: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState.cwd returns initial directory
+05:50 +448: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState.dataDirectory returns data directory
+05:50 +449: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() creates success result
+05:50 +450: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() stores result value
+05:50 +451: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() has null error
+05:50 +452: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.failure() creates failure result
+05:50 +453: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.failure() stores error message
+05:50 +454: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliException constructor creates instance
+05:50 +455: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliException.message returns message
+05:50 +456: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliFileNotFoundException constructor creates instance
+05:50 +457: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliFileNotFoundException.path returns path
+05:50 +458: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions DirectoryNotFoundException constructor creates instance
+05:50 +459: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions DirectoryNotFoundException.path returns path
+05:50 +460: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions ExecutionException constructor creates instance
+05:50 +461: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext constructor creates instance
+05:50 +462: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.workingDirectory returns directory
+05:50 +463: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.sourceFile returns source file
+05:50 +464: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.recordToSession returns flag
+05:50 +465: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.silent returns flag
+05:50 +466: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.isMultilineMode returns false initially
+05:50 +467: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack constructor creates instance
+05:50 +468: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack.cwd returns initial directory
+05:50 +469: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack.depth returns 0 initially
+05:50 +470: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack push increases depth
+05:50 +471: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack push changes cwd
+05:50 +472: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack pop decreases depth
+05:50 +473: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack pop restores cwd
+05:50 +474: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.none is available
+05:50 +475: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.script is available
+05:50 +476: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.file is available
+05:50 +477: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.executeNew is available
+05:50 +478: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.define is available
+05:50 +479: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode enum has multiple values
+05:50 +480: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.package is available
+05:50 +481: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.class_ is available
+05:50 +482: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.method is available
+05:50 +483: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.variable is available
+05:50 +484: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.enum_ is available
+05:50 +485: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchMethod.get is available
+05:50 +486: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchMethod.post is available
+05:50 +487: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchStatus.complete is available
+05:50 +488: test/cli_api_bridges_test.dart: Enums - DCli Enums SortDirection.ascending is available
+05:50 +489: test/cli_api_bridges_test.dart: Enums - DCli Enums SortDirection.descending is available
+05:50 +490: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.file is available
+05:50 +491: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.directory is available
+05:50 +492: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.link is available
+05:50 +493: test/cli_api_bridges_test.dart: Integration - Complex File Operations create, modify, and verify file
+05:50 +494: test/cli_api_bridges_test.dart: Integration - Complex File Operations copy file tree and verify structure
+05:50 +495: test/cli_api_bridges_test.dart: Integration - Complex File Operations find files and count results
+05:50 +496: test/cli_api_bridges_test.dart: Integration - Complex File Operations backup, modify, and restore file
+05:50 +497: test/cli_api_bridges_test.dart: Integration - Complex File Operations create temp directory, add files, clean up
+05:50 +498: test/cli_api_bridges_test.dart: Integration - Complex File Operations use DartSdk and verify properties
+05:50 +499: test/cli_api_bridges_test.dart: Integration - Complex File Operations use which to find multiple commands
+05:50 +500: test/cli_api_bridges_test.dart: Integration - Complex File Operations create and use NamedLock with callback (deprecated in dcli 8.4.2, throws UnsupportedError)
+05:50 +501: test/cli_api_bridges_test.dart: Integration - Complex File Operations create and use NamedLock with withLockAsync
+05:51 +502: test/cli_api_bridges_test.dart: Integration - Complex File Operations chain file operations
+05:51 +503: test/cli_api_bridges_test.dart: Integration - Complex File Operations create directory hierarchy and verify
+05:51 +504: test/cli_api_bridges_test.dart: Integration - Complex File Operations createSymLink + resolveSymLink + deleteSymlink chain
+05:51 +505: test/cli_api_bridges_test.dart: Integration - Error Handling exists returns false for nonexistent path
+05:51 +506: test/cli_api_bridges_test.dart: Integration - Error Handling isFile returns false for nonexistent path
+05:51 +507: test/cli_api_bridges_test.dart: Integration - Error Handling isDirectory returns false for nonexistent path
+05:51 +508: test/cli_api_bridges_test.dart: Integration - Error Handling which returns not found for nonexistent command
+05:51 +509: test/cli_api_bridges_test.dart: Integration - Error Handling createTempDir creates unique directories
+05:51 +510: test/cli_api_bridges_test.dart: Integration - Error Handling createTempFile creates unique files
+05:51 +511: test/cli_api_bridges_test.dart: Integration - State Persistence file modifications persist
+05:51 +512: test/cli_api_bridges_test.dart: Integration - State Persistence directory modifications persist
+05:51 +513: test/cli_api_bridges_test.dart: Integration - State Persistence file content modifications persist
+05:51 +514: loading test/permissions_test.dart
+05:51 +514: test/permissions_test.dart: isReadable returns true for readable file
+05:51 +515: test/permissions_test.dart: isReadable returns true for readable directory
+05:51 +516: test/permissions_test.dart: isReadable throws for non-existent file
+05:51 +517: test/permissions_test.dart: isReadable handles symlink
+05:51 +518: test/permissions_test.dart: isWritable returns true for writable file [fails on Macos]
+05:51 +519: test/permissions_test.dart: isWritable returns true for writable directory [fails on Macos]
+05:51 +520: test/permissions_test.dart: isWritable throws for non-existent file
+05:51 +521: test/permissions_test.dart: isWritable can write to writable file [fails on Macos]
+05:51 +522: test/permissions_test.dart: isExecutable returns true for executable file
+05:51 +523: test/permissions_test.dart: isExecutable returns false for non-executable file
+05:51 +524: test/permissions_test.dart: isExecutable throws for non-existent file
+05:51 +525: test/permissions_test.dart: isExecutable directories are typically executable (traversable)
+05:51 +526: test/permissions_test.dart: chmod via shell makes file executable
+05:51 +527: test/permissions_test.dart: chmod via shell removes execute permission
+05:51 +528: test/permissions_test.dart: chmod via shell makes file read-only
+05:51 +529: test/permissions_test.dart: chmod via shell makes file writable [fails on Macos]
+05:51 +530: test/permissions_test.dart: chmod via shell handles directory permissions [fails on Macos]
+05:51 +531: test/permissions_test.dart: chmod via shell applies recursive permissions
+05:51 +532: test/permissions_test.dart: stat gets file stats
+05:51 +533: test/permissions_test.dart: stat gets directory stats
+05:51 +534: test/permissions_test.dart: stat gets modification time
+05:51 +535: test/permissions_test.dart: stat gets access time
+05:51 +536: test/permissions_test.dart: file ownership can check current user
+05:51 +537: test/permissions_test.dart: file ownership files created have current user ownership
+05:51 +538: test/permissions_test.dart: permission modes mode 644 - rw-r--r-- [fails on Macos]
+05:51 +539: test/permissions_test.dart: permission modes mode 755 - rwxr-xr-x [fails on Macos]
+05:52 +540: test/permissions_test.dart: permission modes mode 600 - rw------- [fails on Macos]
+05:52 +541: test/permissions_test.dart: permission modes mode 700 - rwx------ [fails on Macos]
+05:52 +542: test/permissions_test.dart: special permissions hidden files are accessible [fails on Macos]
+05:52 +543: test/permissions_test.dart: special permissions symlink permissions follow target [fails on Macos]
+05:52 +544: test/permissions_test.dart: real-world scenarios create executable script
+05:52 +545: test/permissions_test.dart: real-world scenarios create config file with restricted permissions [fails on Macos]
+05:52 +546: test/permissions_test.dart: real-world scenarios verify directory traversable
+05:52 +547: test/permissions_test.dart: real-world scenarios check before writing [fails on Macos]
+05:52 +548: loading test/user_input_test.dart
+05:52 +548: test/user_input_test.dart: Ask.required validator accepts non-empty string
+05:52 +549: test/user_input_test.dart: Ask.required validator rejects empty string
+05:52 +550: test/user_input_test.dart: Ask.required validator rejects whitespace only
+05:52 +551: test/user_input_test.dart: Ask.required validator trims whitespace from valid input
+05:52 +552: test/user_input_test.dart: Ask.lengthMin validator accepts string at minimum length
+05:52 +553: test/user_input_test.dart: Ask.lengthMin validator accepts string above minimum
+05:52 +554: test/user_input_test.dart: Ask.lengthMin validator rejects string below minimum
+05:52 +555: test/user_input_test.dart: Ask.lengthMin validator handles empty string
+05:52 +556: test/user_input_test.dart: Ask.lengthMax validator accepts string at maximum length
+05:52 +557: test/user_input_test.dart: Ask.lengthMax validator accepts string below maximum
+05:52 +558: test/user_input_test.dart: Ask.lengthMax validator rejects string above maximum
+05:52 +559: test/user_input_test.dart: Ask.lengthMax validator accepts empty string
+05:52 +560: test/user_input_test.dart: Ask.lengthRange validator accepts string within range
+05:52 +561: test/user_input_test.dart: Ask.lengthRange validator accepts string at minimum
+05:52 +562: test/user_input_test.dart: Ask.lengthRange validator accepts string at maximum
+05:52 +563: test/user_input_test.dart: Ask.lengthRange validator rejects string below minimum
+05:52 +564: test/user_input_test.dart: Ask.lengthRange validator rejects string above maximum
+05:52 +565: test/user_input_test.dart: Ask.integer validator accepts valid integer
+05:52 +566: test/user_input_test.dart: Ask.integer validator accepts negative integer
+05:52 +567: test/user_input_test.dart: Ask.integer validator accepts zero
+05:52 +568: test/user_input_test.dart: Ask.integer validator rejects non-integer
+05:52 +569: test/user_input_test.dart: Ask.integer validator rejects float
+05:52 +570: test/user_input_test.dart: Ask.integer validator rejects empty string
+05:52 +571: test/user_input_test.dart: Ask.decimal validator accepts valid decimal
+05:52 +572: test/user_input_test.dart: Ask.decimal validator accepts integer as decimal
+05:52 +573: test/user_input_test.dart: Ask.decimal validator accepts negative decimal
+05:52 +574: test/user_input_test.dart: Ask.decimal validator rejects non-number
+05:52 +575: test/user_input_test.dart: Ask.ipAddress validator accepts valid IPv4
+05:52 +576: test/user_input_test.dart: Ask.ipAddress validator accepts localhost
+05:52 +577: test/user_input_test.dart: Ask.ipAddress validator rejects invalid IP
+05:52 +578: test/user_input_test.dart: Ask.ipAddress validator rejects non-IP string
+05:52 +579: test/user_input_test.dart: Ask.valueRange validator accepts value within range
+05:52 +580: test/user_input_test.dart: Ask.valueRange validator accepts value at minimum
+05:52 +581: test/user_input_test.dart: Ask.valueRange validator accepts value at maximum
+05:52 +582: test/user_input_test.dart: Ask.valueRange validator rejects value below minimum
+05:52 +583: test/user_input_test.dart: Ask.valueRange validator rejects value above maximum
+05:52 +584: test/user_input_test.dart: Ask.email validator accepts valid email
+05:52 +585: test/user_input_test.dart: Ask.email validator accepts email with subdomain
+05:52 +586: test/user_input_test.dart: Ask.email validator accepts email with plus
+05:52 +587: test/user_input_test.dart: Ask.email validator rejects invalid email
+05:52 +588: test/user_input_test.dart: Ask.email validator rejects email without domain
+05:52 +589: test/user_input_test.dart: Ask.fqdn validator accepts valid domain
+05:52 +590: test/user_input_test.dart: Ask.fqdn validator accepts subdomain
+05:52 +591: test/user_input_test.dart: Ask.fqdn validator rejects invalid domain
+05:52 +592: test/user_input_test.dart: Ask.alphaNumeric validator accepts alphanumeric string
+05:52 +593: test/user_input_test.dart: Ask.alphaNumeric validator accepts letters only
+05:52 +594: test/user_input_test.dart: Ask.alphaNumeric validator accepts numbers only
+05:52 +595: test/user_input_test.dart: Ask.alphaNumeric validator rejects special characters
+05:52 +596: test/user_input_test.dart: Ask.alphaNumeric validator rejects spaces
+05:52 +597: test/user_input_test.dart: Ask.alpha validator accepts letters only
+05:52 +598: test/user_input_test.dart: Ask.alpha validator rejects numbers
+05:52 +599: test/user_input_test.dart: regExp validator accepts matching pattern
+05:52 +600: test/user_input_test.dart: regExp validator rejects non-matching pattern
+05:52 +601: test/user_input_test.dart: regExp validator regex validator with custom error
+05:52 +602: test/user_input_test.dart: AskValidator chaining can combine validators with all
+05:52 +603: test/user_input_test.dart: AskValidator chaining can combine validators with any
+05:52 +604: test/user_input_test.dart: Menu class configuration creates menu with options
+05:52 +605: test/user_input_test.dart: Menu class configuration menu options are strings
+05:52 +606: test/user_input_test.dart: Confirm class default value can be true
+05:52 +607: test/user_input_test.dart: Confirm class default value can be false
+05:52 +608: test/user_input_test.dart: Ask class options can specify default value
+05:52 +609: test/user_input_test.dart: Ask class options can specify hidden input
+05:52 +610: test/user_input_test.dart: Ask class options can specify prompt
+05:52 +611: loading test/vscode_scripting_api_bridges_test.dart
+05:53 +611: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient.isAvailable returns bool
+VS Code bridge available: false
+05:53 +612: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient can connect when available
+Skipping: VS Code bridge not available
+05:53 +613: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+Skipping: VS Code bridge not available
+05:53 +614: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getVersion returns version string
+Skipping: VS Code bridge not available
+05:53 +615: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getEnv returns environment info
+Skipping: VS Code bridge not available
+05:53 +616: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getWorkspaceFolders returns list
+Skipping: VS Code bridge not available
+05:53 +617: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getConfiguration returns configuration
+Skipping: VS Code bridge not available
+05:53 +618: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow showInformationMessage displays message
+Skipping: VS Code bridge not available
+05:53 +619: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow getActiveTextEditor returns editor info
+Skipping: VS Code bridge not available
+05:53 +620: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands getCommands returns list of commands
+Skipping: VS Code bridge not available
+05:53 +621: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands executeCommand can run basic command
+Skipping: VS Code bridge not available
+05:53 +622: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+Skipping: VS Code bridge not available
+05:53 +623: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getExtension returns specific extension
+Skipping: VS Code bridge not available
+05:53 +624: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCode class from script
+Skipping: VS Code bridge not available
+05:53 +625: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCodeBridgeClient from script
+Skipping: VS Code bridge not available
+05:53 +626: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create VSCodeUri from script
+Skipping: VS Code bridge not available
+05:53 +627: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create WorkspaceFolder from script
+Skipping: VS Code bridge not available
+05:53 +628: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Position and Range from script
+Skipping: VS Code bridge not available
+05:53 +629: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Selection from script
+Skipping: VS Code bridge not available
+05:53 +630: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create QuickPickItem from script
+Skipping: VS Code bridge not available
+05:53 +631: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create InputBoxOptions from script
+Skipping: VS Code bridge not available
+05:53 +632: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create MessageOptions from script
+Skipping: VS Code bridge not available
+05:53 +633: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get VS Code version through bridge
+Skipping: VS Code bridge not available
+05:53 +634: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get workspace folders through bridge
+Skipping: VS Code bridge not available
+05:53 +635: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get active editor through bridge
+Skipping: VS Code bridge not available
+05:53 +636: loading test/process_execution_test.dart
+05:53 +636: test/process_execution_test.dart: run (string extension) executes simple echo command
+hello
+05:53 +637: test/process_execution_test.dart: run (string extension) runs command in specific directory
+05:53 +638: test/process_execution_test.dart: toList captures output as list of lines
+05:53 +639: test/process_execution_test.dart: toList returns each line separately
+05:53 +640: test/process_execution_test.dart: toList returns empty list for no output
+05:53 +641: test/process_execution_test.dart: toList handles multiline output
+05:53 +642: test/process_execution_test.dart: firstLine returns first line of output
+05:53 +643: test/process_execution_test.dart: firstLine returns null for no output
+05:53 +644: test/process_execution_test.dart: firstLine handles single line output
+05:53 +645: test/process_execution_test.dart: lastLine returns last line of output
+05:53 +646: test/process_execution_test.dart: lastLine returns null for no output
+05:53 +647: test/process_execution_test.dart: lastLine handles single line
+05:53 +648: test/process_execution_test.dart: toParagraph joins lines with newlines
+05:53 +649: test/process_execution_test.dart: toParagraph returns empty string for no output
+05:53 +650: test/process_execution_test.dart: forEach iterates over each line
+05:54 +651: test/process_execution_test.dart: forEach handles empty output
+05:54 +652: test/process_execution_test.dart: forEach processes lines in order
+05:54 +653: test/process_execution_test.dart: start executes command with progress tracking
+05:54 +654: test/process_execution_test.dart: start captures stderr via callback
+05:54 +655: test/process_execution_test.dart: start returns exit code via progress
+05:54 +656: test/process_execution_test.dart: start throws on non-zero exit code by default
+05:54 +657: test/process_execution_test.dart: start does not throw with nothrow option
+05:54 +658: test/process_execution_test.dart: start respects workingDirectory
+05:54 +659: test/process_execution_test.dart: startFromArgs handles arguments with spaces
+05:54 +660: test/process_execution_test.dart: startFromArgs handles empty arguments
+05:54 +661: test/process_execution_test.dart: startFromArgs handles multiple arguments
+05:54 +662: test/process_execution_test.dart: command piping (Dart-native) filter output in Dart instead of piping
+05:54 +663: test/process_execution_test.dart: command piping (Dart-native) use grep directly without pipe
+05:54 +664: test/process_execution_test.dart: environment variables use env directly instead of shell expansion
+05:54 +665: test/process_execution_test.dart: environment variables interpolate env in Dart string
+05:54 +666: test/process_execution_test.dart: error handling captures non-existent command error
+{"cmdLine":"nonexistent_command_xyz ","exitCode":2,"reason":"Could not find nonexistent_command_xyz on the path.","stackTrace":"package:dcli/src/process/process/in_isolate/process_runner.dart 124:28  ProcessRunner.start\npackage:dcli/src/process/process/process_in_isolate.dart 155:3          _run\npackage:dcli/src/process/process/process_in_isolate.dart 73:17          _body\n"}
+05:54 +667: test/process_execution_test.dart: error handling captures command failure
+ls: cannot access '/nonexistent/directory/xyz': No such file or directory
+05:54 +668: test/process_execution_test.dart: Progress class devNull discards output
+05:54 +669: test/process_execution_test.dart: Progress class capture stores lines in .lines
+05:54 +670: test/process_execution_test.dart: Progress class print outputs to console
+printed
+05:54 +671: test/process_execution_test.dart: Progress class custom callback receives lines
+05:54 +672: test/process_execution_test.dart: verbose mode runs with verbose output
+05:54 +673: test/process_execution_test.dart: real-world scenarios find and process files
+05:54 +674: test/process_execution_test.dart: real-world scenarios get git status
+05:54 +675: test/process_execution_test.dart: real-world scenarios process wc output
+05:54 +676: test/process_execution_test.dart: real-world scenarios extract specific field in Dart
+05:54 +677: loading test/cli_api_test.dart
+05:55 +677: test/cli_api_test.dart: CliState initial state
+05:55 +678: test/cli_api_test.dart: CliState cd changes directory
+05:55 +679: test/cli_api_test.dart: CliState cd with absolute path
+05:55 +680: test/cli_api_test.dart: CliState home returns to data directory
+05:55 +681: test/cli_api_test.dart: CliState defines management
+05:55 +682: test/cli_api_test.dart: CliState path resolution - relative paths
+05:55 +683: test/cli_api_test.dart: CliState path resolution - absolute paths
+05:55 +684: test/cli_api_test.dart: CliState path resolution - tilde expansion
+05:55 +685: test/cli_api_test.dart: ExecutionContext multiline mode management
+05:55 +686: test/cli_api_test.dart: ContextStack initial state
+05:55 +687: test/cli_api_test.dart: ContextStack push and pop contexts
+05:55 +688: test/cli_api_test.dart: ContextStack cannot pop root context
+05:55 +689: test/cli_api_test.dart: D4rtCliController basic properties
+05:55 +690: test/cli_api_test.dart: D4rtCliController directory navigation
+05:55 +691: test/cli_api_test.dart: D4rtCliController ls lists directory contents
+05:55 +692: test/cli_api_test.dart: D4rtCliController defines work correctly
+05:55 +693: test/cli_api_test.dart: D4rtCliController eval executes expressions
+05:55 +694: test/cli_api_test.dart: D4rtCliController multiline mode
+05:55 +695: test/cli_api_test.dart: D4rtCliController help returns help text
+05:55 +696: test/cli_api_test.dart: D4rtCliController info without name returns tool info
+05:55 +697: test/cli_api_test.dart: D4rtCliController processPrompt handles comments
+05:55 +698: test/cli_api_test.dart: D4rtCliController processPrompt handles empty lines
+05:55 +699: test/cli_api_test.dart: D4rtCliController execute runs code in fresh environment
+42
+05:55 +700: test/cli_api_test.dart: ExecuteResult success result
+05:55 +701: test/cli_api_test.dart: ExecuteResult failure result
+05:55 +702: test/cli_api_test.dart: CliExceptions CliException
+05:55 +703: test/cli_api_test.dart: CliExceptions CliFileNotFoundException
+05:55 +704: test/cli_api_test.dart: CliExceptions DirectoryNotFoundException
+05:55 +705: test/cli_api_test.dart: CliExceptions ReplayException
+05:55 +706: All tests passed!

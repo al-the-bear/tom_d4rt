@@ -315,11 +315,35 @@ than re-implementing it.
 - `dart test` in `tom_d4rt_ast` and `tom_d4rt`.
 - 4-suite battery in `tom_d4rt_flutterm` — still a no-op.
 
-**Status.** _pending_
+**Status.** _done_ — landed on 2026-04-29.
 
----
+`D4rtRunner.executeBundleAs<T>` and `executeBundleAsAsync<T>` added
+in `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart`; both forward to
+`executeBundle` and apply `D4.unwrapAs<T>(result, visitor: _visitor)`
+on the resolved result (the async variant awaits any returned
+`Future` first). Mirrored on the analyzer `D4rt` class in
+`tom_d4rt_exec/lib/src/d4rt_base.dart`, forwarding to the inner
+`_runner`. Existing barrel re-exports already cover the new methods.
 
-### Step 3 — Cut `FlutterD4rt` over to `executeBundleAs<T>` (the behavioural step)
+Tests:
+
+- `tom_d4rt_ast/test/runtime/execute_bundle_as_test.dart` — 5 tests
+  driving the runner with hand-built `SAstNode` bundles (since the
+  analyzer-free package has no source parser): `int` passthrough,
+  nullable-`null`, `D4UnwrapException` for type mismatch, sync
+  passthrough on the async variant, and async type-mismatch via
+  `expectLater`.
+- `tom_d4rt_exec/test/d4rt_execute_bundle_as_test.dart` — 11 tests
+  using `D4rt().createBundleFromSource(...)` with synthetic bridged
+  `_NativeBox` / `_NativeColoredBox` classes (supertype hierarchy
+  registered via `BridgedClass.registerSupertypes`) covering: int
+  passthrough, `BridgedInstance` unwrap, subtype unwrap, the
+  `bridgedSuperObject` branch via `class TaggedBox extends _NativeBox`,
+  null handling for nullable / non-nullable `T`, `D4UnwrapException`
+  for type mismatch, plus async variants for `Future<int>`, sync
+  passthrough, `Future<BridgedInstance>`, and async type mismatch.
+
+No flutterm caller yet (deferred to step 3).
 
 **Goal.** Delete `FlutterD4rt._unwrap` and route every `build / buildAsync /
 execute / executeAsync<T>` through `_interpreter.executeBundleAs<T>`. This is
@@ -503,7 +527,7 @@ Update this section as each step completes, reverts, or defers.
 | Step | Owner | Status | Commit(s) | Testlog | Summary |
 |------|-------|--------|-----------|---------|---------|
 | 1 | claude | done | 5a68848a, e01582b8, 611dbd4f | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
-| 2 | — | pending | — | — | — |
+| 2 | claude | done | (this session) | testlog_20260429-step2-executeBundleAs/ | `D4rtRunner.executeBundleAs<T>` / `executeBundleAsAsync<T>` added on tom_d4rt_ast; mirrored on tom_d4rt_exec `D4rt`. 16 new tests (5 ast + 11 exec) all green. Flutterm 3-suite matches baseline 108 / 164 / 653~1; tom_d4rt_exec +2234 −26 vs baseline +2223 −26 (+11 new); tom_d4rt_ast +101 −2 vs +84 −2 (+17 cumulative w/ step 1). |
 | 3 | — | pending | — | — | — |
 | 4 | — | pending | — | — | — |
 | 5 | — | pending | — | — | — |
