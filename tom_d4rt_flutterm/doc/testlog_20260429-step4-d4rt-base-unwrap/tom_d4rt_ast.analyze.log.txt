@@ -1,0 +1,45 @@
+Analyzing tom_d4rt_ast...
+
+warning - lib/src/runtime/interpreter_visitor.dart:1356:21 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+warning - lib/src/runtime/interpreter_visitor.dart:1358:21 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+warning - lib/src/runtime/interpreter_visitor.dart:4962:21 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+warning - lib/src/runtime/interpreter_visitor.dart:4964:21 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+warning - lib/src/runtime/stdlib/core/null.dart:10:45 - Dead code. Try removing the code, or fixing the code before it so that it can be reached. - dead_code
+warning - lib/src/runtime/stdlib/core/null.dart:14:61 - Dead code. Try removing the code, or fixing the code before it so that it can be reached. - dead_code
+   info - lib/src/runtime/bridge/bridged_enum.dart:2:8 - The import of 'package:tom_d4rt_ast/src/runtime/module_context.dart' is unnecessary because all of the used elements are also provided by the import of 'package:tom_d4rt_ast/runtime.dart'. Try removing the import directive. - unnecessary_import
+   info - lib/src/runtime/callable.dart:102:7 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/callable.dart:349:9 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/callable.dart:351:9 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/callable.dart:682:11 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/environment.dart:2:8 - The import of 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart' is unnecessary because all of the used elements are also provided by the import of 'package:tom_d4rt_ast/runtime.dart'. Try removing the import directive. - unnecessary_import
+   info - lib/src/runtime/interpreter_visitor.dart:3:8 - The import of 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart' is unnecessary because all of the used elements are also provided by the import of 'package:tom_d4rt_ast/runtime.dart'. Try removing the import directive. - unnecessary_import
+   info - lib/src/runtime/interpreter_visitor.dart:4:8 - The import of 'package:tom_d4rt_ast/src/runtime/generator/d4.dart' is unnecessary because all of the used elements are also provided by the import of 'package:tom_d4rt_ast/runtime.dart'. Try removing the import directive. - unnecessary_import
+   info - lib/src/runtime/interpreter_visitor.dart:5:8 - The import of 'package:tom_d4rt_ast/src/runtime/module_context.dart' is unnecessary because all of the used elements are also provided by the import of 'package:tom_d4rt_ast/runtime.dart'. Try removing the import directive. - unnecessary_import
+   info - lib/src/runtime/interpreter_visitor.dart:362:11 - The member 'visitStringLiteral' overrides an inherited member but isn't annotated with '@override'. Try adding the '@override' annotation. - annotate_overrides
+   info - lib/src/runtime/interpreter_visitor.dart:1017:21 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1017:25 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1299:23 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1299:27 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1365:25 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1365:29 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:1529:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/interpreter_visitor.dart:6335:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/interpreter_visitor.dart:6353:11 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib/src/runtime/interpreter_visitor.dart:9267:11 - The member 'visitIdentifier' overrides an inherited member but isn't annotated with '@override'. Try adding the '@override' annotation. - annotate_overrides
+   info - lib/src/runtime/interpreter_visitor.dart:12354:21 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/interpreter_visitor.dart:12354:25 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:19:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:23:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:27:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:31:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:35:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:39:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:44:37 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:50:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:54:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:58:48 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:63:37 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:70:37 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+   info - lib/src/runtime/stdlib/math/math.dart:77:37 - Unnecessary use of multiple underscores. Try using '_'. - unnecessary_underscores
+
+41 issues found.

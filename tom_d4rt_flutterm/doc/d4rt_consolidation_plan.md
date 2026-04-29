@@ -436,7 +436,48 @@ call into the shared helper from step 1.
   is mostly hit by REPL / `eval()` paths the test app does not exercise,
   but rerun anyway for safety).
 
-**Status.** _pending_
+**Status.** _done_ — landed on 2026-04-29.
+
+The plan's stated drop-in replacement worked cleanly in `tom_d4rt_ast`
+but had to be narrowed in `tom_d4rt`:
+
+- **`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`** — the
+  whole `_bridgeInterpreterValueToNative` body collapsed to one
+  `D4.unwrapAs<Object?>(interpreterValue, visitor: this)` call. The
+  original three branches (BridgedInstance → nativeObject,
+  BridgedEnumValue → nativeValue, pass-through) are exactly what
+  `D4.unwrapAs` does for `T == Object?`.
+- **`tom_d4rt/lib/src/d4rt_base.dart`** — only the BridgedInstance /
+  BridgedEnumValue branches inside `_bridgeInterpreterValueToNative`
+  delegated to `D4.unwrapAs<Object?>`. The recursive list / map /
+  record handling below is intentionally **not** delegated —
+  `D4.unwrapAs` is a single-level helper and replacing the recursive
+  paths would lose the interpreter's nested-`BridgedInstance` unwrap
+  inside collections and records. New import:
+  `package:tom_d4rt/src/generator/d4.dart`. `_visitor` (nullable) is
+  passed through as the `visitor:` argument.
+
+The plan's pointer to "lines 1820-21 / 1016 / 1376" in `d4rt_base.dart`
+was stale — the actual BridgedInstance unwrap lives at lines 1944-50
+of the post-step-3 tree, and the script-result unwrap call site is at
+line 1408. Lines 1016 and 1376 are pass-1 setup and arity validation
+respectively, with no unwrap pattern; the only InterpretedInstance
+"handling" near them is `if (functionResult is InterpretedInstance)
+_interpretedInstance = functionResult;` (a reference snapshot for
+`getCallable`, not an unwrap).
+
+Regression vs `testlog_20260429-step3-flutterD4rt-cutover`:
+
+- flutterm 3-suite: 108 / 164 / 653~1 — exact baseline match.
+- tom_d4rt_ast: +101 −2 — exact step-3 match.
+- tom_d4rt: +1733 −6 ~1 — exact step-3 match.
+- tom_d4rt_dcli: +706 / 0 — exact baseline match.
+- tom_d4rt_exec: +2234 −26 — exact step-3 match.
+- tom_dcli_exec: +72 −8 — exact baseline match.
+- tom_d4rt_generator: +639 −21 — exact baseline match.
+- tom_ast_generator: +504 −6 — exact step-3 match.
+
+Zero regressions across all 10 suites.
 
 ---
 
@@ -563,7 +604,7 @@ Update this section as each step completes, reverts, or defers.
 | 1 | claude | done | 5a68848a, e01582b8, 611dbd4f | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
 | 2 | claude | done | (this session) | testlog_20260429-step2-executeBundleAs/ | `D4rtRunner.executeBundleAs<T>` / `executeBundleAsAsync<T>` added on tom_d4rt_ast; mirrored on tom_d4rt_exec `D4rt`. 16 new tests (5 ast + 11 exec) all green. Flutterm 3-suite matches baseline 108 / 164 / 653~1; tom_d4rt_exec +2234 −26 vs baseline +2223 −26 (+11 new); tom_d4rt_ast +101 −2 vs +84 −2 (+17 cumulative w/ step 1). |
 | 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
-| 4 | — | pending | — | — | — |
+| 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>`. tom_d4rt_ast version reduced to a one-line delegation; tom_d4rt version narrowed to the BridgedInstance/BridgedEnumValue branches only (recursive list/map/record handling intentionally retained — out of scope for the single-level helper). All 10 suites match step-3 baselines exactly — zero regressions. |
 | 5 | — | pending | — | — | — |
 | 6 | — | pending | — | — | — |
 | 7 | — | pending | — | — | — |
