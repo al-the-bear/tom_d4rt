@@ -502,7 +502,7 @@ Update this section as each step completes, reverts, or defers.
 
 | Step | Owner | Status | Commit(s) | Testlog | Summary |
 |------|-------|--------|-----------|---------|---------|
-| 1 | claude | done | _pending push_ | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
+| 1 | claude | done | 5a68848a, e01582b8, 611dbd4f | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
 | 2 | — | pending | — | — | — |
 | 3 | — | pending | — | — | — |
 | 4 | — | pending | — | — | — |
