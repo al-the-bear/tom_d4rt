@@ -653,9 +653,13 @@ prioritised.
 **Update 2026-04-29 — empirical findings on the listed
 workarounds:**
 
-The two scripts `select_all_text_intent_test.dart` and
-`transpose_characters_intent_test.dart` were promoted out of
-this deferral on 2026-04-29. Working through them surfaced
+The three scripts `select_all_text_intent_test.dart`,
+`transpose_characters_intent_test.dart`, and
+`restoration_mixin_test.dart` were promoted out of
+this deferral on 2026-04-29 (the EditableText pocket is now
+fully closed; only the `widget_state_color` and
+`text_magnifier_configuration` C3 sliver-row sub-pockets remain
+in this cluster). Working through them surfaced
 two important refinements to the workaround patterns above:
 
 - **Workaround 1 (`SizedBox(height:)` pin) does NOT reliably
@@ -684,15 +688,24 @@ two important refinements to the workaround patterns above:
   by both the 2026-04-29 fixes mentioned above (FE → 0).
 
 - **Functional preservation when the demo "needed" a live
-  editable:** in practice, both scripts' Action chains
-  dispatched the relevant Intent through buttons, manual
-  `Actions.invoke`, or default Action chains that fire on
-  keyboard shortcut regardless of editable focus. The
-  per-keystroke "live preview" of caret manipulation is the
-  only behaviour lost; intent dispatch end-to-end is fully
-  exercised. The remaining open script in this pocket
-  (`restoration_mixin_test.dart`, 3 FE) can be closed via the
-  same recipe when prioritised.
+  editable:** in practice, all three scripts' demos kept their
+  educational value through alternate channels — Action chains
+  dispatched via buttons / `Actions.invoke` / default keyboard
+  handlers (select_all, transpose), or other `RestorableX`
+  properties exercised through interactive buttons
+  (restoration_mixin's `_score` / `_currentTurn` / `_diceValue`
+  / `_isRolling` / `_lastRollAt`). The per-keystroke "live
+  preview" of caret manipulation / text entry is the only
+  behaviour lost.
+
+- **Cross-script state-bleed asymmetry:** `restoration_mixin_test`
+  reported FE=0 in its home suite (`secondary_classes_test`)
+  but FE=3 in the `[fa1-2250-sentinel]` context — proof that
+  the cascade is sensitive to test-runner ordering and that the
+  preceding `restorable_double_test.dart` leaves residual
+  editable state which the next script inherits. The
+  SelectableText replacement closes both contexts because it
+  bypasses the editable render path entirely.
 
 **Trigger code (Dart/Flutter side):**
 

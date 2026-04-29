@@ -1,0 +1,64 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/fa1_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: [fa1-2250-sentinel] widgets/snapshot_mode_test.dart
+[METRIC] script=widgets/snapshot_mode_test.dart sourceBytes=79553 sourceChars=79490 bundleJsonBytes=1065875 clearMs=42 readMs=11 bundleMs=338 httpMs=1148 totalMs=1549 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/snapshot_mode_test.dart
+00:13 +1: [fa1-2250-sentinel] widgets/restorable_double_test.dart
+[METRIC] script=widgets/restorable_double_test.dart sourceBytes=58018 sourceChars=57927 bundleJsonBytes=615187 clearMs=48 readMs=6 bundleMs=76 httpMs=521 totalMs=652 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/restorable_double_test.dart
+00:13 +2: [fa1-2250-sentinel] widgets/restoration_mixin_test.dart
+[METRIC] script=widgets/restoration_mixin_test.dart sourceBytes=52754 sourceChars=52693 bundleJsonBytes=603255 clearMs=54 readMs=3 bundleMs=89 httpMs=828 totalMs=975 status=success httpStatus=200 outputLines=0 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in widgets/restoration_mixin_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#a0160 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+FA1 STATUS: true  FE: 3  SCRIPT: widgets/restoration_mixin_test.dart
+00:14 +3: [fa1-2250-sentinel] widgets/select_all_text_intent_test.dart
+[METRIC] script=widgets/select_all_text_intent_test.dart sourceBytes=64382 sourceChars=64276 bundleJsonBytes=722222 clearMs=177 readMs=1 bundleMs=87 httpMs=1065 totalMs=1332 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/select_all_text_intent_test.dart
+00:16 +4: [fa1-2250-sentinel] widgets/transpose_characters_intent_test.dart
+[METRIC] script=widgets/transpose_characters_intent_test.dart sourceBytes=68293 sourceChars=68177 bundleJsonBytes=746116 clearMs=40 readMs=1 bundleMs=72 httpMs=635 totalMs=749 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/transpose_characters_intent_test.dart
+00:17 +5: [fa1-2250-sentinel] widgets/widget_state_color_test.dart
+[METRIC] script=widgets/widget_state_color_test.dart sourceBytes=94585 sourceChars=94396 bundleJsonBytes=1121344 clearMs=33 readMs=1 bundleMs=83 httpMs=711 totalMs=829 status=success httpStatus=200 outputLines=0 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_color_test.dart (9 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#8dff4 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#39cc6 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderRepaintBoundary#d224f relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       'package:flutter/src/rendering/sliver_multi_box_adaptor.dart': Failed assertion: line 629 pos 12: 'child.hasSize': is not true.
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+FA1 STATUS: true  FE: 9  SCRIPT: widgets/widget_state_color_test.dart
+00:17 +6: [fa1-2250-sentinel] widgets/text_magnifier_configuration_test.dart
+[METRIC] script=widgets/text_magnifier_configuration_test.dart sourceBytes=72317 sourceChars=72260 bundleJsonBytes=902610 clearMs=37 readMs=1 bundleMs=89 httpMs=643 totalMs=772 status=success httpStatus=200 outputLines=0 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in widgets/text_magnifier_configuration_test.dart (6 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderPadding's layout() function by the following function, which probably computed the invalid constraints in que…
+       RenderBox was not laid out: RenderFlex#3240b relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#ded67 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+FA1 STATUS: true  FE: 6  SCRIPT: widgets/text_magnifier_configuration_test.dart
+00:18 +7: (tearDownAll)
+00:19 +7: All tests passed!

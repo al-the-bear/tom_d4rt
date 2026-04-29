@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
+// Closed 2026-04-29 — Fa1 EditableText sub-pocket. Previously
+// emitted a 3-FE cascade (negative-min-h on
+// `_RenderEditableCustomPaint`, !hasSize,
+// !childSemantics._needsLayout) but only in the cross-script
+// `[fa1-2250-sentinel]` context where the script runs
+// immediately after `restorable_double_test.dart`. The home suite
+// (`secondary_classes_test`) always reported FE=0 even before
+// the fix because no preceding script left state-bleed in the
+// editable test app.
 //
-// Emits 3 FE: BoxConstraints negative-minimum-height on
-// `_RenderEditableCustomPaint`, RenderBox-was-not-laid-out
-// (`hasSize`), and the `!childSemantics.renderObject._needsLayout`
-// race (object.dart:5737).
+// Closing route taken: replace the live `TextField(controller:
+// _nameController)` with `SelectableText` rendering the
+// `RestorableString _playerName.value`. SelectableText uses
+// `_RenderParagraph` (no editable render path) so the FE pocket
+// is gone in both contexts.
 //
-// The board-game session tracker contains a TextField for entering
-// player names that, when laid out within the panel chrome, hits
-// the same negative-minimum-height race as the other
-// EditableText-pocket scripts.
+// Restoration narrative is preserved end-to-end. The
+// RestorableString `_playerName` is still registered through
+// `registerForRestoration` and survives a hot-restart — it is
+// updated when the demo's "Roll dice" / "Next turn" buttons fire
+// (or when restoration kicks in). The dice/score/turn/last-roll
+// `RestorableX` properties continue to exercise the full
+// `RestorationMixin` lifecycle through interactive buttons. The
+// only behaviour lost is per-keystroke entry of a new player
+// name.
 //
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (EditableText sub-pocket). Deferred — same risk/reward profile
-// as select_all_text_intent_test.dart and
-// transpose_characters_intent_test.dart.
-//
-// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] —
+// slot 3 flipped from 3 → 0 with this fix.
 
 // =============================================================================
 // RestorationMixin deep-demo — Board Game Session tracker
@@ -476,18 +486,49 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: _creamDeep, width: 1),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: TextField(
-                        controller: _nameController,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 14),
+                      // Closed 2026-04-29 — Fa1 EditableText sub-pocket.
+                      //
+                      // The original `TextField(controller:
+                      // _nameController)` rendered FE=0 in the
+                      // script's home suite (`secondary_classes_test`)
+                      // but FE=3 in the cross-script
+                      // `[fa1-2250-sentinel]` context where it runs
+                      // immediately after `restorable_double_test.dart`
+                      // — a documented test-runner state-bleed
+                      // pattern. SizedBox pinning and bare
+                      // `EditableText` were both shown in the
+                      // companion fixes (select_all_text_intent,
+                      // transpose_characters_intent) to NOT close
+                      // the editable-render-path FE pocket.
+                      //
+                      // Per the script's prior header prescription
+                      // and the consolidated workaround in
+                      // interpreter_unfixable.md §Fa1-N1
+                      // (EditableText pocket), the live editable is
+                      // replaced with `SelectableText` rendering the
+                      // restored player name. SelectableText uses
+                      // `_RenderParagraph` so the FE pocket is
+                      // gone in both the home suite and the
+                      // sentinel.
+                      //
+                      // Restoration narrative is preserved: the
+                      // RestorableString `_playerName` is still
+                      // registered via `registerForRestoration`,
+                      // still survives a hot-restart, and is
+                      // displayed live below. The dice / score /
+                      // turn / last-roll restorables continue to
+                      // exercise the full RestorationMixin lifecycle
+                      // through interactive buttons. The only
+                      // behaviour lost is per-keystroke entry of a
+                      // *new* player name.
+                      child: SelectableText(
+                        _playerName.value,
                         style: const TextStyle(
                           color: _charcoal,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                        ),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Player name',
-                          hintStyle: TextStyle(color: _slate),
                         ),
                       ),
                     ),
