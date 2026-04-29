@@ -28,19 +28,19 @@ bool _relaxersRegistered = false;
 /// // Build without BuildContext (for non-widget objects)
 /// final color = d4rt.build<Color>(bundle);
 /// ```
+///
+/// All four entry points (`build`, `buildAsync`, `execute`, `executeAsync`)
+/// route through `D4rt.executeBundleAs<T>` / `executeBundleAsAsync<T>`,
+/// which apply the shared `D4.unwrapAs<T>` helper. The local
+/// [FlutterD4rtException] type is preserved as the public exception
+/// contract — any [D4UnwrapException] surfacing from the runner is
+/// re-thrown wrapped in [FlutterD4rtException].
 class FlutterD4rt {
   final D4rt _interpreter;
 
   /// Creates a new [FlutterD4rt] instance with Flutter bridges registered.
   FlutterD4rt() : _interpreter = D4rt() {
-    _ensureRelaxersRegistered();
-    FlutterMaterialBridges.register(_interpreter);
-    // Bug-103: Run AFTER material bridges — the generator's
-    // registerProxyFactories() emits <dynamic>-parameterised proxies for
-    // a handful of delegate classes; we re-register with concrete type
-    // arguments so bridge boundaries typed on `CustomClipper<Path>` etc.
-    // resolve correctly.
-    registerD4rtInterfaceProxyOverrides();
+    _registerBridges();
   }
 
   /// Creates a [FlutterD4rt] wrapping an existing [D4rt] interpreter.
@@ -50,6 +50,10 @@ class FlutterD4rt {
   ///
   /// Bridges are registered immediately on construction.
   FlutterD4rt.withInterpreter(this._interpreter) {
+    _registerBridges();
+  }
+
+  void _registerBridges() {
     _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
     // Bug-103: Run AFTER material bridges — the generator's
@@ -84,30 +88,12 @@ class FlutterD4rt {
   ///
   /// The result is automatically unwrapped from D4rt's [BridgedInstance]
   /// wrapper to return the native Dart/Flutter object.
-  ///
-  /// ## Example
-  /// ```dart
-  /// // D4rt script:
-  /// // Widget build(BuildContext context) {
-  /// //   return Center(child: Text('Hello from D4rt!'));
-  /// // }
-  ///
-  /// final widget = d4rt.build<Widget>(bundle, context);
-  /// ```
-  T build<T>(AstBundle bundle, [BuildContext? buildContext]) {
-    final positionalArgs = <Object?>[];
-    if (buildContext != null) {
-      positionalArgs.add(buildContext);
-    }
-
-    final result = _interpreter.executeBundle(
-      bundle,
-      name: 'build',
-      positionalArgs: positionalArgs,
-    );
-
-    return _unwrap<T>(result);
-  }
+  T build<T>(AstBundle bundle, [BuildContext? buildContext]) =>
+      _wrapUnwrap(() => _interpreter.executeBundleAs<T>(
+            bundle,
+            name: 'build',
+            positionalArgs: _argsForContext(buildContext),
+          ));
 
   /// Execute a D4rt bundle asynchronously and extract the result as type [T].
   ///
@@ -115,21 +101,12 @@ class FlutterD4rt {
   Future<T> buildAsync<T>(
     AstBundle bundle, [
     BuildContext? buildContext,
-  ]) async {
-    final positionalArgs = <Object?>[];
-    if (buildContext != null) {
-      positionalArgs.add(buildContext);
-    }
-
-    final result = _interpreter.executeBundle(
-      bundle,
-      name: 'build',
-      positionalArgs: positionalArgs,
-    );
-
-    final resolved = result is Future ? await result : result;
-    return _unwrap<T>(resolved);
-  }
+  ]) =>
+      _wrapUnwrapAsync(() => _interpreter.executeBundleAsAsync<T>(
+            bundle,
+            name: 'build',
+            positionalArgs: _argsForContext(buildContext),
+          ));
 
   /// Execute a named function from the bundle and extract the result.
   ///
@@ -140,16 +117,13 @@ class FlutterD4rt {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
-  }) {
-    final result = _interpreter.executeBundle(
-      bundle,
-      name: name,
-      positionalArgs: positionalArgs,
-      namedArgs: namedArgs,
-    );
-
-    return _unwrap<T>(result);
-  }
+  }) =>
+      _wrapUnwrap(() => _interpreter.executeBundleAs<T>(
+            bundle,
+            name: name,
+            positionalArgs: positionalArgs,
+            namedArgs: namedArgs,
+          ));
 
   /// Async version of [execute].
   Future<T> executeAsync<T>(
@@ -157,64 +131,34 @@ class FlutterD4rt {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
-  }) async {
-    final result = _interpreter.executeBundle(
-      bundle,
-      name: name,
-      positionalArgs: positionalArgs,
-      namedArgs: namedArgs,
-    );
+  }) =>
+      _wrapUnwrapAsync(() => _interpreter.executeBundleAsAsync<T>(
+            bundle,
+            name: name,
+            positionalArgs: positionalArgs,
+            namedArgs: namedArgs,
+          ));
 
-    final resolved = result is Future ? await result : result;
-    return _unwrap<T>(resolved);
+  static List<Object?>? _argsForContext(BuildContext? buildContext) =>
+      buildContext == null ? null : <Object?>[buildContext];
+
+  /// Run [body] and re-throw any [D4UnwrapException] as
+  /// [FlutterD4rtException] so the public exception contract is preserved.
+  static T _wrapUnwrap<T>(T Function() body) {
+    try {
+      return body();
+    } on D4UnwrapException catch (e) {
+      throw FlutterD4rtException(e.message);
+    }
   }
 
-  /// Unwrap a D4rt result value to its native Dart type.
-  T _unwrap<T>(Object? result) {
-    if (result is BridgedInstance) {
-      final native = result.nativeObject;
-      if (native is T) return native as T;
-      throw FlutterD4rtException(
-        'Expected $T but got ${native.runtimeType} '
-        '(unwrapped from BridgedInstance<${result.bridgedClass.name}>)',
-      );
+  /// Async variant of [_wrapUnwrap].
+  static Future<T> _wrapUnwrapAsync<T>(Future<T> Function() body) async {
+    try {
+      return await body();
+    } on D4UnwrapException catch (e) {
+      throw FlutterD4rtException(e.message);
     }
-    if (result is BridgedEnumValue) {
-      final native = result.nativeValue;
-      if (native is T) return native as T;
-      throw FlutterD4rtException(
-        'Expected $T but got ${native.runtimeType} (from BridgedEnumValue)',
-      );
-    }
-    if (result is T) return result;
-    if (result == null && null is T) return result as T;
-
-    // INTER-009: when the script returns an InterpretedInstance of a
-    // subclass of a bridged abstract type (e.g. a `class _MyWidget extends
-    // StatelessWidget` that the script's `build` function returns at the
-    // top level), wrap it into the registered interface proxy. This
-    // mirrors what `D4.extractBridgedArg<T>` does at every bridge boundary
-    // during script execution; before this, the top-level return value
-    // escaped unwrapped and crashed the test app's `build<Widget>` call
-    // with "Expected Widget but got InterpretedInstance".
-    if (result is InterpretedInstance) {
-      final bridgedSuper = result.bridgedSuperObject;
-      if (bridgedSuper is T) return bridgedSuper as T;
-      // Prefer `D4.activeVisitor` (set during adapter dispatch); after
-      // executeBundle returns that is typically null, so fall back to
-      // the interpreter's long-lived visitor on the runner.
-      final visitor = D4.activeVisitor ?? _interpreter.visitor;
-      if (visitor != null) {
-        final proxy = D4.tryCreateInterfaceProxyWithVisitor<T>(result, visitor);
-        if (proxy != null) return proxy;
-      }
-      throw FlutterD4rtException(
-        'Expected $T but got InterpretedInstance(${result.klass.name}) — '
-        'no registered interface proxy for its bridged superclass/interfaces.',
-      );
-    }
-
-    throw FlutterD4rtException('Expected $T but got ${result.runtimeType}');
   }
 }
 
