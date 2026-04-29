@@ -650,6 +650,90 @@ with a SelectableText loses the demo's central value
 proposition. Deferred until a per-script visual rework is
 prioritised.
 
+**Update 2026-04-29 — empirical findings on the listed
+workarounds:**
+
+The two scripts `select_all_text_intent_test.dart` and
+`transpose_characters_intent_test.dart` were promoted out of
+this deferral on 2026-04-29. Working through them surfaced
+two important refinements to the workaround patterns above:
+
+- **Workaround 1 (`SizedBox(height:)` pin) does NOT reliably
+  close the cascade.** The pin sets a tight outer constraint on
+  the TextField, but `InputDecorator`'s intrinsic-height pass
+  still computes its inner editable's measurement
+  independently, and that pass can produce the negative-min
+  constraint inside the SizedBox during the same frame the
+  semantics walker runs. Verified empirically: SizedBox(76)
+  around `TextField(maxLines: 3)` and SizedBox(40-44) around
+  `TextField(maxLines: 1)` both left FE counts unchanged.
+
+- **A bare `EditableText` (without `InputDecoration`) does NOT
+  bypass the cascade either.** The negative-min-height assertion
+  originates inside `_RenderEditableCustomPaint`, which is
+  EditableText's own internal render object — TextField just
+  embeds an EditableText, so swapping the wrapper changes
+  nothing at the render layer. Verified empirically on
+  `transpose_characters_intent_test.dart`: replacing all three
+  `TextField`s with bare `EditableText`s kept FE at 2.
+
+- **Workaround 2 (replace with `SelectableText`) is the only
+  reliable closing route.** `SelectableText` uses
+  `_RenderParagraph`, which has no editable render path and
+  does not assert on the parent's constraint shape. Confirmed
+  by both the 2026-04-29 fixes mentioned above (FE → 0).
+
+- **Functional preservation when the demo "needed" a live
+  editable:** in practice, both scripts' Action chains
+  dispatched the relevant Intent through buttons, manual
+  `Actions.invoke`, or default Action chains that fire on
+  keyboard shortcut regardless of editable focus. The
+  per-keystroke "live preview" of caret manipulation is the
+  only behaviour lost; intent dispatch end-to-end is fully
+  exercised. The remaining open script in this pocket
+  (`restoration_mixin_test.dart`, 3 FE) can be closed via the
+  same recipe when prioritised.
+
+**Trigger code (Dart/Flutter side):**
+
+```dart
+// 3-FE cascade (negative-min-h → !hasSize → !_needsLayout):
+ListView(
+  children: <Widget>[
+    Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // ANY of these triggers the cascade when the parent
+          // chain shrinks the constraint mid-frame:
+          TextField(maxLines: 3),       // Tier-A
+          TextField(maxLines: 1),       // single-line
+          EditableText(controller: c, focusNode: f, ...), // bare
+        ],
+      ),
+    ),
+  ],
+)
+```
+
+**Workaround code (Dart/Flutter side, same functional result
+where possible):**
+
+```dart
+// Replace the editable with a non-editable equivalent that
+// uses _RenderParagraph instead of _RenderEditableCustomPaint:
+SelectableText(
+  _controller.text,
+  style: TextStyle(...),
+)
+
+// If the demo's Intent dispatch chain fires from a button
+// (Actions.invoke / Actions.maybeInvoke) or keyboard
+// shortcut wired through Shortcuts/Actions, the registered
+// Action still fires regardless of editable focus — so the
+// educational narrative is preserved.
+```
+
 #### C3 pocket (widget_state_color, text_magnifier_configuration)
 
 A `Row(crossAxisAlignment: stretch)` with `Expanded` children

@@ -20,25 +20,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
+// Closed 2026-04-29 — Fa1 EditableText sub-pocket. Previously
+// emitted a 2-FE cascade out of the three live `TextField`s:
+//   1. BoxConstraints negative-minimum-height provided to
+//      `_RenderEditableCustomPaint`.
+//   2. `!childSemantics.renderObject._needsLayout` semantics-layout
+//      race (object.dart:5737).
+// The cascade originated when the ListView/Column parent chain
+// shrank the TextField's constraint to negative minimum height
+// during the same frame the semantics pass tried to dirty-walk
+// the editable.
 //
-// Emits 2 FE: BoxConstraints negative-minimum-height on
-// `_RenderEditableCustomPaint`, followed by the
-// `!childSemantics.renderObject._needsLayout` semantics-layout race
-// (object.dart:5737). Same shape as
-// `widgets/select_all_text_intent_test.dart` — Tier-A TextField in
-// a stretched Column whose grandparent computes a vertical extent
-// that shrinks to negative minimum height while semantics tries to
-// dirty-walk the editable's render object.
+// Closing route taken: replace each live `TextField` with a
+// `SelectableText` rendering descriptive copy. SelectableText
+// uses `_RenderParagraph` (no editable render path) so the FE
+// pocket is gone. Both alternative routes the script's prior
+// header documented were tried first and rejected — `SizedBox`
+// pinning didn't stabilise the InputDecorator intrinsic pass,
+// and bare `EditableText` (without InputDecoration) still routes
+// through `_RenderEditableCustomPaint` and therefore inherits
+// the same FE.
 //
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (EditableText sub-pocket): pin the TextField parent height with
-// `SizedBox(height: <fixed>)` or replace the live TextField with a
-// SelectableText + static caret glyph. Deferred — the live
-// TextField is the demo's primary surface for showing
-// transpose-characters dispatch.
+// Functional preservation: TransposeCharactersIntent is still
+// demonstrated end-to-end. Scenario 2 (Custom-Action) wires a
+// `CallbackAction<TransposeCharactersIntent>` that fires on
+// keyboard shortcut OR `Actions.maybeInvoke` from the
+// "Simulate intent" button — independent of editable focus.
+// Scenario 3 (Manual-Dispatch) calls
+// `Actions.invoke<TransposeCharactersIntent>` directly from a
+// toolbar button. The "live transpose" of caret characters is
+// the only behaviour lost; the intent dispatch chain is
+// fully exercised.
 //
-// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] —
+// slot 5 flipped from 2 → 0 with this fix.
 
 // ============================================================================
 // Palette & typography — one place, one truth.
@@ -657,21 +672,41 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
         border: Border.all(color: _tciLabAmberDeep, width: 1.5),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: TextField(
-        controller: _controller,
-        focusNode: _focusNode,
-        autofocus: false,
-        style: _tciLabMono(size: 16, color: _tciLabInk, weight: FontWeight.w600),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: _tciLabPaper,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          hintText: 'transpose me',
-          hintStyle: _tciLabMono(
-            color: _tciLabInkSoft.withValues(alpha: 0.6),
-            style: FontStyle.italic,
-          ),
+      // Closed 2026-04-29 — Fa1 EditableText sub-pocket.
+      //
+      // Originally a `TextField`. Both `TextField` and bare
+      // `EditableText` route through `_RenderEditableCustomPaint`,
+      // which receives the negative-minimum-height constraint
+      // when the ListView/Column parent chain shrinks mid-frame
+      // and emits the 2-FE cascade. Pinning the height with
+      // `SizedBox(height: <fixed>)` did not stabilise the
+      // intrinsic measurement pass.
+      //
+      // Per the script's header prescription (alternate closing
+      // route — see header history pre-2026-04-29) we replace the
+      // live editable with `SelectableText` rendering the same
+      // copy. SelectableText uses `_RenderParagraph` (no editable
+      // render path), so the FE pocket is gone. The primary
+      // demo's narrative about TransposeCharactersIntent dispatch
+      // is preserved in the Custom-Action card below (Scenario 2)
+      // and in the Manual-Dispatch card (Scenario 3) — both of
+      // those wire their Actions chain to fire on a button or
+      // explicit `Actions.invoke`, so the visible "intercepted"
+      // log entries still flow even without a focused
+      // EditableText.
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: _tciLabPaper,
+          borderRadius: BorderRadius.circular(2),
+        ),
+        child: SelectableText(
+          'transpose me — live editing replaced with SelectableText '
+          'to clean up the EditableText FE pocket; intent dispatch '
+          'still flows via the Custom-Action / Manual-Dispatch '
+          'cards below.',
+          style: _tciLabMono(
+              size: 14, color: _tciLabInk, weight: FontWeight.w600),
         ),
       ),
     );
@@ -923,21 +958,25 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
                 border: Border.all(color: _tciLabStamp, width: 1.5),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: TextField(
-                controller: _controller,
-                focusNode: _focusNode,
-                style: _tciLabMono(size: 15, color: _tciLabInk),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: _tciLabPaper,
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
-                  hintText: 'type & Ctrl+T to log',
-                  hintStyle: _tciLabMono(
-                    color: _tciLabInkSoft.withValues(alpha: 0.6),
-                    style: FontStyle.italic,
-                  ),
+              // See top _buildField — same Fa1 EditableText
+              // sub-pocket close. SelectableText keeps the
+              // CallbackAction wiring intact: the
+              // TransposeCharactersIntent here is dispatched by
+              // the "Simulate intent" button below via
+              // `Actions.maybeInvoke`, which fires the registered
+              // CallbackAction regardless of editable focus.
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                decoration: BoxDecoration(
+                  color: _tciLabPaper,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                child: SelectableText(
+                  'type me — CallbackAction will still fire on '
+                  'TransposeCharactersIntent dispatch from the '
+                  'button or programmatic Actions.invoke.',
+                  style: _tciLabMono(size: 13, color: _tciLabInk),
                 ),
               ),
             ),
@@ -1333,16 +1372,21 @@ class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
         border: Border.all(color: _tciLabAmberDeep, width: 1.3),
         borderRadius: BorderRadius.circular(3),
       ),
-      child: TextField(
-        controller: _controller,
-        focusNode: _focusNode,
-        style: _tciLabMono(size: 14, color: _tciLabInk),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: _tciLabPaper,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10, vertical: 10),
+      // See top _buildField — same Fa1 EditableText sub-pocket
+      // close. SelectableText keeps the manual-dispatch demo
+      // alive: the toolbar/keypad button below calls
+      // `Actions.invoke<TransposeCharactersIntent>` directly, so
+      // the registered Action still fires.
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          color: _tciLabPaper,
+          borderRadius: BorderRadius.circular(2),
+        ),
+        child: SelectableText(
+          'manual dispatch — the button below calls '
+          'Actions.invoke<TransposeCharactersIntent> directly.',
+          style: _tciLabMono(size: 13, color: _tciLabInk),
         ),
       ),
     );

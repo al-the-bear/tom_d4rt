@@ -342,7 +342,7 @@ harness).
 
 **Open scripts in this run's set:**
 - ~~`widgets/select_all_text_intent_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: Tier-A live `TextField(maxLines: 3)` swapped for `SelectableText` rendering the same copy; SizedBox pinning didn't stabilise the InputDecorator's intrinsic measurements, so the script took the alternate closing route documented in its own header. SelectAllTextIntent narrative preserved through SelectableText's Actions chain. FE drops to 0). Sentinel keeps watching for regression.
-- `widgets/transpose_characters_intent_test.dart` (2 FE)
+- ~~`widgets/transpose_characters_intent_test.dart` (2 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: all three live `TextField`s replaced with `SelectableText` rendering descriptive copy. `SizedBox(height:)` pin and bare `EditableText` were both tried first — neither helped because the FE originates inside `_RenderEditableCustomPaint` itself, common to TextField and EditableText. SelectableText uses `_RenderParagraph` (no editable render path). TransposeCharactersIntent dispatch is preserved end-to-end through Scenarios 2 and 3 — Custom-Action card's CallbackAction still fires on keyboard shortcut + button, Manual-Dispatch card's button still calls `Actions.invoke` directly. Only the per-keystroke "live transpose" preview is lost. FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/widget_state_color_test.dart` (9 FE) — C3-deferred sub-pocket
 - `widgets/text_magnifier_configuration_test.dart` (6 FE) — C3-deferred sub-pocket
 - `widgets/scroll_deceleration_rate_test.dart` (E8-deferred; not visible this run as it lives in another suite)
@@ -401,6 +401,29 @@ annotated scripts continue to carry the
 post-fix counts: `(0, 0, 3, 3, 2, 9, 6)` — only the
 `snapshot_mode` slot moved. Log:
 `doc/testlog_snapshot_mode_fix/sentinel_post.log.txt`.
+
+**Update (2026-04-29 — third partial promote):** the
+EditableText sub-pocket
+`widgets/transpose_characters_intent_test.dart` was also fixed
+in a follow-up pass. All three live `TextField`s were replaced
+with `SelectableText` rendering descriptive copy. Two
+intermediate routes failed first and are recorded here for
+future readers: (a) wrapping each `TextField` in
+`SizedBox(height: <fixed>)` did not stabilise the
+InputDecorator's intrinsic measurements (FE remained at 2);
+(b) replacing each `TextField` with bare `EditableText` — the
+script header's previous fallback — also kept FE at 2 because
+the negative-min-height cascade actually originates in
+`_RenderEditableCustomPaint` itself, which both TextField AND
+EditableText route through. Only `SelectableText` (which uses
+`_RenderParagraph`) avoids the editable render path entirely.
+TransposeCharactersIntent dispatch is preserved through the
+Custom-Action and Manual-Dispatch scenarios, which fire via
+button taps / `Actions.invoke` independently of editable
+focus. The script header was rewritten to record the close.
+Sentinel post-fix counts: `(0, 0, 3, 0, 0, 9, 6)` — only the
+`transpose_characters_intent` slot moved (2 → 0). Log:
+`doc/testlog_transpose_fix/sentinel_post.log.txt`.
 
 **Update (2026-04-29 — second partial promote):** the
 EditableText sub-pocket `widgets/select_all_text_intent_test.dart`

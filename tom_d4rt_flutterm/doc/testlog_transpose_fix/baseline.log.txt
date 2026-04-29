@@ -1,0 +1,11 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_5_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/ transpose_characters_intent_test.dart
+[METRIC] script=widgets/transpose_characters_intent_test.dart sourceBytes=65611 sourceChars=65516 bundleJsonBytes=750266 clearMs=51 readMs=11 bundleMs=318 httpMs=1221 totalMs=1603 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/transpose_characters_intent_test.dart (2 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:13 +1: (tearDownAll)
+00:13 +1: All tests passed!
