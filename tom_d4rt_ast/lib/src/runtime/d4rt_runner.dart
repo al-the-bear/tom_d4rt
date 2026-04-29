@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart';
 import 'package:tom_d4rt_ast/src/runtime/ast_module_loader.dart';
+import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/registration.dart';
 import 'package:tom_d4rt_ast/src/runtime/callable.dart';
@@ -13,6 +14,7 @@ import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
 import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
+import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/logger/logger.dart';
@@ -884,6 +886,245 @@ class D4rtRunner {
     }
 
     _hasExecutedOnce = true;
-    return functionResult;
+    // Step 4 (recursive sync) of `tom_d4rt_flutterm/doc/d4rt_consolidation_plan.md`:
+    // mirror the recursive interpreter→native unwrap that
+    // `tom_d4rt/lib/src/d4rt_base.dart` already performs at the equivalent
+    // entry point. tom_d4rt_ast was forked from tom_d4rt and the recursion
+    // (List/Map/InterpretedRecord with native-record creation up to 16
+    // positional fields) was missed during the port. Without this, callers
+    // of [executeBundle] received raw `BridgedInstance` / `InterpretedRecord`
+    // values inside lists/maps/records, and `executeBundleAs<T>` could not
+    // unwrap them because [D4.unwrapAs] is intentionally single-level. Doing
+    // the recursion here propagates fully native values to both the untyped
+    // [executeBundle] and the typed [executeBundleAs] / [executeBundleAsAsync]
+    // entry points.
+    if (functionResult is Future) {
+      return functionResult.then(_bridgeInterpreterValueToNative);
+    }
+    return _bridgeInterpreterValueToNative(functionResult);
+  }
+
+  /// Recursively convert interpreter-side values into their native Dart
+  /// equivalents at the script→host boundary.
+  ///
+  /// Mirrors `_bridgeInterpreterValueToNative` in
+  /// `tom_d4rt/lib/src/d4rt_base.dart` (line ~1938). Same body, same record
+  /// arity ladder (0..16 positional). Leaf-level
+  /// [BridgedInstance]/[BridgedEnumValue] cases delegate to [D4.unwrapAs] —
+  /// matching the leaf-level twins in this package's [InterpreterVisitor]
+  /// and in `tom_d4rt`'s `_bridgeInterpreterValueToNative` (Step 4 of the
+  /// consolidation plan).
+  ///
+  /// The recursion is intentionally outside [D4.unwrapAs]: that helper's
+  /// contract is single-level (the `unwrapInterpreterValue` docstring
+  /// explicitly notes that recursing through Lists/Maps would destroy
+  /// reified generics). The top-level script-return unwrap is a separate
+  /// concern — flat callers want native records and unwrapped collection
+  /// elements.
+  Object? _bridgeInterpreterValueToNative(Object? interpreterValue) {
+    if (interpreterValue == null ||
+        interpreterValue is String ||
+        interpreterValue is num ||
+        interpreterValue is bool) {
+      return interpreterValue;
+    }
+    if (interpreterValue is BridgedInstance ||
+        interpreterValue is BridgedEnumValue) {
+      return D4.unwrapAs<Object?>(interpreterValue, visitor: _visitor);
+    }
+    if (interpreterValue is List) {
+      return interpreterValue.map(_bridgeInterpreterValueToNative).toList();
+    }
+    if (interpreterValue is Map) {
+      return interpreterValue.map((key, value) => MapEntry(
+          _bridgeInterpreterValueToNative(key),
+          _bridgeInterpreterValueToNative(value)));
+    }
+    // Convert InterpretedRecord to native Dart records when possible.
+    // For positional-only records up to 16 elements, we can create native
+    // records. For records with named fields or more than 16 positional
+    // fields, we return InterpretedRecord with unwrapped field values.
+    if (interpreterValue is InterpretedRecord) {
+      final pos = interpreterValue.positionalFields
+          .map(_bridgeInterpreterValueToNative)
+          .toList();
+      final named = interpreterValue.namedFields;
+
+      if (named.isEmpty) {
+        switch (pos.length) {
+          case 0:
+            return ();
+          case 1:
+            return (pos[0],);
+          case 2:
+            return (pos[0], pos[1]);
+          case 3:
+            return (pos[0], pos[1], pos[2]);
+          case 4:
+            return (pos[0], pos[1], pos[2], pos[3]);
+          case 5:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4]);
+          case 6:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5]);
+          case 7:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6]);
+          case 8:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7]
+            );
+          case 9:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8]
+            );
+          case 10:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9]
+            );
+          case 11:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10]
+            );
+          case 12:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11]
+            );
+          case 13:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12]
+            );
+          case 14:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13]
+            );
+          case 15:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13],
+              pos[14]
+            );
+          case 16:
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8],
+              pos[9],
+              pos[10],
+              pos[11],
+              pos[12],
+              pos[13],
+              pos[14],
+              pos[15]
+            );
+          default:
+            // More than 16 positional fields — return InterpretedRecord with
+            // unwrapped values.
+            return InterpretedRecord(pos, {});
+        }
+      }
+
+      // Has named fields — can't convert to native record, return with
+      // unwrapped values.
+      return InterpretedRecord(
+        pos,
+        named.map((key, value) =>
+            MapEntry(key, _bridgeInterpreterValueToNative(value))),
+      );
+    }
+    if (interpreterValue is InterpretedInstance ||
+        interpreterValue is InterpretedFunction ||
+        interpreterValue is NativeFunction ||
+        interpreterValue is Callable) {
+      return interpreterValue;
+    }
+
+    return interpreterValue;
   }
 }
