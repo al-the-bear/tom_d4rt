@@ -32,7 +32,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
 | [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
 | [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
-| [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. | `snapshot_mode_test.dart` (small-overflow, 1 FE), `select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE), `widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE) |
+| [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. **Small-overflow + EditableText + C3 sub-pockets all closed 2026-04-29** (see Fa1-N1 §Affected scripts and §Small-overflow pocket — empirical findings 2026-04-29). | ~~`snapshot_mode_test.dart` (small-overflow, 1 FE)~~ closed, ~~`restorable_double_test.dart` (small-overflow, 1 FE)~~ closed, ~~`select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE)~~ closed, ~~`widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE)~~ closed |
 | [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
 
 Entries that previously lived here but have **suggested
@@ -570,11 +570,21 @@ surface in a routine baseline run.
 | `widgets/widget_state_color_test.dart`           | 9 | C3 (Row(stretch)+Expanded inside Sliver) | Row(stretch) + Expanded children inside SliverToBoxAdapter — sliver protocol gives unbounded vertical, Row(stretch) cannot resolve |
 | `widgets/text_magnifier_configuration_test.dart` | 6 | C3 (Row(stretch)+Expanded inside Sliver) | Same as `widget_state_color_test.dart` |
 
-**Not annotated.** `widgets/restorable_double_test.dart` —
+**Not annotated.** ~~`widgets/restorable_double_test.dart` —
 emitted FE=1 in the `secondary_classes_test` suite at testlog
 2250, but FE=0 in isolation under `fa1_bisect_test.dart`. The
 inter-script ordering flake doesn't fit the script-annotation
-pattern; tracked separately if it persists.
+pattern; tracked separately if it persists.~~ — **closed
+2026-04-29** via small-overflow recipe applied to the VU meter's
+`_buildVuBar`. See "Small-overflow pocket — empirical findings
+2026-04-29" subsection below for the full diagnosis: the centre
+shaft (190 px) + gap (6 px) + label (~16 px) summed past the
+inner content area (196 px after `Container(padding: all(12))`
+inside `SizedBox(height: 220)`) by 17 px. Capped centre at 170
+px and sides at 150 px to preserve the original 20 px asymmetry
+while leaving 6 px headroom. FE → 0 across single-script,
+x-script (`restorable_(date_time|double)`), sentinel, and full
+secondary suite contexts.
 
 ### Sub-pocket rewrite recipes (the closing routes)
 
@@ -602,6 +612,61 @@ instrumentation — the FE message lists no `Widget` ancestor. A
 bisecting harness that replaces panels one at a time with
 `SizedBox.shrink()` would localise the offender; deferred as
 non-essential effort.
+
+##### Small-overflow pocket — empirical findings 2026-04-29
+
+Two scripts in this pocket were closed with a manual rewrite,
+proving the recipes work and producing reusable bisect knowledge:
+
+- **`snapshot_mode_test.dart` (1 FE):** closed by bumping the
+  AppBar `preferredSize` from 72 → 88 to fit the 44 px shutter
+  + 38 px padding combination.
+
+- **`restorable_double_test.dart` (1 FE):** closed by capping the
+  VU meter shaft heights — `centreMax` 190→170, `leftMax/rightMax`
+  170→150 — so each `Column(mainAxisSize.min)` fits inside its
+  parent `SizedBox(height: 220)` minus the surrounding
+  `Container(padding: all(12))`. The Column adds shaft + 6 px gap
+  + ~16 px Text label, so the budget is `220 − 24 (padding) − 6
+  (gap) − 16 (label) ≈ 174 px max shaft`. The original 190 px
+  centre exceeded that by 17 px under cross-script font/sub-pixel
+  rounding (any preceding `restorable_*` render in the same
+  in-process suite triggers it). The original 20 px asymmetry
+  (centre slightly taller than sides) is preserved by trimming
+  both pairs by the same delta.
+
+**Bisect tactics that worked.** The FE only manifests when at
+least one preceding script has rendered in the same suite — the
+single-script `--plain-name` filter on the home suite reports
+FE=0 because the harness has no prior render to perturb the font
+metrics. To reproduce in seconds rather than running the full
+~8-min suite, use a 2-script regex filter:
+
+```bash
+flutter test test/secondary_classes_test.dart \
+    --name "restorable_(date_time|double)"
+```
+
+This runs ~2 seconds and reproduces the 17 px overflow reliably.
+Inside the script, comment out the top-level child sections one
+at a time in the build's outer `Column`, then bisect within the
+remaining section by replacing sub-Rows / sub-Columns with
+`SizedBox.shrink()` until the FE stops. For
+`restorable_double_test.dart` the path was: S5→S4→S3→S2 each
+disabled showed FE persisted (so it was in S1), then dial-only
+showed FE=0 and VU-only showed FE=1 — pinpointing the VU meter
+in 4 ~3-second iterations.
+
+**Mental model.** A "small overflow" usually means the layout is
+correct on the *first* render in the test app's process but
+drifts by a few pixels on subsequent renders due to font cache
+warming, baseline-grid rounding, or platform glyph-height
+fallback. The fix is to leave a 4–8 px headroom on every fixed-
+height container that hosts an intrinsic-sized Column. If a
+panel was designed with the bar/shaft height precisely matching
+parent height − padding − labels, that's a fragile measurement
+that *will* surface as a small-overflow FE under some preceding
+test ordering.
 
 #### EditableText pocket (select_all_text_intent, transpose_characters_intent, restoration_mixin)
 

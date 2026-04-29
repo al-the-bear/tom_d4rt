@@ -133,7 +133,7 @@ Source: `[METRIC] script=… frameworkErrors=N` lines with N ≥ 1.
 
 | Suite | Script | FE count | Shape |
 |---|---|---:|---|
-| `secondary` | `widgets/restorable_double_test.dart`        | 1 | RenderFlex overflowed by 17 px |
+| `secondary` | ~~`widgets/restorable_double_test.dart`~~ (closed 2026-04-29) | ~~1~~ → 0 | ~~RenderFlex overflowed by 17 px~~ |
 | `secondary` | `widgets/restorable_property_test.dart`      | 1 | LateInitializationError `_value` |
 | `secondary` | `widgets/restoration_mixin_test.dart`        | 3 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
 | `secondary` | ~~`widgets/text_magnifier_configuration_test.dart`~~ (closed 2026-04-29) | ~~6~~ → 0 | ~~Infinite-height BoxConstraints + `Null check` cascade~~ |
@@ -183,7 +183,7 @@ sub-patterns of the **E2 layout cascade** (`testlog_20260428-1333`
 |---|---|---|---|
 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out | `select_all_text_intent` (3), `transpose_characters_intent` (2), `restoration_mixin` (3) | E2 / Fa1 EditableText pocket | C22 ListView pattern + `Material` ancestor; tracked as Fa1-deferred |
 | Infinite-height BoxConstraints + null-check cascade | `widget_state_color` (9), `text_magnifier_configuration` (6) | E2 / Fa1 C3 pocket | drop `crossAxisAlignment: stretch` OR pin a finite parent height; tracked as Fa1 C3-deferred |
-| Small RenderFlex overflow (14–17 px) | `snapshot_mode` (1), `restorable_double` (1) | E2 / Fa1 small-overflow pocket | wrap demo in `SingleChildScrollView` or shrink fixed-height children |
+| Small RenderFlex overflow (14–17 px) | ~~`snapshot_mode` (1)~~ closed 2026-04-29, ~~`restorable_double` (1)~~ closed 2026-04-29 | E2 / Fa1 small-overflow pocket | wrap demo in `SingleChildScrollView` or shrink fixed-height children |
 
 Status carried over verbatim from `testlog_20260428-1333` Fa1.
 Closing this cluster needs ~7 script rewrites; each is independent
@@ -347,7 +347,7 @@ harness).
 - ~~`widgets/text_magnifier_configuration_test.dart` (6 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket + Fa1 EditableText sub-pocket, masked behind C3): the single `Row(crossAxisAlignment: stretch)` site in `_buildIntroCards` was switched to `CrossAxisAlignment.start` per the C3 closing route, which dropped FE 6→9 by surfacing a previously-masked Fa1 EditableText cascade (4× negative-min-height + 4× `hasSize` on `_RenderEditableCustomPaint` + 1× semantics `!_needsLayout` from the two `TextField`s in `_specimenCard` and `_playgroundPreview`). Both TextFields were then replaced with Container-wrapped `SelectableText` — the demo's central `magnifierConfiguration` parameter is preserved end-to-end since `SelectableText` accepts it natively, and long-press handle drag still triggers the configured loupe on touch. The `Column.stretch` site in the LayoutBuilder narrow branch was correctly identified as safe (cross-axis is the bounded ListView width) and left in place. FE drops to 0. Sentinel keeps watching for regression.
 - ~~`widgets/scroll_deceleration_rate_test.dart`~~ — **fixed 2026-04-28** (E8/Fa2 cluster: `controller.position.hasContentDimensions` guard tightening, see `interpreter_unfixable.md` §E8); **re-verified 2026-04-29** at FE=0 across single-script filter, full home suite, and the fa1-c3 sentinel.
 - ~~`widgets/snapshot_mode_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow pocket: AppBar `preferredSize` 72 → 88 to match 44 px shutter + 38 px padding; FE drops to 0). Sentinel keeps watching for regression.
-- `widgets/restorable_double_test.dart` (1 FE) — small-overflow sub-pocket
+- ~~`widgets/restorable_double_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow sub-pocket: VU meter centre channel column was `centreMax(190) + SizedBox(6) + Text 'C' fontSize 12 letterSpacing 2 ≈ 212 px` against the `SizedBox(height: 220)` parent's `196 px` inner content area (after the surrounding `Container(padding: all(12))`). Cross-script ordering — any preceding `restorable_*` render — surfaces sub-pixel rounding that pushes the column past 196 by 17 px. Bisect to the VU meter's `_buildVuBar` Column was confirmed via filtered `flutter test --name "restorable_(date_time|double)"` repro. Capped centre shaft at 170 px and side shafts at 150 px (matching the original 20 px asymmetry) to leave a 6 px headroom against the 196 px budget. FE drops to 0 in single-script, x-script (`restorable_(date_time|double)`), fa1-2250 sentinel, and full secondary suite. Logs: `doc/testlog_restorable_double_fix/{baseline,sentinel_baseline,secondary_full,restorable_filter,post_fix_xscript,post_fix_xscript2,post_fix_single,post_fix_sentinel,post_fix_secondary_full}.log.txt`).
 - ~~`widgets/restoration_mixin_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: live `TextField(controller: _nameController)` swapped for `SelectableText` rendering the `RestorableString _playerName.value`. The home suite already reported FE=0 even before the fix; the 3 FE only appeared in the cross-script `[fa1-2250-sentinel]` context (state-bleed from the preceding `restorable_double_test.dart`). SelectableText closes both contexts. RestorationMixin narrative preserved through 5 other RestorableX properties exercised via interactive dice/turn buttons. FE drops to 0). Sentinel keeps watching for regression.
 
 **Workaround status:** all scripts pass at suite level — these are
@@ -363,6 +363,25 @@ all 6 owning scripts (the 7th, `restorable_double_test.dart`, is
 flaky and tracked by the sentinel without an annotation). See
 cluster N1 §Resolution above and `interpreter_unfixable.md` Fa1-N1.
 
+**Update (2026-04-29 — final small-overflow promote):** the lone
+hold-out `widgets/restorable_double_test.dart` was promoted from
+flake-tracked-without-annotation to **fixed** via a targeted
+small-overflow rewrite. The script's VU meter (`_buildVuBar`)
+contained three `Column(mainAxisSize.min)` shafts inside a
+`Container(padding: all(12))` wrapped in `SizedBox(height: 220)` —
+inner content budget was 196 px but the centre column summed
+`shaft (190) + gap (6) + label (~16) ≈ 212` and overflowed by 17 px
+under cross-script font/sub-pixel rounding (any preceding
+`restorable_*` render triggered it). Diagnosed via successive
+bisect (S5→S1, then dial-vs-VU within S1) using
+`flutter test --name "restorable_(date_time|double)"` as a fast
+2-second repro. Closed by capping `centreMax = 170` and
+`leftMax/rightMax = 150` (preserving the original 20 px centre/side
+asymmetry, leaving a 6 px headroom against the 196 px budget). FE
+drops to 0 in single-script, x-script repro, fa1-2250 sentinel, and
+full secondary suite. **All three small-overflow scripts now
+closed.**
+
 ### Resolution (2026-04-29)
 
 C-Fa1 is the carry-over twin of N1; its closure work landed
@@ -373,11 +392,11 @@ new code or test changes were required for this cluster:
   `// D4RT-SCRIPT-LIMITATION: layout cascade` annotation header
   explicitly deferring the rewrite, exactly as the closing
   criterion permits ("…or each script carries a … annotation").
-- `restorable_double_test.dart` is the lone hold-out — it remains
-  flaky under cross-script ordering and is tracked by the
-  `[fa1-2250-sentinel]` group in `test/fa1_bisect_test.dart`
-  without an annotation, so any regression in its FE count would
-  surface immediately.
+- ~~`restorable_double_test.dart` is the lone hold-out~~ — **closed
+  2026-04-29** via small-overflow VU meter shaft cap (centreMax
+  190→170, leftMax/rightMax 170→150). See "Update (2026-04-29 —
+  final small-overflow promote)" subsection above for the full
+  diagnosis and bisect path.
 - `scroll_deceleration_rate_test.dart` is closed separately under
   `interpreter_unfixable.md` §E8 (lines 430+, script reference
   ~line 493) and is not part of this cluster's annotation set.

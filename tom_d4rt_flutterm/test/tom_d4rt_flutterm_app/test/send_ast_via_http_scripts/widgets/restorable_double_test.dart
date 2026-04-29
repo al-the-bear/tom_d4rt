@@ -472,9 +472,20 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
   Widget _buildVuMeter(double value) {
     // Bar maxHeights differ slightly so the LED stack looks like classic
     // hardware VU meters where the centre channel is slightly taller.
-    const double leftMax = 170;
-    const double centreMax = 190;
-    const double rightMax = 170;
+    //
+    // Math budget: outer SizedBox is 220 px tall; the surrounding Container
+    // adds 12 px padding top + bottom, leaving 196 px of inner content for
+    // each Column (mainAxisSize.min). A Column contributes shaft + 6 px gap
+    // + ~17 px text label (fontSize 12 with letterSpacing 2 + leading), so
+    // the shaft itself must stay ≤ ~172 px with a small safety margin to
+    // avoid a `RenderFlex overflowed by 17 pixels on the bottom` FE that
+    // surfaces under cross-script ordering — sub-pixel rounding from
+    // preceding restorable_* renders pushes the centre 190+6+~16=212
+    // column past 196 in the full-suite ordering. The slight centre/side
+    // asymmetry is preserved by trimming both pairs by the same delta.
+    const double centreMax = 170;
+    const double leftMax = 150;
+    const double rightMax = 150;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

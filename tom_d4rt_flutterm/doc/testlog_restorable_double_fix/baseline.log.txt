@@ -1,0 +1,6 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/secondary_classes_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/ individual restorable_double_test.dart
+[METRIC] script=widgets/restorable_double_test.dart sourceBytes=58018 sourceChars=57927 bundleJsonBytes=615187 clearMs=112 readMs=5 bundleMs=320 httpMs=679 totalMs=1119 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:12 +1: (tearDownAll)
+00:13 +1: All tests passed!

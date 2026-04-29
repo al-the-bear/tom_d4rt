@@ -1,0 +1,25 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/fa1_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: [fa1-2250-sentinel] widgets/snapshot_mode_test.dart
+[METRIC] script=widgets/snapshot_mode_test.dart sourceBytes=79553 sourceChars=79490 bundleJsonBytes=1065875 clearMs=39 readMs=5 bundleMs=344 httpMs=1178 totalMs=1568 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/snapshot_mode_test.dart
+00:13 +1: [fa1-2250-sentinel] widgets/restorable_double_test.dart
+[METRIC] script=widgets/restorable_double_test.dart sourceBytes=58018 sourceChars=57927 bundleJsonBytes=615187 clearMs=441 readMs=7 bundleMs=77 httpMs=480 totalMs=1007 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/restorable_double_test.dart
+00:14 +2: [fa1-2250-sentinel] widgets/restoration_mixin_test.dart
+[METRIC] script=widgets/restoration_mixin_test.dart sourceBytes=55247 sourceChars=55176 bundleJsonBytes=601163 clearMs=49 readMs=2 bundleMs=85 httpMs=803 totalMs=941 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/restoration_mixin_test.dart
+00:15 +3: [fa1-2250-sentinel] widgets/select_all_text_intent_test.dart
+[METRIC] script=widgets/select_all_text_intent_test.dart sourceBytes=64382 sourceChars=64276 bundleJsonBytes=722222 clearMs=54 readMs=1 bundleMs=88 httpMs=975 totalMs=1119 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/select_all_text_intent_test.dart
+00:16 +4: [fa1-2250-sentinel] widgets/transpose_characters_intent_test.dart
+[METRIC] script=widgets/transpose_characters_intent_test.dart sourceBytes=68293 sourceChars=68177 bundleJsonBytes=746116 clearMs=60 readMs=1 bundleMs=77 httpMs=669 totalMs=810 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/transpose_characters_intent_test.dart
+00:17 +5: [fa1-2250-sentinel] widgets/widget_state_color_test.dart
+[METRIC] script=widgets/widget_state_color_test.dart sourceBytes=94862 sourceChars=94670 bundleJsonBytes=1121261 clearMs=33 readMs=1 bundleMs=82 httpMs=611 totalMs=729 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/widget_state_color_test.dart
+00:17 +6: [fa1-2250-sentinel] widgets/text_magnifier_configuration_test.dart
+[METRIC] script=widgets/text_magnifier_configuration_test.dart sourceBytes=74934 sourceChars=74857 bundleJsonBytes=895195 clearMs=34 readMs=1 bundleMs=90 httpMs=1644 totalMs=1769 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA1 STATUS: true  FE: 0  SCRIPT: widgets/text_magnifier_configuration_test.dart
+00:19 +7: (tearDownAll)
+00:20 +7: All tests passed!
