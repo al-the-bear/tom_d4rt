@@ -1202,6 +1202,59 @@ class D4rt {
     );
   }
 
+  /// Execute [bundle] and unwrap the result to type [T].
+  ///
+  /// Forwards to [D4rtRunner.executeBundleAs] so the unwrap path is identical
+  /// to the analyzer-free runner — callers get either a plain [T] or a
+  /// [D4UnwrapException] (which extends [D4rtException] and auto-registers
+  /// with [ErrorReporter]).
+  ///
+  /// Use [executeBundleAsAsync] for `async` entry points that return a
+  /// [Future].
+  ///
+  /// Step 2 of `tom_d4rt_flutterm/doc/d4rt_consolidation_plan.md`.
+  T executeBundleAs<T>(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) {
+    Logger.debug(
+      '[D4rt.executeBundleAs<$T>] Delegating to D4rtRunner.executeBundleAs '
+      '(${bundle.modules.length} modules, entry: ${entryPoint ?? bundle.entryPointUri})',
+    );
+    return _runner.executeBundleAs<T>(
+      bundle,
+      entryPoint: entryPoint,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+  }
+
+  /// Async variant of [executeBundleAs] — awaits the result if it is a
+  /// [Future] before unwrapping to [T].
+  Future<T> executeBundleAsAsync<T>(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) {
+    Logger.debug(
+      '[D4rt.executeBundleAsAsync<$T>] Delegating to D4rtRunner.executeBundleAsAsync '
+      '(${bundle.modules.length} modules, entry: ${entryPoint ?? bundle.entryPointUri})',
+    );
+    return _runner.executeBundleAsAsync<T>(
+      bundle,
+      entryPoint: entryPoint,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+  }
+
   // ============================================================================
   // _executeClassic - PRESERVED FOR DEBUGGING REFERENCE
   // ============================================================================
