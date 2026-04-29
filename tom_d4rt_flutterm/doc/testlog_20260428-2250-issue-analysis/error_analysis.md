@@ -345,7 +345,7 @@ harness).
 - ~~`widgets/transpose_characters_intent_test.dart` (2 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: all three live `TextField`s replaced with `SelectableText` rendering descriptive copy. `SizedBox(height:)` pin and bare `EditableText` were both tried first — neither helped because the FE originates inside `_RenderEditableCustomPaint` itself, common to TextField and EditableText. SelectableText uses `_RenderParagraph` (no editable render path). TransposeCharactersIntent dispatch is preserved end-to-end through Scenarios 2 and 3 — Custom-Action card's CallbackAction still fires on keyboard shortcut + button, Manual-Dispatch card's button still calls `Actions.invoke` directly. Only the per-keystroke "live transpose" preview is lost. FE drops to 0). Sentinel keeps watching for regression.
 - ~~`widgets/widget_state_color_test.dart` (9 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket: both `Row(crossAxisAlignment: stretch)` sites in `_WscAnatomyFactories.build` and `_WscFromMapVsResolveWith.build` switched to `CrossAxisAlignment.start` per the script header's primary prescription, dropping the Row's vertical demand back up the outer `ListView`'s `SliverList`. The third stretch site — the inner `Column.stretch` inside `_constructorCard` — was left in place because its parent `Container` has finite width from the surrounding `Expanded`, so its cross-axis stretch operates on a bounded axis only. FE drops to 0). Sentinel keeps watching for regression.
 - ~~`widgets/text_magnifier_configuration_test.dart` (6 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket + Fa1 EditableText sub-pocket, masked behind C3): the single `Row(crossAxisAlignment: stretch)` site in `_buildIntroCards` was switched to `CrossAxisAlignment.start` per the C3 closing route, which dropped FE 6→9 by surfacing a previously-masked Fa1 EditableText cascade (4× negative-min-height + 4× `hasSize` on `_RenderEditableCustomPaint` + 1× semantics `!_needsLayout` from the two `TextField`s in `_specimenCard` and `_playgroundPreview`). Both TextFields were then replaced with Container-wrapped `SelectableText` — the demo's central `magnifierConfiguration` parameter is preserved end-to-end since `SelectableText` accepts it natively, and long-press handle drag still triggers the configured loupe on touch. The `Column.stretch` site in the LayoutBuilder narrow branch was correctly identified as safe (cross-axis is the bounded ListView width) and left in place. FE drops to 0. Sentinel keeps watching for regression.
-- `widgets/scroll_deceleration_rate_test.dart` (E8-deferred; not visible this run as it lives in another suite)
+- ~~`widgets/scroll_deceleration_rate_test.dart`~~ — **fixed 2026-04-28** (E8/Fa2 cluster: `controller.position.hasContentDimensions` guard tightening, see `interpreter_unfixable.md` §E8); **re-verified 2026-04-29** at FE=0 across single-script filter, full home suite, and the fa1-c3 sentinel.
 - ~~`widgets/snapshot_mode_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow pocket: AppBar `preferredSize` 72 → 88 to match 44 px shutter + 38 px padding; FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/restorable_double_test.dart` (1 FE) — small-overflow sub-pocket
 - ~~`widgets/restoration_mixin_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: live `TextField(controller: _nameController)` swapped for `SelectableText` rendering the `RestorableString _playerName.value`. The home suite already reported FE=0 even before the fix; the 3 FE only appeared in the cross-script `[fa1-2250-sentinel]` context (state-bleed from the preceding `restorable_double_test.dart`). SelectableText closes both contexts. RestorationMixin narrative preserved through 5 other RestorableX properties exercised via interactive dice/turn buttons. FE drops to 0). Sentinel keeps watching for regression.
@@ -381,6 +381,21 @@ new code or test changes were required for this cluster:
 - `scroll_deceleration_rate_test.dart` is closed separately under
   `interpreter_unfixable.md` §E8 (lines 430+, script reference
   ~line 493) and is not part of this cluster's annotation set.
+  **Re-verified 2026-04-29:** all three observed runtime contexts
+  report FE=0 — single-script `--plain-name` filter on
+  `hardly_relevant_classes_5_test.dart`, full
+  `hardly_relevant_classes_5_test.dart` suite run (cross-script
+  ordering), and the fa1 sentinel `[fa1-c3]` group. Both
+  `CrossAxisAlignment.stretch` sites in the file (lines 503, 560)
+  inspected and confirmed safe by construction: the Row.stretch
+  is wrapped in `SizedBox(height: 420)` (the explicit
+  finite-parent-height workaround the C3 sub-pocket recipe
+  prescribes), and the Column.stretch operates on the bounded
+  horizontal axis from the surrounding `Expanded`. No latent
+  C3 / Fa1 pocket present. Logs:
+  `doc/testlog_scroll_deceleration_fix/baseline.log.txt`,
+  `.../hr5_full.log.txt`, `.../fa1c3_baseline.log.txt`.
+  **Cluster status: fixed (no-op for this campaign run).**
 
 **Verification (2026-04-29):** re-ran `fa1_bisect_test.dart`
 under `D4RT_SKIP_BRIDGE_REGEN=1` with the

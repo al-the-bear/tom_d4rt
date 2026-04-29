@@ -520,6 +520,23 @@ the unguarded `maxScrollExtent` read did the failure surface.
 
 **Documented.** 2026-04-28 (corrected from prior misdiagnosis).
 
+**Re-verified.** 2026-04-29 — `widgets/scroll_deceleration_rate_test.dart`
+inspected during the Fa1 cluster sweep; FE=0 confirmed across all
+three observed runtime contexts (single-script `--plain-name`
+filter on `hardly_relevant_classes_5_test.dart`, full
+`hardly_relevant_classes_5_test.dart` suite run with cross-script
+ordering, and the `[fa1-c3]` group of `fa1_bisect_test.dart`).
+Both `CrossAxisAlignment.stretch` sites in the file (the Row.stretch
+in `_DynoTrackPair` and the Column.stretch in `_DynoLane`) were
+inspected and confirmed safe — the Row.stretch is wrapped in an
+explicit `SizedBox(height: 420)` (matches the C3 closing recipe
+"pin a finite parent height before the sliver boundary"), and the
+Column.stretch operates on the bounded horizontal axis from the
+surrounding `Expanded`. No latent C3 / Fa1 pocket present. The
+E8/Fa2 fix from 2026-04-28 fully addresses this script's only
+historical FE source. Logs:
+`doc/testlog_scroll_deceleration_fix/{baseline,hr5_full,fa1c3_baseline}.log.txt`.
+
 ---
 
 ## Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts (script-side, annotation-deferred)
