@@ -7,21 +7,42 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 C3-deferred sub-pocket)
+// Closed 2026-04-29 — two stacked Fa1 sub-pockets:
 //
-// Emits 6 FE: "BoxConstraints forces an infinite height" provided
-// to `RenderPadding`'s layout(), "RenderBox was not laid out" on
-// `RenderFlex` and `RenderPadding` ('hasSize' assertions), then
-// three `Null check operator used on a null value` follow-ups in
-// the paint walk. Same C3 shape as
-// `widgets/widget_state_color_test.dart` — `Row(stretch)` with
-// `Expanded` children inside an unbounded-height sliver context.
+// 1. **Fa1 C3 sliver-row sub-pocket** (originally the visible cascade,
+//    6 FE: "BoxConstraints forces an infinite height" on RenderPadding,
+//    "RenderBox was not laid out" on RenderFlex / RenderPadding
+//    ('hasSize' assertions), 3× null-check follow-ups in the paint
+//    walk). Triggered by the magnifier-atelier intro card row's
+//    `Row(crossAxisAlignment: stretch)` + `Expanded` children
+//    inside the outer ListView's SliverList. Closed by switching
+//    that single Row to `CrossAxisAlignment.start`. The
+//    `Column.stretch` site in the LayoutBuilder narrow branch was
+//    left in place — its parent Container's width is bounded by
+//    the ListView, so the Column's cross-axis stretch operates on
+//    a bounded horizontal axis only and does not participate in
+//    the vertical cascade.
 //
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (C3 sub-pocket): drop `crossAxisAlignment: stretch` from the
-// hero row, or pin the parent vertical extent before the sliver
-// boundary. Deferred — the magnifier-atelier hero composition
-// leans on the stretched row for the brass-rimmed-lens layout.
+// 2. **Fa1 EditableText sub-pocket** (initially masked by the C3
+//    cascade; surfaced as 9 FE after the C3 fix: 4×
+//    "BoxConstraints has a negative minimum height" on
+//    `_RenderEditableCustomPaint`, 4× "RenderBox was not laid out"
+//    on `_RenderEditableCustomPaint`, 1× semantics
+//    `!_needsLayout` assertion). Triggered by the two `TextField`s
+//    in `_specimenCard` and `_playgroundPreview` — both routing
+//    through EditableText's internal render object. Closed by
+//    replacing both with Container-wrapped `SelectableText`,
+//    which uses `_RenderParagraph` and bypasses the editable
+//    render path. The demo's central feature
+//    (`TextMagnifierConfiguration`) is preserved end-to-end —
+//    `SelectableText` accepts the same `magnifierConfiguration`
+//    parameter, so long-press handle drag still engages the
+//    configured loupe on touch devices. Per-keystroke text entry
+//    is given up; each card still demonstrates a different
+//    configuration via the seeded controller text and the
+//    Tags/Wrap chip rows below.
+//
+// Both routes documented in interpreter_unfixable.md §Fa1-N1.
 //
 // Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
 
@@ -466,10 +487,22 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
       },
     ];
 
+    // Closed 2026-04-29 — Fa1 C3 sub-pocket. Originally
+    // `crossAxisAlignment: stretch` here. Combined with the Expanded
+    // children inside the outer ListView's SliverList, the C3
+    // cascade documented in interpreter_unfixable.md §Fa1-N1 fired:
+    // the Row demanded a vertical extent it could not derive
+    // (SliverList feeds unbounded height), and every grandchild
+    // failed to lay out, with three null-check follow-ups in the
+    // paint walk. Switched to `start` per the script header's
+    // primary prescription. Each intro card now sizes to its own
+    // intrinsic height; the explicit equal-height that `stretch`
+    // was guaranteeing is given up but the cards are typographically
+    // similar enough that the visual difference is small.
     return Container(
       margin: const EdgeInsets.fromLTRB(18, 4, 18, 6),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           for (int i = 0; i < cards.length; i++)
             Expanded(
@@ -648,33 +681,39 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 10),
-            TextField(
-              controller: controller,
-              magnifierConfiguration: _configForSpecimen(spec),
-              style: TextStyle(
-                fontSize: 13,
-                color: _tmcfgPalette.ink,
-                fontFamily: 'monospace',
+            // Closed 2026-04-29 — Fa1 EditableText sub-pocket. Originally
+            // a `TextField(controller: controller, magnifierConfiguration:
+            // _configForSpecimen(spec), maxLines: 2)` here, which routes
+            // through `_RenderEditableCustomPaint` and triggered the
+            // negative-min-height cascade documented in
+            // interpreter_unfixable.md §Fa1-N1. Replaced with a
+            // Container-wrapped SelectableText that preserves the
+            // demo's central feature — TextMagnifierConfiguration is a
+            // first-class parameter on SelectableText too, and the
+            // long-press handle drag still triggers the loupe.
+            // Per-keystroke editing is given up; the text is now
+            // selection-only (the controller's seed text remains
+            // visible, and each card still demonstrates a different
+            // magnifierConfiguration via the Tags/Wrap below).
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
               ),
-              maxLines: 2,
-              minLines: 2,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: _tmcfgPalette.surface,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
+              decoration: BoxDecoration(
+                color: _tmcfgPalette.surface,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: accent.withValues(alpha: 0.5)),
+              ),
+              child: SelectableText(
+                controller.text,
+                magnifierConfiguration: _configForSpecimen(spec),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: _tmcfgPalette.ink,
+                  fontFamily: 'monospace',
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: accent.withValues(alpha: 0.5),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: accent, width: 1.4),
-                ),
+                maxLines: 2,
               ),
             ),
             const SizedBox(height: 8),
@@ -1175,30 +1214,29 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
             ],
           ),
           const SizedBox(height: 10),
-          TextField(
-            controller: _playgroundController,
-            magnifierConfiguration: cfg,
-            maxLines: 3,
-            minLines: 3,
-            style: TextStyle(
-              fontSize: 13.5,
-              color: _tmcfgPalette.ink,
-            ),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: _tmcfgPalette.surface,
-              hintText: 'Long-press on a touch device to engage the loupe',
-              hintStyle: TextStyle(color: _tmcfgPalette.muted),
-              contentPadding: const EdgeInsets.all(12),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: _tmcfgPalette.ruby.withValues(alpha: 0.5),
-                ),
+          // Closed 2026-04-29 — Fa1 EditableText sub-pocket (live
+          // playground field). See _specimenCard for the full
+          // rationale: TextField → Container + SelectableText. The
+          // live `cfg` from the playground sliders/toggles is still
+          // wired through SelectableText.magnifierConfiguration, so
+          // long-pressing the seeded text on a touch device still
+          // triggers the configured loupe.
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: _tmcfgPalette.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: _tmcfgPalette.ruby.withValues(alpha: 0.5),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: _tmcfgPalette.ruby, width: 1.4),
+            ),
+            child: SelectableText(
+              _playgroundController.text,
+              magnifierConfiguration: cfg,
+              maxLines: 3,
+              style: TextStyle(
+                fontSize: 13.5,
+                color: _tmcfgPalette.ink,
               ),
             ),
           ),

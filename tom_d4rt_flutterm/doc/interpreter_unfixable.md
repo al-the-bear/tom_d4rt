@@ -812,11 +812,12 @@ rows for the brass-rimmed-lens / chameleon-card visual
 composition; pinning a height changes the demo's appearance.
 Deferred until a per-script visual rework is prioritised.
 
-**Update 2026-04-29 — empirical findings (widget_state_color closed):**
+**Update 2026-04-29 — empirical findings (Fa1 cluster fully closed):**
 
-`widgets/widget_state_color_test.dart` was promoted out of
-this deferral on 2026-04-29; only `text_magnifier_configuration`
-remains in the C3 sub-pocket. Working through it confirmed:
+Both C3 sub-pocket scripts (`widget_state_color_test.dart` and
+`text_magnifier_configuration_test.dart`) were promoted out of
+this deferral on 2026-04-29. With them, the entire Fa1 cluster
+is closed — all 7 sentinel slots now report FE=0. Working through it confirmed:
 
 - **Workaround 1 (stretch → start) is sufficient and simplest.**
   Both `Row(crossAxisAlignment: stretch)` sites in
@@ -848,6 +849,29 @@ remains in the C3 sub-pocket. Working through it confirmed:
   with no clean closing recipe. Workaround 1 (drop stretch) is
   preferred for its readability — the demo's narrative survives
   unchanged either way.
+
+- **A C3 cascade can mask an underlying Fa1 EditableText
+  cascade in the same script.** Confirmed empirically on
+  `text_magnifier_configuration_test.dart`: pre-fix FE was 6
+  (pure C3 shape — infinite-height RenderPadding + RenderFlex /
+  RenderPadding `hasSize` + 3× null-check). After the C3 fix
+  (stretch→start), FE jumped to 9 — the script's two
+  `TextField`s embedding `magnifierConfiguration` started
+  reporting the negative-min-height + `hasSize` cascade on
+  `_RenderEditableCustomPaint` plus a semantics `!_needsLayout`
+  assertion. The C3's "infinite height" propagated up the
+  layout tree fast enough that the inner editable's layout pass
+  was short-circuited before its negative-min could fire; once
+  the C3 was closed, the editable layout completed and produced
+  its own cascade. **Implication for future cluster fixes:**
+  when a C3 fix surfaces new errors instead of dropping to 0,
+  the new errors are likely a previously-masked Fa1 sub-pocket
+  in the same script — apply the EditableText-pocket closing
+  recipe (TextField/EditableText → SelectableText) on top of
+  the C3 fix. For demos that depend on `magnifierConfiguration`,
+  `SelectableText` is a one-for-one swap because it accepts the
+  same parameter and triggers the configured loupe through the
+  long-press handle drag path.
 
 ### Sentinel test
 

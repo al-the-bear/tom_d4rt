@@ -136,7 +136,7 @@ Source: `[METRIC] script=… frameworkErrors=N` lines with N ≥ 1.
 | `secondary` | `widgets/restorable_double_test.dart`        | 1 | RenderFlex overflowed by 17 px |
 | `secondary` | `widgets/restorable_property_test.dart`      | 1 | LateInitializationError `_value` |
 | `secondary` | `widgets/restoration_mixin_test.dart`        | 3 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
-| `secondary` | `widgets/text_magnifier_configuration_test.dart` | 6 | Infinite-height BoxConstraints + `Null check` cascade |
+| `secondary` | ~~`widgets/text_magnifier_configuration_test.dart`~~ (closed 2026-04-29) | ~~6~~ → 0 | ~~Infinite-height BoxConstraints + `Null check` cascade~~ |
 | `hr5`       | `widgets/select_all_text_intent_test.dart`   | 3 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
 | `hr5`       | `widgets/snapshot_mode_test.dart`            | 1 | RenderFlex overflowed by 14 px |
 | `hr5`       | `widgets/transpose_characters_intent_test.dart` | 2 | Negative BoxConstraints → `_RenderEditableCustomPaint` not laid out |
@@ -210,7 +210,7 @@ test-failure impact** does not justify the surface area.
    - `widgets/transpose_characters_intent_test.dart` — EditableText, FE=2
    - `widgets/restoration_mixin_test.dart` — EditableText, FE=3
    - ~~`widgets/widget_state_color_test.dart` — C3 sliver-row, FE=9~~ (closed 2026-04-29 — stretch→start, FE 9→0)
-   - `widgets/text_magnifier_configuration_test.dart` — C3 sliver-row, FE=6
+   - ~~`widgets/text_magnifier_configuration_test.dart` — C3 sliver-row, FE=6~~ (closed 2026-04-29 — stretch→start unmasked an EditableText sub-pocket; both TextFields then swapped for SelectableText with magnifierConfiguration preserved, FE 6→0)
    - (`restorable_double_test.dart` left un-annotated: its FE
      count flakes between 0 and 1 across runs and depends on
      inter-script ordering, not on its own structure. Tracked in
@@ -344,7 +344,7 @@ harness).
 - ~~`widgets/select_all_text_intent_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: Tier-A live `TextField(maxLines: 3)` swapped for `SelectableText` rendering the same copy; SizedBox pinning didn't stabilise the InputDecorator's intrinsic measurements, so the script took the alternate closing route documented in its own header. SelectAllTextIntent narrative preserved through SelectableText's Actions chain. FE drops to 0). Sentinel keeps watching for regression.
 - ~~`widgets/transpose_characters_intent_test.dart` (2 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: all three live `TextField`s replaced with `SelectableText` rendering descriptive copy. `SizedBox(height:)` pin and bare `EditableText` were both tried first — neither helped because the FE originates inside `_RenderEditableCustomPaint` itself, common to TextField and EditableText. SelectableText uses `_RenderParagraph` (no editable render path). TransposeCharactersIntent dispatch is preserved end-to-end through Scenarios 2 and 3 — Custom-Action card's CallbackAction still fires on keyboard shortcut + button, Manual-Dispatch card's button still calls `Actions.invoke` directly. Only the per-keystroke "live transpose" preview is lost. FE drops to 0). Sentinel keeps watching for regression.
 - ~~`widgets/widget_state_color_test.dart` (9 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket: both `Row(crossAxisAlignment: stretch)` sites in `_WscAnatomyFactories.build` and `_WscFromMapVsResolveWith.build` switched to `CrossAxisAlignment.start` per the script header's primary prescription, dropping the Row's vertical demand back up the outer `ListView`'s `SliverList`. The third stretch site — the inner `Column.stretch` inside `_constructorCard` — was left in place because its parent `Container` has finite width from the surrounding `Expanded`, so its cross-axis stretch operates on a bounded axis only. FE drops to 0). Sentinel keeps watching for regression.
-- `widgets/text_magnifier_configuration_test.dart` (6 FE) — C3-deferred sub-pocket
+- ~~`widgets/text_magnifier_configuration_test.dart` (6 FE)~~ — **fixed 2026-04-29** (C3 sliver-row sub-pocket + Fa1 EditableText sub-pocket, masked behind C3): the single `Row(crossAxisAlignment: stretch)` site in `_buildIntroCards` was switched to `CrossAxisAlignment.start` per the C3 closing route, which dropped FE 6→9 by surfacing a previously-masked Fa1 EditableText cascade (4× negative-min-height + 4× `hasSize` on `_RenderEditableCustomPaint` + 1× semantics `!_needsLayout` from the two `TextField`s in `_specimenCard` and `_playgroundPreview`). Both TextFields were then replaced with Container-wrapped `SelectableText` — the demo's central `magnifierConfiguration` parameter is preserved end-to-end since `SelectableText` accepts it natively, and long-press handle drag still triggers the configured loupe on touch. The `Column.stretch` site in the LayoutBuilder narrow branch was correctly identified as safe (cross-axis is the bounded ListView width) and left in place. FE drops to 0. Sentinel keeps watching for regression.
 - `widgets/scroll_deceleration_rate_test.dart` (E8-deferred; not visible this run as it lives in another suite)
 - ~~`widgets/snapshot_mode_test.dart` (1 FE)~~ — **fixed 2026-04-29** (small-overflow pocket: AppBar `preferredSize` 72 → 88 to match 44 px shutter + 38 px padding; FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/restorable_double_test.dart` (1 FE) — small-overflow sub-pocket
@@ -401,6 +401,40 @@ annotated scripts continue to carry the
 post-fix counts: `(0, 0, 3, 3, 2, 9, 6)` — only the
 `snapshot_mode` slot moved. Log:
 `doc/testlog_snapshot_mode_fix/sentinel_post.log.txt`.
+
+**Update (2026-04-29 — sixth and final promote — Fa1 cluster
+fully closed):** the last remaining C3 sliver-row sub-pocket
+script, `widgets/text_magnifier_configuration_test.dart`, was
+also fixed. With this promote the **entire Fa1 cluster** is
+closed — all 7 sentinel slots now report FE=0.
+
+The fix ran in two phases. The C3 cascade (6 FE: infinite-height
+RenderPadding, RenderFlex/RenderPadding `hasSize` failures, 3×
+null-check) was closed by switching the single
+`Row(crossAxisAlignment: stretch)` site in `_buildIntroCards` to
+`CrossAxisAlignment.start`, exactly the same closing route used
+for `widget_state_color_test.dart`. After that, **a previously
+masked Fa1 EditableText sub-pocket surfaced** at FE=9 (4×
+negative-min-height on `_RenderEditableCustomPaint`, 4× `hasSize`
+on `_RenderEditableCustomPaint`, 1× semantics `!_needsLayout`
+assertion). Triggered by the two `TextField`s in `_specimenCard`
+and `_playgroundPreview`, both of which embed
+`magnifierConfiguration` — the demo's central feature. Closed by
+replacing both with Container-wrapped `SelectableText`, which
+preserves the `magnifierConfiguration` parameter end-to-end
+(SelectableText supports it natively, and long-press handle drag
+still triggers the configured loupe on touch). Per-keystroke
+text entry is given up; each card's seeded controller text is
+rendered as the selectable string. The Container wrapper carries
+the OutlineInputBorder-style decoration so the visual rectangle
+look is preserved. The `Column.stretch` site in the
+LayoutBuilder narrow branch (cross-axis is the bounded ListView
+width) was correctly identified as safe and left in place.
+
+Sentinel post-fix: `(0, 0, 0, 0, 0, 0, 0)` — all 7 slots now
+FE=0; the Fa1 cluster has no remaining open scripts. The
+sentinel can be retired or repurposed for the next cluster.
+Log: `doc/testlog_text_magnifier_fix/sentinel_post.log.txt`.
 
 **Update (2026-04-29 — fifth partial promote):** the first
 of the two remaining C3 sliver-row sub-pocket scripts,
