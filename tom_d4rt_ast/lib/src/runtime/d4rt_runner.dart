@@ -10,6 +10,7 @@ import 'package:tom_d4rt_ast/src/runtime/callable.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/environment.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
+import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart';
@@ -663,6 +664,59 @@ class D4rtRunner {
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
     );
+  }
+
+  /// Execute [bundle] and unwrap the result to type [T] via [D4.unwrapAs].
+  ///
+  /// This is the typed entry point that consolidates the unwrap path —
+  /// callers don't need to know about [BridgedInstance], [BridgedEnumValue],
+  /// or [InterpretedInstance]; they get a plain [T] back (or a
+  /// [D4UnwrapException] if the result can't be coerced).
+  ///
+  /// For results that may be a [Future] (i.e. from `async` entry points),
+  /// use [executeBundleAsAsync] instead.
+  ///
+  /// Step 2 of `tom_d4rt_flutterm/doc/d4rt_consolidation_plan.md`.
+  T executeBundleAs<T>(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) {
+    final raw = executeBundle(
+      bundle,
+      entryPoint: entryPoint,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+    return D4.unwrapAs<T>(raw, visitor: _visitor);
+  }
+
+  /// Async variant of [executeBundleAs] — awaits the result if it is a
+  /// [Future] before unwrapping to [T].
+  ///
+  /// Use this when the bundle's entry point is `async` (or otherwise
+  /// returns a Future). When the bundle is synchronous the awaited
+  /// value is the raw return — both paths converge on
+  /// [D4.unwrapAs] for the cast.
+  Future<T> executeBundleAsAsync<T>(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) async {
+    final raw = executeBundle(
+      bundle,
+      entryPoint: entryPoint,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+    final resolved = raw is Future ? await raw : raw;
+    return D4.unwrapAs<T>(resolved, visitor: _visitor);
   }
 
   /// Evaluate an expression in the current context.
