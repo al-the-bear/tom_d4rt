@@ -85,7 +85,7 @@ Dart battery (separate-process, runs do not race):
 | `tom_d4rt` | +1733 ~1 −6 | +1740 ~1 −6 | +7 (the new contract tests) |
 | `tom_d4rt_ast` | +115 −2 | +115 −2 | 0 |
 | `tom_d4rt_generator` | +639 −21 | +639 −21 | 0 |
-| `tom_d4rt_dcli` | +706 / 0 | (run pending — log file) | tracked |
+| `tom_d4rt_dcli` | +706 / 0 | +706 / 0 (all passed) | 0 |
 
 Format: `passing/skipped -failing` (skip count omitted when zero).
 
