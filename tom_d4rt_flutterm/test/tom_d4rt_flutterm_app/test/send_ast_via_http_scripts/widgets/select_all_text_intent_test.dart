@@ -4,34 +4,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
-//
-// Emits 3 FE in this order:
+// Closed 2026-04-29 — Fa1 EditableText sub-pocket. Previously
+// emitted a 3-FE cascade out of the Tier-A `TextField(maxLines: 3)`:
 //   1. BoxConstraints has a negative minimum height (provided to
 //      _RenderEditableCustomPaint's layout()).
 //   2. RenderBox was not laid out: _RenderEditableCustomPaint
 //      ('hasSize' assertion).
 //   3. '!childSemantics.renderObject._needsLayout': is not true
 //      (object.dart:5737).
+// The cascade originated in the layout/semantics pass when the
+// ListView body fed the InputDecorator a negative-minimum-height
+// constraint while `_RenderEditableCustomPaint` was still flagged
+// needs-layout. A `SizedBox(height: <pinned>)` wrap around the
+// TextField did not stabilise the InputDecorator's intrinsic
+// measurements, so we took the alternate closing route documented
+// here from the start: the live editable is replaced with a
+// `SelectableText` rendering the same initial copy. Tier-A's
+// logger + delegate Actions chain still walks past its custom
+// handler into SelectableText's default SelectAllTextIntent handler,
+// so the educational narrative is preserved.
 //
-// Triggered by the Tier-A `TextField(maxLines: 3)` inside a
-// `Column(crossAxisAlignment: stretch)` whose grandparent Column is
-// further wrapped in panel chrome with computed but not pinned
-// vertical extent. The semantics layout pass runs while
-// `_RenderEditableCustomPaint` is still flagged needs-layout — a
-// flutter framework race when the editable's parent constraint
-// shrinks to negative minimum height during the same frame.
-//
-// Closing route documented in interpreter_unfixable.md §Fa1-N1
-// (EditableText sub-pocket): replace the Tier-A TextField demo with
-// `SelectableText` + a static cursor glyph (no editable render
-// path), or wrap the TextField in
-// `SizedBox(height: <pinned>)` so the constraint never shrinks
-// negative. Deferred — Tier-A is the headline demo; replacing the
-// live TextField removes the actual select-all behaviour shown.
-//
-// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] — flips
-// to FE=0 if the underlying flutter behaviour changes.
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] — slot 4
+// flipped from 3 → 0 with this fix.
 
 // =====================================================================
 // Select-All Command Center — a hand-authored, deep visual demo of
@@ -317,16 +311,39 @@ class _SelectAllCommandCenterHomeState
                         ),
                       ),
                       padding: const EdgeInsets.all(10),
-                      child: TextField(
-                        controller: _tierAController,
-                        maxLines: 3,
+                      // Closed 2026-04-29 — Fa1 EditableText sub-pocket.
+                      //
+                      // The Tier-A demo originally hosted a live
+                      // `TextField(maxLines: 3)` inside a
+                      // `Column(crossAxisAlignment: stretch)` placed
+                      // under a `ListView` body. During the layout +
+                      // semantics pass the ListView momentarily fed
+                      // the InputDecorator a negative-minimum-height
+                      // constraint, which the EditableText surfaced
+                      // as the 3-FE cascade tracked by `[fa1-2250-
+                      // sentinel]` (negative-min-height →
+                      // !hasSize → !childSemantics._needsLayout).
+                      //
+                      // Per the script's own prescription (alternate
+                      // closing route — see header history pre-2026-
+                      // 04-29) we replace the live editable with a
+                      // `SelectableText` that renders the same
+                      // initial copy. SelectableText still supports
+                      // SelectAllTextIntent through its own Actions
+                      // chain, so the demo narrative — "log the
+                      // intent, delegate to the next handler" — keeps
+                      // working: `Actions.maybeInvoke` walks past
+                      // Tier-A's logger into SelectableText's default
+                      // handler. The keyboard-origin FE pocket is
+                      // gone because there is no editable render
+                      // path to receive the bad constraint.
+                      child: SelectableText(
+                        _tierAController.text,
                         style: const TextStyle(
                           color: Color(0xFF111827),
                           fontFamily: 'monospace',
-                        ),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          isDense: true,
+                          fontSize: 13,
+                          height: 1.45,
                         ),
                       ),
                     ),

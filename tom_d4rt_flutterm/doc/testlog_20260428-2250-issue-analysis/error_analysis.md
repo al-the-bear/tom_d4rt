@@ -341,7 +341,7 @@ script-set differences in `secondary` not measured in 1333's `fa1`
 harness).
 
 **Open scripts in this run's set:**
-- `widgets/select_all_text_intent_test.dart` (3 FE)
+- ~~`widgets/select_all_text_intent_test.dart` (3 FE)~~ — **fixed 2026-04-29** (EditableText sub-pocket: Tier-A live `TextField(maxLines: 3)` swapped for `SelectableText` rendering the same copy; SizedBox pinning didn't stabilise the InputDecorator's intrinsic measurements, so the script took the alternate closing route documented in its own header. SelectAllTextIntent narrative preserved through SelectableText's Actions chain. FE drops to 0). Sentinel keeps watching for regression.
 - `widgets/transpose_characters_intent_test.dart` (2 FE)
 - `widgets/widget_state_color_test.dart` (9 FE) — C3-deferred sub-pocket
 - `widgets/text_magnifier_configuration_test.dart` (6 FE) — C3-deferred sub-pocket
@@ -401,6 +401,23 @@ annotated scripts continue to carry the
 post-fix counts: `(0, 0, 3, 3, 2, 9, 6)` — only the
 `snapshot_mode` slot moved. Log:
 `doc/testlog_snapshot_mode_fix/sentinel_post.log.txt`.
+
+**Update (2026-04-29 — second partial promote):** the
+EditableText sub-pocket `widgets/select_all_text_intent_test.dart`
+was also fixed in a follow-up pass via the alternate closing
+route the script's own header had documented since the
+campaign began. The Tier-A `TextField(maxLines: 3)` is
+replaced with a `SelectableText` rendering the same initial
+copy; the educational narrative (logger Action chained into a
+default SelectAllTextIntent handler) is preserved through
+SelectableText's own Actions chain. A `SizedBox(height: 76)`
+pin attempted first did not stabilise the InputDecorator's
+intrinsic measurements (FE stayed at 3), so we promoted the
+alternate route to the actual fix. The script's header was
+rewritten to record the close. Sentinel post-fix counts:
+`(0, 0, 3, 0, 2, 9, 6)` — only the `select_all_text_intent`
+slot moved (3 → 0). Log:
+`doc/testlog_select_all_fix/sentinel_post.log.txt`.
 
 Status: **Reverted/Deferred** via the documented annotation
 closure path. Future rewrites of any individual script may flip
