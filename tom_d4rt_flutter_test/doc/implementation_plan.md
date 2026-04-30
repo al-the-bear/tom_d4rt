@@ -497,7 +497,7 @@ class TestRunner extends ChangeNotifier {
 
 ---
 
-### Step 7 — Test runner service [ ]
+### Step 7 — Test runner service [x]
 
 New file `lib/src/test_runner.dart`. `ChangeNotifier`-based state machine
 with play / pause / next / back controls.
