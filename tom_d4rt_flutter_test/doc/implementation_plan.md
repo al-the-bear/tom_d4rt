@@ -659,20 +659,28 @@ reactively. Controls in `ControlBar` check `runner.scripts.isEmpty` and
 
 ### Step 9 — Smoke test [ ]
 
-Run the app on macOS desktop:
+Run on Linux desktop first; macOS to follow later.
 
 ```bash
 cd tom_d4rt_flutter_test
-flutter run -d macos
+flutter run -d linux
 ```
 
 Verify:
 - App launches and script list loads
+- PathBar shows the default path; "Path not found" chip appears if the
+  sibling `tom_d4rt_flutter_ast/` directory is not resolved correctly
+- Browse button opens the native folder picker and reloads the script list
 - Play advances through scripts automatically
 - Pause stops mid-run, Next/Back step individually
 - At least a handful of scripts in the `animation/` or `dart_ui/` clusters
   pass (simpler, fewer Flutter-widget dependencies)
 - Failures show readable error messages
+
+**macOS follow-up** — repeat with `flutter run -d macos` once Linux is green.
+The `Platform.resolvedExecutable` walk-up path may need a different number of
+`../` steps for the macOS `.app` bundle layout vs the Linux ELF binary; adjust
+`defaultRoot` in `TestScriptLoader` if needed.
 
 ---
 
