@@ -147,7 +147,7 @@ class TestRunner extends ChangeNotifier {
     if (scripts.isEmpty) return;
     final script = scripts[currentIndex];
     try {
-      final raw = _d4rt.execute<dynamic>(script.source);
+      final raw = _d4rt.execute<dynamic>(script.source, name: 'build');
       lastResult = TestResult.pass(script.name, raw.runtimeType.toString());
     } catch (e, st) {
       lastResult = TestResult.fail(script.name, e.toString(), st);
