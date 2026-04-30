@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-04-30T09:58:01.006068
+// Generated: 2026-04-30T12:56:16.714771
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -64,6 +64,9 @@ import 'package:flutter/src/services/text_formatter.dart' as $flutter_49;
 import 'package:flutter/src/services/text_input.dart' as $flutter_50;
 import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_51;
 import 'package:flutter/src/services/undo_manager.dart' as $flutter_52;
+import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 
 /// Bridge class for flutter_services module.
@@ -8283,16 +8286,7 @@ BridgedClass _createBasicMessageChannelBridge() {
         final message = D4.getRequiredArg<dynamic>(positional, 0, 'message', 'send');
         return t.send(message);
       },
-      'setMessageHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.BasicMessageChannel>(target, 'BasicMessageChannel');
-        D4.requireMinArgs(positional, 1, 'setMessageHandler');
-        if (positional.isEmpty) {
-          throw ArgumentError('setMessageHandler: Missing required argument "handler" at position 0');
-        }
-        final handlerRaw = positional[0];
-        (t as dynamic).setMessageHandler(handlerRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor); });
-        return null;
-      },
+      'setMessageHandler': $tom_d4rt_flutter_test_1.BasicMessageChannelUserBridge.overrideMethodSetMessageHandler,
     },
     constructorSignatures: {
       '': 'const BasicMessageChannel(String name, MessageCodec<T> codec, {BinaryMessenger? binaryMessenger})',
