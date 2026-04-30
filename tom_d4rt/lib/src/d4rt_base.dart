@@ -279,6 +279,21 @@ class D4rt {
     _functionTypedefs.add((name: name, library: library));
   }
 
+  /// GEN-100: Registered class aliases for module-env registration.
+  ///
+  /// Exposed so [ModuleLoader._registerBridgesForUriInto] can register
+  /// aliases (e.g. MaterialStateProperty → WidgetStateProperty) into
+  /// per-module environments.  Mirrors [D4rtRunner.classAliases].
+  List<({String aliasName, String targetName, String library})>
+      get classAliases => _classAliases;
+
+  /// GEN-100: Registered function typedefs for module-env registration.
+  ///
+  /// Exposed so [ModuleLoader._registerBridgesForUriInto] can register
+  /// function typedef names (e.g. VoidCallback) into per-module environments.
+  /// Mirrors [D4rtRunner.functionTypedefs].
+  List<({String name, String library})> get functionTypedefs => _functionTypedefs;
+
   /// GEN-107: Registered library re-exports keyed by source library URI.
   ///
   /// Mirror of [D4rtRunner.libraryReExports] — see that getter for the

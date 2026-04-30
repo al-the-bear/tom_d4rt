@@ -872,8 +872,12 @@ class Environment {
       if (_values.containsKey(name)) {
         // Allow if it's the same value (e.g., same class/function imported via different paths)
         if (!identical(_values[name], value)) {
-          throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined with a different value.");
+          // GEN-100 sync: import wins for value conflicts (matches tom_d4rt_ast).
+          // Explicit imports take priority over pre-registered ambient definitions.
+          Logger.debug(
+              "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+              "value '$name' with imported version");
+          _values[name] = value;
         }
         // Same value, skip the duplicate
         return;
@@ -881,19 +885,30 @@ class Environment {
       if (_bridgedClasses.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeD4rtException(
-            "Name conflict in environment: Symbol '$name' is already defined.");
+        // GEN-100 sync: import value can replace pre-registered type definition.
+        Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Import value '$name' "
+            "replaces pre-registered type definition");
       }
       _values[name] = value;
     });
 
     sourceEnvToImportFrom._bridgedClasses.forEach((name, bridgedClass) {
       if (_bridgedClasses.containsKey(name)) {
-        // Allow if it's the same bridged class
-        if (!identical(_bridgedClasses[name], bridgedClass)) {
-          throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' (bridged class) is already defined with a different value.");
+        // Allow if it's the same bridged class (identity check)
+        if (identical(_bridgedClasses[name], bridgedClass)) {
+          return;
         }
+        // GEN-100 sync: When a bridged class with the same name but different
+        // definition exists (e.g., dart:ui.TextStyle pre-registered vs
+        // painting.TextStyle from an explicit import), the IMPORT WINS.
+        // This matches Dart's import semantics: explicit imports take priority
+        // over pre-registered (ambient) definitions.
+        Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+            "bridged class '$name' with imported version");
+        _bridgedClasses[name] = bridgedClass;
+        _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
         return;
       }
       if (_values.containsKey(name) ||
@@ -908,11 +923,15 @@ class Environment {
 
     sourceEnvToImportFrom._bridgedEnums.forEach((name, bridgedEnum) {
       if (_bridgedEnums.containsKey(name)) {
-        // Allow if it's the same bridged enum
-        if (!identical(_bridgedEnums[name], bridgedEnum)) {
-          throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' (bridged enum) is already defined with a different value.");
+        // Allow if it's the same bridged enum (identity check)
+        if (identical(_bridgedEnums[name], bridgedEnum)) {
+          return;
         }
+        // GEN-100 sync: import wins for enum conflicts too.
+        Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+            "bridged enum '$name' with imported version");
+        _bridgedEnums[name] = bridgedEnum;
         return;
       }
       if (_values.containsKey(name) ||

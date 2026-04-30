@@ -1022,6 +1022,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
+      // GEN-107 sync: Universal Object properties for non-enum BridgedInstance
+      // (mirrors GEN-075 fix in tom_d4rt_ast visitPrefixedIdentifier).
+      switch (memberName) {
+        case 'hashCode':
+          return bridgedInstance.nativeObject.hashCode;
+        case 'runtimeType':
+          return bridgedInstance.nativeObject.runtimeType;
+        case 'toString':
+          return NativeFunction(
+            (visitor, args, namedArgs, typeArgs) =>
+                bridgedInstance.nativeObject.toString(),
+            arity: 0,
+            name: 'toString',
+          );
+      }
+
       throw RuntimeD4rtException(
           "Undefined property or method '$memberName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.");
     } else if (prefixValue is InterpretedRecord) {
@@ -4133,6 +4149,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // fall through to throw with original context
           }
         }
+      }
+
+      // GEN-107 sync: Universal Object properties for non-enum BridgedInstance
+      // (mirrors GEN-075 fix in tom_d4rt_ast visitPropertyAccess).
+      switch (propertyName) {
+        case 'hashCode':
+          return bridgedInstance.nativeObject.hashCode;
+        case 'runtimeType':
+          return bridgedInstance.nativeObject.runtimeType;
+        case 'toString':
+          return NativeFunction(
+            (visitor, args, namedArgs, typeArgs) =>
+                bridgedInstance.nativeObject.toString(),
+            arity: 0,
+            name: 'toString',
+          );
       }
 
       throw RuntimeD4rtException(
@@ -8848,9 +8880,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitInstanceCreationExpression(InstanceCreationExpression node) {
     final constructorNameNode = node.constructorName.type;
-    final constructorName =
+    // These are var because the named-constructor ambiguity resolution below
+    // may reclassify them (mirrors GEN-107 fix in tom_d4rt_ast).
+    var constructorName =
         constructorNameNode.name2.lexeme; // Name of the class
-    final namedConstructorPart = node
+    var namedConstructorPart = node
         .constructorName.name?.name; // Name of the named constructor (or null)
 
     Logger.debug(
@@ -8861,8 +8895,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     try {
       typeValue = environment.get(constructorName);
     } on RuntimeD4rtException {
-      throw RuntimeD4rtException(
-          "Type '$constructorName' not found for instantiation.");
+      // Named-constructor ambiguity: the Dart analyzer parses
+      // ClassName.namedCtor() in an unresolved (no-SDK) context as
+      //   NamedType(importPrefix='ClassName', name2='namedCtor')
+      // with constructorName.name == null. Detect this by checking whether
+      // the importPrefix is a known class and name2 is not.
+      // Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...).
+      final prefix = constructorNameNode.importPrefix;
+      if (prefix != null && namedConstructorPart == null) {
+        final possibleClassName = prefix.name.lexeme;
+        try {
+          typeValue = environment.get(possibleClassName);
+          // Succeeded — treat prefix as class, name2 as named constructor.
+          constructorName = possibleClassName;
+          namedConstructorPart = constructorNameNode.name2.lexeme;
+          Logger.debug(
+              "[InstanceCreation] Ambiguity resolved: class='$constructorName', ctor='$namedConstructorPart'");
+        } on RuntimeD4rtException {
+          throw RuntimeD4rtException(
+              "Type '$constructorName' not found for instantiation.");
+        }
+      } else {
+        throw RuntimeD4rtException(
+            "Type '$constructorName' not found for instantiation.");
+      }
     }
 
     // Check the resolved type

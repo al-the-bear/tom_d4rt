@@ -52,6 +52,17 @@ class ModuleLoader {
   final Map<String, String> _registeredEnums = {};
   final Map<String, String> _registeredExtensions = {};
 
+  // GEN-100 sync with tom_d4rt_ast: per-module environments for bridge isolation.
+  // Each bridged library URI gets its own Environment containing only its bridges.
+  // This prevents same-named classes from different modules (e.g. dart:ui.TextStyle
+  // vs painting.TextStyle) from conflicting in globalEnvironment.
+  final Map<String, Environment> _bridgedModuleEnvironments = {};
+
+  // GEN-100 sync: per-stdlib isolated environments for non-ambient stdlib modules.
+  // dart:core and dart:async stay in globalEnvironment (ambient/unconditional);
+  // dart:math, dart:convert, dart:io etc. each get their own env.
+  final Map<String, Environment> _stdlibEnvironments = {};
+
   /// When true, registration errors are collected instead of thrown.
   ///
   /// Use this with [accumulatedRegistrationErrors] to validate all bridge
@@ -132,6 +143,340 @@ class ModuleLoader {
     return false;
   }
 
+  // ===========================================================================
+  // GEN-100: Per-module / per-stdlib environment loading
+  // Mirrors AstModuleLoader._loadStdlibModule and _tryLoadBridgedModule.
+  // ===========================================================================
+
+  /// Known non-ambient stdlib modules and their registration functions.
+  /// dart:core and dart:async are pre-registered into globalEnvironment and
+  /// are NOT listed here (they stay ambient/unconditional).
+  static final Map<String, void Function(Environment)> _stdlibRegistrars = {
+    'math': MathStdlib.register,
+    'convert': ConvertStdlib.register,
+    'io': StdlibIo.register,
+    'collection': CollectionStdlib.register,
+    'typed_data': TypedDataStdlib.register,
+    'isolate': IsolateStdlib.register,
+  };
+
+  /// Loads a `dart:*` stdlib module into an isolated per-stdlib [Environment].
+  ///
+  /// Returns `null` if the library has bridged content (caller falls through
+  /// to [_tryLoadBridgedModule]) or is truly unsupported (caller throws).
+  /// Returns a [LoadedModule] with the stdlib's isolated env otherwise.
+  LoadedModule? _loadStdlibModule(Uri uri) {
+    final libName = uri.path;
+    final uriString = uri.toString();
+
+    final registrar = _stdlibRegistrars[libName];
+    if (registrar != null) {
+      Environment stdlibEnv;
+      if (_stdlibEnvironments.containsKey(libName)) {
+        stdlibEnv = _stdlibEnvironments[libName]!;
+      } else {
+        stdlibEnv = Environment(enclosing: globalEnvironment);
+        registrar(stdlibEnv);
+        _stdlibEnvironments[libName] = stdlibEnv;
+        Logger.debug(
+            '[ModuleLoader] GEN-100: Registered isolated stdlib dart:$libName');
+      }
+      final emptyAst = _parseSource(uri, '');
+      final module =
+          LoadedModule(uri, emptyAst, stdlibEnv, stdlibEnv);
+      _moduleCache[uri] = module;
+      return module;
+    }
+
+    // dart:core / dart:async are ambient — pre-registered into globalEnvironment.
+    if (libName == 'core' || libName == 'async') {
+      final emptyAst = _parseSource(uri, '');
+      final module =
+          LoadedModule(uri, emptyAst, globalEnvironment, globalEnvironment);
+      _moduleCache[uri] = module;
+      return module;
+    }
+
+    // Check if there are bridges for this dart: URI (e.g. dart:ui).
+    if (_hasBridgedContentForUri(uriString)) {
+      return null; // Let _tryLoadBridgedModule handle it.
+    }
+
+    // Truly unsupported dart: library.
+    throw SourceCodeD4rtException(
+        "Dart library '$uriString' not supported.", uriString);
+  }
+
+  /// Loads a bridged library URI into an isolated per-module [Environment].
+  ///
+  /// Creates the module env on first call; returns the cached env on
+  /// subsequent calls. Merges re-exported bridged content via [_mergeReExports].
+  LoadedModule _tryLoadBridgedModule(
+      Uri uri, Set<String>? showNames, Set<String>? hideNames) {
+    final uriString = uri.toString();
+
+    Environment moduleEnv;
+    if (_bridgedModuleEnvironments.containsKey(uriString)) {
+      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    } else {
+      moduleEnv = Environment(enclosing: globalEnvironment);
+      _registerBridgesForUriInto(
+          uriString, showNames, hideNames, moduleEnv);
+      _mergeReExports(uriString, moduleEnv, showNames, hideNames, <String>{});
+      _bridgedModuleEnvironments[uriString] = moduleEnv;
+      Logger.debug(
+          '[ModuleLoader] GEN-100: Created per-module env for $uriString');
+    }
+
+    final emptyAst = _parseSource(uri, '');
+    final module = LoadedModule(uri, emptyAst, moduleEnv, moduleEnv);
+    _moduleCache[uri] = module;
+    return module;
+  }
+
+  /// Registers all bridged definitions for [uriString] into [targetEnvironment].
+  ///
+  /// GEN-100 sync with [AstModuleLoader._registerBridgesForUriInto]:
+  /// registers into a module-specific env instead of [globalEnvironment].
+  /// Show/hide filters are applied at registration time.
+  void _registerBridgesForUriInto(
+    String uriString,
+    Set<String>? showNames,
+    Set<String>? hideNames,
+    Environment targetEnvironment,
+  ) {
+    // Bridged enums
+    for (final entry in bridgedEnumDefinitions) {
+      final libEnum = entry[uriString];
+      if (libEnum == null) continue;
+      final name = libEnum.enumDefinition.name;
+      if (!_shouldRegisterName(name,
+          showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
+        targetEnvironment.defineBridgedEnum(bridgedEnum);
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered bridged enum: $name from $uriString');
+      } catch (e) {
+        Logger.error("registering bridged enum '$name' into module env: $e");
+      }
+    }
+
+    // Bridged classes
+    for (final entry in bridgedClases) {
+      final libClass = entry[uriString];
+      if (libClass == null) continue;
+      final name = libClass.bridgedClass.name;
+      if (!_shouldRegisterName(name,
+          showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        targetEnvironment.defineBridge(libClass.bridgedClass);
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered bridged class: $name from $uriString');
+      } catch (e) {
+        Logger.error("registering bridged class '$name' into module env: $e");
+      }
+    }
+
+    // GEN-078: class aliases (e.g. MaterialStateProperty → WidgetStateProperty)
+    if (d4rt != null) {
+      for (final alias in d4rt!.classAliases) {
+        if (alias.library != uriString) continue;
+        if (!_shouldRegisterName(alias.aliasName,
+            showNames: showNames, hideNames: hideNames)) continue;
+        try {
+          targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
+          Logger.debug(
+              ' [ModuleLoader] GEN-100: Registered alias: ${alias.aliasName} → ${alias.targetName} from $uriString');
+        } catch (e) {
+          Logger.error(
+              "registering alias '${alias.aliasName}' into module env: $e");
+        }
+      }
+      // GEN-079: function typedefs as BridgedClass(nativeType: Function)
+      for (final typedef in d4rt!.functionTypedefs) {
+        if (typedef.library != uriString) continue;
+        if (!_shouldRegisterName(typedef.name,
+            showNames: showNames, hideNames: hideNames)) continue;
+        try {
+          targetEnvironment.defineBridge(
+              BridgedClass(nativeType: Function, name: typedef.name));
+          Logger.debug(
+              ' [ModuleLoader] GEN-100: Registered function typedef: ${typedef.name} from $uriString');
+        } catch (e) {
+          Logger.error(
+              "registering function typedef '${typedef.name}' into module env: $e");
+        }
+      }
+    }
+
+    // Library functions
+    for (final entry in libraryFunctions) {
+      final libFunc = entry[uriString];
+      if (libFunc == null) continue;
+      final name = libFunc.function.name;
+      if (name == '<native>') continue;
+      if (!_shouldRegisterName(name,
+          showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        targetEnvironment.define(name, libFunc.function);
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered library function: $name from $uriString');
+      } catch (e) {
+        Logger.error("registering library function '$name' into module env: $e");
+      }
+    }
+
+    // Library variables
+    for (final entry in libraryVariables) {
+      final libVar = entry[uriString];
+      if (libVar == null) continue;
+      if (!_shouldRegisterName(libVar.name,
+          showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        targetEnvironment.define(libVar.name, libVar.value);
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered library variable: ${libVar.name} from $uriString');
+      } catch (e) {
+        Logger.error(
+            "registering library variable '${libVar.name}' into module env: $e");
+      }
+    }
+
+    // Library getters + setters (paired)
+    final settersByName = <String, LibrarySetter>{};
+    for (final entry in librarySetters) {
+      final libSetter = entry[uriString];
+      if (libSetter != null) settersByName[libSetter.name] = libSetter;
+    }
+    for (final entry in libraryGetters) {
+      final libGetter = entry[uriString];
+      if (libGetter == null) continue;
+      if (!_shouldRegisterName(libGetter.name,
+          showNames: showNames, hideNames: hideNames)) continue;
+      final setter = settersByName.remove(libGetter.name);
+      try {
+        targetEnvironment.define(
+            libGetter.name,
+            GlobalGetter(libGetter.getter, setter: setter?.setter));
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered library getter: ${libGetter.name} from $uriString');
+      } catch (e) {
+        Logger.error(
+            "registering library getter '${libGetter.name}' into module env: $e");
+      }
+    }
+    // Remaining standalone setters
+    for (final entry in settersByName.entries) {
+      if (!_shouldRegisterName(entry.key,
+          showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        targetEnvironment.define(
+            entry.key,
+            GlobalGetter(
+              () => throw RuntimeD4rtException(
+                  'Property ${entry.key} is write-only'),
+              setter: entry.value.setter,
+            ));
+      } catch (e) {
+        Logger.error(
+            "registering standalone setter '${entry.key}' into module env: $e");
+      }
+    }
+
+    // Bridged extensions
+    for (final entry in bridgedExtensions) {
+      final libExt = entry[uriString];
+      if (libExt == null) continue;
+      final definition = libExt.extensionDefinition;
+      final extName = definition.name ?? '<unnamed>';
+      if (definition.name != null &&
+          !_shouldRegisterName(definition.name!,
+              showNames: showNames, hideNames: hideNames)) continue;
+      try {
+        RuntimeType? onType;
+        try {
+          final typeObj = targetEnvironment.get(definition.onTypeName);
+          if (typeObj is RuntimeType) onType = typeObj;
+        } on RuntimeD4rtException {
+          onType = null;
+        }
+        onType ??= _resolveTypeForExtension(definition.onTypeName);
+        if (onType == null) {
+          Logger.warn(
+              ' [ModuleLoader] GEN-100: Could not resolve type '
+              "'${definition.onTypeName}' for extension '$extName' from $uriString — skipping.");
+          continue;
+        }
+        final interpretedExt = definition.buildInterpretedExtension(onType);
+        targetEnvironment.addUnnamedExtension(interpretedExt);
+        if (definition.name != null) {
+          targetEnvironment.define(definition.name!, interpretedExt);
+        }
+        Logger.debug(
+            ' [ModuleLoader] GEN-100: Registered extension "$extName" on '
+            '${definition.onTypeName} from $uriString');
+      } catch (e) {
+        Logger.error("registering extension '$extName' into module env: $e");
+      }
+    }
+  }
+
+  /// GEN-100 sync: Merge re-exported libraries' bridged content into [moduleEnv].
+  ///
+  /// Replaces [_mergeReExportsGlobal]. Walks [d4rt.libraryReExports[sourceUri]]
+  /// and registers each target's bridges into the source library's per-module
+  /// environment. Recurses for transitive re-exports. [visited] guards cycles.
+  void _mergeReExports(
+    String sourceUri,
+    Environment moduleEnv,
+    Set<String>? outerShow,
+    Set<String>? outerHide,
+    Set<String> visited,
+  ) {
+    if (!visited.add(sourceUri)) return;
+    final reExports = d4rt?.libraryReExports[sourceUri];
+    if (reExports == null || reExports.isEmpty) return;
+
+    for (final re in reExports) {
+      final effectiveShow = _intersectShow(outerShow, re.show);
+      final effectiveHide = _unionHide(outerHide, re.hide);
+
+      final targetUri = Uri.parse(re.uri);
+      if (targetUri.scheme == 'dart') {
+        try {
+          final stdlibModule = _loadStdlibModule(targetUri);
+          if (stdlibModule != null) {
+            moduleEnv.importEnvironment(
+              stdlibModule.exportedEnvironment,
+              show: effectiveShow,
+              hide: effectiveHide,
+            );
+          }
+        } on SourceCodeD4rtException {
+          // Re-export of an unsupported dart: lib — ignore.
+        }
+      }
+
+      _registerBridgesForUriInto(
+          re.uri, effectiveShow, effectiveHide, moduleEnv);
+      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visited);
+    }
+  }
+
+  /// Intersection of two optional show-filters (null = show everything).
+  Set<String>? _intersectShow(Set<String>? outer, Set<String>? inner) {
+    if (outer == null) return inner;
+    if (inner == null) return outer;
+    return outer.intersection(inner);
+  }
+
+  /// Union of two optional hide-filters (null = hide nothing).
+  Set<String>? _unionHide(Set<String>? outer, Set<String>? inner) {
+    if (outer == null && inner == null) return null;
+    return {...?outer, ...?inner};
+  }
+
   LoadedModule loadModule(Uri uri,
       {Set<String>? showNames, Set<String>? hideNames}) {
     // Check permissions for dangerous modules
@@ -152,6 +497,25 @@ class ModuleLoader {
     }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
+
+    // GEN-100: Handle stdlib and bridged modules with per-module environments
+    // BEFORE falling through to source-code parsing. This mirrors the
+    // AstModuleLoader flow: stdlib → bridged → bundle source.
+    if (uri.scheme == 'dart') {
+      final stdlibModule = _loadStdlibModule(uri);
+      if (stdlibModule != null) {
+        currentlibrary = previouslibraryForRecursiveLoad;
+        return stdlibModule;
+      }
+      // dart: URI with bridged content falls through to _tryLoadBridgedModule.
+    }
+    if (_hasBridgedContentForUri(uri.toString())) {
+      final bridgedModule =
+          _tryLoadBridgedModule(uri, showNames, hideNames);
+      currentlibrary = previouslibraryForRecursiveLoad;
+      return bridgedModule;
+    }
+
     String sourceCode = _fetchModuleSource(uri,
         showNames: showNames,
         hideNames: hideNames); // Pass show/hide to filter bridged registrations
