@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-04-23T19:25:37.068366
+// Generated: 2026-04-29T20:45:12.896013
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -77,6 +77,18 @@ class UserGuideBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/user_guide.dart', target: 'package:d4_example/src/user_guide/calculator.dart', show: null, hide: null),
+      (source: 'package:d4_example/user_guide.dart', target: 'package:d4_example/src/user_guide/greeter.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -87,6 +99,11 @@ class UserGuideBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

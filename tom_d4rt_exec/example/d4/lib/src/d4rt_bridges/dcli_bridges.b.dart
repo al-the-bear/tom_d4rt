@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-04-23T19:25:43.146218
+// Generated: 2026-04-29T20:45:21.301102
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -338,6 +338,16 @@ class DcliBridge {
         },
       ),
       BridgedExtensionDefinition(
+        name: 'DigestHelper',
+        onTypeName: 'Digest',
+        methods: {
+          'hexEncode': (visitor, target, positional, named, typeArgs) {
+            final t = target as $crypto_1.Digest;
+            return Function.apply(t.hexEncode, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
+      ),
+      BridgedExtensionDefinition(
         name: 'StringAsProcess',
         onTypeName: 'String',
         getters: {
@@ -408,8 +418,108 @@ class DcliBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'PlatformEx': 'package:dcli_core/src/util/platform.dart',
+      'DigestHelper': 'package:dcli/src/util/digest_helper.dart',
       'StringAsProcess': 'package:dcli/src/util/string_as_process.dart',
     };
+  }
+
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:dcli/dcli.dart', target: 'package:crypto/crypto.dart', show: {'Digest'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/dcli_core.dart', show: {'CancelableLineAction', 'CatException', 'CopyException', 'CreateDirException', 'DCliException', 'DCliFunction', 'DCliFunctionException', 'DeleteDirException', 'Env', 'FindItem', 'HOME', 'LineAction', 'MoveDirException', 'MoveException', 'MoveTreeException', 'PATH', 'PlatformEx', 'RunException', 'StackList', 'cat', 'copy', 'copyTree', 'createDir', 'createTempDir', 'createTempFile', 'createTempFilename', 'deleteDir', 'env', 'envs', 'exists', 'isDirectory', 'isEmpty', 'isFile', 'isLink', 'isOnPATH', 'move', 'moveDir', 'moveTree', 'privatePath', 'pwd', 'rootPath', 'touch', 'truepath', 'verbose', 'withEnvironmentAsync', 'withTempDirAsync', 'withTempFileAsync'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/src/util/dev_null.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/src/util/platform.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_terminal/dcli_terminal.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/ask.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/backup.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/confirm.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/create_dir.dart', show: {'withTempDir'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/delete.dart', show: {'DeleteException', 'delete'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/echo.dart', show: {'echo'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/fetch.dart', show: {'FetchData', 'FetchException', 'FetchMethod', 'FetchProgress', 'FetchStatus', 'FetchUrl', 'OnFetchProgress', 'fetch', 'fetchMultiple'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/file_list.dart', show: {'fileList'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/find.dart', show: {'Find', 'find'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/head.dart', show: {'head'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/is.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/menu.dart', show: {'menu'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/read.dart', show: {'ReadException', 'read', 'readStdin'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/replace.dart', show: {'replace'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/run.dart', show: {'run', 'start', 'startFromArgs'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/sleep.dart', show: {'Interval', 'sleep', 'sleepAsync'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/tail.dart', show: {'tail'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/which.dart', show: {'which'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/installers/installer.dart', show: {'installFromSourceKey'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/progress/progress.dart', show: {'Progress'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/resources/packed_resource.dart', show: {'PackedResource'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/resources/resources.dart', show: {'ResourceException', 'Resources'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_project.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_script.dart', show: {'DartScript'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_sdk.dart', show: {'DartSdk'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/settings.dart', show: {'Settings'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/shell.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/shell_detection.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/unknown_shell.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/capture.dart', show: {'capture'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/dcli_paths.dart', show: {'DCliPaths'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/digest_helper.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/editor.dart', show: {'showEditor'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/exceptions.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sort.dart', show: {'Column', 'FileSort', 'SortDirection'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sync.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_util.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/named_lock.dart', show: {'LockException', 'NamedLock'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/process_helper.dart', show: {'ProcessDetails', 'ProcessHelper'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/pub_cache.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/remote.dart', show: {'Remote'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/runnable_process.dart', show: {'printerr'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/string_as_process.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/temp_file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/backup.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/cat.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/copy.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/copy_tree.dart', show: {'CopyTreeException', 'copyTree'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/create_dir.dart', show: {'CreateDirException', 'createDir', 'createTempDir', 'withTempDirAsync'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/create_dir.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/dcli_function.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/delete.dart', show: {'DeleteException', 'delete'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/delete_dir.dart', show: {'DeleteDirException', 'deleteDir'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/env.dart', show: {'Env', 'HOME', 'PATH', 'env', 'envs', 'isOnPATH', 'withEnvironment', 'withEnvironmentAsync'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/find.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/find_async.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/head.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/is.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move.dart', show: {'MoveException', 'move'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move_dir.dart', show: {'MoveDirException', 'moveDir'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move_tree.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/pwd.dart', show: {'pwd'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/tail.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/touch.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/which.dart', show: {'Which', 'WhichSearch', 'which'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/settings.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dcli_exception.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dcli_platform.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dev_null.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/limited_stream_controller.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/line_action.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/line_file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/platform.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/run_exception.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/stack_list.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/truepath.dart', show: {'privatePath', 'rootPath', 'truepath'}, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/ansi.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/ansi_color.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/format.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/terminal.dart', show: null, hide: null),
+      (source: 'package:dcli/src/functions/backup.dart', target: 'package:dcli_core/dcli_core.dart', show: {'BackupFileException', 'RestoreFileException'}, hide: null),
+      (source: 'package:dcli/src/functions/delete.dart', target: 'package:dcli_core/dcli_core.dart', show: {'DeleteException'}, hide: null),
+      (source: 'package:dcli/src/functions/find.dart', target: 'package:dcli_core/dcli_core.dart', show: {'Find'}, hide: null),
+    ];
   }
 
   /// Registers all bridges with an interpreter.
@@ -454,6 +564,11 @@ class DcliBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -3138,6 +3253,7 @@ BridgedClass _createAskValidatorBridge() {
     nativeType: $dcli_1.AskValidator,
     name: 'AskValidator',
     isAssignable: (v) => v is $dcli_1.AskValidator,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3647,6 +3763,7 @@ BridgedClass _createProgressBridge() {
     nativeType: $dcli_19.Progress,
     name: 'Progress',
     isAssignable: (v) => v is $dcli_19.Progress,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Progress');
@@ -3817,6 +3934,7 @@ BridgedClass _createPackedResourceBridge() {
     nativeType: $dcli_20.PackedResource,
     name: 'PackedResource',
     isAssignable: (v) => v is $dcli_20.PackedResource,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4744,6 +4862,7 @@ BridgedClass _createShellBridge() {
     nativeType: $dcli_26.Shell,
     name: 'Shell',
     isAssignable: (v) => v is $dcli_26.Shell,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5108,6 +5227,8 @@ BridgedClass _createUnknownShellBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<$dcli_28.UnknownShell>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6064,6 +6185,8 @@ BridgedClass _createProcessDetailsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<$dcli_38.ProcessDetails>(positional, 0, 'other', 'operator==');
         return t == other;
       },

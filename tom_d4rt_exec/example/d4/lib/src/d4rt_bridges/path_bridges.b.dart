@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-04-23T19:25:42.392176
+// Generated: 2026-04-29T20:45:20.652308
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -92,6 +92,21 @@ class PathBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:path/path.dart', target: 'package:path/src/context.dart', show: null, hide: {'createInternal'}),
+      (source: 'package:path/path.dart', target: 'package:path/src/path_exception.dart', show: null, hide: null),
+      (source: 'package:path/path.dart', target: 'package:path/src/path_map.dart', show: null, hide: null),
+      (source: 'package:path/path.dart', target: 'package:path/src/path_set.dart', show: null, hide: null),
+      (source: 'package:path/path.dart', target: 'package:path/src/style.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -113,6 +128,11 @@ class PathBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -466,6 +486,10 @@ BridgedClass _createContextBridge() {
         return t.dirname(path);
       },
       'extension': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('ThemeData', 'extension');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$path_2.Context>(target, 'Context');
         D4.requireMinArgs(positional, 1, 'extension');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'extension');
@@ -1260,6 +1284,7 @@ BridgedClass _createStyleBridge() {
     nativeType: $path_7.Style,
     name: 'Style',
     isAssignable: (v) => v is $path_7.Style,
+    isAbstract: true,
     constructors: {
     },
     getters: {

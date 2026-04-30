@@ -1,14 +1,18 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-03-13T18:22:54.289125
+// Generated: 2026-04-29T20:47:52.950425
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 import 'dart:async';
 
-import 'package:d4_example/test_callback_types.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/test_callback_types.dart' as $d4_example_5;
 
 /// Bridge class for test_callback_types module.
 class TestCallbackTypesBridge {
@@ -77,6 +81,16 @@ class TestCallbackTypesBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -142,41 +156,41 @@ class TestCallbackTypesBridge {
 
 BridgedClass _createGenericCallbackServiceBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.GenericCallbackService,
+    nativeType: $d4_example_5.GenericCallbackService,
     name: 'GenericCallbackService',
-    isAssignable: (v) => v is $d4_example_1.GenericCallbackService,
+    isAssignable: (v) => v is $d4_example_5.GenericCallbackService,
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_1.GenericCallbackService();
+        return $d4_example_5.GenericCallbackService();
       },
     },
     methods: {
       'withConnection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'withConnection');
         if (positional.isEmpty) {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'transactional');
         if (positional.isEmpty) {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.transactional((String p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
+        final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
         D4.requireMinArgs(positional, 1, 'withBoundedType');
         if (positional.isEmpty) {
           throw ArgumentError('withBoundedType: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withBoundedType((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withBoundedType((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
     },
     constructorSignatures: {
@@ -196,23 +210,23 @@ BridgedClass _createGenericCallbackServiceBridge() {
 
 BridgedClass _createCallbackTypeServiceBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.CallbackTypeService,
+    nativeType: $d4_example_5.CallbackTypeService,
     name: 'CallbackTypeService',
-    isAssignable: (v) => v is $d4_example_1.CallbackTypeService,
+    isAssignable: (v) => v is $d4_example_5.CallbackTypeService,
     constructors: {
       '': (visitor, positional, named) {
-        return $d4_example_1.CallbackTypeService();
+        return $d4_example_5.CallbackTypeService();
       },
     },
     methods: {
       'withConnection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.CallbackTypeService>(target, 'CallbackTypeService');
+        final t = D4.validateTarget<$d4_example_5.CallbackTypeService>(target, 'CallbackTypeService');
         D4.requireMinArgs(positional, 1, 'withConnection');
         if (positional.isEmpty) {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as FutureOr<Object>; });
+        return t.withConnection((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
     },
     constructorSignatures: {

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-30T17:48:25.659720
+// Generated: 2026-04-29T21:10:40.369623
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -86,6 +86,18 @@ class UserReferenceBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/user_reference.dart', target: 'package:d4_example/src/user_reference/data_models.dart', show: null, hide: null),
+      (source: 'package:d4_example/user_reference.dart', target: 'package:d4_example/src/user_reference/services.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -96,6 +108,11 @@ class UserReferenceBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -382,7 +399,7 @@ BridgedClass _createUserServiceBridge() {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return t.findUsers(($d4_example_1.User p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');

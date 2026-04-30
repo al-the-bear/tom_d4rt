@@ -1,16 +1,18 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-13T18:22:33.759170
+// Generated: 2026-04-29T20:47:50.810489
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart' as $d4_example_1;
-import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_2;
-import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_3;
-import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_5;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_6;
 
 /// Bridge class for userbridge_user_guide module.
 class UserbridgeUserGuideBridge {
@@ -79,6 +81,20 @@ class UserbridgeUserGuideBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/vector2d.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -89,6 +105,11 @@ class UserbridgeUserGuideBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -145,44 +166,46 @@ class UserbridgeUserGuideBridge {
 
 BridgedClass _createVector2DBridge() {
   return BridgedClass(
-    nativeType: $d4_example_3.Vector2D,
+    nativeType: $d4_example_5.Vector2D,
     name: 'Vector2D',
-    isAssignable: (v) => v is $d4_example_3.Vector2D,
+    isAssignable: (v) => v is $d4_example_5.Vector2D,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2D');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2D');
-        return $d4_example_3.Vector2D(x, y);
+        return $d4_example_5.Vector2D(x, y);
       },
       'zero': (visitor, positional, named) {
-        return $d4_example_3.Vector2D.zero();
+        return $d4_example_5.Vector2D.zero();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').y,
-      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').hashCode,
-      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').magnitude,
-      'normalized': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').normalized,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').hashCode,
+      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').magnitude,
+      'normalized': (visitor, target) => D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D').normalized,
     },
     methods: {
-      'dot': $d4_example_4.Vector2DUserBridge.overrideMethodDot,
+      'dot': $d4_example_6.Vector2DUserBridge.overrideMethodDot,
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
         return t.toString();
       },
-      '+': $d4_example_4.Vector2DUserBridge.overrideOperatorPlus,
-      '-': $d4_example_4.Vector2DUserBridge.overrideOperatorMinus,
-      '*': $d4_example_4.Vector2DUserBridge.overrideOperatorMultiply,
+      '+': $d4_example_6.Vector2DUserBridge.overrideOperatorPlus,
+      '-': $d4_example_6.Vector2DUserBridge.overrideOperatorMinus,
+      '*': $d4_example_6.Vector2DUserBridge.overrideOperatorMultiply,
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -212,9 +235,9 @@ BridgedClass _createVector2DBridge() {
 
 BridgedClass _createMatrix2x2Bridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.Matrix2x2,
+    nativeType: $d4_example_3.Matrix2x2,
     name: 'Matrix2x2',
-    isAssignable: (v) => v is $d4_example_1.Matrix2x2,
+    isAssignable: (v) => v is $d4_example_3.Matrix2x2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Matrix2x2');
@@ -222,29 +245,29 @@ BridgedClass _createMatrix2x2Bridge() {
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'Matrix2x2');
         final c = D4.getRequiredArg<double>(positional, 2, 'c', 'Matrix2x2');
         final d = D4.getRequiredArg<double>(positional, 3, 'd', 'Matrix2x2');
-        return $d4_example_1.Matrix2x2(a, b, c, d);
+        return $d4_example_3.Matrix2x2(a, b, c, d);
       },
       'identity': (visitor, positional, named) {
-        return $d4_example_1.Matrix2x2.identity();
+        return $d4_example_3.Matrix2x2.identity();
       },
     },
     getters: {
-      'determinant': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').determinant,
-      'trace': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').trace,
+      'determinant': (visitor, target) => D4.validateTarget<$d4_example_3.Matrix2x2>(target, 'Matrix2x2').determinant,
+      'trace': (visitor, target) => D4.validateTarget<$d4_example_3.Matrix2x2>(target, 'Matrix2x2').trace,
     },
     methods: {
       'row': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$d4_example_3.Matrix2x2>(target, 'Matrix2x2');
         D4.requireMinArgs(positional, 1, 'row');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'row');
         return t.row(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$d4_example_3.Matrix2x2>(target, 'Matrix2x2');
         return t.toString();
       },
-      '[]': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndex,
-      '[]=': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndexAssign,
+      '[]': $d4_example_4.Matrix2x2UserBridge.overrideOperatorIndex,
+      '[]=': $d4_example_4.Matrix2x2UserBridge.overrideOperatorIndexAssign,
     },
     constructorSignatures: {
       '': 'Matrix2x2(double a, double b, double c, double d)',

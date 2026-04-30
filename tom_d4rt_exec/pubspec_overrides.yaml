@@ -1,0 +1,7 @@
+# Transitive deps needed for local path-based tom_d4rt_generator.
+# Not committed — remove once tom_d4rt_generator + tom_analyzer_shared are on pub.dev.
+dependency_overrides:
+  tom_analyzer_shared:
+    path: ../../basics/tom_analyzer_shared
+  tom_build_base:
+    path: ../../basics/tom_build_base

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-04-23T19:25:41.432535
+// Generated: 2026-04-29T20:45:19.821792
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -81,6 +81,20 @@ class UserbridgeUserGuideBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/vector2d.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart', show: null, hide: null),
+      (source: 'package:d4_example/userbridge_user_guide.dart', target: 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -91,6 +105,11 @@ class UserbridgeUserGuideBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -185,6 +204,8 @@ BridgedClass _createVector2DBridge() {
       '*': $d4_example_6.Vector2DUserBridge.overrideOperatorMultiply,
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.Vector2D>(target, 'Vector2D');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },

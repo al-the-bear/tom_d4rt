@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-03-30T17:48:47.195486
+// Generated: 2026-04-29T21:10:42.746710
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -24,6 +24,10 @@ import 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart' as 
 import 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart' as $d4_example_14;
 import 'package:d4_example/src/dart_overview/records/basics/run_basics.dart' as $d4_example_15;
 import 'package:d4_example/src/dart_overview/run_dart_overview.dart' as $d4_example_16;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_17;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_18;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_19;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_20;
 
 /// Bridge class for dart_overview module.
 class DartOverviewBridge {
@@ -103,29 +107,29 @@ class DartOverviewBridge {
       _createLateFieldDemoBridge(),
       _createMultiplierBridge(),
       _createPrintableBridge(),
-      _createSerializableBridge(),
       _createSerializablePrintableBridge(),
-      _createTrackableBridge(),
       _createTrackedItemBridge(),
       _createDataProcessorBridge(),
+      _createSerializableBridge(),
+      _createTrackableBridge(),
       _createStatisticsBridge(),
-      _createMusicalBridge(),
-      _createDancingBridge(),
       _createMusicianBridge(),
       _createProfessionalDancerBridge(),
       _createEntertainerBridge(),
       _createCountableItemBridge(),
-      _createLoggingBridge(),
       _createConsoleLoggerBridge(),
-      _createGreeter1Bridge(),
-      _createGreeter2Bridge(),
       _createMultiMixedBridge(),
       _createHelperBridge(),
       _createHelpfulServiceBridge(),
-      _createEventEmitterBridge(),
       _createButtonBridge(),
-      _createComparableMixinBridge(),
       _createSortableItemBridge(),
+      _createMusicalBridge(),
+      _createDancingBridge(),
+      _createLoggingBridge(),
+      _createGreeter1Bridge(),
+      _createGreeter2Bridge(),
+      _createEventEmitterBridge(),
+      _createComparableMixinBridge(),
       _createJsonSerializableBridge(),
     ];
   }
@@ -209,29 +213,29 @@ class DartOverviewBridge {
       'LateFieldDemo': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'Multiplier': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'Printable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
-      'Serializable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'SerializablePrintable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
-      'Trackable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'TrackedItem': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'DataProcessor': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
+      'Serializable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
+      'Trackable': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
       'Statistics': 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart',
-      'Musical': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Dancing': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Musician': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'ProfessionalDancer': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Entertainer': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'CountableItem': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Logging': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'ConsoleLogger': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Greeter1': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'Greeter2': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'MultiMixed': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Helper': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'HelpfulService': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'EventEmitter': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'Button': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
-      'ComparableMixin': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'SortableItem': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'Musical': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'Dancing': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'Logging': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'Greeter1': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'Greeter2': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'EventEmitter': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
+      'ComparableMixin': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
       'JsonSerializable': 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart',
     };
   }
@@ -355,6 +359,33 @@ class DartOverviewBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/dart_overview.dart', target: 'package:d4_example/src/dart_overview/dart_overview.dart', show: null, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/run_dart_overview.dart', show: null, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/declarations/run_declarations.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/generics/generic_classes/run_generic_classes.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/enums/basics/run_basics.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart', show: {'Vehicle', 'Car', 'Motorcycle', 'BaseAnimal', 'DogAnimal', 'DataSource', 'JsonDataSource', 'XmlDataSource', 'AppConfig', 'SealedShape', 'SealedCircle', 'SealedSquare', 'SealedTriangle', 'LoggerMixin', 'LoggingService', 'AbstractBaseClass', 'DerivedFromAbstractBase', 'ApiClient', 'RestApiClient', 'GraphqlApiClient', 'AbstractFinalClass', 'SingletonHolder'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart', show: {'SimplePoint', 'RectangleArea', 'PositiveNumber', 'Vector', 'Color', 'Logger', 'CircleShape', 'SquareShape', 'Database', 'PersonBase', 'Employee', 'Manager'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart', show: {'Animal', 'Cat', 'NotificationService', 'EmailNotificationService', 'SmsNotificationService', 'Switchable', 'TemperatureControl', 'Connectable', 'SmartThermostat', 'Machine', 'Speakable', 'Robot', 'AdvancedRobot'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart', show: {'MathUtils', 'Counter', 'Point', 'FlexibleObject', 'SortablePerson'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart', show: {'multiply', 'printSeparator', 'square', 'cube', 'isEven', 'getNumbers', 'createUser', 'inferredReturn', 'dynamicReturn'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart', show: {'describe', 'sayHello', 'power', 'makeRequest', 'processOrder', 'transform', 'fetchData'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart', show: {'globalCounter', 'appName', 'maxRetries', 'currentUser', 'lastProcessedId', 'appStartTime', 'sessionId', 'apiUrl', 'maxConnections', 'defaultTimeout', 'validStatuses', 'priorities', 'reservedIds', 'lazyConfig', 'log', 'firstOrNull', 'now', 'connectionCount', 'cachedValue', 'logLevel', 'LogSeverity'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart', show: {'NumberWrapper', 'BitFlags', 'NullableFields', 'LateFieldDemo', 'Multiplier', 'Printable', 'Serializable', 'SerializablePrintable', 'Trackable', 'TrackedItem', 'fetchGreeting', 'computeSum', 'DataProcessor'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart', show: {'Statistics'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/records/basics/run_basics.dart', show: {'findMinMax', 'swap', 'parseUserString', 'divideWithRemainder'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart', show: {'countTo', 'range', 'naturalNumbers', 'fibonacci', 'countAsyncTo'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart', show: {'Musical', 'Dancing', 'Logging', 'Greeter1', 'Greeter2', 'EventEmitter', 'ComparableMixin', 'JsonSerializable', 'Helper', 'Musician', 'ProfessionalDancer', 'Entertainer', 'CountableItem', 'ConsoleLogger', 'MultiMixed', 'HelpfulService', 'Button', 'SortableItem'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -395,6 +426,11 @@ class DartOverviewBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -574,7 +610,7 @@ class DartOverviewBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; };
+        final transformer = (int p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0]), 'callback', visitor); };
         return $d4_example_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -615,7 +651,7 @@ class DartOverviewBridge {
         D4.requireMinArgs(positional, 1, 'findMinMax');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'findMinMax');
         final $result = $d4_example_15.findMinMax(numbers);
-        return InterpretedRecord([], {'min': $result.min, 'max': $result.max});
+        return InterpretedRecord([], {'max': $result.max, 'min': $result.min});
       },
       'swap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'swap');
@@ -728,7 +764,7 @@ class DartOverviewBridge {
       'firstOrNull': 'T? firstOrNull(List<T> items)',
       'fetchGreeting': 'Future<String> fetchGreeting(String name)',
       'computeSum': 'Future<int> computeSum(List<int> numbers)',
-      'findMinMax': '({int min, int max}) findMinMax(List<int> numbers)',
+      'findMinMax': '({int max, int min}) findMinMax(List<int> numbers)',
       'swap': '(int, int) swap((int, int) pair)',
       'parseUserString': '(String, int) parseUserString(String input)',
       'divideWithRemainder': '({int quotient, int remainder}) divideWithRemainder(int dividend, int divisor)',
@@ -1171,6 +1207,7 @@ BridgedClass _createBoxBridge() {
           case $d4_example_4.SmartThermostat _: return $d4_example_11.Box<$d4_example_4.SmartThermostat>(value);
           case $d4_example_14.Entertainer _: return $d4_example_11.Box<$d4_example_14.Entertainer>(value);
           case $d4_example_14.MultiMixed _: return $d4_example_11.Box<$d4_example_14.MultiMixed>(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Box<$d4_example_6.SerializablePrintable>(value);
           case $d4_example_14.SortableItem _: return $d4_example_11.Box<$d4_example_14.SortableItem>(value);
           case $d4_example_14.Button _: return $d4_example_11.Box<$d4_example_14.Button>(value);
           case $d4_example_1.Car _: return $d4_example_11.Box<$d4_example_1.Car>(value);
@@ -1250,7 +1287,6 @@ BridgedClass _createBoxBridge() {
           case $d4_example_2.RectangleArea _: return $d4_example_11.Box<$d4_example_2.RectangleArea>(value);
           case $d4_example_11.Result _: return $d4_example_11.Box<$d4_example_11.Result>(value);
           case $d4_example_6.Serializable _: return $d4_example_11.Box<$d4_example_6.Serializable>(value);
-          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Box<$d4_example_6.SerializablePrintable>(value);
           case $d4_example_2.SimplePoint _: return $d4_example_11.Box<$d4_example_2.SimplePoint>(value);
           case $d4_example_4.Speakable _: return $d4_example_11.Box<$d4_example_4.Speakable>(value);
           case $d4_example_11.Stack _: return $d4_example_11.Box<$d4_example_11.Stack>(value);
@@ -1301,6 +1337,7 @@ BridgedClass _createWrapperBridge() {
           case $d4_example_4.SmartThermostat _: return $d4_example_11.Wrapper<$d4_example_4.SmartThermostat>(value);
           case $d4_example_14.Entertainer _: return $d4_example_11.Wrapper<$d4_example_14.Entertainer>(value);
           case $d4_example_14.MultiMixed _: return $d4_example_11.Wrapper<$d4_example_14.MultiMixed>(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Wrapper<$d4_example_6.SerializablePrintable>(value);
           case $d4_example_14.SortableItem _: return $d4_example_11.Wrapper<$d4_example_14.SortableItem>(value);
           case $d4_example_14.Button _: return $d4_example_11.Wrapper<$d4_example_14.Button>(value);
           case $d4_example_1.Car _: return $d4_example_11.Wrapper<$d4_example_1.Car>(value);
@@ -1381,7 +1418,6 @@ BridgedClass _createWrapperBridge() {
           case $d4_example_2.RectangleArea _: return $d4_example_11.Wrapper<$d4_example_2.RectangleArea>(value);
           case $d4_example_11.Result _: return $d4_example_11.Wrapper<$d4_example_11.Result>(value);
           case $d4_example_6.Serializable _: return $d4_example_11.Wrapper<$d4_example_6.Serializable>(value);
-          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Wrapper<$d4_example_6.SerializablePrintable>(value);
           case $d4_example_2.SimplePoint _: return $d4_example_11.Wrapper<$d4_example_2.SimplePoint>(value);
           case $d4_example_4.Speakable _: return $d4_example_11.Wrapper<$d4_example_4.Speakable>(value);
           case $d4_example_11.Stack _: return $d4_example_11.Wrapper<$d4_example_11.Stack>(value);
@@ -1604,6 +1640,7 @@ BridgedClass _createMaybeBridge() {
           case $d4_example_4.SmartThermostat _: return $d4_example_11.Maybe<$d4_example_4.SmartThermostat>.some(value);
           case $d4_example_14.Entertainer _: return $d4_example_11.Maybe<$d4_example_14.Entertainer>.some(value);
           case $d4_example_14.MultiMixed _: return $d4_example_11.Maybe<$d4_example_14.MultiMixed>.some(value);
+          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Maybe<$d4_example_6.SerializablePrintable>.some(value);
           case $d4_example_14.SortableItem _: return $d4_example_11.Maybe<$d4_example_14.SortableItem>.some(value);
           case $d4_example_14.Button _: return $d4_example_11.Maybe<$d4_example_14.Button>.some(value);
           case $d4_example_1.Car _: return $d4_example_11.Maybe<$d4_example_1.Car>.some(value);
@@ -1683,7 +1720,6 @@ BridgedClass _createMaybeBridge() {
           case $d4_example_2.RectangleArea _: return $d4_example_11.Maybe<$d4_example_2.RectangleArea>.some(value);
           case $d4_example_11.Result _: return $d4_example_11.Maybe<$d4_example_11.Result>.some(value);
           case $d4_example_6.Serializable _: return $d4_example_11.Maybe<$d4_example_6.Serializable>.some(value);
-          case $d4_example_6.SerializablePrintable _: return $d4_example_11.Maybe<$d4_example_6.SerializablePrintable>.some(value);
           case $d4_example_2.SimplePoint _: return $d4_example_11.Maybe<$d4_example_2.SimplePoint>.some(value);
           case $d4_example_4.Speakable _: return $d4_example_11.Maybe<$d4_example_4.Speakable>.some(value);
           case $d4_example_11.Stack _: return $d4_example_11.Maybe<$d4_example_11.Stack>.some(value);
@@ -1799,6 +1835,8 @@ BridgedClass _createLoggableMixinBridge() {
     nativeType: $d4_example_7.LoggableMixin,
     name: 'LoggableMixin',
     isAssignable: (v) => v is $d4_example_7.LoggableMixin,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1830,6 +1868,7 @@ BridgedClass _createVehicleBridge() {
     nativeType: $d4_example_1.Vehicle,
     name: 'Vehicle',
     isAssignable: (v) => v is $d4_example_1.Vehicle,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2116,9 +2155,6 @@ BridgedClass _createSealedShapeBridge() {
     isAssignable: (v) => v is $d4_example_1.SealedShape,
     constructors: {
     },
-    constructorSignatures: {
-      '': 'SealedShape()',
-    },
   );
 }
 
@@ -2218,6 +2254,7 @@ BridgedClass _createLoggerMixinBridge() {
     nativeType: $d4_example_1.LoggerMixin,
     name: 'LoggerMixin',
     isAssignable: (v) => v is $d4_example_1.LoggerMixin,
+    canBeUsedAsMixin: true,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.LoggerMixin();
@@ -2288,6 +2325,7 @@ BridgedClass _createAbstractBaseClassBridge() {
     nativeType: $d4_example_1.AbstractBaseClass,
     name: 'AbstractBaseClass',
     isAssignable: (v) => v is $d4_example_1.AbstractBaseClass,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2342,6 +2380,7 @@ BridgedClass _createApiClientBridge() {
     nativeType: $d4_example_1.ApiClient,
     name: 'ApiClient',
     isAssignable: (v) => v is $d4_example_1.ApiClient,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2429,6 +2468,7 @@ BridgedClass _createAbstractFinalClassBridge() {
     nativeType: $d4_example_1.AbstractFinalClass,
     name: 'AbstractFinalClass',
     isAssignable: (v) => v is $d4_example_1.AbstractFinalClass,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -2461,7 +2501,7 @@ BridgedClass _createSingletonHolderBridge() {
       'value': 'int get value',
     },
     staticGetterSignatures: {
-      'instance': 'dynamic get instance',
+      'instance': 'SingletonHolder get instance',
     },
   );
 }
@@ -2963,6 +3003,7 @@ BridgedClass _createNotificationServiceBridge() {
     nativeType: $d4_example_4.NotificationService,
     name: 'NotificationService',
     isAssignable: (v) => v is $d4_example_4.NotificationService,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3053,6 +3094,7 @@ BridgedClass _createSwitchableBridge() {
     nativeType: $d4_example_4.Switchable,
     name: 'Switchable',
     isAssignable: (v) => v is $d4_example_4.Switchable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3083,6 +3125,7 @@ BridgedClass _createTemperatureControlBridge() {
     nativeType: $d4_example_4.TemperatureControl,
     name: 'TemperatureControl',
     isAssignable: (v) => v is $d4_example_4.TemperatureControl,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3109,6 +3152,7 @@ BridgedClass _createConnectableBridge() {
     nativeType: $d4_example_4.Connectable,
     name: 'Connectable',
     isAssignable: (v) => v is $d4_example_4.Connectable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3183,6 +3227,7 @@ BridgedClass _createMachineBridge() {
     nativeType: $d4_example_4.Machine,
     name: 'Machine',
     isAssignable: (v) => v is $d4_example_4.Machine,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3207,6 +3252,7 @@ BridgedClass _createSpeakableBridge() {
     nativeType: $d4_example_4.Speakable,
     name: 'Speakable',
     isAssignable: (v) => v is $d4_example_4.Speakable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3405,6 +3451,8 @@ BridgedClass _createPointBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3564,6 +3612,8 @@ BridgedClass _createNumberWrapperBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3643,6 +3693,8 @@ BridgedClass _createBitFlagsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3836,29 +3888,6 @@ BridgedClass _createPrintableBridge() {
 }
 
 // =============================================================================
-// Serializable Bridge
-// =============================================================================
-
-BridgedClass _createSerializableBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_6.Serializable,
-    name: 'Serializable',
-    isAssignable: (v) => v is $d4_example_6.Serializable,
-    constructors: {
-    },
-    methods: {
-      'serialize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_6.Serializable>(target, 'Serializable');
-        return t.serialize();
-      },
-    },
-    methodSignatures: {
-      'serialize': 'String serialize()',
-    },
-  );
-}
-
-// =============================================================================
 // SerializablePrintable Bridge
 // =============================================================================
 
@@ -3889,36 +3918,6 @@ BridgedClass _createSerializablePrintableBridge() {
     methodSignatures: {
       'printInfo': 'void printInfo()',
       'serialize': 'String serialize()',
-    },
-  );
-}
-
-// =============================================================================
-// Trackable Bridge
-// =============================================================================
-
-BridgedClass _createTrackableBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_6.Trackable,
-    name: 'Trackable',
-    isAssignable: (v) => v is $d4_example_6.Trackable,
-    constructors: {
-    },
-    getters: {
-      'trackCount': (visitor, target) => D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable').trackCount,
-    },
-    methods: {
-      'track': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable');
-        t.track();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'track': 'void track()',
-    },
-    getterSignatures: {
-      'trackCount': 'int get trackCount',
     },
   );
 }
@@ -4042,6 +4041,63 @@ BridgedClass _createDataProcessorBridge() {
 }
 
 // =============================================================================
+// Serializable Bridge
+// =============================================================================
+
+BridgedClass _createSerializableBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_6.Serializable,
+    name: 'Serializable',
+    isAssignable: (v) => v is $d4_example_6.Serializable,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'serialize': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Serializable>(target, 'Serializable');
+        return t.serialize();
+      },
+    },
+    methodSignatures: {
+      'serialize': 'String serialize()',
+    },
+  );
+}
+
+// =============================================================================
+// Trackable Bridge
+// =============================================================================
+
+BridgedClass _createTrackableBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_6.Trackable,
+    name: 'Trackable',
+    isAssignable: (v) => v is $d4_example_6.Trackable,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    getters: {
+      'trackCount': (visitor, target) => D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable').trackCount,
+    },
+    methods: {
+      'track': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable');
+        t.track();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'track': 'void track()',
+    },
+    getterSignatures: {
+      'trackCount': 'int get trackCount',
+    },
+  );
+}
+
+// =============================================================================
 // Statistics Bridge
 // =============================================================================
 
@@ -4074,54 +4130,6 @@ BridgedClass _createStatisticsBridge() {
       'min': 'T get min',
       'max': 'T get max',
       'average': 'double get average',
-    },
-  );
-}
-
-// =============================================================================
-// Musical Bridge
-// =============================================================================
-
-BridgedClass _createMusicalBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Musical,
-    name: 'Musical',
-    isAssignable: (v) => v is $d4_example_14.Musical,
-    constructors: {
-    },
-    methods: {
-      'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Musical>(target, 'Musical');
-        t.playInstrument();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'playInstrument': 'void playInstrument()',
-    },
-  );
-}
-
-// =============================================================================
-// Dancing Bridge
-// =============================================================================
-
-BridgedClass _createDancingBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Dancing,
-    name: 'Dancing',
-    isAssignable: (v) => v is $d4_example_14.Dancing,
-    constructors: {
-    },
-    methods: {
-      'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Dancing>(target, 'Dancing');
-        t.dance();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'dance': 'void dance()',
     },
   );
 }
@@ -4301,57 +4309,6 @@ BridgedClass _createCountableItemBridge() {
 }
 
 // =============================================================================
-// Logging Bridge
-// =============================================================================
-
-BridgedClass _createLoggingBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Logging,
-    name: 'Logging',
-    isAssignable: (v) => v is $d4_example_14.Logging,
-    constructors: {
-    },
-    methods: {
-      'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
-        D4.requireMinArgs(positional, 2, 'log');
-        final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
-        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
-        t.log(level, message);
-        return null;
-      },
-      'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
-        D4.requireMinArgs(positional, 1, 'info');
-        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
-        t.info(message);
-        return null;
-      },
-      'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
-        D4.requireMinArgs(positional, 1, 'warning');
-        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
-        t.warning(message);
-        return null;
-      },
-      'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
-        D4.requireMinArgs(positional, 1, 'error');
-        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
-        t.error(message);
-        return null;
-      },
-    },
-    methodSignatures: {
-      'log': 'void log(String level, String message)',
-      'info': 'void info(String message)',
-      'warning': 'void warning(String message)',
-      'error': 'void error(String message)',
-    },
-  );
-}
-
-// =============================================================================
 // ConsoleLogger Bridge
 // =============================================================================
 
@@ -4409,54 +4366,6 @@ BridgedClass _createConsoleLoggerBridge() {
 }
 
 // =============================================================================
-// Greeter1 Bridge
-// =============================================================================
-
-BridgedClass _createGreeter1Bridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Greeter1,
-    name: 'Greeter1',
-    isAssignable: (v) => v is $d4_example_14.Greeter1,
-    constructors: {
-    },
-    methods: {
-      'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Greeter1>(target, 'Greeter1');
-        t.greet();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'greet': 'void greet()',
-    },
-  );
-}
-
-// =============================================================================
-// Greeter2 Bridge
-// =============================================================================
-
-BridgedClass _createGreeter2Bridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.Greeter2,
-    name: 'Greeter2',
-    isAssignable: (v) => v is $d4_example_14.Greeter2,
-    constructors: {
-    },
-    methods: {
-      'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.Greeter2>(target, 'Greeter2');
-        t.greet();
-        return null;
-      },
-    },
-    methodSignatures: {
-      'greet': 'void greet()',
-    },
-  );
-}
-
-// =============================================================================
 // MultiMixed Bridge
 // =============================================================================
 
@@ -4495,6 +4404,7 @@ BridgedClass _createHelperBridge() {
     nativeType: $d4_example_14.Helper,
     name: 'Helper',
     isAssignable: (v) => v is $d4_example_14.Helper,
+    canBeUsedAsMixin: true,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.Helper();
@@ -4548,54 +4458,6 @@ BridgedClass _createHelpfulServiceBridge() {
     methodSignatures: {
       'serve': 'void serve()',
       'help': 'void help()',
-    },
-  );
-}
-
-// =============================================================================
-// EventEmitter Bridge
-// =============================================================================
-
-BridgedClass _createEventEmitterBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.EventEmitter,
-    name: 'EventEmitter',
-    isAssignable: (v) => v is $d4_example_14.EventEmitter,
-    constructors: {
-    },
-    methods: {
-      'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
-        D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
-        return null;
-      },
-      'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
-        D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
-        return null;
-      },
-      'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
-        D4.requireMinArgs(positional, 1, 'emit');
-        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
-        t.emit(event);
-        return null;
-      },
-    },
-    methodSignatures: {
-      'addListener': 'void addListener(EventListener listener)',
-      'removeListener': 'void removeListener(EventListener listener)',
-      'emit': 'void emit(String event)',
     },
   );
 }
@@ -4658,43 +4520,12 @@ BridgedClass _createButtonBridge() {
     },
     methodSignatures: {
       'click': 'void click()',
-      'addListener': 'void addListener(void Function(String) listener)',
-      'removeListener': 'void removeListener(void Function(String) listener)',
+      'addListener': 'void addListener(EventListener listener)',
+      'removeListener': 'void removeListener(EventListener listener)',
       'emit': 'void emit(String event)',
     },
     getterSignatures: {
       'label': 'String get label',
-    },
-  );
-}
-
-// =============================================================================
-// ComparableMixin Bridge
-// =============================================================================
-
-BridgedClass _createComparableMixinBridge() {
-  return BridgedClass(
-    nativeType: $d4_example_14.ComparableMixin,
-    name: 'ComparableMixin',
-    isAssignable: (v) => v is $d4_example_14.ComparableMixin,
-    constructors: {
-    },
-    getters: {
-      'value': (visitor, target) => D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin').value,
-    },
-    methods: {
-      'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin');
-        D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$d4_example_14.SortableItem>(positional, 0, 'other', 'compareTo');
-        return t.compareTo(other);
-      },
-    },
-    methodSignatures: {
-      'compareTo': 'int compareTo(SortableItem other)',
-    },
-    getterSignatures: {
-      'value': 'int get value',
     },
   );
 }
@@ -4739,6 +4570,246 @@ BridgedClass _createSortableItemBridge() {
 }
 
 // =============================================================================
+// Musical Bridge
+// =============================================================================
+
+BridgedClass _createMusicalBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.Musical,
+    name: 'Musical',
+    isAssignable: (v) => v is $d4_example_14.Musical,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'playInstrument': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Musical>(target, 'Musical');
+        t.playInstrument();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'playInstrument': 'void playInstrument()',
+    },
+  );
+}
+
+// =============================================================================
+// Dancing Bridge
+// =============================================================================
+
+BridgedClass _createDancingBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.Dancing,
+    name: 'Dancing',
+    isAssignable: (v) => v is $d4_example_14.Dancing,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'dance': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Dancing>(target, 'Dancing');
+        t.dance();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'dance': 'void dance()',
+    },
+  );
+}
+
+// =============================================================================
+// Logging Bridge
+// =============================================================================
+
+BridgedClass _createLoggingBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.Logging,
+    name: 'Logging',
+    isAssignable: (v) => v is $d4_example_14.Logging,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'log': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
+        D4.requireMinArgs(positional, 2, 'log');
+        final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
+        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
+        t.log(level, message);
+        return null;
+      },
+      'info': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
+        D4.requireMinArgs(positional, 1, 'info');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
+        t.info(message);
+        return null;
+      },
+      'warning': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
+        D4.requireMinArgs(positional, 1, 'warning');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
+        t.warning(message);
+        return null;
+      },
+      'error': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
+        D4.requireMinArgs(positional, 1, 'error');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
+        t.error(message);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'log': 'void log(String level, String message)',
+      'info': 'void info(String message)',
+      'warning': 'void warning(String message)',
+      'error': 'void error(String message)',
+    },
+  );
+}
+
+// =============================================================================
+// Greeter1 Bridge
+// =============================================================================
+
+BridgedClass _createGreeter1Bridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.Greeter1,
+    name: 'Greeter1',
+    isAssignable: (v) => v is $d4_example_14.Greeter1,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'greet': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Greeter1>(target, 'Greeter1');
+        t.greet();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'greet': 'void greet()',
+    },
+  );
+}
+
+// =============================================================================
+// Greeter2 Bridge
+// =============================================================================
+
+BridgedClass _createGreeter2Bridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.Greeter2,
+    name: 'Greeter2',
+    isAssignable: (v) => v is $d4_example_14.Greeter2,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'greet': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.Greeter2>(target, 'Greeter2');
+        t.greet();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'greet': 'void greet()',
+    },
+  );
+}
+
+// =============================================================================
+// EventEmitter Bridge
+// =============================================================================
+
+BridgedClass _createEventEmitterBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.EventEmitter,
+    name: 'EventEmitter',
+    isAssignable: (v) => v is $d4_example_14.EventEmitter,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    methods: {
+      'addListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 1, 'addListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        return null;
+      },
+      'removeListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 1, 'removeListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        return null;
+      },
+      'emit': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
+        D4.requireMinArgs(positional, 1, 'emit');
+        final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
+        t.emit(event);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'addListener': 'void addListener(EventListener listener)',
+      'removeListener': 'void removeListener(EventListener listener)',
+      'emit': 'void emit(String event)',
+    },
+  );
+}
+
+// =============================================================================
+// ComparableMixin Bridge
+// =============================================================================
+
+BridgedClass _createComparableMixinBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_14.ComparableMixin,
+    name: 'ComparableMixin',
+    isAssignable: (v) => v is $d4_example_14.ComparableMixin,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    getters: {
+      'value': (visitor, target) => D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin').value,
+    },
+    methods: {
+      'compareTo': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin');
+        D4.requireMinArgs(positional, 1, 'compareTo');
+        final other = D4.getRequiredArg<$d4_example_14.SortableItem>(positional, 0, 'other', 'compareTo');
+        return t.compareTo(other);
+      },
+    },
+    methodSignatures: {
+      'compareTo': 'int compareTo(SortableItem other)',
+    },
+    getterSignatures: {
+      'value': 'int get value',
+    },
+  );
+}
+
+// =============================================================================
 // JsonSerializable Bridge
 // =============================================================================
 
@@ -4747,6 +4818,8 @@ BridgedClass _createJsonSerializableBridge() {
     nativeType: $d4_example_14.JsonSerializable,
     name: 'JsonSerializable',
     isAssignable: (v) => v is $d4_example_14.JsonSerializable,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {

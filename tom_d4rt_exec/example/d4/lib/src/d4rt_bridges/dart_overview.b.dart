@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-04-23T19:25:42.126141
+// Generated: 2026-04-29T20:45:20.403559
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -359,6 +359,33 @@ class DartOverviewBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4_example/dart_overview.dart', target: 'package:d4_example/src/dart_overview/dart_overview.dart', show: null, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/run_dart_overview.dart', show: null, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/declarations/run_declarations.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/generics/generic_classes/run_generic_classes.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/enums/basics/run_basics.dart', show: null, hide: {'main'}),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart', show: {'Vehicle', 'Car', 'Motorcycle', 'BaseAnimal', 'DogAnimal', 'DataSource', 'JsonDataSource', 'XmlDataSource', 'AppConfig', 'SealedShape', 'SealedCircle', 'SealedSquare', 'SealedTriangle', 'LoggerMixin', 'LoggingService', 'AbstractBaseClass', 'DerivedFromAbstractBase', 'ApiClient', 'RestApiClient', 'GraphqlApiClient', 'AbstractFinalClass', 'SingletonHolder'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart', show: {'SimplePoint', 'RectangleArea', 'PositiveNumber', 'Vector', 'Color', 'Logger', 'CircleShape', 'SquareShape', 'Database', 'PersonBase', 'Employee', 'Manager'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart', show: {'Animal', 'Cat', 'NotificationService', 'EmailNotificationService', 'SmsNotificationService', 'Switchable', 'TemperatureControl', 'Connectable', 'SmartThermostat', 'Machine', 'Speakable', 'Robot', 'AdvancedRobot'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart', show: {'MathUtils', 'Counter', 'Point', 'FlexibleObject', 'SortablePerson'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart', show: {'multiply', 'printSeparator', 'square', 'cube', 'isEven', 'getNumbers', 'createUser', 'inferredReturn', 'dynamicReturn'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart', show: {'describe', 'sayHello', 'power', 'makeRequest', 'processOrder', 'transform', 'fetchData'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart', show: {'globalCounter', 'appName', 'maxRetries', 'currentUser', 'lastProcessedId', 'appStartTime', 'sessionId', 'apiUrl', 'maxConnections', 'defaultTimeout', 'validStatuses', 'priorities', 'reservedIds', 'lazyConfig', 'log', 'firstOrNull', 'now', 'connectionCount', 'cachedValue', 'logLevel', 'LogSeverity'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart', show: {'NumberWrapper', 'BitFlags', 'NullableFields', 'LateFieldDemo', 'Multiplier', 'Printable', 'Serializable', 'SerializablePrintable', 'Trackable', 'TrackedItem', 'fetchGreeting', 'computeSum', 'DataProcessor'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart', show: {'Statistics'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/records/basics/run_basics.dart', show: {'findMinMax', 'swap', 'parseUserString', 'divideWithRemainder'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart', show: {'countTo', 'range', 'naturalNumbers', 'fibonacci', 'countAsyncTo'}, hide: null),
+      (source: 'package:d4_example/src/dart_overview/dart_overview.dart', target: 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart', show: {'Musical', 'Dancing', 'Logging', 'Greeter1', 'Greeter2', 'EventEmitter', 'ComparableMixin', 'JsonSerializable', 'Helper', 'Musician', 'ProfessionalDancer', 'Entertainer', 'CountableItem', 'ConsoleLogger', 'MultiMixed', 'HelpfulService', 'Button', 'SortableItem'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -399,6 +426,11 @@ class DartOverviewBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -1804,6 +1836,7 @@ BridgedClass _createLoggableMixinBridge() {
     name: 'LoggableMixin',
     isAssignable: (v) => v is $d4_example_7.LoggableMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1835,6 +1868,7 @@ BridgedClass _createVehicleBridge() {
     nativeType: $d4_example_1.Vehicle,
     name: 'Vehicle',
     isAssignable: (v) => v is $d4_example_1.Vehicle,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2220,6 +2254,7 @@ BridgedClass _createLoggerMixinBridge() {
     nativeType: $d4_example_1.LoggerMixin,
     name: 'LoggerMixin',
     isAssignable: (v) => v is $d4_example_1.LoggerMixin,
+    canBeUsedAsMixin: true,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.LoggerMixin();
@@ -2290,6 +2325,7 @@ BridgedClass _createAbstractBaseClassBridge() {
     nativeType: $d4_example_1.AbstractBaseClass,
     name: 'AbstractBaseClass',
     isAssignable: (v) => v is $d4_example_1.AbstractBaseClass,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2344,6 +2380,7 @@ BridgedClass _createApiClientBridge() {
     nativeType: $d4_example_1.ApiClient,
     name: 'ApiClient',
     isAssignable: (v) => v is $d4_example_1.ApiClient,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2431,6 +2468,7 @@ BridgedClass _createAbstractFinalClassBridge() {
     nativeType: $d4_example_1.AbstractFinalClass,
     name: 'AbstractFinalClass',
     isAssignable: (v) => v is $d4_example_1.AbstractFinalClass,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -2965,6 +3003,7 @@ BridgedClass _createNotificationServiceBridge() {
     nativeType: $d4_example_4.NotificationService,
     name: 'NotificationService',
     isAssignable: (v) => v is $d4_example_4.NotificationService,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3055,6 +3094,7 @@ BridgedClass _createSwitchableBridge() {
     nativeType: $d4_example_4.Switchable,
     name: 'Switchable',
     isAssignable: (v) => v is $d4_example_4.Switchable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3085,6 +3125,7 @@ BridgedClass _createTemperatureControlBridge() {
     nativeType: $d4_example_4.TemperatureControl,
     name: 'TemperatureControl',
     isAssignable: (v) => v is $d4_example_4.TemperatureControl,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3111,6 +3152,7 @@ BridgedClass _createConnectableBridge() {
     nativeType: $d4_example_4.Connectable,
     name: 'Connectable',
     isAssignable: (v) => v is $d4_example_4.Connectable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3185,6 +3227,7 @@ BridgedClass _createMachineBridge() {
     nativeType: $d4_example_4.Machine,
     name: 'Machine',
     isAssignable: (v) => v is $d4_example_4.Machine,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3209,6 +3252,7 @@ BridgedClass _createSpeakableBridge() {
     nativeType: $d4_example_4.Speakable,
     name: 'Speakable',
     isAssignable: (v) => v is $d4_example_4.Speakable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3407,6 +3451,8 @@ BridgedClass _createPointBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3566,6 +3612,8 @@ BridgedClass _createNumberWrapperBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3645,6 +3693,8 @@ BridgedClass _createBitFlagsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4000,6 +4050,7 @@ BridgedClass _createSerializableBridge() {
     name: 'Serializable',
     isAssignable: (v) => v is $d4_example_6.Serializable,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4024,6 +4075,7 @@ BridgedClass _createTrackableBridge() {
     name: 'Trackable',
     isAssignable: (v) => v is $d4_example_6.Trackable,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4352,6 +4404,7 @@ BridgedClass _createHelperBridge() {
     nativeType: $d4_example_14.Helper,
     name: 'Helper',
     isAssignable: (v) => v is $d4_example_14.Helper,
+    canBeUsedAsMixin: true,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.Helper();
@@ -4526,6 +4579,7 @@ BridgedClass _createMusicalBridge() {
     name: 'Musical',
     isAssignable: (v) => v is $d4_example_14.Musical,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4551,6 +4605,7 @@ BridgedClass _createDancingBridge() {
     name: 'Dancing',
     isAssignable: (v) => v is $d4_example_14.Dancing,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4576,6 +4631,7 @@ BridgedClass _createLoggingBridge() {
     name: 'Logging',
     isAssignable: (v) => v is $d4_example_14.Logging,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4628,6 +4684,7 @@ BridgedClass _createGreeter1Bridge() {
     name: 'Greeter1',
     isAssignable: (v) => v is $d4_example_14.Greeter1,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4653,6 +4710,7 @@ BridgedClass _createGreeter2Bridge() {
     name: 'Greeter2',
     isAssignable: (v) => v is $d4_example_14.Greeter2,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4678,6 +4736,7 @@ BridgedClass _createEventEmitterBridge() {
     name: 'EventEmitter',
     isAssignable: (v) => v is $d4_example_14.EventEmitter,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4727,6 +4786,7 @@ BridgedClass _createComparableMixinBridge() {
     name: 'ComparableMixin',
     isAssignable: (v) => v is $d4_example_14.ComparableMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4759,6 +4819,7 @@ BridgedClass _createJsonSerializableBridge() {
     name: 'JsonSerializable',
     isAssignable: (v) => v is $d4_example_14.JsonSerializable,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
