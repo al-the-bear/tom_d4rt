@@ -38,6 +38,11 @@ class _BuildResult {
   final bool success;
   final String? widgetType;
   final String? error;
+
+  /// Stack trace string for error cases (best-effort — may be null if the
+  /// exception did not carry one, e.g. SourceFlutterD4rtException).
+  final String? stackTrace;
+
   final List<String> output;
 
   /// Flutter framework errors captured after layout/paint.
@@ -47,6 +52,7 @@ class _BuildResult {
     required this.success,
     this.widgetType,
     this.error,
+    this.stackTrace,
     required this.output,
     this.frameworkErrors = const [],
   });
@@ -55,6 +61,7 @@ class _BuildResult {
     'status': success ? 'success' : 'error',
     if (widgetType != null) 'widgetType': widgetType,
     if (error != null) 'error': error,
+    if (stackTrace != null) 'stackTrace': stackTrace,
     'output': output,
     'frameworkErrors': frameworkErrors,
   };
@@ -469,9 +476,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                 );
               }
             }
-          } catch (e, stackTrace) {
-            _lastError = e.toString();
-            debugPrint('[D4rtApp] Build error: $e\n$stackTrace');
+          } catch (e, st) {
+            final errStr = e.toString();
+            final stStr = st.toString();
+            _lastError = errStr;
+            debugPrint('[D4rtApp] Build error: $errStr\n$stStr');
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
@@ -481,7 +490,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                 c.complete(
                   _BuildResult(
                     success: false,
-                    error: e.toString(),
+                    error: errStr,
+                    stackTrace: stStr,
                     output: output,
                   ),
                 );
@@ -489,9 +499,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             }
           }
         },
-        (error, stackTrace) {
-          debugPrint('[D4rtApp] Uncaught zone error: $error\n$stackTrace');
-          _lastError = 'Uncaught error: $error';
+        (error, st) {
+          final errStr = 'Uncaught error: $error';
+          final stStr = st.toString();
+          debugPrint('[D4rtApp] Uncaught zone error: $error\n$stStr');
+          _lastError = errStr;
           if (!buildCompleted) {
             buildCompleted = true;
             _capturingFrameworkErrors = false;
@@ -501,7 +513,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               c.complete(
                 _BuildResult(
                   success: false,
-                  error: 'Uncaught error: $error',
+                  error: errStr,
+                  stackTrace: stStr,
                   output: output,
                 ),
               );

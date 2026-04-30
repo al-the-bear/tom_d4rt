@@ -40,6 +40,9 @@ class SendResult {
   /// Error message (on failure).
   final String? error;
 
+  /// Stack trace from the exception (on failure, if available).
+  final String? stackTrace;
+
   /// Captured print() output from the script.
   final List<String> output;
 
@@ -56,6 +59,7 @@ class SendResult {
     required this.success,
     this.widgetType,
     this.error,
+    this.stackTrace,
     required this.output,
     required this.statusCode,
     this.frameworkErrors = const [],
@@ -411,6 +415,7 @@ class SendTestRunner {
     final frameworkErrors =
         (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
     final judgment = response['judgment'] as String?;
+    final remoteStackTrace = response['stackTrace'] as String?;
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -447,9 +452,35 @@ class SendTestRunner {
         judgment: judgment,
       );
     } else {
+      final errorMsg = response['error'] as String?;
+      if (errorMsg != null) {
+        // ignore: avoid_print
+        print('\n  ✗ BUILD ERROR in $scriptPath:');
+        // Print each line of the error message so registration error lists are
+        // fully visible even when the test framework truncates the reason string.
+        for (final line in errorMsg.split('\n')) {
+          // ignore: avoid_print
+          print('    $line');
+        }
+      }
+      if (remoteStackTrace != null) {
+        // ignore: avoid_print
+        print('\n  Stack trace (remote):');
+        final stLines = remoteStackTrace.split('\n');
+        final limit = stLines.length > 30 ? 30 : stLines.length;
+        for (final line in stLines.take(limit)) {
+          // ignore: avoid_print
+          print('    $line');
+        }
+        if (stLines.length > 30) {
+          // ignore: avoid_print
+          print('    … ${stLines.length - 30} more line(s)');
+        }
+      }
       return SendResult(
         success: false,
-        error: response['error'] as String?,
+        error: errorMsg,
+        stackTrace: remoteStackTrace,
         output: output,
         statusCode: httpStatus,
         frameworkErrors: frameworkErrors,
