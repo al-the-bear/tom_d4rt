@@ -183,6 +183,9 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // Imports — collect from module barrel URIs
   _writeImports(buffer, config);
 
+  // Numeric coercion helper (int→double for d4rt integer literals)
+  _writeNumericCoercionHelper(buffer);
+
   // Wrapper classes
   var wrappersGenerated = 0;
   for (final target in targets) {
@@ -624,6 +627,29 @@ void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln();
 }
 
+/// Emits the numeric coercion helper into the generated file (called once,
+/// immediately after imports).
+///
+/// D4rt returns `int` for integer literals even when the declared return type
+/// is `double` or `double?`.  Without coercion, `as V` casts in relaxer
+/// wrapper `resolve()` methods throw "type 'int' is not a subtype of type
+/// 'double?'" when the wrapped callback yields an int.
+void _writeNumericCoercionHelper(StringBuffer buffer) {
+  buffer.writeln(
+    '/// Numeric coercion helper: converts int→double when needed for type V.',
+  );
+  buffer.writeln('/// D4rt returns `int` for integer literals even when');
+  buffer.writeln('/// the declared return type is `double` or `double?`.');
+  buffer.writeln('V _coerceToV<V>(dynamic v) {');
+  buffer.writeln('  if (v is int && v is! V) {');
+  buffer.writeln('    final d = v.toDouble();');
+  buffer.writeln('    if (d is V) return d as V;');
+  buffer.writeln('  }');
+  buffer.writeln('  return v as V;');
+  buffer.writeln('}');
+  buffer.writeln();
+}
+
 void _writeImports(StringBuffer buffer, BridgeConfig config) {
   // Import D4 runtime for registration
   final d4rtImport = config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart';
@@ -1006,9 +1032,10 @@ void _writeConstructor(
       // Can't find a suitable T-typed getter — treat as implements instead.
       // This returns null to signal the caller to switch strategies.
       // For now, use a safe fallback constructor.
-      buf.writeln('  $wrapperName(this._inner) : super(_inner as V) {');
+      buf.writeln('  $wrapperName(this._inner) : super(_coerceToV<V>(_inner)) {');
     } else {
-      final valueExpr = '_inner.${tGetter.name} as V';
+      // Use _coerceToV to handle d4rt int→double literals in constructor arg.
+      final valueExpr = '_coerceToV<V>(_inner.${tGetter.name})';
       buf.writeln('  $wrapperName(this._inner) : super($valueExpr) {');
     }
     if (isChangeNotifier) {
@@ -1053,9 +1080,11 @@ void _writeExtendsDelegation(
     final castReturn = _replaceTypeParam(getter.returnType, typeParamName, 'V');
     buf.writeln();
     buf.writeln('  @override');
-    buf.writeln(
-      '  $castReturn get ${getter.name} => _inner.${getter.name} as $castReturn;',
-    );
+    // Use _coerceToV for bare-V returns to handle d4rt int→double literals.
+    final getterExpr = castReturn == 'V'
+        ? '_coerceToV<V>(_inner.${getter.name})'
+        : '_inner.${getter.name} as $castReturn';
+    buf.writeln('  $castReturn get ${getter.name} => $getterExpr;');
   }
 
   for (final setter in tSetters) {
@@ -1105,9 +1134,12 @@ void _writeExtendsDelegation(
         '  void ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
       );
     } else if (needsCast) {
-      buf.writeln(
-        '  $castReturn ${method.name}($paramSig) => _inner.${method.name}($callArgs) as $castReturn;',
-      );
+      // Use _coerceToV for bare-V returns to handle d4rt int→double literals.
+      final callExpr = '_inner.${method.name}($callArgs)';
+      final returnExpr = castReturn == 'V'
+          ? '_coerceToV<V>($callExpr)'
+          : '$callExpr as $castReturn';
+      buf.writeln('  $castReturn ${method.name}($paramSig) => $returnExpr;');
     } else {
       buf.writeln(
         '  ${method.returnType} ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
@@ -1159,9 +1191,11 @@ void _writeImplementsDelegation(
   for (final getter in tGetters) {
     final castReturn = _replaceTypeParam(getter.returnType, typeParamName, 'V');
     buf.writeln('  @override');
-    buf.writeln(
-      '  $castReturn get ${getter.name} => _inner.${getter.name} as $castReturn;',
-    );
+    // Use _coerceToV for bare-V returns to handle d4rt int→double literals.
+    final getterExpr = castReturn == 'V'
+        ? '_coerceToV<V>(_inner.${getter.name})'
+        : '_inner.${getter.name} as $castReturn';
+    buf.writeln('  $castReturn get ${getter.name} => $getterExpr;');
     buf.writeln();
   }
 
@@ -1193,9 +1227,12 @@ void _writeImplementsDelegation(
         '  void ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
       );
     } else if (needsCast) {
-      buf.writeln(
-        '  $castReturn ${method.name}($paramSig) => _inner.${method.name}($callArgs) as $castReturn;',
-      );
+      // Use _coerceToV for bare-V returns to handle d4rt int→double literals.
+      final callExpr = '_inner.${method.name}($callArgs)';
+      final returnExpr = castReturn == 'V'
+          ? '_coerceToV<V>($callExpr)'
+          : '$callExpr as $castReturn';
+      buf.writeln('  $castReturn ${method.name}($paramSig) => $returnExpr;');
     } else {
       buf.writeln(
         '  ${method.returnType} ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
