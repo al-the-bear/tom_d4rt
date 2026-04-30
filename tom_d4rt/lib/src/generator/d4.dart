@@ -1133,9 +1133,58 @@ class D4 {
     // (e.g., WidgetStatePropertyAll<dynamic>) because Dart's reified generics
     // require exact type argument matching for subtype checks.
     // Use registered wrapper factories to create properly typed proxy objects.
-    if (unwrapped != null) {
-      final wrapperResult = _tryGenericWrapperResolution<T>(unwrapped);
-      if (wrapperResult != null) return wrapperResult;
+    // Factories are checked additively — each module contributes cases for
+    // its own types, and the first factory to return non-null wins.
+    //
+    // IMPORTANT: Inlined (not via _tryGenericWrapperResolution helper) so that
+    // when a factory returns null for an unrecognised innerTypeArg and T is
+    // nullable, `null is T` returns the null directly — which is valid for
+    // optional bridge parameters. The helper route checked `wrapperResult !=
+    // null`, masking valid null-for-nullable returns and falling through to a
+    // spurious ArgumentD4rtException.
+    if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
+      final tStr = T.toString();
+      // Strip trailing '?' for nullable generic types
+      String baseT = tStr;
+      while (baseT.endsWith('?')) {
+        baseT = baseT.substring(0, baseT.length - 1);
+      }
+      if (baseT.contains('<')) {
+        final baseTypeName = baseT.substring(0, baseT.indexOf('<'));
+        final innerTypeArg = baseT.substring(
+          baseT.indexOf('<') + 1,
+          baseT.lastIndexOf('>'),
+        );
+
+        // Try with the target base type name first, then with the value's
+        // runtime base type name (e.g., WidgetStatePropertyAll when target is
+        // WidgetStateProperty).
+        final valueName = unwrapped.runtimeType.toString();
+        final valueBaseName = valueName.contains('<')
+            ? valueName.substring(0, valueName.indexOf('<'))
+            : valueName;
+        final typeNamesToTry = <String>{baseTypeName, valueBaseName};
+
+        for (final typeName in typeNamesToTry) {
+          final factories = _genericTypeWrappers[typeName];
+          if (factories == null) continue;
+          for (final factory in factories) {
+            final wrapped = factory(unwrapped, innerTypeArg);
+            if (wrapped is T) return wrapped;
+            // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
+            // the non-nullable form. The wrapper created with non-nullable T
+            // will still be assignable to the nullable target.
+            if (innerTypeArg.endsWith('?')) {
+              final nonNullableArg = innerTypeArg.substring(
+                0,
+                innerTypeArg.length - 1,
+              );
+              final wrapped2 = factory(unwrapped, nonNullableArg);
+              if (wrapped2 is T) return wrapped2;
+            }
+          }
+        }
+      }
     }
 
     // INTER-003: int→double promotion (handles both double and double?)
