@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// D4rt proxy for [CustomPainter].
 ///

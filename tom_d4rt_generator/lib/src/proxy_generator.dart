@@ -302,8 +302,15 @@ Future<ProxyGenerationResult> generateProxies({
   final importUris = <String>{};
   final classImportMap = <String, String>{};
 
-  // Always add D4rt runtime import for proxy factory registration (GEN-092)
-  importUris.add('package:tom_d4rt_ast/runtime.dart');
+  // D4rt runtime import for proxy factory registration (GEN-092). Routed
+  // through `config.d4rtImport` so source-based (`package:tom_d4rt/d4rt.dart`)
+  // and AST-based (`package:tom_d4rt_exec/d4rt.dart`, which re-exports
+  // `tom_d4rt_ast/runtime.dart`) consumers get the right `D4` symbol.
+  // Falls back to the legacy `tom_d4rt_ast/runtime.dart` when no import is
+  // configured, matching pre-fix behaviour.
+  importUris.add(
+    config.d4rtImport ?? 'package:tom_d4rt_ast/runtime.dart',
+  );
 
   for (final (proxyConfig, element, barrelUri) in proxyEntries) {
     // Determine the best import for this class

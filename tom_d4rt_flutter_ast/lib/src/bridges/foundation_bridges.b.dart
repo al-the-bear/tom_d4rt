@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-04-29T10:57:21.502292
+// Generated: 2026-04-30T09:58:43.352804
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -41,9 +41,9 @@ import 'package:flutter/src/foundation/synchronous_future.dart' as $flutter_25;
 import 'package:flutter/src/foundation/timeline.dart' as $flutter_26;
 import 'package:flutter/src/foundation/unicode.dart' as $flutter_27;
 import 'package:meta/meta.dart' as $meta_1;
-import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutterm_1;
-import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutterm_2;
-import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_3;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_ast_1;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_ast_3;
 
 /// Bridge class for flutter_foundation module.
 class FlutterFoundationBridge {
