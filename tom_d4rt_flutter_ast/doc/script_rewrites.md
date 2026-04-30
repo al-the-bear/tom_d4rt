@@ -422,7 +422,7 @@ script-side rewrite that makes the test pass cleanly.
 ## `FragmentProgram` engine cascade in multi-test suites
 
 - **Source:**
-  `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/image_sampler_slot_test.dart`
+  `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/image_sampler_slot_test.dart`
 - **Symptom.** When run as part of `hardly_relevant_classes_1_test`,
   the test itself completes (`status=success frameworkErrors=0`),
   but every subsequent script in the same suite (124 scripts:

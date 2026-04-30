@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-04-29T10:57:40.213828
+// Generated: 2026-04-30T09:59:01.955605
 
 // ignore_for_file: avoid_print
 
@@ -18,19 +18,19 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt_exec/d4rt.dart';
-import 'package:tom_d4rt_flutterm/src/bridges/dart_ui_bridges.b.dart' as dart_ui_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/animation_bridges.b.dart' as flutter_animation_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/physics_bridges.b.dart' as flutter_physics_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/scheduler_bridges.b.dart' as flutter_scheduler_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/semantics_bridges.b.dart' as flutter_semantics_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/services_bridges.b.dart' as flutter_services_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/gestures_bridges.b.dart' as flutter_gestures_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/rendering_bridges.b.dart' as flutter_rendering_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
-import 'package:tom_d4rt_flutterm/src/bridges/cupertino_bridges.b.dart' as flutter_cupertino_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/dart_ui_bridges.b.dart' as dart_ui_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/animation_bridges.b.dart' as flutter_animation_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/physics_bridges.b.dart' as flutter_physics_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/scheduler_bridges.b.dart' as flutter_scheduler_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/semantics_bridges.b.dart' as flutter_semantics_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/services_bridges.b.dart' as flutter_services_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/gestures_bridges.b.dart' as flutter_gestures_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/rendering_bridges.b.dart' as flutter_rendering_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/cupertino_bridges.b.dart' as flutter_cupertino_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''

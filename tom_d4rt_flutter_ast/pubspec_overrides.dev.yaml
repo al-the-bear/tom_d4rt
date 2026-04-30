@@ -6,7 +6,7 @@
 #
 # tom_analyzer_shared is needed here because it's a transitive dep of
 # tom_d4rt_generator's regenerator tool — pub must resolve it even
-# though tom_d4rt_flutterm doesn't depend on it directly.
+# though tom_d4rt_flutter_ast doesn't depend on it directly.
 dependency_overrides:
   tom_analyzer_shared:
     path: ../../basics/tom_analyzer_shared

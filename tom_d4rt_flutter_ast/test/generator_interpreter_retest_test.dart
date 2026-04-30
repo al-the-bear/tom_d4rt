@@ -5,7 +5,7 @@
 /// until the underlying generator/interpreter issues are fixed.
 ///
 /// The original scripts are stored in:
-///   test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/retest/
+///   test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/retest/
 ///
 /// Total: 58 tests
 @TestOn('vm')

@@ -1,6 +1,6 @@
 # D4rt Flutter Bridge Test Plan
 
-Comprehensive test coverage plan for validating all bridged Flutter classes in tom_d4rt_flutterm.
+Comprehensive test coverage plan for validating all bridged Flutter classes in tom_d4rt_flutter_ast.
 
 ## Summary Statistics
 

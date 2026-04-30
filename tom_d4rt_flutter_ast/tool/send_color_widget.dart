@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
+import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 void main() async {
   final d4rt = FlutterD4rt();

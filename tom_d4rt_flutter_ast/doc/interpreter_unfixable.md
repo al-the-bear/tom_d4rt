@@ -1307,7 +1307,7 @@ naturally fold this in.
   it receives — fabricating colours would make the test pass
   on a lie. The closure rests on three artifacts already in
   place: (1) the `Platform.isLinux` test-runner skip at
-  `tom_d4rt_flutterm/test/generator_interpreter_retest_test.dart:74`,
+  `tom_d4rt_flutter_ast/test/generator_interpreter_retest_test.dart:74`,
   (2) script-side `try/catch` around `ui.SystemColor.light` /
   `ui.SystemColor.dark` with a fallback UI in
   `retest/dart_ui/system_color_palette_test.dart` (lines

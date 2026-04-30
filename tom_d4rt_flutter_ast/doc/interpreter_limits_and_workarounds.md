@@ -1,4 +1,4 @@
-# Interpreter Limits and Workarounds — tom_d4rt_flutterm
+# Interpreter Limits and Workarounds — tom_d4rt_flutter_ast
 
 Known fundamental limits of the D4rt interpreter when executing Flutter code,
 where the limitation cannot be fixed purely in the interpreter and requires
@@ -594,7 +594,7 @@ SliverPersistentHeaderDelegate, etc.) and to every constructor parameter
 typed `T Function(...)`.
 
 This requires re-running the bridge generator and regenerating every
-`.b.dart` file under `tom_d4rt_flutterm/lib/src/bridges/`.
+`.b.dart` file under `tom_d4rt_flutter_ast/lib/src/bridges/`.
 
 ---
 

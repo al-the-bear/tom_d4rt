@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 /// Regenerate all Flutter Material bridges using the d4rtgen API.
 ///
-/// Run from the tom_d4rt_flutterm project root:
+/// Run from the tom_d4rt_flutter_ast project root:
 ///   dart run tool/regenerate_bridges.dart
 library;
 

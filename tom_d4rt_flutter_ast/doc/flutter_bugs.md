@@ -1,7 +1,7 @@
 # Flutter Test-Environment Issues Encountered in d4rt Demo Scripts
 
 Catalogue of crashes / hangs that surfaced while running d4rt scripts
-through the `tom_d4rt_flutterm_app` test app. Each entry distinguishes
+through the `tom_d4rt_flutter_ast_app` test app. Each entry distinguishes
 the symptom, what triggers it, what does NOT trigger it, and the
 recommended workaround for demo scripts. These are **Flutter / engine /
 test-bundle limitations**, not d4rt interpreter bugs — the same widget

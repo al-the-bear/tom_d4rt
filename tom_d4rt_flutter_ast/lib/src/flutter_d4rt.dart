@@ -57,7 +57,7 @@ class FlutterD4rt {
     // place. The extension hook fires it after material at finalize
     // time (explicit below, or implicitly on the first execute).
     _interpreter.registerExtensions(
-      'tom_d4rt_flutterm',
+      'tom_d4rt_flutter_ast',
       registerD4rtInterfaceProxyOverrides,
     );
     _interpreter.finalizeBridges();

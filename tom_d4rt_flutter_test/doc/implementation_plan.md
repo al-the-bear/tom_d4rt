@@ -11,7 +11,7 @@ Build an interactive Flutter app that runs the same D4rt test scripts as the
 controlled through in-app playback UI instead of an external test driver.
 
 Scripts are loaded directly from disk out of
-`tom_d4rt_flutter_ast/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/`.
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`.
 
 ---
 
@@ -382,7 +382,7 @@ class TestScriptLoader {
         exeDir.path,
         '../' * up,
         '../tom_d4rt_flutter_ast/test'
-        '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts',
+        '/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts',
       );
       final resolved = p.normalize(candidate);
       if (Directory(resolved).existsSync()) return resolved;
@@ -391,7 +391,7 @@ class TestScriptLoader {
     // project directory)
     return p.normalize(
       '../tom_d4rt_flutter_ast/test'
-      '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts',
+      '/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts',
     );
   }
 

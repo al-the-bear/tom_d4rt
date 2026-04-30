@@ -1,7 +1,7 @@
 # Interpreter / Bridge Issues
 
 Active issue list, organised by cluster. Each cluster is a recurring
-failure pattern hit by demo scripts in `tom_d4rt_flutterm_app`. The
+failure pattern hit by demo scripts in `tom_d4rt_flutter_ast_app`. The
 representative scripts under each cluster are useful as starting points
 for a targeted fix and as regression tests once the cluster is closed.
 
@@ -369,7 +369,7 @@ lookup with no native target:
 1. **Bug-102a — hand-written proxies for `InheritedWidget`,
    `MultiChildLayoutDelegate`, `SingleChildLayoutDelegate`,
    `CustomClipper<Path>`** in
-   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`.
+   `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`.
    Pattern mirrors the existing LeafRenderObjectWidget family: a
    native proxy holds a back-reference to the interpreted instance
    and forwards the abstract members (`updateShouldNotify`,
@@ -491,7 +491,7 @@ commonly subclass.
 
 Pattern is the same as the cluster `f6c7db8f` fix that added
 `_InterpretedLeafRenderObjectWidget` etc. — define a small proxy
-class in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+class in `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
 that holds an `InterpretedInstance` and forwards the abstract
 methods (`paint`, `shouldRepaint`, `getClip`, `layoutChild`, …) into
 the interpreted instance via `_invokeInterpretedAs<T>`. Register via
@@ -651,7 +651,7 @@ green as a side-effect of the same setter wrapping.
 
 **Fix (GEN-083b, generic-class method-arg half)**
 
-- `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` —
+- `tom_d4rt_flutter_ast/lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` —
   new `BasicMessageChannelUserBridge` extending `D4UserBridge`.
   Overrides `setMessageHandler` by bypassing the typed
   `BasicMessageChannel<T>.setMessageHandler` entirely and installing
@@ -1005,7 +1005,7 @@ sites.
 
 Two scoped, generator-only changes:
 
-1. `tom_d4rt_flutterm/buildkit.yaml` — add `TransitionDelegate`
+1. `tom_d4rt_flutter_ast/buildkit.yaml` — add `TransitionDelegate`
    to `proxyClasses:`, alongside `CustomPainter`,
    `FlowDelegate`, `MultiChildLayoutDelegate`,
    `SingleChildLayoutDelegate`,
@@ -1487,7 +1487,7 @@ could not satisfy `LinearGradient(transform: …)`.
    contributions (super/interfaces/mixins) and their transitive
    supertypes. Mirrored in `tom_d4rt/lib/src/generator/d4.dart`.
 
-3. `tom_d4rt_flutterm/buildkit.yaml`: added `GradientTransform` to
+3. `tom_d4rt_flutter_ast/buildkit.yaml`: added `GradientTransform` to
    `proxyClasses:`. The proxy generator emits the
    `D4rtGradientTransform` adapter and registration as part of
    `lib/src/bridges/flutter_proxies.b.dart`.
@@ -1866,7 +1866,7 @@ What landed:
   work, cycles don't infinite-loop, and target bridges do not leak
   into `globalEnvironment`.
 
-Verification (`tom_d4rt_flutterm`, `D4RT_SKIP_BRIDGE_REGEN=1`,
+Verification (`tom_d4rt_flutter_ast`, `D4RT_SKIP_BRIDGE_REGEN=1`,
 serial runs):
 
 | Suite     | Phase 0 baseline | After Phase 3 | Delta |
@@ -2141,7 +2141,7 @@ instead.
 
 Demo-side changes only — no interpreter or bridge code touched.
 File:
-`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_filter_test.dart`.
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/backdrop_filter_test.dart`.
 
 - Section 3: replace the `BackdropFilter` + `ui.ImageFilter.matrix`
   hierarchy with `ColorFiltered` + `ColorFilter.matrix` wrapping
@@ -2215,12 +2215,12 @@ deactivated state. The proper guard is `BuildContext.mounted`
 Demo-side changes only — no interpreter, bridge, or generator
 code touched.
 
-- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_aligning_shifted_box_test.dart`
+- `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/render_aligning_shifted_box_test.dart`
   — `_captureSnapshot`: tighten the early-return from
   `if (hostContext == null)` to
   `if (hostContext == null || !hostContext.mounted)` before
   calling `findRenderObject`.
-- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_absorb_pointer_test.dart`
+- `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/render_absorb_pointer_test.dart`
   — `_snapshot`: replace the bare null-aware
   `key.currentContext?.findRenderObject()` with an explicit
   context + `mounted` check:
@@ -2356,7 +2356,7 @@ The cluster is classified as a demo bug per the issue-analysis doc (Section O): 
 
 **Fix**
 
-- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
+- `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
   - Inlined the four `Color(0x…)` literals directly into the `_phases` constructor calls instead of referencing the top-level `_kHighlight` / `_kGreen` / `_kAmber` / `_kWarning` consts. This removes the top-level-const indirection that the interpreter was dropping.
   - Switched `static const _phases` → `static final _phases` for clarity (the elements are now plain non-const constructor calls).
   - Hoisted the four `withValues(...)` results inside the `List.generate` callback into `final Color` locals (`selectedFill`, `pastFill`, `pastText`, `arrowTint`) to keep the build expressions readable.
@@ -2456,7 +2456,7 @@ Three layered defects:
 
 **Fix**
 
-- `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+- `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
   - Added `_InterpretedIntent extends Intent` user-bridge proxy and registered it via `D4.registerInterfaceProxy('Intent', …)` so script `Intent` subclasses are bridged to a real native `Intent`.
   - Added `_InterpretedThemeExtension extends ThemeExtension<_InterpretedThemeExtension>` (canonical F-bound — verified at runtime that `is ThemeExtension<ThemeExtension<dynamic>>` accepts the canonical F-bound) and registered it via `D4.registerInterfaceProxy('ThemeExtension', …)`. The proxy stores `_instance.klass` as its `type` getter so each script's ThemeExtension subclass owns its own slot in `theme.extensions`. `copyWith` and `lerp` delegate to the script's interpreted methods and re-wrap the result via `_adaptResult`.
   - New `_registerMethodOverrides()` registers `ThemeData.extension` with an override that consults `typeArgs[0]` — an `InterpretedClass` for script-side ThemeExtension subclasses, a `BridgedClass` for native ones — to look up `theme.extensions[lookupKey]`. When the result is a `_InterpretedThemeExtension` proxy, the override unwraps it back to its `_instance` (the `InterpretedInstance`) so the script gets a value typed as its own subclass.
@@ -2537,7 +2537,7 @@ unblock.
 - **26c — `popup_menu_position_test` demo bug.** The script passed
   both a `child:` widget and an `icon:` widget to a `PopupMenuButton`,
   which Flutter rejects. Removed the conflicting `icon:` argument from
-  `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/retest/material/popup_menu_position_test.dart`.
+  `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/retest/material/popup_menu_position_test.dart`.
   This is a script-side fix only.
 
 - **Test-app build timeout bumped from 10s → 30s.** Once 26a and 26b
@@ -2545,7 +2545,7 @@ unblock.
   `object_key_test` now run their full StatefulWidget builds, which
   for the heaviest demos legitimately need >10s under the interpreter.
   Bumped the build-completer timeout in
-  `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/lib/main.dart` to
+  `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart` to
   `Duration(seconds: 30)` to give comfortable headroom; the actual
   observed completion times for the cluster-26 scripts are 1–1.5s.
 
@@ -2832,8 +2832,8 @@ context`.
    `(visitor, target?, positional, named, typeArgs)` to the
    interceptor when registered.
 
-3. **Resolver (`tom_d4rt_flutterm`):** A single resolver in
-   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+3. **Resolver (`tom_d4rt_flutter_ast`):** A single resolver in
+   `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
    walks `Element.visitAncestorElements`, matching each ancestor's
    widget against the requested type argument by
    `widget._instance.klass.name`. Subclass dispatch
@@ -2993,7 +2993,7 @@ ran (boe0y15d6 / br8pptkjm task outputs, 2026-04-28).
 
 **Tried and insufficient:** A 10s `waitBeforeClear` was added in
 1538556d on the three follower tests, with a corresponding
-internal post-frame restart in `tom_d4rt_flutterm_app/lib/main.dart`
+internal post-frame restart in `tom_d4rt_flutter_ast_app/lib/main.dart`
 that fires when the `_dependents.isEmpty` assertion is silenced.
 The wedge persists past the 10s wait — the assertion-driven
 restart path is not being taken, so the tree is wedged in some
@@ -3143,7 +3143,7 @@ the outgoing `KeyedSubtree` slide/fade transitions retain the pre-restart
 `State` instances and their tickers continue to fire past the
 post-frame restart (the silenced assertion at generation=99 path). If
 confirmed, the fix is to (a) cancel pending tickers in the
-`tom_d4rt_flutterm_app` post-frame restart hook, or (b) reset the
+`tom_d4rt_flutter_ast_app` post-frame restart hook, or (b) reset the
 `AnimatedSwitcher` outgoing-child list before re-entering the build.
 
 ---
@@ -3201,7 +3201,7 @@ is now well-characterised:
    cascade by a handful of tests but does not fix it — the
    next deep-demo script triggers it again (W4 family).
 4. The internal post-frame restart in
-   `tom_d4rt_flutterm_app/lib/main.dart` (commit 1538556d)
+   `tom_d4rt_flutter_ast_app/lib/main.dart` (commit 1538556d)
    fires only on the `_dependents.isEmpty` assertion; the
    wedged state observed in W1/W2/W4 is a different code
    path that the restart hook does not catch.
@@ -3245,7 +3245,7 @@ cluster fix may shift small counts between adjacent buckets.
 To regenerate the clusters after a fix:
 
 ```bash
-cd tom_d4rt_flutterm
+cd tom_d4rt_flutter_ast
 flutter test test/generator_interpreter_issues_test.dart \
     --file-reporter "json:doc/testlog_<id>/generator_interpreter_issues_test.result.json"
 
@@ -3268,7 +3268,7 @@ For the per-batch (batch 0–10) resolved-issue narratives that previously
 lived in this file, see git history:
 
 ```
-git log -p tom_d4rt_flutterm/doc/interpreter_issues.md
+git log -p tom_d4rt_flutter_ast/doc/interpreter_issues.md
 ```
 
 Resolved highlights from earlier batches included enum exhaustiveness

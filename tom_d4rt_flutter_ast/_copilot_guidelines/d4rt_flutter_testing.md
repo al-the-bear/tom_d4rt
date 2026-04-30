@@ -4,7 +4,7 @@ This document describes the test infrastructure for validating D4rt Flutter brid
 
 ## Overview
 
-The tom_d4rt_flutterm package provides bridge classes that expose Flutter's widget tree, painting, animation, and other APIs to the D4rt interpreter. Testing these bridges requires:
+The tom_d4rt_flutter_ast package provides bridge classes that expose Flutter's widget tree, painting, animation, and other APIs to the D4rt interpreter. Testing these bridges requires:
 
 1. A running Flutter application that can receive and execute D4rt scripts
 2. An AST bundler that compiles test scripts into execution bundles
@@ -28,7 +28,7 @@ The tom_d4rt_flutterm package provides bridge classes that expose Flutter's widg
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              tom_d4rt_flutterm_app (Flutter App)                 │
+│              tom_d4rt_flutter_ast_app (Flutter App)                 │
 │  ┌──────────────────┐    ┌───────────────┐    ┌──────────────┐ │
 │  │ HTTP Server      │───▶│ D4rtExecutor  │───▶│ Widget Tree  │ │
 │  │ (port 4247)      │    │ + Bridges     │    │              │ │
@@ -48,7 +48,7 @@ The tom_d4rt_flutterm package provides bridge classes that expose Flutter's widg
 
 ### 1. Test Scripts
 
-Located in: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/`
+Located in: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`
 
 Each test script is a Dart file that will be executed by D4rt. Scripts follow this pattern:
 
@@ -100,9 +100,9 @@ Result object from script execution:
 | `output` | `List<String>` | Captured print() output from script |
 | `statusCode` | `int` | HTTP status code from app |
 
-### 4. Test App (tom_d4rt_flutterm_app)
+### 4. Test App (tom_d4rt_flutter_ast_app)
 
-Located in: `test/tom_d4rt_flutterm_app/`
+Located in: `test/tom_d4rt_flutter_ast_app/`
 
 A Flutter application that:
 - Runs an HTTP server on port 4247
@@ -177,7 +177,7 @@ send_ast_via_http_scripts/
 
 1. Start the test app in a separate terminal:
    ```bash
-   cd test/tom_d4rt_flutterm_app
+   cd test/tom_d4rt_flutter_ast_app
    flutter run -d linux  # or macos/windows
    ```
 
@@ -190,7 +190,7 @@ send_ast_via_http_scripts/
 
 Run all send tests:
 ```bash
-cd tom_d4rt_flutterm
+cd tom_d4rt_flutter_ast
 flutter test test/send_test_runner.dart
 ```
 

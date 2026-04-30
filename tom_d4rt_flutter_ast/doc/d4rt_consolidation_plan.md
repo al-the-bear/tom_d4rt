@@ -1,6 +1,6 @@
-# `tom_d4rt_flutterm` consolidation plan — lift generic D4rt machinery upstream
+# `tom_d4rt_flutter_ast` consolidation plan — lift generic D4rt machinery upstream
 
-**Scope.** Audit `tom_d4rt_flutterm/lib/` and move every component that is
+**Scope.** Audit `tom_d4rt_flutter_ast/lib/` and move every component that is
 not actually Flutter-specific into `tom_d4rt_ast` (the analyzer-free
 core) and `tom_d4rt` / `tom_d4rt_exec` (the analyzer-based companion),
 keeping the two interpreter layers in sync per the quest's hard rule.
@@ -17,7 +17,7 @@ single commit.
 ### TL;DR
 
 Roughly **two-thirds of the ~4,700 hand-written lines under
-`tom_d4rt_flutterm/lib/`** is generic D4rt machinery that should live in
+`tom_d4rt_flutter_ast/lib/`** is generic D4rt machinery that should live in
 `tom_d4rt`/`tom_d4rt_ast`. The genuinely Flutter-specific surface is:
 
 1. The bridge artifacts (`bridges/*.b.dart`, all generated).
@@ -31,7 +31,7 @@ supertype/proxy/coercion *registries*, `registerD4rtRuntimeExtensions`,
 the runner-shaped façade — is generic and was only landed here because
 that's where the test corpus pressure exposed the gaps.
 
-### What's in `tom_d4rt_flutterm/lib/` and where it should live
+### What's in `tom_d4rt_flutter_ast/lib/` and where it should live
 
 | Component | LOC | What it actually does | Where it belongs |
 |---|---:|---|---|
@@ -205,7 +205,7 @@ shape:
    lands in one side is **not done**.
 4. **Regression tests** (see "Regression matrix" below).
 5. **Capture full output** of every test run to a fresh testlog folder
-   under `tom_d4rt_flutterm/doc/testlog_consol_<step>_<id>/`. Never
+   under `tom_d4rt_flutter_ast/doc/testlog_consol_<step>_<id>/`. Never
    re-run tests just to see results — always `tee` to a log first.
 6. **Update step status in this file** (`Status: done|deferred|reverted`,
    plus a one-paragraph summary).
@@ -219,8 +219,8 @@ The regression test rule is the same as for the cluster campaign:
 
 | Change category | Required regression run |
 |---|---|
-| (a) Test-script only (under `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/`) | Single-test retest of the affected script. |
-| (b) Bridge generator / d4rt interpreter / `tom_d4rt_flutterm/lib/` (non-test) | Serial run of the four full suites: `gii` (`generator_interpreter_issues_test.dart`), `essential_classes_test`, `important_classes_test`, `secondary_classes_test`. |
+| (a) Test-script only (under `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`) | Single-test retest of the affected script. |
+| (b) Bridge generator / d4rt interpreter / `tom_d4rt_flutter_ast/lib/` (non-test) | Serial run of the four full suites: `gii` (`generator_interpreter_issues_test.dart`), `essential_classes_test`, `important_classes_test`, `secondary_classes_test`. |
 
 Every step in this plan is category (b), so every step ends with the
 4-suite regression battery, run **serially** (never in parallel — the
@@ -264,7 +264,7 @@ until step 3.
 **Regression.**
 
 - Run `dart test` in `tom_d4rt_ast` and `tom_d4rt` — new tests must pass, no existing test regresses.
-- Run the 4-suite battery in `tom_d4rt_flutterm` — should be a no-op (no flutterm code touched).
+- Run the 4-suite battery in `tom_d4rt_flutter_ast` — should be a no-op (no flutterm code touched).
 
 **Status.** _done_ (2026-04-29) — testlog `testlog_20260429-1124-step1-unwrapAs/`.
 Twelve new unit tests pass in both `tom_d4rt` and `tom_d4rt_ast`. Flutterm
@@ -313,7 +313,7 @@ than re-implementing it.
 **Regression.**
 
 - `dart test` in `tom_d4rt_ast` and `tom_d4rt`.
-- 4-suite battery in `tom_d4rt_flutterm` — still a no-op.
+- 4-suite battery in `tom_d4rt_flutter_ast` — still a no-op.
 
 **Status.** _done_ — landed on 2026-04-29.
 
@@ -352,7 +352,7 @@ it is the highest-risk one — the regression battery here is the gate.
 
 **Files.**
 
-- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart`:
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart`:
   - Remove `_unwrap<T>` (~50 lines).
   - Rewrite `build`, `buildAsync`, `execute`, `executeAsync` as
     one-liners that call the typed runner methods.
@@ -364,7 +364,7 @@ it is the highest-risk one — the regression battery here is the gate.
 **Regression.**
 
 - 4-suite battery (gii, essential, important, secondary) in
-  `tom_d4rt_flutterm`, serial, with `D4RT_SKIP_BRIDGE_REGEN=1`.
+  `tom_d4rt_flutter_ast`, serial, with `D4RT_SKIP_BRIDGE_REGEN=1`.
 - Diff the testlog against the most recent green baseline
   (`session_resume.d4rt.md` records the latest counts). Any new
   failure or new framework error blocks the step — narrow or revert.
@@ -374,7 +374,7 @@ it is the highest-risk one — the regression battery here is the gate.
 **Status.** _done_ — landed on 2026-04-29.
 
 `FlutterD4rt._unwrap<T>` (45 lines) deleted from
-`tom_d4rt_flutterm/lib/src/flutter_d4rt.dart`. All four entry points
+`tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart`. All four entry points
 (`build`, `buildAsync`, `execute`, `executeAsync`) are now thin
 wrappers around `_interpreter.executeBundleAs<T>` /
 `executeBundleAsAsync<T>`. The unwrap path is identical to step 2
@@ -549,7 +549,7 @@ single call). Remove the `_relaxersRegistered` static bool from
   on `BridgedClass.registerSupertypes` (it already merges; document it).
 - `tom_d4rt/lib/src/generator/d4.dart` — sync.
 - `tom_d4rt/lib/src/bridge/...` — sync.
-- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` — drop
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` — drop
   `_relaxersRegistered`, drop `_ensureRelaxersRegistered`, call
   `registerRelaxers()` and `registerD4rtRuntimeExtensions()` directly
   in both constructors.
@@ -608,14 +608,14 @@ construction; the runner runs all callbacks in deterministic order
 - `tom_d4rt/lib/src/d4rt_base.dart` — mirror the same surface on the
   analyzer-based source runner. Added in the step 7 sync addendum
   (see `testlog_20260429-step7-sync-tom_d4rt/_summary.md`); originally
-  missed because `tom_d4rt_flutterm` does not depend on `tom_d4rt`,
+  missed because `tom_d4rt_flutter_ast` does not depend on `tom_d4rt`,
   so the gap was not surfaced by the flutter battery. Restored to
   preserve the hard tom_d4rt ↔ tom_d4rt_ast sync rule.
-- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` — both constructors.
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` — both constructors.
   The plan-spec sketch was:
   ```dart
   FlutterMaterialBridges.register(_interpreter);
-  _interpreter.registerExtensions('tom_d4rt_flutterm', () {
+  _interpreter.registerExtensions('tom_d4rt_flutter_ast', () {
     registerRelaxers();
     registerD4rtRuntimeExtensions();
     registerD4rtInterfaceProxyOverrides();
@@ -656,7 +656,7 @@ quest-level docs.
 
 **Files.**
 
-- `tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` — final pass: any
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` — final pass: any
   remaining "Bug-103" / "GEN-079" / "RC-2" comments that referenced the
   old ordering rule are either deleted (rule now enforced by
   `finalizeBridges()`) or moved into the doc comment of the upstream
@@ -664,7 +664,7 @@ quest-level docs.
 - `tom_d4rt_ast/doc/extension_registration.md` (new) — short note on
   the `registerExtensions / finalizeBridges` pattern, with the canonical
   example from `FlutterD4rt`.
-- `tom_d4rt_flutterm/doc/d4rt_consolidation_plan.md` (this file) —
+- `tom_d4rt_flutter_ast/doc/d4rt_consolidation_plan.md` (this file) —
   flip every step status to `done` and add the final 4-suite numbers
   for comparison against the pre-migration baseline.
 - `_ai/quests/d4rt/overview.d4rt.md` — one-paragraph note in the
@@ -679,7 +679,7 @@ quest-level docs.
 **Status.** _done_ — landed on 2026-04-29 (testlog
 `testlog_20260429-step7-final-shrink/_summary.md`).
 
-`tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` shrunk to its final
+`tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` shrunk to its final
 shape (175 → 158 lines; ~80-line executable body, the rest dartdoc
 plus the `FlutterD4rtException` shell). The executable body is
 byte-identical to step 6's post-fix shape — only the dartdoc and
@@ -745,7 +745,7 @@ Update this section as each step completes, reverts, or defers.
 | 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
 | 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ + testlog_20260429-step4-sync-third-twin/ + testlog_20260429-step4-recursive-sync/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>` across **all three** copies (initial land: tom_d4rt_ast/interpreter_visitor.dart + tom_d4rt/d4rt_base.dart leaf branch; sync addendum: tom_d4rt/interpreter_visitor.dart). Recursive sync addendum: ported the recursive list/map/record top-level unwrap from `tom_d4rt/d4rt_base.dart:1938` to `tom_d4rt_ast/d4rt_runner.dart`'s `_executeInEnvironment` (the recursion was a fork omission, not a deliberate asymmetry — corrected in this session). All 10 suites match step-3 baselines exactly across all three runs — zero regressions. |
 | 5 | claude | done | (this session) | testlog_20260429-step5-idempotency/ | `registerGenericConstructor` and `registerGenericTypeWrapper` made idempotent via per-key `Set<Factory>` identity dedupe (chained-on-itself was the load-bearing reason `_relaxersRegistered` existed). The three already-idempotent overwrite registries (`registerInterfaceProxy`, `registerTypeCoercion`, `registerSupplementaryMethod`) plus `BridgedClass.registerSupertypes` got explicit "**Idempotent:**" docstring tags. `_relaxersRegistered` static-bool guard removed from `flutter_d4rt.dart`. Sync between tom_d4rt and tom_d4rt_ast preserved. New file `register_idempotency_test.dart` adds 7 register-twice tests (all green). 10-suite battery matches step-4 baselines exactly; `tom_d4rt_ast` gains +7 from the new tests. |
-| 6 | claude | done | (this session) | testlog_20260429-step6-extension-hook/ + testlog_20260429-step7-sync-tom_d4rt/ | `D4rtRunner.registerExtensions(packageName, body)` + `finalizeBridges()` added on tom_d4rt_ast (insertion-order, package-name-overwrite, idempotent finalize, throws after finalize, implicit finalize on first execute). Mirrored on `D4rt` in tom_d4rt_exec. 7 new contract tests (`extension_hook_test.dart`) all green. `flutter_d4rt.dart` switched to the hook for `registerD4rtInterfaceProxyOverrides` only — `registerRelaxers` / `registerD4rtRuntimeExtensions` stay BEFORE material to keep material's auto-gen ValueNotifier factory on top of the chain (initial naive port putting all three in the callback regressed `widgets/gesture_detector_adv_test.dart` — fix preserves step-5 ordering). 4-suite flutterm battery matches step-5 baseline exactly: 108/0/0, 164/0/0, 653/0/1, 81/2/0. Dart battery green vs baseline. **Sync addendum (step 7 follow-up):** the same surface was back-ported to the analyzer-based `D4rt` in `tom_d4rt/lib/src/d4rt_base.dart` — fields, getter, `registerExtensions` / `finalizeBridges`, implicit finalize wired in `_executeInEnvironment` — plus a 7-test contract suite (`tom_d4rt/test/extension_hook_test.dart`) that drives the hook through `execute(source: ...)`. The original step-6 land was AST + exec only because `tom_d4rt_flutterm` doesn't depend on `tom_d4rt`; the back-port restores the hard tom_d4rt ↔ tom_d4rt_ast sync rule. tom_d4rt: +1733 ~1 −6 → +1740 ~1 −6 (exactly the 7 new contract tests, zero pre-existing regressions); tom_d4rt_ast / tom_d4rt_generator unchanged. |
+| 6 | claude | done | (this session) | testlog_20260429-step6-extension-hook/ + testlog_20260429-step7-sync-tom_d4rt/ | `D4rtRunner.registerExtensions(packageName, body)` + `finalizeBridges()` added on tom_d4rt_ast (insertion-order, package-name-overwrite, idempotent finalize, throws after finalize, implicit finalize on first execute). Mirrored on `D4rt` in tom_d4rt_exec. 7 new contract tests (`extension_hook_test.dart`) all green. `flutter_d4rt.dart` switched to the hook for `registerD4rtInterfaceProxyOverrides` only — `registerRelaxers` / `registerD4rtRuntimeExtensions` stay BEFORE material to keep material's auto-gen ValueNotifier factory on top of the chain (initial naive port putting all three in the callback regressed `widgets/gesture_detector_adv_test.dart` — fix preserves step-5 ordering). 4-suite flutterm battery matches step-5 baseline exactly: 108/0/0, 164/0/0, 653/0/1, 81/2/0. Dart battery green vs baseline. **Sync addendum (step 7 follow-up):** the same surface was back-ported to the analyzer-based `D4rt` in `tom_d4rt/lib/src/d4rt_base.dart` — fields, getter, `registerExtensions` / `finalizeBridges`, implicit finalize wired in `_executeInEnvironment` — plus a 7-test contract suite (`tom_d4rt/test/extension_hook_test.dart`) that drives the hook through `execute(source: ...)`. The original step-6 land was AST + exec only because `tom_d4rt_flutter_ast` doesn't depend on `tom_d4rt`; the back-port restores the hard tom_d4rt ↔ tom_d4rt_ast sync rule. tom_d4rt: +1733 ~1 −6 → +1740 ~1 −6 (exactly the 7 new contract tests, zero pre-existing regressions); tom_d4rt_ast / tom_d4rt_generator unchanged. |
 | 7 | claude | done | (this session) | testlog_20260429-step7-final-shrink/ | Final shrink + doc cleanup. `flutter_d4rt.dart` 175 → 158 lines (executable body unchanged from step 6; dartdoc/comments tightened). `tom_d4rt_ast/doc/extension_registration.md` added with the four `registerExtensions / finalizeBridges` contracts and the canonical FlutterD4rt example. `_ai/quests/d4rt/overview.d4rt.md` Architecture section updated with the typed-execute / extension-hook API note + `D4.unwrapAs<T>` mention. 4-suite flutter battery 108/0/0, 164/0/0, 653/0/1, 81/2/0 — exact step-6 match. Dart battery green vs step-6 baseline (one transient `tom_d4rt_exec` cache flake cleared with `rm -rf .dart_tool/test`). Migration totals: `flutter_d4rt.dart` 228 → 158 lines from pre-migration to final, with the unwrap, ordering rules, and registry idempotency now enforced upstream contracts instead of comments. |
 
 ---
@@ -763,4 +763,4 @@ revert.
 The 4-suite battery is the tripwire. Any new framework error, any new
 test failure, any cascade timeout that was not already in the baseline:
 revert the step, document the failure mode in
-`tom_d4rt_flutterm/doc/interpreter_unfixable.md`, and re-plan.
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`, and re-plan.

@@ -7,7 +7,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
+import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 void main() {
   group('FlutterD4rt bridge execution', () {

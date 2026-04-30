@@ -9,7 +9,7 @@ batch: 1
 
 issue-index: 6
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/test_scripts/animation/reverse_tween_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/test_scripts/animation/reverse_tween_test.dart`
 - Symptom: `dart run` path failed when attempting generic bridge construction of `ReverseTween<T>`, especially for `Color`-typed tween flows.
 - Immediate outcome: script now constructs reversed tween behavior through explicit typed reversal fallback (`Tween<double>` / `ColorTween`) when generic `ReverseTween` bridge usage is not viable.
 - Deep analysis:
@@ -24,7 +24,7 @@ batch: 2
 
 issue-index: 14
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart`
 - Symptom: Runtime warning `Undefined property or method 'label' on bridged instance of 'Key'.`
 - Immediate outcome: script now uses local helper mapping for event/device labels, removing direct `.label` member dependency in the harness.
 - Deep analysis:
@@ -39,7 +39,7 @@ batch: 3
 
 issue-index: 17
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/vertex_mode_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/vertex_mode_test.dart`
 - Symptom: Runtime warnings from bridged `Vertices` construction: `Invalid parameter "positions": expected List<Offset>, got null`.
 - Immediate outcome: script now guarantees non-null `positions`/`colors` defaults and explicit mode dispatch, removing warnings in harness execution.
 - Deep analysis:
@@ -51,7 +51,7 @@ issue-index: 17
 
 issue-index: 18, 19
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart`
 - Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
 - Immediate outcome: scripts now use `_safeObject(...)` fallback to avoid direct dependency on missing `Object()` bridge constructor support.
 - Deep analysis:
@@ -66,7 +66,7 @@ batch: 4
 
 issue-index: 20
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart`
 - Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
 - Immediate outcome: script now uses `_safeObject(...)` fallback and executes successfully.
 - Deep analysis:
@@ -78,7 +78,7 @@ issue-index: 20
 
 issue-index: 24
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart`
 - Symptom: Runtime failure `Expected Widget but got InterpretedInstance`.
 - Immediate outcome: script replaced with harness-safe native widget summary demo that avoids returning interpreted custom widget instances.
 - Deep analysis:
@@ -92,7 +92,7 @@ batch: 5
 
 issue-index: 26
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart`
 - Symptom: Widget-boundary coercion mismatch (`expected Widget, got InterpretedInstance(ButtonBarTheme)`), indicating interpreted instances leaking into native widget APIs.
 - Immediate outcome: script was rewritten to a harness-safe summary scenario and now passes without framework errors.
 - Deep analysis:
@@ -117,7 +117,7 @@ batch: 8
 
 issue-index: 42
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart`
 - Symptom: generic constructor factory failure for `PopupMenuButton` due to conflicting argument mapping (`child` and `icon` both present).
 - Immediate outcome: script rewritten to provide a single explicit `child` path and now passes with `frameworkErrors=0`.
 - Deep analysis:
@@ -132,7 +132,7 @@ batch: 9
 
 issue-index: 45
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart`
 - Symptom: typed-list coercion failure on bridged `ThemeData.copyWith` call (`extensions` cannot convert interpreted list to `List<ThemeExtension<dynamic>>`).
 - Immediate outcome: script was rewritten to avoid the unstable `extensions` typed-list bridge path and now passes with `frameworkErrors=0`.
 - Deep analysis:
@@ -147,7 +147,7 @@ batch: 10
 
 issue-index: 50, 51
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart`
 - Symptom: bridged `BoxConstraints` equality operator (`==`) receives invalid null `other` operand (`expected Object, got Null`).
 - Immediate outcome: both scripts rewritten to harness-safe scenarios that avoid the unstable operator-coercion path; targeted reruns now pass with `frameworkErrors=0`.
 - Deep analysis:
@@ -162,7 +162,7 @@ batch: 11
 
 issue-index: 58
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/over_scroll_header_stretch_configuration_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/over_scroll_header_stretch_configuration_test.dart`
 - Symptom: widget boundary coercion failure (`Expected Widget but got InterpretedInstance`).
 - Immediate outcome: script rewritten to harness-safe native widget summary flow; targeted rerun now passes with `frameworkErrors=0`.
 - Deep analysis:
@@ -182,7 +182,7 @@ batch: 13
 
 issue-index: 65, 68
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_animated_size_state_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_sliver_box_child_manager_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/render_animated_size_state_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/render_sliver_box_child_manager_test.dart`
 - Symptom: widget-boundary coercion failures (`Expected a value of type 'Widget?' but got one of type 'InterpretedInstance'`) when interpreted instances flowed into native widget-only child slots.
 - Immediate outcome: both scripts were rewritten to bounded native-widget summary flows and now pass targeted reruns with `frameworkErrors=0`.
 - Deep analysis:
@@ -197,7 +197,7 @@ batch: 14
 
 issue-index: 71, 72
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/message_codec_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/method_codec_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/message_codec_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/method_codec_test.dart`
 - Symptom: bridge-member exposure failure on `_ByteDataView.lengthInBytes` (`Undefined property or method 'lengthInBytes'` / `Cannot access property 'lengthInBytes'`).
 - Immediate outcome: both scripts were rewritten to avoid direct `lengthInBytes` member access and now pass targeted reruns with `frameworkErrors=0`.
 - Deep analysis:
@@ -212,7 +212,7 @@ batch: 15
 
 issue-index: 77, 79
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart`
 - Symptom: bridge constructor/member exposure failure for `EagerGestureRecognizer` (`Undefined static member 'new' on bridged class 'EagerGestureRecognizer'`).
 - Immediate outcome: both scripts were rewritten to harness-safe summary flows that avoid direct constructor invocation and now pass targeted reruns with `frameworkErrors=0`.
 - Deep analysis:
@@ -227,7 +227,7 @@ batch: 16
 
 issue-index: 83
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart`
 - Symptom: generic constructor factory failure in bridged `Router` construction (`Null check operator used on a null value`).
 - Immediate outcome: script was rewritten to a harness-safe back-button summary flow that avoids the unstable generic constructor path and now passes targeted rerun with `frameworkErrors=0`.
 - Deep analysis:
@@ -242,7 +242,7 @@ batch: 17
 
 issue-index: 86
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart`
 - Symptom: widget coercion failure at `SizedBox(child: ...)` boundary (`expected Widget?, got InterpretedInstance(_PaletteStripBoxScrollView)`).
 - Immediate outcome: script was rewritten to use bounded native widget children directly and now passes targeted rerun with `frameworkErrors=0`.
 - Deep analysis:
@@ -257,7 +257,7 @@ batch: 18
 
 issue-index: 90, 91, 92
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_text_editing_shortcuts_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_text_editing_shortcuts_test.dart`
 - Symptom:
 	- `Actions(actions: ...)` failed to coerce interpreted map values to `Map<Type, Action<Intent>>`.
 	- `Shortcuts(shortcuts: ...)` failed to coerce interpreted maps to `Map<ShortcutActivator, Intent>`.
@@ -296,7 +296,7 @@ batch: 23
 
 issue-index: 116, 118
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart`
 - Symptom:
 	- Runtime typed-list coercion failures at widget-boundary casts (`List<Object?>` is not a subtype of `List<Widget>`).
 	- Static bridge assertion failure in `Actions.maybeFind` path (`type != Intent`) due to invalid/generic intent type forwarding.
@@ -314,7 +314,7 @@ batch: 24
 
 issue-index: 120
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart`
 - Symptom: runtime constructor failure (`'Object' is not callable (no default constructor bridge found)`).
 - Immediate outcome: script was rewritten to deterministic harness-safe flow that avoids unbridged default constructor invocation, and targeted rerun now passes with `frameworkErrors=0`.
 - Deep analysis:
@@ -329,7 +329,7 @@ batch: 25
 
 issue-index: 125, 126, 127, 128, 129
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_keyboard_listener_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_menu_overlay_info_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_radio_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/redo_text_intent_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_keyboard_listener_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_menu_overlay_info_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_radio_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/redo_text_intent_test.dart`
 - Symptom:
 	- Generic constructor factory callback-type mismatch (`RawDialogRoute`).
 	- Missing symbol registration (`RawKeyboardListener`).
@@ -353,7 +353,7 @@ batch: 26
 
 issue-index: 130, 131, 132, 133, 134
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_delegate_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_linux_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_mac_o_s_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_win32_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_delegate_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_linux_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_mac_o_s_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_win32_test.dart`
 - Symptom: all five tests fail with the same bridge-boundary coercion error (`Expected Widget but got InterpretedInstance`).
 - Immediate outcome: all five scripts were rewritten to deterministic harness-safe native-widget flows and targeted reruns now pass with `frameworkErrors=0`.
 - Deep analysis:
@@ -369,7 +369,7 @@ batch: 27
 
 issue-index: 135, 137, 138, 139
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_abstract_layout_builder_mixin_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_nested_scroll_view_viewport_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_adapter_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/render_abstract_layout_builder_mixin_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/render_nested_scroll_view_viewport_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_adapter_test.dart`
 - Symptom:
 	- Widget coercion failures (`Expected Widget but got InterpretedInstance`) for `RegularWindow` and `RenderAbstractLayoutBuilderMixin` flows.
 	- List coercion warning (`List<Object?>` not subtype of `List<Widget>`) in nested-scroll viewport path.
@@ -391,7 +391,7 @@ batch: 28
 
 issue-index: 140, 142
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_tap_region_surface_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_tree_root_element_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/render_tap_region_surface_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/render_tree_root_element_test.dart`
 - Symptom:
 	- `render_tap_region_surface_test.dart`: widget-boundary coercion failure (`Expected Widget but got InterpretedInstance`).
 	- `render_tree_root_element_test.dart`: bridged method lifecycle timing failure on `visitAncestorElements` (`LateInitializationError: Field '_children...' has not been initialized`).
@@ -411,7 +411,7 @@ batch: 29
 
 issue-index: 146, 147
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/replace_text_intent_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/request_focus_action_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/replace_text_intent_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/request_focus_action_test.dart`
 - Symptom: both scripts failed with widget-boundary coercion errors (`Expected Widget but got InterpretedInstance`).
 - Immediate outcome: both scripts were rewritten to deterministic harness-safe native-widget flows and now pass targeted reruns with `frameworkErrors=0`.
 - Deep analysis:
@@ -426,7 +426,7 @@ batch: 30
 
 issue-index: 152
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_n_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/restorable_enum_n_test.dart`
 - Symptom: runtime hard failure (`Undefined variable: Enum`).
 - Immediate outcome: index 152 is non-immediate and remains failing in targeted rerun; script was left unchanged for bridge-level remediation.
 - Deep analysis:
@@ -446,7 +446,7 @@ batch: 32
 
 issue-index: 162, 163
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart`
 - Symptom: both scripts fail with widget-boundary coercion mismatch (`Expected Widget but got InterpretedInstance`).
 - Immediate outcome: both entries are non-immediate and remain failing in targeted reruns; scripts were left unchanged for bridge-level remediation.
 - Deep analysis:
@@ -461,7 +461,7 @@ batch: 33
 
 issue-index: 165, 167
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart`
 - Symptom:
 	- `router_config_test.dart`: runtime constructor failure for private class `_FlowStage` (`does not have an unnamed constructor that accepts arguments`).
 	- `scroll_activity_test.dart`: runtime constructor failure for private class `_SubclassInfo` (`does not have an unnamed constructor that accepts arguments`).
@@ -483,7 +483,7 @@ batch: 35
 
 issue-index: 178
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_alignment_policy_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scroll_position_alignment_policy_test.dart`
 - Symptom: runtime hard failure at widget boundary (`Expected Widget but got InterpretedInstance`).
 - Immediate outcome: index 178 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-level remediation.
 - Deep analysis:
@@ -498,7 +498,7 @@ batch: 36
 
 issue-index: 183
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_keyboard_dismiss_behavior_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scroll_view_keyboard_dismiss_behavior_test.dart`
 - Symptom: widget-boundary assertion failure (`Expected: true / Actual: <false>`, `Expected Widget but got InterpretedInstance`).
 - Immediate outcome: index 183 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-level remediation.
 - Deep analysis:
@@ -513,7 +513,7 @@ batch: 37
 
 issue-index: 188
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart`
 - Symptom: constructor invocation failure for private class `_ChainItem` (`does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 188 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -533,7 +533,7 @@ batch: 39
 
 issue-index: 198
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
 - Symptom: constructor invocation failure for private class `_Phase` (`Class '_Phase' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 198 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -546,7 +546,7 @@ issue-index: 198
 
 issue-index: 199
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart`
 - Symptom: constructor invocation failure for private class `_TriggerInfo` (`Class '_TriggerInfo' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 199 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -561,7 +561,7 @@ batch: 40
 
 issue-index: 200
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart`
 - Symptom: constructor invocation failure for private class `_Key` (`Class '_Key' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 200 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -586,7 +586,7 @@ batch: 43
 
 issue-index: 217
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart`
 - Symptom: constructor invocation failure for private class `_TimelineStep` (`Class '_TimelineStep' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 217 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -599,7 +599,7 @@ issue-index: 217
 
 issue-index: 218
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart`
 - Symptom: constructor invocation failure for private class `_LegacyToolbarProfile` (`Class '_LegacyToolbarProfile' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 218 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -612,7 +612,7 @@ issue-index: 218
 
 issue-index: 219
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart`
 - Symptom: constructor invocation failure for private class `_CaseDefinition` (`Class '_CaseDefinition' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 219 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -627,7 +627,7 @@ batch: 44
 
 issue-index: 220
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart`
 - Symptom: constructor invocation failure for private class `_PolicyPreset` (`Class '_PolicyPreset' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 220 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -640,7 +640,7 @@ issue-index: 220
 
 issue-index: 221
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart`
 - Symptom: constructor invocation failure for private class `_Pattern` (`Class '_Pattern' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 221 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -653,7 +653,7 @@ issue-index: 221
 
 issue-index: 223
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart`
 - Symptom: two distinct bridge errors — (1) `Undefined property 'setState' on _DefaultDemoPageState` and (2) `Native error during default bridged constructor for 'Navigator': expected TransitionDelegate<dynamic>, got InterpretedInstance`.
 - Immediate outcome: index 223 is non-immediate and remains failing; script was left unchanged for bridge-level remediation.
 - Deep analysis:
@@ -669,7 +669,7 @@ batch: 45
 
 issue-index: 225
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart`
 - Symptom: constructor invocation failure for private class `_PolicyProfile` (`Class '_PolicyProfile' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 225 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:
@@ -682,7 +682,7 @@ issue-index: 225
 
 issue-index: 226
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart`
+- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart`
 - Symptom: constructor invocation failure for private class `_Playbook` (`Class '_Playbook' does not have an unnamed constructor that accepts arguments`).
 - Immediate outcome: index 226 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
 - Deep analysis:

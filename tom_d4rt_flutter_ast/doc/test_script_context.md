@@ -1,10 +1,10 @@
 # Test Script Context
 
-This document describes the execution context for D4rt Flutter test scripts in the `tom_d4rt_flutterm` project.
+This document describes the execution context for D4rt Flutter test scripts in the `tom_d4rt_flutter_ast` project.
 
 ## Test App Architecture
 
-The test app (`tom_d4rt_flutterm_app`) is a Flutter desktop application that:
+The test app (`tom_d4rt_flutter_ast_app`) is a Flutter desktop application that:
 
 1. Runs an HTTP server on port **4247**
 2. Receives D4rt AST bundles via POST to `/build`
@@ -154,4 +154,4 @@ headerSliverBuilder: (context, _) => <Widget>[SliverAppBar()]
 ## Related Documentation
 
 - [interpreter_issues.md](interpreter_issues.md) - D4rt interpreter limitations
-- Test harness source: `test/tom_d4rt_flutterm_app/lib/main.dart`
+- Test harness source: `test/tom_d4rt_flutter_ast_app/lib/main.dart`

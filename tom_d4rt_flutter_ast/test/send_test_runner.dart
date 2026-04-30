@@ -1,8 +1,8 @@
 /// Test runner that builds AST bundles from test scripts and sends them
-/// to the tom_d4rt_flutterm_app via HTTP.
+/// to the tom_d4rt_flutter_ast_app via HTTP.
 ///
 /// Scripts are located in:
-///   test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/
+///   test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/
 ///
 /// Each script must contain a `dynamic build(BuildContext context)` function
 /// that returns a Widget.
@@ -28,7 +28,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
-import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
+import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 /// Result of sending a D4rt script to the test app.
 class SendResult {
@@ -124,10 +124,10 @@ class SendTestRunner {
 
   /// Scripts directory relative to package root.
   static const String scriptsPath =
-      'test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts';
+      'test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts';
 
   /// Test app directory relative to package root.
-  static const String testAppPath = 'test/tom_d4rt_flutterm_app';
+  static const String testAppPath = 'test/tom_d4rt_flutter_ast_app';
 
   static FlutterD4rt? _d4rt;
   static HttpClient? _client;

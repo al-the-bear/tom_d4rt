@@ -20,7 +20,7 @@
 /// This is a behavioural deviation from real Flutter — a script that calls
 /// `setState` during layout/paint will see the rebuild on the next frame
 /// rather than a thrown error. See
-/// `tom_d4rt_flutterm/doc/interpreter_unfixable.md` (C20d) for the script-
+/// `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (C20d) for the script-
 /// level fix (use `LayoutBuilder` or `addPostFrameCallback` directly) that
 /// would remove the need for this deviation.
 library;
