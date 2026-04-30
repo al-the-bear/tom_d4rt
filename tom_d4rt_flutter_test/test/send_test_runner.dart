@@ -492,6 +492,41 @@ class SendTestRunner {
     }
   }
 
+  /// Send a script and then interact with it.
+  ///
+  /// Convenience method that combines [send] and [interact].
+  /// The [interactDelay] allows the overlay to appear before interaction.
+  static Future<({SendResult build, InteractResult? interact})> sendAndInteract(
+    String scriptPath, {
+    required List<Map<String, dynamic>> actions,
+    Duration interactDelay = const Duration(milliseconds: 300),
+    String host = defaultHost,
+    int port = defaultPort,
+    bool clearFirst = true,
+  }) async {
+    final buildResult = await send(
+      scriptPath,
+      host: host,
+      port: port,
+      clearFirst: clearFirst,
+    );
+
+    if (!buildResult.success) {
+      return (build: buildResult, interact: null);
+    }
+
+    // Wait for overlay to appear (dialog, menu, bottom sheet use microtask)
+    await Future<void>.delayed(interactDelay);
+
+    final interactResult = await interact(
+      actions,
+      host: host,
+      port: port,
+    );
+
+    return (build: buildResult, interact: interactResult);
+  }
+
   /// Send interaction commands to the test app.
   static Future<InteractResult> interact(
     List<Map<String, dynamic>> actions, {
