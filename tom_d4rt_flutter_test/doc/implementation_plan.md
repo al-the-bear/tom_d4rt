@@ -1,4 +1,4 @@
-# tom_d4rt_flutterm_test — Implementation Plan
+# tom_d4rt_flutter_test — Implementation Plan
 
 **Created:** 2026-04-30
 **Status:** Pending
@@ -6,12 +6,12 @@
 ## Goal
 
 Build an interactive Flutter app that runs the same D4rt test scripts as the
-`tom_d4rt_flutterm` flutter-driver corpus, but using `tom_d4rt` (source-based
-interpreter, no `AstBundle`, no `tom_d4rt_ast` dependency) and controlled
-through in-app playback UI instead of an external test driver.
+`tom_d4rt_flutter_ast` flutter-driver corpus, but using `tom_d4rt`
+(source-based interpreter, no `AstBundle`, no `tom_d4rt_ast` dependency) and
+controlled through in-app playback UI instead of an external test driver.
 
 Scripts are loaded directly from disk out of
-`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/`.
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/`.
 
 ---
 
@@ -24,23 +24,94 @@ Scripts are loaded directly from disk out of
 | `D4`, `BridgedClass`, `InterpreterVisitor`, etc. exported by `tom_d4rt/d4rt.dart`? | **Yes** — full API surface exported |
 | Zero `tom_d4rt_ast` / `tom_d4rt_exec` / `tom_ast_generator` dependency? | **Yes** — only `tom_d4rt` + Flutter SDK |
 | Scripts loadable from disk without bundling? | **Yes** — plain `dart:io` `File.readAsStringSync()` |
-| One uncertain point | `registerD4rtRuntimeExtensions()` no-arg signature — see step 4 |
+| `registerD4rtRuntimeExtensions()` no-arg pattern resolved? | **Yes** — uses static maps on `D4` class, no interpreter instance needed (see step 0) |
+| Sync gap between `tom_d4rt` and `tom_d4rt_ast`? | **One gap found and fixed in step 0**: `registertopLevelFunction` typo |
 
 ---
 
 ## Implementation Steps
+
+### Step 0 — Sync fix: `registertopLevelFunction` typo [ ]
+
+**Must be done before bridge regeneration.** A naming inconsistency exists
+across the interpreter stack:
+
+| Location | Method name | Status |
+|----------|-------------|--------|
+| `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart:318` | `registerTopLevelFunction` | **correct** |
+| `tom_d4rt_exec/lib/src/d4rt_base.dart:254` | `registertopLevelFunction` | **typo** |
+| `tom_d4rt/lib/src/d4rt_base.dart:348` | `registertopLevelFunction` | **typo** |
+| `tom_d4rt_generator/lib/src/bridge_generator.dart:6569` | emits `registertopLevelFunction` | **typo** |
+
+`D4rtRunner` (the AST layer) already has the correct spelling. The two `D4rt`
+wrapper classes and the generator consistently use the typo. After bridge
+regeneration the generated code calls `registertopLevelFunction` on a
+`tom_d4rt.D4rt` — which does have it — so the current code compiles. But the
+gap means `tom_d4rt.D4rt` is not name-for-name in sync with `D4rtRunner`.
+
+**Fix — three files, one string each:**
+
+#### `tom_d4rt/lib/src/d4rt_base.dart` (line 348)
+```dart
+// before
+void registertopLevelFunction(
+// after
+void registerTopLevelFunction(
+```
+
+#### `tom_d4rt_exec/lib/src/d4rt_base.dart` (line 254)
+```dart
+// before
+void registertopLevelFunction(
+// after
+void registerTopLevelFunction(
+```
+(The internal delegation on line 261 already calls `_runner.registerTopLevelFunction`
+with the correct name — no change needed there.)
+
+#### `tom_d4rt_generator/lib/src/bridge_generator.dart` (line 6569)
+```dart
+// before
+'      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);',
+// after
+'      interpreter.registerTopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);',
+```
+
+**After the fixes:**
+
+1. Regenerate `tom_d4rt_flutter_ast` bridges (now emits correct spelling):
+   ```bash
+   cd tom_d4rt_flutter_ast
+   dart run tool/regenerate_bridges.dart
+   ```
+
+2. Run test suites to confirm no regression:
+   ```bash
+   cd tom_d4rt       && dart test
+   cd tom_d4rt_ast   && dart test
+   cd tom_d4rt_generator && dart test
+   cd tom_d4rt_flutter_ast && flutter test test/essential_classes_test.dart
+   ```
+
+   Expected: same counts as pre-fix (method rename is pure rename, no
+   behaviour change). `tom_d4rt_flutter_ast` essential must pass clean.
+
+3. Commit and push.
+
+---
 
 ### Step 1 — `pubspec.yaml` [ ]
 
 Replace the default Flutter template dependencies with:
 
 ```yaml
-name: tom_d4rt_flutterm_test
+name: tom_d4rt_flutter_test
 dependencies:
   flutter:
     sdk: flutter
   tom_d4rt:
     path: ../tom_d4rt
+  path: ^1.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,7 +126,7 @@ No `tom_d4rt_ast`, no `tom_d4rt_exec`, no `tom_ast_generator`, no `archive`.
 
 ### Step 2 — `buildkit.yaml` [ ]
 
-Copy `tom_d4rt_flutterm/buildkit.yaml` verbatim and change two keys:
+Copy `tom_d4rt_flutter_ast/buildkit.yaml` verbatim and change two keys:
 
 ```yaml
 d4rtgen:
@@ -130,18 +201,20 @@ d4rtgen:
 
 ### Step 3 — `tool/regenerate_bridges.dart` [ ]
 
-Copy `tom_d4rt_flutterm/tool/regenerate_bridges.dart` verbatim (no changes
+Copy `tom_d4rt_flutter_ast/tool/regenerate_bridges.dart` verbatim (no changes
 needed — it reads `buildkit.yaml` from the project root). Then run:
 
 ```bash
-cd tom_d4rt_flutterm_test
+cd tom_d4rt_flutter_test
 dart pub get
 dart run tool/regenerate_bridges.dart
 ```
 
-This produces 16 output files (same as `tom_d4rt_flutterm` minus the
+This produces 16 output files (same as `tom_d4rt_flutter_ast` minus the
 `test_runner`, which is omitted). All generated `import` lines will
 reference `package:tom_d4rt/d4rt.dart` instead of `tom_d4rt_ast`/`tom_d4rt_exec`.
+All `registerTopLevelFunction` calls (correct spelling after step 0) will
+resolve against `tom_d4rt.D4rt`.
 
 ---
 
@@ -149,7 +222,7 @@ reference `package:tom_d4rt/d4rt.dart` instead of `tom_d4rt_ast`/`tom_d4rt_exec`
 
 #### 4a — `lib/src/d4rt_runtime_registrations.dart`
 
-Copy from `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`.
+Copy from `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`.
 
 Replace the five `tom_d4rt_ast` / `tom_d4rt_exec` import lines:
 
@@ -171,12 +244,14 @@ import 'package:tom_d4rt/d4rt.dart'
 import 'package:tom_d4rt/d4rt.dart';
 ```
 
-**Verification note:** `registerD4rtRuntimeExtensions()` takes no arguments.
-If `tom_d4rt`'s bridge registration is instance-level (not static/global),
-the function will need a `D4rt interpreter` parameter added and the call site
-in `SourceFlutterD4rt._registerBridges()` updated accordingly. Confirm during
-implementation by checking whether the no-arg call compiles and resolves
-to the correct instance.
+**Why the no-arg pattern works:** `registerD4rtRuntimeExtensions()` and
+`registerRelaxers()` register into **static maps on the `D4` class**
+(`D4._interfaceProxies`, `D4._genericTypeWrappers`, etc.) — no interpreter
+instance is involved. The `D4` class in `package:tom_d4rt/d4rt.dart` has
+the identical static API (`registerInterfaceProxy`, `registerGenericTypeWrapper`,
+`registerGenericConstructor`, `registerTypeCoercion`) as `tom_d4rt_ast`'s
+`D4`. After the import rewrite, the no-arg calls compile and register into
+`tom_d4rt`'s static maps — no changes to function signatures needed.
 
 #### 4b — User bridge files (copy + rewrite, 3 files)
 
@@ -184,17 +259,17 @@ Apply the same import rewrite to each:
 
 | Source | Destination |
 |--------|-------------|
-| `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/state_user_bridge.dart` | `lib/src/d4rt_user_bridges/state_user_bridge.dart` |
-| `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` | `lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` |
-| `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/strut_style_user_bridge.dart` | `lib/src/d4rt_user_bridges/strut_style_user_bridge.dart` |
+| `tom_d4rt_flutter_ast/lib/src/d4rt_user_bridges/state_user_bridge.dart` | `lib/src/d4rt_user_bridges/state_user_bridge.dart` |
+| `tom_d4rt_flutter_ast/lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` | `lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` |
+| `tom_d4rt_flutter_ast/lib/src/d4rt_user_bridges/strut_style_user_bridge.dart` | `lib/src/d4rt_user_bridges/strut_style_user_bridge.dart` |
 
 ---
 
 ### Step 5 — `SourceFlutterD4rt` class [ ]
 
 New file `lib/src/source_flutter_d4rt.dart`. Replaces `FlutterD4rt` from
-`tom_d4rt_flutterm` — uses `execute(source:, name:, positionalArgs:)` instead
-of `executeBundleAs(bundle, name:, positionalArgs:)`.
+`tom_d4rt_flutter_ast` — uses `execute(source:, name:, positionalArgs:)`
+instead of `executeBundleAs(bundle, name:, positionalArgs:)`.
 
 ```dart
 import 'package:flutter/widgets.dart';
@@ -206,7 +281,7 @@ import 'd4rt_runtime_registrations.dart';
 
 /// D4rt interpreter (source-based) configured with Flutter Material bridges.
 ///
-/// Parallel to [FlutterD4rt] in tom_d4rt_flutterm, but runs against the
+/// Parallel to [FlutterD4rt] in tom_d4rt_flutter_ast, but runs against the
 /// analyzer-based [D4rt] interpreter from package:tom_d4rt. Accepts raw
 /// Dart source strings rather than pre-compiled [AstBundle] objects.
 class SourceFlutterD4rt {
@@ -225,7 +300,7 @@ class SourceFlutterD4rt {
     registerD4rtRuntimeExtensions();
     FlutterMaterialBridges.register(_interpreter);
     _interpreter.registerExtensions(
-      'tom_d4rt_flutterm_test',
+      'tom_d4rt_flutter_test',
       registerD4rtInterfaceProxyOverrides,
     );
     _interpreter.finalizeBridges();
@@ -292,11 +367,11 @@ class TestScript {
 }
 
 class TestScriptLoader {
-  /// Root of the test script corpus, relative to the workspace root.
-  /// The app must be run from the workspace root (or the path must be
-  /// adjusted to match the run-from location).
+  /// Root of the test script corpus, relative to the project's working dir.
+  /// Default assumes `flutter run` / `flutter test` is launched from inside
+  /// the `tom_d4rt_flutter_test` project directory.
   static const _relativeRoot =
-      'tom_ai/d4rt/tom_d4rt_flutterm/test'
+      '../tom_d4rt_flutter_ast/test'
       '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts';
 
   static List<TestScript> loadAll({String? rootOverride}) {
@@ -304,7 +379,7 @@ class TestScriptLoader {
     if (!root.existsSync()) {
       throw StateError(
           'Script root not found: ${root.absolute.path}\n'
-          'Run the app from the workspace root or pass rootOverride.');
+          'Pass scriptRootOverride or launch from tom_d4rt_flutter_test/.');
     }
     final scripts = root
         .listSync(recursive: true)
@@ -321,7 +396,10 @@ class TestScriptLoader {
 }
 ```
 
-Add `path: ^1.9.0` to `pubspec.yaml` dependencies.
+The default `_relativeRoot` is relative to the project dir (sibling of
+`tom_d4rt_flutter_ast/`). If `flutter run` sets a different CWD, pass an
+absolute override via `Platform.script.resolve('../...')` or a
+`String.fromEnvironment('SCRIPT_ROOT')` constant.
 
 ---
 
@@ -448,7 +526,7 @@ MaterialApp
 Run the app on macOS desktop:
 
 ```bash
-cd tom_d4rt_flutterm_test
+cd tom_d4rt_flutter_test
 flutter run -d macos
 ```
 
@@ -466,8 +544,12 @@ Verify:
 
 | # | File | Action |
 |---|------|--------|
+| 0a | `tom_d4rt/lib/src/d4rt_base.dart:348` | Edit — rename `registertopLevelFunction` → `registerTopLevelFunction` |
+| 0b | `tom_d4rt_exec/lib/src/d4rt_base.dart:254` | Edit — rename `registertopLevelFunction` → `registerTopLevelFunction` |
+| 0c | `tom_d4rt_generator/lib/src/bridge_generator.dart:6569` | Edit — fix generated string to `registerTopLevelFunction` |
+| 0d | `tom_d4rt_flutter_ast/lib/src/bridges/*.b.dart` | Regenerate — `dart run tool/regenerate_bridges.dart` |
 | 1 | `pubspec.yaml` | Edit — add `tom_d4rt`, `path`; remove defaults |
-| 2 | `buildkit.yaml` | New — copy from flutterm, 2-line change |
+| 2 | `buildkit.yaml` | New — copy from `tom_d4rt_flutter_ast`, 2-line change |
 | 3 | `tool/regenerate_bridges.dart` | New — copy verbatim |
 | 4 | `lib/src/bridges/*.b.dart` (16 files) | Generated — `dart run tool/regenerate_bridges.dart` |
 | 5 | `lib/src/d4rt_runtime_registrations.dart` | New — copy + import rewrite |
@@ -481,19 +563,28 @@ Verify:
 
 ---
 
-## Open questions
+## Resolved open questions
 
-- **`registerD4rtRuntimeExtensions()` no-arg pattern**: if `tom_d4rt.D4rt`
-  uses instance-level bridge registries (not static/global), this function
-  will need a `D4rt interpreter` parameter. Resolve in step 4 by checking
-  whether the no-arg call compiles cleanly after the import rewrite.
+- **`registerD4rtRuntimeExtensions()` no-arg pattern** — resolved. The
+  function calls eight sub-functions that register static factories into maps
+  on the `D4` class (`D4._interfaceProxies`, `D4._genericTypeWrappers`, etc.).
+  No interpreter instance is needed. The `D4` class in `package:tom_d4rt`
+  has identical static API to `tom_d4rt_ast`'s `D4`. Import rewrite is
+  sufficient — no signature changes needed.
+
+- **`registertopLevelFunction` typo** — resolved in step 0. After rename,
+  both `D4rt` classes and the generator use `registerTopLevelFunction`
+  (correct case), matching `D4rtRunner`.
+
+## Remaining open question
+
 - **Working directory for script loading**: `TestScriptLoader` defaults to
-  a path relative to the workspace root. If `flutter run` sets CWD elsewhere,
-  pass `scriptRootOverride` from `main()` using `Platform.script` or a
-  compile-time constant (`String.fromEnvironment`).
-- **`build(BuildContext)` vs `main()`**: all scripts in the corpus define
-  `build(BuildContext context)`. The `SourceFlutterD4rt.execute<dynamic>(source)`
+  `../tom_d4rt_flutter_ast/test/...` (sibling-relative). If `flutter run`
+  sets a different CWD, pass `scriptRootOverride` from `main()` using
+  `Platform.script` or `String.fromEnvironment('SCRIPT_ROOT')`.
+- **`build(BuildContext)` vs `main()`**: corpus scripts define
+  `build(BuildContext context)`. `SourceFlutterD4rt.execute<dynamic>(source)`
   calls `name: 'main'` by default; use `build<dynamic>(source, context)` or
-  `execute<dynamic>(source, name: 'build')` as appropriate per script cluster.
-  Scripts that define `main()` instead of `build()` will need special-casing or
-  a cluster-level name override.
+  `execute<dynamic>(source, name: 'build')` as appropriate per cluster.
+  Scripts that define `main()` instead of `build()` need special-casing or a
+  cluster-level name override.
