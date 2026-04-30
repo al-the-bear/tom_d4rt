@@ -1,0 +1,179 @@
+# D4rt Bridge Generation Configuration for Flutter Material
+#
+# This config mirrors `tom_d4rt_flutter_ast/buildkit.yaml` with two changes:
+#   - `d4rtImport` and `helpersImport` retarget the analyzer-based
+#     `tom_d4rt` runner instead of the AST-based `tom_d4rt_exec` /
+#     `tom_d4rt_ast` pair.
+#   - `generateTestRunner: false` — this app drives playback via UI, not
+#     via an HTTP-based test runner, so the test-runner stub is not
+#     needed.
+
+d4rtgen:
+  name: flutter_material_bridges
+  d4rtImport: package:tom_d4rt/d4rt.dart
+  helpersImport: package:tom_d4rt/d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/src/bridges/flutter_bridges_barrel.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/src/bridges/material_bridges.b.dart
+  registrationClass: FlutterMaterialBridges
+  generateTestRunner: false
+  # GEN-083: Proxy class generation for abstract delegates
+  generateProxies: true
+  proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart
+  # GEN-079: Auto-generated generic type relaxer wrappers
+  relaxerOutputPath: lib/src/bridges/flutter_relaxers.b.dart
+  proxyClasses:
+    - CustomPainter
+    - CustomClipper
+    - FlowDelegate
+    - MultiChildLayoutDelegate
+    - SingleChildLayoutDelegate
+    - SliverPersistentHeaderDelegate
+    - DataTableSource
+    # GEN-104: bucket #3 — generic-type-param subclass coercion.
+    # TransitionDelegate has a single abstract `resolve` method and a non-bounded
+    # type param, so the auto-proxy compiles cleanly. ParentDataWidget needs a
+    # super-constructor `child` argument and ThemeExtension is F-bounded
+    # (`T extends ThemeExtension<T>`); both fall out of the auto-proxy template
+    # and are deferred to a follow-up cluster.
+    - TransitionDelegate
+    # Cluster-18 (bucket #8): GradientTransform is an abstract painting class
+    # with a single overridable method `transform(Rect, {TextDirection?}) ->
+    # Matrix4?`. Scripts subclass it to build animated gradient effects (see
+    # widgets/shader_mask_test.dart). Without an interpreter proxy, instances
+    # of script subclasses cannot be passed to `LinearGradient(transform: …)`.
+    - GradientTransform
+  modules:
+    # --- Layer 0: dart:ui (most fundamental) ---
+    - name: dart_ui
+      barrelImport: dart:ui
+      outputPath: lib/src/bridges/dart_ui_bridges.b.dart
+    # --- Layer 1: Base libraries ---
+    - name: flutter_painting
+      barrelImport: package:flutter/painting.dart
+      outputPath: lib/src/bridges/painting_bridges.b.dart
+      skipReExports:
+        - dart:ui
+    - name: flutter_foundation
+      barrelImport: package:flutter/foundation.dart
+      outputPath: lib/src/bridges/foundation_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+    - name: flutter_animation
+      barrelImport: package:flutter/animation.dart
+      outputPath: lib/src/bridges/animation_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+    - name: flutter_physics
+      barrelImport: package:flutter/physics.dart
+      outputPath: lib/src/bridges/physics_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+    - name: flutter_scheduler
+      barrelImport: package:flutter/scheduler.dart
+      outputPath: lib/src/bridges/scheduler_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+    - name: flutter_semantics
+      barrelImport: package:flutter/semantics.dart
+      outputPath: lib/src/bridges/semantics_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+    - name: flutter_services
+      barrelImport: package:flutter/services.dart
+      outputPath: lib/src/bridges/services_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+    - name: flutter_gestures
+      barrelImport: package:flutter/gestures.dart
+      outputPath: lib/src/bridges/gestures_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+    - name: flutter_rendering
+      barrelImport: package:flutter/rendering.dart
+      outputPath: lib/src/bridges/rendering_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+    # --- Layer 2: High-level libraries ---
+    - name: flutter_widgets
+      barrelImport: package:flutter/widgets.dart
+      outputPath: lib/src/bridges/widgets_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
+    - name: flutter_material
+      barrelImport: package:flutter/material.dart
+      outputPath: lib/src/bridges/material_widgets_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
+        - package:flutter/widgets.dart
+    - name: flutter_cupertino
+      barrelImport: package:flutter/cupertino.dart
+      outputPath: lib/src/bridges/cupertino_bridges.b.dart
+      skipReExports:
+        - dart:ui
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
+        - package:flutter/widgets.dart
+        - package:flutter/material.dart

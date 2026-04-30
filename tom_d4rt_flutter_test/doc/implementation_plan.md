@@ -95,7 +95,7 @@ Both override `tom_d4rt → path: ../tom_d4rt` and
 
 ---
 
-### Step 2 — `buildkit.yaml` [ ]
+### Step 2 — `buildkit.yaml` [x]
 
 Copy `tom_d4rt_flutter_ast/buildkit.yaml` verbatim and change two keys:
 
