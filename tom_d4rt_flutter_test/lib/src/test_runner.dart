@@ -1,14 +1,21 @@
 /// Reactive state machine driving D4rt script playback in the test app.
 ///
-/// `TestRunner` owns a single [SourceFlutterD4rt] interpreter, a list of
-/// loaded [TestScript]s, and a current index pointer. It exposes
-/// `play / pause / next / back` controls and `notifyListeners()` on every
-/// state transition so the surrounding UI rebuilds reactively.
+/// `TestRunner` owns the playback cursor, status, and result state. It does
+/// **not** own or call the D4rt interpreter directly. Instead, it exposes a
+/// "pending script" contract:
 ///
-/// The script list is sourced from a [ScriptRootNotifier] passed into the
-/// constructor: the runner subscribes to root-path changes and reloads
-/// (resetting index, status, and last result) whenever the user picks a
-/// new folder.
+/// 1. `_runCurrent()` stores the next script in [pendingScript] and
+///    [notifyListeners()] — the [D4rtScriptView] widget observes this and
+///    executes the script inside its Flutter `build(BuildContext context)` call
+///    so that the real `BuildContext` (with Theme, Navigator, etc.) is
+///    available to the script. This mirrors the execution contract of the
+///    `tom_d4rt_flutter_ast` test app.
+///
+/// 2. After the post-frame callback fires in [D4rtScriptView], it calls
+///    [completeScript] with the outcome. `_runCurrent()` is then resumed.
+///
+/// The runner subscribes to a [ScriptRootNotifier] and reloads the script
+/// list whenever the user picks a new folder.
 library;
 
 import 'dart:async';
@@ -16,79 +23,84 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'script_root_notifier.dart';
-import 'source_flutter_d4rt.dart';
 import 'test_script_loader.dart';
 
 /// Lifecycle state of the runner.
 ///
-/// - [idle]   — no run in progress (initial state, or end-of-list reached)
+/// - [idle]    — no run in progress (initial state, or end-of-list reached)
 /// - [running] — `play()` is iterating through scripts
 /// - [paused]  — `pause()` stopped an in-flight loop; resumable via `play()`
 enum RunnerStatus { idle, running, paused }
 
 /// Outcome of executing a single script.
 ///
-/// `info` carries either the runtime type name of the returned value (on
-/// success) or the error's `toString()` (on failure). [stack] is captured
-/// only on failure so the UI can show a "Show stack trace" affordance
-/// without forcing the success path to allocate one.
+/// [info] carries either the widget's `runtimeType.toString()` on success or
+/// the error's `toString()` on failure. [stack] is captured only on failure.
+/// [output] holds all `print()` lines emitted by the script, in order.
 class TestResult {
   final String scriptName;
   final bool passed;
+
+  /// Widget type on success; error message on failure.
   final String info;
   final StackTrace? stack;
 
-  const TestResult.pass(this.scriptName, this.info)
-      : passed = true,
-        stack = null;
+  /// Lines emitted by `print()` calls inside the script.
+  final List<String> output;
 
-  const TestResult.fail(this.scriptName, this.info, [this.stack])
-      : passed = false;
+  TestResult.pass(this.scriptName, this.info, {List<String>? output})
+      : passed = true,
+        stack = null,
+        output = output ?? const [];
+
+  TestResult.fail(
+    this.scriptName,
+    this.info, [
+    this.stack,
+    List<String>? output,
+  ])  : passed = false,
+        output = output ?? const [];
 }
 
 /// Drives playback over a list of D4rt test scripts.
 ///
-/// State is exposed as plain fields rather than getters so the UI layer can
-/// read them inside a `ListenableBuilder` without ceremony. Mutations
-/// happen only via the public methods, each of which calls
-/// `notifyListeners()` exactly once per logical transition.
+/// All mutations are performed via the public methods; each calls
+/// [notifyListeners()] exactly once per logical transition so
+/// `ListenableBuilder` consumers rebuild only when the state actually changes.
 class TestRunner extends ChangeNotifier {
-  /// Source of the current script-root path. Owned by the caller — the
-  /// runner only listens; it does not dispose the notifier.
+  /// Source of the current script-root path. Owned by the caller.
   final ScriptRootNotifier rootNotifier;
-
-  /// Underlying interpreter. Reused across script invocations because
-  /// re-registering Flutter bridges per script is expensive (and the
-  /// interpreter's bridge tables are append-only, so leaking state between
-  /// scripts is the same risk we already accept in `tom_d4rt_flutter_ast`).
-  final SourceFlutterD4rt _d4rt = SourceFlutterD4rt();
 
   /// Currently loaded scripts. Replaced wholesale on root-path changes.
   List<TestScript> scripts;
 
-  /// Index into [scripts] of the script that will run next (or just ran,
-  /// while [status] is [RunnerStatus.paused]).
+  /// Index of the script that will run next (or just ran while paused).
   int currentIndex = 0;
 
   /// Current playback status.
   RunnerStatus status = RunnerStatus.idle;
 
-  /// Result of the most recent `_runCurrent()`. Cleared on root-path change.
+  /// Result of the most recently completed execution. Cleared on root change.
   TestResult? lastResult;
 
-  /// Pause flag read inside [_runLoop] to break out cooperatively. Separate
-  /// from [status] so the loop can distinguish "user asked to pause" from
-  /// "loop finished naturally".
+  /// The script currently awaiting execution by [D4rtScriptView].
+  /// Non-null only while the D4rt build cycle is in progress.
+  TestScript? pendingScript;
+
   bool _paused = false;
+  Completer<TestResult>? _pendingCompleter;
 
   TestRunner(this.rootNotifier)
       : scripts = TestScriptLoader.loadAll(rootNotifier.root) {
     rootNotifier.addListener(_onRootChanged);
   }
 
-  /// The script that would run next. Null when [scripts] is empty.
-  TestScript? get current =>
-      scripts.isEmpty ? null : scripts[currentIndex.clamp(0, scripts.length - 1)];
+  /// The script at [currentIndex]. Null when [scripts] is empty.
+  TestScript? get current => scripts.isEmpty
+      ? null
+      : scripts[currentIndex.clamp(0, scripts.length - 1)];
+
+  // ── Playback controls ────────────────────────────────────────────────────
 
   /// Start (or resume) the playback loop. No-op when already running.
   void play() {
@@ -98,8 +110,8 @@ class TestRunner extends ChangeNotifier {
     unawaited(_runLoop());
   }
 
-  /// Cooperatively pause the playback loop. The currently-executing script
-  /// finishes first; the loop checks [_paused] before advancing.
+  /// Cooperatively pause the playback loop. The currently executing script
+  /// always finishes; the loop checks [_paused] before advancing.
   void pause() {
     if (status != RunnerStatus.running) return;
     _paused = true;
@@ -125,6 +137,18 @@ class TestRunner extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ── Called by D4rtScriptView ─────────────────────────────────────────────
+
+  /// Called by [D4rtScriptView] (via a post-frame callback) once the D4rt
+  /// build cycle has finished and a result is available.
+  void completeScript(TestResult result) {
+    pendingScript = null;
+    _pendingCompleter?.complete(result);
+    _pendingCompleter = null;
+  }
+
+  // ── Internal ─────────────────────────────────────────────────────────────
+
   Future<void> _runLoop() async {
     status = RunnerStatus.running;
     notifyListeners();
@@ -134,23 +158,44 @@ class TestRunner extends ChangeNotifier {
       if (_paused) break;
       if (currentIndex >= scripts.length - 1) break;
       currentIndex++;
-      // Yield to the Flutter frame pump between scripts so the UI can
-      // repaint result panels mid-run rather than batching every update
-      // into one frame after the loop exits.
+      // Yield to the Flutter frame pump between scripts so the UI repaints
+      // result panels mid-run rather than batching every update.
       await Future<void>.delayed(Duration.zero);
     }
     if (!_paused) status = RunnerStatus.idle;
     notifyListeners();
   }
 
+  /// Signals [D4rtScriptView] to execute the current script inside the
+  /// Flutter build cycle (so a real `BuildContext` is in scope), then
+  /// suspends until [completeScript] is called from the post-frame callback.
   Future<void> _runCurrent() async {
     if (scripts.isEmpty) return;
     final script = scripts[currentIndex];
+    final completer = Completer<TestResult>();
+    _pendingCompleter = completer;
+    pendingScript = script;
+    notifyListeners(); // triggers D4rtScriptView to rebuild and execute
+
+    // Yield control so Flutter can schedule the rebuild.
+    await Future<void>.delayed(Duration.zero);
+
     try {
-      final raw = _d4rt.execute<dynamic>(script.source, name: 'build');
-      lastResult = TestResult.pass(script.name, raw.runtimeType.toString());
-    } catch (e, st) {
-      lastResult = TestResult.fail(script.name, e.toString(), st);
+      lastResult = await completer.future.timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          pendingScript = null;
+          _pendingCompleter = null;
+          return TestResult.fail(
+            script.name,
+            'Timed out after 30 seconds — interpreter may be in an '
+            'infinite loop.',
+          );
+        },
+      );
+    } catch (_) {
+      // Completer completed with an error (e.g., root reload cancelled it).
+      // The _paused flag is already set; just exit silently.
     }
   }
 
@@ -160,7 +205,18 @@ class TestRunner extends ChangeNotifier {
   }
 
   void _reload() {
-    _paused = true; // signal any in-flight loop to bail out
+    _paused = true;
+    // Cancel any in-flight execution gracefully.
+    if (_pendingCompleter != null && !_pendingCompleter!.isCompleted) {
+      _pendingCompleter!.complete(
+        TestResult.fail(
+          pendingScript?.name ?? '',
+          'Cancelled: script root changed.',
+        ),
+      );
+    }
+    pendingScript = null;
+    _pendingCompleter = null;
     currentIndex = 0;
     status = RunnerStatus.idle;
     lastResult = null;

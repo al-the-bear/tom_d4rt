@@ -1,15 +1,28 @@
 /// Entry point for the D4rt test playback app.
 ///
-/// Composition root only — owns the [ScriptRootNotifier] and [TestRunner]
-/// lifetimes and wires them into the widget tree. All UI lives in
-/// `lib/src/widgets/`.
+/// Composition root — owns the long-lived objects ([ScriptRootNotifier],
+/// [SourceFlutterD4rt], [TestRunner]) and wires them into the widget tree.
+/// All UI lives in `lib/src/widgets/`.
+///
+/// Layout:
+///
+///     AppBar       — title + script-count badge
+///     PathBar      — root path, Browse button, "Path not found" affordance
+///     ScriptInfoPanel — cluster / script name / index badge
+///     ──── divider ────
+///     D4rtScriptView  (Expanded flex 3) — rendered Flutter widget from script
+///     ──── divider ────
+///     ResultPanel     (flex 1) — pass/fail, output, stack trace
+///     ControlBar   (bottomNavigationBar) — back / play-pause / next
 library;
 
 import 'package:flutter/material.dart';
 
 import 'src/script_root_notifier.dart';
+import 'src/source_flutter_d4rt.dart';
 import 'src/test_runner.dart';
 import 'src/widgets/control_bar.dart';
+import 'src/widgets/d4rt_script_view.dart';
 import 'src/widgets/path_bar.dart';
 import 'src/widgets/result_panel.dart';
 import 'src/widgets/script_info_panel.dart';
@@ -34,9 +47,13 @@ class D4rtTestApp extends StatelessWidget {
   }
 }
 
-/// Owns the long-lived state objects (`ScriptRootNotifier`, `TestRunner`)
-/// and stitches them into the layout sketched in
-/// `doc/implementation_plan.md` step 8.
+/// Creates the three long-lived state objects and disposes them on teardown.
+///
+/// [SourceFlutterD4rt] is constructed here (not inside [TestRunner]) so it is
+/// created exactly once across the app lifetime and can be passed to
+/// [D4rtScriptView] without [TestRunner] needing to know about interpreter
+/// lifecycles. Bridge registration happens synchronously during construction
+/// and is effectively a one-time fixed cost.
 class _AppShell extends StatefulWidget {
   const _AppShell();
 
@@ -46,12 +63,14 @@ class _AppShell extends StatefulWidget {
 
 class _AppShellState extends State<_AppShell> {
   late final ScriptRootNotifier _rootNotifier;
+  late final SourceFlutterD4rt _d4rt;
   late final TestRunner _runner;
 
   @override
   void initState() {
     super.initState();
     _rootNotifier = ScriptRootNotifier();
+    _d4rt = SourceFlutterD4rt(); // registers all Flutter bridges once
     _runner = TestRunner(_rootNotifier);
   }
 
@@ -74,7 +93,19 @@ class _AppShellState extends State<_AppShell> {
           PathBar(notifier: _rootNotifier),
           ScriptInfoPanel(runner: _runner),
           const Divider(height: 1),
-          Expanded(child: ResultPanel(runner: _runner)),
+          // Primary area: the Flutter widget produced by the D4rt script.
+          // Takes ¾ of the remaining vertical space so the rendered result
+          // has room to breathe.
+          Expanded(
+            flex: 3,
+            child: D4rtScriptView(runner: _runner, d4rt: _d4rt),
+          ),
+          const Divider(height: 1),
+          // Secondary area: pass/fail summary, captured output, stack trace.
+          Expanded(
+            flex: 1,
+            child: ResultPanel(runner: _runner),
+          ),
         ],
       ),
       bottomNavigationBar: ControlBar(
@@ -85,8 +116,8 @@ class _AppShellState extends State<_AppShell> {
   }
 }
 
-/// AppBar trailing badge — counts loaded scripts. Reactive so it updates
-/// when the user picks a new folder.
+/// AppBar trailing badge showing how many scripts are loaded. Reactive so
+/// it updates when the user picks a new folder.
 class _ScriptCountBadge extends StatelessWidget {
   final TestRunner runner;
   const _ScriptCountBadge({required this.runner});
@@ -97,6 +128,7 @@ class _ScriptCountBadge extends StatelessWidget {
       listenable: runner,
       builder: (context, _) {
         final count = runner.scripts.length;
+        final scheme = Theme.of(context).colorScheme;
         return Padding(
           padding: const EdgeInsets.only(right: 12),
           child: Center(
@@ -104,9 +136,7 @@ class _ScriptCountBadge extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .secondaryContainer,
+                color: scheme.secondaryContainer,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
@@ -114,9 +144,7 @@ class _ScriptCountBadge extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSecondaryContainer,
+                  color: scheme.onSecondaryContainer,
                 ),
               ),
             ),
