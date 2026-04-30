@@ -1,0 +1,19 @@
+# Override to use local packages during development.
+#
+# To activate locally:
+#   cp pubspec_overrides.dev.yaml pubspec_overrides.yaml
+# or symlink:
+#   ln -s pubspec_overrides.dev.yaml pubspec_overrides.yaml
+#
+# - tom_d4rt is overridden because tom_d4rt_generator (dev dep, from path)
+#   declares `tom_d4rt: any` from pub.dev — without the override pub treats
+#   the hosted constraint as incompatible with our path dep on tom_d4rt and
+#   refuses to solve.
+# - tom_analyzer_shared is needed because it's a transitive dep of
+#   tom_d4rt_generator's regenerator tool — pub must resolve it even
+#   though tom_d4rt_flutter_test doesn't depend on it directly.
+dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt
+  tom_analyzer_shared:
+    path: ../../basics/tom_analyzer_shared

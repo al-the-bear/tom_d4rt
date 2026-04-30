@@ -58,7 +58,7 @@ for this project.
 
 ## Implementation Steps
 
-### Step 1 — `pubspec.yaml` [ ]
+### Step 1 — `pubspec.yaml` [x]
 
 Replace the default Flutter template dependencies with:
 
@@ -70,6 +70,7 @@ dependencies:
   tom_d4rt:
     path: ../tom_d4rt
   path: ^1.9.0
+  file_picker: ^8.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,6 +80,18 @@ dev_dependencies:
 ```
 
 No `tom_d4rt_ast`, no `tom_d4rt_exec`, no `tom_ast_generator`, no `archive`.
+
+**Pub override required.** `tom_d4rt_generator` (dev dep from path)
+declares `tom_d4rt: any` against pub.dev, which the solver treats as
+incompatible with our path dep. Following the sibling
+`tom_d4rt_flutter_ast` convention, two override files are committed:
+
+- `pubspec_overrides.dev.yaml` — committed template
+- `pubspec_overrides.yaml` — active local copy (mirrors the template)
+
+Both override `tom_d4rt → path: ../tom_d4rt` and
+`tom_analyzer_shared → path: ../../basics/tom_analyzer_shared`
+(transitive dep of the generator's regenerator tool, not on pub.dev).
 
 ---
 
