@@ -1,6 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e1_regression_isolation_test.dart
-00:00 +0: (setUpAll)
-00:11 +0: E1 regression — resize_image_key isolated painting/resize_image_key_test.dart standalone
-[METRIC] script=painting/resize_image_key_test.dart sourceBytes=43035 sourceChars=43035 bundleJsonBytes=534995 clearMs=45 readMs=16 bundleMs=260 httpMs=1288 totalMs=1611 status=success httpStatus=200 outputLines=54 frameworkErrors=0
-00:13 +1: (tearDownAll)
-00:13 +1: All tests passed!

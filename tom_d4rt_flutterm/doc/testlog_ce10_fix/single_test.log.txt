@@ -1,6 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_retest_test.dart
-00:00 +0: (setUpAll)
-00:11 +0: Section 1 - Tests with workarounds reverted retest: rendering/render_animated_size_state_test.dart
-[METRIC] script=retest/rendering/render_animated_size_state_test.dart sourceBytes=62341 sourceChars=62341 bundleJsonBytes=876530 clearMs=91 readMs=8 bundleMs=316 httpMs=1713 totalMs=2131 status=success httpStatus=200 outputLines=0 frameworkErrors=0
-00:13 +1: (tearDownAll)
-00:14 +1: All tests passed!

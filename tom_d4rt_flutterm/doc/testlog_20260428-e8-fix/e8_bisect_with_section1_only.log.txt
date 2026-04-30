@@ -1,6 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e8_bisect_test.dart
-00:00 +0: (setUpAll)
-00:11 +0: widgets/scroll_deceleration_rate_test.dart
-[METRIC] script=widgets/scroll_deceleration_rate_test.dart sourceBytes=72972 sourceChars=72873 bundleJsonBytes=859459 clearMs=48 readMs=11 bundleMs=355 httpMs=1081 totalMs=1497 status=success httpStatus=200 outputLines=0 frameworkErrors=0
-00:13 +1: (tearDownAll)
-00:13 +1: All tests passed!
