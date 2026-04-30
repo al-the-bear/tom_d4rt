@@ -1,0 +1,22 @@
+name: tom_d4rt_flutter_test_app
+description: "HTTP-server test app for tom_d4rt_flutter_test — runs D4rt source scripts via HTTP for automated testing."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  tom_d4rt_flutter_test:
+    path: ../..  # parent package — provides SourceFlutterD4rt + all Flutter bridges
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

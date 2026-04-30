@@ -1,0 +1,6 @@
+# dart_test.yaml — test configuration for tom_d4rt_flutter_test
+#
+# CRITICAL: concurrency must be 1 (serial).
+# All HTTP-server tests share a single local HTTP server on port 4248.
+# Running multiple flutter test invocations in parallel corrupts results.
+concurrency: 1

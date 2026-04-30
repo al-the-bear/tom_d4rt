@@ -1,0 +1,25 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    # interaction_controller.dart uses _isDown as a state flag that is set but
+    # not read back — this is intentional (it tracks pointer state for the
+    # gesture simulation helpers).
+    unused_field: ignore
+    unnecessary_import: ignore
+
+linter:
+  rules:
+    avoid_print: false  # test app uses print for debug logging
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
