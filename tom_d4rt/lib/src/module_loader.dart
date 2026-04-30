@@ -913,7 +913,7 @@ class ModuleLoader {
         // that has bridged content, so that a script which only imports
         // 'package:flutter/material.dart' still gets Widget (from
         // 'package:flutter/widgets.dart') in its globalEnvironment.
-        _mergeReExportsGlobal(uriString, <String>{uriString});
+        _mergeReExportsGlobal(uriString, <String>{});
         return '';
       }
     }
@@ -1053,60 +1053,66 @@ class ModuleLoader {
   // ---------------------------------------------------------------------------
 
   /// GEN-107: Load bridges for all libraries re-exported by [sourceUri] into
-  /// [globalEnvironment].
+  /// [globalEnvironment], respecting per-edge show/hide filters.
   ///
-  /// show/hide filters from [bridgeReExports()] are intentionally ignored here.
-  /// Those filters describe the Dart source re-export structure but must NOT
-  /// gate bridge loading: the same target URI can appear via multiple re-export
-  /// paths with different show sets (e.g. `dart:ui` is re-exported via
-  /// `painting.dart → dart:ui` with `show:{PlaceholderAlignment,...}` AND via
-  /// `src/painting/basic_types.dart → dart:ui` with `show:{Offset,Color,...}`).
-  /// Applying filters and using [visited] together would silently drop Offset
-  /// and Color when the first path wins with a restricted show set.  Instead we
-  /// always load all bridges for a target URI on the first visit; the per-name
-  /// sourceUri dedup maps in [_fetchModuleSource] prevent double-registration.
+  /// The cycle guard is placed on [sourceUri] at the top of the method so
+  /// that the same *source* file is never processed twice, but the same
+  /// *target* URI can still be reached via multiple re-export paths, each
+  /// with its own show/hide clause.  This is required because a single
+  /// target (e.g. `dart:ui`) is commonly re-exported by several source
+  /// files with disjoint name sets:
+  ///
+  ///   painting.dart → dart:ui  show:{PlaceholderAlignment,...}
+  ///   src/painting/basic_types.dart → dart:ui  show:{Offset,Color,...}
+  ///
+  /// Both paths must be followed; the per-edge show/hide filters ensure only
+  /// the names each source actually exposes are registered, preventing
+  /// duplicate-sourceUri conflicts in [_fetchModuleSource]'s dedup maps.
+  ///
+  /// The recursive call to [_mergeReExportsGlobal] is made unconditionally for
+  /// every re-export edge so that transitive re-exports are followed even when
+  /// a URI has no direct bridge content of its own.
   ///
   /// [visited] prevents infinite recursion on cyclic re-export graphs.
-  /// Callers must include [sourceUri] in [visited] before the first call.
+  /// Callers should pass an empty set; this method adds [sourceUri] itself.
   void _mergeReExportsGlobal(String sourceUri, Set<String> visited) {
     if (d4rt == null) return;
+    // Cycle guard on SOURCE URI — prevents reprocessing the same source file.
+    // Do NOT guard on the target (re.uri): different sources pointing to the
+    // same target with different show/hide sets must each be processed.
+    if (!visited.add(sourceUri)) return;
+
     final reExports = d4rt!.libraryReExports[sourceUri];
     if (reExports == null || reExports.isEmpty) return;
 
     for (final re in reExports) {
-      // Cycle guard: skip URIs already being processed in this traversal.
-      if (!visited.add(re.uri)) continue;
-
       final targetUri = Uri.parse(re.uri);
 
       if (targetUri.scheme == 'dart') {
         // dart: re-exports — delegate to _fetchModuleSource which handles
         // stdlib and bridged dart: URIs. Ignore unknown dart: libraries.
         try {
-          _fetchModuleSource(targetUri);
+          _fetchModuleSource(targetUri, showNames: re.show, hideNames: re.hide);
         } on SourceCodeD4rtException {
           // Unknown dart: library in a re-export — not a user error, skip.
         }
       } else if (_hasBridgedContentForUri(re.uri)) {
-        // package: URI with registered bridges — load them unconditionally.
-        // _fetchModuleSource uses sourceUri dedup maps so re-loading an
-        // already-processed URI is safe (duplicate names are silently skipped).
-        // It also calls _mergeReExportsGlobal for the target, propagating
-        // the transitive re-export chain.
+        // package: URI with registered bridges — load with show/hide applied.
+        // _fetchModuleSource dedup maps prevent double-registration of names
+        // from the same canonical sourceUri.
         try {
-          _fetchModuleSource(targetUri);
+          _fetchModuleSource(targetUri, showNames: re.show, hideNames: re.hide);
         } on SourceCodeD4rtException {
           Logger.debug(
             '[ModuleLoader] GEN-107: unexpected error loading re-exported '
             'bridge for ${re.uri} (re-exported from $sourceUri)',
           );
         }
-      } else {
-        // No direct bridges for this URI (e.g. a pure-barrel source file
-        // like `src/material/about.dart`). Recurse so transitive re-exports
-        // from that URI are followed.
-        _mergeReExportsGlobal(re.uri, visited);
       }
+
+      // Always recurse — the target URI may itself re-export other URIs even
+      // if it has no direct bridge content (e.g. pure-barrel source files).
+      _mergeReExportsGlobal(re.uri, visited);
     }
   }
 }
