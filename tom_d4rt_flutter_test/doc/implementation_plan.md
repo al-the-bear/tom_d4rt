@@ -309,55 +309,165 @@ class SourceFlutterD4rtException implements Exception {
 
 ---
 
-### Step 6 — Script loader [ ]
+### Step 6 — Script loader + path state [ ]
 
-New file `lib/src/test_script_loader.dart`.
+Two new files.
+
+#### `lib/src/test_script_loader.dart`
+
+Default path is expressed as an absolute path resolved from the executable
+location — this keeps the app working when launched from any CWD.
+`Platform.resolvedExecutable` points inside the macOS app bundle; walking up
+to the `.app` parent and then to the sibling project directory gives a
+stable anchor. A `rootExists` check lets the UI show a "path not found"
+banner without crashing.
 
 ```dart
 import 'dart:io';
 import 'package:path/path.dart' as p;
 
 class TestScript {
-  final String name;   // relative path within send_ast_via_http_scripts/
+  final String name;   // path relative to the chosen root
   final String source; // raw Dart source
 
   const TestScript({required this.name, required this.source});
 }
 
 class TestScriptLoader {
-  /// Root of the test script corpus, relative to the project's working dir.
-  /// Default assumes `flutter run` / `flutter test` is launched from inside
-  /// the `tom_d4rt_flutter_test` project directory.
-  static const _relativeRoot =
-      '../tom_d4rt_flutter_ast/test'
-      '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts';
-
-  static List<TestScript> loadAll({String? rootOverride}) {
-    final root = Directory(rootOverride ?? _relativeRoot);
-    if (!root.existsSync()) {
-      throw StateError(
-          'Script root not found: ${root.absolute.path}\n'
-          'Pass scriptRootOverride or launch from tom_d4rt_flutter_test/.');
+  /// Default script root: resolved relative to the executable so the app
+  /// works whether launched from Xcode, `flutter run`, or Finder.
+  ///
+  /// Layout assumption:
+  ///   <workspace>/tom_ai/d4rt/tom_d4rt_flutter_test/   ← this project
+  ///   <workspace>/tom_ai/d4rt/tom_d4rt_flutter_ast/    ← sibling
+  ///
+  /// The macOS bundle sits at:
+  ///   <project>/build/macos/Build/Products/Debug/tom_d4rt_flutter_test.app/
+  /// Walking up 6 levels from the executable reaches the project root, then
+  /// up one more reaches the d4rt directory where the sibling lives.
+  static String get defaultRoot {
+    // Walk up from the executable to the project directory, then to sibling.
+    // Fallback: use CWD-relative path so `flutter run` from the project dir
+    // also works.
+    final exeDir = File(Platform.resolvedExecutable).parent;
+    // Try executable-relative path first (works for built app bundles)
+    for (var up = 0; up < 8; up++) {
+      final candidate = p.join(
+        exeDir.path,
+        '../' * up,
+        '../tom_d4rt_flutter_ast/test'
+        '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts',
+      );
+      final resolved = p.normalize(candidate);
+      if (Directory(resolved).existsSync()) return resolved;
     }
-    final scripts = root
+    // Fallback: CWD-relative (works when launched with `flutter run` from the
+    // project directory)
+    return p.normalize(
+      '../tom_d4rt_flutter_ast/test'
+      '/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts',
+    );
+  }
+
+  /// Whether [root] points to an existing directory.
+  static bool rootExists(String root) => Directory(root).existsSync();
+
+  /// Load all `.dart` files under [root], sorted by relative path.
+  /// Returns an empty list (not an error) if the directory does not exist —
+  /// callers should check [rootExists] and show a banner instead of crashing.
+  static List<TestScript> loadAll(String root) {
+    final dir = Directory(root);
+    if (!dir.existsSync()) return const [];
+    return dir
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))
         .map((f) => TestScript(
-              name: p.relative(f.path, from: root.path),
+              name: p.relative(f.path, from: root),
               source: f.readAsStringSync(),
             ))
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
-    return scripts;
   }
 }
 ```
 
-The default `_relativeRoot` is relative to the project dir (sibling of
-`tom_d4rt_flutter_ast/`). If `flutter run` sets a different CWD, pass an
-absolute override via `Platform.script.resolve('../...')` or a
-`String.fromEnvironment('SCRIPT_ROOT')` constant.
+#### `lib/src/script_root_notifier.dart`
+
+Holds the currently selected root path and exposes a method to open a native
+directory picker. The `TestRunner` listens to this and reloads its script list
+whenever the path changes.
+
+```dart
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'test_script_loader.dart';
+
+class ScriptRootNotifier extends ChangeNotifier {
+  String _root;
+
+  ScriptRootNotifier() : _root = TestScriptLoader.defaultRoot;
+
+  String get root => _root;
+
+  bool get exists => TestScriptLoader.rootExists(_root);
+
+  /// Opens a native directory picker. Updates [root] and notifies listeners
+  /// only if the user actually selects a folder.
+  Future<void> pickDirectory() async {
+    final result = await FilePicker.platform.getDirectoryPath(
+      dialogTitle: 'Select D4rt test script folder',
+      initialDirectory: Directory(_root).existsSync() ? _root : null,
+    );
+    if (result != null && result != _root) {
+      _root = result;
+      notifyListeners();
+    }
+  }
+
+  void setRoot(String path) {
+    if (path == _root) return;
+    _root = path;
+    notifyListeners();
+  }
+}
+```
+
+Add `file_picker: ^8.0.0` to `pubspec.yaml` dependencies (supports macOS,
+Linux, Windows directory pickers out of the box; no entitlement changes
+needed for local file reads on macOS debug builds).
+
+**`TestRunner` wires into `ScriptRootNotifier`:**
+
+```dart
+class TestRunner extends ChangeNotifier {
+  final ScriptRootNotifier rootNotifier;
+  // ...
+  TestRunner(this.rootNotifier) {
+    rootNotifier.addListener(_onRootChanged);
+    _reload();
+  }
+
+  void _onRootChanged() {
+    _reload();
+    notifyListeners();
+  }
+
+  void _reload() {
+    currentIndex = 0;
+    status = RunnerStatus.idle;
+    lastResult = null;
+    scripts = TestScriptLoader.loadAll(rootNotifier.root);
+  }
+
+  @override
+  void dispose() {
+    rootNotifier.removeListener(_onRootChanged);
+    super.dispose();
+  }
+}
+```
 
 ---
 
@@ -462,20 +572,88 @@ class TestRunner extends ChangeNotifier {
 
 Replace `lib/main.dart` with the interactive playback shell.
 
+Wire `ScriptRootNotifier` and `TestRunner` as `ChangeNotifier`s at the top of
+the widget tree (e.g., with `MultiProvider` from `package:provider`, or plain
+`ListenableBuilder` stacking — whichever is already in the pubspec).
+
 Key layout:
 
 ```
 MaterialApp
   └─ Scaffold
-       ├─ AppBar: title "D4rt Test Runner", progress badge
+       ├─ AppBar: "D4rt Test Runner"  [script-count badge]
        ├─ body: Column
-       │    ├─ ScriptInfoPanel   (cluster/name, index/total)
-       │    └─ ResultPanel       (pass/fail badge, output / error text, scrollable)
+       │    ├─ PathBar                ← new
+       │    │    ├─ [folder icon] current root path (truncated, monospace)
+       │    │    ├─ [📂 Browse] button → ScriptRootNotifier.pickDirectory()
+       │    │    └─ if !exists: amber warning chip "Path not found"
+       │    ├─ ScriptInfoPanel        (cluster/name, index/total)
+       │    │    disabled / greyed when !exists
+       │    └─ ResultPanel            (pass/fail badge, output / error, scrollable)
        └─ bottomNavigationBar: ControlBar
             [ ← back ] [ ▶ play / ‖ pause ] [ next → ]
+            all buttons disabled when !exists or scripts.isEmpty
 ```
 
-`ListenableBuilder(listenable: runner, ...)` drives re-renders reactively.
+**PathBar widget sketch:**
+
+```dart
+class PathBar extends StatelessWidget {
+  final ScriptRootNotifier notifier;
+  const PathBar({super.key, required this.notifier});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: notifier,
+      builder: (context, _) {
+        final exists = notifier.exists;
+        return Container(
+          color: exists
+              ? Theme.of(context).colorScheme.surfaceContainerLow
+              : Theme.of(context).colorScheme.errorContainer.withOpacity(0.2),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: Row(
+            children: [
+              const Icon(Icons.folder_outlined, size: 16),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  notifier.root,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (!exists) ...[
+                const SizedBox(width: 8),
+                const Chip(
+                  label: Text('Path not found',
+                      style: TextStyle(fontSize: 11)),
+                  backgroundColor: Colors.amber,
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
+              const SizedBox(width: 8),
+              FilledButton.tonal(
+                onPressed: notifier.pickDirectory,
+                child: const Text('Browse'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+`ListenableBuilder(listenable: runner, ...)` drives the rest of the UI
+reactively. Controls in `ControlBar` check `runner.scripts.isEmpty` and
+`rootNotifier.exists` before enabling.
 
 ---
 
@@ -502,7 +680,7 @@ Verify:
 
 | # | File | Action |
 |---|------|--------|
-| 1 | `pubspec.yaml` | Edit — add `tom_d4rt`, `path`; remove defaults |
+| 1 | `pubspec.yaml` | Edit — add `tom_d4rt`, `path`, `file_picker`; remove defaults |
 | 2 | `buildkit.yaml` | New — copy from `tom_d4rt_flutter_ast`, 2-line change |
 | 3 | `tool/regenerate_bridges.dart` | New — copy verbatim |
 | 4 | `lib/src/bridges/*.b.dart` (16 files) | Generated — `dart run tool/regenerate_bridges.dart` |
@@ -512,8 +690,9 @@ Verify:
 | 8 | `lib/src/d4rt_user_bridges/strut_style_user_bridge.dart` | New — copy + import rewrite |
 | 9 | `lib/src/source_flutter_d4rt.dart` | New |
 | 10 | `lib/src/test_script_loader.dart` | New |
-| 11 | `lib/src/test_runner.dart` | New |
-| 12 | `lib/main.dart` | Replace |
+| 11 | `lib/src/script_root_notifier.dart` | New |
+| 12 | `lib/src/test_runner.dart` | New (updated to accept `ScriptRootNotifier`) |
+| 13 | `lib/main.dart` | Replace |
 
 ---
 
@@ -535,10 +714,6 @@ Verify:
 
 ## Remaining open question
 
-- **Working directory for script loading**: `TestScriptLoader` defaults to
-  `../tom_d4rt_flutter_ast/test/...` (sibling-relative). If `flutter run`
-  sets a different CWD, pass `scriptRootOverride` from `main()` using
-  `Platform.script` or `String.fromEnvironment('SCRIPT_ROOT')`.
 - **`build(BuildContext)` vs `main()`**: corpus scripts define
   `build(BuildContext context)`. `SourceFlutterD4rt.execute<dynamic>(source)`
   calls `name: 'main'` by default; use `build<dynamic>(source, context)` or
