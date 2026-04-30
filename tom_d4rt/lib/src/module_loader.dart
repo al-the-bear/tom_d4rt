@@ -410,7 +410,9 @@ class ModuleLoader {
   }
 
   String _fetchModuleSource(Uri uri,
-      {Set<String>? showNames, Set<String>? hideNames}) {
+      {Set<String>? showNames,
+      Set<String>? hideNames,
+      Set<String>? reExportVisited}) {
     final uriString = uri.toString();
     Logger.debug(
         "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)");
@@ -913,7 +915,11 @@ class ModuleLoader {
         // that has bridged content, so that a script which only imports
         // 'package:flutter/material.dart' still gets Widget (from
         // 'package:flutter/widgets.dart') in its globalEnvironment.
-        _mergeReExportsGlobal(uriString, <String>{});
+        // Thread reExportVisited so the caller's traversal cycle-set is shared,
+        // preventing exponential re-traversal when _fetchModuleSource is called
+        // from inside _mergeReExportsGlobal (which would otherwise start a fresh
+        // empty-set traversal for every bridge URI it encounters).
+        _mergeReExportsGlobal(uriString, reExportVisited ?? <String>{});
         return '';
       }
     }
@@ -1092,16 +1098,23 @@ class ModuleLoader {
         // dart: re-exports — delegate to _fetchModuleSource which handles
         // stdlib and bridged dart: URIs. Ignore unknown dart: libraries.
         try {
-          _fetchModuleSource(targetUri, showNames: re.show, hideNames: re.hide);
+          _fetchModuleSource(targetUri,
+              showNames: re.show,
+              hideNames: re.hide,
+              reExportVisited: visited);
         } on SourceCodeD4rtException {
           // Unknown dart: library in a re-export — not a user error, skip.
         }
       } else if (_hasBridgedContentForUri(re.uri)) {
         // package: URI with registered bridges — load with show/hide applied.
         // _fetchModuleSource dedup maps prevent double-registration of names
-        // from the same canonical sourceUri.
+        // from the same canonical sourceUri.  Pass visited so the shared
+        // traversal set prevents exponential re-traversal of the same nodes.
         try {
-          _fetchModuleSource(targetUri, showNames: re.show, hideNames: re.hide);
+          _fetchModuleSource(targetUri,
+              showNames: re.show,
+              hideNames: re.hide,
+              reExportVisited: visited);
         } on SourceCodeD4rtException {
           Logger.debug(
             '[ModuleLoader] GEN-107: unexpected error loading re-exported '
