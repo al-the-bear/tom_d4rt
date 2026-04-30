@@ -594,7 +594,7 @@ class TestRunner extends ChangeNotifier {
 
 ---
 
-### Step 8 — Main app UI [ ]
+### Step 8 — Main app UI [x]
 
 Replace `lib/main.dart` with the interactive playback shell.
 
