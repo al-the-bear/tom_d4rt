@@ -293,12 +293,13 @@ class D4rt {
   /// records that [sourceUri] re-exports symbols from [targetUri], with
   /// optional [show] and [hide] filters.
   ///
-  /// **Note:** this analyzer-based interpreter registers all bridges into
-  /// the shared `globalEnvironment`, so re-exports already work
-  /// transparently here — once any library imports a target, its
-  /// symbols are reachable everywhere. The API exists for parity with
-  /// `D4rtRunner.registerLibraryReExport` in `tom_d4rt_ast`, where
-  /// per-module bridge isolation makes the explicit merge step necessary.
+  /// The recorded entries are consumed by `ModuleLoader._mergeReExportsGlobal`
+  /// when a bridged library is imported. That method loads bridges for every
+  /// transitively re-exported target into `globalEnvironment`, so a script
+  /// that imports `package:flutter/material.dart` automatically gets `Widget`
+  /// (registered under `package:flutter/widgets.dart`) without importing
+  /// `widgets.dart` explicitly. This mirrors what
+  /// `AstModuleLoader._mergeReExports` does for the AST-based pipeline.
   /// Generated bridge code can call this on either interpreter without
   /// branching.
   ///
