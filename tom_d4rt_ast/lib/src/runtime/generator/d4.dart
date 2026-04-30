@@ -647,9 +647,11 @@ class D4 {
       final factories = _genericTypeWrappers[typeName];
       if (factories == null) continue;
       for (final factory in factories) {
-        // Try exact innerTypeArg first (e.g., 'Color?')
+        // Try exact innerTypeArg first (e.g., 'Color?').
+        // Only accept non-null results: null means "not handled by this
+        // factory" and the next factory should be tried.
         final wrapped = factory(value, innerTypeArg);
-        if (wrapped is T) return wrapped;
+        if (wrapped != null && wrapped is T) return wrapped as T;
         // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
         // the non-nullable form (e.g., 'Color'). The wrapper created with
         // non-nullable T will still be assignable to the nullable target.
@@ -659,7 +661,7 @@ class D4 {
             innerTypeArg.length - 1,
           );
           final wrapped2 = factory(value, nonNullableArg);
-          if (wrapped2 is T) return wrapped2;
+          if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
         }
       }
     }
@@ -1199,8 +1201,10 @@ class D4 {
           final factories = _genericTypeWrappers[typeName];
           if (factories == null) continue;
           for (final factory in factories) {
+            // Only accept non-null results: null means "not handled by this
+            // factory, keep trying the next one".
             final wrapped = factory(unwrapped, innerTypeArg);
-            if (wrapped is T) return wrapped;
+            if (wrapped != null && wrapped is T) return wrapped as T;
             // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
             // the non-nullable form. The wrapper created with non-nullable T
             // will still be assignable to the nullable target.
@@ -1210,7 +1214,7 @@ class D4 {
                 innerTypeArg.length - 1,
               );
               final wrapped2 = factory(unwrapped, nonNullableArg);
-              if (wrapped2 is T) return wrapped2;
+              if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
             }
           }
         }
