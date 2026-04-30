@@ -33,6 +33,9 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# tom_d4rt_generator analyzer cache (regenerator-only, machine-local)
+.tom/
+
 # Symbolication related
 app.*.symbols
 

@@ -170,7 +170,7 @@ d4rtgen:
 
 ---
 
-### Step 3 — `tool/regenerate_bridges.dart` [ ]
+### Step 3 — `tool/regenerate_bridges.dart` [x]
 
 Copy `tom_d4rt_flutter_ast/tool/regenerate_bridges.dart` verbatim (no changes
 needed — it reads `buildkit.yaml` from the project root). Then run:
@@ -181,11 +181,24 @@ dart pub get
 dart run tool/regenerate_bridges.dart
 ```
 
-This produces 16 output files (same as `tom_d4rt_flutter_ast` minus the
-`test_runner`, which is omitted). All generated `import` lines will
-reference `package:tom_d4rt/d4rt.dart` instead of `tom_d4rt_ast`/`tom_d4rt_exec`.
-All `registerTopLevelFunction` calls (correct spelling after step 0) will
-resolve against `tom_d4rt.D4rt`.
+This produces 17 output files (13 module bridges + barrel + dispatch +
+proxies + relaxers — same as `tom_d4rt_flutter_ast` minus the
+`test_runner`, which is omitted). All generated `import` lines reference
+`package:tom_d4rt/d4rt.dart` instead of `tom_d4rt_ast`/`tom_d4rt_exec`.
+
+**Generator fix landed alongside this step.** The proxy generator
+(`tom_d4rt_generator/lib/src/proxy_generator.dart:306`) hardcoded
+`package:tom_d4rt_ast/runtime.dart` for the `D4` symbol, ignoring
+`config.d4rtImport`. Replaced with `config.d4rtImport ?? 'package:tom_d4rt_ast/runtime.dart'`,
+mirroring the relaxer generator's pattern. Re-ran the regenerator in
+`tom_d4rt_flutter_ast` to pick up the fix — the proxy file's import
+flipped from `tom_d4rt_ast/runtime.dart` to `tom_d4rt_exec/d4rt.dart`
+(re-exports `D4`, semantically identical) and module bridges caught up
+on the `tom_d4rt_flutterm → tom_d4rt_flutter_ast` package rename that
+was missed by the rename commit.
+
+`flutter analyze` reports 322 info/warnings on the generated files (no
+errors); these are pre-existing cosmetic lints on auto-generated code.
 
 ---
 
