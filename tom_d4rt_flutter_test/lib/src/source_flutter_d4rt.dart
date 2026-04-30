@@ -10,7 +10,19 @@ library;
 import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'bridges/animation_bridges.b.dart' as flutter_animation_bridge;
+import 'bridges/dart_ui_bridges.b.dart' as dart_ui_bridge;
+import 'bridges/foundation_bridges.b.dart' as flutter_foundation_bridge;
+import 'bridges/gestures_bridges.b.dart' as flutter_gestures_bridge;
 import 'bridges/material_bridges.b.dart';
+import 'bridges/material_widgets_bridges.b.dart' as flutter_material_bridge;
+import 'bridges/painting_bridges.b.dart' as flutter_painting_bridge;
+import 'bridges/physics_bridges.b.dart' as flutter_physics_bridge;
+import 'bridges/rendering_bridges.b.dart' as flutter_rendering_bridge;
+import 'bridges/scheduler_bridges.b.dart' as flutter_scheduler_bridge;
+import 'bridges/semantics_bridges.b.dart' as flutter_semantics_bridge;
+import 'bridges/services_bridges.b.dart' as flutter_services_bridge;
+import 'bridges/widgets_bridges.b.dart' as flutter_widgets_bridge;
 import 'd4rt_runtime_registrations.dart';
 // ignore: unused_import — registers $RelaxedTween via top-level call below.
 import 'bridges/flutter_relaxers.b.dart';
@@ -46,11 +58,60 @@ class SourceFlutterD4rt {
     registerRelaxers();
     registerD4rtRuntimeExtensions();
     FlutterMaterialBridges.register(_interpreter);
+    // Register all Flutter bridge packages also under 'package:flutter/material.dart'.
+    //
+    // In real Flutter, `material.dart` transitively re-exports everything from
+    // `widgets.dart`, `foundation.dart`, `rendering.dart`, etc. D4rt's module
+    // loader looks up bridges by the exact import URI that the script uses.
+    // Corpus scripts typically import only `package:flutter/material.dart`, so
+    // all Flutter types (Widget, BuildContext, State, …) must be registered
+    // under that URI too. The per-execute deduplication logic in ModuleLoader
+    // prevents double-registration when a script also imports the individual
+    // sub-package barrels.
+    _registerMaterialAliases();
     _interpreter.registerExtensions(
       'tom_d4rt_flutter_test',
       registerD4rtInterfaceProxyOverrides,
     );
     _interpreter.finalizeBridges();
+  }
+
+  /// Registers every Flutter bridge package also under
+  /// `'package:flutter/material.dart'`, simulating the transitive re-export
+  /// chain that real Flutter provides.
+  ///
+  /// This is a one-time cost at interpreter construction. The entries are added
+  /// to `D4rt._bridgedClases` so that when the module loader processes an
+  /// `import 'package:flutter/material.dart'` directive in a script, it finds
+  /// all Flutter types (not just material-specific ones).
+  void _registerMaterialAliases() {
+    const m = 'package:flutter/material.dart';
+    dart_ui_bridge.DartUiBridge.registerBridges(_interpreter, m);
+    flutter_painting_bridge.FlutterPaintingBridge.registerBridges(
+        _interpreter, m);
+    flutter_foundation_bridge.FlutterFoundationBridge.registerBridges(
+        _interpreter, m);
+    flutter_animation_bridge.FlutterAnimationBridge.registerBridges(
+        _interpreter, m);
+    flutter_physics_bridge.FlutterPhysicsBridge.registerBridges(
+        _interpreter, m);
+    flutter_scheduler_bridge.FlutterSchedulerBridge.registerBridges(
+        _interpreter, m);
+    flutter_semantics_bridge.FlutterSemanticsBridge.registerBridges(
+        _interpreter, m);
+    flutter_services_bridge.FlutterServicesBridge.registerBridges(
+        _interpreter, m);
+    flutter_gestures_bridge.FlutterGesturesBridge.registerBridges(
+        _interpreter, m);
+    flutter_rendering_bridge.FlutterRenderingBridge.registerBridges(
+        _interpreter, m);
+    flutter_widgets_bridge.FlutterWidgetsBridge.registerBridges(
+        _interpreter, m);
+    // FlutterMaterialBridge is already registered under `m` by
+    // FlutterMaterialBridges.register — calling it again is idempotent
+    // thanks to the sourceUri-based deduplication in ModuleLoader.
+    flutter_material_bridge.FlutterMaterialBridge.registerBridges(
+        _interpreter, m);
   }
 
   /// The underlying interpreter — exposed for advanced use (e.g., tests
