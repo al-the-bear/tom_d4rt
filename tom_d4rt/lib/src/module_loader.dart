@@ -219,10 +219,14 @@ class ModuleLoader {
     if (_bridgedModuleEnvironments.containsKey(uriString)) {
       moduleEnv = _bridgedModuleEnvironments[uriString]!;
     } else {
+      // GEN-100 FIX: Build the module env with show=null/hide=null so it
+      // contains ALL symbols the module transitively exports.  The per-import
+      // show/hide filter is applied later in importEnvironment() at the call
+      // site — it must NOT be baked into the cached module env, which is
+      // shared across every import of this URI.
       moduleEnv = Environment(enclosing: globalEnvironment);
-      _registerBridgesForUriInto(
-          uriString, showNames, hideNames, moduleEnv);
-      _mergeReExports(uriString, moduleEnv, showNames, hideNames, <String>{});
+      _registerBridgesForUriInto(uriString, null, null, moduleEnv);
+      _mergeReExports(uriString, moduleEnv, null, null, <String, Set<String>?>{});
       _bridgedModuleEnvironments[uriString] = moduleEnv;
       Logger.debug(
           '[ModuleLoader] GEN-100: Created per-module env for $uriString');
@@ -432,9 +436,44 @@ class ModuleLoader {
     Environment moduleEnv,
     Set<String>? outerShow,
     Set<String>? outerHide,
-    Set<String> visited,
+    Map<String, Set<String>?> visitedShows,
   ) {
-    if (!visited.add(sourceUri)) return;
+    // GEN-100 FIX: Use a Map<uri → broadestShowSeen> instead of a simple
+    // "ever visited" Set.  A permanent Set blocked legitimate re-processing:
+    // material.dart reaches painting.dart via 100+ intermediate libs that
+    // each carry their own show-filter.  The first arrival with a restrictive
+    // filter (e.g. {Widget,...}) computed intersect({Widget}, {Color,...}) = {},
+    // registering nothing from dart:ui.  The direct painting.dart path
+    // (show=null, broader) was then blocked by the permanent mark and
+    // Color/FontWeight stayed missing.
+    //
+    // With Map semantics:
+    //   • visitedShows[uri] absent   → never visited, process now.
+    //   • visitedShows[uri] = null   → already covered with show=null (all
+    //                                   symbols); nothing new can arrive, skip.
+    //   • visitedShows[uri] = prevSet → covered by prevSet so far; re-process
+    //                                   only if outerShow brings new symbols
+    //                                   (i.e. outerShow ⊄ prevSet).
+    //
+    // Because the call site now passes outerShow=null (see _tryLoadBridgedModule),
+    // the very first call always reaches every URI with show=null, which sets
+    // visitedShows[uri]=null and prevents any second visit — giving O(V+E)
+    // traversal identical to the old permanent-Set approach, but correct.
+    if (visitedShows.containsKey(sourceUri)) {
+      final prevShow = visitedShows[sourceUri];
+      if (prevShow == null) return; // null = all symbols already covered
+      // outerShow=null means all symbols → definitely broader than prevShow
+      if (outerShow != null && outerShow.difference(prevShow).isEmpty) return;
+      // Expand prevShow to the union of prevShow and outerShow.
+      if (outerShow == null) {
+        visitedShows[sourceUri] = null;
+      } else {
+        prevShow.addAll(outerShow); // mutate in place
+      }
+    } else {
+      visitedShows[sourceUri] = outerShow != null ? Set.of(outerShow) : null;
+    }
+
     final reExports = d4rt?.libraryReExports[sourceUri];
     if (reExports == null || reExports.isEmpty) return;
 
@@ -460,7 +499,7 @@ class ModuleLoader {
 
       _registerBridgesForUriInto(
           re.uri, effectiveShow, effectiveHide, moduleEnv);
-      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visited);
+      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visitedShows);
     }
   }
 

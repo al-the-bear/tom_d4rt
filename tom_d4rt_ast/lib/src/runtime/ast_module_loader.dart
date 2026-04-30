@@ -277,10 +277,15 @@ class AstModuleLoader implements ModuleContext {
     if (_bridgedModuleEnvironments.containsKey(uriString)) {
       moduleEnv = _bridgedModuleEnvironments[uriString]!;
     } else {
+      // GEN-100 FIX: Build the module env with show=null/hide=null so it
+      // contains ALL symbols the module transitively exports.  The per-import
+      // show/hide filter is applied later in importEnvironment() at the call
+      // site — it must NOT be baked into the cached module env, which is
+      // shared across every import of this URI.
       moduleEnv = Environment(enclosing: globalEnvironment);
-      _registerBridgesForUriInto(uriString, showNames, hideNames, moduleEnv);
+      _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       // GEN-107: Merge re-exported libraries into this module's environment.
-      _mergeReExports(uriString, moduleEnv, showNames, hideNames, <String>{});
+      _mergeReExports(uriString, moduleEnv, null, null, <String, Set<String>?>{});
       _bridgedModuleEnvironments[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
     }
@@ -535,9 +540,23 @@ class AstModuleLoader implements ModuleContext {
     Environment moduleEnv,
     Set<String>? outerShow,
     Set<String>? outerHide,
-    Set<String> visited,
+    Map<String, Set<String>?> visitedShows,
   ) {
-    if (!visited.add(sourceUri)) return;
+    // GEN-100 FIX: Use a Map<uri → broadestShowSeen> instead of a simple
+    // "ever visited" Set.  See module_loader.dart for the full explanation.
+    if (visitedShows.containsKey(sourceUri)) {
+      final prevShow = visitedShows[sourceUri];
+      if (prevShow == null) return; // null = all symbols already covered
+      if (outerShow != null && outerShow.difference(prevShow).isEmpty) return;
+      if (outerShow == null) {
+        visitedShows[sourceUri] = null;
+      } else {
+        prevShow.addAll(outerShow);
+      }
+    } else {
+      visitedShows[sourceUri] = outerShow != null ? Set.of(outerShow) : null;
+    }
+
     final reExports = runner.libraryReExports[sourceUri];
     if (reExports == null || reExports.isEmpty) return;
 
@@ -578,7 +597,7 @@ class AstModuleLoader implements ModuleContext {
       );
 
       // Recurse for transitive re-exports.
-      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visited);
+      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visitedShows);
     }
   }
 
