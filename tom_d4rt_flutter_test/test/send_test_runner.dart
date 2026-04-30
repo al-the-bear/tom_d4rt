@@ -114,8 +114,11 @@ class SendTestRunner {
   static const String defaultHost = 'localhost';
 
   /// Scripts directory relative to package root.
+  ///
+  /// Points to the shared corpus in tom_d4rt_flutter_ast so both the AST-based
+  /// and source-based test suites run exactly the same scripts.
   static const String scriptsPath =
-      'test/tom_d4rt_flutter_test_app/test/send_source_via_http_scripts';
+      '../tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts';
 
   /// Test app directory relative to package root.
   static const String testAppPath = 'test/tom_d4rt_flutter_test_app';
