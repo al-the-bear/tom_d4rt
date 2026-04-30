@@ -24,81 +24,39 @@ Scripts are loaded directly from disk out of
 | `D4`, `BridgedClass`, `InterpreterVisitor`, etc. exported by `tom_d4rt/d4rt.dart`? | **Yes** — full API surface exported |
 | Zero `tom_d4rt_ast` / `tom_d4rt_exec` / `tom_ast_generator` dependency? | **Yes** — only `tom_d4rt` + Flutter SDK |
 | Scripts loadable from disk without bundling? | **Yes** — plain `dart:io` `File.readAsStringSync()` |
-| `registerD4rtRuntimeExtensions()` no-arg pattern resolved? | **Yes** — uses static maps on `D4` class, no interpreter instance needed (see step 0) |
-| Sync gap between `tom_d4rt` and `tom_d4rt_ast`? | **One gap found and fixed in step 0**: `registertopLevelFunction` typo |
+| `registerD4rtRuntimeExtensions()` no-arg pattern resolved? | **Yes** — uses static maps on `D4` class, no interpreter instance needed |
+| Sync gap between `tom_d4rt` and `tom_d4rt_ast` bridge-facing APIs? | **None** — import swap works as-is (see analysis note) |
+
+---
+
+## Analysis note — `registertopLevelFunction` spelling
+
+A sync audit compared the method names used by the bridge generator against
+`tom_d4rt.D4rt` and `tom_d4rt_ast.D4rtRunner`. The findings:
+
+| Class | Method at public API | Bridge-facing? |
+|-------|---------------------|---------------|
+| `tom_d4rt_ast.D4rtRunner:318` | `registerTopLevelFunction` (correct) | No — bridges never call `D4rtRunner` directly |
+| `tom_d4rt_exec.D4rt:254` | `registertopLevelFunction` (typo) | Yes — `tom_d4rt_flutter_ast` bridges target this |
+| `tom_d4rt.D4rt:348` | `registertopLevelFunction` (typo) | Yes — `tom_d4rt_dcli` bridges target this |
+| Generator emits | `registertopLevelFunction` (typo) | — |
+
+Both `D4rt` wrapper classes have the typo and the generator emits the typo.
+The spelling inconsistency only exists between `D4rtRunner` (the inner AST
+layer) and the two outer `D4rt` wrappers. Bridge code never reaches
+`D4rtRunner` directly; `tom_d4rt_exec.D4rt` bridges the name difference
+internally (`registertopLevelFunction` wrapper calls
+`_runner.registerTopLevelFunction`). The bridge-facing API is **consistent
+across both packages** — no step 0 needed, import swap works as-is.
+
+The `registertopLevelFunction` name is existing technical debt (should be
+`registerTopLevelFunction`) but fixing it requires a coordinated rename of
+all three sites plus regenerating all bridge packages and is out of scope
+for this project.
 
 ---
 
 ## Implementation Steps
-
-### Step 0 — Sync fix: `registertopLevelFunction` typo [ ]
-
-**Must be done before bridge regeneration.** A naming inconsistency exists
-across the interpreter stack:
-
-| Location | Method name | Status |
-|----------|-------------|--------|
-| `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart:318` | `registerTopLevelFunction` | **correct** |
-| `tom_d4rt_exec/lib/src/d4rt_base.dart:254` | `registertopLevelFunction` | **typo** |
-| `tom_d4rt/lib/src/d4rt_base.dart:348` | `registertopLevelFunction` | **typo** |
-| `tom_d4rt_generator/lib/src/bridge_generator.dart:6569` | emits `registertopLevelFunction` | **typo** |
-
-`D4rtRunner` (the AST layer) already has the correct spelling. The two `D4rt`
-wrapper classes and the generator consistently use the typo. After bridge
-regeneration the generated code calls `registertopLevelFunction` on a
-`tom_d4rt.D4rt` — which does have it — so the current code compiles. But the
-gap means `tom_d4rt.D4rt` is not name-for-name in sync with `D4rtRunner`.
-
-**Fix — three files, one string each:**
-
-#### `tom_d4rt/lib/src/d4rt_base.dart` (line 348)
-```dart
-// before
-void registertopLevelFunction(
-// after
-void registerTopLevelFunction(
-```
-
-#### `tom_d4rt_exec/lib/src/d4rt_base.dart` (line 254)
-```dart
-// before
-void registertopLevelFunction(
-// after
-void registerTopLevelFunction(
-```
-(The internal delegation on line 261 already calls `_runner.registerTopLevelFunction`
-with the correct name — no change needed there.)
-
-#### `tom_d4rt_generator/lib/src/bridge_generator.dart` (line 6569)
-```dart
-// before
-'      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);',
-// after
-'      interpreter.registerTopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);',
-```
-
-**After the fixes:**
-
-1. Regenerate `tom_d4rt_flutter_ast` bridges (now emits correct spelling):
-   ```bash
-   cd tom_d4rt_flutter_ast
-   dart run tool/regenerate_bridges.dart
-   ```
-
-2. Run test suites to confirm no regression:
-   ```bash
-   cd tom_d4rt       && dart test
-   cd tom_d4rt_ast   && dart test
-   cd tom_d4rt_generator && dart test
-   cd tom_d4rt_flutter_ast && flutter test test/essential_classes_test.dart
-   ```
-
-   Expected: same counts as pre-fix (method rename is pure rename, no
-   behaviour change). `tom_d4rt_flutter_ast` essential must pass clean.
-
-3. Commit and push.
-
----
 
 ### Step 1 — `pubspec.yaml` [ ]
 
@@ -544,10 +502,6 @@ Verify:
 
 | # | File | Action |
 |---|------|--------|
-| 0a | `tom_d4rt/lib/src/d4rt_base.dart:348` | Edit — rename `registertopLevelFunction` → `registerTopLevelFunction` |
-| 0b | `tom_d4rt_exec/lib/src/d4rt_base.dart:254` | Edit — rename `registertopLevelFunction` → `registerTopLevelFunction` |
-| 0c | `tom_d4rt_generator/lib/src/bridge_generator.dart:6569` | Edit — fix generated string to `registerTopLevelFunction` |
-| 0d | `tom_d4rt_flutter_ast/lib/src/bridges/*.b.dart` | Regenerate — `dart run tool/regenerate_bridges.dart` |
 | 1 | `pubspec.yaml` | Edit — add `tom_d4rt`, `path`; remove defaults |
 | 2 | `buildkit.yaml` | New — copy from `tom_d4rt_flutter_ast`, 2-line change |
 | 3 | `tool/regenerate_bridges.dart` | New — copy verbatim |
@@ -572,9 +526,12 @@ Verify:
   has identical static API to `tom_d4rt_ast`'s `D4`. Import rewrite is
   sufficient — no signature changes needed.
 
-- **`registertopLevelFunction` typo** — resolved in step 0. After rename,
-  both `D4rt` classes and the generator use `registerTopLevelFunction`
-  (correct case), matching `D4rtRunner`.
+- **`registertopLevelFunction` spelling** — not a blocker. Both `D4rt`
+  wrapper classes (`tom_d4rt.D4rt` and `tom_d4rt_exec.D4rt`) expose the
+  method under the typo spelling and the generator emits the typo
+  consistently. Bridge code never calls `D4rtRunner` directly, so the
+  spelling difference at the AST layer is invisible to generated bridges.
+  The import swap works as-is.
 
 ## Remaining open question
 
