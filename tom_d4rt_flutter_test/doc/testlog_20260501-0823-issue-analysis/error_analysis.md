@@ -327,6 +327,14 @@ early-return guard `if (value is! Enum) return null;` was added to both
 `getBridgedEnumValue` and `findBridgedEnumForValue` in both interpreters; this
 restored gii to 81/2/0 and is reflected in the fix description above.
 
+**Post-Cluster-E re-verification (E4 walkthrough closure):** After the
+Cluster-E visited-set cycle-breaker landed in
+`Environment.getBridgedEnumValue` / `findBridgedEnumForValue` (commit
+`e3951ed3`), `dart_ui/key_event_type_test.dart` was re-run via the `retest`
+suite to confirm the Cluster-D fix still holds. Log:
+`testlog_20260501-e4-verify/retest_e4_script.log` —
+`status=success frameworkErrors=0`, `+1 / All tests passed!`. No regression.
+
 ---
 
 ## Framework errors (FE) — non-fatal noise
