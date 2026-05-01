@@ -1,0 +1,118 @@
+=== timeout_tests_test starting at 14:54:57 ===
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/timeout_tests_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: rendering/ retest: rendering/render_animated_size_state_test.dart
+[METRIC] script=retest/rendering/render_animated_size_state_test.dart sourceChars=62341 clearMs=53 httpMs=2891 totalMs=2954 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:13 +2: rendering/ render_backdrop_filter_test.dart
+[METRIC] script=rendering/render_backdrop_filter_test.dart sourceChars=67388 clearMs=59 httpMs=3731 totalMs=3791 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:16 +3: rendering/ render_baseline_test.dart
+[METRIC] script=rendering/render_baseline_test.dart sourceChars=56115 clearMs=45 httpMs=2321 totalMs=2371 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:19 +4: rendering/ render_block_semantics_test.dart
+[METRIC] script=rendering/render_block_semantics_test.dart sourceChars=930 clearMs=51 httpMs=1684 totalMs=1738 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:21 +5: rendering/ render_box_container_defaults_mixin_test.dart
+[METRIC] script=rendering/render_box_container_defaults_mixin_test.dart sourceChars=65458 clearMs=39 httpMs=2798 totalMs=2839 status=success httpStatus=200 outputLines=0 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_box_container_defaults_mixin_test.dart (3 error(s)):
+       Runtime Error: Cannot access property 'width' on target of type null.
+       Runtime Error: Native error during bridged operator '+' on Offset: Argument Error: Invalid parameter "other": expected Offset, got Null
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:23 +6: rendering/ render_constrained_overflow_box_test.dart
+[METRIC] script=rendering/render_constrained_overflow_box_test.dart sourceChars=63570 clearMs=44 httpMs=3319 totalMs=3365 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:27 +7: rendering/ render_constraints_transform_box_test.dart
+[METRIC] script=rendering/render_constraints_transform_box_test.dart sourceChars=2421 clearMs=47 httpMs=2042 totalMs=2090 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:29 +8: rendering/ render_custom_multi_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_multi_child_layout_box_test.dart sourceChars=3351 clearMs=24 httpMs=1636 totalMs=1661 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:31 +9: rendering/ render_custom_paint_test.dart
+[METRIC] script=rendering/render_custom_paint_test.dart sourceChars=60302 clearMs=25 httpMs=2688 totalMs=2715 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:33 +10: rendering/ render_custom_single_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_single_child_layout_box_test.dart sourceChars=71483 clearMs=49 httpMs=1770 totalMs=1821 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_single_child_layout_box_test.dart (1 error(s)):
+       Runtime Error: Error during constructor execution for class '_AnchorDelegate': Missing required named argument for 'config' in function ''.
+00:35 +11: rendering/ render_darwin_platform_view_test.dart
+[METRIC] script=rendering/render_darwin_platform_view_test.dart sourceChars=58055 clearMs=26 httpMs=2701 totalMs=2729 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:38 +12: rendering/ render_decorated_sliver_test.dart
+[METRIC] script=rendering/render_decorated_sliver_test.dart sourceChars=52896 clearMs=38 httpMs=2253 totalMs=2293 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:40 +13: rendering/ render_physical_model_test.dart
+[METRIC] script=rendering/render_physical_model_test.dart sourceChars=55054 clearMs=41 httpMs=2069 totalMs=2111 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:42 +14: rendering/ render_physical_shape_test.dart
+[METRIC] script=rendering/render_physical_shape_test.dart sourceChars=63808 clearMs=41 httpMs=2101 totalMs=2144 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:44 +15: rendering/ render_pointer_listener_test.dart
+[METRIC] script=rendering/render_pointer_listener_test.dart sourceChars=71341 clearMs=43 httpMs=2135 totalMs=2180 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +16: rendering/ render_proxy_box_mixin_test.dart
+[METRIC] script=rendering/render_proxy_box_mixin_test.dart sourceChars=67099 clearMs=42 httpMs=2098 totalMs=2141 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:49 +17: rendering/ render_proxy_box_with_hit_test_behavior_test.dart
+[METRIC] script=rendering/render_proxy_box_with_hit_test_behavior_test.dart sourceChars=65726 clearMs=33 httpMs=2173 totalMs=2208 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:51 +18: rendering/ render_repaint_boundary_test.dart
+[METRIC] script=rendering/render_repaint_boundary_test.dart sourceChars=71441 clearMs=39 httpMs=2558 totalMs=2598 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:54 +19: rendering/ render_rotated_box_test.dart
+[METRIC] script=rendering/render_rotated_box_test.dart sourceChars=68743 clearMs=35 httpMs=2010 totalMs=2049 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:56 +20: rendering/ retest: rendering/render_sliver_box_child_manager_test.dart
+[METRIC] script=retest/rendering/render_sliver_box_child_manager_test.dart sourceChars=66380 clearMs=37 httpMs=1777 totalMs=1816 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:57 +21: services/ retest: services/message_codec_test.dart
+[METRIC] script=retest/services/message_codec_test.dart sourceChars=3686 clearMs=38 httpMs=2006 totalMs=2046 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+00:59 +22: services/ retest: services/method_codec_test.dart
+[METRIC] script=retest/services/method_codec_test.dart sourceChars=2113 clearMs=22 httpMs=1999 totalMs=2022 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:01 +23: services/ text_layout_metrics_test.dart
+[METRIC] script=services/text_layout_metrics_test.dart sourceChars=37681 clearMs=20 httpMs=2272 totalMs=2293 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+01:04 +24: widgets/ retest: widgets/android_view_surface_test.dart
+[METRIC] script=retest/widgets/android_view_surface_test.dart sourceChars=61153 clearMs=39 httpMs=2981 totalMs=3022 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:07 +25: widgets/ retest: widgets/app_kit_view_test.dart
+[METRIC] script=retest/widgets/app_kit_view_test.dart sourceChars=69754 clearMs=30 httpMs=2934 totalMs=2965 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:10 +26: widgets/ retest: widgets/back_button_listener_test.dart
+[METRIC] script=retest/widgets/back_button_listener_test.dart sourceChars=77937 clearMs=28 httpMs=1901 totalMs=1931 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/back_button_listener_test.dart (1 error(s)):
+       A RenderFlex overflowed by 10.0 pixels on the bottom.
+01:12 +27: widgets/ retest: widgets/box_scroll_view_test.dart
+[METRIC] script=retest/widgets/box_scroll_view_test.dart sourceChars=60999 clearMs=22 httpMs=1853 totalMs=1877 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:14 +28: widgets/ retest: widgets/context_action_test.dart
+[METRIC] script=retest/widgets/context_action_test.dart sourceChars=87366 clearMs=29 httpMs=2131 totalMs=2161 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:16 +29: widgets/ retest: widgets/default_selection_style_test.dart
+[METRIC] script=retest/widgets/default_selection_style_test.dart sourceChars=37575 clearMs=23 httpMs=2061 totalMs=2085 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:18 +30: widgets/ scrollable_test.dart
+[METRIC] script=widgets/scrollable_test.dart sourceChars=41981 clearMs=57 httpMs=1700 totalMs=1763 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:20 +31: widgets/ scrollbar_orientation_test.dart
+[METRIC] script=widgets/scrollbar_orientation_test.dart sourceChars=30200 clearMs=41 httpMs=2007 totalMs=2052 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:22 +32: widgets/ selectable_region_test.dart
+[METRIC] script=widgets/selectable_region_test.dart sourceChars=54500 clearMs=55 httpMs=1806 totalMs=1863 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+01:24 +33: widgets/ selection_container_test.dart
+[METRIC] script=widgets/selection_container_test.dart sourceChars=48269 clearMs=54 httpMs=1805 totalMs=1860 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+01:25 +34: widgets/ selection_listener_test.dart
+[METRIC] script=widgets/selection_listener_test.dart sourceChars=44640 clearMs=22 httpMs=1758 totalMs=1782 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:27 +35: widgets/ selection_overlay_test.dart
+[METRIC] script=widgets/selection_overlay_test.dart sourceChars=46116 clearMs=51 httpMs=1882 totalMs=1934 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:29 +36: widgets/ shader_mask_test.dart
+[METRIC] script=widgets/shader_mask_test.dart sourceChars=42225 clearMs=21 httpMs=1992 totalMs=2015 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:31 +37: widgets/ shared_app_data_test.dart
+[METRIC] script=widgets/shared_app_data_test.dart sourceChars=48718 clearMs=75 httpMs=1747 totalMs=1824 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:33 +38: widgets/ shrink_wrapping_viewport_test.dart
+[METRIC] script=widgets/shrink_wrapping_viewport_test.dart sourceChars=73860 clearMs=21 httpMs=1884 totalMs=1907 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+01:35 +39: widgets/ single_child_render_object_element_test.dart
+[METRIC] script=widgets/single_child_render_object_element_test.dart sourceChars=55393 clearMs=22 httpMs=1735 totalMs=1758 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:37 +40: widgets/ single_child_render_object_widget_test.dart
+[METRIC] script=widgets/single_child_render_object_widget_test.dart sourceChars=53857 clearMs=32 httpMs=1681 totalMs=1715 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:38 +41: widgets/ single_ticker_provider_state_mixin_test.dart
+[METRIC] script=widgets/single_ticker_provider_state_mixin_test.dart sourceChars=87183 clearMs=25 httpMs=2260 totalMs=2287 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:41 +42: widgets/ sliver_animated_grid_test.dart
+[METRIC] script=widgets/sliver_animated_grid_test.dart sourceChars=72349 clearMs=212 httpMs=1901 totalMs=2114 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:43 +43: widgets/ sliver_animated_list_state_test.dart
+[METRIC] script=widgets/sliver_animated_list_state_test.dart sourceChars=31069 clearMs=51 httpMs=1808 totalMs=1861 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:45 +44: widgets/ sliver_animated_list_test.dart
+[METRIC] script=widgets/sliver_animated_list_test.dart sourceChars=64920 clearMs=36 httpMs=1791 totalMs=1829 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:46 +45: widgets/ sliver_animated_opacity_test.dart
+[METRIC] script=widgets/sliver_animated_opacity_test.dart sourceChars=67837 clearMs=24 httpMs=1884 totalMs=1909 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+01:48 +46: widgets/ sliver_child_builder_delegate_test.dart
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceChars=31529 clearMs=22 httpMs=1943 totalMs=1967 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:50 +47: widgets/ sliver_constrained_cross_axis_test.dart
+[METRIC] script=widgets/sliver_constrained_cross_axis_test.dart sourceChars=104989 clearMs=32 httpMs=1873 totalMs=1906 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:52 +48: widgets/ sliver_cross_axis_expanded_test.dart
+[METRIC] script=widgets/sliver_cross_axis_expanded_test.dart sourceChars=81480 clearMs=27 httpMs=1849 totalMs=1878 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:54 +49: widgets/ sliver_cross_axis_group_test.dart
+[METRIC] script=widgets/sliver_cross_axis_group_test.dart sourceChars=78108 clearMs=24 httpMs=1783 totalMs=1809 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+01:56 +50: widgets/ stateless_element_test.dart
+[METRIC] script=widgets/stateless_element_test.dart sourceChars=28085 clearMs=52 httpMs=1728 totalMs=1781 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:58 +51: (tearDownAll)
+01:58 +51: All tests passed!
+=== timeout_tests_test done at 14:56:58 ===
