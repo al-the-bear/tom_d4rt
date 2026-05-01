@@ -326,17 +326,17 @@ restored gii to 81/2/0 and is reflected in the fix description above.
 Scripts that produce `⚠️  FRAMEWORK ERROR` output but still **pass** the test
 (status=success):
 
-| Script | Suites where FE appears | Total FE |
-|--------|------------------------|----------|
-| `rendering/render_box_container_defaults_mixin_test.dart` | secondary, timeout | 3+3=6 |
-| `rendering/render_absorb_pointer_test.dart` | secondary | 5 |
-| `rendering/relayout_when_system_fonts_change_mixin_test.dart` | secondary | 4 |
-| `rendering/render_aligning_shifted_box_test.dart` | secondary | 3 |
-| `widgets/layout_builder_adv_test.dart` | secondary | 2 |
-| `widgets/parent_data_widget_test.dart` | secondary | 2 |
-| `rendering/render_custom_single_child_layout_box_test.dart` | secondary, timeout | 1+1=2 |
-| `retest/widgets/back_button_listener_test.dart` | timeout, retest | 1+1=2 |
-| `widgets/restorable_value_test.dart` | secondary | 1 |
+| Script | Suites where FE appears | Total FE | Status (post-fix) |
+|--------|------------------------|----------|-------------------|
+| `rendering/render_box_container_defaults_mixin_test.dart` | secondary, timeout | 3+3=6 | ✅ FE cleared (Cluster B fix) |
+| `rendering/render_absorb_pointer_test.dart` | secondary | 5 | ✅ FE cleared (Cluster B fix) |
+| `rendering/relayout_when_system_fonts_change_mixin_test.dart` | secondary | 4 | ✅ FE cleared (Cluster B fix) |
+| `rendering/render_aligning_shifted_box_test.dart` | secondary | 3 | ✅ FE cleared (Cluster B fix) |
+| `widgets/layout_builder_adv_test.dart` | secondary | 2 | ✅ FE cleared (Cluster B fix) |
+| `widgets/parent_data_widget_test.dart` | secondary | 2 | (covered by Cluster B fix) |
+| `rendering/render_custom_single_child_layout_box_test.dart` | secondary, timeout | 1+1=2 | (covered by Cluster C fix) |
+| `retest/widgets/back_button_listener_test.dart` | timeout, retest | 1+1=2 | (covered by Cluster D fix) |
+| `widgets/restorable_value_test.dart` | secondary | 1 | open |
 
 The `relayout_when_system_fonts_change_mixin`, `render_absorb_pointer`,
 `render_aligning_shifted_box`, `render_box_container_defaults_mixin`, and
@@ -346,6 +346,68 @@ during paint/layout.
 
 `restorable_value_test.dart`: `Cannot access property 'inMilliseconds' on null` —
 isolated to secondary, 1 FE, test still passes.
+
+---
+
+### Cluster E — FE5 verification + Cluster-D follow-up Stack Overflow — ✅ FIXED
+
+**Status: FIXED (2026-05-01).** The first 5 FE-emitting scripts in the table
+above (`render_box_container_defaults_mixin`, `render_absorb_pointer`,
+`relayout_when_system_fonts_change_mixin`, `render_aligning_shifted_box`,
+`layout_builder_adv`) were re-run individually after the Cluster B/C/D fixes had
+landed and **all five now report `frameworkErrors=0`**. The 17 FE emissions they
+were responsible for in the original 0823 secondary run are gone — the
+runtime_types.dart fixes for sub-cluster-1 (bridged-mixin getter fall-through to
+bridged-super) and sub-cluster-2 (bridged-super dispatch consulting `nativeProxy`)
+removed the null-constraints crash both at the gii test-failure call sites *and*
+along the paint/layout call sites that were producing the FE noise in secondary.
+
+**Follow-up regression discovered: `dart_ui/pointer_data_test.dart` Stack Overflow.**
+The Cluster D fix (prefix-import walk in `Environment.getBridgedEnumValue` /
+`findBridgedEnumForValue`) introduced a new infinite-recursion path on this script,
+which heavily exercises bridged enum lookup via `switch (ui.PointerChange value)`
+and `switch (ui.PointerDeviceKind value)`. The early-return guard
+`if (value is! Enum) return null;` from Cluster D protects against non-enum
+probes from `runtime_types.dart`, but for *enum* values the new prefix-import
+walk could traverse cycles in the env graph: `shallowCopyFiltered`
+(used by `module_loader.dart` when defining a prefixed import) preserves both
+`_enclosing` and the source env's `_prefixedImports` map, so a prefixed env's
+`_enclosing` chain can lead back into an env that already contains it via
+`_prefixedImports`. With many enum lookups happening per frame during switch
+evaluation, this exploded into Stack Overflow.
+
+**Fix:** Added a `Set<Environment> visited` cycle-breaker to both
+`getBridgedEnumValue` and `findBridgedEnumForValue`. Each public entry point now
+seeds a fresh visited set and delegates to a private `_*Impl` that bails out
+when it re-enters an env already on the path. The lookup completes in linear
+time across the unique reachable envs.
+
+**Files changed:**
+
+- `tom_d4rt/lib/src/environment.dart` — split `getBridgedEnumValue` /
+  `findBridgedEnumForValue` into public entry + private `_*Impl` with visited set.
+- `tom_d4rt_ast/lib/src/runtime/environment.dart` — same fix mirrored.
+
+**Verification (logs in `testlog_20260501-fe5/`):**
+
+| Script | Before fix | After fix |
+|--------|-----------|-----------|
+| `widgets/layout_builder_adv_test.dart` | FE=2 (orig 0823) | **FE=0** ✅ |
+| `rendering/relayout_when_system_fonts_change_mixin_test.dart` | FE=4 (orig 0823) | **FE=0** ✅ |
+| `rendering/render_absorb_pointer_test.dart` | FE=5 (orig 0823) | **FE=0** ✅ |
+| `rendering/render_aligning_shifted_box_test.dart` | FE=3 (orig 0823) | **FE=0** ✅ |
+| `rendering/render_box_container_defaults_mixin_test.dart` | FE=3 (orig 0823) | **FE=0** ✅ |
+| `dart_ui/pointer_data_test.dart` | FE=1 Stack Overflow (post Cluster D) | **FE=0** ✅ |
+
+**Regression check (post-fix):**
+
+| Suite | Before (Cluster D) | After Cluster E | Δ |
+|-------|-------------------|-----------------|---|
+| `gii` | 81/2/0 | **81/2/0** | ✅ no change |
+| `retest` | 53/5/0 | **53/5/0** | ✅ no change |
+| `essential` | 108/0/0 | **108/0/0** | ✅ no change |
+| `important` | 164/0/0 | **164/0/0** | ✅ no change |
+| `secondary` | 653/1/0 (1 FE: pointer_data Stack Overflow) | **653/1/0 (0 FE)** | ✅ FE cleared |
 
 ---
 
