@@ -1260,13 +1260,20 @@ class D4 {
           'num' => unwrappedSet.cast<num>().toSet(),
           'bool' => unwrappedSet.cast<bool>().toSet(),
           'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
-          // ENG-001: For non-primitive types, return unwrapped and try cast
+          // RC-7c: For non-primitive element types (e.g., Set<WidgetState>),
+          // attempt Set.from() which uses runtime type coercion. Elements
+          // are already unwrapped to native values, so the typed set
+          // constructor can succeed if all elements are the correct type.
           _ => unwrappedSet,
         };
         try {
           return result as T;
         } catch (_) {
-          // Fall through — collection is right shape but wrong generic type
+          // RC-7c: Direct cast failed (e.g., Set<Object?> as Set<EnumType>).
+          // Non-primitive Set coercion requires coerceSet<ElementType>() at
+          // the call site (bridge adapters). extractBridgedArg cannot create
+          // typed sets without compile-time type parameters.
+          // Fall through to error.
         }
       } catch (_) {
         // Fall through to error

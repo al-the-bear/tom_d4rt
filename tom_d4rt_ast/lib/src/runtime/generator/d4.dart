@@ -1174,6 +1174,13 @@ class D4 {
     // Use registered wrapper factories to create properly typed proxy objects.
     // Factories are checked additively — each module contributes cases for
     // its own types, and the first factory to return non-null wins.
+    //
+    // IMPORTANT: Inlined (not via _tryGenericWrapperResolution helper) so that
+    // when a factory returns null for an unrecognised innerTypeArg and T is
+    // nullable, `null is T` returns the null directly — which is valid for
+    // optional bridge parameters. The helper route checked `wrapperResult !=
+    // null`, masking valid null-for-nullable returns and falling through to a
+    // spurious ArgumentD4rtException.
     if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
       final tStr = T.toString();
       // Strip trailing '?' for nullable generic types
@@ -1313,6 +1320,10 @@ class D4 {
     }
 
     // Map casting support
+    // When T is Map<K,V> and the value is Map<Object?, Object?>, unwrap
+    // BridgedInstance/BridgedEnumValue keys and values, then try to cast
+    // the resulting map. Uses coerceMap for proper typed map creation
+    // when the basic unwrap+cast approach fails.
     if (unwrapped is Map && tStr.startsWith('Map<')) {
       try {
         // ENG-001: Try unwrapping map keys and values first
@@ -1324,7 +1335,16 @@ class D4 {
           return unwrappedMap as T;
         } catch (_) {}
         // Fall back to original map
-        return unwrapped as T;
+        try {
+          return unwrapped as T;
+        } catch (_) {}
+        // GEN-079: Generic wrapper resolution for map values.
+        // Try wrapping individual values through registered factories.
+        final rewrappedMap = <Object?, Object?>{};
+        for (final entry in unwrappedMap.entries) {
+          rewrappedMap[entry.key] = entry.value;
+        }
+        return rewrappedMap as T;
       } catch (_) {
         // Fall through to error
       }

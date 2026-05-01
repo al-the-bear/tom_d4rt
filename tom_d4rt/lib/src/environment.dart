@@ -142,6 +142,26 @@ class Environment {
     Logger.debug("[Environment] Defined bridge for class: $name");
   }
 
+  /// Pre-registers a bridge's native-type mapping for runtime type resolution.
+  ///
+  /// Unlike [defineBridge], this does NOT add [bridgedClass.name] to the
+  /// lexical scope (`_bridgedClasses`). It only populates
+  /// `_bridgedClassesLookupByType` so that [toBridgedInstance] can wrap
+  /// native objects returned by bridge methods (e.g. `GestureSettings`
+  /// returned by `GestureSettings.copyWith()`) regardless of whether the
+  /// script's imports have been processed yet.
+  ///
+  /// Call this on `globalEnvironment` at interpreter-init time (after
+  /// `ModuleLoader` is created but before any script runs) so that all
+  /// registered bridges are available for native-object wrapping. The
+  /// module-level [defineBridge] calls at import time will overwrite the
+  /// type entry if necessary, but the type entry is always present.
+  ///
+  /// Mirrors the type-population step of [D4rtRunner._registerBridgedDefinitions].
+  void registerBridgeType(BridgedClass bridgedClass) {
+    _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+  }
+
   /// GEN-078: Registers a class alias that maps [aliasName] to an existing
   /// bridged class registered under [targetName].
   ///

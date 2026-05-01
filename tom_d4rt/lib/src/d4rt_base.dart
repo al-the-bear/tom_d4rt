@@ -468,6 +468,21 @@ class D4rt {
         globalEnvironment: moduleLoader.globalEnvironment,
         moduleLoader: moduleLoader);
     Stdlib(moduleLoader.globalEnvironment).register();
+
+    // Pre-populate globalEnvironment type map so that toBridgedInstance() can
+    // resolve native objects returned by bridge methods (e.g. the native
+    // GestureSettings returned by GestureSettings.copyWith()) even before the
+    // script's import directives are processed.  Only the type entry is
+    // registered here — name-based scope registration is handled per-module by
+    // ModuleLoader._registerBridgesForUriInto at import time.
+    // Mirrors D4rtRunner._registerBridgedDefinitions (type-only variant).
+    final globalEnv = moduleLoader.globalEnvironment;
+    for (final entry in _bridgedClases) {
+      for (final libClass in entry.values) {
+        globalEnv.registerBridgeType(libClass.bridgedClass);
+      }
+    }
+
     return moduleLoader;
   }
 
