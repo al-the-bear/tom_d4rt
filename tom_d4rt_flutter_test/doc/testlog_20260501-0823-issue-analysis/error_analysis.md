@@ -335,6 +335,13 @@ suite to confirm the Cluster-D fix still holds. Log:
 `testlog_20260501-e4-verify/retest_e4_script.log` —
 `status=success frameworkErrors=0`, `+1 / All tests passed!`. No regression.
 
+**Post-Cluster-E re-verification (E5 walkthrough closure):** Re-ran
+`widgets/back_button_listener_test.dart` via the `retest` suite to confirm
+the test-script `SingleChildScrollView` wrap (commit `6ac34eb1`) still
+clears the RenderFlex overflow under the current interpreter. Log:
+`testlog_20260501-e5-verify/retest_e5_script.log` —
+`status=success frameworkErrors=0`, `+1 / All tests passed!`. No regression.
+
 ---
 
 ## Framework errors (FE) — non-fatal noise
