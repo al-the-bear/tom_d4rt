@@ -6001,13 +6001,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         if (declaredType != null && valueRuntimeType != null) {
           Logger.debug(
-              "[visitReturnStatement]   declaredType.isSubtypeOf(valueRuntimeType) = ${declaredType.isSubtypeOf(valueRuntimeType)}");
+              "[visitReturnStatement]   valueRuntimeType.isSubtypeOf(declaredType) = ${valueRuntimeType.isSubtypeOf(declaredType)}");
         }
 
         if (valueRuntimeType != null) {
           if (declaredType != null) {
             if (declaredType.name != "dynamic" &&
-                !declaredType.isSubtypeOf(valueRuntimeType,
+                !valueRuntimeType.isSubtypeOf(declaredType,
                     value: returnValue)) {
               bool showError = true;
               if (isNullable && returnValue == null) {
@@ -8831,6 +8831,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (typeName.contains('<') && typeName.contains('>')) {
         typeName = typeName.substring(0, typeName.indexOf('<'));
       }
+      // GEN-100c: Handle import-prefixed type annotations
+      // (e.g. `ui.PointerData`, `math.Point`).
+      // Mirrors the same fix in tom_d4rt_ast.
+      if (!isAsync && typeNode.importPrefix != null) {
+        typeName = '${typeNode.importPrefix!.name.lexeme}.$typeName';
+      }
       if (typeName == "void") {
         return BridgedClass(nativeType: VoidType, name: 'void');
       }
@@ -8886,34 +8892,70 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         constructorNameNode.name2.lexeme; // Name of the class
     var namedConstructorPart = node
         .constructorName.name?.name; // Name of the named constructor (or null)
+    String? resolvedImportPrefix; // Real library prefix for prefix.ClassName()
 
     Logger.debug(
         "[InstanceCreation] Creating instance of '$constructorName'${namedConstructorPart != null ? '.$namedConstructorPart' : ''}");
 
-    // Resolve the type
+    // Resolve the type, handling two ambiguous AST shapes:
+    //
+    //  1. Named-constructor ambiguity: the Dart analyzer parses
+    //     ClassName.namedCtor() in an unresolved (no-SDK) context as
+    //       NamedType(importPrefix='ClassName', name2='namedCtor')
+    //     with constructorName.name == null.
+    //     Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...).
+    //
+    //  2. Library-prefix call: prefix.ClassName() where `prefix` is an import
+    //     alias (e.g. `import 'dart:ui' as ui`). In unresolved context the
+    //     analyzer also puts `ui` in importPrefix and `PointerData` in name2.
+    //     We distinguish by checking whether the importPrefix resolves to a
+    //     class (case 1) or an Environment (case 2).
+    //     Mirrors the same logic in tom_d4rt_ast.
+    //
+    // If constructorName.name != null the form is already unambiguous:
+    //   prefix.ClassName.namedCtor() — track the prefix for the lookup below.
+    if (namedConstructorPart != null &&
+        constructorNameNode.importPrefix != null) {
+      resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
+    }
+
     Object? typeValue;
     try {
-      typeValue = environment.get(constructorName);
+      final lookupName = resolvedImportPrefix != null
+          ? '$resolvedImportPrefix.$constructorName'
+          : constructorName;
+      typeValue = environment.get(lookupName);
     } on RuntimeD4rtException {
-      // Named-constructor ambiguity: the Dart analyzer parses
-      // ClassName.namedCtor() in an unresolved (no-SDK) context as
-      //   NamedType(importPrefix='ClassName', name2='namedCtor')
-      // with constructorName.name == null. Detect this by checking whether
-      // the importPrefix is a known class and name2 is not.
-      // Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...).
       final prefix = constructorNameNode.importPrefix;
       if (prefix != null && namedConstructorPart == null) {
-        final possibleClassName = prefix.name.lexeme;
+        final possiblePrefix = prefix.name.lexeme;
+        Object? possibleType;
         try {
-          typeValue = environment.get(possibleClassName);
-          // Succeeded — treat prefix as class, name2 as named constructor.
-          constructorName = possibleClassName;
+          possibleType = environment.get(possiblePrefix);
+        } on RuntimeD4rtException {
+          possibleType = null;
+        }
+        if (possibleType is InterpretedClass || possibleType is BridgedClass) {
+          // importPrefix was actually the class name, name2 is the named ctor.
+          // Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...)
+          typeValue = possibleType;
+          constructorName = possiblePrefix;
           namedConstructorPart = constructorNameNode.name2.lexeme;
           Logger.debug(
               "[InstanceCreation] Ambiguity resolved: class='$constructorName', ctor='$namedConstructorPart'");
-        } on RuntimeD4rtException {
-          throw RuntimeD4rtException(
-              "Type '$constructorName' not found for instantiation.");
+        } else {
+          // importPrefix is a real library prefix (e.g. `ui` for dart:ui).
+          // constructorName is already name2 (e.g. 'PointerData').
+          resolvedImportPrefix = possiblePrefix;
+          final lookupName = '$resolvedImportPrefix.$constructorName';
+          try {
+            typeValue = environment.get(lookupName);
+            Logger.debug(
+                "[InstanceCreation] Prefix-qualified lookup: '$lookupName'");
+          } on RuntimeD4rtException {
+            throw RuntimeD4rtException(
+                "Type '$constructorName' not found for instantiation.");
+          }
         }
       } else {
         throw RuntimeD4rtException(

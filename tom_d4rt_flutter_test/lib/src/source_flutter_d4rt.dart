@@ -62,12 +62,17 @@ class SourceFlutterD4rt {
   /// Calls the function named `'build'` with [buildContext] as the first
   /// positional argument when [buildContext] is provided. Most corpus
   /// scripts in `send_ast_via_http_scripts/` follow this shape.
-  T build<T>(String source, [BuildContext? buildContext]) =>
-      _wrapUnwrap(() => D4.unwrapAs<T>(_interpreter.execute(
-            source: source,
-            name: 'build',
-            positionalArgs: buildContext != null ? [buildContext] : null,
-          )));
+  T build<T>(String source, [BuildContext? buildContext]) => _wrapUnwrap(() {
+        final raw = _interpreter.execute(
+          source: source,
+          name: 'build',
+          positionalArgs: buildContext != null ? [buildContext] : null,
+        );
+        // Pass the visitor so that InterpretedInstance proxy resolution
+        // works when unwrapping is called after execute() returns (mirrors
+        // D4rtRunner.executeBundleAs which always passes visitor: _visitor).
+        return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
+      });
 
   /// Generic execute — call the function [name] with the given arguments
   /// and unwrap the result as [T].
@@ -77,12 +82,15 @@ class SourceFlutterD4rt {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
   }) =>
-      _wrapUnwrap(() => D4.unwrapAs<T>(_interpreter.execute(
-            source: source,
-            name: name,
-            positionalArgs: positionalArgs,
-            namedArgs: namedArgs,
-          )));
+      _wrapUnwrap(() {
+        final raw = _interpreter.execute(
+          source: source,
+          name: name,
+          positionalArgs: positionalArgs,
+          namedArgs: namedArgs,
+        );
+        return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
+      });
 
   static T _wrapUnwrap<T>(T Function() body) {
     try {
