@@ -998,7 +998,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         // Cluster-26 (Key.label dispatch): see visitPropertyAccess. Only
         // entered for unknown properties to keep built-in enum access fast.
+        // Walks the current scope chain (which extends from the per-module
+        // env where ModuleLoader registered the BridgedEnum). The global env
+        // does not hold bridged enums — only classes are pre-populated there
+        // by D4rt._initModule.
         final bridgedEnumValue =
+            environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {
@@ -4122,7 +4127,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // toBridgedClass can otherwise wrap a native enum (KeyEventType)
         // under an unrelated BridgedClass (Key). Only entered for unknown
         // properties to keep built-in enum access on the fast path.
+        // Walks the current scope chain (which extends from the per-module
+        // env where ModuleLoader registered the BridgedEnum). The global env
+        // does not hold bridged enums — only classes are pre-populated there
+        // by D4rt._initModule.
         final bridgedEnumValue =
+            environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {

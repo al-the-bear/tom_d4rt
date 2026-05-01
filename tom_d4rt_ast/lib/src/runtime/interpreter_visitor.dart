@@ -1154,7 +1154,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // on the BridgedEnumDefinition (e.g. KeyEventType.label), dispatch
         // through the BridgedEnumValue. Only entered for unknown properties
         // to keep built-in enum access on the fast path.
+        // Walks the current scope chain (which extends from the per-module
+        // env where bridges register the BridgedEnum). Falls back to the
+        // global env for runners that pre-populate enums there.
         final bridgedEnumValue =
+            environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {
@@ -4783,7 +4787,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // KeyEventType.label) registered on the BridgedEnumDefinition resolve.
         // The G-DCLI-05 prefix match in toBridgedClass can otherwise wrap a
         // native enum (KeyEventType) under an unrelated BridgedClass (Key).
+        // Walks the current scope chain (which extends from the per-module
+        // env where bridges register the BridgedEnum). Falls back to the
+        // global env for runners that pre-populate enums there.
         final bridgedEnumValue =
+            environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {

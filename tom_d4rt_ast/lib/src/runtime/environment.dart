@@ -389,6 +389,12 @@ class Environment {
 
   /// Checks if the given object is a bridged enum value
   BridgedEnum? findBridgedEnumForValue(Object value) {
+    // Fast-path: bridged enums only ever wrap native Enum instances. Bailing
+    // out early for non-enums avoids walking the entire enum registry (and,
+    // since Cluster-D added a prefix-import recursion, prevents potential
+    // cycles through `_prefixedImports` for non-enum values that callers in
+    // `runtime_types.dart` may probe with).
+    if (value is! Enum) return null;
     for (final bridgedEnum in _bridgedEnums.values) {
       for (final enumValue in bridgedEnum.values.values) {
         if (enumValue.nativeValue == value) {
@@ -396,17 +402,41 @@ class Environment {
         }
       }
     }
+    // Cluster-D (key_event_type_test): prefixed imports (e.g. `import 'dart:ui'
+    // as ui`) store their bridged enums in a sibling environment under
+    // _prefixedImports rather than on the _enclosing chain. Search those too
+    // so enum-value lookup succeeds regardless of how the enum's library was
+    // imported.
+    for (final prefixedEnv in _prefixedImports.values) {
+      final found = prefixedEnv.findBridgedEnumForValue(value);
+      if (found != null) return found;
+    }
     return _enclosing?.findBridgedEnumForValue(value);
   }
 
   /// Gets the BridgedEnumValue for a native enum value
   BridgedEnumValue? getBridgedEnumValue(Object value) {
+    // Fast-path: bridged enums only ever wrap native Enum instances. Bailing
+    // out early for non-enums avoids walking the entire enum registry (and,
+    // since Cluster-D added a prefix-import recursion, prevents potential
+    // cycles through `_prefixedImports` for non-enum values that callers in
+    // `runtime_types.dart` may probe with).
+    if (value is! Enum) return null;
     for (final bridgedEnum in _bridgedEnums.values) {
       for (final enumValue in bridgedEnum.values.values) {
         if (enumValue.nativeValue == value) {
           return enumValue;
         }
       }
+    }
+    // Cluster-D (key_event_type_test): prefixed imports (e.g. `import 'dart:ui'
+    // as ui`) store their bridged enums in a sibling environment under
+    // _prefixedImports rather than on the _enclosing chain. Search those too
+    // so enum-value lookup succeeds regardless of how the enum's library was
+    // imported.
+    for (final prefixedEnv in _prefixedImports.values) {
+      final found = prefixedEnv.getBridgedEnumValue(value);
+      if (found != null) return found;
     }
     return _enclosing?.getBridgedEnumValue(value);
   }
