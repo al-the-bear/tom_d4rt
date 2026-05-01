@@ -615,9 +615,13 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
     //   2. Wrap each inner panel's content `Column` body in a
     //      `SingleChildScrollView` so panel content can exceed 168 px
     //      without producing a `RenderFlex` overflow inside the panel.
+    //   3. Wrap the outer Column in a SingleChildScrollView so the entire
+    //      Interception Studio body can exceed the stage budget without
+    //      producing a 10 px bottom-overflow at 1280x720 (Cluster D).
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
+      child: SingleChildScrollView(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _sectionTitle('Interception Studio'),
@@ -737,6 +741,7 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
             ),
           ),
         ],
+      ),
       ),
     );
   }
