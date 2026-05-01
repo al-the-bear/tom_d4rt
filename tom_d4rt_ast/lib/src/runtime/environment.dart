@@ -395,6 +395,16 @@ class Environment {
     // cycles through `_prefixedImports` for non-enum values that callers in
     // `runtime_types.dart` may probe with).
     if (value is! Enum) return null;
+    return _findBridgedEnumForValueImpl(value, <Environment>{});
+  }
+
+  BridgedEnum? _findBridgedEnumForValueImpl(
+      Object value, Set<Environment> visited) {
+    // Cluster-D follow-up (pointer_data_test stack overflow): prefixed
+    // imports can form cycles in the env graph (a prefixed env's
+    // `_enclosing` may point back into an env that already contains it
+    // via `_prefixedImports`). Track visited envs to break the cycle.
+    if (!visited.add(this)) return null;
     for (final bridgedEnum in _bridgedEnums.values) {
       for (final enumValue in bridgedEnum.values.values) {
         if (enumValue.nativeValue == value) {
@@ -408,10 +418,11 @@ class Environment {
     // so enum-value lookup succeeds regardless of how the enum's library was
     // imported.
     for (final prefixedEnv in _prefixedImports.values) {
-      final found = prefixedEnv.findBridgedEnumForValue(value);
+      final found =
+          prefixedEnv._findBridgedEnumForValueImpl(value, visited);
       if (found != null) return found;
     }
-    return _enclosing?.findBridgedEnumForValue(value);
+    return _enclosing?._findBridgedEnumForValueImpl(value, visited);
   }
 
   /// Gets the BridgedEnumValue for a native enum value
@@ -422,6 +433,16 @@ class Environment {
     // cycles through `_prefixedImports` for non-enum values that callers in
     // `runtime_types.dart` may probe with).
     if (value is! Enum) return null;
+    return _getBridgedEnumValueImpl(value, <Environment>{});
+  }
+
+  BridgedEnumValue? _getBridgedEnumValueImpl(
+      Object value, Set<Environment> visited) {
+    // Cluster-D follow-up (pointer_data_test stack overflow): prefixed
+    // imports can form cycles in the env graph (a prefixed env's
+    // `_enclosing` may point back into an env that already contains it
+    // via `_prefixedImports`). Track visited envs to break the cycle.
+    if (!visited.add(this)) return null;
     for (final bridgedEnum in _bridgedEnums.values) {
       for (final enumValue in bridgedEnum.values.values) {
         if (enumValue.nativeValue == value) {
@@ -435,10 +456,10 @@ class Environment {
     // so enum-value lookup succeeds regardless of how the enum's library was
     // imported.
     for (final prefixedEnv in _prefixedImports.values) {
-      final found = prefixedEnv.getBridgedEnumValue(value);
+      final found = prefixedEnv._getBridgedEnumValueImpl(value, visited);
       if (found != null) return found;
     }
-    return _enclosing?.getBridgedEnumValue(value);
+    return _enclosing?._getBridgedEnumValueImpl(value, visited);
   }
 
   /// Retrieves the value associated with [name].
