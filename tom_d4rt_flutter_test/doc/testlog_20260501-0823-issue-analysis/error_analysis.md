@@ -182,18 +182,63 @@ Affected suite: `gii` (6). Same scripts emit FEs in `secondary` without failing.
 
 ### Cluster C — Missing required named argument in `_AnchorDelegate` (1 test failure)
 
+**Status: FIXED (2026-05-01).** gii went from `+80 ~2 -1` to `+81 ~2 -0`.
+
 Affected suite: `gii` (1). Same script emits FE in `secondary` and `timeout`.
 
 | Script | Error |
 |--------|-------|
 | `rendering/render_custom_single_child_layout_box_test.dart` | `Error during constructor execution for class '_AnchorDelegate': Missing required named argument for 'config'` |
 
-**Root cause:** The script defines `_AnchorDelegate` with a required named parameter
-`config`. The interpreter calls the constructor from somewhere without passing `config`.
-This is either a missing named-constructor disambiguation or a required-parameter
-validation gap in the interpreter.
+**Root cause:** Super-formal forwards (Bug-96) were not merged into
+the explicit super-call argument list when the super constructor
+was an *interpreted* class. The script:
 
-**Pre-existing** cluster. 1 FE in `secondary`, 1 FE in `timeout`.
+```dart
+abstract class _BaseDelegate extends SingleChildLayoutDelegate {
+  _BaseDelegate({required this.config, required this.modeName});
+  final _DelegateConfig config;
+}
+
+class _AnchorDelegate extends _BaseDelegate {
+  _AnchorDelegate({required super.config}) : super(modeName: 'anchor');
+}
+```
+
+When `_AnchorDelegate(config: ...)` ran, the super-formal `super.config`
+was correctly collected into `superNamedForwards`, but the explicit
+`super(modeName: 'anchor')` only forwarded `modeName` to
+`_BaseDelegate`'s constructor — `config` was dropped, so
+`_BaseDelegate`'s required `config` parameter was missing.
+
+The bug existed in both `tom_d4rt` and `tom_d4rt_ast` `callable.dart`
+in the `dartSuperClass != null` branch of `SuperConstructorInvocation`
+handling. The bridged-super branch (line 782 in tom_d4rt) and the
+implicit-super-call branch (line 952) were already correctly
+merging the forwards; only the explicit-Dart-super branch was
+missing the merge.
+
+**Fix:** in both interpreters, prepend `superPositionalForwards`
+to the explicit positional args and merge `superNamedForwards`
+into the explicit named args (`putIfAbsent` so explicit values
+win over forwards if both are supplied — though in valid Dart
+they cannot overlap by name).
+
+**Files changed:**
+
+- `tom_ai/d4rt/tom_d4rt/lib/src/callable.dart` — explicit-super
+  Dart branch now merges forwards.
+- `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/callable.dart` —
+  same fix mirrored.
+
+**Regression check (after fix):**
+
+| Suite | Before (post-Cluster-B) | After | Δ |
+|-------|------------------------|-------|---|
+| `gii` | +80 ~2 -1 | +81 ~2 -0 | +1 / −1 |
+| `essential` | 108/0/0 | 108/0/0 | ✅ |
+| `important` | 164/0/0 | 164/0/0 | ✅ |
+| `secondary` | 653 ~1 | 653 ~1 | ✅ |
 
 ---
 

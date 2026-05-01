@@ -735,10 +735,25 @@ class InterpretedFunction implements Callable {
                 final (superPositionalArgs, superNamedArgs) =
                     _evaluateArgumentsForInvocation(
                         visitor, initializer.argumentList, "super()");
+                // Cluster C: merge super-formal parameter forwards (Bug-96)
+                // into the explicit super-call argument lists. A constructor
+                // like `_AnchorDelegate({required super.config}) :
+                // super(modeName: 'anchor')` must forward `config` to the
+                // super constructor in addition to the explicit `modeName`.
+                // Positional forwards prepend (Dart spec: super-formals
+                // occupy the leading positions); named forwards fill in only
+                // if not already explicitly supplied.
+                final mergedPositional =
+                    List<Object?>.from(superPositionalForwards)
+                      ..addAll(superPositionalArgs);
+                final mergedNamed = Map<String, Object?>.from(superNamedArgs);
+                for (final entry in superNamedForwards.entries) {
+                  mergedNamed.putIfAbsent(entry.key, () => entry.value);
+                }
                 // Call Dart super constructor (existing logic)
                 final superCallResult = superConstructor
                     .bind(thisValue)
-                    .call(visitor, superPositionalArgs, superNamedArgs);
+                    .call(visitor, mergedPositional, mergedNamed);
                 if (superCallResult is AsyncSuspensionRequest) {
                   throw StateD4rtException(
                       "Internal error: Super constructor call returned SuspendedState.");
