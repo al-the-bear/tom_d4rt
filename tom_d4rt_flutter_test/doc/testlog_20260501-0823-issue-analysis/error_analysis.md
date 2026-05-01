@@ -487,12 +487,29 @@ all scripts, which is consistent with the per-script verification above.
 
 ## Open issues (actionable)
 
-| ID | Cluster | Script(s) | Error | Priority |
-|----|---------|-----------|-------|----------|
+| ID | Cluster | Script(s) | Error | Status |
+|----|---------|-----------|-------|--------|
 | ~~E1~~ | ~~A~~ | restorable_enum_n, button_bar_theme(_data) | ~~Name conflict on re-import~~ — **fixed** (importEnvironment now skips imports shadowed by local declarations) | — |
-| E2 | B | layout_builder_adv, render_absorb_pointer, etc. (6 scripts) | Null constraints in interpreted RenderBox | Medium |
-| E3 | C | render_custom_single_child_layout_box | Missing named arg `config` in `_AnchorDelegate` | Low |
-| E4 | D | key_event_type | `Key.label` not in bridge | Low |
-| E5 | D | back_button_listener | RenderFlex overflow 10px → expectSuccess fail | Low |
+| ~~E2~~ | ~~B~~ | layout_builder_adv, render_absorb_pointer, relayout_when_system_fonts_change_mixin, render_aligning_shifted_box, render_box_container_defaults_mixin, parent_data_widget (6 scripts) | ~~Null constraints in interpreted RenderBox~~ — **fixed** (`runtime_types.dart`: bridged-mixin getter tolerant fall-through to bridged-super; bridged-super dispatch now consults `nativeProxy` alongside `nativeStateProxy`) | — |
+| ~~E3~~ | ~~C~~ | render_custom_single_child_layout_box | ~~Missing named arg `config` in `_AnchorDelegate`~~ — **fixed** (`callable.dart`: explicit-Dart-super branch now merges super-formal forwards into the call args) | — |
+| ~~E4~~ | ~~D~~ | key_event_type | ~~`Key.label` not in bridge~~ — **fixed** (`environment.dart`: `getBridgedEnumValue` now walks `_prefixedImports` for `import 'dart:ui' as ui` paths; cycle-broken with visited set per Cluster E) | — |
+| ~~E5~~ | ~~D~~ | back_button_listener | ~~RenderFlex overflow 10px → expectSuccess fail~~ — **fixed** (test-script: outer Column wrapped in `SingleChildScrollView`) | — |
 
-Total open: **5 distinct issues** covering 13 test failures and ≈21 FE emissions.
+**Total open: 0.** All 5 distinct issues from the original analysis are closed.
+Verification: every script in the FE table now emits `frameworkErrors=0`; gii
+81/2/0, retest 53/5/0, essential 108/0/0, important 164/0/0, secondary 653/1/0,
+all with **0 framework errors** in the secondary suite.
+
+E2/B verification (logs in `testlog_20260501-e2-verify/gii_clusterB_scripts.log`):
+all 6 originally-failing Cluster-B scripts run via the `gii` suite and pass with
+FE=0:
+
+```
++1: widgets/layout_builder_adv_test.dart … success, frameworkErrors=0
++2: rendering/relayout_when_system_fonts_change_mixin_test.dart … success, frameworkErrors=0
++3: rendering/render_absorb_pointer_test.dart … success, frameworkErrors=0
++4: rendering/render_aligning_shifted_box_test.dart … success, frameworkErrors=0
++5: rendering/render_box_container_defaults_mixin_test.dart … success, frameworkErrors=0
++6: widgets/parent_data_widget_test.dart … success, frameworkErrors=0
+All tests passed!
+```
