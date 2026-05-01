@@ -61,23 +61,60 @@ Fixes in `b1e52974` account for all +27 recovered passes.
 
 ## Failure clusters
 
-### Cluster A — Name conflict (2 scripts, 4 test failures)
+### Cluster A — Name conflict (2 scripts, 4 test failures) — **FIXED**
 
 Affected suites: `gii` (1), `retest` (1), `hr2` (1), `hr5` (1).
 
-| Script | Error | Suite |
-|--------|-------|-------|
-| `widgets/restorable_enum_n_test.dart` | `Name conflict: 'Locale' (bridged class) is already defined` | gii, hr5 |
-| `material/button_bar_theme_data_test.dart` | `Name conflict: 'ButtonBarTheme' (bridged class) is already defined` | hr2 |
-| `retest/material/button_bar_theme_test.dart` | `Name conflict: 'ButtonBarTheme' (bridged class) is already defined` | retest |
+| Script | Error | Suite | Status |
+|--------|-------|-------|--------|
+| `widgets/restorable_enum_n_test.dart` | `Name conflict: 'Locale' (bridged class) is already defined` | gii, hr5 | ✅ pass |
+| `material/button_bar_theme_data_test.dart` | `Name conflict: 'ButtonBarTheme' (bridged class) is already defined` | hr2 | ✅ pass |
+| `retest/material/button_bar_theme_test.dart` | `Name conflict: 'ButtonBarTheme' (bridged class) is already defined` | retest | ✅ pass |
 
-**Root cause:** Scripts that import both `flutter/material.dart` (which re-exports
-`ButtonBarTheme` / `Locale` via the bridge barrel) and a secondary import that also
-pulls them in. `Environment.importEnvironment` rejects duplicate class registrations.
+**Actual root cause:** The two scripts each declare a *local* type that shadows
+a bridged class from the imported library:
 
-**Pre-existing** — same cluster in `tom_d4rt_flutterm`. Fix: make
-`importEnvironment` skip already-registered bridged classes (or deduplicate at import
-time).
+- `restorable_enum_n_test.dart` declares `enum Locale { en, es, fr, de, ja, zh }`
+  at top level while also importing `package:flutter/material.dart` (which
+  re-exports `dart:ui`'s bridged `Locale` class).
+- `button_bar_theme_data_test.dart` and `retest/.../button_bar_theme_test.dart`
+  declare a local `class ButtonBarTheme extends StatelessWidget { ... }` (shim
+  for the deprecated bridged widget) while also importing
+  `package:flutter/material.dart` (which still re-exports the deprecated
+  bridged `ButtonBarTheme` class).
+
+Local declarations land in `_values` via `DeclarationVisitor.visitEnumDeclaration`
+/ `visitClassDeclaration` (`environment.define(...)`). When the script's import
+directives are processed afterwards, `Environment.importEnvironment` walks the
+imported bridged-class registry and finds the slot already occupied — so it
+threw `Name conflict in environment: Symbol '<X>' (bridged class) is already
+defined.` This is **not** Dart-correct: per Dart import semantics, an unprefixed
+local declaration must always shadow an imported name with the same identifier.
+
+**Fix applied:**
+`tom_d4rt/lib/src/environment.dart` (lines 934–941) and the mirror
+`tom_d4rt_ast/lib/src/runtime/environment.dart` (lines 997–1006): when an
+imported `BridgedClass` (or `BridgedEnum`) finds the target name already taken
+by a local `_values` / `_bridgedEnums` / `_prefixedImports` entry, the import is
+silently skipped (instead of throwing) — local wins, matching Dart import
+semantics. Type-based bridge lookups continue to work via
+`_bridgedClassesLookupByType` which is populated independently.
+
+**Verification:**
+- Isolated re-runs of all 4 affected tests: ✅ pass
+  (`cluster_a_fix/{restorable_enum_n_isolated,button_bar_theme_data_hr2_isolated,button_bar_theme_retest_isolated,restorable_enum_n_hr5_isolated}.log.txt`)
+- Affected suite re-runs (logs in `cluster_a_fix/`):
+  - `gii`: 73/2/8 → **74/2/7** (+1 pass, -1 fail)
+  - `retest`: 50/5/3 → **51/5/2** (+1 pass, -1 fail)
+  - `hr2`: 202/0/1 → **203/0/0** ✅
+  - `hr5`: 229/0/1 → **230/0/0** ✅
+- Regression suites (per rule (b) — interpreter changed):
+  - `essential_classes_test`: **108/0/0** (unchanged)
+  - `important_classes_test`: **164/0/0** (unchanged)
+  - `secondary_classes_test`: **653/1/0** (unchanged)
+
+**Status: fixed.** No follow-up issues observed; both interpreter copies
+(`tom_d4rt`, `tom_d4rt_ast`) updated.
 
 ---
 
@@ -216,7 +253,7 @@ isolated to secondary, 1 FE, test still passes.
 
 | ID | Cluster | Script(s) | Error | Priority |
 |----|---------|-----------|-------|----------|
-| E1 | A | restorable_enum_n, button_bar_theme(_data) | Name conflict on re-import | Medium |
+| ~~E1~~ | ~~A~~ | restorable_enum_n, button_bar_theme(_data) | ~~Name conflict on re-import~~ — **fixed** (importEnvironment now skips imports shadowed by local declarations) | — |
 | E2 | B | layout_builder_adv, render_absorb_pointer, etc. (6 scripts) | Null constraints in interpreted RenderBox | Medium |
 | E3 | C | render_custom_single_child_layout_box | Missing named arg `config` in `_AnchorDelegate` | Low |
 | E4 | D | key_event_type | `Key.label` not in bridge | Low |

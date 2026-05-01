@@ -934,8 +934,16 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeD4rtException(
-            "Name conflict in environment: Symbol '$name' (bridged class) is already defined.");
+        // Cluster A fix: a local script-level declaration (interpreted enum,
+        // class, function, or top-level variable) shadows an imported bridged
+        // class with the same name. Per Dart import semantics local
+        // declarations always win over imports for unprefixed names — silently
+        // skip the import. Type-based lookups still find the bridge via the
+        // global _bridgedClassesLookupByType map.
+        Logger.debug(
+            "[Environment.importEnvironment] Local declaration of '$name' "
+            "shadows imported bridged class — skipping import");
+        return;
       }
       _bridgedClasses[name] = bridgedClass;
       _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
@@ -957,8 +965,12 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedClasses.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeD4rtException(
-            "Name conflict in environment: Symbol '$name' (bridged enum) is already defined.");
+        // Cluster A fix: local declaration shadows imported bridged enum.
+        // See comment on the bridged-class branch above.
+        Logger.debug(
+            "[Environment.importEnvironment] Local declaration of '$name' "
+            "shadows imported bridged enum — skipping import");
+        return;
       }
       _bridgedEnums[name] = bridgedEnum;
     });
