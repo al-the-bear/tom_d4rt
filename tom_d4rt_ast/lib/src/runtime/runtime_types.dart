@@ -1440,6 +1440,32 @@ class InterpretedInstance implements RuntimeValue {
         try {
           // For bridged mixins, call the getter directly and return the value
           return getterAdapter(visitor, mixinTarget);
+        } on ArgumentD4rtException catch (e) {
+          // Cluster B: When a script class is `extends BridgedClass with
+          // BridgedMixin`, the native proxy registered on `nativeProxy`
+          // (e.g. _InterpretedRenderBox) is built ahead of time by the
+          // proxy factory in d4rt_runtime_registrations.dart and only
+          // mixes-in a fixed whitelist (ContainerRenderObjectMixin,
+          // SlottedContainerRenderObjectMixin, …). Bridged mixins outside
+          // that whitelist (e.g. RelayoutWhenSystemFontsChangeMixin,
+          // RenderBoxContainerDefaultsMixin via mixin chains) are NOT
+          // applied to the proxy. The bridge generator emits inherited
+          // member adapters (constraints, parentData, …) on every mixin's
+          // bridge with a strict `validateTarget<MixinType>` cast, which
+          // fails for our proxy.
+          //
+          // The mixin's `constraints` adapter is just an inherited delegate
+          // for `RenderObject.constraints`; an adapter on the bridged
+          // SUPERCLASS (e.g. RenderBox) reads the same field and accepts
+          // the proxy. Fall through to the bridged-super chain below to
+          // resolve via the superclass's adapter. If no super adapter
+          // matches either, we drop to the noSuchMethod / RC-9 fallbacks.
+          Logger.debug(
+              "[Instance.get] Bridged mixin '${bridgedMixin.name}' getter '$name' rejected target "
+              "${mixinTarget.runtimeType} (${e.message}). Falling through to bridged-super walk.");
+          // Continue to next mixin; if all mixins reject, the post-loop
+          // bridged-super fallback below handles the lookup.
+          continue;
         } catch (e, s) {
           Logger.error(
               "Native exception during bridged mixin getter '$name': $e\n$s");
@@ -1507,9 +1533,37 @@ class InterpretedInstance implements RuntimeValue {
           }
           final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
           if (getterAdapter != null) {
-            Logger.debug(
-                "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
-            return null;
+            // Cluster B: When a bridged-mixin's getter adapter rejected the
+            // native proxy via `validateTarget` (because the proxy doesn't
+            // mix-in that mixin), the mixin loop above falls through to
+            // here with `nativeProxy` still set. The same-named getter on
+            // the bridged superclass typically accepts the proxy (its
+            // `validateTarget<BridgedSuper>` succeeds because the proxy
+            // extends the bridged super by construction), so call it
+            // directly. Only return null when there really is no native
+            // target available (the original RC-9 semantics for plain
+            // interpreted widgets / States).
+            final nativeTarget = bridgedSuperObject ?? nativeProxy;
+            if (nativeTarget != null) {
+              try {
+                Logger.debug(
+                    "[Instance.get] RC-9b: calling bridged-super '${bridgedSuper.name}.$name' getter with nativeTarget ${nativeTarget.runtimeType}.");
+                return getterAdapter(visitor, nativeTarget);
+              } on ArgumentD4rtException catch (e) {
+                Logger.debug(
+                    "[Instance.get] RC-9b: bridged-super '${bridgedSuper.name}.$name' adapter rejected nativeTarget: ${e.message}. Walking up.");
+                // Continue walking up the bridged-super chain.
+              } catch (e, s) {
+                Logger.error(
+                    "Native exception during bridged super getter '$name' (RC-9b): $e\n$s");
+                throw RuntimeD4rtException(
+                    "Native error in bridged super getter '$name': $e");
+              }
+            } else {
+              Logger.debug(
+                  "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
+              return null;
+            }
           }
         }
         walkClass = walkClass.superclass;

@@ -120,6 +120,10 @@ semantics. Type-based bridge lookups continue to work via
 
 ### Cluster B — Null constraints in interpreted RenderBox subclasses (6 test failures)
 
+**Status: FIXED (2026-05-01).** All 6 scripts now pass; gii went from
+`+73 ~2 -8` to `+80 ~2 -1` (one remaining failure is the unrelated
+Cluster C `_AnchorDelegate` issue).
+
 Affected suite: `gii` (6). Same scripts emit FEs in `secondary` without failing.
 
 | Script | Error |
@@ -131,24 +135,48 @@ Affected suite: `gii` (6). Same scripts emit FEs in `secondary` without failing.
 | `rendering/render_box_container_defaults_mixin_test.dart` | `Cannot access property 'width' on null` |
 | `widgets/parent_data_widget_test.dart` | `Cannot access property 'height' on null` |
 
-**Root cause:** Script-defined `RenderBox` subclasses access `this.constraints` or
-properties derived from it (`.width`, `.height`, `.smallest`, etc.) inside
-`performLayout()`. In the interpreter, `constraints` is a bridged getter on the native
-`RenderBox`; when the mixin chain or dispatch misroutes the call, the getter returns
-`null` instead of a `BoxConstraints` object.
+**Root cause:** Two distinct sub-clusters with overlapping symptoms:
 
-The same scripts pass in `secondary_classes_test` (where the interpreter runs in a
-slightly different calling context) but fail in `gii` where the test expectation checks
-the rendered output directly. In `secondary` they show up as FE noise:
-- `widgets/layout_builder_adv_test.dart`: 2 FE
-- `rendering/relayout_when_system_fonts_change_mixin_test.dart`: 4 FE
-- `rendering/render_absorb_pointer_test.dart`: 5 FE
-- `rendering/render_aligning_shifted_box_test.dart`: 3 FE
-- `rendering/render_box_container_defaults_mixin_test.dart`: 3 FE
-- `widgets/parent_data_widget_test.dart`: 2 FE
+1. **Sub-cluster 1 — bridged-mixin getter type-check failure on
+   `constraints`** (4 of 6 scripts: `relayout_when_system_fonts_change_mixin`,
+   `render_absorb_pointer`, `render_aligning_shifted_box`,
+   `render_box_container_defaults_mixin`). The bridged-mixin
+   adapter rejected the proxy because the proxy class did not
+   actually mix-in the mixin (proxies are pre-built with a fixed
+   mixin whitelist). The dispatch then fell to the RC-9 callback
+   no-op which returns `null`. **Fix:** tolerant fall-through on
+   `ArgumentD4rtException` in `Instance.get` — when a bridged-mixin
+   getter rejects the proxy target, walk up to the bridged-super
+   chain (e.g. `RenderBox`) which accepts the cast.
 
-**Pre-existing** cluster. Fix: ensure mixin getter dispatch for `constraints` in
-interpreted `RenderBox` subclasses resolves to the bridged native getter.
+2. **Sub-cluster 2 — bridged-super method dispatch missed
+   `nativeProxy`** (`layout_builder_adv`, `parent_data_widget`).
+   `_InterpretedMultiChildLayoutDelegate` is a hand-written proxy
+   `extends MultiChildLayoutDelegate` set as `instance.nativeProxy`.
+   `Instance.get`'s bridged-super dispatch condition required
+   `bridgedSuperObject != null || nativeStateProxy != null` — it
+   excluded `nativeProxy`, so `layoutChild()` fell through to the
+   RC-9 callback no-op returning `null`. The script then accessed
+   `headerSize.height` on null and crashed. **Fix:** mirror
+   `tom_d4rt_ast`'s pattern — `nativeTarget = bridgedSuperObject ??
+   nativeProxy`, `getterTarget = nativeTarget ?? nativeStateProxy`.
+
+**Files changed:**
+
+- `tom_ai/d4rt/tom_d4rt/lib/src/runtime_types.dart` — both
+  sub-cluster fixes (mirroring `tom_d4rt_ast` patterns).
+- `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/runtime_types.dart` —
+  sub-cluster 1 tolerant fall-through (sub-cluster 2 was already
+  correct in this side).
+
+**Regression check (after fix):**
+
+| Suite | Before | After | Δ |
+|-------|--------|-------|---|
+| `gii` | +73 ~2 -8 | +80 ~2 -1 | +7 / −7 |
+| `essential` | +108/0/0 | +108/0/0 | ✅ |
+| `important` | +164/0/0 | +164/0/0 | ✅ |
+| `secondary` | +653 ~1 | +653 ~1 | ✅ |
 
 ---
 

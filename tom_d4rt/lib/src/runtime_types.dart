@@ -1320,11 +1320,15 @@ class InterpretedInstance implements RuntimeValue {
       // through the proxy's real `_element`. Methods deliberately exclude
       // it to preserve Bug-45 — `setState` etc. on plain States must keep
       // routing to the RC-9 no-op fallback below, not back through Flutter.
-      if (currentClass.bridgedSuperclass != null &&
-          (bridgedSuperObject != null || nativeStateProxy != null)) {
+      // Cluster B: nativeTarget falls back to `nativeProxy` so bridged-super
+      // methods on classes with a hand-written proxy (e.g.
+      // `_InterpretedMultiChildLayoutDelegate`) dispatch through the proxy
+      // instead of falling to the RC-9 callback no-op. Mirrors tom_d4rt_ast.
+      if (currentClass.bridgedSuperclass != null) {
+        final Object? nativeTarget = bridgedSuperObject ?? nativeProxy;
+        final Object? getterTarget = nativeTarget ?? nativeStateProxy;
+        if (getterTarget != null || nativeTarget != null) {
         final bridgedSuper = currentClass.bridgedSuperclass!;
-        final Object? nativeTarget = bridgedSuperObject;
-        final Object? getterTarget = bridgedSuperObject ?? nativeStateProxy;
 
         // Try getter first — may use `nativeStateProxy` as fallback.
         final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
@@ -1377,6 +1381,7 @@ class InterpretedInstance implements RuntimeValue {
                 nativeTarget, supplementaryAdapter, name, bridgedSuper.name);
           }
         }
+        } // end if (getterTarget != null || nativeTarget != null)
       }
 
       // Move up to the superclass
@@ -1425,6 +1430,18 @@ class InterpretedInstance implements RuntimeValue {
         try {
           // For bridged mixins, call the getter directly and return the value
           return getterAdapter(visitor, mixinTarget);
+        } on ArgumentD4rtException catch (e) {
+          // Cluster B: Bridged mixin's inherited-member adapter rejected
+          // the proxy because the proxy doesn't actually mix-in the
+          // mixin (proxies are pre-built with a fixed mixin whitelist;
+          // see d4rt_runtime_registrations.dart). Fall through to the
+          // bridged-super fallback below — it walks the bridged-super
+          // chain with the same `nativeProxy` and a typical bridged
+          // super (e.g. RenderBox) accepts the cast.
+          Logger.debug(
+              "[Instance.get] Bridged mixin '${bridgedMixin.name}' getter '$name' rejected target "
+              "${mixinTarget.runtimeType} (${e.message}). Falling through to bridged-super walk.");
+          continue;
         } catch (e, s) {
           Logger.error(
               "Native exception during bridged mixin getter '$name': $e\n$s");
@@ -1483,9 +1500,36 @@ class InterpretedInstance implements RuntimeValue {
           }
           final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
           if (getterAdapter != null) {
-            Logger.debug(
-                "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
-            return null;
+            // Cluster B (RC-9b): When a bridged-mixin's getter adapter
+            // rejected the native proxy via `validateTarget` (because the
+            // proxy doesn't mix-in that mixin), the mixin loop above
+            // falls through to here with `nativeProxy` still set. The
+            // same-named getter on the bridged superclass typically
+            // accepts the proxy because the proxy extends the bridged
+            // super by construction. Only return null when there really
+            // is no native target available (the original RC-9 semantics
+            // for plain interpreted widgets / States).
+            final nativeTarget = bridgedSuperObject ?? nativeProxy;
+            if (nativeTarget != null) {
+              try {
+                Logger.debug(
+                    "[Instance.get] RC-9b: calling bridged-super '${bridgedSuper.name}.$name' getter with nativeTarget ${nativeTarget.runtimeType}.");
+                return getterAdapter(visitor, nativeTarget);
+              } on ArgumentD4rtException catch (e) {
+                Logger.debug(
+                    "[Instance.get] RC-9b: bridged-super '${bridgedSuper.name}.$name' adapter rejected nativeTarget: ${e.message}. Walking up.");
+                // Continue walking up the bridged-super chain.
+              } catch (e, s) {
+                Logger.error(
+                    "Native exception during bridged super getter '$name' (RC-9b): $e\n$s");
+                throw RuntimeD4rtException(
+                    "Native error in bridged super getter '$name': $e");
+              }
+            } else {
+              Logger.debug(
+                  "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
+              return null;
+            }
           }
         }
         walkClass = walkClass.superclass;
