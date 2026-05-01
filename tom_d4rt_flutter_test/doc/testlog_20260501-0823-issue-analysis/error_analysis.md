@@ -242,23 +242,82 @@ they cannot overlap by name).
 
 ---
 
-### Cluster D — Retest-specific failures (2 test failures)
+### Cluster D — Retest-specific failures (2 test failures) — ✅ FIXED
 
 Affected suite: `retest` (2).
 
-| Script | Error |
-|--------|-------|
-| `retest/dart_ui/key_event_type_test.dart` | `Undefined property or method 'label' on bridged instance of 'Key'` |
-| `retest/widgets/back_button_listener_test.dart` | `A RenderFlex overflowed by 10.0 pixels on the bottom` (FE causes expectSuccess to fail) |
+| Script | Error | Status |
+|--------|-------|--------|
+| `retest/dart_ui/key_event_type_test.dart` | `Undefined property or method 'label' on bridged instance of 'Key'` | ✅ Fixed |
+| `retest/widgets/back_button_listener_test.dart` | `A RenderFlex overflowed by 10.0 pixels on the bottom` (FE causes expectSuccess to fail) | ✅ Fixed |
 
-**`key_event_type_test`:** `Key` (from `dart:ui`) is bridged but the `label` property
-is not exposed in the bridge. Pre-existing; needs a `label` getter added to the `Key`
-bridge.
+**`key_event_type_test` — Root cause:** Not a missing bridge getter. The bridges in
+`dart_ui_bridges.b.dart` already register `KeyEventType.label` and
+`KeyEventDeviceType.label` correctly. The actual bug was in
+`Environment.getBridgedEnumValue` / `findBridgedEnumForValue`: when a script does
+`import 'dart:ui' as ui`, the `dart:ui` bridges (including its `BridgedEnum`
+registrations) are stored in a per-prefix sibling environment under
+`_prefixedImports['ui']`, **not** on the `_enclosing` chain. The visitor's
+Cluster-26 fallback (in `visitPropertyAccess` / `visitPrefixedIdentifier`) calls
+`getBridgedEnumValue` which walks `_bridgedEnums.values` then recurses to
+`_enclosing` only — it never visited `_prefixedImports`. As a result, when
+`ui.KeyEventType.down` was wrapped by the G-DCLI-05 prefix-match as
+`BridgedInstance(bridgedClass=Key)`, the fallback couldn't recover the proper
+`BridgedEnumValue` and the throw fired with the misleading
+`'on bridged instance of Key'` message.
 
-**`back_button_listener_test`:** A layout overflow (RenderFlex +10 px) causes a
-framework error that the test's `expectSuccess()` detects as failure. The overflow is
-a scripted layout issue (fixed height container too small on the test device). The
-`back_button_listener` script was also in the known-failures list of the April 30 run.
+**Fix:** Updated `Environment.getBridgedEnumValue` and
+`Environment.findBridgedEnumForValue` to also walk `_prefixedImports.values`
+before recursing to `_enclosing`. Also added an early-return guard
+`if (value is! Enum) return null;` to both methods — `runtime_types.dart`
+calls `getBridgedEnumValue` for any non-null bridged-super getter result
+(e.g. `BuildContext` returned from `Element.context`); without the guard the
+new prefix-import walk could traverse cycles in the import graph and trigger
+a Stack Overflow for non-enum values (caught the regression on
+`widgets/inherited_theme_test.dart` / `inherited_widget_test.dart` and the
+three rendering tests in gii). Also adjusted the four visitor fallback sites
+to call `environment.getBridgedEnumValue(enumObj)` first (with
+`globalEnvironment` as a fallback) so the lookup starts from the active scope
+chain. Mirrored across:
+
+- `tom_d4rt/lib/src/environment.dart` — early-return guard + prefix-import walk
+- `tom_d4rt/lib/src/interpreter_visitor.dart` (lines ~1001 and ~4126) — use
+  `environment` first, then `globalEnvironment`
+- `tom_d4rt_ast/lib/src/runtime/environment.dart` — early-return guard +
+  prefix-import walk
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` (lines ~1157 and
+  ~4787) — use `environment` first, then `globalEnvironment`
+
+**`back_button_listener_test` — Root cause:** Test-script-only layout overflow
+(10 px on the bottom) inside `_InterceptionStudio.build()`'s outer
+`Padding > Column`. At 1280×720 the column's children (header section + 3 panels
++ back-button-listener row + cheat-sheet panel) demanded slightly more vertical
+space than the available stage budget after header + toolbar + footer.
+
+**Fix:** Wrapped the outer `Column` of `_InterceptionStudio.build()` in a
+`SingleChildScrollView` so the body can exceed the stage budget without
+producing a `RenderFlex` overflow. Test-script-only change (regression rule a:
+no regression-suite run required for the layout fix; the interpreter fix above
+does require regression coverage which has been run).
+
+**Regression check (post-fix, both interpreter + script changes — logs in
+`testlog_20260501-cluster-d/`):**
+
+| Suite | Before (Cluster C) | After Cluster D | Δ |
+|-------|-------------------|-----------------|---|
+| `gii` | 81/2/0 | 81/2/0 | ✅ no change |
+| `retest` | 51/5/2 (post Cluster A) | **53/5/0** | +2 pass, −2 fail (Cluster D scripts) |
+| `essential` | 108/0/0 | 108/0/0 | ✅ no change |
+| `important` | 164/0/0 | 164/0/0 | ✅ no change |
+| `secondary` | 653/1/0 | 653/1/0 | ✅ no change |
+
+The first run of `gii` initially regressed by 5 tests (3 rendering + 2
+`InheritedWidget`-style scripts) due to a Stack-Overflow caused by the new
+prefix-import recursion in `getBridgedEnumValue` being invoked for non-enum
+values from `runtime_types.dart` (bridged-super getter results). The
+early-return guard `if (value is! Enum) return null;` was added to both
+`getBridgedEnumValue` and `findBridgedEnumForValue` in both interpreters; this
+restored gii to 81/2/0 and is reflected in the fix description above.
 
 ---
 
