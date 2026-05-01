@@ -240,6 +240,14 @@ they cannot overlap by name).
 | `important` | 164/0/0 | 164/0/0 | ✅ |
 | `secondary` | 653 ~1 | 653 ~1 | ✅ |
 
+**Post-Cluster-E re-verification (2026-05-01, log
+`testlog_20260501-e3-verify/gii_e3_script.log`):** isolated re-run of
+`rendering/render_custom_single_child_layout_box_test.dart` via the
+`gii` suite (where the failure originally surfaced) — passes with
+`frameworkErrors=0` after Clusters B/C/D/E landed. Confirms the
+super-formal-merge fix is stable under the cycle-broken bridged-enum
+lookup added in Cluster E.
+
 ---
 
 ### Cluster D — Retest-specific failures (2 test failures) — ✅ FIXED
