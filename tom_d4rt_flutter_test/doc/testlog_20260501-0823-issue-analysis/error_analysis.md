@@ -333,10 +333,10 @@ Scripts that produce `⚠️  FRAMEWORK ERROR` output but still **pass** the tes
 | `rendering/relayout_when_system_fonts_change_mixin_test.dart` | secondary | 4 | ✅ FE cleared (Cluster B fix) |
 | `rendering/render_aligning_shifted_box_test.dart` | secondary | 3 | ✅ FE cleared (Cluster B fix) |
 | `widgets/layout_builder_adv_test.dart` | secondary | 2 | ✅ FE cleared (Cluster B fix) |
-| `widgets/parent_data_widget_test.dart` | secondary | 2 | (covered by Cluster B fix) |
-| `rendering/render_custom_single_child_layout_box_test.dart` | secondary, timeout | 1+1=2 | (covered by Cluster C fix) |
-| `retest/widgets/back_button_listener_test.dart` | timeout, retest | 1+1=2 | (covered by Cluster D fix) |
-| `widgets/restorable_value_test.dart` | secondary | 1 | open |
+| `widgets/parent_data_widget_test.dart` | secondary | 2 | ✅ FE cleared (Cluster B fix) |
+| `rendering/render_custom_single_child_layout_box_test.dart` | secondary, timeout | 1+1=2 | ✅ FE cleared (Cluster C fix) |
+| `retest/widgets/back_button_listener_test.dart` | timeout, retest | 1+1=2 | ✅ FE cleared (Cluster D fix) |
+| `widgets/restorable_value_test.dart` | secondary | 1 | ✅ FE cleared (Cluster B fix) |
 
 The `relayout_when_system_fonts_change_mixin`, `render_absorb_pointer`,
 `render_aligning_shifted_box`, `render_box_container_defaults_mixin`, and
@@ -408,6 +408,48 @@ time across the unique reachable envs.
 | `essential` | 108/0/0 | **108/0/0** | ✅ no change |
 | `important` | 164/0/0 | **164/0/0** | ✅ no change |
 | `secondary` | 653/1/0 (1 FE: pointer_data Stack Overflow) | **653/1/0 (0 FE)** | ✅ FE cleared |
+
+---
+
+### Cluster F — Last 4 FE-emitting scripts verification — ✅ FIXED
+
+**Status: FIXED (2026-05-01).** No new code changes — verification of the
+remaining 4 FE-emitting scripts in the table above:
+
+| Script | Original FE | Now | Owning fix |
+|--------|-------------|-----|-----------|
+| `widgets/parent_data_widget_test.dart` | 2 (`Cannot access property 'height' on null` + semantics assert) | **0** ✅ | Cluster B sub-cluster 2 (bridged-super dispatch consults `nativeProxy`) |
+| `rendering/render_custom_single_child_layout_box_test.dart` | 1 (`Missing required named argument for 'config' in _AnchorDelegate`) | **0** ✅ | Cluster C (super-formal forwards merged into explicit super-call) |
+| `retest/widgets/back_button_listener_test.dart` | 1 (RenderFlex overflow → `expectSuccess` fail) | **0** ✅ | Cluster D (test-script `SingleChildScrollView` wrap) |
+| `widgets/restorable_value_test.dart` | 1 (`Cannot access property 'inMilliseconds' on null`) | **0** ✅ | Cluster B sub-cluster 2 (same null-bridged-super-getter signature) |
+
+The first three were already attributed in the table and pinned to their owning
+cluster fix; running them individually confirmed the FE was cleared. The fourth
+(`restorable_value_test`) was previously listed as "open" but produced the same
+`Cannot access property '<x>' on target of type null` signature characteristic
+of Cluster B sub-cluster 2. The Cluster B fix to bridged-super dispatch in
+`runtime_types.dart` (consulting `nativeProxy` alongside `bridgedSuperObject`
+and `nativeStateProxy`) eliminates this null-getter result during paint/layout,
+so the FE no longer fires.
+
+**Verification (logs in `testlog_20260501-fe-last4/`):**
+
+| Script | Run | Result |
+|--------|-----|--------|
+| `widgets/parent_data_widget_test.dart` | individual | success, FE=0 |
+| `rendering/render_custom_single_child_layout_box_test.dart` | individual | success, FE=0 |
+| `retest/widgets/back_button_listener_test.dart` | individual | success, FE=0 |
+| `widgets/restorable_value_test.dart` | individual | success, FE=0 |
+
+No regression-suite re-run required (rule (a) — no source code changes; only
+verified that test scripts pass and emit no FE under the current interpreter).
+The Cluster E secondary regression run (in `testlog_20260501-fe5/`) had already
+confirmed the secondary suite was at 653/1/0 with **0 framework errors** across
+all scripts, which is consistent with the per-script verification above.
+
+**Conclusion:** With Clusters A through F closed, every script in the original
+0823 FE table now emits zero framework errors and the entire test corpus
+(essential, important, secondary, retest, gii) passes without FE noise.
 
 ---
 
