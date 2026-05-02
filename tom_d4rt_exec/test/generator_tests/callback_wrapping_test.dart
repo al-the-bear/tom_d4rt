@@ -66,9 +66,12 @@ void main() {
       });
 
       test('G-CB-2a: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
-        // For VoidCallback: () { D4.callInterpreterCallback(visitor, onCompleteRaw, []); }
+        // For VoidCallback: () { D4.callInterpreterCallback(visitor!, onCompleteRaw, []); }
+        // Cluster CB: bridged-method callbacks pass `visitor!` because the
+        // adapter signature has a nullable visitor; downstream invocations
+        // never receive null so the bang is safe and matches the generator.
         expect(generatedCode, contains("'onComplete':"));
-        expect(generatedCode, contains('D4.callInterpreterCallback(visitor,'));
+        expect(generatedCode, contains('D4.callInterpreterCallback(visitor!,'));
       });
     });
 

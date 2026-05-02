@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-04-29T20:47:52.557450
+// Generated: 2026-05-02T21:16:19.606463
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -577,7 +577,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, filterRaw, [p0]), 'callback', visitor); };
+          final filter = (String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; };
           $dcli_core_4.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, includeEmpty: includeEmpty, includeLinks: includeLinks, recursive: recursive, filter: filter);
           return null;
         }
@@ -675,7 +675,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, filterRaw, [p0]), 'callback', visitor); };
+          final filter = (String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; };
           $dcli_core_14.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden, filter: filter);
           return null;
         }
@@ -693,7 +693,7 @@ class DcliBridge {
           throw ArgumentError('verbose: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); };
+        final callback = () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as String; };
         return $dcli_core_18.verbose(callback);
       },
       'devNull': (visitor, positional, named, typeArgs) {
@@ -816,7 +816,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt') && !named.containsKey('validator')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1, bool p2) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]), 'callback', visitor); };
+          final customPrompt = (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
           return $dcli_1.ask(prompt, toLower: toLower, hidden: hidden, required: required, defaultValue: defaultValue, customErrorMessage: customErrorMessage, customPrompt: customPrompt);
         }
         if (!named.containsKey('customPrompt') && named.containsKey('validator')) {
@@ -825,7 +825,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt') && named.containsKey('validator')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1, bool p2) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]), 'callback', visitor); };
+          final customPrompt = (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
           final validator = D4.getRequiredNamedArg<$dcli_1.AskValidator>(named, 'validator', 'ask');
           return $dcli_1.ask(prompt, toLower: toLower, hidden: hidden, required: required, defaultValue: defaultValue, customErrorMessage: customErrorMessage, customPrompt: customPrompt, validator: validator);
         }
@@ -863,7 +863,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, bool? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]), 'callback', visitor); };
+          final customPrompt = (String p0, bool? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; };
           return $dcli_3.confirm(prompt, defaultValue: defaultValue, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -956,14 +956,14 @@ class DcliBridge {
         final defaultOption = D4.getOptionalNamedArg<dynamic>(named, 'defaultOption');
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, formatRaw, [p0]), 'callback', visitor); };
+        final format = formatRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; };
         final fromStart = D4.getNamedArgWithDefault<bool>(named, 'fromStart', true);
         if (!named.containsKey('customPrompt')) {
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart);
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]), 'callback', visitor); };
+          final customPrompt = (String p0, String? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; };
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -3238,7 +3238,7 @@ BridgedClass _createFetchProgressBridge() {
         D4.requireMinArgs(positional, 1, 'show');
         final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(positional, 0, 'progress', 'show');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : ($dcli_6.FetchProgress p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, formatRaw, [p0]), 'callback', visitor); };
+        final format = formatRaw == null ? null : ($dcli_6.FetchProgress p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; };
         return $dcli_6.FetchProgress.show(progress, format: format);
       },
     },
@@ -5405,7 +5405,7 @@ BridgedClass _createFileSyncBridge() {
           throw ArgumentError('read: Missing required argument "lineAction" at position 0');
         }
         final lineActionRaw = positional[0];
-        t.read((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, lineActionRaw, [p0]), 'callback', visitor); });
+        t.read((String p0) { return D4.callInterpreterCallback(visitor!, lineActionRaw, [p0]) as bool; });
         return null;
       },
       'resolveSymLink': (visitor, target, positional, named, typeArgs) {

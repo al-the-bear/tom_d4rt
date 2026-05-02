@@ -190,10 +190,12 @@ void main() {
           reason: 'Should use D4.callInterpreterCallback for callbacks',
         );
         
-        // Should have the wrapper pattern
+        // Should have the wrapper pattern. Cluster CB: bridged-method
+        // adapters use `visitor!` (the visitor parameter is nullable in the
+        // adapter signature but is never null at call time).
         expect(
           generatedCode,
-          contains('D4.callInterpreterCallback(visitor,'),
+          contains('D4.callInterpreterCallback(visitor!,'),
           reason: 'Should call D4.callInterpreterCallback with visitor',
         );
       });

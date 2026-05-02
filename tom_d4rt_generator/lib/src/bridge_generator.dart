@@ -13532,6 +13532,25 @@ class BridgeGenerator {
     };
   }
 
+  /// Returns `true` when [castType] is a primitive/built-in scalar that does
+  /// not need to be routed through `D4.extractBridgedArg` (the GEN-081b
+  /// interface-proxy path). Primitives are always native Dart values when a
+  /// callback returns them, so a plain `as <Type>` cast is correct and matches
+  /// the legacy emission shape that downstream tests assert on
+  /// (`as bool`, `as String`, …).
+  ///
+  /// Recognised primitives: `bool`, `int`, `double`, `num`, `String`, plus
+  /// their nullable variants. Bare `Object` / `Object?` / `dynamic` are
+  /// already handled by the `skipCast` and `castCallbackResult` branches
+  /// above and are not part of this list.
+  static bool _isPrimitiveCastType(String castType) {
+    final stripped = castType.endsWith('?')
+        ? castType.substring(0, castType.length - 1)
+        : castType;
+    const primitives = {'bool', 'int', 'double', 'num', 'String'};
+    return primitives.contains(stripped);
+  }
+
   /// Generates a wrapper that converts an InterpretedFunction to a native function.
   ///
   /// Example output for `void Function(int, String)`:
@@ -13729,6 +13748,16 @@ class BridgeGenerator {
                 castType.substring('List<'.length, castType.length - 1);
             wrapperBody =
                 "{ return D4.coerceList<$inner>($callExpr, 'callback'); }";
+          } else if (_isPrimitiveCastType(castType)) {
+            // Cluster CB: Primitive return types (bool, int, double, num,
+            // String, plus nullable variants) cannot be InterpretedInstance
+            // values — they're always native Dart values returned by the
+            // callback. A simple `as <Type>` cast is sufficient and avoids
+            // the extractBridgedArg detour. Restoring the legacy emission
+            // (pre-GEN-081b) for these types keeps G-CB-7/11/12 green
+            // without sacrificing GEN-081b interface-proxy routing for
+            // class return types below.
+            wrapperBody = '{ return $callExpr as $castType; }';
           } else {
             // GEN-081b: route the callback result through extractBridgedArg
             // so a script-returned InterpretedInstance gets wrapped by the

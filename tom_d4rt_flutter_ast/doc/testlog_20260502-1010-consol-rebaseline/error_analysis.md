@@ -23,43 +23,80 @@ listed first eliminates the largest number of failures. Each
 cluster names its sites; per-project sections below quote the exact
 runtime error string for each test.
 
-### Cluster CB — Callback-wrapping generator regressed (10 fails)
+### Cluster CB — Callback-wrapping generator regressed (10 fails) — **CLOSED 2026-05-02**
 
 Sites: `tom_ast_generator` (5), `tom_d4rt_exec` (5), `tom_d4rt_generator` (3).
 
 Symptom (representative — `G-CB-11`):
 
-> `Expected: contains 'as bool'` — actual emission has neither
-> `D4.callInterpreterCallback(visitor,` nor any `as <ReturnType>`
-> cast. Generator now emits the bare wrapper without the cast or
-> the `D4.callInterpreterCallback` helper call.
+> `Expected: contains 'as bool'` — actual emission was
+> `D4.extractBridgedArg<bool>(...)` instead of `... as bool`.
 
 Affected test IDs (same set across all three projects):
 `G-CB-2a`, `G-CB-7`, `G-CB-11`, `G-CB-12`, `DCL-CLS-002`.
 
-**Root cause.** `bridge_generator.dart` callback-wrapping branch
-no longer routes through the `D4.callInterpreterCallback(visitor,
-…)` helper and no longer appends the `as <ReturnType>` cast on
-non-void typed callbacks. Either (a) the emission was simplified
-without updating the assertions, or (b) a regression dropped the
-helper path on the typed-return code path.
+**Actual root cause — two distinct issues.**
 
-**Fix.**
+1. **Primitive return casts replaced with `extractBridgedArg`.**
+   Commit `e8275a4a` (Cluster 10 partial — GEN-081b) replaced the
+   legacy `as $castType` emission in `_generateFunctionWrapper`
+   (`tom_d4rt_generator/lib/src/bridge_generator.dart`) with
+   `D4.extractBridgedArg<$castType>(callExpr, 'callback', visitor)`
+   so script-returned `InterpretedInstance` values get routed through
+   the registered interface-proxy factory. This is correct for class
+   return types but unnecessary for primitive returns (`bool`, `int`,
+   `double`, `num`, `String`) — primitives can never be
+   `InterpretedInstance` values, so the simple cast is sufficient and
+   keeps the legacy assertion shape green. (G-CB-7, G-CB-11, G-CB-12
+   all fail purely on the missing `as <Type>` substring.)
 
-1. Open `tom_d4rt_generator/lib/src/bridge_generator.dart` and
-   locate the callback-typedef wrapping function (`_writeCallbackWrapper`
-   / `_emitCallbackInvocation`).
-2. Reinstate emission of `D4.callInterpreterCallback(visitor,
-   <fn>, <args>)` and append `as <NonVoidReturnType>` when the
-   typedef return type is not `void`.
-3. Verify by re-running, in `tom_d4rt_generator/`:
-   - `dart test test/callback_wrapping_test.dart`
-   - `dart test test/dcli_bridge_gaps_test.dart`
-4. Mirror the same emission in `tom_ast_generator` if its
-   generator path diverged (compare the two callback-wrapper
-   helpers; they should produce byte-identical strings for
-   identical fixtures).
-5. Closing this cluster removes 10 failures.
+2. **Stale `visitor,` expectations in the duplicated tests.** The
+   downstream copies of the callback tests in `tom_ast_generator/`
+   and `tom_d4rt_exec/` asserted on `D4.callInterpreterCallback(visitor,`
+   while the generator (correctly, by design) emits `(visitor!, …)`
+   inside bridged-method adapters because the adapter signature has a
+   nullable `Visitor?` parameter. The canonical `tom_d4rt_generator`
+   test already asserts the `visitor!,` form. (G-CB-2a, DCL-CLS-002
+   in the two downstream projects.)
+
+**Fix applied.**
+
+1. `tom_d4rt_generator/lib/src/bridge_generator.dart`:
+   added `_isPrimitiveCastType(String)` helper that detects `bool`,
+   `int`, `double`, `num`, `String` plus their nullable variants;
+   in `_generateFunctionWrapper` the non-`List`, non-`skipCast`
+   branch now emits `{ return $callExpr as $castType; }` for
+   primitive returns and keeps the GEN-081b
+   `D4.extractBridgedArg<$castType>` path for class returns.
+2. `tom_ast_generator/test/generator_tests/callback_wrapping_test.dart`,
+   `tom_ast_generator/test/generator_tests/dcli_bridge_gaps_test.dart`,
+   `tom_d4rt_exec/test/generator_tests/callback_wrapping_test.dart`,
+   `tom_d4rt_exec/test/generator_tests/dcli_bridge_gaps_test.dart`:
+   updated the four `contains('D4.callInterpreterCallback(visitor,')`
+   assertions to `contains('D4.callInterpreterCallback(visitor!,')`
+   to match the canonical generator emission shape (and the
+   `tom_d4rt_generator` test's existing assertion).
+
+**Verification.**
+
+- `tom_d4rt_generator`: `dart test test/callback_wrapping_test.dart` →
+  15/15 pass; `dart test test/dcli_bridge_gaps_test.dart` →
+  16/16 pass; full suite +561 -6 (no Cluster CB residue; remaining
+  failures are FLP-/DOV3-/coverage-flake from other clusters).
+- `tom_ast_generator`: full suite +415 -2; only G-DOV2-7 (other
+  cluster) and a G-DCLI-03 text-file-busy flake remain. All five
+  baseline Cluster CB G-CB failures resolved.
+- `tom_d4rt_exec`: full suite +2158 -9. All 5 Cluster CB G-CB
+  failures resolved (and the prior turn's 14 G-DCLI Digest
+  failures stay closed). Remaining 9 failures: `I-MISC-40/41`
+  (Export), `I-COLL-25` (HashSet), `G-DOV2-7` (DOV2),
+  `I-FILE-36/38` (Introspection), `DCL-RT-OPT-02`, `I-BUG-14a`
+  (records, won't fix), and the d4rt_coverage_test text-file-busy
+  flake — none of these are Cluster CB.
+
+Net delta across three projects: **-13 failures** (3 in
+`tom_d4rt_generator`, 5 in `tom_ast_generator`, 5 in
+`tom_d4rt_exec`).
 
 ### Cluster DIGEST — `Digest` type missing in `tom_d4rt_exec/example/d4` (14 fails) — **CLOSED 2026-05-02**
 

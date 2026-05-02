@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-04-29T20:47:51.433805
+// Generated: 2026-05-02T21:16:18.554421
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -610,7 +610,7 @@ class DartOverviewBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0]), 'callback', visitor); };
+        final transformer = (int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; };
         return $d4_example_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
