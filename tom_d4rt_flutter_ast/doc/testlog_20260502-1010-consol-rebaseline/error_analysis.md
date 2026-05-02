@@ -189,7 +189,7 @@ in validate mode`) is now consistent between the two existing
 loaders (`tom_d4rt/lib/src/module_loader.dart` and
 `tom_d4rt_exec/lib/src/module_loader.dart`).
 
-### Cluster EXPORT — Export-conflict detection missing (4 fails)
+### Cluster EXPORT — Export-conflict detection missing (4 fails) — **CLOSED 2026-05-02**
 
 Sites: `tom_d4rt` (`I-MISC-40`, `I-MISC-41`), `tom_d4rt_exec`
 (`I-MISC-40`, `I-MISC-41`).
@@ -197,39 +197,71 @@ Sites: `tom_d4rt` (`I-MISC-40`, `I-MISC-41`), `tom_d4rt_exec`
 Symptom:
 
 - `I-MISC-40`: expected throw with `'Name conflict in environment:
-  Symbol 'commonName' is already defined'` — actual call returns
+  Symbol 'commonName' is already defined'` — actual call returned
   `'Hello from Local commonName'` (silent shadowing).
 - `I-MISC-41`: expected throw with `'Name conflict in environment:
-  Symbol 'conflictingSymbol' is already defined'` — actual throws
+  Symbol 'conflictingSymbol' is already defined'` — actual threw
   `Undefined variable: conflictingSymbol` from
   `interpreter_visitor.dart:445` (`tom_d4rt`) /
   `interpreter_visitor.dart:480` (`tom_d4rt_ast`).
 
-**Root cause.** Two related bugs:
+**Actual root cause.** `Environment.importEnvironment` had only
+*import-wins* semantics — when merging a foreign environment, a
+duplicate symbol silently overwrote the existing one. That is the
+correct behaviour for the `import` directive (later imports shadow
+earlier ones; GEN-100 / Cluster A relies on it), but it is wrong
+when the *same* function merges re-exported symbols during library
+construction. For an `export` directive, two libraries publishing
+the same name under the same library is a hard error and must
+raise immediately at load time.
 
-1. **`I-MISC-40`** — When a script declares a local symbol that
-   shadows a `export`ed symbol from an imported library, the import
-   path silently wins instead of raising the conflict.
-2. **`I-MISC-41`** — When two transitively-imported libraries both
-   re-export the same symbol, the merged environment ends up with
-   the symbol *missing* (resolves to `Undefined`) instead of
-   raising a name-conflict.
+A second consequence: when both re-export merges silently
+overwrote each other in alternating order, the symbol ended up
+absent from the published library entirely (because the *last*
+write replaced a key the lookup path didn't know about), which is
+why `I-MISC-41` surfaced as `Undefined variable` rather than
+`'Hello A'` / `'Hello B'`.
 
-**Fix.**
+**Applied fix.**
 
-1. In `tom_d4rt/lib/src/runtime/environment.dart` (and mirror
-   `tom_d4rt_ast/lib/src/runtime/environment.dart`), the
-   import-merging step should detect duplicate symbol definitions
-   from re-exports and raise
-   `RuntimeD4rtException('Name conflict in environment: Symbol '<n>' is already defined')`.
-2. The same conflict check must also fire when a local
-   declaration coincides with an exported symbol introduced via
-   `export` (not just `import`).
-3. Run `dart test test/export_test.dart` in **both** `tom_d4rt`
-   and `tom_d4rt_exec`. Both share this code (one via the
-   analyzer-based path, the other via the AST-based path), so
-   per the cross-sync rule fix both at the same time.
-4. Closing this cluster removes 4 failures.
+1. Added an opt-in `errorOnConflict: bool = false` parameter to
+   `Environment.importEnvironment` in both
+   `tom_d4rt/lib/src/environment.dart` and
+   `tom_d4rt_ast/lib/src/runtime/environment.dart`. When set, the
+   six conflict-check branches (values × 2, bridgedClasses × 2,
+   bridgedEnums × 2 — same-name and cross-type) raise
+   `RuntimeD4rtException('Name conflict in environment: Symbol '<n>' is already defined.')`
+   instead of overwriting / silently skipping. Default `false`
+   keeps the existing import-wins semantics intact for the
+   `import` path (no GEN-100 / Cluster A regression).
+2. Wired `errorOnConflict: true` at the **three** re-export merge
+   call sites:
+   - `tom_d4rt/lib/src/module_loader.dart` (analyzer-based loader,
+     re-export merge into `exportedEnvironment`).
+   - `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart`
+     (AST-based loader, `_processExports` re-export merge).
+   - `tom_d4rt_exec/lib/src/module_loader.dart` (the third loader
+     that uses `tom_d4rt_ast`'s `Environment` but has its own
+     export-directive processing — initially missed; tom_d4rt_exec
+     `I-MISC-40/41` only flipped to green once this site was
+     patched).
+3. Cross-sync rule honoured — analyzer and AST copies of
+   `Environment` and the loaders are byte-equivalent (modulo
+   tom_d4rt_ast's trailing-comma style).
+
+**Verification.**
+
+- `tom_d4rt`: `dart test test/export_test.dart` → 6/6 pass; full
+  suite +1738 -8 (was -10, Δ = -2).
+- `tom_d4rt_exec`: `dart test test/export_test.dart` → 6/6 pass;
+  full suite +2253 -7 (was -9, Δ = -2; `I-MISC-40/41` gone).
+- `tom_d4rt_ast`: full suite unchanged at +115 -2 (only the
+  pre-existing `STDLIB-PI` errors remain — distinct cluster).
+- `dart analyze` on the five edited files: no new warnings or
+  errors.
+
+Net cluster impact: −4 reds (-2 in `tom_d4rt`, -2 in
+`tom_d4rt_exec`).
 
 ### Cluster EXTTYPE — Extension types not registered (2 fails)
 

@@ -758,11 +758,16 @@ class ModuleLoader {
             }
           }
 
-          // Import the environment of the sub-module by applying the show/hide filters
+          // Import the environment of the sub-module by applying the show/hide filters.
+          // Cluster EXPORT (I-MISC-40/41): pass errorOnConflict: true so that a
+          // library that re-publishes two different definitions of the same
+          // name (local vs re-export, or two re-exports) raises immediately
+          // instead of silently overwriting.
           exportedEnvironment.importEnvironment(
             subModule.exportedEnvironment,
             show: showNames,
             hide: hideNames,
+            errorOnConflict: true,
           );
           Logger.debug(
               "[ModuleLoader loadModule for $uri]   Successfully merged exported environment from ${resolvedExportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");

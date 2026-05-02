@@ -776,10 +776,15 @@ class AstModuleLoader implements ModuleContext {
       Logger.debug('[AstModuleLoader] Export: $exportUriString → $resolvedUri');
 
       final loaded = loadModule(resolvedUri);
+      // Cluster EXPORT (I-MISC-40/41): pass errorOnConflict: true so that a
+      // library that re-publishes two different definitions of the same name
+      // (local vs re-export, or two re-exports) raises immediately instead of
+      // silently overwriting.
       exportedEnv.importEnvironment(
         loaded.exportedEnvironment,
         show: showNames,
         hide: hideNames,
+        errorOnConflict: true,
       );
     }
   }

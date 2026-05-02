@@ -968,10 +968,18 @@ class Environment {
   /// Can be filtered using [show] or [hide] combinators.
   /// If no filter is provided, all symbols from [other] are merged.
   /// This method directly modifies the current environment.
+  ///
+  /// When [errorOnConflict] is true (used by `export` directives merging into
+  /// a library's exported environment — see Cluster EXPORT, I-MISC-40/41),
+  /// duplicate symbols with non-identical definitions raise a
+  /// `RuntimeD4rtException('Name conflict in environment: ...')` instead of
+  /// silently overwriting. The default `false` preserves the import-wins
+  /// semantics expected of regular `import` directives.
   void importEnvironment(
     Environment other, {
     Set<String>? show,
     Set<String>? hide,
+    bool errorOnConflict = false,
   }) {
     if (show != null && hide != null) {
       throw ArgumentD4rtException(
@@ -1001,6 +1009,14 @@ class Environment {
       if (_values.containsKey(name)) {
         // Allow if it's the same value (e.g., same class/function imported via different paths)
         if (!identical(_values[name], value)) {
+          if (errorOnConflict) {
+            // Cluster EXPORT (I-MISC-40/41): export-merge cannot silently
+            // overwrite — a library that re-publishes two different
+            // definitions of the same name is malformed.
+            throw RuntimeD4rtException(
+              "Name conflict in environment: Symbol '$name' is already defined.",
+            );
+          }
           // GEN-100 FIX: Import wins for value conflicts too.
           // This handles cases where a pre-registered function or variable
           // is overwritten by an explicit import.
@@ -1016,6 +1032,11 @@ class Environment {
       if (_bridgedClasses.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
+        if (errorOnConflict) {
+          throw RuntimeD4rtException(
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
+        }
         // GEN-100 FIX: Import values can override pre-registered bridged
         // types when a library re-exports something with the same name.
         Logger.debug(
@@ -1031,6 +1052,11 @@ class Environment {
         // Allow if it's the same bridged class (identity check)
         if (identical(_bridgedClasses[name], bridgedClass)) {
           return;
+        }
+        if (errorOnConflict) {
+          throw RuntimeD4rtException(
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // GEN-100 FIX: When a bridged class with the same name but different
         // definition exists (e.g., dart:ui.TextStyle pre-registered vs
@@ -1048,6 +1074,11 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
+        if (errorOnConflict) {
+          throw RuntimeD4rtException(
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
+        }
         // Cluster A fix: a local script-level declaration (interpreted enum,
         // class, function, or top-level variable) shadows an imported bridged
         // class with the same name. Per Dart import semantics local
@@ -1070,6 +1101,11 @@ class Environment {
         if (identical(_bridgedEnums[name], bridgedEnum)) {
           return;
         }
+        if (errorOnConflict) {
+          throw RuntimeD4rtException(
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
+        }
         // GEN-100 FIX: Import wins for enum conflicts too.
         Logger.debug(
           "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
@@ -1081,6 +1117,11 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedClasses.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
+        if (errorOnConflict) {
+          throw RuntimeD4rtException(
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
+        }
         // Cluster A fix: local declaration shadows imported bridged enum.
         // See comment on the bridged-class branch above.
         Logger.debug(
