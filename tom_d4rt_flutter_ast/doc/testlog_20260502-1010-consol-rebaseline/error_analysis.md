@@ -397,10 +397,9 @@ built-in is structurally fragile.
 Net cluster impact: −4 reds (−2 in `tom_d4rt`, −2 in
 `tom_d4rt_exec`).
 
-### Cluster RETURNTYPE — Null return for non-nullable not caught (2 fails)
+### Cluster RETURNTYPE — Null return for non-nullable not caught (2 fails) — **CLOSED 2026-05-02**
 
-Sites: `tom_d4rt` (`I-MISC-212`), `tom_d4rt_exec` (`I-MISC-212` is
-inside the existing 25 — confirm via `_failures.md`).
+Sites: `tom_d4rt` (`I-MISC-212`).
 
 Symptom (`I-MISC-212`):
 
@@ -408,25 +407,64 @@ Symptom (`I-MISC-212`):
 > from the function 'getObjectWrong' because it has a return type
 > of 'Object'."` — actual returned `<null>` silently.
 
-**Root cause.** `visitReturnStatement` does not assert
-non-nullability of the declared return type when the returned
-expression evaluates to `null`. This is a strict-typing gap: the
-checker is only firing on type-mismatch, not on the
-nullable/non-nullable distinction.
+**Actual root cause — cross-sync gap, not a missing check.**
+The runtime type check at the existing site
+(`tom_d4rt/lib/src/interpreter_visitor.dart:6017`) only fires when
+`!valueRuntimeType.isSubtypeOf(declaredType, ...)`. For
+`return null` against a declared `Object` the runtime's subtype
+relation follows legacy Dart rules (`Null <: T` for any `T`), so
+the assignability branch returns `true` and the throw is skipped.
+The remaining special-case at line 6029 (`declaredType.name ==
+"Object" && returnValue != null`) only suppresses the error in
+the *non-null* direction.
 
-**Fix.**
+The **AST-side interpreter
+(`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart:6862`)
+already had** an explicit null-vs-non-nullable check ahead of the
+subtype block. `tom_d4rt_exec` therefore passed I-MISC-212 already
+(it routes through the AST runtime). `tom_d4rt` had been left
+behind during a prior cross-sync — only one half of the change
+landed.
 
-1. In `interpreter_visitor.dart` (both copies), at
-   `visitReturnStatement`, if the declared function return type
-   is non-nullable and the returned value is `null`, raise:
-   ```
-   A value of type 'Null' can't be returned from the function '<name>'
-   because it has a return type of '<DeclaredType>'.
-   ```
-2. The check must be additive — do not loosen the existing
-   assignability check.
-3. Run `dart test test/interpreter_test.dart` in `tom_d4rt` and
-   `tom_d4rt_exec`. Closing this removes 1–2 failures.
+**Fix.** Mirror the AST-side check into
+`tom_d4rt/lib/src/interpreter_visitor.dart`, inserted right after
+the declared/value type debug logging and before the existing
+subtype block:
+
+```dart
+// Cluster RETURNTYPE / I-MISC-212: Returning `null` from a function
+// with a non-nullable declared return type must throw, even when the
+// legacy `Null.isSubtypeOf(T)` rule would let the value pass.
+if (returnValue == null &&
+    declaredType != null &&
+    !isNullable &&
+    declaredType.name != 'void' &&
+    declaredType.name != 'dynamic') {
+  throw RuntimeD4rtException(
+      "A value of type 'Null' can't be returned from the function "
+      "'$functionName' because it has a return type of "
+      "'${declaredType.name}'.");
+}
+```
+
+Additive — does not loosen the existing assignability check.
+
+**Verification (2026-05-02).**
+
+- `tom_d4rt` `dart test test/interpreter_test.dart -N "I-MISC-21"`
+  → 10/10 PASS (was 1 fail). I-MISC-212–215 (the
+  nullable/non-nullable matrix) and I-MISC-217–219 (subtype
+  matrix) all pass.
+- `tom_d4rt` full suite: 1743 tests, 3 pre-existing failures
+  (GEN-056d, DCL-RT-OPT-02, I-BUG-14a). I-MISC-212 cleared, no
+  regressions.
+- `tom_d4rt_exec` full suite: same baseline 4 failures with and
+  without this change (G-DOV2-7, DCL-RT-OPT-02, I-BUG-14a, plus
+  the order-dependent `d4rt_coverage_test setUpAll` flake). No
+  impact — the AST runtime already passed I-MISC-212.
+- `dart analyze`: no new warnings introduced.
+
+Net cluster impact: −1 failure (`tom_d4rt I-MISC-212`).
 
 ### Cluster STDLIB-PI — `dart:math` constants missing in tom_d4rt_ast (2 errors) — **CLOSED 2026-05-02**
 
@@ -893,7 +931,7 @@ unit of work and unblocks downstream verification:
 | 8 | **STDLIB-PI** | −2 errors in `tom_d4rt_ast` (clears project to 0/0) | `tom_d4rt_ast/lib/src/runtime/stdlib/dart_math.dart` |
 | 9 | **HASHSET** | −2 errors in `tom_d4rt` + `tom_d4rt_exec` | `Iterator` bridge (both copies) |
 | 10 | **EXTTYPE** ✓ | CLOSED 2026-05-02 — fix was pass-2 loop, not declaration visitor | `d4rt_base.dart`, `module_loader.dart`, `d4rt_runner.dart`, `ast_module_loader.dart` |
-| 11 | **RETURNTYPE** | −2 failures in `tom_d4rt` + `tom_d4rt_exec` | `runtime/interpreter_visitor.dart` (both copies) |
+| 11 | **RETURNTYPE** ✓ | CLOSED 2026-05-02 — cross-sync gap, `tom_d4rt` only | `tom_d4rt/lib/src/interpreter_visitor.dart` |
 | 12 | **MAP-COERCE** | −1 failure in `tom_dcli_exec` | `D4.coerceArg<T>` Map branch |
 | 13 | **D4RT-TESTER-BUSY** | −1 error in `tom_ast_generator` (env-fragile) | `test/generator_tests/d4rt_tester_test.dart` |
 | 14 | **GEN-056d / DCL-RT-OPT-02 / G-DOV2-7** | −3 failures (per-project own bugs, no cluster) | per project |

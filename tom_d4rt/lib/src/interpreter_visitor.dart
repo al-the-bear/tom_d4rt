@@ -6014,6 +6014,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[visitReturnStatement]   valueRuntimeType.isSubtypeOf(declaredType) = ${valueRuntimeType.isSubtypeOf(declaredType)}");
         }
 
+        // Cluster RETURNTYPE / I-MISC-212: Returning `null` from a function
+        // with a non-nullable declared return type must throw, even when
+        // the legacy `Null.isSubtypeOf(T)` rule would let the value pass.
+        // Mirrors the equivalent check in
+        // tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart.
+        if (returnValue == null &&
+            declaredType != null &&
+            !isNullable &&
+            declaredType.name != 'void' &&
+            declaredType.name != 'dynamic') {
+          throw RuntimeD4rtException(
+              "A value of type 'Null' can't be returned from the function '$functionName' because it has a return type of '${declaredType.name}'.");
+        }
+
         if (valueRuntimeType != null) {
           if (declaredType != null) {
             if (declaredType.name != "dynamic" &&
