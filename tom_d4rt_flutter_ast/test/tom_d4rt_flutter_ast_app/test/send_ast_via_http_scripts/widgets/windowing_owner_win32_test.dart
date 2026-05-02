@@ -1,22 +1,49 @@
-// D4rt AST demo: WindowingOwnerWin32 — a deep educational tour of Flutter's
-// Win32 windowing owner, rendered as a "control tower" with simulated Win32
-// chrome. This file is intentionally long, self-contained, and does not
-// attempt to actually instantiate the (internal, experimental) windowing
-// APIs. Everything is mocked in pure Flutter widgets.
-//
-// The subject class is `WindowingOwnerWin32` — a concrete, platform-specific
-// implementation of the abstract `WindowingOwner` that lives inside the
-// Flutter SDK at `package:flutter/src/widgets/_window_win32.dart`. Because
-// the symbol is marked `@internal` and guarded by `isWindowingEnabled`, we
-// do not import it. Instead we describe, diagram, and simulate its behavior.
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 
-import 'dart:math' as math;
+// =============================================================================
+//  D4rt AST deep demo: WindowingOwnerWin32
+// -----------------------------------------------------------------------------
+//
+//  Subject of study:
+//      package:flutter/src/widgets/_window_win32.dart   (Flutter SDK)
+//      class WindowingOwnerWin32 extends WindowingOwner
+//      class RegularWindowControllerWin32 extends RegularWindowController
+//      mixin class RegularWindowControllerDelegate
+//
+//  SDK gap:
+//      The whole windowing API surface is gated behind `@internal` annotations
+//      and an `isWindowingEnabled` runtime flag. The library file is
+//      underscore-prefixed (`_window_win32.dart`), is NOT exported through
+//      `package:flutter/widgets.dart`, and the comment at the top of the file
+//      explicitly forbids importing it from production code. This demo is a
+//      live, pure-Flutter mirror of the API shape so we can exercise it as
+//      compiled Dart code instead of leaving it as inert documentation prose.
+//
+//  Cross-references (cite-by-line so future readers can re-find the originals):
+//      - _window_win32.dart:33    `typedef HWND = ffi.Pointer<ffi.Void>;`
+//      - _window_win32.dart:93    `class WindowingOwnerWin32 extends WindowingOwner`
+//      - _window_win32.dart:106   `WindowingOwnerWin32() : allocator = _CallocAllocator()`
+//      - _window_win32.dart:139   `createRegularWindowController(...) -> RegularWindowControllerWin32`
+//      - _window_win32.dart:274   `class RegularWindowControllerWin32 extends RegularWindowController`
+//      - _window_win32.dart:369   `setSize` ... :376 `setConstraints` ... :392 `activate`
+//      - _window_win32.dart:399   `setMaximized` ... :410 `setMinimized` ... :421 `setFullscreen`
+//      - _window_win32.dart:447   `destroy()`
+//      - _window.dart:111         `mixin class RegularWindowControllerDelegate`
+//      - _window.dart:191         `abstract class RegularWindowController extends BaseWindowController`
+//      - _window.dart:905         `abstract class WindowingOwner`
+//
+//  Visual concept:
+//      A "Win32 control tower" — the demo renders a fake Windows desktop, a
+//      taskbar, and several mirror windows whose chrome is driven by the local
+//      `WindowingOwnerWin32` mirror (right-aligned min/max/close buttons,
+//      caption bars, taskbar entries, snap layouts).
+// =============================================================================
 
 import 'package:flutter/material.dart';
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //  Entry point used by the D4rt AST harness.
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 dynamic build(BuildContext context) {
   return const MaterialApp(
@@ -26,63 +53,407 @@ dynamic build(BuildContext context) {
   );
 }
 
-// ---------------------------------------------------------------------------
-//  Design tokens: Win32 / aero-glass inspired palette.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 1 — Local SDK mirror.
+//
+//  Faithful (not byte-for-byte; the originals depend on `dart:ffi` and the
+//  embedder-specific platform interface) mirror of the windowing surface we
+//  want to exercise. Method names and signatures track the SDK so that
+//  `dart analyze` validates the call sites we use later.
+// =============================================================================
 
-class _Wow32Palette {
-  const _Wow32Palette();
+/// Mirror of `HWND` from `_window_win32.dart:33`. The SDK declares it as a
+/// `ffi.Pointer<ffi.Void>`. We model it as an opaque integer so the mirror
+/// stays self-contained but still has a non-trivial nominal type.
+class HwndMirror {
+  const HwndMirror(this.address);
+  final int address;
 
-  // Cool slate backdrop, evocative of a Win32 desktop wallpaper.
+  @override
+  String toString() => '0x${address.toRadixString(16).padLeft(8, '0')}';
+
+  @override
+  bool operator ==(Object other) => other is HwndMirror && other.address == address;
+
+  @override
+  int get hashCode => address.hashCode;
+}
+
+/// Mirror of `_window.dart:111` `mixin class RegularWindowControllerDelegate`.
+/// The SDK exposes two hooks: `onWindowCloseRequested` and `onWindowDestroyed`.
+class RegularWindowControllerDelegateMirror {
+  RegularWindowControllerDelegateMirror({
+    this.onClose,
+    this.onDestroyed,
+    this.shouldVetoClose,
+  });
+
+  /// Optional veto predicate. When it returns true, the delegate refuses
+  /// to destroy the window (mirrors the standard "unsaved changes" pattern
+  /// app authors implement on top of the real delegate).
+  final bool Function(RegularWindowControllerWin32Mirror controller)? shouldVetoClose;
+
+  final void Function(RegularWindowControllerWin32Mirror controller)? onClose;
+  final void Function(RegularWindowControllerWin32Mirror controller)? onDestroyed;
+
+  /// Mirror of `_window.dart:123 onWindowCloseRequested`.
+  void onWindowCloseRequested(RegularWindowControllerWin32Mirror controller) {
+    if (shouldVetoClose?.call(controller) ?? false) {
+      controller._owner._log.add('CLOSE vetoed for "${controller.title}"');
+      return;
+    }
+    onClose?.call(controller);
+    controller.destroy();
+  }
+
+  /// Mirror of `_window.dart:139 onWindowDestroyed`.
+  void onWindowDestroyed(RegularWindowControllerWin32Mirror controller) {
+    onDestroyed?.call(controller);
+  }
+}
+
+/// Mirror of `_window.dart:191 abstract class RegularWindowController`.
+abstract class RegularWindowControllerMirror extends ChangeNotifier {
+  RegularWindowControllerMirror.empty();
+
+  String get title;
+  bool get isActivated;
+  bool get isMaximized;
+  bool get isMinimized;
+  bool get isFullscreen;
+  Size get contentSize;
+
+  void setSize(Size size);
+  void setConstraints(BoxConstraints constraints);
+  void setTitle(String title);
+  void activate();
+  void setMaximized(bool maximized);
+  void setMinimized(bool minimized);
+  void setFullscreen(bool fullscreen);
+  void destroy();
+}
+
+/// Mirror of `_window.dart:905 abstract class WindowingOwner`.
+abstract class WindowingOwnerMirror {
+  RegularWindowControllerWin32Mirror createRegularWindowController({
+    required RegularWindowControllerDelegateMirror delegate,
+    Size? preferredSize,
+    BoxConstraints? preferredConstraints,
+    String? title,
+  });
+}
+
+/// Tiny event log so the visualization can show the message pump in action.
+class EventLogMirror extends ChangeNotifier {
+  final List<String> entries = <String>[];
+
+  void add(String entry) {
+    entries.add(entry);
+    if (entries.length > 200) {
+      entries.removeRange(0, entries.length - 200);
+    }
+    notifyListeners();
+  }
+
+  void clear() {
+    entries.clear();
+    notifyListeners();
+  }
+}
+
+/// Mirror of `_window_win32.dart:93 class WindowingOwnerWin32`.
+///
+/// In the real SDK the constructor wires up an FFI pump
+/// (`_Win32PlatformInterface.initializeWindowing`). Here we keep an in-memory
+/// list of windows and an event log so the demo can render the lifecycle
+/// without touching native code.
+class WindowingOwnerWin32Mirror extends WindowingOwnerMirror {
+  WindowingOwnerWin32Mirror({EventLogMirror? log}) : _log = log ?? EventLogMirror() {
+    _log.add('WindowingOwnerWin32 constructed (mirror)');
+  }
+
+  final EventLogMirror _log;
+  EventLogMirror get log => _log;
+
+  final List<RegularWindowControllerWin32Mirror> windows =
+      <RegularWindowControllerWin32Mirror>[];
+
+  int _nextHandle = 0x00010000;
+
+  HwndMirror _allocateHandle() {
+    _nextHandle += 0x10;
+    return HwndMirror(_nextHandle);
+  }
+
+  @override
+  RegularWindowControllerWin32Mirror createRegularWindowController({
+    required RegularWindowControllerDelegateMirror delegate,
+    Size? preferredSize,
+    BoxConstraints? preferredConstraints,
+    String? title,
+  }) {
+    final controller = RegularWindowControllerWin32Mirror._(
+      owner: this,
+      delegate: delegate,
+      handle: _allocateHandle(),
+      preferredSize: preferredSize ?? const Size(720, 480),
+      preferredConstraints: preferredConstraints ??
+          const BoxConstraints(minWidth: 320, minHeight: 240),
+      title: title ?? 'Regular window',
+    );
+    windows.add(controller);
+    _log.add('CreateRegularWindow ${controller.handle} "${controller.title}"');
+    _activate(controller);
+    return controller;
+  }
+
+  void _activate(RegularWindowControllerWin32Mirror controller) {
+    for (final w in windows) {
+      if (w._activated && w != controller) {
+        w._activated = false;
+        w._notify();
+      }
+    }
+    controller._activated = true;
+    controller._notify();
+    _log.add('WM_ACTIVATE ${controller.handle}');
+  }
+
+  void _remove(RegularWindowControllerWin32Mirror controller) {
+    windows.remove(controller);
+    _log.add('WM_DESTROY ${controller.handle}');
+    if (windows.isNotEmpty) {
+      _activate(windows.last);
+    }
+  }
+}
+
+/// Mirror of `_window_win32.dart:274 class RegularWindowControllerWin32`.
+class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
+  RegularWindowControllerWin32Mirror._({
+    required WindowingOwnerWin32Mirror owner,
+    required RegularWindowControllerDelegateMirror delegate,
+    required this.handle,
+    required Size preferredSize,
+    required BoxConstraints preferredConstraints,
+    required String title,
+  })  : _owner = owner,
+        _delegate = delegate,
+        _title = title,
+        _size = preferredSize,
+        _constraints = preferredConstraints,
+        super.empty();
+
+  final WindowingOwnerWin32Mirror _owner;
+  final RegularWindowControllerDelegateMirror _delegate;
+  final HwndMirror handle;
+
+  String _title;
+  Size _size;
+  BoxConstraints _constraints;
+  bool _activated = false;
+  bool _maximized = false;
+  bool _minimized = false;
+  bool _fullscreen = false;
+  bool _flashing = false;
+  bool _destroyed = false;
+
+  bool get flashing => _flashing;
+
+  @override
+  String get title => _title;
+
+  @override
+  bool get isActivated => _activated;
+
+  @override
+  bool get isMaximized => _maximized;
+
+  @override
+  bool get isMinimized => _minimized;
+
+  @override
+  bool get isFullscreen => _fullscreen;
+
+  @override
+  Size get contentSize => _size;
+
+  BoxConstraints get constraints => _constraints;
+
+  void _ensureLive() {
+    if (_destroyed) {
+      throw StateError('Window has been destroyed.');
+    }
+  }
+
+  void _notify() {
+    if (!_destroyed) {
+      notifyListeners();
+    }
+  }
+
+  @override
+  void setSize(Size size) {
+    _ensureLive();
+    final clamped = _constraints.constrain(size);
+    _size = clamped;
+    _owner._log.add('setSize $handle -> $clamped');
+    _notify();
+  }
+
+  /// Win32-specific helper exposed via the mirror only — handy for sliders.
+  void setMinimumSize(Size size) {
+    _ensureLive();
+    _constraints = _constraints.copyWith(minWidth: size.width, minHeight: size.height);
+    _owner._log.add('setMinimumSize $handle -> $size');
+    _notify();
+  }
+
+  /// Win32-specific helper exposed via the mirror only.
+  void setMaximumSize(Size size) {
+    _ensureLive();
+    _constraints = _constraints.copyWith(maxWidth: size.width, maxHeight: size.height);
+    _owner._log.add('setMaximumSize $handle -> $size');
+    _notify();
+  }
+
+  @override
+  void setConstraints(BoxConstraints constraints) {
+    _ensureLive();
+    _constraints = constraints;
+    _owner._log.add('setConstraints $handle -> $constraints');
+    _notify();
+  }
+
+  @override
+  void setTitle(String title) {
+    _ensureLive();
+    _title = title;
+    _owner._log.add('SetWindowTextW $handle -> "$title"');
+    _notify();
+  }
+
+  @override
+  void activate() {
+    _ensureLive();
+    _owner._activate(this);
+  }
+
+  /// Mirror of the SDK's `deactivate` semantics. The real SDK does not expose
+  /// a public method called `deactivate`, but losing focus is observable via
+  /// `WM_ACTIVATE` with `wParam == WA_INACTIVE`. We surface it explicitly so
+  /// the demo can drive the activation state from a button.
+  void deactivate() {
+    _ensureLive();
+    _activated = false;
+    _owner._log.add('WM_ACTIVATE inactive $handle');
+    _notify();
+  }
+
+  @override
+  void setMaximized(bool maximized) {
+    _ensureLive();
+    _maximized = maximized;
+    if (maximized) {
+      _minimized = false;
+    }
+    _owner._log.add('ShowWindow ${maximized ? "SW_MAXIMIZE" : "SW_RESTORE"} $handle');
+    _notify();
+  }
+
+  @override
+  void setMinimized(bool minimized) {
+    _ensureLive();
+    _minimized = minimized;
+    if (minimized) {
+      _activated = false;
+    }
+    _owner._log.add('ShowWindow ${minimized ? "SW_MINIMIZE" : "SW_RESTORE"} $handle');
+    _notify();
+  }
+
+  @override
+  void setFullscreen(bool fullscreen) {
+    _ensureLive();
+    _fullscreen = fullscreen;
+    _owner._log.add('SetFullscreen $handle -> $fullscreen');
+    _notify();
+  }
+
+  /// Mirror of the Win32 `FlashWindowEx` / `FlashWindow` request to draw user
+  /// attention to the taskbar entry. The real SDK does not yet expose this
+  /// through `WindowingOwnerWin32`, but it is one of the recipes the demo
+  /// describes — so we expose it on the mirror.
+  void flashTaskbar({bool flashing = true}) {
+    _ensureLive();
+    _flashing = flashing;
+    _owner._log.add('FlashWindowEx $handle -> $flashing');
+    _notify();
+  }
+
+  @override
+  void destroy() {
+    if (_destroyed) {
+      return;
+    }
+    _destroyed = true;
+    _owner._remove(this);
+    _delegate.onWindowDestroyed(this);
+    notifyListeners();
+  }
+
+  /// Mirror of the close-request path: in the SDK the WM_CLOSE message is
+  /// delivered by the message pump and routed to the delegate. We expose a
+  /// helper so the demo button can drive the same code path.
+  void requestClose() {
+    if (_destroyed) {
+      return;
+    }
+    _owner._log.add('WM_CLOSE $handle');
+    _delegate.onWindowCloseRequested(this);
+  }
+}
+
+// =============================================================================
+//  Section 2 — Design tokens.
+// =============================================================================
+
+class _Palette {
   static const Color desktopTop = Color(0xFF1E3A5F);
-  static const Color desktopMid = Color(0xFF2C5178);
   static const Color desktopBottom = Color(0xFF3A6C9A);
+  static const Color taskbar = Color(0xFF1C2734);
+  static const Color taskbarHi = Color(0xFF2A394A);
 
-  // Taskbar: dark steel with a faint blue tint.
-  static const Color taskbarBase = Color(0xFF1C2734);
-  static const Color taskbarHighlight = Color(0xFF2A394A);
+  static const Color chromeActiveTop = Color(0xFF3D7DC4);
+  static const Color chromeActiveBottom = Color(0xFF1F4F8B);
+  static const Color chromeInactive = Color(0xFFB6C0CC);
 
-  // Window chrome.
-  static const Color chromeActiveTop = Color(0xFFB8CCE4);
-  static const Color chromeActiveBottom = Color(0xFF7FA4C9);
-  static const Color chromeInactiveTop = Color(0xFFD4D9DF);
-  static const Color chromeInactiveBottom = Color(0xFFA8B1BA);
-
-  // Panels and cards in the control-tower scaffolding.
-  static const Color panelBg = Color(0xFFF3F5F8);
+  static const Color panel = Color(0xFFF3F5F8);
   static const Color panelStroke = Color(0xFFC9D1DB);
   static const Color panelStrokeStrong = Color(0xFF7A8A9E);
 
-  // Accents.
   static const Color accentBlue = Color(0xFF2E6FC9);
   static const Color accentTeal = Color(0xFF1E8A8A);
   static const Color accentAmber = Color(0xFFD08A2A);
   static const Color accentRed = Color(0xFFC0392B);
   static const Color accentGreen = Color(0xFF2E8B57);
 
-  // Text.
   static const Color textPrimary = Color(0xFF13202F);
   static const Color textSecondary = Color(0xFF425468);
   static const Color textMuted = Color(0xFF7A8A9E);
   static const Color textOnDark = Color(0xFFE8EEF5);
 
-  // Code block.
   static const Color codeBg = Color(0xFF13202F);
-  static const Color codeAccent = Color(0xFF6FAEE8);
   static const Color codeText = Color(0xFFDCE4EE);
+  static const Color codeAccent = Color(0xFF6FAEE8);
 }
 
-// Text styles tuned to feel Segoe-flavored. We cannot guarantee the font is
-// actually installed, so we rely on system sans-serif fallbacks and tune the
-// weight/tracking to approximate a Win32 feel.
-class _Wow32TextStyles {
-  const _Wow32TextStyles();
-
+class _Type {
   static const TextStyle pageTitle = TextStyle(
     fontFamily: 'Segoe UI',
     fontSize: 30,
     fontWeight: FontWeight.w300,
-    color: _Wow32Palette.textOnDark,
+    color: _Palette.textOnDark,
     letterSpacing: 0.25,
     height: 1.1,
   );
@@ -90,7 +461,6 @@ class _Wow32TextStyles {
   static const TextStyle pageSubtitle = TextStyle(
     fontFamily: 'Segoe UI',
     fontSize: 14,
-    fontWeight: FontWeight.w400,
     color: Color(0xFFB7C4D6),
     height: 1.4,
   );
@@ -99,737 +469,42 @@ class _Wow32TextStyles {
     fontFamily: 'Segoe UI',
     fontSize: 22,
     fontWeight: FontWeight.w500,
-    color: _Wow32Palette.textPrimary,
-    letterSpacing: 0.15,
+    color: _Palette.textPrimary,
   );
 
-  static const TextStyle sectionIntro = TextStyle(
-    fontFamily: 'Segoe UI',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: _Wow32Palette.textSecondary,
-    height: 1.45,
-  );
-
-  static const TextStyle cardTitle = TextStyle(
-    fontFamily: 'Segoe UI',
-    fontSize: 15,
-    fontWeight: FontWeight.w600,
-    color: _Wow32Palette.textPrimary,
-    letterSpacing: 0.1,
-  );
-
-  static const TextStyle cardBody = TextStyle(
+  static const TextStyle body = TextStyle(
     fontFamily: 'Segoe UI',
     fontSize: 13,
-    fontWeight: FontWeight.w400,
-    color: _Wow32Palette.textSecondary,
-    height: 1.45,
+    color: _Palette.textPrimary,
+    height: 1.5,
   );
 
-  static const TextStyle label = TextStyle(
+  static const TextStyle small = TextStyle(
     fontFamily: 'Segoe UI',
     fontSize: 11,
-    fontWeight: FontWeight.w600,
-    color: _Wow32Palette.textMuted,
-    letterSpacing: 1.3,
+    color: _Palette.textSecondary,
+    height: 1.4,
   );
 
   static const TextStyle code = TextStyle(
-    fontFamily: 'monospace',
-    fontSize: 12.5,
-    fontWeight: FontWeight.w400,
-    color: _Wow32Palette.codeText,
+    fontFamily: 'Consolas',
+    fontSize: 12,
+    color: _Palette.codeText,
     height: 1.45,
   );
 
-  static const TextStyle logLine = TextStyle(
-    fontFamily: 'monospace',
-    fontSize: 11.5,
-    fontWeight: FontWeight.w400,
-    color: _Wow32Palette.textSecondary,
-    height: 1.35,
+  static const TextStyle caption = TextStyle(
+    fontFamily: 'Segoe UI',
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    color: _Palette.textOnDark,
+    letterSpacing: 0.4,
   );
 }
 
-// ---------------------------------------------------------------------------
-//  Desktop backdrop painter — simulates a Win32 wallpaper and taskbar.
-// ---------------------------------------------------------------------------
-
-class _Wow32DesktopBackdropPainter extends CustomPainter {
-  _Wow32DesktopBackdropPainter({required this.clockText});
-
-  final String clockText;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Rect bounds = Offset.zero & size;
-
-    // Wallpaper gradient.
-    final Paint gradientPaint = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          _Wow32Palette.desktopTop,
-          _Wow32Palette.desktopMid,
-          _Wow32Palette.desktopBottom,
-        ],
-        stops: <double>[0.0, 0.55, 1.0],
-      ).createShader(bounds);
-    canvas.drawRect(bounds, gradientPaint);
-
-    // Subtle radial spotlight in the upper-left, evoking a Vista-era gloss.
-    final Paint spotlight = Paint()
-      ..shader = RadialGradient(
-        center: const Alignment(-0.6, -0.8),
-        radius: 0.9,
-        colors: <Color>[
-          Colors.white.withValues(alpha: 0.12),
-          Colors.white.withValues(alpha: 0.0),
-        ],
-      ).createShader(bounds);
-    canvas.drawRect(bounds, spotlight);
-
-    // Scan-line grid hinting at pixel density, very faint.
-    final Paint grid = Paint()
-      ..color = Colors.white.withValues(alpha: 0.04)
-      ..strokeWidth = 1.0;
-    for (double y = 0; y < size.height; y += 48) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
-    }
-    for (double x = 0; x < size.width; x += 64) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-    }
-
-    // Taskbar strip along the bottom.
-    const double taskbarHeight = 44;
-    final Rect taskbar = Rect.fromLTWH(
-      0,
-      size.height - taskbarHeight,
-      size.width,
-      taskbarHeight,
-    );
-    final Paint taskbarPaint = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          _Wow32Palette.taskbarHighlight,
-          _Wow32Palette.taskbarBase,
-        ],
-      ).createShader(taskbar);
-    canvas.drawRect(taskbar, taskbarPaint);
-
-    // Thin blue glow line along the top edge of the taskbar.
-    final Paint taskbarGlow = Paint()
-      ..color = const Color(0xFF3A78C0).withValues(alpha: 0.55)
-      ..strokeWidth = 1.2;
-    canvas.drawLine(
-      Offset(0, taskbar.top),
-      Offset(size.width, taskbar.top),
-      taskbarGlow,
-    );
-
-    // Start button — rounded pill with a Windows-flag mark.
-    final Rect startBtn = Rect.fromLTWH(10, taskbar.top + 6, 52, 32);
-    final RRect startRR = RRect.fromRectAndRadius(
-      startBtn,
-      const Radius.circular(4),
-    );
-    final Paint startFill = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          const Color(0xFF2A4C7A).withValues(alpha: 0.9),
-          const Color(0xFF1A3556).withValues(alpha: 0.9),
-        ],
-      ).createShader(startBtn);
-    canvas.drawRRect(startRR, startFill);
-    canvas.drawRRect(
-      startRR,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1
-        ..color = const Color(0xFF4F7DB5).withValues(alpha: 0.8),
-    );
-    _paintWindowsFlag(canvas, Rect.fromLTWH(startBtn.left + 14, startBtn.top + 6, 22, 20));
-
-    // Pinned taskbar icons (three faux squares).
-    for (int i = 0; i < 3; i++) {
-      final Rect icon = Rect.fromLTWH(
-        72.0 + i * 44.0,
-        taskbar.top + 8,
-        32,
-        28,
-      );
-      final RRect iconRR = RRect.fromRectAndRadius(icon, const Radius.circular(3));
-      canvas.drawRRect(
-        iconRR,
-        Paint()..color = Colors.white.withValues(alpha: 0.06),
-      );
-      canvas.drawRRect(
-        iconRR,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1
-          ..color = Colors.white.withValues(alpha: 0.14),
-      );
-      final TextPainter glyph = TextPainter(
-        text: TextSpan(
-          text: <String>['F', 'E', 'V'][i],
-          style: const TextStyle(
-            fontFamily: 'Segoe UI',
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFFBDD1EA),
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      glyph.paint(
-        canvas,
-        Offset(
-          icon.left + (icon.width - glyph.width) / 2,
-          icon.top + (icon.height - glyph.height) / 2,
-        ),
-      );
-    }
-
-    // Tray clock on the right.
-    final TextPainter clockPainter = TextPainter(
-      text: TextSpan(
-        text: clockText,
-        style: const TextStyle(
-          fontFamily: 'Segoe UI',
-          fontSize: 12,
-          color: _Wow32Palette.textOnDark,
-          height: 1.2,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    clockPainter.paint(
-      canvas,
-      Offset(
-        size.width - clockPainter.width - 14,
-        taskbar.top + (taskbarHeight - clockPainter.height) / 2,
-      ),
-    );
-
-    // Tray separator line.
-    final Paint traySep = Paint()
-      ..color = Colors.white.withValues(alpha: 0.08)
-      ..strokeWidth = 1;
-    final double sepX = size.width - clockPainter.width - 28;
-    canvas.drawLine(
-      Offset(sepX, taskbar.top + 8),
-      Offset(sepX, taskbar.bottom - 8),
-      traySep,
-    );
-  }
-
-  void _paintWindowsFlag(Canvas canvas, Rect rect) {
-    final double cw = rect.width / 2;
-    final double ch = rect.height / 2;
-    const List<Color> quadColors = <Color>[
-      Color(0xFFF25022), // top-left (red)
-      Color(0xFF7FBA00), // top-right (green)
-      Color(0xFF00A4EF), // bottom-left (blue)
-      Color(0xFFFFB900), // bottom-right (amber)
-    ];
-    for (int r = 0; r < 2; r++) {
-      for (int c = 0; c < 2; c++) {
-        final Rect quad = Rect.fromLTWH(
-          rect.left + c * cw + 1,
-          rect.top + r * ch + 1,
-          cw - 2,
-          ch - 2,
-        );
-        canvas.drawRect(quad, Paint()..color = quadColors[r * 2 + c]);
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _Wow32DesktopBackdropPainter old) {
-    return old.clockText != clockText;
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Win32-style window chrome painter.
-// ---------------------------------------------------------------------------
-
-enum _Wow32WindowKind { regular, dialog, popup, tooltip }
-
-class _Wow32ChromePainter extends CustomPainter {
-  _Wow32ChromePainter({
-    required this.focused,
-    required this.kind,
-    required this.pulse,
-  });
-
-  final bool focused;
-  final _Wow32WindowKind kind;
-  final double pulse; // 0..1, used to animate focus glow.
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Rect bounds = Offset.zero & size;
-    const double titleBarH = 30;
-    final Rect titleRect = Rect.fromLTWH(0, 0, size.width, titleBarH);
-    final Rect bodyRect = Rect.fromLTWH(0, titleBarH, size.width, size.height - titleBarH);
-
-    // Body background.
-    canvas.drawRect(
-      bodyRect,
-      Paint()..color = const Color(0xFFFAFBFD),
-    );
-
-    // Title bar gradient — aero-ish.
-    final List<Color> topColors = focused
-        ? <Color>[_Wow32Palette.chromeActiveTop, _Wow32Palette.chromeActiveBottom]
-        : <Color>[_Wow32Palette.chromeInactiveTop, _Wow32Palette.chromeInactiveBottom];
-    final Paint titlePaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: topColors,
-      ).createShader(titleRect);
-    canvas.drawRect(titleRect, titlePaint);
-
-    // Soft inner highlight on the top edge of the title bar.
-    final Paint highlight = Paint()
-      ..color = Colors.white.withValues(alpha: focused ? 0.45 : 0.25)
-      ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(0, 0.5),
-      Offset(size.width, 0.5),
-      highlight,
-    );
-
-    // Focus pulse — a subtle cyan glow under the title bar when focused.
-    if (focused) {
-      final Paint glow = Paint()
-        ..color = const Color(0xFF6FAEE8)
-            .withValues(alpha: 0.15 + 0.15 * pulse)
-        ..strokeWidth = 1.5;
-      canvas.drawLine(
-        Offset(0, titleBarH - 0.75),
-        Offset(size.width, titleBarH - 0.75),
-        glow,
-      );
-    }
-
-    // Frame border.
-    final Paint border = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = focused
-          ? const Color(0xFF4A6B90)
-          : const Color(0xFF8A97A7);
-    canvas.drawRect(bounds.deflate(0.5), border);
-
-    // Title bar / body separator.
-    final Paint sep = Paint()
-      ..color = focused
-          ? const Color(0xFF4A6B90).withValues(alpha: 0.6)
-          : const Color(0xFF8A97A7).withValues(alpha: 0.6)
-      ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(0, titleBarH),
-      Offset(size.width, titleBarH),
-      sep,
-    );
-
-    // Faux app icon on the left (Win32 titlebar convention).
-    _paintAppIcon(canvas, Rect.fromLTWH(6, 7, 16, 16));
-
-    // Control buttons on the right: min, max, close (kind-dependent).
-    _paintControlButtons(canvas, titleRect);
-
-    // Kind badge painted faintly in the body (e.g. "REGULAR", "DIALOG").
-    final TextPainter badge = TextPainter(
-      text: TextSpan(
-        text: _kindLabel(kind),
-        style: TextStyle(
-          fontFamily: 'Segoe UI',
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 2.0,
-          color: const Color(0xFF13202F).withValues(alpha: 0.12),
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    badge.paint(
-      canvas,
-      Offset(size.width - badge.width - 10, size.height - badge.height - 8),
-    );
-  }
-
-  void _paintAppIcon(Canvas canvas, Rect rect) {
-    // A small four-quadrant flag.
-    final double cw = rect.width / 2;
-    final double ch = rect.height / 2;
-    const List<Color> flag = <Color>[
-      Color(0xFF2E6FC9),
-      Color(0xFF2E8B57),
-      Color(0xFFD08A2A),
-      Color(0xFFC0392B),
-    ];
-    for (int r = 0; r < 2; r++) {
-      for (int c = 0; c < 2; c++) {
-        final Rect quad = Rect.fromLTWH(
-          rect.left + c * cw + 0.5,
-          rect.top + r * ch + 0.5,
-          cw - 1,
-          ch - 1,
-        );
-        canvas.drawRect(quad, Paint()..color = flag[r * 2 + c]);
-      }
-    }
-  }
-
-  void _paintControlButtons(Canvas canvas, Rect titleRect) {
-    // Width per button. Rightmost is always close (unless disabled for
-    // modeless dialog; we paint a disabled state).
-    const double bw = 34;
-    const double bh = 22;
-    final double y = titleRect.top + (titleRect.height - bh) / 2;
-    final List<_ButtonSpec> specs = switch (kind) {
-      _Wow32WindowKind.regular => const <_ButtonSpec>[
-        _ButtonSpec(glyph: _Glyph.minimize, enabled: true, close: false),
-        _ButtonSpec(glyph: _Glyph.maximize, enabled: true, close: false),
-        _ButtonSpec(glyph: _Glyph.close, enabled: true, close: true),
-      ],
-      _Wow32WindowKind.dialog => const <_ButtonSpec>[
-        _ButtonSpec(glyph: _Glyph.minimize, enabled: true, close: false),
-        _ButtonSpec(glyph: _Glyph.close, enabled: false, close: true),
-      ],
-      _Wow32WindowKind.popup => const <_ButtonSpec>[],
-      _Wow32WindowKind.tooltip => const <_ButtonSpec>[],
-    };
-
-    double right = titleRect.right - 2;
-    for (int i = specs.length - 1; i >= 0; i--) {
-      final _ButtonSpec s = specs[i];
-      final Rect btn = Rect.fromLTWH(right - bw, y, bw, bh);
-      right -= bw;
-      final Color bg = s.close
-          ? (s.enabled
-              ? const Color(0xFFE81123).withValues(alpha: 0.0)
-              : Colors.transparent)
-          : Colors.transparent;
-      canvas.drawRect(btn, Paint()..color = bg);
-      _paintGlyph(canvas, btn, s.glyph, s.enabled);
-    }
-  }
-
-  void _paintGlyph(Canvas canvas, Rect btn, _Glyph glyph, bool enabled) {
-    final Paint p = Paint()
-      ..color = enabled
-          ? _Wow32Palette.textPrimary.withValues(alpha: 0.85)
-          : _Wow32Palette.textMuted.withValues(alpha: 0.4)
-      ..strokeWidth = 1.1
-      ..style = PaintingStyle.stroke;
-    final Offset c = btn.center;
-    switch (glyph) {
-      case _Glyph.minimize:
-        canvas.drawLine(
-          Offset(c.dx - 5, c.dy + 3),
-          Offset(c.dx + 5, c.dy + 3),
-          p,
-        );
-      case _Glyph.maximize:
-        canvas.drawRect(
-          Rect.fromCenter(center: c, width: 10, height: 8),
-          p,
-        );
-      case _Glyph.close:
-        canvas.drawLine(
-          Offset(c.dx - 5, c.dy - 4),
-          Offset(c.dx + 5, c.dy + 4),
-          p,
-        );
-        canvas.drawLine(
-          Offset(c.dx - 5, c.dy + 4),
-          Offset(c.dx + 5, c.dy - 4),
-          p,
-        );
-    }
-  }
-
-  String _kindLabel(_Wow32WindowKind k) {
-    return switch (k) {
-      _Wow32WindowKind.regular => 'REGULAR',
-      _Wow32WindowKind.dialog => 'DIALOG',
-      _Wow32WindowKind.popup => 'POPUP',
-      _Wow32WindowKind.tooltip => 'TOOLTIP',
-    };
-  }
-
-  @override
-  bool shouldRepaint(covariant _Wow32ChromePainter old) {
-    return old.focused != focused || old.kind != kind || old.pulse != pulse;
-  }
-}
-
-enum _Glyph { minimize, maximize, close }
-
-class _ButtonSpec {
-  const _ButtonSpec({
-    required this.glyph,
-    required this.enabled,
-    required this.close,
-  });
-  final _Glyph glyph;
-  final bool enabled;
-  final bool close;
-}
-
-// ---------------------------------------------------------------------------
-//  Event routing diagram painter.
-// ---------------------------------------------------------------------------
-
-class _Wow32RoutingPainter extends CustomPainter {
-  _Wow32RoutingPainter({required this.highlightedHop, required this.progress});
-
-  final int highlightedHop; // 0..4, -1 for none.
-  final double progress; // 0..1, for flowing dashed line.
-
-  static const List<String> _hops = <String>[
-    'OS event (e.g. WM_SIZE)',
-    'Win32 message loop',
-    'Flutter engine / windowing bridge',
-    'WindowingOwnerWin32._onMessage',
-    'Framework (WidgetsBinding + frame)',
-  ];
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint bg = Paint()..color = const Color(0xFFF7F9FC);
-    canvas.drawRect(Offset.zero & size, bg);
-
-    final double boxW = (size.width - 80) / _hops.length;
-    const double boxH = 58;
-    final double y = (size.height - boxH) / 2;
-
-    final List<Rect> boxes = <Rect>[];
-    for (int i = 0; i < _hops.length; i++) {
-      final Rect r = Rect.fromLTWH(
-        20 + i * (boxW + (i == 0 ? 0 : 0)) + (i * 10),
-        y,
-        boxW - 10,
-        boxH,
-      );
-      boxes.add(r);
-    }
-
-    // Connector arrows.
-    for (int i = 0; i < boxes.length - 1; i++) {
-      final Offset a = boxes[i].centerRight;
-      final Offset b = boxes[i + 1].centerLeft;
-      final Paint line = Paint()
-        ..color = const Color(0xFFB7C4D6)
-        ..strokeWidth = 1.5;
-      canvas.drawLine(a, b, line);
-      // Arrow head.
-      final Paint head = Paint()
-        ..color = const Color(0xFF7A8A9E)
-        ..style = PaintingStyle.fill;
-      final Path p = Path()
-        ..moveTo(b.dx - 6, b.dy - 4)
-        ..lineTo(b.dx, b.dy)
-        ..lineTo(b.dx - 6, b.dy + 4)
-        ..close();
-      canvas.drawPath(p, head);
-    }
-
-    // Flowing dashed line overlay to indicate active message traffic.
-    final Paint dash = Paint()
-      ..color = _Wow32Palette.accentBlue.withValues(alpha: 0.75)
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-    for (int i = 0; i < boxes.length - 1; i++) {
-      final Offset a = boxes[i].centerRight;
-      final Offset b = boxes[i + 1].centerLeft;
-      final double seg = 6.0;
-      final double gap = 6.0;
-      final double total = (b.dx - a.dx);
-      double x = a.dx + (progress * (seg + gap)) % (seg + gap) - seg;
-      while (x < b.dx) {
-        final double x0 = math.max(a.dx, x);
-        final double x1 = math.min(b.dx, x + seg);
-        if (x1 > x0) {
-          canvas.drawLine(
-            Offset(x0, a.dy),
-            Offset(x1, a.dy),
-            dash,
-          );
-        }
-        x += seg + gap;
-      }
-      // Reference `total` so the analyzer doesn't complain of unused value.
-      // (It influences the offset step via `progress`, but we keep it local.)
-      assert(total >= 0);
-    }
-
-    // Boxes.
-    for (int i = 0; i < boxes.length; i++) {
-      final Rect r = boxes[i];
-      final bool hit = i == highlightedHop;
-      final Paint fill = Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: hit
-              ? <Color>[
-                  _Wow32Palette.accentBlue.withValues(alpha: 0.95),
-                  _Wow32Palette.accentBlue.withValues(alpha: 0.80),
-                ]
-              : <Color>[
-                  Colors.white,
-                  const Color(0xFFE7ECF3),
-                ],
-        ).createShader(r);
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(r, const Radius.circular(6)),
-        fill,
-      );
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(r, const Radius.circular(6)),
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1
-          ..color = hit
-              ? _Wow32Palette.accentBlue
-              : _Wow32Palette.panelStrokeStrong.withValues(alpha: 0.6),
-      );
-      final TextPainter tp = TextPainter(
-        text: TextSpan(
-          text: _hops[i],
-          style: TextStyle(
-            fontFamily: 'Segoe UI',
-            fontSize: 11.5,
-            fontWeight: FontWeight.w600,
-            color: hit ? Colors.white : _Wow32Palette.textPrimary,
-            height: 1.2,
-          ),
-        ),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: r.width - 8);
-      tp.paint(
-        canvas,
-        Offset(
-          r.left + (r.width - tp.width) / 2,
-          r.top + (r.height - tp.height) / 2,
-        ),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _Wow32RoutingPainter old) {
-    return old.highlightedHop != highlightedHop || old.progress != progress;
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Lifecycle timeline painter.
-// ---------------------------------------------------------------------------
-
-class _Wow32TimelinePainter extends CustomPainter {
-  _Wow32TimelinePainter({required this.stage, required this.stageCount});
-
-  final double stage; // 0..stageCount-1
-  final int stageCount;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double padding = 24;
-    final double y = size.height / 2;
-    final double x0 = padding;
-    final double x1 = size.width - padding;
-
-    // Base line.
-    canvas.drawLine(
-      Offset(x0, y),
-      Offset(x1, y),
-      Paint()
-        ..color = _Wow32Palette.panelStroke
-        ..strokeWidth = 3,
-    );
-
-    // Progressed portion.
-    final double progressX = x0 + (x1 - x0) * (stage / (stageCount - 1));
-    canvas.drawLine(
-      Offset(x0, y),
-      Offset(progressX, y),
-      Paint()
-        ..color = _Wow32Palette.accentBlue
-        ..strokeWidth = 3,
-    );
-
-    // Ticks.
-    for (int i = 0; i < stageCount; i++) {
-      final double tx = x0 + (x1 - x0) * (i / (stageCount - 1));
-      final bool reached = i <= stage + 0.01;
-      canvas.drawCircle(
-        Offset(tx, y),
-        6,
-        Paint()
-          ..color = reached
-              ? _Wow32Palette.accentBlue
-              : Colors.white,
-      );
-      canvas.drawCircle(
-        Offset(tx, y),
-        6,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.5
-          ..color = reached
-              ? _Wow32Palette.accentBlue
-              : _Wow32Palette.panelStrokeStrong,
-      );
-    }
-
-    // Moving cursor.
-    canvas.drawCircle(
-      Offset(progressX, y),
-      10,
-      Paint()
-        ..color = _Wow32Palette.accentBlue.withValues(alpha: 0.22),
-    );
-    canvas.drawCircle(
-      Offset(progressX, y),
-      5,
-      Paint()
-        ..color = Colors.white,
-    );
-    canvas.drawCircle(
-      Offset(progressX, y),
-      5,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = _Wow32Palette.accentBlue,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _Wow32TimelinePainter old) {
-    return old.stage != stage || old.stageCount != stageCount;
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Main shell.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 3 — Top-level shell.
+// =============================================================================
 
 class _Wow32Shell extends StatefulWidget {
   const _Wow32Shell();
@@ -838,326 +513,167 @@ class _Wow32Shell extends StatefulWidget {
   State<_Wow32Shell> createState() => _Wow32ShellState();
 }
 
-class _Wow32ShellState extends State<_Wow32Shell>
-    with TickerProviderStateMixin {
-  late final AnimationController _pulseCtrl;
-  late final AnimationController _lifecycleCtrl;
-  late final AnimationController _routingCtrl;
-
-  final List<String> _log = <String>[
-    '[boot] WindowingOwnerWin32 control tower initialized',
-    '[sim ] This demo does not touch the real @internal API',
-  ];
-  int _highlightedHop = -1;
+class _Wow32ShellState extends State<_Wow32Shell> {
+  late final WindowingOwnerWin32Mirror owner;
+  late final List<RegularWindowControllerWin32Mirror> _initialWindows;
 
   @override
   void initState() {
     super.initState();
-    _pulseCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat(reverse: true);
+    owner = WindowingOwnerWin32Mirror();
 
-    _lifecycleCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 14),
-    )..repeat();
-
-    _routingCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..repeat();
+    _initialWindows = <RegularWindowControllerWin32Mirror>[
+      owner.createRegularWindowController(
+        delegate: RegularWindowControllerDelegateMirror(),
+        preferredSize: const Size(640, 420),
+        title: 'Notepad — Untitled',
+      ),
+      owner.createRegularWindowController(
+        delegate: RegularWindowControllerDelegateMirror(),
+        preferredSize: const Size(820, 560),
+        title: 'Explorer — C:\\Users\\dev',
+      ),
+      owner.createRegularWindowController(
+        delegate: RegularWindowControllerDelegateMirror(),
+        preferredSize: const Size(540, 360),
+        title: 'Calculator',
+      ),
+    ];
   }
 
   @override
   void dispose() {
-    _pulseCtrl.dispose();
-    _lifecycleCtrl.dispose();
-    _routingCtrl.dispose();
+    for (final w in List.of(owner.windows)) {
+      w.destroy();
+    }
+    owner.log.dispose();
     super.dispose();
   }
 
-  void _addLog(String line) {
-    setState(() {
-      _log.insert(0, line);
-      if (_log.length > 80) {
-        _log.removeRange(80, _log.length);
-      }
-    });
-    debugPrint('[Wow32] $line');
-  }
-
-  void _highlightHop(int index) {
-    setState(() => _highlightedHop = index);
-    _addLog('[hop ] Highlighted routing hop #$index');
-  }
-
-  String get _clockText {
-    final DateTime now = DateTime.now();
-    final String hh = now.hour.toString().padLeft(2, '0');
-    final String mm = now.minute.toString().padLeft(2, '0');
-    return '$hh:$mm\n${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-  }
-
   @override
   Widget build(BuildContext context) {
+    final TargetPlatform tp = Theme.of(context).platform;
+    final bool live = tp == TargetPlatform.windows;
+
     return Scaffold(
-      backgroundColor: _Wow32Palette.desktopTop,
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // Painted desktop backdrop behind everything.
-          Positioned.fill(
-            child: RepaintBoundary(
-              child: CustomPaint(
-                painter: _Wow32DesktopBackdropPainter(clockText: _clockText),
-              ),
-            ),
+      backgroundColor: const Color(0xFF0A1420),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 80),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _HeroSection(platform: tp, live: live, owner: owner),
+              const SizedBox(height: 28),
+              _AnatomySection(),
+              const SizedBox(height: 28),
+              _MessagePumpSection(),
+              const SizedBox(height: 28),
+              _OwnerInstantiationSection(owner: owner),
+              const SizedBox(height: 28),
+              _ControllerLifecycleSection(owner: owner),
+              const SizedBox(height: 28),
+              _ResizePlaygroundSection(controller: _initialWindows[0]),
+              const SizedBox(height: 28),
+              _MaximizeRestoreSection(controller: _initialWindows[1]),
+              const SizedBox(height: 28),
+              _MinimizeSection(controller: _initialWindows[2]),
+              const SizedBox(height: 28),
+              _FullscreenSection(controller: _initialWindows[1]),
+              const SizedBox(height: 28),
+              _CloseDelegateSection(owner: owner),
+              const SizedBox(height: 28),
+              _MultiWindowSection(owner: owner),
+              const SizedBox(height: 28),
+              _FlashTaskbarSection(controller: _initialWindows[0]),
+              const SizedBox(height: 28),
+              _RecipeGallerySection(),
+              const SizedBox(height: 28),
+              _PitfallsSection(),
+              const SizedBox(height: 28),
+              _ReferenceTableSection(),
+              const SizedBox(height: 28),
+              _EventLogSection(log: owner.log),
+              const SizedBox(height: 32),
+              const _Footer(),
+            ],
           ),
-
-          // Scrollable content column, padded so the taskbar remains visible.
-          Positioned.fill(
-            child: SafeArea(
-              bottom: false,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 52),
-                child: CustomScrollView(
-                  slivers: <Widget>[
-                    SliverToBoxAdapter(child: _buildHeader()),
-                    SliverToBoxAdapter(child: _Wow32Section1Dossier()),
-                    SliverToBoxAdapter(child: _Wow32Section2Anatomy()),
-                    SliverToBoxAdapter(
-                      child: _Wow32Section3Chrome(
-                        pulseCtrl: _pulseCtrl,
-                        onChromeEvent: _addLog,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _Wow32Section4Lifecycle(controller: _lifecycleCtrl),
-                    ),
-                    const SliverToBoxAdapter(child: _Wow32Section5TypeGallery()),
-                    const SliverToBoxAdapter(child: _Wow32Section6PlatformMatrix()),
-                    SliverToBoxAdapter(
-                      child: _Wow32Section7Routing(
-                        controller: _routingCtrl,
-                        highlightedHop: _highlightedHop,
-                        onHopTap: _highlightHop,
-                      ),
-                    ),
-                    const SliverToBoxAdapter(child: _Wow32Section8Recipes()),
-                    const SliverToBoxAdapter(child: _Wow32Section9Comparison()),
-                    SliverToBoxAdapter(child: _Wow32Section10Glossary(log: _log)),
-                    const SliverToBoxAdapter(child: SizedBox(height: 40)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(28, 24, 28, 18),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.18),
-              ),
-            ),
-            alignment: Alignment.center,
-            child: const Icon(
-              Icons.window,
-              size: 28,
-              color: _Wow32Palette.textOnDark,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'WindowingOwnerWin32',
-                  style: _Wow32TextStyles.pageTitle,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Control tower: a deep tour of Flutter\'s Win32 '
-                  'windowing owner — from HWND message plumbing to '
-                  'RegularWindow / DialogWindow / PopupWindow controllers.',
-                  style: _Wow32TextStyles.pageSubtitle,
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 6,
-                  children: const <Widget>[
-                    _Pill(
-                      text: '@internal',
-                      color: _Wow32Palette.accentAmber,
-                    ),
-                    _Pill(
-                      text: 'experimental',
-                      color: _Wow32Palette.accentRed,
-                    ),
-                    _Pill(
-                      text: 'Windows only',
-                      color: _Wow32Palette.accentBlue,
-                    ),
-                    _Pill(
-                      text: 'extends WindowingOwner',
-                      color: _Wow32Palette.accentTeal,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Generic building blocks reused across sections.
-// ---------------------------------------------------------------------------
-
-class _Pill extends StatelessWidget {
-  const _Pill({required this.text, required this.color});
-
-  final String text;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.16),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.6)),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'Segoe UI',
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.4,
-          color: color,
         ),
       ),
     );
   }
 }
 
-class _Panel extends StatelessWidget {
-  const _Panel({
+// =============================================================================
+//  Section 4 — Reusable framework widgets.
+// =============================================================================
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({
     required this.title,
+    required this.subtitle,
     required this.child,
-    this.subtitle,
+    this.icon = Icons.widgets_outlined,
+    this.accent = _Palette.accentBlue,
   });
 
   final String title;
-  final String? subtitle;
+  final String subtitle;
   final Widget child;
+  final IconData icon;
+  final Color accent;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-      padding: const EdgeInsets.all(22),
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: _Wow32Palette.panelBg.withValues(alpha: 0.97),
+        color: _Palette.panel,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _Wow32Palette.panelStroke),
-        boxShadow: <BoxShadow>[
+        border: Border.all(color: _Palette.panelStroke),
+        boxShadow: const <BoxShadow>[
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.22),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
+            color: Color(0x33000000),
+            blurRadius: 10,
+            offset: Offset(0, 3),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(title, style: _Wow32TextStyles.sectionTitle),
-          if (subtitle != null) ...<Widget>[
-            const SizedBox(height: 6),
-            Text(subtitle!, style: _Wow32TextStyles.sectionIntro),
-          ],
-          const SizedBox(height: 16),
-          child,
-        ],
-      ),
-    );
-  }
-}
-
-class _Card extends StatelessWidget {
-  const _Card({
-    required this.title,
-    required this.body,
-    this.icon,
-    this.accent = _Wow32Palette.accentBlue,
-  });
-
-  final String title;
-  final String body;
-  final IconData? icon;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _Wow32Palette.panelStroke),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 26,
-                height: 26,
-                decoration: BoxDecoration(
-                  color: accent.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(6),
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[accent.withValues(alpha: 0.92), accent.withValues(alpha: 0.7)],
+              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+            ),
+            child: Row(
+              children: <Widget>[
+                Icon(icon, color: Colors.white, size: 20),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(title,
+                          style: _Type.sectionTitle.copyWith(color: Colors.white)),
+                      const SizedBox(height: 2),
+                      Text(subtitle,
+                          style: _Type.small.copyWith(
+                            color: const Color(0xFFE8EEF5),
+                          )),
+                    ],
+                  ),
                 ),
-                alignment: Alignment.center,
-                child: Icon(icon ?? Icons.memory, size: 16, color: accent),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(title, style: _Wow32TextStyles.cardTitle),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 10),
-          Text(body, style: _Wow32TextStyles.cardBody),
+          Padding(
+            padding: const EdgeInsets.all(18),
+            child: child,
+          ),
         ],
       ),
     );
@@ -1165,944 +681,322 @@ class _Card extends StatelessWidget {
 }
 
 class _CodeBlock extends StatelessWidget {
-  const _CodeBlock({required this.code, this.caption});
-
+  const _CodeBlock(this.code);
   final String code;
-  final String? caption;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: _Wow32Palette.codeBg,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: _Wow32Palette.codeAccent.withValues(alpha: 0.25),
-            ),
-          ),
-          child: SelectableText(code, style: _Wow32TextStyles.code),
-        ),
-        if (caption != null) ...<Widget>[
-          const SizedBox(height: 6),
-          Text(
-            caption!,
-            style: _Wow32TextStyles.cardBody.copyWith(
-              fontStyle: FontStyle.italic,
-              color: _Wow32Palette.textMuted,
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-class _DataTableLite extends StatelessWidget {
-  const _DataTableLite({required this.headers, required this.rows});
-
-  final List<String> headers;
-  final List<List<String>> rows;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _Wow32Palette.panelStroke),
+        color: _Palette.codeBg,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: const Color(0xFF22384F)),
       ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFFE7ECF3),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              children: <Widget>[
-                for (final String h in headers)
-                  Expanded(
-                    child: Text(
-                      h,
-                      style: _Wow32TextStyles.label.copyWith(
-                        color: _Wow32Palette.textPrimary,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          for (int i = 0; i < rows.length; i++)
-            Container(
-              decoration: BoxDecoration(
-                color: i.isEven ? Colors.white : const Color(0xFFF8FAFC),
-                border: const Border(
-                  top: BorderSide(color: _Wow32Palette.panelStroke, width: 0.5),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (final String c in rows[i])
-                    Expanded(
-                      child: Text(c, style: _Wow32TextStyles.cardBody),
-                    ),
-                ],
-              ),
-            ),
-        ],
-      ),
+      child: Text(code, style: _Type.code),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 1 — Dossier.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section1Dossier extends StatelessWidget {
-  const _Wow32Section1Dossier();
+class _Pill extends StatelessWidget {
+  const _Pill({required this.label, required this.color});
+  final String label;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
-      title: '1. Dossier',
-      subtitle:
-          'Six framing cards describing what WindowingOwnerWin32 is, where it '
-          'fits in Flutter\'s multi-window abstraction, and how applications '
-          'obtain an owner via WidgetsBinding.instance.windowingOwner.',
-      child: LayoutBuilder(
-        builder: (BuildContext ctx, BoxConstraints cons) {
-          final int cols = cons.maxWidth >= 900 ? 3 : 2;
-          return GridView.count(
-            crossAxisCount: cols,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 1.35,
-            children: const <Widget>[
-              _Card(
-                title: 'What it is',
-                body:
-                    'A concrete implementation of the abstract WindowingOwner '
-                    'for the Win32 platform. It owns native HWND creation, '
-                    'dispatches WndProc messages, and returns controllers for '
-                    'regular and dialog windows.',
-                icon: Icons.layers_outlined,
-                accent: _Wow32Palette.accentBlue,
-              ),
-              _Card(
-                title: 'Role in multi-window',
-                body:
-                    'Sits between WidgetsBinding and the engine\'s Windows '
-                    'embedder. Each platform — Win32, macOS, Linux — ships '
-                    'a sibling owner; the framework picks one at startup via '
-                    'createDefaultWindowingOwner().',
-                icon: Icons.hub_outlined,
-                accent: _Wow32Palette.accentTeal,
-              ),
-              _Card(
-                title: 'Platform gating',
-                body:
-                    'The constructor asserts Platform.isWindows and '
-                    'isWindowingEnabled. On any other OS (or when the feature '
-                    'flag is off) it throws UnsupportedError with the canonical '
-                    'experimental-API message.',
-                icon: Icons.shield_outlined,
-                accent: _Wow32Palette.accentAmber,
-              ),
-              _Card(
-                title: 'Contract fulfilled',
-                body:
-                    'Overrides createRegularWindowController and '
-                    'createDialogWindowController with Win32 subclasses. '
-                    'createTooltipWindowController and createPopupWindowController '
-                    'currently throw UnimplementedError — Win32 does not yet '
-                    'implement those flavors.',
-                icon: Icons.checklist_rtl_outlined,
-                accent: _Wow32Palette.accentGreen,
-              ),
-              _Card(
-                title: 'Lifecycle events',
-                body:
-                    'WM_CLOSE → delegate.onWindowCloseRequested. '
-                    'WM_DESTROY → delegate.onWindowDestroyed and handler '
-                    'removal. WM_SIZE and WM_ACTIVATE → notifyListeners on '
-                    'the controller so widgets rebuild.',
-                icon: Icons.timeline_outlined,
-                accent: _Wow32Palette.accentRed,
-              ),
-              _Card(
-                title: 'Obtaining the owner',
-                body:
-                    'Applications do not instantiate WindowingOwnerWin32 '
-                    'directly. They read WidgetsBinding.instance.windowingOwner '
-                    '(set at binding init by createDefaultWindowingOwner()), '
-                    'or simply use RegularWindowController()/DialogWindowController() '
-                    'factories, which internally call the owner.',
-                icon: Icons.api_outlined,
-                accent: _Wow32Palette.accentBlue,
-              ),
-            ],
-          );
-        },
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
+      child: Text(label,
+          style: _Type.small.copyWith(color: color, fontWeight: FontWeight.w600)),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 2 — Anatomy.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 5 — Win32 chrome mirror widget.
+// =============================================================================
 
-class _Wow32Section2Anatomy extends StatelessWidget {
-  const _Wow32Section2Anatomy();
-
-  static const String _classDecl = '''
-// package:flutter/src/widgets/_window_win32.dart
-@internal
-class WindowingOwnerWin32 extends WindowingOwner {
-  WindowingOwnerWin32() : allocator = _CallocAllocator() {
-    if (!isWindowingEnabled) {
-      throw UnsupportedError('Windowing APIs are not enabled.');
-    }
-    if (!Platform.isWindows) {
-      throw UnsupportedError('Only available on the Win32 platform');
-    }
-    _Win32PlatformInterface.initializeWindowing(
-      allocator,
-      WidgetsBinding.instance.platformDispatcher.engineId!,
-      _onMessage,
-    );
-  }
-
-  final ffi.Allocator allocator;
-  final List<_WindowsMessageHandler> _messageHandlers = <_WindowsMessageHandler>[];
-
-  @override
-  RegularWindowController createRegularWindowController({ ... });
-  @override
-  DialogWindowController createDialogWindowController({ ... });
-  @override
-  TooltipWindowController createTooltipWindowController({ ... }); // throws
-  @override
-  PopupWindowController createPopupWindowController({ ... });     // throws
-
-  void _onMessage(ffi.Pointer<_WindowsMessage> message) { ... }
-}''';
-
-  @override
-  Widget build(BuildContext context) {
-    return _Panel(
-      title: '2. Anatomy',
-      subtitle:
-          'The class declaration, pulled verbatim from the pinned Flutter SDK '
-          '(shape-preserving trim), followed by the exposed method/getter '
-          'surface on the controllers it produces.',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const _CodeBlock(
-            code: _classDecl,
-            caption:
-                'WindowingOwnerWin32 is @internal — it is not exported through '
-                '`package:flutter/widgets.dart`. Applications interact with it '
-                'only through WindowingOwner and the public controller factories.',
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'RegularWindowControllerWin32 — visible surface',
-            style: _Wow32TextStyles.cardTitle,
-          ),
-          const SizedBox(height: 8),
-          _DataTableLite(
-            headers: const <String>['Member', 'Kind', 'Purpose'],
-            rows: const <List<String>>[
-              <String>['contentSize', 'getter (Size)',
-                  'Reports drawable area; calls GetWindowRect on the HWND.'],
-              <String>['title', 'getter (String)',
-                  'GetWindowTextW on the HWND via the owner\'s allocator.'],
-              <String>['isActivated', 'getter (bool)',
-                  'True iff GetForegroundWindow() equals the window\'s HWND.'],
-              <String>['isMaximized', 'getter (bool)',
-                  'Wraps the IsZoomed() Win32 API.'],
-              <String>['isMinimized', 'getter (bool)',
-                  'Wraps the IsIconic() Win32 API.'],
-              <String>['isFullscreen', 'getter (bool)',
-                  'Queries the Flutter engine fullscreen flag for the HWND.'],
-              <String>['setSize(size)', 'method',
-                  'Requests a content-size change; platform may clamp.'],
-              <String>['setConstraints(c)', 'method',
-                  'Sets min/max constraints; notifyListeners afterwards.'],
-              <String>['setTitle(t)', 'method',
-                  'SetWindowTextW on the HWND; notifyListeners.'],
-              <String>['activate()', 'method',
-                  'ShowWindow(SW_RESTORE) — brings to front if possible.'],
-              <String>['setMaximized(b)', 'method',
-                  'ShowWindow(SW_MAXIMIZE) or SW_RESTORE.'],
-              <String>['setMinimized(b)', 'method',
-                  'ShowWindow(SW_MINIMIZE) or SW_RESTORE.'],
-              <String>['setFullscreen(b)', 'method',
-                  'Delegates to engine fullscreen transition.'],
-              <String>['getWindowHandle()', 'method',
-                  'Returns the raw HWND (Pointer<Void>) — internal only.'],
-              <String>['destroy()', 'method',
-                  'DestroyWindow + idempotent; fires WM_DESTROY via the loop.'],
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'DialogWindowControllerWin32 — visible surface',
-            style: _Wow32TextStyles.cardTitle,
-          ),
-          const SizedBox(height: 8),
-          _DataTableLite(
-            headers: const <String>['Member', 'Kind', 'Purpose'],
-            rows: const <List<String>>[
-              <String>['parent', 'getter',
-                  'Parent BaseWindowController or null (modeless).'],
-              <String>['contentSize/title/isActivated', 'getters',
-                  'Mirror the regular controller\'s HWND queries.'],
-              <String>['isMinimized', 'getter',
-                  'IsIconic() — dialogs may minimize but not maximize.'],
-              <String>['setSize/setConstraints/setTitle', 'methods',
-                  'As on the regular controller; honored by the platform.'],
-              <String>['activate()', 'method',
-                  'SW_RESTORE — parent dialogs may not take focus away.'],
-              <String>['setMinimized(b)', 'method',
-                  'No-op when parent != null (modal dialogs can\'t minimize).'],
-              <String>['destroy()', 'method',
-                  'DestroyWindow; idempotent.'],
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Message handling',
-            style: _Wow32TextStyles.cardTitle,
-          ),
-          const SizedBox(height: 8),
-          const _CodeBlock(
-            code: '''
-abstract class _WindowsMessageHandler {
-  int? handleWindowsMessage(
-    FlutterView view,
-    HWND windowHandle,
-    int message,
-    int wParam,
-    int lParam,
-  );
-}
-
-// Delivered message → _onMessage → each handler in registration order.
-// Returning non-null stops propagation and becomes the LRESULT.
-// WM_CLOSE   → delegate.onWindowCloseRequested(this)
-// WM_DESTROY → delegate.onWindowDestroyed()
-// WM_SIZE    → notifyListeners()
-// WM_ACTIVATE→ notifyListeners()
-''',
-            caption:
-                '_WindowsMessageHandler is private. Each controller registers '
-                'a thin adapter that forwards to its _handleWindowsMessage.',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Section 3 — Simulated Win32 window chrome.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section3Chrome extends StatefulWidget {
-  const _Wow32Section3Chrome({
-    required this.pulseCtrl,
-    required this.onChromeEvent,
+class _Win32WindowChrome extends StatelessWidget {
+  const _Win32WindowChrome({
+    required this.controller,
+    required this.body,
+    this.height = 220,
   });
 
-  final AnimationController pulseCtrl;
-  final void Function(String) onChromeEvent;
-
-  @override
-  State<_Wow32Section3Chrome> createState() => _Wow32Section3ChromeState();
-}
-
-class _Wow32Section3ChromeState extends State<_Wow32Section3Chrome> {
-  int _focusedIndex = 0;
+  final RegularWindowControllerWin32Mirror controller;
+  final Widget body;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    final List<_ChromeSpec> specs = <_ChromeSpec>[
-      const _ChromeSpec(
-        kind: _Wow32WindowKind.regular,
-        title: 'Notepad — Untitled.txt',
-        body:
-            'This is a simulated RegularWindowControllerWin32 frame.\n'
-            'Clicking the minimize / maximize / close buttons emits\n'
-            'log entries below. Behind the scenes the real controller\n'
-            'would translate these to ShowWindow(SW_*) or '
-            'DestroyWindow calls.',
-        width: 440,
-        height: 160,
-      ),
-      const _ChromeSpec(
-        kind: _Wow32WindowKind.dialog,
-        title: 'Confirm delete',
-        body:
-            'Modal DialogWindowControllerWin32. Parent != null, so the\n'
-            'close button is disabled (the user must answer the dialog)\n'
-            'and setMinimized() becomes a no-op while the parent is\n'
-            'active.',
-        width: 380,
-        height: 150,
-      ),
-      const _ChromeSpec(
-        kind: _Wow32WindowKind.popup,
-        title: '',
-        body:
-            'Popup / context menu.\n'
-            'createPopupWindowController currently throws\n'
-            'UnimplementedError on Win32 — popups are not yet\n'
-            'backed by a real HWND.',
-        width: 240,
-        height: 120,
-      ),
-    ];
-
-    return _Panel(
-      title: '3. Simulated Win32 chrome',
-      subtitle:
-          'Three windows painted entirely in Flutter widgets. Only one is '
-          'focused at a time; the focused frame gets the active aero gradient '
-          'and a soft cyan glow pulsed by an AnimationController.',
-      child: LayoutBuilder(
-        builder: (BuildContext ctx, BoxConstraints cons) {
-          return Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            children: <Widget>[
-              for (int i = 0; i < specs.length; i++)
-                _buildChromeFrame(specs[i], i),
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? _) {
+        final bool active = controller.isActivated;
+        return Container(
+          height: height,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8FAFC),
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(
+              color: active ? _Palette.accentBlue : _Palette.panelStrokeStrong,
+              width: active ? 1.5 : 1,
+            ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withValues(alpha: active ? 0.25 : 0.12),
+                blurRadius: active ? 14 : 6,
+                offset: const Offset(0, 3),
+              ),
             ],
-          );
-        },
-      ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _CaptionBar(controller: controller),
+              if (!controller.isFullscreen) _MenuStrip(controller: controller),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  color: const Color(0xFFFFFFFF),
+                  child: body,
+                ),
+              ),
+              if (!controller.isFullscreen) _StatusBar(controller: controller),
+            ],
+          ),
+        );
+      },
     );
   }
+}
 
-  Widget _buildChromeFrame(_ChromeSpec spec, int index) {
-    final bool focused = _focusedIndex == index;
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          setState(() => _focusedIndex = index);
-          widget.onChromeEvent(
-            '[focus] ${spec.kind.name} "${spec.title.isEmpty ? "(no title)" : spec.title}" '
-            'now activated (WM_ACTIVATE simulated)',
-          );
-        },
-        child: SizedBox(
-          width: spec.width,
-          height: spec.height,
-          child: AnimatedBuilder(
-            animation: widget.pulseCtrl,
-            builder: (BuildContext ctx, Widget? child) {
-              return CustomPaint(
-                painter: _Wow32ChromePainter(
-                  focused: focused,
-                  kind: spec.kind,
-                  pulse: widget.pulseCtrl.value,
-                ),
-                child: child,
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Text(
-                        spec.body,
-                        style: _Wow32TextStyles.cardBody.copyWith(
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          height: 1.45,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Invisible hit targets over title buttons, so clicks
-                  // produce log output without interfering with the painter.
-                  _buildTitleButtonHits(spec),
-                ],
+class _CaptionBar extends StatelessWidget {
+  const _CaptionBar({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool active = controller.isActivated;
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: active
+              ? const <Color>[_Palette.chromeActiveTop, _Palette.chromeActiveBottom]
+              : const <Color>[_Palette.chromeInactive, Color(0xFF8F9BA8)],
+        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(5)),
+      ),
+      child: Row(
+        children: <Widget>[
+          const SizedBox(width: 8),
+          const Icon(Icons.window, size: 14, color: Colors.white),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              controller.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: 'Segoe UI',
+                fontSize: 12,
+                color: active ? Colors.white : const Color(0xFFE8EEF5),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
+          _CaptionButton(
+            icon: Icons.minimize,
+            onTap: () => controller.setMinimized(!controller.isMinimized),
+          ),
+          _CaptionButton(
+            icon: controller.isMaximized ? Icons.filter_none : Icons.crop_square,
+            onTap: () => controller.setMaximized(!controller.isMaximized),
+          ),
+          _CaptionButton(
+            icon: Icons.close,
+            danger: true,
+            onTap: controller.requestClose,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CaptionButton extends StatefulWidget {
+  const _CaptionButton({required this.icon, required this.onTap, this.danger = false});
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool danger;
+
+  @override
+  State<_CaptionButton> createState() => _CaptionButtonState();
+}
+
+class _CaptionButtonState extends State<_CaptionButton> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final Color hoverColor =
+        widget.danger ? _Palette.accentRed : Colors.white.withValues(alpha: 0.18);
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          width: 38,
+          height: 30,
+          color: _hover ? hoverColor : Colors.transparent,
+          alignment: Alignment.center,
+          child: Icon(widget.icon, size: 14, color: Colors.white),
         ),
       ),
     );
   }
+}
 
-  Widget _buildTitleButtonHits(_ChromeSpec spec) {
-    final List<_HitSpec> hits = switch (spec.kind) {
-      _Wow32WindowKind.regular => const <_HitSpec>[
-        _HitSpec(label: 'minimize', offsetRight: 3, message: 'SW_MINIMIZE'),
-        _HitSpec(label: 'maximize', offsetRight: 2, message: 'SW_MAXIMIZE'),
-        _HitSpec(label: 'close', offsetRight: 1, message: 'WM_CLOSE'),
-      ],
-      _Wow32WindowKind.dialog => const <_HitSpec>[
-        _HitSpec(label: 'minimize', offsetRight: 2, message: 'SW_MINIMIZE'),
-        _HitSpec(label: 'close', offsetRight: 1, message: 'WM_CLOSE (disabled)'),
-      ],
-      _Wow32WindowKind.popup => const <_HitSpec>[],
-      _Wow32WindowKind.tooltip => const <_HitSpec>[],
-    };
+class _MenuStrip extends StatelessWidget {
+  const _MenuStrip({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
 
-    return Positioned(
-      top: -30,
-      right: 2,
-      height: 30,
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 22,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: const BoxDecoration(
+        color: Color(0xFFEEF1F5),
+        border: Border(bottom: BorderSide(color: _Palette.panelStroke)),
+      ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          for (final _HitSpec h in hits.reversed)
-            SizedBox(
-              width: 34,
-              height: 22,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => widget.onChromeEvent(
-                    '[btn ] ${spec.kind.name} ${h.label} → ${h.message}',
-                  ),
-                  hoverColor: Colors.white.withValues(alpha: 0.35),
-                  child: const SizedBox.expand(),
-                ),
-              ),
+          for (final String label in const <String>['File', 'Edit', 'View', 'Help'])
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Text(label, style: _Type.small),
             ),
-        ].reversed.toList(),
+          const Spacer(),
+          Text('${controller.contentSize.width.toStringAsFixed(0)} × '
+              '${controller.contentSize.height.toStringAsFixed(0)}',
+              style: _Type.small.copyWith(color: _Palette.textMuted)),
+        ],
       ),
     );
   }
 }
 
-class _ChromeSpec {
-  const _ChromeSpec({
-    required this.kind,
-    required this.title,
-    required this.body,
-    required this.width,
-    required this.height,
-  });
-  final _Wow32WindowKind kind;
-  final String title;
-  final String body;
-  final double width;
-  final double height;
-}
-
-class _HitSpec {
-  const _HitSpec({
-    required this.label,
-    required this.offsetRight,
-    required this.message,
-  });
-  final String label;
-  final int offsetRight;
-  final String message;
-}
-
-// ---------------------------------------------------------------------------
-//  Section 4 — Lifecycle timeline.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section4Lifecycle extends StatefulWidget {
-  const _Wow32Section4Lifecycle({required this.controller});
-
-  final AnimationController controller;
-
-  @override
-  State<_Wow32Section4Lifecycle> createState() =>
-      _Wow32Section4LifecycleState();
-}
-
-class _Wow32Section4LifecycleState extends State<_Wow32Section4Lifecycle> {
-  static const List<_LifeStage> _stages = <_LifeStage>[
-    _LifeStage(
-      name: 'create',
-      description:
-          'Constructor runs: _Win32PlatformInterface.initializeWindowing '
-          'allocates the callback pointer and registers _onMessage with '
-          'the engine. A view id is obtained and RegularWindowControllerWin32 '
-          'stores it as rootView.',
-      message: '— (no WM_* yet; pre-show initialization)',
-    ),
-    _LifeStage(
-      name: 'show',
-      description:
-          'The embedder creates the HWND and the first paint is scheduled. '
-          'FlutterView is now driven by the engine\'s window bridge, and '
-          'the owner begins receiving WndProc callbacks.',
-      message: 'WM_NCCREATE → WM_CREATE → WM_SHOWWINDOW',
-    ),
-    _LifeStage(
-      name: 'focus',
-      description:
-          'The user clicks the title bar. Windows dispatches WM_ACTIVATE; '
-          'the owner forwards it to the controller, which calls '
-          'notifyListeners(). WindowScope aspect "activated" fires rebuilds '
-          'only for widgets that depend on it.',
-      message: 'WM_ACTIVATE → controller.notifyListeners()',
-    ),
-    _LifeStage(
-      name: 'resize',
-      description:
-          'User drags the edge. Windows streams WM_SIZE messages. The '
-          'owner calls notifyListeners each tick, which refreshes '
-          'WindowScope.contentSizeOf dependents (e.g. a status bar that '
-          'prints "800 × 600").',
-      message: 'WM_SIZE → controller.notifyListeners()',
-    ),
-    _LifeStage(
-      name: 'minimize',
-      description:
-          'setMinimized(true) on the controller calls ShowWindow with '
-          'SW_MINIMIZE. The engine suspends frame scheduling while the '
-          'window is iconic; IsIconic() returns 1.',
-      message: 'ShowWindow(SW_MINIMIZE) / IsIconic == 1',
-    ),
-    _LifeStage(
-      name: 'restore',
-      description:
-          'setMinimized(false) — or the user clicks the taskbar icon — '
-          'issues SW_RESTORE. A new WM_SIZE follows, frames resume.',
-      message: 'ShowWindow(SW_RESTORE) → WM_SIZE',
-    ),
-    _LifeStage(
-      name: 'close',
-      description:
-          'The user clicks X. WM_CLOSE reaches _onMessage, which calls '
-          'delegate.onWindowCloseRequested; the default implementation '
-          'calls controller.destroy(). That issues DestroyWindow, which '
-          'triggers WM_DESTROY, _destroyed = true, handler removal, and '
-          'delegate.onWindowDestroyed().',
-      message: 'WM_CLOSE → destroy() → WM_DESTROY',
-    ),
-  ];
-
-  int _activeStage(double t) {
-    final int n = _stages.length;
-    return (t * n).floor().clamp(0, n - 1);
-  }
+class _StatusBar extends StatelessWidget {
+  const _StatusBar({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
-      title: '4. Lifecycle timeline',
-      subtitle:
-          'A continuous 14-second sweep through the seven canonical stages '
-          'of a top-level window\'s life. The active stage describes what '
-          'WindowingOwnerWin32 and the controller are doing in the '
-          'framework layer.',
-      child: AnimatedBuilder(
-        animation: widget.controller,
-        builder: (BuildContext ctx, Widget? child) {
-          final double t = widget.controller.value;
-          final int idx = _activeStage(t);
-          final _LifeStage stage = _stages[idx];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+    final List<String> tags = <String>[
+      if (controller.isActivated) 'ACTIVE',
+      if (controller.isMaximized) 'MAXIMIZED',
+      if (controller.isMinimized) 'MINIMIZED',
+      if (controller.isFullscreen) 'FULLSCREEN',
+      if (controller.flashing) 'FLASHING',
+    ];
+    return Container(
+      height: 20,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: const BoxDecoration(
+        color: Color(0xFFEEF1F5),
+        border: Border(top: BorderSide(color: _Palette.panelStroke)),
+      ),
+      child: Row(
+        children: <Widget>[
+          Text('HWND ${controller.handle}', style: _Type.small),
+          const SizedBox(width: 12),
+          if (tags.isNotEmpty)
+            Text(tags.join(' · '),
+                style: _Type.small.copyWith(color: _Palette.accentBlue)),
+          const Spacer(),
+          Text('Win32 mirror', style: _Type.small.copyWith(color: _Palette.textMuted)),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 6 — Hero with platform banner.
+// =============================================================================
+
+class _HeroSection extends StatelessWidget {
+  const _HeroSection({required this.platform, required this.live, required this.owner});
+  final TargetPlatform platform;
+  final bool live;
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: <Color>[_Palette.desktopTop, _Palette.desktopBottom],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFF20446B)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
             children: <Widget>[
-              SizedBox(
-                height: 64,
-                child: CustomPaint(
-                  painter: _Wow32TimelinePainter(
-                    stage: t * (_stages.length - 1),
-                    stageCount: _stages.length,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  for (final _LifeStage s in _stages)
-                    SizedBox(
-                      width: 70,
-                      child: Text(
-                        s.name,
-                        textAlign: TextAlign.center,
-                        style: _Wow32TextStyles.label.copyWith(
-                          color: s == stage
-                              ? _Wow32Palette.accentBlue
-                              : _Wow32Palette.textMuted,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _Wow32Palette.panelStroke),
-                ),
+              const Icon(Icons.desktop_windows, color: Colors.white, size: 30),
+              const SizedBox(width: 12),
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _Wow32Palette.accentBlue
-                                .withValues(alpha: 0.16),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            'stage ${idx + 1}/${_stages.length}',
-                            style: TextStyle(
-                              fontFamily: 'Segoe UI',
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: _Wow32Palette.accentBlue,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          stage.name.toUpperCase(),
-                          style: _Wow32TextStyles.cardTitle,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Text(stage.description, style: _Wow32TextStyles.cardBody),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: _Wow32Palette.codeBg,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        stage.message,
-                        style: _Wow32TextStyles.code.copyWith(fontSize: 12),
-                      ),
+                    const Text('WindowingOwnerWin32', style: _Type.pageTitle),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Internal, experimental Flutter Win32 windowing owner — '
+                      'mirrored live in this demo.',
+                      style: _Type.pageSubtitle,
                     ),
                   ],
                 ),
               ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _LifeStage {
-  const _LifeStage({
-    required this.name,
-    required this.description,
-    required this.message,
-  });
-  final String name;
-  final String description;
-  final String message;
-}
-
-// ---------------------------------------------------------------------------
-//  Section 5 — Window type gallery.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section5TypeGallery extends StatelessWidget {
-  const _Wow32Section5TypeGallery();
-
-  @override
-  Widget build(BuildContext context) {
-    return _Panel(
-      title: '5. Window type gallery',
-      subtitle:
-          'The four window kinds the framework defines. On Win32 only regular '
-          'and dialog windows are currently backed — tooltip and popup '
-          'controllers throw UnimplementedError until the embedder is wired up.',
-      child: LayoutBuilder(
-        builder: (BuildContext ctx, BoxConstraints cons) {
-          final int cols = cons.maxWidth >= 900 ? 2 : 1;
-          return GridView.count(
-            crossAxisCount: cols,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 1.9,
-            children: const <Widget>[
-              _TypeGalleryCard(
-                title: 'Regular window',
-                kind: _Wow32WindowKind.regular,
-                supported: true,
-                summary:
-                    'Traditional top-level window. Resizable, can minimize / '
-                    'maximize / close. WindowingOwnerWin32 implements this via '
-                    'RegularWindowControllerWin32.',
-                code:
-                    '''final controller = RegularWindowController(
-  preferredSize: const Size(800, 600),
-  preferredConstraints: const BoxConstraints(
-    minWidth: 640, minHeight: 480,
-  ),
-  title: 'Example',
-);
-runWidget(RegularWindow(
-  controller: controller,
-  child: MaterialApp(home: Container()),
-));''',
-              ),
-              _TypeGalleryCard(
-                title: 'Dialog window',
-                kind: _Wow32WindowKind.dialog,
-                supported: true,
-                summary:
-                    'Modal with non-null parent or modeless with null parent. '
-                    'On Win32, modal dialogs disable the close chrome and '
-                    'setMinimized() becomes a no-op.',
-                code:
-                    '''DialogWindow(
-  controller: DialogWindowController(
-    preferredSize: const Size(420, 260),
-    parent: WindowScope.of(context),
-    title: 'Confirm',
-  ),
-  child: const _ConfirmBody(),
-)''',
-              ),
-              _TypeGalleryCard(
-                title: 'Popup window',
-                kind: _Wow32WindowKind.popup,
-                supported: false,
-                summary:
-                    'Transient window for menus / context menus. On Win32 '
-                    'createPopupWindowController currently throws '
-                    'UnimplementedError. Linux and macOS owners implement it.',
-                code:
-                    '''PopupWindowController(
-  parent: WindowScope.of(context),
-  anchorRect: ... ,
-  positioner: WindowPositioner.right,
-);''',
-              ),
-              _TypeGalleryCard(
-                title: 'Tooltip window',
-                kind: _Wow32WindowKind.tooltip,
-                supported: false,
-                summary:
-                    'Small, non-focusable hover window. Same status on Win32 — '
-                    'createTooltipWindowController throws. Documented as a '
-                    'future capability.',
-                code:
-                    '''TooltipWindowController(
-  parent: WindowScope.of(context),
-  anchorRect: ... ,
-  positioner: WindowPositioner.below,
-);''',
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _TypeGalleryCard extends StatelessWidget {
-  const _TypeGalleryCard({
-    required this.title,
-    required this.kind,
-    required this.supported,
-    required this.summary,
-    required this.code,
-  });
-
-  final String title;
-  final _Wow32WindowKind kind;
-  final bool supported;
-  final String summary;
-  final String code;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _Wow32Palette.panelStroke),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(title, style: _Wow32TextStyles.cardTitle),
-              ),
-              _Pill(
-                text: supported ? 'implemented' : 'throws',
-                color: supported
-                    ? _Wow32Palette.accentGreen
-                    : _Wow32Palette.accentRed,
-              ),
+              const _Pill(label: '@internal', color: _Palette.accentAmber),
+              const SizedBox(width: 6),
+              const _Pill(label: 'isWindowingEnabled', color: _Palette.accentTeal),
             ],
           ),
-          const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                width: 140,
-                height: 90,
-                child: CustomPaint(
-                  painter: _Wow32ChromePainter(
-                    focused: true,
-                    kind: kind,
-                    pulse: 0.5,
-                  ),
-                  child: const SizedBox.expand(),
-                ),
+          const SizedBox(height: 16),
+          _PlatformBanner(platform: platform, live: live),
+          const SizedBox(height: 16),
+          AnimatedBuilder(
+            animation: owner.log,
+            builder: (BuildContext context, Widget? _) => Text(
+              'Owner state: ${owner.windows.length} window'
+              '${owner.windows.length == 1 ? '' : 's'} alive · '
+              '${owner.log.entries.length} message'
+              '${owner.log.entries.length == 1 ? '' : 's'} on the pump',
+              style: _Type.pageSubtitle.copyWith(
+                color: const Color(0xFFD9E4F2),
+                fontWeight: FontWeight.w500,
               ),
-              const SizedBox(width: 12),
-              Expanded(child: Text(summary, style: _Wow32TextStyles.cardBody)),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: _Wow32Palette.codeBg,
-              borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(code, style: _Wow32TextStyles.code),
           ),
         ],
       ),
@@ -2110,156 +1004,51 @@ class _TypeGalleryCard extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 6 — Platform matrix.
-// ---------------------------------------------------------------------------
+class _PlatformBanner extends StatelessWidget {
+  const _PlatformBanner({required this.platform, required this.live});
+  final TargetPlatform platform;
+  final bool live;
 
-class _Wow32Section6PlatformMatrix extends StatelessWidget {
-  const _Wow32Section6PlatformMatrix();
-
-  @override
-  Widget build(BuildContext context) {
-    return _Panel(
-      title: '6. Platform matrix',
-      subtitle:
-          'createDefaultWindowingOwner() picks a concrete WindowingOwner per '
-          'platform. The selection is hard-wired at engine-start and cannot '
-          'be swapped at runtime except by assigning to '
-          'WidgetsBinding.instance.windowingOwner.',
-      child: Column(
-        children: <Widget>[
-          _PlatformRow(
-            os: 'Windows',
-            owner: 'WindowingOwnerWin32',
-            chromeKind: _Wow32WindowKind.regular,
-            accent: _Wow32Palette.accentBlue,
-            note:
-                'Full HWND plumbing. Regular + Dialog supported. Popup + Tooltip throw.',
-            active: true,
-          ),
-          _PlatformRow(
-            os: 'macOS',
-            owner: 'WindowingOwnerMacOS',
-            chromeKind: _Wow32WindowKind.regular,
-            accent: _Wow32Palette.accentTeal,
-            note:
-                'NSWindow-backed. Traffic-light chrome, native menu bar, popup support.',
-            active: false,
-          ),
-          _PlatformRow(
-            os: 'Linux',
-            owner: 'WindowingOwnerLinux',
-            chromeKind: _Wow32WindowKind.regular,
-            accent: _Wow32Palette.accentAmber,
-            note:
-                'GTK/X11 or Wayland-backed. Popup/Tooltip implemented via surface roles.',
-            active: false,
-          ),
-          _PlatformRow(
-            os: 'Web',
-            owner: '_WindowingOwnerUnsupported',
-            chromeKind: _Wow32WindowKind.popup,
-            accent: _Wow32Palette.accentRed,
-            note:
-                'No multi-window on the web embedder today — all controllers throw.',
-            active: false,
-          ),
-          _PlatformRow(
-            os: 'Mobile (iOS/Android)',
-            owner: '_WindowingOwnerUnsupported',
-            chromeKind: _Wow32WindowKind.popup,
-            accent: _Wow32Palette.accentRed,
-            note:
-                'Mobile embedders do not expose multi-window semantics; the '
-                'experimental feature flag is gated off.',
-            active: false,
-          ),
-        ],
-      ),
-    );
+  String get _platformName {
+    switch (platform) {
+      case TargetPlatform.windows:
+        return 'Windows';
+      case TargetPlatform.macOS:
+        return 'macOS';
+      case TargetPlatform.linux:
+        return 'Linux';
+      case TargetPlatform.android:
+        return 'Android';
+      case TargetPlatform.iOS:
+        return 'iOS';
+      case TargetPlatform.fuchsia:
+        return 'Fuchsia';
+    }
   }
-}
-
-class _PlatformRow extends StatelessWidget {
-  const _PlatformRow({
-    required this.os,
-    required this.owner,
-    required this.chromeKind,
-    required this.accent,
-    required this.note,
-    required this.active,
-  });
-
-  final String os;
-  final String owner;
-  final _Wow32WindowKind chromeKind;
-  final Color accent;
-  final String note;
-  final bool active;
 
   @override
   Widget build(BuildContext context) {
+    final Color tint = live ? _Palette.accentGreen : _Palette.accentAmber;
+    final String text = live
+        ? 'Running on Windows — `WindowingOwnerWin32` would be the real native '
+            'owner here. The demo still uses the local mirror so it stays self-contained.'
+        : 'this would only run live on Windows — currently demoing the chrome '
+            'on $_platformName';
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: active
-            ? accent.withValues(alpha: 0.07)
-            : Colors.white,
+        color: tint.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: active ? accent.withValues(alpha: 0.6) : _Wow32Palette.panelStroke,
-          width: active ? 1.4 : 1,
-        ),
+        border: Border.all(color: tint.withValues(alpha: 0.7)),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 110,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(os, style: _Wow32TextStyles.cardTitle),
-                const SizedBox(height: 2),
-                if (active)
-                  const _Pill(
-                    text: 'this page',
-                    color: _Wow32Palette.accentBlue,
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          SizedBox(
-            width: 150,
-            height: 70,
-            child: CustomPaint(
-              painter: _Wow32ChromePainter(
-                focused: active,
-                kind: chromeKind,
-                pulse: 0.5,
-              ),
-              child: const SizedBox.expand(),
-            ),
-          ),
-          const SizedBox(width: 14),
+          Icon(live ? Icons.check_circle_outline : Icons.info_outline,
+              size: 18, color: Colors.white),
+          const SizedBox(width: 10),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  owner,
-                  style: _Wow32TextStyles.cardTitle.copyWith(
-                    fontFamily: 'monospace',
-                    fontSize: 13,
-                    color: accent,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(note, style: _Wow32TextStyles.cardBody),
-              ],
-            ),
+            child: Text(text,
+                style: _Type.small.copyWith(color: Colors.white, height: 1.45)),
           ),
         ],
       ),
@@ -2267,728 +1056,1391 @@ class _PlatformRow extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 7 — Event routing diagram.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 7 — Anatomy.
+// =============================================================================
 
-class _Wow32Section7Routing extends StatelessWidget {
-  const _Wow32Section7Routing({
-    required this.controller,
-    required this.highlightedHop,
-    required this.onHopTap,
+class _AnatomySection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Class anatomy',
+      subtitle: 'Where WindowingOwnerWin32 sits in the windowing class graph.',
+      icon: Icons.account_tree_outlined,
+      accent: _Palette.accentBlue,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const Text(
+            'The windowing API is structured as an abstract owner that the '
+            'embedder fills in per-platform. WindowingOwnerWin32 is the '
+            'concrete leaf for Win32 desktop targets.',
+            style: _Type.body,
+          ),
+          const SizedBox(height: 12),
+          const _CodeBlock('''
+abstract class WindowingOwner {                       // _window.dart:905
+  RegularWindowController createRegularWindowController({...});
+  DialogWindowController  createDialogWindowController({...});
+  TooltipWindowController createTooltipWindowController({...});
+  PopupWindowController   createPopupWindowController({...});
+}
+
+@internal class WindowingOwnerWin32 extends WindowingOwner {  // _window_win32.dart:93
+  WindowingOwnerWin32() : allocator = _CallocAllocator();
+  final ffi.Allocator allocator;
+  ...
+}
+
+@internal class RegularWindowControllerWin32             // _window_win32.dart:274
+        extends RegularWindowController {
+  RegularWindowControllerWin32({
+    required WindowingOwnerWin32 owner,
+    required RegularWindowControllerDelegate delegate,
+    Size? preferredSize,
+    BoxConstraints? preferredConstraints,
+    String? title,
+  });
+}'''),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: const <Widget>[
+              _Pill(label: 'extends WindowingOwner', color: _Palette.accentBlue),
+              _Pill(label: 'returns RegularWindowControllerWin32', color: _Palette.accentTeal),
+              _Pill(label: 'uses CoTaskMemAlloc', color: _Palette.accentAmber),
+              _Pill(label: 'FFI native callbacks', color: _Palette.accentRed),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 8 — Message pump diagram.
+// =============================================================================
+
+class _MessagePumpSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Win32 message pump',
+      subtitle: 'How WM_* messages reach Dart through WindowingOwnerWin32.',
+      icon: Icons.swap_horiz,
+      accent: _Palette.accentTeal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const _CodeBlock('''
+   ┌───────────────┐        WM_SIZE / WM_CLOSE / WM_DESTROY
+   │   Win32 OS    │ ───────────────────────────────────────► WndProc
+   └───────────────┘                                              │
+                                                                  ▼
+                          ┌─────────────────────────────────────────┐
+                          │ InternalFlutterWindows_WindowManager_   │
+                          │ Initialize → onMessage(NativeCallable)  │
+                          └─────────────────────────────────────────┘
+                                                                  │
+                                                                  ▼
+                          ┌─────────────────────────────────────────┐
+                          │ WindowingOwnerWin32._onMessage          │
+                          │   → fan-out to _WindowsMessageHandler   │
+                          └─────────────────────────────────────────┘
+                                                                  │
+                                                                  ▼
+                          RegularWindowControllerWin32._handleWindowsMessage
+                            • WM_CLOSE   → delegate.onWindowCloseRequested
+                            • WM_DESTROY → delegate.onWindowDestroyed
+                            • WM_SIZE / WM_ACTIVATE → notifyListeners()
+'''),
+          const SizedBox(height: 10),
+          const Text(
+            'In our mirror the pump is collapsed: setSize() / setMaximized() / '
+            'requestClose() / destroy() drive the same delegate hooks that the '
+            'real WndProc would, and every transition is appended to the live '
+            'event log at the bottom of the page.',
+            style: _Type.body,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 9 — Owner instantiation.
+// =============================================================================
+
+class _OwnerInstantiationSection extends StatelessWidget {
+  const _OwnerInstantiationSection({required this.owner});
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  Widget build(BuildContext context) {
+    final WindowingOwnerWin32Mirror localOwner = owner;
+    final WindowingOwnerMirror baseOwner = localOwner;
+    final List<WindowingOwnerWin32Mirror> owners = <WindowingOwnerWin32Mirror>[localOwner];
+    final Map<String, WindowingOwnerWin32Mirror> registry =
+        <String, WindowingOwnerWin32Mirror>{'primary': localOwner};
+
+    return _SectionCard(
+      title: 'Live owner instantiation',
+      subtitle: 'WindowingOwnerWin32 used as a value, a base type, and a generic argument.',
+      icon: Icons.power_settings_new,
+      accent: _Palette.accentGreen,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const Text(
+            'The class is referenced live below: a direct constructor call on '
+            'the mirror, an upcast to the abstract owner, a List<...> of '
+            'owners, and a Map<String, ...>.',
+            style: _Type.body,
+          ),
+          const SizedBox(height: 12),
+          _CodeBlock('''
+final WindowingOwnerWin32 localOwner = WindowingOwnerWin32();
+final WindowingOwner       baseOwner = localOwner;
+final List<WindowingOwnerWin32>          owners   = <WindowingOwnerWin32>[localOwner];
+final Map<String, WindowingOwnerWin32>   registry = {'primary': localOwner};
+// — runtime view —
+runtimeType : ${localOwner.runtimeType}
+baseType    : ${baseOwner.runtimeType}
+owners.len  : ${owners.length}
+registry.len: ${registry.length}'''),
+          const SizedBox(height: 8),
+          Text(
+            'baseOwner.runtimeType == WindowingOwnerWin32Mirror : '
+            '${baseOwner.runtimeType == WindowingOwnerWin32Mirror}',
+            style: _Type.small,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 10 — Controller lifecycle.
+// =============================================================================
+
+class _ControllerLifecycleSection extends StatefulWidget {
+  const _ControllerLifecycleSection({required this.owner});
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  State<_ControllerLifecycleSection> createState() => _ControllerLifecycleSectionState();
+}
+
+class _ControllerLifecycleSectionState extends State<_ControllerLifecycleSection> {
+  RegularWindowControllerWin32Mirror? _controller;
+
+  @override
+  void dispose() {
+    _controller?.destroy();
+    super.dispose();
+  }
+
+  void _spawn() {
+    setState(() {
+      _controller = widget.owner.createRegularWindowController(
+        delegate: RegularWindowControllerDelegateMirror(
+          onDestroyed: (_) => setState(() => _controller = null),
+        ),
+        title: 'Lifecycle Demo',
+        preferredSize: const Size(560, 320),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RegularWindowControllerWin32Mirror? c = _controller;
+    return _SectionCard(
+      title: 'Controller lifecycle',
+      subtitle: 'create → activate → deactivate → destroy on a real mirror controller.',
+      icon: Icons.refresh,
+      accent: _Palette.accentBlue,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              ElevatedButton.icon(
+                onPressed: c == null ? _spawn : null,
+                icon: const Icon(Icons.add),
+                label: const Text('createRegularWindowController(...)'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton.icon(
+                onPressed: c?.activate,
+                icon: const Icon(Icons.play_arrow),
+                label: const Text('activate()'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton.icon(
+                onPressed: c?.deactivate,
+                icon: const Icon(Icons.pause),
+                label: const Text('deactivate()'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton.icon(
+                onPressed: c?.destroy,
+                icon: const Icon(Icons.delete_outline),
+                label: const Text('destroy()'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _Palette.accentRed,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          if (c == null)
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _Palette.panelStroke.withValues(alpha: 0.4),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: const Text('No controller. Press "create" to spawn one.',
+                  style: _Type.small),
+            )
+          else
+            _Win32WindowChrome(
+              controller: c,
+              body: const Center(
+                child: Text(
+                  'I am a live RegularWindowControllerWin32 mirror.',
+                  style: _Type.body,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 11 — Resize playground.
+// =============================================================================
+
+class _ResizePlaygroundSection extends StatefulWidget {
+  const _ResizePlaygroundSection({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  State<_ResizePlaygroundSection> createState() => _ResizePlaygroundSectionState();
+}
+
+class _ResizePlaygroundSectionState extends State<_ResizePlaygroundSection> {
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Resize playground',
+      subtitle: 'Drag sliders → setSize / setMinimumSize / setMaximumSize.',
+      icon: Icons.straighten,
+      accent: _Palette.accentTeal,
+      child: AnimatedBuilder(
+        animation: widget.controller,
+        builder: (BuildContext context, Widget? _) {
+          final Size s = widget.controller.contentSize;
+          final BoxConstraints c = widget.controller.constraints;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _SliderRow(
+                label: 'width',
+                value: s.width,
+                min: 200,
+                max: 1600,
+                onChanged: (double v) =>
+                    widget.controller.setSize(Size(v, s.height)),
+              ),
+              _SliderRow(
+                label: 'height',
+                value: s.height,
+                min: 150,
+                max: 1000,
+                onChanged: (double v) =>
+                    widget.controller.setSize(Size(s.width, v)),
+              ),
+              _SliderRow(
+                label: 'minWidth',
+                value: c.minWidth,
+                min: 100,
+                max: 800,
+                onChanged: (double v) =>
+                    widget.controller.setMinimumSize(Size(v, c.minHeight)),
+              ),
+              _SliderRow(
+                label: 'maxWidth',
+                value: c.maxWidth.isFinite ? c.maxWidth : 1600,
+                min: 400,
+                max: 2400,
+                onChanged: (double v) =>
+                    widget.controller.setMaximumSize(Size(v, c.maxHeight.isFinite ? c.maxHeight : 1600)),
+              ),
+              const SizedBox(height: 8),
+              _Win32WindowChrome(
+                controller: widget.controller,
+                height: 200,
+                body: Text(
+                  'contentSize = ${s.width.toStringAsFixed(0)} × '
+                  '${s.height.toStringAsFixed(0)}\n'
+                  'constraints = ${c.minWidth.toStringAsFixed(0)}…'
+                  '${c.maxWidth.isFinite ? c.maxWidth.toStringAsFixed(0) : '∞'} × '
+                  '${c.minHeight.toStringAsFixed(0)}…'
+                  '${c.maxHeight.isFinite ? c.maxHeight.toStringAsFixed(0) : '∞'}',
+                  style: _Type.body,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _SliderRow extends StatelessWidget {
+  const _SliderRow({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
   });
 
-  final AnimationController controller;
-  final int highlightedHop;
-  final void Function(int) onHopTap;
+  final String label;
+  final double value;
+  final double min;
+  final double max;
+  final ValueChanged<double> onChanged;
 
-  static const List<String> _hopDescriptions = <String>[
-    'The OS posts a WM_* message (for example WM_SIZE when the user drags the '
-        'window edge). The message lands in the window\'s thread message queue.',
-    'The Win32 message loop — implemented in the Flutter Windows embedder — '
-        'pumps GetMessage / DispatchMessage. DispatchMessage drives the WndProc '
-        'that the embedder registered for Flutter-owned windows.',
-    'The engine\'s embedder-side WndProc marshals the message into an FFI '
-        'struct (_WindowsMessage) and invokes the Dart callback that '
-        'WindowingOwnerWin32 installed via InternalFlutterWindows_WindowManager_Initialize.',
-    'WindowingOwnerWin32._onMessage walks its list of registered '
-        '_WindowsMessageHandler instances in order. Each controller has added '
-        'a thin adapter that forwards to its _handleWindowsMessage.',
-    'The controller interprets the message — WM_CLOSE invokes the delegate, '
-        'WM_SIZE / WM_ACTIVATE call notifyListeners — which in turn drives '
-        'WidgetsBinding to schedule a frame through WindowScope aspect '
-        'subscriptions.',
+  @override
+  Widget build(BuildContext context) {
+    final double clamped = value.clamp(min, max);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+              width: 90,
+              child: Text(label, style: _Type.body.copyWith(fontWeight: FontWeight.w500))),
+          Expanded(
+            child: Slider(
+              value: clamped,
+              min: min,
+              max: max,
+              onChanged: onChanged,
+            ),
+          ),
+          SizedBox(
+            width: 70,
+            child: Text(clamped.toStringAsFixed(0),
+                textAlign: TextAlign.right, style: _Type.small),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 12 — Maximize / restore.
+// =============================================================================
+
+class _MaximizeRestoreSection extends StatelessWidget {
+  const _MaximizeRestoreSection({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Maximize / restore',
+      subtitle: 'ShowWindow(SW_MAXIMIZE) ↔ ShowWindow(SW_RESTORE)',
+      icon: Icons.crop_square,
+      accent: _Palette.accentBlue,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () => controller.setMaximized(true),
+                    icon: const Icon(Icons.crop_square),
+                    label: const Text('SW_MAXIMIZE'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () => controller.setMaximized(false),
+                    icon: const Icon(Icons.filter_none),
+                    label: const Text('SW_RESTORE'),
+                  ),
+                  const SizedBox(width: 14),
+                  Text('isMaximized = ${controller.isMaximized}', style: _Type.body),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _Win32WindowChrome(
+                controller: controller,
+                height: controller.isMaximized ? 320 : 200,
+                body: Center(
+                  child: Text(
+                    controller.isMaximized
+                        ? 'Maximized: snapped to the work area.'
+                        : 'Restored to last placement.',
+                    style: _Type.body,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 13 — Minimize to taskbar.
+// =============================================================================
+
+class _MinimizeSection extends StatelessWidget {
+  const _MinimizeSection({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Minimize to taskbar',
+      subtitle: 'ShowWindow(SW_MINIMIZE) and the taskbar entry that survives.',
+      icon: Icons.minimize,
+      accent: _Palette.accentTeal,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () => controller.setMinimized(true),
+                    icon: const Icon(Icons.minimize),
+                    label: const Text('SW_MINIMIZE'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () => controller.setMinimized(false),
+                    icon: const Icon(Icons.open_in_full),
+                    label: const Text('SW_RESTORE'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              if (controller.isMinimized)
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _Palette.taskbar,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      const Icon(Icons.window, color: Colors.white, size: 16),
+                      const SizedBox(width: 8),
+                      Text(controller.title,
+                          style: _Type.small.copyWith(color: Colors.white)),
+                      const Spacer(),
+                      Text('TASKBAR ENTRY',
+                          style: _Type.caption.copyWith(color: Colors.white70)),
+                    ],
+                  ),
+                )
+              else
+                _Win32WindowChrome(
+                  controller: controller,
+                  body: const Center(
+                    child: Text('Press SW_MINIMIZE — I will collapse to the taskbar.',
+                        style: _Type.body),
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 14 — Fullscreen.
+// =============================================================================
+
+class _FullscreenSection extends StatelessWidget {
+  const _FullscreenSection({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Fullscreen',
+      subtitle: 'SetFullscreen() hides the caption strip and status bar.',
+      icon: Icons.fullscreen,
+      accent: _Palette.accentBlue,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () => controller.setFullscreen(!controller.isFullscreen),
+                    icon: Icon(controller.isFullscreen
+                        ? Icons.fullscreen_exit
+                        : Icons.fullscreen),
+                    label:
+                        Text(controller.isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'),
+                  ),
+                  const SizedBox(width: 14),
+                  Text('isFullscreen = ${controller.isFullscreen}', style: _Type.body),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _Win32WindowChrome(
+                controller: controller,
+                height: controller.isFullscreen ? 260 : 200,
+                body: Center(
+                  child: Text(
+                    controller.isFullscreen
+                        ? 'Fullscreen — non-client area is suppressed.'
+                        : 'Windowed — caption + menu + status visible.',
+                    style: _Type.body,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 15 — Close-with-delegate (veto on unsaved changes).
+// =============================================================================
+
+class _CloseDelegateSection extends StatefulWidget {
+  const _CloseDelegateSection({required this.owner});
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  State<_CloseDelegateSection> createState() => _CloseDelegateSectionState();
+}
+
+class _CloseDelegateSectionState extends State<_CloseDelegateSection> {
+  RegularWindowControllerWin32Mirror? _controller;
+  bool _unsavedChanges = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _spawn();
+  }
+
+  @override
+  void dispose() {
+    _controller?.destroy();
+    super.dispose();
+  }
+
+  void _spawn() {
+    final delegate = RegularWindowControllerDelegateMirror(
+      shouldVetoClose: (_) => _unsavedChanges,
+      onDestroyed: (_) => setState(() => _controller = null),
+    );
+    setState(() {
+      _controller = widget.owner.createRegularWindowController(
+        delegate: delegate,
+        title: 'Editor — *unsaved.txt',
+        preferredSize: const Size(620, 320),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RegularWindowControllerWin32Mirror? c = _controller;
+    return _SectionCard(
+      title: 'Close with delegate veto',
+      subtitle: 'WM_CLOSE → delegate.onWindowCloseRequested → optional veto.',
+      icon: Icons.cancel_outlined,
+      accent: _Palette.accentAmber,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Switch(
+                value: _unsavedChanges,
+                onChanged: (bool v) => setState(() => _unsavedChanges = v),
+              ),
+              const SizedBox(width: 8),
+              const Text('Has unsaved changes (close vetoed)', style: _Type.body),
+              const Spacer(),
+              if (c == null)
+                ElevatedButton(onPressed: _spawn, child: const Text('Respawn'))
+              else
+                ElevatedButton.icon(
+                  onPressed: c.requestClose,
+                  icon: const Icon(Icons.close),
+                  label: const Text('Click [×] / requestClose()'),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          if (c != null)
+            _Win32WindowChrome(
+              controller: c,
+              body: const Center(
+                child: Text(
+                  'Toggle the switch off then click [×] — the delegate will '
+                  'allow destroy() to run.',
+                  style: _Type.body,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 16 — Multi-window orchestration (cascade / snap-left / snap-right).
+// =============================================================================
+
+class _MultiWindowSection extends StatefulWidget {
+  const _MultiWindowSection({required this.owner});
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  State<_MultiWindowSection> createState() => _MultiWindowSectionState();
+}
+
+class _MultiWindowSectionState extends State<_MultiWindowSection> {
+  String _layout = 'cascade';
+
+  void _setLayout(String l) {
+    setState(() => _layout = l);
+    final List<RegularWindowControllerWin32Mirror> windows = widget.owner.windows;
+    for (int i = 0; i < windows.length; i++) {
+      final RegularWindowControllerWin32Mirror w = windows[i];
+      switch (l) {
+        case 'cascade':
+          w.setSize(const Size(620, 380));
+          w.setMaximized(false);
+          break;
+        case 'snap-left':
+          w.setSize(const Size(540, 520));
+          w.setMaximized(false);
+          break;
+        case 'snap-right':
+          w.setSize(const Size(540, 520));
+          w.setMaximized(false);
+          break;
+        case 'tile':
+          w.setSize(const Size(420, 280));
+          w.setMaximized(false);
+          break;
+      }
+    }
+    widget.owner.log.add('Snap layout -> $l');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Multi-window orchestration',
+      subtitle: 'Cascade · Snap left · Snap right · Tile across the desktop.',
+      icon: Icons.dashboard_outlined,
+      accent: _Palette.accentTeal,
+      child: AnimatedBuilder(
+        animation: widget.owner.log,
+        builder: (BuildContext context, Widget? _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Wrap(
+                spacing: 8,
+                children: <Widget>[
+                  for (final String l in const <String>[
+                    'cascade',
+                    'snap-left',
+                    'snap-right',
+                    'tile',
+                  ])
+                    ChoiceChip(
+                      label: Text(l),
+                      selected: _layout == l,
+                      onSelected: (_) => _setLayout(l),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              _Desktop(owner: widget.owner, layout: _layout),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _Desktop extends StatelessWidget {
+  const _Desktop({required this.owner, required this.layout});
+  final WindowingOwnerWin32Mirror owner;
+  final String layout;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 320,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: <Color>[_Palette.desktopTop, _Palette.desktopBottom],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFF20446B)),
+      ),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final List<RegularWindowControllerWin32Mirror> ws = owner.windows;
+          return Stack(
+            children: <Widget>[
+              for (int i = 0; i < ws.length; i++)
+                _positioned(constraints, i, ws.length, ws[i]),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _TaskbarStrip(owner: owner),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _positioned(
+    BoxConstraints box,
+    int i,
+    int n,
+    RegularWindowControllerWin32Mirror w,
+  ) {
+    double left;
+    double top;
+    double width;
+    double height;
+    switch (layout) {
+      case 'snap-left':
+        left = 0;
+        top = 0;
+        width = (box.maxWidth - 8) / 2;
+        height = box.maxHeight - 38;
+        if (i.isOdd) {
+          left = width + 8;
+        }
+        break;
+      case 'snap-right':
+        width = (box.maxWidth - 8) / 2;
+        height = box.maxHeight - 38;
+        left = i.isOdd ? 0 : width + 8;
+        top = 0;
+        break;
+      case 'tile':
+        final int cols = 2;
+        final int rows = ((n + cols - 1) ~/ cols).clamp(1, 4);
+        width = (box.maxWidth - 8 * (cols - 1)) / cols;
+        height = (box.maxHeight - 38 - 8 * (rows - 1)) / rows;
+        left = (i % cols) * (width + 8);
+        top = (i ~/ cols) * (height + 8);
+        break;
+      case 'cascade':
+      default:
+        width = box.maxWidth * 0.6;
+        height = (box.maxHeight - 38) * 0.65;
+        left = (i * 28).toDouble();
+        top = (i * 24).toDouble();
+        break;
+    }
+    return Positioned(
+      left: left,
+      top: top,
+      width: width,
+      height: height,
+      child: _MiniWindow(controller: w),
+    );
+  }
+}
+
+class _MiniWindow extends StatelessWidget {
+  const _MiniWindow({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: controller.activate,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? _) {
+          final bool a = controller.isActivated;
+          return Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FAFC),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(
+                color: a ? _Palette.accentBlue : Colors.black26,
+                width: a ? 1.5 : 1,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  height: 22,
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: a ? _Palette.accentBlue : _Palette.chromeInactive,
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(controller.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: _Type.caption.copyWith(color: Colors.white)),
+                      ),
+                      const Icon(Icons.minimize, size: 10, color: Colors.white),
+                      const SizedBox(width: 6),
+                      const Icon(Icons.crop_square, size: 10, color: Colors.white),
+                      const SizedBox(width: 6),
+                      const Icon(Icons.close, size: 10, color: Colors.white),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    child: Text('HWND ${controller.handle}', style: _Type.small),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _TaskbarStrip extends StatelessWidget {
+  const _TaskbarStrip({required this.owner});
+  final WindowingOwnerWin32Mirror owner;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      decoration: BoxDecoration(
+        color: _Palette.taskbar,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: AnimatedBuilder(
+        animation: owner.log,
+        builder: (BuildContext context, Widget? _) {
+          return Row(
+            children: <Widget>[
+              const Icon(Icons.window, color: Colors.white, size: 16),
+              const SizedBox(width: 10),
+              for (final RegularWindowControllerWin32Mirror w in owner.windows)
+                _TaskbarEntry(controller: w),
+              const Spacer(),
+              Text(TimeOfDay.now().format(context),
+                  style: _Type.caption.copyWith(color: Colors.white70)),
+              const SizedBox(width: 6),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _TaskbarEntry extends StatelessWidget {
+  const _TaskbarEntry({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? _) {
+        final bool a = controller.isActivated;
+        final bool flash = controller.flashing;
+        return GestureDetector(
+          onTap: () {
+            if (controller.isMinimized) {
+              controller.setMinimized(false);
+            }
+            controller.activate();
+          },
+          child: Container(
+            height: 22,
+            margin: const EdgeInsets.symmetric(horizontal: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: flash
+                  ? _Palette.accentAmber
+                  : (a ? _Palette.taskbarHi : Colors.transparent),
+              borderRadius: BorderRadius.circular(3),
+              border: Border.all(
+                color: a ? _Palette.accentBlue : Colors.transparent,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              controller.title.length > 16
+                  ? '${controller.title.substring(0, 16)}…'
+                  : controller.title,
+              style: _Type.caption.copyWith(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// =============================================================================
+//  Section 17 — Flash taskbar.
+// =============================================================================
+
+class _FlashTaskbarSection extends StatelessWidget {
+  const _FlashTaskbarSection({required this.controller});
+  final RegularWindowControllerWin32Mirror controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Flash taskbar entry',
+      subtitle: 'FlashWindowEx attention pattern (mirror-only helper).',
+      icon: Icons.notifications_active,
+      accent: _Palette.accentAmber,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () => controller.flashTaskbar(flashing: true),
+                    icon: const Icon(Icons.flash_on),
+                    label: const Text('flashTaskbar()'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () => controller.flashTaskbar(flashing: false),
+                    icon: const Icon(Icons.flash_off),
+                    label: const Text('stop'),
+                  ),
+                  const SizedBox(width: 14),
+                  Text('flashing = ${controller.flashing}', style: _Type.body),
+                ],
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'FlashWindowEx is not surfaced through the public Win32 owner '
+                'in current Flutter, but it is a common Win32 recipe — so the '
+                'mirror exposes it for completeness.',
+                style: _Type.body,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 18 — Recipe gallery.
+// =============================================================================
+
+class _RecipeGallerySection extends StatelessWidget {
+  static const List<_Recipe> _recipes = <_Recipe>[
+    _Recipe(
+      'Centred splash',
+      'Spawn a small splash window above all others and dismiss after init.',
+      'final c = owner.createRegularWindowController(\n'
+          '  delegate: RegularWindowControllerDelegateMirror(),\n'
+          '  preferredSize: const Size(360, 240),\n'
+          '  title: "Loading...",\n'
+          ');\n'
+          'await Future<void>.delayed(const Duration(seconds: 2));\n'
+          'c.destroy();',
+    ),
+    _Recipe(
+      'Designer + Preview',
+      'Two windows: editor on the left, live preview on the right.',
+      'final editor  = owner.createRegularWindowController(title: "Editor");\n'
+          'final preview = owner.createRegularWindowController(title: "Preview");\n'
+          'editor.setSize(const Size(720, 600));\n'
+          'preview.setSize(const Size(540, 600));',
+    ),
+    _Recipe(
+      'Modal-ish dialog',
+      'A regular window flagged as modal-by-convention. Dialogs use a '
+          'separate DialogWindowControllerWin32 in the SDK.',
+      'final dialog = owner.createRegularWindowController(\n'
+          '  delegate: RegularWindowControllerDelegateMirror(\n'
+          '    shouldVetoClose: (c) => !c.title.startsWith("OK"),\n'
+          '  ),\n'
+          '  title: "Confirm",\n'
+          ');',
+    ),
+    _Recipe(
+      'Detached tool window',
+      'Spawn a panel, snap to the right edge, and pin via setMinimumSize.',
+      'final tool = owner.createRegularWindowController(title: "Tools");\n'
+          'tool.setSize(const Size(320, 600));\n'
+          'tool.setMinimumSize(const Size(280, 480));',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
-      title: '7. Event routing',
-      subtitle:
-          'From the moment a Win32 WM_* arrives to the point a Flutter frame '
-          'is scheduled. Tap a hop to highlight it and surface an explanation.',
+    return _SectionCard(
+      title: 'Recipe gallery',
+      subtitle: 'Hand-rolled patterns built on the WindowingOwnerWin32 surface.',
+      icon: Icons.menu_book_outlined,
+      accent: _Palette.accentTeal,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(
-            height: 120,
-            child: AnimatedBuilder(
-              animation: controller,
-              builder: (BuildContext ctx, Widget? child) {
-                return Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: CustomPaint(
-                        painter: _Wow32RoutingPainter(
-                          highlightedHop: highlightedHop,
-                          progress: controller.value,
-                        ),
-                      ),
-                    ),
-                    // Tap targets over the five boxes.
-                    Positioned.fill(
-                      child: LayoutBuilder(
-                        builder: (BuildContext ctx, BoxConstraints cons) {
-                          final double w = cons.maxWidth;
-                          final double boxW = (w - 80) / 5;
-                          return Stack(
-                            children: <Widget>[
-                              for (int i = 0; i < 5; i++)
-                                Positioned(
-                                  left: 20 + i * (boxW + 10),
-                                  top: (cons.maxHeight - 58) / 2,
-                                  width: boxW - 10,
-                                  height: 58,
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(6),
-                                      onTap: () => onHopTap(i),
-                                      child: const SizedBox.expand(),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
+          for (final _Recipe r in _recipes) ...<Widget>[
+            Container(
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7FAFD),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: _Palette.panelStroke),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(r.title,
+                      style: _Type.body.copyWith(fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 4),
+                  Text(r.description, style: _Type.small),
+                  const SizedBox(height: 8),
+                  _CodeBlock(r.code),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 14),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _Wow32Palette.panelStroke),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Icon(
-                  Icons.route_outlined,
-                  size: 22,
-                  color: _Wow32Palette.accentBlue,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    highlightedHop >= 0 && highlightedHop < _hopDescriptions.length
-                        ? _hopDescriptions[highlightedHop]
-                        : 'Tap a hop above to learn what WindowingOwnerWin32 is doing there.',
-                    style: _Wow32TextStyles.cardBody,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          ],
         ],
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 8 — Recipes.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section8Recipes extends StatelessWidget {
-  const _Wow32Section8Recipes();
-
-  @override
-  Widget build(BuildContext context) {
-    return _Panel(
-      title: '8. Recipes',
-      subtitle:
-          'Six small-scale recipes. Recipes marked "conceptual" describe use '
-          'cases the API does not yet expose on Win32 (popups, tooltips, '
-          'custom title bars, DPI events). They are labeled honestly.',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          _Recipe(
-            number: '8.1',
-            title: 'Spawn a secondary regular window',
-            supported: true,
-            description:
-                'Use the public factory RegularWindowController(). The '
-                'factory routes to '
-                'WidgetsBinding.instance.windowingOwner.createRegularWindowController, '
-                'which on Windows returns a RegularWindowControllerWin32.',
-            code: '''final secondary = RegularWindowController(
-  preferredSize: const Size(640, 400),
-  preferredConstraints: const BoxConstraints(
-    minWidth: 480, minHeight: 320,
-  ),
-  title: 'Secondary',
-);
-runWidget(RegularWindow(
-  controller: secondary,
-  child: const SecondaryContent(),
-));''',
-          ),
-          _Recipe(
-            number: '8.2',
-            title: 'Observe focus changes',
-            supported: true,
-            description:
-                'The controller is a ChangeNotifier. WindowScope exposes an '
-                '"activated" aspect so only focus-dependent widgets rebuild.',
-            code: '''Widget build(BuildContext context) {
-  final bool focused = WindowScope.isActivatedOf(context);
-  return Container(
-    color: focused ? Colors.white : const Color(0xFFF0F0F0),
-    child: const ChildContent(),
-  );
-}''',
-          ),
-          _Recipe(
-            number: '8.3',
-            title: 'Intercept close requests',
-            supported: true,
-            description:
-                'Subclass RegularWindowControllerDelegate.onWindowCloseRequested '
-                'and decline to call destroy() if state is dirty — ask the '
-                'user first.',
-            code: '''class _SaveDelegate extends RegularWindowControllerDelegate {
-  _SaveDelegate(this.onDirty);
-  final ValueGetter<bool> onDirty;
-
-  @override
-  void onWindowCloseRequested(RegularWindowController c) {
-    if (onDirty()) {
-      _showConfirm(c); // do not destroy yet
-    } else {
-      c.destroy();
-    }
-  }
-}''',
-          ),
-          _Recipe(
-            number: '8.4',
-            title: 'Custom title bar',
-            supported: false,
-            description:
-                'Conceptual. The framework does not currently expose a hook '
-                'to opt out of the native non-client area. Most approaches go '
-                'through the embedder (set a borderless style then draw a '
-                'custom bar in Flutter).',
-            code: '''// Pseudocode — not supported by the public windowing API today.
-// await FlutterWindow.setStyle(hwnd, WS_POPUP);
-// then paint a Row(minimize, maximize, close) at the top of the widget tree.''',
-          ),
-          _Recipe(
-            number: '8.5',
-            title: 'React to DPI change',
-            supported: false,
-            description:
-                'Conceptual on the framework side. WM_DPICHANGED is handled '
-                'by the embedder and surfaces as a FlutterView devicePixelRatio '
-                'change; WindowScope does not expose a DPI aspect yet.',
-            code: '''final double dpr = View.of(context).devicePixelRatio;
-// Rebuild on MediaQueryData.devicePixelRatioOf(context) if needed.''',
-          ),
-          _Recipe(
-            number: '8.6',
-            title: 'Multi-monitor positioning',
-            supported: false,
-            description:
-                'Conceptual. setFullscreen(true, display: d) accepts a '
-                'dart:ui Display for fullscreen targeting, but non-fullscreen '
-                'placement across monitors has no public API — use the '
-                'embedder extension.',
-            code: '''final Display? secondary = PlatformDispatcher.instance
-    .displays
-    .skip(1)
-    .firstOrNull;
-controller.setFullscreen(true, display: secondary);''',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Recipe extends StatelessWidget {
-  const _Recipe({
-    required this.number,
-    required this.title,
-    required this.supported,
-    required this.description,
-    required this.code,
-  });
-
-  final String number;
+class _Recipe {
+  const _Recipe(this.title, this.description, this.code);
   final String title;
-  final bool supported;
   final String description;
   final String code;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _Wow32Palette.panelStroke),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
-                decoration: BoxDecoration(
-                  color: _Wow32Palette.panelStrokeStrong.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  number,
-                  style: _Wow32TextStyles.label.copyWith(
-                    color: _Wow32Palette.textPrimary,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(title, style: _Wow32TextStyles.cardTitle),
-              ),
-              _Pill(
-                text: supported ? 'supported' : 'conceptual',
-                color: supported
-                    ? _Wow32Palette.accentGreen
-                    : _Wow32Palette.accentAmber,
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(description, style: _Wow32TextStyles.cardBody),
-          const SizedBox(height: 10),
-          _CodeBlock(code: code),
-        ],
-      ),
-    );
-  }
 }
 
-// ---------------------------------------------------------------------------
-//  Section 9 — Comparison table.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 19 — Pitfalls.
+// =============================================================================
 
-class _Wow32Section9Comparison extends StatelessWidget {
-  const _Wow32Section9Comparison();
-
-  @override
-  Widget build(BuildContext context) {
-    return _Panel(
-      title: '9. Comparison with sibling owners',
-      subtitle:
-          'Four rows, four columns — how WindowingOwnerWin32 stacks against '
-          'the macOS, Linux, and Web implementations.',
-      child: _DataTableLite(
-        headers: const <String>['Capability', 'Win32', 'macOS', 'Linux', 'Web'],
-        rows: const <List<String>>[
-          <String>[
-            'Chrome control',
-            'Full native; no '
-                'framework hook to '
-                'hide the title bar.',
-            'Native NSWindow; '
-                'traffic lights '
-                'exposed.',
-            'GTK client-side '
-                'decorations; '
-                'customizable.',
-            'n/a — single '
-                'view in a browser '
-                'tab.',
-          ],
-          <String>[
-            'Popup windows',
-            'Throws '
-                'UnimplementedError.',
-            'Implemented via '
-                'NSPanel.',
-            'Implemented with '
-                'xdg-popup / GTK '
-                'menu surfaces.',
-            'Throws.',
-          ],
-          <String>[
-            'DPI handling',
-            'Embedder translates '
-                'WM_DPICHANGED into '
-                'view devicePixelRatio.',
-            'NSWindow backing '
-                'scale factor.',
-            'Monitor scale '
-                'hinting (fractional '
-                'scaling caveats).',
-            'Browser devicePixelRatio.',
-          ],
-          <String>[
-            'Multi-monitor',
-            'Via engine + '
-                'setFullscreen(display).',
-            'Native space '
-                'switching supported.',
-            'Per-monitor via '
-                'xdg_output.',
-            'Not applicable.',
-          ],
-          <String>[
-            'Custom message hooks',
-            'Private '
-                '_WindowsMessageHandler '
-                '(embedder extensions '
-                'only).',
-            'Delegate subclass '
-                'pattern.',
-            'Event filter (GTK) '
-                'or Wayland '
-                'listener.',
-            'None exposed.',
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-//  Section 10 — Glossary + epilogue + live event log.
-// ---------------------------------------------------------------------------
-
-class _Wow32Section10Glossary extends StatelessWidget {
-  const _Wow32Section10Glossary({required this.log});
-
-  final List<String> log;
-
-  static const List<List<String>> _entries = <List<String>>[
+class _PitfallsSection extends StatelessWidget {
+  static const List<List<String>> _pitfalls = <List<String>>[
     <String>[
-      'WindowingOwner',
-      'Abstract class in package:flutter/src/widgets/_window.dart. Defines '
-          'createRegularWindowController, createDialogWindowController, '
-          'createTooltipWindowController, and createPopupWindowController. '
-          'Per-platform subclasses implement the concrete calls.',
+      'DPI awareness',
+      'A WindowingOwnerWin32 created before the process declares per-monitor '
+          'DPI awareness will paint blurry on high-DPI displays. Set the '
+          'manifest before instantiating the owner.',
     ],
     <String>[
-      'WindowingOwnerWin32',
-      'Win32 subclass. Instantiated only on Platform.isWindows and only '
-          'when isWindowingEnabled. Registers a Dart-side _onMessage callback '
-          'with the engine and holds a list of _WindowsMessageHandler '
-          'instances that controllers add on creation.',
-    ],
-    <String>[
-      'RegularWindowController',
-      'Public abstract controller for top-level resizable windows. Backed '
-          'on Win32 by RegularWindowControllerWin32. Extends ChangeNotifier '
-          'so views subscribing via WindowScope aspects rebuild when the '
-          'native window changes state.',
-    ],
-    <String>[
-      'DialogWindowController',
-      'Controller for modal/modeless dialogs. Modal dialogs (non-null parent) '
-          'disable the Win32 close chrome and cannot minimize.',
-    ],
-    <String>[
-      'PopupWindowController',
-      'Controller for menus/context menus. On Win32 the factory currently '
-          'throws UnimplementedError. Linux and macOS implement it.',
-    ],
-    <String>[
-      'TooltipWindowController',
-      'Controller for non-focusable hover windows. Throws UnimplementedError '
-          'on Win32 today.',
-    ],
-    <String>[
-      'WindowScope',
-      'InheritedModel that exposes the nearest BaseWindowController, with '
-          'aspects for contentSize, title, activated, minimized, maximized, '
-          'and fullscreen. Use WindowScope.isActivatedOf(context) etc. to '
-          'subscribe to only one aspect.',
-    ],
-    <String>[
-      'WidgetsBinding.windowingOwner',
-      'The process-wide owner instance. Assigned to '
-          'createDefaultWindowingOwner() at binding initialization; can be '
-          'replaced in tests.',
-    ],
-    <String>[
-      'PlatformDispatcher',
-      'Global dispatcher for views and displays. On Windows, '
-          'platformDispatcher.engineId is the 64-bit handle the owner passes '
-          'through every FFI call into the embedder.',
-    ],
-    <String>[
-      'FlutterView',
-      'The Dart-side representation of a native window surface. Each window '
-          'controller owns exactly one root view (controller.rootView).',
-    ],
-    <String>[
-      'HWND',
-      'typedef HWND = ffi.Pointer<ffi.Void>. The opaque Win32 window handle. '
-          'Owned by the embedder; the controller obtains it via '
-          'InternalFlutterWindows_WindowManager_GetTopLevelWindowHandle.',
-    ],
-    <String>[
-      'WndProc',
-      'The classic Win32 window procedure. The Flutter Windows embedder '
-          'registers its own WndProc and forwards messages into Dart as '
-          '_WindowsMessage structs.',
-    ],
-    <String>[
-      'Message loop',
-      'The GetMessage / DispatchMessage pump that the embedder runs. Ticks '
-          'once per UI event; each tick may deliver zero or more WM_* to '
-          'WindowingOwnerWin32._onMessage.',
-    ],
-    <String>[
-      'DPI scaling',
-      'Windows concept of per-monitor DPI. WM_DPICHANGED updates the view\'s '
-          'devicePixelRatio; MediaQuery reflects the change on the next frame.',
+      'Message-pump reentrancy',
+      'Calling `destroy()` from inside a delegate hook is fine, but calling '
+          '`createRegularWindowController` from inside `_onMessage` re-enters '
+          'the pump — keep window creation on the next microtask.',
     ],
     <String>[
       'isWindowingEnabled',
-      'Feature-flag getter in package:flutter/src/foundation/_features.dart. '
-          'When false, every windowing API throws UnsupportedError — this is '
-          'the main reason the demo on this page is painted rather than '
-          'instantiated.',
+      'Both `WindowingOwnerWin32` and `RegularWindowControllerWin32` throw '
+          'UnsupportedError when the windowing feature flag is off. Always '
+          'guard the call site.',
+    ],
+    <String>[
+      'CoTaskMemAlloc allocator',
+      'The owner allocates request structs through `_CallocAllocator`, which '
+          'wraps `ole32.dll!CoTaskMemAlloc`. Custom test allocators must '
+          'implement `ffi.Allocator` correctly or the engine will leak.',
+    ],
+    <String>[
+      'WM_NCHITTEST customization',
+      'Custom drag regions and resize hit-testing happen on the engine side. '
+          'The Dart-level owner only sees the post-hit-test messages.',
     ],
   ];
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
-      title: '10. Glossary + epilogue + live log',
-      subtitle:
-          'The vocabulary this demo leans on, followed by a narrative on when '
-          'an application developer actually has to think about '
-          'WindowingOwnerWin32, and a running log of the in-demo interactions.',
+    return _SectionCard(
+      title: 'Pitfalls & gotchas',
+      subtitle: 'Things that bite when you adopt this API.',
+      icon: Icons.warning_amber_outlined,
+      accent: _Palette.accentRed,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _Wow32Palette.panelStroke),
-            ),
-            child: Column(
-              children: <Widget>[
-                for (int i = 0; i < _entries.length; i++)
-                  Container(
-                    decoration: BoxDecoration(
-                      color: i.isEven ? Colors.white : const Color(0xFFF8FAFC),
-                      borderRadius: i == 0
-                          ? const BorderRadius.vertical(
-                              top: Radius.circular(7),
-                            )
-                          : i == _entries.length - 1
-                              ? const BorderRadius.vertical(
-                                  bottom: Radius.circular(7),
-                                )
-                              : null,
-                      border: i == 0
-                          ? null
-                          : const Border(
-                              top: BorderSide(
-                                color: _Wow32Palette.panelStroke,
-                                width: 0.5,
-                              ),
-                            ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 12,
-                    ),
-                    child: Row(
+          for (final List<String> p in _pitfalls)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Icon(Icons.error_outline,
+                      size: 16, color: _Palette.accentRed),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          width: 180,
-                          child: Text(
-                            _entries[i][0],
-                            style: _Wow32TextStyles.cardTitle.copyWith(
-                              fontFamily: 'monospace',
-                              fontSize: 12.5,
-                              color: _Wow32Palette.accentBlue,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            _entries[i][1],
-                            style: _Wow32TextStyles.cardBody,
-                          ),
-                        ),
+                        Text(p[0],
+                            style: _Type.body.copyWith(fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 2),
+                        Text(p[1], style: _Type.small),
                       ],
                     ),
                   ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: const Color(0xFFE9F2FC),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _Wow32Palette.accentBlue.withValues(alpha: 0.5),
+                ],
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: const <Widget>[
-                    Icon(
-                      Icons.lightbulb_outline,
-                      size: 18,
-                      color: _Wow32Palette.accentBlue,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Epilogue — when do you actually care?',
-                      style: _Wow32TextStyles.cardTitle,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'The short answer is: almost never. For the overwhelming '
-                  'majority of Flutter desktop apps, the only surface you '
-                  'touch is the public abstraction: RegularWindow, '
-                  'DialogWindow, WindowScope.of(context), and the controller '
-                  'factories. The framework picks a WindowingOwner for you at '
-                  'boot and you never see its concrete type.',
-                  style: _Wow32TextStyles.cardBody,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'You start to care about WindowingOwnerWin32 specifically '
-                  'when you need to reach below the public API — replacing '
-                  'the default owner in tests, writing a plugin that hooks '
-                  'additional WM_* messages, or shipping an embedder '
-                  'extension that needs per-platform behavior. And you care '
-                  'when a feature simply is not there yet: popups and '
-                  'tooltips throw on Win32 today, DPI events do not surface '
-                  'as an aspect, and there is no framework-level hook for '
-                  'custom title bars. In those cases, knowing exactly what '
-                  'WindowingOwnerWin32 does — and what it does not yet do — '
-                  'is the difference between writing an embedder patch and '
-                  'spending an afternoon debugging an UnsupportedError.',
-                  style: _Wow32TextStyles.cardBody,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Until the windowing APIs stabilize (tracked in issue '
-                  '#30701), treat every example here as a contract sketch, '
-                  'not a promise. The goal of this page is literacy: you '
-                  'should be able to read the SDK source, recognize the '
-                  'roles, and pick the right abstraction level when you '
-                  'need to extend it.',
-                  style: _Wow32TextStyles.cardBody,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: _Wow32Palette.codeBg,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    const Icon(
-                      Icons.terminal,
-                      size: 16,
-                      color: _Wow32Palette.codeAccent,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Event log (most recent first)',
-                      style: _Wow32TextStyles.label.copyWith(
-                        color: _Wow32Palette.codeAccent,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '${log.length} lines',
-                      style: _Wow32TextStyles.logLine.copyWith(
-                        color: _Wow32Palette.textMuted,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  height: 180,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF0C1624),
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: _Wow32Palette.codeAccent.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: ListView.builder(
-                    itemCount: log.length,
-                    itemBuilder: (BuildContext ctx, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 1),
-                        child: Text(
-                          log[index],
-                          style: _Wow32TextStyles.logLine.copyWith(
-                            color: index == 0
-                                ? _Wow32Palette.codeAccent
-                                : _Wow32Palette.codeText,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                'Flutter SDK · package:flutter/src/widgets/_window_win32.dart',
-                style: _Wow32TextStyles.logLine.copyWith(
-                  color: _Wow32Palette.textMuted,
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Utility: we import services and foundation primarily for their types.
-//  End of file.
-// ---------------------------------------------------------------------------
+// =============================================================================
+//  Section 20 — Reference table.
+// =============================================================================
 
+class _ReferenceTableSection extends StatelessWidget {
+  static const List<List<String>> _rows = <List<String>>[
+    <String>['WindowingOwnerWin32()',
+        'allocator = _CallocAllocator()', 'Sets up FFI, registers _onMessage'],
+    <String>['createRegularWindowController(...)',
+        'RegularWindowControllerWin32', 'Owner factory used by RegularWindow'],
+    <String>['createDialogWindowController(...)',
+        'DialogWindowControllerWin32', 'Modal-ish dialog with optional parent'],
+    <String>['_addMessageHandler / _removeMessageHandler',
+        '—', 'Internal pump fan-out'],
+    <String>['controller.setSize(Size)',
+        '—', 'WM_SIZE → notifyListeners()'],
+    <String>['controller.setConstraints(BoxConstraints)',
+        '—', 'Re-applies min/max'],
+    <String>['controller.setMaximized(bool)',
+        '—', 'ShowWindow(SW_MAXIMIZE / SW_RESTORE)'],
+    <String>['controller.setMinimized(bool)',
+        '—', 'ShowWindow(SW_MINIMIZE / SW_RESTORE)'],
+    <String>['controller.setFullscreen(bool, {Display? display})',
+        '—', 'SetFullscreen on requested monitor'],
+    <String>['controller.activate()',
+        '—', 'ShowWindow(SW_RESTORE) + bring to top'],
+    <String>['controller.destroy()',
+        '—', 'DestroyWindow + delegate.onWindowDestroyed'],
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Reference table',
+      subtitle: 'Method · return · effect (cite-by-line in _window_win32.dart).',
+      icon: Icons.table_chart_outlined,
+      accent: _Palette.accentBlue,
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            color: _Palette.panelStroke.withValues(alpha: 0.4),
+            child: Row(
+              children: const <Widget>[
+                Expanded(
+                    flex: 4,
+                    child: Text('member',
+                        style: TextStyle(fontWeight: FontWeight.w700))),
+                Expanded(
+                    flex: 3,
+                    child: Text('returns',
+                        style: TextStyle(fontWeight: FontWeight.w700))),
+                Expanded(
+                    flex: 5,
+                    child: Text('effect',
+                        style: TextStyle(fontWeight: FontWeight.w700))),
+              ],
+            ),
+          ),
+          for (final List<String> r in _rows)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: _Palette.panelStroke)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(flex: 4, child: Text(r[0], style: _Type.small)),
+                  Expanded(flex: 3, child: Text(r[1], style: _Type.small)),
+                  Expanded(flex: 5, child: Text(r[2], style: _Type.small)),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 21 — Live event log.
+// =============================================================================
+
+class _EventLogSection extends StatelessWidget {
+  const _EventLogSection({required this.log});
+  final EventLogMirror log;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: 'Live event log',
+      subtitle: 'Every method call on the mirror appears here.',
+      icon: Icons.terminal,
+      accent: _Palette.accentTeal,
+      child: AnimatedBuilder(
+        animation: log,
+        builder: (BuildContext context, Widget? _) {
+          final List<String> tail = log.entries.length > 60
+              ? log.entries.sublist(log.entries.length - 60)
+              : List<String>.of(log.entries);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text('${log.entries.length} message'
+                      '${log.entries.length == 1 ? '' : 's'}',
+                      style: _Type.body),
+                  const Spacer(),
+                  TextButton.icon(
+                    onPressed: log.clear,
+                    icon: const Icon(Icons.clear_all),
+                    label: const Text('clear'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Container(
+                height: 220,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: _Palette.codeBg,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: ListView.builder(
+                  reverse: true,
+                  itemCount: tail.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    final String entry = tail[tail.length - 1 - i];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 1),
+                      child: Text(entry,
+                          style: _Type.code.copyWith(
+                            color: _Palette.codeAccent,
+                          )),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// =============================================================================
+//  Section 22 — Footer.
+// =============================================================================
+
+class _Footer extends StatelessWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF101A28),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFF22384F)),
+      ),
+      child: Row(
+        children: <Widget>[
+          const Icon(Icons.info_outline, color: Colors.white70, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              'WindowingOwnerWin32 lives in package:flutter/src/widgets/_window_win32.dart, '
+              'is @internal, and is gated by isWindowingEnabled. This demo uses a '
+              'shape-faithful local mirror so the API can be exercised live, '
+              'without importing the SDK private surface.',
+              style: _Type.small.copyWith(color: const Color(0xFFB7C4D6)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
