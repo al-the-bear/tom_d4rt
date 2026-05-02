@@ -1,0 +1,4 @@
+# Transient files used by AstgenTestSetup.prepareBridges to serialise
+# parallel `dart compile exe` callers (see D4RT-TESTER-BUSY cluster).
+.d4-prepare.lock
+.d4.ready

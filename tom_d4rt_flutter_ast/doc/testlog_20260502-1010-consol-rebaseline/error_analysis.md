@@ -823,7 +823,7 @@ not the dep tree.
 Net delta: **-5 errors**, plus 400+ previously-uncompilable tests
 now run.
 
-### Cluster D4RT-TESTER-BUSY — Race on `example/d4/bin/d4` (1 error)
+### Cluster D4RT-TESTER-BUSY — Race on `example/d4/bin/d4` (1 error) — **CLOSED 2026-05-02**
 
 Site: `tom_ast_generator` (`G-DCLI-12`).
 
@@ -831,22 +831,39 @@ Symptom: `ProcessException: Text file busy | Command:
 …/tom_ast_generator/example/d4/bin/d4 --test
 ../d4_test_scripts/bin/dcli_scripting_guide/12_error_handling.dart`.
 
-**Root cause.** Two test runs (most likely the parallel suite
-runner) try to execute the same compiled `d4` binary while another
-process is still writing to it. This is the same parallel-test
-hazard that the flutter suites have, but for a Dart binary.
+**Root cause.** `dart test` runs each test file in its own VM and
+may execute multiple suites in parallel. Both
+`d4rt_tester_test.dart` and `d4rt_coverage_test.dart` call
+`AstgenTestSetup.prepareBridges` from `setUpAll`, which runs
+`dart compile exe` to the same `bin/<runner>` path. The late-comer
+hits the early-comer's still-open file handle and fails with
+"Text file busy". Reproduces only under parallel `dart test`; both
+tests pass in isolation.
 
-**Fix.**
+**Fix.** `tom_ast_generator/test/generator_tests/astgen_test_setup.dart`
+now serialises callers and skips duplicated work:
 
-1. In `tom_ast_generator/test/generator_tests/d4rt_tester_test.dart`,
-   wrap the binary-rebuild step in a per-process lock (file
-   lock or use a temp dir per process) so two runners can't
-   stomp on the same binary.
-2. Or, in the project's `test/` config, mark the
-   `d4rt_tester_test` group as `isolated: true` so it does not
-   run in parallel with other suites that touch the same binary.
-3. This is environment-fragile but rarely flakes; it is a low
-   priority compared to clusters above.
+1. Wrap the body of `prepareBridges` with an exclusive blocking
+   file lock on `bin/.d4-prepare.lock` (`FileLock.blockingExclusive`).
+   The lock funnels parallel callers one-at-a-time through the
+   compile step, eliminating the race.
+2. Cache `_suiteStartTime = DateTime.now()` lazily on first VM
+   access. After acquiring the lock, check `bin/.d4.ready`: if the
+   sentinel exists, the binary exists, and `sentinel.lastModifiedSync()
+   > _suiteStartTime`, a sibling test process in the same `dart
+   test` invocation already produced a fresh binary — return `true`
+   and skip the rebuild.
+3. After a successful compile, write the current timestamp to
+   `bin/.d4.ready` so the next sibling can take the fast path.
+
+**Verification (2026-05-02):**
+- `dart analyze test/generator_tests/astgen_test_setup.dart` → 0 issues.
+- `dart test test/generator_tests/d4rt_tester_test.dart
+  test/generator_tests/d4rt_coverage_test.dart` → 122/122 (no
+  "Text file busy"). The cluster failure mode no longer reproduces.
+- Full `dart test` in `tom_ast_generator/` → 508 passed, 2 failed
+  (G-TYPE-1 Record parameter, G-TYPE-2 Record return type — both
+  pre-existing, marked `(FAIL)` in the test descriptions).
 
 ### Cluster VSCODE-LIVE — Live VS Code bridge not reachable (2 reds)
 
@@ -971,15 +988,15 @@ unit of work and unblocks downstream verification:
 | 10 | **EXTTYPE** ✓ | CLOSED 2026-05-02 — fix was pass-2 loop, not declaration visitor | `d4rt_base.dart`, `module_loader.dart`, `d4rt_runner.dart`, `ast_module_loader.dart` |
 | 11 | **RETURNTYPE** ✓ | CLOSED 2026-05-02 — cross-sync gap, `tom_d4rt` only | `tom_d4rt/lib/src/interpreter_visitor.dart` |
 | 12 | **MAP-COERCE** ✓ | CLOSED 2026-05-02 — typed Map rebuild in `extractBridgedArg` Map branch | `tom_d4rt/lib/src/generator/d4.dart`, `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` |
-| 13 | **D4RT-TESTER-BUSY** | −1 error in `tom_ast_generator` (env-fragile) | `test/generator_tests/d4rt_tester_test.dart` |
+| 13 | **D4RT-TESTER-BUSY** ✓ | CLOSED 2026-05-02 — file-lock + sentinel in `prepareBridges` serialises parallel `dart compile exe` callers | `tom_ast_generator/test/generator_tests/astgen_test_setup.dart` |
 | 14 | **GEN-056d / DCL-RT-OPT-02 / G-DOV2-7** | −3 failures (per-project own bugs, no cluster) | per project |
 | 15 | **I-BUG-14a** (Won't Fix) | n/a | leave |
 | 16 | **VSCODE-LIVE** | env-dependent — re-run against a live VS Code first | n/a |
 
-Cumulative effect of items 1 – 12: **−43 failures, −9 errors**,
+Cumulative effect of items 1 – 13: **−43 failures, −10 errors**,
 leaving the seven projects at roughly **9 failures + 0 errors**
 total (the residual being the per-project own-bug items 14 + the
-intentional `I-BUG-14a` + the env-fragile cluster 13).
+intentional `I-BUG-14a`).
 
 ---
 
