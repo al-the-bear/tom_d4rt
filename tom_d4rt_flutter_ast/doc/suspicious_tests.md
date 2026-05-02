@@ -14,20 +14,20 @@ Each entry has three tracking checkboxes:
 
 ## Batch 1
 
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/cupertino_desktop_text_selection_controls_test.dart` — only 105 lines (<400)
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/cupertino_focus_halo_test.dart` — only 120 lines (<400)
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/cupertino_text_selection_handle_controls_test.dart` — only 140 lines (<400)
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/form_test.dart` — only 319 lines (<400)
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/inherited_cupertino_theme_test.dart` — only 138 lines (<400)
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/overlay_visibility_mode_test.dart` — 631 lines, but enum used only for `print()` and static label rows; never wired into a real `CupertinoTextField` to demonstrate visual behaviour
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/cupertino/textfield_test.dart` — 563 lines; constructs `CupertinoTextField` instances in locals to read properties, but `build()` returns a `CupertinoApp` whose body is just a `Text` summary saying "harness preview uses a stable non-editable summary surface" — the fields are never displayed
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/cupertino_desktop_text_selection_controls_test.dart` — rewritten 2026-05-02: 1958-line deep demo, 12 visual scenarios, real `CupertinoTextField`s wired to `cupertinoDesktopTextSelectionControls`, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/cupertino_focus_halo_test.dart` — rewritten 2026-05-02: 1340-line deep demo, 6 scenarios, 17 real `FocusNode`s wired through buttons/text-fields/segmented-control/switches, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/cupertino_text_selection_handle_controls_test.dart` — rewritten 2026-05-02: 1229-line deep demo, 7 scenarios, real selection controls across single-line/multi-line/password/read-only/inset-grouped/touch-vs-desktop, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/form_test.dart` — rewritten 2026-05-02: 1109-line deep demo, 12 sections, realistic Settings-screen built from `CupertinoFormSection.insetGrouped` plus comprehensive variant gallery, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/inherited_cupertino_theme_test.dart` — rewritten 2026-05-02: 1061-line deep demo, 6 scenarios (default light/dark, custom brand, high-contrast, nested override, programmatic readback) using `CupertinoTheme.of(context)`, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/overlay_visibility_mode_test.dart` — rewritten 2026-05-02: 1466-line deep demo, 6 sections, 10 live `CupertinoTextField`s with real `prefixMode` / `suffixMode` values plus 4×3 decision matrix and recipe gallery, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/cupertino/textfield_test.dart` — rewritten 2026-05-02: 1395-line deep demo, 12 sections, every `CupertinoTextField` rendered live with `AnimatedBuilder`-driven value captions and a stateful counter, dart analyze clean
 - [x] checked / [x] is ok / [ ] fixed — `send_ast_via_http_scripts/dart_ui/path_metrics_test.dart`
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/dart_ui/system_color_palette_test.dart` — 859 lines, but `build()` unconditionally takes the "fallback" branch ("SystemColor API unsupported in this runtime; rendering fallback summary."); the `_buildPalettePreview` / `_buildW3CSystemColorsCard` helpers are defined but never invoked, so the live `ui.SystemColorPalette` is never displayed
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/foundation/target_platform_test.dart` — only 59 lines (<400)
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/dart_ui/system_color_palette_test.dart` — rewritten 2026-05-02: 1960-line deep demo, 7 sections, live `ui.SystemColor.light`/`ui.SystemColor.dark` palette grids with platform-availability branching plus W3C reference grid, dart analyze clean
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/foundation/target_platform_test.dart` — rewritten 2026-05-02: 1730-line deep demo, 6 sections, six per-platform widget gallery, branching helpers, `Theme.platform` vs `defaultTargetPlatform` comparator, override demo, dart analyze clean
 
 ## Batch 2
 
-- [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart` — only 51 lines (<400); self-described "Harness-safe summary demo"; renders just one `BottomNavigationBar` with `.fixed`, doesn't show the visual difference between the enum values
+- [x] checked / [ ] is ok / [x] fixed — `send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart` — rewritten 2026-05-02: 1769-line deep demo, 7 scenarios (canonical fixed/shifting interactive, item-count auto behaviour, visual difference matrix, customised palette trio, `BottomNavigationBarTheme` integration, recipe gallery) plus enum reference and summary, dart analyze clean
 - [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart` — only 43 lines (<400)
 - [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/material/button_bar_theme_test.dart` — only 30 lines (<400)
 - [x] checked / [ ] is ok / [ ] fixed — `send_ast_via_http_scripts/material/button_text_theme_test.dart` — only 34 lines (<400)
