@@ -677,15 +677,165 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             ),
           ),
 
-          // Tab content
+          // Tab content — flex:3 to match the flutter_ast_app stage size.
+          // The 3:2 split with the bottom log row constrains the rendered
+          // widget area to ~3/5 of the body height, matching the stage area
+          // in tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app so layout
+          // overflows do not differ between the two runtimes.
           Expanded(
+            flex: 3,
             child: TabBarView(
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                _buildD4rtWidget(context),
+                // Widget tab: framed container matches flutter_ast_app.
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  margin: const EdgeInsets.all(8),
+                  child: _buildD4rtWidget(context),
+                ),
                 _buildLogsView(),
               ],
+            ),
+          ),
+
+          // Bottom log row — flex:2, matches flutter_ast_app's split.
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                Expanded(child: _buildExecutionLog()),
+                const SizedBox(width: 4),
+                Expanded(child: _buildResultsLog(context)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExecutionLog() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(8, 0, 0, 8),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade800,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
+            ),
+            child: Row(
+              children: [
+                const Text(
+                  'Execution Log',
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () => setState(() => _logs.clear()),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(color: Colors.white54, fontSize: 11),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(8),
+              itemCount: _logs.length,
+              itemBuilder: (_, index) {
+                final log = _logs[_logs.length - 1 - index];
+                return Text(
+                  log,
+                  style: TextStyle(
+                    color: log.contains('error') || log.contains('Error')
+                        ? Colors.red.shade300
+                        : Colors.green.shade200,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResultsLog(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade800,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Results (${_resultsLog.length})',
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () => setState(() => _resultsLog.clear()),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(color: Colors.white54, fontSize: 11),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(8),
+              itemCount: _resultsLog.length,
+              itemBuilder: (_, index) {
+                final entry = _resultsLog[_resultsLog.length - 1 - index];
+                Color color = Colors.green.shade200;
+                if (entry.contains('| FAIL')) {
+                  color = Colors.red.shade300;
+                } else if (entry.contains('| needs rewrite')) {
+                  color = Colors.orange.shade300;
+                } else if (entry.contains('| good')) {
+                  color = Colors.lightGreen.shade300;
+                }
+                return Text(
+                  entry,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                );
+              },
             ),
           ),
         ],

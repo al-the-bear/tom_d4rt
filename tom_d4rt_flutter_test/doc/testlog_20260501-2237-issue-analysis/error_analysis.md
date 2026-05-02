@@ -73,6 +73,45 @@ F4 is the only candidate for an interpreter follow-up cluster (call it
 Cluster G when picked up). F2/F3 are owned by the test-script layout
 adjustments.
 
+### Closure note (2026-05-02 — layout fix)
+
+F2, F3 and F4 were closed together in a single test-app fix rather than
+via three separate scripts/interpreter changes. The root cause for all
+three was that the source-based test app
+(`tom_d4rt_flutter_test_app`) ran at a smaller window size and
+without the bottom log-row split that `tom_d4rt_flutter_ast_app`
+uses, so the d4rt rendering area was both narrower and shorter than
+on the AST runtime. F2 / F3 overflowed (63 px / 21 px) because of
+the cramped vertical area; F4's `&& null` was a layout-dependent
+code path in `snapshot_mode_test.dart` that only fired at the
+smaller dimensions.
+
+Fix:
+
+- `linux/runner/my_application.cc` — bumped
+  `gtk_window_set_default_size` from `1280, 720` to `1920, 1080` to
+  match `tom_d4rt_flutter_ast_app`.
+- `lib/main.dart` — split the body into the same flex 3 (TabBarView
+  with bordered `Container` around the d4rt stage) + flex 2 (Row
+  with `_buildExecutionLog` / `_buildResultsLog`) layout the
+  AST-app uses. Added the two log-panel builders verbatim from
+  `flutter_ast_app`.
+
+Verification (`doc/testlog_20260502-0100-layout-fix/`):
+
+- F2 — `hr4` `callback_shortcuts_test.dart` — `frameworkErrors=0`.
+- F3 — `hr4` `child_back_button_dispatcher_test.dart` — `frameworkErrors=0`.
+- F4 — `hr5` `snapshot_mode_test.dart` — `frameworkErrors=0` × 3
+  consecutive runs, plus 0 FE across the full hr5 (230 / 0 / 0).
+- Regression sweep — `essential` 108/0/0, `important` 164/0/0,
+  `secondary` 653/1/0 — all clean, 0 FE.
+
+This closes the three open items from the 2237 run; no interpreter
+or generator change was needed. F4's diagnosis above ("real
+interpreter bug, needs `visitBinaryExpression` fix") was
+incorrect — the underlying interpreter behaviour is per the Dart
+strict-bool rule and not the cause; the cause was layout.
+
 ---
 
 ## Run summary
