@@ -13,6 +13,14 @@ cleanup:
 d4rtgen:
   name: tom_dcli_exec
   helpersImport: package:tom_d4rt_exec/tom_d4rt_exec.dart
+  # Cluster IMPORT-CONFLICT: Without an explicit d4rtImport the generator
+  # defaults to `package:tom_d4rt/d4rt.dart`, which collides with the
+  # analyzer-free `tom_d4rt_ast` types re-exported by tom_d4rt_exec.
+  # Both imports define a `BridgedClass` symbol → compile-time conflict
+  # and a `D4rt/*1*/` vs `D4rt/*2*/` argument-type mismatch in test
+  # `register(d4rt)` calls. Pin the d4rt import to the analyzer-free
+  # variant so generated bridges have a single source of truth.
+  d4rtImport: package:tom_d4rt_exec/d4rt.dart
   generateBarrel: true
   barrelPath: lib/d4rt_bridges.b.dart
   generateDartscript: true

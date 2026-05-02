@@ -1,11 +1,11 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_dcli_exec
-// Generated: 2026-04-23T19:14:05.850931
+// Generated: 2026-05-02T21:25:56.153689
 
 /// D4rt Bridge Registration for tom_dcli_exec
 library;
 
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
 import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;

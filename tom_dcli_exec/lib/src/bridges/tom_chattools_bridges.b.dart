@@ -1,10 +1,10 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-04-23T19:14:05.830808
+// Generated: 2026-05-02T21:25:56.136266
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
 import 'dart:async';
 
@@ -121,6 +121,27 @@ class TomChattoolsBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_api.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_message.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_receiver.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_response.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/telegram/telegram_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_message.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_response.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_receiver.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_settings.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -138,6 +159,11 @@ class TomChattoolsBridge {
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
       interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -210,6 +236,7 @@ BridgedClass _createChatConfigBridge() {
     nativeType: $tom_chattools_2.ChatConfig,
     name: 'ChatConfig',
     isAssignable: (v) => v is $tom_chattools_2.ChatConfig,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -532,6 +559,8 @@ BridgedClass _createChatReceiverBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -695,6 +724,7 @@ BridgedClass _createChatApiBridge() {
     nativeType: $tom_chattools_1.ChatApi,
     name: 'ChatApi',
     isAssignable: (v) => v is $tom_chattools_1.ChatApi,
+    isAbstract: true,
     constructors: {
     },
     getters: {

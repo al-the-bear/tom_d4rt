@@ -472,7 +472,7 @@ interpreter passes an `InterpretedFunction`.
    the native call site receives a real Dart closure.
 3. Closing this fixes 2 of the 3 `tom_dcli_exec` failures.
 
-### Cluster IMPORT-CONFLICT — Dual `BridgedClass` import (5 errors)
+### Cluster IMPORT-CONFLICT — Dual `BridgedClass` import (5 errors) — **CLOSED 2026-05-02**
 
 Site: `tom_dcli_exec` — 5 `Failed to load` errors at compile time.
 
@@ -487,30 +487,59 @@ Symptom (representative):
 > 'package:tom_d4rt_exec/src/d4rt_base.dart' - 'D4rt/*2*/' is
 > from 'package:tom_d4rt-1.8.19/lib/src/d4rt_base.dart'.`
 
-**Root cause.** `tom_dcli_exec` depends on **both** `tom_d4rt`
-(transitively, from a sub-dependency that still pins the analyzer-
-based variant) and `tom_d4rt_exec` (which re-exports
-`tom_d4rt_ast`'s `BridgedClass`). Generated bridges
-(`*.b.dart`) import both transitively → duplicate-symbol error
-that prevents test compilation.
+**Actual root cause — `d4rtImport` defaulted to the analyzer-based
+package.** `tom_dcli_exec/buildkit.yaml` set
+`helpersImport: package:tom_d4rt_exec/tom_d4rt_exec.dart` but did
+not set `d4rtImport`. The bridge generator's default for
+`d4rtImport` (`bridge_api.dart:215`,
+`per_package_orchestrator.dart`, `file_generators.dart` etc.) is
+`package:tom_d4rt/d4rt.dart`. Generated bridges therefore emitted
+**both**:
 
-**Fix.**
+```
+import 'package:tom_d4rt/d4rt.dart';        // ← d4rtImport default
+import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';  // ← helpersImport
+```
 
-1. Audit `tom_dcli_exec/pubspec.yaml` for dependencies that bring
-   in `tom_d4rt-1.8.19` from pub.dev. The diagnostic explicitly
-   names `package:tom_d4rt-1.8.19`, indicating a
-   pub-cache-resolved transitive dep.
-2. Either:
-   (a) update the offending dependency to the version that
-   already migrated to `tom_d4rt_exec`, or
-   (b) add a `dependency_overrides` (workspace-local path) that
-   pins the offending dep to a compatible version.
-3. As an alternative if dependency override isn't viable:
-   the generator could emit `import` clauses that select only one
-   `BridgedClass` source (typically via `hide` directives on the
-   redundant import). But the cleaner fix is the dep upgrade.
-4. Closing this clears 5 of 8 reds in `tom_dcli_exec` — all the
-   `loading test/...` failures.
+Both packages export `BridgedClass`/`D4rt`, so the analyzer flagged
+duplicate-symbol errors and the `D4rt/*1*/` ↔ `D4rt/*2*/` mismatch
+in `register(d4rt)` calls. The transitive dependency on
+`tom_d4rt-1.8.19` came from the dev-dep `tom_d4rt_generator: any`
+(pulls `tom_d4rt 1.8.19` from pub.dev) — but the *root cause*
+inside the generated code was the missing `d4rtImport` config key,
+not the dep tree.
+
+**Fix applied.**
+
+1. Added `d4rtImport: package:tom_d4rt_exec/d4rt.dart` to the
+   `d4rtgen:` block in `tom_dcli_exec/buildkit.yaml`. The
+   analyzer-free `tom_d4rt_exec/lib/d4rt.dart` re-exports
+   `tom_d4rt_ast/runtime.dart` (with `LoadedModule` hidden), giving
+   the bridges a single coherent source for `D4rt`, `BridgedClass`,
+   and runtime types.
+2. Regenerated all `.b.dart` bridges
+   (`dart run tom_d4rt_generator/bin/d4rtgen.dart` from the project
+   root). Each bridge file now contains
+   `import 'package:tom_d4rt_exec/d4rt.dart';` instead of the dual
+   import — single source of truth.
+
+**Verification.**
+
+- `dart analyze` in `tom_dcli_exec/`: 5 errors gone, only
+  pre-existing `unused_import` / `unused_local_variable` warnings
+  in `test/dcli_example/dcli_scripting_guide/*.dart` remain.
+- Targeted compile of the previously-erroring suites
+  (`cli_api_bridges_test`, `cli_api_comprehensive_test`,
+  `cli_api_script_test`, `vscode_scripting_api_bridges_test`):
+  335/335 pass.
+- Full `tom_dcli_exec` suite: **+409 -3**. The 3 remaining failures
+  are the pre-existing baseline DCli-example failures
+  (`DCli Project - tomexample (advanced) environment`,
+  `... process_execution`, `DCli Project - standalone (advanced)
+  redirect`) — none are import-conflict related.
+
+Net delta: **-5 errors**, plus 400+ previously-uncompilable tests
+now run.
 
 ### Cluster D4RT-TESTER-BUSY — Race on `example/d4/bin/d4` (1 error)
 

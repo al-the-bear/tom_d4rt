@@ -1,10 +1,10 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-04-23T19:14:04.504081
+// Generated: 2026-05-02T21:25:54.833566
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
 import 'dart:async';
 import 'dart:io';
@@ -144,6 +144,16 @@ class CliApiBridge {
   static Map<String, String> extensionSourceUris() {
     return {
     };
+  }
+
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+    ];
   }
 
   /// Registers all bridges with an interpreter.
@@ -393,6 +403,7 @@ BridgedClass _createD4rtCliApiBridge() {
     nativeType: $tom_dcli_exec_1.D4rtCliApi,
     name: 'D4rtCliApi',
     isAssignable: (v) => v is $tom_dcli_exec_1.D4rtCliApi,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1714,6 +1725,7 @@ BridgedClass _createCliRuntimeBridge() {
     nativeType: $tom_dcli_exec_6.CliRuntime,
     name: 'CliRuntime',
     isAssignable: (v) => v is $tom_dcli_exec_6.CliRuntime,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -2227,6 +2239,8 @@ BridgedClass _createD4rtBridge() {
     getters: {
       'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').visitor,
       'bridgedLibraryUris': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgedLibraryUris,
+      'libraryReExports': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').libraryReExports,
+      'bridgesFinalized': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgesFinalized,
     },
     methods: {
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
@@ -2262,6 +2276,16 @@ BridgedClass _createD4rtBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerFunctionTypedef');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerFunctionTypedef');
         t.registerFunctionTypedef(name, library);
+        return null;
+      },
+      'registerLibraryReExport': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerLibraryReExport');
+        final sourceUri = D4.getRequiredArg<String>(positional, 0, 'sourceUri', 'registerLibraryReExport');
+        final targetUri = D4.getRequiredArg<String>(positional, 1, 'targetUri', 'registerLibraryReExport');
+        final show = D4.coerceSetOrNull<String>(named['show'], 'show');
+        final hide = D4.coerceSetOrNull<String>(named['hide'], 'hide');
+        t.registerLibraryReExport(sourceUri, targetUri, show: show, hide: hide);
         return null;
       },
       'registerBridgedExtension': (visitor, target, positional, named, typeArgs) {
@@ -2364,6 +2388,22 @@ BridgedClass _createD4rtBridge() {
         final operation = D4.getRequiredArg<dynamic>(positional, 0, 'operation', 'checkPermission');
         return t.checkPermission(operation);
       },
+      'registerExtensions': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerExtensions');
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'registerExtensions');
+        if (positional.length <= 1) {
+          throw ArgumentError('registerExtensions: Missing required argument "body" at position 1');
+        }
+        final bodyRaw = positional[1];
+        t.registerExtensions(packageName, () { D4.callInterpreterCallback(visitor!, bodyRaw, []); });
+        return null;
+      },
+      'finalizeBridges': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        t.finalizeBridges();
+        return null;
+      },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         return t.getConfiguration();
@@ -2423,6 +2463,26 @@ BridgedClass _createD4rtBridge() {
         final namedArgs = D4.coerceMapOrNull<String, Object?>(named['namedArgs'], 'namedArgs');
         return t.executeBundle(bundle, entryPoint: entryPoint, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs);
       },
+      'executeBundleAs': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 1, 'executeBundleAs');
+        final bundle = D4.getRequiredArg<$tom_d4rt_ast_1.AstBundle>(positional, 0, 'bundle', 'executeBundleAs');
+        final entryPoint = D4.getOptionalNamedArg<String?>(named, 'entryPoint');
+        final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
+        final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(named['namedArgs'], 'namedArgs');
+        return t.executeBundleAs(bundle, entryPoint: entryPoint, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs);
+      },
+      'executeBundleAsAsync': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 1, 'executeBundleAsAsync');
+        final bundle = D4.getRequiredArg<$tom_d4rt_ast_1.AstBundle>(positional, 0, 'bundle', 'executeBundleAsAsync');
+        final entryPoint = D4.getOptionalNamedArg<String?>(named, 'entryPoint');
+        final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
+        final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(named['namedArgs'], 'namedArgs');
+        return t.executeBundleAsAsync(bundle, entryPoint: entryPoint, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs);
+      },
       'analyze': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         final source = D4.getRequiredNamedArg<String>(named, 'source', 'analyze');
@@ -2461,6 +2521,7 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
       'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
+      'registerLibraryReExport': 'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
       'registerBridgedExtension': 'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
       'registertopLevelFunction': 'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
       'registerGlobalVariable': 'void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri})',
@@ -2472,6 +2533,8 @@ BridgedClass _createD4rtBridge() {
       'revoke': 'void revoke(Permission permission)',
       'hasPermission': 'bool hasPermission(Permission permission)',
       'checkPermission': 'bool checkPermission(dynamic operation)',
+      'registerExtensions': 'void registerExtensions(String packageName, void Function() body)',
+      'finalizeBridges': 'void finalizeBridges()',
       'getConfiguration': 'D4rtConfiguration getConfiguration()',
       'getEnvironmentState': 'EnvironmentState? getEnvironmentState()',
       'execute': 'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
@@ -2479,6 +2542,8 @@ BridgedClass _createD4rtBridge() {
       'createBundleFromSource': 'Future<AstBundle> createBundleFromSource(String source, {String sourcePath = \'main.dart\', Map<String, String>? explicitSources, AstBundlerConfig? bundlerConfig})',
       'createBundle': 'Future<AstBundle> createBundle(String entryPointPath, {Map<String, String>? explicitSources, String? packageName, String? projectRoot, AstBundlerConfig? bundlerConfig})',
       'executeBundle': 'dynamic executeBundle(AstBundle bundle, {String? entryPoint, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs})',
+      'executeBundleAs': 'T executeBundleAs(AstBundle bundle, {String? entryPoint, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs})',
+      'executeBundleAsAsync': 'Future<T> executeBundleAsAsync(AstBundle bundle, {String? entryPoint, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs})',
       'analyze': 'IntrospectionResult analyze({required String source, Map<String, String>? sources, bool includeBuiltins = false})',
       'eval': 'dynamic eval(String expression)',
       'invoke': 'dynamic invoke(String name, List<Object?> positionalArgs, [Map<String, Object?> namedArgs = const {}, Map<String, String>? sources])',
@@ -2486,6 +2551,8 @@ BridgedClass _createD4rtBridge() {
     getterSignatures: {
       'visitor': 'InterpreterVisitor? get visitor',
       'bridgedLibraryUris': 'Set<String> get bridgedLibraryUris',
+      'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
+      'bridgesFinalized': 'bool get bridgesFinalized',
     },
   );
 }
