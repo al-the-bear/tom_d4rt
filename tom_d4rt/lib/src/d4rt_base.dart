@@ -1202,6 +1202,14 @@ class D4rt {
           declaration.accept<Object?>(_visitor!);
         }
       }
+      // 3b. Extension type declarations (Dart 3.3+). Without this pass the
+      //     wrapper class is never registered and `main()` cannot resolve
+      //     the constructor — the type appears as Undefined.
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ExtensionTypeDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
       // 4. Function declarations
       for (final declaration in compilationUnit.declarations) {
         if (declaration is FunctionDeclaration) {
@@ -1461,6 +1469,12 @@ class D4rt {
       // 3. Extension declarations
       for (final declaration in compilationUnit.declarations) {
         if (declaration is ExtensionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 3b. Extension type declarations (Dart 3.3+) — see _executeInEnvironment.
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ExtensionTypeDeclaration) {
           declaration.accept<Object?>(_visitor!);
         }
       }

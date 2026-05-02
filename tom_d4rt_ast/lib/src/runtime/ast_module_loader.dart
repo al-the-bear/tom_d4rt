@@ -835,6 +835,15 @@ class AstModuleLoader implements ModuleContext {
     for (final decl in ast.declarations) {
       if (decl is SExtensionDeclaration) decl.accept<Object?>(interpreter);
     }
+    // Cluster EXTTYPE: Extension type declarations (Dart 3.3+). Without
+    // this pass the wrapper class is never registered for imported
+    // modules — consumers see "Undefined variable" when invoking the
+    // constructor.
+    for (final decl in ast.declarations) {
+      if (decl is SExtensionTypeDeclaration) {
+        decl.accept<Object?>(interpreter);
+      }
+    }
     for (final decl in ast.declarations) {
       if (decl is STopLevelVariableDeclaration) {
         decl.accept<Object?>(interpreter);

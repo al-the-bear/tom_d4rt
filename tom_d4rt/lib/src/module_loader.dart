@@ -699,6 +699,15 @@ class ModuleLoader {
       }
     }
 
+    // Cluster EXTTYPE: Process extension type declarations (Dart 3.3+) so
+    // the wrapper class is registered for imported modules — otherwise
+    // consumers see "Undefined variable" when invoking the constructor.
+    for (final declaration in ast.declarations) {
+      if (declaration is ExtensionTypeDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+
     // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
       // We only care about the evaluation of TopLevelVariableDeclaration for their initializers.

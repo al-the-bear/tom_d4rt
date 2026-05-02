@@ -263,7 +263,7 @@ why `I-MISC-41` surfaced as `Undefined variable` rather than
 Net cluster impact: −4 reds (-2 in `tom_d4rt`, -2 in
 `tom_d4rt_exec`).
 
-### Cluster EXTTYPE — Extension types not registered (2 fails)
+### Cluster EXTTYPE — Extension types not registered (2 fails) — **CLOSED 2026-05-02**
 
 Sites: `tom_d4rt` (`I-FILE-47`), `tom_d4rt_generator` (`G-DOV3-1`).
 
@@ -275,26 +275,60 @@ extension type UserId(int value) {}
 final id = UserId(42);  // throws Undefined variable: UserId
 ```
 
-**Root cause.** Extension-type declarations are parsed but the
-declaration visitor does not register the wrapper class in the
-environment — so the constructor invocation (which is a
-`SimpleIdentifier` for `UserId` followed by an argument list) hits
-an empty lookup.
+**Actual root cause.** The original analysis blamed the
+declaration visitor — but `visitExtensionTypeDeclaration` already
+exists in `InterpreterVisitor` (both copies) and registers the
+wrapper type correctly when invoked. The real defect is that the
+**pass-2 dependency-ordered loops never visit
+`ExtensionTypeDeclaration` nodes**. The loops in
+`tom_d4rt/lib/src/d4rt_base.dart` (`_executeInEnvironment` and
+`_executeClassic`), `tom_d4rt/lib/src/module_loader.dart`
+(imported-module pass), `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart`
+(`_executeInEnvironment`), and
+`tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart`
+(`_interpretDeclarations`) explicitly enumerate
+`EnumDeclaration → ClassDeclaration|MixinDeclaration →
+ExtensionDeclaration → FunctionDeclaration →
+TopLevelVariableDeclaration` and have **no step for
+`ExtensionTypeDeclaration`**, so the extension-type AST nodes are
+silently dropped during interpretation. `main()` then resolves
+`UserId(42)` against an environment where `UserId` was never
+registered.
 
-**Fix.**
+**Fix.** Add a `// 3b. Extension type declarations` step after the
+existing extension pass at all five sites:
 
-1. In `tom_d4rt/lib/src/runtime/declaration_visitor.dart` (and the
-   mirror in `tom_d4rt_ast`), add a
-   `visitExtensionTypeDeclaration` handler that creates an
-   `InterpretedClass` (or equivalent) with the extension-type
-   field as a single property, and registers it under the
-   extension-type name.
-2. The `tom_d4rt_generator` `G-DOV3-1` test reuses the runtime so
-   the same fix closes it.
-3. Run `dart test test/limitations_and_bugs_test.dart` and
-   `dart test test/dart_overview_failures3_test.dart` in the
-   relevant projects.
-4. Closing this cluster removes 2 failures.
+1. `tom_d4rt/lib/src/d4rt_base.dart` — both
+   `_executeInEnvironment` (line ~1207) and `_executeClassic`
+   (line ~1474).
+2. `tom_d4rt/lib/src/module_loader.dart` — after the
+   `ExtensionDeclaration` pass for imported modules
+   (line ~702).
+3. `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart` — pass-2 loop
+   (line ~922).
+4. `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart` —
+   `_interpretDeclarations` (line ~838).
+
+`analyze()` and `eval()` paths use blanket-visit loops so they
+already pick up extension-type nodes — no change needed there.
+
+**Verification (2026-05-02).**
+
+- `tom_d4rt`: `dart test -N "I-FILE-47"` → PASS (was FAIL). Full
+  suite: 1742 tests, 4 failures — same 4 pre-existing flakes
+  (GEN-056d, DCL-RT-OPT-02, I-BUG-14a, I-MISC-212), I-FILE-47
+  removed. **No regressions.**
+- `tom_d4rt_generator`: `dart test -N "G-DOV3-1"` → PASS (was
+  FAIL). Full suite: 660 tests, all pass.
+- `tom_d4rt_exec`: full suite shows the same baseline 4 failures
+  (the 4th differs between runs — `G-TST-9` and
+  `d4rt_coverage_test setUpAll` are both order-dependent flakes
+  present with **and** without the fix, verified by stashing the
+  patch and re-running). No EXTTYPE-induced regression.
+- `dart analyze` on all four edited files: no new warnings.
+
+Net cluster impact: −2 failures (`tom_d4rt I-FILE-47`,
+`tom_d4rt_generator G-DOV3-1`).
 
 ### Cluster INTROSPECT — `analyze()` leaks built-ins (4 fails) — **CLOSED 2026-05-02**
 
@@ -858,7 +892,7 @@ unit of work and unblocks downstream verification:
 | 7 | **STRING-AS-PROCESS** | −2 failures in `tom_dcli_exec` | DCli user-bridge or generator |
 | 8 | **STDLIB-PI** | −2 errors in `tom_d4rt_ast` (clears project to 0/0) | `tom_d4rt_ast/lib/src/runtime/stdlib/dart_math.dart` |
 | 9 | **HASHSET** | −2 errors in `tom_d4rt` + `tom_d4rt_exec` | `Iterator` bridge (both copies) |
-| 10 | **EXTTYPE** | −2 failures in `tom_d4rt` + `tom_d4rt_generator` | `runtime/declaration_visitor.dart` (both copies) |
+| 10 | **EXTTYPE** ✓ | CLOSED 2026-05-02 — fix was pass-2 loop, not declaration visitor | `d4rt_base.dart`, `module_loader.dart`, `d4rt_runner.dart`, `ast_module_loader.dart` |
 | 11 | **RETURNTYPE** | −2 failures in `tom_d4rt` + `tom_d4rt_exec` | `runtime/interpreter_visitor.dart` (both copies) |
 | 12 | **MAP-COERCE** | −1 failure in `tom_dcli_exec` | `D4.coerceArg<T>` Map branch |
 | 13 | **D4RT-TESTER-BUSY** | −1 error in `tom_ast_generator` (env-fragile) | `test/generator_tests/d4rt_tester_test.dart` |

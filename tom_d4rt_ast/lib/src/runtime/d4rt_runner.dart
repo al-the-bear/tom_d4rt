@@ -919,6 +919,14 @@ class D4rtRunner {
           declaration.accept<Object?>(_visitor!);
         }
       }
+      // Cluster EXTTYPE: Extension type declarations (Dart 3.3+). Without
+      // this pass the wrapper class is never registered and `main()`
+      // cannot resolve the constructor.
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is SExtensionTypeDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
       for (final declaration in compilationUnit.declarations) {
         if (declaration is STopLevelVariableDeclaration) {
           declaration.accept<Object?>(_visitor!);
