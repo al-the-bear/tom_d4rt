@@ -1,176 +1,190 @@
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
-// ---------------------------------------------------------------------------
-// Top-level ValueNotifiers used by the stateless demo surfaces below.
-// They let us simulate transitions and toggles without introducing any
-// StatefulWidget anywhere in this file.
-// ---------------------------------------------------------------------------
-
-final ValueNotifier<bool> _flightToggle = ValueNotifier<bool>(false);
-final ValueNotifier<bool> _noneToggle = ValueNotifier<bool>(false);
-final ValueNotifier<int> _nestedFocus = ValueNotifier<int>(0);
-final ValueNotifier<double> _tweenProgress = ValueNotifier<double>(0.0);
-final ValueNotifier<int> _pitfallHighlight = ValueNotifier<int>(0);
-final ValueNotifier<bool> _apiExpanded = ValueNotifier<bool>(true);
-final ValueNotifier<int> _diagramVariant = ValueNotifier<int>(0);
-final ValueNotifier<bool> _showArcTween = ValueNotifier<bool>(true);
-final ValueNotifier<bool> _showLinearTween = ValueNotifier<bool>(true);
-final ValueNotifier<int> _navigatorTwoPage = ValueNotifier<int>(0);
-final ValueNotifier<int> _apiTab = ValueNotifier<int>(0);
-
-// ---------------------------------------------------------------------------
-// Entry point. The d4rt harness calls this function and mounts the returned
-// widget tree in a MaterialApp-aware environment.
-// ---------------------------------------------------------------------------
+// =============================================================================
+// HeroControllerScope deep demo
+// =============================================================================
+// HeroControllerScope is the inherited widget that exposes a HeroController to
+// any descendant Navigator. The root MaterialApp creates one for you behind
+// the scenes; that is why pushing a route on the root Navigator animates Hero
+// widgets out of the box. The moment you embed a *secondary* Navigator inside
+// your widget tree (for tabs, master-detail panes, dialogs, persistent shells,
+// etc.) that nested Navigator gets no HeroController unless you provide one.
+//
+// You provide one by wrapping the embedded Navigator in
+//   HeroControllerScope(controller: HeroController(), child: Navigator(...))
+// or, if you specifically want to *suppress* hero animations for a subtree,
+//   HeroControllerScope.none(child: Navigator(...))
+// which advertises a "no controller" hint so descendants do not climb the
+// element tree looking for one.
+//
+// This file is a hand-authored visual harness that demonstrates every major
+// behaviour of HeroControllerScope side by side. Tap the buttons in each card
+// to push routes on the *embedded* Navigator and observe whether the hero
+// transitions actually animate.
+// =============================================================================
 
 dynamic build(BuildContext context) {
-  final ColorScheme scheme = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF3F51B5),
-    brightness: Brightness.light,
-  );
-  final ThemeData theme = ThemeData(
-    useMaterial3: true,
-    colorScheme: scheme,
-    textTheme: const TextTheme(
-      headlineLarge: TextStyle(fontWeight: FontWeight.w700),
-      titleLarge: TextStyle(fontWeight: FontWeight.w600),
-    ),
-    cardTheme: CardThemeData(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-    ),
-  );
-
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'HeroControllerScope Deep Demo',
-    theme: theme,
-    home: const _HeroControllerScopeHome(),
+    title: 'HeroControllerScope deep demo',
+    theme: ThemeData(
+      colorSchemeSeed: Colors.deepPurple,
+      useMaterial3: true,
+      brightness: Brightness.light,
+    ),
+    home: const _HeroScopeHarnessShell(),
   );
 }
 
-// ---------------------------------------------------------------------------
-// Root scaffold with DefaultTabController for the nine demo sections.
-// ---------------------------------------------------------------------------
-
-class _HeroControllerScopeHome extends StatelessWidget {
-  const _HeroControllerScopeHome();
+// -----------------------------------------------------------------------------
+// Top-level shell
+// -----------------------------------------------------------------------------
+class _HeroScopeHarnessShell extends StatelessWidget {
+  const _HeroScopeHarnessShell();
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 9,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('HeroControllerScope — Deep Visual Demo'),
-          elevation: 3,
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: <Widget>[
-              Tab(text: 'Overview'),
-              Tab(text: 'Relationship'),
-              Tab(text: 'Simulated Flight'),
-              Tab(text: '.none'),
-              Tab(text: 'Nested'),
-              Tab(text: 'of / maybeOf'),
-              Tab(text: 'Custom Controller'),
-              Tab(text: 'Navigator 2.0'),
-              Tab(text: 'Pitfalls + API'),
+    final platform = Theme.of(context).platform;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('HeroControllerScope deep demo'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            tooltip: 'Platform: $platform',
+            icon: const Icon(Icons.devices_other_outlined),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Detected platform: $platform'),
+                  duration: const Duration(milliseconds: 1400),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              _IntroAnatomyCard(),
+              SizedBox(height: 14),
+              _RootMaterialAppScopeCard(),
+              SizedBox(height: 14),
+              _BrokenNoScopeCard(),
+              SizedBox(height: 14),
+              _WorkingScopeCard(),
+              SizedBox(height: 14),
+              _ScopeNoneCard(),
+              SizedBox(height: 14),
+              _PerTabControllerCard(),
+              SizedBox(height: 14),
+              _FlightShuttleCard(),
+              SizedBox(height: 14),
+              _ListToDetailCard(),
+              SizedBox(height: 14),
+              _TabbedGalleryCard(),
+              SizedBox(height: 14),
+              _RecipeGalleryCard(),
+              SizedBox(height: 14),
+              _ControllerLifecycleCard(),
+              SizedBox(height: 14),
+              _ConstructorComparisonCard(),
+              SizedBox(height: 14),
+              _PitfallsCard(),
+              SizedBox(height: 14),
+              _ReferenceTableCard(),
+              SizedBox(height: 32),
             ],
           ),
-        ),
-        body: const TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            _OverviewSection(),
-            _RelationshipSection(),
-            _SimulatedFlightSection(),
-            _HeroNoneSection(),
-            _NestedScopesSection(),
-            _OfVsMaybeOfSection(),
-            _CustomControllerSection(),
-            _NavigatorTwoSection(),
-            _PitfallsAndApiSection(),
-          ],
         ),
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// Reusable presentation primitives.
-// ---------------------------------------------------------------------------
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({
+// -----------------------------------------------------------------------------
+// Reusable card chrome
+// -----------------------------------------------------------------------------
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({
     required this.title,
     required this.subtitle,
-    required this.icon,
+    required this.child,
+    this.accent,
   });
 
   final String title;
   final String subtitle;
-  final IconData icon;
+  final Widget child;
+  final Color? accent;
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            scheme.primaryContainer,
-            scheme.secondaryContainer,
-          ],
-        ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: scheme.shadow.withValues(alpha: 0.18),
-            blurRadius: 14,
-            offset: const Offset(0, 6),
-          ),
-        ],
+    final scheme = Theme.of(context).colorScheme;
+    final borderColor = accent ?? scheme.primary;
+    return Card(
+      elevation: 1,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: borderColor.withOpacity(0.35), width: 1.2),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
           Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: scheme.surface,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, size: 30, color: scheme.primary),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
+            color: borderColor.withOpacity(0.08),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: scheme.onPrimaryContainer,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: TextStyle(
-                    color: scheme.onPrimaryContainer.withValues(alpha: 0.85),
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Bullet extends StatelessWidget {
+  const _Bullet(this.text, {this.icon = Icons.circle, this.iconSize = 8});
+  final String text;
+  final IconData icon;
+  final double iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 6, right: 8),
+            child: Icon(icon, size: iconSize),
+          ),
+          Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
         ],
       ),
     );
@@ -178,2141 +192,254 @@ class _SectionHeader extends StatelessWidget {
 }
 
 class _Pill extends StatelessWidget {
-  const _Pill({required this.text, required this.color, this.icon});
-
+  const _Pill(this.text, {this.color});
   final String text;
-  final Color color;
-  final IconData? icon;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    final c = color ?? Theme.of(context).colorScheme.primary;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: color.withValues(alpha: 0.35)),
+        color: c.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: c.withOpacity(0.4)),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          if (icon != null) ...<Widget>[
-            Icon(icon, size: 14, color: color),
-            const SizedBox(width: 4),
-          ],
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CodeBlock extends StatelessWidget {
-  const _CodeBlock({required this.code, this.caption});
-
-  final String code;
-  final String? caption;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        if (caption != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Text(
-              caption!,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: scheme.outline,
-              ),
-            ),
-          ),
-        Container(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1B1F27),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: scheme.outlineVariant),
-          ),
-          child: Text(
-            code,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.5,
-              color: Color(0xFFE6EDF3),
-              height: 1.5,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _BulletLine extends StatelessWidget {
-  const _BulletLine({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 6),
-            child: Icon(Icons.circle, size: 8, color: scheme.primary),
-          ),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text, style: const TextStyle(height: 1.4))),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 1 — Hero banner / overview of the inherited-widget pattern and why
-// MaterialApp auto-provides a HeroControllerScope.
-// ---------------------------------------------------------------------------
-
-class _OverviewSection extends StatelessWidget {
-  const _OverviewSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'HeroControllerScope',
-          subtitle:
-              'The inherited widget that wires a HeroController into every '
-              'Navigator underneath it.',
-          icon: Icons.flight_takeoff,
-        ),
-        const SizedBox(height: 20),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Why it exists',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Hero animations require a HeroController to coordinate '
-                  'the "flight" between source and destination routes. The '
-                  'controller must be accessible by the Navigator at push/pop '
-                  'time, which is why Flutter uses an InheritedWidget — '
-                  'HeroControllerScope — to thread the controller down the '
-                  'element tree without prop-drilling.',
-                  style: TextStyle(height: 1.5),
-                ),
-                const SizedBox(height: 16),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: <Widget>[
-                    _Pill(text: 'InheritedWidget', color: scheme.primary, icon: Icons.share),
-                    _Pill(text: 'of / maybeOf', color: scheme.tertiary, icon: Icons.search),
-                    _Pill(text: 'HeroController', color: scheme.secondary, icon: Icons.settings_remote),
-                    _Pill(text: 'Navigator-bound', color: scheme.primary, icon: Icons.route),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          color: scheme.secondaryContainer,
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.auto_awesome, color: scheme.onSecondaryContainer),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'MaterialApp already does this for you',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: scheme.onSecondaryContainer),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'MaterialApp, CupertinoApp, and WidgetsApp all insert a '
-                  'HeroControllerScope above their root Navigator. Most apps '
-                  'never need to touch HeroControllerScope directly. You only '
-                  'reach for it when you build a custom Navigator subtree '
-                  'outside MaterialApp\'s default one.',
-                  style: TextStyle(
-                    height: 1.5,
-                    color: scheme.onSecondaryContainer,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Two constructors',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 12),
-                _ConstructorBadge(
-                  title: 'HeroControllerScope(controller:, child:)',
-                  description:
-                      'Exposes a real HeroController so descendant Navigators '
-                      'can play hero flights when they push or pop routes.',
-                  icon: Icons.handyman,
-                  color: scheme.primary,
-                ),
-                const SizedBox(height: 12),
-                _ConstructorBadge(
-                  title: 'HeroControllerScope.none(child:)',
-                  description:
-                      'Explicitly opts out of hero animations for the given '
-                      'subtree. Useful for non-visual Navigators, hidden '
-                      'animation subtrees, or tests that want to disable '
-                      'hero transitions.',
-                  icon: Icons.block,
-                  color: scheme.error,
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Mental model',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: 'A Navigator pushes a route; the route animates in.'),
-                const _BulletLine(
-                    text: 'As the animation runs, the Navigator asks its HeroController '
-                        'whether any Hero widgets with matching tags exist in the new and '
-                        'previous routes.'),
-                const _BulletLine(
-                    text: 'If matches are found, the controller starts a hero flight — a '
-                        'temporary overlay that animates a rectangle from the source Hero '
-                        'to the destination Hero.'),
-                const _BulletLine(
-                    text: 'HeroControllerScope is how the Navigator finds that controller.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _ConstructorBadge extends StatelessWidget {
-  const _ConstructorBadge({
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.color,
-  });
-
-  final String title;
-  final String description;
-  final IconData icon;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.35)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: color),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13.5,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(description, style: const TextStyle(height: 1.4)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 2 — Relationship diagram using a CustomPainter.
-// Draws MaterialApp → HeroControllerScope → Navigator → Routes → Heroes.
-// ---------------------------------------------------------------------------
-
-class _RelationshipSection extends StatelessWidget {
-  const _RelationshipSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Relationship Diagram',
-          subtitle:
-              'How MaterialApp, HeroControllerScope, Navigator, Routes, and '
-              'Hero widgets connect in the element tree.',
-          icon: Icons.account_tree,
-        ),
-        const SizedBox(height: 20),
-        ValueListenableBuilder<int>(
-          valueListenable: _diagramVariant,
-          builder: (BuildContext context, int variant, Widget? _) {
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        const SizedBox(width: 4),
-                        Text('Diagram variant:',
-                            style: Theme.of(context).textTheme.labelLarge),
-                        const SizedBox(width: 12),
-                        SegmentedButton<int>(
-                          segments: const <ButtonSegment<int>>[
-                            ButtonSegment<int>(value: 0, label: Text('MaterialApp')),
-                            ButtonSegment<int>(value: 1, label: Text('Custom')),
-                          ],
-                          selected: <int>{variant},
-                          onSelectionChanged: (Set<int> s) =>
-                              _diagramVariant.value = s.first,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 430,
-                      child: CustomPaint(
-                        painter: _RelationshipPainter(
-                          scheme: scheme,
-                          variant: variant,
-                        ),
-                        size: Size.infinite,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Reading the diagram',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: 'The root MaterialApp creates a HeroControllerScope internally.'),
-                const _BulletLine(
-                    text: 'Its Navigator receives the HeroController via InheritedWidget lookup.'),
-                const _BulletLine(
-                    text: 'Pushed routes with Hero descendants participate in flights.'),
-                const _BulletLine(
-                    text: 'Custom subtrees (variant 2) need an explicit HeroControllerScope.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _RelationshipPainter extends CustomPainter {
-  _RelationshipPainter({required this.scheme, required this.variant});
-
-  final ColorScheme scheme;
-  final int variant;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint boxPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = scheme.primaryContainer;
-    final Paint borderPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5
-      ..color = scheme.primary;
-    final Paint arrowPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..color = scheme.tertiary;
-
-    final List<String> labels = variant == 0
-        ? <String>[
-            'MaterialApp',
-            'HeroControllerScope (auto)',
-            'Navigator',
-            'Route A / Route B',
-            'Hero widgets',
-          ]
-        : <String>[
-            'Your Widget',
-            'HeroControllerScope (explicit)',
-            'Custom Navigator',
-            'Pages / Routes',
-            'Hero widgets',
-          ];
-    final List<Color> fills = <Color>[
-      scheme.primaryContainer,
-      scheme.secondaryContainer,
-      scheme.tertiaryContainer,
-      scheme.surfaceContainerHighest,
-      scheme.errorContainer,
-    ];
-
-    final double boxWidth = size.width * 0.6;
-    final double boxHeight = 58;
-    final double centerX = size.width / 2;
-    final double gap = (size.height - boxHeight * labels.length) / (labels.length + 1);
-
-    final List<Rect> rects = <Rect>[];
-    for (int i = 0; i < labels.length; i++) {
-      final double top = gap + i * (boxHeight + gap);
-      final Rect r = Rect.fromCenter(
-        center: Offset(centerX, top + boxHeight / 2),
-        width: boxWidth,
-        height: boxHeight,
-      );
-      rects.add(r);
-      boxPaint.color = fills[i];
-      final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(12));
-      canvas.drawRRect(rr, boxPaint);
-      canvas.drawRRect(rr, borderPaint);
-
-      final TextPainter tp = TextPainter(
-        text: TextSpan(
-          text: labels[i],
-          style: TextStyle(
-            color: scheme.onPrimaryContainer,
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: boxWidth - 20);
-      tp.paint(
-        canvas,
-        Offset(centerX - tp.width / 2, r.center.dy - tp.height / 2),
-      );
-    }
-
-    // Arrows between successive boxes.
-    for (int i = 0; i < rects.length - 1; i++) {
-      final Offset from = Offset(centerX, rects[i].bottom);
-      final Offset to = Offset(centerX, rects[i + 1].top);
-      canvas.drawLine(from, to, arrowPaint);
-      _drawArrowHead(canvas, to, arrowPaint);
-    }
-
-    // Side annotation on the HeroControllerScope row.
-    final Rect scopeRect = rects[1];
-    final Offset annotationFrom = Offset(scopeRect.right + 8, scopeRect.center.dy);
-    final Offset annotationTo = Offset(size.width - 10, scopeRect.center.dy);
-    canvas.drawLine(annotationFrom, annotationTo, arrowPaint);
-    final TextPainter annotation = TextPainter(
-      text: TextSpan(
-        text: variant == 0 ? 'provided automatically' : 'you add it yourself',
+      child: Text(
+        text,
         style: TextStyle(
-          color: scheme.tertiary,
-          fontSize: 12,
-          fontStyle: FontStyle.italic,
+          color: c,
           fontWeight: FontWeight.w600,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    annotation.paint(
-      canvas,
-      Offset(
-        size.width - annotation.width - 4,
-        scopeRect.center.dy - annotation.height - 4,
-      ),
-    );
-  }
-
-  void _drawArrowHead(Canvas canvas, Offset tip, Paint paint) {
-    final Path p = Path()
-      ..moveTo(tip.dx, tip.dy)
-      ..lineTo(tip.dx - 6, tip.dy - 10)
-      ..lineTo(tip.dx + 6, tip.dy - 10)
-      ..close();
-    final Paint fill = Paint()
-      ..color = paint.color
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(p, fill);
-  }
-
-  @override
-  bool shouldRepaint(covariant _RelationshipPainter old) =>
-      old.variant != variant || old.scheme != scheme;
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 3 — Simulated hero flight between two "pages" using a ValueNotifier
-// toggle and TweenAnimationBuilder<Rect?>.
-// ---------------------------------------------------------------------------
-
-class _SimulatedFlightSection extends StatelessWidget {
-  const _SimulatedFlightSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Simulated Hero Flight',
-          subtitle:
-              'Toggle the flip to play a hero flight between two pages. '
-              'The overlay tween is rendered in-place for visualisation.',
-          icon: Icons.rocket_launch,
-        ),
-        const SizedBox(height: 20),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('Flip direction:',
-                        style: Theme.of(context).textTheme.labelLarge),
-                    const SizedBox(width: 12),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _flightToggle,
-                      builder: (BuildContext context, bool toggled, Widget? _) {
-                        return FilledButton.icon(
-                          icon: Icon(toggled
-                              ? Icons.flight_land
-                              : Icons.flight_takeoff),
-                          label: Text(toggled ? 'Return to A' : 'Fly to B'),
-                          onPressed: () =>
-                              _flightToggle.value = !_flightToggle.value,
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 12),
-                    _Pill(
-                        text: 'TweenAnimationBuilder<Rect?>',
-                        color: scheme.primary,
-                        icon: Icons.animation),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 420,
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: _flightToggle,
-                    builder: (BuildContext context, bool toggled, Widget? _) {
-                      final Rect sourceRect = const Rect.fromLTWH(40, 90, 120, 120);
-                      final Rect destinationRect = const Rect.fromLTWH(260, 240, 160, 160);
-                      final Rect target = toggled ? destinationRect : sourceRect;
-                      return Stack(
-                        children: <Widget>[
-                          _PageCard(
-                            title: 'Page A',
-                            color: scheme.primaryContainer,
-                            alignment: Alignment.topLeft,
-                            focused: !toggled,
-                          ),
-                          _PageCard(
-                            title: 'Page B',
-                            color: scheme.tertiaryContainer,
-                            alignment: Alignment.bottomRight,
-                            focused: toggled,
-                          ),
-                          TweenAnimationBuilder<Rect?>(
-                            tween: RectTween(begin: target, end: target),
-                            duration: const Duration(milliseconds: 600),
-                            curve: Curves.easeInOutCubic,
-                            builder: (BuildContext context, Rect? rect,
-                                Widget? _) {
-                              final Rect r = rect ?? target;
-                              return Positioned(
-                                left: r.left,
-                                top: r.top,
-                                width: r.width,
-                                height: r.height,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: scheme.primary.withValues(alpha: 0.18),
-                                    borderRadius: BorderRadius.circular(18),
-                                    border: Border.all(
-                                        color: scheme.primary, width: 3),
-                                  ),
-                                  child: Center(
-                                    child: Icon(Icons.star,
-                                        size: 54, color: scheme.primary),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          Positioned(
-                            left: 12,
-                            bottom: 12,
-                            child: _Pill(
-                                text: toggled
-                                    ? 'flight A → B in progress'
-                                    : 'heroes idle at A',
-                                color: scheme.secondary,
-                                icon: Icons.timeline),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('How the real thing works',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: '1. Navigator.push triggers a route transition.'),
-                const _BulletLine(
-                    text: '2. HeroController (from HeroControllerScope.of) collects source and destination heroes by tag.'),
-                const _BulletLine(
-                    text: '3. A flight overlay is inserted above the Navigator.'),
-                const _BulletLine(
-                    text: '4. A RectTween drives the overlay rectangle from source bounds to destination bounds.'),
-                const _BulletLine(
-                    text: '5. When the route transition finishes, the overlay is removed.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _PageCard extends StatelessWidget {
-  const _PageCard({
-    required this.title,
-    required this.color,
-    required this.alignment,
-    required this.focused,
-  });
-
-  final String title;
-  final Color color;
-  final AlignmentGeometry alignment;
-  final bool focused;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: alignment,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOutCubic,
-        width: 260,
-        height: 190,
-        margin: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black.withValues(alpha: focused ? 0.22 : 0.08),
-              blurRadius: focused ? 14 : 6,
-              offset: const Offset(0, 6),
-            ),
-          ],
-          border: Border.all(
-            color: focused ? Colors.black.withValues(alpha: 0.3) : Colors.transparent,
-            width: 1.5,
-          ),
-        ),
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(focused ? Icons.visibility : Icons.visibility_off,
-                    size: 18),
-                const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 17,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'A simulated route surface. In a real app this would be the '
-              'body of a MaterialPageRoute.',
-              style: TextStyle(height: 1.3),
-            ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.centerRight,
-              child: _Pill(
-                text: focused ? 'focused' : 'background',
-                color: focused ? Colors.green.shade700 : Colors.grey.shade700,
-                icon: focused ? Icons.check_circle : Icons.radio_button_unchecked,
-              ),
-            ),
-          ],
+          fontSize: 12,
         ),
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// SECTION 4 — HeroControllerScope.none demonstration.
-// ---------------------------------------------------------------------------
-
-class _HeroNoneSection extends StatelessWidget {
-  const _HeroNoneSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'HeroControllerScope.none',
-          subtitle: 'Opt out of hero animations for a subtree.',
-          icon: Icons.block,
-        ),
-        const SizedBox(height: 20),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.info, color: scheme.primary),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Hero animations opted out',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: scheme.primary),
-                      ),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _noneToggle,
-                      builder: (BuildContext context, bool opted, Widget? _) {
-                        return Switch(
-                          value: opted,
-                          onChanged: (bool v) => _noneToggle.value = v,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Wrapping a Navigator (or custom Navigator-like subtree) in '
-                  'HeroControllerScope.none tells descendants that no hero '
-                  'controller is available — descendant Hero widgets still '
-                  'participate in layout but do not fly.',
-                  style: TextStyle(height: 1.5),
-                ),
-                const SizedBox(height: 16),
-                const _CodeBlock(
-                  caption: 'Opt-out pattern',
-                  code:
-                      'HeroControllerScope.none(\n'
-                      '  child: Navigator(\n'
-                      '    onGenerateRoute: (settings) => MaterialPageRoute(\n'
-                      '      builder: (context) => const MyNoAnimationPage(),\n'
-                      '    ),\n'
-                      '  ),\n'
-                      ');',
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        ValueListenableBuilder<bool>(
-          valueListenable: _noneToggle,
-          builder: (BuildContext context, bool opted, Widget? _) {
-            return Card(
-              color: opted
-                  ? scheme.errorContainer
-                  : scheme.primaryContainer,
-              child: Padding(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          opted ? Icons.flight_class : Icons.flight,
-                          color: opted
-                              ? scheme.onErrorContainer
-                              : scheme.onPrimaryContainer,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          opted
-                              ? 'Subtree: no hero animations'
-                              : 'Subtree: hero animations active',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: opted
-                                ? scheme.onErrorContainer
-                                : scheme.onPrimaryContainer,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    _MiniNavigatorPreview(optOut: opted, scheme: scheme),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Use cases',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 8),
-                const _BulletLine(
-                    text: 'A secondary Navigator that should never fight the root Navigator over hero tags.'),
-                const _BulletLine(
-                    text: 'Nested Navigator inside a dialog or bottom sheet where a hero would look wrong.'),
-                const _BulletLine(
-                    text: 'A custom animation subtree that manages its own transitions and does not want Flutter\'s hero overlay to interfere.'),
-                const _BulletLine(
-                    text: 'Widget tests that want to disable flights for determinism.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _MiniNavigatorPreview extends StatelessWidget {
-  const _MiniNavigatorPreview({required this.optOut, required this.scheme});
-
-  final bool optOut;
-  final ColorScheme scheme;
+// -----------------------------------------------------------------------------
+// 1. Intro / anatomy diagram
+// -----------------------------------------------------------------------------
+class _IntroAnatomyCard extends StatelessWidget {
+  const _IntroAnatomyCard();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 180,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: scheme.outline),
-      ),
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Mini Navigator',
-                    style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(height: 6),
-                const Text('Two sample routes side-by-side.'),
-                const SizedBox(height: 10),
-                _Pill(
-                    text: optOut ? 'opted-out' : 'hero-enabled',
-                    color: optOut ? scheme.error : scheme.primary,
-                    icon: optOut ? Icons.block : Icons.check_circle),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          _MiniRouteBox(label: 'Route 1', color: scheme.primary, optOut: optOut),
-          const SizedBox(width: 8),
-          const Icon(Icons.compare_arrows),
-          const SizedBox(width: 8),
-          _MiniRouteBox(
-              label: 'Route 2', color: scheme.tertiary, optOut: optOut),
-        ],
-      ),
-    );
-  }
-}
-
-class _MiniRouteBox extends StatelessWidget {
-  const _MiniRouteBox({
-    required this.label,
-    required this.color,
-    required this.optOut,
-  });
-
-  final String label;
-  final Color color;
-  final bool optOut;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 100,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.18),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color, width: 1.2),
-      ),
-      alignment: Alignment.center,
+    return _SectionCard(
+      title: '1. What HeroControllerScope is',
+      subtitle:
+          'Inherited widget that announces a HeroController to descendant Navigators.',
+      accent: Colors.indigo,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(
-              optOut ? Icons.cancel_schedule_send : Icons.flight,
-              color: color),
-          const SizedBox(height: 6),
-          Text(label,
-              style: TextStyle(fontWeight: FontWeight.w700, color: color)),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 5 — Nested HeroControllerScope showing outer + inner with
-// different HeroControllers driving different Navigators.
-// ---------------------------------------------------------------------------
-
-class _NestedScopesSection extends StatelessWidget {
-  const _NestedScopesSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Nested HeroControllerScopes',
-          subtitle:
-              'Different Navigators can use different HeroControllers when '
-              'each Navigator is wrapped in its own scope.',
-          icon: Icons.layers,
-        ),
-        const SizedBox(height: 20),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text('Composition',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 320,
-                  child: CustomPaint(
-                    painter: _NestedDiagramPainter(scheme: scheme),
-                    size: Size.infinite,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const _CodeBlock(
-                  caption: 'Shape of the tree',
-                  code:
-                      'HeroControllerScope(\n'
-                      '  controller: outerController,\n'
-                      '  child: Stack(\n'
-                      '    children: [\n'
-                      '      Navigator(key: rootKey, ...),\n'
-                      '      Positioned(\n'
-                      '        right: 20, bottom: 20,\n'
-                      '        child: HeroControllerScope(\n'
-                      '          controller: innerController,\n'
-                      '          child: SizedBox(\n'
-                      '            width: 320, height: 220,\n'
-                      '            child: Navigator(key: overlayKey, ...),\n'
-                      '          ),\n'
-                      '        ),\n'
-                      '      ),\n'
-                      '    ],\n'
-                      '  ),\n'
-                      ');',
-                ),
-              ],
-            ),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const _Bullet(
+            'A HeroController listens to a Navigator and orchestrates Hero '
+            'flights between the routes it pushes/pops.',
           ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('Focus:',
-                        style: Theme.of(context).textTheme.labelLarge),
-                    const SizedBox(width: 10),
-                    ValueListenableBuilder<int>(
-                      valueListenable: _nestedFocus,
-                      builder: (BuildContext context, int i, Widget? _) {
-                        return SegmentedButton<int>(
-                          segments: const <ButtonSegment<int>>[
-                            ButtonSegment<int>(
-                                value: 0, label: Text('Outer'), icon: Icon(Icons.public)),
-                            ButtonSegment<int>(
-                                value: 1, label: Text('Inner'), icon: Icon(Icons.center_focus_strong)),
-                          ],
-                          selected: <int>{i},
-                          onSelectionChanged: (Set<int> s) =>
-                              _nestedFocus.value = s.first,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-                ValueListenableBuilder<int>(
-                  valueListenable: _nestedFocus,
-                  builder: (BuildContext context, int focus, Widget? _) {
-                    return _NestedFocusExplanation(focus: focus, scheme: scheme);
-                  },
-                ),
-              ],
-            ),
+          const _Bullet(
+            'A HeroControllerScope is just InheritedWidget plumbing: it lets '
+            'a descendant Navigator FIND the controller by walking up the '
+            'element tree.',
           ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _NestedFocusExplanation extends StatelessWidget {
-  const _NestedFocusExplanation({required this.focus, required this.scheme});
-
-  final int focus;
-  final ColorScheme scheme;
-
-  @override
-  Widget build(BuildContext context) {
-    if (focus == 0) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
-          _BulletLine(text: 'Outer HeroControllerScope wraps the whole screen.'),
-          _BulletLine(
-              text: 'Its HeroController drives hero flights on the main Navigator.'),
-          _BulletLine(
-              text: 'Tags on the main navigator pair freely with each other.'),
-        ],
-      );
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        _BulletLine(text: 'Inner HeroControllerScope sits inside a floating pane.'),
-        _BulletLine(
-            text: 'Its HeroController drives hero flights on the floating Navigator only.'),
-        _BulletLine(
-            text: 'Heroes inside the pane never fight with outer heroes for their tag.'),
-        _BulletLine(
-            text: 'Independent lifecycles: the inner scope can be removed without disrupting outer flights.'),
-      ],
-    );
-  }
-}
-
-class _NestedDiagramPainter extends CustomPainter {
-  _NestedDiagramPainter({required this.scheme});
-
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint outerFill = Paint()
-      ..color = scheme.primaryContainer
-      ..style = PaintingStyle.fill;
-    final Paint outerStroke = Paint()
-      ..color = scheme.primary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    final Paint innerFill = Paint()
-      ..color = scheme.tertiaryContainer
-      ..style = PaintingStyle.fill;
-    final Paint innerStroke = Paint()
-      ..color = scheme.tertiary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    final Paint arrow = Paint()
-      ..color = scheme.secondary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    final Rect outer = Rect.fromLTWH(16, 16, size.width - 32, size.height - 32);
-    final RRect outerRR = RRect.fromRectAndRadius(outer, const Radius.circular(16));
-    canvas.drawRRect(outerRR, outerFill);
-    canvas.drawRRect(outerRR, outerStroke);
-
-    final Rect inner = Rect.fromLTWH(
-      outer.right - 210,
-      outer.bottom - 150,
-      190,
-      130,
-    );
-    final RRect innerRR = RRect.fromRectAndRadius(inner, const Radius.circular(14));
-    canvas.drawRRect(innerRR, innerFill);
-    canvas.drawRRect(innerRR, innerStroke);
-
-    _labelRect(canvas, outer,
-        top: 'Outer HeroControllerScope',
-        subtitle: 'controller: outerController',
-        color: scheme.onPrimaryContainer);
-    _labelRect(canvas, inner,
-        top: 'Inner scope',
-        subtitle: 'controller: innerController',
-        color: scheme.onTertiaryContainer,
-        small: true);
-
-    // Navigator labels
-    final Rect navOuter = Rect.fromLTWH(
-      outer.left + 30,
-      outer.top + 70,
-      220,
-      80,
-    );
-    final Paint navOuterPaint = Paint()..color = Colors.white.withValues(alpha: 0.85);
-    final RRect navOuterRR = RRect.fromRectAndRadius(navOuter, const Radius.circular(10));
-    canvas.drawRRect(navOuterRR, navOuterPaint);
-    canvas.drawRRect(navOuterRR, outerStroke);
-    _labelRect(canvas, navOuter,
-        top: 'Main Navigator',
-        subtitle: 'root routes, hero overlay here',
-        color: scheme.primary,
-        small: true);
-
-    // Inner navigator
-    final Rect navInner = Rect.fromLTWH(
-      inner.left + 12,
-      inner.top + 50,
-      inner.width - 24,
-      50,
-    );
-    final Paint navInnerPaint = Paint()..color = Colors.white.withValues(alpha: 0.85);
-    final RRect navInnerRR = RRect.fromRectAndRadius(navInner, const Radius.circular(10));
-    canvas.drawRRect(navInnerRR, navInnerPaint);
-    canvas.drawRRect(navInnerRR, innerStroke);
-    _labelRect(canvas, navInner,
-        top: 'Floating Navigator',
-        subtitle: 'independent flights',
-        color: scheme.tertiary,
-        small: true);
-
-    // Arrows
-    canvas.drawLine(
-      Offset(navOuter.right, navOuter.center.dy),
-      Offset(inner.left - 4, navOuter.center.dy),
-      arrow,
-    );
-    _drawArrowHead(canvas, Offset(inner.left - 4, navOuter.center.dy), arrow);
-  }
-
-  void _labelRect(
-    Canvas canvas,
-    Rect rect, {
-    required String top,
-    required String subtitle,
-    required Color color,
-    bool small = false,
-  }) {
-    final TextPainter tp1 = TextPainter(
-      text: TextSpan(
-        text: top,
-        style: TextStyle(
-          color: color,
-          fontWeight: FontWeight.w700,
-          fontSize: small ? 12 : 14,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp1.paint(canvas, Offset(rect.left + 10, rect.top + 8));
-
-    final TextPainter tp2 = TextPainter(
-      text: TextSpan(
-        text: subtitle,
-        style: TextStyle(
-          color: color.withValues(alpha: 0.8),
-          fontSize: small ? 10 : 11,
-          fontStyle: FontStyle.italic,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp2.paint(canvas, Offset(rect.left + 10, rect.top + (small ? 22 : 26)));
-  }
-
-  void _drawArrowHead(Canvas canvas, Offset tip, Paint paint) {
-    final Path p = Path()
-      ..moveTo(tip.dx, tip.dy)
-      ..lineTo(tip.dx - 8, tip.dy - 5)
-      ..lineTo(tip.dx - 8, tip.dy + 5)
-      ..close();
-    final Paint fill = Paint()
-      ..color = paint.color
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(p, fill);
-  }
-
-  @override
-  bool shouldRepaint(covariant _NestedDiagramPainter old) =>
-      old.scheme != scheme;
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 6 — of vs maybeOf comparison tiles.
-// ---------------------------------------------------------------------------
-
-class _OfVsMaybeOfSection extends StatelessWidget {
-  const _OfVsMaybeOfSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'of  vs  maybeOf',
-          subtitle:
-              'Two static accessors on HeroControllerScope — one asserts, '
-              'the other returns null when there is no enclosing scope.',
-          icon: Icons.compare,
-        ),
-        const SizedBox(height: 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: _AccessorTile(
-                name: 'HeroControllerScope.of(context)',
-                description:
-                    'Returns the nearest HeroController and asserts that a '
-                    'scope exists. Use this when your code only makes sense '
-                    'inside a HeroControllerScope (for example in a custom '
-                    'NavigatorObserver hook).',
-                badge: 'asserts on miss',
-                badgeColor: scheme.error,
-                icon: Icons.gps_fixed,
-                lineColor: scheme.primary,
-                example: 'final HeroController c =\n'
-                    '  HeroControllerScope.of(context);',
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _AccessorTile(
-                name: 'HeroControllerScope.maybeOf(context)',
-                description:
-                    'Returns null when no HeroControllerScope is found. Use '
-                    'this when your widget should gracefully degrade — for '
-                    'example a card that only enables hero-aware transitions '
-                    'when a controller is actually present.',
-                badge: 'returns null on miss',
-                badgeColor: scheme.tertiary,
-                icon: Icons.help_outline,
-                lineColor: scheme.tertiary,
-                example: 'final HeroController? maybeC =\n'
-                    '  HeroControllerScope.maybeOf(context);\n'
-                    'if (maybeC != null) {\n'
-                    '  // hero-aware branch\n'
-                    '}',
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Assertion behavior',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: 'HeroControllerScope.of throws a FlutterError when there is no enclosing scope.'),
-                const _BulletLine(
-                    text: 'That message includes a pointer to MaterialApp/WidgetsApp/CupertinoApp as the usual fix.'),
-                const _BulletLine(
-                    text: 'HeroControllerScope.maybeOf simply returns null, making it the right choice for leaf widgets that want optional behavior.'),
-                const _BulletLine(
-                    text: 'Like every InheritedWidget, both accessors register a dependency so the caller rebuilds when the scope changes.'),
-              ],
-            ),
+          const _Bullet(
+            'MaterialApp / CupertinoApp wrap the root Navigator in a '
+            'HeroControllerScope automatically, which is why "vanilla" Hero '
+            'demos work without ever touching this widget.',
           ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _AccessorTile extends StatelessWidget {
-  const _AccessorTile({
-    required this.name,
-    required this.description,
-    required this.badge,
-    required this.badgeColor,
-    required this.icon,
-    required this.lineColor,
-    required this.example,
-  });
-
-  final String name;
-  final String description;
-  final String badge;
-  final Color badgeColor;
-  final IconData icon;
-  final Color lineColor;
-  final String example;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: lineColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: lineColor, size: 28),
-            ),
-            const SizedBox(height: 12),
-            Text(name,
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14)),
-            const SizedBox(height: 8),
-            Text(description, style: const TextStyle(height: 1.5)),
-            const SizedBox(height: 12),
-            _Pill(text: badge, color: badgeColor, icon: Icons.flag),
-            const SizedBox(height: 12),
-            _CodeBlock(code: example),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 7 — Custom HeroController with createRectTween.
-// ---------------------------------------------------------------------------
-
-class _CustomControllerSection extends StatelessWidget {
-  const _CustomControllerSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Custom HeroController',
-          subtitle:
-              'You can build a HeroController with createRectTween to curve '
-              'or arc the flight path instead of interpolating linearly.',
-          icon: Icons.tune,
-        ),
-        const SizedBox(height: 20),
-        const _CodeBlock(
-          caption: 'Custom arc-tween controller',
-          code: 'final HeroController arcController = HeroController(\n'
-              '  createRectTween: (Rect? begin, Rect? end) =>\n'
-              '      MaterialRectArcTween(begin: begin, end: end),\n'
-              ');\n\n'
-              '// Install it on a custom Navigator:\n'
-              'HeroControllerScope(\n'
-              '  controller: arcController,\n'
-              '  child: Navigator(/* ... */),\n'
-              ');',
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('Tween paths:',
-                        style: Theme.of(context).textTheme.labelLarge),
-                    const SizedBox(width: 12),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _showArcTween,
-                      builder: (BuildContext context, bool on, Widget? _) {
-                        return FilterChip(
-                          selected: on,
-                          label: const Text('MaterialRectArcTween'),
-                          onSelected: (bool v) => _showArcTween.value = v,
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _showLinearTween,
-                      builder: (BuildContext context, bool on, Widget? _) {
-                        return FilterChip(
-                          selected: on,
-                          label: const Text('Linear RectTween'),
-                          onSelected: (bool v) => _showLinearTween.value = v,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                ValueListenableBuilder<bool>(
-                  valueListenable: _showArcTween,
-                  builder: (BuildContext context, bool arc, Widget? _) {
-                    return ValueListenableBuilder<bool>(
-                      valueListenable: _showLinearTween,
-                      builder: (BuildContext context, bool linear, Widget? _) {
-                        return ValueListenableBuilder<double>(
-                          valueListenable: _tweenProgress,
-                          builder: (BuildContext context, double progress, Widget? _) {
-                            return Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 280,
-                                  child: CustomPaint(
-                                    painter: _TweenPathPainter(
-                                      scheme: scheme,
-                                      progress: progress,
-                                      showArc: arc,
-                                      showLinear: linear,
-                                    ),
-                                    size: Size.infinite,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Text('t =',
-                                        style: Theme.of(context).textTheme.labelLarge),
-                                    Expanded(
-                                      child: Slider(
-                                        value: progress,
-                                        min: 0,
-                                        max: 1,
-                                        onChanged: (double v) =>
-                                            _tweenProgress.value = v,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                      child: Text(progress.toStringAsFixed(2),
-                                          textAlign: TextAlign.right),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
+          const _Bullet(
+            'Embedded / nested Navigators do NOT inherit that root '
+            'controller. You must wrap them yourself, or no flight occurs.',
           ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Default vs custom',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: 'Default HeroController uses a linear RectTween between source and destination bounds.'),
-                const _BulletLine(
-                    text: 'MaterialRectArcTween arcs the center of the rect along a quarter-circle, producing the Material "swoop".'),
-                const _BulletLine(
-                    text: 'Custom createRectTween callbacks can produce any path — straight lines, arcs, staircases, spirals.'),
-                const _BulletLine(
-                    text: 'The HeroController you build lives as long as your HeroControllerScope — dispose it if you own it outside of a stateless tree.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _TweenPathPainter extends CustomPainter {
-  _TweenPathPainter({
-    required this.scheme,
-    required this.progress,
-    required this.showArc,
-    required this.showLinear,
-  });
-
-  final ColorScheme scheme;
-  final double progress;
-  final bool showArc;
-  final bool showLinear;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Offset begin = Offset(size.width * 0.15, size.height * 0.75);
-    final Offset end = Offset(size.width * 0.85, size.height * 0.2);
-
-    // Background
-    final Paint bg = Paint()..color = scheme.surface;
-    canvas.drawRect(Offset.zero & size, bg);
-
-    // Gridlines
-    final Paint grid = Paint()
-      ..color = scheme.outlineVariant
-      ..strokeWidth = 1;
-    for (int i = 0; i < 10; i++) {
-      final double x = size.width * i / 10;
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-      final double y = size.height * i / 10;
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
-    }
-
-    // Begin/end markers
-    _drawAnchor(canvas, begin, scheme.primary, 'begin');
-    _drawAnchor(canvas, end, scheme.tertiary, 'end');
-
-    if (showLinear) {
-      final Paint linearPaint = Paint()
-        ..color = scheme.primary
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.5;
-      canvas.drawLine(begin, end, linearPaint);
-      final Offset cur = Offset.lerp(begin, end, progress)!;
-      _drawCursor(canvas, cur, scheme.primary, 'linear');
-    }
-
-    if (showArc) {
-      // Approximate MaterialRectArcTween's arc center motion with a quarter arc.
-      final Path path = Path();
-      final int steps = 60;
-      for (int i = 0; i <= steps; i++) {
-        final double t = i / steps;
-        final Offset p = _arcLerp(begin, end, t);
-        if (i == 0) {
-          path.moveTo(p.dx, p.dy);
-        } else {
-          path.lineTo(p.dx, p.dy);
-        }
-      }
-      final Paint arcPaint = Paint()
-        ..color = scheme.tertiary
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 3;
-      canvas.drawPath(path, arcPaint);
-      final Offset cur = _arcLerp(begin, end, progress);
-      _drawCursor(canvas, cur, scheme.tertiary, 'arc');
-    }
-  }
-
-  Offset _arcLerp(Offset a, Offset b, double t) {
-    // Simple quadratic curve with control point offset perpendicular to AB.
-    final Offset mid = Offset.lerp(a, b, 0.5)!;
-    final Offset delta = b - a;
-    final Offset perp = Offset(-delta.dy, delta.dx);
-    final double perpMag = perp.distance == 0 ? 1 : perp.distance;
-    final Offset control = mid + perp * (0.35 / perpMag) * perp.distance;
-    final double u = 1 - t;
-    return Offset(
-      u * u * a.dx + 2 * u * t * control.dx + t * t * b.dx,
-      u * u * a.dy + 2 * u * t * control.dy + t * t * b.dy,
-    );
-  }
-
-  void _drawAnchor(Canvas canvas, Offset p, Color c, String label) {
-    final Paint fill = Paint()..color = c.withValues(alpha: 0.25);
-    final Paint border = Paint()
-      ..color = c
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    canvas.drawCircle(p, 16, fill);
-    canvas.drawCircle(p, 16, border);
-    final TextPainter tp = TextPainter(
-      text: TextSpan(
-        text: label,
-        style: TextStyle(color: c, fontWeight: FontWeight.w700, fontSize: 12),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp.paint(canvas, p + Offset(-tp.width / 2, 18));
-  }
-
-  void _drawCursor(Canvas canvas, Offset p, Color c, String label) {
-    final Paint fill = Paint()..color = c;
-    canvas.drawCircle(p, 7, fill);
-    final TextPainter tp = TextPainter(
-      text: TextSpan(
-        text: label,
-        style: TextStyle(
-            color: c, fontWeight: FontWeight.w600, fontSize: 11),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp.paint(canvas, p + const Offset(10, -6));
-  }
-
-  @override
-  bool shouldRepaint(covariant _TweenPathPainter old) =>
-      old.progress != progress ||
-      old.showArc != showArc ||
-      old.showLinear != showLinear ||
-      old.scheme != scheme;
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 8 — Navigator 2.0 usage with Router / Pages.
-// ---------------------------------------------------------------------------
-
-class _NavigatorTwoSection extends StatelessWidget {
-  const _NavigatorTwoSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Navigator 2.0 + HeroControllerScope',
-          subtitle:
-              'When you roll a custom Router with Pages, you own the Navigator '
-              'and therefore own the HeroControllerScope that feeds it.',
-          icon: Icons.alt_route,
-        ),
-        const SizedBox(height: 20),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Typical pattern',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 10),
-                const _CodeBlock(
-                  caption: 'Router + Pages with hero support',
-                  code: 'Router(\n'
-                      '  routerDelegate: MyRouterDelegate(\n'
-                      '    builder: (context, navigatorKey, pages) {\n'
-                      '      return HeroControllerScope(\n'
-                      '        controller: myHeroController,\n'
-                      '        child: Navigator(\n'
-                      '          key: navigatorKey,\n'
-                      '          pages: pages,\n'
-                      '          onDidRemovePage: (page) => popPage(page),\n'
-                      '        ),\n'
-                      '      );\n'
-                      '    },\n'
-                      '  ),\n'
-                      ');',
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 240,
-                  child: CustomPaint(
-                    painter: _NavigatorTwoDiagram(scheme: scheme),
-                    size: Size.infinite,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('Sample pages:',
-                        style: Theme.of(context).textTheme.labelLarge),
-                    const SizedBox(width: 10),
-                    ValueListenableBuilder<int>(
-                      valueListenable: _navigatorTwoPage,
-                      builder: (BuildContext context, int p, Widget? _) {
-                        return SegmentedButton<int>(
-                          segments: const <ButtonSegment<int>>[
-                            ButtonSegment<int>(value: 0, label: Text('Home')),
-                            ButtonSegment<int>(value: 1, label: Text('Detail')),
-                            ButtonSegment<int>(value: 2, label: Text('Editor')),
-                          ],
-                          selected: <int>{p},
-                          onSelectionChanged: (Set<int> s) =>
-                              _navigatorTwoPage.value = s.first,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                ValueListenableBuilder<int>(
-                  valueListenable: _navigatorTwoPage,
-                  builder: (BuildContext context, int p, Widget? _) {
-                    final List<_PageDescriptor> descriptors = <_PageDescriptor>[
-                      _PageDescriptor(
-                        title: 'HomePage',
-                        summary:
-                            'A list of items; each row owns a Hero with a unique tag.',
-                        chip: 'Hero: item.id',
-                        color: scheme.primary,
-                      ),
-                      _PageDescriptor(
-                        title: 'DetailPage',
-                        summary:
-                            'Tapped item expands into a detail page; its Hero tag matches.',
-                        chip: 'Hero: item.id',
-                        color: scheme.tertiary,
-                      ),
-                      _PageDescriptor(
-                        title: 'EditorPage',
-                        summary:
-                            'A full editor. Often pushed without hero animation — use .none.',
-                        chip: 'No Hero',
-                        color: scheme.secondary,
-                      ),
-                    ];
-                    final _PageDescriptor d = descriptors[p];
-                    return _PageCardPreview(descriptor: d);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('When do you actually need this?',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 10),
-                const _BulletLine(
-                    text: 'You use Router without MaterialApp.router (rare; MaterialApp.router also inserts a HeroControllerScope).'),
-                const _BulletLine(
-                    text: 'You embed a secondary Router inside another screen — the inner Navigator needs its own HeroController.'),
-                const _BulletLine(
-                    text: 'You build a shell Navigator (e.g. a bottom-nav shell) with per-tab child Navigators — each tab benefits from its own scope.'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-}
-
-class _PageDescriptor {
-  const _PageDescriptor({
-    required this.title,
-    required this.summary,
-    required this.chip,
-    required this.color,
-  });
-
-  final String title;
-  final String summary;
-  final String chip;
-  final Color color;
-}
-
-class _PageCardPreview extends StatelessWidget {
-  const _PageCardPreview({required this.descriptor});
-
-  final _PageDescriptor descriptor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: descriptor.color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: descriptor.color.withValues(alpha: 0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(Icons.web, color: descriptor.color),
-              const SizedBox(width: 10),
-              Text(descriptor.title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                      color: descriptor.color)),
-              const Spacer(),
-              _Pill(
-                  text: descriptor.chip,
-                  color: descriptor.color,
-                  icon: Icons.label),
-            ],
+          const _Bullet(
+            'HeroControllerScope.none(...) actively *blocks* the search, '
+            'preventing nested heroes from binding to an ancestor controller. '
+            'Useful for non-visual nested Navigators (state machines, '
+            'declarative routers).',
           ),
           const SizedBox(height: 12),
-          Text(descriptor.summary, style: const TextStyle(height: 1.5)),
+          const _AnatomyDiagram(),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 6,
+            children: const [
+              _Pill('MaterialApp -> implicit scope'),
+              _Pill('Embedded Navigator -> needs explicit scope'),
+              _Pill('.none -> opt-out'),
+            ],
+          ),
         ],
       ),
     );
   }
 }
 
-class _NavigatorTwoDiagram extends CustomPainter {
-  _NavigatorTwoDiagram({required this.scheme});
-
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint boxStroke = Paint()
-      ..color = scheme.primary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    final Paint boxFill = Paint()..color = scheme.primaryContainer;
-    final Paint linkPaint = Paint()
-      ..color = scheme.tertiary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    final List<String> titles = <String>['Router', 'RouterDelegate', 'HeroControllerScope', 'Navigator', 'Pages'];
-    final List<Rect> boxes = <Rect>[];
-    final double w = size.width / 5 - 14;
-    final double h = 80;
-    final double top = size.height / 2 - h / 2;
-    for (int i = 0; i < 5; i++) {
-      final Rect r = Rect.fromLTWH(6 + i * (w + 12), top, w, h);
-      boxes.add(r);
-      final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(10));
-      canvas.drawRRect(rr, boxFill);
-      canvas.drawRRect(rr, boxStroke);
-      final TextPainter tp = TextPainter(
-        text: TextSpan(
-          text: titles[i],
-          style: TextStyle(
-              color: scheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
-              fontSize: 12),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: w - 10);
-      tp.paint(canvas, Offset(r.center.dx - tp.width / 2, r.center.dy - tp.height / 2));
-    }
-    for (int i = 0; i < boxes.length - 1; i++) {
-      final Offset from = Offset(boxes[i].right, boxes[i].center.dy);
-      final Offset to = Offset(boxes[i + 1].left, boxes[i + 1].center.dy);
-      canvas.drawLine(from, to, linkPaint);
-      final Path arrow = Path()
-        ..moveTo(to.dx, to.dy)
-        ..lineTo(to.dx - 8, to.dy - 5)
-        ..lineTo(to.dx - 8, to.dy + 5)
-        ..close();
-      canvas.drawPath(arrow, Paint()..color = scheme.tertiary);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _NavigatorTwoDiagram old) => old.scheme != scheme;
-}
-
-// ---------------------------------------------------------------------------
-// SECTION 9 — Pitfalls and API cheat sheet combined.
-// ---------------------------------------------------------------------------
-
-class _PitfallsAndApiSection extends StatelessWidget {
-  const _PitfallsAndApiSection();
+class _AnatomyDiagram extends StatelessWidget {
+  const _AnatomyDiagram();
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        const _SectionHeader(
-          title: 'Pitfalls & API Cheat Sheet',
-          subtitle:
-              'Three common mistakes to avoid and a compact API reference.',
-          icon: Icons.warning_amber,
-        ),
-        const SizedBox(height: 20),
-        ValueListenableBuilder<int>(
-          valueListenable: _pitfallHighlight,
-          builder: (BuildContext context, int hi, Widget? _) {
-            return Column(
-              children: <Widget>[
-                _PitfallTile(
-                  index: 0,
-                  highlighted: hi == 0,
-                  icon: Icons.no_transfer,
-                  title: 'Forgetting scope for secondary Navigators',
-                  body:
-                      'Custom Navigators built outside MaterialApp do not get '
-                      'a HeroControllerScope automatically. If you forget one, '
-                      'Hero widgets inside your secondary Navigator will '
-                      'silently stop animating — no error, just a missing '
-                      'flight.',
-                  color: scheme.error,
-                  onTap: () => _pitfallHighlight.value = 0,
-                ),
-                const SizedBox(height: 10),
-                _PitfallTile(
-                  index: 1,
-                  highlighted: hi == 1,
-                  icon: Icons.swap_horiz,
-                  title: 'Overlapping Hero tags',
-                  body:
-                      'Two Hero widgets with the same tag on the same route '
-                      'trigger an assertion because the HeroController cannot '
-                      'decide which one is the source. Use per-item unique '
-                      'tags, typically derived from a stable model id.',
-                  color: scheme.error,
-                  onTap: () => _pitfallHighlight.value = 1,
-                ),
-                const SizedBox(height: 10),
-                _PitfallTile(
-                  index: 2,
-                  highlighted: hi == 2,
-                  icon: Icons.dynamic_feed,
-                  title: 'Contradictory heroes across nested scopes',
-                  body:
-                      'When an outer and an inner HeroControllerScope each '
-                      'see matching Hero tags during the same frame, the '
-                      'flight can ping-pong or flash. Prefer distinct tags '
-                      'between outer and inner subtrees — or use '
-                      'HeroControllerScope.none on the inner Navigator to '
-                      'suppress its contribution.',
-                  color: scheme.error,
-                  onTap: () => _pitfallHighlight.value = 2,
-                ),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: 24),
-        _ApiCheatSheet(scheme: scheme),
-        const SizedBox(height: 40),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).dividerColor),
+      ),
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          _DiagramRow(
+              level: 0,
+              label: 'MaterialApp',
+              detail: 'creates root HeroController + scope'),
+          _DiagramRow(
+              level: 1,
+              label: 'Navigator (root)',
+              detail: 'inherits scope automatically'),
+          _DiagramRow(
+              level: 2, label: 'Hero("avatar")', detail: 'works out of the box'),
+          _DiagramRow(level: 1, label: 'YourScreen', detail: ''),
+          _DiagramRow(
+              level: 2, label: 'HeroControllerScope', detail: 'YOU add this'),
+          _DiagramRow(
+              level: 3,
+              label: 'Navigator (embedded)',
+              detail: 'now sees the controller'),
+          _DiagramRow(
+              level: 4,
+              label: 'Hero("thumb")',
+              detail: 'animates between embedded routes'),
+        ],
+      ),
     );
   }
 }
 
-class _PitfallTile extends StatelessWidget {
-  const _PitfallTile({
-    required this.index,
-    required this.highlighted,
-    required this.icon,
-    required this.title,
-    required this.body,
-    required this.color,
-    required this.onTap,
-  });
-
-  final int index;
-  final bool highlighted;
-  final IconData icon;
-  final String title;
-  final String body;
-  final Color color;
-  final VoidCallback onTap;
+class _DiagramRow extends StatelessWidget {
+  const _DiagramRow(
+      {required this.level, required this.label, required this.detail});
+  final int level;
+  final String label;
+  final String detail;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(14),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: highlighted ? color.withValues(alpha: 0.14) : color.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: highlighted ? color : color.withValues(alpha: 0.3),
-            width: highlighted ? 2 : 1,
+    return Padding(
+      padding: EdgeInsets.only(left: level * 16.0, top: 2, bottom: 2),
+      child: Row(
+        children: [
+          const Icon(Icons.subdirectory_arrow_right, size: 14),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: const TextStyle(
+                fontFamily: 'monospace', fontWeight: FontWeight.w600),
           ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            CircleAvatar(
-              backgroundColor: color.withValues(alpha: 0.2),
-              child: Icon(icon, color: color),
-            ),
-            const SizedBox(width: 14),
+          if (detail.isNotEmpty) ...[
+            const SizedBox(width: 8),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text('Pitfall #${index + 1}',
-                          style: TextStyle(
-                              color: color,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12)),
-                      const SizedBox(width: 8),
-                      if (highlighted)
-                        _Pill(text: 'selected', color: color, icon: Icons.check),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 16)),
-                  const SizedBox(height: 6),
-                  Text(body, style: const TextStyle(height: 1.5)),
-                ],
+              child: Text(
+                '— $detail',
+                style: Theme.of(context).textTheme.bodySmall,
               ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 2. Root MaterialApp implicit scope demo
+// -----------------------------------------------------------------------------
+class _RootMaterialAppScopeCard extends StatelessWidget {
+  const _RootMaterialAppScopeCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '2. The root MaterialApp scope is invisible but real',
+      subtitle:
+          'Pushing on the *root* Navigator already gets a HeroController for free.',
+      accent: Colors.teal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'The button below pushes a normal MaterialPageRoute onto the root '
+            'Navigator. Notice the avatar circle flying smoothly to the next '
+            'screen — that is the implicit HeroControllerScope at work.',
+          ),
+          const SizedBox(height: 12),
+          Center(
+            child: Hero(
+              tag: 'root-avatar-implicit',
+              child: Material(
+                color: Colors.transparent,
+                child: CircleAvatar(
+                  radius: 36,
+                  backgroundColor: Colors.teal.shade200,
+                  child:
+                      const Icon(Icons.person, size: 32, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          FilledButton.icon(
+            icon: const Icon(Icons.open_in_new),
+            label: const Text('Push detail on root Navigator'),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (ctx) => const _RootImplicitDetailScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RootImplicitDetailScreen extends StatelessWidget {
+  const _RootImplicitDetailScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Root scope detail')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'root-avatar-implicit',
+              child: Material(
+                color: Colors.transparent,
+                child: CircleAvatar(
+                  radius: 96,
+                  backgroundColor: Colors.teal.shade400,
+                  child:
+                      const Icon(Icons.person, size: 80, color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'No HeroControllerScope was added by hand. MaterialApp\n'
+              'wrapped the root Navigator with one for you.',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Pop'),
             ),
           ],
         ),
@@ -2321,135 +448,1844 @@ class _PitfallTile extends StatelessWidget {
   }
 }
 
-class _ApiCheatSheet extends StatelessWidget {
-  const _ApiCheatSheet({required this.scheme});
-
-  final ColorScheme scheme;
+// -----------------------------------------------------------------------------
+// 3. Embedded Navigator WITHOUT HeroControllerScope (broken hero)
+// -----------------------------------------------------------------------------
+class _BrokenNoScopeCard extends StatelessWidget {
+  const _BrokenNoScopeCard();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(Icons.menu_book, color: scheme.primary),
-                const SizedBox(width: 10),
-                Text('API cheat sheet',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const Spacer(),
-                ValueListenableBuilder<bool>(
-                  valueListenable: _apiExpanded,
-                  builder: (BuildContext context, bool expanded, Widget? _) {
-                    return IconButton(
-                      icon: Icon(
-                          expanded ? Icons.expand_less : Icons.expand_more),
-                      onPressed: () => _apiExpanded.value = !expanded,
-                    );
-                  },
+    return _SectionCard(
+      title: '3. Embedded Navigator WITHOUT a HeroControllerScope',
+      subtitle: 'Hero widgets simply teleport — no flight is choreographed.',
+      accent: Colors.red,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'This card hosts its own Navigator inside a 320-pixel-tall window. '
+            'There is no HeroControllerScope above it, so when you push the '
+            'detail route the heroes are present in both routes but no '
+            'animation runs — they appear to cut.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 320,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.red.withOpacity(0.05),
+                child: Navigator(
+                  onGenerateRoute: (settings) => MaterialPageRoute<void>(
+                    settings: settings,
+                    builder: (_) => const _BrokenListPage(),
+                  ),
                 ),
-              ],
+              ),
             ),
-            ValueListenableBuilder<bool>(
-              valueListenable: _apiExpanded,
-              builder: (BuildContext context, bool expanded, Widget? _) {
-                if (!expanded) return const SizedBox.shrink();
-                return Column(
-                  children: <Widget>[
-                    const SizedBox(height: 12),
-                    ValueListenableBuilder<int>(
-                      valueListenable: _apiTab,
-                      builder: (BuildContext context, int idx, Widget? _) {
-                        return SegmentedButton<int>(
-                          segments: const <ButtonSegment<int>>[
-                            ButtonSegment<int>(value: 0, label: Text('Default')),
-                            ButtonSegment<int>(value: 1, label: Text('.none')),
-                            ButtonSegment<int>(value: 2, label: Text('.of')),
-                            ButtonSegment<int>(value: 3, label: Text('.maybeOf')),
-                          ],
-                          selected: <int>{idx},
-                          onSelectionChanged: (Set<int> s) =>
-                              _apiTab.value = s.first,
-                        );
-                      },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BrokenListPage extends StatelessWidget {
+  const _BrokenListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.red.withOpacity(0.04),
+      child: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          const Text(
+            'No HeroControllerScope above this Navigator. Tap the tile.',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 8),
+          Card(
+            child: ListTile(
+              leading: Hero(
+                tag: 'broken-thumb',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade300,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const SizedBox(height: 12),
-                    ValueListenableBuilder<int>(
-                      valueListenable: _apiTab,
-                      builder: (BuildContext context, int idx, Widget? _) {
-                        switch (idx) {
-                          case 0:
-                            return const _CodeBlock(
-                              caption: 'Constructor',
-                              code: 'const HeroControllerScope({\n'
-                                  '  Key? key,\n'
-                                  '  required HeroController controller,\n'
-                                  '  required Widget child,\n'
-                                  '});',
-                            );
-                          case 1:
-                            return const _CodeBlock(
-                              caption: 'Opt-out constructor',
-                              code: 'const HeroControllerScope.none({\n'
-                                  '  Key? key,\n'
-                                  '  required Widget child,\n'
-                                  '});',
-                            );
-                          case 2:
-                            return const _CodeBlock(
-                              caption: 'Static accessor (asserts)',
-                              code: 'static HeroController of(BuildContext context) {\n'
-                                  '  // asserts a HeroControllerScope is present.\n'
-                                  '}',
-                            );
-                          case 3:
-                          default:
-                            return const _CodeBlock(
-                              caption: 'Static accessor (null-safe)',
-                              code: 'static HeroController? maybeOf(\n'
-                                  '  BuildContext context,\n'
-                                  ') {\n'
-                                  '  // returns null when no scope is in context.\n'
-                                  '}',
-                            );
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: scheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Quick recap',
-                              style: Theme.of(context).textTheme.titleMedium),
-                          const SizedBox(height: 8),
-                          const _BulletLine(
-                              text: 'InheritedWidget: descendants look up the nearest HeroController.'),
-                          const _BulletLine(
-                              text: 'MaterialApp/CupertinoApp/WidgetsApp insert one around their root Navigator.'),
-                          const _BulletLine(
-                              text: 'Use the plain constructor for custom Navigators that should play hero flights.'),
-                          const _BulletLine(
-                              text: 'Use .none to opt out of hero flights for a subtree.'),
-                          const _BulletLine(
-                              text: 'of asserts on miss; maybeOf returns null.'),
-                        ],
-                      ),
-                    ),
-                  ],
+                    child: const Icon(Icons.warning, color: Colors.white),
+                  ),
+                ),
+              ),
+              title: const Text('Broken hero'),
+              subtitle: const Text('Will teleport, not animate'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const _BrokenDetailPage(),
+                  ),
                 );
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BrokenDetailPage extends StatelessWidget {
+  const _BrokenDetailPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.red.withOpacity(0.08),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'broken-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade400,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(Icons.warning,
+                      color: Colors.white, size: 64),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('Hero teleported, not flew.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 4. Embedded Navigator WRAPPED in HeroControllerScope (working hero)
+// -----------------------------------------------------------------------------
+class _WorkingScopeCard extends StatefulWidget {
+  const _WorkingScopeCard();
+
+  @override
+  State<_WorkingScopeCard> createState() => _WorkingScopeCardState();
+}
+
+class _WorkingScopeCardState extends State<_WorkingScopeCard> {
+  // Owned controller — disposed in dispose().
+  final HeroController _controller = HeroController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '4. Embedded Navigator WRAPPED in HeroControllerScope',
+      subtitle: 'Now the same hero tag actually animates inside the card.',
+      accent: Colors.green,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Identical Navigator + Hero pair as section 3, but this one is '
+            'wrapped in HeroControllerScope(controller: HeroController()). '
+            'Tap the tile and watch the rounded square actually FLY across '
+            'the embedded surface.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 320,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.green.withOpacity(0.05),
+                child: HeroControllerScope(
+                  controller: _controller,
+                  child: Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (_) => const _WorkingListPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WorkingListPage extends StatelessWidget {
+  const _WorkingListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.green.withOpacity(0.04),
+      child: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          const Text(
+            'A HeroControllerScope is now wrapping this Navigator. Tap below.',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 8),
+          Card(
+            child: ListTile(
+              leading: Hero(
+                tag: 'working-thumb',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade400,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.check, color: Colors.white),
+                  ),
+                ),
+              ),
+              title: const Text('Working hero'),
+              subtitle: const Text('Will animate'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const _WorkingDetailPage(),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: ListTile(
+              leading: Hero(
+                tag: 'working-thumb-2',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade700,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: const Icon(Icons.flight, color: Colors.white),
+                  ),
+                ),
+              ),
+              title: const Text('Second hero'),
+              subtitle: const Text('Different tag, same controller'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const _WorkingDetailPage2(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WorkingDetailPage extends StatelessWidget {
+  const _WorkingDetailPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.green.withOpacity(0.08),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'working-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade500,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child:
+                      const Icon(Icons.check, color: Colors.white, size: 80),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('Hero flew correctly.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _WorkingDetailPage2 extends StatelessWidget {
+  const _WorkingDetailPage2();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.green.withOpacity(0.12),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'working-thumb-2',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade800,
+                    borderRadius: BorderRadius.circular(70),
+                  ),
+                  child:
+                      const Icon(Icons.flight, color: Colors.white, size: 80),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('Multiple hero tags share one controller.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 5. HeroControllerScope.none — actively suppressing transitions
+// -----------------------------------------------------------------------------
+class _ScopeNoneCard extends StatelessWidget {
+  const _ScopeNoneCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '5. HeroControllerScope.none — opt-out',
+      subtitle:
+          'Use when a nested Navigator should DELIBERATELY ignore any ancestor controller.',
+      accent: Colors.orange,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'The .none constructor advertises "there is no controller here". '
+            'Descendant Heroes do not climb past this scope, so even if some '
+            'outer scope exists, route changes inside it run without flights. '
+            'Handy for non-visual or declarative nested Navigators.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 280,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.orange.withOpacity(0.05),
+                child: HeroControllerScope.none(
+                  child: Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (_) => const _NoneListPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NoneListPage extends StatelessWidget {
+  const _NoneListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.orange.withOpacity(0.05),
+      child: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          const Text(
+            'HeroControllerScope.none — heroes are present but inert.',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 8),
+          ListTile(
+            tileColor: Colors.orange.withOpacity(0.1),
+            leading: Hero(
+              tag: 'none-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  color: Colors.orange,
+                  child: const Icon(Icons.block, color: Colors.white),
+                ),
+              ),
+            ),
+            title: const Text('Suppressed hero'),
+            subtitle: const Text('No controller, no animation.'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const _NoneDetailPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NoneDetailPage extends StatelessWidget {
+  const _NoneDetailPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.orange.withOpacity(0.1),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'none-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 130,
+                  height: 130,
+                  color: Colors.deepOrange,
+                  child:
+                      const Icon(Icons.block, color: Colors.white, size: 72),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('Hero present, but no flight.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 6. Per-tab Navigator with its own HeroController
+// -----------------------------------------------------------------------------
+class _PerTabControllerCard extends StatefulWidget {
+  const _PerTabControllerCard();
+
+  @override
+  State<_PerTabControllerCard> createState() => _PerTabControllerCardState();
+}
+
+class _PerTabControllerCardState extends State<_PerTabControllerCard>
+    with TickerProviderStateMixin {
+  late final TabController _tabs;
+  final HeroController _ctrlA = HeroController();
+  final HeroController _ctrlB = HeroController();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabs = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabs.dispose();
+    _ctrlA.dispose();
+    _ctrlB.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '6. Per-tab Navigator with its own HeroController',
+      subtitle:
+          'Each tab owns a Navigator + scope so flights stay scoped to that tab.',
+      accent: Colors.purple,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Many apps use a persistent bottom-nav with one Navigator per tab. '
+            'You give EACH of those Navigators its own HeroControllerScope so '
+            'switching tabs never confuses the controller, and so each tab '
+            'can independently animate a hero without waking the others.',
+          ),
+          const SizedBox(height: 10),
+          TabBar(
+            controller: _tabs,
+            tabs: const [
+              Tab(text: 'Tab A'),
+              Tab(text: 'Tab B'),
+            ],
+          ),
+          SizedBox(
+            height: 320,
+            child: TabBarView(
+              controller: _tabs,
+              children: [
+                HeroControllerScope(
+                  controller: _ctrlA,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => const _TabHomePage(
+                        title: 'Tab A',
+                        tag: 'pertab-a',
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                ),
+                HeroControllerScope(
+                  controller: _ctrlB,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => const _TabHomePage(
+                        title: 'Tab B',
+                        tag: 'pertab-b',
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TabHomePage extends StatelessWidget {
+  const _TabHomePage(
+      {required this.title, required this.tag, required this.color});
+  final String title;
+  final String tag;
+  final MaterialColor color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color.withOpacity(0.05),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 8),
+            Hero(
+              tag: tag,
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: color.shade400,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: const Icon(Icons.star, color: Colors.white, size: 48),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => _TabDetailPage(tag: tag, color: color),
+                  ),
+                );
+              },
+              child: const Text('Open detail'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TabDetailPage extends StatelessWidget {
+  const _TabDetailPage({required this.tag, required this.color});
+  final String tag;
+  final MaterialColor color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color.withOpacity(0.1),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: tag,
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: color.shade700,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child:
+                      const Icon(Icons.star, color: Colors.white, size: 120),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text('Detail for $tag'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 7. Custom flightShuttleBuilder
+// -----------------------------------------------------------------------------
+class _FlightShuttleCard extends StatefulWidget {
+  const _FlightShuttleCard();
+
+  @override
+  State<_FlightShuttleCard> createState() => _FlightShuttleCardState();
+}
+
+class _FlightShuttleCardState extends State<_FlightShuttleCard> {
+  final HeroController _ctrl = HeroController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '7. Custom flightShuttleBuilder during flight',
+      subtitle:
+          'Override what the user sees mid-flight — independent of source/dest widgets.',
+      accent: Colors.blue,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'During the flight Flutter normally shows the destination Hero '
+            'shape interpolated. With flightShuttleBuilder you can replace '
+            'that mid-air widget — for example fading + spinning a different '
+            'icon. Tap to see a star spin into a heart.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 320,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.blue.withOpacity(0.05),
+                child: HeroControllerScope(
+                  controller: _ctrl,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => const _ShuttleListPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _heartShuttle(
+  BuildContext flightContext,
+  Animation<double> animation,
+  HeroFlightDirection flightDirection,
+  BuildContext fromHeroContext,
+  BuildContext toHeroContext,
+) {
+  return RotationTransition(
+    turns: Tween<double>(begin: 0, end: 1).animate(animation),
+    child: FadeTransition(
+      opacity: animation,
+      child: const Material(
+        color: Colors.transparent,
+        child: Icon(Icons.favorite, color: Colors.pink, size: 80),
+      ),
+    ),
+  );
+}
+
+class _ShuttleListPage extends StatelessWidget {
+  const _ShuttleListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.blue.withOpacity(0.04),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'shuttle',
+              flightShuttleBuilder: _heartShuttle,
+              child: const Material(
+                color: Colors.transparent,
+                child: Icon(Icons.star, color: Colors.amber, size: 64),
+              ),
+            ),
+            const SizedBox(height: 12),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const _ShuttleDetailPage(),
+                  ),
+                );
+              },
+              child: const Text('Take flight'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShuttleDetailPage extends StatelessWidget {
+  const _ShuttleDetailPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.blue.withOpacity(0.08),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'shuttle',
+              flightShuttleBuilder: _heartShuttle,
+              child: const Material(
+                color: Colors.transparent,
+                child: Icon(Icons.star, color: Colors.amber, size: 160),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+                'Custom shuttle replaced the star with a heart mid-flight.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 8. List-to-detail card with multiple hero tags
+// -----------------------------------------------------------------------------
+class _ListToDetailCard extends StatefulWidget {
+  const _ListToDetailCard();
+
+  @override
+  State<_ListToDetailCard> createState() => _ListToDetailCardState();
+}
+
+class _ListToDetailCardState extends State<_ListToDetailCard> {
+  final HeroController _ctrl = HeroController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '8. Classic list-to-detail with many hero tags',
+      subtitle:
+          'A fully embedded master/detail pattern animating thumbnails + titles together.',
+      accent: Colors.brown,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Each list tile contains TWO hero widgets: the thumbnail and the '
+            'title text. Both animate together when you push the detail. '
+            'This works because the embedded Navigator is wrapped in '
+            'HeroControllerScope.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 360,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.brown.withOpacity(0.05),
+                child: HeroControllerScope(
+                  controller: _ctrl,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => const _ListDetailListPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ListDetailListPage extends StatelessWidget {
+  const _ListDetailListPage();
+
+  static const _items = <_LDItem>[
+    _LDItem('apple', 'Red apple', Icons.apple, Colors.red),
+    _LDItem('coffee', 'Cup of coffee', Icons.coffee, Colors.brown),
+    _LDItem('forest', 'Forest path', Icons.forest, Colors.green),
+    _LDItem('beach', 'Sandy beach', Icons.beach_access, Colors.amber),
+    _LDItem('rocket', 'Rocket flight', Icons.rocket_launch, Colors.deepPurple),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.brown.withOpacity(0.04),
+      child: ListView.separated(
+        padding: const EdgeInsets.all(12),
+        itemCount: _items.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 6),
+        itemBuilder: (context, i) {
+          final item = _items[i];
+          return Card(
+            child: ListTile(
+              leading: Hero(
+                tag: 'ld-thumb-${item.id}',
+                child: Material(
+                  color: Colors.transparent,
+                  child: CircleAvatar(
+                    backgroundColor: item.color,
+                    child: Icon(item.icon, color: Colors.white),
+                  ),
+                ),
+              ),
+              title: Hero(
+                tag: 'ld-title-${item.id}',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    item.title,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+              subtitle: const Text('Tap to open detail'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => _ListDetailDetailPage(item: item),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _LDItem {
+  const _LDItem(this.id, this.title, this.icon, this.color);
+  final String id;
+  final String title;
+  final IconData icon;
+  final MaterialColor color;
+}
+
+class _ListDetailDetailPage extends StatelessWidget {
+  const _ListDetailDetailPage({required this.item});
+  final _LDItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: item.color.withOpacity(0.08),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Hero(
+              tag: 'ld-thumb-${item.id}',
+              child: Material(
+                color: Colors.transparent,
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundColor: item.color,
+                  child: Icon(item.icon, color: Colors.white, size: 60),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Hero(
+              tag: 'ld-title-${item.id}',
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  item.title,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Two heroes flew at once: the thumbnail circle and the title '
+              'string. The HeroControllerScope above the embedded Navigator '
+              'is what made both happen at the same time.',
+            ),
+            const Spacer(),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back to list'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 9. Tabbed gallery — persistent shell, per-tab heroes
+// -----------------------------------------------------------------------------
+class _TabbedGalleryCard extends StatefulWidget {
+  const _TabbedGalleryCard();
+
+  @override
+  State<_TabbedGalleryCard> createState() => _TabbedGalleryCardState();
+}
+
+class _TabbedGalleryCardState extends State<_TabbedGalleryCard>
+    with TickerProviderStateMixin {
+  late final TabController _tabs;
+  final HeroController _galleryCtrl = HeroController();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabs = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabs.dispose();
+    _galleryCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '9. Tabbed gallery with a single per-shell controller',
+      subtitle:
+          'Three tabs feeding into one Navigator that owns one HeroController.',
+      accent: Colors.cyan,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Here the embedded Navigator is OUTSIDE the tab view. The tabs '
+            'select which gallery is shown inside the same nested Navigator. '
+            'One HeroControllerScope wraps the whole shell, so heroes flying '
+            'into detail still animate even though the source widget lives '
+            'inside a TabBarView.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 420,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.cyan.withOpacity(0.05),
+                child: HeroControllerScope(
+                  controller: _galleryCtrl,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => _GalleryShell(tabs: _tabs),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GalleryShell extends StatelessWidget {
+  const _GalleryShell({required this.tabs});
+  final TabController tabs;
+
+  static const _g1 = <_GalleryItem>[
+    _GalleryItem('g-cat', 'Cat', Icons.pets, Colors.orange),
+    _GalleryItem('g-dog', 'Dog', Icons.cruelty_free, Colors.brown),
+  ];
+  static const _g2 = <_GalleryItem>[
+    _GalleryItem('g-pizza', 'Pizza', Icons.local_pizza, Colors.red),
+    _GalleryItem('g-cake', 'Cake', Icons.cake, Colors.pink),
+  ];
+  static const _g3 = <_GalleryItem>[
+    _GalleryItem('g-bike', 'Bike', Icons.pedal_bike, Colors.green),
+    _GalleryItem('g-car', 'Car', Icons.directions_car, Colors.blue),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.cyan.withOpacity(0.04),
+      child: Column(
+        children: [
+          TabBar(controller: tabs, tabs: const [
+            Tab(text: 'Pets'),
+            Tab(text: 'Food'),
+            Tab(text: 'Vehicles'),
+          ]),
+          Expanded(
+            child: TabBarView(
+              controller: tabs,
+              children: const [
+                _GalleryGrid(items: _g1),
+                _GalleryGrid(items: _g2),
+                _GalleryGrid(items: _g3),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GalleryItem {
+  const _GalleryItem(this.id, this.title, this.icon, this.color);
+  final String id;
+  final String title;
+  final IconData icon;
+  final MaterialColor color;
+}
+
+class _GalleryGrid extends StatelessWidget {
+  const _GalleryGrid({required this.items});
+  final List<_GalleryItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      padding: const EdgeInsets.all(12),
+      crossAxisCount: 2,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+      children: [
+        for (final item in items)
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => _GalleryDetailPage(item: item),
+                ),
+              );
+            },
+            child: Card(
+              color: item.color.withOpacity(0.15),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Hero(
+                      tag: item.id,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Icon(item.icon, color: item.color, size: 64),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(item.title),
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _GalleryDetailPage extends StatelessWidget {
+  const _GalleryDetailPage({required this.item});
+  final _GalleryItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: item.color.withOpacity(0.1),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: item.id,
+              child: Material(
+                color: Colors.transparent,
+                child: Icon(item.icon, color: item.color, size: 200),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(item.title,
+                style: Theme.of(context).textTheme.headlineMedium),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 10. Recipe gallery — many heroes pushed in sequence
+// -----------------------------------------------------------------------------
+class _RecipeGalleryCard extends StatefulWidget {
+  const _RecipeGalleryCard();
+
+  @override
+  State<_RecipeGalleryCard> createState() => _RecipeGalleryCardState();
+}
+
+class _RecipeGalleryCardState extends State<_RecipeGalleryCard> {
+  final HeroController _ctrl = HeroController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '10. Recipe gallery — staggered hero animations',
+      subtitle:
+          'Hero, Hero, Hero. Each tile uses different geometry, all animate together.',
+      accent: Colors.pink,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'A grid of recipe cards. Tapping a card pushes a detail page that '
+            'shares THREE heroes: the cover image placeholder, the title, '
+            'and the badge. They fly together because all three live under '
+            'one HeroControllerScope.',
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 460,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.pink.withOpacity(0.05),
+                child: HeroControllerScope(
+                  controller: _ctrl,
+                  child: Navigator(
+                    onGenerateRoute: (s) => MaterialPageRoute<void>(
+                      settings: s,
+                      builder: (_) => const _RecipeListPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecipeListPage extends StatelessWidget {
+  const _RecipeListPage();
+
+  static const _recipes = <_Recipe>[
+    _Recipe('r1', 'Pancakes', 'Quick', Colors.amber),
+    _Recipe('r2', 'Lasagna', 'Slow', Colors.red),
+    _Recipe('r3', 'Sushi', 'Fresh', Colors.teal),
+    _Recipe('r4', 'Curry', 'Spicy', Colors.deepOrange),
+    _Recipe('r5', 'Salad', 'Light', Colors.green),
+    _Recipe('r6', 'Burger', 'Hearty', Colors.brown),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.pink.withOpacity(0.03),
+      child: GridView.count(
+        padding: const EdgeInsets.all(12),
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 0.95,
+        children: [
+          for (final r in _recipes)
+            InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => _RecipeDetailPage(recipe: r),
+                  ),
+                );
+              },
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Hero(
+                        tag: 'recipe-cover-${r.id}',
+                        child: Container(color: r.color.withOpacity(0.4)),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Hero(
+                          tag: 'recipe-badge-${r.id}',
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: r.color,
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: Text(
+                                r.badge,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Hero(
+                          tag: 'recipe-title-${r.id}',
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(
+                              r.title,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Recipe {
+  const _Recipe(this.id, this.title, this.badge, this.color);
+  final String id;
+  final String title;
+  final String badge;
+  final MaterialColor color;
+}
+
+class _RecipeDetailPage extends StatelessWidget {
+  const _RecipeDetailPage({required this.recipe});
+  final _Recipe recipe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.pink.withOpacity(0.04),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: Hero(
+                  tag: 'recipe-cover-${recipe.id}',
+                  child: Container(color: recipe.color.withOpacity(0.6)),
+                ),
+              ),
+              Positioned(
+                top: 12,
+                right: 12,
+                child: Hero(
+                  tag: 'recipe-badge-${recipe.id}',
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: recipe.color,
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        recipe.badge,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 12,
+                left: 12,
+                child: Hero(
+                  tag: 'recipe-title-${recipe.id}',
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Text(
+                      recipe.title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Three heroes flew together: cover, title, badge. All three '
+              'are choreographed by the single HeroController owned by the '
+              'wrapping HeroControllerScope.',
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: FilledButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 11. HeroController lifecycle — owning vs leaking
+// -----------------------------------------------------------------------------
+class _ControllerLifecycleCard extends StatefulWidget {
+  const _ControllerLifecycleCard();
+
+  @override
+  State<_ControllerLifecycleCard> createState() =>
+      _ControllerLifecycleCardState();
+}
+
+class _ControllerLifecycleCardState extends State<_ControllerLifecycleCard> {
+  HeroController? _ctrl;
+  bool _alive = false;
+  int _spawnCount = 0;
+
+  void _spawn() {
+    setState(() {
+      _ctrl?.dispose();
+      _ctrl = HeroController();
+      _alive = true;
+      _spawnCount++;
+    });
+  }
+
+  void _kill() {
+    setState(() {
+      _ctrl?.dispose();
+      _ctrl = null;
+      _alive = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '11. HeroController lifecycle — you own it, you dispose it',
+      subtitle:
+          'A controller is a Listenable. Always pair it with the State that owns it.',
+      accent: Colors.deepOrange,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'HeroController extends NavigatorObserver. The Navigator it is '
+            'attached to drives it through push/pop callbacks. If you create '
+            'one in initState, dispose it in dispose. Creating a controller '
+            'in build() is a common bug: every rebuild leaks one.',
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 6,
+            children: [
+              FilledButton.icon(
+                icon: const Icon(Icons.power_settings_new),
+                onPressed: _spawn,
+                label: const Text('Spawn controller'),
+              ),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.delete_outline),
+                onPressed: _alive ? _kill : null,
+                label: const Text('Dispose controller'),
+              ),
+              _Pill('Spawn count: $_spawnCount'),
+              _Pill(_alive ? 'Alive' : 'Disposed',
+                  color: _alive ? Colors.green : Colors.grey),
+            ],
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 240,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.deepOrange.withOpacity(0.05),
+                child: _alive && _ctrl != null
+                    ? HeroControllerScope(
+                        controller: _ctrl!,
+                        child: Navigator(
+                          onGenerateRoute: (s) => MaterialPageRoute<void>(
+                            settings: s,
+                            builder: (_) => const _LifecycleListPage(),
+                          ),
+                        ),
+                      )
+                    : const Center(
+                        child: Text('No controller — spawn one to enable.')),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LifecycleListPage extends StatelessWidget {
+  const _LifecycleListPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.deepOrange.withOpacity(0.05),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'life-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 64,
+                  height: 64,
+                  color: Colors.deepOrange,
+                  child: const Icon(Icons.bolt, color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const _LifecycleDetailPage(),
+                  ),
+                );
+              },
+              child: const Text('Push detail'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LifecycleDetailPage extends StatelessWidget {
+  const _LifecycleDetailPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.deepOrange.withOpacity(0.1),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Hero(
+              tag: 'life-thumb',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 160,
+                  height: 160,
+                  color: Colors.deepOrange.shade400,
+                  child: const Icon(Icons.bolt, color: Colors.white, size: 100),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('Same controller across the flight.'),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 12. Constructor comparison
+// -----------------------------------------------------------------------------
+class _ConstructorComparisonCard extends StatelessWidget {
+  const _ConstructorComparisonCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '12. Default constructor vs .none()',
+      subtitle:
+          'One announces a controller, the other announces "deliberately none".',
+      accent: Colors.blueGrey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          _ComparisonRow(
+            constructor: 'HeroControllerScope(controller: HeroController())',
+            meaning:
+                'Descendants find this HeroController. Heroes inside the wrapped Navigator animate.',
+            color: Colors.green,
+          ),
+          SizedBox(height: 8),
+          _ComparisonRow(
+            constructor: 'HeroControllerScope.none(child: ...)',
+            meaning:
+                'Descendants stop searching. No controller, no flight — ideal for non-visual nested Navigators.',
+            color: Colors.orange,
+          ),
+          SizedBox(height: 8),
+          _ComparisonRow(
+            constructor: '(no scope at all)',
+            meaning:
+                'Descendants keep walking up. If they reach the root MaterialApp scope they will use *that* controller — usually wrong for embedded Navigators.',
+            color: Colors.red,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ComparisonRow extends StatelessWidget {
+  const _ComparisonRow({
+    required this.constructor,
+    required this.meaning,
+    required this.color,
+  });
+  final String constructor;
+  final String meaning;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            constructor,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(meaning),
+        ],
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 13. Pitfalls and common mistakes
+// -----------------------------------------------------------------------------
+class _PitfallsCard extends StatelessWidget {
+  const _PitfallsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '13. Pitfalls & common mistakes',
+      subtitle: 'What goes wrong, why, and how to fix it.',
+      accent: Colors.red,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          _Bullet(
+            'Embedding a Navigator and forgetting the scope: Heroes appear, '
+            'but transitions do not animate — they cut between routes.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+          _Bullet(
+            'Building a HeroController inside build(): every rebuild leaks '
+            'one. Always create the controller in initState and dispose() it.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+          _Bullet(
+            'Sharing one HeroController across multiple Navigators: results '
+            'in undefined behaviour. Each Navigator deserves its own.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+          _Bullet(
+            'Using HeroControllerScope.none and then wondering why heroes '
+            'do not animate. That is precisely what .none means.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+          _Bullet(
+            'Wrapping the *root* MaterialApp Navigator with another '
+            'HeroControllerScope: redundant; MaterialApp already does it. '
+            'Doing it again can create double observers.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+          _Bullet(
+            'Mounting the same Hero tag in two simultaneously visible '
+            'subtrees under the same controller: ambiguous source/destination, '
+            'leads to assertion errors during the flight. Use unique tags or '
+            'separate scopes.',
+            icon: Icons.error_outline,
+            iconSize: 16,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 14. Reference table
+// -----------------------------------------------------------------------------
+class _ReferenceTableCard extends StatelessWidget {
+  const _ReferenceTableCard();
+
+  static const _rows = <List<String>>[
+    [
+      'controller',
+      'Required by default ctor. The HeroController to expose.'
+    ],
+    [
+      'child',
+      'Required. Subtree (typically a Navigator) that should see the controller.'
+    ],
+    [
+      'HeroControllerScope.none()',
+      'Constructor that announces "deliberately no controller" to descendants.'
+    ],
+    [
+      'HeroControllerScope.of(context)',
+      'Static lookup used by Navigator to find the nearest controller.'
+    ],
+    [
+      'lifecycle',
+      'You create and dispose the HeroController. The scope itself owns no state.'
+    ],
+    [
+      'placement',
+      'Always above the Navigator that should animate heroes.'
+    ],
+    [
+      'platform',
+      'Same behaviour on every platform (Theme.of(context).platform unaffected).'
+    ],
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      title: '14. Reference — properties at a glance',
+      subtitle: 'Quick API map for HeroControllerScope.',
+      accent: Colors.indigo,
+      child: Table(
+        columnWidths: const {
+          0: IntrinsicColumnWidth(),
+          1: FlexColumnWidth(),
+        },
+        defaultVerticalAlignment: TableCellVerticalAlignment.top,
+        border: TableBorder.symmetric(
+          inside: BorderSide(color: Theme.of(context).dividerColor),
+        ),
+        children: [
+          for (final row in _rows)
+            TableRow(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    row[0],
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(row[1]),
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }

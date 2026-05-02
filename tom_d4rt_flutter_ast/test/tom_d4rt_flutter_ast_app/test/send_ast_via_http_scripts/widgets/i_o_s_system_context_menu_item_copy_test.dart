@@ -1,11 +1,66 @@
-// ignore_for_file: avoid_print
-// IOSSystemContextMenuItemCopy – comprehensive deep demo
-// Apple Gray / Silver palette – iOS platform-specific system context menu
-// item representing the "Copy" action in text selection toolbars.
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// ─────────────────────────────────────────────────────────────────────────────
+// IOSSystemContextMenuItemCopy – deep, hand-authored AST harness demo
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// This file is consumed by the tom_d4rt_flutter_ast harness.  It must be
+// shippable as a real Flutter widget tree because the harness ships the AST of
+// this file to a running Flutter interpreter, which then constructs every
+// widget literally — there is no string evaluation, no eval(), no codegen.
+// Therefore every reference to `IOSSystemContextMenuItemCopy(...)` below is a
+// real Dart constructor call inside a real `contextMenuBuilder` callback.
+//
+// The class under study, `IOSSystemContextMenuItemCopy`, lives in
+// `package:flutter/src/widgets/system_context_menu.dart` and is re-exported
+// through `package:flutter/material.dart` (because material re-exports
+// `widgets.dart`, which exports `system_context_menu.dart`).
+//
+// On non-iOS platforms `SystemContextMenu` cannot actually be presented (the
+// underlying iOS-only platform channel call would assert), but constructing
+// `IOSSystemContextMenuItemCopy()` on its own is harmless on every platform
+// because it has no platform side-effects until `SystemContextMenu.editableText`
+// pushes its `IOSSystemContextMenuItemData` through the engine.
+//
+// To stay safe on every platform but still exercise the class in the AST
+// interpreter, every `contextMenuBuilder` below:
+//
+//   1. Always builds the list of `IOSSystemContextMenuItemCopy` (and friends)
+//      so the constructor is invoked at runtime.
+//   2. Returns `SystemContextMenu.editableText(...)` ONLY when
+//      `Theme.of(context).platform == TargetPlatform.iOS`.
+//   3. Otherwise returns the standard `AdaptiveTextSelectionToolbar.editableText`
+//      so the TextField still has a working selection toolbar in the demo.
+//
+// This means: regardless of the host platform of the interpreter, every
+// constructor is exercised, the widget tree is alive, and the user gets the
+// correct platform-appropriate visual experience.
+//
+// SECTION OVERVIEW (14 sections):
+//   01. Palette + helpers.
+//   02. iOS-only platform banner.
+//   03. Anatomy of SystemContextMenu / IOSSystemContextMenuItemCopy.
+//   04. Plain TextField (default toolbar) for baseline comparison.
+//   05. TextField with copy-only iOS system menu.
+//   06. TextField with full iOS system menu (copy + paste + cut + selectAll +
+//       lookUp + share).
+//   07. TextField with conditional Copy item (based on selection state from
+//       EditableTextState).
+//   08. Multi-line TextField using IOSSystemContextMenuItemCopy.
+//   09. SelectableText with custom builder using the copy item.
+//   10. Password field that intentionally hides the copy item.
+//   11. Recipe gallery (read-only copy + formatted clipboard).
+//   12. Const-item recipe and builder reuse pattern.
+//   13. Pitfalls and platform constraints.
+//   14. Reference table.
+//
+// All sections are visible cards with their own headings inside the live
+// MaterialApp/Scaffold/SafeArea/SingleChildScrollView/Column harness.
+// ─────────────────────────────────────────────────────────────────────────────
+
 dynamic build(BuildContext context) {
-  // ─── palette ───────────────────────────────────────────────────────────
+  // ─── palette (Apple Gray / Silver inspired) ───────────────────────────────
   const Color ccAppleGray = Color(0xFF636366);
   const Color ccSilver = Color(0xFFF2F2F7);
   const Color ccOnGray = Color(0xFFFFFFFF);
@@ -14,8 +69,32 @@ dynamic build(BuildContext context) {
   const Color ccTextDark = Color(0xFF2C2C2E);
   const Color ccAccent = Color(0xFF007AFF);
   const Color ccMuted = Color(0xFFAEAEB2);
+  const Color ccDanger = Color(0xFFFF3B30);
+  const Color ccSuccess = Color(0xFF34C759);
+  const Color ccCardBorder = Color(0x33636366);
 
-  // ─── helpers ───────────────────────────────────────────────────────────
+  // ─── small helpers ────────────────────────────────────────────────────────
+
+  Widget ccChip(String text, {Color color = ccAppleGray}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      margin: const EdgeInsets.only(right: 6, top: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: color.withValues(alpha: 0.35)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
+    );
+  }
+
   Widget ccHeader(String title, String subtitle) {
     return Container(
       width: double.infinity,
@@ -32,7 +111,7 @@ dynamic build(BuildContext context) {
         children: [
           Text(title,
               style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: ccOnGray)),
           const SizedBox(height: 4),
@@ -45,13 +124,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget ccSection(String heading, List<Widget> children) {
+  Widget ccSection(String heading, String tagline, List<Widget> children) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
         color: ccLightSilver,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: ccAppleGray.withValues(alpha: 0.18)),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: ccCardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,22 +138,35 @@ dynamic build(BuildContext context) {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: ccAppleGray.withValues(alpha: 0.08),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(10)),
+            decoration: const BoxDecoration(
+              color: ccAppleGray,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(11),
+                topRight: Radius.circular(11),
+              ),
             ),
-            child: Text(heading,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: ccDarkGray)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(heading,
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: ccOnGray)),
+                const SizedBox(height: 2),
+                Text(tagline,
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: ccOnGray.withValues(alpha: 0.85))),
+              ],
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(14, 8, 14, 12),
+            padding: const EdgeInsets.all(12),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
           ),
         ],
       ),
@@ -83,581 +175,935 @@ dynamic build(BuildContext context) {
 
   Widget ccBullet(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('● ',
-              style: TextStyle(color: ccAccent, fontSize: 11)),
+          const Padding(
+            padding: EdgeInsets.only(top: 6, right: 8),
+            child: Icon(Icons.circle, size: 6, color: ccAppleGray),
+          ),
           Expanded(
             child: Text(text,
                 style: const TextStyle(
-                    fontSize: 12, color: ccTextDark, height: 1.4)),
+                    fontSize: 12, color: ccTextDark, height: 1.45)),
           ),
         ],
       ),
     );
   }
 
-  Widget ccCodeBlock(String code) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(code,
-          style: const TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              color: ccSilver,
-              height: 1.5)),
-    );
-  }
-
-  Widget ccKeyValue(String key, String value) {
+  Widget ccParagraph(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 3),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 140,
-            child: Text(key,
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: ccDarkGray)),
-          ),
-          Expanded(
-            child: Text(value,
-                style: const TextStyle(fontSize: 11, color: ccTextDark)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget ccHighlight(String text) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: ccAccent.withValues(alpha: 0.09),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: ccAccent.withValues(alpha: 0.25)),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(text,
           style: const TextStyle(
-              fontSize: 11,
-              fontStyle: FontStyle.italic,
-              color: ccDarkGray,
-              height: 1.4)),
+              fontSize: 12, color: ccTextDark, height: 1.45)),
+    );
+  }
+
+  Widget ccCallout(String label, String text, {Color color = ccAccent}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.45)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          const SizedBox(height: 4),
+          Text(text,
+              style: const TextStyle(
+                  fontSize: 12, color: ccTextDark, height: 1.4)),
+        ],
+      ),
+    );
+  }
+
+  Widget ccLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6, bottom: 4),
+      child: Text(
+        text,
+        style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: ccDarkGray,
+            letterSpacing: 0.3),
+      ),
     );
   }
 
   Widget ccDivider() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Divider(color: ccMuted.withValues(alpha: 0.4), height: 1),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      height: 1,
+      color: ccMuted.withValues(alpha: 0.4),
     );
   }
 
-  Widget ccCompare(String label, String desc) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            margin: const EdgeInsets.only(top: 4, right: 8),
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: ccAppleGray,
-            ),
-          ),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                      text: '$label: ',
-                      style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: ccDarkGray)),
-                  TextSpan(
-                      text: desc,
-                      style:
-                          const TextStyle(fontSize: 11, color: ccTextDark)),
-                ],
-              ),
-            ),
-          ),
-        ],
+  // ─── platform detection ───────────────────────────────────────────────────
+  final TargetPlatform ccPlatform = Theme.of(context).platform;
+  final bool ccIsIOS = ccPlatform == TargetPlatform.iOS;
+  final String ccPlatformName = ccPlatform.toString().split('.').last;
+
+  // ─── reusable builders that EXERCISE IOSSystemContextMenuItemCopy ─────────
+  //
+  // Each builder constructs a list of IOSSystemContextMenuItem instances.  On
+  // iOS we wrap them in `SystemContextMenu.editableText(...)`; on other
+  // platforms we still construct them (so the AST runtime exercises the
+  // constructor) and then fall back to the AdaptiveTextSelectionToolbar so the
+  // visual toolbar remains correct.
+
+  // 05 — copy-only iOS system menu.
+  Widget ccCopyOnlyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    // Constructed but not displayed — the constructor was exercised.
+    final int ccDebugCount = ccItems.length;
+    assert(ccDebugCount == 1);
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 06 — full iOS system menu.
+  Widget ccFullMenuBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+      const IOSSystemContextMenuItemPaste(),
+      const IOSSystemContextMenuItemCut(),
+      const IOSSystemContextMenuItemSelectAll(),
+      const IOSSystemContextMenuItemLookUp(),
+      const IOSSystemContextMenuItemShare(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    final int ccDebugCount = ccItems.length;
+    assert(ccDebugCount == 6);
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 07 — conditional copy: only show the copy item when there's a non-empty
+  // selection in the EditableTextState.
+  Widget ccConditionalCopyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final TextSelection ccSelection =
+        editableTextState.textEditingValue.selection;
+    final bool ccHasSelection =
+        ccSelection.isValid && !ccSelection.isCollapsed;
+
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[];
+    if (ccHasSelection) {
+      ccItems.add(const IOSSystemContextMenuItemCopy());
+      ccItems.add(const IOSSystemContextMenuItemLookUp());
+    }
+    ccItems.add(const IOSSystemContextMenuItemPaste());
+    ccItems.add(const IOSSystemContextMenuItemSelectAll());
+
+    if (ccIsIOS && ccItems.isNotEmpty) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 08 — multi-line TextField builder (still iOS items).
+  Widget ccMultilineBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+      const IOSSystemContextMenuItemCut(),
+      const IOSSystemContextMenuItemPaste(),
+      const IOSSystemContextMenuItemSelectAll(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    final int ccDebugCount = ccItems.length;
+    assert(ccDebugCount == 4);
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 09 — SelectableText builder (uses SelectableRegionState in 3.x but we
+  // simply re-use the editableTextState path in the iOS-only branch; in
+  // SelectableText we use the contextMenuBuilder that takes
+  // (BuildContext, SelectableRegionState)).  We construct items either way.
+  Widget ccSelectableCopyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+      const IOSSystemContextMenuItemSelectAll(),
+      const IOSSystemContextMenuItemLookUp(),
+      const IOSSystemContextMenuItemShare(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    final int ccDebugCount = ccItems.length;
+    assert(ccDebugCount == 4);
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 10 — password field: paste/select-all only, NEVER copy.
+  Widget ccPasswordHidesCopyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    // Notice: we still demonstrate that the copy item is constructable, but
+    // we do NOT include it for the secure field.
+    // Construct it once outside the items list to prove the constructor runs:
+    final IOSSystemContextMenuItemCopy ccUnused =
+        const IOSSystemContextMenuItemCopy();
+    assert(ccUnused.title == null); // title is platform-supplied
+
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemPaste(),
+      const IOSSystemContextMenuItemSelectAll(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 11a — read-only copy (recipe gallery item 1).
+  Widget ccReadOnlyCopyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+      const IOSSystemContextMenuItemSelectAll(),
+      const IOSSystemContextMenuItemLookUp(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 11b — formatted-copy (recipe gallery item 2).  We still include the
+  // copy item but conceptually a wrapper above could intercept the copied
+  // text and reformat it before placing it on the clipboard.
+  Widget ccFormattedCopyBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    final List<IOSSystemContextMenuItem> ccItems =
+        <IOSSystemContextMenuItem>[
+      const IOSSystemContextMenuItemCopy(),
+      const IOSSystemContextMenuItemPaste(),
+      const IOSSystemContextMenuItemShare(),
+    ];
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccItems,
+      );
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // 12 — const-item recipe.  The same const list is reused across two
+  // different fields to show that `IOSSystemContextMenuItemCopy` is `const`
+  // constructible and equality-aware (it implements ==/hashCode through the
+  // sealed base class).
+  const List<IOSSystemContextMenuItem> ccSharedConstItems =
+      <IOSSystemContextMenuItem>[
+    IOSSystemContextMenuItemCopy(),
+    IOSSystemContextMenuItemPaste(),
+    IOSSystemContextMenuItemSelectAll(),
+  ];
+
+  Widget ccSharedItemsBuilder(
+      BuildContext ctx, EditableTextState editableTextState) {
+    if (ccIsIOS) {
+      return SystemContextMenu.editableText(
+        editableTextState: editableTextState,
+        items: ccSharedConstItems,
+      );
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
+  }
+
+  // ─── controllers (so the textfields show meaningful sample text) ──────────
+  final TextEditingController ccCopyOnlyController =
+      TextEditingController(text: 'Long-press here, then tap Copy.');
+  final TextEditingController ccFullMenuController = TextEditingController(
+      text:
+          'A full system menu offers Copy, Paste, Cut, Select All, Look Up, and Share.');
+  final TextEditingController ccConditionalController =
+      TextEditingController(text: 'Select part of this line and watch.');
+  final TextEditingController ccMultilineController = TextEditingController(
+      text:
+          'Multiline\nfields\nstill render\niOS system menu items via\nIOSSystemContextMenuItemCopy.');
+  final TextEditingController ccPasswordController =
+      TextEditingController(text: 'hunter2-secret-pass');
+  final TextEditingController ccReadOnlyController = TextEditingController(
+      text: 'Recipe: 240g flour, 120ml water, 4g salt, 2g yeast.');
+  final TextEditingController ccFormattedController = TextEditingController(
+      text: '   Trim me   →   I am rich text content   ');
+  final TextEditingController ccSharedAController =
+      TextEditingController(text: 'Field A — shares const items.');
+  final TextEditingController ccSharedBController =
+      TextEditingController(text: 'Field B — shares the same const items.');
+  final TextEditingController ccPlainController = TextEditingController(
+      text: 'Plain TextField with default toolbar — no custom builder.');
+
+  // ─── reference table data ─────────────────────────────────────────────────
+  final List<Map<String, String>> ccItemReference = <Map<String, String>>[
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemCopy',
+      'role': 'Copies the current selection to the iOS pasteboard.',
+      'shows':
+          'Only when the selection is non-empty and the field is not read-only with no selection.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemCut',
+      'role': 'Removes and copies the current selection.',
+      'shows': 'Only on editable fields with a non-empty selection.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemPaste',
+      'role': 'Pastes the current pasteboard contents at the caret.',
+      'shows': 'Only when the field can receive pasted content.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemSelectAll',
+      'role': 'Selects the entire field contents.',
+      'shows': 'Only when the selection can be widened.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemLookUp',
+      'role': 'Opens the iOS system Look Up sheet for the selection.',
+      'shows': 'Only when there is a non-empty selection.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemSearchWeb',
+      'role': 'Opens an iOS web search for the selection.',
+      'shows': 'Only when there is a non-empty selection.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemShare',
+      'role': 'Opens the iOS share sheet for the selection.',
+      'shows': 'Only when there is shareable content selected.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemLiveText',
+      'role': 'Triggers iOS Live Text input from the camera.',
+      'shows': 'Only when iOS reports Live Text input is available.',
+    },
+    <String, String>{
+      'name': 'IOSSystemContextMenuItemCustom',
+      'role': 'Custom developer-defined entry with a title and onPressed.',
+      'shows': 'Always — but only iOS 16+ supports the custom callback.',
+    },
+  ];
+
+  // ─── reference row widget for section 14 ──────────────────────────────────
+  Widget ccRefRow(Map<String, String> entry) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: ccSilver,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: ccCardBorder),
       ),
-    );
-  }
-
-  Widget ccInfoRow(String icon, String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Row(
-        children: [
-          Container(
-            width: 24,
-            height: 24,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: ccAccent.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(icon,
-                style: const TextStyle(fontSize: 12)),
-          ),
-          const SizedBox(width: 8),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: ccDarkGray)),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Text(value,
-                style: const TextStyle(fontSize: 11, color: ccTextDark)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ─── main layout ───────────────────────────────────────────────────────
-  return Container(
-    color: ccSilver,
-    child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── header ──
-          ccHeader(
-            'IOSSystemContextMenuItemCopy',
-            'iOS-specific system context menu item that provides the '
-                'standard "Copy" action for text selection on Apple platforms',
-          ),
-
-          // ── 1. class overview ──
-          ccSection('1 · Class Identity & Role', [
-            ccKeyValue('Class', 'IOSSystemContextMenuItemCopy'),
-            ccKeyValue('Belongs to', 'iOS system context menu item family'),
-            ccKeyValue('Platform', 'iOS only (Cupertino)'),
-            ccKeyValue('Action', 'Copies selected text to the system clipboard'),
-            ccDivider(),
-            ccBullet(
-                'IOSSystemContextMenuItemCopy is a platform-specific menu item '
-                'class that represents the "Copy" entry in the iOS native text '
-                'selection context menu toolbar.'),
-            ccBullet(
-                'On iOS, the system context menu appears as a floating toolbar '
-                'above or below selected text, containing actions like Copy, '
-                'Cut, Paste, Select All, and Look Up.'),
-            ccBullet(
-                'This class encapsulates the behavior and presentation of the '
-                'Copy action specifically, integrating with the system clipboard '
-                'service.'),
-            ccCodeBlock(
-                '// IOSSystemContextMenuItemCopy is typically created\n'
-                '// internally by the Cupertino text selection toolbar.\n'
-                '// It is part of the platform-adaptive menu system.'),
-          ]),
-
-          // ── 2. iOS context menu anatomy ──
-          ccSection('2 · iOS Context Menu Anatomy', [
-            ccHighlight(
-                'The iOS text selection context menu (also called the "callout '
-                'bar") is a horizontal toolbar that appears above or below '
-                'selected text. It contains system-defined items like Cut, '
-                'Copy, Paste arranged horizontally with separator dividers.'),
-            ccBullet(
-                'The menu appears when text is selected via long-press or '
-                'double-tap, and disappears when the selection is dismissed '
-                'or text is deselected.'),
-            ccBullet(
-                'Items are ordered by the system: Cut, Copy, Paste from left '
-                'to right, with additional items like "Look Up" and "Share" '
-                'accessible via a chevron arrow.'),
-            ccBullet(
-                'The Copy item is only visible when there is an active text '
-                'selection (not when the caret is collapsed).'),
-            ccDivider(),
-            ccInfoRow('C', 'Cut', 'Removes selected text, copies to clipboard'),
-            ccInfoRow('C', 'Copy', 'Copies to clipboard without removing'),
-            ccInfoRow('P', 'Paste', 'Inserts clipboard content at caret'),
-            ccInfoRow('A', 'Select All', 'Selects the entire text field'),
-          ]),
-
-          // ── 3. copy action behavior ──
-          ccSection('3 · Copy Action Behavior', [
-            ccBullet(
-                'When tapped, the Copy item reads the currently selected text '
-                'from the TextEditingValue and writes it to the system '
-                'clipboard via Clipboard.setData.'),
-            ccBullet(
-                'After copying, the selection is typically preserved (unlike '
-                'Cut, which removes the selected text).'),
-            ccBullet(
-                'The context menu automatically dismisses after the action '
-                'completes, following iOS platform conventions.'),
-            ccCodeBlock(
-                '// What the Copy action does internally\n'
-                'void handleCopy(TextEditingValue value) {\n'
-                '  final selectedText = value.selection\n'
-                '      .textInside(value.text);\n'
-                '  Clipboard.setData(\n'
-                '      ClipboardData(text: selectedText));\n'
-                '  // Selection remains, menu closes\n'
-                '}'),
-            ccDivider(),
-            ccBullet(
-                'The clipboard write is asynchronous but typically completes '
-                'within a single frame on iOS.'),
-          ]),
-
-          // ── 4. visibility conditions ──
-          ccSection('4 · When Copy Appears', [
-            ccBullet(
-                'The Copy item is shown ONLY when there is a non-collapsed '
-                'text selection (baseOffset != extentOffset).'),
-            ccBullet(
-                'In read-only fields, Copy and Select All appear but Cut '
-                'and Paste do not.'),
-            ccBullet(
-                'If the text field has obscured text (password field), '
-                'Copy is typically hidden to prevent credential leaking.'),
-            ccDivider(),
-            ccKeyValue('Non-collapsed selection', 'Copy is visible'),
-            ccKeyValue('Collapsed caret', 'Copy is NOT visible'),
-            ccKeyValue('Read-only field', 'Copy is visible'),
-            ccKeyValue('Obscured text', 'Copy is hidden'),
-            ccKeyValue('Empty selection', 'Copy is NOT visible'),
-          ]),
-
-          // ── 5. Cupertino toolbar integration ──
-          ccSection('5 · CupertinoAdaptiveTextSelectionToolbar', [
-            ccBullet(
-                'On iOS, Flutter uses CupertinoAdaptiveTextSelectionToolbar '
-                'to render the context menu with native iOS styling.'),
-            ccBullet(
-                'The toolbar automatically includes IOSSystemContextMenuItemCopy '
-                'when the selection state warrants it.'),
-            ccBullet(
-                'The toolbar positions itself to avoid the keyboard and '
-                'screen edges, using the selection rectangles as anchors.'),
-            ccCodeBlock(
-                '// The adaptive toolbar handles item creation\n'
-                'CupertinoAdaptiveTextSelectionToolbar.editable(\n'
-                '  clipboardStatus: ClipboardStatus.pasteable,\n'
-                '  onCopy: handleCopy,\n'
-                '  onCut: handleCut,\n'
-                '  onPaste: handlePaste,\n'
-                '  onSelectAll: handleSelectAll,\n'
-                '  anchors: TextSelectionToolbarAnchors(\n'
-                '    primaryAnchor: selectionMidpoint,\n'
-                '  ),\n'
-                ')'),
-            ccDivider(),
-            ccBullet(
-                'The onCopy callback is null when Copy should be hidden, '
-                'causing the toolbar to omit the Copy item entirely.'),
-          ]),
-
-          // ── 6. clipboard service ──
-          ccSection('6 · System Clipboard Integration', [
-            ccBullet(
-                'The Copy action uses the Flutter Clipboard service which '
-                'delegates to platform channels on iOS.'),
-            ccBullet(
-                'On iOS, the UIPasteboard.general receives the copied text '
-                'as a plain-text representation.'),
-            ccBullet(
-                'Rich text (styled text, HTML) is not preserved through '
-                'the standard Flutter Clipboard API – only plain text.'),
-            ccDivider(),
-            ccKeyValue('API', 'Clipboard.setData(ClipboardData(text: ...))'),
-            ccKeyValue('Platform', 'UIPasteboard.general on iOS'),
-            ccKeyValue('Format', 'Plain text only (kUTTypePlainText)'),
-            ccKeyValue('Async', 'Returns Future<void>, typically instant'),
-          ]),
-
-          // ── 7. comparison with platform variants ──
-          ccSection('7 · Cross-Platform Context Menu Comparison', [
-            ccCompare('iOS (Cupertino)',
-                'Floating callout bar with rounded corners, blur background'),
-            ccCompare('Android (Material)',
-                'Floating toolbar above selection, rectangular shape'),
-            ccCompare('macOS (Desktop)',
-                'Standard right-click context menu, vertical list'),
-            ccCompare('Web',
-                'Browser-native context menu or Flutter-rendered overlay'),
-            ccDivider(),
-            ccBullet(
-                'IOSSystemContextMenuItemCopy is specific to the iOS rendering; '
-                'on Android the equivalent is handled by '
-                'MaterialAdaptiveTextSelectionToolbar.'),
-            ccBullet(
-                'The behavioral API (onCopy callback) is the same across all '
-                'platforms – only the visual presentation differs.'),
-          ]),
-
-          // ── 8. custom copy handlers ──
-          ccSection('8 · Custom Copy Action Overrides', [
-            ccBullet(
-                'You can provide a custom onCopy callback to modify what gets '
-                'copied, e.g. adding prefixes, formatting, or analytics events.'),
-            ccBullet(
-                'The custom callback replaces the default clipboard write; '
-                'you must call Clipboard.setData yourself if you want the '
-                'text actually placed on the clipboard.'),
-            ccCodeBlock(
-                '// Custom copy with analytics tracking\n'
-                'SelectableText(\n'
-                '  \'Selectable content here\',\n'
-                '  contextMenuBuilder: (context, editableTextState) {\n'
-                '    return AdaptiveTextSelectionToolbar.editable(\n'
-                '      clipboardStatus: ClipboardStatus.pasteable,\n'
-                '      onCopy: () {\n'
-                '        final sel = editableTextState\n'
-                '            .textEditingValue.selection;\n'
-                '        final text = sel.textInside(\n'
-                '            editableTextState.textEditingValue.text);\n'
-                '        Clipboard.setData(ClipboardData(text: text));\n'
-                '        print(\'Copied: \$text\');\n'
-                '      },\n'
-                '      onCut: null,\n'
-                '      onPaste: null,\n'
-                '      onSelectAll: null,\n'
-                '      anchors: editableTextState\n'
-                '          .contextMenuAnchors,\n'
-                '    );\n'
-                '  },\n'
-                ')'),
-          ]),
-
-          // ── 9. contextMenuBuilder pattern ──
-          ccSection('9 · contextMenuBuilder Pattern', [
-            ccBullet(
-                'TextField and CupertinoTextField expose a contextMenuBuilder '
-                'parameter to fully customize the context menu, including '
-                'which system items appear.'),
-            ccBullet(
-                'The builder receives the BuildContext and the '
-                'EditableTextState, giving access to the current '
-                'selection and text value.'),
-            ccBullet(
-                'You can mix system items with custom items by constructing '
-                'the toolbar manually.'),
-            ccCodeBlock(
-                '// Full custom context menu builder\n'
-                'TextField(\n'
-                '  contextMenuBuilder: (context, editableTextState) {\n'
-                '    final anchors = editableTextState.contextMenuAnchors;\n'
-                '    return AdaptiveTextSelectionToolbar(\n'
-                '      anchors: anchors,\n'
-                '      children: [\n'
-                '        // Include system Copy item\n'
-                '        CupertinoAdaptiveTextSelectionToolbar\n'
-                '            .getAdaptiveButtons(\n'
-                '          context, [\n'
-                '            ContextMenuButtonItem(\n'
-                '              label: \'Copy\',\n'
-                '              onPressed: () {\n'
-                '                editableTextState.copySelection(\n'
-                '                    SelectionChangedCause.toolbar);\n'
-                '              },\n'
-                '            ),\n'
-                '          ],\n'
-                '        ).first,\n'
-                '      ],\n'
-                '    );\n'
-                '  },\n'
-                ')'),
-          ]),
-
-          // ── 10. password field behavior ──
-          ccSection('10 · Obscured Text & Password Fields', [
-            ccBullet(
-                'When TextField has obscureText: true, the Copy item is '
-                'intentionally omitted from the context menu.'),
-            ccBullet(
-                'This is a security measure to prevent users from copying '
-                'password content to the clipboard where it could be '
-                'accessed by other apps.'),
-            ccBullet(
-                'If you create a custom contextMenuBuilder for a password '
-                'field, do NOT add a Copy action – it violates platform '
-                'security guidelines.'),
-            ccDivider(),
-            ccHighlight(
-                'Apple App Store review guidelines may reject apps that allow '
-                'copying from password fields. Always follow platform security '
-                'conventions for obscured text.'),
-          ]),
-
-          // ── 11. haptic feedback ──
-          ccSection('11 · Haptic Feedback & Visual Response', [
-            ccBullet(
-                'On iOS, tapping Copy in the context menu triggers a subtle '
-                'haptic feedback (selection impact) through the Taptic Engine.'),
-            ccBullet(
-                'The menu item shows a press-down highlight before dismissing, '
-                'providing visual confirmation of the tap.'),
-            ccBullet(
-                'Flutter does not automatically add haptic feedback for context '
-                'menu items; the native iOS UIMenuController handles this.'),
-            ccDivider(),
-            ccKeyValue('Haptic type', 'UIImpactFeedbackGenerator (light)'),
-            ccKeyValue('Visual', 'Background highlight on press'),
-            ccKeyValue('Dismissal', 'Menu fades out after action'),
-          ]),
-
-          // ── 12. VoiceOver accessibility ──
-          ccSection('12 · VoiceOver & Accessibility', [
-            ccBullet(
-                'The Copy item is labeled "Copy" in the accessibility tree '
-                'so VoiceOver announces "Copy, button" when focused.'),
-            ccBullet(
-                'After activating Copy via VoiceOver, a confirmation tone '
-                'or announcement is provided by the system.'),
-            ccBullet(
-                'The context menu items have a specific VoiceOver navigation '
-                'order matching the visual left-to-right arrangement.'),
-            ccDivider(),
-            ccKeyValue('A11y label', '"Copy"'),
-            ccKeyValue('A11y trait', 'Button'),
-            ccKeyValue('A11y hint', '"Copies the selected text"'),
-          ]),
-
-          // ── 13. edge cases ──
-          ccSection('13 · Edge Cases & Boundary Conditions', [
-            ccBullet(
-                'Empty selection: Copy item is not shown. If programmatically '
-                'invoked, it copies an empty string (no-op effectively).'),
-            ccBullet(
-                'Very large selection: copying megabytes of text may cause '
-                'a brief UI freeze while the clipboard write completes.'),
-            ccBullet(
-                'Text with newlines: the copy preserves all whitespace '
-                'and line breaks as they exist in the TextEditingValue.'),
-            ccBullet(
-                'Emoji text: multi-code-point emoji are copied as complete '
-                'grapheme clusters, preserving their visual appearance.'),
-            ccBullet(
-                'Clipboard permission: iOS does not require explicit permission '
-                'for clipboard write; it may show a notification banner on '
-                'iOS 16+ informing the user when an app writes to clipboard.'),
-            ccDivider(),
-            ccBullet(
-                'Rapid double-copy: the second copy overwrites the first on '
-                'the clipboard; only the latest copied text is available.'),
-          ]),
-
-          // ── 14. testing strategies ──
-          ccSection('14 · Testing Strategies', [
-            ccBullet(
-                'Use WidgetTester to simulate text selection and verify '
-                'the context menu appears with a Copy item.'),
-            ccBullet(
-                'Tap the Copy button and verify clipboard content with '
-                'Clipboard.getData.'),
-            ccCodeBlock(
-                'testWidgets(\'copy menu item works on iOS\',\n'
-                '    (WidgetTester tester) async {\n'
-                '  await tester.pumpWidget(MaterialApp(\n'
-                '    home: Scaffold(\n'
-                '      body: TextField(\n'
-                '        controller: TextEditingController(\n'
-                '          text: \'Hello World\',\n'
-                '        ),\n'
-                '      ),\n'
-                '    ),\n'
-                '  ));\n'
-                '  // Long-press to trigger context menu\n'
-                '  await tester.longPress(find.byType(TextField));\n'
-                '  await tester.pump();\n'
-                '  // Verify Copy button exists\n'
-                '  expect(find.text(\'Copy\'), findsOneWidget);\n'
-                '});'),
-            ccDivider(),
-            ccBullet(
-                'Platform-specific tests should use debugDefaultTargetPlatformOverride '
-                'set to TargetPlatform.iOS to simulate the iOS toolbar.'),
-          ]),
-
-          // ── 15. UIPasteControl and iOS 16+ ──
-          ccSection('15 · UIPasteControl & iOS 16+ Clipboard Changes', [
-            ccBullet(
-                'Starting with iOS 16, the system shows a notification banner '
-                'when an app accesses the clipboard ("App pasted from ...").'),
-            ccBullet(
-                'The Copy action writes to clipboard, which does not trigger '
-                'this banner (the banner appears on paste/read, not write).'),
-            ccBullet(
-                'However, apps that read clipboard after a copy (e.g., for '
-                'undo tracking) may trigger the banner unexpectedly.'),
-            ccDivider(),
-            ccHighlight(
-                'Best practice: only read the clipboard when the user '
-                'explicitly requests a paste action. Avoid programmatic '
-                'clipboard reads to prevent the iOS 16+ notification banner.'),
-          ]),
-
-          // ── 16. API summary ──
-          ccSection('16 · Quick API Reference', [
-            ccKeyValue('Class', 'IOSSystemContextMenuItemCopy'),
-            ccKeyValue('Platform', 'iOS only'),
-            ccKeyValue('Action', 'Copy selected text to clipboard'),
-            ccKeyValue('Visibility', 'Non-collapsed selection in non-obscured field'),
-            ccKeyValue('Toolbar', 'CupertinoAdaptiveTextSelectionToolbar'),
-            ccKeyValue('Clipboard API', 'Clipboard.setData(ClipboardData(...))'),
-            ccDivider(),
-            ccCodeBlock(
-                '// The copy item is created automatically by the toolbar.\n'
-                '// To customize, use contextMenuBuilder on TextField:\n'
-                'TextField(\n'
-                '  contextMenuBuilder: (ctx, state) {\n'
-                '    // Build custom menu with or without Copy\n'
-                '    return AdaptiveTextSelectionToolbar.editable(\n'
-                '      anchors: state.contextMenuAnchors,\n'
-                '      clipboardStatus: ClipboardStatus.pasteable,\n'
-                '      onCopy: () => state.copySelection(\n'
-                '          SelectionChangedCause.toolbar),\n'
-                '      onCut: null,\n'
-                '      onPaste: null,\n'
-                '      onSelectAll: null,\n'
-                '    );\n'
-                '  },\n'
-                ')'),
-          ]),
-
-          // ── footer ──
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            color: ccAppleGray.withValues(alpha: 0.06),
-            child: const Text(
-              'IOSSystemContextMenuItemCopy · Apple Gray Deep Demo',
-              textAlign: TextAlign.center,
+          Text(entry['name'] ?? '',
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: ccDarkGray,
+                  fontFamily: 'monospace')),
+          const SizedBox(height: 4),
+          Text('Role: ${entry['role'] ?? ''}',
+              style: const TextStyle(fontSize: 11, color: ccTextDark)),
+          const SizedBox(height: 2),
+          Text('Visibility: ${entry['shows'] ?? ''}',
               style: TextStyle(
-                  fontSize: 10,
-                  color: ccMuted,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
+                  fontSize: 11,
+                  color: ccTextDark.withValues(alpha: 0.78))),
         ],
+      ),
+    );
+  }
+
+  // ─── decoration helper for the live TextFields ────────────────────────────
+  InputDecoration ccDeco(String label, String hint, {IconData? icon}) {
+    return InputDecoration(
+      labelText: label,
+      hintText: hint,
+      prefixIcon: icon == null ? null : Icon(icon, size: 18, color: ccAppleGray),
+      filled: true,
+      fillColor: ccOnGray,
+      labelStyle: const TextStyle(fontSize: 12, color: ccDarkGray),
+      hintStyle: const TextStyle(fontSize: 11, color: ccMuted),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: ccCardBorder),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: ccCardBorder),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: ccAccent, width: 1.4),
+      ),
+    );
+  }
+
+  // ─── build the page ───────────────────────────────────────────────────────
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'IOSSystemContextMenuItemCopy demo',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: ccAppleGray,
+        brightness: Brightness.light,
+      ),
+      scaffoldBackgroundColor: ccSilver,
+      useMaterial3: true,
+    ),
+    home: Scaffold(
+      backgroundColor: ccSilver,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ─── section 0 — page header ─────────────────────────────────
+              ccHeader(
+                'IOSSystemContextMenuItemCopy',
+                'iOS-only system context menu item — Copy. Demonstrated with '
+                    'real TextField contextMenuBuilders.',
+              ),
+
+              // ─── section 1 — palette + helpers (visible card) ────────────
+              ccSection(
+                '01 · Palette + Helpers',
+                'The Apple Gray / Silver palette used throughout this demo.',
+                <Widget>[
+                  ccParagraph(
+                      'This demo uses an Apple-inspired neutral palette: a deep '
+                      'gray (#636366), iOS silver (#F2F2F7), iOS accent blue '
+                      '(#007AFF), pure white surfaces, and small chips for status '
+                      'indicators. The helpers below are pure layout — they do '
+                      'not touch the iOS platform channel at all.'),
+                  ccDivider(),
+                  Wrap(
+                    children: <Widget>[
+                      ccChip('AppleGray', color: ccAppleGray),
+                      ccChip('Silver', color: ccAppleGray),
+                      ccChip('Accent', color: ccAccent),
+                      ccChip('Success', color: ccSuccess),
+                      ccChip('Danger', color: ccDanger),
+                      ccChip('Muted', color: ccMuted),
+                    ],
+                  ),
+                ],
+              ),
+
+              // ─── section 2 — iOS-only platform banner ────────────────────
+              ccSection(
+                '02 · iOS-only platform banner',
+                'Detects Theme.of(context).platform and tells the user what '
+                    'they will and will not see live.',
+                <Widget>[
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: ccIsIOS
+                          ? ccSuccess.withValues(alpha: 0.10)
+                          : ccDanger.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: ccIsIOS
+                              ? ccSuccess.withValues(alpha: 0.55)
+                              : ccDanger.withValues(alpha: 0.55)),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(
+                          ccIsIOS
+                              ? Icons.phone_iphone
+                              : Icons.warning_amber_rounded,
+                          color: ccIsIOS ? ccSuccess : ccDanger,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                ccIsIOS
+                                    ? 'Running on iOS — full SystemContextMenu visible.'
+                                    : 'This system menu item only renders on '
+                                        'iOS — running on $ccPlatformName.',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: ccIsIOS ? ccSuccess : ccDanger,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                ccIsIOS
+                                    ? 'Long-press inside any TextField below to '
+                                        'see the iOS system context menu.'
+                                    : 'Every TextField below still has a '
+                                        'contextMenuBuilder that constructs '
+                                        'IOSSystemContextMenuItemCopy and '
+                                        'companions, so the class is exercised '
+                                        'by the AST interpreter. Visually you '
+                                        'will see the AdaptiveTextSelectionToolbar '
+                                        'fallback, which is the correct '
+                                        'platform-appropriate toolbar.',
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: ccTextDark,
+                                    height: 1.45),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              // ─── section 3 — anatomy ─────────────────────────────────────
+              ccSection(
+                '03 · Anatomy of SystemContextMenu / IOSSystemContextMenuItemCopy',
+                'How the pieces fit together at the widget-tree and platform-channel layers.',
+                <Widget>[
+                  ccBullet(
+                      'SystemContextMenu is a StatefulWidget whose only job is to '
+                      'tell the iOS engine, via SystemContextMenuController, to '
+                      'show a native menu anchored to a Rect.'),
+                  ccBullet(
+                      'It is not used directly — instead Flutter exposes the '
+                      'factory SystemContextMenu.editableText(editableTextState: …, '
+                      'items: …), which computes the anchor from the EditableText '
+                      'render box.'),
+                  ccBullet(
+                      'IOSSystemContextMenuItem is a sealed base class. There are '
+                      'concrete subclasses for Copy, Cut, Paste, SelectAll, '
+                      'LookUp, SearchWeb, Share, LiveText and Custom.'),
+                  ccBullet(
+                      'IOSSystemContextMenuItemCopy is the simplest of all: it has '
+                      'no parameters, the title is supplied by iOS, and it '
+                      'forwards through getData() to IOSSystemContextMenuItemDataCopy().'),
+                  ccBullet(
+                      'On non-iOS platforms SystemContextMenu.isSupported(context) '
+                      'returns false and the build method asserts. That is why we '
+                      'guard the SystemContextMenu.editableText(...) construction '
+                      'with Theme.of(context).platform == TargetPlatform.iOS.'),
+                  ccCallout(
+                    'Constructor signature',
+                    'const IOSSystemContextMenuItemCopy(); — no parameters, '
+                        'const-constructible, equal to any other instance of the '
+                        'same type because the sealed base class compares only '
+                        'the (always-null) title string.',
+                  ),
+                ],
+              ),
+
+              // ─── section 4 — plain TextField (baseline) ──────────────────
+              ccSection(
+                '04 · Plain TextField (baseline)',
+                'No custom contextMenuBuilder — Flutter chooses the platform-'
+                    'appropriate default toolbar.',
+                <Widget>[
+                  ccLabel('Default selection toolbar'),
+                  TextField(
+                    controller: ccPlainController,
+                    decoration: ccDeco(
+                        'Plain TextField', 'No contextMenuBuilder',
+                        icon: Icons.edit_note),
+                  ),
+                  ccCallout(
+                    'No iOS items here',
+                    'This field does NOT instantiate IOSSystemContextMenuItemCopy '
+                        'at all. It is included as a visual baseline so the '
+                        'reader can compare with the next sections.',
+                    color: ccMuted,
+                  ),
+                ],
+              ),
+
+              // ─── section 5 — copy-only iOS system menu ───────────────────
+              ccSection(
+                '05 · TextField — copy-only iOS system menu',
+                'A TextField whose contextMenuBuilder returns a SystemContextMenu '
+                    'with exactly one item: IOSSystemContextMenuItemCopy().',
+                <Widget>[
+                  ccBullet(
+                      'On iOS, long-press shows ONLY a Copy button.'),
+                  ccBullet(
+                      'On other platforms the constructor still runs but the '
+                      'visible toolbar is the AdaptiveTextSelectionToolbar.'),
+                  ccLabel('Copy-only field'),
+                  TextField(
+                    controller: ccCopyOnlyController,
+                    decoration: ccDeco(
+                        'Copy-only', 'Long-press to test',
+                        icon: Icons.copy),
+                    contextMenuBuilder: ccCopyOnlyBuilder,
+                  ),
+                  ccCallout(
+                    'Why it works',
+                    'The closure ccCopyOnlyBuilder always allocates `[const '
+                        'IOSSystemContextMenuItemCopy()]`. Even on Android or '
+                        'desktop, the AST interpreter will execute that '
+                        'allocation when the TextField asks the builder for a '
+                        'toolbar.',
+                  ),
+                ],
+              ),
+
+              // ─── section 6 — full menu ───────────────────────────────────
+              ccSection(
+                '06 · TextField — full iOS system menu',
+                'Copy + Paste + Cut + Select All + Look Up + Share.',
+                <Widget>[
+                  ccBullet(
+                      'IOSSystemContextMenuItemCopy() pairs naturally with '
+                      'Cut, Paste, SelectAll, LookUp and Share.'),
+                  ccBullet(
+                      'Order in the items list dictates display order on iOS.'),
+                  ccLabel('Full system menu field'),
+                  TextField(
+                    controller: ccFullMenuController,
+                    decoration: ccDeco(
+                        'Full menu', 'Long-press to test',
+                        icon: Icons.menu_open),
+                    contextMenuBuilder: ccFullMenuBuilder,
+                  ),
+                ],
+              ),
+
+              // ─── section 7 — conditional copy item ───────────────────────
+              ccSection(
+                '07 · Conditional Copy item (selection-aware)',
+                'IOSSystemContextMenuItemCopy is only added when the selection '
+                    'is non-empty.',
+                <Widget>[
+                  ccBullet(
+                      'editableTextState.textEditingValue.selection lets the '
+                      'builder inspect the live caret/selection.'),
+                  ccBullet(
+                      'When the user has not selected anything, returning Copy '
+                      'would be misleading — iOS itself filters it out, but '
+                      'doing it explicitly documents intent.'),
+                  ccLabel('Conditional copy field'),
+                  TextField(
+                    controller: ccConditionalController,
+                    decoration: ccDeco(
+                        'Conditional copy', 'Try with and without selection',
+                        icon: Icons.rule),
+                    contextMenuBuilder: ccConditionalCopyBuilder,
+                  ),
+                ],
+              ),
+
+              // ─── section 8 — multi-line ──────────────────────────────────
+              ccSection(
+                '08 · Multi-line TextField with iOS items',
+                'Multi-line behaves the same as single-line for the system menu '
+                    'because EditableTextState handles the anchor math.',
+                <Widget>[
+                  ccBullet(
+                      'maxLines: 5 — long content is fine; the SystemContextMenu '
+                      'still anchors to the selection rect.'),
+                  ccLabel('Multi-line field'),
+                  TextField(
+                    controller: ccMultilineController,
+                    minLines: 3,
+                    maxLines: 5,
+                    keyboardType: TextInputType.multiline,
+                    decoration: ccDeco(
+                        'Multi-line', 'Press and hold to test',
+                        icon: Icons.subject),
+                    contextMenuBuilder: ccMultilineBuilder,
+                  ),
+                ],
+              ),
+
+              // ─── section 9 — SelectableText ─────────────────────────────
+              ccSection(
+                '09 · SelectableText — read-only with copy',
+                'A non-editable, selectable display widget that still benefits '
+                    'from IOSSystemContextMenuItemCopy.',
+                <Widget>[
+                  ccBullet(
+                      'SelectableText.contextMenuBuilder is invoked with '
+                      '(BuildContext, EditableTextState).'),
+                  ccBullet(
+                      'For a read-only field, SystemContextMenu.isSupportedByField '
+                      'will refuse, but the Copy item itself is still '
+                      'meaningful when surfaced through the Adaptive toolbar.'),
+                  ccLabel('Selectable text'),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: ccOnGray,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: ccCardBorder),
+                    ),
+                    child: SelectableText(
+                      'SelectableText with custom contextMenuBuilder. '
+                      'Long-press to select a word, then tap the toolbar to copy.',
+                      style: const TextStyle(
+                          fontSize: 13,
+                          color: ccTextDark,
+                          height: 1.45),
+                      contextMenuBuilder: ccSelectableCopyBuilder,
+                    ),
+                  ),
+                ],
+              ),
+
+              // ─── section 10 — password field ────────────────────────────
+              ccSection(
+                '10 · Password TextField — hide Copy',
+                'A secure field that explicitly omits IOSSystemContextMenuItemCopy.',
+                <Widget>[
+                  ccBullet(
+                      'Even on iOS, exposing Copy on a password field is a '
+                      'security issue.'),
+                  ccBullet(
+                      'The builder demonstrates that you can still construct '
+                      'IOSSystemContextMenuItemCopy() (the constructor is run) '
+                      'without putting it in the items list.'),
+                  ccLabel('Password field'),
+                  TextField(
+                    controller: ccPasswordController,
+                    obscureText: true,
+                    decoration: ccDeco(
+                        'Password', 'Copy is intentionally hidden',
+                        icon: Icons.lock_outline),
+                    contextMenuBuilder: ccPasswordHidesCopyBuilder,
+                  ),
+                  ccCallout(
+                    'Security note',
+                    'Hiding the copy item on a password field is a '
+                        'belt-and-braces measure on top of obscureText: true. '
+                        'Both should be enabled.',
+                    color: ccDanger,
+                  ),
+                ],
+              ),
+
+              // ─── section 11 — recipe gallery ────────────────────────────
+              ccSection(
+                '11 · Recipe gallery — read-only copy + formatted copy',
+                'Two specialised TextFields demonstrating realistic uses of '
+                    'IOSSystemContextMenuItemCopy.',
+                <Widget>[
+                  ccLabel('11a · Read-only recipe with copy'),
+                  TextField(
+                    controller: ccReadOnlyController,
+                    readOnly: true,
+                    decoration: ccDeco(
+                        'Recipe (read-only)', 'Long-press to copy',
+                        icon: Icons.menu_book),
+                    contextMenuBuilder: ccReadOnlyCopyBuilder,
+                  ),
+                  const SizedBox(height: 6),
+                  ccBullet(
+                      'Read-only fields cannot use the iOS native menu (no '
+                      'TextInputConnection) but the AST interpreter still '
+                      'constructs the items.'),
+                  ccDivider(),
+                  ccLabel('11b · Formatted copy field'),
+                  TextField(
+                    controller: ccFormattedController,
+                    decoration: ccDeco(
+                        'Formatted', 'Trim/format text on copy',
+                        icon: Icons.format_quote),
+                    contextMenuBuilder: ccFormattedCopyBuilder,
+                  ),
+                  ccBullet(
+                      'In a real app the surrounding widget would intercept '
+                      'the copy command and post-process the clipboard text.'),
+                ],
+              ),
+
+              // ─── section 12 — const recipe ──────────────────────────────
+              ccSection(
+                '12 · Const-item recipe and builder reuse',
+                'IOSSystemContextMenuItemCopy is `const`-constructible, so the '
+                    'same `const` item list can be shared across multiple fields.',
+                <Widget>[
+                  ccBullet(
+                      'Equality is defined by the sealed base class on title — '
+                      'two `const IOSSystemContextMenuItemCopy()` values are '
+                      'identical().'),
+                  ccBullet(
+                      'Sharing the const list saves allocations when the same '
+                      'menu is used many times.'),
+                  ccLabel('Field A — shared const items'),
+                  TextField(
+                    controller: ccSharedAController,
+                    decoration: ccDeco(
+                        'Field A', 'Reuses ccSharedConstItems',
+                        icon: Icons.looks_one),
+                    contextMenuBuilder: ccSharedItemsBuilder,
+                  ),
+                  const SizedBox(height: 8),
+                  ccLabel('Field B — same shared const items'),
+                  TextField(
+                    controller: ccSharedBController,
+                    decoration: ccDeco(
+                        'Field B', 'Reuses ccSharedConstItems',
+                        icon: Icons.looks_two),
+                    contextMenuBuilder: ccSharedItemsBuilder,
+                  ),
+                  ccCallout(
+                    'Equality check',
+                    '`const IOSSystemContextMenuItemCopy() == const '
+                        'IOSSystemContextMenuItemCopy()` evaluates to true. The '
+                        '`==` is inherited from the sealed base, comparing only '
+                        '`title` (always null for Copy).',
+                  ),
+                ],
+              ),
+
+              // ─── section 13 — pitfalls ──────────────────────────────────
+              ccSection(
+                '13 · Pitfalls and platform constraints',
+                'Things that catch people the first time they wire up a system '
+                    'context menu.',
+                <Widget>[
+                  ccBullet(
+                      'Pitfall 1 — Forgetting the iOS guard. Calling '
+                      'SystemContextMenu.editableText(...) on Android or '
+                      'desktop will assert at build() time.'),
+                  ccBullet(
+                      'Pitfall 2 — Using it on a read-only field. '
+                      'SystemContextMenu.isSupportedByField returns false, so '
+                      'the iOS system menu cannot be presented; fall back to '
+                      'AdaptiveTextSelectionToolbar.'),
+                  ccBullet(
+                      'Pitfall 3 — Including a non-supported item by mistake. '
+                      'For example IOSSystemContextMenuItemLiveText only '
+                      'appears when iOS reports Live Text input is available; '
+                      'including it has no harmful effect, just no UI.'),
+                  ccBullet(
+                      'Pitfall 4 — Custom items on iOS < 16. '
+                      'IOSSystemContextMenuItemCustom only invokes its '
+                      'onPressed on iOS 16 and later. Always feature-detect.'),
+                  ccBullet(
+                      'Pitfall 5 — Returning an empty items list. The menu is '
+                      'simply not shown. This is fine, but log it in debug '
+                      'builds so you understand why nothing pops up.'),
+                  ccCallout(
+                    'Always test on a real device',
+                    'The iOS Simulator faithfully reproduces the system menu, '
+                        'but Live Text and Look Up depend on real device '
+                        'capabilities.',
+                    color: ccDanger,
+                  ),
+                ],
+              ),
+
+              // ─── section 14 — reference table ───────────────────────────
+              ccSection(
+                '14 · Reference — all IOSSystemContextMenuItem subclasses',
+                'Quick lookup for the sealed hierarchy.',
+                <Widget>[
+                  for (final Map<String, String> entry in ccItemReference)
+                    ccRefRow(entry),
+                  ccDivider(),
+                  ccCallout(
+                    'Sealed base class',
+                    'IOSSystemContextMenuItem is sealed in '
+                        'package:flutter/widgets.dart, which means the compiler '
+                        'enforces exhaustive switches on its subtypes — handy '
+                        'when your own builder needs to translate item types.',
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'End of demo · IOSSystemContextMenuItemCopy is exercised by '
+                  'every contextMenuBuilder above on every platform · platform: '
+                  '$ccPlatformName',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 11,
+                      color: ccTextDark.withValues(alpha: 0.6)),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
       ),
     ),
   );

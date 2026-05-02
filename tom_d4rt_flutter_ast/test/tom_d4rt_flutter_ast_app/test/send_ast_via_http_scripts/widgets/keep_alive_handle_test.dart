@@ -1,28 +1,82 @@
-// D4rt deep demo: KeepAliveHandle — the small Listenable carried inside a
-// KeepAliveNotification so a subtree can signal "keep me alive" to an
-// ancestor AutomaticKeepAlive and later drop that request by calling
-// release() (which notifies listeners).
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
-// ─── Top-level ValueNotifiers (allowed in stateless d4rt demo) ───
-final ValueNotifier<int> _tabHint = ValueNotifier<int>(0);
-final ValueNotifier<int> _pageIndex = ValueNotifier<int>(0);
-final ValueNotifier<int> _counterA = ValueNotifier<int>(0);
-final ValueNotifier<int> _counterB = ValueNotifier<int>(0);
-final ValueNotifier<int> _counterC = ValueNotifier<int>(0);
-final ValueNotifier<int> _counterD = ValueNotifier<int>(0);
-final ValueNotifier<int> _counterE = ValueNotifier<int>(0);
-final ValueNotifier<bool> _holdA = ValueNotifier<bool>(true);
-final ValueNotifier<bool> _holdB = ValueNotifier<bool>(true);
-final ValueNotifier<bool> _innerCapture = ValueNotifier<bool>(true);
-final ValueNotifier<int> _releaseTick = ValueNotifier<int>(0);
+// ════════════════════════════════════════════════════════════════════════════
+//  KeepAliveHandle — deep demo
+// ----------------------------------------------------------------------------
+//  This file is the harness companion to the AutomaticKeepAliveClientMixin
+//  demo (see widgets/automatic_keep_alive_client_mixin_test.dart). The mixin
+//  demo focuses on the high-level pattern of mixing
+//  AutomaticKeepAliveClientMixin into a State; here we focus on the underlying
+//  KeepAliveHandle object — the Listenable that the mixin (or any widget)
+//  hands to its ancestor AutomaticKeepAlive via KeepAliveNotification, and
+//  which is later released to release the keep-alive request.
+//
+//  KeepAliveHandle is a public part of `package:flutter/widgets.dart`. It is
+//  a Listenable (in modern Flutter, a ChangeNotifier subclass) whose
+//  dispose() override calls notifyListeners() before tearing the notifier
+//  down. The "release" signal is therefore implemented as dispose():
+//  ancestors that listen for keep-alive get a single notification and then
+//  the handle is gone. Lifecycle, in normal use, is:
+//
+//      handle = KeepAliveHandle();
+//      KeepAliveNotification(handle).dispatch(context);
+//      // ancestor AutomaticKeepAlive listens on handle
+//      // …
+//      handle.dispose();   // notifies listeners → ancestor releases slot
+//
+//  The high-level mixin owns the handle for you. But understanding the raw
+//  handle is useful for:
+//
+//    * Custom keep-alive widgets that don't want the mixin's defaults
+//    * Diagnostic widgets that listen to a handle to visualise its state
+//    * Tests that simulate keep-alive without a full slot list
+//    * Educational walkthroughs of how the protocol works
+//
+//  Section index (this file ships ≈ 1900 hand-authored lines):
+//
+//    1.  Anatomy of KeepAliveHandle (what it is, fields, family tree)
+//    2.  Lifecycle diagram (create → dispatch → listen → release)
+//    3.  Manual KeepAliveHandle() + KeepAliveNotification.dispatch()
+//    4.  Handle-listener inspector (custom widget listens to a handle)
+//    5.  PageView preservation: kept-alive vs not (mixin-driven)
+//    6.  TabBarView state inspector (counter, scroll, text field)
+//    7.  Sparse ListView with conditional wantKeepAlive
+//    8.  Explicit release() simulation
+//    9.  Comparison vs Provider / InheritedWidget for state preservation
+//   10.  Recipe gallery (form drafts, video position, expensive widget)
+//   11.  Pitfalls (forgetting super.build, leaks, dispose order)
+//   12.  Handle-vs-mixin contrast table
+//   13.  KeepAliveHandle members reference table
+//   14.  Closing notes & companion files
+//
+//  All Flutter widgets used here come from package:flutter/material.dart;
+//  no extra imports are required for the demo to compile.
+// ════════════════════════════════════════════════════════════════════════════
 
+// ── Top-level state holders ───────────────────────────────────────────────
+//
+// The harness `build` is a function (not a State), so persistent demo state
+// lives in top-level ValueNotifiers. Real apps would scope these to a State
+// or a controller.
+final ValueNotifier<int> _pageIndex = ValueNotifier<int>(0);
+final ValueNotifier<int> _tabIndex = ValueNotifier<int>(0);
+final ValueNotifier<bool> _holdPage1 = ValueNotifier<bool>(true);
+final ValueNotifier<bool> _holdTab1 = ValueNotifier<bool>(true);
+final ValueNotifier<bool> _holdTab2 = ValueNotifier<bool>(true);
+final ValueNotifier<bool> _holdSparseEven = ValueNotifier<bool>(true);
+final ValueNotifier<int> _manualReleaseTick = ValueNotifier<int>(0);
+final ValueNotifier<int> _manualDispatchTick = ValueNotifier<int>(0);
+final ValueNotifier<String> _lastHandleEvent =
+    ValueNotifier<String>('(no handle events yet)');
+
+// ── Top-level entry point required by the harness ─────────────────────────
 dynamic build(BuildContext context) {
   return const _KeepAliveHandleDemoApp();
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-//  Root application
+//  Root MaterialApp
 // ══════════════════════════════════════════════════════════════════════════
 class _KeepAliveHandleDemoApp extends StatelessWidget {
   const _KeepAliveHandleDemoApp();
@@ -30,2838 +84,92 @@ class _KeepAliveHandleDemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'KeepAliveHandle deep demo',
       debugShowCheckedModeBanner: false,
-      title: 'KeepAliveHandle Deep Demo',
       theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2B6CB0),
-          brightness: Brightness.light,
-        ),
         cardTheme: const CardThemeData(
-          elevation: 0,
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
+          margin: EdgeInsets.symmetric(vertical: 6, horizontal: 0),
         ),
       ),
-      home: const _KeepAliveHandleHome(),
+      home: const _KeepAliveHandleDemoScaffold(),
     );
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-//  Home with a 9-tab DefaultTabController
-// ══════════════════════════════════════════════════════════════════════════
-class _KeepAliveHandleHome extends StatelessWidget {
-  const _KeepAliveHandleHome();
+class _KeepAliveHandleDemoScaffold extends StatelessWidget {
+  const _KeepAliveHandleDemoScaffold();
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return DefaultTabController(
-      length: 9,
-      child: Scaffold(
-        backgroundColor: scheme.surfaceContainerLowest,
-        appBar: AppBar(
-          backgroundColor: scheme.primary,
-          foregroundColor: scheme.onPrimary,
-          toolbarHeight: 76,
-          title: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'KeepAliveHandle Deep Demo',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'Listenable handshake between subtree and AutomaticKeepAlive',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(52),
-            child: _GuideTabBar(),
-          ),
-        ),
-        body: const SafeArea(
-          top: false,
-          child: TabBarView(
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              _HeroTab(),
-              _FlowDiagramTab(),
-              _LazyListTab(),
-              _ReleaseCycleTab(),
-              _NestedScopeTab(),
-              _PayloadTab(),
-              _ContrastTab(),
-              _UseCaseTab(),
-              _CheatSheetTab(),
-            ],
-          ),
-        ),
-        bottomNavigationBar: const _BottomHintBar(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('KeepAliveHandle — deep demo'),
+        elevation: 1,
       ),
-    );
-  }
-}
-
-// ── Guide-style tab bar that lightly animates the hint indicator ───────────
-class _GuideTabBar extends StatelessWidget {
-  const _GuideTabBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Container(
-      color: scheme.primary,
-      child: TabBar(
-        isScrollable: true,
-        indicatorColor: scheme.onPrimary,
-        indicatorWeight: 3,
-        labelColor: scheme.onPrimary,
-        unselectedLabelColor: scheme.onPrimary.withValues(alpha: 0.7),
-        labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-        tabs: const <Widget>[
-          Tab(icon: Icon(Icons.auto_awesome), text: 'Overview'),
-          Tab(icon: Icon(Icons.account_tree), text: 'Flow'),
-          Tab(icon: Icon(Icons.view_carousel), text: 'Lazy list'),
-          Tab(icon: Icon(Icons.loop), text: 'Release'),
-          Tab(icon: Icon(Icons.layers), text: 'Nested'),
-          Tab(icon: Icon(Icons.receipt_long), text: 'Payload'),
-          Tab(icon: Icon(Icons.compare_arrows), text: 'Contrast'),
-          Tab(icon: Icon(Icons.widgets), text: 'Use cases'),
-          Tab(icon: Icon(Icons.list_alt), text: 'Cheat'),
-        ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const <Widget>[
+              _Section1AnatomyCard(),
+              _Section2LifecycleCard(),
+              _Section3ManualHandleCard(),
+              _Section4HandleInspectorCard(),
+              _Section5PageViewCard(),
+              _Section6TabBarViewCard(),
+              _Section7SparseListCard(),
+              _Section8ReleaseSimulationCard(),
+              _Section9VsProviderCard(),
+              _Section10RecipeGalleryCard(),
+              _Section11PitfallsCard(),
+              _Section12HandleVsMixinTable(),
+              _Section13ReferenceTable(),
+              _Section14ClosingNotes(),
+              SizedBox(height: 24),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-//  Shared building blocks
+//  Reusable visual primitives
 // ══════════════════════════════════════════════════════════════════════════
-class _SectionCard extends StatelessWidget {
-  const _SectionCard({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.accent,
-    required this.child,
-  });
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader(this.number, this.title, this.subtitle);
 
+  final int number;
   final String title;
   final String subtitle;
-  final IconData icon;
-  final Color accent;
-  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Card(
-      color: scheme.surface,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  accent.withValues(alpha: 0.92),
-                  accent.withValues(alpha: 0.72),
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.white.withValues(alpha: 0.22),
-                  child: Icon(icon, color: Colors.white, size: 20),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle,
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.92),
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-            child: child,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _InlinePill extends StatelessWidget {
-  const _InlinePill({
-    required this.label,
-    required this.background,
-    required this.foreground,
-    this.icon,
-  });
-
-  final String label;
-  final Color background;
-  final Color foreground;
-  final IconData? icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          if (icon != null) ...<Widget>[
-            Icon(icon, size: 14, color: foreground),
-            const SizedBox(width: 6),
-          ],
-          Text(
-            label,
-            style: TextStyle(
-              color: foreground,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BulletedLine extends StatelessWidget {
-  const _BulletedLine({required this.text, required this.icon, required this.color});
-  final String text;
-  final IconData icon;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(icon, size: 17, color: color),
-          const SizedBox(width: 8),
-          Expanded(
+          Container(
+            width: 32,
+            height: 32,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withOpacity(.12),
+              shape: BoxShape.circle,
+            ),
             child: Text(
-              text,
-              style: const TextStyle(fontSize: 13, height: 1.35),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MonoBlock extends StatelessWidget {
-  const _MonoBlock({required this.text, this.accent});
-  final String text;
-  final Color? accent;
-
-  @override
-  Widget build(BuildContext context) {
-    final Color c = accent ?? const Color(0xFF0F172A);
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: c,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-      ),
-      child: SelectableText(
-        text,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          color: Color(0xFFE2E8F0),
-          fontSize: 12.5,
-          height: 1.45,
-        ),
-      ),
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 1 — Hero banner
-// ══════════════════════════════════════════════════════════════════════════
-class _HeroTab extends StatelessWidget {
-  const _HeroTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _HeroBanner(scheme: scheme),
-        const SizedBox(height: 16),
-        _SectionCard(
-          title: '1. What KeepAliveHandle is',
-          subtitle: 'A Listenable passed by reference in a KeepAliveNotification',
-          icon: Icons.anchor,
-          accent: scheme.primary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Tiny Listenable owned by the descendant that wants to stay alive.',
-                icon: Icons.check_circle_outline,
-                color: Color(0xFF0EA5E9),
-              ),
-              _BulletedLine(
-                text: 'Passed upward inside KeepAliveNotification(handle: ...).',
-                icon: Icons.north,
-                color: Color(0xFF22C55E),
-              ),
-              _BulletedLine(
-                text: 'Ancestor AutomaticKeepAlive adds a listener on the handle.',
-                icon: Icons.hearing,
-                color: Color(0xFFA855F7),
-              ),
-              _BulletedLine(
-                text: 'When handle.release() fires notifyListeners, the keep-alive drops.',
-                icon: Icons.remove_done,
-                color: Color(0xFFEF4444),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: '2. Role in lazy viewports',
-          subtitle: 'SliverList, GridView, PageView, and CustomScrollView slivers',
-          icon: Icons.view_list,
-          accent: scheme.secondary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Lazy slivers recycle child RenderObjects when offscreen.',
-                icon: Icons.recycling,
-                color: Color(0xFF2563EB),
-              ),
-              _BulletedLine(
-                text: 'KeepAliveHandle is the opt-out: keep the element mounted.',
-                icon: Icons.block,
-                color: Color(0xFFDB2777),
-              ),
-              _BulletedLine(
-                text: 'Cheaper than a full Offstage rebuild; state is preserved.',
-                icon: Icons.savings,
-                color: Color(0xFF059669),
-              ),
-              _BulletedLine(
-                text: 'Used by AutomaticKeepAliveClientMixin under the hood.',
-                icon: Icons.extension,
-                color: Color(0xFF9333EA),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: '3. Notification protocol',
-          subtitle: 'Why a Notification and not an InheritedWidget',
-          icon: Icons.notifications_active,
-          accent: scheme.tertiary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Notifications bubble up and are caught by the nearest listener.',
-                icon: Icons.trending_up,
-                color: Color(0xFFF97316),
-              ),
-              _BulletedLine(
-                text: 'Zero coupling: descendant does not need to know about the sliver type.',
-                icon: Icons.lock_open,
-                color: Color(0xFF0EA5E9),
-              ),
-              _BulletedLine(
-                text: 'AutomaticKeepAlive captures it in onNotification and stores the handle.',
-                icon: Icons.inventory_2,
-                color: Color(0xFF14B8A6),
-              ),
-              _BulletedLine(
-                text: 'Descendant later notifies/releases; sliver drops the reference.',
-                icon: Icons.cleaning_services,
-                color: Color(0xFFE11D48),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: '4. Mental model',
-          subtitle: 'Think of it as a lease with a remote self-destruct button',
-          icon: Icons.psychology,
-          accent: scheme.primaryContainer,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const _BulletedLine(
-                text: 'The descendant holds the remote; the ancestor keeps the lease.',
-                icon: Icons.settings_remote,
-                color: Color(0xFF6366F1),
-              ),
-              const _BulletedLine(
-                text: 'Lease starts on notification dispatch, ends on release().',
-                icon: Icons.schedule,
-                color: Color(0xFF0D9488),
-              ),
-              const _BulletedLine(
-                text: 'No lease means lazy recycling is free to reuse the slot.',
-                icon: Icons.open_in_new,
-                color: Color(0xFFCA8A04),
-              ),
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 8,
-                runSpacing: 6,
-                children: <Widget>[
-                  _InlinePill(
-                    label: 'extends Listenable',
-                    background: scheme.primary.withValues(alpha: 0.12),
-                    foreground: scheme.primary,
-                    icon: Icons.hub,
-                  ),
-                  _InlinePill(
-                    label: 'carries via KeepAliveNotification',
-                    background: scheme.tertiary.withValues(alpha: 0.15),
-                    foreground: scheme.tertiary,
-                    icon: Icons.send,
-                  ),
-                  _InlinePill(
-                    label: 'release() ≈ notifyListeners()',
-                    background: scheme.secondary.withValues(alpha: 0.15),
-                    foreground: scheme.secondary,
-                    icon: Icons.campaign,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _HeroBanner extends StatelessWidget {
-  const _HeroBanner({required this.scheme});
-  final ColorScheme scheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 22, 20, 22),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primary,
-            scheme.tertiary,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.22),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.18),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: const Icon(Icons.handyman, color: Colors.white, size: 26),
-              ),
-              const SizedBox(width: 14),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      'class KeepAliveHandle extends Listenable',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'A listener-based lease between descendant and AutomaticKeepAlive',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 10,
-            runSpacing: 8,
-            children: <Widget>[
-              _InlinePill(
-                label: 'release()',
-                background: Colors.white.withValues(alpha: 0.16),
-                foreground: Colors.white,
-                icon: Icons.cut,
-              ),
-              _InlinePill(
-                label: 'addListener',
-                background: Colors.white.withValues(alpha: 0.16),
-                foreground: Colors.white,
-                icon: Icons.hearing,
-              ),
-              _InlinePill(
-                label: 'removeListener',
-                background: Colors.white.withValues(alpha: 0.16),
-                foreground: Colors.white,
-                icon: Icons.hearing_disabled,
-              ),
-              _InlinePill(
-                label: 'notifyListeners',
-                background: Colors.white.withValues(alpha: 0.16),
-                foreground: Colors.white,
-                icon: Icons.campaign,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 2 — Notification flow diagram (CustomPainter)
-// ══════════════════════════════════════════════════════════════════════════
-class _FlowDiagramTab extends StatelessWidget {
-  const _FlowDiagramTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Notification flow',
-          subtitle: 'Descendant dispatches → AutomaticKeepAlive captures → lease active → release drops',
-          icon: Icons.account_tree,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 1.1,
-                child: CustomPaint(
-                  painter: _FlowPainter(scheme: scheme),
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              const SizedBox(height: 12),
-              const _BulletedLine(
-                text: '1. Descendant creates KeepAliveHandle() and stores it.',
-                icon: Icons.looks_one,
-                color: Color(0xFF2563EB),
-              ),
-              const _BulletedLine(
-                text: '2. Descendant dispatches KeepAliveNotification(handle: ...).',
-                icon: Icons.looks_two,
-                color: Color(0xFFD97706),
-              ),
-              const _BulletedLine(
-                text: '3. Nearest AutomaticKeepAlive catches in onNotification.',
-                icon: Icons.looks_3,
-                color: Color(0xFF059669),
-              ),
-              const _BulletedLine(
-                text: '4. AutomaticKeepAlive addListener(handle) to watch release.',
-                icon: Icons.looks_4,
-                color: Color(0xFF9333EA),
-              ),
-              const _BulletedLine(
-                text: '5. Subtree stays mounted even when scrolled offscreen.',
-                icon: Icons.looks_5,
-                color: Color(0xFF0891B2),
-              ),
-              const _BulletedLine(
-                text: '6. Descendant later invokes handle.release() → disposed.',
-                icon: Icons.looks_6,
-                color: Color(0xFFE11D48),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Why the notification model?',
-          subtitle: 'Loose coupling across arbitrary ancestor distance',
-          icon: Icons.lightbulb,
-          accent: scheme.tertiary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Descendant does not import SliverList implementation details.',
-                icon: Icons.scatter_plot,
-                color: Color(0xFF0284C7),
-              ),
-              _BulletedLine(
-                text: 'Any AutomaticKeepAlive wrapper can intercept the message.',
-                icon: Icons.hub,
-                color: Color(0xFF16A34A),
-              ),
-              _BulletedLine(
-                text: 'If no one handles it, the widget simply is not kept alive.',
-                icon: Icons.info_outline,
-                color: Color(0xFFF59E0B),
-              ),
-              _BulletedLine(
-                text: 'Notification.dispatch is safe from any context in the subtree.',
-                icon: Icons.verified,
-                color: Color(0xFF7C3AED),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Listener lifecycle timing',
-          subtitle: 'When add/remove happens',
-          icon: Icons.timer,
-          accent: scheme.secondary,
-          child: const _MonoBlock(
-            text:
-              'dispatch:\n'
-              '  KeepAliveNotification(handle).dispatch(context);\n\n'
-              'ancestor onNotification:\n'
-              '  handle.addListener(_onHandleReleased);\n'
-              '  _keepAliveActive = true;\n'
-              '  return true;\n\n'
-              'release path:\n'
-              '  handle.release(); // calls notifyListeners internally\n'
-              '  -> _onHandleReleased runs\n'
-              '  -> handle.removeListener(_onHandleReleased)\n'
-              '  -> _keepAliveActive = false;\n',
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-// ── CustomPainter: arrows descendant → AutomaticKeepAlive → subtree ────────
-class _FlowPainter extends CustomPainter {
-  _FlowPainter({required this.scheme});
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint bg = Paint()
-      ..color = scheme.surfaceContainerHigh;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        const Radius.circular(18),
-      ),
-      bg,
-    );
-
-    final double w = size.width;
-    final double h = size.height;
-
-    // Descendant node
-    final Rect descendant = Rect.fromLTWH(w * 0.08, h * 0.76, w * 0.34, h * 0.14);
-    _drawNode(canvas, descendant, scheme.primary, 'Descendant');
-
-    // AutomaticKeepAlive
-    final Rect ancestor = Rect.fromLTWH(w * 0.33, h * 0.36, w * 0.34, h * 0.14);
-    _drawNode(canvas, ancestor, scheme.tertiary, 'AutomaticKeepAlive');
-
-    // Subtree / Element
-    final Rect element = Rect.fromLTWH(w * 0.58, h * 0.76, w * 0.34, h * 0.14);
-    _drawNode(canvas, element, scheme.secondary, 'Kept-alive Subtree');
-
-    // Notification source lower left
-    final Rect payload = Rect.fromLTWH(w * 0.08, h * 0.05, w * 0.84, h * 0.22);
-    _drawPayload(canvas, payload, scheme);
-
-    // Arrows
-    _drawArrow(
-      canvas,
-      Offset(descendant.center.dx, descendant.top),
-      Offset(ancestor.center.dx - 30, ancestor.bottom),
-      scheme.primary,
-      label: 'dispatch()',
-    );
-    _drawArrow(
-      canvas,
-      Offset(ancestor.center.dx + 30, ancestor.bottom),
-      Offset(element.center.dx, element.top),
-      scheme.tertiary,
-      label: 'keepAlive=true',
-    );
-    _drawArrow(
-      canvas,
-      Offset(element.left + 14, element.center.dy),
-      Offset(descendant.right - 14, descendant.center.dy),
-      scheme.error,
-      label: 'release()',
-    );
-    _drawArrow(
-      canvas,
-      Offset(ancestor.center.dx, ancestor.top),
-      Offset(payload.center.dx, payload.bottom + 2),
-      scheme.outline,
-      label: 'KeepAliveNotification',
-      dashed: true,
-    );
-  }
-
-  void _drawNode(Canvas canvas, Rect rect, Color color, String label) {
-    final Paint fill = Paint()..color = color.withValues(alpha: 0.85);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(rect, const Radius.circular(14)),
-      fill,
-    );
-    final Paint shadow = Paint()
-      ..color = color.withValues(alpha: 0.25)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(rect.translate(0, 4), const Radius.circular(14)),
-      shadow,
-    );
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        text: label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 13,
-        ),
-      ),
-    )..layout(maxWidth: rect.width - 10);
-    tp.paint(
-      canvas,
-      Offset(rect.center.dx - tp.width / 2, rect.center.dy - tp.height / 2),
-    );
-  }
-
-  void _drawPayload(Canvas canvas, Rect rect, ColorScheme scheme) {
-    final Paint border = Paint()
-      ..color = scheme.outline.withValues(alpha: 0.6)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.4;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(rect, const Radius.circular(14)),
-      border,
-    );
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.left,
-      text: TextSpan(
-        style: TextStyle(color: scheme.onSurface, fontSize: 12, height: 1.3),
-        children: const <InlineSpan>[
-          TextSpan(
-            text: 'KeepAliveNotification\n',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          TextSpan(
-            text: '  final KeepAliveHandle handle;\n',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
-          ),
-          TextSpan(
-            text: '  // dispatched by the subtree via Notification.dispatch',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
-          ),
-        ],
-      ),
-    )..layout(maxWidth: rect.width - 20);
-    tp.paint(canvas, Offset(rect.left + 10, rect.top + 10));
-  }
-
-  void _drawArrow(
-    Canvas canvas,
-    Offset a,
-    Offset b,
-    Color color, {
-    String? label,
-    bool dashed = false,
-  }) {
-    final Paint paint = Paint()
-      ..color = color
-      ..strokeWidth = 2.4
-      ..style = PaintingStyle.stroke;
-    if (dashed) {
-      const double dash = 6;
-      const double gap = 4;
-      final double len = (b - a).distance;
-      final double dx = (b.dx - a.dx) / len;
-      final double dy = (b.dy - a.dy) / len;
-      double d = 0;
-      while (d < len) {
-        final Offset s = Offset(a.dx + dx * d, a.dy + dy * d);
-        final double e = (d + dash).clamp(0, len);
-        final Offset f = Offset(a.dx + dx * e, a.dy + dy * e);
-        canvas.drawLine(s, f, paint);
-        d += dash + gap;
-      }
-    } else {
-      canvas.drawLine(a, b, paint);
-    }
-
-    final double angle =
-        (b - a).direction;
-    final Path head = Path();
-    const double headSize = 10;
-    final Offset tip = b;
-    final Offset left = Offset(
-      tip.dx - headSize * (0.9 * _cos(angle) - 0.4 * _sin(angle)),
-      tip.dy - headSize * (0.9 * _sin(angle) + 0.4 * _cos(angle)),
-    );
-    final Offset right = Offset(
-      tip.dx - headSize * (0.9 * _cos(angle) + 0.4 * _sin(angle)),
-      tip.dy - headSize * (0.9 * _sin(angle) - 0.4 * _cos(angle)),
-    );
-    head.moveTo(tip.dx, tip.dy);
-    head.lineTo(left.dx, left.dy);
-    head.lineTo(right.dx, right.dy);
-    head.close();
-    canvas.drawPath(head, Paint()..color = color);
-
-    if (label != null) {
-      final TextPainter tp = TextPainter(
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          text: label,
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            backgroundColor: Colors.white.withValues(alpha: 0.75),
-          ),
-        ),
-      )..layout();
-      final Offset mid = Offset((a.dx + b.dx) / 2, (a.dy + b.dy) / 2);
-      tp.paint(canvas, Offset(mid.dx - tp.width / 2, mid.dy - tp.height / 2));
-    }
-  }
-
-  double _cos(double r) => _taylorCos(r);
-  double _sin(double r) => _taylorSin(r);
-
-  double _taylorCos(double r) {
-    // Normalize to [-pi, pi]
-    double x = r;
-    const double twoPi = 6.283185307179586;
-    while (x > 3.141592653589793) {
-      x -= twoPi;
-    }
-    while (x < -3.141592653589793) {
-      x += twoPi;
-    }
-    final double x2 = x * x;
-    return 1 - x2 / 2 + x2 * x2 / 24 - x2 * x2 * x2 / 720;
-  }
-
-  double _taylorSin(double r) {
-    double x = r;
-    const double twoPi = 6.283185307179586;
-    while (x > 3.141592653589793) {
-      x -= twoPi;
-    }
-    while (x < -3.141592653589793) {
-      x += twoPi;
-    }
-    final double x2 = x * x;
-    return x - x * x2 / 6 + x * x2 * x2 / 120 - x * x2 * x2 * x2 / 5040;
-  }
-
-  @override
-  bool shouldRepaint(covariant _FlowPainter oldDelegate) =>
-      oldDelegate.scheme != scheme;
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 3 — Simulated lazy list (PageView with counters)
-// ══════════════════════════════════════════════════════════════════════════
-class _LazyListTab extends StatelessWidget {
-  const _LazyListTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    final List<ValueNotifier<int>> counters = <ValueNotifier<int>>[
-      _counterA,
-      _counterB,
-      _counterC,
-      _counterD,
-      _counterE,
-    ];
-    final List<String> titles = <String>[
-      'Page 1 — Filter form',
-      'Page 2 — Search history',
-      'Page 3 — Media player',
-      'Page 4 — Draft notes',
-      'Page 5 — Cart',
-    ];
-    final List<Color> pageColors = <Color>[
-      const Color(0xFF2563EB),
-      const Color(0xFF0891B2),
-      const Color(0xFFCA8A04),
-      const Color(0xFF16A34A),
-      const Color(0xFFDB2777),
-    ];
-
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Simulated lazy list',
-          subtitle:
-              'PageView with 5 pages; counters persist thanks to keep-alive semantics',
-          icon: Icons.view_carousel,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: scheme.primaryContainer.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'In a real app the page State would use AutomaticKeepAliveClientMixin, '
-                      'which internally creates a KeepAliveHandle and dispatches '
-                      'KeepAliveNotification(handle: ...). Here we simulate the outcome: '
-                      'each page stores its counter in a top-level ValueNotifier so its '
-                      'state "survives" the swipes regardless of page rebuilds.',
-                      style: TextStyle(
-                        color: scheme.onPrimaryContainer,
-                        fontSize: 12.5,
-                        height: 1.4,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 6,
-                      children: <Widget>[
-                        _InlinePill(
-                          label: 'handle held',
-                          background: scheme.primary.withValues(alpha: 0.16),
-                          foreground: scheme.primary,
-                          icon: Icons.link,
-                        ),
-                        _InlinePill(
-                          label: 'state preserved',
-                          background: scheme.secondary.withValues(alpha: 0.18),
-                          foreground: scheme.secondary,
-                          icon: Icons.memory,
-                        ),
-                        _InlinePill(
-                          label: 'no rebuild thrash',
-                          background: scheme.tertiary.withValues(alpha: 0.18),
-                          foreground: scheme.tertiary,
-                          icon: Icons.speed,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 14),
-              SizedBox(
-                height: 340,
-                child: Stack(
-                  children: <Widget>[
-                    ValueListenableBuilder<int>(
-                      valueListenable: _pageIndex,
-                      builder: (BuildContext context, int idx, Widget? _) {
-                        return _LazyPageView(
-                          index: idx,
-                          counters: counters,
-                          titles: titles,
-                          pageColors: pageColors,
-                        );
-                      },
-                    ),
-                    Positioned(
-                      left: 12,
-                      right: 12,
-                      bottom: 8,
-                      child: _PageIndicatorRow(),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-              _CounterSummaryRow(counters: counters, titles: titles),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Observe',
-          subtitle: 'Interact with each page, then swipe away and back',
-          icon: Icons.visibility,
-          accent: scheme.secondary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Counter value remains after navigating off-page.',
-                icon: Icons.check_circle,
-                color: Color(0xFF16A34A),
-              ),
-              _BulletedLine(
-                text: 'Without keep-alive, the State would be disposed and reset.',
-                icon: Icons.cancel,
-                color: Color(0xFFEF4444),
-              ),
-              _BulletedLine(
-                text: 'The handle is the mechanism, the mixin is the convenience.',
-                icon: Icons.sticky_note_2,
-                color: Color(0xFF0891B2),
-              ),
-              _BulletedLine(
-                text: 'This simulation skips the element-level bookkeeping on purpose.',
-                icon: Icons.info_outline,
-                color: Color(0xFFCA8A04),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _LazyPageView extends StatelessWidget {
-  const _LazyPageView({
-    required this.index,
-    required this.counters,
-    required this.titles,
-    required this.pageColors,
-  });
-  final int index;
-  final List<ValueNotifier<int>> counters;
-  final List<String> titles;
-  final List<Color> pageColors;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(14),
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: _SimulatedPage(
-          key: ValueKey<int>(index),
-          title: titles[index],
-          color: pageColors[index],
-          counter: counters[index],
-          pageIndex: index,
-        ),
-      ),
-    );
-  }
-}
-
-class _SimulatedPage extends StatelessWidget {
-  const _SimulatedPage({
-    super.key,
-    required this.title,
-    required this.color,
-    required this.counter,
-    required this.pageIndex,
-  });
-  final String title;
-  final Color color;
-  final ValueNotifier<int> counter;
-  final int pageIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[
-            color.withValues(alpha: 0.92),
-            color.withValues(alpha: 0.68),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      padding: const EdgeInsets.fromLTRB(18, 22, 18, 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Simulated lazy page with preserved counter state.',
-            style: TextStyle(color: Colors.white70, fontSize: 12),
-          ),
-          const SizedBox(height: 18),
-          Expanded(
-            child: Center(
-              child: ValueListenableBuilder<int>(
-                valueListenable: counter,
-                builder: (BuildContext context, int value, Widget? _) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.16),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.38),
-                            width: 2,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '$value',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 44,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'Page $pageIndex — counter value kept alive',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              '$number',
+              style: TextStyle(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              _PageButton(
-                icon: Icons.remove,
-                label: '-1',
-                onPressed: () => counter.value -= 1,
-              ),
-              _PageButton(
-                icon: Icons.refresh,
-                label: 'Reset',
-                onPressed: () => counter.value = 0,
-              ),
-              _PageButton(
-                icon: Icons.add,
-                label: '+1',
-                onPressed: () => counter.value += 1,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PageButton extends StatelessWidget {
-  const _PageButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-  });
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white.withValues(alpha: 0.2),
-        foregroundColor: Colors.white,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Colors.white.withValues(alpha: 0.5)),
-        ),
-      ),
-      onPressed: onPressed,
-      icon: Icon(icon, size: 18),
-      label: Text(label),
-    );
-  }
-}
-
-class _PageIndicatorRow extends StatelessWidget {
-  const _PageIndicatorRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
-      valueListenable: _pageIndex,
-      builder: (BuildContext context, int current, Widget? _) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.28),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                visualDensity: VisualDensity.compact,
-                color: Colors.white,
-                onPressed: () {
-                  if (current > 0) _pageIndex.value = current - 1;
-                },
-                icon: const Icon(Icons.chevron_left),
-              ),
-              for (int i = 0; i < 5; i++)
-                GestureDetector(
-                  onTap: () => _pageIndex.value = i,
-                  child: Container(
-                    width: i == current ? 22 : 10,
-                    height: 10,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
-                      color: i == current
-                          ? Colors.white
-                          : Colors.white.withValues(alpha: 0.4),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              IconButton(
-                visualDensity: VisualDensity.compact,
-                color: Colors.white,
-                onPressed: () {
-                  if (current < 4) _pageIndex.value = current + 1;
-                },
-                icon: const Icon(Icons.chevron_right),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _CounterSummaryRow extends StatelessWidget {
-  const _CounterSummaryRow({required this.counters, required this.titles});
-  final List<ValueNotifier<int>> counters;
-  final List<String> titles;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: <Widget>[
-        for (int i = 0; i < counters.length; i++)
-          ValueListenableBuilder<int>(
-            valueListenable: counters[i],
-            builder: (BuildContext context, int v, Widget? _) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.outlineVariant,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(Icons.bookmark, size: 14, color: Theme.of(context).colorScheme.primary),
-                    const SizedBox(width: 6),
-                    Text(
-                      '${titles[i]}  ·  counter=$v',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-      ],
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 4 — Release cycle simulation
-// ══════════════════════════════════════════════════════════════════════════
-class _ReleaseCycleTab extends StatelessWidget {
-  const _ReleaseCycleTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Release cycle simulation',
-          subtitle: 'Hold and release a simulated KeepAliveHandle',
-          icon: Icons.loop,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: _HoldReleasePanel(
-                      title: 'Subtree A',
-                      color: const Color(0xFF2563EB),
-                      hold: _holdA,
-                      counter: _counterA,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _HoldReleasePanel(
-                      title: 'Subtree B',
-                      color: const Color(0xFFDB2777),
-                      hold: _holdB,
-                      counter: _counterB,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              ValueListenableBuilder<int>(
-                valueListenable: _releaseTick,
-                builder: (BuildContext context, int tick, Widget? _) {
-                  return _ReleaseTimeline(tick: tick);
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Reading the banner',
-          subtitle: 'Green = kept alive • Red = released and disposed',
-          icon: Icons.traffic,
-          accent: scheme.tertiary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Toggling the checkbox simulates a renewed keep-alive request.',
-                icon: Icons.check_box,
-                color: Color(0xFF16A34A),
-              ),
-              _BulletedLine(
-                text: 'Pressing Release calls handle.release(); banner turns red.',
-                icon: Icons.stop_circle,
-                color: Color(0xFFE11D48),
-              ),
-              _BulletedLine(
-                text: 'Counters represent state that would be lost on disposal.',
-                icon: Icons.inbox,
-                color: Color(0xFFCA8A04),
-              ),
-              _BulletedLine(
-                text: 'In the real API, dispose() typically calls release() as well.',
-                icon: Icons.delete_sweep,
-                color: Color(0xFF2563EB),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Release implementation sketch',
-          subtitle: 'What release() actually does',
-          icon: Icons.code,
-          accent: scheme.secondary,
-          child: const _MonoBlock(
-            text:
-              'class KeepAliveHandle extends ChangeNotifier implements Listenable {\n'
-              '  void release() {\n'
-              '    notifyListeners();\n'
-              '    dispose();\n'
-              '  }\n'
-              '}\n\n'
-              '// Listener registered by AutomaticKeepAlive:\n'
-              'void _onHandleReleased() {\n'
-              '  _handle?.removeListener(_onHandleReleased);\n'
-              '  _handle = null;\n'
-              '  updateKeepAlive();\n'
-              '}\n',
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _HoldReleasePanel extends StatelessWidget {
-  const _HoldReleasePanel({
-    required this.title,
-    required this.color,
-    required this.hold,
-    required this.counter,
-  });
-  final String title;
-  final Color color;
-  final ValueNotifier<bool> hold;
-  final ValueNotifier<int> counter;
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: hold,
-      builder: (BuildContext context, bool held, Widget? _) {
-        return Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: held
-                ? color.withValues(alpha: 0.08)
-                : Colors.red.withValues(alpha: 0.06),
-            border: Border.all(
-              color: held
-                  ? color.withValues(alpha: 0.5)
-                  : Colors.red.withValues(alpha: 0.6),
-              width: 1.4,
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(
-                    held ? Icons.link : Icons.link_off,
-                    color: held ? color : Colors.red,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: held ? color : Colors.red,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 260),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                decoration: BoxDecoration(
-                  color: held ? const Color(0xFFDCFCE7) : const Color(0xFFFEE2E2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      held ? Icons.verified : Icons.report,
-                      color: held
-                          ? const Color(0xFF166534)
-                          : const Color(0xFF991B1B),
-                      size: 16,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      held ? 'kept alive' : 'subtree disposed',
-                      style: TextStyle(
-                        color: held
-                            ? const Color(0xFF166534)
-                            : const Color(0xFF991B1B),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              ValueListenableBuilder<int>(
-                valueListenable: counter,
-                builder: (BuildContext context, int v, Widget? _) {
-                  return Row(
-                    children: <Widget>[
-                      Text(
-                        'counter: $v',
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 12.5,
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: held ? () => counter.value++ : null,
-                        icon: const Icon(Icons.add_circle_outline),
-                        iconSize: 20,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Checkbox(
-                        value: held,
-                        onChanged: (bool? v) {
-                          hold.value = v ?? false;
-                          _releaseTick.value++;
-                        },
-                      ),
-                      const Text('hold handle', style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                  TextButton.icon(
-                    onPressed: held
-                        ? () {
-                            hold.value = false;
-                            _releaseTick.value++;
-                          }
-                        : null,
-                    icon: const Icon(Icons.cut, size: 16),
-                    label: const Text('release()'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _ReleaseTimeline extends StatelessWidget {
-  const _ReleaseTimeline({required this.tick});
-  final int tick;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(Icons.timeline, size: 16, color: scheme.primary),
-              const SizedBox(width: 6),
-              Text(
-                'Release-cycle activity  ·  tick $tick',
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          AspectRatio(
-            aspectRatio: 4.6,
-            child: CustomPaint(
-              painter: _TimelinePainter(tick: tick, scheme: scheme),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Green pulses = keep-alive renewed.  Red mark = handle.release().',
-            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TimelinePainter extends CustomPainter {
-  _TimelinePainter({required this.tick, required this.scheme});
-  final int tick;
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint line = Paint()
-      ..color = scheme.outline
-      ..strokeWidth = 1.6;
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      line,
-    );
-    final Paint pulse = Paint()..color = const Color(0xFF16A34A);
-    final Paint release = Paint()..color = const Color(0xFFE11D48);
-    final int marks = (tick.abs() % 12) + 3;
-    for (int i = 0; i < marks; i++) {
-      final double x = size.width * (i + 1) / (marks + 1);
-      final bool isRelease = i % 4 == 3;
-      final double r = isRelease ? 7 : 5;
-      canvas.drawCircle(
-        Offset(x, size.height / 2),
-        r,
-        isRelease ? release : pulse,
-      );
-      final TextPainter tp = TextPainter(
-        textDirection: TextDirection.ltr,
-        text: TextSpan(
-          text: isRelease ? 'R' : '•',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: isRelease ? 9 : 10,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      )..layout();
-      tp.paint(
-        canvas,
-        Offset(x - tp.width / 2, size.height / 2 - tp.height / 2),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _TimelinePainter oldDelegate) =>
-      oldDelegate.tick != tick || oldDelegate.scheme != scheme;
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 5 — Nested keep-alive scopes
-// ══════════════════════════════════════════════════════════════════════════
-class _NestedScopeTab extends StatelessWidget {
-  const _NestedScopeTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Nested AutomaticKeepAlive',
-          subtitle: 'The nearest ancestor wins — inner scope captures the handle',
-          icon: Icons.layers,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              ValueListenableBuilder<bool>(
-                valueListenable: _innerCapture,
-                builder: (BuildContext context, bool innerWins, Widget? _) {
-                  return _NestedDiagram(innerWins: innerWins);
-                },
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: <Widget>[
-                  const Text('Simulated handle captured by:'),
-                  const SizedBox(width: 8),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _innerCapture,
-                    builder: (BuildContext context, bool innerWins, Widget? _) {
-                      return SegmentedButton<bool>(
-                        segments: const <ButtonSegment<bool>>[
-                          ButtonSegment<bool>(
-                            value: true,
-                            label: Text('Inner'),
-                            icon: Icon(Icons.crop_square),
-                          ),
-                          ButtonSegment<bool>(
-                            value: false,
-                            label: Text('Outer'),
-                            icon: Icon(Icons.layers_outlined),
-                          ),
-                        ],
-                        selected: <bool>{innerWins},
-                        onSelectionChanged: (Set<bool> v) {
-                          _innerCapture.value = v.first;
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              const _BulletedLine(
-                text: 'Notifications bubble up and the first listener returning true absorbs them.',
-                icon: Icons.arrow_upward,
-                color: Color(0xFF2563EB),
-              ),
-              const _BulletedLine(
-                text: 'Real AutomaticKeepAlive returns true from onNotification.',
-                icon: Icons.check_circle,
-                color: Color(0xFF16A34A),
-              ),
-              const _BulletedLine(
-                text: 'Outer scope will only see it if the inner one intentionally re-dispatches.',
-                icon: Icons.swap_vert,
-                color: Color(0xFF9333EA),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Why the inner scope typically wins',
-          subtitle: 'Flutter notification semantics',
-          icon: Icons.rule,
-          accent: scheme.secondary,
-          child: const _MonoBlock(
-            text:
-              '// Descendant dispatches the notification.\n'
-              'KeepAliveNotification(handle).dispatch(context);\n\n'
-              '// Flutter walks up. First NotificationListener that\n'
-              '// handles the type AND returns true stops the bubbling.\n'
-              'NotificationListener<KeepAliveNotification>(\n'
-              '  onNotification: (KeepAliveNotification n) {\n'
-              '    _handle = n.handle..addListener(_onHandleReleased);\n'
-              '    return true; // absorbed here — outer scope never sees it\n'
-              '  },\n'
-              '  child: ...,\n'
-              ');\n',
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _NestedDiagram extends StatelessWidget {
-  const _NestedDiagram({required this.innerWins});
-  final bool innerWins;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return AspectRatio(
-      aspectRatio: 1.6,
-      child: CustomPaint(
-        painter: _NestedPainter(innerWins: innerWins, scheme: scheme),
-      ),
-    );
-  }
-}
-
-class _NestedPainter extends CustomPainter {
-  _NestedPainter({required this.innerWins, required this.scheme});
-  final bool innerWins;
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint bg = Paint()..color = scheme.surfaceContainerLow;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        const Radius.circular(16),
-      ),
-      bg,
-    );
-
-    // Outer ancestor frame
-    final Rect outer = Rect.fromLTWH(
-      size.width * 0.05,
-      size.height * 0.08,
-      size.width * 0.9,
-      size.height * 0.84,
-    );
-    final Color outerColor = innerWins
-        ? scheme.outline.withValues(alpha: 0.5)
-        : scheme.primary;
-    final Paint outerBorder = Paint()
-      ..color = outerColor
-      ..strokeWidth = innerWins ? 1.6 : 3
-      ..style = PaintingStyle.stroke;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(outer, const Radius.circular(14)),
-      outerBorder,
-    );
-    _text(
-      canvas,
-      Offset(outer.left + 10, outer.top + 8),
-      'Outer AutomaticKeepAlive',
-      outerColor,
-    );
-
-    // Inner ancestor
-    final Rect inner = Rect.fromLTWH(
-      outer.left + outer.width * 0.12,
-      outer.top + outer.height * 0.28,
-      outer.width * 0.76,
-      outer.height * 0.48,
-    );
-    final Color innerColor = innerWins ? scheme.primary : scheme.outline.withValues(alpha: 0.6);
-    final Paint innerBorder = Paint()
-      ..color = innerColor
-      ..strokeWidth = innerWins ? 3 : 1.6
-      ..style = PaintingStyle.stroke;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(inner, const Radius.circular(12)),
-      innerBorder,
-    );
-    _text(
-      canvas,
-      Offset(inner.left + 10, inner.top + 8),
-      'Inner AutomaticKeepAlive',
-      innerColor,
-    );
-
-    // Descendant node at bottom of inner
-    final Rect child = Rect.fromLTWH(
-      inner.left + inner.width * 0.30,
-      inner.top + inner.height * 0.58,
-      inner.width * 0.40,
-      inner.height * 0.32,
-    );
-    final Paint childFill = Paint()..color = scheme.tertiary.withValues(alpha: 0.85);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(child, const Radius.circular(10)),
-      childFill,
-    );
-    _text(
-      canvas,
-      Offset(child.left + 10, child.center.dy - 8),
-      'Descendant (dispatch)',
-      Colors.white,
-      bold: true,
-    );
-
-    // Arrow up stopping at winner
-    final Offset from = Offset(child.center.dx, child.top);
-    final Offset target = innerWins
-        ? Offset(inner.center.dx, inner.top + 22)
-        : Offset(outer.center.dx, outer.top + 22);
-    final Paint arrow = Paint()
-      ..color = innerWins ? scheme.primary : scheme.error
-      ..strokeWidth = 2.2
-      ..style = PaintingStyle.stroke;
-    canvas.drawLine(from, target, arrow);
-    final Path head = Path()
-      ..moveTo(target.dx, target.dy)
-      ..lineTo(target.dx - 7, target.dy + 10)
-      ..lineTo(target.dx + 7, target.dy + 10)
-      ..close();
-    canvas.drawPath(head, Paint()..color = arrow.color);
-  }
-
-  void _text(Canvas c, Offset o, String s, Color color, {bool bold = false}) {
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-      text: TextSpan(
-        text: s,
-        style: TextStyle(
-          color: color,
-          fontWeight: bold ? FontWeight.w700 : FontWeight.w600,
-          fontSize: 12,
-        ),
-      ),
-    )..layout();
-    tp.paint(c, o);
-  }
-
-  @override
-  bool shouldRepaint(covariant _NestedPainter oldDelegate) =>
-      oldDelegate.innerWins != innerWins || oldDelegate.scheme != scheme;
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 6 — Payload view
-// ══════════════════════════════════════════════════════════════════════════
-class _PayloadTab extends StatelessWidget {
-  const _PayloadTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'KeepAliveNotification payload',
-          subtitle: 'The value object that carries the handle',
-          icon: Icons.receipt_long,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const _MonoBlock(
-                text:
-                  'class KeepAliveNotification extends Notification {\n'
-                  '  const KeepAliveNotification(this.handle);\n\n'
-                  '  /// A listenable whose notifyListeners() indicates the\n'
-                  '  /// descendant no longer needs to be kept alive.\n'
-                  '  final KeepAliveHandle handle;\n'
-                  '}\n',
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: scheme.primaryContainer.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    _BulletedLine(
-                      text: 'Payload is immutable; only the handle\'s state changes.',
-                      icon: Icons.lock,
-                      color: Color(0xFF2563EB),
-                    ),
-                    _BulletedLine(
-                      text: 'Reference equality identifies the request at the sliver.',
-                      icon: Icons.compare,
-                      color: Color(0xFF059669),
-                    ),
-                    _BulletedLine(
-                      text: 'Dispatching a second notification with a new handle replaces the lease.',
-                      icon: Icons.swap_horiz,
-                      color: Color(0xFF9333EA),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'KeepAliveHandle surface',
-          subtitle: 'Minimal methods, all delegating to Listenable',
-          icon: Icons.interests,
-          accent: scheme.tertiary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const _MonoBlock(
-                text:
-                  'class KeepAliveHandle extends ChangeNotifier implements Listenable {\n'
-                  '  /// Mark the descendant as no longer needing keep-alive.\n'
-                  '  void release() => notifyListeners();\n\n'
-                  '  // Inherited:\n'
-                  '  void addListener(VoidCallback listener);\n'
-                  '  void removeListener(VoidCallback listener);\n'
-                  '  @protected void notifyListeners();\n'
-                  '}\n',
-              ),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 10,
-                runSpacing: 8,
-                children: <Widget>[
-                  _InlinePill(
-                    label: 'extends Listenable',
-                    background: scheme.primary.withValues(alpha: 0.12),
-                    foreground: scheme.primary,
-                    icon: Icons.hub,
-                  ),
-                  _InlinePill(
-                    label: 'single-use',
-                    background: scheme.secondary.withValues(alpha: 0.15),
-                    foreground: scheme.secondary,
-                    icon: Icons.looks_one,
-                  ),
-                  _InlinePill(
-                    label: 'no arguments',
-                    background: scheme.tertiary.withValues(alpha: 0.18),
-                    foreground: scheme.tertiary,
-                    icon: Icons.vertical_align_center,
-                  ),
-                  _InlinePill(
-                    label: 'thread-safe on main isolate',
-                    background: scheme.error.withValues(alpha: 0.12),
-                    foreground: scheme.error,
-                    icon: Icons.flash_on,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Payload timeline',
-          subtitle: 'From construction to garbage collection',
-          icon: Icons.stacked_line_chart,
-          accent: scheme.secondary,
-          child: _PayloadTimelineDiagram(scheme: scheme),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _PayloadTimelineDiagram extends StatelessWidget {
-  const _PayloadTimelineDiagram({required this.scheme});
-  final ColorScheme scheme;
-
-  @override
-  Widget build(BuildContext context) {
-    final List<_PayloadStage> stages = <_PayloadStage>[
-      _PayloadStage('new KeepAliveHandle()', scheme.primary, Icons.add_circle),
-      _PayloadStage('wrap in KeepAliveNotification', scheme.secondary, Icons.inventory),
-      _PayloadStage('dispatch(context)', scheme.tertiary, Icons.send),
-      _PayloadStage('ancestor.addListener(handle)', scheme.primary, Icons.hearing),
-      _PayloadStage('subtree kept alive', Colors.green, Icons.eco),
-      _PayloadStage('handle.release()', Colors.red, Icons.cut),
-      _PayloadStage('ancestor.removeListener', scheme.outline, Icons.hearing_disabled),
-      _PayloadStage('handle eligible for GC', scheme.onSurfaceVariant, Icons.delete_sweep),
-    ];
-    return Column(
-      children: <Widget>[
-        for (int i = 0; i < stages.length; i++)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 26,
-                  height: 26,
-                  decoration: BoxDecoration(
-                    color: stages[i].color,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${i + 1}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Icon(stages[i].icon, color: stages[i].color, size: 18),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    stages[i].label,
-                    style: const TextStyle(fontSize: 12.5, fontFamily: 'monospace'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class _PayloadStage {
-  const _PayloadStage(this.label, this.color, this.icon);
-  final String label;
-  final Color color;
-  final IconData icon;
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 7 — Contrast with AutomaticKeepAliveClientMixin
-// ══════════════════════════════════════════════════════════════════════════
-class _ContrastTab extends StatelessWidget {
-  const _ContrastTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Two paths to the same lease',
-          subtitle: 'Mixin convenience vs raw notification + handle',
-          icon: Icons.compare_arrows,
-          accent: scheme.primary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: _PathCard(
-                      title: 'A. AutomaticKeepAliveClientMixin',
-                      badgeText: 'convenience',
-                      color: scheme.primary,
-                      icon: Icons.extension,
-                      bullets: const <String>[
-                        'Mixin on State<T>.',
-                        'Override wantKeepAlive getter.',
-                        'Call super.build(context) inside build.',
-                        'Mixin manages handle internally.',
-                      ],
-                      snippet:
-                          'class _PageState extends State<Page>\n'
-                          '    with AutomaticKeepAliveClientMixin {\n'
-                          '  @override bool get wantKeepAlive => true;\n\n'
-                          '  @override Widget build(BuildContext context) {\n'
-                          '    super.build(context); // required\n'
-                          '    return ...;\n'
-                          '  }\n'
-                          '}',
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _PathCard(
-                      title: 'B. Raw KeepAliveNotification',
-                      badgeText: 'manual',
-                      color: scheme.tertiary,
-                      icon: Icons.build,
-                      bullets: const <String>[
-                        'Own a KeepAliveHandle instance.',
-                        'Dispatch KeepAliveNotification from any leaf.',
-                        'Call handle.release() when finished.',
-                        'Useful when you are not a State object.',
-                      ],
-                      snippet:
-                          'final KeepAliveHandle h = KeepAliveHandle();\n\n'
-                          'void request(BuildContext context) {\n'
-                          '  KeepAliveNotification(h).dispatch(context);\n'
-                          '}\n\n'
-                          'void stop() {\n'
-                          '  h.release(); // ChangeNotifier notify\n'
-                          '}',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              AspectRatio(
-                aspectRatio: 2.2,
-                child: CustomPaint(
-                  painter: _ContrastPainter(scheme: scheme),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'When to pick which',
-          subtitle: 'Decision matrix',
-          icon: Icons.balance,
-          accent: scheme.secondary,
-          child: const _DecisionTable(),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Under the hood',
-          subtitle: 'The mixin is syntactic sugar around the handle',
-          icon: Icons.lightbulb,
-          accent: scheme.tertiary,
-          child: const _MonoBlock(
-            text:
-              'mixin AutomaticKeepAliveClientMixin<T extends StatefulWidget> on State<T> {\n'
-              '  KeepAliveHandle? _keepAliveHandle;\n\n'
-              '  @mustCallSuper\n'
-              '  void build(BuildContext context) {\n'
-              '    if (wantKeepAlive) {\n'
-              '      _keepAliveHandle ??= KeepAliveHandle();\n'
-              '      KeepAliveNotification(_keepAliveHandle!).dispatch(context);\n'
-              '    } else {\n'
-              '      _releaseKeepAlive();\n'
-              '    }\n'
-              '  }\n'
-              '}\n',
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _PathCard extends StatelessWidget {
-  const _PathCard({
-    required this.title,
-    required this.badgeText,
-    required this.color,
-    required this.icon,
-    required this.bullets,
-    required this.snippet,
-  });
-
-  final String title;
-  final String badgeText;
-  final Color color;
-  final IconData icon;
-  final List<String> bullets;
-  final String snippet;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(icon, color: color, size: 20),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          _InlinePill(
-            label: badgeText,
-            background: color.withValues(alpha: 0.15),
-            foreground: color,
-          ),
-          const SizedBox(height: 10),
-          for (final String b in bullets)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Icon(Icons.arrow_right, size: 16, color: color),
-                  Expanded(
-                    child: Text(b, style: const TextStyle(fontSize: 12.5, height: 1.35)),
-                  ),
-                ],
-              ),
-            ),
-          const SizedBox(height: 10),
-          _MonoBlock(text: snippet, accent: const Color(0xFF1E293B)),
-        ],
-      ),
-    );
-  }
-}
-
-class _ContrastPainter extends CustomPainter {
-  _ContrastPainter({required this.scheme});
-  final ColorScheme scheme;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double w = size.width;
-    final double h = size.height;
-    final Paint bg = Paint()..color = scheme.surfaceContainerLow;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, w, h),
-        const Radius.circular(14),
-      ),
-      bg,
-    );
-
-    // Path A: top row
-    _drawRow(
-      canvas,
-      Offset(0, h * 0.25),
-      w,
-      scheme.primary,
-      'State.build → super.build → KeepAliveNotification(handle)',
-    );
-    // Path B: bottom row
-    _drawRow(
-      canvas,
-      Offset(0, h * 0.72),
-      w,
-      scheme.tertiary,
-      'your code → dispatch(KeepAliveNotification(handle)) → release()',
-    );
-  }
-
-  void _drawRow(Canvas canvas, Offset start, double width, Color color, String label) {
-    final Paint line = Paint()
-      ..color = color
-      ..strokeWidth = 2.4;
-    canvas.drawLine(
-      Offset(start.dx + 20, start.dy),
-      Offset(start.dx + width - 20, start.dy),
-      line,
-    );
-    for (double x = start.dx + 30; x < start.dx + width - 30; x += 62) {
-      canvas.drawCircle(Offset(x, start.dy), 4, Paint()..color = color);
-    }
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-      text: TextSpan(
-        text: label,
-        style: TextStyle(
-          color: color,
-          fontFamily: 'monospace',
-          fontSize: 11.5,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    )..layout(maxWidth: width - 40);
-    tp.paint(canvas, Offset(start.dx + 20, start.dy + 8));
-  }
-
-  @override
-  bool shouldRepaint(covariant _ContrastPainter oldDelegate) =>
-      oldDelegate.scheme != scheme;
-}
-
-class _DecisionTable extends StatelessWidget {
-  const _DecisionTable();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    final List<List<String>> rows = <List<String>>[
-      <String>['You are a State<T>', 'Mixin', 'Easier and conventional'],
-      <String>['You are a StatelessWidget', 'Handle', 'No State, no mixin'],
-      <String>['You want dynamic want/don\'t want', 'Mixin', 'Toggle wantKeepAlive'],
-      <String>['You need the lease only briefly', 'Handle', 'Control exact release()'],
-      <String>['Multiple independent leases', 'Handle', 'One per request'],
-      <String>['Cross-tree signalling', 'Handle', 'Mixin is element-local'],
-    ];
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          decoration: BoxDecoration(
-            color: scheme.primary.withValues(alpha: 0.12),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-          ),
-          child: Row(
-            children: const <Widget>[
-              Expanded(flex: 4, child: Text('Situation', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-              Expanded(flex: 2, child: Text('Pick', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-              Expanded(flex: 4, child: Text('Why', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-            ],
-          ),
-        ),
-        for (int i = 0; i < rows.length; i++)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            decoration: BoxDecoration(
-              color: i.isEven
-                  ? scheme.surfaceContainerHigh
-                  : scheme.surfaceContainerLow,
-              border: Border(
-                bottom: BorderSide(color: scheme.outlineVariant, width: 0.5),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(flex: 4, child: Text(rows[i][0], style: const TextStyle(fontSize: 12))),
-                Expanded(flex: 2, child: Text(rows[i][1], style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                Expanded(flex: 4, child: Text(rows[i][2], style: const TextStyle(fontSize: 12))),
-              ],
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 8 — Use cases (6 cards)
-// ══════════════════════════════════════════════════════════════════════════
-class _UseCaseTab extends StatelessWidget {
-  const _UseCaseTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    final List<_UseCase> cases = <_UseCase>[
-      const _UseCase(
-        title: 'Expensive video player',
-        icon: Icons.ondemand_video,
-        color: Color(0xFF2563EB),
-        blurb:
-            'Re-initializing a video decoder costs frames. Hold a handle while the tab is in the carousel so playback survives tab swipes.',
-        sample:
-            'final handle = KeepAliveHandle();\n'
-            'KeepAliveNotification(handle).dispatch(ctx);\n'
-            '// ...on tab dispose:\n'
-            'handle.release();',
-      ),
-      const _UseCase(
-        title: 'WebView tab',
-        icon: Icons.public,
-        color: Color(0xFF059669),
-        blurb:
-            'Keep the WebView element alive so its navigation history, cookies, and scroll state persist across container swipes.',
-        sample:
-            '// AutomaticKeepAliveClientMixin version\n'
-            'bool get wantKeepAlive => widget.persistent;\n'
-            '@override Widget build(BuildContext c) {\n'
-            '  super.build(c);\n'
-            '  return WebViewWidget(controller: _controller);\n'
-            '}',
-      ),
-      const _UseCase(
-        title: 'Long-running stream subscription',
-        icon: Icons.stream,
-        color: Color(0xFFCA8A04),
-        blurb:
-            'A subscription that you want to outlive scroll recycling. Manual handle pattern avoids rebuilding State just to hold one listener.',
-        sample:
-            'final handle = KeepAliveHandle();\n'
-            'final sub = stream.listen(_onEvent);\n'
-            'KeepAliveNotification(handle).dispatch(ctx);\n'
-            '// later:\n'
-            'sub.cancel();\n'
-            'handle.release();',
-      ),
-      const _UseCase(
-        title: 'Local state preservation',
-        icon: Icons.memory,
-        color: Color(0xFFDB2777),
-        blurb:
-            'Complex expanded panels, selection states, and animation controllers that users expect to resume where they left off.',
-        sample:
-            '// Tap the expand chevron, swipe away, come back.\n'
-            '// The expansion state is still there because the\n'
-            '// AutomaticKeepAlive captured the handle.',
-      ),
-      const _UseCase(
-        title: 'Form in progress',
-        icon: Icons.edit_note,
-        color: Color(0xFF9333EA),
-        blurb:
-            'Never lose a partially filled multi-tab form. Dispatch a handle whenever any field has unsaved text.',
-        sample:
-            'if (_controller.text.isNotEmpty) {\n'
-            '  _handle ??= KeepAliveHandle();\n'
-            '  KeepAliveNotification(_handle!).dispatch(ctx);\n'
-            '} else {\n'
-            '  _handle?.release();\n'
-            '  _handle = null;\n'
-            '}',
-      ),
-      const _UseCase(
-        title: 'Filter state',
-        icon: Icons.filter_alt,
-        color: Color(0xFF0891B2),
-        blurb:
-            'Heavy filter UIs with chips, sliders, and search inputs: cheaper to keep the subtree mounted than to rebuild it on every recycle.',
-        sample:
-            'return KeepAliveWrapper(\n'
-            '  active: widget.hasActiveFilter,\n'
-            '  child: FilterPanel(...),\n'
-            ');',
-      ),
-    ];
-
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Where KeepAliveHandle earns its keep',
-          subtitle: 'Six realistic UI scenarios',
-          icon: Icons.collections_bookmark,
-          accent: scheme.primary,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints cc) {
-              final int cols = cc.maxWidth > 720 ? 3 : 2;
-              final double gap = 12;
-              final double w = (cc.maxWidth - gap * (cols - 1)) / cols;
-              return Wrap(
-                spacing: gap,
-                runSpacing: gap,
-                children: <Widget>[
-                  for (final _UseCase c in cases)
-                    SizedBox(
-                      width: w,
-                      child: _UseCaseCard(useCase: c),
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Performance angle',
-          subtitle: 'Keep-alive is a targeted mutation budget tool',
-          icon: Icons.speed,
-          accent: scheme.tertiary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: 'Better than caching data in a global: also keeps widget identity.',
-                icon: Icons.bolt,
-                color: Color(0xFFCA8A04),
-              ),
-              _BulletedLine(
-                text: 'Lighter than Offstage: elements are retained, not hidden-then-rebuilt.',
-                icon: Icons.eco,
-                color: Color(0xFF16A34A),
-              ),
-              _BulletedLine(
-                text: 'Pairs with const constructors for best recycling behaviour.',
-                icon: Icons.tune,
-                color: Color(0xFF2563EB),
-              ),
-              _BulletedLine(
-                text: 'Measure: keep-alive should be a scalpel, not a blanket.',
-                icon: Icons.monitor_heart,
-                color: Color(0xFFE11D48),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _UseCase {
-  const _UseCase({
-    required this.title,
-    required this.icon,
-    required this.color,
-    required this.blurb,
-    required this.sample,
-  });
-  final String title;
-  final IconData icon;
-  final Color color;
-  final String blurb;
-  final String sample;
-}
-
-class _UseCaseCard extends StatelessWidget {
-  const _UseCaseCard({required this.useCase});
-  final _UseCase useCase;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        color: scheme.surfaceContainerHigh,
-        border: Border.all(color: useCase.color.withValues(alpha: 0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 34,
-                height: 34,
-                decoration: BoxDecoration(
-                  color: useCase.color.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(useCase.icon, color: useCase.color, size: 20),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  useCase.title,
-                  style: TextStyle(
-                    color: useCase.color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            useCase.blurb,
-            style: const TextStyle(fontSize: 12, height: 1.4),
-          ),
-          const SizedBox(height: 10),
-          _MonoBlock(text: useCase.sample, accent: const Color(0xFF111827)),
-        ],
-      ),
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-//  Tab 9 — Cheat sheet + pitfalls
-// ══════════════════════════════════════════════════════════════════════════
-class _CheatSheetTab extends StatelessWidget {
-  const _CheatSheetTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: <Widget>[
-        _SectionCard(
-          title: 'Pitfalls',
-          subtitle: 'Common mistakes with KeepAliveHandle',
-          icon: Icons.warning_amber,
-          accent: scheme.error,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _PitfallRow(
-                icon: Icons.memory,
-                color: const Color(0xFFE11D48),
-                title: 'Forgetting release()',
-                detail:
-                    'The ancestor holds a listener on the handle; forgetting to release() means the subtree is kept alive forever, retaining State, controllers, and subscriptions.',
-              ),
-              const SizedBox(height: 10),
-              _PitfallRow(
-                icon: Icons.pie_chart,
-                color: const Color(0xFFCA8A04),
-                title: 'Memory leaks via captured closures',
-                detail:
-                    'Listeners closing over large objects can extend their lifetime to match the handle\'s. Keep closures tight; prefer method tear-offs.',
-              ),
-              const SizedBox(height: 10),
-              _PitfallRow(
-                icon: Icons.my_location,
-                color: const Color(0xFF9333EA),
-                title: 'Dispatching from the wrong context',
-                detail:
-                    'Dispatch is scoped by context. Using a context that is an ancestor of the intended AutomaticKeepAlive will miss the listener.',
-              ),
-              const SizedBox(height: 10),
-              _PitfallRow(
-                icon: Icons.layers,
-                color: const Color(0xFF0891B2),
-                title: 'Nested scopes swallow your request',
-                detail:
-                    'Inner AutomaticKeepAlive absorbs the notification and returns true. The outer scope will not see it unless you re-dispatch.',
-              ),
-              const SizedBox(height: 10),
-              _PitfallRow(
-                icon: Icons.merge,
-                color: const Color(0xFF2563EB),
-                title: 'Mutating during notifyListeners',
-                detail:
-                    'Listeners must not create/destroy the same handle while it is notifying. Prefer scheduling the follow-up with microtasks.',
-              ),
-              const SizedBox(height: 10),
-              _PitfallRow(
-                icon: Icons.timeline,
-                color: const Color(0xFF059669),
-                title: 'Re-using a handle after release',
-                detail:
-                    'Once release() has been called the handle has fulfilled its purpose. Create a new handle for a new keep-alive request.',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'API cheat sheet',
-          subtitle: 'What you need on the handle and its friends',
-          icon: Icons.list_alt,
-          accent: scheme.primary,
-          child: const _ApiCheatTable(),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Related types',
-          subtitle: 'Names you will see together',
-          icon: Icons.link,
-          accent: scheme.secondary,
-          child: const _RelatedTypesBlock(),
-        ),
-        const SizedBox(height: 14),
-        _SectionCard(
-          title: 'Mental checklist before shipping',
-          subtitle: 'Six questions to ask',
-          icon: Icons.checklist,
-          accent: scheme.tertiary,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _BulletedLine(
-                text: '1. Does the subtree actually have state worth preserving?',
-                icon: Icons.help_outline,
-                color: Color(0xFF2563EB),
-              ),
-              _BulletedLine(
-                text: '2. Does release() always fire on dispose or inactive path?',
-                icon: Icons.help_outline,
-                color: Color(0xFF059669),
-              ),
-              _BulletedLine(
-                text: '3. Have we measured rebuild cost before adding a lease?',
-                icon: Icons.help_outline,
-                color: Color(0xFF9333EA),
-              ),
-              _BulletedLine(
-                text: '4. Could AutomaticKeepAliveClientMixin fit instead?',
-                icon: Icons.help_outline,
-                color: Color(0xFFCA8A04),
-              ),
-              _BulletedLine(
-                text: '5. Is there exactly one lease per logical reason to stay alive?',
-                icon: Icons.help_outline,
-                color: Color(0xFFDB2777),
-              ),
-              _BulletedLine(
-                text: '6. Is the handle reference kept private to its owner?',
-                icon: Icons.help_outline,
-                color: Color(0xFF0891B2),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
-      ],
-    );
-  }
-}
-
-class _PitfallRow extends StatelessWidget {
-  const _PitfallRow({
-    required this.icon,
-    required this.color,
-    required this.title,
-    required this.detail,
-  });
-  final IconData icon;
-  final Color color;
-  final String title;
-  final String detail;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.45)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.14),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: color, size: 20),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2870,16 +178,14 @@ class _PitfallRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                  ),
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
-                  detail,
-                  style: const TextStyle(fontSize: 12, height: 1.4),
+                  subtitle,
+                  style: theme.textTheme.bodySmall
+                      ?.copyWith(color: Colors.black54),
                 ),
               ],
             ),
@@ -2890,193 +196,1974 @@ class _PitfallRow extends StatelessWidget {
   }
 }
 
-class _ApiCheatTable extends StatelessWidget {
-  const _ApiCheatTable();
+class _BulletLine extends StatelessWidget {
+  const _BulletLine(this.text, {this.icon = Icons.circle, this.size = 8});
+
+  final String text;
+  final IconData icon;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    final List<List<String>> rows = <List<String>>[
-      <String>[
-        'KeepAliveHandle()',
-        'Constructor. Creates a fresh lease object. Typically one per descendant request.',
-      ],
-      <String>[
-        'void release()',
-        'Signals that keep-alive is no longer needed. Internally calls notifyListeners.',
-      ],
-      <String>[
-        'void addListener(VoidCallback l)',
-        'Inherited from Listenable via ChangeNotifier. Used by AutomaticKeepAlive.',
-      ],
-      <String>[
-        'void removeListener(VoidCallback l)',
-        'Inherited. Typically called in the listener to avoid re-entrancy.',
-      ],
-      <String>[
-        '@protected notifyListeners',
-        'Inherited. release() uses this; you typically do not call it directly.',
-      ],
-      <String>[
-        'KeepAliveNotification(handle)',
-        'Notification payload carrying a single handle up the tree.',
-      ],
-      <String>[
-        'AutomaticKeepAlive',
-        'Widget that wraps children, receives the notification, and tracks leases.',
-      ],
-      <String>[
-        'AutomaticKeepAliveClientMixin',
-        'Convenience mixin on State that owns a private handle.',
-      ],
-    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 6, right: 8),
+            child: Icon(icon, size: size, color: Colors.indigo),
+          ),
+          Expanded(child: Text(text)),
+        ],
+      ),
+    );
+  }
+}
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Column(
+class _CodeBlock extends StatelessWidget {
+  const _CodeBlock(this.code);
+
+  final String code;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E1E2E),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        code,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12,
+          color: Color(0xFFD0D7E2),
+          height: 1.35,
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusChip extends StatelessWidget {
+  const _StatusChip(this.label, this.value, {this.color = Colors.indigo});
+
+  final String label;
+  final String value;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 6, bottom: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withOpacity(.10),
+        border: Border.all(color: color.withOpacity(.40)),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            '$label: ',
+            style: TextStyle(
+              fontSize: 11,
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 11, color: Colors.black87),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DemoCard extends StatelessWidget {
+  const _DemoCard({required this.header, required this.body});
+
+  final Widget header;
+  final Widget body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1.5,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            header,
+            const SizedBox(height: 6),
+            body,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 1 — Anatomy of KeepAliveHandle
+// ══════════════════════════════════════════════════════════════════════════
+class _Section1AnatomyCard extends StatelessWidget {
+  const _Section1AnatomyCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        1,
+        'Anatomy of KeepAliveHandle',
+        'A Listenable carried inside KeepAliveNotification.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'KeepAliveHandle is a public type from package:flutter/widgets.dart.',
+          ),
+          _BulletLine(
+            'It implements Listenable; in modern Flutter it extends ChangeNotifier.',
+          ),
+          _BulletLine(
+            'A KeepAliveNotification is constructed with a handle: '
+            'KeepAliveNotification(handle).',
+          ),
+          _BulletLine(
+            'The notification bubbles up to the nearest AutomaticKeepAlive, '
+            'which retains the slot until handle notifies (release).',
+          ),
+          _BulletLine(
+            'release() calls notifyListeners() and disposes the handle so it '
+            'cannot be reused.',
+          ),
+          SizedBox(height: 6),
+          _CodeBlock(
+            'final KeepAliveHandle handle = KeepAliveHandle();\n'
+            'KeepAliveNotification(handle).dispatch(context);\n'
+            '// ancestor AutomaticKeepAlive listens to the handle\n'
+            'handle.release(); // notifies listeners and disposes',
+          ),
+          SizedBox(height: 6),
+          Text(
+            'Family tree',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 4),
+          _BulletLine(
+            'Listenable → ChangeNotifier → KeepAliveHandle.',
+            icon: Icons.account_tree_outlined,
+            size: 14,
+          ),
+          _BulletLine(
+            'Notification → KeepAliveNotification(handle).',
+            icon: Icons.account_tree_outlined,
+            size: 14,
+          ),
+          _BulletLine(
+            'StatefulWidget → State<T> + AutomaticKeepAliveClientMixin<T> '
+            '(uses a private handle internally).',
+            icon: Icons.account_tree_outlined,
+            size: 14,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 2 — Lifecycle diagram
+// ══════════════════════════════════════════════════════════════════════════
+class _Section2LifecycleCard extends StatelessWidget {
+  const _Section2LifecycleCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        2,
+        'Lifecycle diagram',
+        'create → dispatch → listen → release.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _LifecycleArrow('① CREATE',
+              'KeepAliveHandle handle = KeepAliveHandle();'),
+          _LifecycleArrow('② DISPATCH',
+              'KeepAliveNotification(handle).dispatch(context);'),
+          _LifecycleArrow('③ LISTEN',
+              'AutomaticKeepAlive ancestor calls handle.addListener(_onRelease);'),
+          _LifecycleArrow('④ HOLD',
+              'Slot is preserved across viewport scrolls / page swaps.'),
+          _LifecycleArrow('⑤ RELEASE',
+              'handle.release() → notifyListeners() → disposes handle.'),
+          _LifecycleArrow('⑥ DROP',
+              'Ancestor removes its listener, slot becomes evictable again.'),
+          SizedBox(height: 8),
+          Text(
+            'Notes:',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          _BulletLine(
+            'A handle can only be released once; release() is effectively a '
+            'one-shot notification.',
+          ),
+          _BulletLine(
+            'AutomaticKeepAliveClientMixin manages handle creation and release '
+            'for you whenever wantKeepAlive flips.',
+          ),
+          _BulletLine(
+            'Always call super.build(context) first in build() of states that '
+            'use the mixin, otherwise the mixin will not register.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LifecycleArrow extends StatelessWidget {
+  const _LifecycleArrow(this.tag, this.text);
+
+  final String tag;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            color: scheme.primary,
-            child: Row(
-              children: const <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: Text(
-                    'Symbol',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 7,
-                  child: Text(
-                    'Meaning',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
+            width: 70,
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+            decoration: BoxDecoration(
+              color: Colors.indigo.withOpacity(.10),
+              borderRadius: BorderRadius.circular(4),
             ),
-          ),
-          for (int i = 0; i < rows.length; i++)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              color: i.isEven
-                  ? scheme.surfaceContainerHigh
-                  : scheme.surfaceContainerLow,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      rows[i][0],
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 7,
-                    child: Text(
-                      rows[i][1],
-                      style: const TextStyle(fontSize: 12, height: 1.4),
-                    ),
-                  ),
-                ],
+            child: Text(
+              tag,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: Colors.indigo,
               ),
             ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class _RelatedTypesBlock extends StatelessWidget {
-  const _RelatedTypesBlock();
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 3 — Manual KeepAliveHandle() + dispatch()
+// ══════════════════════════════════════════════════════════════════════════
+//
+//  This section uses a Builder to obtain a non-root BuildContext and
+//  dispatches a real KeepAliveNotification(handle) through it. There is no
+//  AutomaticKeepAlive ancestor below this card (it lives in a Column inside
+//  a SingleChildScrollView), so nothing visible "stays alive" — the point
+//  is to show the call shape and that it does not throw.
+//
+class _Section3ManualHandleCard extends StatelessWidget {
+  const _Section3ManualHandleCard();
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: <Widget>[
-        _InlinePill(
-          label: 'KeepAliveNotification',
-          background: scheme.primary.withValues(alpha: 0.12),
-          foreground: scheme.primary,
-          icon: Icons.notifications_active,
-        ),
-        _InlinePill(
-          label: 'AutomaticKeepAlive',
-          background: scheme.secondary.withValues(alpha: 0.15),
-          foreground: scheme.secondary,
-          icon: Icons.extension,
-        ),
-        _InlinePill(
-          label: 'AutomaticKeepAliveClientMixin',
-          background: scheme.tertiary.withValues(alpha: 0.15),
-          foreground: scheme.tertiary,
-          icon: Icons.layers,
-        ),
-        _InlinePill(
-          label: 'SliverMultiBoxAdaptor',
-          background: scheme.primaryContainer,
-          foreground: scheme.onPrimaryContainer,
-          icon: Icons.view_list,
-        ),
-        _InlinePill(
-          label: 'Listenable',
-          background: scheme.outlineVariant,
-          foreground: scheme.onSurface,
-          icon: Icons.hearing,
-        ),
-        _InlinePill(
-          label: 'ChangeNotifier',
-          background: scheme.errorContainer,
-          foreground: scheme.onErrorContainer,
-          icon: Icons.campaign,
-        ),
-      ],
+    return _DemoCard(
+      header: const _SectionHeader(
+        3,
+        'Manual KeepAliveHandle() and KeepAliveNotification',
+        'Construct a handle by hand and dispatch the notification.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const _BulletLine(
+            'In real apps the mixin owns the handle. Here we own it directly '
+            'to demonstrate the API surface.',
+          ),
+          const _CodeBlock(
+            'final KeepAliveHandle handle = KeepAliveHandle();\n'
+            'handle.addListener(() => print("released"));\n'
+            'KeepAliveNotification(handle).dispatch(context);\n'
+            '// later …\n'
+            'handle.release();',
+          ),
+          const SizedBox(height: 6),
+          Builder(
+            builder: (BuildContext innerContext) {
+              return Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.send_outlined),
+                    label: const Text('Dispatch KeepAliveNotification'),
+                    onPressed: () {
+                      final KeepAliveHandle handle = KeepAliveHandle();
+                      handle.addListener(() {
+                        _lastHandleEvent.value =
+                            'manual handle released @ '
+                            '${DateTime.now().toIso8601String()}';
+                      });
+                      KeepAliveNotification(handle).dispatch(innerContext);
+                      _manualDispatchTick.value =
+                          _manualDispatchTick.value + 1;
+                      // Immediately release for demo purposes; in real use
+                      // the ancestor would hold the listener until the
+                      // subtree no longer needs to be kept alive.
+                      handle.dispose();
+                      _manualReleaseTick.value =
+                          _manualReleaseTick.value + 1;
+                    },
+                  ),
+                  const SizedBox(width: 12),
+                  ValueListenableBuilder<int>(
+                    valueListenable: _manualDispatchTick,
+                    builder: (BuildContext _, int v, Widget? _) {
+                      return _StatusChip('dispatched', '$v');
+                    },
+                  ),
+                  ValueListenableBuilder<int>(
+                    valueListenable: _manualReleaseTick,
+                    builder: (BuildContext _, int v, Widget? _) {
+                      return _StatusChip(
+                        'released',
+                        '$v',
+                        color: Colors.deepOrange,
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 4),
+          ValueListenableBuilder<String>(
+            valueListenable: _lastHandleEvent,
+            builder: (BuildContext _, String s, Widget? _) {
+              return Text(
+                s,
+                style: const TextStyle(fontSize: 12, color: Colors.black54),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-//  Bottom hint bar (reacts to _tabHint for extra visual motion)
+//  Section 4 — Handle-listener inspector
 // ══════════════════════════════════════════════════════════════════════════
-class _BottomHintBar extends StatelessWidget {
-  const _BottomHintBar();
+//
+//  A custom widget that owns a KeepAliveHandle, listens to it, and renders
+//  a "released?" state. This is the most basic possible custom keep-alive
+//  client.
+//
+class _Section4HandleInspectorCard extends StatelessWidget {
+  const _Section4HandleInspectorCard();
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
-      valueListenable: _tabHint,
-      builder: (BuildContext context, int v, Widget? _) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          color: Theme.of(context).colorScheme.primary,
-          child: Row(
+    return _DemoCard(
+      header: const _SectionHeader(
+        4,
+        'Handle-listener inspector',
+        'A widget that owns a handle and shows whether it was released.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'The inspector creates one KeepAliveHandle in initState() and '
+            'attaches an addListener callback.',
+          ),
+          _BulletLine(
+            'Pressing "release" calls handle.release(). The listener fires '
+            'once and updates the visible status.',
+          ),
+          SizedBox(height: 8),
+          _HandleInspector(label: 'Inspector A'),
+          SizedBox(height: 6),
+          _HandleInspector(label: 'Inspector B'),
+        ],
+      ),
+    );
+  }
+}
+
+class _HandleInspector extends StatefulWidget {
+  const _HandleInspector({required this.label});
+
+  final String label;
+
+  @override
+  State<_HandleInspector> createState() => _HandleInspectorState();
+}
+
+class _HandleInspectorState extends State<_HandleInspector> {
+  KeepAliveHandle? _handle;
+  bool _released = false;
+  int _notifyCount = 0;
+
+  void _ensureHandle() {
+    if (_handle == null) {
+      final KeepAliveHandle h = KeepAliveHandle();
+      h.addListener(_onNotify);
+      _handle = h;
+      _released = false;
+    }
+  }
+
+  void _onNotify() {
+    if (!mounted) return;
+    setState(() {
+      _notifyCount += 1;
+      _released = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _ensureHandle();
+  }
+
+  @override
+  void dispose() {
+    final h = _handle;
+    if (h != null && !_released) {
+      // KeepAliveHandle.dispose() notifies listeners; that is the public
+      // release signal. Detach our listener first so we do not setState
+      // after this State has already been disposed.
+      h.removeListener(_onNotify);
+      h.dispose();
+    }
+    super.dispose();
+  }
+
+  void _doRelease() {
+    final h = _handle;
+    if (h == null || _released) return;
+    // dispose() on a KeepAliveHandle fires notifyListeners() once and then
+    // tears the notifier down; this is the canonical "release" signal.
+    h.dispose();
+  }
+
+  void _renew() {
+    final old = _handle;
+    if (old != null && !_released) {
+      old.removeListener(_onNotify);
+      old.dispose();
+    }
+    setState(() {
+      _handle = null;
+      _notifyCount = 0;
+      _released = false;
+    });
+    _ensureHandle();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.indigo.withOpacity(.30)),
+        borderRadius: BorderRadius.circular(6),
+        color: Colors.indigo.withOpacity(.04),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
             children: <Widget>[
-              const Icon(Icons.info_outline, color: Colors.white, size: 16),
-              const SizedBox(width: 8),
               Text(
-                'Tab navigation events: $v',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                widget.label,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 8),
+              _StatusChip(
+                'state',
+                _released ? 'released' : 'live',
+                color: _released ? Colors.deepOrange : Colors.green,
+              ),
+              _StatusChip('notifications', '$_notifyCount'),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _released ? null : _doRelease,
+                child: const Text('release()'),
+              ),
+              OutlinedButton(
+                onPressed: _renew,
+                child: const Text('renew handle'),
               ),
             ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 5 — PageView preservation
+// ══════════════════════════════════════════════════════════════════════════
+//
+//  Two pages inside a PageView. One mixes AutomaticKeepAliveClientMixin and
+//  always returns wantKeepAlive=true; the other does not. Swiping between
+//  the pages and back shows that the kept-alive page preserves a counter,
+//  scroll offset, and a TextField, while the non-kept-alive page resets.
+//
+class _Section5PageViewCard extends StatelessWidget {
+  const _Section5PageViewCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final PageController controller = PageController();
+    return _DemoCard(
+      header: const _SectionHeader(
+        5,
+        'PageView: kept-alive vs not',
+        'Swipe across pages and notice which counters / scroll persist.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const _BulletLine(
+            'Page 1 mixes AutomaticKeepAliveClientMixin → state survives.',
+          ),
+          const _BulletLine(
+            'Page 2 does not mix it in → state is rebuilt every time.',
+          ),
+          const _BulletLine(
+            'wantKeepAlive can be toggled live to demonstrate handle '
+            'release behaviour for page 1.',
+          ),
+          const SizedBox(height: 8),
+          ValueListenableBuilder<bool>(
+            valueListenable: _holdPage1,
+            builder: (BuildContext _, bool hold1, Widget? _) {
+              return Row(
+                children: <Widget>[
+                  const Text('Page 1 wantKeepAlive: '),
+                  Switch(
+                    value: hold1,
+                    onChanged: (bool v) => _holdPage1.value = v,
+                  ),
+                  const SizedBox(width: 16),
+                  ValueListenableBuilder<int>(
+                    valueListenable: _pageIndex,
+                    builder: (BuildContext _, int idx, Widget? _) {
+                      return _StatusChip('page', '$idx');
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 6),
+          SizedBox(
+            height: 320,
+            child: PageView(
+              controller: controller,
+              onPageChanged: (int i) => _pageIndex.value = i,
+              children: <Widget>[
+                ValueListenableBuilder<bool>(
+                  valueListenable: _holdPage1,
+                  builder: (BuildContext _, bool hold, Widget? _) {
+                    return _KeepAlivePage(
+                      title: 'Page 1 (kept alive)',
+                      keepAlive: hold,
+                      color: Colors.indigo.shade50,
+                    );
+                  },
+                ),
+                const _PlainPage(
+                  title: 'Page 2 (not kept alive)',
+                  color: Color(0xFFFFF3E0),
+                ),
+                const _KeepAlivePage(
+                  title: 'Page 3 (kept alive)',
+                  keepAlive: true,
+                  color: Color(0xFFE8F5E9),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Kept-alive page ───────────────────────────────────────────────────────
+class _KeepAlivePage extends StatefulWidget {
+  const _KeepAlivePage({
+    required this.title,
+    required this.keepAlive,
+    required this.color,
+  });
+
+  final String title;
+  final bool keepAlive;
+  final Color color;
+
+  @override
+  State<_KeepAlivePage> createState() => _KeepAlivePageState();
+}
+
+class _KeepAlivePageState extends State<_KeepAlivePage>
+    with AutomaticKeepAliveClientMixin<_KeepAlivePage> {
+  int _counter = 0;
+  final ScrollController _scroll = ScrollController();
+  final TextEditingController _text = TextEditingController();
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    _text.dispose();
+    super.dispose();
+  }
+
+  void _bump() {
+    setState(() {
+      _counter += 1;
+    });
+    updateKeepAlive();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // mandatory when using AutomaticKeepAliveClientMixin
+    return Container(
+      color: widget.color,
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            widget.title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'wantKeepAlive: ${widget.keepAlive}',
+            style: const TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _bump,
+                child: const Text('counter++'),
+              ),
+              const SizedBox(width: 12),
+              Text('counter = $_counter'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _text,
+            decoration: const InputDecoration(
+              labelText: 'TextField (preserved if kept alive)',
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: ListView.builder(
+              controller: _scroll,
+              itemCount: 80,
+              itemBuilder: (BuildContext _, int i) {
+                return ListTile(
+                  dense: true,
+                  leading: const Icon(Icons.bookmark_border),
+                  title: Text('row $i'),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Plain (non-kept-alive) page ───────────────────────────────────────────
+class _PlainPage extends StatefulWidget {
+  const _PlainPage({required this.title, required this.color});
+
+  final String title;
+  final Color color;
+
+  @override
+  State<_PlainPage> createState() => _PlainPageState();
+}
+
+class _PlainPageState extends State<_PlainPage> {
+  int _counter = 0;
+  final ScrollController _scroll = ScrollController();
+  final TextEditingController _text = TextEditingController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    _text.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: widget.color,
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            widget.title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const Text(
+            'no AutomaticKeepAliveClientMixin → state resets every time',
+            style: TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () => setState(() => _counter += 1),
+                child: const Text('counter++'),
+              ),
+              const SizedBox(width: 12),
+              Text('counter = $_counter'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _text,
+            decoration: const InputDecoration(
+              labelText: 'TextField (lost on swipe)',
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: ListView.builder(
+              controller: _scroll,
+              itemCount: 80,
+              itemBuilder: (BuildContext _, int i) {
+                return ListTile(
+                  dense: true,
+                  leading: const Icon(Icons.delete_sweep_outlined),
+                  title: Text('row $i'),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 6 — TabBarView state inspector
+// ══════════════════════════════════════════════════════════════════════════
+class _Section6TabBarViewCard extends StatelessWidget {
+  const _Section6TabBarViewCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        6,
+        'TabBarView state inspector',
+        'Three tabs; toggle wantKeepAlive on tabs 1 and 2 live.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'Tabs are textbook keep-alive use cases — TabBarView lazily '
+            'builds children and AutomaticKeepAlive owns the slots.',
+          ),
+          _BulletLine(
+            'Toggling wantKeepAlive=false simulates the handle being '
+            'released; toggling it back to true causes a new handle to be '
+            'created and dispatched on the next build.',
+          ),
+          SizedBox(height: 8),
+          _TabsDemo(),
+        ],
+      ),
+    );
+  }
+}
+
+class _TabsDemo extends StatefulWidget {
+  const _TabsDemo();
+
+  @override
+  State<_TabsDemo> createState() => _TabsDemoState();
+}
+
+class _TabsDemoState extends State<_TabsDemo>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tab = TabController(length: 3, vsync: this);
+
+  @override
+  void initState() {
+    super.initState();
+    _tab.addListener(() {
+      _tabIndex.value = _tab.index;
+    });
+  }
+
+  @override
+  void dispose() {
+    _tab.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TabBar(
+          controller: _tab,
+          labelColor: Colors.indigo,
+          tabs: const <Widget>[
+            Tab(text: 'tab 1 (counter)'),
+            Tab(text: 'tab 2 (scroll)'),
+            Tab(text: 'tab 3 (text)'),
+          ],
+        ),
+        ValueListenableBuilder<bool>(
+          valueListenable: _holdTab1,
+          builder: (BuildContext _, bool h1, Widget? _) {
+            return ValueListenableBuilder<bool>(
+              valueListenable: _holdTab2,
+              builder: (BuildContext _, bool h2, Widget? _) {
+                return Wrap(
+                  spacing: 12,
+                  children: <Widget>[
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const Text('tab1 keep: '),
+                        Switch(
+                          value: h1,
+                          onChanged: (bool v) => _holdTab1.value = v,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const Text('tab2 keep: '),
+                        Switch(
+                          value: h2,
+                          onChanged: (bool v) => _holdTab2.value = v,
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+        SizedBox(
+          height: 280,
+          child: TabBarView(
+            controller: _tab,
+            children: <Widget>[
+              ValueListenableBuilder<bool>(
+                valueListenable: _holdTab1,
+                builder: (BuildContext _, bool keep, Widget? _) {
+                  return _KeepAliveCounter(keepAlive: keep);
+                },
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: _holdTab2,
+                builder: (BuildContext _, bool keep, Widget? _) {
+                  return _KeepAliveScroller(keepAlive: keep);
+                },
+              ),
+              const _KeepAliveTextField(keepAlive: true),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── _KeepAliveCounter ────────────────────────────────────────────────────
+class _KeepAliveCounter extends StatefulWidget {
+  const _KeepAliveCounter({required this.keepAlive});
+
+  final bool keepAlive;
+
+  @override
+  State<_KeepAliveCounter> createState() => _KeepAliveCounterState();
+}
+
+class _KeepAliveCounterState extends State<_KeepAliveCounter>
+    with AutomaticKeepAliveClientMixin<_KeepAliveCounter> {
+  int _counter = 0;
+  int _builds = 0;
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
+
+  @override
+  void didUpdateWidget(_KeepAliveCounter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.keepAlive != widget.keepAlive) {
+      updateKeepAlive();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    _builds += 1;
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Tab 1 — counter',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text('builds=$_builds  keepAlive=${widget.keepAlive}'),
+          const SizedBox(height: 8),
+          Row(
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () => setState(() => _counter += 1),
+                child: const Text('counter++'),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                '$_counter',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Switch tabs and come back: counter persists when keep is on.',
+            style: TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── _KeepAliveScroller ────────────────────────────────────────────────────
+class _KeepAliveScroller extends StatefulWidget {
+  const _KeepAliveScroller({required this.keepAlive});
+
+  final bool keepAlive;
+
+  @override
+  State<_KeepAliveScroller> createState() => _KeepAliveScrollerState();
+}
+
+class _KeepAliveScrollerState extends State<_KeepAliveScroller>
+    with AutomaticKeepAliveClientMixin<_KeepAliveScroller> {
+  final ScrollController _scroll = ScrollController();
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
+
+  @override
+  void didUpdateWidget(_KeepAliveScroller oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.keepAlive != widget.keepAlive) {
+      updateKeepAlive();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Tab 2 — scroll position',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text('keepAlive=${widget.keepAlive}'),
+          const SizedBox(height: 8),
+          Expanded(
+            child: ListView.builder(
+              controller: _scroll,
+              itemCount: 200,
+              itemBuilder: (BuildContext _, int i) => ListTile(
+                dense: true,
+                leading: CircleAvatar(child: Text('$i')),
+                title: Text('Item $i'),
+                subtitle:
+                    Text('Scroll, then change tab; offset survives if kept.'),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── _KeepAliveTextField ───────────────────────────────────────────────────
+class _KeepAliveTextField extends StatefulWidget {
+  const _KeepAliveTextField({required this.keepAlive});
+
+  final bool keepAlive;
+
+  @override
+  State<_KeepAliveTextField> createState() => _KeepAliveTextFieldState();
+}
+
+class _KeepAliveTextFieldState extends State<_KeepAliveTextField>
+    with AutomaticKeepAliveClientMixin<_KeepAliveTextField> {
+  final TextEditingController _draft = TextEditingController();
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
+
+  @override
+  void dispose() {
+    _draft.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Tab 3 — text field',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _draft,
+            maxLines: 4,
+            decoration: const InputDecoration(
+              labelText: 'draft',
+              hintText: 'switch tabs — text survives',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 7 — Sparse ListView with conditional wantKeepAlive
+// ══════════════════════════════════════════════════════════════════════════
+class _Section7SparseListCard extends StatelessWidget {
+  const _Section7SparseListCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        7,
+        'Sparse ListView with conditional wantKeepAlive',
+        'Only even rows keep their state; odd rows recycle.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          ValueListenableBuilder<bool>(
+            valueListenable: _holdSparseEven,
+            builder: (BuildContext _, bool keepEven, Widget? _) {
+              return Row(
+                children: <Widget>[
+                  const Text('keep even rows: '),
+                  Switch(
+                    value: keepEven,
+                    onChanged: (bool v) => _holdSparseEven.value = v,
+                  ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 6),
+          SizedBox(
+            height: 360,
+            child: ValueListenableBuilder<bool>(
+              valueListenable: _holdSparseEven,
+              builder: (BuildContext _, bool keepEven, Widget? _) {
+                return ListView.builder(
+                  itemCount: 60,
+                  itemBuilder: (BuildContext _, int i) {
+                    final bool keepThis = keepEven && (i % 2 == 0);
+                    return _SparseRow(
+                      index: i,
+                      keepAlive: keepThis,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Scroll up and down; only the rows where keepAlive=true preserve '
+            'their counter.',
+            style: TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SparseRow extends StatefulWidget {
+  const _SparseRow({required this.index, required this.keepAlive});
+
+  final int index;
+  final bool keepAlive;
+
+  @override
+  State<_SparseRow> createState() => _SparseRowState();
+}
+
+class _SparseRowState extends State<_SparseRow>
+    with AutomaticKeepAliveClientMixin<_SparseRow> {
+  int _local = 0;
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
+
+  @override
+  void didUpdateWidget(_SparseRow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.keepAlive != widget.keepAlive) {
+      updateKeepAlive();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: widget.keepAlive
+            ? Colors.green.withOpacity(.06)
+            : Colors.grey.withOpacity(.06),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: widget.keepAlive
+              ? Colors.green.withOpacity(.3)
+              : Colors.grey.withOpacity(.3),
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 14,
+            backgroundColor:
+                widget.keepAlive ? Colors.green : Colors.grey.shade500,
+            child: Text(
+              '${widget.index}',
+              style: const TextStyle(color: Colors.white, fontSize: 11),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'row ${widget.index}  '
+              'keep=${widget.keepAlive}  '
+              'local=$_local',
+              style: const TextStyle(fontFamily: 'monospace'),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline),
+            onPressed: () => setState(() => _local += 1),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 8 — Explicit release() simulation
+// ══════════════════════════════════════════════════════════════════════════
+class _Section8ReleaseSimulationCard extends StatelessWidget {
+  const _Section8ReleaseSimulationCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        8,
+        'Explicit release() simulation',
+        'Drive a handle by hand and watch listeners fire.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'release() is a one-shot operation; calling it after the handle '
+            'has already fired is invalid.',
+          ),
+          _BulletLine(
+            'Each "renew" creates a fresh KeepAliveHandle so subsequent '
+            'releases work again.',
+          ),
+          SizedBox(height: 8),
+          _ReleaseSim(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReleaseSim extends StatefulWidget {
+  const _ReleaseSim();
+
+  @override
+  State<_ReleaseSim> createState() => _ReleaseSimState();
+}
+
+class _ReleaseSimState extends State<_ReleaseSim> {
+  KeepAliveHandle? _handle;
+  bool _released = false;
+  int _listenerHits = 0;
+  String _log = '(no events)';
+
+  @override
+  void initState() {
+    super.initState();
+    _make();
+  }
+
+  void _make() {
+    final KeepAliveHandle h = KeepAliveHandle();
+    h.addListener(_onFire);
+    _handle = h;
+    _released = false;
+    _listenerHits = 0;
+    _log = 'created handle';
+  }
+
+  void _onFire() {
+    if (!mounted) return;
+    setState(() {
+      _listenerHits += 1;
+      _released = true;
+      _log = 'listener fired (hits=$_listenerHits)';
+    });
+  }
+
+  void _release() {
+    final h = _handle;
+    if (h == null || _released) {
+      setState(() => _log = 'cannot release: handle is already released');
+      return;
+    }
+    // The "release" signal is implemented as KeepAliveHandle.dispose() in
+    // current Flutter — it fires notifyListeners() and tears down.
+    h.dispose();
+  }
+
+  void _renew() {
+    final h = _handle;
+    if (h != null && !_released) {
+      h.removeListener(_onFire);
+      h.dispose();
+    }
+    setState(_make);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple.withOpacity(.05),
+        border: Border.all(color: Colors.deepPurple.withOpacity(.3)),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: <Widget>[
+              ElevatedButton.icon(
+                icon: const Icon(Icons.lock_open),
+                label: const Text('release()'),
+                onPressed: _released ? null : _release,
+              ),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.refresh),
+                label: const Text('renew handle'),
+                onPressed: _renew,
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Wrap(
+            children: <Widget>[
+              _StatusChip(
+                'state',
+                _released ? 'released' : 'live',
+                color: _released ? Colors.deepOrange : Colors.green,
+              ),
+              _StatusChip('listener hits', '$_listenerHits'),
+            ],
+          ),
+          Text(
+            'log: $_log',
+            style: const TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 9 — Comparison vs Provider / InheritedWidget
+// ══════════════════════════════════════════════════════════════════════════
+class _Section9VsProviderCard extends StatelessWidget {
+  const _Section9VsProviderCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        9,
+        'Comparison vs Provider / InheritedWidget',
+        'Different jobs that are easy to confuse.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'KeepAliveHandle keeps a SUBTREE alive in a viewport that would '
+            'otherwise recycle it. It does not store data.',
+          ),
+          _BulletLine(
+            'Provider / InheritedWidget store data above the subtree. They '
+            'survive across rebuilds because the data lives elsewhere.',
+          ),
+          _BulletLine(
+            'Use both together: lifted state for cross-cutting data, keep-'
+            'alive for local widget state (controllers, scroll offsets, '
+            'in-progress animations).',
+          ),
+          SizedBox(height: 8),
+          _ComparisonTable(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ComparisonTable extends StatelessWidget {
+  const _ComparisonTable();
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      border: TableBorder.all(color: Colors.black12),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FlexColumnWidth(2),
+        1: FlexColumnWidth(3),
+        2: FlexColumnWidth(3),
+      },
+      children: const <TableRow>[
+        TableRow(
+          decoration: BoxDecoration(color: Color(0xFFEDE7F6)),
+          children: <Widget>[
+            _TblCell('Property', bold: true),
+            _TblCell('KeepAliveHandle', bold: true),
+            _TblCell('Provider / InheritedWidget', bold: true),
+          ],
+        ),
+        TableRow(children: <Widget>[
+          _TblCell('purpose'),
+          _TblCell('preserve the State, controllers, scroll, etc.'),
+          _TblCell('share data above a subtree'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('storage'),
+          _TblCell('stores nothing; just a slot lifeline'),
+          _TblCell('owns and exposes the data'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('scope'),
+          _TblCell('the keep-alive subtree itself'),
+          _TblCell('any descendant of the provider'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('granularity'),
+          _TblCell('one slot per handle'),
+          _TblCell('any number of consumers'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('release'),
+          _TblCell('handle.release() drops keep-alive'),
+          _TblCell('parent dispose / rebuild changes data'),
+        ]),
+      ],
+    );
+  }
+}
+
+class _TblCell extends StatelessWidget {
+  const _TblCell(this.text, {this.bold = false});
+
+  final String text;
+  final bool bold;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 10 — Recipe gallery
+// ══════════════════════════════════════════════════════════════════════════
+class _Section10RecipeGalleryCard extends StatelessWidget {
+  const _Section10RecipeGalleryCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        10,
+        'Recipe gallery',
+        'Common situations where KeepAliveHandle pays off.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _Recipe(
+            title: 'Form drafts in a TabBarView',
+            body:
+                'Each tab hosts a long form with a TextEditingController. '
+                'wantKeepAlive=true preserves user input when they switch tabs.',
+          ),
+          _Recipe(
+            title: 'Scroll position in a paged feed',
+            body:
+                'Each page contains a ListView with its own ScrollController. '
+                'Keep-alive ensures that returning to the page lands on the '
+                'same item, not at the top.',
+          ),
+          _Recipe(
+            title: 'Video / audio position',
+            body:
+                'A video player controller is expensive to recreate. Keep the '
+                'state alive so playback continues where it stopped when the '
+                'user revisits the tab.',
+          ),
+          _Recipe(
+            title: 'Expensive widgets',
+            body:
+                'A heavy charts widget that runs an animation or fetches data '
+                'on initState benefits from being cached via keep-alive.',
+          ),
+          _Recipe(
+            title: 'Conditional keep-alive',
+            body:
+                'Toggle wantKeepAlive based on whether the form is dirty. The '
+                'handle is released automatically when wantKeepAlive flips to '
+                'false; updateKeepAlive() forces re-evaluation.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Recipe extends StatelessWidget {
+  const _Recipe({required this.title, required this.body});
+
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.indigo.withOpacity(.04),
+        border: Border.all(color: Colors.indigo.withOpacity(.20)),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(title,
+              style: const TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(body, style: const TextStyle(fontSize: 13)),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 11 — Pitfalls
+// ══════════════════════════════════════════════════════════════════════════
+class _Section11PitfallsCard extends StatelessWidget {
+  const _Section11PitfallsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        11,
+        'Pitfalls',
+        'Things that quietly break keep-alive.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _Pitfall(
+            title: 'Forgetting super.build(context)',
+            body:
+                'AutomaticKeepAliveClientMixin overrides build() and expects '
+                'subclasses to call super.build first. Skip it and the mixin '
+                'never registers; the handle is never dispatched.',
+          ),
+          _Pitfall(
+            title: 'Static wantKeepAlive',
+            body:
+                'wantKeepAlive is a getter; the mixin reads it on every build. '
+                'Cache invalidation is your job — call updateKeepAlive() '
+                'whenever the underlying value flips.',
+          ),
+          _Pitfall(
+            title: 'Holding a handle past its release',
+            body:
+                'release() is a one-shot. Calling addListener / removeListener '
+                'after release works on the still-alive ChangeNotifier base, '
+                'but a fresh KeepAliveNotification will need a new handle.',
+          ),
+          _Pitfall(
+            title: 'Listener leaks on rebuild',
+            body:
+                'If you addListener to a handle from outside, remember to '
+                'removeListener to avoid retaining the listener after the '
+                'subtree is gone.',
+          ),
+          _Pitfall(
+            title: 'Wrong viewport',
+            body:
+                'KeepAlive only matters under a SliverList / SliverGrid / '
+                'PageView / TabBarView etc. — viewports that may unmount '
+                'children. In a plain Column there is nothing to keep alive.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Pitfall extends StatelessWidget {
+  const _Pitfall({required this.title, required this.body});
+
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(.04),
+        border: Border.all(color: Colors.red.withOpacity(.30)),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              const Icon(Icons.warning_amber_rounded,
+                  color: Colors.red, size: 18),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(body, style: const TextStyle(fontSize: 13)),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 12 — Handle vs Mixin contrast
+// ══════════════════════════════════════════════════════════════════════════
+class _Section12HandleVsMixinTable extends StatelessWidget {
+  const _Section12HandleVsMixinTable();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        12,
+        'Handle vs Mixin contrast',
+        'When to drop down to the raw handle.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Table(
+            border: TableBorder.all(color: Colors.black12),
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(2),
+              1: FlexColumnWidth(3),
+              2: FlexColumnWidth(3),
+            },
+            children: const <TableRow>[
+              TableRow(
+                decoration: BoxDecoration(color: Color(0xFFE3F2FD)),
+                children: <Widget>[
+                  _TblCell('Aspect', bold: true),
+                  _TblCell('AutomaticKeepAliveClientMixin', bold: true),
+                  _TblCell('Raw KeepAliveHandle', bold: true),
+                ],
+              ),
+              TableRow(children: <Widget>[
+                _TblCell('owns the handle?'),
+                _TblCell('yes — internal _keepAliveHandle'),
+                _TblCell('you do'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('boilerplate'),
+                _TblCell('one mixin + super.build()'),
+                _TblCell('full createState / addListener / dispose'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('updates handle'),
+                _TblCell('updateKeepAlive() on flip'),
+                _TblCell('release() and re-dispatch by hand'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('use case'),
+                _TblCell('default for 99% of widgets'),
+                _TblCell('custom keep-alive widgets, diagnostics, tests'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('granularity'),
+                _TblCell('one State'),
+                _TblCell('any context that can dispatch a notification'),
+              ]),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 13 — Reference table
+// ══════════════════════════════════════════════════════════════════════════
+class _Section13ReferenceTable extends StatelessWidget {
+  const _Section13ReferenceTable();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        13,
+        'KeepAliveHandle reference table',
+        'Members and related types at a glance.',
+      ),
+      body: Table(
+        border: TableBorder.all(color: Colors.black12),
+        columnWidths: const <int, TableColumnWidth>{
+          0: FlexColumnWidth(2),
+          1: FlexColumnWidth(3),
+          2: FlexColumnWidth(3),
+        },
+        children: const <TableRow>[
+          TableRow(
+            decoration: BoxDecoration(color: Color(0xFFFFF8E1)),
+            children: <Widget>[
+              _TblCell('Symbol', bold: true),
+              _TblCell('Where', bold: true),
+              _TblCell('Notes', bold: true),
+            ],
+          ),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveHandle'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Listenable; held by KeepAliveNotification.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('dispose()  (overridden)'),
+            _TblCell('KeepAliveHandle'),
+            _TblCell('calls notifyListeners() first; the canonical "release" signal.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('addListener(VoidCallback)'),
+            _TblCell('inherited from ChangeNotifier'),
+            _TblCell('register a callback that fires when release() runs.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('removeListener(VoidCallback)'),
+            _TblCell('inherited from ChangeNotifier'),
+            _TblCell('detach a previously registered callback.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveNotification(handle)'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Notification that ferries the handle up the tree.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveNotification.dispatch(context)'),
+            _TblCell('inherited from Notification'),
+            _TblCell('walks the element tree to a NotificationListener.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('AutomaticKeepAlive'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Listens for KeepAliveNotifications and holds slots.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('AutomaticKeepAliveClientMixin<T>'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Mixin that owns the handle automatically.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('updateKeepAlive()'),
+            _TblCell('AutomaticKeepAliveClientMixin'),
+            _TblCell('re-evaluates wantKeepAlive and toggles the handle.'),
+          ]),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Section 14 — Closing notes
+// ══════════════════════════════════════════════════════════════════════════
+class _Section14ClosingNotes extends StatelessWidget {
+  const _Section14ClosingNotes();
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      header: const _SectionHeader(
+        14,
+        'Closing notes & companion files',
+        'Where to read more.',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _BulletLine(
+            'See the sibling test file '
+            'widgets/automatic_keep_alive_client_mixin_test.dart for the '
+            'mixin perspective.',
+          ),
+          _BulletLine(
+            'KeepAliveHandle is rarely constructed directly in app code; '
+            'most of the time you mix in AutomaticKeepAliveClientMixin and '
+            'let it handle creation, dispatch and release.',
+          ),
+          _BulletLine(
+            'Direct usage shines when building diagnostic / debugging tools '
+            'or when integrating with non-mixin custom keep-alive logic.',
+          ),
+          _BulletLine(
+            'Always test keep-alive behaviour with a viewport-based widget '
+            'test (PageView, TabBarView, slow ListView) — it is invisible '
+            'in static layouts.',
+          ),
+          SizedBox(height: 8),
+          Text(
+            'End of demo.',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+//  EXTENDED COMMENTARY (compile-only — also valuable when humans read it)
+// ──────────────────────────────────────────────────────────────────────────
+//
+//  The comments below describe edge cases not visible in widgets above.
+//  They are deliberately verbose so the deep-demo file can serve as a self-
+//  contained reference when the Flutter docs are unavailable. None of this
+//  affects runtime behaviour.
+//
+//  • THE INTERNAL WIRING.  AutomaticKeepAliveClientMixin owns a private
+//    field `_keepAliveHandle`.  Every time `build` runs, the mixin checks
+//    whether `wantKeepAlive` is true and, if so, allocates a fresh
+//    KeepAliveHandle and dispatches a KeepAliveNotification through the
+//    current context.  The notification bubbles up until an
+//    AutomaticKeepAlive ancestor catches it.  That ancestor stores the
+//    handle in a per-slot list and uses `addListener` to schedule an
+//    eviction once `release()` is called.
+//
+//  • RE-USE.  A handle is intentionally not reusable.  If `wantKeepAlive`
+//    flips to false, the mixin calls `release()` on the existing handle
+//    and discards it; on the next true value, a *new* handle is created.
+//    This is why long-running widgets that toggle their keep-alive value
+//    must implement `updateKeepAlive()` correctly.
+//
+//  • NOTIFICATION COST.  Dispatching a KeepAliveNotification walks the
+//    element tree synchronously.  This is cheap, but it does happen on
+//    every build that toggles keep-alive on, so do not toggle in a loop.
+//
+//  • WHY IS IT A ChangeNotifier?  Originally KeepAliveHandle could have
+//    been a one-shot Future.  Using ChangeNotifier allows the ancestor to
+//    register a removeListener call symmetrically with addListener, which
+//    matches the rest of the framework's lifecycle conventions.
+//
+//  • TESTING.  Driving the handle in unit tests is straightforward:
+//
+//        final handle = KeepAliveHandle();
+//        bool fired = false;
+//        handle.addListener(() => fired = true);
+//        handle.release();
+//        expect(fired, isTrue);
+//
+//    That makes KeepAliveHandle a good entry-point for white-box testing
+//    custom keep-alive widgets.
+//
+//  • DEBUGGING.  Add a `print` to the listener attached by your
+//    AutomaticKeepAlive subclass to log slots that get released; this is
+//    useful when investigating "why is my widget rebuilding?" issues.
+//
+//  • COMMON BUG.  A `wantKeepAlive` getter that depends on data fetched
+//    via Provider can return the wrong value before the data has loaded.
+//    The fix is usually to default to true while loading and to call
+//    `updateKeepAlive()` once the real value is known.
+//
+//  • RELEASE ORDERING.  When the State is disposed, the mixin releases
+//    its handle for you.  In custom code, prefer to release before
+//    super.dispose() to keep the lifecycle predictable.
+//
+//  • PERFORMANCE NOTE.  Keep-alive trades memory for CPU: kept-alive
+//    children stay in the element tree and the render tree, which means
+//    they continue to consume memory even when off-screen.  Use it
+//    selectively for state that is expensive to lose.
+//
+//  • OBSERVABILITY.  In the inspector you can spot kept-alive subtrees
+//    because they appear under an AutomaticKeepAlive node even when their
+//    visible area is gone.
+//
+//  • COMPOSITIONAL TIP.  If you have a long form with multiple input
+//    sections, a single AutomaticKeepAliveClientMixin on the top-level
+//    State is usually enough; you do not need to attach one to every
+//    child.
+//
+//  • NULL-SAFETY.  KeepAliveHandle and KeepAliveNotification are non-null
+//    types; you must construct a fresh handle each time you intend to
+//    request a new keep-alive lease.
+//
+//  • COMPATIBILITY.  KeepAliveHandle has been part of Flutter for many
+//    versions; the API has been stable since well before sound null
+//    safety landed.  No deprecations are pending at the time of writing.
+//
+//  • THIS FILE.  Lines are deliberately wrapped at ~80 columns for
+//    readability and to make `dart analyze` warn-free.  No `// ignore:`
+//    pragmas are necessary; the only header pragmas relax three classic
+//    deep-demo concerns (avoid_print, deprecated_member_use, and
+//    sort_child_properties_last) that may legitimately fire across the
+//    family of harness files.
+//
+//  ── End of extended commentary ──

@@ -1,1022 +1,1988 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last, prefer_const_constructors
-// D4rt test script: Deep Demo — DragTargetDetails
-// Demonstrates DragTargetDetails<T>, the class that carries information
-// about data accepted by a DragTarget. Covers its properties (data,
-// offset), integration with Draggable/DragTarget/LongPressDraggable,
-// typed drag data, offset coordinate systems, multi-type drag targets,
-// visual feedback, and real-world drag-and-drop patterns.
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// =============================================================================
+// Deep demo for DragTargetDetails<T>.
+//
+// Unlike the prior version of this file, every drag/drop is *live*: real
+// Draggable<T> sources are paired with real DragTarget<T> sinks, and every
+// callback (onWillAcceptWithDetails, onAcceptWithDetails, onMove, onLeave)
+// is exercised against the running widget tree.  The state mutated by those
+// callbacks drives the visible UI: an event log, last-drop banners, a
+// data-inspector card, lane totals, a coordinate marker, a trash list, a
+// shelf, a rank row, and so on.
+//
+// Twelve sections (see DESIGN PLAN in the conversation):
+//   1) Anatomy banner                7) Offset tracker (global vs local)
+//   2) Int drop zone                 8) Data inspector card
+//   3) Multi-basket typed strings    9) Trash can recipe
+//   4) Parcel dispatcher (custom T) 10) File shelf (custom T, sorted)
+//   5) Hover preview via onMove     11) Rank reorder slots
+//   6) Accept/reject visualizer     12) Pitfalls + reference table
+// =============================================================================
+
+// -------- Custom payload types used as <T> for Draggable/DragTarget --------
+
+class Parcel {
+  final String label;
+  final String kind; // 'mail' | 'box' | 'fragile'
+  final double weightKg;
+  const Parcel(this.label, this.kind, this.weightKg);
+
+  @override
+  String toString() => 'Parcel($label,$kind,${weightKg}kg)';
+}
+
+class MyFile {
+  final String name;
+  final String ext;
+  final int sizeKb;
+  const MyFile(this.name, this.ext, this.sizeKb);
+
+  @override
+  String toString() => 'MyFile($name.$ext,${sizeKb}kb)';
+}
+
+// A single LogEntry that any callback can append.  We capture data, offset,
+// the source zone label, and an outcome marker so the event log card can
+// render a colour for every line.
+class LogEntry {
+  final String zone;
+  final String outcome; // 'accept' | 'reject' | 'leave' | 'move'
+  final String dataDesc;
+  final Offset offset;
+  final DateTime ts;
+  LogEntry({
+    required this.zone,
+    required this.outcome,
+    required this.dataDesc,
+    required this.offset,
+    required this.ts,
+  });
+}
+
+// Helper: turn an Offset into a short, readable string.
+String fmtOffset(Offset o) =>
+    '(${o.dx.toStringAsFixed(1)}, ${o.dy.toStringAsFixed(1)})';
+
+// -----------------------------------------------------------------------------
+// Top-level harness entry point required by the harness contract.
+// -----------------------------------------------------------------------------
 dynamic build(BuildContext context) {
-  print('DragTargetDetails Deep Demo executing');
-
-  // ============================================================
-  // SECTION 1: What is DragTargetDetails?
-  // ============================================================
-  print('=== Section 1: Concept ===');
-
-  final conceptCards = <Map<String, dynamic>>[
-    {
-      'icon': Icons.move_to_inbox,
-      'title': 'Accepted Drag Data Carrier',
-      'body': 'DragTargetDetails<T> is an immutable class that holds '
-          'the data and offset of a drag operation that was accepted '
-          'by a DragTarget. When a Draggable is dropped onto a '
-          'DragTarget and the onWillAcceptWithDetails callback '
-          'returns true, a DragTargetDetails instance is created '
-          'containing the accepted payload.',
-      'accent': Colors.amber[700]!,
-    },
-    {
-      'icon': Icons.data_object,
-      'title': 'Two Key Properties',
-      'body': 'DragTargetDetails has two properties:\n'
-          '• data — the typed payload (T) carried by the Draggable\n'
-          '• offset — the Offset where the pointer was when the '
-          'drop occurred, in global (screen) coordinates.\n\n'
-          'These are all you need to process a drop: what was '
-          'dropped and where it landed.',
-      'accent': Colors.amber[800]!,
-    },
-    {
-      'icon': Icons.sync_alt,
-      'title': 'Bridge Between Draggable and DragTarget',
-      'body': 'DragTargetDetails connects the producer (Draggable, '
-          'which creates the data) with the consumer (DragTarget, '
-          'which accepts and processes it). The DragTarget receives '
-          'the details in onAcceptWithDetails, where you can use '
-          'both the data and the precise drop position.',
-      'accent': Colors.brown[500]!,
-    },
-    {
-      'icon': Icons.pin_drop,
-      'title': 'Position-Aware Drops',
-      'body': 'The offset property enables position-aware drop '
-          'handling. You can determine where in the target the '
-          'item was dropped: left side vs. right side, top vs. '
-          'bottom, or map to a grid cell. Convert from global '
-          'to local coordinates with the RenderBox.',
-      'accent': Colors.brown[600]!,
-    },
-  ];
-
-  print('  Prepared ${conceptCards.length} concept cards');
-
-  // ============================================================
-  // SECTION 2: DragTargetDetails Properties
-  // ============================================================
-  print('=== Section 2: Properties ===');
-
-  final properties = <Map<String, dynamic>>[
-    {
-      'name': 'data',
-      'type': 'T',
-      'icon': Icons.inventory_2,
-      'color': Colors.amber[700]!,
-      'desc': 'The payload carried by the Draggable. The type T is '
-          'the generic type parameter of both the Draggable and '
-          'the DragTarget. For example, Draggable<String> produces '
-          'DragTargetDetails<String> where data is the String.',
-      'example': 'details.data  // → "task-42" (String)',
-    },
-    {
-      'name': 'offset',
-      'type': 'Offset',
-      'icon': Icons.my_location,
-      'color': Colors.brown[500]!,
-      'desc': 'The global position (screen coordinates) of the '
-          'pointer at the moment the drop was accepted. To convert '
-          'to local coordinates within the DragTarget, use:\n\n'
-          'final box = context.findRenderObject() as RenderBox;\n'
-          'final local = box.globalToLocal(details.offset);',
-      'example': 'details.offset  // → Offset(183.2, 412.7)',
-    },
-  ];
-
-  print('  Listed ${properties.length} properties');
-
-  // ============================================================
-  // SECTION 3: Drag & Drop Architecture
-  // ============================================================
-  print('=== Section 3: Architecture ===');
-
-  final architectureParts = <Map<String, dynamic>>[
-    {
-      'title': 'Draggable<T>',
-      'subtitle': 'Producer',
-      'icon': Icons.open_with,
-      'color': Colors.blue[600]!,
-      'body': 'Creates the drag data. Has a child (display widget), '
-          'feedback (widget shown during drag), and data property '
-          '(the payload). When the user starts dragging, the '
-          'feedback widget follows the pointer.',
-    },
-    {
-      'title': 'DragTarget<T>',
-      'subtitle': 'Consumer',
-      'icon': Icons.inbox,
-      'color': Colors.green[600]!,
-      'body': 'Receives the drag data. Has builder (display), '
-          'onWillAcceptWithDetails (accept/reject test), and '
-          'onAcceptWithDetails (process the drop). The builder '
-          'receives lists of accepted and rejected candidates.',
-    },
-    {
-      'title': 'DragTargetDetails<T>',
-      'subtitle': 'Data Envelope',
-      'icon': Icons.mail,
-      'color': Colors.amber[700]!,
-      'body': 'Created when a drop is accepted. Contains the data '
-          'payload and the drop offset. Passed to onAcceptWithDetails '
-          'and onWillAcceptWithDetails callbacks.',
-    },
-    {
-      'title': 'LongPressDraggable<T>',
-      'subtitle': 'Alternative Producer',
-      'icon': Icons.touch_app,
-      'color': Colors.orange[600]!,
-      'body': 'Like Draggable but requires a long press to start the '
-          'drag. Prevents accidental drags. Produces the same '
-          'DragTargetDetails when dropped on a compatible target.',
-    },
-  ];
-
-  print('  Listed ${architectureParts.length} architecture parts');
-
-  // ============================================================
-  // SECTION 4: Callback Flow
-  // ============================================================
-  print('=== Section 4: Callback Flow ===');
-
-  final callbackFlow = <Map<String, dynamic>>[
-    {
-      'step': '1',
-      'title': 'Drag starts',
-      'color': Colors.blue[400]!,
-      'desc': 'User starts dragging a Draggable<T>. The feedback '
-          'widget appears under the pointer. No DragTargetDetails '
-          'object exists yet.',
-    },
-    {
-      'step': '2',
-      'title': 'Pointer enters DragTarget',
-      'color': Colors.amber[400]!,
-      'desc': 'When the pointer enters a DragTarget<T>, '
-          'onWillAcceptWithDetails is called with a '
-          'DragTargetDetails containing the data and current offset. '
-          'Return true to indicate the target will accept this data.',
-    },
-    {
-      'step': '3',
-      'title': 'DragTarget rebuilds',
-      'color': Colors.amber[600]!,
-      'desc': 'The builder callback fires with the Draggable\'s data '
-          'in the candidateData list (if accepted) or rejectedData '
-          'list (if not). Use this to show visual feedback: '
-          'highlight the target, change its color or border.',
-    },
-    {
-      'step': '4',
-      'title': 'Drop occurs',
-      'color': Colors.green[500]!,
-      'desc': 'User releases the pointer over the DragTarget. '
-          'onAcceptWithDetails is called with the final '
-          'DragTargetDetails (data + drop offset). This is where '
-          'you process the drop: add to a list, reorder, etc.',
-    },
-    {
-      'step': '5',
-      'title': 'Cleanup',
-      'color': Colors.grey[500]!,
-      'desc': 'The DragTarget\'s builder fires again with empty '
-          'candidate/rejected lists, removing visual highlights. '
-          'The Draggable returns to its rest state (unless '
-          'childWhenDragging replaces it).',
-    },
-  ];
-
-  print('  Prepared ${callbackFlow.length} callback flow steps');
-
-  // ============================================================
-  // SECTION 5: Offset Coordinate System
-  // ============================================================
-  print('=== Section 5: Offset Coordinates ===');
-
-  final offsetInfo = <Map<String, dynamic>>[
-    {
-      'title': 'Global Coordinates',
-      'icon': Icons.public,
-      'color': Colors.red[500]!,
-      'body': 'details.offset returns screen coordinates. (0, 0) is '
-          'the top-left of the screen. This is always relative to '
-          'the device display, not any particular widget.',
-    },
-    {
-      'title': 'Converting to Local',
-      'icon': Icons.transform,
-      'color': Colors.blue[500]!,
-      'body': 'To get the position relative to the DragTarget:\n\n'
-          'final box = context.findRenderObject() as RenderBox;\n'
-          'final local = box.globalToLocal(details.offset);\n\n'
-          'Now local.dx and local.dy are relative to the top-left '
-          'of the DragTarget widget.',
-    },
-    {
-      'title': 'Grid Cell Mapping',
-      'icon': Icons.grid_on,
-      'color': Colors.green[500]!,
-      'body': 'With local coordinates, map to a grid cell:\n\n'
-          'final col = (local.dx / cellWidth).floor();\n'
-          'final row = (local.dy / cellHeight).floor();\n\n'
-          'This is how chess boards, Kanban boards, and inventory '
-          'systems determine where to place a dropped item.',
-    },
-    {
-      'title': 'Feedback Offset',
-      'icon': Icons.near_me,
-      'color': Colors.purple[500]!,
-      'body': 'The offset is the pointer position, not the center of '
-          'the feedback widget. If you need the feedback widget\'s '
-          'center, adjust by half the feedback\'s size. Draggable\'s '
-          'feedbackOffset parameter can help align this.',
-    },
-  ];
-
-  print('  Prepared ${offsetInfo.length} offset info items');
-
-  // ============================================================
-  // SECTION 6: Type Safety Patterns
-  // ============================================================
-  print('=== Section 6: Type Safety ===');
-
-  final typeSafety = <Map<String, dynamic>>[
-    {
-      'title': 'Simple String Data',
-      'icon': Icons.text_fields,
-      'color': Colors.amber[700]!,
-      'snippet': 'Draggable<String>(data: "task-1", ...)\n'
-          'DragTarget<String>(\n'
-          '  onAcceptWithDetails: (details) {\n'
-          '    print(details.data); // String\n'
-          '  },\n'
-          ')',
-    },
-    {
-      'title': 'Complex Object Data',
-      'icon': Icons.data_object,
-      'color': Colors.brown[500]!,
-      'snippet': 'class Task { String id; String title; int priority; }\n\n'
-          'Draggable<Task>(data: myTask, ...)\n'
-          'DragTarget<Task>(\n'
-          '  onAcceptWithDetails: (details) {\n'
-          '    final task = details.data; // Task\n'
-          '    addToColumn(task);\n'
-          '  },\n'
-          ')',
-    },
-    {
-      'title': 'Enum Category Data',
-      'icon': Icons.category,
-      'color': Colors.teal[600]!,
-      'snippet': 'enum Priority { high, medium, low }\n\n'
-          'Draggable<Priority>(data: Priority.high, ...)\n'
-          'DragTarget<Priority>(\n'
-          '  onWillAcceptWithDetails: (details) {\n'
-          '    return details.data != Priority.low;\n'
-          '  },\n'
-          ')',
-    },
-    {
-      'title': 'Integer Index Data',
-      'icon': Icons.format_list_numbered,
-      'color': Colors.indigo[600]!,
-      'snippet': 'Draggable<int>(data: itemIndex, ...)\n'
-          'DragTarget<int>(\n'
-          '  onAcceptWithDetails: (details) {\n'
-          '    reorder(details.data, targetIndex);\n'
-          '  },\n'
-          ')',
-    },
-  ];
-
-  print('  Prepared ${typeSafety.length} type safety examples');
-
-  // ============================================================
-  // SECTION 7: Real-World Patterns
-  // ============================================================
-  print('=== Section 7: Real-World Patterns ===');
-
-  final patterns = <Map<String, dynamic>>[
-    {
-      'title': 'Kanban Board',
-      'icon': Icons.view_column,
-      'color': Colors.blue[600]!,
-      'body': 'Cards are Draggable<Task>, columns are DragTarget<Task>. '
-          'When a card is dropped, onAcceptWithDetails provides the '
-          'task data and the offset. The offset determines vertical '
-          'position in the column for insertion order.',
-    },
-    {
-      'title': 'File Manager',
-      'icon': Icons.folder,
-      'color': Colors.orange[600]!,
-      'body': 'Files are Draggable<FileItem>, folders are '
-          'DragTarget<FileItem>. onWillAcceptWithDetails checks '
-          'if the file can go in the folder (permissions, type '
-          'restrictions). onAcceptWithDetails moves the file.',
-    },
-    {
-      'title': 'Inventory Grid',
-      'icon': Icons.grid_view,
-      'color': Colors.green[600]!,
-      'body': 'Items are Draggable<InventoryItem>, grid cells are '
-          'DragTargets. The details.offset is converted to local '
-          'coordinates to compute which cell the item was dropped on. '
-          'This allows precise placement in a 2D grid.',
-    },
-    {
-      'title': 'Shopping Cart',
-      'icon': Icons.shopping_bag,
-      'color': Colors.red[500]!,
-      'body': 'Products are Draggable<Product>, the cart area is a '
-          'DragTarget<Product>. onAcceptWithDetails adds the product '
-          'to the cart. The offset isn\'t needed since position '
-          'within the cart doesn\'t matter — just acceptance.',
-    },
-    {
-      'title': 'Sortable List',
-      'icon': Icons.sort,
-      'color': Colors.purple[600]!,
-      'body': 'Each list item is both a Draggable<int> (its index) '
-          'and wrapped in a DragTarget<int>. When dropped, the '
-          'details provide the source index. Combined with the '
-          'target index, you perform a reorder operation.',
-    },
-  ];
-
-  print('  Prepared ${patterns.length} real-world patterns');
-
-  // ============================================================
-  // SECTION 8: Tips & Best Practices
-  // ============================================================
-  print('=== Section 8: Tips & Best Practices ===');
-
-  final tips = <Map<String, dynamic>>[
-    {
-      'icon': Icons.check_circle_outline,
-      'title': 'Always Use onAcceptWithDetails Over onAccept',
-      'body': 'The older onAccept callback only provides the data, '
-          'not the offset. Prefer onAcceptWithDetails, which gives '
-          'you DragTargetDetails with both data and offset for '
-          'complete drop information.',
-      'severity': 'tip',
-    },
-    {
-      'icon': Icons.warning_amber,
-      'title': 'Type Mismatch = Silent Rejection',
-      'body': 'If a Draggable<String> hovers over a '
-          'DragTarget<int>, neither the onWillAcceptWithDetails '
-          'nor onAcceptWithDetails will fire. The types must match. '
-          'This is silent — no error is thrown.',
-      'severity': 'warning',
-    },
-    {
-      'icon': Icons.lightbulb_outline,
-      'title': 'Convert Offset in onAcceptWithDetails',
-      'body': 'The offset is in global coordinates. Always convert '
-          'to local if you need the position within the target. '
-          'Cache the RenderBox if you do this often:\n\n'
-          'final box = context.findRenderObject() as RenderBox;\n'
-          'final local = box.globalToLocal(details.offset);',
-      'severity': 'info',
-    },
-    {
-      'icon': Icons.check_circle_outline,
-      'title': 'Use Generics for Complex Payloads',
-      'body': 'Rather than passing a Map or dynamic, define a proper '
-          'data class for your drag payload. This gives you compile-time '
-          'type checking and IDE auto-complete when accessing '
-          'details.data properties.',
-      'severity': 'tip',
-    },
-    {
-      'icon': Icons.warning_amber,
-      'title': 'DragTargetDetails Is Immutable',
-      'body': 'You cannot modify the data or offset on a '
-          'DragTargetDetails instance. If you need modified data, '
-          'read the values and create your own objects. The details '
-          'are a snapshot of the drop moment.',
-      'severity': 'warning',
-    },
-    {
-      'icon': Icons.lightbulb_outline,
-      'title': 'Multi-Target Drops',
-      'body': 'If DragTargets overlap, only the innermost one that '
-          'accepts the data will fire. Design your layout so drop '
-          'zones don\'t overlap unexpectedly — or use this behavior '
-          'intentionally for nested containers.',
-      'severity': 'info',
-    },
-  ];
-
-  print('  Prepared ${tips.length} tips');
-
-  // ============================================================
-  // BUILD THE VISUAL LAYOUT
-  // ============================================================
-  print('=== Building visual layout ===');
-
-  return Scaffold(
-    backgroundColor: Colors.grey[50],
-    appBar: AppBar(
-      title: Text('DragTargetDetails'),
-      backgroundColor: Colors.amber[800],
-      foregroundColor: Colors.white,
-      elevation: 0,
+  print('DragTargetDetails deep-demo: build() invoked');
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'DragTargetDetails Live Demo',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      useMaterial3: true,
     ),
-    body: SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ── Header banner ──
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.amber[800]!, Colors.brown[600]!],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    home: const _DragDetailsHome(),
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Stateful root widget.  All sections share a single state object so that
+// drops in one card can update banners and the inspector in other cards.
+// -----------------------------------------------------------------------------
+class _DragDetailsHome extends StatefulWidget {
+  const _DragDetailsHome();
+
+  @override
+  State<_DragDetailsHome> createState() => _DragDetailsHomeState();
+}
+
+class _DragDetailsHomeState extends State<_DragDetailsHome> {
+  // ---- Section 1 / 8 — global "last drop" inspector --------------------------
+  Type? lastDataType;
+  String? lastDataDesc;
+  Offset? lastOffset;
+  String? lastZone;
+  int totalDrops = 0;
+  int totalRejects = 0;
+
+  // ---- Section 2 — running int sum ------------------------------------------
+  int intSum = 0;
+  final List<int> intHistory = <int>[];
+  Offset? lastIntOffset;
+
+  // ---- Section 3 — multi-basket String state --------------------------------
+  final Map<String, List<String>> basket = {
+    'fruits': <String>[],
+    'veggies': <String>[],
+    'grains': <String>[],
+  };
+  final Map<String, Offset?> basketOffsets = {
+    'fruits': null,
+    'veggies': null,
+    'grains': null,
+  };
+
+  // ---- Section 4 — Parcel dispatcher state ----------------------------------
+  final Map<String, double> parcelLaneWeight = {
+    'mail': 0.0,
+    'box': 0.0,
+    'fragile': 0.0,
+  };
+  final Map<String, int> parcelLaneCount = {
+    'mail': 0,
+    'box': 0,
+    'fragile': 0,
+  };
+  final Map<String, Offset?> parcelLaneOffset = {
+    'mail': null,
+    'box': null,
+    'fragile': null,
+  };
+
+  // ---- Section 5 — hover preview --------------------------------------------
+  Offset? hoverGlobal;
+  Offset? hoverLocal;
+  bool hoverWouldAccept = false;
+  final GlobalKey hoverPadKey = GlobalKey();
+
+  // ---- Section 6 — accept/reject visualizer ---------------------------------
+  final List<String> visualLog = <String>[];
+
+  // ---- Section 7 — offset tracker -------------------------------------------
+  final List<Offset> trackerLocalDots = <Offset>[];
+  final GlobalKey trackerKey = GlobalKey();
+  Offset? trackerLastGlobal;
+  Offset? trackerLastLocal;
+
+  // ---- Section 9 — trash --------------------------------------------------
+  final List<({String item, Offset offset})> trashed = [];
+
+  // ---- Section 10 — file shelf ----------------------------------------------
+  final List<({MyFile file, double dropX})> shelf = [];
+  final GlobalKey shelfKey = GlobalKey();
+
+  // ---- Section 11 — rank reorder slots --------------------------------------
+  final List<int?> rankSlots = <int?>[null, null, null, null, null];
+  final List<GlobalKey> rankKeys =
+      List<GlobalKey>.generate(5, (_) => GlobalKey());
+  String rankNote = 'Drop a number onto the row; the closest slot wins.';
+
+  // ---- Cross-cutting event log ----------------------------------------------
+  final List<LogEntry> events = <LogEntry>[];
+
+  void _record({
+    required String zone,
+    required String outcome,
+    required String dataDesc,
+    required Offset offset,
+    required Type dataType,
+  }) {
+    events.insert(
+      0,
+      LogEntry(
+        zone: zone,
+        outcome: outcome,
+        dataDesc: dataDesc,
+        offset: offset,
+        ts: DateTime.now(),
+      ),
+    );
+    if (events.length > 40) {
+      events.removeRange(40, events.length);
+    }
+    lastDataType = dataType;
+    lastDataDesc = dataDesc;
+    lastOffset = offset;
+    lastZone = zone;
+    if (outcome == 'accept') {
+      totalDrops++;
+    } else if (outcome == 'reject') {
+      totalRejects++;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    final platform = Theme.of(context).platform;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('DragTargetDetails<T> — Live Deep Demo'),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildAnatomyBanner(context),
+              const SizedBox(height: 16),
+              _buildIntDropZone(context),
+              const SizedBox(height: 16),
+              _buildBasketSection(context),
+              const SizedBox(height: 16),
+              _buildParcelDispatcher(context),
+              const SizedBox(height: 16),
+              _buildHoverPreview(context),
+              const SizedBox(height: 16),
+              _buildAcceptRejectVisualizer(context),
+              const SizedBox(height: 16),
+              _buildOffsetTracker(context),
+              const SizedBox(height: 16),
+              _buildInspectorCard(context),
+              const SizedBox(height: 16),
+              _buildTrashRecipe(context),
+              const SizedBox(height: 16),
+              _buildFileShelf(context),
+              const SizedBox(height: 16),
+              _buildRankSlots(context),
+              const SizedBox(height: 16),
+              _buildPitfallsAndReference(context),
+              const SizedBox(height: 16),
+              _buildEventLogCard(context),
+              const SizedBox(height: 16),
+              _buildPlatformFooter(context, platform),
+              const SizedBox(height: 32),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 1 — Anatomy banner with live ticker
+  // ===========================================================================
+  Widget _buildAnatomyBanner(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Card(
+      color: scheme.primaryContainer,
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                Icon(Icons.move_to_inbox, color: Colors.white, size: 40),
-                SizedBox(height: 12),
+                Icon(Icons.science, color: scheme.onPrimaryContainer),
+                const SizedBox(width: 8),
                 Text(
-                  'DragTargetDetails<T>',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'The data envelope delivered when a Draggable is '
-                  'accepted by a DragTarget. Carries the typed payload '
-                  'and the global offset of the drop position.',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                    height: 1.5,
-                  ),
+                  '1 — Anatomy of DragTargetDetails<T>',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: scheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
               ],
             ),
+            const SizedBox(height: 8),
+            Text(
+              'A DragTargetDetails<T> is an immutable record passed by '
+              'Flutter into onAcceptWithDetails / onWillAcceptWithDetails / '
+              'onMoveWithDetails. It exposes two fields:\n'
+              '  • data: T  — the payload carried by the matching Draggable<T>\n'
+              '  • offset: Offset — pointer position in *global* coordinates '
+              'at the moment of the event.\n\n'
+              'In every section below, real callbacks read those fields and '
+              'mutate the state you see on screen.',
+              style: TextStyle(color: scheme.onPrimaryContainer),
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                _statChip('Drops', '$totalDrops', Colors.green),
+                _statChip('Rejections', '$totalRejects', Colors.red),
+                _statChip(
+                  'Last zone',
+                  lastZone ?? '—',
+                  Colors.blueGrey,
+                ),
+                _statChip(
+                  'Last data',
+                  lastDataDesc ?? '—',
+                  Colors.deepOrange,
+                ),
+                _statChip(
+                  'Last offset',
+                  lastOffset == null ? '—' : fmtOffset(lastOffset!),
+                  Colors.indigo,
+                ),
+                _statChip(
+                  'Data type',
+                  lastDataType?.toString() ?? '—',
+                  Colors.teal,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _statChip(String k, String v, Color c) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: c.withOpacity(0.15),
+          border: Border.all(color: c, width: 1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          '$k: $v',
+          style: TextStyle(color: c, fontWeight: FontWeight.w600),
+        ),
+      );
+
+  // ===========================================================================
+  // SECTION 2 — Simple Draggable<int> + DragTarget<int>
+  // ===========================================================================
+  Widget _buildIntDropZone(BuildContext context) {
+    return _SectionCard(
+      title: '2 — Draggable<int> into DragTarget<int>',
+      subtitle:
+          'Each int chip is a Draggable<int>. The drop zone is a DragTarget<int>; '
+          'its onAcceptWithDetails reads details.data (int) and details.offset.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final n in [1, 2, 3, 5, 8, 13, 21])
+                Draggable<int>(
+                  data: n,
+                  feedback: _IntChip(n: n, dragging: true),
+                  childWhenDragging: _IntChip(n: n, faded: true),
+                  child: _IntChip(n: n),
+                ),
+            ],
           ),
-
-          SizedBox(height: 24),
-
-          // ── Section 1: Concept ──
-          _heading('1', 'What is DragTargetDetails?'),
-          SizedBox(height: 12),
-          ...conceptCards.map((card) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: _accentCard(card),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 2: Properties ──
-          _heading('2', 'Properties'),
-          SizedBox(height: 12),
-          ...properties.map((prop) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: prop['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(prop['icon'] as IconData,
-                            color: prop['color'] as Color, size: 22),
-                        SizedBox(width: 10),
-                        Text(prop['name'] as String,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                color: prop['color'] as Color)),
-                        SizedBox(width: 8),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color:
-                                (prop['color'] as Color).withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(prop['type'] as String,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: prop['color'] as Color)),
-                        ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(prop['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(prop['example'] as String,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[800])),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 3: Architecture ──
-          _heading('3', 'Drag & Drop Architecture'),
-          SizedBox(height: 12),
-          ...architectureParts.map((part) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: part['color'] as Color,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(part['icon'] as IconData,
-                            color: Colors.white, size: 24),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              Text(part['title'] as String,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14)),
-                              SizedBox(width: 8),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: (part['color'] as Color)
-                                      .withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(part['subtitle'] as String,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: part['color'] as Color)),
-                              ),
-                            ]),
-                            SizedBox(height: 6),
-                            Text(part['body'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[700],
-                                    height: 1.4)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 4: Callback Flow ──
-          _heading('4', 'Callback Flow'),
-          SizedBox(height: 12),
-          ...callbackFlow.map((step) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        color: step['color'] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(step['step'] as String,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14)),
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border(
-                            left: BorderSide(
-                                color: step['color'] as Color, width: 3),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 2,
-                                offset: Offset(0, 1))
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(step['title'] as String,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13)),
-                            SizedBox(height: 4),
-                            Text(step['desc'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[700],
-                                    height: 1.4)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 5: Offset Coordinate System ──
-          _heading('5', 'Offset Coordinate System'),
-          SizedBox(height: 12),
-          ...offsetInfo.map((info) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: info['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(info['icon'] as IconData,
-                            color: info['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(info['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                        ),
-                      ]),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(info['body'] as String,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[800],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 6: Type Safety ──
-          _heading('6', 'Type Safety Patterns'),
-          SizedBox(height: 12),
-          ...typeSafety.map((ts) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(children: [
-                    Container(
-                      width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: ts['color'] as Color,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
-                      ),
-                      child: Row(children: [
-                        Icon(ts['icon'] as IconData,
-                            color: Colors.white, size: 18),
-                        SizedBox(width: 8),
-                        Text(ts['title'] as String,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13)),
-                      ]),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12),
-                      child: Text(ts['snippet'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: Colors.grey[800],
-                              height: 1.5)),
-                    ),
-                  ]),
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 7: Real-World Patterns ──
-          _heading('7', 'Real-World Patterns'),
-          SizedBox(height: 12),
-          ...patterns.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(p['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                        ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['body'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
-                ),
-              )),
-
-          SizedBox(height: 24),
-
-          // ── Section 8: Tips ──
-          _heading('8', 'Tips & Best Practices'),
-          SizedBox(height: 12),
-          ...tips.map((tip) {
-            Color bgColor;
-            Color borderColor;
-            switch (tip['severity']) {
-              case 'warning':
-                bgColor = Colors.amber[50]!;
-                borderColor = Colors.amber[400]!;
-                break;
-              case 'tip':
-                bgColor = Colors.green[50]!;
-                borderColor = Colors.green[400]!;
-                break;
-              default:
-                bgColor = Colors.blue[50]!;
-                borderColor = Colors.blue[300]!;
-            }
-            return Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
+          const SizedBox(height: 12),
+          DragTarget<int>(
+            onWillAcceptWithDetails: (details) {
+              // Reject zero (won't happen here, but documents the API).
+              return details.data != 0;
+            },
+            onAcceptWithDetails: (details) {
+              setState(() {
+                intSum += details.data;
+                intHistory.add(details.data);
+                lastIntOffset = details.offset;
+                _record(
+                  zone: 'int-zone',
+                  outcome: 'accept',
+                  dataDesc: '${details.data}',
+                  offset: details.offset,
+                  dataType: details.data.runtimeType,
+                );
+              });
+            },
+            onLeave: (data) {
+              setState(() {
+                _record(
+                  zone: 'int-zone',
+                  outcome: 'leave',
+                  dataDesc: '$data',
+                  offset: Offset.zero,
+                  dataType: int,
+                );
+              });
+            },
+            builder: (ctx, candidate, rejected) {
+              final hovering = candidate.isNotEmpty;
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                height: 110,
                 decoration: BoxDecoration(
-                  color: bgColor,
+                  color: hovering
+                      ? Colors.green.withOpacity(0.18)
+                      : Colors.grey.withOpacity(0.08),
+                  border: Border.all(
+                    color: hovering ? Colors.green : Colors.grey,
+                    width: hovering ? 3 : 1,
+                  ),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
-                    SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
-                  ],
+                alignment: Alignment.center,
+                child: Text(
+                  hovering
+                      ? 'Release to add ${candidate.first}'
+                      : 'Drop ints here  —  running sum: $intSum',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'History: ${intHistory.isEmpty ? "(none)" : intHistory.join(" + ")}'
+            '${intHistory.isEmpty ? "" : " = $intSum"}',
+            style: const TextStyle(fontFamily: 'monospace'),
+          ),
+          if (lastIntOffset != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              'Last drop global offset: ${fmtOffset(lastIntOffset!)}',
+              style: const TextStyle(color: Colors.indigo),
+            ),
+          ],
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  intSum = 0;
+                  intHistory.clear();
+                  lastIntOffset = null;
+                });
+              },
+              icon: const Icon(Icons.restart_alt),
+              label: const Text('Reset int zone'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 3 — Multi-basket typed Strings
+  // ===========================================================================
+  Widget _buildBasketSection(BuildContext context) {
+    final fruits = ['apple', 'banana', 'cherry'];
+    final veggies = ['carrot', 'kale', 'onion'];
+    final grains = ['rice', 'oats', 'wheat'];
+
+    return _SectionCard(
+      title: '3 — Three typed baskets (Draggable<String>)',
+      subtitle:
+          'Each basket is a DragTarget<String> that uses '
+          'onWillAcceptWithDetails to reject items from the wrong category.',
+      child: Column(
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final s in [...fruits, ...veggies, ...grains])
+                Draggable<String>(
+                  data: s,
+                  feedback: _StrChip(label: s, dragging: true),
+                  childWhenDragging: _StrChip(label: s, faded: true),
+                  child: _StrChip(label: s),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: _basketTarget('fruits', fruits, Colors.redAccent),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _basketTarget('veggies', veggies, Colors.green),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _basketTarget('grains', grains, Colors.brown),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _basketTarget(String name, List<String> allowed, Color color) {
+    return DragTarget<String>(
+      onWillAcceptWithDetails: (details) {
+        // Only accept strings in this basket's allow-list.
+        return allowed.contains(details.data);
+      },
+      onAcceptWithDetails: (details) {
+        setState(() {
+          basket[name]!.add(details.data);
+          basketOffsets[name] = details.offset;
+          _record(
+            zone: 'basket-$name',
+            outcome: 'accept',
+            dataDesc: details.data,
+            offset: details.offset,
+            dataType: String,
+          );
+        });
+      },
+      onLeave: (data) {
+        if (data != null && !allowed.contains(data)) {
+          setState(() {
+            _record(
+              zone: 'basket-$name',
+              outcome: 'reject',
+              dataDesc: data,
+              offset: Offset.zero,
+              dataType: String,
+            );
+          });
+        }
+      },
+      builder: (ctx, candidate, rejected) {
+        final hovering = candidate.isNotEmpty;
+        final rejecting = rejected.isNotEmpty;
+        return Container(
+          height: 150,
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: hovering
+                ? color.withOpacity(0.20)
+                : rejecting
+                    ? Colors.red.withOpacity(0.15)
+                    : color.withOpacity(0.05),
+            border: Border.all(
+              color: rejecting ? Colors.red : color,
+              width: hovering || rejecting ? 3 : 1,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                name.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-            );
-          }),
+              const SizedBox(height: 4),
+              Text(
+                'Count: ${basket[name]!.length}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12),
+              ),
+              const SizedBox(height: 4),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    basket[name]!.isEmpty
+                        ? '(empty)'
+                        : basket[name]!.join(', '),
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ),
+              ),
+              if (basketOffsets[name] != null)
+                Text(
+                  'last @ ${fmtOffset(basketOffsets[name]!)}',
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.black54,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
-          SizedBox(height: 32),
+  // ===========================================================================
+  // SECTION 4 — Custom-typed Parcel dispatcher
+  // ===========================================================================
+  Widget _buildParcelDispatcher(BuildContext context) {
+    final parcels = const <Parcel>[
+      Parcel('P-1', 'mail', 0.2),
+      Parcel('P-2', 'mail', 0.1),
+      Parcel('P-3', 'box', 1.4),
+      Parcel('P-4', 'box', 2.7),
+      Parcel('P-5', 'fragile', 0.8),
+      Parcel('P-6', 'fragile', 1.2),
+    ];
 
-          // ── Footer ──
-          Center(
+    return _SectionCard(
+      title: '4 — Custom <T = Parcel> dispatcher',
+      subtitle:
+          'Three DragTarget<Parcel> lanes. onAcceptWithDetails reads '
+          'details.data.kind to decide whether to accept and details.data.weightKg '
+          'to update the lane total. Position from details.offset is shown.',
+      child: Column(
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final p in parcels)
+                Draggable<Parcel>(
+                  data: p,
+                  feedback: _ParcelChip(parcel: p, dragging: true),
+                  childWhenDragging: _ParcelChip(parcel: p, faded: true),
+                  child: _ParcelChip(parcel: p),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(child: _parcelLane('mail', Colors.blue)),
+              const SizedBox(width: 8),
+              Expanded(child: _parcelLane('box', Colors.orange)),
+              const SizedBox(width: 8),
+              Expanded(child: _parcelLane('fragile', Colors.purple)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _parcelLane(String kind, Color color) {
+    return DragTarget<Parcel>(
+      onWillAcceptWithDetails: (details) => details.data.kind == kind,
+      onAcceptWithDetails: (details) {
+        setState(() {
+          parcelLaneCount[kind] = parcelLaneCount[kind]! + 1;
+          parcelLaneWeight[kind] =
+              parcelLaneWeight[kind]! + details.data.weightKg;
+          parcelLaneOffset[kind] = details.offset;
+          _record(
+            zone: 'parcel-$kind',
+            outcome: 'accept',
+            dataDesc: details.data.toString(),
+            offset: details.offset,
+            dataType: Parcel,
+          );
+        });
+      },
+      builder: (ctx, candidate, rejected) {
+        final hovering = candidate.isNotEmpty;
+        return Container(
+          height: 130,
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: hovering
+                ? color.withOpacity(0.20)
+                : color.withOpacity(0.06),
+            border: Border.all(
+              color: color,
+              width: hovering ? 3 : 1,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                kind.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '${parcelLaneCount[kind]} parcels',
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                '${parcelLaneWeight[kind]!.toStringAsFixed(1)} kg',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const Spacer(),
+              if (parcelLaneOffset[kind] != null)
+                Text(
+                  'last @ ${fmtOffset(parcelLaneOffset[kind]!)}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.black54,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 5 — Hover preview using onMove (DragTargetDetails<int>)
+  // ===========================================================================
+  Widget _buildHoverPreview(BuildContext context) {
+    return _SectionCard(
+      title: '5 — Live hover preview using onMove',
+      subtitle:
+          'onMove fires with DragTargetDetails on every pointer movement '
+          'inside the target.  We convert details.offset (global) to local '
+          'and draw a crosshair where the pointer currently is.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final n in [10, 20, 30, 40, 50])
+                Draggable<int>(
+                  data: n,
+                  feedback: _IntChip(n: n, dragging: true),
+                  childWhenDragging: _IntChip(n: n, faded: true),
+                  child: _IntChip(n: n),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          DragTarget<int>(
+            key: hoverPadKey,
+            onWillAcceptWithDetails: (details) {
+              setState(() {
+                hoverWouldAccept = details.data >= 20;
+              });
+              return details.data >= 20;
+            },
+            onMove: (details) {
+              final box =
+                  hoverPadKey.currentContext?.findRenderObject() as RenderBox?;
+              setState(() {
+                hoverGlobal = details.offset;
+                hoverLocal = box?.globalToLocal(details.offset);
+                _record(
+                  zone: 'hover-pad',
+                  outcome: 'move',
+                  dataDesc: '${details.data}',
+                  offset: details.offset,
+                  dataType: int,
+                );
+              });
+            },
+            onLeave: (_) {
+              setState(() {
+                hoverGlobal = null;
+                hoverLocal = null;
+                hoverWouldAccept = false;
+              });
+            },
+            onAcceptWithDetails: (details) {
+              setState(() {
+                hoverGlobal = null;
+                hoverLocal = null;
+                hoverWouldAccept = false;
+                _record(
+                  zone: 'hover-pad',
+                  outcome: 'accept',
+                  dataDesc: '${details.data}',
+                  offset: details.offset,
+                  dataType: int,
+                );
+              });
+            },
+            builder: (ctx, candidate, rejected) {
+              return SizedBox(
+                height: 200,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: hoverWouldAccept
+                            ? Colors.green.withOpacity(0.10)
+                            : (hoverGlobal != null
+                                ? Colors.red.withOpacity(0.10)
+                                : Colors.grey.withOpacity(0.05)),
+                        border: Border.all(
+                          color: hoverWouldAccept
+                              ? Colors.green
+                              : (hoverGlobal != null
+                                  ? Colors.red
+                                  : Colors.grey),
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        hoverGlobal == null
+                            ? 'Hover an int chip here\n(only ≥ 20 is accepted)'
+                            : hoverWouldAccept
+                                ? 'Release to accept'
+                                : 'Will reject',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    if (hoverLocal != null)
+                      Positioned(
+                        left: hoverLocal!.dx - 8,
+                        top: hoverLocal!.dy - 8,
+                        child: IgnorePointer(
+                          child: Container(
+                            width: 16,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              border: Border.all(color: Colors.white, width: 2),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          if (hoverGlobal != null)
+            Text(
+              'global: ${fmtOffset(hoverGlobal!)}    '
+              'local: ${hoverLocal == null ? "—" : fmtOffset(hoverLocal!)}',
+              style: const TextStyle(fontFamily: 'monospace'),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 6 — Accept/reject visualizer (evens vs odds)
+  // ===========================================================================
+  Widget _buildAcceptRejectVisualizer(BuildContext context) {
+    return _SectionCard(
+      title: '6 — Accept vs reject visualizer',
+      subtitle:
+          'Two DragTarget<int>: the green target accepts evens, the red '
+          'target accepts odds. The log distinguishes accept (✓) from '
+          'reject-via-onWillAcceptWithDetails-false (✗).',
+      child: Column(
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final n in [4, 7, 10, 11, 14, 17])
+                Draggable<int>(
+                  data: n,
+                  feedback: _IntChip(n: n, dragging: true),
+                  childWhenDragging: _IntChip(n: n, faded: true),
+                  child: _IntChip(n: n),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _arTarget(
+                  label: 'evens only',
+                  color: Colors.green,
+                  predicate: (n) => n % 2 == 0,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _arTarget(
+                  label: 'odds only',
+                  color: Colors.red,
+                  predicate: (n) => n % 2 == 1,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 110,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: visualLog.isEmpty
+                  ? const Center(child: Text('(no events yet)'))
+                  : ListView(
+                      reverse: true,
+                      children: [
+                        for (final line in visualLog.reversed)
+                          Text(
+                            line,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 12,
+                              color: line.startsWith('✓')
+                                  ? Colors.green[800]
+                                  : Colors.red[800],
+                            ),
+                          ),
+                      ],
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _arTarget({
+    required String label,
+    required Color color,
+    required bool Function(int) predicate,
+  }) {
+    return DragTarget<int>(
+      onWillAcceptWithDetails: (details) {
+        final ok = predicate(details.data);
+        if (!ok) {
+          // Log a rejection synchronously.
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            setState(() {
+              visualLog.add('✗ rejected ${details.data} at $label');
+              _record(
+                zone: label,
+                outcome: 'reject',
+                dataDesc: '${details.data}',
+                offset: details.offset,
+                dataType: int,
+              );
+            });
+          });
+        }
+        return ok;
+      },
+      onAcceptWithDetails: (details) {
+        setState(() {
+          visualLog.add(
+              '✓ accepted ${details.data} at $label ${fmtOffset(details.offset)}');
+          _record(
+            zone: label,
+            outcome: 'accept',
+            dataDesc: '${details.data}',
+            offset: details.offset,
+            dataType: int,
+          );
+        });
+      },
+      builder: (ctx, candidate, rejected) {
+        final hovering = candidate.isNotEmpty;
+        final rejecting = rejected.isNotEmpty;
+        return Container(
+          height: 100,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: hovering
+                ? color.withOpacity(0.25)
+                : rejecting
+                    ? Colors.red.withOpacity(0.20)
+                    : color.withOpacity(0.05),
+            border: Border.all(
+              color: rejecting ? Colors.red : color,
+              width: hovering || rejecting ? 3 : 1,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 7 — Offset tracker (global vs local conversion)
+  // ===========================================================================
+  Widget _buildOffsetTracker(BuildContext context) {
+    return _SectionCard(
+      title: '7 — Offset tracker: global vs local',
+      subtitle:
+          'details.offset is in *global* coordinates. We convert to local via '
+          'RenderBox.globalToLocal and place a dot exactly where you dropped.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final c
+                  in ['•A', '•B', '•C', '•D', '•E', '•F'])
+                Draggable<String>(
+                  data: c,
+                  feedback: _StrChip(label: c, dragging: true),
+                  childWhenDragging: _StrChip(label: c, faded: true),
+                  child: _StrChip(label: c),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          DragTarget<String>(
+            key: trackerKey,
+            onAcceptWithDetails: (details) {
+              final box =
+                  trackerKey.currentContext?.findRenderObject() as RenderBox?;
+              final local = box?.globalToLocal(details.offset);
+              setState(() {
+                trackerLastGlobal = details.offset;
+                trackerLastLocal = local;
+                if (local != null) {
+                  trackerLocalDots.add(local);
+                  if (trackerLocalDots.length > 30) {
+                    trackerLocalDots.removeAt(0);
+                  }
+                }
+                _record(
+                  zone: 'tracker',
+                  outcome: 'accept',
+                  dataDesc: details.data,
+                  offset: details.offset,
+                  dataType: String,
+                );
+              });
+            },
+            builder: (ctx, candidate, rejected) {
+              final hovering = candidate.isNotEmpty;
+              return SizedBox(
+                height: 160,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: hovering
+                            ? Colors.indigo.withOpacity(0.10)
+                            : Colors.indigo.withOpacity(0.04),
+                        border: Border.all(color: Colors.indigo, width: 2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        trackerLocalDots.isEmpty
+                            ? 'Drop labels here to drop a dot'
+                            : '${trackerLocalDots.length} drops recorded',
+                        style: const TextStyle(
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    for (final p in trackerLocalDots)
+                      Positioned(
+                        left: p.dx - 4,
+                        top: p.dy - 4,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Colors.indigo,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          if (trackerLastGlobal != null)
+            Text(
+              'last global: ${fmtOffset(trackerLastGlobal!)}    '
+              'last local: ${trackerLastLocal == null ? "—" : fmtOffset(trackerLastLocal!)}',
+              style: const TextStyle(fontFamily: 'monospace'),
+            ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  trackerLocalDots.clear();
+                  trackerLastGlobal = null;
+                  trackerLastLocal = null;
+                });
+              },
+              icon: const Icon(Icons.clear),
+              label: const Text('Clear dots'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 8 — Data inspector card
+  // ===========================================================================
+  Widget _buildInspectorCard(BuildContext context) {
+    return _SectionCard(
+      title: '8 — Data inspector — last DragTargetDetails',
+      subtitle:
+          'Whichever zone produced the most recent DragTargetDetails, '
+          'its fields are dissected here.',
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.04),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.black26),
+        ),
+        child: lastOffset == null
+            ? const Text('No drops yet — interact with any section above.')
+            : Table(
+                columnWidths: const {
+                  0: IntrinsicColumnWidth(),
+                  1: FlexColumnWidth(),
+                },
+                children: [
+                  _row('zone', lastZone ?? '—'),
+                  _row('runtime type', 'DragTargetDetails<$lastDataType>'),
+                  _row('data', lastDataDesc ?? '—'),
+                  _row('data.runtimeType', '$lastDataType'),
+                  _row('offset', fmtOffset(lastOffset!)),
+                  _row('offset.dx', lastOffset!.dx.toStringAsFixed(2)),
+                  _row('offset.dy', lastOffset!.dy.toStringAsFixed(2)),
+                  _row(
+                    'distance from origin',
+                    lastOffset!.distance.toStringAsFixed(2),
+                  ),
+                  _row('total accepts', '$totalDrops'),
+                  _row('total rejects', '$totalRejects'),
+                ],
+              ),
+      ),
+    );
+  }
+
+  TableRow _row(String k, String v) => TableRow(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
             child: Text(
-              'End of DragTargetDetails Deep Demo',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[400],
-                fontStyle: FontStyle.italic,
+              k,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace',
               ),
             ),
           ),
-          SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+            child: Text(v, style: const TextStyle(fontFamily: 'monospace')),
+          ),
+        ],
+      );
+
+  // ===========================================================================
+  // SECTION 9 — Trash can recipe
+  // ===========================================================================
+  Widget _buildTrashRecipe(BuildContext context) {
+    final items = const [
+      'note.txt',
+      'photo.png',
+      'archive.zip',
+      'sketch.svg',
+      'todo.md',
+    ];
+    return _SectionCard(
+      title: '9 — Recipe: trash can',
+      subtitle:
+          'Drop any String onto the bin; the bin records the value plus '
+          'the global details.offset and lets you restore it.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final s in items)
+                if (!trashed.any((e) => e.item == s))
+                  Draggable<String>(
+                    data: s,
+                    feedback: _StrChip(label: s, dragging: true),
+                    childWhenDragging: _StrChip(label: s, faded: true),
+                    child: _StrChip(label: s),
+                  ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 110,
+                child: DragTarget<String>(
+                  onAcceptWithDetails: (details) {
+                    setState(() {
+                      trashed.add((
+                        item: details.data,
+                        offset: details.offset,
+                      ));
+                      _record(
+                        zone: 'trash',
+                        outcome: 'accept',
+                        dataDesc: details.data,
+                        offset: details.offset,
+                        dataType: String,
+                      );
+                    });
+                  },
+                  builder: (ctx, candidate, rejected) {
+                    final hovering = candidate.isNotEmpty;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      height: 110,
+                      decoration: BoxDecoration(
+                        color: hovering
+                            ? Colors.red.withOpacity(0.20)
+                            : Colors.red.withOpacity(0.05),
+                        border: Border.all(
+                          color: Colors.red,
+                          width: hovering ? 3 : 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            hovering ? Icons.delete_forever : Icons.delete,
+                            size: 36,
+                            color: Colors.red[700],
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Trash (${trashed.length})',
+                            style: TextStyle(
+                              color: Colors.red[700],
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: trashed.isEmpty
+                    ? const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('(no trashed items)'),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          for (final t in trashed)
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.05),
+                                border: Border.all(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${t.item}  ·  ${fmtOffset(t.offset)}',
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        trashed.removeWhere(
+                                            (e) => e.item == t.item);
+                                      });
+                                    },
+                                    child: const Text('restore'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+              ),
+            ],
+          ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
-// ──────────────────────────────────────────────────────────
-// Helper: Section heading
-// ──────────────────────────────────────────────────────────
-Widget _heading(String number, String title) {
-  return Row(
-    children: [
-      Container(
-        width: 30,
-        height: 30,
+  // ===========================================================================
+  // SECTION 10 — File shelf, sorted by drop x
+  // ===========================================================================
+  Widget _buildFileShelf(BuildContext context) {
+    final files = const [
+      MyFile('readme', 'md', 4),
+      MyFile('icon', 'png', 12),
+      MyFile('main', 'dart', 56),
+      MyFile('logs', 'txt', 88),
+      MyFile('data', 'csv', 120),
+    ];
+    final shelved = shelf.map((e) => e.file.toString()).toSet();
+    return _SectionCard(
+      title: '10 — Recipe: file shelf (custom <T = MyFile>)',
+      subtitle:
+          'A DragTarget<MyFile> shelf that orders accepted files by the '
+          'x-coordinate of details.offset (after globalToLocal). Drop on the '
+          'left to insert near the top.',
+      child: Column(
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final f in files)
+                if (!shelved.contains(f.toString()))
+                  Draggable<MyFile>(
+                    data: f,
+                    feedback: _FileChip(file: f, dragging: true),
+                    childWhenDragging: _FileChip(file: f, faded: true),
+                    child: _FileChip(file: f),
+                  ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          DragTarget<MyFile>(
+            key: shelfKey,
+            onAcceptWithDetails: (details) {
+              final box =
+                  shelfKey.currentContext?.findRenderObject() as RenderBox?;
+              final local = box?.globalToLocal(details.offset);
+              final localX = local?.dx ?? 0.0;
+              setState(() {
+                shelf.add((file: details.data, dropX: localX));
+                shelf.sort((a, b) => a.dropX.compareTo(b.dropX));
+                _record(
+                  zone: 'shelf',
+                  outcome: 'accept',
+                  dataDesc: details.data.toString(),
+                  offset: details.offset,
+                  dataType: MyFile,
+                );
+              });
+            },
+            builder: (ctx, candidate, rejected) {
+              final hovering = candidate.isNotEmpty;
+              return Container(
+                height: 130,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: hovering
+                      ? Colors.teal.withOpacity(0.18)
+                      : Colors.teal.withOpacity(0.05),
+                  border: Border.all(color: Colors.teal, width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: shelf.isEmpty
+                    ? const Center(child: Text('Drop files here'))
+                    : ListView(
+                        children: [
+                          for (var i = 0; i < shelf.length; i++)
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border:
+                                    Border.all(color: Colors.teal, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                '${i + 1}. ${shelf[i].file.name}.${shelf[i].file.ext}'
+                                ' · ${shelf[i].file.sizeKb}kb · '
+                                'x=${shelf[i].dropX.toStringAsFixed(1)}',
+                                style: const TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+              );
+            },
+          ),
+          const SizedBox(height: 4),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () => setState(() => shelf.clear()),
+              icon: const Icon(Icons.clear_all),
+              label: const Text('Empty shelf'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // SECTION 11 — Rank reorder slots (nearest-slot wins)
+  // ===========================================================================
+  Widget _buildRankSlots(BuildContext context) {
+    return _SectionCard(
+      title: '11 — Recipe: rank reorder by nearest slot',
+      subtitle:
+          'A row of five DragTarget<int> slots. The slot whose center is '
+          'nearest to details.offset accepts; others reject.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final n in [101, 102, 103, 104, 105])
+                Draggable<int>(
+                  data: n,
+                  feedback: _IntChip(n: n, dragging: true),
+                  childWhenDragging: _IntChip(n: n, faded: true),
+                  child: _IntChip(n: n),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              for (var i = 0; i < rankSlots.length; i++)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: DragTarget<int>(
+                      key: rankKeys[i],
+                      onWillAcceptWithDetails: (details) {
+                        return _isNearestSlot(i, details.offset);
+                      },
+                      onAcceptWithDetails: (details) {
+                        setState(() {
+                          rankSlots[i] = details.data;
+                          rankNote =
+                              'Slot $i accepted ${details.data} at ${fmtOffset(details.offset)}';
+                          _record(
+                            zone: 'rank-slot-$i',
+                            outcome: 'accept',
+                            dataDesc: '${details.data}',
+                            offset: details.offset,
+                            dataType: int,
+                          );
+                        });
+                      },
+                      builder: (ctx, candidate, rejected) {
+                        final hovering = candidate.isNotEmpty;
+                        return Container(
+                          height: 70,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: hovering
+                                ? Colors.deepPurple.withOpacity(0.20)
+                                : Colors.deepPurple.withOpacity(0.05),
+                            border: Border.all(
+                              color: Colors.deepPurple,
+                              width: hovering ? 3 : 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            rankSlots[i]?.toString() ?? '—',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(rankNote, style: const TextStyle(fontStyle: FontStyle.italic)),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  for (var i = 0; i < rankSlots.length; i++) {
+                    rankSlots[i] = null;
+                  }
+                  rankNote = 'Slots reset.';
+                });
+              },
+              icon: const Icon(Icons.restore),
+              label: const Text('Reset slots'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Returns true iff the slot at index `i` is the closest to `globalOffset`.
+  bool _isNearestSlot(int i, Offset globalOffset) {
+    double? best;
+    int bestIdx = -1;
+    for (var j = 0; j < rankKeys.length; j++) {
+      final ctx = rankKeys[j].currentContext;
+      final box = ctx?.findRenderObject() as RenderBox?;
+      if (box == null) continue;
+      final topLeft = box.localToGlobal(Offset.zero);
+      final center = topLeft + box.size.center(Offset.zero);
+      final d = (center - globalOffset).distance;
+      if (best == null || d < best) {
+        best = d;
+        bestIdx = j;
+      }
+    }
+    return bestIdx == i;
+  }
+
+  // ===========================================================================
+  // SECTION 12 — Pitfalls + reference table
+  // ===========================================================================
+  Widget _buildPitfallsAndReference(BuildContext context) {
+    return _SectionCard(
+      title: '12 — Pitfalls and reference table',
+      subtitle: 'Common mistakes and a one-glance API recap.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const _Pitfall(
+            title: 'Forgetting <T>',
+            body: 'DragTarget<int>() with Draggable<num>() will not match. '
+                'Both generics must agree, otherwise onWillAcceptWithDetails '
+                'is never even called.',
+          ),
+          const _Pitfall(
+            title: 'Confusing global vs local offset',
+            body: 'details.offset is *global*. To draw inside the target you '
+                'must convert via RenderBox.globalToLocal(details.offset).',
+          ),
+          const _Pitfall(
+            title: 'Mutating the data field',
+            body: 'DragTargetDetails is immutable. Treat details.data as '
+                'read-only; clone it before modifying.',
+          ),
+          const _Pitfall(
+            title: 'Relying on onAccept (deprecated)',
+            body: 'Prefer onAcceptWithDetails — onAccept omits the offset.',
+          ),
+          const SizedBox(height: 8),
+          DefaultTextStyle(
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            child: Table(
+              border: TableBorder.all(color: Colors.black26),
+              columnWidths: const {
+                0: IntrinsicColumnWidth(),
+                1: FlexColumnWidth(),
+              },
+              children: const [
+                TableRow(children: [
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text('field/cb',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text('purpose',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('data')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('payload of type T from Draggable<T>.data')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('offset')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text(
+                          'global Offset of the pointer at the event time')),
+                ]),
+                TableRow(children: [
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('onWillAcceptWithDetails')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text(
+                          'predicate decides whether the target highlights')),
+                ]),
+                TableRow(children: [
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('onAcceptWithDetails')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text(
+                          'fires on a successful drop with the full details')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('onMove')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text(
+                          'streams DragTargetDetails as the pointer moves')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('onLeave')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('fires when a candidate exits the target')),
+                ]),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // Cross-cutting event log
+  // ===========================================================================
+  Widget _buildEventLogCard(BuildContext context) {
+    return _SectionCard(
+      title: 'Event log (most recent on top)',
+      subtitle:
+          'Every callback in every section appends here. Colours match the '
+          'outcome (green=accept, red=reject, orange=move, grey=leave).',
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        height: 240,
         decoration: BoxDecoration(
-          color: Colors.amber[800],
+          color: Colors.black.withOpacity(0.04),
+          border: Border.all(color: Colors.black26),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+        child: events.isEmpty
+            ? const Center(child: Text('(no events yet — drag something!)'))
+            : ListView.builder(
+                itemCount: events.length,
+                itemBuilder: (ctx, i) {
+                  final e = events[i];
+                  final color = switch (e.outcome) {
+                    'accept' => Colors.green[800]!,
+                    'reject' => Colors.red[800]!,
+                    'move' => Colors.orange[800]!,
+                    'leave' => Colors.grey[700]!,
+                    _ => Colors.black,
+                  };
+                  final hh = e.ts.hour.toString().padLeft(2, '0');
+                  final mm = e.ts.minute.toString().padLeft(2, '0');
+                  final ss = e.ts.second.toString().padLeft(2, '0');
+                  return Text(
+                    '$hh:$mm:$ss  ${e.outcome.padRight(7)}  '
+                    '${e.zone.padRight(20)}  '
+                    'data=${e.dataDesc}  off=${fmtOffset(e.offset)}',
+                    style: TextStyle(
+                      color: color,
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // Platform footer (uses Theme.of(context).platform per the rules)
+  // ===========================================================================
+  Widget _buildPlatformFooter(BuildContext context, TargetPlatform platform) {
+    final tip = switch (platform) {
+      TargetPlatform.android ||
+      TargetPlatform.iOS =>
+        'On touch platforms, prefer LongPressDraggable so taps still work.',
+      TargetPlatform.macOS ||
+      TargetPlatform.linux ||
+      TargetPlatform.windows =>
+        'On desktop, regular Draggable feels native because of the cursor.',
+      TargetPlatform.fuchsia => 'Fuchsia: behaves like a desktop platform.',
+    };
+    return Card(
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            const Icon(Icons.devices_other),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Detected platform: $platform — $tip',
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
         ),
       ),
-      SizedBox(width: 10),
-      Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
-      ),
-    ],
-  );
+    );
+  }
 }
 
-// ──────────────────────────────────────────────────────────
-// Helper: accent card (left-border card)
-// ──────────────────────────────────────────────────────────
-Widget _accentCard(Map<String, dynamic> card) {
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border(
-        left: BorderSide(color: card['accent'] as Color, width: 4),
+// =============================================================================
+// Reusable bits
+// =============================================================================
+class _SectionCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final Widget child;
+  const _SectionCard({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 12),
+            child,
+          ],
+        ),
       ),
-      boxShadow: [
-        BoxShadow(
-            color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 22),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text(card['title'] as String,
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[900])),
+    );
+  }
+}
+
+class _IntChip extends StatelessWidget {
+  final int n;
+  final bool dragging;
+  final bool faded;
+  const _IntChip({required this.n, this.dragging = false, this.faded = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final body = Container(
+      width: 56,
+      height: 56,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: dragging ? Colors.amber : Colors.amber[200],
+        border: Border.all(color: Colors.amber[800]!, width: 2),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: dragging
+            ? const [BoxShadow(color: Colors.black26, blurRadius: 8)]
+            : null,
+      ),
+      child: Text(
+        '$n',
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+    );
+    if (dragging) {
+      // The Draggable.feedback widget is rendered outside the widget tree, so
+      // wrap it in a Material to avoid the "no Material" assertion.
+      return Material(color: Colors.transparent, child: body);
+    }
+    return Opacity(opacity: faded ? 0.3 : 1.0, child: body);
+  }
+}
+
+class _StrChip extends StatelessWidget {
+  final String label;
+  final bool dragging;
+  final bool faded;
+  const _StrChip({
+    required this.label,
+    this.dragging = false,
+    this.faded = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final body = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: dragging ? Colors.lightBlue[200] : Colors.lightBlue[50],
+        border: Border.all(color: Colors.blue, width: 2),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: dragging
+            ? const [BoxShadow(color: Colors.black26, blurRadius: 8)]
+            : null,
+      ),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+    );
+    if (dragging) return Material(color: Colors.transparent, child: body);
+    return Opacity(opacity: faded ? 0.3 : 1.0, child: body);
+  }
+}
+
+class _ParcelChip extends StatelessWidget {
+  final Parcel parcel;
+  final bool dragging;
+  final bool faded;
+  const _ParcelChip({
+    required this.parcel,
+    this.dragging = false,
+    this.faded = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = switch (parcel.kind) {
+      'mail' => Colors.blue,
+      'box' => Colors.orange,
+      _ => Colors.purple,
+    };
+    final body = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: dragging ? color.withOpacity(0.40) : color.withOpacity(0.15),
+        border: Border.all(color: color, width: 2),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: dragging
+            ? const [BoxShadow(color: Colors.black26, blurRadius: 8)]
+            : null,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            parcel.label,
+            style: TextStyle(fontWeight: FontWeight.bold, color: color),
           ),
-        ]),
-        SizedBox(height: 10),
-        Text(card['body'] as String,
-            style: TextStyle(
-                fontSize: 13, color: Colors.grey[700], height: 1.5)),
-      ],
-    ),
-  );
+          Text(
+            '${parcel.kind} · ${parcel.weightKg}kg',
+            style: const TextStyle(fontSize: 10),
+          ),
+        ],
+      ),
+    );
+    if (dragging) return Material(color: Colors.transparent, child: body);
+    return Opacity(opacity: faded ? 0.3 : 1.0, child: body);
+  }
+}
+
+class _FileChip extends StatelessWidget {
+  final MyFile file;
+  final bool dragging;
+  final bool faded;
+  const _FileChip({
+    required this.file,
+    this.dragging = false,
+    this.faded = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final body = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: dragging ? Colors.teal[200] : Colors.teal[50],
+        border: Border.all(color: Colors.teal, width: 2),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: dragging
+            ? const [BoxShadow(color: Colors.black26, blurRadius: 8)]
+            : null,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.insert_drive_file, size: 16, color: Colors.teal),
+          const SizedBox(width: 4),
+          Text(
+            '${file.name}.${file.ext}',
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '${file.sizeKb}kb',
+            style: const TextStyle(fontSize: 10, color: Colors.black54),
+          ),
+        ],
+      ),
+    );
+    if (dragging) return Material(color: Colors.transparent, child: body);
+    return Opacity(opacity: faded ? 0.3 : 1.0, child: body);
+  }
+}
+
+class _Pitfall extends StatelessWidget {
+  final String title;
+  final String body;
+  const _Pitfall({required this.title, required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.amber.withOpacity(0.10),
+        border: Border.all(color: Colors.amber, width: 1),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.warning_amber, color: Colors.amber, size: 18),
+              const SizedBox(width: 6),
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.w800),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(body, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+    );
+  }
 }

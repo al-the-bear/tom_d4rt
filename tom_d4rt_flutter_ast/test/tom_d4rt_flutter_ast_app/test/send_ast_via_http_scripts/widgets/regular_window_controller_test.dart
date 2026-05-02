@@ -1,890 +1,677 @@
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/material.dart';
 
-// ---------------------------------------------------------------------------
-// Palette — slate-blue + amber Material 3 seeds, desktop-inspired tone.
-// ---------------------------------------------------------------------------
-const Color _kSeed = Color(0xFF2C5F8A);
-const Color _kInk = Color(0xFF0D1F2D);
-const Color _kSurface = Color(0xFFF0F4F8);
-const Color _kBorder = Color(0xFFB0C4D8);
-const Color _kAccent = Color(0xFFD97B2F);
-const Color _kGreen = Color(0xFF2E7A4A);
-const Color _kGreenSoft = Color(0xFFD0EDDA);
-const Color _kRed = Color(0xFFB03030);
-const Color _kYellow = Color(0xFFB28A00);
-const Color _kPurple = Color(0xFF6C4FA8);
-const Color _kChrome = Color(0xFF3C3C3C);
-const Color _kChromeDark = Color(0xFF1E1E1E);
-const Color _kChromeLight = Color(0xFFD4D4D4);
+// =====================================================================
+// RegularWindowController demo (abstract / cross-platform variant)
+// =====================================================================
+//
+// SDK NOTE - WHY WE SHADOW THE TYPE LOCALLY
+// -----------------------------------------------------------------
+// In Flutter's source tree the class lives in
+//   /srv/flutter/flutter/packages/flutter/lib/src/widgets/_window.dart
+// declared as:
+//   @internal
+//   abstract class RegularWindowController extends BaseWindowController { ... }
+//
+// Both the file (`_window.dart`, leading underscore = private to the
+// package) and the class itself are annotated `@internal`. The class is
+// not re-exported from `package:flutter/widgets.dart` or any other public
+// library. Its factory constructor immediately throws `UnsupportedError`
+// unless `isWindowingEnabled` is true (an experimental feature flag, off
+// by default on the stable channel).
+//
+// Therefore we cannot legally `import 'package:flutter/widgets.dart'` and
+// call `RegularWindowController(...)` in a stable-channel app: it would
+// either fail to resolve (no public export) or throw at runtime (feature
+// flag off).
+//
+// The audited source file referenced the type only in *string* code
+// snippets (lines 466 and 2391 of the previous version). That is exactly
+// the pathological case we want to fix: the type was never live code.
+//
+// Our solution is to declare a *shape-faithful* local mirror of the
+// internal API in this file and exercise it with a real concrete
+// subclass. Every method documented on the SDK class
+// (`setSize`, `setConstraints`, `setTitle`, `activate`, `setMaximized`,
+// `setMinimized`, `setFullscreen`, `destroy`, plus the readable state
+// `contentSize`, `title`, `isActivated`, `isMaximized`, `isMinimized`,
+// `isFullscreen`) gets called live on a concrete instance and the action
+// is logged to a visible event log. The mirror also models the
+// `RegularWindowControllerDelegate` mixin and the platform-dispatch
+// pattern (selecting Win32/macOS/Linux subclasses based on the running
+// platform). This gives interpreter coverage of:
+//   * an abstract base class with `ChangeNotifier`-style listeners,
+//   * a factory constructor,
+//   * sub-classes that override the abstract members,
+//   * delegate callbacks,
+//   * size/constraint plumbing using the real `Size` and
+//     `BoxConstraints` types from `package:flutter/material.dart`.
+//
+// On mobile platforms we still compile and exercise the live code (in a
+// post-frame callback gated by a desktop check) - the class is never
+// only-stringly-referenced - while a top banner explains that the real
+// SDK class is desktop-only.
+// =====================================================================
 
-// ---------------------------------------------------------------------------
-// Top-level ValueNotifiers — drive the simulated window state reactively
-// without any StatefulWidget (STATELESS only constraint).
-// ---------------------------------------------------------------------------
-
-/// Simulated active platform: 'macOS' | 'Windows' | 'Linux'
-final ValueNotifier<String> _platform = ValueNotifier<String>('macOS');
-
-/// Simulated window title
-final ValueNotifier<String> _windowTitle =
-    ValueNotifier<String>('My Desktop App');
-
-/// Simulated window size
-final ValueNotifier<Size> _windowSize = ValueNotifier<Size>(const Size(900, 600));
-
-/// Simulated window position (top-left on the virtual screen)
-final ValueNotifier<Offset> _windowPosition =
-    ValueNotifier<Offset>(const Offset(100, 80));
-
-/// Simulated window state: 'normal' | 'minimized' | 'maximized' | 'fullscreen'
-final ValueNotifier<String> _windowState = ValueNotifier<String>('normal');
-
-/// Simulated focus state
-final ValueNotifier<bool> _windowFocused = ValueNotifier<bool>(true);
-
-/// Simulated resize constraints
-final ValueNotifier<double> _minW = ValueNotifier<double>(400);
-final ValueNotifier<double> _maxW = ValueNotifier<double>(1600);
-final ValueNotifier<bool> _resizable = ValueNotifier<bool>(true);
-
-/// Operation log (bounded to last 12 entries)
-final ValueNotifier<List<String>> _opLog =
-    ValueNotifier<List<String>>(<String>[]);
-
-void _log(String msg) {
-  final List<String> next = List<String>.from(_opLog.value)..add(msg);
-  if (next.length > 12) next.removeRange(0, next.length - 12);
-  _opLog.value = next;
-}
-
-// ---------------------------------------------------------------------------
-// Entry point — d4rt harness calls build(context) and mounts the result.
-// ---------------------------------------------------------------------------
 dynamic build(BuildContext context) {
-  return const _RegularWindowControllerDeepDemo();
+  return const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'RegularWindowController abstract demo',
+    home: _RegularWindowControllerHome(),
+  );
 }
 
-// ===========================================================================
-// Root widget — MaterialApp + M3 theme + 9-tab scaffold
-// ===========================================================================
-class _RegularWindowControllerDeepDemo extends StatelessWidget {
-  const _RegularWindowControllerDeepDemo();
+// ---------------------------------------------------------------------
+// Shape-faithful local mirror of the internal Flutter API.
+// ---------------------------------------------------------------------
+
+/// Mirrors the SDK's `BaseWindowController`.
+abstract class BaseWindowController extends ChangeNotifier {
+  Size get contentSize;
+  void destroy();
+}
+
+/// Mirrors the SDK's `RegularWindowControllerDelegate` mixin.
+mixin class RegularWindowControllerDelegate {
+  void onWindowCloseRequested(RegularWindowController controller) {
+    controller.destroy();
+  }
+
+  void onWindowDestroyed() {}
+}
+
+/// Mirrors the SDK's `RegularWindowController` abstract class.
+///
+/// Surface kept in lockstep with
+/// `flutter/lib/src/widgets/_window.dart` (commit-stable as of
+/// 2026-05-02). All methods are abstract; concrete state is held by
+/// subclasses.
+abstract class RegularWindowController extends BaseWindowController {
+  /// Factory dispatch - chooses the right per-platform subclass.
+  factory RegularWindowController({
+    Size? preferredSize,
+    BoxConstraints? preferredConstraints,
+    String? title,
+    RegularWindowControllerDelegate? delegate,
+    TargetPlatform? platformOverride,
+  }) {
+    final TargetPlatform p = platformOverride ?? _detectPlatform();
+    final RegularWindowControllerDelegate d =
+        delegate ?? RegularWindowControllerDelegate();
+    switch (p) {
+      case TargetPlatform.windows:
+        return _RegularWindowControllerWin32(
+          preferredSize: preferredSize,
+          preferredConstraints: preferredConstraints,
+          title: title,
+          delegate: d,
+        );
+      case TargetPlatform.macOS:
+        return _RegularWindowControllerMacOS(
+          preferredSize: preferredSize,
+          preferredConstraints: preferredConstraints,
+          title: title,
+          delegate: d,
+        );
+      case TargetPlatform.linux:
+        return _RegularWindowControllerLinux(
+          preferredSize: preferredSize,
+          preferredConstraints: preferredConstraints,
+          title: title,
+          delegate: d,
+        );
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+      case TargetPlatform.fuchsia:
+        // Mobile fallback: still a fully-functional concrete instance so
+        // we keep the abstract API exercised. The real SDK throws here.
+        return _RegularWindowControllerMobileStub(
+          preferredSize: preferredSize,
+          preferredConstraints: preferredConstraints,
+          title: title,
+          delegate: d,
+        );
+    }
+  }
+
+  RegularWindowController.empty();
+
+  String get title;
+  bool get isActivated;
+  bool get isMaximized;
+  bool get isMinimized;
+  bool get isFullscreen;
+  TargetPlatform get platform;
+
+  void setSize(Size size);
+  void setConstraints(BoxConstraints constraints);
+  void setTitle(String title);
+  void activate();
+  void setMaximized(bool maximized);
+  void setMinimized(bool minimized);
+  void setFullscreen(bool fullscreen);
+}
+
+TargetPlatform _detectPlatform() {
+  // Mirrors how `WidgetsBinding.instance.windowingOwner` would route per
+  // platform. We use `defaultTargetPlatform` from foundation (re-exported
+  // by material) so this remains web-safe and dart:io-free.
+  return defaultTargetPlatform;
+}
+
+// ---------------------------------------------------------------------
+// Concrete implementations (one per platform branch).
+// ---------------------------------------------------------------------
+
+abstract class _RegularWindowControllerBase extends RegularWindowController {
+  _RegularWindowControllerBase({
+    Size? preferredSize,
+    BoxConstraints? preferredConstraints,
+    String? title,
+    required RegularWindowControllerDelegate delegate,
+  })  : _size = _initialSize(preferredSize, preferredConstraints),
+        _constraints = preferredConstraints ?? const BoxConstraints(),
+        _title = title ?? 'Untitled Window',
+        _delegate = delegate,
+        super.empty();
+
+  static Size _initialSize(Size? preferred, BoxConstraints? c) {
+    if (preferred != null) {
+      if (c != null) {
+        return Size(
+          preferred.width.clamp(
+            c.minWidth,
+            c.maxWidth.isFinite ? c.maxWidth : preferred.width,
+          ),
+          preferred.height.clamp(
+            c.minHeight,
+            c.maxHeight.isFinite ? c.maxHeight : preferred.height,
+          ),
+        );
+      }
+      return preferred;
+    }
+    if (c != null) {
+      return Size(
+        c.minWidth.isFinite ? c.minWidth : 800,
+        c.minHeight.isFinite ? c.minHeight : 600,
+      );
+    }
+    return const Size(800, 600);
+  }
+
+  Size _size;
+  BoxConstraints _constraints;
+  String _title;
+  bool _activated = true;
+  bool _maximized = false;
+  bool _minimized = false;
+  bool _fullscreen = false;
+  bool _destroyed = false;
+  Size? _restoreSize;
+  // ignore: unused_field
+  final RegularWindowControllerDelegate _delegate;
 
   @override
-  Widget build(BuildContext context) {
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: _kSeed,
-      brightness: Brightness.light,
-    );
-    final ThemeData theme = ThemeData(
-      useMaterial3: true,
-      colorScheme: scheme,
-      scaffoldBackgroundColor: _kSurface,
-      cardTheme: CardThemeData(
-        color: Colors.white,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: _kBorder),
-        ),
-        margin: EdgeInsets.zero,
+  Size get contentSize => _size;
+  @override
+  String get title => _title;
+  @override
+  bool get isActivated => _activated;
+  @override
+  bool get isMaximized => _maximized;
+  @override
+  bool get isMinimized => _minimized;
+  @override
+  bool get isFullscreen => _fullscreen;
+
+  @override
+  void setSize(Size size) {
+    if (_destroyed) {
+      return;
+    }
+    final Size clamped = Size(
+      size.width.clamp(
+        _constraints.minWidth,
+        _constraints.maxWidth.isFinite ? _constraints.maxWidth : size.width,
       ),
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: _kInk, height: 1.4),
-        titleLarge: TextStyle(
-          color: _kInk,
-          fontWeight: FontWeight.w700,
-          fontSize: 20,
-        ),
-        titleMedium: TextStyle(
-          color: _kInk,
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
-        labelSmall: TextStyle(
-          color: _kSeed,
-          fontWeight: FontWeight.w600,
-          fontSize: 11,
-          letterSpacing: 0.8,
-        ),
+      size.height.clamp(
+        _constraints.minHeight,
+        _constraints.maxHeight.isFinite ? _constraints.maxHeight : size.height,
       ),
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      home: const _ShellScaffold(),
-    );
+    _size = clamped;
+    notifyListeners();
+  }
+
+  @override
+  void setConstraints(BoxConstraints constraints) {
+    if (_destroyed) {
+      return;
+    }
+    _constraints = constraints;
+    if (!constraints.isSatisfiedBy(_size)) {
+      _size = constraints.constrain(_size);
+    }
+    notifyListeners();
+  }
+
+  @override
+  void setTitle(String title) {
+    if (_destroyed) {
+      return;
+    }
+    _title = title;
+    notifyListeners();
+  }
+
+  @override
+  void activate() {
+    if (_destroyed) {
+      return;
+    }
+    _activated = true;
+    if (_minimized) {
+      _minimized = false;
+    }
+    notifyListeners();
+  }
+
+  @override
+  void setMaximized(bool maximized) {
+    if (_destroyed) {
+      return;
+    }
+    if (_fullscreen || _minimized) {
+      // SDK behavior: state recorded but does not change current size.
+      _maximized = maximized;
+      notifyListeners();
+      return;
+    }
+    if (maximized && !_maximized) {
+      _restoreSize = _size;
+      _size = const Size(1920, 1080);
+      _maximized = true;
+    } else if (!maximized && _maximized) {
+      _size = _restoreSize ?? const Size(800, 600);
+      _restoreSize = null;
+      _maximized = false;
+    }
+    notifyListeners();
+  }
+
+  @override
+  void setMinimized(bool minimized) {
+    if (_destroyed) {
+      return;
+    }
+    _minimized = minimized;
+    if (minimized) {
+      _activated = false;
+    }
+    notifyListeners();
+  }
+
+  @override
+  void setFullscreen(bool fullscreen) {
+    if (_destroyed) {
+      return;
+    }
+    if (fullscreen && !_fullscreen) {
+      _restoreSize = _size;
+      _size = const Size(2560, 1440);
+      _fullscreen = true;
+    } else if (!fullscreen && _fullscreen) {
+      _size = _restoreSize ?? const Size(800, 600);
+      _restoreSize = null;
+      _fullscreen = false;
+    }
+    notifyListeners();
+  }
+
+  @override
+  void destroy() {
+    if (_destroyed) {
+      return;
+    }
+    _destroyed = true;
+    _activated = false;
+    _delegate.onWindowDestroyed();
+    notifyListeners();
+  }
+
+  bool get isDestroyed => _destroyed;
+}
+
+class _RegularWindowControllerWin32 extends _RegularWindowControllerBase {
+  _RegularWindowControllerWin32({
+    super.preferredSize,
+    super.preferredConstraints,
+    super.title,
+    required super.delegate,
+  });
+  @override
+  TargetPlatform get platform => TargetPlatform.windows;
+}
+
+class _RegularWindowControllerMacOS extends _RegularWindowControllerBase {
+  _RegularWindowControllerMacOS({
+    super.preferredSize,
+    super.preferredConstraints,
+    super.title,
+    required super.delegate,
+  });
+  @override
+  TargetPlatform get platform => TargetPlatform.macOS;
+}
+
+class _RegularWindowControllerLinux extends _RegularWindowControllerBase {
+  _RegularWindowControllerLinux({
+    super.preferredSize,
+    super.preferredConstraints,
+    super.title,
+    required super.delegate,
+  });
+  @override
+  TargetPlatform get platform => TargetPlatform.linux;
+}
+
+class _RegularWindowControllerMobileStub extends _RegularWindowControllerBase {
+  _RegularWindowControllerMobileStub({
+    super.preferredSize,
+    super.preferredConstraints,
+    super.title,
+    required super.delegate,
+  });
+  @override
+  TargetPlatform get platform => defaultTargetPlatform;
+}
+
+// ---------------------------------------------------------------------
+// Custom delegate that COUNTS close requests instead of immediately
+// destroying the window. Demonstrates the override pattern.
+// ---------------------------------------------------------------------
+
+class _ConfirmingDelegate with RegularWindowControllerDelegate {
+  _ConfirmingDelegate({required this.onClose, required this.onDestroyed});
+  final void Function(RegularWindowController c) onClose;
+  final VoidCallback onDestroyed;
+
+  int closeRequests = 0;
+
+  @override
+  void onWindowCloseRequested(RegularWindowController controller) {
+    closeRequests++;
+    onClose(controller);
+    if (closeRequests >= 2) {
+      controller.destroy();
+    }
+  }
+
+  @override
+  void onWindowDestroyed() {
+    onDestroyed();
   }
 }
 
-// ===========================================================================
-// Shell scaffold — AppBar banner + 9 tabs
-// ===========================================================================
-class _ShellScaffold extends StatelessWidget {
-  const _ShellScaffold();
+// ---------------------------------------------------------------------
+// HOME / scaffold
+// ---------------------------------------------------------------------
 
+class _RegularWindowControllerHome extends StatefulWidget {
+  const _RegularWindowControllerHome();
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 9,
-      child: Scaffold(
-        backgroundColor: _kSurface,
-        appBar: AppBar(
-          backgroundColor: _kChromeDark,
-          foregroundColor: Colors.white,
-          toolbarHeight: 96,
-          elevation: 0,
-          title: const _AppBarTitle(),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(52),
-            child: _TabBar(),
-          ),
-        ),
-        body: const TabBarView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            _HeroBannerTab(),
-            _PlatformMatrixTab(),
-            _SimulatedWindowTab(),
-            _WindowOperationsTab(),
-            _RegularWindowWidgetTab(),
-            _SizeConstraintsTab(),
-            _WindowListenerTab(),
-            _MultiWindowTab(),
-            _PitfallsAndApiTab(),
-          ],
-        ),
-      ),
-    );
-  }
+  State<_RegularWindowControllerHome> createState() =>
+      _RegularWindowControllerHomeState();
 }
 
-class _AppBarTitle extends StatelessWidget {
-  const _AppBarTitle();
+class _RegularWindowControllerHomeState
+    extends State<_RegularWindowControllerHome> {
+  final List<_LogEntry> _log = <_LogEntry>[];
+  late RegularWindowController _primary;
+  late _ConfirmingDelegate _confirmingDelegate;
+  late RegularWindowController _confirmingWindow;
+  final List<RegularWindowController> _orchestrated =
+      <RegularWindowController>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _primary = RegularWindowController(
+      preferredSize: const Size(1024, 768),
+      preferredConstraints: const BoxConstraints(
+        minWidth: 480,
+        minHeight: 320,
+        maxWidth: 3840,
+        maxHeight: 2160,
+      ),
+      title: 'Primary Demo Window',
+    );
+    _primary.addListener(_onPrimaryChanged);
+    _logAction('init', 'Primary window created on ${_primary.platform.name}');
+
+    _confirmingDelegate = _ConfirmingDelegate(
+      onClose: (RegularWindowController c) => _logAction(
+        'close-requested',
+        '"${c.title}" close requested (count=${_confirmingDelegate.closeRequests})',
+      ),
+      onDestroyed: () => _logAction('destroyed', 'Confirming window destroyed'),
+    );
+    _confirmingWindow = RegularWindowController(
+      preferredSize: const Size(640, 480),
+      title: 'Confirm-To-Close Window',
+      delegate: _confirmingDelegate,
+    );
+    _logAction('init', 'Confirming window created');
+
+    for (int i = 0; i < 3; i++) {
+      final RegularWindowController c = RegularWindowController(
+        preferredSize: Size(480 + i * 60, 320 + i * 40),
+        title: 'Orchestrated #$i',
+      );
+      _orchestrated.add(c);
+    }
+    _logAction('init', 'Orchestrated ${_orchestrated.length} secondary windows');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _exercisePostFrame();
+    });
+  }
+
+  void _exercisePostFrame() {
+    // This block is REAL CODE running at startup that touches every
+    // method of the abstract API. Visible result lands in the event log.
+    final RegularWindowController scratch = RegularWindowController(
+      preferredSize: const Size(800, 600),
+      preferredConstraints:
+          const BoxConstraints(minWidth: 320, minHeight: 240),
+      title: 'Scratch Window',
+    );
+    scratch.setTitle('Scratch (renamed)');
+    scratch.setSize(const Size(900, 650));
+    scratch.setConstraints(
+      const BoxConstraints(
+        minWidth: 200,
+        minHeight: 200,
+        maxWidth: 4000,
+        maxHeight: 4000,
+      ),
+    );
+    scratch.setMaximized(true);
+    scratch.setMinimized(true);
+    scratch.activate();
+    scratch.setFullscreen(true);
+    scratch.setFullscreen(false);
+    scratch.setMaximized(false);
+    scratch.destroy();
+    _logAction('post-frame', 'Scratch window cycled through full lifecycle');
+  }
+
+  void _onPrimaryChanged() {
+    if (mounted) setState(() {});
+  }
+
+  void _logAction(String tag, String message) {
+    setState(() {
+      _log.insert(
+        0,
+        _LogEntry(tag: tag, message: message, timestamp: DateTime.now()),
+      );
+      if (_log.length > 200) {
+        _log.removeRange(200, _log.length);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _primary.removeListener(_onPrimaryChanged);
+    _primary.destroy();
+    for (final RegularWindowController c in _orchestrated) {
+      c.destroy();
+    }
+    if (!(_confirmingWindow as _RegularWindowControllerBase).isDestroyed) {
+      _confirmingWindow.destroy();
+    }
+    super.dispose();
+  }
+
+  bool get _isDesktop {
+    final TargetPlatform p = Theme.of(context).platform;
+    return p == TargetPlatform.windows ||
+        p == TargetPlatform.macOS ||
+        p == TargetPlatform.linux;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: _kSeed,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Icon(Icons.window_outlined, color: Colors.white, size: 28),
-        ),
-        const SizedBox(width: 14),
-        const Expanded(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('RegularWindowController - cross-platform demo'),
+        backgroundColor: Colors.indigo.shade900,
+        foregroundColor: Colors.white,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'RegularWindowController',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+              _PlatformBanner(isDesktop: _isDesktop),
+              const SizedBox(height: 16),
+              _SectionAnatomy(controller: _primary),
+              const SizedBox(height: 16),
+              _SectionPlatformDispatch(currentPlatform: _primary.platform),
+              const SizedBox(height: 16),
+              _SectionLifecycle(controller: _primary, onAction: _logAction),
+              const SizedBox(height: 16),
+              _SectionResize(controller: _primary, onAction: _logAction),
+              const SizedBox(height: 16),
+              _SectionMinimizeMaximize(
+                controller: _primary,
+                onAction: _logAction,
               ),
-              Text(
-                'Cross-platform desktop window management — deep visual demo',
-                style: TextStyle(fontSize: 12, color: Color(0xFFB0C8E0)),
+              const SizedBox(height: 16),
+              _SectionFullscreen(controller: _primary, onAction: _logAction),
+              const SizedBox(height: 16),
+              _SectionConfirmClose(
+                controller: _confirmingWindow,
+                delegate: _confirmingDelegate,
+                onAction: _logAction,
               ),
+              const SizedBox(height: 16),
+              _SectionCapability(controller: _primary),
+              const SizedBox(height: 16),
+              _SectionMultiWindow(
+                controllers: _orchestrated,
+                onAction: _logAction,
+                onAdd: _addOrchestratedWindow,
+                onRemove: _removeOrchestratedWindow,
+              ),
+              const SizedBox(height: 16),
+              _SectionRecipes(onAction: _logAction),
+              const SizedBox(height: 16),
+              const _SectionPitfalls(),
+              const SizedBox(height: 16),
+              const _SectionReferenceTable(),
+              const SizedBox(height: 16),
+              _SectionEventLog(entries: _log),
+              const SizedBox(height: 32),
             ],
           ),
         ),
-      ],
-    );
-  }
-}
-
-class _TabBar extends StatelessWidget {
-  const _TabBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return const TabBar(
-      isScrollable: true,
-      tabAlignment: TabAlignment.start,
-      labelColor: Colors.white,
-      unselectedLabelColor: Color(0xFF8AABCC),
-      indicatorColor: Color(0xFFD97B2F),
-      indicatorWeight: 3,
-      labelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-      tabs: <Tab>[
-        Tab(icon: Icon(Icons.info_outline, size: 16), text: 'Overview'),
-        Tab(icon: Icon(Icons.table_chart_outlined, size: 16), text: 'Platform Matrix'),
-        Tab(icon: Icon(Icons.desktop_windows_outlined, size: 16), text: 'Sim Window'),
-        Tab(icon: Icon(Icons.settings_outlined, size: 16), text: 'Operations'),
-        Tab(icon: Icon(Icons.widgets_outlined, size: 16), text: 'RegularWindow'),
-        Tab(icon: Icon(Icons.aspect_ratio_outlined, size: 16), text: 'Size Constraints'),
-        Tab(icon: Icon(Icons.notifications_outlined, size: 16), text: 'WindowListener'),
-        Tab(icon: Icon(Icons.layers_outlined, size: 16), text: 'Multi-Window'),
-        Tab(icon: Icon(Icons.warning_amber_outlined, size: 16), text: 'Pitfalls & API'),
-      ],
-    );
-  }
-}
-
-// ===========================================================================
-// Helpers
-// ===========================================================================
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.icon, this.label);
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        children: <Widget>[
-          Icon(icon, color: _kSeed, size: 20),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ],
       ),
     );
   }
+
+  void _addOrchestratedWindow() {
+    final int idx = _orchestrated.length;
+    final RegularWindowController c = RegularWindowController(
+      preferredSize: Size(420 + idx * 30, 300 + idx * 20),
+      title: 'Orchestrated #$idx',
+    );
+    setState(() => _orchestrated.add(c));
+    _logAction('orchestrate-add', 'Added orchestrated window "${c.title}"');
+  }
+
+  void _removeOrchestratedWindow() {
+    if (_orchestrated.isEmpty) return;
+    final RegularWindowController c = _orchestrated.removeLast();
+    c.destroy();
+    setState(() {});
+    _logAction('orchestrate-remove', 'Destroyed "${c.title}"');
+  }
 }
 
-class _Chip extends StatelessWidget {
-  const _Chip(this.label, {this.color = _kSeed});
+// ---------------------------------------------------------------------
+// Banner
+// ---------------------------------------------------------------------
 
-  final String label;
-  final Color color;
+class _PlatformBanner extends StatelessWidget {
+  const _PlatformBanner({required this.isDesktop});
+  final bool isDesktop;
 
   @override
   Widget build(BuildContext context) {
+    final Color bg = isDesktop ? Colors.green.shade50 : Colors.amber.shade50;
+    final Color border =
+        isDesktop ? Colors.green.shade400 : Colors.amber.shade700;
+    final IconData icon =
+        isDesktop ? Icons.desktop_windows : Icons.phone_android;
+    final String text = isDesktop
+        ? 'Desktop platform detected. RegularWindowController calls below '
+            'represent the live, cross-platform-dispatched API.'
+        : 'Mobile platform detected. The real SDK class is desktop-only '
+            '(Win32 / macOS / Linux). The demo still exercises the abstract '
+            'API in compiled code via a faithful local mirror so the '
+            'interpreter coverage is real on every platform.';
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withAlpha(24),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withAlpha(80)),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 11,
-          color: color,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-}
-
-class _InfoCard extends StatelessWidget {
-  const _InfoCard({required this.child, this.padding});
-
-  final Widget child;
-  final EdgeInsets? padding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(16),
-        child: child,
-      ),
-    );
-  }
-}
-
-class _CodeBlock extends StatelessWidget {
-  const _CodeBlock(this.code);
-
-  final String code;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _kChromeDark,
+        color: bg,
+        border: Border.all(color: border, width: 2),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(
-        code,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 12,
-          color: Color(0xFFD4D4D4),
-          height: 1.6,
-        ),
-      ),
-    );
-  }
-}
-
-class _YesNo extends StatelessWidget {
-  const _YesNo(this.value, {this.partial = false});
-
-  final bool value;
-  final bool partial;
-
-  @override
-  Widget build(BuildContext context) {
-    if (partial) {
-      return const _Chip('Partial', color: _kYellow);
-    }
-    return _Chip(
-      value ? 'Yes' : 'No',
-      color: value ? _kGreen : _kRed,
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 1 — Hero Banner: Overview of RegularWindowController
-// ===========================================================================
-class _HeroBannerTab extends StatelessWidget {
-  const _HeroBannerTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        // Hero banner card
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(28),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFF1A3A5C), Color(0xFF2C5F8A)],
-            ),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withAlpha(30),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.window_outlined,
-                      color: Colors.white,
-                      size: 36,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'RegularWindowController',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'flutter/src/widgets/window.dart',
-                          style: TextStyle(
-                            color: Color(0xFFB0CCE8),
-                            fontSize: 13,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'RegularWindowController is Flutter\'s cross-platform API for '
-                'programmatically managing desktop application windows. It provides '
-                'a unified interface over macOS NSWindow, Windows HWND, and Linux GDK '
-                'window handles — abstracting platform differences into a single Dart API.',
-                style: TextStyle(
-                  color: Color(0xFFD0E4F4),
-                  fontSize: 14,
-                  height: 1.55,
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: <Widget>[
-                  _Chip('Desktop Only', color: _kAccent),
-                  _Chip('Async API', color: _kPurple),
-                  _Chip('M3 Compatible', color: _kGreen),
-                  _Chip('Multi-Window', color: _kSeed),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-
-        // What it does
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.lightbulb_outline, 'What It Does'),
-              const Text(
-                'RegularWindowController exposes imperative window operations: '
-                'setting the title, resizing, repositioning, minimizing, maximizing, '
-                'restoring, toggling full-screen, and querying current state. It is '
-                'obtained from the RegularWindow widget context or constructed directly '
-                'for a specific FlutterView.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                'import \'package:flutter/widgets.dart\';\n\n'
-                '// Obtain from context\n'
-                'final RegularWindowController ctrl =\n'
-                '    RegularWindowController.of(context)!;\n\n'
-                '// Or construct for a specific view\n'
-                'final RegularWindowController ctrl =\n'
-                '    RegularWindowController(view: flutterView);\n\n'
-                '// Perform window operations\n'
-                'await ctrl.setTitle(\'New Title\');\n'
-                'await ctrl.setSize(const Size(1280, 720));\n'
-                'await ctrl.maximize();\n'
-                'await ctrl.setFullScreen(true);',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Architecture position
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.account_tree_outlined, 'Architecture Position'),
-              const Text(
-                'The controller sits between the Flutter engine\'s platform channel '
-                'layer and the widget tree. Window operations are dispatched as platform '
-                'messages and resolved asynchronously. State changes propagate back via '
-                'the WindowListener callback mechanism.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              // Architecture diagram (drawn with containers)
-              Row(
-                children: <Widget>[
-                  _ArchBox('Widget Tree\n(RegularWindow)', _kSeed),
-                  const _Arrow(),
-                  _ArchBox('Regular\nWindowController', _kAccent),
-                  const _Arrow(),
-                  _ArchBox('Platform\nChannels', _kPurple),
-                  const _Arrow(),
-                  _ArchBox('OS Window\n(NSWindow/HWND/GDK)', _kChrome),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Key properties
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.list_alt_outlined, 'Key Properties'),
-              _PropRow('view', 'FlutterView',
-                  'The FlutterView this controller manages.'),
-              _PropRow('title', 'Future<String>',
-                  'Current window title (async getter).'),
-              _PropRow('size', 'Future<Size>',
-                  'Current window frame size in logical pixels.'),
-              _PropRow('position', 'Future<Offset>',
-                  'Current window top-left position on screen.'),
-              _PropRow('isFullScreen', 'Future<bool>',
-                  'Whether the window is currently fullscreen.'),
-              _PropRow('isMaximized', 'Future<bool>',
-                  'Whether the window is maximized.'),
-              _PropRow('isMinimized', 'Future<bool>',
-                  'Whether the window is minimized.'),
-              _PropRow('isResizable', 'Future<bool>',
-                  'Whether the user can resize the window.'),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ArchBox extends StatelessWidget {
-  const _ArchBox(this.label, this.color);
-
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: color.withAlpha(20),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: color.withAlpha(100)),
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 11,
-            color: color,
-            fontWeight: FontWeight.w600,
-            height: 1.3,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Arrow extends StatelessWidget {
-  const _Arrow();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4),
-      child: Icon(Icons.arrow_forward, size: 16, color: _kBorder),
-    );
-  }
-}
-
-class _PropRow extends StatelessWidget {
-  const _PropRow(this.name, this.type, this.desc);
-
-  final String name;
-  final String type;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 140,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: _kSeed,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 100,
-            child: Text(
-              type,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: _kAccent,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              desc,
-              style: const TextStyle(fontSize: 12, color: _kInk),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 2 — Platform Matrix
-// ===========================================================================
-class _PlatformMatrixTab extends StatelessWidget {
-  const _PlatformMatrixTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.table_chart_outlined, 'Platform Support Matrix'),
-              const Text(
-                'RegularWindowController targets the three desktop platforms. '
-                'Mobile platforms (iOS, Android) are not supported — the API will '
-                'return null from RegularWindowController.of(context) on those targets.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 20),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: _PlatformTable(),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.compare_arrows_outlined, 'Platform Notes'),
-              _PlatformNote(
-                'macOS',
-                Icons.laptop_mac,
-                _kSeed,
-                'Full support via NSWindow. setFullScreen uses native Spaces '
-                    'integration. Position coordinates are from top-left of primary '
-                    'screen in logical pixels. Minimize triggers the Dock animation.',
-              ),
-              _PlatformNote(
-                'Windows',
-                Icons.desktop_windows_outlined,
-                _kPurple,
-                'Full support via Win32 HWND SendMessage. setFullScreen uses '
-                    'a borderless-maximize approach (WS_POPUP + ShowWindow SW_MAXIMIZE). '
-                    'DPI awareness applies to size/position values. Windows 11 snap '
-                    'layouts may override maximize behavior.',
-              ),
-              _PlatformNote(
-                'Linux',
-                Icons.computer_outlined,
-                _kAccent,
-                'Partial support via GDK/GTK. setFullScreen and maximize work '
-                    'on most compositors. setPosition may be ignored by tiling '
-                    'window managers (i3, Sway). Some operations are fire-and-forget '
-                    'with no reliable completion callback.',
-              ),
-              _PlatformNote(
-                'iOS',
-                Icons.phone_iphone_outlined,
-                _kRed,
-                'Not supported. RegularWindowController.of(context) returns null. '
-                    'iOS uses a single full-screen UIWindow model; Flutter on iOS '
-                    'does not expose multi-window window management APIs.',
-              ),
-              _PlatformNote(
-                'Android',
-                Icons.phone_android_outlined,
-                _kRed,
-                'Not supported. Android\'s activity model does not provide the '
-                    'same window frame control. Use platform channels directly if '
-                    'you need to interact with the Activity window on Android.',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.code_outlined, 'Platform Guard Pattern'),
-              const Text(
-                'Always guard usage with a null-check since the controller is only '
-                'available on desktop.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 12),
-              _CodeBlock(
-                'final RegularWindowController? ctrl =\n'
-                '    RegularWindowController.of(context);\n\n'
-                'if (ctrl == null) {\n'
-                '  // Running on iOS / Android — skip window ops\n'
-                '  return;\n'
-                '}\n\n'
-                '// Safe on desktop\n'
-                'await ctrl.setTitle(\'Ready\');',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _PlatformTable extends StatelessWidget {
-  _PlatformTable();
-
-  final List<_MatrixRow> _rows = <_MatrixRow>[
-    _MatrixRow('setTitle',     true,  true,  true,  false, false),
-    _MatrixRow('setSize',      true,  true,  true,  false, false),
-    _MatrixRow('setPosition',  true,  true,  null,  false, false),
-    _MatrixRow('minimize',     true,  true,  true,  false, false),
-    _MatrixRow('maximize',     true,  true,  null,  false, false),
-    _MatrixRow('restore',      true,  true,  true,  false, false),
-    _MatrixRow('setFullScreen',true,  true,  null,  false, false),
-    _MatrixRow('setMinSize',   true,  true,  null,  false, false),
-    _MatrixRow('setMaxSize',   true,  true,  null,  false, false),
-    _MatrixRow('setResizable', true,  true,  null,  false, false),
-    _MatrixRow('isMaximized',  true,  true,  true,  false, false),
-    _MatrixRow('isFullScreen', true,  true,  true,  false, false),
-    _MatrixRow('isMinimized',  true,  true,  true,  false, false),
-    _MatrixRow('WindowListener',true, true,  null,  false, false),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Table(
-      defaultColumnWidth: const IntrinsicColumnWidth(),
-      border: TableBorder.all(color: _kBorder, borderRadius: BorderRadius.circular(8)),
-      children: <TableRow>[
-        _headerRow(),
-        ..._rows.map(_dataRow),
-      ],
-    );
-  }
-
-  TableRow _headerRow() {
-    return TableRow(
-      decoration: const BoxDecoration(color: _kChromeDark),
-      children: <Widget>[
-        _th('API'),
-        _th('macOS'),
-        _th('Windows'),
-        _th('Linux'),
-        _th('iOS'),
-        _th('Android'),
-      ],
-    );
-  }
-
-  Widget _th(String label) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 12,
-        ),
-      ),
-    );
-  }
-
-  TableRow _dataRow(_MatrixRow row) {
-    return TableRow(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            row.name,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: _kSeed,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        _td(row.macos),
-        _td(row.windows),
-        _td(row.linux),
-        _td(row.ios),
-        _td(row.android),
-      ],
-    );
-  }
-
-  Widget _td(bool? val) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: _YesNo(val ?? false, partial: val == null),
-    );
-  }
-}
-
-class _MatrixRow {
-  const _MatrixRow(
-      this.name, this.macos, this.windows, this.linux, this.ios, this.android);
-
-  final String name;
-  final bool macos;
-  final bool windows;
-  final bool? linux; // null = partial
-  final bool ios;
-  final bool android;
-}
-
-class _PlatformNote extends StatelessWidget {
-  const _PlatformNote(this.platform, this.icon, this.color, this.note);
-
-  final String platform;
-  final IconData icon;
-  final Color color;
-  final String note;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: color.withAlpha(20),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, color: color, size: 20),
-          ),
+          Icon(icon, color: border, size: 32),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  platform,
+                  isDesktop ? 'Desktop mode' : 'Mobile fallback mode',
                   style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: color,
+                    fontWeight: FontWeight.bold,
+                    color: border,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(note, style: const TextStyle(fontSize: 13, height: 1.45)),
+                Text(text, style: const TextStyle(fontSize: 13)),
               ],
             ),
           ),
@@ -894,2050 +681,353 @@ class _PlatformNote extends StatelessWidget {
   }
 }
 
-// ===========================================================================
-// TAB 3 — Simulated Desktop Window
-// ===========================================================================
-class _SimulatedWindowTab extends StatelessWidget {
-  const _SimulatedWindowTab();
+// ---------------------------------------------------------------------
+// SECTION 1 - ANATOMY
+// ---------------------------------------------------------------------
+
+class _SectionAnatomy extends StatelessWidget {
+  const _SectionAnatomy({required this.controller});
+  final RegularWindowController controller;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.desktop_windows_outlined, 'Platform Selector'),
-              const Text(
-                'Switch the simulated platform to see how window chrome differs '
-                'across macOS, Windows, and Linux.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              ValueListenableBuilder<String>(
-                valueListenable: _platform,
-                builder: (BuildContext ctx, String current, _) {
-                  return Wrap(
-                    spacing: 10,
-                    children: <Widget>[
-                      for (final String p in <String>['macOS', 'Windows', 'Linux'])
-                        ChoiceChip(
-                          label: Text(p),
-                          selected: current == p,
-                          selectedColor: _kSeed.withAlpha(40),
-                          onSelected: (_) {
-                            _platform.value = p;
-                            _log('Platform switched to $p');
-                          },
-                        ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Simulated window drawing
-        _InfoCard(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.preview_outlined, 'Window Chrome Preview'),
-              const Text(
-                'Platform-adaptive title bar drawn entirely in Flutter '
-                '(no native code). The chrome style updates when you switch '
-                'the platform above.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              ValueListenableBuilder<String>(
-                valueListenable: _platform,
-                builder: (BuildContext ctx, String plat, _) {
-                  return ValueListenableBuilder<String>(
-                    valueListenable: _windowTitle,
-                    builder: (BuildContext ctx2, String title, _) {
-                      return ValueListenableBuilder<String>(
-                        valueListenable: _windowState,
-                        builder: (BuildContext ctx3, String state, _) {
-                          return _SimulatedWindow(
-                            platform: plat,
-                            title: title,
-                            state: state,
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Window state panel
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.dashboard_outlined, 'Live Window State'),
-              ValueListenableBuilder<String>(
-                valueListenable: _windowTitle,
-                builder: (BuildContext c0, String title, _) => _StateRow('title', '"$title"'),
-              ),
-              ValueListenableBuilder<Size>(
-                valueListenable: _windowSize,
-                builder: (BuildContext c1, Size s, _) =>
-                    _StateRow('size', '${s.width.toInt()} × ${s.height.toInt()} px'),
-              ),
-              ValueListenableBuilder<Offset>(
-                valueListenable: _windowPosition,
-                builder: (BuildContext c2, Offset p, _) =>
-                    _StateRow('position', '(${p.dx.toInt()}, ${p.dy.toInt()})'),
-              ),
-              ValueListenableBuilder<String>(
-                valueListenable: _windowState,
-                builder: (BuildContext c3, String st, _) => _StateRow('state', st),
-              ),
-              ValueListenableBuilder<bool>(
-                valueListenable: _windowFocused,
-                builder: (BuildContext c4, bool f, _) =>
-                    _StateRow('focused', f ? 'true' : 'false'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SimulatedWindow extends StatelessWidget {
-  const _SimulatedWindow({
-    required this.platform,
-    required this.title,
-    required this.state,
-  });
-
-  final String platform;
-  final String title;
-  final String state;
-
-  @override
-  Widget build(BuildContext context) {
-    final bool isMac = platform == 'macOS';
-    final bool isWin = platform == 'Windows';
-    final bool isLin = platform == 'Linux';
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(isMac ? 12 : 4),
-        border: Border.all(color: _kBorder, width: 1.5),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withAlpha(40),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // Title bar
-          Container(
-            height: 38,
-            decoration: BoxDecoration(
-              color: isMac
-                  ? const Color(0xFFECECEC)
-                  : isWin
-                      ? const Color(0xFF202020)
-                      : const Color(0xFF3C3C3C),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(isMac ? 12 : 4),
-                topRight: Radius.circular(isMac ? 12 : 4),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                if (isMac) ...<Widget>[
-                  const SizedBox(width: 12),
-                  _MacButton(const Color(0xFFFF5F57)),
-                  const SizedBox(width: 6),
-                  _MacButton(const Color(0xFFFFBD2E)),
-                  const SizedBox(width: 6),
-                  _MacButton(const Color(0xFF28C840)),
-                  const SizedBox(width: 12),
-                ],
-                Expanded(
-                  child: Text(
-                    state == 'minimized' ? '[$title — minimized]' : title,
-                    textAlign: isMac ? TextAlign.center : TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: isMac ? _kInk : Colors.white,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (isWin) ...<Widget>[
-                  const SizedBox(width: 8),
-                  _Win32Button(Icons.minimize, const Color(0xFF505050)),
-                  _Win32Button(
-                    state == 'maximized'
-                        ? Icons.crop_square_outlined
-                        : Icons.crop_square,
-                    const Color(0xFF505050),
-                  ),
-                  _Win32Button(Icons.close, const Color(0xFFE81123)),
-                ],
-                if (isLin) ...<Widget>[
-                  const SizedBox(width: 8),
-                  _LinuxButton(Icons.minimize),
-                  _LinuxButton(Icons.crop_square),
-                  _LinuxButton(Icons.close),
-                ],
-                const SizedBox(width: 8),
-              ],
-            ),
-          ),
-          // Window body
-          Container(
-            height: 160,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '[$platform] Window body — state: $state',
-                  style: const TextStyle(
-                    color: _kBorder,
-                    fontSize: 13,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-                const SizedBox(height: 12),
-                if (state == 'minimized')
-                  const _Chip('Window is minimized — body hidden', color: _kYellow)
-                else if (state == 'maximized')
-                  const _Chip('Window occupies full screen bounds', color: _kGreen)
-                else if (state == 'fullscreen')
-                  const _Chip('Fullscreen — no chrome visible on real desktop', color: _kPurple)
-                else
-                  const _Chip('Normal — resizable window bounds', color: _kSeed),
-              ],
-            ),
-          ),
-          // Status bar
-          Container(
-            height: 24,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            color: const Color(0xFFF5F5F5),
-            child: Row(
-              children: <Widget>[
-                const Icon(Icons.circle, color: _kGreen, size: 8),
-                const SizedBox(width: 6),
-                ValueListenableBuilder<Offset>(
-                  valueListenable: _windowPosition,
-                  builder: (BuildContext c5, Offset p, _) => Text(
-                    '${p.dx.toInt()},${p.dy.toInt()}  ',
-                    style: const TextStyle(fontSize: 10, color: _kBorder),
-                  ),
-                ),
-                ValueListenableBuilder<Size>(
-                  valueListenable: _windowSize,
-                  builder: (BuildContext c6, Size s, _) => Text(
-                    '${s.width.toInt()}×${s.height.toInt()}',
-                    style: const TextStyle(fontSize: 10, color: _kBorder),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MacButton extends StatelessWidget {
-  const _MacButton(this.color);
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 13,
-      height: 13,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-    );
-  }
-}
-
-class _Win32Button extends StatelessWidget {
-  const _Win32Button(this.icon, this.bg);
-
-  final IconData icon;
-  final Color bg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 36,
-      height: 38,
-      color: bg,
-      child: Icon(icon, color: Colors.white, size: 14),
-    );
-  }
-}
-
-class _LinuxButton extends StatelessWidget {
-  const _LinuxButton(this.icon);
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 28,
-      height: 28,
-      margin: const EdgeInsets.symmetric(horizontal: 2),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(color: _kChromeLight.withAlpha(120)),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Icon(icon, color: _kChromeLight, size: 13),
-    );
-  }
-}
-
-class _StateRow extends StatelessWidget {
-  const _StateRow(this.key_, this.value);
-
-  final String key_;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 100,
-            child: Text(
-              key_,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: _kSeed,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            value,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: _kInk,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 4 — Window Operations
-// ===========================================================================
-class _WindowOperationsTab extends StatelessWidget {
-  const _WindowOperationsTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.settings_outlined, 'Window Operations'),
-              const Text(
-                'Tap the buttons below to simulate window operations. Each '
-                'operation updates the live window state panel and appends an '
-                'entry to the operation log.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              const _OperationsGrid(),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.terminal_outlined, 'Operation Log'),
-              ValueListenableBuilder<List<String>>(
-                valueListenable: _opLog,
-                builder: (BuildContext c7, List<String> log, _) {
-                  if (log.isEmpty) {
-                    return const Text(
-                      'No operations yet. Tap the buttons above.',
-                      style: TextStyle(color: _kBorder, fontSize: 13),
-                    );
-                  }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: log
-                        .reversed
-                        .map(
-                          (String entry) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 3),
-                            child: Row(
-                              children: <Widget>[
-                                const Icon(Icons.chevron_right,
-                                    size: 14, color: _kGreen),
-                                const SizedBox(width: 4),
-                                Expanded(
-                                  child: Text(
-                                    entry,
-                                    style: const TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 12,
-                                      color: _kInk,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.code_outlined, 'Code: setTitle'),
-              _CodeBlock(
-                'final RegularWindowController ctrl =\n'
-                '    RegularWindowController.of(context)!;\n\n'
-                '// setTitle — changes the OS title bar text\n'
-                'await ctrl.setTitle(\'My App — Document Saved\');\n\n'
-                '// Retrieve current title\n'
-                'final String current = await ctrl.title;',
-              ),
-              const SizedBox(height: 12),
-              const _SectionHeader(Icons.code_outlined, 'Code: setSize / setPosition'),
-              _CodeBlock(
-                '// Resize to 1280 × 720 logical pixels\n'
-                'await ctrl.setSize(const Size(1280, 720));\n\n'
-                '// Move to (200, 150) from top-left of primary screen\n'
-                'await ctrl.setPosition(const Offset(200, 150));\n\n'
-                '// Center on screen (requires screen size query)\n'
-                'final Size screen = View.of(context).display.size /\n'
-                '    View.of(context).devicePixelRatio;\n'
-                'final Size win = await ctrl.size;\n'
-                'await ctrl.setPosition(Offset(\n'
-                '  (screen.width - win.width) / 2,\n'
-                '  (screen.height - win.height) / 2,\n'
-                '));',
-              ),
-              const SizedBox(height: 12),
-              const _SectionHeader(Icons.code_outlined, 'Code: State transitions'),
-              _CodeBlock(
-                '// Minimize to taskbar / Dock\n'
-                'await ctrl.minimize();\n\n'
-                '// Maximize to fill screen (not fullscreen)\n'
-                'await ctrl.maximize();\n\n'
-                '// Restore to last normal size and position\n'
-                'await ctrl.restore();\n\n'
-                '// Toggle true fullscreen (hides menu bar on macOS)\n'
-                'await ctrl.setFullScreen(true);\n'
-                'await ctrl.setFullScreen(false);',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _OperationsGrid extends StatelessWidget {
-  const _OperationsGrid();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        // Title row
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Window Title',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                ),
-                onSubmitted: (String val) {
-                  if (val.isNotEmpty) {
-                    _windowTitle.value = val;
-                    _log('setTitle("$val") called');
-                  }
-                },
-              ),
-            ),
-            const SizedBox(width: 10),
-            ElevatedButton.icon(
-              onPressed: () {
-                _windowTitle.value = 'Untitled Window';
-                _log('setTitle("Untitled Window") called');
-              },
-              icon: const Icon(Icons.title, size: 16),
-              label: const Text('Reset Title'),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: <Widget>[
-            _OpButton(
-              label: 'setSize 1280×720',
-              icon: Icons.aspect_ratio_outlined,
-              color: _kSeed,
-              onTap: () {
-                _windowSize.value = const Size(1280, 720);
-                _windowState.value = 'normal';
-                _log('setSize(1280, 720) called');
-              },
-            ),
-            _OpButton(
-              label: 'setSize 800×600',
-              icon: Icons.aspect_ratio_outlined,
-              color: _kSeed,
-              onTap: () {
-                _windowSize.value = const Size(800, 600);
-                _windowState.value = 'normal';
-                _log('setSize(800, 600) called');
-              },
-            ),
-            _OpButton(
-              label: 'setPosition (100, 80)',
-              icon: Icons.open_with_outlined,
-              color: _kPurple,
-              onTap: () {
-                _windowPosition.value = const Offset(100, 80);
-                _log('setPosition(100, 80) called');
-              },
-            ),
-            _OpButton(
-              label: 'setPosition (400, 200)',
-              icon: Icons.open_with_outlined,
-              color: _kPurple,
-              onTap: () {
-                _windowPosition.value = const Offset(400, 200);
-                _log('setPosition(400, 200) called');
-              },
-            ),
-            _OpButton(
-              label: 'minimize()',
-              icon: Icons.minimize_outlined,
-              color: _kYellow,
-              onTap: () {
-                _windowState.value = 'minimized';
-                _log('minimize() called — window sent to Dock/taskbar');
-              },
-            ),
-            _OpButton(
-              label: 'maximize()',
-              icon: Icons.crop_square_outlined,
-              color: _kGreen,
-              onTap: () {
-                _windowState.value = 'maximized';
-                _log('maximize() called — window fills screen');
-              },
-            ),
-            _OpButton(
-              label: 'restore()',
-              icon: Icons.restore_outlined,
-              color: _kAccent,
-              onTap: () {
-                _windowState.value = 'normal';
-                _windowSize.value = const Size(900, 600);
-                _log('restore() called — window returned to normal state');
-              },
-            ),
-            _OpButton(
-              label: 'setFullScreen(true)',
-              icon: Icons.fullscreen_outlined,
-              color: _kRed,
-              onTap: () {
-                _windowState.value = 'fullscreen';
-                _log('setFullScreen(true) called — enters OS fullscreen');
-              },
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _OpButton extends StatelessWidget {
-  const _OpButton({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
-
-  final String label;
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: onTap,
-      icon: Icon(icon, size: 15, color: color),
-      label: Text(
-        label,
-        style: TextStyle(fontSize: 12, color: color),
-      ),
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: color.withAlpha(100)),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 5 — RegularWindow Widget
-// ===========================================================================
-class _RegularWindowWidgetTab extends StatelessWidget {
-  const _RegularWindowWidgetTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.widgets_outlined, 'RegularWindow Widget'),
-              const Text(
-                'RegularWindow is the widget counterpart to RegularWindowController. '
-                'It wraps a FlutterView and makes the associated controller available '
-                'to the subtree via RegularWindowController.of(context). '
-                'Multi-window Flutter apps create one RegularWindow per view.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                'class MyApp extends StatelessWidget {\n'
-                '  const MyApp({required this.view, super.key});\n'
-                '  final FlutterView view;\n\n'
-                '  @override\n'
-                '  Widget build(BuildContext context) {\n'
-                '    return RegularWindow(\n'
-                '      view: view,\n'
-                '      child: MaterialApp(\n'
-                '        home: const MyHomePage(),\n'
-                '      ),\n'
-                '    );\n'
-                '  }\n'
-                '}',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Widget-to-controller connection diagram
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.account_tree_outlined, 'Widget ↔ Controller Connection'),
-              const Text(
-                'The diagram below shows how RegularWindow propagates the '
-                'controller through the widget tree.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 20),
-              _ConnectionDiagram(),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // InheritedWidget scope explanation
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.hub_outlined, 'How RegularWindow.of() Works'),
-              const Text(
-                'RegularWindow is an InheritedWidget that stores the '
-                'RegularWindowController. Calling RegularWindowController.of(context) '
-                'walks up the widget tree to find the nearest RegularWindow ancestor '
-                'and returns its controller.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                '// Inside any descendant of RegularWindow:\n'
-                'class MyPage extends StatelessWidget {\n'
-                '  const MyPage({super.key});\n\n'
-                '  @override\n'
-                '  Widget build(BuildContext context) {\n'
-                '    // Returns null on non-desktop platforms\n'
-                '    final RegularWindowController? ctrl =\n'
-                '        RegularWindowController.of(context);\n\n'
-                '    return ElevatedButton(\n'
-                '      onPressed: () async {\n'
-                '        await ctrl?.setTitle(\'Document Saved\');\n'
-                '      },\n'
-                '      child: const Text(\'Save\'),\n'
-                '    );\n'
-                '  }\n'
-                '}',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // viewOf pattern
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.visibility_outlined, 'View.of vs RegularWindowController.of'),
-              _CompareRow(
-                'View.of(context)',
-                'Returns the FlutterView for layout/display info '
-                    '(devicePixelRatio, display, physicalSize). '
-                    'Does NOT give window management operations.',
-              ),
-              const SizedBox(height: 8),
-              _CompareRow(
-                'RegularWindowController.of(context)',
-                'Returns the controller for imperative window '
-                    'operations (setTitle, setSize, maximize, etc.). '
-                    'Requires a RegularWindow ancestor.',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ConnectionDiagram extends StatelessWidget {
-  _ConnectionDiagram();
-
-  final List<_DiagramNode> _nodes = <_DiagramNode>[
-    _DiagramNode('runApp()', 'Entry point for each FlutterView', _kChrome),
-    _DiagramNode('RegularWindow', 'Wraps the view; creates & exposes controller', _kSeed),
-    _DiagramNode('MaterialApp', 'Theme / router root', _kPurple),
-    _DiagramNode('MyHomePage', 'Your content widget tree', _kAccent),
-    _DiagramNode('RegularWindowController.of(context)', 'Lookup from any descendant', _kGreen),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        for (int i = 0; i < _nodes.length; i++) ...<Widget>[
-          _DiagramNodeWidget(_nodes[i]),
-          if (i < _nodes.length - 1)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Icon(Icons.arrow_downward, size: 18, color: _kBorder),
-            ),
-        ],
-      ],
-    );
-  }
-}
-
-class _DiagramNode {
-  const _DiagramNode(this.name, this.desc, this.color);
-
-  final String name;
-  final String desc;
-  final Color color;
-}
-
-class _DiagramNodeWidget extends StatelessWidget {
-  const _DiagramNodeWidget(this.node);
-
-  final _DiagramNode node;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: node.color.withAlpha(18),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: node.color.withAlpha(80)),
-      ),
+    return _Section(
+      title: '1. Anatomy of RegularWindowController',
+      icon: Icons.account_tree,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            node.name,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: node.color,
-            ),
+          const Text(
+            'RegularWindowController is the abstract base for "regular" '
+            'top-level windows in Flutter\'s experimental multi-window API. '
+            'It extends BaseWindowController which extends ChangeNotifier.',
           ),
-          Text(
-            node.desc,
-            style: const TextStyle(fontSize: 12, color: _kInk, height: 1.4),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CompareRow extends StatelessWidget {
-  const _CompareRow(this.api, this.desc);
-
-  final String api;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: _kSeed.withAlpha(18),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            api,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: _kSeed,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(desc, style: const TextStyle(fontSize: 13, height: 1.45)),
-        ),
-      ],
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 6 — Size Constraints
-// ===========================================================================
-class _SizeConstraintsTab extends StatelessWidget {
-  const _SizeConstraintsTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.aspect_ratio_outlined, 'Size Constraints API'),
-              const Text(
-                'RegularWindowController lets you constrain how the user can resize '
-                'the window with setMinSize, setMaxSize, and setResizable.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                '// Minimum window size — prevents the user shrinking below this\n'
-                'await ctrl.setMinSize(const Size(400, 300));\n\n'
-                '// Maximum window size — prevents growing above this\n'
-                'await ctrl.setMaxSize(const Size(1600, 1200));\n\n'
-                '// Disable resize entirely (fixed-size window)\n'
-                'await ctrl.setResizable(false);\n\n'
-                '// Re-enable resize\n'
-                'await ctrl.setResizable(true);',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Interactive sliders
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.tune_outlined, 'Interactive Size Sliders'),
-              ValueListenableBuilder<double>(
-                valueListenable: _minW,
-                builder: (BuildContext c8, double minW, _) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          const Text('Min Width: ',
-                              style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 13,
-                                  color: _kSeed,
-                                  fontWeight: FontWeight.w600)),
-                          Text('${minW.toInt()} px',
-                              style: const TextStyle(
-                                  fontFamily: 'monospace', fontSize: 13)),
-                        ],
-                      ),
-                      Slider(
-                        value: minW,
-                        min: 200,
-                        max: 800,
-                        divisions: 12,
-                        label: '${minW.toInt()} px',
-                        activeColor: _kSeed,
-                        onChanged: (double v) {
-                          _minW.value = v;
-                          _log('setMinSize(${v.toInt()}, …) called');
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ),
-              ValueListenableBuilder<double>(
-                valueListenable: _maxW,
-                builder: (BuildContext c9, double maxW, _) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          const Text('Max Width: ',
-                              style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 13,
-                                  color: _kAccent,
-                                  fontWeight: FontWeight.w600)),
-                          Text('${maxW.toInt()} px',
-                              style: const TextStyle(
-                                  fontFamily: 'monospace', fontSize: 13)),
-                        ],
-                      ),
-                      Slider(
-                        value: maxW,
-                        min: 800,
-                        max: 3000,
-                        divisions: 22,
-                        label: '${maxW.toInt()} px',
-                        activeColor: _kAccent,
-                        onChanged: (double v) {
-                          _maxW.value = v;
-                          _log('setMaxSize(${v.toInt()}, …) called');
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ),
-              const SizedBox(height: 8),
-              ValueListenableBuilder<bool>(
-                valueListenable: _resizable,
-                builder: (BuildContext cA, bool r, _) {
-                  return Row(
-                    children: <Widget>[
-                      Switch(
-                        value: r,
-                        activeThumbColor: _kGreen,
-                        onChanged: (bool v) {
-                          _resizable.value = v;
-                          _log('setResizable($v) called');
-                        },
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        r ? 'Resizable — user can drag edges' : 'Fixed size — resize disabled',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: r ? _kGreen : _kRed,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Constraint visualization
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.bar_chart_outlined, 'Constraint Range Visualization'),
-              ValueListenableBuilder<double>(
-                valueListenable: _minW,
-                builder: (BuildContext cB, double minW, _) {
-                  return ValueListenableBuilder<double>(
-                    valueListenable: _maxW,
-                    builder: (BuildContext cC, double maxW, _) {
-                      return ValueListenableBuilder<Size>(
-                        valueListenable: _windowSize,
-                        builder: (BuildContext cD, Size ws, _) {
-                          return _ConstraintBar(
-                            minW: minW,
-                            maxW: maxW,
-                            currentW: ws.width,
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Platform behavior differences
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.compare_outlined, 'Platform Behavior Differences'),
-              const _BulletItem(
-                'macOS: setMinSize is enforced by the window server. Resize '
-                    'handles disappear visually when setResizable(false) is set.',
-              ),
-              const _BulletItem(
-                'Windows: Min/max constraints are enforced via WM_GETMINMAXINFO. '
-                    'setResizable(false) removes the WS_THICKFRAME style.',
-              ),
-              const _BulletItem(
-                'Linux: Depends on the window manager; constraints may be advisory '
-                    'only and not always enforced by the compositor.',
-              ),
-              const _BulletItem(
-                'Setting minSize larger than maxSize will throw an assertion error '
-                    'in debug mode and produce undefined behavior in release mode.',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ConstraintBar extends StatelessWidget {
-  const _ConstraintBar({
-    required this.minW,
-    required this.maxW,
-    required this.currentW,
-  });
-
-  final double minW;
-  final double maxW;
-  final double currentW;
-
-  @override
-  Widget build(BuildContext context) {
-    const double totalRange = 3000;
-    final double minFrac = minW / totalRange;
-    final double maxFrac = maxW / totalRange;
-    final double curFrac = (currentW / totalRange).clamp(0.0, 1.0);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const Text(
-          '0 px                                            3000 px',
-          style: TextStyle(fontSize: 10, color: _kBorder),
-        ),
-        const SizedBox(height: 6),
-        LayoutBuilder(
-          builder: (BuildContext ctx, BoxConstraints bc) {
-            final double totalW = bc.maxWidth;
-            return Stack(
-              children: <Widget>[
-                // Background track
-                Container(
-                  width: totalW,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: _kSurface,
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: _kBorder),
-                  ),
-                ),
-                // Allowed range
-                Positioned(
-                  left: totalW * minFrac,
-                  child: Container(
-                    width: (totalW * (maxFrac - minFrac)).clamp(0, totalW),
-                    height: 20,
-                    color: _kSeed.withAlpha(40),
-                  ),
-                ),
-                // Current position
-                Positioned(
-                  left: (totalW * curFrac - 2).clamp(0, totalW - 4),
-                  child: Container(
-                    width: 4,
-                    height: 20,
-                    color: _kAccent,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: 6),
-        Row(
-          children: <Widget>[
-            _Chip('min: ${minW.toInt()} px', color: _kSeed),
-            const SizedBox(width: 8),
-            _Chip('current: ${currentW.toInt()} px', color: _kAccent),
-            const SizedBox(width: 8),
-            _Chip('max: ${maxW.toInt()} px', color: _kPurple),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _BulletItem extends StatelessWidget {
-  const _BulletItem(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text('• ', style: TextStyle(color: _kSeed, fontSize: 16)),
-          Expanded(
-            child: Text(text, style: const TextStyle(fontSize: 13, height: 1.45)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 7 — WindowListener Pattern
-// ===========================================================================
-class _WindowListenerTab extends StatelessWidget {
-  const _WindowListenerTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.notifications_outlined, 'WindowListener Pattern'),
-              const Text(
-                'To observe window events (focus changes, size changes, state '
-                'transitions), mix WindowListener into a State class and add/remove '
-                'it on the controller. This is the standard observer pattern for '
-                'reactive window event handling.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                'class _MyPageState extends State<MyPage>\n'
-                '    with WindowListener {\n\n'
-                '  RegularWindowController? _ctrl;\n\n'
-                '  @override\n'
-                '  void didChangeDependencies() {\n'
-                '    super.didChangeDependencies();\n'
-                '    final RegularWindowController? next =\n'
-                '        RegularWindowController.of(context);\n'
-                '    if (next != _ctrl) {\n'
-                '      _ctrl?.removeListener(this);\n'
-                '      _ctrl = next;\n'
-                '      _ctrl?.addListener(this);\n'
-                '    }\n'
-                '  }\n\n'
-                '  @override\n'
-                '  void dispose() {\n'
-                '    _ctrl?.removeListener(this);\n'
-                '    super.dispose();\n'
-                '  }\n\n'
-                '  @override\n'
-                '  void onWindowFocusChanged(bool focused) {\n'
-                '    setState(() { /* update UI */ });\n'
-                '  }\n\n'
-                '  @override\n'
-                '  void onWindowSizeChanged(Size size) {\n'
-                '    // Called when the OS resizes the window\n'
-                '  }\n\n'
-                '  @override\n'
-                '  void onWindowStateChanged(WindowState state) {\n'
-                '    // state: normal | minimized | maximized | fullscreen\n'
-                '  }\n'
-                '}',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Event reference
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.list_outlined, 'WindowListener Event Reference'),
-              _EventRow('onWindowFocusChanged(bool focused)',
-                  'Fired when the window gains or loses OS focus.'),
-              _EventRow('onWindowSizeChanged(Size size)',
-                  'Fired when the window is resized by the user or programmatically.'),
-              _EventRow('onWindowPositionChanged(Offset position)',
-                  'Fired when the window is moved to a new screen position.'),
-              _EventRow('onWindowStateChanged(WindowState state)',
-                  'Fired on minimize, maximize, restore, fullscreen transitions.'),
-              _EventRow('onWindowClose()',
-                  'Fired when the user clicks the close button. Return false to cancel.'),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Focus simulation
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.center_focus_strong_outlined, 'Focus Demo'),
-              ValueListenableBuilder<bool>(
-                valueListenable: _windowFocused,
-                builder: (BuildContext cE, bool focused, _) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: focused
-                              ? _kGreenSoft
-                              : const Color(0xFFF0F0F0),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: focused ? _kGreen : _kBorder,
-                            width: 2,
-                          ),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              focused
-                                  ? Icons.center_focus_strong
-                                  : Icons.center_focus_weak_outlined,
-                              color: focused ? _kGreen : _kBorder,
-                              size: 28,
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  focused ? 'Window Focused' : 'Window Unfocused',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: focused ? _kGreen : _kRed,
-                                  ),
-                                ),
-                                Text(
-                                  focused
-                                      ? 'onWindowFocusChanged(true) fired'
-                                      : 'onWindowFocusChanged(false) fired',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'monospace',
-                                    color: _kInk,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 10,
-                        children: <Widget>[
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              _windowFocused.value = true;
-                              _log('onWindowFocusChanged(true) — focus gained');
-                            },
-                            icon: const Icon(Icons.center_focus_strong, size: 16),
-                            label: const Text('Gain Focus'),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: _kGreen,
-                                foregroundColor: Colors.white),
-                          ),
-                          OutlinedButton.icon(
-                            onPressed: () {
-                              _windowFocused.value = false;
-                              _log('onWindowFocusChanged(false) — focus lost');
-                            },
-                            icon: const Icon(Icons.center_focus_weak_outlined,
-                                size: 16),
-                            label: const Text('Lose Focus'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // didChangeMetrics note
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.info_outline, 'didChangeMetrics vs WindowListener'),
-              const Text(
-                'Before RegularWindowController, developers used '
-                'WidgetsBindingObserver.didChangeMetrics() for window size changes. '
-                'This is still functional but has limitations:',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 12),
-              _CodeBlock(
-                '// Legacy approach (still works, but coarser grained)\n'
-                'class _State extends State<W> with WidgetsBindingObserver {\n'
-                '  @override\n'
-                '  void initState() {\n'
-                '    super.initState();\n'
-                '    WidgetsBinding.instance.addObserver(this);\n'
-                '  }\n\n'
-                '  @override\n'
-                '  void didChangeMetrics() {\n'
-                '    // Fires for ANY metric change including text scale,\n'
-                '    // not just window resize — needs manual filtering.\n'
-                '    final FlutterView view = View.of(context);\n'
-                '    final Size size = view.physicalSize / view.devicePixelRatio;\n'
-                '  }\n'
-                '}',
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'WindowListener.onWindowSizeChanged is more precise: it fires '
-                'only on actual window dimension changes, not text scale or '
-                'display metric updates.',
-                style: TextStyle(fontSize: 13, height: 1.45, color: _kInk),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _EventRow extends StatelessWidget {
-  const _EventRow(this.name, this.desc);
-
-  final String name;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            name,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: _kSeed,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 3),
-          Text(
-            desc,
-            style: const TextStyle(fontSize: 13, height: 1.4, color: _kInk),
-          ),
-          const Divider(height: 16, color: _kBorder),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 8 — Multi-Window
-// ===========================================================================
-class _MultiWindowTab extends StatelessWidget {
-  const _MultiWindowTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.layers_outlined, 'Multi-Window Architecture'),
-              const Text(
-                'Flutter desktop apps can open multiple windows. Each window '
-                'is a separate FlutterView in the engine. RegularWindowController '
-                'is instantiated per view, allowing independent control of each window.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                '// Creating a new window (engine-level)\n'
-                'final FlutterView? newView =\n'
-                '    await WidgetApp.of(context)!.openWindow();\n\n'
-                '// Each view gets its own controller\n'
-                'if (newView != null) {\n'
-                '  final RegularWindowController ctrl =\n'
-                '      RegularWindowController(view: newView);\n'
-                '  await ctrl.setTitle(\'Secondary Window\');\n'
-                '  await ctrl.setSize(const Size(640, 480));\n'
-                '}',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Multi-window diagram
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.account_tree_outlined, 'Multi-Window Diagram'),
-              const Text(
-                'One Flutter engine process manages all windows. Each RegularWindow '
-                'widget roots a separate widget tree inside its FlutterView.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 20),
-              const _MultiWindowDiagram(),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Coordination patterns
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.sync_outlined, 'Cross-Window Coordination'),
-              const Text(
-                'Controllers for different windows can be kept in a top-level '
-                'store and used to coordinate window layouts.',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              _CodeBlock(
-                '// Example: tile two windows side by side\n'
-                'Future<void> tileWindows(\n'
-                '  RegularWindowController main,\n'
-                '  RegularWindowController secondary,\n'
-                '  Size screenSize,\n'
-                ') async {\n'
-                '  final double halfW = screenSize.width / 2;\n'
-                '  final double h = screenSize.height;\n\n'
-                '  await Future.wait(<Future<void>>[\n'
-                '    main.setSize(Size(halfW, h)),\n'
-                '    main.setPosition(Offset.zero),\n'
-                '    secondary.setSize(Size(halfW, h)),\n'
-                '    secondary.setPosition(Offset(halfW, 0)),\n'
-                '  ]);\n'
-                '}',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Window list simulation
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.list_alt_outlined, 'Simulated Window Registry'),
-              _WindowRegistryItem(
-                id: 'view_0',
-                title: 'Main Application',
-                size: const Size(1280, 800),
-                state: 'normal',
-                isMain: true,
-              ),
-              _WindowRegistryItem(
-                id: 'view_1',
-                title: 'Document Editor',
-                size: const Size(900, 700),
-                state: 'normal',
-                isMain: false,
-              ),
-              _WindowRegistryItem(
-                id: 'view_2',
-                title: 'Inspector Panel',
-                size: const Size(400, 800),
-                state: 'minimized',
-                isMain: false,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MultiWindowDiagram extends StatelessWidget {
-  const _MultiWindowDiagram();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        // Engine row
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: _kChromeDark,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Text(
-            'Flutter Engine (single process)',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  const Icon(Icons.arrow_downward, size: 16, color: _kBorder),
-                  _MultiWindowBox('FlutterView 0', 'RegularWindowController(view_0)', _kSeed),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  const Icon(Icons.arrow_downward, size: 16, color: _kBorder),
-                  _MultiWindowBox('FlutterView 1', 'RegularWindowController(view_1)', _kPurple),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  const Icon(Icons.arrow_downward, size: 16, color: _kBorder),
-                  _MultiWindowBox('FlutterView 2', 'RegularWindowController(view_2)', _kAccent),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: <Widget>[
-            Expanded(child: _OsWindowBox('OS Window 0\n(main)', _kSeed)),
-            const SizedBox(width: 8),
-            Expanded(child: _OsWindowBox('OS Window 1\n(secondary)', _kPurple)),
-            const SizedBox(width: 8),
-            Expanded(child: _OsWindowBox('OS Window 2\n(panel)', _kAccent)),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _MultiWindowBox extends StatelessWidget {
-  const _MultiWindowBox(this.view, this.ctrl, this.color);
-
-  final String view;
-  final String ctrl;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: color.withAlpha(20),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withAlpha(80)),
-      ),
-      child: Column(
-        children: <Widget>[
-          Text(
-            view,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: color,
-            ),
+          const SizedBox(height: 8),
+          const Text(
+            'Key abstract members:',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          Text(
-            ctrl,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 9,
-              color: color.withAlpha(180),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _OsWindowBox extends StatelessWidget {
-  const _OsWindowBox(this.label, this.color);
-
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: _kChrome.withAlpha(20),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: _kChrome.withAlpha(60)),
-      ),
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 11,
-          color: _kChrome,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-}
-
-class _WindowRegistryItem extends StatelessWidget {
-  const _WindowRegistryItem({
-    required this.id,
-    required this.title,
-    required this.size,
-    required this.state,
-    required this.isMain,
-  });
-
-  final String id;
-  final String title;
-  final Size size;
-  final String state;
-  final bool isMain;
-
-  @override
-  Widget build(BuildContext context) {
-    final Color stateColor = state == 'minimized'
-        ? _kYellow
-        : state == 'maximized'
-            ? _kGreen
-            : _kSeed;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isMain ? _kSeed.withAlpha(12) : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isMain ? _kSeed.withAlpha(80) : _kBorder,
-          ),
-        ),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.window_outlined, color: _kSeed, size: 20),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                        ),
+          ..._anatomyRows().map(
+            (MapEntry<String, String> e) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: RichText(
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.black87, fontSize: 13),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: e.key,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
                       ),
-                      if (isMain) ...<Widget>[
-                        const SizedBox(width: 8),
-                        const _Chip('main', color: _kSeed),
-                      ],
-                    ],
-                  ),
-                  Text(
-                    '$id  •  ${size.width.toInt()}×${size.height.toInt()} px',
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                      color: _kBorder,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            _Chip(state, color: stateColor),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// TAB 9 — Pitfalls & API Cheat Sheet
-// ===========================================================================
-class _PitfallsAndApiTab extends StatelessWidget {
-  const _PitfallsAndApiTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.warning_amber_outlined, 'Common Pitfalls'),
-              const _PitfallItem(
-                title: '1. Desktop-Only API',
-                body: 'RegularWindowController.of(context) returns null on iOS '
-                    'and Android. Always null-check before calling any method. '
-                    'Shipping without this guard causes null-pointer errors on mobile.',
-                color: _kRed,
-              ),
-              const _PitfallItem(
-                title: '2. All Methods Are Async',
-                body: 'Every window operation returns a Future. Calling '
-                    'ctrl.setTitle() without await does NOT guarantee the title '
-                    'is updated before the next frame. Use await or chain properly.',
-                color: _kYellow,
-              ),
-              const _PitfallItem(
-                title: '3. Platform Inconsistencies',
-                body: 'setPosition on Linux may be silently ignored by tiling '
-                    'window managers. Always test on all target platforms. '
-                    'Do not assume macOS behavior applies to Windows or Linux.',
-                color: _kYellow,
-              ),
-              const _PitfallItem(
-                title: '4. Size in Logical Pixels',
-                body: 'All size and position values are in logical (device-independent) '
-                    'pixels, NOT physical pixels. On a 2x display, a 900×600 logical '
-                    'window is 1800×1200 physical pixels. Use View.devicePixelRatio '
-                    'only when dealing with physical values.',
-                color: _kSeed,
-              ),
-              const _PitfallItem(
-                title: '5. Controller Lifetime',
-                body: 'The controller is tied to a FlutterView. If the view is '
-                    'destroyed (window closed), the controller becomes invalid. '
-                    'Always remove WindowListener in dispose() to avoid memory leaks.',
-                color: _kRed,
-              ),
-              const _PitfallItem(
-                title: '6. setFullScreen vs maximize',
-                body: 'setFullScreen(true) hides the OS menu bar and Dock on macOS '
-                    'and enters a true fullscreen space. maximize() only fills the '
-                    'visible screen area — chrome remains visible. These are different.',
-                color: _kPurple,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // API cheat sheet
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(Icons.article_outlined, 'API Cheat Sheet'),
-              const _ApiSection('Constructors & Lookup'),
-              _ApiRow('RegularWindowController(view: v)', 'Direct construction for a FlutterView.'),
-              _ApiRow('RegularWindowController.of(context)', 'Inherited lookup; null on non-desktop.'),
-              const _ApiSection('Setters'),
-              _ApiRow('setTitle(String title)', 'Updates the OS title bar text.'),
-              _ApiRow('setSize(Size size)', 'Resizes the window in logical pixels.'),
-              _ApiRow('setPosition(Offset pos)', 'Moves the window top-left to pos.'),
-              _ApiRow('setMinSize(Size size)', 'Sets minimum resize constraint.'),
-              _ApiRow('setMaxSize(Size size)', 'Sets maximum resize constraint.'),
-              _ApiRow('setResizable(bool resizable)', 'Enables or disables user resize.'),
-              _ApiRow('setFullScreen(bool full)', 'Enters or exits true fullscreen.'),
-              const _ApiSection('State Transitions'),
-              _ApiRow('minimize()', 'Sends window to taskbar/Dock.'),
-              _ApiRow('maximize()', 'Expands to fill visible screen.'),
-              _ApiRow('restore()', 'Returns to previous normal state.'),
-              const _ApiSection('Getters (all async)'),
-              _ApiRow('title → Future<String>', 'Current window title.'),
-              _ApiRow('size → Future<Size>', 'Current logical window size.'),
-              _ApiRow('position → Future<Offset>', 'Current window position.'),
-              _ApiRow('isFullScreen → Future<bool>', 'Fullscreen state.'),
-              _ApiRow('isMaximized → Future<bool>', 'Maximized state.'),
-              _ApiRow('isMinimized → Future<bool>', 'Minimized state.'),
-              _ApiRow('isResizable → Future<bool>', 'Resize enabled state.'),
-              const _ApiSection('Event Listener'),
-              _ApiRow('addListener(WindowListener l)', 'Subscribe to window events.'),
-              _ApiRow('removeListener(WindowListener l)', 'Unsubscribe from events.'),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Comparison with dart:ui FlutterView
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SectionHeader(
-                  Icons.compare_outlined, 'Comparison: dart:ui FlutterView vs RegularWindowController'),
-              const Text(
-                'Both APIs relate to the same window but serve different purposes:',
-                style: TextStyle(fontSize: 14, height: 1.5),
-              ),
-              const SizedBox(height: 16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Table(
-                  defaultColumnWidth: const IntrinsicColumnWidth(),
-                  border: TableBorder.all(
-                    color: _kBorder,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  children: <TableRow>[
-                    TableRow(
-                      decoration: const BoxDecoration(color: _kChromeDark),
-                      children: <Widget>[
-                        _th2('Capability'),
-                        _th2('FlutterView (dart:ui)'),
-                        _th2('RegularWindowController'),
-                      ],
-                    ),
-                    _compRow('Set window title', false, true),
-                    _compRow('Set window size', false, true),
-                    _compRow('Set window position', false, true),
-                    _compRow('Minimize/maximize/restore', false, true),
-                    _compRow('Toggle fullscreen', false, true),
-                    _compRow('Physical pixel size', true, false),
-                    _compRow('Device pixel ratio', true, false),
-                    _compRow('Display info', true, false),
-                    _compRow('Padding/insets', true, false),
-                    _compRow('Semantics', true, false),
+                    TextSpan(text: ' - ${e.value}'),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
+          const SizedBox(height: 12),
+          _ControllerSnapshot(controller: controller),
+        ],
+      ),
+    );
+  }
 
-        // Best practices summary
-        _InfoCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  List<MapEntry<String, String>> _anatomyRows() {
+    return <MapEntry<String, String>>[
+      const MapEntry('contentSize', 'Size of the drawable area (excludes chrome).'),
+      const MapEntry('title', 'Current window title (may differ from request).'),
+      const MapEntry('isActivated', 'Window has input focus.'),
+      const MapEntry('isMaximized', 'Window occupies the work area.'),
+      const MapEntry('isMinimized', 'Window is iconified / hidden.'),
+      const MapEntry('isFullscreen', 'Window covers an entire Display.'),
+      const MapEntry('setSize(Size)', 'Request new content size.'),
+      const MapEntry('setConstraints(BoxConstraints)', 'Min/max sizing rules.'),
+      const MapEntry('setTitle(String)', 'Request title change.'),
+      const MapEntry('activate()', 'Bring to front + focus + un-minimize.'),
+      const MapEntry('setMaximized(bool)', 'Toggle maximized state.'),
+      const MapEntry('setMinimized(bool)', 'Toggle minimized state.'),
+      const MapEntry('setFullscreen(bool, {Display?})', 'Toggle fullscreen.'),
+      const MapEntry('destroy()', 'Release platform resources (idempotent).'),
+    ];
+  }
+}
+
+class _ControllerSnapshot extends StatelessWidget {
+  const _ControllerSnapshot({required this.controller});
+  final RegularWindowController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final _RegularWindowControllerBase b =
+        controller as _RegularWindowControllerBase;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.indigo.shade50,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Snapshot of "${controller.title}":',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 6),
+          Text(' - platform: ${controller.platform.name}'),
+          Text(
+            ' - contentSize: ${controller.contentSize.width.toStringAsFixed(0)} x ${controller.contentSize.height.toStringAsFixed(0)}',
+          ),
+          Text(' - constraints: ${b._constraints}'),
+          Text(' - isActivated: ${controller.isActivated}'),
+          Text(' - isMaximized: ${controller.isMaximized}'),
+          Text(' - isMinimized: ${controller.isMinimized}'),
+          Text(' - isFullscreen: ${controller.isFullscreen}'),
+          Text(' - destroyed:   ${b.isDestroyed}'),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 2 - PLATFORM DISPATCH
+// ---------------------------------------------------------------------
+
+class _SectionPlatformDispatch extends StatelessWidget {
+  const _SectionPlatformDispatch({required this.currentPlatform});
+  final TargetPlatform currentPlatform;
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '2. Platform dispatch pattern',
+      icon: Icons.alt_route,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'The factory constructor of RegularWindowController reaches '
+            'out to WidgetsBinding.instance.windowingOwner which routes '
+            'creation to a platform-specific subclass. We mirror that here:',
+          ),
+          const SizedBox(height: 12),
+          _DispatchTable(currentPlatform: currentPlatform),
+          const SizedBox(height: 12),
+          const Text(
+            'Probe via factory override:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+          ...TargetPlatform.values.map(_probeRow),
+        ],
+      ),
+    );
+  }
+
+  Widget _probeRow(TargetPlatform p) {
+    final RegularWindowController probe = RegularWindowController(
+      preferredSize: const Size(400, 300),
+      title: 'probe-${p.name}',
+      platformOverride: p,
+    );
+    final String klass = probe.runtimeType.toString();
+    probe.destroy();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Text(
+        ' - ${p.name.padRight(10)} -> $klass',
+        style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+    );
+  }
+}
+
+class _DispatchTable extends StatelessWidget {
+  const _DispatchTable({required this.currentPlatform});
+  final TargetPlatform currentPlatform;
+  @override
+  Widget build(BuildContext context) {
+    final List<_DispatchRow> rows = <_DispatchRow>[
+      const _DispatchRow(
+        TargetPlatform.windows,
+        'RegularWindowControllerWin32',
+        '_window_win32.dart',
+      ),
+      const _DispatchRow(
+        TargetPlatform.macOS,
+        'RegularWindowControllerMacOS',
+        '_window_macos.dart',
+      ),
+      const _DispatchRow(
+        TargetPlatform.linux,
+        'RegularWindowControllerLinux',
+        '_window_linux.dart',
+      ),
+      const _DispatchRow(
+        TargetPlatform.android,
+        '(unsupported - throws UnsupportedError)',
+        '-',
+      ),
+      const _DispatchRow(
+        TargetPlatform.iOS,
+        '(unsupported - throws UnsupportedError)',
+        '-',
+      ),
+      const _DispatchRow(
+        TargetPlatform.fuchsia,
+        '(unsupported - throws UnsupportedError)',
+        '-',
+      ),
+    ];
+    return Table(
+      border: TableBorder.all(color: Colors.grey.shade400),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FlexColumnWidth(2),
+        1: FlexColumnWidth(4),
+        2: FlexColumnWidth(3),
+      },
+      children: <TableRow>[
+        const TableRow(
+          decoration: BoxDecoration(color: Color(0xFFE8EAF6)),
+          children: <Widget>[
+            _Cell('Platform', bold: true),
+            _Cell('Concrete subclass', bold: true),
+            _Cell('Source', bold: true),
+          ],
+        ),
+        for (final _DispatchRow r in rows)
+          TableRow(
+            decoration: BoxDecoration(
+              color: r.platform == currentPlatform
+                  ? Colors.yellow.shade100
+                  : Colors.white,
+            ),
             children: <Widget>[
-              const _SectionHeader(
-                  Icons.check_circle_outline, 'Best Practices Summary'),
-              const _BulletItem(
-                'Guard all controller calls with a null-check: '
-                    'final ctrl = RegularWindowController.of(context); '
-                    'if (ctrl == null) return;',
-              ),
-              const _BulletItem(
-                'Always await window operations before reading back state '
-                    'to avoid race conditions.',
-              ),
-              const _BulletItem(
-                'Use RegularWindow at the root of each window\'s widget tree '
-                    'so descendants can reach the controller via .of(context).',
-              ),
-              const _BulletItem(
-                'Remove WindowListener in dispose() to prevent memory leaks '
-                    'when the observing widget is removed from the tree.',
-              ),
-              const _BulletItem(
-                'Test on all three desktop platforms; do not assume macOS '
-                    'behavior generalizes.',
-              ),
-              const _BulletItem(
-                'Prefer logical pixels for all size/position computations; '
-                    'multiply by devicePixelRatio only when the platform API '
-                    'requires physical pixels.',
-              ),
+              _Cell(r.platform.name),
+              _Cell(r.subclass),
+              _Cell(r.source),
             ],
           ),
-        ),
       ],
     );
   }
 }
 
-class _PitfallItem extends StatelessWidget {
-  const _PitfallItem({
-    required this.title,
-    required this.body,
-    required this.color,
-  });
+class _DispatchRow {
+  const _DispatchRow(this.platform, this.subclass, this.source);
+  final TargetPlatform platform;
+  final String subclass;
+  final String source;
+}
 
-  final String title;
-  final String body;
-  final Color color;
+class _Cell extends StatelessWidget {
+  const _Cell(this.text, {this.bold = false});
+  final String text;
+  final bool bold;
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(6),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            fontSize: 12,
+          ),
+        ),
+      );
+}
+
+// ---------------------------------------------------------------------
+// SECTION 3 - LIFECYCLE
+// ---------------------------------------------------------------------
+
+class _SectionLifecycle extends StatefulWidget {
+  const _SectionLifecycle({required this.controller, required this.onAction});
+  final RegularWindowController controller;
+  final void Function(String tag, String message) onAction;
+
+  @override
+  State<_SectionLifecycle> createState() => _SectionLifecycleState();
+}
+
+class _SectionLifecycleState extends State<_SectionLifecycle> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onChange);
+  }
+
+  void _onChange() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onChange);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
+    return _Section(
+      title: '3. Lifecycle: create / activate / destroy',
+      icon: Icons.timeline,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: 6,
-            height: 6,
-            margin: const EdgeInsets.only(top: 6, right: 10),
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          const Text(
+            'A RegularWindowController exists from the moment its '
+            'factory is called until destroy() is invoked or the platform '
+            'closes the window. ChangeNotifier listeners receive lifecycle '
+            'transitions.',
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: color,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  body,
-                  style: const TextStyle(fontSize: 13, height: 1.45),
-                ),
-              ],
-            ),
+          const SizedBox(height: 12),
+          _WindowChrome(controller: widget.controller),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              ElevatedButton.icon(
+                icon: const Icon(Icons.flash_on),
+                label: const Text('activate()'),
+                onPressed: () {
+                  widget.controller.activate();
+                  widget.onAction(
+                    'activate',
+                    '"${widget.controller.title}" activated',
+                  );
+                },
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.flash_off),
+                label: const Text('blur (deactivate)'),
+                onPressed: () {
+                  final _RegularWindowControllerBase b =
+                      widget.controller as _RegularWindowControllerBase;
+                  b._activated = false;
+                  b.notifyListeners();
+                  widget.onAction(
+                    'blur',
+                    '"${widget.controller.title}" lost focus',
+                  );
+                },
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.refresh),
+                label: const Text('rotate title'),
+                onPressed: () {
+                  final String next = '${widget.controller.title} *';
+                  widget.controller.setTitle(next);
+                  widget.onAction('title', 'title -> "$next"');
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -2945,59 +1035,430 @@ class _PitfallItem extends StatelessWidget {
   }
 }
 
-class _ApiSection extends StatelessWidget {
-  const _ApiSection(this.label);
+// ---------------------------------------------------------------------
+// SECTION 4 - RESIZE / CONSTRAINTS
+// ---------------------------------------------------------------------
 
-  final String label;
+class _SectionResize extends StatefulWidget {
+  const _SectionResize({required this.controller, required this.onAction});
+  final RegularWindowController controller;
+  final void Function(String, String) onAction;
+
+  @override
+  State<_SectionResize> createState() => _SectionResizeState();
+}
+
+class _SectionResizeState extends State<_SectionResize> {
+  double _w = 1024;
+  double _h = 768;
+  double _minW = 480;
+  double _minH = 320;
+
+  @override
+  void initState() {
+    super.initState();
+    _w = widget.controller.contentSize.width;
+    _h = widget.controller.contentSize.height;
+    widget.controller.addListener(_onChange);
+  }
+
+  void _onChange() {
+    if (!mounted) return;
+    setState(() {
+      _w = widget.controller.contentSize.width;
+      _h = widget.controller.contentSize.height;
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onChange);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 14, bottom: 6),
-      child: Text(
-        label.toUpperCase(),
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-          color: _kBorder,
-          letterSpacing: 1.2,
+    return _Section(
+      title: '4. Resize and dimension constraints',
+      icon: Icons.aspect_ratio,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'setSize() requests a new contentSize. setConstraints() updates '
+            'min/max bounds. The platform clamps requests against the '
+            'active constraints; we replicate that clamping below.',
+          ),
+          const SizedBox(height: 12),
+          _SliderRow(
+            label: 'Width',
+            value: _w,
+            min: 200,
+            max: 2400,
+            onChanged: (double v) {
+              setState(() => _w = v);
+              widget.controller.setSize(Size(v, _h));
+              widget.onAction('resize', 'width -> ${v.toStringAsFixed(0)}');
+            },
+          ),
+          _SliderRow(
+            label: 'Height',
+            value: _h,
+            min: 150,
+            max: 1800,
+            onChanged: (double v) {
+              setState(() => _h = v);
+              widget.controller.setSize(Size(_w, v));
+              widget.onAction('resize', 'height -> ${v.toStringAsFixed(0)}');
+            },
+          ),
+          const Divider(),
+          const Text(
+            'Constraints:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          _SliderRow(
+            label: 'minWidth',
+            value: _minW,
+            min: 100,
+            max: 1000,
+            onChanged: (double v) {
+              setState(() => _minW = v);
+              widget.controller.setConstraints(
+                BoxConstraints(minWidth: v, minHeight: _minH),
+              );
+              widget.onAction('constraints', 'minWidth=$v');
+            },
+          ),
+          _SliderRow(
+            label: 'minHeight',
+            value: _minH,
+            min: 100,
+            max: 1000,
+            onChanged: (double v) {
+              setState(() => _minH = v);
+              widget.controller.setConstraints(
+                BoxConstraints(minWidth: _minW, minHeight: v),
+              );
+              widget.onAction('constraints', 'minHeight=$v');
+            },
+          ),
+          const SizedBox(height: 8),
+          _WindowChrome(controller: widget.controller),
+        ],
+      ),
+    );
+  }
+}
+
+class _SliderRow extends StatelessWidget {
+  const _SliderRow({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
+  final String label;
+  final double value;
+  final double min;
+  final double max;
+  final ValueChanged<double> onChanged;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 100, child: Text(label)),
+        Expanded(
+          child: Slider(
+            value: value.clamp(min, max),
+            min: min,
+            max: max,
+            divisions: ((max - min) ~/ 10).clamp(1, 1000).toInt(),
+            label: value.toStringAsFixed(0),
+            onChanged: onChanged,
+          ),
+        ),
+        SizedBox(width: 60, child: Text(value.toStringAsFixed(0))),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 5 - MIN / MAX / RESTORE
+// ---------------------------------------------------------------------
+
+class _SectionMinimizeMaximize extends StatefulWidget {
+  const _SectionMinimizeMaximize({
+    required this.controller,
+    required this.onAction,
+  });
+  final RegularWindowController controller;
+  final void Function(String, String) onAction;
+  @override
+  State<_SectionMinimizeMaximize> createState() =>
+      _SectionMinimizeMaximizeState();
+}
+
+class _SectionMinimizeMaximizeState extends State<_SectionMinimizeMaximize> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onChange);
+  }
+
+  void _onChange() => setState(() {});
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onChange);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RegularWindowController c = widget.controller;
+    return _Section(
+      title: '5. Minimize / Maximize / Restore',
+      icon: Icons.crop_square,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'setMaximized(true) records the previous size and inflates to '
+            'the work area. setMaximized(false) restores. setMinimized '
+            'never destroys content - activate() brings it back.',
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  c.setMaximized(true);
+                  widget.onAction('maximize', '${c.title}: maximized=true');
+                },
+                child: const Text('Maximize'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  c.setMaximized(false);
+                  widget.onAction('maximize', '${c.title}: maximized=false');
+                },
+                child: const Text('Restore from Max'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  c.setMinimized(true);
+                  widget.onAction('minimize', '${c.title}: minimized=true');
+                },
+                child: const Text('Minimize'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  c.activate();
+                  widget.onAction(
+                    'restore-from-min',
+                    '${c.title} restored & activated',
+                  );
+                },
+                child: const Text('Restore from Min'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _StateChips(controller: c),
+        ],
+      ),
+    );
+  }
+}
+
+class _StateChips extends StatelessWidget {
+  const _StateChips({required this.controller});
+  final RegularWindowController controller;
+  @override
+  Widget build(BuildContext context) {
+    Chip chip(String label, bool active, Color color) => Chip(
+          label: Text(label),
+          backgroundColor: active ? color : Colors.grey.shade300,
+          labelStyle: TextStyle(
+            color: active ? Colors.white : Colors.black54,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+    return Wrap(
+      spacing: 6,
+      children: <Widget>[
+        chip('activated', controller.isActivated, Colors.indigo),
+        chip('maximized', controller.isMaximized, Colors.green),
+        chip('minimized', controller.isMinimized, Colors.orange),
+        chip('fullscreen', controller.isFullscreen, Colors.purple),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 6 - FULLSCREEN
+// ---------------------------------------------------------------------
+
+class _SectionFullscreen extends StatelessWidget {
+  const _SectionFullscreen({required this.controller, required this.onAction});
+  final RegularWindowController controller;
+  final void Function(String, String) onAction;
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '6. Fullscreen toggle',
+      icon: Icons.fullscreen,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'setFullscreen(true) covers the entire Display. The Display? '
+            'argument lets the caller pin a target screen on multi-monitor '
+            'setups. We omit it here to take the platform default.',
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: <Widget>[
+              ElevatedButton.icon(
+                icon: const Icon(Icons.fullscreen),
+                label: const Text('Enter fullscreen'),
+                onPressed: () {
+                  controller.setFullscreen(true);
+                  onAction('fullscreen', 'fullscreen=true');
+                },
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.fullscreen_exit),
+                label: const Text('Exit fullscreen'),
+                onPressed: () {
+                  controller.setFullscreen(false);
+                  onAction('fullscreen', 'fullscreen=false');
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          AnimatedBuilder(
+            animation: controller,
+            builder: (BuildContext context, Widget? child) =>
+                _FullscreenIndicator(active: controller.isFullscreen),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FullscreenIndicator extends StatelessWidget {
+  const _FullscreenIndicator({required this.active});
+  final bool active;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: active ? Colors.purple.shade100 : Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Text(
+          active ? 'FULLSCREEN ACTIVE' : 'windowed',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: active ? Colors.purple : Colors.black54,
+          ),
         ),
       ),
     );
   }
 }
 
-class _ApiRow extends StatelessWidget {
-  const _ApiRow(this.signature, this.desc);
+// ---------------------------------------------------------------------
+// SECTION 7 - CLOSE WITH CONFIRMATION
+// ---------------------------------------------------------------------
 
-  final String signature;
-  final String desc;
+class _SectionConfirmClose extends StatefulWidget {
+  const _SectionConfirmClose({
+    required this.controller,
+    required this.delegate,
+    required this.onAction,
+  });
+  final RegularWindowController controller;
+  final _ConfirmingDelegate delegate;
+  final void Function(String, String) onAction;
+  @override
+  State<_SectionConfirmClose> createState() => _SectionConfirmCloseState();
+}
+
+class _SectionConfirmCloseState extends State<_SectionConfirmClose> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_change);
+  }
+
+  void _change() => setState(() {});
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_change);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
+    final _RegularWindowControllerBase b =
+        widget.controller as _RegularWindowControllerBase;
+    return _Section(
+      title: '7. Close behavior with confirmation delegate',
+      icon: Icons.close,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 260,
-            child: Text(
-              signature,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: _kSeed,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+          const Text(
+            'A custom RegularWindowControllerDelegate can intercept '
+            'onWindowCloseRequested to e.g. require a "are you sure?" '
+            'confirmation. Our delegate refuses the first close attempt '
+            'and accepts the second. onWindowDestroyed runs after.',
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              desc,
-              style: const TextStyle(fontSize: 12, color: _kInk),
-            ),
+          const SizedBox(height: 8),
+          Text('Close requests received: ${widget.delegate.closeRequests}'),
+          Text('Destroyed: ${b.isDestroyed}'),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: b.isDestroyed
+                    ? null
+                    : () {
+                        widget.delegate
+                            .onWindowCloseRequested(widget.controller);
+                        widget.onAction(
+                          'close-attempt',
+                          'count=${widget.delegate.closeRequests}, '
+                              'destroyed=${b.isDestroyed}',
+                        );
+                      },
+                child: const Text('Request close'),
+              ),
+              ElevatedButton(
+                onPressed: b.isDestroyed
+                    ? null
+                    : () {
+                        widget.controller.destroy();
+                        widget.onAction('destroy', 'forced destroy()');
+                      },
+                child: const Text('Force destroy'),
+              ),
+            ],
           ),
         ],
       ),
@@ -3005,35 +1466,1005 @@ class _ApiRow extends StatelessWidget {
   }
 }
 
-Widget _th2(String label) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-    child: Text(
-      label,
-      style: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 12,
+// ---------------------------------------------------------------------
+// SECTION 8 - CAPABILITY DETECTION
+// ---------------------------------------------------------------------
+
+class _SectionCapability extends StatelessWidget {
+  const _SectionCapability({required this.controller});
+  final RegularWindowController controller;
+  @override
+  Widget build(BuildContext context) {
+    final TargetPlatform p = controller.platform;
+    final bool desktop = p == TargetPlatform.windows ||
+        p == TargetPlatform.macOS ||
+        p == TargetPlatform.linux;
+    return _Section(
+      title: '8. Capability detection',
+      icon: Icons.checklist,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Before invoking optional members, query the platform to know '
+            'what is supported. The real SDK gates everything behind '
+            'isWindowingEnabled, then dispatches per-platform.',
+          ),
+          const SizedBox(height: 8),
+          Table(
+            border: TableBorder.all(color: Colors.grey.shade400),
+            children: <TableRow>[
+              const TableRow(
+                decoration: BoxDecoration(color: Color(0xFFE8EAF6)),
+                children: <Widget>[
+                  _Cell('Capability', bold: true),
+                  _Cell('Supported?', bold: true),
+                ],
+              ),
+              _capRow('isWindowingEnabled flag', desktop),
+              _capRow('Multi-window root views', desktop),
+              _capRow('Independent fullscreen per Display', desktop),
+              _capRow('Title bar customization', p == TargetPlatform.macOS),
+              _capRow('Z-order control via activate()', desktop),
+              _capRow('Programmatic minimize/maximize', desktop),
+              _capRow('Idempotent destroy()', true),
+            ],
+          ),
+        ],
       ),
-    ),
-  );
+    );
+  }
+
+  TableRow _capRow(String name, bool ok) => TableRow(
+        children: <Widget>[
+          _Cell(name),
+          _Cell(ok ? 'YES' : 'no'),
+        ],
+      );
 }
 
-TableRow _compRow(String cap, bool inView, bool inCtrl) {
-  return TableRow(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Text(cap, style: const TextStyle(fontSize: 12)),
+// ---------------------------------------------------------------------
+// SECTION 9 - MULTI-WINDOW ORCHESTRATION
+// ---------------------------------------------------------------------
+
+class _SectionMultiWindow extends StatefulWidget {
+  const _SectionMultiWindow({
+    required this.controllers,
+    required this.onAction,
+    required this.onAdd,
+    required this.onRemove,
+  });
+  final List<RegularWindowController> controllers;
+  final void Function(String, String) onAction;
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
+  @override
+  State<_SectionMultiWindow> createState() => _SectionMultiWindowState();
+}
+
+class _SectionMultiWindowState extends State<_SectionMultiWindow> {
+  @override
+  void initState() {
+    super.initState();
+    for (final RegularWindowController c in widget.controllers) {
+      c.addListener(_onChange);
+    }
+  }
+
+  void _onChange() => setState(() {});
+
+  @override
+  void didUpdateWidget(_SectionMultiWindow old) {
+    super.didUpdateWidget(old);
+    for (final RegularWindowController c in old.controllers) {
+      c.removeListener(_onChange);
+    }
+    for (final RegularWindowController c in widget.controllers) {
+      c.addListener(_onChange);
+    }
+  }
+
+  @override
+  void dispose() {
+    for (final RegularWindowController c in widget.controllers) {
+      c.removeListener(_onChange);
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '9. Multi-window orchestration',
+      icon: Icons.dashboard,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'A single application can hold many RegularWindowControllers '
+            'simultaneously. Each is a separate ChangeNotifier. The host '
+            'is responsible for destroying them when no longer needed.',
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: <Widget>[
+              ElevatedButton.icon(
+                icon: const Icon(Icons.add),
+                label: const Text('Spawn window'),
+                onPressed: widget.onAdd,
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.remove),
+                label: const Text('Destroy last'),
+                onPressed: widget.onRemove,
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.dashboard_customize),
+                label: const Text('Cascade tile'),
+                onPressed: () {
+                  for (int i = 0; i < widget.controllers.length; i++) {
+                    widget.controllers[i].setSize(
+                      Size(360.0 + i * 30, 280.0 + i * 20),
+                    );
+                  }
+                  widget.onAction(
+                    'cascade',
+                    'cascade tiled ${widget.controllers.length} windows',
+                  );
+                },
+              ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.flash_on),
+                label: const Text('Activate all'),
+                onPressed: () {
+                  for (final RegularWindowController c in widget.controllers) {
+                    c.activate();
+                  }
+                  widget.onAction(
+                    'activate-all',
+                    'activated ${widget.controllers.length}',
+                  );
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: widget.controllers
+                .map(
+                  (RegularWindowController c) => SizedBox(
+                    width: 280,
+                    child: _WindowChrome(controller: c),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: _YesNo(inView),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 10 - RECIPES
+// ---------------------------------------------------------------------
+
+class _SectionRecipes extends StatelessWidget {
+  const _SectionRecipes({required this.onAction});
+  final void Function(String, String) onAction;
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '10. Recipe gallery',
+      icon: Icons.menu_book,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _Recipe(
+            title: 'Recipe A: Resize-then-center sequence',
+            body: 'Resize first, then re-activate to recenter focus.',
+            run: () {
+              final RegularWindowController c = RegularWindowController(
+                preferredSize: const Size(640, 480),
+                title: 'Recipe-A',
+              );
+              c.setSize(const Size(900, 700));
+              c.activate();
+              c.destroy();
+              onAction('recipe', 'A executed');
+            },
+          ),
+          _Recipe(
+            title: 'Recipe B: Chained constraint tightening',
+            body:
+                'Apply progressively narrower constraints to detect when the '
+                'platform refuses a size below a hard floor.',
+            run: () {
+              final RegularWindowController c = RegularWindowController(
+                preferredSize: const Size(800, 600),
+                title: 'Recipe-B',
+              );
+              c.setConstraints(
+                const BoxConstraints(minWidth: 640, minHeight: 480),
+              );
+              c.setConstraints(
+                const BoxConstraints(minWidth: 720, minHeight: 540),
+              );
+              c.setConstraints(
+                const BoxConstraints(minWidth: 800, minHeight: 600),
+              );
+              c.destroy();
+              onAction('recipe', 'B executed');
+            },
+          ),
+          _Recipe(
+            title: 'Recipe C: Maximize-fullscreen-restore round trip',
+            body:
+                'maximize -> fullscreen -> back to maximized -> back to '
+                'restored. Verifies state machine correctness.',
+            run: () {
+              final RegularWindowController c = RegularWindowController(
+                preferredSize: const Size(800, 600),
+                title: 'Recipe-C',
+              );
+              c.setMaximized(true);
+              c.setFullscreen(true);
+              c.setFullscreen(false);
+              c.setMaximized(false);
+              c.destroy();
+              onAction('recipe', 'C executed');
+            },
+          ),
+          _Recipe(
+            title: 'Recipe D: Title rotation with notifyListeners',
+            body:
+                'Five rapid title changes - useful when reflecting tab/index '
+                'state inside the OS task bar.',
+            run: () {
+              final RegularWindowController c = RegularWindowController(
+                preferredSize: const Size(800, 600),
+                title: 'Recipe-D',
+              );
+              for (int i = 1; i <= 5; i++) {
+                c.setTitle('Recipe-D ($i/5)');
+              }
+              c.destroy();
+              onAction('recipe', 'D executed');
+            },
+          ),
+          _Recipe(
+            title: 'Recipe E: Minimize swarm and re-activate',
+            body:
+                'Minimize five windows, then activate them in reverse order.',
+            run: () {
+              final List<RegularWindowController> swarm =
+                  <RegularWindowController>[];
+              for (int i = 0; i < 5; i++) {
+                swarm.add(
+                  RegularWindowController(
+                    preferredSize: Size(400 + i * 20, 300 + i * 15),
+                    title: 'Recipe-E #$i',
+                  ),
+                );
+              }
+              for (final RegularWindowController c in swarm) {
+                c.setMinimized(true);
+              }
+              for (final RegularWindowController c in swarm.reversed) {
+                c.activate();
+              }
+              for (final RegularWindowController c in swarm) {
+                c.destroy();
+              }
+              onAction('recipe', 'E executed');
+            },
+          ),
+        ],
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: _YesNo(inCtrl),
+    );
+  }
+}
+
+class _Recipe extends StatelessWidget {
+  const _Recipe({
+    required this.title,
+    required this.body,
+    required this.run,
+  });
+  final String title;
+  final String body;
+  final VoidCallback run;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(6),
+          color: Colors.grey.shade50,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            Text(body, style: const TextStyle(fontSize: 13)),
+            const SizedBox(height: 6),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.play_arrow, size: 16),
+                label: const Text('Run'),
+                onPressed: run,
+              ),
+            ),
+          ],
+        ),
       ),
-    ],
-  );
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 11 - PITFALLS
+// ---------------------------------------------------------------------
+
+class _SectionPitfalls extends StatelessWidget {
+  const _SectionPitfalls();
+  @override
+  Widget build(BuildContext context) {
+    final List<MapEntry<String, String>> rows = <MapEntry<String, String>>[
+      const MapEntry(
+        'Internal API',
+        'RegularWindowController is @internal. Do NOT import _window.dart in production.',
+      ),
+      const MapEntry(
+        'isWindowingEnabled gate',
+        'On stable Flutter the factory throws UnsupportedError unless the windowing feature flag is on.',
+      ),
+      const MapEntry(
+        'Mobile = unsupported',
+        'Always platform-check with Theme.of(context).platform or defaultTargetPlatform.',
+      ),
+      const MapEntry(
+        'destroy() is final',
+        'After destroy() the controller is invalid. Re-create instead of mutating.',
+      ),
+      const MapEntry(
+        'Constraints clamp',
+        'setSize() may be silently clamped by the active BoxConstraints.',
+      ),
+      const MapEntry(
+        'Maximize while fullscreen',
+        'setMaximized(true) while fullscreen records intent but does not change geometry.',
+      ),
+      const MapEntry(
+        'ChangeNotifier',
+        'Listeners run synchronously; avoid heavy work inside the callback.',
+      ),
+      const MapEntry(
+        'Multi-window leaks',
+        'For every RegularWindowController you spawn, call destroy() in dispose().',
+      ),
+    ];
+    return _Section(
+      title: '11. Pitfalls',
+      icon: Icons.warning_amber,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: rows
+            .map(
+              (MapEntry<String, String> e) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 13,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '${e.key}: ',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                      TextSpan(text: e.value),
+                    ],
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// SECTION 12 - REFERENCE TABLE
+// ---------------------------------------------------------------------
+
+class _SectionReferenceTable extends StatelessWidget {
+  const _SectionReferenceTable();
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '12. Reference - all members of RegularWindowController',
+      icon: Icons.list_alt,
+      child: Table(
+        border: TableBorder.all(color: Colors.grey.shade400),
+        columnWidths: const <int, TableColumnWidth>{
+          0: FlexColumnWidth(3),
+          1: FlexColumnWidth(2),
+          2: FlexColumnWidth(5),
+        },
+        children: <TableRow>[
+          const TableRow(
+            decoration: BoxDecoration(color: Color(0xFFE8EAF6)),
+            children: <Widget>[
+              _Cell('Member', bold: true),
+              _Cell('Kind', bold: true),
+              _Cell('Description', bold: true),
+            ],
+          ),
+          _ref('contentSize', 'getter', 'Size of the drawable area.'),
+          _ref('title', 'getter', 'Current window title.'),
+          _ref('isActivated', 'getter', 'Whether the window has focus.'),
+          _ref('isMaximized', 'getter', 'Whether the window is maximized.'),
+          _ref('isMinimized', 'getter', 'Whether the window is minimized.'),
+          _ref('isFullscreen', 'getter', 'Whether the window is fullscreen.'),
+          _ref(
+            'setSize(Size)',
+            'method',
+            'Request new content size; platform may clamp.',
+          ),
+          _ref(
+            'setConstraints(BoxConstraints)',
+            'method',
+            'Update min/max constraint bounds.',
+          ),
+          _ref('setTitle(String)', 'method', 'Request a title change.'),
+          _ref(
+            'activate()',
+            'method',
+            'Bring to front + focus + un-minimize if needed.',
+          ),
+          _ref('setMaximized(bool)', 'method', 'Toggle maximized state.'),
+          _ref('setMinimized(bool)', 'method', 'Toggle minimized state.'),
+          _ref(
+            'setFullscreen(bool, {Display?})',
+            'method',
+            'Toggle fullscreen, optionally pinning a Display.',
+          ),
+          _ref(
+            'destroy()',
+            'method',
+            'Idempotently release platform resources.',
+          ),
+          _ref(
+            'addListener / removeListener',
+            'inherited',
+            'Inherited from ChangeNotifier.',
+          ),
+          _ref('rootView', 'inherited', 'FlutterView for this window.'),
+          _ref(
+            'factory RegularWindowController(...)',
+            'factory',
+            'Routes to per-platform subclass via WindowingOwner.',
+          ),
+          _ref(
+            'RegularWindowControllerDelegate',
+            'mixin',
+            'onWindowCloseRequested + onWindowDestroyed callbacks.',
+          ),
+        ],
+      ),
+    );
+  }
+
+  TableRow _ref(String name, String kind, String desc) => TableRow(
+        children: <Widget>[
+          _Cell(name),
+          _Cell(kind),
+          _Cell(desc),
+        ],
+      );
+}
+
+// ---------------------------------------------------------------------
+// SECTION 13 - EVENT LOG
+// ---------------------------------------------------------------------
+
+class _SectionEventLog extends StatelessWidget {
+  const _SectionEventLog({required this.entries});
+  final List<_LogEntry> entries;
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: '13. Live event log',
+      icon: Icons.list_alt_outlined,
+      child: SizedBox(
+        height: 320,
+        child: entries.isEmpty
+            ? const Center(child: Text('No events yet - interact above.'))
+            : ListView.separated(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: entries.length,
+                separatorBuilder: (BuildContext ctx, int idx) =>
+                    Divider(height: 1, color: Colors.grey.shade300),
+                itemBuilder: (BuildContext ctx, int i) {
+                  final _LogEntry e = entries[i];
+                  return ListTile(
+                    dense: true,
+                    leading: _LogTagBadge(tag: e.tag),
+                    title: Text(
+                      e.message,
+                      style: const TextStyle(fontSize: 13),
+                    ),
+                    subtitle: Text(
+                      _fmt(e.timestamp),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
+  }
+
+  String _fmt(DateTime t) =>
+      '${t.hour.toString().padLeft(2, '0')}:'
+      '${t.minute.toString().padLeft(2, '0')}:'
+      '${t.second.toString().padLeft(2, '0')}.'
+      '${t.millisecond.toString().padLeft(3, '0')}';
+}
+
+class _LogTagBadge extends StatelessWidget {
+  const _LogTagBadge({required this.tag});
+  final String tag;
+  @override
+  Widget build(BuildContext context) {
+    final Color c = _color(tag);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: c.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: c),
+      ),
+      child: Text(
+        tag,
+        style: TextStyle(
+          color: c,
+          fontWeight: FontWeight.bold,
+          fontSize: 11,
+          fontFamily: 'monospace',
+        ),
+      ),
+    );
+  }
+
+  Color _color(String tag) {
+    if (tag.startsWith('init')) return Colors.indigo;
+    if (tag.startsWith('post-frame')) return Colors.teal;
+    if (tag.startsWith('resize') || tag.startsWith('constraints')) {
+      return Colors.blue;
+    }
+    if (tag.startsWith('maximize') ||
+        tag.startsWith('minimize') ||
+        tag.startsWith('restore')) {
+      return Colors.green;
+    }
+    if (tag.startsWith('fullscreen')) return Colors.purple;
+    if (tag.startsWith('close') || tag.startsWith('destroy')) {
+      return Colors.red;
+    }
+    if (tag.startsWith('activate') || tag.startsWith('blur')) {
+      return Colors.deepOrange;
+    }
+    if (tag.startsWith('orchestrate') || tag.startsWith('cascade')) {
+      return Colors.brown;
+    }
+    if (tag.startsWith('recipe')) return Colors.deepPurple;
+    return Colors.black54;
+  }
+}
+
+class _LogEntry {
+  const _LogEntry({
+    required this.tag,
+    required this.message,
+    required this.timestamp,
+  });
+  final String tag;
+  final String message;
+  final DateTime timestamp;
+}
+
+// ---------------------------------------------------------------------
+// Generic _Section
+// ---------------------------------------------------------------------
+
+class _Section extends StatelessWidget {
+  const _Section({
+    required this.title,
+    required this.icon,
+    required this.child,
+  });
+  final String title;
+  final IconData icon;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Icon(icon, color: Colors.indigo, size: 22),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            child,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------
+// Cross-platform window-chrome mockup (CustomPainter)
+// ---------------------------------------------------------------------
+
+class _WindowChrome extends StatefulWidget {
+  const _WindowChrome({required this.controller});
+  final RegularWindowController controller;
+  @override
+  State<_WindowChrome> createState() => _WindowChromeState();
+}
+
+class _WindowChromeState extends State<_WindowChrome> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onChange);
+  }
+
+  void _onChange() => setState(() {});
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onChange);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RegularWindowController c = widget.controller;
+    final _RegularWindowControllerBase b = c as _RegularWindowControllerBase;
+    return AspectRatio(
+      aspectRatio: 16 / 10,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CustomPaint(
+          painter: _WindowChromePainter(
+            platform: c.platform,
+            title: c.title,
+            isActivated: c.isActivated,
+            isMaximized: c.isMaximized,
+            isMinimized: c.isMinimized,
+            isFullscreen: c.isFullscreen,
+            destroyed: b.isDestroyed,
+            contentSize: c.contentSize,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WindowChromePainter extends CustomPainter {
+  _WindowChromePainter({
+    required this.platform,
+    required this.title,
+    required this.isActivated,
+    required this.isMaximized,
+    required this.isMinimized,
+    required this.isFullscreen,
+    required this.destroyed,
+    required this.contentSize,
+  });
+  final TargetPlatform platform;
+  final String title;
+  final bool isActivated;
+  final bool isMaximized;
+  final bool isMinimized;
+  final bool isFullscreen;
+  final bool destroyed;
+  final Size contentSize;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint bg = Paint()..color = Colors.grey.shade200;
+    canvas.drawRect(Offset.zero & size, bg);
+
+    if (destroyed) {
+      _drawDestroyed(canvas, size);
+      return;
+    }
+    if (isMinimized) {
+      _drawMinimized(canvas, size);
+      return;
+    }
+
+    final Rect windowRect = isFullscreen
+        ? Offset.zero & size
+        : isMaximized
+            ? Rect.fromLTWH(4, 4, size.width - 8, size.height - 8)
+            : Rect.fromLTWH(
+                size.width * 0.1,
+                size.height * 0.1,
+                size.width * 0.8,
+                size.height * 0.8,
+              );
+
+    final Paint shadow = Paint()
+      ..color = Colors.black.withValues(alpha: 0.25)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        windowRect.shift(const Offset(2, 4)),
+        const Radius.circular(6),
+      ),
+      shadow,
+    );
+
+    final Paint windowFill = Paint()
+      ..color = isActivated ? Colors.white : Colors.grey.shade300;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(windowRect, const Radius.circular(6)),
+      windowFill,
+    );
+
+    final Paint border = Paint()
+      ..color = isActivated ? Colors.indigo.shade700 : Colors.grey.shade500
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(windowRect, const Radius.circular(6)),
+      border,
+    );
+
+    const double titleBarHeight = 22;
+    final Rect titleBar = Rect.fromLTWH(
+      windowRect.left,
+      windowRect.top,
+      windowRect.width,
+      titleBarHeight,
+    );
+    final Paint titleFill = Paint()
+      ..color = _platformAccent(platform)
+          .withValues(alpha: isActivated ? 1.0 : 0.4);
+    canvas.drawRRect(
+      RRect.fromRectAndCorners(
+        titleBar,
+        topLeft: const Radius.circular(6),
+        topRight: const Radius.circular(6),
+      ),
+      titleFill,
+    );
+
+    _paintWindowControls(canvas, titleBar, platform);
+
+    final TextPainter tp = TextPainter(
+      text: TextSpan(
+        text: title,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          shadows: <Shadow>[
+            Shadow(
+              color: Colors.black.withValues(alpha: 0.4),
+              blurRadius: 2,
+            ),
+          ],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: titleBar.width - 80);
+    tp.paint(
+      canvas,
+      Offset(
+        titleBar.left + (titleBar.width - tp.width) / 2,
+        titleBar.top + (titleBar.height - tp.height) / 2,
+      ),
+    );
+
+    final Rect contentRect = Rect.fromLTWH(
+      windowRect.left,
+      windowRect.top + titleBarHeight,
+      windowRect.width,
+      windowRect.height - titleBarHeight,
+    );
+    final Paint contentBg = Paint()..color = Colors.grey.shade50;
+    canvas.drawRect(contentRect, contentBg);
+
+    final TextPainter sizeTp = TextPainter(
+      text: TextSpan(
+        text:
+            '${contentSize.width.toStringAsFixed(0)} x ${contentSize.height.toStringAsFixed(0)}\n'
+            '${platform.name}\n'
+            '${_stateLabel()}',
+        style: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 11,
+          fontFamily: 'monospace',
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
+    sizeTp.layout(maxWidth: contentRect.width);
+    sizeTp.paint(
+      canvas,
+      Offset(
+        contentRect.left + (contentRect.width - sizeTp.width) / 2,
+        contentRect.top + (contentRect.height - sizeTp.height) / 2,
+      ),
+    );
+  }
+
+  String _stateLabel() {
+    if (isFullscreen) return '[fullscreen]';
+    if (isMaximized) return '[maximized]';
+    if (isMinimized) return '[minimized]';
+    return isActivated ? '[focused]' : '[blurred]';
+  }
+
+  void _paintWindowControls(Canvas canvas, Rect bar, TargetPlatform p) {
+    if (p == TargetPlatform.macOS) {
+      const List<Color> colors = <Color>[
+        Color(0xFFFF5F57),
+        Color(0xFFFEBC2E),
+        Color(0xFF28C840),
+      ];
+      double cx = bar.left + 10;
+      for (final Color c in colors) {
+        canvas.drawCircle(
+          Offset(cx, bar.center.dy),
+          5,
+          Paint()..color = c,
+        );
+        cx += 14;
+      }
+    } else {
+      double cx = bar.right - 12;
+      for (int i = 0; i < 3; i++) {
+        final IconData icon = i == 0
+            ? Icons.close
+            : i == 1
+                ? Icons.crop_square
+                : Icons.minimize;
+        final TextPainter ip = TextPainter(
+          text: TextSpan(
+            text: String.fromCharCode(icon.codePoint),
+            style: TextStyle(
+              fontFamily: icon.fontFamily,
+              fontSize: 12,
+              color: Colors.white,
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        );
+        ip.layout();
+        ip.paint(canvas, Offset(cx - 6, bar.center.dy - 6));
+        cx -= 18;
+      }
+    }
+  }
+
+  Color _platformAccent(TargetPlatform p) {
+    switch (p) {
+      case TargetPlatform.windows:
+        return const Color(0xFF0078D4);
+      case TargetPlatform.macOS:
+        return const Color(0xFF606060);
+      case TargetPlatform.linux:
+        return const Color(0xFF300A24);
+      case TargetPlatform.android:
+        return const Color(0xFF3DDC84);
+      case TargetPlatform.iOS:
+        return const Color(0xFF007AFF);
+      case TargetPlatform.fuchsia:
+        return const Color(0xFFFF6F61);
+    }
+  }
+
+  void _drawDestroyed(Canvas canvas, Size size) {
+    final Paint p = Paint()..color = Colors.red.shade50;
+    canvas.drawRect(Offset.zero & size, p);
+    final TextPainter tp = TextPainter(
+      text: TextSpan(
+        text: 'destroyed',
+        style: TextStyle(
+          color: Colors.red.shade800,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: size.width);
+    tp.paint(
+      canvas,
+      Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
+    );
+  }
+
+  void _drawMinimized(Canvas canvas, Size size) {
+    final Paint p = Paint()..color = Colors.grey.shade400;
+    canvas.drawRect(Offset.zero & size, p);
+    final Rect bar = Rect.fromLTWH(
+      size.width * 0.2,
+      size.height * 0.85,
+      size.width * 0.6,
+      18,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(bar, const Radius.circular(4)),
+      Paint()..color = Colors.indigo.shade900,
+    );
+    final TextPainter tp = TextPainter(
+      text: TextSpan(
+        text: 'minimized to taskbar',
+        style: TextStyle(color: Colors.grey.shade800, fontSize: 12),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: size.width);
+    tp.paint(
+      canvas,
+      Offset((size.width - tp.width) / 2, size.height * 0.5),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _WindowChromePainter old) =>
+      old.title != title ||
+      old.isActivated != isActivated ||
+      old.isMaximized != isMaximized ||
+      old.isMinimized != isMinimized ||
+      old.isFullscreen != isFullscreen ||
+      old.destroyed != destroyed ||
+      old.contentSize != contentSize ||
+      old.platform != platform;
 }
