@@ -899,11 +899,28 @@ class ModuleLoader implements context.ModuleContext {
             onType ??= _resolveTypeForExtension(definition.onTypeName);
 
             if (onType == null) {
+              // Cross-sync with tom_d4rt/lib/src/module_loader.dart:409-413:
+              // in normal execute() mode an unresolved on-type is a
+              // non-fatal skip — a bridge package may declare an extension
+              // (e.g., DCli's DigestHelper on crypto.Digest) whose on-type
+              // is never bridged because no consumer script uses it. The
+              // analyzer-based runtime warns and continues; this path
+              // matches that behaviour.
+              //
+              // In validate mode (collectRegistrationErrors == true) the
+              // caller is `D4rt.validateRegistrations()` which is
+              // expected to surface every unresolved registration —
+              // including unresolved on-types — to the test/IDE. There
+              // we still record the error so it ends up in the returned
+              // list (and only the returned list — collectRegistrationErrors
+              // also suppresses the throw below).
               Logger.warn(
                   " [execute] Could not resolve type '${definition.onTypeName}' for extension '$extName'. "
                   "Extension will not be registered.");
-              registrationErrors.add(
-                  "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
+              if (collectRegistrationErrors) {
+                registrationErrors.add(
+                    "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
+              }
               continue;
             }
 
