@@ -410,6 +410,15 @@ class ModuleLoader {
           Logger.warn(
               ' [ModuleLoader] GEN-100: Could not resolve type '
               "'${definition.onTypeName}' for extension '$extName' from $uriString — skipping.");
+          // GEN-056d FIX: surface the unresolved-onType case via the same
+          // error-collection channel used by the legacy registration branch
+          // at line ~1286 below. Previously this path silently dropped the
+          // error, so `D4rt.validateRegistrations()` returned an empty list
+          // even when an extension targeted an unknown type.
+          if (collectRegistrationErrors) {
+            accumulatedRegistrationErrors.add(
+                "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
+          }
           continue;
         }
         final interpretedExt = definition.buildInterpretedExtension(onType);

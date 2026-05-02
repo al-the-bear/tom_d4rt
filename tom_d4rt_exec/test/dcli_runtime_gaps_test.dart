@@ -166,34 +166,39 @@ void main() {
         expect(result, equals('ok'));
       });
 
-      test('DCL-RT-OPT-02: Function reference as callback fails to receive args [2026-02-11] (FAILS)', () {
-        // Issue: Passing a named function reference as a callback fails
-        // with "Missing required argument for 's' in function 'captureIt'".
-        // This suggests the interpreter isn't correctly passing args when
-        // invoking a function reference passed as a callback parameter.
-        final error = executeExpectingError('''
+      test('DCL-RT-OPT-02: Function reference as callback receives args [2026-02-11] (OK)', () {
+        // Historical issue: Passing a named function reference as a callback
+        // failed with "Missing required argument for 's' in function
+        // 'captureIt'" — the interpreter wasn't correctly forwarding args
+        // through the callable adapter when a tear-off (not a closure) was
+        // bound to an optional callback parameter.
+        //
+        // Status (2026-05-02): the bug has been fixed by the cumulative
+        // callback-binding improvements across the InterpreterVisitor
+        // (callsite arg propagation through Callable.bind for function
+        // references).  The script now executes and returns 'hello' as
+        // expected.  Test updated from (FAILS) to (OK) to lock in the
+        // fixed behaviour and catch any future regression.
+        final result = execute('''
           var captured = '';
-          
+
           void process(String data, {void Function(String)? callback}) {
             if (callback != null) {
               callback(data);
             }
           }
-          
+
           void captureIt(String s) {
             captured = s;
           }
-          
+
           String main() {
             process('hello', callback: captureIt);
             return captured;
           }
         ''');
-        
-        // BUG: Currently throws "Missing required argument for 's' in function 'captureIt'"
-        // EXPECTED: Should execute without error and return 'hello'
-        expect(error, isNotNull, reason: 'Bug confirmed: function reference as callback fails');
-        expect(error, contains('Missing required'), reason: 'Args not passed to function ref');
+        expect(result, equals('hello'),
+            reason: 'Function reference as callback should receive args');
       });
     });
   });

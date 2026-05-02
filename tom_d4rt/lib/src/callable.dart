@@ -4767,7 +4767,13 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     // 4. Execute the body in the new environment
     final previousEnvironment = visitor.environment;
     final previousFunction = visitor.currentFunction;
-    // visitor.currentFunction = ???;
+    // G-DOV2-7 FIX: install an InterpretedFunction.method wrapper so that
+    // `visitReturnStatement` reads *this* extension method's declared return
+    // type (and matching name) instead of falling back to the caller's
+    // function. Mirrors the AST-side fix in
+    // tom_d4rt_ast/lib/src/runtime/callable.dart.
+    visitor.currentFunction =
+        InterpretedFunction.method(declaration, closure, onType);
     visitor.environment = executionEnvironment; // USE THE NEW ENVIRONMENT
     Logger.debug(
         "[InterpretedExtensionMethod.call] Set visitor environment to executionEnvironment (${executionEnvironment.hashCode}) before executing body.");

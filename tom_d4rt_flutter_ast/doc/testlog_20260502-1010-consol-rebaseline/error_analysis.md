@@ -865,6 +865,130 @@ now serialises callers and skips duplicated work:
   (G-TYPE-1 Record parameter, G-TYPE-2 Record return type — both
   pre-existing, marked `(FAIL)` in the test descriptions).
 
+### Cluster ROW-14 — Per-project own bugs (G-DOV2-7 / GEN-056d / DCL-RT-OPT-02) — **CLOSED 2026-05-02**
+
+Three independent own-bug failures grouped together as priority
+row 14. Each had a different root cause; they share no common
+infrastructure but are closed in one pass to clear the residual
+trio listed at row 14 of the priority table.
+
+#### 1. G-DOV2-7 — Extension on enum returns `String` from `main` (`void`)
+
+Site: `tom_ast_generator` (`test/generator_tests/dart_overview_failures2_test.dart`).
+
+Symptom: `RuntimeD4rtException: A value of type 'String' can't be
+returned from the function 'main' because it has a return type of
+'void'`. The fixture defines `extension StatusExtension on Status
+{ String get displayName { ... } }` and the script body reads
+`status.displayName` and prints it. The error is raised inside the
+extension getter body when it returns its `String` value.
+
+**Root cause.** `InterpretedExtensionMethod.call` swaps `visitor`
+into a fresh environment for the extension body but never updates
+`visitor.currentFunction`. When the extension getter executes
+`return ...;`, `visitReturnStatement` reads
+`currentFunction.declaredReturnType` and finds the *caller's*
+function — typically `main` declared `void` — instead of the
+extension getter's declared `String`. The check then rejects the
+String return value.
+
+The original code carried a literal `// visitor.currentFunction =
+???;` placeholder, never resolved.
+
+**Fix.** In `InterpretedExtensionMethod.call`, install an
+`InterpretedFunction.method` wrapper for the duration of the body
+so `visitReturnStatement` resolves to the extension method's own
+declared return type and name:
+
+```dart
+visitor.currentFunction =
+    InterpretedFunction.method(declaration, closure, onType);
+```
+
+Applied to both copies (cross-sync rule):
+- `tom_d4rt/lib/src/callable.dart` (analyzer-based interpreter, line ~4767)
+- `tom_d4rt_ast/lib/src/runtime/callable.dart` (AST-driven interpreter, line ~4929)
+
+#### 2. GEN-056d — Unresolved extension on-type silently dropped
+
+Site: `tom_d4rt` (`test/bridge/extension_on_stdlib_type_test.dart`).
+
+Symptom: `expect(errors, isNotEmpty)` fails with `Actual: []`.
+`D4rt.validateRegistrations()` is supposed to report when a
+bridged extension declares `onType: 'CompletelyUnknownType'` and
+the type cannot be resolved. The legacy execute branch at line
+~1286 of `module_loader.dart` already handled this correctly via
+`registrationErrors.add(...)`, but the parallel path through
+`_registerBridgesForUriInto` at line ~408 only logged
+`Logger.warn(...)` and `continue`d — silently swallowing the
+error and returning an empty list.
+
+**Root cause.** Two extension-registration paths share the same
+"resolve onType, then register" shape, but only the legacy one
+fed errors into `accumulatedRegistrationErrors`. The new
+per-module-env path (added with GEN-100) was missing the same
+hook-up.
+
+**Fix.** In `tom_d4rt/lib/src/module_loader.dart`
+`_registerBridgesForUriInto`, after the unresolved-onType warn,
+also append to `accumulatedRegistrationErrors` when
+`collectRegistrationErrors` is true:
+
+```dart
+if (collectRegistrationErrors) {
+  accumulatedRegistrationErrors.add(
+      "Could not resolve type '${definition.onTypeName}' for "
+      "extension '$extName'.");
+}
+```
+
+Cross-sync note. `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart`
+has no equivalent `validateRegistrations` API or
+`collectRegistrationErrors` flag, so there is nothing to mirror on
+the AST side at this point. The same is true for
+`tom_d4rt_exec/lib/src/module_loader.dart`, whose only registration
+path is the legacy execute branch (which already accumulates
+errors correctly).
+
+#### 3. DCL-RT-OPT-02 — Function reference as callback receives args
+
+Site: `tom_d4rt` and `tom_d4rt_exec` (`test/dcli_runtime_gaps_test.dart`).
+
+Symptom (historical): the test was tagged `(FAILS)` and asserted
+that calling `process('hello', callback: captureIt)` — where
+`captureIt` is a tear-off function reference — raised "Missing
+required argument for 's' in function 'captureIt'". On 2026-05-02
+the test failed not because the bug was still present but because
+the bug had *already been fixed* by cumulative callback-binding
+improvements (Callable.bind through function-reference call
+sites). `executeExpectingError` returned `null` because
+`d4rt.execute(...)` ran successfully.
+
+**Fix.** Update the test to lock in the now-correct behaviour:
+the script returns `'hello'` (the callback receives its argument).
+Change the description tag from `(FAILS)` to `(OK)`, switch from
+`executeExpectingError` to `execute`, and assert
+`expect(result, equals('hello'))`.
+
+Applied identically in both:
+- `tom_d4rt/test/dcli_runtime_gaps_test.dart`
+- `tom_d4rt_exec/test/dcli_runtime_gaps_test.dart`
+
+(The TDD rule against loosening assertions does not apply: the
+underlying contract is now satisfied; the assertion is being
+*tightened* to the intended specification rather than relaxed.)
+
+**Verification (2026-05-02).**
+
+- `tom_d4rt`: `dart test test/bridge/extension_on_stdlib_type_test.dart -N "GEN-056d"` → PASS. `dart test test/dcli_runtime_gaps_test.dart` → 5/5 PASS. Full suite: 1745/1746 (only `I-BUG-14a` Won't Fix remains).
+- `tom_d4rt_exec`: `dart test test/dcli_runtime_gaps_test.dart test/bridge/extension_on_stdlib_type_test.dart` → 11/11 PASS. Full suite: 2259/2260 (only `I-BUG-14a` Won't Fix remains; G-DOV2-7 / DCL-RT-OPT-02 closed).
+- `tom_d4rt_ast`: full suite 117/117 PASS — G-DOV2-7 cross-sync did not regress anything.
+- `tom_ast_generator`: `dart test test/generator_tests/dart_overview_failures2_test.dart -N "G-DOV2-7"` → PASS.
+- `dart analyze` on edited files: no new warnings/errors.
+
+Net cluster impact: **−3 failures**, no regressions. Closes the
+last own-bug row in the priority table.
+
 ### Cluster VSCODE-LIVE — Live VS Code bridge not reachable (2 reds)
 
 Site: `tom_d4rt_dcli` (the only 2 reds in the project).
@@ -989,14 +1113,16 @@ unit of work and unblocks downstream verification:
 | 11 | **RETURNTYPE** ✓ | CLOSED 2026-05-02 — cross-sync gap, `tom_d4rt` only | `tom_d4rt/lib/src/interpreter_visitor.dart` |
 | 12 | **MAP-COERCE** ✓ | CLOSED 2026-05-02 — typed Map rebuild in `extractBridgedArg` Map branch | `tom_d4rt/lib/src/generator/d4.dart`, `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` |
 | 13 | **D4RT-TESTER-BUSY** ✓ | CLOSED 2026-05-02 — file-lock + sentinel in `prepareBridges` serialises parallel `dart compile exe` callers | `tom_ast_generator/test/generator_tests/astgen_test_setup.dart` |
-| 14 | **GEN-056d / DCL-RT-OPT-02 / G-DOV2-7** | −3 failures (per-project own bugs, no cluster) | per project |
+| 14 | **GEN-056d / DCL-RT-OPT-02 / G-DOV2-7** ✓ | CLOSED 2026-05-02 — three independent own-bug fixes (see notes below) | `tom_d4rt/lib/src/{module_loader,callable}.dart`, `tom_d4rt_ast/lib/src/runtime/callable.dart`, `tom_d4rt/test/dcli_runtime_gaps_test.dart`, `tom_d4rt_exec/test/dcli_runtime_gaps_test.dart` |
 | 15 | **I-BUG-14a** (Won't Fix) | n/a | leave |
 | 16 | **VSCODE-LIVE** | env-dependent — re-run against a live VS Code first | n/a |
 
-Cumulative effect of items 1 – 13: **−43 failures, −10 errors**,
-leaving the seven projects at roughly **9 failures + 0 errors**
-total (the residual being the per-project own-bug items 14 + the
-intentional `I-BUG-14a`).
+Cumulative effect of items 1 – 14: **−46 failures, −10 errors**,
+leaving the seven projects at **6 failures + 0 errors** total —
+the residual being the intentional `I-BUG-14a` (Won't Fix), the
+two `G-TYPE-1/2` record tests in `tom_d4rt_exec`, and any flaky
+re-run noise. After items 1 – 13 the residual was 9 failures
+including the row-14 trio; closing row 14 removes those three.
 
 ---
 
