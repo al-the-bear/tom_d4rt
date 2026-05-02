@@ -609,6 +609,96 @@ class D4 {
     return e;
   }
 
+  /// MAP-COERCE: split a generic argument list `K, V` at the top-level comma.
+  ///
+  /// Respects nested angle brackets so `Map<K, V>` arguments containing other
+  /// generics (e.g. `Map<String, List<int>>`) are split correctly. Returns
+  /// the index of the top-level comma, or -1 if no top-level comma is found.
+  static int _splitTopLevelComma(String s) {
+    var depth = 0;
+    for (var i = 0; i < s.length; i++) {
+      final c = s.codeUnitAt(i);
+      if (c == 0x3C /* '<' */ || c == 0x28 /* '(' */) {
+        depth++;
+      } else if (c == 0x3E /* '>' */ || c == 0x29 /* ')' */) {
+        depth--;
+      } else if (c == 0x2C /* ',' */ && depth == 0) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /// MAP-COERCE: rebuild [source] as a `Map<K, V>` for common primitive
+  /// combinations, dispatching on the parsed type-string pair.
+  ///
+  /// `extractBridgedArg<Map<K, V>>` cannot use compile-time type parameters,
+  /// so a typed cast of `Map<Object?, Object?>` to the requested
+  /// `Map<String, String>` (etc.) fails on reified generics. This helper
+  /// rebuilds the map with concrete element types for the cases that show
+  /// up in real bridges — covering the dcli `withEnvironmentAsync` case
+  /// (`Map<String, String>`) plus the other primitive shapes that appear
+  /// in stdlib and Flutter bridges. Returns null if the K|V combination
+  /// is not handled, in which case the caller falls back to the existing
+  /// unwrapped/rewrapped map paths.
+  static Map<dynamic, dynamic>? _buildTypedMap(
+    Map<Object?, Object?> source,
+    String keyType,
+    String valueType,
+  ) {
+    final key = '$keyType|$valueType';
+    switch (key) {
+      case 'String|String':
+        return <String, String>{
+          for (final e in source.entries) e.key as String: e.value as String,
+        };
+      case 'String|int':
+        return <String, int>{
+          for (final e in source.entries) e.key as String: e.value as int,
+        };
+      case 'String|double':
+        return <String, double>{
+          for (final e in source.entries)
+            e.key as String:
+                e.value is int ? (e.value as int).toDouble() : e.value as double,
+        };
+      case 'String|num':
+        return <String, num>{
+          for (final e in source.entries) e.key as String: e.value as num,
+        };
+      case 'String|bool':
+        return <String, bool>{
+          for (final e in source.entries) e.key as String: e.value as bool,
+        };
+      case 'String|Object':
+      case 'String|Object?':
+      case 'String|dynamic':
+        return <String, Object?>{
+          for (final e in source.entries) e.key as String: e.value,
+        };
+      case 'int|String':
+        return <int, String>{
+          for (final e in source.entries) e.key as int: e.value as String,
+        };
+      case 'int|int':
+        return <int, int>{
+          for (final e in source.entries) e.key as int: e.value as int,
+        };
+      case 'int|Object':
+      case 'int|Object?':
+      case 'int|dynamic':
+        return <int, Object?>{
+          for (final e in source.entries) e.key as int: e.value,
+        };
+      case 'Object|Object':
+      case 'Object?|Object?':
+      case 'dynamic|dynamic':
+        return Map<Object?, Object?>.of(source);
+      default:
+        return null;
+    }
+  }
+
   /// GEN-079: Try to resolve a value through registered generic type wrapper
   /// factories.
   ///
@@ -1338,6 +1428,25 @@ class D4 {
         try {
           return unwrapped as T;
         } catch (_) {}
+        // MAP-COERCE: Rebuild as a typed Map<K, V> for common primitive
+        // combinations. Reified generics defeat the bare casts above
+        // (a Map<Object?, Object?> cannot be cast to Map<String, String>),
+        // so parse K and V from the type string and dispatch through
+        // _buildTypedMap. Mirrors the Set branch above and unblocks the
+        // dcli `withEnvironmentAsync(environment: <String, String>{...})`
+        // path (Cluster MAP-COERCE).
+        final inner = tStr.substring(4, tStr.length - 1);
+        final commaIdx = _splitTopLevelComma(inner);
+        if (commaIdx > 0) {
+          final keyType = inner.substring(0, commaIdx).trim();
+          final valueType = inner.substring(commaIdx + 1).trim();
+          final typed = _buildTypedMap(unwrappedMap, keyType, valueType);
+          if (typed != null) {
+            try {
+              return typed as T;
+            } catch (_) {}
+          }
+        }
         // GEN-079: Generic wrapper resolution for map values.
         // Try wrapping individual values through registered factories.
         final rewrappedMap = <Object?, Object?>{};

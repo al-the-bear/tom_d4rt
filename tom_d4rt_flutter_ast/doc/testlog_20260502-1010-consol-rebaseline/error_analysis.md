@@ -626,7 +626,7 @@ preservation were both regressed.
    55/55 pass (previously 51/55). G-FLP-07 unaffected.
    No interpreter mirror needed (generator-side fix only).
 
-### Cluster MAP-COERCE — Native arg coercion for `Map<String,String>` (1 fail)
+### Cluster MAP-COERCE — Native arg coercion for `Map<String,String>` (1 fail) — **CLOSED 2026-05-02**
 
 Site: `tom_dcli_exec` `dcli_example_test.dart` `tomexample
 (advanced) environment`.
@@ -637,20 +637,58 @@ Symptom:
 > parameter "environment": expected Map<String, String>, got
 > _Map<Object?, Object?>`.
 
-**Root cause.** When an interpreted `Map` literal is passed across
-the bridge to a native function expecting `Map<String, String>`,
-the bridge does not coerce the underlying `_Map<Object?, Object?>`
-to the native typed map.
+**Root cause.** The error message *looks* like it comes from
+`D4.coerceMap`, but the bridge for `withEnvironmentAsync` actually
+calls `D4.getRequiredNamedArg<Map<String, String>>` →
+`extractBridgedArg<Map<String, String>>`. Inside the Map branch of
+`extractBridgedArg`
+(`tom_d4rt/lib/src/generator/d4.dart` ~line 1288, AST mirror
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart` ~line 1327), the
+existing implementation only attempted three bare casts of
+`Map<Object?, Object?>` to `T`:
 
-**Fix.**
+```dart
+try { return unwrappedMap as T; } catch (_) {}
+try { return unwrapped as T; } catch (_) {}
+return rewrappedMap as T;
+```
 
-1. In `D4.coerceArg<T>` (or whichever boundary helper handles map
-   coercion — `tom_d4rt/lib/src/generator/d4.dart` and the
-   `tom_d4rt_ast` mirror), add a `Map<K, V>` branch that walks the
-   `_Map<Object?, Object?>` and rebuilds it as a typed
-   `Map<K, V>`.
-2. Verify with `dart test test/dcli_example/dcli_example_test.dart
-   --name 'environment'` in `tom_dcli_exec/`.
+Reified generics defeat all three: a `Map<Object?, Object?>` is
+not assignable to `Map<String, String>` no matter how many times
+you cast it. Execution falls through to the generic
+"expected $T, got $actualType" thrower at line 1375, which
+produces the observed message format (`"$paramName": expected $T,
+got $actualType`).
+
+**Fix.** Mirror the typed-rebuild approach already used by the Set
+branch in the same file: parse `K` and `V` from the type-string
+and rebuild the unwrapped map as a real `Map<K, V>` for common
+primitive combinations. Two new private helpers were added
+adjacent to `_unwrapElement`:
+
+- `_splitTopLevelComma(String s)` — splits a generic-arg list at
+  the top-level comma, respecting nested `<>` / `()` so
+  `Map<String, List<int>>` parses as `String` + `List<int>`.
+- `_buildTypedMap(Map<Object?, Object?> source, String keyType,
+  String valueType)` — switch dispatching on `'$keyType|$valueType'`
+  for the primitive combos that show up in real bridges
+  (`String|String`, `String|int`, `String|double`, `String|num`,
+  `String|bool`, `String|Object{?}/dynamic`, `int|String`,
+  `int|int`, `int|Object{?}/dynamic`, `Object{?}/dynamic` square).
+
+The Map branch now calls `_buildTypedMap` between the failing
+bare-cast attempts and the existing rewrappedMap fallback. When
+it returns a non-null typed map, `as T` succeeds and the bridge
+gets a real `Map<String, String>`. Both `tom_d4rt` and
+`tom_d4rt_ast` got identical edits per the cross-sync rule.
+
+**Verification.**
+
+- `dart test test/dcli_example/dcli_example_test.dart -N "tomexample (advanced) environment"` → PASS (was the only failure in this group).
+- Full `dcli_example_test.dart` suite: 21/21 PASS (was 20/1).
+- `tom_d4rt` full suite: same 3 pre-existing failures only (GEN-056d, DCL-RT-OPT-02, I-BUG-14a) — no regressions.
+- `tom_d4rt_ast` full suite: 117/117 PASS.
+- `tom_d4rt_exec` full suite: same 4 pre-existing failures only (DCL-RT-OPT-02, G-TST-6 flake, G-DOV2-7, I-BUG-14a) — no regressions.
 
 ### Cluster STRING-AS-PROCESS — `String.start` extension missing (2 fails) — **CLOSED 2026-05-02**
 
@@ -932,7 +970,7 @@ unit of work and unblocks downstream verification:
 | 9 | **HASHSET** | −2 errors in `tom_d4rt` + `tom_d4rt_exec` | `Iterator` bridge (both copies) |
 | 10 | **EXTTYPE** ✓ | CLOSED 2026-05-02 — fix was pass-2 loop, not declaration visitor | `d4rt_base.dart`, `module_loader.dart`, `d4rt_runner.dart`, `ast_module_loader.dart` |
 | 11 | **RETURNTYPE** ✓ | CLOSED 2026-05-02 — cross-sync gap, `tom_d4rt` only | `tom_d4rt/lib/src/interpreter_visitor.dart` |
-| 12 | **MAP-COERCE** | −1 failure in `tom_dcli_exec` | `D4.coerceArg<T>` Map branch |
+| 12 | **MAP-COERCE** ✓ | CLOSED 2026-05-02 — typed Map rebuild in `extractBridgedArg` Map branch | `tom_d4rt/lib/src/generator/d4.dart`, `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` |
 | 13 | **D4RT-TESTER-BUSY** | −1 error in `tom_ast_generator` (env-fragile) | `test/generator_tests/d4rt_tester_test.dart` |
 | 14 | **GEN-056d / DCL-RT-OPT-02 / G-DOV2-7** | −3 failures (per-project own bugs, no cluster) | per project |
 | 15 | **I-BUG-14a** (Won't Fix) | n/a | leave |
