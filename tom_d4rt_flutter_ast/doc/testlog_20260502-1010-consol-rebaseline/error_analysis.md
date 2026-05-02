@@ -450,32 +450,53 @@ isolation design.
 
 ### Cluster HASHSET — `Iterator.moveNext` missing on `Set` bridge (2 errors)
 
+**CLOSED 2026-05-02.** Original analysis was wrong: `Iterator`
+already had `moveNext`/`current` registered with `_HashSetIterator`
+in its `nativeNames`. The real bug was bridge resolution priority.
+
 Sites: `tom_d4rt` and `tom_d4rt_exec` (`I-COLL-25`).
 
 Symptom: `Runtime Error: Bridged class 'Set' has no instance
 method named 'moveNext'. Error during extension lookup: Bridged
 class 'Set' has no instance method named 'moveNext'.`
 
-**Root cause.** Manual iterator usage on a bridged `Set`:
+**Actual root cause.** `Environment.toBridgedClass(Type)` matched
+the runtime type `_HashSetIterator` against bridge `nativeNames`
+using `firstWhereOrNull(... .any((name) => typeName.startsWith(name)))`.
+Iteration order followed bridge registration order. In `core.dart`,
+`SetCore` (line 71) registers BEFORE `IteratorCore` (line 79), and
+Set's `nativeNames` contains `_HashSet` while Iterator's contains
+`_HashSetIterator`. Both prefix-match `_HashSetIterator`, but Set
+wins because it iterates first. The `_HashSetIterator` instance
+then resolved to the Set bridge, and `moveNext()` failed because
+Set has no `moveNext`.
 
-```dart
-final it = mySet.iterator;
-while (it.moveNext()) { … }
-```
+**Fix.** `tom_d4rt/lib/src/environment.dart` and
+`tom_d4rt_ast/lib/src/runtime/environment.dart`: replace the
+`firstWhereOrNull` `nativeNames.any(startsWith)` calls with a new
+`_longestNativeNamePrefixMatch` helper that scans every bridge's
+`nativeNames` and picks the LONGEST prefix match. An exact native
+name (`_HashSetIterator`, len 16) beats a shorter prefix
+(`_HashSet`, len 8), regardless of registration order. Both call
+sites in `toBridgedClass` are updated:
 
-The `Set` bridge surfaces `iterator` (returning a bridged
-`Iterator`), but `Iterator.moveNext` / `Iterator.current` are not
-exposed.
+1. The underscore-prefix branch (was: exact name OR any-startsWith).
+2. The general fallback (was: exact name OR any-startsWith).
 
-**Fix.**
+Both first try the exact `name == cleanedName` / `name == nativeTypeName`
+match, then fall back to longest-prefix on `nativeNames`.
 
-1. In the stdlib `Set` / `Iterator` bridges (two copies — analyzer
-   and AST), register `moveNext` (`bool Function()`) and `current`
-   (instance getter) on the `Iterator` bridge.
-2. Run `dart test test/stdlib/collection/hash_set_test.dart` in
-   both projects.
-3. Closing this removes the 2 long-standing errors that have
-   appeared in every recent baseline.
+**Verification.**
+
+- `dart test test/stdlib/collection/hash_set_test.dart` — 96/96 pass
+  in `tom_d4rt`, 8/8 pass in `tom_d4rt_exec`.
+- `dart test test/stdlib/` — 683/683 pass in both projects.
+- Full `dart test` in `tom_d4rt`: 1746/1751 pass; the remaining 5
+  failures (GEN-056d, DCL-RT-OPT-02, I-MISC-212, I-FILE-47,
+  I-BUG-14a) are confirmed pre-existing on `main` without the fix.
+- Full `dart test` in `tom_d4rt_exec`: 2257/2260 pass; the 3
+  failures (DCL-RT-OPT-02, G-DOV2-7, I-BUG-14a) are pre-existing.
+- No regressions introduced by the longest-prefix selection.
 
 ### Cluster FLP — Flutter-pattern callback emission gaps (4 fails)
 

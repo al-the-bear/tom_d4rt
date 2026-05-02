@@ -291,17 +291,18 @@ class Environment {
         if (nativeTypeName.endsWith('Impl')) {
           nativeTypeName = nativeTypeName.substringBeforeLast('Impl');
         }
+        // Cluster HASHSET FIX: when matching nativeNames by prefix, choose the
+        // LONGEST matching nativeName so a more-specific bridge (e.g. Iterator
+        // with `_HashSetIterator` in nativeNames) wins over a less-specific
+        // bridge whose nativeName is a shorter prefix (e.g. Set's `_HashSet`).
+        // Mirror of tom_d4rt/lib/src/environment.dart.
+        final cleanedName =
+            nativeTypeName.substring(1).substringBefore('<');
         bridgedClass = current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull(
-              (e) =>
-                  (e.value.name ==
-                      nativeTypeName.substring(1).substringBefore('<')) ||
-                  (e.value.nativeNames?.any(
-                        (name) => nativeTypeName.startsWith(name),
-                      ) ??
-                      false),
-            )
+            .firstWhereOrNull((e) => e.value.name == cleanedName)
             ?.value;
+        bridgedClass ??=
+            _longestNativeNamePrefixMatch(current, nativeTypeName);
       } else if (bridgedClass == null && nativeTypeName.contains('<')) {
         // Extract the base type name before '<' for accurate matching.
         // Using contains() was too broad — e.g., 'ListMapView<int>'.contains('View<')
@@ -329,15 +330,13 @@ class Environment {
             ?.value;
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries
-          .firstWhereOrNull(
-            (e) =>
-                (e.value.name == nativeTypeName) ||
-                (e.value.nativeNames?.any(
-                      (name) => nativeTypeName.startsWith(name),
-                    ) ??
-                    false),
-          )
+          .firstWhereOrNull((e) => e.value.name == nativeTypeName)
           ?.value;
+      // Cluster HASHSET FIX: pick the LONGEST nativeName prefix so a
+      // specific bridge wins over a less-specific bridge whose nativeName
+      // is a shorter prefix.
+      bridgedClass ??=
+          _longestNativeNamePrefixMatch(current, nativeTypeName);
 
       // G-DCLI-05 FIX: Handle non-underscore implementation types like
       // ProgressBothImpl, where the class name contains the bridge name.
@@ -371,6 +370,35 @@ class Environment {
     throw RuntimeD4rtException(
       'Cannot bridge native object: No registered bridged class found for native type $nativeType.',
     );
+  }
+
+  /// Finds the bridged class whose `nativeNames` contains the LONGEST entry
+  /// that is a prefix of [nativeTypeName].
+  ///
+  /// Cluster HASHSET fix (mirror of tom_d4rt/lib/src/environment.dart):
+  /// when multiple bridges declare overlapping native name prefixes (e.g. Set
+  /// has `_HashSet`, Iterator has `_HashSetIterator`), the previous
+  /// `firstWhereOrNull` would match whichever bridge was registered first —
+  /// typically Set, since it registers before Iterator in `core.dart`. That
+  /// made `_HashSetIterator` resolve to Set's bridge and fail with
+  /// `Bridged class 'Set' has no instance method named 'moveNext'`. Choosing
+  /// the longest prefix means an exact `_HashSetIterator` entry on Iterator
+  /// wins over Set's shorter `_HashSet` prefix.
+  BridgedClass? _longestNativeNamePrefixMatch(
+      Environment env, String nativeTypeName) {
+    BridgedClass? best;
+    int bestLen = 0;
+    for (final entry in env._bridgedClassesLookupByType.entries) {
+      final names = entry.value.nativeNames;
+      if (names == null) continue;
+      for (final name in names) {
+        if (name.length > bestLen && nativeTypeName.startsWith(name)) {
+          bestLen = name.length;
+          best = entry.value;
+        }
+      }
+    }
+    return best;
   }
 
   // Method to define bridged enums
