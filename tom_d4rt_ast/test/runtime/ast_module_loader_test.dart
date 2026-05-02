@@ -258,9 +258,10 @@ void main() {
       final module = loader.loadModule(Uri.parse('dart:math'));
 
       expect(module, isNotNull);
-      // After loading dart:math, env should have math symbols
-      // MathStdlib.register() adds 'pi', 'e', 'sqrt', etc.
-      expect(env.get('pi'), isNotNull);
+      // GEN-107 Phase 3: stdlib symbols live in the per-stdlib isolated
+      // environment exported by the module, not the global environment.
+      // `MathStdlib.register()` adds `pi`, `e`, `sqrt`, … into that env.
+      expect(module.exportedEnvironment.get('pi'), isNotNull);
     });
 
     test('loads dart:convert', () {
@@ -321,11 +322,13 @@ void main() {
       final env = initStdlibEnvironment();
       final loader = createLoader(environment: env);
 
-      // Load twice — should not throw
-      loader.loadModule(Uri.parse('dart:math'));
-      loader.loadModule(Uri.parse('dart:math'));
+      // Load twice — should not throw, and both loads should return the
+      // same isolated stdlib environment (GEN-107 Phase 3 caching).
+      final first = loader.loadModule(Uri.parse('dart:math'));
+      final second = loader.loadModule(Uri.parse('dart:math'));
 
-      expect(env.get('pi'), isNotNull);
+      expect(first.exportedEnvironment, same(second.exportedEnvironment));
+      expect(first.exportedEnvironment.get('pi'), isNotNull);
     });
 
     test('returns empty AST for stdlib modules', () {

@@ -394,7 +394,7 @@ nullable/non-nullable distinction.
 3. Run `dart test test/interpreter_test.dart` in `tom_d4rt` and
    `tom_d4rt_exec`. Closing this removes 1–2 failures.
 
-### Cluster STDLIB-PI — `dart:math` constants missing in tom_d4rt_ast (2 errors)
+### Cluster STDLIB-PI — `dart:math` constants missing in tom_d4rt_ast (2 errors) — **CLOSED 2026-05-02**
 
 Sites: `tom_d4rt_ast` (the only 2 reds in the project).
 
@@ -403,24 +403,50 @@ Test: `ast_module_loader_test.dart` `stdlib loading loads dart:math
 and makes math available` and `… does not register same stdlib
 twice`.
 
-**Root cause.** The tom_d4rt_ast stdlib loader registers
-`dart:math` *functions* (`sin`, `cos`, …) but does not register
-top-level *constants* (`pi`, `e`, `ln10`, …). The 0429 baseline
-already had these errors; they have not regressed but they remain
-the only failures in `tom_d4rt_ast` and they are blocking the
-analyzer-free split.
+**Actual root cause — stale test premise vs GEN-107 isolation.**
+The original analysis was wrong about the constants being missing.
+`tom_d4rt_ast/lib/src/runtime/stdlib/math/math.dart` already
+defines all eight constants (`pi`, `e`, `sqrt2`, `sqrt1_2`,
+`log2e`, `log10e`, `ln2`, `ln10` — lines 7-14) and they are
+registered when `MathStdlib.register(env)` runs.
 
-**Fix.**
+What changed is *which* environment receives the registration.
+`AstModuleLoader._loadStdlibModule` (lines 184-196) implements
+GEN-107 Phase 3: every stdlib with an explicit registrar gets its
+own isolated `Environment(enclosing: globalEnvironment)`, and the
+stdlib registrar is called against that isolated env — not the
+caller-supplied global environment. The stdlib symbols are then
+exposed via the `LoadedModule.exportedEnvironment` returned from
+`loadModule`. This is by design — the comment in
+`ast_module_loader.dart:179-183` explicitly states "the math-only
+band-aid is gone — re-export merging now carries stdlib symbols
+into the libraries that re-export them".
 
-1. In `tom_d4rt_ast/lib/src/runtime/stdlib/dart_math.dart`
-   (or wherever the `dart:math` bridge is defined for the AST
-   variant), add top-level `define`s for: `pi`, `e`, `ln10`,
-   `ln2`, `log2e`, `log10e`, `sqrt1_2`, `sqrt2`.
-2. Run `dart test test/runtime/ast_module_loader_test.dart`.
-3. **Cross-sync check.** Confirm the analyzer-based `tom_d4rt`
-   *does* register these constants (it does — that's why the
-   `tom_d4rt` mirror tests pass). Closing this brings
-   `tom_d4rt_ast` to 0/0 for failures and errors.
+The two failing tests still asserted on the *pre*-GEN-107 shape:
+
+```dart
+final env = initStdlibEnvironment();
+final loader = createLoader(environment: env);
+loader.loadModule(Uri.parse('dart:math'));
+expect(env.get('pi'), isNotNull);   // <- stale: pi lives in module.exportedEnvironment
+```
+
+**Fix applied.** Updated both tests in
+`tom_d4rt_ast/test/runtime/ast_module_loader_test.dart` to assert
+against `module.exportedEnvironment.get('pi')`, which is the
+public surface of the GEN-107 isolated stdlib env. The "does not
+register same stdlib twice" test additionally verifies the
+caching invariant (`first.exportedEnvironment == second.exportedEnvironment`).
+
+No interpreter or stdlib changes — the constants were always
+present, the test contract just hadn't caught up to the GEN-107
+isolation design.
+
+**Verification.**
+
+- `dart test test/runtime/ast_module_loader_test.dart` → 47/47 pass.
+- `dart test` (full suite) → 117/117 pass. `tom_d4rt_ast` is now
+  at 0 failures / 0 errors, unblocking the analyzer-free split.
 
 ### Cluster HASHSET — `Iterator.moveNext` missing on `Set` bridge (2 errors)
 
