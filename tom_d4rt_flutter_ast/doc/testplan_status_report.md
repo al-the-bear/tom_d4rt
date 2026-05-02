@@ -892,7 +892,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tab_page_selector_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_page_selector_indicator_test.dart) | TabPageSelectorIndicator | No | Yes | No | Deep demo created 2025-03-28 |
 | [tab_page_selector_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | Yes | No | Deep demo created 2025-03-28 |
 | [table_row_ink_well_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | Yes | No | Deep demo created 2025-03-28 |
-| [tabs_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [tabs_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | Yes | No | Created on 2026-03-29 at 14:35 |
 | [text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Checked. |
 | [text_button_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | Yes | No | Created on 2026-03-29 at 14:41 |
@@ -901,26 +901,26 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_selection_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | Yes | No | Created on 2026-03-29 at 14:45 |
 | [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | Yes | No | Created on 2026-03-29 at 14:50 |
 | [texttheme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/texttheme_test.dart) | TextTheme | No | Yes | No |
-| [themadata_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [themadata_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [theme_data_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | Yes | No | Created on 2026-03-29 at 15:00 |
-| [theme_extension_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | No | Yes | No | Created on 2026-03-29 at 15:12 |
+| [theme_extension_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [theme_extension_copywith_extensions_bridge_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_extension_copywith_extensions_bridge_regression_test.dart) | ThemeExtensionCopyWithExtensionsBridgeRegression | No | No | No | Needs to be created (Batch-9 failure pattern: bridge conversion of `ThemeData.copyWith(extensions: ...)` from interpreted list to `List<ThemeExtension<dynamic>>`). |
-| [theme_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | Yes | No | Batch 62. |
+| [theme_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_test.dart) | Theme | No | Yes | No |
 | [themes_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [thumb_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | Yes | No | Batch 62. |
-| [time_of_day_format_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Batch 62. |
-| [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Batch 62. |
+| [thumb_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
+| [time_of_day_format_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
+| [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [timeofday_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Checked. |
 | [timepicker_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Checked. |
-| [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | Yes | No | Created on 2026-03-29 at 15:16 |
-| [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Created on 2026-03-29 at 15:20 |
+| [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
+| [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [toggle_segmented_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No |
 | [togglebuttons_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/togglebuttons_test.dart) | ToggleButtons | No | Yes | No |
 | [tooltip_badge_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No |
 | [toggle_buttons_box_constraints_eq_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_box_constraints_eq_regression_test.dart) | ToggleButtonsBoxConstraintsEqRegression | No | No | No | Needs to be created (Batch-10 failure pattern: bridged `BoxConstraints` operator `==` receives null `other` in toggle buttons theme flows). |
 | [tooltip_feedback_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_feedback_test.dart) | Tooltip | No | Yes | No | Checked. |
-| [tooltip_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | Yes | No | Created on 2026-03-29 at 15:24 |
+| [tooltip_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [tooltip_visibility_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_visibility_test.dart) | TooltipVisibility | No | Yes | No | Deep demo created 2025-03-28 |
 | [typography_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/typography_test.dart) | Typography | No | Yes | No | Deep demo created 2025-03-28 |
 | [underline_tab_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/underline_tab_indicator_test.dart) | UnderlineTabIndicator | No | Yes | No | Checked. |
