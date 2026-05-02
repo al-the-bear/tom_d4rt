@@ -1,31 +1,44 @@
-// Route Transition Record — Deep Demo
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+//
+// Route Transition Record — Deep Demo (live concrete subclass edition)
 //
 // This harness file is a pedagogical exploration of Flutter's
 // `RouteTransitionRecord`, the abstract hand-off object that Flutter's
-// `Navigator` passes to a `TransitionDelegate` when `Navigator.pages` changes.
-// A `RouteTransitionRecord` wraps a single `Route<dynamic>` and exposes the
-// methods that a custom delegate uses to decide how that route should enter
-// or leave the navigation stack (push with animation, silently add, complete,
-// remove without animation, or pop with a result).
+// `Navigator` passes to a `TransitionDelegate` when `Navigator.pages`
+// changes. A `RouteTransitionRecord` wraps a single `Route<dynamic>` and
+// exposes the methods that a custom delegate uses to decide how that route
+// should enter or leave the navigation stack: push with animation, silently
+// add, complete, remove without animation, or pop with a result.
 //
-// Because instantiating the real `RouteTransitionRecord` in a d4rt harness
-// would require also constructing a real `Route` (and plumbing it through a
-// real `Navigator`), this demo mirrors the real public API on a plain Dart
-// class `_FakeRouteTransitionRecord`. The method names are intentionally
-// identical to the framework class so readers can map 1-to-1:
+// Unlike the previous version of this demo, which sidestepped the
+// abstractness of `RouteTransitionRecord` by mirroring its API on a
+// dataclass, this revision declares a real concrete subclass
+// `_DemoRouteTransitionRecord extends RouteTransitionRecord` that overrides
+// every abstract member with shape-faithful stubs. Live instances of that
+// subclass — typed as `RouteTransitionRecord` — are then exercised across
+// many UI sections to demonstrate the decision lifecycle.
 //
-//   real                                           fake (this file)
-//   ----                                           ----------------
-//   RouteTransitionRecord.route                 -> _FakeRouteTransitionRecord.name
-//   isWaitingForEnteringDecision                -> isWaitingForEnteringDecision
-//   isWaitingForExitingDecision                 -> isWaitingForExitingDecision
-//   markForPush()                               -> markForPush()
-//   markForAdd()                                -> markForAdd()
-//   markForPop([result])                        -> markForPop([result])
-//   markForRemove()                             -> markForRemove()
-//   markForComplete([result])                   -> markForComplete([result])
+// Two subclasses participate:
 //
-// Palette: indigo + sunset orange + mint accent.
+//   _DemoRouteTransitionRecord
+//       The primary concrete implementation. Stores a real `Route<dynamic>`
+//       (a `PageRouteBuilder<void>`), tracks the latest decision, the result
+//       value passed to `markForPop` / `markForComplete`, and any conflict
+//       notes (calls made after a record was already decided).
+//
+//   _LoggingRouteTransitionRecord
+//       A second concrete implementation showing polymorphism. It records a
+//       call log of every method invocation. We treat both as
+//       `RouteTransitionRecord` and store them together in
+//       `List<RouteTransitionRecord>` to make the abstract type's
+//       polymorphic identity visible in compiled code.
+//
+// Notes on the file shape:
+//
+//   - The harness top-level entrypoint is `dynamic build(BuildContext)`.
+//   - All visuals are pure Material widgets — no platform channels or I/O.
+//   - Platform-aware accents come from `Theme.of(context).platform`.
+//   - Palette: indigo primary, sunset orange action, mint accent, soft tints.
 
 import 'package:flutter/material.dart';
 
@@ -50,6 +63,201 @@ const Color _kCodeBg = Color(0xFF1B1B2E);
 const Color _kCodeFg = Color(0xFFE0E0F0);
 const Color _kWarn = Color(0xFFFBC02D);
 const Color _kDanger = Color(0xFFC62828);
+const Color _kPlum = Color(0xFF6A1B9A);
+const Color _kPlumSoft = Color(0xFFEDE3F4);
+
+// ---------------------------------------------------------------------------
+// Live concrete subclass of RouteTransitionRecord
+// ---------------------------------------------------------------------------
+
+/// A concrete subclass of the abstract `RouteTransitionRecord`.
+///
+/// Constructing one is cheap because `PageRouteBuilder` is a fully fledged
+/// concrete `Route<T>` that does not require a live `Navigator` to *exist* —
+/// only to *attach*. This makes it perfectly fine for a demo that never
+/// pushes the route, only references the wrapped `Route<dynamic>`.
+class _DemoRouteTransitionRecord extends RouteTransitionRecord {
+  _DemoRouteTransitionRecord({
+    required this.label,
+    required bool waitingEntering,
+    required bool waitingExiting,
+  })  : _waitingEntering = waitingEntering,
+        _waitingExiting = waitingExiting,
+        _route = PageRouteBuilder<void>(
+          settings: RouteSettings(name: label),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return const SizedBox.shrink();
+          },
+        );
+
+  /// A short, human-readable name. Mirrors `route.settings.name`.
+  final String label;
+
+  /// The wrapped `Route<dynamic>`. Real, instantiated, valid.
+  final PageRouteBuilder<void> _route;
+
+  bool _waitingEntering;
+  bool _waitingExiting;
+
+  String? _decision;
+  Object? _result;
+  String? _conflictNote;
+  final List<String> _callLog = <String>[];
+
+  @override
+  Route<dynamic> get route => _route;
+
+  @override
+  bool get isWaitingForEnteringDecision => _waitingEntering;
+
+  @override
+  bool get isWaitingForExitingDecision => _waitingExiting;
+
+  String? get decision => _decision;
+  Object? get result => _result;
+  String? get conflictNote => _conflictNote;
+  List<String> get callLog => List<String>.unmodifiable(_callLog);
+
+  bool get isDecided => _decision != null;
+  bool get isPending => _decision == null;
+
+  @override
+  void markForPush() {
+    _callLog.add('markForPush()');
+    if (_decision != null) {
+      _conflictNote = 'markForPush() called after $_decision';
+      return;
+    }
+    _decision = 'push';
+    _waitingEntering = false;
+  }
+
+  @override
+  void markForAdd() {
+    _callLog.add('markForAdd()');
+    if (_decision != null) {
+      _conflictNote = 'markForAdd() called after $_decision';
+      return;
+    }
+    _decision = 'add';
+    _waitingEntering = false;
+  }
+
+  @override
+  void markForPop([dynamic result]) {
+    _callLog.add('markForPop($result)');
+    if (_decision != null) {
+      _conflictNote = 'markForPop() called after $_decision';
+      return;
+    }
+    _decision = 'pop';
+    _result = result;
+    _waitingExiting = false;
+  }
+
+  @override
+  void markForComplete([dynamic result]) {
+    _callLog.add('markForComplete($result)');
+    if (_decision != null) {
+      _conflictNote = 'markForComplete() called after $_decision';
+      return;
+    }
+    _decision = 'complete';
+    _result = result;
+    _waitingExiting = false;
+  }
+
+  @override
+  void markForRemove() {
+    _callLog.add('markForRemove()');
+    if (_decision != null) {
+      _conflictNote = 'markForRemove() called after $_decision';
+      return;
+    }
+    _decision = 'remove';
+    _waitingExiting = false;
+  }
+
+  void resetTo({required bool entering, required bool exiting}) {
+    _decision = null;
+    _result = null;
+    _conflictNote = null;
+    _callLog.clear();
+    _waitingEntering = entering;
+    _waitingExiting = exiting;
+  }
+
+  /// Six-stage lifecycle slug used by the timeline hero.
+  String get stage {
+    if (_decision == null) {
+      if (_waitingEntering) {
+        return 'waitingEnterDecision';
+      }
+      if (_waitingExiting) {
+        return 'waitingExitDecision';
+      }
+      return 'installed';
+    }
+    switch (_decision) {
+      case 'push':
+      case 'add':
+        return 'transitioning';
+      case 'pop':
+        return 'waitingExitDecision';
+      case 'complete':
+        return 'complete';
+      case 'remove':
+        return 'disposed';
+    }
+    return 'installed';
+  }
+}
+
+/// A second concrete subclass that just logs every call. Used to demonstrate
+/// polymorphism — a `List<RouteTransitionRecord>` can hold both subclasses.
+class _LoggingRouteTransitionRecord extends RouteTransitionRecord {
+  _LoggingRouteTransitionRecord(this._name)
+      : _route = PageRouteBuilder<void>(
+          settings: RouteSettings(name: _name),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return const SizedBox.shrink();
+          },
+        );
+
+  final String _name;
+  final PageRouteBuilder<void> _route;
+  final List<String> log = <String>[];
+
+  String get name => _name;
+
+  @override
+  Route<dynamic> get route => _route;
+
+  @override
+  bool get isWaitingForEnteringDecision => log.isEmpty;
+
+  @override
+  bool get isWaitingForExitingDecision => log.isEmpty;
+
+  @override
+  void markForPush() => log.add('push');
+  @override
+  void markForAdd() => log.add('add');
+  @override
+  void markForPop([dynamic result]) => log.add('pop($result)');
+  @override
+  void markForComplete([dynamic result]) => log.add('complete($result)');
+  @override
+  void markForRemove() => log.add('remove');
+}
 
 // ---------------------------------------------------------------------------
 // Harness entry
@@ -77,142 +285,6 @@ dynamic build(BuildContext context) {
     ),
     home: const RouteTransitionStagingDemo(),
   );
-}
-
-// ---------------------------------------------------------------------------
-// Fake record — mirrors the real RouteTransitionRecord public API
-// ---------------------------------------------------------------------------
-
-/// Pedagogical stand-in for Flutter's `RouteTransitionRecord`.
-///
-/// This is deliberately NOT a subclass of the framework's
-/// `RouteTransitionRecord`. The real class is abstract and tightly coupled to
-/// `Route<dynamic>` which would need a real `Navigator` to construct. For the
-/// demo we only need to illustrate the decision surface, so we copy the
-/// method names and the two "waiting" booleans into a plain class.
-///
-/// A reader can map this 1-to-1 onto the framework class.
-class _FakeRouteTransitionRecord {
-  _FakeRouteTransitionRecord({
-    required this.name,
-    required this.isWaitingForEnteringDecision,
-    required this.isWaitingForExitingDecision,
-  });
-
-  /// Stands in for `RouteTransitionRecord.route.settings.name`.
-  final String name;
-
-  /// Mirrors `RouteTransitionRecord.isWaitingForEnteringDecision`.
-  bool isWaitingForEnteringDecision;
-
-  /// Mirrors `RouteTransitionRecord.isWaitingForExitingDecision`.
-  bool isWaitingForExitingDecision;
-
-  /// The decision slug: one of push/add/pop/remove/complete, or null
-  /// while the record is still waiting for the delegate to call a
-  /// `markForXxx()` method.
-  String? _decision;
-
-  /// The optional result value passed to `markForPop` or `markForComplete`.
-  Object? _result;
-
-  /// A short free-form note used in the UI to explain a conflicting call.
-  String? _conflictNote;
-
-  String? get decision => _decision;
-  Object? get result => _result;
-  String? get conflictNote => _conflictNote;
-
-  bool get isDecided => _decision != null;
-  bool get isPending => _decision == null;
-
-  /// Mirrors `RouteTransitionRecord.markForPush()`.
-  void markForPush() {
-    if (_decision != null) {
-      _conflictNote = 'markForPush() called after $_decision';
-      return;
-    }
-    _decision = 'push';
-    isWaitingForEnteringDecision = false;
-  }
-
-  /// Mirrors `RouteTransitionRecord.markForAdd()`.
-  void markForAdd() {
-    if (_decision != null) {
-      _conflictNote = 'markForAdd() called after $_decision';
-      return;
-    }
-    _decision = 'add';
-    isWaitingForEnteringDecision = false;
-  }
-
-  /// Mirrors `RouteTransitionRecord.markForPop([result])`.
-  void markForPop([Object? result]) {
-    if (_decision != null) {
-      _conflictNote = 'markForPop() called after $_decision';
-      return;
-    }
-    _decision = 'pop';
-    _result = result;
-    isWaitingForExitingDecision = false;
-  }
-
-  /// Mirrors `RouteTransitionRecord.markForRemove()`.
-  void markForRemove() {
-    if (_decision != null) {
-      _conflictNote = 'markForRemove() called after $_decision';
-      return;
-    }
-    _decision = 'remove';
-    isWaitingForExitingDecision = false;
-  }
-
-  /// Mirrors `RouteTransitionRecord.markForComplete([result])`.
-  void markForComplete([Object? result]) {
-    if (_decision != null) {
-      _conflictNote = 'markForComplete() called after $_decision';
-      return;
-    }
-    _decision = 'complete';
-    _result = result;
-    isWaitingForExitingDecision = false;
-  }
-
-  void reset({
-    required bool entering,
-    required bool exiting,
-  }) {
-    _decision = null;
-    _result = null;
-    _conflictNote = null;
-    isWaitingForEnteringDecision = entering;
-    isWaitingForExitingDecision = exiting;
-  }
-
-  /// The six-stage lifecycle slug used by the timeline hero.
-  String get stage {
-    if (_decision == null) {
-      if (isWaitingForEnteringDecision) {
-        return 'waitingEnterDecision';
-      }
-      if (isWaitingForExitingDecision) {
-        return 'waitingExitDecision';
-      }
-      return 'installed';
-    }
-    switch (_decision) {
-      case 'push':
-      case 'add':
-        return 'transitioning';
-      case 'pop':
-        return 'waitingExitDecision';
-      case 'complete':
-        return 'complete';
-      case 'remove':
-        return 'disposed';
-    }
-    return 'installed';
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -341,7 +413,7 @@ const List<_Scenario> _kScenarios = <_Scenario>[
     method: 'markForComplete(v)',
     icon: Icons.check_rounded,
     accent: _kMint,
-    snippet: "exiting.markForComplete(42);",
+    snippet: 'exiting.markForComplete(42);',
   ),
   _Scenario(
     title: 'Conflicting decision',
@@ -367,39 +439,57 @@ class RouteTransitionStagingDemo extends StatefulWidget {
 
 class _RouteTransitionStagingDemoState
     extends State<RouteTransitionStagingDemo> {
-  late final List<_FakeRouteTransitionRecord> _records;
+  // Live records, typed as the abstract base class to drive the point home.
+  late final List<RouteTransitionRecord> _records;
+
+  // The same list, but as the concrete subclass so we can read internal
+  // state (decision, result, conflict notes) for the UI. This is a deliberate
+  // pedagogical pattern — in real code the framework holds the abstract list
+  // and the delegate just calls markFor*.
+  late final List<_DemoRouteTransitionRecord> _concreteRecords;
+
+  // A second polymorphic flavour, used in the polymorphism panel to prove
+  // that the abstract base type really is abstract.
+  late final List<RouteTransitionRecord> _loggingRecords;
+
   int _focusedIndex = 0;
   int _turns = 0;
 
   @override
   void initState() {
     super.initState();
-    _records = <_FakeRouteTransitionRecord>[
-      _FakeRouteTransitionRecord(
-        name: '/articles',
-        isWaitingForEnteringDecision: true,
-        isWaitingForExitingDecision: false,
+    _concreteRecords = <_DemoRouteTransitionRecord>[
+      _DemoRouteTransitionRecord(
+        label: '/articles',
+        waitingEntering: true,
+        waitingExiting: false,
       ),
-      _FakeRouteTransitionRecord(
-        name: '/settings',
-        isWaitingForEnteringDecision: false,
-        isWaitingForExitingDecision: true,
+      _DemoRouteTransitionRecord(
+        label: '/settings',
+        waitingEntering: false,
+        waitingExiting: true,
       ),
-      _FakeRouteTransitionRecord(
-        name: '/help',
-        isWaitingForEnteringDecision: true,
-        isWaitingForExitingDecision: false,
+      _DemoRouteTransitionRecord(
+        label: '/help',
+        waitingEntering: true,
+        waitingExiting: false,
       ),
-      _FakeRouteTransitionRecord(
-        name: '/about',
-        isWaitingForEnteringDecision: false,
-        isWaitingForExitingDecision: true,
+      _DemoRouteTransitionRecord(
+        label: '/about',
+        waitingEntering: false,
+        waitingExiting: true,
       ),
+    ];
+    _records = List<RouteTransitionRecord>.from(_concreteRecords);
+    _loggingRecords = <RouteTransitionRecord>[
+      _LoggingRouteTransitionRecord('/diagnostics'),
+      _LoggingRouteTransitionRecord('/inbox'),
+      _LoggingRouteTransitionRecord('/profile'),
     ];
   }
 
   void _apply(int index, String action) {
-    final record = _records[index];
+    final RouteTransitionRecord record = _records[index];
     setState(() {
       switch (action) {
         case 'push':
@@ -421,14 +511,18 @@ class _RouteTransitionStagingDemoState
       _focusedIndex = index;
       _turns += 1;
     });
-    debugPrint('[RouteTransitionStagingDemo] ${record.name} -> $action');
+    final concrete = _concreteRecords[index];
+    debugPrint(
+      '[RouteTransitionStagingDemo] ${concrete.label} -> $action '
+      '(decision=${concrete.decision})',
+    );
   }
 
   void _resetAll() {
     setState(() {
-      for (var i = 0; i < _records.length; i++) {
+      for (var i = 0; i < _concreteRecords.length; i++) {
         final isEntering = i.isEven;
-        _records[i].reset(
+        _concreteRecords[i].resetTo(
           entering: isEntering,
           exiting: !isEntering,
         );
@@ -439,9 +533,55 @@ class _RouteTransitionStagingDemoState
     debugPrint('[RouteTransitionStagingDemo] reset all');
   }
 
+  void _runDelegateOverEverything() {
+    setState(() {
+      // Simulate a TransitionDelegate.resolve pass over every undecided record.
+      for (final _DemoRouteTransitionRecord r in _concreteRecords) {
+        if (r.isWaitingForEnteringDecision && r.isPending) {
+          r.markForPush();
+        } else if (r.isWaitingForExitingDecision && r.isPending) {
+          r.markForComplete('auto');
+        }
+      }
+      _turns += 1;
+    });
+    debugPrint('[RouteTransitionStagingDemo] auto-resolve pass complete');
+  }
+
+  Color _platformAccent(BuildContext context) {
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+        return _kPlum;
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+        return _kMintDeep;
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        return _kIndigoDark;
+    }
+  }
+
+  String _platformLabel(BuildContext context) {
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.iOS:
+        return 'iOS';
+      case TargetPlatform.macOS:
+        return 'macOS';
+      case TargetPlatform.android:
+        return 'Android';
+      case TargetPlatform.fuchsia:
+        return 'Fuchsia';
+      case TargetPlatform.linux:
+        return 'Linux';
+      case TargetPlatform.windows:
+        return 'Windows';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final focused = _records[_focusedIndex];
+    final _DemoRouteTransitionRecord focused = _concreteRecords[_focusedIndex];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: _kIndigo,
@@ -453,7 +593,12 @@ class _RouteTransitionStagingDemoState
         ),
         actions: <Widget>[
           IconButton(
-            tooltip: 'Reset fakes',
+            tooltip: 'Auto resolve',
+            onPressed: _runDelegateOverEverything,
+            icon: const Icon(Icons.auto_fix_high_rounded),
+          ),
+          IconButton(
+            tooltip: 'Reset records',
             onPressed: _resetAll,
             icon: const Icon(Icons.restart_alt_rounded),
           ),
@@ -462,7 +607,7 @@ class _RouteTransitionStagingDemoState
       ),
       body: SafeArea(
         child: LayoutBuilder(
-          builder: (context, constraints) {
+          builder: (BuildContext context, BoxConstraints constraints) {
             return SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
               child: ConstrainedBox(
@@ -470,8 +615,10 @@ class _RouteTransitionStagingDemoState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _buildHeadline(),
+                    _buildHeadline(context),
                     const SizedBox(height: 20),
+                    _buildLiveSurfacePanel(context),
+                    const SizedBox(height: 24),
                     _buildTimelineHero(focused),
                     const SizedBox(height: 24),
                     _buildDecisionPlayground(),
@@ -479,6 +626,10 @@ class _RouteTransitionStagingDemoState
                     _buildSequenceDiagram(),
                     const SizedBox(height: 24),
                     _buildScenarioWrap(),
+                    const SizedBox(height: 24),
+                    _buildPolymorphismPanel(),
+                    const SizedBox(height: 24),
+                    _buildCallLogPanel(focused),
                     const SizedBox(height: 24),
                     _buildTeachingPanel(),
                     const SizedBox(height: 24),
@@ -497,7 +648,9 @@ class _RouteTransitionStagingDemoState
   // Headline
   // -------------------------------------------------------------------------
 
-  Widget _buildHeadline() {
+  Widget _buildHeadline(BuildContext context) {
+    final Color accent = _platformAccent(context);
+    final String platform = _platformLabel(context);
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -559,18 +712,221 @@ class _RouteTransitionStagingDemoState
             ),
           ),
           const SizedBox(width: 12),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: _kSunset.withValues(alpha: 0.9),
-              borderRadius: BorderRadius.circular(10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: _kSunset.withValues(alpha: 0.9),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'turns: $_turns',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.85),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'platform: $platform',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // -------------------------------------------------------------------------
+  // Live API Surface — uses concrete subclass live & shows runtimeType
+  // -------------------------------------------------------------------------
+
+  Widget _buildLiveSurfacePanel(BuildContext context) {
+    // Locally instantiate fresh records typed as the abstract base.
+    final RouteTransitionRecord exampleEnter = _DemoRouteTransitionRecord(
+      label: '/example/enter',
+      waitingEntering: true,
+      waitingExiting: false,
+    );
+    final RouteTransitionRecord exampleExit = _DemoRouteTransitionRecord(
+      label: '/example/exit',
+      waitingEntering: false,
+      waitingExiting: true,
+    );
+
+    // Exercise them right here in compiled code.
+    exampleEnter.markForPush();
+    exampleExit.markForPop('demo-result');
+
+    final List<RouteTransitionRecord> bothTypes = <RouteTransitionRecord>[
+      exampleEnter,
+      exampleExit,
+      _LoggingRouteTransitionRecord('/example/log'),
+    ];
+
+    return Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+        side: const BorderSide(color: _kBorder),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: const <Widget>[
+                Icon(Icons.api_rounded, color: _kPlum, size: 22),
+                SizedBox(width: 8),
+                Text(
+                  'Live API surface',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+              ],
             ),
+            const SizedBox(height: 6),
+            const Text(
+              'These rows show real concrete subclasses of the abstract '
+              'RouteTransitionRecord, instantiated live during build() and '
+              'exercised via their markFor* methods.',
+              style: TextStyle(color: _kInkMuted, fontSize: 12, height: 1.4),
+            ),
+            const SizedBox(height: 14),
+            Container(
+              decoration: BoxDecoration(
+                color: _kPlumSoft,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _kPlum.withValues(alpha: 0.3)),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: <Widget>[
+                  for (int i = 0; i < bothTypes.length; i++)
+                    _buildSurfaceRow(bothTypes[i], i == bothTypes.length - 1),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildRuntimeFacts(bothTypes),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSurfaceRow(RouteTransitionRecord record, bool isLast) {
+    final String routeName = record.route.settings.name ?? '<unnamed>';
+    final bool waitingEnter = record.isWaitingForEnteringDecision;
+    final bool waitingExit = record.isWaitingForExitingDecision;
+    final String runtime = record.runtimeType.toString();
+    return Padding(
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: _kPlum.withValues(alpha: 0.4)),
+            ),
+            child: const Icon(Icons.route_rounded,
+                color: _kPlum, size: 16),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  routeName,
+                  style: const TextStyle(
+                    color: _kInk,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'runtimeType: $runtime',
+                  style: const TextStyle(
+                    color: _kInkMuted,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'isWaitingForEnteringDecision: $waitingEnter   '
+                  'isWaitingForExitingDecision: $waitingExit',
+                  style: const TextStyle(
+                    color: _kInkMuted,
+                    fontSize: 10,
+                    height: 1.4,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRuntimeFacts(List<RouteTransitionRecord> all) {
+    // Verify polymorphic behaviour right here.
+    final int demoCount =
+        all.whereType<_DemoRouteTransitionRecord>().length;
+    final int loggingCount =
+        all.whereType<_LoggingRouteTransitionRecord>().length;
+    final int total = all.length;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: _kIndigoSoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _kIndigo.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: <Widget>[
+          const Icon(Icons.fact_check_outlined,
+              color: _kIndigoDark, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
             child: Text(
-              'turns: $_turns',
+              'List<RouteTransitionRecord> length=$total   '
+              '_DemoRouteTransitionRecord=$demoCount   '
+              '_LoggingRouteTransitionRecord=$loggingCount',
               style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
+                color: _kInk,
+                fontSize: 11,
+                fontFamily: 'monospace',
+                height: 1.4,
               ),
             ),
           ),
@@ -583,7 +939,7 @@ class _RouteTransitionStagingDemoState
   // Timeline hero
   // -------------------------------------------------------------------------
 
-  Widget _buildTimelineHero(_FakeRouteTransitionRecord focused) {
+  Widget _buildTimelineHero(_DemoRouteTransitionRecord focused) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
@@ -617,22 +973,22 @@ class _RouteTransitionStagingDemoState
             ),
             const SizedBox(height: 16),
             LayoutBuilder(
-              builder: (context, c) {
-                final stages = _kTimelineStages;
+              builder: (BuildContext context, BoxConstraints c) {
+                final List<_TimelineStage> stages = _kTimelineStages;
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(minWidth: c.maxWidth),
                     child: Row(
                       children: <Widget>[
-                        for (var i = 0; i < stages.length; i++) ...<Widget>[
+                        for (int i = 0; i < stages.length; i++) ...<Widget>[
                           _buildTimelineStage(
                             stages[i],
                             active: stages[i].id == focused.stage,
                           ),
                           if (i != stages.length - 1)
-                            Padding(
-                              padding: const EdgeInsets.only(
+                            const Padding(
+                              padding: EdgeInsets.only(
                                 top: 36,
                                 left: 4,
                                 right: 4,
@@ -658,7 +1014,7 @@ class _RouteTransitionStagingDemoState
     );
   }
 
-  Widget _buildFocusChip(_FakeRouteTransitionRecord focused) {
+  Widget _buildFocusChip(_DemoRouteTransitionRecord focused) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
@@ -673,7 +1029,7 @@ class _RouteTransitionStagingDemoState
               size: 14, color: _kMintDeep),
           const SizedBox(width: 6),
           Text(
-            'focus: ${focused.name}',
+            'focus: ${focused.label}',
             style: const TextStyle(
               color: _kMintDeep,
               fontSize: 12,
@@ -690,9 +1046,8 @@ class _RouteTransitionStagingDemoState
     final Color border = active ? stage.glow : _kBorder;
     final Color icon = active ? Colors.white : stage.glow;
     final Color text = active ? Colors.white : _kInk;
-    final Color subtitle = active
-        ? Colors.white.withValues(alpha: 0.85)
-        : _kInkMuted;
+    final Color subtitle =
+        active ? Colors.white.withValues(alpha: 0.85) : _kInkMuted;
     return Container(
       width: 132,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
@@ -750,7 +1105,7 @@ class _RouteTransitionStagingDemoState
     );
   }
 
-  Widget _buildStageExplainer(_FakeRouteTransitionRecord focused) {
+  Widget _buildStageExplainer(_DemoRouteTransitionRecord focused) {
     final String label;
     final String explain;
     switch (focused.stage) {
@@ -772,12 +1127,12 @@ class _RouteTransitionStagingDemoState
       case 'complete':
         label = 'complete';
         explain =
-            'markForComplete() fired. Route\'s future resolves with ${focused.result ?? "no result"}.';
+            "markForComplete() fired. Route's future resolves with ${focused.result ?? 'no result'}.";
         break;
       case 'waitingExitDecision':
         label = 'waiting for exit decision';
         explain = focused.decision == 'pop'
-            ? 'markForPop() fired — exit animation will run and future resolves with ${focused.result ?? "no result"}.'
+            ? 'markForPop() fired — exit animation will run and future resolves with ${focused.result ?? 'no result'}.'
             : 'isWaitingForExitingDecision is true. Delegate must call markForComplete / markForRemove / markForPop.';
         break;
       case 'disposed':
@@ -858,7 +1213,7 @@ class _RouteTransitionStagingDemoState
                 TextButton.icon(
                   onPressed: _resetAll,
                   icon: const Icon(Icons.refresh_rounded, size: 16),
-                  label: const Text('reset fakes'),
+                  label: const Text('reset records'),
                   style: TextButton.styleFrom(
                     foregroundColor: _kIndigoDark,
                     textStyle: const TextStyle(
@@ -871,22 +1226,23 @@ class _RouteTransitionStagingDemoState
             ),
             const SizedBox(height: 6),
             const Text(
-              'Each fake record mirrors the real RouteTransitionRecord API. '
-              'Tap a decision button to call the corresponding markFor* method.',
+              'Each row holds a real RouteTransitionRecord (a concrete '
+              '_DemoRouteTransitionRecord). Tap a decision button to call '
+              'the corresponding markFor* method on that live instance.',
               style: TextStyle(color: _kInkMuted, fontSize: 12, height: 1.4),
             ),
             const SizedBox(height: 16),
             LayoutBuilder(
-              builder: (context, c) {
-                final twoCol = c.maxWidth > 720;
-                final cards = <Widget>[
-                  for (var i = 0; i < _records.length; i++)
-                    _buildDecisionCard(i, _records[i]),
+              builder: (BuildContext context, BoxConstraints c) {
+                final bool twoCol = c.maxWidth > 720;
+                final List<Widget> cards = <Widget>[
+                  for (int i = 0; i < _concreteRecords.length; i++)
+                    _buildDecisionCard(i, _concreteRecords[i]),
                 ];
                 if (!twoCol) {
                   return Column(
                     children: <Widget>[
-                      for (var i = 0; i < cards.length; i++) ...<Widget>[
+                      for (int i = 0; i < cards.length; i++) ...<Widget>[
                         cards[i],
                         if (i != cards.length - 1) const SizedBox(height: 12),
                       ],
@@ -897,7 +1253,7 @@ class _RouteTransitionStagingDemoState
                   spacing: 12,
                   runSpacing: 12,
                   children: <Widget>[
-                    for (final card in cards)
+                    for (final Widget card in cards)
                       SizedBox(
                         width: (c.maxWidth - 12) / 2,
                         child: card,
@@ -912,8 +1268,8 @@ class _RouteTransitionStagingDemoState
     );
   }
 
-  Widget _buildDecisionCard(int index, _FakeRouteTransitionRecord record) {
-    final focused = index == _focusedIndex;
+  Widget _buildDecisionCard(int index, _DemoRouteTransitionRecord record) {
+    final bool focused = index == _focusedIndex;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 220),
       curve: Curves.easeOut,
@@ -956,7 +1312,7 @@ class _RouteTransitionStagingDemoState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      record.name,
+                      record.label,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
@@ -1371,7 +1727,7 @@ class _RouteTransitionStagingDemoState
             ),
             const SizedBox(height: 14),
             LayoutBuilder(
-              builder: (context, c) {
+              builder: (BuildContext context, BoxConstraints c) {
                 final double targetWidth;
                 if (c.maxWidth > 980) {
                   targetWidth = (c.maxWidth - 24) / 3;
@@ -1384,7 +1740,7 @@ class _RouteTransitionStagingDemoState
                   spacing: 12,
                   runSpacing: 12,
                   children: <Widget>[
-                    for (final s in _kScenarios)
+                    for (final _Scenario s in _kScenarios)
                       SizedBox(
                         width: targetWidth,
                         child: _buildScenarioCard(s),
@@ -1483,6 +1839,223 @@ class _RouteTransitionStagingDemoState
   }
 
   // -------------------------------------------------------------------------
+  // Polymorphism panel — exercises the abstract base type with two
+  // concrete subclasses, side by side.
+  // -------------------------------------------------------------------------
+
+  Widget _buildPolymorphismPanel() {
+    return Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+        side: const BorderSide(color: _kBorder),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: const <Widget>[
+                Icon(Icons.merge_type_rounded, color: _kPlum, size: 22),
+                SizedBox(width: 8),
+                Text(
+                  'Polymorphism panel',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              'A List<RouteTransitionRecord> can hold any concrete subclass. '
+              'Below, both _DemoRouteTransitionRecord and '
+              '_LoggingRouteTransitionRecord are accessed through the abstract '
+              'base type.',
+              style: TextStyle(color: _kInkMuted, fontSize: 12, height: 1.4),
+            ),
+            const SizedBox(height: 14),
+            for (int i = 0; i < _loggingRecords.length; i++)
+              _polymorphismRow(_loggingRecords[i], i),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _polymorphismRow(RouteTransitionRecord record, int index) {
+    // Drive the abstract API on whatever concrete class this happens to be.
+    final String routeName = record.route.settings.name ?? '<unnamed>';
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _kPlumSoft,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: _kPlum.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _kPlum.withValues(alpha: 0.4)),
+              ),
+              child: Center(
+                child: Text(
+                  '$index',
+                  style: const TextStyle(
+                    color: _kPlum,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    routeName,
+                    style: const TextStyle(
+                      color: _kInk,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'runtimeType: ${record.runtimeType}',
+                    style: const TextStyle(
+                      color: _kInkMuted,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  record.markForPush();
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _kPlum,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              child: const Text('markForPush'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // -------------------------------------------------------------------------
+  // Call log panel — shows the live call log of the focused record.
+  // -------------------------------------------------------------------------
+
+  Widget _buildCallLogPanel(_DemoRouteTransitionRecord focused) {
+    final List<String> log = focused.callLog;
+    return Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+        side: const BorderSide(color: _kBorder),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                const Icon(Icons.history_rounded,
+                    color: _kSunsetDeep, size: 22),
+                const SizedBox(width: 8),
+                const Text(
+                  'Call log (focused)',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '${log.length} call${log.length == 1 ? '' : 's'}',
+                  style: const TextStyle(
+                    color: _kInkMuted,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _kCodeBg,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: log.isEmpty
+                  ? const Text(
+                      '<no calls yet>',
+                      style: TextStyle(
+                        color: _kCodeFg,
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        fontStyle: FontStyle.italic,
+                      ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        for (int i = 0; i < log.length; i++)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 2),
+                            child: Text(
+                              '[${i.toString().padLeft(2, '0')}] '
+                              '${focused.label}.${log[i]}',
+                              style: const TextStyle(
+                                color: _kCodeFg,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                height: 1.45,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // -------------------------------------------------------------------------
   // Teaching panel
   // -------------------------------------------------------------------------
 
@@ -1514,8 +2087,8 @@ class _RouteTransitionStagingDemoState
             ),
             const SizedBox(height: 14),
             LayoutBuilder(
-              builder: (context, c) {
-                final twoCol = c.maxWidth > 640;
+              builder: (BuildContext context, BoxConstraints c) {
+                final bool twoCol = c.maxWidth > 640;
                 if (!twoCol) {
                   return Column(
                     children: <Widget>[
@@ -1621,7 +2194,7 @@ class _RouteTransitionStagingDemoState
             ],
           ),
           const SizedBox(height: 10),
-          for (final b in bullets)
+          for (final String b in bullets)
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
               child: Row(
@@ -1656,7 +2229,7 @@ class _RouteTransitionStagingDemoState
   }
 
   Widget _buildMethodTable() {
-    const rows = <List<String>>[
+    const List<List<String>> rows = <List<String>>[
       <String>[
         'markForPush()',
         'Animate entry',
@@ -1703,8 +2276,13 @@ class _RouteTransitionStagingDemoState
       ),
       child: Column(
         children: <Widget>[
-          _tableHeader(const <String>['method', 'purpose', 'precondition', 'animation']),
-          for (var i = 0; i < rows.length; i++)
+          _tableHeader(const <String>[
+            'method',
+            'purpose',
+            'precondition',
+            'animation',
+          ]),
+          for (int i = 0; i < rows.length; i++)
             _tableRow(rows[i], alt: i.isOdd),
         ],
       ),
@@ -1723,7 +2301,7 @@ class _RouteTransitionStagingDemoState
       ),
       child: Row(
         children: <Widget>[
-          for (var i = 0; i < cells.length; i++)
+          for (int i = 0; i < cells.length; i++)
             Expanded(
               flex: i == 0 ? 3 : 3,
               child: Text(
@@ -1804,17 +2382,31 @@ class _RouteTransitionStagingDemoState
   }
 
   Widget _buildCustomDelegateSnippet() {
-    const snippet = '''
+    const String snippet = '''
 class MyDelegate extends TransitionDelegate<void> {
   @override
-  Iterable<RouteTransitionRecord> resolve(...) {
-    for (final entering in newPageRouteHistory) {
-      entering.markForPush();
+  Iterable<RouteTransitionRecord> resolve({
+    required List<RouteTransitionRecord> newPageRouteHistory,
+    required Map<RouteTransitionRecord?, RouteTransitionRecord>
+        locationToExitingPageRoute,
+    required Map<RouteTransitionRecord?, List<RouteTransitionRecord>>
+        pageRouteToPagelessRoutes,
+  }) {
+    final List<RouteTransitionRecord> results = <RouteTransitionRecord>[];
+    for (final RouteTransitionRecord entering in newPageRouteHistory) {
+      if (entering.isWaitingForEnteringDecision) {
+        entering.markForPush();
+      }
+      results.add(entering);
     }
-    for (final exiting in locationToExitingPageRoute.values) {
-      exiting.markForComplete();
+    for (final RouteTransitionRecord exiting
+        in locationToExitingPageRoute.values) {
+      if (exiting.isWaitingForExitingDecision) {
+        exiting.markForComplete();
+      }
+      results.add(exiting);
     }
-    return [...];
+    return results;
   }
 }
 ''';

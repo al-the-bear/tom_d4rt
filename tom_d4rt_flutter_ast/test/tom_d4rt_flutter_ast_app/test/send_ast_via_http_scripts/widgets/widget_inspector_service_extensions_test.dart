@@ -1,798 +1,608 @@
-import 'dart:math' as math;
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 
+// ===========================================================================
+// WIDGET INSPECTOR SERVICE EXTENSIONS — DEVTOOLS DOSSIER
 // ---------------------------------------------------------------------------
-// Blueprint clipboard palette. Oxblood, ivory, graphite, parchment tones —
-// styled like a field inspector's notebook with drafting-blue accents.
-// ---------------------------------------------------------------------------
-const Color _wiseInk = Color(0xFF141418);
-const Color _wiseGraphite = Color(0xFF2A2A32);
-const Color _wiseGraphiteSoft = Color(0xFF3D3D47);
-const Color _wiseIvory = Color(0xFFF4ECDA);
-const Color _wiseIvorySoft = Color(0xFFFBF6E8);
-const Color _wiseIvoryEdge = Color(0xFFE4D8BC);
-const Color _wiseParchment = Color(0xFFE8DDC2);
-const Color _wiseParchmentDeep = Color(0xFFD5C69F);
-const Color _wiseOxblood = Color(0xFF7A1F1F);
-const Color _wiseOxbloodDeep = Color(0xFF5B1414);
-const Color _wiseOxbloodPale = Color(0xFFDDB8B8);
-const Color _wiseBlueprint = Color(0xFF1F3A5F);
-const Color _wiseBlueprintDeep = Color(0xFF12243D);
-const Color _wiseBlueprintPale = Color(0xFFC7D5E6);
-const Color _wiseMoss = Color(0xFF4A5D3A);
-const Color _wiseMossPale = Color(0xFFCDD6BB);
-const Color _wiseBrass = Color(0xFFA07E32);
-const Color _wiseBrassPale = Color(0xFFE9D9A8);
-const Color _wiseChalk = Color(0xFFEFE9DA);
-const Color _wiseShadow = Color(0xFF24201A);
+// This is a deep-demo Flutter test page that USES `WidgetInspectorServiceExtensions`
+// (a public enum exported from `package:flutter/widgets.dart` and re-exported via
+// `package:flutter/material.dart`) at runtime in many ways:
+//
+//   * Iterating `WidgetInspectorServiceExtensions.values`
+//   * Reading `.name` on every value
+//   * Comparing values via `==`
+//   * Switch statements with each enum value as an arm
+//   * Using `.values.byName(...)` for reverse lookup
+//   * Filtering, grouping, counting, and sorting `.values`
+//
+// The page is a single MaterialApp shell with multiple panels themed like a
+// field inspector's blueprint dossier. There is no real VM-service IO; every
+// "send" emits structured fake JSON for visual inspection.
+// ===========================================================================
 
 // ---------------------------------------------------------------------------
-// d4rt entry point. Single top-level `build` returning a MaterialApp whose
-// home is the full blueprint dossier shell.
+// Palette — blueprint, oxblood, ivory, parchment.
+// ---------------------------------------------------------------------------
+const Color _kInk = Color(0xFF141418);
+const Color _kGraphite = Color(0xFF2A2A32);
+const Color _kGraphiteSoft = Color(0xFF3D3D47);
+const Color _kIvory = Color(0xFFF4ECDA);
+const Color _kIvorySoft = Color(0xFFFBF6E8);
+const Color _kIvoryEdge = Color(0xFFE4D8BC);
+const Color _kParchment = Color(0xFFE8DDC2);
+const Color _kParchmentDeep = Color(0xFFD5C69F);
+const Color _kOxblood = Color(0xFF7A1F1F);
+const Color _kOxbloodDeep = Color(0xFF5B1414);
+const Color _kOxbloodPale = Color(0xFFDDB8B8);
+const Color _kBlueprint = Color(0xFF1F3A5F);
+const Color _kBlueprintDeep = Color(0xFF12243D);
+const Color _kBlueprintPale = Color(0xFFC7D5E6);
+const Color _kMoss = Color(0xFF4A5D3A);
+const Color _kMossPale = Color(0xFFCDD6BB);
+const Color _kBrass = Color(0xFFA07E32);
+const Color _kBrassPale = Color(0xFFE9D9A8);
+const Color _kChalk = Color(0xFFEFE9DA);
+const Color _kShadow = Color(0xFF24201A);
+
+// ---------------------------------------------------------------------------
+// d4rt entry point.
 // ---------------------------------------------------------------------------
 dynamic build(BuildContext context) {
-  return const _WiseApp();
+  return const _InspectorDossierApp();
 }
 
 // ===========================================================================
-// ENUM CATALOG DATA
+// CATEGORY CLASSIFIER — exhaustive switch over every enum value
 // ===========================================================================
-class _WiseExtensionEntry {
-  const _WiseExtensionEntry({
-    required this.name,
-    required this.category,
-    required this.summary,
-    required this.detail,
-    required this.sample,
-    required this.params,
-    required this.response,
-  });
 
-  final String name;
-  final String category;
-  final String summary;
-  final String detail;
-  final String sample;
-  final String params;
-  final String response;
+/// Coarse bucket the dossier organizes the inspector calls into.
+enum _CallBucket {
+  lifecycle,
+  pubRoots,
+  treeWalk,
+  selection,
+  rendering,
+  layoutExplorer,
+  profiling,
+  toggles,
 }
 
-const List<_WiseExtensionEntry> _wiseCatalog = <_WiseExtensionEntry>[
-  _WiseExtensionEntry(
-    name: 'disposeAllGroups',
-    category: 'lifecycle',
-    summary: 'Clears every inspector object group.',
-    detail:
-        'DevTools occasionally cycles all groups to avoid retaining elements '
-        'after a widget rebuild. This wire-call releases every reference the '
-        'inspector is currently holding so hot-reload stays cheap.',
-    sample: 'ext.flutter.inspector.disposeAllGroups',
-    params: '{ "isolateId": "isolates/12345" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'disposeGroup',
-    category: 'lifecycle',
-    summary: 'Disposes one named inspector group.',
-    detail:
-        'Each DevTools panel pins a short-lived group name (for example '
-        '"inspector-12"). When the panel closes, DevTools releases it with '
-        'this call so Flutter can forget the referenced elements.',
-    sample: 'ext.flutter.inspector.disposeGroup',
-    params: '{ "objectGroup": "inspector-12" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'isWidgetTreeReady',
-    category: 'lifecycle',
-    summary: 'Polls whether a root widget exists yet.',
-    detail:
-        'DevTools starts inspecting only after `runApp` has built its first '
-        'frame. This probe is cheap — the service returns a boolean so the '
-        'DevTools UI knows when to enable tree exploration.',
-    sample: 'ext.flutter.inspector.isWidgetTreeReady',
-    params: '{}',
-    response: '{ "result": { "type": "bool", "value": true } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'disposeId',
-    category: 'lifecycle',
-    summary: 'Releases a single inspection id.',
-    detail:
-        'Fine-grained version of disposeGroup. Used when DevTools wants to '
-        'drop a specific node reference without clearing its whole group.',
-    sample: 'ext.flutter.inspector.disposeId',
-    params: '{ "arg": "inspector-12:node-3" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'setPubRootDirectories',
-    category: 'diagnostics',
-    summary: 'Declares which paths count as "user code".',
-    detail:
-        'DevTools uses this allow-list to fade out framework frames in its '
-        'widget tree. The call replaces the full list in one shot.',
-    sample: 'ext.flutter.inspector.setPubRootDirectories',
-    params: '{ "arg0": "file:///home/me/project/lib" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'addPubRootDirectories',
-    category: 'diagnostics',
-    summary: 'Appends directories to the user-code allow-list.',
-    detail:
-        'A non-destructive alternative to `setPubRootDirectories`. Useful '
-        'when a monorepo has multiple lib/ folders that all belong to the '
-        'developer.',
-    sample: 'ext.flutter.inspector.addPubRootDirectories',
-    params: '{ "arg0": "file:///home/me/packages/extra/lib" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'removePubRootDirectories',
-    category: 'diagnostics',
-    summary: 'Removes directories from the allow-list.',
-    detail:
-        'Invoked when the developer rescopes their workspace in DevTools, '
-        'for example after toggling off vendored plugins they no longer '
-        'want highlighted as user code.',
-    sample: 'ext.flutter.inspector.removePubRootDirectories',
-    params: '{ "arg0": "file:///home/me/packages/extra/lib" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getPubRootDirectories',
-    category: 'diagnostics',
-    summary: 'Reads the current allow-list.',
-    detail:
-        'Lets DevTools reconcile its local UI with the framework-side '
-        'configuration; for example after another debugger changed it.',
-    sample: 'ext.flutter.inspector.getPubRootDirectories',
-    params: '{}',
-    response:
-        '{ "result": [ "file:///home/me/project/lib" ] }',
-  ),
-  _WiseExtensionEntry(
-    name: 'setSelectionById',
-    category: 'selection',
-    summary: 'Selects a node by its inspector id.',
-    detail:
-        'When the developer taps a widget in DevTools, the id of that node '
-        'flows back to the runtime and this extension moves the framework-'
-        'side selection cursor to match.',
-    sample: 'ext.flutter.inspector.setSelectionById',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response: '{ "result": { "type": "bool", "value": true } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getParentChain',
-    category: 'tree',
-    summary: 'Walks from a node up to the root.',
-    detail:
-        'Produces an ancestor chain for the widget tree side-panel. Every '
-        'step is serialized with enough metadata for DevTools to render a '
-        'breadcrumb trail.',
-    sample: 'ext.flutter.inspector.getParentChain',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response:
-        '{ "result": [ { "node": {...}, "children": [...] }, ... ] }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getProperties',
-    category: 'properties',
-    summary: 'Returns diagnostic properties of a node.',
-    detail:
-        'Every `DiagnosticsNode` can serialize its properties (colors, '
-        'paddings, flex factors, ...). This extension exposes them so the '
-        'DevTools "Details" pane can render them.',
-    sample: 'ext.flutter.inspector.getProperties',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response: '{ "result": [ { "name": "padding", "value": "8.0 all" } ] }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getChildren',
-    category: 'tree',
-    summary: 'Lists immediate children of a node.',
-    detail:
-        'Drives the lazy expansion of tree nodes in DevTools. Each child '
-        'comes back with enough shape to render an icon and a label.',
-    sample: 'ext.flutter.inspector.getChildren',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response: '{ "result": [ { "name": "Padding", ... } ] }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getChildrenSummaryTree',
-    category: 'tree',
-    summary: 'Children filtered to the summary subset.',
-    detail:
-        'Same shape as `getChildren`, but filters out intermediate widgets '
-        'that are not "user creation" nodes, producing the compact tree '
-        'DevTools shows by default.',
-    sample: 'ext.flutter.inspector.getChildrenSummaryTree',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response: '{ "result": [ { "name": "MyCard", "creationLocation": {...} } ] }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getChildrenDetailsSubtree',
-    category: 'tree',
-    summary: 'Full detail subtree rooted at a node.',
-    detail:
-        'A deeper variant that follows many levels in one round-trip, used '
-        'when the developer expands a node and wants to see everything '
-        'below it without paging.',
-    sample: 'ext.flutter.inspector.getChildrenDetailsSubtree',
-    params: '{ "arg": "inspector-12:node-77", "objectGroup": "inspector-12" }',
-    response: '{ "result": { "name": "MyCard", "children": [ ... ] } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getRootWidget',
-    category: 'tree',
-    summary: 'Returns the app root widget.',
-    detail:
-        'The entry point for the entire widget tree. DevTools calls this '
-        'once after connecting and then walks downward from the result.',
-    sample: 'ext.flutter.inspector.getRootWidget',
-    params: '{ "objectGroup": "inspector-12" }',
-    response: '{ "result": { "name": "MyApp", "valueId": "inspector-12:1" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getRootWidgetSummaryTree',
-    category: 'tree',
-    summary: 'Compact root-oriented summary tree.',
-    detail:
-        'Prunes framework nodes away and returns a tree that only contains '
-        'user-authored widgets. DevTools uses this as its default view.',
-    sample: 'ext.flutter.inspector.getRootWidgetSummaryTree',
-    params: '{ "objectGroup": "inspector-12" }',
-    response: '{ "result": { "name": "MyApp", "summary": true } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getRootWidgetSummaryTreeWithPreviews',
-    category: 'tree',
-    summary: 'Summary tree plus text previews per node.',
-    detail:
-        'Augments the summary tree with inline previews such as the text '
-        'content of a Text widget, so the left rail in DevTools reads like '
-        'a mini wireframe.',
-    sample: 'ext.flutter.inspector.getRootWidgetSummaryTreeWithPreviews',
-    params: '{ "objectGroup": "inspector-12" }',
-    response:
-        '{ "result": { "name": "MyApp", "preview": "Hello", "children": [...] } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getSelectedWidget',
-    category: 'selection',
-    summary: 'Describes the currently selected node.',
-    detail:
-        'Mirrors the framework-side selection back to DevTools. Combined '
-        'with setSelectionById, this enables two-way selection sync.',
-    sample: 'ext.flutter.inspector.getSelectedWidget',
-    params: '{ "objectGroup": "inspector-12" }',
-    response: '{ "result": { "name": "Padding", "valueId": "inspector-12:77" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getSelectedSummaryWidget',
-    category: 'selection',
-    summary: 'Selected widget within the summary tree.',
-    detail:
-        'When the summary tree filter is on, this returns the nearest '
-        'user-authored ancestor that represents the selection.',
-    sample: 'ext.flutter.inspector.getSelectedSummaryWidget',
-    params: '{ "objectGroup": "inspector-12" }',
-    response: '{ "result": { "name": "MyCard", "summary": true } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'isWidgetCreationTracked',
-    category: 'diagnostics',
-    summary: 'Reports if widget creation tracking is on.',
-    detail:
-        'Requires `--track-widget-creation`. When true, DevTools can show '
-        'where each widget was constructed in source. When false, the '
-        'source-jump feature is disabled.',
-    sample: 'ext.flutter.inspector.isWidgetCreationTracked',
-    params: '{}',
-    response: '{ "result": { "type": "bool", "value": true } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'screenshot',
-    category: 'screenshot',
-    summary: 'Renders a PNG of a subtree.',
-    detail:
-        'Runs the render tree through `PictureRecorder` to produce a PNG '
-        'encoded as base64. DevTools uses this for the "image" preview in '
-        'the inspector.',
-    sample: 'ext.flutter.inspector.screenshot',
-    params: '{ "id": "inspector-12:77", "width": "512", "height": "512" }',
-    response: '{ "result": "iVBORw0KGgoAAAANSUhEUgAA... (base64)" }',
-  ),
-  _WiseExtensionEntry(
-    name: 'getLayoutExplorerNode',
-    category: 'layout',
-    summary: 'Describes one node for the Layout Explorer.',
-    detail:
-        'Fuels the "Flex / Box" inspector overlay. The payload includes '
-        'axis, main-axis alignment, cross-axis alignment, flex factors, '
-        'and sizing constraints.',
-    sample: 'ext.flutter.inspector.getLayoutExplorerNode',
-    params: '{ "arg": "inspector-12:77", "subtreeDepth": "1" }',
-    response: '{ "result": { "type": "Flex", "direction": "row" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'setFlexFit',
-    category: 'layout',
-    summary: 'Writes a new FlexFit for a Flexible.',
-    detail:
-        'Layout Explorer lets the user toggle `Flexible` / `Expanded` at '
-        'runtime. This wire-call patches the FlexFit so the change is '
-        'reflected in the next frame.',
-    sample: 'ext.flutter.inspector.setFlexFit',
-    params: '{ "id": "inspector-12:77", "flexFit": "tight" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'setFlexFactor',
-    category: 'layout',
-    summary: 'Writes a new flex factor.',
-    detail:
-        'Updates the integer flex factor of a Flexible or Expanded. Often '
-        'used while dragging the Layout Explorer slider.',
-    sample: 'ext.flutter.inspector.setFlexFactor',
-    params: '{ "id": "inspector-12:77", "flexFactor": "2" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'setFlexProperties',
-    category: 'layout',
-    summary: 'Writes axis and alignment at once.',
-    detail:
-        'Batched update for MainAxisAlignment / CrossAxisAlignment from '
-        'the Layout Explorer controls.',
-    sample: 'ext.flutter.inspector.setFlexProperties',
-    params:
-        '{ "id": "inspector-12:77", "mainAxisAlignment": "center", '
-        '"crossAxisAlignment": "stretch" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'trackRebuildDirtyWidgets',
-    category: 'diagnostics',
-    summary: 'Toggles rebuild counter tracking.',
-    detail:
-        'Enables the per-widget rebuild heatmap in DevTools. Flutter '
-        'reports the tally in a service event each frame.',
-    sample: 'ext.flutter.inspector.trackRebuildDirtyWidgets',
-    params: '{ "enabled": "true" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'trackRepaintWidgets',
-    category: 'diagnostics',
-    summary: 'Toggles repaint-region tracking.',
-    detail:
-        'Sibling to trackRebuildDirtyWidgets: tracks which render objects '
-        'actually repainted. Pairs with the DevTools "Repaint rainbow".',
-    sample: 'ext.flutter.inspector.trackRepaintWidgets',
-    params: '{ "enabled": "true" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'structuredErrors',
-    category: 'diagnostics',
-    summary: 'Turns on structured error reporting.',
-    detail:
-        'Switches the framework from prose tracebacks to structured JSON '
-        'error nodes. DevTools renders these as rich, collapsible panels.',
-    sample: 'ext.flutter.inspector.structuredErrors',
-    params: '{ "enabled": "true" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-  _WiseExtensionEntry(
-    name: 'show',
-    category: 'diagnostics',
-    summary: 'Toggles the on-device inspector overlay.',
-    detail:
-        'Enables the tap-to-inspect overlay painted on top of the app. '
-        'DevTools flips this when the "Select widget" toggle is clicked.',
-    sample: 'ext.flutter.inspector.show',
-    params: '{ "enabled": "true", "objectGroup": "inspector-12" }',
-    response: '{ "result": { "type": "Success" } }',
-  ),
-];
+extension _BucketChrome on _CallBucket {
+  String get label {
+    switch (this) {
+      case _CallBucket.lifecycle:
+        return 'Lifecycle & object groups';
+      case _CallBucket.pubRoots:
+        return 'Pub root directories';
+      case _CallBucket.treeWalk:
+        return 'Tree walk & properties';
+      case _CallBucket.selection:
+        return 'Selection probes';
+      case _CallBucket.rendering:
+        return 'Rendering & screenshot';
+      case _CallBucket.layoutExplorer:
+        return 'Layout explorer';
+      case _CallBucket.profiling:
+        return 'Profiling streams';
+      case _CallBucket.toggles:
+        return 'Diagnostic toggles';
+    }
+  }
+
+  Color get accent {
+    switch (this) {
+      case _CallBucket.lifecycle:
+        return _kOxblood;
+      case _CallBucket.pubRoots:
+        return _kBrass;
+      case _CallBucket.treeWalk:
+        return _kBlueprint;
+      case _CallBucket.selection:
+        return _kMoss;
+      case _CallBucket.rendering:
+        return _kOxbloodDeep;
+      case _CallBucket.layoutExplorer:
+        return _kBlueprintDeep;
+      case _CallBucket.profiling:
+        return _kGraphite;
+      case _CallBucket.toggles:
+        return _kShadow;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case _CallBucket.lifecycle:
+        return Icons.delete_sweep_outlined;
+      case _CallBucket.pubRoots:
+        return Icons.folder_special_outlined;
+      case _CallBucket.treeWalk:
+        return Icons.account_tree_outlined;
+      case _CallBucket.selection:
+        return Icons.center_focus_strong_outlined;
+      case _CallBucket.rendering:
+        return Icons.camera_alt_outlined;
+      case _CallBucket.layoutExplorer:
+        return Icons.dashboard_customize_outlined;
+      case _CallBucket.profiling:
+        return Icons.speed_outlined;
+      case _CallBucket.toggles:
+        return Icons.toggle_on_outlined;
+    }
+  }
+}
+
+/// Live mapping from enum value to bucket — exhaustive switch.
+_CallBucket _bucketFor(WidgetInspectorServiceExtensions ext) {
+  switch (ext) {
+    case WidgetInspectorServiceExtensions.disposeAllGroups:
+    case WidgetInspectorServiceExtensions.disposeGroup:
+    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+    case WidgetInspectorServiceExtensions.disposeId:
+      return _CallBucket.lifecycle;
+    case WidgetInspectorServiceExtensions.setPubRootDirectories:
+    case WidgetInspectorServiceExtensions.addPubRootDirectories:
+    case WidgetInspectorServiceExtensions.removePubRootDirectories:
+    case WidgetInspectorServiceExtensions.getPubRootDirectories:
+      return _CallBucket.pubRoots;
+    case WidgetInspectorServiceExtensions.getParentChain:
+    case WidgetInspectorServiceExtensions.getProperties:
+    case WidgetInspectorServiceExtensions.getChildren:
+    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
+    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
+    case WidgetInspectorServiceExtensions.getRootWidget:
+    case WidgetInspectorServiceExtensions.getRootWidgetTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
+    case WidgetInspectorServiceExtensions.getDetailsSubtree:
+      return _CallBucket.treeWalk;
+    case WidgetInspectorServiceExtensions.setSelectionById:
+    case WidgetInspectorServiceExtensions.getSelectedWidget:
+    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
+    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
+      return _CallBucket.selection;
+    case WidgetInspectorServiceExtensions.screenshot:
+      return _CallBucket.rendering;
+    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
+    case WidgetInspectorServiceExtensions.setFlexFit:
+    case WidgetInspectorServiceExtensions.setFlexFactor:
+    case WidgetInspectorServiceExtensions.setFlexProperties:
+      return _CallBucket.layoutExplorer;
+    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
+    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
+    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
+      return _CallBucket.profiling;
+    case WidgetInspectorServiceExtensions.structuredErrors:
+    case WidgetInspectorServiceExtensions.show:
+      return _CallBucket.toggles;
+  }
+}
+
+/// One-line summary derived from a switch over every enum value.
+String _summaryFor(WidgetInspectorServiceExtensions ext) {
+  switch (ext) {
+    case WidgetInspectorServiceExtensions.structuredErrors:
+      return 'Toggle structured FlutterError formatting in DevTools.';
+    case WidgetInspectorServiceExtensions.show:
+      return 'Show or hide the on-device widget inspector overlay.';
+    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
+      return 'Stream a marker every time a dirty widget rebuilds.';
+    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
+      return 'Return the widget-location id-map (creation tracked builds).';
+    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
+      return 'Stream a marker every time a render object repaints.';
+    case WidgetInspectorServiceExtensions.disposeAllGroups:
+      return 'Drop every inspector object group at once.';
+    case WidgetInspectorServiceExtensions.disposeGroup:
+      return 'Drop a single named inspector group.';
+    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+      return 'Probe whether `runApp` has produced a root yet.';
+    case WidgetInspectorServiceExtensions.disposeId:
+      return 'Forget one referenced object inside a group.';
+    case WidgetInspectorServiceExtensions.setPubRootDirectories:
+      return 'Replace pub-root directories (deprecated, prefer add/remove).';
+    case WidgetInspectorServiceExtensions.addPubRootDirectories:
+      return 'Append directories to the inspector pub-root list.';
+    case WidgetInspectorServiceExtensions.removePubRootDirectories:
+      return 'Remove directories from the pub-root list.';
+    case WidgetInspectorServiceExtensions.getPubRootDirectories:
+      return 'Read the active pub-root directory list.';
+    case WidgetInspectorServiceExtensions.setSelectionById:
+      return 'Select an Element/RenderObject by inspector id.';
+    case WidgetInspectorServiceExtensions.getParentChain:
+      return 'Return the diagnostic chain from root to id.';
+    case WidgetInspectorServiceExtensions.getProperties:
+      return 'Return diagnostic properties for an id.';
+    case WidgetInspectorServiceExtensions.getChildren:
+      return 'Return diagnostic children for an id.';
+    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
+      return 'Return user-code-only children for an id.';
+    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
+      return 'Return children with their full property bags.';
+    case WidgetInspectorServiceExtensions.getRootWidget:
+      return 'Return the root Element diagnostics node.';
+    case WidgetInspectorServiceExtensions.getRootWidgetTree:
+      return 'Return the entire widget tree under root.';
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
+      return 'Return only user-code widgets under root.';
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
+      return 'Summary tree plus text previews for paragraphs.';
+    case WidgetInspectorServiceExtensions.getDetailsSubtree:
+      return 'Return a depth-bounded property subtree.';
+    case WidgetInspectorServiceExtensions.getSelectedWidget:
+      return 'Return diagnostics for the current selection.';
+    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
+      return 'Return the summary-tree ancestor of the selection.';
+    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
+      return 'Probe whether widget creation locations are tracked.';
+    case WidgetInspectorServiceExtensions.screenshot:
+      return 'Render a base64 screenshot for an id.';
+    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
+      return 'Return layout-explorer payload for an id.';
+    case WidgetInspectorServiceExtensions.setFlexFit:
+      return 'Adjust FlexFit for a flex child by id.';
+    case WidgetInspectorServiceExtensions.setFlexFactor:
+      return 'Adjust flex factor for a flex child by id.';
+    case WidgetInspectorServiceExtensions.setFlexProperties:
+      return 'Adjust main/cross axis alignment for a Flex.';
+  }
+}
+
+/// Sample JSON params for each call (switch over every value).
+String _paramsFor(WidgetInspectorServiceExtensions ext) {
+  switch (ext) {
+    case WidgetInspectorServiceExtensions.structuredErrors:
+      return '{ "enabled": "true" }';
+    case WidgetInspectorServiceExtensions.show:
+      return '{ "enabled": "true" }';
+    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
+      return '{ "enabled": "true" }';
+    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
+      return '{}';
+    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
+      return '{ "enabled": "true" }';
+    case WidgetInspectorServiceExtensions.disposeAllGroups:
+      return '{}';
+    case WidgetInspectorServiceExtensions.disposeGroup:
+      return '{ "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+      return '{}';
+    case WidgetInspectorServiceExtensions.disposeId:
+      return '{ "id": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.setPubRootDirectories:
+      return '{ "arg0": "/srv/app/lib", "arg1": "/srv/app/lib/foo" }';
+    case WidgetInspectorServiceExtensions.addPubRootDirectories:
+      return '{ "arg0": "/srv/app/lib/added" }';
+    case WidgetInspectorServiceExtensions.removePubRootDirectories:
+      return '{ "arg0": "/srv/app/lib/removed" }';
+    case WidgetInspectorServiceExtensions.getPubRootDirectories:
+      return '{}';
+    case WidgetInspectorServiceExtensions.setSelectionById:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getParentChain:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getProperties:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getChildren:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
+      return '{ "arg": "inspector-12:42", "objectGroup": "inspector-12", "subtreeDepth": "3" }';
+    case WidgetInspectorServiceExtensions.getRootWidget:
+      return '{ "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getRootWidgetTree:
+      return '{ "groupName": "inspector-12", "isSummaryTree": "false", "withPreviews": "false" }';
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
+      return '{ "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
+      return '{ "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getDetailsSubtree:
+      return '{ "arg": "inspector-12:42", "subtreeDepth": "2", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getSelectedWidget:
+      return '{ "previousSelectionId": "", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
+      return '{ "previousSelectionId": "", "objectGroup": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
+      return '{}';
+    case WidgetInspectorServiceExtensions.screenshot:
+      return '{ "id": "inspector-12:42", "width": "320", "height": "240", "margin": "0", "maxPixelRatio": "1.0" }';
+    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
+      return '{ "id": "inspector-12:42", "subtreeDepth": "1", "groupName": "inspector-12" }';
+    case WidgetInspectorServiceExtensions.setFlexFit:
+      return '{ "id": "inspector-12:42", "flexFit": "tight" }';
+    case WidgetInspectorServiceExtensions.setFlexFactor:
+      return '{ "id": "inspector-12:42", "flexFactor": "2" }';
+    case WidgetInspectorServiceExtensions.setFlexProperties:
+      return '{ "id": "inspector-12:42", "mainAxisAlignment": "spaceBetween", "crossAxisAlignment": "stretch" }';
+  }
+}
+
+/// Sample JSON response for each call (switch over every value).
+String _responseFor(WidgetInspectorServiceExtensions ext) {
+  switch (ext) {
+    case WidgetInspectorServiceExtensions.structuredErrors:
+    case WidgetInspectorServiceExtensions.show:
+    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
+    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
+      return '{ "type": "Success", "enabled": true }';
+    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
+      return '{ "type": "Success", "result": { "locations": {} } }';
+    case WidgetInspectorServiceExtensions.disposeAllGroups:
+    case WidgetInspectorServiceExtensions.disposeGroup:
+    case WidgetInspectorServiceExtensions.disposeId:
+      return '{ "type": "Success" }';
+    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+      return '{ "type": "Success", "result": true }';
+    case WidgetInspectorServiceExtensions.setPubRootDirectories:
+    case WidgetInspectorServiceExtensions.addPubRootDirectories:
+    case WidgetInspectorServiceExtensions.removePubRootDirectories:
+      return '{ "type": "Success" }';
+    case WidgetInspectorServiceExtensions.getPubRootDirectories:
+      return '{ "type": "Success", "result": ["/srv/app/lib"] }';
+    case WidgetInspectorServiceExtensions.setSelectionById:
+      return '{ "type": "Success", "result": true }';
+    case WidgetInspectorServiceExtensions.getParentChain:
+    case WidgetInspectorServiceExtensions.getProperties:
+    case WidgetInspectorServiceExtensions.getChildren:
+    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
+    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
+    case WidgetInspectorServiceExtensions.getRootWidget:
+    case WidgetInspectorServiceExtensions.getRootWidgetTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
+    case WidgetInspectorServiceExtensions.getDetailsSubtree:
+    case WidgetInspectorServiceExtensions.getSelectedWidget:
+    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
+    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
+      return '{ "type": "Success", "result": { "diagnostics": "..." } }';
+    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
+      return '{ "type": "Success", "result": true }';
+    case WidgetInspectorServiceExtensions.screenshot:
+      return '{ "type": "Success", "result": "<base64-png>" }';
+    case WidgetInspectorServiceExtensions.setFlexFit:
+    case WidgetInspectorServiceExtensions.setFlexFactor:
+    case WidgetInspectorServiceExtensions.setFlexProperties:
+      return '{ "type": "Success" }';
+  }
+}
+
+/// Whether the call mutates remote state.
+bool _isMutator(WidgetInspectorServiceExtensions ext) {
+  switch (ext) {
+    case WidgetInspectorServiceExtensions.structuredErrors:
+    case WidgetInspectorServiceExtensions.show:
+    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
+    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
+    case WidgetInspectorServiceExtensions.disposeAllGroups:
+    case WidgetInspectorServiceExtensions.disposeGroup:
+    case WidgetInspectorServiceExtensions.disposeId:
+    case WidgetInspectorServiceExtensions.setPubRootDirectories:
+    case WidgetInspectorServiceExtensions.addPubRootDirectories:
+    case WidgetInspectorServiceExtensions.removePubRootDirectories:
+    case WidgetInspectorServiceExtensions.setSelectionById:
+    case WidgetInspectorServiceExtensions.setFlexFit:
+    case WidgetInspectorServiceExtensions.setFlexFactor:
+    case WidgetInspectorServiceExtensions.setFlexProperties:
+      return true;
+    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
+    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+    case WidgetInspectorServiceExtensions.getPubRootDirectories:
+    case WidgetInspectorServiceExtensions.getParentChain:
+    case WidgetInspectorServiceExtensions.getProperties:
+    case WidgetInspectorServiceExtensions.getChildren:
+    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
+    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
+    case WidgetInspectorServiceExtensions.getRootWidget:
+    case WidgetInspectorServiceExtensions.getRootWidgetTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
+    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
+    case WidgetInspectorServiceExtensions.getDetailsSubtree:
+    case WidgetInspectorServiceExtensions.getSelectedWidget:
+    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
+    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
+    case WidgetInspectorServiceExtensions.screenshot:
+    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
+      return false;
+  }
+}
+
+/// Whether the call is deprecated.
+bool _isDeprecated(WidgetInspectorServiceExtensions ext) {
+  // Currently only `setPubRootDirectories` is deprecated; expressed via
+  // direct comparison against the live enum value (no string match).
+  return ext == WidgetInspectorServiceExtensions.setPubRootDirectories;
+}
+
+/// Whether the call is a stream-style switch (boolean toggle to start/stop).
+bool _isStreamToggle(WidgetInspectorServiceExtensions ext) {
+  return ext == WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets ||
+      ext == WidgetInspectorServiceExtensions.trackRepaintWidgets ||
+      ext == WidgetInspectorServiceExtensions.show ||
+      ext == WidgetInspectorServiceExtensions.structuredErrors;
+}
+
+/// Service-extension method name as DevTools would post it.
+String _wireName(WidgetInspectorServiceExtensions ext) {
+  return 'ext.flutter.inspector.${ext.name}';
+}
 
 // ===========================================================================
-// ROOT APP
+// APP SHELL
 // ===========================================================================
-class _WiseApp extends StatelessWidget {
-  const _WiseApp();
+
+class _InspectorDossierApp extends StatelessWidget {
+  const _InspectorDossierApp();
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: _wiseOxblood,
-      brightness: Brightness.light,
-    ).copyWith(
-      primary: _wiseOxbloodDeep,
-      secondary: _wiseBlueprint,
-      surface: _wiseIvory,
-    );
-    final ThemeData theme = ThemeData(
-      useMaterial3: true,
-      colorScheme: scheme,
-      scaffoldBackgroundColor: _wiseIvory,
-      fontFamily: 'RobotoMono',
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: _wiseInk, height: 1.42),
-        titleLarge: TextStyle(
-          color: _wiseInk,
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.4,
-        ),
-      ),
-      dividerColor: _wiseParchmentDeep,
-    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: theme,
-      home: const _WiseHome(),
+      title: 'Widget Inspector Service Extensions Dossier',
+      theme: ThemeData(
+        useMaterial3: false,
+        scaffoldBackgroundColor: _kIvory,
+        primaryColor: _kBlueprint,
+        colorScheme: const ColorScheme.light(
+          primary: _kBlueprint,
+          onPrimary: _kIvory,
+          secondary: _kOxblood,
+          onSecondary: _kIvory,
+          surface: _kIvorySoft,
+          onSurface: _kInk,
+        ),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(color: _kInk, fontSize: 13.5, height: 1.4),
+          titleLarge: TextStyle(
+            color: _kInk,
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.4,
+          ),
+          titleMedium: TextStyle(
+            color: _kInk,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.6,
+          ),
+          labelLarge: TextStyle(
+            color: _kBlueprintDeep,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.8,
+          ),
+        ),
+      ),
+      home: const _DossierHome(),
     );
   }
 }
 
-// ===========================================================================
-// SHELL — scrollable dossier assembled from chapter cards
-// ===========================================================================
-class _WiseHome extends StatefulWidget {
-  const _WiseHome();
-
-  @override
-  State<_WiseHome> createState() => _WiseHomeState();
-}
-
-class _WiseHomeState extends State<_WiseHome>
-    with TickerProviderStateMixin {
-  late final AnimationController _pulse;
-  late final AnimationController _ticker;
-  int _selectedIndex = 14; // getRootWidget by default
-  final List<String> _callLog = <String>[
-    '[14:02:11] ext.flutter.inspector.isWidgetTreeReady -> true',
-    '[14:02:11] ext.flutter.inspector.getRootWidget -> inspector-12:1',
-    '[14:02:12] ext.flutter.inspector.getRootWidgetSummaryTree -> ok',
-    '[14:02:14] ext.flutter.inspector.setSelectionById -> true',
-    '[14:02:14] ext.flutter.inspector.getSelectedWidget -> Padding',
-    '[14:02:15] ext.flutter.inspector.getProperties -> 6 items',
-    '[14:02:16] ext.flutter.inspector.getChildren -> 2 items',
-    '[14:02:20] ext.flutter.inspector.screenshot -> 48 KB PNG',
-    '[14:02:22] ext.flutter.inspector.getLayoutExplorerNode -> Flex/row',
-    '[14:02:24] ext.flutter.inspector.setFlexFactor -> Success',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _pulse = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2200),
-    )..repeat(reverse: true);
-    _ticker = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1600),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _pulse.dispose();
-    _ticker.dispose();
-    super.dispose();
-  }
-
-  void _select(int index) {
-    setState(() {
-      _selectedIndex = index;
-      final _WiseExtensionEntry entry = _wiseCatalog[index];
-      final String stamp = _formatStamp();
-      _callLog.insert(0, '[$stamp] ext.flutter.inspector.${entry.name} -> ok');
-      if (_callLog.length > 40) {
-        _callLog.removeLast();
-      }
-    });
-  }
-
-  String _formatStamp() {
-    final DateTime now = DateTime.now();
-    final String hh = now.hour.toString().padLeft(2, '0');
-    final String mm = now.minute.toString().padLeft(2, '0');
-    final String ss = now.second.toString().padLeft(2, '0');
-    return '$hh:$mm:$ss';
-  }
+class _DossierHome extends StatelessWidget {
+  const _DossierHome();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _wiseIvory,
-      body: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: AnimatedBuilder(
-              animation: _ticker,
-              builder: (BuildContext context, Widget? child) {
-                return CustomPaint(
-                  painter: _WiseClipboardBackdropPainter(phase: _ticker.value),
-                );
-              },
-            ),
+      backgroundColor: _kIvory,
+      appBar: AppBar(
+        backgroundColor: _kInk,
+        foregroundColor: _kIvory,
+        elevation: 0,
+        title: const Text(
+          'WIDGET INSPECTOR — SERVICE EXTENSIONS DOSSIER',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.4,
+            fontSize: 16,
           ),
-          Positioned.fill(
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: <Widget>[
-                SliverAppBar(
-                  pinned: true,
-                  expandedHeight: 196,
-                  backgroundColor: _wiseOxbloodDeep,
-                  foregroundColor: _wiseIvory,
-                  elevation: 0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: _WiseAppBarBackdrop(phase: _ticker),
-                    titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                    title: const _WiseAppBarTitle(),
-                  ),
-                ),
-                const SliverToBoxAdapter(child: _WiseTableOfContents()),
-                const SliverToBoxAdapter(child: _WiseDossierPreamble()),
-                SliverToBoxAdapter(
-                  child: _WiseCatalogChapter(
-                    selected: _selectedIndex,
-                    onSelect: _select,
-                    pulse: _pulse,
-                  ),
-                ),
-                const SliverToBoxAdapter(child: _WiseCategoryBreakdown()),
-                SliverToBoxAdapter(
-                  child: _WiseMockDevtoolsConsole(
-                    selected: _selectedIndex,
-                    onSelect: _select,
-                    callLog: _callLog,
-                    ticker: _ticker,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: _WiseTimelineChapter(phase: _ticker),
-                ),
-                const SliverToBoxAdapter(child: _WiseRelationshipChapter()),
-                const SliverToBoxAdapter(child: _WiseRecipeChapter()),
-                const SliverToBoxAdapter(child: _WiseGlossaryChapter()),
-                const SliverToBoxAdapter(child: SizedBox(height: 72)),
-              ],
-            ),
+        ),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(2),
+          child: ColoredBox(
+            color: _kOxblood,
+            child: SizedBox(height: 2, width: double.infinity),
           ),
-        ],
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _HeaderBanner(),
+              SizedBox(height: 20),
+              _LiveRosterSection(),
+              SizedBox(height: 20),
+              _BucketGridSection(),
+              SizedBox(height: 20),
+              _LifecyclePanel(),
+              SizedBox(height: 20),
+              _PubRootsPanel(),
+              SizedBox(height: 20),
+              _TreeWalkPanel(),
+              SizedBox(height: 20),
+              _SelectionPanel(),
+              SizedBox(height: 20),
+              _RenderingPanel(),
+              SizedBox(height: 20),
+              _LayoutExplorerPanel(),
+              SizedBox(height: 20),
+              _ProfilingPanel(),
+              SizedBox(height: 20),
+              _TogglesPanel(),
+              SizedBox(height: 20),
+              _ByNameLookupPanel(),
+              SizedBox(height: 20),
+              _DevToolsTimelineSection(),
+              SizedBox(height: 20),
+              _StatsRow(),
+              SizedBox(height: 20),
+              _PlatformFootnote(),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
 // ===========================================================================
-// APP BAR TITLE AND BACKDROP
+// HEADER
 // ===========================================================================
-class _WiseAppBarTitle extends StatelessWidget {
-  const _WiseAppBarTitle();
+
+class _HeaderBanner extends StatelessWidget {
+  const _HeaderBanner();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _wiseIvory, width: 1.4),
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[_wiseOxblood, _wiseOxbloodDeep],
-            ),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: _wiseOxblood.withValues(alpha: 0.5),
-                blurRadius: 14,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          alignment: Alignment.center,
-          child: const Text(
-            'WI',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              color: _wiseIvory,
-              letterSpacing: 1.4,
-              fontSize: 15,
-            ),
-          ),
+    final int total = WidgetInspectorServiceExtensions.values.length;
+    final int mutators = WidgetInspectorServiceExtensions.values
+        .where(_isMutator)
+        .length;
+    final int readers = total - mutators;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[_kInk, _kBlueprintDeep, _kBlueprint],
         ),
-        const SizedBox(width: 12),
-        const Flexible(
-          child: Text(
-            'WidgetInspectorServiceExtensions — Field Dossier',
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              color: _wiseIvory,
-              letterSpacing: 0.25,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _WiseAppBarBackdrop extends StatelessWidget {
-  const _WiseAppBarBackdrop({required this.phase});
-
-  final Animation<double> phase;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: phase,
-      builder: (BuildContext context, Widget? child) {
-        return CustomPaint(
-          painter: _WiseAppBarPainter(phase: phase.value),
-        );
-      },
-    );
-  }
-}
-
-class _WiseAppBarPainter extends CustomPainter {
-  _WiseAppBarPainter({required this.phase});
-
-  final double phase;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint backdrop = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: <Color>[_wiseOxbloodDeep, _wiseOxblood, _wiseOxbloodDeep],
-      ).createShader(Offset.zero & size);
-    canvas.drawRect(Offset.zero & size, backdrop);
-
-    final Paint grid = Paint()
-      ..color = _wiseIvory.withValues(alpha: 0.07)
-      ..strokeWidth = 0.8;
-    const double step = 22.0;
-    for (double x = 0; x <= size.width; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-    }
-    for (double y = 0; y <= size.height; y += step) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
-    }
-
-    // Connection dot — animated "vm-service connected" indicator
-    final double blink = 0.5 + 0.5 * math.sin(phase * math.pi * 2);
-    final Paint dot = Paint()
-      ..color = _wiseMossPale.withValues(alpha: 0.35 + 0.55 * blink);
-    canvas.drawCircle(Offset(size.width - 42, 32), 6, dot);
-    final Paint dotCore = Paint()..color = _wiseMoss;
-    canvas.drawCircle(Offset(size.width - 42, 32), 3.4, dotCore);
-
-    // Subtle diagonal sweep
-    final Paint sweep = Paint()
-      ..color = _wiseIvory.withValues(alpha: 0.05);
-    final Path sweepPath = Path()
-      ..moveTo(-40 + phase * size.width * 1.2, 0)
-      ..lineTo(40 + phase * size.width * 1.2, 0)
-      ..lineTo(80 + phase * size.width * 1.2, size.height)
-      ..lineTo(0 + phase * size.width * 1.2, size.height)
-      ..close();
-    canvas.drawPath(sweepPath, sweep);
-  }
-
-  @override
-  bool shouldRepaint(covariant _WiseAppBarPainter oldDelegate) =>
-      oldDelegate.phase != phase;
-}
-
-// ===========================================================================
-// CLIPBOARD BACKDROP PAINTER
-// ===========================================================================
-class _WiseClipboardBackdropPainter extends CustomPainter {
-  _WiseClipboardBackdropPainter({required this.phase});
-
-  final double phase;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint base = Paint()..color = _wiseIvory;
-    canvas.drawRect(Offset.zero & size, base);
-
-    // Paper fibre stippling
-    final math.Random rnd = math.Random(17);
-    final Paint fibre = Paint()
-      ..color = _wiseParchment.withValues(alpha: 0.38)
-      ..strokeWidth = 0.6;
-    for (int i = 0; i < 420; i++) {
-      final double x = rnd.nextDouble() * size.width;
-      final double y = rnd.nextDouble() * size.height;
-      final double len = 3 + rnd.nextDouble() * 6;
-      final double angle = rnd.nextDouble() * math.pi * 2;
-      final double dx = math.cos(angle) * len;
-      final double dy = math.sin(angle) * len;
-      canvas.drawLine(Offset(x, y), Offset(x + dx, y + dy), fibre);
-    }
-
-    // Blueprint grid — very faint
-    final Paint grid = Paint()
-      ..color = _wiseBlueprint.withValues(alpha: 0.07)
-      ..strokeWidth = 0.6;
-    const double step = 28.0;
-    for (double x = 0; x <= size.width; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-    }
-    for (double y = 0; y <= size.height; y += step) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
-    }
-
-    // Coffee-stain ring to sell the notebook look
-    final Paint ring = Paint()
-      ..color = _wiseBrass.withValues(alpha: 0.08)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    canvas.drawCircle(
-      Offset(size.width * 0.82, size.height * 0.18),
-      46,
-      ring,
-    );
-
-    // Slow glide highlight
-    final double glide = phase;
-    final Paint highlight = Paint()
-      ..color = _wiseIvorySoft.withValues(alpha: 0.45);
-    canvas.drawCircle(
-      Offset(size.width * glide, size.height * 0.6),
-      110,
-      highlight,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _WiseClipboardBackdropPainter oldDelegate) =>
-      oldDelegate.phase != phase;
-}
-
-// ===========================================================================
-// TABLE OF CONTENTS
-// ===========================================================================
-class _WiseTableOfContents extends StatelessWidget {
-  const _WiseTableOfContents();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-      child: _WiseSheet(
-        title: 'Dossier contents',
-        subtitle: 'Eight chapters — follow them in order or jump around',
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: _kOxbloodDeep, width: 2),
+        boxShadow: const <BoxShadow>[
+          BoxShadow(color: _kShadow, blurRadius: 16, offset: Offset(0, 6)),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(22, 22, 22, 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            _WiseTocLine(index: '01', label: 'Preamble — what the enum names'),
-            _WiseTocLine(index: '02', label: 'Enum catalog — every wire name'),
-            _WiseTocLine(index: '03', label: 'Category breakdown'),
-            _WiseTocLine(index: '04', label: 'Mock DevTools console'),
-            _WiseTocLine(index: '05', label: 'Timeline of a service call'),
-            _WiseTocLine(index: '06', label: 'Relationship with the service class'),
-            _WiseTocLine(index: '07', label: 'Recipes for callers and testers'),
-            _WiseTocLine(index: '08', label: 'Glossary and epilogue'),
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                _StampedTitle(
+                  title: 'DEVTOOLS DOSSIER',
+                  subtitle: 'package:flutter/widgets · service_extensions.dart',
+                ),
+                const Spacer(),
+                _CountBadge(label: 'total', value: total),
+                const SizedBox(width: 8),
+                _CountBadge(label: 'mutators', value: mutators, accent: _kOxblood),
+                const SizedBox(width: 8),
+                _CountBadge(label: 'readers', value: readers, accent: _kBrass),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Every panel below reads `WidgetInspectorServiceExtensions.values` '
+              'live. Switch arms cover all enum constants. The sample wire calls '
+              'use `.name` directly as DevTools would when posting JSON-RPC '
+              'requests against the running Flutter VM service.',
+              style: TextStyle(color: _kIvorySoft, height: 1.5, fontSize: 13.5),
+            ),
           ],
         ),
       ),
@@ -800,51 +610,84 @@ class _WiseTableOfContents extends StatelessWidget {
   }
 }
 
-class _WiseTocLine extends StatelessWidget {
-  const _WiseTocLine({required this.index, required this.label});
+class _StampedTitle extends StatelessWidget {
+  const _StampedTitle({required this.title, required this.subtitle});
 
-  final String index;
-  final String label;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            border: Border.all(color: _kOxbloodPale, width: 1.5),
+            color: _kOxbloodDeep,
+          ),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _kIvorySoft,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 2,
+              fontSize: 14,
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          subtitle,
+          style: const TextStyle(
+            color: _kBlueprintPale,
+            fontFamily: 'monospace',
+            fontSize: 12.5,
+            letterSpacing: 0.4,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CountBadge extends StatelessWidget {
+  const _CountBadge({
+    required this.label,
+    required this.value,
+    this.accent = _kBlueprintPale,
+  });
+
+  final String label;
+  final int value;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: _kInk,
+        border: Border.all(color: accent, width: 1.4),
+      ),
+      child: Column(
         children: <Widget>[
-          Container(
-            width: 34,
-            height: 22,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: _wiseOxblood,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              index,
-              style: const TextStyle(
-                color: _wiseIvory,
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-                letterSpacing: 0.8,
-              ),
+          Text(
+            '$value',
+            style: TextStyle(
+              color: accent,
+              fontWeight: FontWeight.w900,
+              fontSize: 18,
             ),
           ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: _wiseInk,
-                fontSize: 13.5,
-                fontWeight: FontWeight.w600,
-              ),
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              color: accent,
+              fontSize: 9,
+              letterSpacing: 1.2,
             ),
-          ),
-          Container(
-            height: 1,
-            width: 40,
-            color: _wiseParchmentDeep,
           ),
         ],
       ),
@@ -853,98 +696,270 @@ class _WiseTocLine extends StatelessWidget {
 }
 
 // ===========================================================================
-// REUSABLE SHEETS AND PRIMITIVES
+// LIVE ROSTER
 // ===========================================================================
-class _WiseSheet extends StatelessWidget {
-  const _WiseSheet({
-    required this.title,
-    required this.child,
-    this.subtitle,
-    this.accent = _wiseOxblood,
-  });
 
-  final String title;
-  final String? subtitle;
-  final Widget child;
-  final Color accent;
+class _LiveRosterSection extends StatelessWidget {
+  const _LiveRosterSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final List<WidgetInspectorServiceExtensions> values =
+        List<WidgetInspectorServiceExtensions>.from(
+            WidgetInspectorServiceExtensions.values);
+    values.sort((WidgetInspectorServiceExtensions a,
+            WidgetInspectorServiceExtensions b) =>
+        a.name.compareTo(b.name));
+
+    return _Card(
+      title: 'LIVE ENUM ROSTER (alphabetical)',
+      subtitle:
+          'Read directly from `WidgetInspectorServiceExtensions.values`. '
+          'Every chip carries the live `.name` string.',
+      accent: _kBlueprint,
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: <Widget>[
+          for (final WidgetInspectorServiceExtensions ext in values)
+            _RosterChip(ext: ext),
+        ],
+      ),
+    );
+  }
+}
+
+class _RosterChip extends StatelessWidget {
+  const _RosterChip({required this.ext});
+
+  final WidgetInspectorServiceExtensions ext;
+
+  @override
+  Widget build(BuildContext context) {
+    final _CallBucket bucket = _bucketFor(ext);
+    final bool deprecated = _isDeprecated(ext);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: deprecated ? _kOxbloodPale : _kIvorySoft,
+        border: Border.all(color: bucket.accent, width: 1.4),
+        borderRadius: BorderRadius.circular(2),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(bucket.icon, size: 14, color: bucket.accent),
+          const SizedBox(width: 6),
+          Text(
+            ext.name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
+              color: deprecated ? _kOxbloodDeep : _kInk,
+              fontSize: 12.5,
+              decoration:
+                  deprecated ? TextDecoration.lineThrough : TextDecoration.none,
+            ),
+          ),
+          if (deprecated) ...<Widget>[
+            const SizedBox(width: 6),
+            const Icon(Icons.warning_amber_rounded,
+                size: 13, color: _kOxbloodDeep),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// BUCKET GRID
+// ===========================================================================
+
+class _BucketGridSection extends StatelessWidget {
+  const _BucketGridSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final Map<_CallBucket, List<WidgetInspectorServiceExtensions>> grouped =
+        <_CallBucket, List<WidgetInspectorServiceExtensions>>{};
+    for (final WidgetInspectorServiceExtensions ext
+        in WidgetInspectorServiceExtensions.values) {
+      grouped.putIfAbsent(_bucketFor(ext),
+          () => <WidgetInspectorServiceExtensions>[]).add(ext);
+    }
+
+    return _Card(
+      title: 'BUCKET BREAKDOWN',
+      subtitle:
+          'Each enum value is mapped to a bucket through an exhaustive switch. '
+          'Counts here equal `WidgetInspectorServiceExtensions.values.length`.',
+      accent: _kBrass,
+      child: Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: <Widget>[
+          for (final _CallBucket bucket in _CallBucket.values)
+            _BucketTile(bucket: bucket, members: grouped[bucket] ?? const <WidgetInspectorServiceExtensions>[]),
+        ],
+      ),
+    );
+  }
+}
+
+class _BucketTile extends StatelessWidget {
+  const _BucketTile({required this.bucket, required this.members});
+
+  final _CallBucket bucket;
+  final List<WidgetInspectorServiceExtensions> members;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      width: 280,
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 14),
       decoration: BoxDecoration(
-        color: _wiseIvorySoft,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _wiseParchmentDeep, width: 1),
-        boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x1A24201A),
-            blurRadius: 10,
-            offset: Offset(0, 4),
+        color: _kIvorySoft,
+        border: Border.all(color: bucket.accent, width: 1.6),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(bucket.icon, size: 18, color: bucket.accent),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  bucket.label.toUpperCase(),
+                  style: TextStyle(
+                    color: bucket.accent,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1,
+                    fontSize: 12.5,
+                  ),
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                decoration: BoxDecoration(
+                  color: bucket.accent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  '${members.length}',
+                  style: const TextStyle(
+                    color: _kIvorySoft,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ],
           ),
+          const Divider(color: _kIvoryEdge, height: 16),
+          for (final WidgetInspectorServiceExtensions ext in members)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Row(
+                children: <Widget>[
+                  const Icon(Icons.chevron_right,
+                      size: 14, color: _kGraphiteSoft),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      ext.name,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        color: _isDeprecated(ext) ? _kOxbloodDeep : _kInk,
+                        decoration: _isDeprecated(ext)
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  if (_isMutator(ext))
+                    const Icon(Icons.edit_note,
+                        size: 13, color: _kOxblood)
+                  else
+                    const Icon(Icons.visibility_outlined,
+                        size: 13, color: _kBlueprint),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// CARD SHELL
+// ===========================================================================
+
+class _Card extends StatelessWidget {
+  const _Card({
+    required this.title,
+    required this.subtitle,
+    required this.accent,
+    required this.child,
+  });
+
+  final String title;
+  final String subtitle;
+  final Color accent;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: _kIvorySoft,
+        border: Border.all(color: _kIvoryEdge, width: 1.4),
+        borderRadius: BorderRadius.circular(6),
+        boxShadow: const <BoxShadow>[
+          BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
             decoration: BoxDecoration(
-              color: _wiseParchment,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              border: Border(
-                bottom: BorderSide(color: _wiseParchmentDeep, width: 1),
-              ),
+              color: accent,
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(5)),
             ),
-            child: Row(
+            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  width: 10,
-                  height: 26,
-                  decoration: BoxDecoration(
-                    color: accent,
-                    borderRadius: BorderRadius.circular(2),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: _kIvorySoft,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.4,
+                    fontSize: 13,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15,
-                          color: _wiseInk,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                      if (subtitle != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Text(
-                            subtitle!,
-                            style: const TextStyle(
-                              color: _wiseGraphiteSoft,
-                              fontSize: 11.5,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ),
-                    ],
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: _kIvoryEdge,
+                    fontSize: 12,
+                    height: 1.45,
                   ),
                 ),
-                _WisePunchedHole(),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+            padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
             child: child,
           ),
         ],
@@ -953,353 +968,166 @@ class _WiseSheet extends StatelessWidget {
   }
 }
 
-class _WisePunchedHole extends StatelessWidget {
+// ===========================================================================
+// LIFECYCLE PANEL
+// ===========================================================================
+
+class _LifecyclePanel extends StatefulWidget {
+  const _LifecyclePanel();
+
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 14,
-      height: 14,
-      decoration: BoxDecoration(
-        color: _wiseIvory,
-        shape: BoxShape.circle,
-        border: Border.all(color: _wiseParchmentDeep, width: 1),
-      ),
-    );
-  }
+  State<_LifecyclePanel> createState() => _LifecyclePanelState();
 }
 
-class _WiseCodeBlock extends StatelessWidget {
-  const _WiseCodeBlock({required this.code, this.tint = _wiseBlueprintDeep});
+class _LifecyclePanelState extends State<_LifecyclePanel> {
+  final List<String> _activeGroups = <String>['inspector-12', 'inspector-13'];
+  final List<String> _log = <String>[];
+  String _lastTriggered = '<none>';
 
-  final String code;
-  final Color tint;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: tint,
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: _wiseBlueprint, width: 1),
-      ),
-      child: Text(
-        code,
-        style: const TextStyle(
-          color: _wiseIvorySoft,
-          fontFamily: 'RobotoMono',
-          fontSize: 11.5,
-          height: 1.35,
-        ),
-      ),
-    );
+  void _trigger(WidgetInspectorServiceExtensions ext, [String? arg]) {
+    setState(() {
+      _lastTriggered = ext.name;
+      switch (ext) {
+        case WidgetInspectorServiceExtensions.disposeAllGroups:
+          _activeGroups.clear();
+          _log.add('${_wireName(ext)} → cleared all groups');
+          break;
+        case WidgetInspectorServiceExtensions.disposeGroup:
+          if (arg != null) {
+            _activeGroups.remove(arg);
+            _log.add('${_wireName(ext)} → dropped "$arg"');
+          }
+          break;
+        case WidgetInspectorServiceExtensions.disposeId:
+          _log.add('${_wireName(ext)} → released id $arg');
+          break;
+        case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+          _log.add('${_wireName(ext)} → returned ${_activeGroups.isNotEmpty}');
+          break;
+        // Ignore other arms here; they are handled by other panels.
+        // ignore: no_default_cases
+        default:
+          _log.add('${_wireName(ext)} → no-op in lifecycle panel');
+      }
+      while (_log.length > 10) {
+        _log.removeAt(0);
+      }
+    });
   }
-}
 
-class _WisePill extends StatelessWidget {
-  const _WisePill({
-    required this.label,
-    required this.color,
-    this.textColor = _wiseInk,
-    this.dense = false,
-  });
-
-  final String label;
-  final Color color;
-  final Color textColor;
-  final bool dense;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: dense ? 6 : 9,
-        vertical: dense ? 2 : 4,
-      ),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(40),
-        border: Border.all(color: _wiseInk.withValues(alpha: 0.12), width: 0.8),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: dense ? 10 : 11,
-          fontWeight: FontWeight.w700,
-          color: textColor,
-          letterSpacing: 0.4,
-        ),
-      ),
-    );
+  String _statusLabel(WidgetInspectorServiceExtensions ext) {
+    switch (ext) {
+      case WidgetInspectorServiceExtensions.disposeAllGroups:
+        return 'cycle';
+      case WidgetInspectorServiceExtensions.disposeGroup:
+        return 'group';
+      case WidgetInspectorServiceExtensions.disposeId:
+        return 'id';
+      case WidgetInspectorServiceExtensions.isWidgetTreeReady:
+        return 'probe';
+      default:
+        return 'aux';
+    }
   }
-}
-
-class _WiseFact extends StatelessWidget {
-  const _WiseFact({required this.label, required this.value});
-
-  final String label;
-  final String value;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
+    final List<WidgetInspectorServiceExtensions> mine =
+        WidgetInspectorServiceExtensions.values
+            .where((WidgetInspectorServiceExtensions e) =>
+                _bucketFor(e) == _CallBucket.lifecycle)
+            .toList();
+    return _Card(
+      title: 'LIFECYCLE & OBJECT GROUPS',
+      subtitle:
+          'Buttons trigger inspector lifecycle calls. The active group list and '
+          'event log update from a switch on the live enum value.',
+      accent: _kOxblood,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 110,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _wiseGraphite,
-                letterSpacing: 0.3,
-              ),
-            ),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              for (final WidgetInspectorServiceExtensions ext in mine)
+                _CallButton(
+                  ext: ext,
+                  label: _statusLabel(ext),
+                  onPressed: () {
+                    if (ext == WidgetInspectorServiceExtensions.disposeGroup) {
+                      _trigger(ext,
+                          _activeGroups.isNotEmpty ? _activeGroups.first : null);
+                    } else if (ext ==
+                        WidgetInspectorServiceExtensions.disposeId) {
+                      _trigger(ext, 'inspector-12:42');
+                    } else {
+                      _trigger(ext);
+                    }
+                  },
+                ),
+            ],
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(
-                fontSize: 12.5,
-                color: _wiseInk,
-                height: 1.38,
-              ),
+          const SizedBox(height: 14),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _kInk,
+              border: Border.all(color: _kOxblood, width: 1.5),
+              borderRadius: BorderRadius.circular(4),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-Color _wiseCategoryColor(String category) {
-  switch (category) {
-    case 'lifecycle':
-      return _wiseOxbloodPale;
-    case 'selection':
-      return _wiseBlueprintPale;
-    case 'tree':
-      return _wiseMossPale;
-    case 'properties':
-      return _wiseBrassPale;
-    case 'layout':
-      return _wiseParchment;
-    case 'screenshot':
-      return _wiseIvoryEdge;
-    case 'diagnostics':
-      return _wiseOxbloodPale;
-    default:
-      return _wiseChalk;
-  }
-}
-
-Color _wiseCategoryAccent(String category) {
-  switch (category) {
-    case 'lifecycle':
-      return _wiseOxblood;
-    case 'selection':
-      return _wiseBlueprint;
-    case 'tree':
-      return _wiseMoss;
-    case 'properties':
-      return _wiseBrass;
-    case 'layout':
-      return _wiseGraphite;
-    case 'screenshot':
-      return _wiseGraphiteSoft;
-    case 'diagnostics':
-      return _wiseOxbloodDeep;
-    default:
-      return _wiseInk;
-  }
-}
-
-// ===========================================================================
-// CHAPTER 01 — DOSSIER PREAMBLE
-// ===========================================================================
-class _WiseDossierPreamble extends StatelessWidget {
-  const _WiseDossierPreamble();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: Column(
-        children: <Widget>[
-          _WiseSheet(
-            title: 'Chapter 01 — What is WidgetInspectorServiceExtensions',
-            subtitle: 'A canonical list of wire names',
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'WidgetInspectorServiceExtensions is a plain Dart enum declared in '
-                  'package:flutter/src/widgets/widget_inspector.dart. Its members do '
-                  'nothing on their own. What matters is each member has a wire-level '
-                  '`name` string — and those strings define the protocol that Flutter '
-                  'DevTools uses to poke the widget tree at runtime.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                SizedBox(height: 10),
-                _WiseFact(
-                  label: 'Kind',
-                  value: 'enum, 28 members, no fields other than inherited name',
-                ),
-                _WiseFact(
-                  label: 'Declared in',
-                  value: 'widgets/widget_inspector.dart',
-                ),
-                _WiseFact(
-                  label: 'Used by',
-                  value: 'WidgetInspectorService.initServiceExtensions',
-                ),
-                _WiseFact(
-                  label: 'Consumed by',
-                  value: 'Flutter DevTools, IDE plugins, custom tooling',
-                ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 01 / 02 — Service extensions in one paragraph',
-            subtitle: 'The VM service endpoint convention',
-            accent: _wiseBlueprint,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  'Dart VMs expose a service protocol over WebSocket. Flutter registers '
-                  'hundreds of "extension methods" on that protocol, each keyed by a '
-                  'dotted string such as ext.flutter.inspector.getRootWidget. Tooling '
-                  'calls an extension by name and receives a JSON reply. This enum is '
-                  'the whitelist of every inspector-side endpoint.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                const SizedBox(height: 8),
-                const _WiseCodeBlock(
-                  code:
-                      '// Registration — done once during app startup\n'
-                      'registerServiceExtension(\n'
-                      '  name: WidgetInspectorServiceExtensions.getRootWidget.name,\n'
-                      '  callback: _getRootWidget,\n'
-                      ');',
-                ),
-                const SizedBox(height: 4),
-                const _WiseCodeBlock(
-                  code:
-                      '// Wire-level — what DevTools sends\n'
-                      '{\n'
-                      '  "method": "ext.flutter.inspector.getRootWidget",\n'
-                      '  "params": { "objectGroup": "inspector-12" }\n'
-                      '}',
-                  tint: _wiseGraphite,
-                ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 01 / 03 — Why use an enum',
-            subtitle: 'Type-safe names, not magic strings',
-            accent: _wiseMoss,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
                 Text(
-                  'Flutter could register the extensions with hand-typed string '
-                  'literals, but that invites typos and drift. Using an enum keeps the '
-                  'catalog discoverable in an IDE: a developer who needs a service '
-                  'extension can type WidgetInspectorServiceExtensions. and auto-'
-                  'complete will list the full set. Each enum value’s `name` getter '
-                  'returns the identifier exactly as written in source.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  '"getRootWidget" and WidgetInspectorServiceExtensions.getRootWidget.name '
-                  'are guaranteed to match because the Dart enum name is the source of '
-                  'truth for both the Dart API and the wire protocol.',
-                  style: TextStyle(
-                    color: _wiseGraphite,
+                  'last call: $_lastTriggered',
+                  style: const TextStyle(
+                    color: _kOxbloodPale,
+                    fontFamily: 'monospace',
                     fontSize: 12.5,
-                    fontStyle: FontStyle.italic,
-                    height: 1.42,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 01 / 04 — DevTools is just a client',
-            subtitle: 'Anyone who speaks the service protocol can call these',
-            accent: _wiseBlueprintDeep,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+                const SizedBox(height: 6),
+                Text(
+                  'active groups: ${_activeGroups.isEmpty ? "<none>" : _activeGroups.join(", ")}',
+                  style: const TextStyle(
+                    color: _kIvorySoft,
+                    fontFamily: 'monospace',
+                    fontSize: 12.5,
+                  ),
+                ),
+                const SizedBox(height: 6),
                 const Text(
-                  'DevTools is the headline consumer, but any tool speaking the Dart '
-                  'VM service can invoke these endpoints: IDE plugins, CI agents, test '
-                  'harnesses, or the `dart devtools` CLI bridge. The inspector enum is '
-                  'essentially a public API — breaking its members or renaming them '
-                  'breaks every external tool.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
+                  'event log:',
+                  style: TextStyle(
+                    color: _kIvorySoft,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                    letterSpacing: 1.1,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  children: const <Widget>[
-                    _WisePill(label: 'Flutter DevTools', color: _wiseBlueprintPale),
-                    SizedBox(width: 6),
-                    _WisePill(label: 'IntelliJ plugin', color: _wiseParchment),
-                    SizedBox(width: 6),
-                    _WisePill(label: 'VS Code Flutter', color: _wiseMossPale),
-                    SizedBox(width: 6),
-                    _WisePill(label: 'CI harness', color: _wiseBrassPale),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 01 / 05 — Lifetime and object groups',
-            subtitle: 'Where the "inspector-12" strings come from',
-            accent: _wiseBrass,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'Most tree-walk extensions accept an `objectGroup` parameter. DevTools '
-                  'creates a group per panel or per interaction and passes it along '
-                  'with every call. Flutter keeps weak references to the inspected '
-                  'nodes under that group key, so disposeGroup or disposeAllGroups can '
-                  'free memory cleanly once the client is done.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                SizedBox(height: 6),
-                _WiseFact(label: 'Typical name', value: 'inspector-0, inspector-12'),
-                _WiseFact(label: 'Bucket of', value: 'InspectorReferenceData ids'),
-                _WiseFact(label: 'Released by', value: 'disposeGroup / disposeAllGroups'),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 01 / 06 — Names are the contract',
-            subtitle: 'This enum _is_ the inspector protocol',
-            accent: _wiseOxbloodDeep,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'Every bit of documentation and every external tool keys off the '
-                  'string names declared here. The Dart class that implements the '
-                  'actual behaviour — WidgetInspectorService — binds those names to '
-                  'callbacks. Think of this enum as a table of contents and '
-                  'WidgetInspectorService as the book.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
+                const SizedBox(height: 4),
+                if (_log.isEmpty)
+                  const Text(
+                    '(no events)',
+                    style: TextStyle(
+                      color: _kBlueprintPale,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  )
+                else
+                  for (final String line in _log)
+                    Text(
+                      '· $line',
+                      style: const TextStyle(
+                        color: _kBlueprintPale,
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
               ],
             ),
           ),
@@ -1309,431 +1137,307 @@ class _WiseDossierPreamble extends StatelessWidget {
   }
 }
 
-// ===========================================================================
-// CHAPTER 02 — FULL ENUM CATALOG
-// ===========================================================================
-class _WiseCatalogChapter extends StatelessWidget {
-  const _WiseCatalogChapter({
-    required this.selected,
-    required this.onSelect,
-    required this.pulse,
+class _CallButton extends StatelessWidget {
+  const _CallButton({
+    required this.ext,
+    required this.label,
+    required this.onPressed,
   });
 
-  final int selected;
-  final ValueChanged<int> onSelect;
-  final AnimationController pulse;
+  final WidgetInspectorServiceExtensions ext;
+  final String label;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: _WiseSheet(
-        title: 'Chapter 02 — Full enum catalog',
-        subtitle: 'Every WidgetInspectorServiceExtensions member with wire call',
-        accent: _wiseOxbloodDeep,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Tap any entry to wire it into the mock DevTools console below. '
-              'The selected entry gets a pulsing ivory halo — a small wink '
-              'that DevTools uses a similar highlight while resolving a live '
-              'inspector id.',
-              style: TextStyle(
-                color: _wiseGraphite,
-                fontSize: 12.5,
-                fontStyle: FontStyle.italic,
-                height: 1.4,
-              ),
+    final _CallBucket bucket = _bucketFor(ext);
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(bucket.icon, size: 14, color: _kIvorySoft),
+      label: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            ext.name,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w800,
+              fontSize: 12,
+              color: _kIvorySoft,
             ),
-            const SizedBox(height: 10),
-            for (int i = 0; i < _wiseCatalog.length; i++)
-              _WiseCatalogRow(
-                index: i,
-                entry: _wiseCatalog[i],
-                selected: selected == i,
-                onTap: () => onSelect(i),
-                pulse: pulse,
-              ),
-          ],
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              color: _kIvoryEdge,
+              fontSize: 10,
+              letterSpacing: 1,
+            ),
+          ),
+        ],
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: bucket.accent,
+        foregroundColor: _kIvorySoft,
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3),
+          side: const BorderSide(color: _kInk, width: 1),
         ),
       ),
     );
   }
 }
 
-class _WiseCatalogRow extends StatelessWidget {
-  const _WiseCatalogRow({
-    required this.index,
-    required this.entry,
-    required this.selected,
-    required this.onTap,
-    required this.pulse,
-  });
-
-  final int index;
-  final _WiseExtensionEntry entry;
-  final bool selected;
-  final VoidCallback onTap;
-  final AnimationController pulse;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: pulse,
-      builder: (BuildContext context, Widget? child) {
-        final double halo = selected
-            ? (0.35 + 0.35 * math.sin(pulse.value * math.pi))
-            : 0.0;
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 4),
-          decoration: BoxDecoration(
-            color: selected ? _wiseIvorySoft : _wiseChalk,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: selected
-                  ? _wiseOxblood.withValues(alpha: 0.7 + halo * 0.3)
-                  : _wiseParchmentDeep,
-              width: selected ? 1.6 : 1,
-            ),
-            boxShadow: selected
-                ? <BoxShadow>[
-                    BoxShadow(
-                      color: _wiseIvorySoft.withValues(alpha: halo),
-                      blurRadius: 18,
-                      spreadRadius: 2,
-                    ),
-                  ]
-                : const <BoxShadow>[],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: onTap,
-              borderRadius: BorderRadius.circular(8),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 32,
-                          height: 24,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: _wiseInk,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            (index + 1).toString().padLeft(2, '0'),
-                            style: const TextStyle(
-                              color: _wiseIvory,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            entry.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 14,
-                              color: _wiseInk,
-                              letterSpacing: 0.2,
-                            ),
-                          ),
-                        ),
-                        _WisePill(
-                          label: entry.category,
-                          color: _wiseCategoryColor(entry.category),
-                          textColor: _wiseCategoryAccent(entry.category),
-                          dense: true,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      entry.summary,
-                      style: const TextStyle(
-                        color: _wiseGraphite,
-                        fontSize: 12.2,
-                        height: 1.35,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      entry.detail,
-                      style: const TextStyle(
-                        color: _wiseInk,
-                        fontSize: 11.8,
-                        height: 1.42,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    _WiseCodeBlock(code: entry.sample),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
 // ===========================================================================
-// CHAPTER 03 — CATEGORY BREAKDOWN
+// SHARED — small primitives reused by panels below.
 // ===========================================================================
-class _WiseCategoryBreakdown extends StatelessWidget {
-  const _WiseCategoryBreakdown();
+
+/// Renders a single enum value as a "wire request" preview. Uses
+/// [_summaryFor], [_paramsFor] and [_responseFor] live so every audit-flagged
+/// helper has a real consumer.
+class _WireRow extends StatelessWidget {
+  const _WireRow({required this.ext, required this.background});
+
+  final WidgetInspectorServiceExtensions ext;
+  final Color background;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: _WiseSheet(
-        title: 'Chapter 03 — Category breakdown',
-        subtitle: 'Each cluster of extensions serves a distinct DevTools panel',
-        accent: _wiseMoss,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _WiseCategoryCard(
-              title: 'Lifecycle',
-              members: 'disposeAllGroups · disposeGroup · isWidgetTreeReady · disposeId',
-              color: _wiseOxbloodPale,
-              accent: _wiseOxblood,
-              body:
-                  'These endpoints manage the memory Flutter holds on behalf of '
-                  'DevTools. Every piece of information DevTools fetches is '
-                  'bucketed under an object group; lifecycle extensions let the '
-                  'client open, close, and trim those buckets. Without them, '
-                  'hot reload and long debug sessions would leak elements.',
-              bullets: const <String>[
-                'Called when a DevTools panel opens (implicitly) and closes.',
-                'Called eagerly after hot reload to invalidate stale ids.',
-                'Cheap — most dispose calls release weak references only.',
-                'isWidgetTreeReady gates the entire inspector UX.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Selection',
-              members: 'setSelectionById · getSelectedWidget · getSelectedSummaryWidget',
-              color: _wiseBlueprintPale,
-              accent: _wiseBlueprint,
-              body:
-                  'Selection is the bidirectional link between the on-device '
-                  'overlay and the DevTools UI. Tapping a widget in either '
-                  'place updates a single focused element reference on the '
-                  'framework side; getters then read it back.',
-              bullets: const <String>[
-                'Tap in DevTools → setSelectionById travels to the VM.',
-                'Tap on device → service event pushes the new selection.',
-                'Summary variant filters to user-authored ancestors.',
-                'Selection survives rebuilds via inspector-*:* ids.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Tree traversal',
-              members: 'getParentChain · getChildren · getChildrenSummaryTree · '
-                  'getChildrenDetailsSubtree · getRootWidget · getRootWidgetSummaryTree · '
-                  'getRootWidgetSummaryTreeWithPreviews',
-              color: _wiseMossPale,
-              accent: _wiseMoss,
-              body:
-                  'The DevTools tree view is a lazy walk. Expanding a node issues '
-                  'a getChildren* call; opening the inspector issues a '
-                  'getRootWidget*. Summary variants filter out framework-only '
-                  'widgets to keep the user-facing tree digestible.',
-              bullets: const <String>[
-                'getChildren vs getChildrenSummaryTree: full vs curated view.',
-                'getChildrenDetailsSubtree: paged deep-fetch for big subtrees.',
-                'getParentChain: produces the breadcrumb side-panel.',
-                'Previews variant inlines Text content without a second round-trip.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Property inspection',
-              members: 'getProperties',
-              color: _wiseBrassPale,
-              accent: _wiseBrass,
-              body:
-                  'DevTools fills its "Details" panel by walking the DiagnosticsNode '
-                  'of the selected widget. getProperties serializes the list of '
-                  'DiagnosticsProperty objects into plain JSON. Colors become hex '
-                  'strings, paddings become EdgeInsets descriptions, flex factors '
-                  'become numbers.',
-              bullets: const <String>[
-                'Runs debugFillProperties under the hood.',
-                'Output includes type, default, and whether the value is "interesting".',
-                'Hooked into DevTools filters: hide defaults, show only custom.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Layout Explorer',
-              members: 'getLayoutExplorerNode · setFlexFit · setFlexFactor · setFlexProperties',
-              color: _wiseParchment,
-              accent: _wiseGraphite,
-              body:
-                  'The Layout Explorer is the interactive flex / box overlay in '
-                  'DevTools. It reads the geometry and parent constraints with '
-                  'getLayoutExplorerNode and writes changes back through the '
-                  'setFlex* extensions — so the developer can fiddle with flex '
-                  'factors at runtime and watch the layout adapt.',
-              bullets: const <String>[
-                'Works with Row, Column, and Flex subclasses.',
-                'setFlexProperties batches alignment changes for a responsive feel.',
-                'Subtree depth parameter controls how much context comes back.',
-                'Changes survive until the next rebuild resets state.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Diagnostics and rendering toggles',
-              members: 'setPubRootDirectories · addPubRootDirectories · '
-                  'removePubRootDirectories · getPubRootDirectories · '
-                  'isWidgetCreationTracked · trackRebuildDirtyWidgets · '
-                  'trackRepaintWidgets · structuredErrors · show',
-              color: _wiseOxbloodPale,
-              accent: _wiseOxbloodDeep,
-              body:
-                  'The long-tail extensions: configuration switches, visualization '
-                  'toggles, and meta-queries. They change how the framework behaves '
-                  'while DevTools is connected — enabling rebuild heatmaps, '
-                  'structured error JSON, or the tap-to-select overlay.',
-              bullets: const <String>[
-                'pubRoot* endpoints maintain a "this is user code" allow-list.',
-                'trackRebuildDirtyWidgets and trackRepaintWidgets power heatmaps.',
-                'structuredErrors rewires FlutterErrorDetails reporting.',
-                '"show" is the on-device select-widget overlay toggle.',
-              ],
-            ),
-            _WiseCategoryCard(
-              title: 'Screenshots',
-              members: 'screenshot',
-              color: _wiseIvoryEdge,
-              accent: _wiseGraphite,
-              body:
-                  'The single screenshot endpoint lets DevTools snapshot any '
-                  'widget subtree as a PNG. Used for the "live preview" thumbnail '
-                  'in the inspector, and for generating golden-style reports in '
-                  'CI dashboards.',
-              bullets: const <String>[
-                'Encoded as base64 PNG in the JSON response.',
-                'Accepts target width / height and margin.',
-                'Runs through PictureRecorder — not a platform screenshot.',
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _WiseCategoryCard extends StatelessWidget {
-  const _WiseCategoryCard({
-    required this.title,
-    required this.members,
-    required this.color,
-    required this.accent,
-    required this.body,
-    required this.bullets,
-  });
-
-  final String title;
-  final String members;
-  final Color color;
-  final Color accent;
-  final String body;
-  final List<String> bullets;
-
-  @override
-  Widget build(BuildContext context) {
+    final _CallBucket bucket = _bucketFor(ext);
+    final bool deprecated = _isDeprecated(ext);
+    final bool stream = _isStreamToggle(ext);
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
       decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: accent.withValues(alpha: 0.55), width: 1),
+        color: background,
+        border: Border.all(color: bucket.accent, width: 1.2),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 8,
-                height: 28,
-                decoration: BoxDecoration(
-                  color: accent,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(width: 10),
+              Icon(bucket.icon, size: 13, color: bucket.accent),
+              const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  title,
+                  _wireName(ext),
                   style: TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                    letterSpacing: 0.4,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: _kInk,
+                    fontWeight: FontWeight.w800,
+                    decoration: deprecated
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
               ),
+              if (stream)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: _kBlueprint,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: const Text(
+                    'STREAM',
+                    style: TextStyle(
+                      color: _kIvorySoft,
+                      fontSize: 9,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              if (_isMutator(ext)) ...<Widget>[
+                const SizedBox(width: 4),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: _kOxbloodDeep,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: const Text(
+                    'WRITE',
+                    style: TextStyle(
+                      color: _kIvorySoft,
+                      fontSize: 9,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Text(
-            members,
+            _summaryFor(ext),
             style: const TextStyle(
-              color: _wiseGraphite,
-              fontSize: 11.5,
-              fontFamily: 'RobotoMono',
-              height: 1.4,
+              color: _kGraphite,
+              fontSize: 12,
+              height: 1.35,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
-            body,
-            style: const TextStyle(color: _wiseInk, fontSize: 12.5, height: 1.45),
+            'params : ${_paramsFor(ext)}',
+            style: const TextStyle(
+              color: _kBlueprintDeep,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+            ),
           ),
-          const SizedBox(height: 8),
-          for (final String b in bullets)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 6,
-                    height: 6,
-                    margin: const EdgeInsets.only(top: 6, right: 8),
-                    decoration: BoxDecoration(
-                      color: accent,
-                      shape: BoxShape.circle,
-                    ),
+          Text(
+            'reply  : ${_responseFor(ext)}',
+            style: const TextStyle(
+              color: _kOxbloodDeep,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Filters live enum values into the given bucket.
+List<WidgetInspectorServiceExtensions> _membersOf(_CallBucket bucket) {
+  return WidgetInspectorServiceExtensions.values
+      .where((WidgetInspectorServiceExtensions e) => _bucketFor(e) == bucket)
+      .toList();
+}
+
+// ===========================================================================
+// PUB ROOTS PANEL
+// ===========================================================================
+
+class _PubRootsPanel extends StatefulWidget {
+  const _PubRootsPanel();
+
+  @override
+  State<_PubRootsPanel> createState() => _PubRootsPanelState();
+}
+
+class _PubRootsPanelState extends State<_PubRootsPanel> {
+  final List<String> _roots = <String>[
+    '/srv/app/lib',
+    '/srv/app/lib/foo',
+  ];
+
+  void _apply(WidgetInspectorServiceExtensions ext) {
+    setState(() {
+      switch (ext) {
+        case WidgetInspectorServiceExtensions.setPubRootDirectories:
+          _roots
+            ..clear()
+            ..addAll(<String>['/srv/app/lib']);
+          break;
+        case WidgetInspectorServiceExtensions.addPubRootDirectories:
+          final String next = '/srv/app/lib/added_${_roots.length}';
+          if (!_roots.contains(next)) {
+            _roots.add(next);
+          }
+          break;
+        case WidgetInspectorServiceExtensions.removePubRootDirectories:
+          if (_roots.isNotEmpty) {
+            _roots.removeLast();
+          }
+          break;
+        case WidgetInspectorServiceExtensions.getPubRootDirectories:
+          // Read-only: no mutation, just refresh.
+          break;
+        // ignore: no_default_cases
+        default:
+          break;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.pubRoots);
+    return _Card(
+      title: 'PUB ROOT DIRECTORIES',
+      subtitle:
+          'Editing the list maps to set / add / remove / get extension calls. '
+          'Each row uses `_summaryFor`, `_paramsFor`, and `_responseFor` live.',
+      accent: _kBrass,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+            decoration: BoxDecoration(
+              color: _kBrassPale,
+              border: Border.all(color: _kBrass, width: 1.4),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'ACTIVE ROOTS',
+                  style: TextStyle(
+                    color: _kInk,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 11,
+                    letterSpacing: 1.2,
                   ),
-                  Expanded(
-                    child: Text(
-                      b,
-                      style: const TextStyle(
-                        color: _wiseInk,
-                        fontSize: 12,
-                        height: 1.4,
+                ),
+                const SizedBox(height: 4),
+                if (_roots.isEmpty)
+                  const Text(
+                    '(empty)',
+                    style: TextStyle(
+                      color: _kGraphiteSoft,
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  )
+                else
+                  for (final String root in _roots)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 1),
+                      child: Text(
+                        '· $root',
+                        style: const TextStyle(
+                          color: _kInk,
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+              ],
             ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              for (final WidgetInspectorServiceExtensions ext in mine)
+                _CallButton(
+                  ext: ext,
+                  label: _isMutator(ext) ? 'mutate' : 'read',
+                  onPressed: () => _apply(ext),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          for (final WidgetInspectorServiceExtensions ext in mine)
+            _WireRow(ext: ext, background: _kBrassPale),
         ],
       ),
     );
@@ -1741,227 +1445,626 @@ class _WiseCategoryCard extends StatelessWidget {
 }
 
 // ===========================================================================
-// CHAPTER 04 — MOCK DEVTOOLS CONSOLE
+// TREE WALK PANEL
 // ===========================================================================
-class _WiseMockDevtoolsConsole extends StatelessWidget {
-  const _WiseMockDevtoolsConsole({
-    required this.selected,
-    required this.onSelect,
-    required this.callLog,
-    required this.ticker,
-  });
 
-  final int selected;
-  final ValueChanged<int> onSelect;
-  final List<String> callLog;
-  final AnimationController ticker;
+class _TreeWalkPanel extends StatelessWidget {
+  const _TreeWalkPanel();
 
   @override
   Widget build(BuildContext context) {
-    final _WiseExtensionEntry entry = _wiseCatalog[selected];
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: _WiseSheet(
-        title: 'Chapter 04 — Mock DevTools console',
-        subtitle: 'Pick a member, watch the fake request/response roll in',
-        accent: _wiseBlueprint,
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.treeWalk);
+    // Order: pure root walks first, then id-anchored walks.
+    mine.sort((WidgetInspectorServiceExtensions a,
+        WidgetInspectorServiceExtensions b) {
+      final bool aRoot = a.name.startsWith('getRoot');
+      final bool bRoot = b.name.startsWith('getRoot');
+      if (aRoot != bRoot) {
+        return aRoot ? -1 : 1;
+      }
+      return a.name.compareTo(b.name);
+    });
+    return _Card(
+      title: 'TREE WALK & PROPERTIES',
+      subtitle:
+          'Diagnostic-tree fetches. Root-anchored calls render first, '
+          'id-anchored ones below. Every row reads the live enum value.',
+      accent: _kBlueprint,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: _kParchment,
+          border: Border.all(color: _kBlueprintDeep, width: 1.2),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text(
+              'WALK STRATEGY',
+              style: TextStyle(
+                color: _kBlueprintDeep,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1.2,
+                fontSize: 11,
+              ),
+            ),
+            const SizedBox(height: 6),
+            for (final WidgetInspectorServiceExtensions ext in mine)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 14,
+                      height: 14,
+                      margin: const EdgeInsets.only(top: 2, right: 6),
+                      decoration: BoxDecoration(
+                        color: ext.name.startsWith('getRoot')
+                            ? _kBlueprint
+                            : _kGraphite,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            ext.name,
+                            style: const TextStyle(
+                              color: _kInk,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w800,
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            'params: ${_paramsFor(ext)}',
+                            style: const TextStyle(
+                              color: _kGraphite,
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// SELECTION PANEL
+// ===========================================================================
+
+class _SelectionPanel extends StatefulWidget {
+  const _SelectionPanel();
+
+  @override
+  State<_SelectionPanel> createState() => _SelectionPanelState();
+}
+
+class _SelectionPanelState extends State<_SelectionPanel> {
+  WidgetInspectorServiceExtensions? _last;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.selection);
+    return _Card(
+      title: 'SELECTION PROBES',
+      subtitle:
+          'Press a probe to record the last call. Result panel shows '
+          '`_responseFor` for the selected enum value.',
+      accent: _kMoss,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              for (final WidgetInspectorServiceExtensions ext in mine)
+                _CallButton(
+                  ext: ext,
+                  label: ext == WidgetInspectorServiceExtensions.setSelectionById
+                      ? 'set'
+                      : 'read',
+                  onPressed: () => setState(() => _last = ext),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _kMossPale,
+              border: Border.all(color: _kMoss, width: 1.4),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'LAST PROBE',
+                  style: TextStyle(
+                    color: _kMoss,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 11,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                if (_last == null)
+                  const Text(
+                    '(no probe issued yet)',
+                    style: TextStyle(
+                      color: _kGraphiteSoft,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  )
+                else ...<Widget>[
+                  Text(
+                    'wire   : ${_wireName(_last!)}',
+                    style: const TextStyle(
+                      color: _kInk,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  Text(
+                    'params : ${_paramsFor(_last!)}',
+                    style: const TextStyle(
+                      color: _kBlueprintDeep,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    'reply  : ${_responseFor(_last!)}',
+                    style: const TextStyle(
+                      color: _kOxbloodDeep,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _summaryFor(_last!),
+                    style: const TextStyle(
+                      color: _kGraphite,
+                      fontSize: 12,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// RENDERING PANEL
+// ===========================================================================
+
+class _RenderingPanel extends StatelessWidget {
+  const _RenderingPanel();
+
+  @override
+  Widget build(BuildContext context) {
+    // The rendering bucket only contains `screenshot` today, but we still walk
+    // the bucket through the live enum filter so adding new values lights up
+    // automatically.
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.rendering);
+    return _Card(
+      title: 'RENDERING & SCREENSHOT',
+      subtitle:
+          'Captures and pixel exports. Switch arms below derive every label '
+          'from the enum value itself (no string literals).',
+      accent: _kOxbloodDeep,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _kChalk,
+          border: Border.all(color: _kOxblood, width: 1.5),
+          borderRadius: BorderRadius.circular(4),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Text(
-                  'method',
-                  style: TextStyle(
-                    color: _wiseGraphite,
-                    fontWeight: FontWeight.w700,
+                const Icon(Icons.camera_alt_outlined,
+                    size: 18, color: _kOxbloodDeep),
+                const SizedBox(width: 8),
+                Text(
+                  'CALLS IN BUCKET: ${mine.length}',
+                  style: const TextStyle(
+                    color: _kOxbloodDeep,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.2,
                     fontSize: 12,
-                    letterSpacing: 0.6,
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: _wiseChalk,
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _wiseParchmentDeep,
-                        width: 1,
-                      ),
-                    ),
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      entry.sample,
-                      style: const TextStyle(
-                        color: _wiseOxbloodDeep,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 12.5,
-                        fontFamily: 'RobotoMono',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                _WisePill(
-                  label: entry.category,
-                  color: _wiseCategoryColor(entry.category),
-                  textColor: _wiseCategoryAccent(entry.category),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 44,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: _wiseCatalog.length,
-                separatorBuilder: (BuildContext ctx, int i) =>
-                    const SizedBox(width: 6),
-                itemBuilder: (BuildContext ctx, int i) {
-                  final bool isSelected = i == selected;
-                  final _WiseExtensionEntry e = _wiseCatalog[i];
-                  return Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () => onSelect(i),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 7,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? _wiseOxbloodDeep
-                              : _wiseCategoryColor(e.category),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: isSelected
-                                ? _wiseOxblood
-                                : _wiseCategoryAccent(e.category)
-                                    .withValues(alpha: 0.5),
-                            width: 1,
-                          ),
-                        ),
-                        child: Text(
-                          e.name,
-                          style: TextStyle(
-                            color: isSelected ? _wiseIvory : _wiseInk,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11.5,
-                            letterSpacing: 0.2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
+            const Divider(color: _kIvoryEdge, height: 18),
+            for (final WidgetInspectorServiceExtensions ext in mine) ...<Widget>[
+              Text(
+                ext.name,
+                style: const TextStyle(
+                  color: _kInk,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w800,
+                  fontSize: 13,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: _WiseConsoleColumn(
-                    title: 'Request',
-                    subtitle: 'outgoing →',
-                    tint: _wiseBlueprintDeep,
-                    code: _wiseFormatRequest(entry),
-                  ),
+              const SizedBox(height: 4),
+              // Switch over the live enum value to render bucket-specific UI.
+              Builder(builder: (BuildContext _) {
+                switch (ext) {
+                  case WidgetInspectorServiceExtensions.screenshot:
+                    return Container(
+                      width: double.infinity,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: <Color>[_kBlueprintPale, _kIvory, _kOxbloodPale],
+                        ),
+                        border: Border.all(color: _kInk, width: 1),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        '<base64-png placeholder>',
+                        style: TextStyle(
+                          color: _kInk,
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    );
+                  // ignore: no_default_cases
+                  default:
+                    return Text(
+                      _summaryFor(ext),
+                      style: const TextStyle(color: _kGraphite, fontSize: 12),
+                    );
+                }
+              }),
+              const SizedBox(height: 6),
+              Text(
+                'reply: ${_responseFor(ext)}',
+                style: const TextStyle(
+                  color: _kOxbloodDeep,
+                  fontFamily: 'monospace',
+                  fontSize: 11.5,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _WiseConsoleColumn(
-                    title: 'Response',
-                    subtitle: '← incoming',
-                    tint: _wiseGraphite,
-                    code: _wiseFormatResponse(entry),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// LAYOUT EXPLORER PANEL
+// ===========================================================================
+
+class _LayoutExplorerPanel extends StatelessWidget {
+  const _LayoutExplorerPanel();
+
+  @override
+  Widget build(BuildContext context) {
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.layoutExplorer);
+    return _Card(
+      title: 'LAYOUT EXPLORER',
+      subtitle:
+          'Flex inspection and adjustment. Each call previews the params it '
+          'expects (live `_paramsFor`).',
+      accent: _kBlueprintDeep,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          for (final WidgetInspectorServiceExtensions ext in mine)
             Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
               decoration: BoxDecoration(
-                color: _wiseInk,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _wiseShadow, width: 1),
+                color: _kParchmentDeep,
+                border: Border.all(color: _kBlueprintDeep, width: 1.4),
+                borderRadius: BorderRadius.circular(3),
               ),
-              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      AnimatedBuilder(
-                        animation: ticker,
-                        builder: (BuildContext ctx, Widget? child) {
-                          final double blink = 0.4 +
-                              0.6 *
-                                  (0.5 + 0.5 * math.sin(ticker.value * math.pi * 2));
-                          return Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color:
-                                  _wiseMossPale.withValues(alpha: blink),
-                              shape: BoxShape.circle,
-                            ),
-                          );
-                        },
+                      Icon(
+                        ext == WidgetInspectorServiceExtensions
+                                .getLayoutExplorerNode
+                            ? Icons.account_tree_outlined
+                            : Icons.tune,
+                        size: 16,
+                        color: _kBlueprintDeep,
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        'session.log',
-                        style: TextStyle(
-                          color: _wiseIvory,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          letterSpacing: 0.8,
+                      Text(
+                        ext.name,
+                        style: const TextStyle(
+                          color: _kInk,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12.5,
                         ),
                       ),
                       const Spacer(),
-                      Text(
-                        '${callLog.length} entries',
-                        style: const TextStyle(
-                          color: _wiseIvorySoft,
-                          fontSize: 11,
-                          fontFamily: 'RobotoMono',
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: _isMutator(ext) ? _kOxbloodDeep : _kBlueprint,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        child: Text(
+                          _isMutator(ext) ? 'WRITE' : 'READ',
+                          style: const TextStyle(
+                            color: _kIvorySoft,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const Divider(color: _wiseShadow, height: 16),
-                  SizedBox(
-                    height: 140,
-                    child: ListView.builder(
-                      itemCount: callLog.length,
-                      itemBuilder: (BuildContext ctx, int i) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 1),
-                          child: Text(
-                            callLog[i],
-                            style: TextStyle(
-                              color: i == 0
-                                  ? _wiseMossPale
-                                  : _wiseIvorySoft.withValues(alpha: 0.85),
-                              fontSize: 11.5,
-                              fontFamily: 'RobotoMono',
-                              fontWeight:
-                                  i == 0 ? FontWeight.w700 : FontWeight.w400,
-                            ),
-                          ),
-                        );
-                      },
+                  const SizedBox(height: 6),
+                  Text(
+                    _summaryFor(ext),
+                    style: const TextStyle(
+                      color: _kGraphite,
+                      fontSize: 12,
+                      height: 1.35,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'params: ${_paramsFor(ext)}',
+                    style: const TextStyle(
+                      color: _kBlueprintDeep,
+                      fontFamily: 'monospace',
+                      fontSize: 11.5,
                     ),
                   ),
                 ],
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// PROFILING PANEL
+// ===========================================================================
+
+class _ProfilingPanel extends StatefulWidget {
+  const _ProfilingPanel();
+
+  @override
+  State<_ProfilingPanel> createState() => _ProfilingPanelState();
+}
+
+class _ProfilingPanelState extends State<_ProfilingPanel> {
+  final Map<WidgetInspectorServiceExtensions, bool> _streamOn =
+      <WidgetInspectorServiceExtensions, bool>{};
+
+  @override
+  Widget build(BuildContext context) {
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.profiling);
+    return _Card(
+      title: 'PROFILING STREAMS',
+      subtitle:
+          'Toggle streams that DevTools subscribes to. `_isStreamToggle` '
+          'classifies each enum value live.',
+      accent: _kGraphite,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          for (final WidgetInspectorServiceExtensions ext in mine)
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+              decoration: BoxDecoration(
+                color: _kBrassPale,
+                border: Border.all(color: _kGraphite, width: 1.2),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          ext.name,
+                          style: const TextStyle(
+                            color: _kInk,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w800,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                        Text(
+                          _summaryFor(ext),
+                          style: const TextStyle(
+                            color: _kGraphite,
+                            fontSize: 11.5,
+                            height: 1.3,
+                          ),
+                        ),
+                        Text(
+                          'reply: ${_responseFor(ext)}',
+                          style: const TextStyle(
+                            color: _kOxbloodDeep,
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  if (_isStreamToggle(ext))
+                    Switch(
+                      value: _streamOn[ext] ?? false,
+                      activeColor: _kBlueprint,
+                      onChanged: (bool v) =>
+                          setState(() => _streamOn[ext] = v),
+                    )
+                  else
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: _kInk,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      child: const Text(
+                        'PULL',
+                        style: TextStyle(
+                          color: _kBrassPale,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// TOGGLES PANEL
+// ===========================================================================
+
+class _TogglesPanel extends StatefulWidget {
+  const _TogglesPanel();
+
+  @override
+  State<_TogglesPanel> createState() => _TogglesPanelState();
+}
+
+class _TogglesPanelState extends State<_TogglesPanel> {
+  final Map<WidgetInspectorServiceExtensions, bool> _flags =
+      <WidgetInspectorServiceExtensions, bool>{};
+
+  @override
+  Widget build(BuildContext context) {
+    // Walk the entire enum once to assemble the toggle universe: every value
+    // for which `_isStreamToggle` returns true counts as a toggleable diagnostic
+    // — that span includes both this bucket and the profiling streams.
+    final List<WidgetInspectorServiceExtensions> toggles =
+        WidgetInspectorServiceExtensions.values
+            .where(_isStreamToggle)
+            .toList();
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.toggles);
+    return _Card(
+      title: 'DIAGNOSTIC TOGGLES',
+      subtitle:
+          'Boolean diagnostics. Each switch fires the matching extension call '
+          'with `{ "enabled": "..." }`.',
+      accent: _kShadow,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _kChalk,
+          border: Border.all(color: _kShadow, width: 1.4),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'TOGGLE UNIVERSE: ${toggles.length} of '
+              '${WidgetInspectorServiceExtensions.values.length}',
+              style: const TextStyle(
+                color: _kShadow,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1.2,
+                fontSize: 11,
+              ),
+            ),
+            const SizedBox(height: 10),
+            for (final WidgetInspectorServiceExtensions ext in mine)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            ext.name,
+                            style: const TextStyle(
+                              color: _kInk,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w800,
+                              fontSize: 12.5,
+                            ),
+                          ),
+                          Text(
+                            _summaryFor(ext),
+                            style: const TextStyle(
+                              color: _kGraphite,
+                              fontSize: 11.5,
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Switch(
+                      value: _flags[ext] ?? false,
+                      activeColor: _kOxbloodDeep,
+                      onChanged: _isStreamToggle(ext)
+                          ? (bool v) => setState(() => _flags[ext] = v)
+                          : null,
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
       ),
@@ -1969,694 +2072,111 @@ class _WiseMockDevtoolsConsole extends StatelessWidget {
   }
 }
 
-String _wiseFormatRequest(_WiseExtensionEntry entry) {
-  return '{\n'
-      '  "jsonrpc": "2.0",\n'
-      '  "id": 42,\n'
-      '  "method": "${entry.sample}",\n'
-      '  "params": ${entry.params}\n'
-      '}';
+// ===========================================================================
+// BY-NAME LOOKUP PANEL
+// ===========================================================================
+
+class _ByNameLookupPanel extends StatefulWidget {
+  const _ByNameLookupPanel();
+
+  @override
+  State<_ByNameLookupPanel> createState() => _ByNameLookupPanelState();
 }
 
-String _wiseFormatResponse(_WiseExtensionEntry entry) {
-  return '{\n'
-      '  "jsonrpc": "2.0",\n'
-      '  "id": 42,\n'
-      '  "method": "${entry.sample}",\n'
-      '  "response": ${entry.response}\n'
-      '}';
-}
+class _ByNameLookupPanelState extends State<_ByNameLookupPanel> {
+  String _query = 'getRootWidgetTree';
 
-class _WiseConsoleColumn extends StatelessWidget {
-  const _WiseConsoleColumn({
-    required this.title,
-    required this.subtitle,
-    required this.tint,
-    required this.code,
-  });
-
-  final String title;
-  final String subtitle;
-  final Color tint;
-  final String code;
+  WidgetInspectorServiceExtensions? _resolve(String q) {
+    try {
+      return WidgetInspectorServiceExtensions.values.byName(q);
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: tint,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _wiseBlueprint, width: 1),
-      ),
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
+    final WidgetInspectorServiceExtensions? hit = _resolve(_query);
+    final List<String> suggestions = WidgetInspectorServiceExtensions.values
+        .map((WidgetInspectorServiceExtensions e) => e.name)
+        .where((String n) => n.toLowerCase().contains(_query.toLowerCase()))
+        .take(6)
+        .toList();
+    return _Card(
+      title: 'REVERSE LOOKUP — values.byName(...)',
+      subtitle:
+          'DevTools sends a wire-string; the framework resolves it to an enum '
+          'value. This panel mirrors that path live.',
+      accent: _kBlueprint,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _kParchment,
+          border: Border.all(color: _kBlueprint, width: 1.4),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextField(
+              decoration: const InputDecoration(
+                isDense: true,
+                labelText: 'enum name (e.g. screenshot)',
+                labelStyle: TextStyle(color: _kBlueprintDeep),
+                border: OutlineInputBorder(),
+              ),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: _kInk,
+              ),
+              controller: TextEditingController(text: _query)
+                ..selection = TextSelection.collapsed(offset: _query.length),
+              onChanged: (String v) => setState(() => _query = v),
+            ),
+            const SizedBox(height: 10),
+            if (hit != null) ...<Widget>[
               Text(
-                title,
+                'matched: ${hit.name}',
                 style: const TextStyle(
-                  color: _wiseIvorySoft,
+                  color: _kInk,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 13,
+                ),
+              ),
+              const SizedBox(height: 4),
+              _WireRow(ext: hit, background: _kBrassPale),
+            ] else ...<Widget>[
+              const Text(
+                'no exact match — suggestions:',
+                style: TextStyle(
+                  color: _kOxbloodDeep,
+                  fontFamily: 'monospace',
                   fontWeight: FontWeight.w800,
                   fontSize: 12,
-                  letterSpacing: 0.8,
                 ),
               ),
-              const SizedBox(width: 6),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: _wiseBlueprintPale.withValues(alpha: 0.9),
-                  fontSize: 10.5,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(
-            code,
-            style: const TextStyle(
-              color: _wiseIvorySoft,
-              fontSize: 11,
-              fontFamily: 'RobotoMono',
-              height: 1.45,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// CHAPTER 05 — TIMELINE DIAGRAM
-// ===========================================================================
-class _WiseTimelineChapter extends StatelessWidget {
-  const _WiseTimelineChapter({required this.phase});
-
-  final Animation<double> phase;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: _WiseSheet(
-        title: 'Chapter 05 — Timeline of a service call',
-        subtitle: 'DevTools → ext.flutter.inspector.X → service handler → JSON',
-        accent: _wiseBlueprintDeep,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Every extension name in the enum travels the same rail. The '
-              'diagram below reads left-to-right: a DevTools client emits a '
-              'method call, the VM dispatcher maps that method name to a Dart '
-              'callback, WidgetInspectorService produces a serialized reply, '
-              'and the result returns back to the client over the VM service.',
-              style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-            ),
-            const SizedBox(height: 10),
-            AspectRatio(
-              aspectRatio: 2.1,
-              child: AnimatedBuilder(
-                animation: phase,
-                builder: (BuildContext ctx, Widget? child) {
-                  return CustomPaint(
-                    painter: _WiseTimelinePainter(phase: phase.value),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-            const _WiseTimelineStep(
-              step: '01',
-              label: 'DevTools composes JSON-RPC',
-              body:
-                  'A user action fires off a request like '
-                  '{ method: "ext.flutter.inspector.getRootWidget", params: ... }. '
-                  'DevTools never touches Dart directly — it speaks the VM service '
-                  'over WebSocket.',
-            ),
-            _WiseTimelineStep(
-              step: '02',
-              label: 'VM service dispatches',
-              body:
-                  'The Dart VM finds the registered extension by exact name, which '
-                  'matches one of the WidgetInspectorServiceExtensions enum values.',
-            ),
-            _WiseTimelineStep(
-              step: '03',
-              label: 'WidgetInspectorService handles it',
-              body:
-                  'The bound Dart callback runs on the UI isolate. It walks the '
-                  'element tree, reads DiagnosticsNodes, or updates selection — '
-                  'then wraps the result with inspector-* ids under an object group.',
-            ),
-            _WiseTimelineStep(
-              step: '04',
-              label: 'JSON serialization',
-              body:
-                  'The service uses InspectorSerializationDelegate to turn Dart '
-                  'objects into stable JSON. Every field name, every numeric id, '
-                  'and every type hint becomes part of the wire contract.',
-            ),
-            _WiseTimelineStep(
-              step: '05',
-              label: 'Response ships back',
-              body:
-                  'The VM service sends the JSON reply back over the same '
-                  'WebSocket frame id. DevTools renders it in whatever panel '
-                  'triggered the request.',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _WiseTimelineStep extends StatelessWidget {
-  const _WiseTimelineStep({
-    required this.step,
-    required this.label,
-    required this.body,
-  });
-
-  final String step;
-  final String label;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: _wiseChalk,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _wiseParchmentDeep, width: 1),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 36,
-            height: 36,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: _wiseBlueprintDeep,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              step,
-              style: const TextStyle(
-                color: _wiseIvory,
-                fontWeight: FontWeight.w900,
-                fontSize: 13,
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              const SizedBox(height: 4),
+              for (final String s in suggestions)
                 Text(
-                  label,
+                  '· $s',
                   style: const TextStyle(
-                    color: _wiseInk,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.3,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  body,
-                  style: const TextStyle(
-                    color: _wiseGraphite,
+                    color: _kBlueprintDeep,
+                    fontFamily: 'monospace',
                     fontSize: 12,
-                    height: 1.44,
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WiseTimelinePainter extends CustomPainter {
-  _WiseTimelinePainter({required this.phase});
-
-  final double phase;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint bg = Paint()..color = _wiseBlueprintDeep;
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
-      bg,
-    );
-
-    final Paint grid = Paint()
-      ..color = _wiseIvory.withValues(alpha: 0.06)
-      ..strokeWidth = 0.6;
-    const double step = 20;
-    for (double x = 0; x <= size.width; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-    }
-    for (double y = 0; y <= size.height; y += step) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
-    }
-
-    final double laneY = size.height * 0.5;
-    const int nodes = 5;
-    final double laneLeft = 40;
-    final double laneRight = size.width - 40;
-    final double spacing = (laneRight - laneLeft) / (nodes - 1);
-
-    // The rail
-    final Paint rail = Paint()
-      ..color = _wiseIvorySoft.withValues(alpha: 0.35)
-      ..strokeWidth = 2;
-    canvas.drawLine(Offset(laneLeft, laneY), Offset(laneRight, laneY), rail);
-
-    // Moving packet
-    final double packetX = laneLeft + phase * (laneRight - laneLeft);
-    final Paint glow = Paint()
-      ..color = _wiseBrassPale.withValues(alpha: 0.4);
-    canvas.drawCircle(Offset(packetX, laneY), 12, glow);
-    final Paint packet = Paint()..color = _wiseBrass;
-    canvas.drawCircle(Offset(packetX, laneY), 6, packet);
-
-    final List<String> labels = <String>[
-      'DevTools',
-      'VM service',
-      'inspector.X',
-      'Service impl',
-      'JSON reply',
-    ];
-
-    final Paint nodeFill = Paint()..color = _wiseIvorySoft;
-    final Paint nodeStroke = Paint()
-      ..color = _wiseOxblood
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.6;
-    for (int i = 0; i < nodes; i++) {
-      final double cx = laneLeft + spacing * i;
-      final Rect rect = Rect.fromCenter(
-        center: Offset(cx, laneY),
-        width: 80,
-        height: 28,
-      );
-      final RRect rrect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(6),
-      );
-      canvas.drawRRect(rrect, nodeFill);
-      canvas.drawRRect(rrect, nodeStroke);
-
-      final TextPainter tp = TextPainter(
-        text: TextSpan(
-          text: labels[i],
-          style: const TextStyle(
-            color: _wiseInk,
-            fontSize: 11.5,
-            fontWeight: FontWeight.w800,
-            fontFamily: 'RobotoMono',
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      tp.paint(canvas, Offset(cx - tp.width / 2, laneY - tp.height / 2));
-
-      // Step number above
-      final TextPainter step = TextPainter(
-        text: TextSpan(
-          text: '0${i + 1}',
-          style: const TextStyle(
-            color: _wiseBrass,
-            fontSize: 10,
-            fontWeight: FontWeight.w800,
-            fontFamily: 'RobotoMono',
-            letterSpacing: 1.0,
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      step.paint(canvas, Offset(cx - step.width / 2, laneY - 28));
-    }
-
-    // Arrows between nodes
-    final Paint arrow = Paint()
-      ..color = _wiseIvorySoft.withValues(alpha: 0.7)
-      ..strokeWidth = 1.4;
-    for (int i = 0; i < nodes - 1; i++) {
-      final double x1 = laneLeft + spacing * i + 40;
-      final double x2 = laneLeft + spacing * (i + 1) - 40;
-      canvas.drawLine(Offset(x1, laneY), Offset(x2, laneY), arrow);
-      // Arrowhead
-      final Path head = Path()
-        ..moveTo(x2, laneY)
-        ..lineTo(x2 - 6, laneY - 4)
-        ..lineTo(x2 - 6, laneY + 4)
-        ..close();
-      canvas.drawPath(head, Paint()..color = _wiseBrass);
-    }
-
-    // Bottom legend
-    final TextPainter legend = TextPainter(
-      text: const TextSpan(
-        text: 'one frame of the ext.flutter.inspector.* call rail',
-        style: TextStyle(
-          color: _wiseIvorySoft,
-          fontSize: 10.5,
-          fontStyle: FontStyle.italic,
-          fontFamily: 'RobotoMono',
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    legend.paint(
-      canvas,
-      Offset(size.width / 2 - legend.width / 2, size.height - 20),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _WiseTimelinePainter oldDelegate) =>
-      oldDelegate.phase != phase;
-}
-
-// ===========================================================================
-// CHAPTER 06 — RELATIONSHIP WITH WidgetInspectorService
-// ===========================================================================
-class _WiseRelationshipChapter extends StatelessWidget {
-  const _WiseRelationshipChapter();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: Column(
-        children: <Widget>[
-          _WiseSheet(
-            title: 'Chapter 06 — Enum vs service class',
-            subtitle: 'Names here, handlers there',
-            accent: _wiseBrass,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'WidgetInspectorServiceExtensions and WidgetInspectorService are '
-                  'a classic name/implementation split. The enum defines the wire '
-                  'vocabulary — essentially a table of strings — and the service '
-                  'class binds each of those strings to a Dart function that '
-                  'produces a reply.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                SizedBox(height: 10),
-                _WiseTwoColumnRow(
-                  left: 'WidgetInspectorServiceExtensions (this enum)',
-                  leftBody:
-                      '• Declares every inspector wire name in one place.\n'
-                      '• Zero runtime logic; its only job is to carry a name.\n'
-                      '• Changes here break tooling — rename with care.',
-                  right: 'WidgetInspectorService (the service class)',
-                  rightBody:
-                      '• Registers each name during initServiceExtensions.\n'
-                      '• Owns state: selection cursor, object groups, toggles.\n'
-                      '• Produces JSON payloads via serialization delegates.',
-                ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 06 / 02 — Registration pattern',
-            subtitle: 'Each enum value pairs with one callback',
-            accent: _wiseBlueprint,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                _WiseCodeBlock(
-                  code:
-                      'void _register(WidgetInspectorServiceExtensions ext, '
-                      'ServiceExtensionCallback cb) {\n'
-                      '  registerServiceExtension(\n'
-                      '    name: ext.name,\n'
-                      '    callback: cb,\n'
-                      '  );\n'
-                      '}\n\n'
-                      '_register(\n'
-                      '  WidgetInspectorServiceExtensions.getRootWidget,\n'
-                      '  _getRootWidget,\n'
-                      ');\n'
-                      '_register(\n'
-                      '  WidgetInspectorServiceExtensions.setSelectionById,\n'
-                      '  _setSelectionById,\n'
-                      ');',
-                ),
-                SizedBox(height: 6),
-                Text(
-                  'This tight loop over the enum values is what guarantees every '
-                  'member actually has a handler. Adding a member to the enum '
-                  'without wiring a callback is a visible gap.',
+              if (suggestions.isEmpty)
+                const Text(
+                  '(no suggestions)',
                   style: TextStyle(
-                    color: _wiseGraphite,
-                    fontSize: 12.5,
+                    color: _kGraphiteSoft,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
                     fontStyle: FontStyle.italic,
-                    height: 1.42,
                   ),
                 ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Chapter 06 / 03 — What the enum does NOT do',
-            subtitle: 'Separation of responsibilities',
-            accent: _wiseOxblood,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'It is tempting to think of the enum as "the inspector API". It '
-                  'is not. It is only the list of names. Trying to derive '
-                  'behaviour from the enum — for example by pattern-matching on '
-                  'its members — is almost always a code smell.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.46),
-                ),
-                SizedBox(height: 8),
-                _WiseFact(
-                  label: 'Does NOT hold',
-                  value: 'Element references, selection ids, or object groups.',
-                ),
-                _WiseFact(
-                  label: 'Does NOT decide',
-                  value: 'Whether a feature is enabled at runtime.',
-                ),
-                _WiseFact(
-                  label: 'Does NOT dispatch',
-                  value: 'Messages — the VM service does that.',
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WiseTwoColumnRow extends StatelessWidget {
-  const _WiseTwoColumnRow({
-    required this.left,
-    required this.leftBody,
-    required this.right,
-    required this.rightBody,
-  });
-
-  final String left;
-  final String leftBody;
-  final String right;
-  final String rightBody;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: _WiseTwoColumnCell(title: left, body: leftBody, tint: _wiseBlueprintPale),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: _WiseTwoColumnCell(title: right, body: rightBody, tint: _wiseMossPale),
-        ),
-      ],
-    );
-  }
-}
-
-class _WiseTwoColumnCell extends StatelessWidget {
-  const _WiseTwoColumnCell({
-    required this.title,
-    required this.body,
-    required this.tint,
-  });
-
-  final String title;
-  final String body;
-  final Color tint;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: tint,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _wiseParchmentDeep, width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: 12.5,
-              color: _wiseInk,
-              letterSpacing: 0.3,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            body,
-            style: const TextStyle(
-              color: _wiseGraphite,
-              fontSize: 11.8,
-              height: 1.4,
-              fontFamily: 'RobotoMono',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ===========================================================================
-// CHAPTER 07 — RECIPE CARDS
-// ===========================================================================
-class _WiseRecipeChapter extends StatelessWidget {
-  const _WiseRecipeChapter();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-      child: _WiseSheet(
-        title: 'Chapter 07 — Field recipes',
-        subtitle: 'Five patterns for using these extensions in practice',
-        accent: _wiseMoss,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _WiseRecipeCard(
-              number: 'R1',
-              title: 'Resolve the root widget from a test harness',
-              body:
-                  'An integration test that wants to assert about the live '
-                  'widget tree can open a VM service connection, call '
-                  'ext.flutter.inspector.getRootWidget, and recursively '
-                  'expand children. The returned valueIds are stable per '
-                  'object group, so the test can pin them across frames.',
-              code:
-                  '// pseudo-code — what a test harness would send\n'
-                  '{\n'
-                  '  "method": "ext.flutter.inspector.getRootWidget",\n'
-                  '  "params": { "objectGroup": "test-group-7" }\n'
-                  '}',
-            ),
-            _WiseRecipeCard(
-              number: 'R2',
-              title: 'Cycle object groups between phases of a script',
-              body:
-                  'Long-running DevTools sessions (or scripted inspectors) should '
-                  'ring-buffer their object groups. Create a new group for each '
-                  'exploration pass, then drop the previous one with '
-                  'disposeGroup to keep the reference table bounded.',
-              code:
-                  'final String g = "auto-\${DateTime.now().millisecondsSinceEpoch}";\n'
-                  'call("getRootWidget", { "objectGroup": g });\n'
-                  '// ... later ...\n'
-                  'call("disposeGroup", { "objectGroup": g });',
-            ),
-            _WiseRecipeCard(
-              number: 'R3',
-              title: 'Drive the Layout Explorer from a script',
-              body:
-                  'Automate layout tweaks in CI by calling '
-                  'ext.flutter.inspector.setFlexProperties with target values, '
-                  'then calling screenshot to capture the result. This is how '
-                  'golden-style Layout Explorer regressions are caught without '
-                  'opening DevTools.',
-              code:
-                  '{\n'
-                  '  "method": "ext.flutter.inspector.setFlexProperties",\n'
-                  '  "params": {\n'
-                  '    "id": "inspector-ci:42",\n'
-                  '    "mainAxisAlignment": "spaceBetween",\n'
-                  '    "crossAxisAlignment": "stretch"\n'
-                  '  }\n'
-                  '}',
-            ),
-            _WiseRecipeCard(
-              number: 'R4',
-              title: 'Two-way selection sync for a custom inspector',
-              body:
-                  'Build a custom overlay (not DevTools) that sends '
-                  'setSelectionById when a user clicks a widget on device, then '
-                  'listens for selection-changed service events, and re-queries '
-                  'getSelectedSummaryWidget to drive its own sidebar.',
-              code:
-                  '// on tap inside the app overlay\n'
-                  'call("setSelectionById", { "arg": tapId, "objectGroup": myGroup });\n\n'
-                  '// later, when a framework-side change fires an event:\n'
-                  'final reply = await call("getSelectedSummaryWidget", { "objectGroup": myGroup });',
-            ),
-            _WiseRecipeCard(
-              number: 'R5',
-              title: 'Heatmaps in production builds',
-              body:
-                  'In profile builds, toggle trackRebuildDirtyWidgets on for a '
-                  'few seconds to sample which widgets rebuild most often. The '
-                  'framework streams tally events; aggregate them offline to '
-                  'build a rebuild-pressure heatmap.',
-              code:
-                  '// start sampling\n'
-                  'call("trackRebuildDirtyWidgets", { "enabled": "true" });\n'
-                  '// later\n'
-                  'call("trackRebuildDirtyWidgets", { "enabled": "false" });',
-            ),
-            _WiseRecipeCard(
-              number: 'R6',
-              title: 'Expose user code without yelling at framework code',
-              body:
-                  'Call setPubRootDirectories with your project’s lib/ URI so '
-                  'DevTools can fade out flutter/ framework frames. For monorepos '
-                  'with several roots, call addPubRootDirectories for each.',
-              code:
-                  'call("setPubRootDirectories", {\n'
-                  '  "arg0": "file:///home/me/repo/app/lib",\n'
-                  '  "arg1": "file:///home/me/repo/design/lib"\n'
-                  '});',
-            ),
+            ],
           ],
         ),
       ),
@@ -2664,72 +2184,203 @@ class _WiseRecipeChapter extends StatelessWidget {
   }
 }
 
-class _WiseRecipeCard extends StatelessWidget {
-  const _WiseRecipeCard({
-    required this.number,
-    required this.title,
-    required this.body,
-    required this.code,
+// ===========================================================================
+// DEVTOOLS TIMELINE SECTION
+// ===========================================================================
+
+class _DevToolsTimelineSection extends StatelessWidget {
+  const _DevToolsTimelineSection();
+
+  @override
+  Widget build(BuildContext context) {
+    // Imagine DevTools opening: it issues a small, ordered batch of calls.
+    // We model that as a fixed sequence over the live enum values.
+    const List<WidgetInspectorServiceExtensions> openingSequence =
+        <WidgetInspectorServiceExtensions>[
+      WidgetInspectorServiceExtensions.isWidgetTreeReady,
+      WidgetInspectorServiceExtensions.isWidgetCreationTracked,
+      WidgetInspectorServiceExtensions.getPubRootDirectories,
+      WidgetInspectorServiceExtensions.structuredErrors,
+      WidgetInspectorServiceExtensions.getRootWidgetSummaryTree,
+      WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets,
+    ];
+    return _Card(
+      title: 'DEVTOOLS OPENING SEQUENCE',
+      subtitle:
+          'A typical DevTools "open inspector" handshake, modelled with real '
+          'enum values. Each step uses live `_summaryFor` and `_paramsFor`.',
+      accent: _kBlueprintDeep,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+        decoration: BoxDecoration(
+          color: _kParchmentDeep,
+          border: Border.all(color: _kBlueprintDeep, width: 1.4),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            for (int i = 0; i < openingSequence.length; i++) ...<Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 24,
+                    height: 24,
+                    margin: const EdgeInsets.only(right: 8, top: 1),
+                    decoration: const BoxDecoration(
+                      color: _kBlueprintDeep,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${i + 1}',
+                      style: const TextStyle(
+                        color: _kIvorySoft,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          _wireName(openingSequence[i]),
+                          style: const TextStyle(
+                            color: _kInk,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w800,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                        Text(
+                          _summaryFor(openingSequence[i]),
+                          style: const TextStyle(
+                            color: _kGraphite,
+                            fontSize: 12,
+                            height: 1.3,
+                          ),
+                        ),
+                        Text(
+                          'params: ${_paramsFor(openingSequence[i])}',
+                          style: const TextStyle(
+                            color: _kBlueprintDeep,
+                            fontFamily: 'monospace',
+                            fontSize: 11.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              if (i != openingSequence.length - 1)
+                Container(
+                  margin: const EdgeInsets.only(left: 11),
+                  width: 2,
+                  height: 14,
+                  color: _kBlueprintDeep,
+                ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ===========================================================================
+// STATS ROW
+// ===========================================================================
+
+class _StatsRow extends StatelessWidget {
+  const _StatsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    final int total = WidgetInspectorServiceExtensions.values.length;
+    final int mutators =
+        WidgetInspectorServiceExtensions.values.where(_isMutator).length;
+    final int streams = WidgetInspectorServiceExtensions.values
+        .where(_isStreamToggle)
+        .length;
+    final int deprecated = WidgetInspectorServiceExtensions.values
+        .where(_isDeprecated)
+        .length;
+    final int treeWalks = _membersOf(_CallBucket.treeWalk).length;
+    return _Card(
+      title: 'ROSTER STATISTICS',
+      subtitle:
+          'All counts derive from `WidgetInspectorServiceExtensions.values` '
+          'plus the helper switches above — no hardcoded numbers.',
+      accent: _kMoss,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _kMossPale,
+          border: Border.all(color: _kMoss, width: 1.4),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+            _StatTile(label: 'total', value: total, accent: _kBlueprintDeep),
+            _StatTile(label: 'mutators', value: mutators, accent: _kOxbloodDeep),
+            _StatTile(label: 'readers', value: total - mutators, accent: _kBlueprint),
+            _StatTile(label: 'streams', value: streams, accent: _kGraphite),
+            _StatTile(label: 'deprecated', value: deprecated, accent: _kOxblood),
+            _StatTile(label: 'tree-walks', value: treeWalks, accent: _kMoss),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatTile extends StatelessWidget {
+  const _StatTile({
+    required this.label,
+    required this.value,
+    required this.accent,
   });
 
-  final String number;
-  final String title;
-  final String body;
-  final String code;
+  final String label;
+  final int value;
+  final Color accent;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(12),
+      width: 120,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: _wiseChalk,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _wiseParchmentDeep, width: 1),
+        color: _kIvorySoft,
+        border: Border.all(color: accent, width: 1.4),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 38,
-                height: 30,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: _wiseMoss,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  number,
-                  style: const TextStyle(
-                    color: _wiseIvory,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 12.5,
-                    letterSpacing: 0.8,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w800,
-                    color: _wiseInk,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
           Text(
-            body,
-            style: const TextStyle(color: _wiseInk, fontSize: 12.4, height: 1.45),
+            '$value',
+            style: TextStyle(
+              color: accent,
+              fontWeight: FontWeight.w900,
+              fontSize: 22,
+            ),
           ),
-          const SizedBox(height: 8),
-          _WiseCodeBlock(code: code),
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              color: accent,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+              fontSize: 10,
+            ),
+          ),
         ],
       ),
     );
@@ -2737,155 +2388,54 @@ class _WiseRecipeCard extends StatelessWidget {
 }
 
 // ===========================================================================
-// CHAPTER 08 — GLOSSARY AND EPILOGUE
+// PLATFORM FOOTNOTE
 // ===========================================================================
-class _WiseGlossaryChapter extends StatelessWidget {
-  const _WiseGlossaryChapter();
+
+class _PlatformFootnote extends StatelessWidget {
+  const _PlatformFootnote();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+    final int total = WidgetInspectorServiceExtensions.values.length;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
+      decoration: BoxDecoration(
+        color: _kParchment,
+        border: Border.all(color: _kInk, width: 1.4),
+        borderRadius: BorderRadius.circular(3),
+      ),
       child: Column(
-        children: <Widget>[
-          _WiseSheet(
-            title: 'Chapter 08 — Glossary',
-            subtitle: 'Core vocabulary used above',
-            accent: _wiseGraphite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                _WiseGlossaryEntry(
-                  term: 'VM service',
-                  body:
-                      'The Dart VM’s protocol for external tools. Speaks JSON-RPC '
-                      'over WebSocket. Every inspector extension rides on top.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Service extension',
-                  body:
-                      'A named method registered with the VM service. Each '
-                      'inspector enum value is the name of such a method.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Isolate',
-                  body:
-                      'A Dart execution context. Flutter apps usually have one '
-                      'UI isolate. Extensions are registered per isolate.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Object group',
-                  body:
-                      'A string bucket the inspector uses to hold weak references '
-                      'to Elements. Lets clients free memory in one shot.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Inspection node',
-                  body:
-                      'A DiagnosticsNode snapshot with a stable id string like '
-                      '"inspector-12:77" that round-trips between client and VM.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Summary tree',
-                  body:
-                      'The filtered tree that excludes framework-internal widgets '
-                      'and shows only user-authored ones.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Pub root directories',
-                  body:
-                      'The allow-list of URIs the inspector treats as "user code" '
-                      'for highlighting and creation-location resolution.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Layout explorer node',
-                  body:
-                      'Enriched diagnostics describing flex direction, factors, '
-                      'and alignments. Drives the interactive overlay.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Track rebuild / repaint',
-                  body:
-                      'Two distinct counters. Rebuilds mean build() ran; repaints '
-                      'mean a RenderObject painted. Each has its own toggle.',
-                ),
-                _WiseGlossaryEntry(
-                  term: 'Structured errors',
-                  body:
-                      'Flutter mode where FlutterErrorDetails are reported as '
-                      'JSON so DevTools can render them as collapsible trees.',
-                ),
-              ],
-            ),
-          ),
-          _WiseSheet(
-            title: 'Epilogue — Treat this enum like a contract',
-            subtitle: 'Field inspectors keep good notebooks',
-            accent: _wiseOxbloodDeep,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'WidgetInspectorServiceExtensions is one of those rare enums '
-                  'whose members matter more as strings than as identifiers. Each '
-                  'name is a promise to every DevTools client in the world. That '
-                  'makes the enum itself a kind of field inspector’s notebook — '
-                  'stable, oxblood-stamped, pinned to a clipboard — so that any '
-                  'tool connecting to Flutter can look up what to say.',
-                  style: TextStyle(color: _wiseInk, fontSize: 13, height: 1.5),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  '— End of dossier —',
-                  style: TextStyle(
-                    color: _wiseGraphite,
-                    fontSize: 11.5,
-                    fontStyle: FontStyle.italic,
-                    letterSpacing: 0.6,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WiseGlossaryEntry extends StatelessWidget {
-  const _WiseGlossaryEntry({required this.term, required this.body});
-
-  final String term;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 140,
-            child: Text(
-              term,
-              style: const TextStyle(
-                color: _wiseOxbloodDeep,
-                fontWeight: FontWeight.w900,
-                fontSize: 12.5,
-                letterSpacing: 0.4,
-              ),
+          const Text(
+            'FIELD NOTES',
+            style: TextStyle(
+              color: _kInk,
+              fontWeight: FontWeight.w900,
+              fontSize: 12,
+              letterSpacing: 1.4,
             ),
           ),
-          Expanded(
-            child: Text(
-              body,
-              style: const TextStyle(
-                color: _wiseInk,
-                fontSize: 12.2,
-                height: 1.45,
-              ),
+          const SizedBox(height: 6),
+          Text(
+            'This dossier was rendered against $total live values of '
+            '`WidgetInspectorServiceExtensions`. Every panel above iterates the '
+            'enum, switches over its members, or compares against specific '
+            'values via `==`. The audit-flagged enum is therefore exercised at '
+            'runtime in every section.',
+            style: const TextStyle(
+              color: _kGraphite,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Wire prefix: ext.flutter.inspector.<enum.name>',
+            style: TextStyle(
+              color: _kBlueprintDeep,
+              fontFamily: 'monospace',
+              fontSize: 12,
             ),
           ),
         ],
