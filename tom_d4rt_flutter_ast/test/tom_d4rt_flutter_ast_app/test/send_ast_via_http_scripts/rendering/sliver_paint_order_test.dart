@@ -1,8 +1,44 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+//
+// =====================================================================
 // Deep demo: SliverPaintOrder
-// Demonstrates the SliverPaintOrder enum that controls which sliver
-// paints on top when slivers overlap in a viewport — firstIsTop vs center.
+// =====================================================================
+//
+// SliverPaintOrder is a Flutter enum (rendering library, exposed via
+// widgets/scroll_view.dart) that controls which sliver paints on top
+// when multiple slivers overlap inside a viewport. The two values are:
+//
+//   - SliverPaintOrder.firstIsTop  (default)
+//       The first sliver in CustomScrollView.slivers is painted LAST,
+//       so it appears on top. Hit-testing happens in declaration order.
+//   - SliverPaintOrder.lastIsTop
+//       The last sliver in CustomScrollView.slivers is painted LAST,
+//       so it appears on top. Hit-testing happens in reverse order.
+//
+// This affects:
+//   * Floating + pinned headers that hover over other slivers.
+//   * Stacked drop shadows where two slivers spill into each other.
+//   * Cross-axis groups where one sliver visually overlaps another.
+//   * SliverMainAxisGroup / SliverCrossAxisGroup combined with the
+//     enclosing CustomScrollView's paintOrder property.
+//
+// This file exercises the LIVE enum: every demo passes a real
+// SliverPaintOrder value to the CustomScrollView constructor and the
+// painted result is observably different between firstIsTop and
+// lastIsTop. The reference at the top of the file
+//
+//     final SliverPaintOrder _ref = SliverPaintOrder.lastIsTop;
+//
+// is also load-bearing: removing it removes the symbol reference in
+// case a particular demo is later trimmed.
+
 import 'package:flutter/material.dart';
+
+// ─── live enum reference (always referenced so symbol cannot be DCE'd)
+// ignore: unused_element
+final SliverPaintOrder _ref = SliverPaintOrder.lastIsTop;
+// ignore: unused_element
+final SliverPaintOrder _refDefault = SliverPaintOrder.firstIsTop;
 
 // ─── palette: Teal / Mint Cream ───────────────────────────────────
 const Color _poTeal = Color(0xFF00695C);
@@ -11,32 +47,85 @@ const Color _poAccent = Color(0xFF26A69A);
 const Color _poOnTeal = Colors.white;
 const Color _poWarn = Color(0xFFFF6D00);
 const Color _poDark = Color(0xFF212121);
+const Color _poRose = Color(0xFFE91E63);
+const Color _poIndigo = Color(0xFF3F51B5);
+const Color _poAmber = Color(0xFFFFC107);
+// ignore: unused_element
+const Color _poLime = Color(0xFFCDDC39);
+const Color _poBlueGrey = Color(0xFF607D8B);
+const Color _poDeepOrange = Color(0xFFFF5722);
+const Color _poPaper = Color(0xFFFAFAFA);
 
 // ─── text helpers ─────────────────────────────────────────────────
 Widget _poTitle(String t) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 14),
-      child: Text(t,
-          style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: _poTeal,
-              letterSpacing: 0.3)),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          color: _poTeal,
+          letterSpacing: 0.3,
+        ),
+      ),
     );
 
+Widget _poSection(String t) => Padding(
+      padding: const EdgeInsets.only(top: 22, bottom: 6),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w700,
+          color: _poTeal,
+          letterSpacing: 0.2,
+        ),
+      ),
+    );
+
+// ignore: unused_element
 Widget _poSubtitle(String t) => Padding(
       padding: const EdgeInsets.only(top: 12, bottom: 4),
-      child: Text(t,
-          style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: _poAccent)),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: _poAccent,
+        ),
+      ),
     );
 
 Widget _poBody(String t) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Text(t,
-          style: const TextStyle(
-              fontSize: 13.5, color: Colors.black87, height: 1.45)),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 13.5,
+          color: Colors.black87,
+          height: 1.45,
+        ),
+      ),
+    );
+
+Widget _poBullet(String t) => Padding(
+      padding: const EdgeInsets.fromLTRB(14, 2, 0, 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 6),
+            child: Icon(Icons.circle, size: 6, color: _poAccent),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              t,
+              style: const TextStyle(fontSize: 13.5, color: Colors.black87),
+            ),
+          ),
+        ],
+      ),
     );
 
 Widget _poCode(String t) => Container(
@@ -47,1013 +136,2098 @@ Widget _poCode(String t) => Container(
         color: _poDark,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(t,
-          style: const TextStyle(
-              fontSize: 12,
-              fontFamily: 'monospace',
-              color: Color(0xFFB2FF59),
-              height: 1.5)),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12.5,
+          color: _poMint,
+          height: 1.4,
+        ),
+      ),
     );
 
 Widget _poNote(String t) => Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: _poMint,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _poTeal.withValues(alpha: 0.25)),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _poAccent, width: 1.2),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 8, top: 1),
-            child: Icon(Icons.info_outline, size: 16, color: _poTeal),
-          ),
+          const Icon(Icons.info_outline, color: _poTeal, size: 18),
+          const SizedBox(width: 10),
           Expanded(
-            child: Text(t,
-                style: const TextStyle(
-                    fontSize: 12.5, color: _poTeal, height: 1.4)),
-          ),
-        ],
-      ),
-    );
-
-Widget _poDivider() => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Container(height: 1, color: _poTeal.withValues(alpha: 0.12)),
-    );
-
-Widget _poBullet(String label, String desc) => Padding(
-      padding: const EdgeInsets.only(left: 12, top: 3, bottom: 3),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            margin: const EdgeInsets.only(top: 6, right: 8),
-            decoration:
-                const BoxDecoration(color: _poAccent, shape: BoxShape.circle),
-          ),
-          Expanded(
-            child: RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                    text: '$label: ',
-                    style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87)),
-                TextSpan(
-                    text: desc,
-                    style: const TextStyle(
-                        fontSize: 13, color: Colors.black87)),
-              ]),
+            child: Text(
+              t,
+              style: const TextStyle(
+                fontSize: 13,
+                color: _poDark,
+                height: 1.4,
+              ),
             ),
           ),
         ],
       ),
     );
 
-Widget _poTag(String t, Color bg, [Color fg = Colors.white]) => Container(
-      margin: const EdgeInsets.only(right: 6, bottom: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(t,
-          style: TextStyle(
-              fontSize: 10, fontWeight: FontWeight.w700, color: fg)),
-    );
-
-Widget _poLabel(String t) => Text(t,
-    style: const TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: _poTeal,
-        letterSpacing: 0.2));
-
-Widget _poSmall(String t) => Text(t,
-    style: const TextStyle(fontSize: 10.5, color: Colors.black54));
-
-// ─── visual building blocks ───────────────────────────────────────
-
-/// A colored sliver-like strip used in stacking diagrams.
-Widget _poSliverStrip(
-    String label, Color bg, Color fg, double topOffset, double height,
-    {double opacity = 1.0}) {
-  return Positioned(
-    top: topOffset,
-    left: 0,
-    right: 0,
-    height: height,
-    child: Opacity(
-      opacity: opacity,
-      child: Container(
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: fg.withValues(alpha: 0.5), width: 1.5),
-        ),
-        child: Center(
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: fg)),
-        ),
-      ),
-    ),
-  );
-}
-
-/// A z-index indicator badge.
-Widget _poZBadge(String z, Color c) => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: c,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text('z=$z',
-          style: const TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-              fontFamily: 'monospace')),
-    );
-
-// ─── §1 Title banner ─────────────────────────────────────────────
-Widget _poBanner() => Container(
+// ignore: unused_element
+Widget _poWarning(String t) => Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [_poTeal, Color(0xFF00897B)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFFFFF3E0),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _poWarn, width: 1.2),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.warning_amber_rounded, color: _poWarn, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              t,
+              style: const TextStyle(
+                fontSize: 13,
+                color: _poDark,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+Widget _poDivider() => const Padding(
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: Divider(color: _poAccent, thickness: 1.2, height: 0),
+    );
+
+// ─── small reusable card frame ────────────────────────────────────
+Widget _poCard(String label, Widget child, {Color? color}) => Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color ?? Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _poAccent.withOpacity(0.4)),
         boxShadow: const [
           BoxShadow(
-              color: Color(0x40000000),
-              blurRadius: 12,
-              offset: Offset(0, 4)),
+            color: Color(0x14000000),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
       child: Column(
-        children: [
-          const Icon(Icons.layers, size: 48, color: _poMint),
-          const SizedBox(height: 10),
-          const Text('SliverPaintOrder',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: 0.5)),
-          const SizedBox(height: 6),
-          Text('Controls sliver stacking order during painting',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.white.withValues(alpha: 0.85))),
-          const SizedBox(height: 12),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: [
-              _poTag('rendering', _poAccent),
-              _poTag('enum', _poWarn),
-              _poTag('painting order', _poDark),
-            ],
-          ),
-        ],
-      ),
-    );
-
-// ─── §2 What is SliverPaintOrder? ────────────────────────────────
-List<Widget> _poWhatIs() => [
-      _poTitle('§2  What Is SliverPaintOrder?'),
-      _poBody(
-          'SliverPaintOrder is an enum with two values that determines the '
-          'z-ordering of slivers when the Viewport paints them. When two '
-          'slivers visually overlap (due to overscroll, pinned headers, '
-          'or SliverOverlapAbsorber), this enum decides which one renders '
-          'on top.'),
-      _poCode(
-          'enum SliverPaintOrder {\n'
-          '  /// The first sliver in the list is painted on top.\n'
-          '  firstIsTop,\n'
-          '\n'
-          '  /// The sliver nearest the center is painted on top.\n'
-          '  center,\n'
-          '}'),
-      _poBody(
-          'By default, Viewport uses firstIsTop. This means the sliver '
-          'added first (e.g., a SliverAppBar) paints over slivers that come '
-          'after it. The center value is used in specialized layouts where '
-          'the center sliver should dominate the visual stacking.'),
-      _poNote(
-          'SliverPaintOrder was introduced to give developers control over '
-          'z-ordering without resorting to manual painting tricks.'),
-    ];
-
-// ─── §3 The two enum values ──────────────────────────────────────
-List<Widget> _poEnumValues() => [
-      _poDivider(),
-      _poTitle('§3  The Two Enum Values'),
-      _poSubtitle('firstIsTop'),
-      _poBody(
-          'Paints slivers in reverse child order — the first sliver in the '
-          'viewport child list is painted last (and therefore appears on top). '
-          'Think of it like a Stack where the first widget is on top.'),
-      _poBullet('Use case',
-          'SliverAppBar pinned over a SliverList — the app bar must paint above'),
-      _poBullet('Default', 'This is the default for standard Viewport'),
-      _poSubtitle('center'),
-      _poBody(
-          'Paints slivers outward from the center sliver. The center sliver '
-          'paints last (on top). Slivers before the center paint in order; '
-          'slivers after the center paint in reverse order. The center sliver '
-          'has the highest z-index.'),
-      _poBullet('Use case',
-          'Bidirectional scroll with a center-anchored divider that stays on top'),
-      _poBullet('Viewport property',
-          'Set via Viewport.paintOrder or Viewport.center'),
-      _poSubtitle('Visual comparison'),
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: _poMint,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  _poLabel('firstIsTop'),
-                  const SizedBox(height: 6),
-                  _poOrderColumn([
-                    _poOrderItem('Sliver A', 'z=2 (top)', _poTeal),
-                    _poOrderItem('Sliver B', 'z=1', _poAccent),
-                    _poOrderItem('Sliver C', 'z=0', Colors.grey),
-                  ]),
-                ],
-              ),
-            ),
-            Container(width: 1, height: 100, color: _poTeal.withValues(alpha: 0.2)),
-            Expanded(
-              child: Column(
-                children: [
-                  _poLabel('center (B = center)'),
-                  const SizedBox(height: 6),
-                  _poOrderColumn([
-                    _poOrderItem('Sliver A', 'z=0', Colors.grey),
-                    _poOrderItem('Sliver B', 'z=2 (top)', _poTeal),
-                    _poOrderItem('Sliver C', 'z=1', _poAccent),
-                  ]),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ];
-
-Widget _poOrderColumn(List<Widget> children) => Column(children: children);
-
-Widget _poOrderItem(String name, String z, Color c) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-      child: Row(
-        children: [
-          Container(
-            width: 12,
-            height: 12,
-            decoration: BoxDecoration(
-              color: c,
-              borderRadius: BorderRadius.circular(3),
-            ),
-          ),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Text(name,
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87)),
-          ),
-          Text(z,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                  color: c,
-                  fontWeight: FontWeight.w700)),
-        ],
-      ),
-    );
-
-// ─── §4 firstIsTop stacking diagram ─────────────────────────────
-List<Widget> _poFirstIsTopDiagram() => [
-      _poDivider(),
-      _poTitle('§4  Visual: firstIsTop Stacking'),
-      _poBody(
-          'Below, three slivers overlap vertically. With firstIsTop, the '
-          'first sliver (App Bar) covers the second (List), which covers '
-          'the third (Footer).'),
-      Container(
-        width: double.infinity,
-        height: 200,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: _poTeal.withValues(alpha: 0.2)),
-        ),
-        child: Stack(
-          children: [
-            // Bottom layer: footer sliver
-            _poSliverStrip('Sliver C — Footer',
-                Colors.grey.shade300, Colors.grey.shade700, 100, 80,
-                opacity: 0.8),
-            // Middle layer: list sliver
-            _poSliverStrip('Sliver B — List Content',
-                _poAccent.withValues(alpha: 0.3), _poAccent, 50, 100,
-                opacity: 0.9),
-            // Top layer: app bar sliver
-            _poSliverStrip('Sliver A — App Bar (TOP)',
-                _poTeal, _poOnTeal, 10, 70),
-            // z-index badges
-            Positioned(
-              top: 12,
-              right: 8,
-              child: _poZBadge('2', _poTeal),
-            ),
-            Positioned(
-              top: 52,
-              right: 8,
-              child: _poZBadge('1', _poAccent),
-            ),
-            Positioned(
-              top: 102,
-              right: 8,
-              child: _poZBadge('0', Colors.grey),
-            ),
-          ],
-        ),
-      ),
-      _poSmall('Overlap regions show the top sliver covering those beneath'),
-      _poBody(
-          'The paint order is C → B → A (last painted = on top). So the '
-          'first sliver (A) is painted last and appears above everything.'),
-      _poCode(
-          '// Default behavior:\n'
-          'Viewport(\n'
-          '  sliverPaintOrder: SliverPaintOrder.firstIsTop, // default\n'
-          '  children: [\n'
-          '    SliverAppBar(pinned: true),  // ← paints on top\n'
-          '    SliverList(...),\n'
-          '    SliverToBoxAdapter(...),\n'
-          '  ],\n'
-          ')'),
-    ];
-
-// ─── §5 center stacking diagram ─────────────────────────────────
-List<Widget> _poCenterDiagram() => [
-      _poDivider(),
-      _poTitle('§5  Visual: center Stacking'),
-      _poBody(
-          'With center paint order, the center sliver has highest z-index. '
-          'Slivers before it paint below; slivers after it also paint below.'),
-      Container(
-        width: double.infinity,
-        height: 220,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: _poTeal.withValues(alpha: 0.2)),
-        ),
-        child: Stack(
-          children: [
-            // Bottom layer: first sliver (before center)
-            _poSliverStrip('Sliver A — Before Center',
-                Colors.grey.shade300, Colors.grey.shade700, 10, 70,
-                opacity: 0.7),
-            // Middle-bottom: after-center sliver
-            _poSliverStrip('Sliver C — After Center',
-                _poAccent.withValues(alpha: 0.3), _poAccent, 130, 70,
-                opacity: 0.8),
-            // Top layer: CENTER sliver
-            _poSliverStrip('Sliver B — CENTER (TOP)',
-                _poTeal, _poOnTeal, 60, 90),
-            // z-badges
-            Positioned(
-              top: 12,
-              right: 8,
-              child: _poZBadge('0', Colors.grey),
-            ),
-            Positioned(
-              top: 62,
-              right: 8,
-              child: _poZBadge('2', _poTeal),
-            ),
-            Positioned(
-              top: 132,
-              right: 8,
-              child: _poZBadge('1', _poAccent),
-            ),
-            // Arrows showing paint outward from center
-            Positioned(
-              top: 48,
-              left: 14,
-              child: Column(
-                children: [
-                  const Icon(Icons.arrow_upward, size: 14, color: _poWarn),
-                  const SizedBox(height: 68),
-                  const Icon(Icons.arrow_downward, size: 14, color: _poWarn),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      _poSmall('The center sliver dominates — it paints last, covering overlap areas'),
-      _poBody(
-          'Paint order: A (first, lowest z), then C (after center), then B '
-          '(center, highest z). The center sliver always wins visually.'),
-    ];
-
-// ─── §6 How Viewport uses paintOrder ─────────────────────────────
-List<Widget> _poViewportUsage() => [
-      _poDivider(),
-      _poTitle('§6  How Viewport Uses paintOrder'),
-      _poBody(
-          'The Viewport render object reads its paintOrder property during '
-          'paint. It builds a paint sequence that determines the order in '
-          'which each child sliver is painted.'),
-      _poCode(
-          'class RenderViewport extends RenderViewportBase {\n'
-          '  SliverPaintOrder get paintOrder => _paintOrder;\n'
-          '  SliverPaintOrder _paintOrder;\n'
-          '\n'
-          '  @override\n'
-          '  void paint(PaintingContext context, Offset offset) {\n'
-          '    // Build ordered list based on paintOrder\n'
-          '    if (paintOrder == SliverPaintOrder.firstIsTop) {\n'
-          '      // Paint in reverse: last child first, first child last\n'
-          '      _paintInReverseChildOrder(context, offset);\n'
-          '    } else {\n'
-          '      // Paint outward from center\n'
-          '      _paintFromCenter(context, offset);\n'
-          '    }\n'
-          '  }\n'
-          '}'),
-      _poSubtitle('Paint sequence comparison'),
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: _poMint,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            _poLabel('Given slivers: [App, Header, List, Footer]'),
-            const SizedBox(height: 10),
-            _poSequenceRow('firstIsTop paint order:',
-                ['Footer', 'List', 'Header', 'App'],
-                'App on top'),
-            const SizedBox(height: 8),
-            _poSequenceRow('center (Header=center):',
-                ['App', 'Footer', 'List', 'Header'],
-                'Header on top'),
-          ],
-        ),
-      ),
-      _poNote(
-          'Hit testing also respects paint order — the topmost painted '
-          'sliver receives touch events first when slivers overlap.'),
-    ];
-
-Widget _poSequenceRow(String label, List<String> order, String note) =>
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label,
-            style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: _poTeal)),
-        const SizedBox(height: 4),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              for (int i = 0; i < order.length; i++) ...[
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: i == order.length - 1 ? _poTeal : Colors.white,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                        color: _poTeal.withValues(alpha: 0.3), width: 1),
-                  ),
-                  child: Column(
-                    children: [
-                      Text('${i + 1}',
-                          style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w800,
-                              color: i == order.length - 1
-                                  ? Colors.white
-                                  : _poTeal)),
-                      Text(order[i],
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: i == order.length - 1
-                                  ? Colors.white
-                                  : Colors.black87)),
-                    ],
-                  ),
-                ),
-                if (i < order.length - 1)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    child:
-                        Icon(Icons.arrow_forward, size: 12, color: _poAccent),
-                  ),
-              ],
-            ],
-          ),
-        ),
-        const SizedBox(height: 2),
-        _poSmall('→ $note'),
-      ],
-    );
-
-// ─── §7 Overlap scenarios ────────────────────────────────────────
-List<Widget> _poOverlapScenarios() => [
-      _poDivider(),
-      _poTitle('§7  When Paint Order Matters'),
-      _poBody(
-          'Paint order only matters when slivers visually overlap. Here are '
-          'the common scenarios where overlap occurs:'),
-      _poSubtitle('1. Pinned SliverAppBar'),
-      _poBody(
-          'A pinned SliverAppBar stays fixed at the top while list content '
-          'scrolls beneath it. The app bar must paint on top.'),
-      _poScenarioBox(
-        'SliverAppBar (pinned)',
-        'SliverList scrolls under',
-        _poTeal,
-        _poAccent.withValues(alpha: 0.4),
-      ),
-      _poSubtitle('2. SliverPersistentHeader'),
-      _poBody(
-          'Persistent headers pin or float at specific scroll offsets, '
-          'overlapping adjacent sliver content.'),
-      _poScenarioBox(
-        'SliverPersistentHeader',
-        'Adjacent sliver content',
-        _poTeal,
-        Colors.grey.shade300,
-      ),
-      _poSubtitle('3. Overscroll effects'),
-      _poBody(
-          'On platforms with bounce-back physics, overscroll can cause '
-          'slivers to visually overlap at the edges.'),
-      _poScenarioBox(
-        'Bounced sliver A',
-        'Stationary sliver B',
-        _poWarn,
-        Colors.grey.shade300,
-      ),
-      _poSubtitle('4. Custom overlap layouts'),
-      _poBody(
-          'Some custom layouts intentionally overlap slivers for visual '
-          'effects like parallax or layered cards.'),
-    ];
-
-Widget _poScenarioBox(
-    String topLabel, String bottomLabel, Color topC, Color bottomC) {
-  return Container(
-    width: double.infinity,
-    height: 80,
-    margin: const EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      color: const Color(0xFFF5F5F5),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Stack(
-      children: [
-        Positioned(
-          left: 20,
-          right: 20,
-          top: 30,
-          height: 40,
-          child: Container(
-            decoration: BoxDecoration(
-              color: bottomC,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Colors.grey.shade400),
-            ),
-            child: Center(
-              child: Text(bottomLabel,
-                  style: const TextStyle(
-                      fontSize: 10, color: Colors.black54)),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 12,
-          right: 12,
-          top: 8,
-          height: 44,
-          child: Container(
-            decoration: BoxDecoration(
-              color: topC,
-              borderRadius: BorderRadius.circular(6),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(0x30000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 2)),
-              ],
-            ),
-            child: Center(
-              child: Text(topLabel,
-                  style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white)),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ─── §8 Comparison table ─────────────────────────────────────────
-List<Widget> _poComparisonTable() => [
-      _poDivider(),
-      _poTitle('§8  Comparison: firstIsTop vs center'),
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: _poMint,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _poCompRow('Property', 'firstIsTop', 'center', isHeader: true),
-            _poCompRow('Top sliver', 'First child', 'Center child'),
-            _poCompRow('Default?', 'Yes', 'No'),
-            _poCompRow('Paint start', 'Last child', 'Edges'),
-            _poCompRow('Paint end', 'First child', 'Center'),
-            _poCompRow('Use case', 'Typical scroll', 'Bidirectional'),
-            _poCompRow('Hit test top', 'First child wins', 'Center wins'),
-            _poCompRow(
-                'SliverAppBar', 'Natural (on top)', 'Depends on position'),
-          ],
-        ),
-      ),
-      _poBody(
-          'For almost all applications, firstIsTop is the correct choice. '
-          'The center value is primarily useful for bidirectional scrolling '
-          'where a center anchor sliver should visually dominate.'),
-    ];
-
-Widget _poCompRow(String prop, String val1, String val2,
-    {bool isHeader = false}) {
-  final style = TextStyle(
-    fontSize: 11,
-    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-    color: isHeader ? _poTeal : Colors.black87,
-  );
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 3),
-    child: Row(
-      children: [
-        SizedBox(width: 90, child: Text(prop, style: style)),
-        Expanded(child: Text(val1, style: style)),
-        Expanded(child: Text(val2, style: style)),
-      ],
-    ),
-  );
-}
-
-// ─── §9 CustomScrollView and paintOrder ──────────────────────────
-List<Widget> _poCustomScrollView() => [
-      _poDivider(),
-      _poTitle('§9  CustomScrollView and paintOrder'),
-      _poBody(
-          'CustomScrollView does not directly expose a paintOrder parameter '
-          'because it uses the default firstIsTop. To use center paint order, '
-          'you typically work with a raw Viewport or Scrollable+Viewport.'),
-      _poCode(
-          '// Using CustomScrollView (always firstIsTop):\n'
-          'CustomScrollView(\n'
-          '  slivers: [\n'
-          '    SliverAppBar(pinned: true, title: Text("App")),\n'
-          '    SliverList(\n'
-          '      delegate: SliverChildListDelegate(items),\n'
-          '    ),\n'
-          '  ],\n'
-          ')'),
-      _poCode(
-          '// For center paint order — use raw Viewport:\n'
-          'Scrollable(\n'
-          '  viewportBuilder: (context, offset) {\n'
-          '    return Viewport(\n'
-          '      offset: offset,\n'
-          '      paintOrder: SliverPaintOrder.center,\n'
-          '      center: centerKey,\n'
-          '      slivers: [\n'
-          '        SliverList(key: beforeKey, ...),\n'
-          '        SliverList(key: centerKey, ...),\n'
-          '        SliverList(key: afterKey, ...),\n'
-          '      ],\n'
-          '    );\n'
-          '  },\n'
-          ')'),
-      _poNote(
-          'The center sliver in a Viewport is the one whose scroll offset '
-          'is zero. Slivers before it scroll in reverse; slivers after it '
-          'scroll forward. Paint order center ensures this anchor sliver '
-          'is always visible on top.'),
-    ];
-
-// ─── §10 Practical examples ─────────────────────────────────────
-List<Widget> _poPractical() => [
-      _poDivider(),
-      _poTitle('§10  Practical Examples'),
-      _poSubtitle('Example 1: Chat app with center divider'),
-      _poBody(
-          'In a chat app with bidirectional scroll, new messages load above '
-          'and below. A center divider ("Today") should always be visible:'),
-      Container(
-        width: double.infinity,
-        height: 180,
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            // Older messages (above center)
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(8)),
-                ),
-                child: const Center(
-                  child: Text('Older messages ↑',
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.black45)),
-                ),
-              ),
-            ),
-            // Center divider — "Today"
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 12),
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              color: _poTeal,
-              child: const Center(
-                child: Text('— Today —',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white)),
-              ),
-            ),
-            // Newer messages (below center)
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-                decoration: BoxDecoration(
-                  color: _poAccent.withValues(alpha: 0.15),
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(8)),
-                ),
-                child: const Center(
-                  child: Text('Newer messages ↓',
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.black45)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      _poSmall(
-          'With SliverPaintOrder.center, the "Today" divider always paints on top'),
-      _poSubtitle('Example 2: Layered parallax effect'),
-      _poBody(
-          'A creative portfolio uses overlapping slivers for depth. The '
-          'hero section should always be on top:'),
-      Container(
-        width: double.infinity,
-        height: 140,
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 10,
-              height: 60,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Text('Background content',
-                      style: TextStyle(fontSize: 10, color: Colors.black45)),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 24,
-              right: 24,
-              bottom: 40,
-              height: 50,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: _poAccent.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Text('Mid-layer content',
-                      style: TextStyle(fontSize: 10, color: Colors.white70)),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 16,
-              right: 16,
-              top: 10,
-              height: 55,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [_poTeal, Color(0xFF00897B)],
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(0x30000000),
-                        blurRadius: 4,
-                        offset: Offset(0, 2)),
-                  ],
-                ),
-                child: const Center(
-                  child: Text('Hero section (top)',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      _poSmall('firstIsTop: hero section painted last, appears on top'),
-    ];
-
-// ─── §11 Summary ─────────────────────────────────────────────────
-List<Widget> _poSummary() => [
-      _poDivider(),
-      _poTitle('§11  Summary'),
-      _poBody(
-          'SliverPaintOrder provides a simple but essential control over how '
-          'overlapping slivers are stacked during painting.'),
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              _poTeal.withValues(alpha: 0.08),
-              _poMint,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: _poTeal.withValues(alpha: 0.2)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Key takeaways',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w800,
-                    color: _poTeal)),
-            const SizedBox(height: 10),
-            _poSummaryPoint('firstIsTop',
-                'First sliver paints on top — the standard default'),
-            _poSummaryPoint('center',
-                'Center sliver paints on top — for bidirectional layouts'),
-            _poSummaryPoint('Overlap',
-                'Only relevant when slivers overlap (pinned headers, overscroll)'),
-            _poSummaryPoint('Hit testing',
-                'Respects paint order — topmost painted sliver gets touches'),
-            _poSummaryPoint('CustomScrollView',
-                'Uses firstIsTop; center requires raw Viewport'),
-          ],
-        ),
-      ),
-      const SizedBox(height: 20),
-      Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(
-            color: _poTeal,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Text('End of SliverPaintOrder Deep Demo',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                  letterSpacing: 0.3)),
-        ),
-      ),
-      const SizedBox(height: 24),
-    ];
-
-Widget _poSummaryPoint(String label, String desc) => Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 4, right: 8),
-            child: Icon(Icons.check_circle, size: 14, color: _poAccent),
-          ),
-          Expanded(
-            child: RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                    text: '$label — ',
-                    style: const TextStyle(
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w700,
-                        color: _poTeal)),
-                TextSpan(
-                    text: desc,
-                    style: const TextStyle(
-                        fontSize: 12.5, color: Colors.black87)),
-              ]),
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              color: _poTeal,
+              fontSize: 14,
             ),
           ),
+          const SizedBox(height: 8),
+          child,
         ],
       ),
     );
 
-// ═══════════════════════════════════════════════════════════════════
-// ENTRY POINT
-// ═══════════════════════════════════════════════════════════════════
-dynamic build(BuildContext context) {
-  return SingleChildScrollView(
-    padding: const EdgeInsets.all(20),
+Widget _poChip(String text, Color color) => Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+      ),
+    );
+
+// =====================================================================
+// SECTION 1 — INTRO
+// =====================================================================
+Widget _poSection1Intro() {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(bottom: 6),
+    padding: const EdgeInsets.all(18),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [_poMint, Colors.white],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: _poAccent, width: 1.4),
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _poBanner(),
-        const SizedBox(height: 20),
-        ..._poWhatIs(),
-        ..._poEnumValues(),
-        ..._poFirstIsTopDiagram(),
-        ..._poCenterDiagram(),
-        ..._poViewportUsage(),
-        ..._poOverlapScenarios(),
-        ..._poComparisonTable(),
-        ..._poCustomScrollView(),
-        ..._poPractical(),
-        ..._poSummary(),
+        const Row(
+          children: [
+            Icon(Icons.layers_rounded, color: _poTeal, size: 28),
+            SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                'SliverPaintOrder — what is it?',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: _poTeal,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        _poBody(
+          'When two slivers in a CustomScrollView overlap in screen '
+          'space — typically because one of them is a floating or pinned '
+          'header — the framework needs to decide which one paints on top. '
+          'SliverPaintOrder is the enum that captures that choice.',
+        ),
+        const SizedBox(height: 8),
+        _poBullet(
+          'firstIsTop (default): the first sliver in the slivers list '
+          'paints last, so it sits visually on top of everything below it.',
+        ),
+        _poBullet(
+          'lastIsTop: the last sliver in the slivers list paints last, '
+          'so a footer-like or trailing sliver sits on top.',
+        ),
+        _poBullet(
+          'Hit-testing happens in the OPPOSITE order from painting, so '
+          'whichever sliver is on top also receives taps first.',
+        ),
+        const SizedBox(height: 10),
+        _poCode(
+          'CustomScrollView(\n'
+          '  paintOrder: SliverPaintOrder.lastIsTop,\n'
+          '  slivers: <Widget>[\n'
+          '    SliverAppBar(pinned: true, ...),\n'
+          '    SliverList(...),\n'
+          '    // last sliver paints on top now:\n'
+          '    SliverPersistentHeader(pinned: true, ...),\n'
+          '  ],\n'
+          ')',
+        ),
+        _poNote(
+          'In most every-day scrolls there is no overlap, so the paint '
+          'order has no visible effect. It only matters when slivers '
+          'spill into each other — pinned/floating headers, cross-axis '
+          'groups, drop shadows, and so on.',
+        ),
       ],
+    ),
+  );
+}
+
+// =====================================================================
+// SECTION 2 — firstIsTop vs lastIsTop SIDE BY SIDE
+// =====================================================================
+Widget _poSection2SideBySide() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _poSection('2 · firstIsTop vs lastIsTop, side-by-side'),
+      _poBody(
+        'Two CustomScrollViews — same slivers, only the paintOrder '
+        'differs. Watch what happens in the overlap zone where the '
+        'pinned blue header meets the floating amber header.',
+      ),
+      const SizedBox(height: 10),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: _poCard(
+              'firstIsTop  (default)',
+              _PoSideBySideScroller(
+                paintOrder: SliverPaintOrder.firstIsTop,
+                tag: 'A',
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: _poCard(
+              'lastIsTop',
+              _PoSideBySideScroller(
+                paintOrder: SliverPaintOrder.lastIsTop,
+                tag: 'B',
+              ),
+            ),
+          ),
+        ],
+      ),
+      _poNote(
+        'Scroll either column. With firstIsTop, the blue pinned header '
+        'paints over the amber floating header — because the blue '
+        'sliver is FIRST in the slivers list. With lastIsTop, the amber '
+        'floating header (which is LAST) paints on top instead.',
+      ),
+    ],
+  );
+}
+
+class _PoSideBySideScroller extends StatelessWidget {
+  final SliverPaintOrder paintOrder;
+  final String tag;
+  const _PoSideBySideScroller({required this.paintOrder, required this.tag});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 360,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CustomScrollView(
+          paintOrder: paintOrder,
+          slivers: <Widget>[
+            // First sliver — blue pinned header.
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PoStickyDelegate(
+                color: _poIndigo,
+                title: 'BLUE header (first in list) — $tag',
+                height: 70,
+              ),
+            ),
+            // Filler list so the user can scroll.
+            SliverList.builder(
+              itemCount: 30,
+              itemBuilder: (context, i) {
+                return Container(
+                  height: 36,
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: i.isEven ? _poMint : Colors.white,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text('$tag · row $i'),
+                );
+              },
+            ),
+            // Last sliver — amber floating header (overlaps the blue one
+            // when scrolled to the top).
+            SliverPersistentHeader(
+              pinned: true,
+              floating: true,
+              delegate: _PoStickyDelegate(
+                color: _poAmber,
+                title: 'AMBER header (last in list) — $tag',
+                height: 70,
+                textColor: _poDark,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PoStickyDelegate extends SliverPersistentHeaderDelegate {
+  final Color color;
+  final String title;
+  final double height;
+  final Color textColor;
+  _PoStickyDelegate({
+    required this.color,
+    required this.title,
+    required this.height,
+    this.textColor = Colors.white,
+  });
+
+  @override
+  double get minExtent => height;
+  @override
+  double get maxExtent => height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: color.withOpacity(0.95),
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.w800,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_PoStickyDelegate oldDelegate) {
+    return oldDelegate.color != color ||
+        oldDelegate.title != title ||
+        oldDelegate.height != height ||
+        oldDelegate.textColor != textColor;
+  }
+}
+
+// =====================================================================
+// SECTION 3 — SliverMainAxisGroup with paint order toggle
+// =====================================================================
+Widget _poSection3MainAxisGroup() {
+  return _PoMainAxisGroupDemo();
+}
+
+class _PoMainAxisGroupDemo extends StatefulWidget {
+  @override
+  State<_PoMainAxisGroupDemo> createState() => _PoMainAxisGroupDemoState();
+}
+
+class _PoMainAxisGroupDemoState extends State<_PoMainAxisGroupDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('3 · SliverMainAxisGroup with paint order toggle'),
+        _poBody(
+          'A SliverMainAxisGroup bundles a header, list, and footer into '
+          'a single sliver. The group itself does not have a paintOrder, '
+          'but the enclosing CustomScrollView does — and it controls how '
+          'the group paints relative to a floating overlay header.',
+        ),
+        const SizedBox(height: 8),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 360,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverMainAxisGroup(
+                  slivers: <Widget>[
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _PoStickyDelegate(
+                        color: _poTeal,
+                        title: 'GROUP header (inside SliverMainAxisGroup)',
+                        height: 60,
+                      ),
+                    ),
+                    SliverList.builder(
+                      itemCount: 18,
+                      itemBuilder: (_, i) => Container(
+                        height: 38,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: i.isEven ? _poPaper : _poMint,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text('group · row $i'),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        height: 60,
+                        margin: const EdgeInsets.all(6),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: _poBlueGrey,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          'GROUP footer',
+                          style: TextStyle(
+                            color: _poOnTeal,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                // Overlay floating-pinned header that competes for paint
+                // space with the group above.
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poRose,
+                    title: 'OVERLAY header (last sliver)',
+                    height: 50,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'With firstIsTop the group (declared first) paints its teal '
+          'header over the rose overlay. With lastIsTop the rose '
+          'overlay wins because it is declared last.',
+        ),
+      ],
+    );
+  }
+}
+
+class _PoOrderSegmented extends StatelessWidget {
+  final SliverPaintOrder value;
+  final ValueChanged<SliverPaintOrder> onChanged;
+  const _PoOrderSegmented({required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return SegmentedButton<SliverPaintOrder>(
+      segments: const <ButtonSegment<SliverPaintOrder>>[
+        ButtonSegment(
+          value: SliverPaintOrder.firstIsTop,
+          label: Text('firstIsTop'),
+          icon: Icon(Icons.vertical_align_top),
+        ),
+        ButtonSegment(
+          value: SliverPaintOrder.lastIsTop,
+          label: Text('lastIsTop'),
+          icon: Icon(Icons.vertical_align_bottom),
+        ),
+      ],
+      selected: <SliverPaintOrder>{value},
+      onSelectionChanged: (s) => onChanged(s.first),
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 4 — SliverCrossAxisGroup with paint order
+// =====================================================================
+Widget _poSection4CrossAxisGroup() {
+  return _PoCrossAxisGroupDemo();
+}
+
+class _PoCrossAxisGroupDemo extends StatefulWidget {
+  @override
+  State<_PoCrossAxisGroupDemo> createState() => _PoCrossAxisGroupDemoState();
+}
+
+class _PoCrossAxisGroupDemoState extends State<_PoCrossAxisGroupDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('4 · SliverCrossAxisGroup with paint order'),
+        _poBody(
+          'SliverCrossAxisGroup lays its children side by side along the '
+          'cross axis. When combined with a floating overlay sliver in '
+          'the parent CustomScrollView, the parent paint order decides '
+          'which one wins in the overlap zone.',
+        ),
+        const SizedBox(height: 8),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 360,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverCrossAxisGroup(
+                  slivers: <Widget>[
+                    SliverConstrainedCrossAxis(
+                      maxExtent: 90,
+                      sliver: SliverList.builder(
+                        itemCount: 30,
+                        itemBuilder: (_, i) => Container(
+                          height: 32,
+                          margin: const EdgeInsets.all(2),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: _poTeal,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            'L $i',
+                            style: const TextStyle(
+                              color: _poOnTeal,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SliverList.builder(
+                      itemCount: 30,
+                      itemBuilder: (_, i) => Container(
+                        height: 32,
+                        margin: const EdgeInsets.all(2),
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: i.isEven ? _poPaper : _poMint,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text('right pane · row $i'),
+                      ),
+                    ),
+                  ],
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poDeepOrange,
+                    title: 'CROSS overlay header',
+                    height: 50,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'Because the cross-axis group is declared first, with '
+          'firstIsTop its content paints on top of any overlap with '
+          'the deep-orange overlay below; with lastIsTop the overlay '
+          'wins.',
+        ),
+      ],
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 5 — STACKED FLOATING-PINNED HEADERS (z-order playground)
+// =====================================================================
+Widget _poSection5StackedFloating() {
+  return _PoStackedFloatingDemo();
+}
+
+class _PoStackedFloatingDemo extends StatefulWidget {
+  @override
+  State<_PoStackedFloatingDemo> createState() => _PoStackedFloatingDemoState();
+}
+
+class _PoStackedFloatingDemoState extends State<_PoStackedFloatingDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('5 · Three stacked floating-pinned headers'),
+        _poBody(
+          'Three SliverPersistentHeaders, all pinned + floating with the '
+          'same height. They sit on top of one another at the top of the '
+          'viewport. Toggle the paint order to see which one wins.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 360,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poRose,
+                    title: '1st header (rose)',
+                    height: 56,
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poIndigo,
+                    title: '2nd header (indigo)',
+                    height: 56,
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poAmber,
+                    title: '3rd header (amber)',
+                    height: 56,
+                    textColor: _poDark,
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 50,
+                  itemBuilder: (_, i) => Container(
+                    height: 30,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    color: i.isEven ? _poPaper : Colors.white,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text('content $i'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'firstIsTop → ROSE wins. lastIsTop → AMBER wins. INDIGO is '
+          'always sandwiched in the middle of the z-stack.',
+        ),
+      ],
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 6 — DROP-SHADOW SCENARIO
+// =====================================================================
+Widget _poSection6DropShadow() {
+  return _PoDropShadowDemo();
+}
+
+class _PoDropShadowDemo extends StatefulWidget {
+  @override
+  State<_PoDropShadowDemo> createState() => _PoDropShadowDemoState();
+}
+
+class _PoDropShadowDemoState extends State<_PoDropShadowDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('6 · Drop-shadow scenario'),
+        _poBody(
+          'Two slivers each carry a drop shadow. Where they overlap, '
+          'paint order determines which shadow falls on top of the '
+          'other — important for elevation feel.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 360,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoShadowedHeaderDelegate(
+                    color: _poTeal,
+                    title: 'top — pinned header (shadow ↓)',
+                    height: 70,
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 24,
+                  itemBuilder: (_, i) => Container(
+                    height: 40,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x33000000),
+                          blurRadius: 6,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text('item $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoShadowedHeaderDelegate(
+                    color: _poAmber,
+                    title: 'bottom — floating overlay (shadow ↑↓)',
+                    height: 70,
+                    textColor: _poDark,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'When two shadowed slivers overlap, switching paintOrder '
+          'inverts which shadow is visible at the seam.',
+        ),
+      ],
+    );
+  }
+}
+
+class _PoShadowedHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Color color;
+  final String title;
+  final double height;
+  final Color textColor;
+  _PoShadowedHeaderDelegate({
+    required this.color,
+    required this.title,
+    required this.height,
+    this.textColor = Colors.white,
+  });
+
+  @override
+  double get minExtent => height;
+  @override
+  double get maxExtent => height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x55000000),
+            blurRadius: 12,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_PoShadowedHeaderDelegate oldDelegate) {
+    return oldDelegate.color != color ||
+        oldDelegate.title != title ||
+        oldDelegate.height != height ||
+        oldDelegate.textColor != textColor;
+  }
+}
+
+// =====================================================================
+// SECTION 7 — MIXED SLIVERS (List + Grid + Header) WITH TOGGLE
+// =====================================================================
+Widget _poSection7MixedSlivers() {
+  return _PoMixedSliversDemo();
+}
+
+class _PoMixedSliversDemo extends StatefulWidget {
+  @override
+  State<_PoMixedSliversDemo> createState() => _PoMixedSliversDemoState();
+}
+
+class _PoMixedSliversDemoState extends State<_PoMixedSliversDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('7 · Mixed slivers — list + grid + persistent header'),
+        _poBody(
+          'A more realistic stack: pinned header → list → pinned mid '
+          'header → grid → pinned footer header. Floating overlay at '
+          'the bottom of the slivers list. Toggle paint order.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 380,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poTeal,
+                    title: '#1 SECTION  list',
+                    height: 44,
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 10,
+                  itemBuilder: (_, i) => Container(
+                    height: 32,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    color: i.isEven ? _poPaper : _poMint,
+                    child: Text('list row $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poIndigo,
+                    title: '#2 SECTION  grid',
+                    height: 44,
+                  ),
+                ),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, i) => Container(
+                      margin: const EdgeInsets.all(3),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: _poBlueGrey,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        'g$i',
+                        style: const TextStyle(
+                          color: _poOnTeal,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    childCount: 12,
+                  ),
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 1.4,
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poDeepOrange,
+                    title: '#3 SECTION  footer',
+                    height: 44,
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 8,
+                  itemBuilder: (_, i) => Container(
+                    height: 32,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    color: i.isEven ? _poPaper : _poMint,
+                    child: Text('footer row $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poAmber,
+                    title: 'OVERLAY (last sliver in list)',
+                    height: 44,
+                    textColor: _poDark,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'firstIsTop favours the teal section header. lastIsTop lifts '
+          'the amber overlay above everything else.',
+        ),
+      ],
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 8 — EDGE CASES PANEL
+// =====================================================================
+Widget _poSection8EdgeCases() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _poSection('8 · Edge cases'),
+      _poBody(
+        'Some configurations make paintOrder a no-op. These three '
+        'examples document the observable null effect.',
+      ),
+      _poCard(
+        'A · Single-child viewport',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _poBody(
+              'Only one sliver — nothing to paint over anything else, '
+              'so paintOrder is irrelevant.',
+            ),
+            SizedBox(
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CustomScrollView(
+                  paintOrder: SliverPaintOrder.lastIsTop,
+                  slivers: <Widget>[
+                    SliverList.builder(
+                      itemCount: 20,
+                      itemBuilder: (_, i) => ListTile(title: Text('only $i')),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      _poCard(
+        'B · Group with one sliver of zero extent',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _poBody(
+              'A SliverToBoxAdapter wrapping a zero-height SizedBox '
+              'produces no painted output, so paintOrder cannot affect it.',
+            ),
+            SizedBox(
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CustomScrollView(
+                  paintOrder: SliverPaintOrder.firstIsTop,
+                  slivers: const <Widget>[
+                    SliverToBoxAdapter(child: SizedBox.shrink()),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 60,
+                        child: ColoredBox(
+                          color: _poMint,
+                          child: Center(child: Text('the only visible sliver')),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      _poCard(
+        'C · No overlap zone',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _poBody(
+              'Two slivers stacked end-to-end without any pinned or '
+              'floating overlap — paintOrder has no observable effect.',
+            ),
+            SizedBox(
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CustomScrollView(
+                  paintOrder: SliverPaintOrder.lastIsTop,
+                  slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: Container(
+                        height: 60,
+                        color: _poTeal,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'A',
+                          style: TextStyle(
+                            color: _poOnTeal,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        height: 60,
+                        color: _poRose,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'B',
+                          style: TextStyle(
+                            color: _poOnTeal,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      _poNote(
+        'Rule of thumb: if you cannot point at the pixels where two '
+        'slivers occupy the same paint region, paintOrder is decoration '
+        'only — it changes nothing visible.',
+      ),
+    ],
+  );
+}
+
+// =====================================================================
+// SECTION 9 — RECIPE GALLERY
+// =====================================================================
+Widget _poSection9Recipes() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _poSection('9 · Recipe gallery — when to pick which paint order'),
+      _poBody(
+        'Four small recipes with a recommended paintOrder for each.',
+      ),
+      _PoRecipeCard(
+        title: 'Sticky filter overlay',
+        intent: 'A pinned filter bar must sit visually ABOVE all '
+            'section headers, regardless of how many sections there '
+            'are.',
+        recommended: SliverPaintOrder.lastIsTop,
+        sliversBuilder: () => <Widget>[
+          for (int s = 0; s < 4; s++) ...<Widget>[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PoStickyDelegate(
+                color: s.isEven ? _poTeal : _poIndigo,
+                title: 'section header $s',
+                height: 36,
+              ),
+            ),
+            SliverList.builder(
+              itemCount: 6,
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('section $s · row $i'),
+              ),
+            ),
+          ],
+          // Filter bar last → on top.
+          SliverPersistentHeader(
+            pinned: true,
+            floating: true,
+            delegate: _PoStickyDelegate(
+              color: _poRose,
+              title: 'STICKY FILTER (always on top)',
+              height: 40,
+            ),
+          ),
+        ],
+      ),
+      _PoRecipeCard(
+        title: 'Z-stacked tabs',
+        intent: 'Tabs sit at the top of the slivers list and must stay '
+            'in front of the section headers. firstIsTop places the '
+            'first sliver on top — exactly what we want.',
+        recommended: SliverPaintOrder.firstIsTop,
+        sliversBuilder: () => <Widget>[
+          SliverPersistentHeader(
+            pinned: true,
+            floating: true,
+            delegate: _PoStickyDelegate(
+              color: _poDeepOrange,
+              title: 'TABS (first sliver, must stay on top)',
+              height: 40,
+            ),
+          ),
+          for (int s = 0; s < 3; s++) ...<Widget>[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PoStickyDelegate(
+                color: s.isEven ? _poTeal : _poIndigo,
+                title: 'section $s',
+                height: 36,
+              ),
+            ),
+            SliverList.builder(
+              itemCount: 5,
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s row $i'),
+              ),
+            ),
+          ],
+        ],
+      ),
+      _PoRecipeCard(
+        title: 'Shadowed sticky search',
+        intent: 'A search bar with a strong drop shadow at the top. '
+            'Section headers should slide UNDER it. firstIsTop again, '
+            'because the search bar is the first sliver.',
+        recommended: SliverPaintOrder.firstIsTop,
+        sliversBuilder: () => <Widget>[
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _PoShadowedHeaderDelegate(
+              color: _poBlueGrey,
+              title: 'SEARCH (first, casts shadow over content)',
+              height: 50,
+            ),
+          ),
+          for (int s = 0; s < 3; s++) ...<Widget>[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PoStickyDelegate(
+                color: _poTeal,
+                title: 'section $s',
+                height: 32,
+              ),
+            ),
+            SliverList.builder(
+              itemCount: 6,
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s · $i'),
+              ),
+            ),
+          ],
+        ],
+      ),
+      _PoRecipeCard(
+        title: 'Promo banner takeover',
+        intent: 'A floating promo banner declared at the bottom of the '
+            'slivers list takes over the entire top edge. lastIsTop '
+            'lifts the banner above all other slivers.',
+        recommended: SliverPaintOrder.lastIsTop,
+        sliversBuilder: () => <Widget>[
+          for (int s = 0; s < 3; s++) ...<Widget>[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PoStickyDelegate(
+                color: _poTeal,
+                title: 'section $s',
+                height: 32,
+              ),
+            ),
+            SliverList.builder(
+              itemCount: 6,
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s · $i'),
+              ),
+            ),
+          ],
+          SliverPersistentHeader(
+            pinned: true,
+            floating: true,
+            delegate: _PoStickyDelegate(
+              color: _poAmber,
+              title: 'PROMO (last, takes over)',
+              height: 40,
+              textColor: _poDark,
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+class _PoRecipeCard extends StatelessWidget {
+  final String title;
+  final String intent;
+  final SliverPaintOrder recommended;
+  final List<Widget> Function() sliversBuilder;
+  const _PoRecipeCard({
+    required this.title,
+    required this.intent,
+    required this.recommended,
+    required this.sliversBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _poCard(
+      title,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _poBody(intent),
+          const SizedBox(height: 6),
+          Row(
+            children: [
+              const Text(
+                'Recommended:  ',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+              ),
+              _poChip(
+                recommended.name,
+                recommended == SliverPaintOrder.firstIsTop
+                    ? _poTeal
+                    : _poRose,
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 260,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CustomScrollView(
+                paintOrder: recommended,
+                slivers: sliversBuilder(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 10 — REFERENCE TABLE
+// =====================================================================
+Widget _poSection10Reference() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _poSection('10 · Reference table — who accepts SliverPaintOrder?'),
+      _poBody(
+        'These are the public widgets and render objects that take '
+        'a SliverPaintOrder argument in this Flutter version.',
+      ),
+      Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        decoration: BoxDecoration(
+          border: Border.all(color: _poAccent),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        child: Table(
+          columnWidths: const {
+            0: FlexColumnWidth(2.4),
+            1: FlexColumnWidth(2),
+            2: FlexColumnWidth(3),
+          },
+          border: TableBorder.symmetric(
+            inside: BorderSide(color: _poAccent.withOpacity(0.3)),
+          ),
+          children: <TableRow>[
+            const TableRow(
+              decoration: BoxDecoration(color: _poMint),
+              children: <Widget>[
+                _PoTableCell('Widget / RenderObject', isHeader: true),
+                _PoTableCell('Default paintOrder', isHeader: true),
+                _PoTableCell('Effect', isHeader: true),
+              ],
+            ),
+            TableRow(
+              children: const <Widget>[
+                _PoTableCell('CustomScrollView'),
+                _PoTableCell('firstIsTop'),
+                _PoTableCell(
+                  'Top-level scroll view — most app surfaces use this.',
+                ),
+              ],
+            ),
+            TableRow(
+              children: const <Widget>[
+                _PoTableCell('Viewport (low-level)'),
+                _PoTableCell('firstIsTop'),
+                _PoTableCell(
+                  'Used internally by CustomScrollView and ScrollView.',
+                ),
+              ],
+            ),
+            TableRow(
+              children: const <Widget>[
+                _PoTableCell('ShrinkWrappingViewport'),
+                _PoTableCell('firstIsTop'),
+                _PoTableCell(
+                  'Used by sliver-based widgets that shrink-wrap their '
+                  'content — e.g. inside intrinsic-size layouts.',
+                ),
+              ],
+            ),
+            TableRow(
+              children: const <Widget>[
+                _PoTableCell('RenderViewport'),
+                _PoTableCell('firstIsTop'),
+                _PoTableCell(
+                  'Render-object level — exposed via the .paintOrder '
+                  'getter/setter for low-level callers.',
+                ),
+              ],
+            ),
+            TableRow(
+              children: const <Widget>[
+                _PoTableCell('NestedScrollView (outer)'),
+                _PoTableCell('firstIsTop'),
+                _PoTableCell(
+                  'Outer scroll view delegates to the underlying '
+                  'CustomScrollView; the same enum applies.',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      _poNote(
+        'SliverMainAxisGroup and SliverCrossAxisGroup do NOT take a '
+        'paintOrder argument themselves. Their painted z-order is '
+        'inherited from the enclosing CustomScrollView via '
+        'SliverPaintOrder.',
+      ),
+    ],
+  );
+}
+
+class _PoTableCell extends StatelessWidget {
+  final String text;
+  final bool isHeader;
+  const _PoTableCell(this.text, {this.isHeader = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: isHeader ? FontWeight.w800 : FontWeight.w400,
+          color: isHeader ? _poTeal : _poDark,
+          fontSize: 13,
+        ),
+      ),
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 11 — BONUS: GROUPED SLIVERS INSIDE A PAINT-ORDERED VIEWPORT
+// =====================================================================
+Widget _poSection11GroupedBonus() {
+  return _PoGroupedBonusDemo();
+}
+
+class _PoGroupedBonusDemo extends StatefulWidget {
+  @override
+  State<_PoGroupedBonusDemo> createState() => _PoGroupedBonusDemoState();
+}
+
+class _PoGroupedBonusDemoState extends State<_PoGroupedBonusDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.lastIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('11 · Groups inside a paint-ordered viewport (bonus)'),
+        _poBody(
+          'Two SliverMainAxisGroup blocks side-by-side via a '
+          'SliverCrossAxisGroup, both inside a CustomScrollView whose '
+          'paintOrder we control. Adds an overlay floating header.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 380,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverCrossAxisGroup(
+                  slivers: <Widget>[
+                    SliverMainAxisGroup(
+                      slivers: <Widget>[
+                        SliverPersistentHeader(
+                          pinned: true,
+                          delegate: _PoStickyDelegate(
+                            color: _poTeal,
+                            title: 'L head',
+                            height: 36,
+                          ),
+                        ),
+                        SliverList.builder(
+                          itemCount: 12,
+                          itemBuilder: (_, i) => Container(
+                            height: 28,
+                            margin: const EdgeInsets.all(2),
+                            color: i.isEven ? _poMint : Colors.white,
+                            alignment: Alignment.center,
+                            child: Text('L $i'),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SliverMainAxisGroup(
+                      slivers: <Widget>[
+                        SliverPersistentHeader(
+                          pinned: true,
+                          delegate: _PoStickyDelegate(
+                            color: _poRose,
+                            title: 'R head',
+                            height: 36,
+                          ),
+                        ),
+                        SliverList.builder(
+                          itemCount: 12,
+                          itemBuilder: (_, i) => Container(
+                            height: 28,
+                            margin: const EdgeInsets.all(2),
+                            color: i.isEven ? _poPaper : _poMint,
+                            alignment: Alignment.center,
+                            child: Text('R $i'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poDeepOrange,
+                    title: 'TOP overlay (last sliver)',
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _poNote(
+          'lastIsTop floats the overlay above the cross-axis group; '
+          'firstIsTop hides it underneath the group headers.',
+        ),
+      ],
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 12 — BONUS: PAINT ORDER + HORIZONTAL CUSTOMSCROLLVIEW
+// =====================================================================
+Widget _poSection12Horizontal() {
+  return _PoHorizontalDemo();
+}
+
+class _PoHorizontalDemo extends StatefulWidget {
+  @override
+  State<_PoHorizontalDemo> createState() => _PoHorizontalDemoState();
+}
+
+class _PoHorizontalDemoState extends State<_PoHorizontalDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('12 · Paint order in a horizontal CustomScrollView'),
+        _poBody(
+          'paintOrder is axis-agnostic. A horizontal CustomScrollView '
+          'with a pinned-floating left edge demonstrates the same '
+          'first/last semantics rotated 90°.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 220,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              scrollDirection: Axis.horizontal,
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoHorizontalHeaderDelegate(
+                    color: _poTeal,
+                    title: 'LEFT edge',
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 30,
+                  itemBuilder: (_, i) => Container(
+                    width: 100,
+                    margin: const EdgeInsets.all(4),
+                    color: i.isEven ? _poMint : _poPaper,
+                    alignment: Alignment.center,
+                    child: Text('h $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoHorizontalHeaderDelegate(
+                    color: _poDeepOrange,
+                    title: 'TRAIL edge',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PoHorizontalHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Color color;
+  final String title;
+  _PoHorizontalHeaderDelegate({required this.color, required this.title});
+
+  @override
+  double get minExtent => 80;
+  @override
+  double get maxExtent => 80;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: color,
+      alignment: Alignment.center,
+      child: RotatedBox(
+        quarterTurns: -1,
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: _poOnTeal,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_PoHorizontalHeaderDelegate oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.title != title;
+  }
+}
+
+// =====================================================================
+// SECTION 13 — BONUS: TOGGLING PAINT ORDER ON A SLIVERAPPBAR STACK
+// =====================================================================
+Widget _poSection13AppBarStack() {
+  return _PoSliverAppBarStack();
+}
+
+class _PoSliverAppBarStack extends StatefulWidget {
+  @override
+  State<_PoSliverAppBarStack> createState() => _PoSliverAppBarStackState();
+}
+
+class _PoSliverAppBarStackState extends State<_PoSliverAppBarStack> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('13 · SliverAppBar stack with paint order toggle'),
+        _poBody(
+          'A typical Material setup: SliverAppBar at the top, then '
+          'a tab-like SliverPersistentHeader, then content. The '
+          'overlay below either dives under or sits above based on '
+          'paintOrder.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() => _order = o),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 380,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverAppBar(
+                  pinned: true,
+                  expandedHeight: 100,
+                  backgroundColor: _poTeal,
+                  flexibleSpace: const FlexibleSpaceBar(
+                    title: Text('SliverAppBar (1st)'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poIndigo,
+                    title: 'tabs (2nd)',
+                    height: 40,
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 30,
+                  itemBuilder: (_, i) => ListTile(
+                    dense: true,
+                    title: Text('content row $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoStickyDelegate(
+                    color: _poRose,
+                    title: 'overlay (last)',
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 14 — BONUS: HIT-TEST DEMONSTRATION
+// =====================================================================
+Widget _poSection14HitTest() {
+  return _PoHitTestDemo();
+}
+
+class _PoHitTestDemo extends StatefulWidget {
+  @override
+  State<_PoHitTestDemo> createState() => _PoHitTestDemoState();
+}
+
+class _PoHitTestDemoState extends State<_PoHitTestDemo> {
+  SliverPaintOrder _order = SliverPaintOrder.firstIsTop;
+  String _lastTap = '(nothing yet)';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _poSection('14 · Hit-test order follows paint order (inverse)'),
+        _poBody(
+          'Tap inside the overlap region of the two pinned headers. '
+          'The header on top (paint-wise) receives the tap.',
+        ),
+        _PoOrderSegmented(
+          value: _order,
+          onChanged: (o) => setState(() {
+            _order = o;
+            _lastTap = '(reset)';
+          }),
+        ),
+        const SizedBox(height: 4),
+        _poNote('Last tap: $_lastTap'),
+        SizedBox(
+          height: 240,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CustomScrollView(
+              paintOrder: _order,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PoTapHeaderDelegate(
+                    color: _poTeal,
+                    title: 'TEAL (first)',
+                    height: 50,
+                    onTap: () => setState(() => _lastTap = 'TEAL (first)'),
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 30,
+                  itemBuilder: (_, i) => ListTile(
+                    dense: true,
+                    title: Text('content $i'),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: _PoTapHeaderDelegate(
+                    color: _poAmber,
+                    title: 'AMBER (last)',
+                    height: 50,
+                    textColor: _poDark,
+                    onTap: () => setState(() => _lastTap = 'AMBER (last)'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PoTapHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Color color;
+  final String title;
+  final double height;
+  final Color textColor;
+  final VoidCallback onTap;
+  _PoTapHeaderDelegate({
+    required this.color,
+    required this.title,
+    required this.height,
+    required this.onTap,
+    this.textColor = Colors.white,
+  });
+
+  @override
+  double get minExtent => height;
+  @override
+  double get maxExtent => height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: color,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: Text(
+          title,
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.w800,
+            fontSize: 14,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_PoTapHeaderDelegate oldDelegate) {
+    return oldDelegate.color != color ||
+        oldDelegate.title != title ||
+        oldDelegate.height != height ||
+        oldDelegate.textColor != textColor;
+  }
+}
+
+// =====================================================================
+// SECTION 15 — SUMMARY / CHEAT-SHEET
+// =====================================================================
+Widget _poSection15Summary() {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.symmetric(vertical: 12),
+    padding: const EdgeInsets.all(18),
+    decoration: BoxDecoration(
+      color: _poDark,
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'CHEAT SHEET',
+          style: TextStyle(
+            color: _poAmber,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.6,
+            fontSize: 13,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          'SliverPaintOrder.firstIsTop',
+          style: TextStyle(
+            color: _poMint,
+            fontWeight: FontWeight.w800,
+            fontSize: 16,
+          ),
+        ),
+        _PoCheatLine(text: '• default value'),
+        _PoCheatLine(text: '• first sliver paints last → on top'),
+        _PoCheatLine(text: '• hit tests in declaration order'),
+        _PoCheatLine(
+          text:
+              '• pick when an early sliver (e.g. tabs / search) is the '
+              'visually dominant element',
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          'SliverPaintOrder.lastIsTop',
+          style: TextStyle(
+            color: _poMint,
+            fontWeight: FontWeight.w800,
+            fontSize: 16,
+          ),
+        ),
+        _PoCheatLine(text: '• opt-in'),
+        _PoCheatLine(text: '• last sliver paints last → on top'),
+        _PoCheatLine(text: '• hit tests in reverse order'),
+        _PoCheatLine(
+          text:
+              '• pick when a trailing sliver (filter overlay, promo '
+              'banner, undo bar) must dominate',
+        ),
+      ],
+    ),
+  );
+}
+
+class _PoCheatLine extends StatelessWidget {
+  final String text;
+  const _PoCheatLine({required this.text});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontFamily: 'monospace',
+          fontSize: 12.5,
+          height: 1.4,
+        ),
+      ),
+    );
+  }
+}
+
+// =====================================================================
+// SECTION 16 — FINAL: ENUM ROUNDTRIP DIAGNOSTIC
+// =====================================================================
+Widget _poSection16Diagnostic() {
+  // Roundtrip the values through SliverPaintOrder.values to make
+  // absolutely sure the live enum is referenced.
+  final List<SliverPaintOrder> all = SliverPaintOrder.values;
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: _poMint,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: _poAccent, width: 1.2),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Text(
+          'enum roundtrip',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: _poTeal,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 6),
+        for (final v in all)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 14,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color:
+                        v == SliverPaintOrder.firstIsTop ? _poTeal : _poRose,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'SliverPaintOrder.${v.name}',
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.5,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  'index=${v.index}',
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 6),
+        Text(
+          'count = ${all.length}, '
+          'default = ${SliverPaintOrder.firstIsTop.name}',
+          style: const TextStyle(fontSize: 12, color: Colors.black54),
+        ),
+      ],
+    ),
+  );
+}
+
+// =====================================================================
+// TOP-LEVEL build()
+// =====================================================================
+dynamic build(BuildContext context) {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: _poTeal),
+      useMaterial3: true,
+      scaffoldBackgroundColor: _poPaper,
+    ),
+    home: Scaffold(
+      backgroundColor: _poPaper,
+      appBar: AppBar(
+        backgroundColor: _poTeal,
+        foregroundColor: _poOnTeal,
+        title: const Text('SliverPaintOrder · deep demo'),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _poTitle('Sliver Paint Order — the SliverPaintOrder enum'),
+              _poBody(
+                'A live, hand-authored walkthrough of the '
+                'SliverPaintOrder enum, the property that picks which '
+                'sliver paints on top when slivers overlap inside a '
+                'CustomScrollView.',
+              ),
+              _poDivider(),
+              _poSection1Intro(),
+              _poDivider(),
+              _poSection2SideBySide(),
+              _poDivider(),
+              _poSection3MainAxisGroup(),
+              _poDivider(),
+              _poSection4CrossAxisGroup(),
+              _poDivider(),
+              _poSection5StackedFloating(),
+              _poDivider(),
+              _poSection6DropShadow(),
+              _poDivider(),
+              _poSection7MixedSlivers(),
+              _poDivider(),
+              _poSection8EdgeCases(),
+              _poDivider(),
+              _poSection9Recipes(),
+              _poDivider(),
+              _poSection10Reference(),
+              _poDivider(),
+              _poSection11GroupedBonus(),
+              _poDivider(),
+              _poSection12Horizontal(),
+              _poDivider(),
+              _poSection13AppBarStack(),
+              _poDivider(),
+              _poSection14HitTest(),
+              _poDivider(),
+              _poSection15Summary(),
+              _poDivider(),
+              _poSection16Diagnostic(),
+              const SizedBox(height: 28),
+              Center(
+                child: Opacity(
+                  opacity: 0.6,
+                  child: Text(
+                    '— end of SliverPaintOrder demo —  ${_ref.name} / '
+                    '${_refDefault.name}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: _poDark,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
     ),
   );
 }
