@@ -126,6 +126,12 @@ class SendTestRunner {
   static HttpClient? _client;
   static Process? _testAppProcess;
   static bool _startedByRunner = false;
+  /// Set when a transport error is observed; the next [send] call will
+  /// recycle the test app before doing anything else. Decoupling recycle
+  /// from the catch path keeps the failed test inside flutter_test's per-test
+  /// 30s budget — the recycle (which can take ~10s) runs against the next
+  /// test's budget instead of cascading into "did not complete".
+  static bool _appNeedsRecycle = false;
   static const int _processLogTailLimit = 200;
 
   static final List<String> _testAppStdoutTail = <String>[];
@@ -175,24 +181,70 @@ class SendTestRunner {
     }
   }
 
-  /// Kill any existing process using [defaultPort].
+  /// Kill any existing test app process listening on [defaultPort].
+  ///
+  /// SIGKILL is mandatory — when an app's Dart event loop is wedged (e.g.
+  /// after a script disposed dozens of AutofillGroups, blocking the platform
+  /// message queue), SIGTERM queues against the dead loop and never fires.
+  /// We also restrict lsof to TCP LISTEN sockets so we don't accidentally
+  /// kill the harness or the test process itself if either has an
+  /// established connection on the port.
   static Future<void> _killExistingProcess() async {
-    try {
-      final result = await Process.run('lsof', ['-t', '-i', ':$defaultPort']);
-      final pids = result.stdout
-          .toString()
-          .trim()
-          .split('\n')
-          .where((s) => s.isNotEmpty);
-      for (final pidStr in pids) {
-        final pid = int.tryParse(pidStr);
-        if (pid != null) Process.killPid(pid, ProcessSignal.sigterm);
+    for (var attempt = 0; attempt < 5; attempt++) {
+      List<int> pids;
+      try {
+        final result = await Process.run('lsof', [
+          '-t',
+          '-i',
+          ':$defaultPort',
+          '-sTCP:LISTEN',
+        ]);
+        pids = result.stdout
+            .toString()
+            .trim()
+            .split('\n')
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty)
+            .map(int.tryParse)
+            .whereType<int>()
+            .toList();
+      } catch (_) {
+        return;
       }
-      if (pids.isNotEmpty) {
-        await Future<void>.delayed(const Duration(seconds: 2));
+      if (pids.isEmpty) {
+        return;
       }
-    } catch (_) {
-      // ignore
+      for (final pid in pids) {
+        try {
+          Process.killPid(pid, ProcessSignal.sigkill);
+        } catch (_) {
+          // Process may have already died between lsof and killPid.
+        }
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+    }
+  }
+
+  /// Block until [defaultPort] has no LISTEN socket, or [timeout] elapses.
+  /// After SIGKILL the kernel still needs a moment to reclaim the bind, and
+  /// `flutter run` will fail if it tries to bind too early.
+  static Future<void> _waitForPortFree({required Duration timeout}) async {
+    final deadline = DateTime.now().add(timeout);
+    while (DateTime.now().isBefore(deadline)) {
+      try {
+        final result = await Process.run('lsof', [
+          '-t',
+          '-i',
+          ':$defaultPort',
+          '-sTCP:LISTEN',
+        ]);
+        if (result.stdout.toString().trim().isEmpty) {
+          return;
+        }
+      } catch (_) {
+        return;
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 200));
     }
   }
 
@@ -281,28 +333,78 @@ class SendTestRunner {
     );
   }
 
+  /// Recycle the test app process: kill the wedged instance and start a fresh
+  /// one. Used by [send] when an HTTP transport call times out, indicating the
+  /// app's Dart event loop is stuck. Without recycling, the next send() would
+  /// hit the same wedge and the cascade would continue.
+  ///
+  /// No-op if the runner did not start the app itself.
+  static Future<void> _recycleTestApp() async {
+    if (!_startedByRunner) {
+      return;
+    }
+    // ignore: avoid_print
+    print('[recycle] killing wedged test app (pid=${_testAppProcess?.pid})');
+    try {
+      await _killTestApp();
+    } catch (_) {
+      // Process may already be gone — proceed to restart.
+    }
+    // Belt-and-braces: _killTestApp kills the `flutter` wrapper, but the
+    // wrapper's spawned linux/macos/windows desktop app is a separate
+    // process that does NOT receive a propagated signal. Reap it via the
+    // LISTEN socket on [defaultPort], then wait for the kernel to release
+    // the bind before launching a replacement.
+    await _killExistingProcess();
+    await _waitForPortFree(timeout: const Duration(seconds: 10));
+    _testAppProcess = null;
+    // ignore: avoid_print
+    print('[recycle] starting fresh test app');
+    await _startTestApp(timeout: const Duration(seconds: 60));
+    // /health is synchronous and only proves the HTTP server is up; it does
+    // not exercise the widget tree. Confirm the new app's event loop is
+    // actually responsive by doing a real /clear roundtrip.
+    // ignore: avoid_print
+    print('[recycle] verifying /clear roundtrip');
+    await _httpGet(
+      client,
+      '/clear',
+      host: defaultHost,
+      port: defaultPort,
+      timeout: const Duration(seconds: 8),
+    );
+    // ignore: avoid_print
+    print('[recycle] ready');
+  }
+
   static Future<void> _killTestApp() async {
     if (_testAppProcess != null) {
+      // SIGKILL the wrapper directly — graceful 'q' is unreliable when the
+      // app's Dart event loop is wedged: the wrapper sits waiting for an
+      // ack that will never come. The orphaned desktop child is reaped by
+      // [_killExistingProcess] right after.
       try {
-        _testAppProcess!.stdin.writeln('q');
-        await _testAppProcess!.stdin.flush();
-      } catch (_) {
-        // ignore
-      }
-      final exitCode = await _testAppProcess!.exitCode.timeout(
-        const Duration(seconds: 10),
-        onTimeout: () {
-          _testAppProcess!.kill(ProcessSignal.sigterm);
-          return -1;
-        },
-      );
-      if (exitCode == -1) {
-        await Future<void>.delayed(const Duration(seconds: 2));
         _testAppProcess!.kill(ProcessSignal.sigkill);
+      } catch (_) {
+        // Already exiting.
+      }
+      try {
+        _lastTestAppExitCode = await _testAppProcess!.exitCode.timeout(
+          const Duration(seconds: 3),
+          onTimeout: () => -1,
+        );
+      } catch (_) {
+        _lastTestAppExitCode = -1;
       }
       _testAppProcess = null;
-      _lastTestAppExitCode = exitCode;
     }
+    // Reap any spawned-but-orphaned desktop process still bound to the port.
+    // SIGKILL on the `flutter` wrapper does NOT propagate to the linux/macos/
+    // windows desktop app it spawned — they're separate processes. Without
+    // this cleanup, the app keeps running, stays bound to [defaultPort], and
+    // the next test run's isAppRunning() returns true → _startedByRunner
+    // stays false → _recycleTestApp becomes a no-op for the entire run.
+    await _killExistingProcess();
   }
 
   /// Get the HttpClient instance (must call setUp first).
@@ -338,6 +440,28 @@ class SendTestRunner {
       throw StateError('Script not found: $fullPath');
     }
 
+    // Bucket-2 cascade fix: if a previous script wedged the test app, recycle
+    // it now (before /clear) so this test runs against a fresh process. The
+    // previous script's test() already failed within its own 30s budget, so
+    // the recycle's cost is paid once — by this test, which then also has its
+    // full 30s budget for the actual work.
+    if (_appNeedsRecycle) {
+      _appNeedsRecycle = false;
+      try {
+        await _recycleTestApp();
+      } catch (error, stackTrace) {
+        // Recycle didn't produce a healthy app — re-arm the flag so the
+        // next test tries again, and surface the failure to flutter_test.
+        _appNeedsRecycle = true;
+        // ignore: avoid_print
+        print('[recycle] FAILED: $error');
+        Error.throwWithStackTrace(
+          StateError('Test app recycle failed: $error'),
+          stackTrace,
+        );
+      }
+    }
+
     if (clearFirst) {
       if (waitBeforeClear != null) {
         await Future<void>.delayed(waitBeforeClear);
@@ -348,6 +472,12 @@ class SendTestRunner {
         clearDuration = clearStopwatch.elapsed;
       } catch (error, stackTrace) {
         clearDuration = clearStopwatch.elapsed;
+        // Bucket-2 cascade fix: set the recycle flag IMMEDIATELY, before any
+        // slow diagnostics work. flutter_test's per-test 30s timeout can fire
+        // while we're collecting diagnostics; setting first guarantees the
+        // next test sees the flag even when our catch handler is racing with
+        // flutter_test's test-level timeout.
+        _appNeedsRecycle = true;
         final diagnostics = await _buildSendDiagnostics(
           operation: 'GET /clear',
           scriptPath: scriptPath,
@@ -390,6 +520,12 @@ class SendTestRunner {
       httpDuration = httpStopwatch.elapsed;
     } catch (error, stackTrace) {
       httpDuration = httpStopwatch.elapsed;
+      // Bucket-2 cascade fix: set the recycle flag IMMEDIATELY, before any
+      // slow diagnostics work. flutter_test's per-test 30s timeout can fire
+      // while we're collecting diagnostics; setting first guarantees the
+      // next test sees the flag even when our catch handler is racing with
+      // flutter_test's test-level timeout.
+      _appNeedsRecycle = true;
       final diagnostics = await _buildSendDiagnostics(
         operation: 'POST /build?filename=$encodedPath',
         scriptPath: scriptPath,
@@ -759,18 +895,31 @@ class SendTestRunner {
 
 // ── Private HTTP helpers ─────────────────────────────────────────────────────
 
+// Bucket-2 cascade fix: every HTTP helper enforces a hard timeout. Without
+// these caps, a wedged test-app event loop made the harness hang
+// indefinitely; flutter_test's per-test 30s timeout then killed each
+// subsequent test in turn, cascading through the rest of the suite. With
+// the timeouts the harness fails fast on transport, the catch sites in
+// send() observe the failure, recycle the app, and the next script runs
+// against a fresh process.
+const Duration _httpClearTimeout = Duration(seconds: 5);
+const Duration _httpBuildTimeout = Duration(seconds: 25);
+
 Future<Map<String, dynamic>> _httpGet(
   HttpClient client,
   String path, {
   required String host,
   required int port,
+  Duration timeout = _httpClearTimeout,
 }) async {
-  final request = await client.getUrl(Uri.parse('http://$host:$port$path'));
-  final response = await request.close();
-  final body = await utf8.decoder.bind(response).join();
-  final json = jsonDecode(body) as Map<String, dynamic>;
-  json['_httpStatus'] = response.statusCode;
-  return json;
+  return Future<Map<String, dynamic>>(() async {
+    final request = await client.getUrl(Uri.parse('http://$host:$port$path'));
+    final response = await request.close();
+    final body = await utf8.decoder.bind(response).join();
+    final json = jsonDecode(body) as Map<String, dynamic>;
+    json['_httpStatus'] = response.statusCode;
+    return json;
+  }).timeout(timeout);
 }
 
 /// POST with a JSON body (used for /interact).
@@ -780,15 +929,18 @@ Future<Map<String, dynamic>> _httpPost(
   String body, {
   required String host,
   required int port,
+  Duration timeout = _httpBuildTimeout,
 }) async {
-  final request = await client.postUrl(Uri.parse('http://$host:$port$path'));
-  request.headers.contentType = ContentType.json;
-  request.write(body);
-  final response = await request.close();
-  final responseBody = await utf8.decoder.bind(response).join();
-  final json = jsonDecode(responseBody) as Map<String, dynamic>;
-  json['_httpStatus'] = response.statusCode;
-  return json;
+  return Future<Map<String, dynamic>>(() async {
+    final request = await client.postUrl(Uri.parse('http://$host:$port$path'));
+    request.headers.contentType = ContentType.json;
+    request.write(body);
+    final response = await request.close();
+    final responseBody = await utf8.decoder.bind(response).join();
+    final json = jsonDecode(responseBody) as Map<String, dynamic>;
+    json['_httpStatus'] = response.statusCode;
+    return json;
+  }).timeout(timeout);
 }
 
 /// POST raw Dart source as plain text (used for /build).
@@ -798,16 +950,19 @@ Future<Map<String, dynamic>> _httpPostSource(
   String source, {
   required String host,
   required int port,
+  Duration timeout = _httpBuildTimeout,
 }) async {
-  final request = await client.postUrl(Uri.parse('http://$host:$port$path'));
-  request.headers.contentType =
-      ContentType('text', 'plain', charset: 'utf-8');
-  request.write(source);
-  final response = await request.close();
-  final responseBody = await utf8.decoder.bind(response).join();
-  final json = jsonDecode(responseBody) as Map<String, dynamic>;
-  json['_httpStatus'] = response.statusCode;
-  return json;
+  return Future<Map<String, dynamic>>(() async {
+    final request = await client.postUrl(Uri.parse('http://$host:$port$path'));
+    request.headers.contentType =
+        ContentType('text', 'plain', charset: 'utf-8');
+    request.write(source);
+    final response = await request.close();
+    final responseBody = await utf8.decoder.bind(response).join();
+    final json = jsonDecode(responseBody) as Map<String, dynamic>;
+    json['_httpStatus'] = response.statusCode;
+    return json;
+  }).timeout(timeout);
 }
 
 // =============================================================================

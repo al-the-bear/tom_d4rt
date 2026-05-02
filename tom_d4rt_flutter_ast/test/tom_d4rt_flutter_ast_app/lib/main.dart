@@ -381,9 +381,27 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           // '_dependents.isEmpty' assertion and occasionally freezing the app.
           // The addPostFrameCallback fires after rasterisation; at that point
           // all InheritedElement dependencies from the old tree are gone.
+          //
+          // Bucket-2 cascade fix: the post-frame callback is not guaranteed to
+          // fire if Flutter's frame scheduler is wedged (e.g. after a script
+          // that disposed dozens of AutofillGroups, each posting
+          // TextInput.finishAutofillContext platform messages). Without a
+          // fallback, /clear never responds, the harness HTTP call hangs
+          // forever, and flutter_test's per-test 30s timeout cascades through
+          // every subsequent script. Respond from whichever path fires first.
+          var clearResponded = false;
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (clearResponded) return;
+            clearResponded = true;
             if (mounted) {
               _respond(request, 200, {'status': 'cleared'});
+            }
+          });
+          Timer(const Duration(seconds: 2), () {
+            if (clearResponded) return;
+            clearResponded = true;
+            if (mounted) {
+              _respond(request, 200, {'status': 'cleared (timeout)'});
             }
           });
         default:
