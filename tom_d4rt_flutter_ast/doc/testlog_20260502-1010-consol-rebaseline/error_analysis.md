@@ -484,6 +484,29 @@ preservation were both regressed.
 3. Run `dart test test/flutter_patterns_test.dart` in
    `tom_d4rt_generator/`. Closing this removes 4 failures.
 
+**CLOSED 2026-05-02.** Fix landed in
+`tom_d4rt_generator/lib/src/bridge_generator.dart`
+`_generateFunctionWrapper` + new helper
+`_buildFunctionTypeSignature`:
+
+1. Capture the resolved (prefixed) return-cast type as
+   `wrapperReturnCastType` for both extractBridgedArg and
+   primitive paths; append `as $castType` to the
+   `extractBridgedArg<T>(...)` body so FLP-16/23/30 see the
+   literal `as <PrefixedReturnType>` cast in source.
+2. After the wrapper closure is built, emit a function-type
+   signature cast `as <Return> Function(<positional>{,<named>})`
+   on non-generic, non-named-param wrappers — `Object?` survives
+   here because the existing param-type resolver already
+   preserves the `?` suffix (FLP-28). Skipped for generic
+   wrappers (Dart syntax limit) and for typedefs with named
+   params (would re-introduce the `{bool allowUpscaling}` shape
+   that G-FLP-07 forbids; the wrapper closure handles defaults
+   anyway).
+3. Verified: `dart test test/flutter_patterns_test.dart` —
+   55/55 pass (previously 51/55). G-FLP-07 unaffected.
+   No interpreter mirror needed (generator-side fix only).
+
 ### Cluster MAP-COERCE — Native arg coercion for `Map<String,String>` (1 fail)
 
 Site: `tom_dcli_exec` `dcli_example_test.dart` `tomexample

@@ -13698,6 +13698,7 @@ class BridgeGenerator {
       genericTypeParamsDecl = '<$genericDeclParts>';
     }
     String wrapperBody;
+    String? wrapperReturnCastType;
     if (funcInfo.isVoid) {
       wrapperBody = '{ $callExpr; }';
     } else {
@@ -13713,6 +13714,7 @@ class BridgeGenerator {
           ? nullableReturnType
           : effectiveReturnType;
       final normalizedReturnType = funcInfo.returnType.replaceAll(' ', '');
+      wrapperReturnCastType = castType;
 
       // ENG-011: Use castCallbackResult for generic returns (when type is dynamic or Object).
       // This handles null safely when the callback's return type is a type parameter
@@ -13764,21 +13766,121 @@ class BridgeGenerator {
             // registered interface-proxy factory. Pass `visitor` so the
             // resolver has a context even when `_activeVisitor` is null
             // (typical during Flutter's own callback dispatch).
+            //
+            // Cluster FLP (G-FLP-16/23/30): also append `as $castType` to
+            // the result so the wrapper text contains the literal
+            // `as <PrefixedReturnType>` cast that downstream tests assert
+            // on (return-type preservation through bridge). The cast is
+            // redundant with `extractBridgedArg<T>`'s declared return
+            // type but makes the cast site explicit in the source —
+            // matching the legacy pre-GEN-081b emission shape.
             wrapperBody =
-                "{ return D4.extractBridgedArg<$castType>($callExpr, 'callback', visitor); }";
+                "{ return D4.extractBridgedArg<$castType>($callExpr, 'callback', visitor) as $castType; }";
           }
         }
       }
     }
 
     // Build complete wrapper
-    final wrapper = '$genericTypeParamsDecl($paramsStr) $wrapperBody';
+    var wrapper = '$genericTypeParamsDecl($paramsStr) $wrapperBody';
+
+    // Cluster FLP (G-FLP-28): for non-generic, non-void wrappers, append an
+    // explicit function-type cast `as <ReturnType> Function(<paramTypes>)`
+    // so the wrapper text contains the canonical function-type signature
+    // (parameter-name/default-value stripped). Without this, primitive-
+    // return wrappers like `bool Function(Object?)` emit only the closure
+    // body `(Object? p0) { ... as bool; }` and lose the function-type
+    // signature, which contravariance tests assert on.
+    //
+    // Skip the cast when:
+    //   • the wrapper is generic (`<T>(...)`) — generic function types
+    //     cannot be expressed as a literal function type in an `as` cast
+    //     outside a typedef declaration;
+    //   • the typedef has any named parameters — function types cannot
+    //     carry default values, and downstream tests (G-FLP-07) regex on
+    //     the textual `{bool allowUpscaling}` shape that would otherwise
+    //     be introduced by the cast for non-nullable optional named
+    //     parameters that the wrapper closure handles via a default.
+    if (wrapperReturnCastType != null &&
+        funcInfo.genericTypeParameters.isEmpty &&
+        funcInfo.namedParamTypes.isEmpty) {
+      final funcTypeSig = _buildFunctionTypeSignature(
+        funcInfo: funcInfo,
+        returnCastType: wrapperReturnCastType,
+        scopedTypeParams: scopedTypeParams,
+        typeToUri: typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      if (funcTypeSig != null) {
+        wrapper = '($wrapper) as $funcTypeSig';
+      }
+    }
 
     if (isNullable) {
       return '$callbackVarName == null ? null : $wrapper';
     } else {
       return wrapper;
     }
+  }
+
+  /// Cluster FLP (G-FLP-28): build the canonical function-type signature
+  /// (`<Return> Function(<positional>, {<named>})`) for a callback wrapper.
+  ///
+  /// Parameter names and default values are intentionally omitted — function
+  /// types in Dart do not carry them. The returned signature is suitable for
+  /// use as the right-hand side of an `as` cast applied to the closure literal
+  /// produced by [_generateFunctionWrapper].
+  ///
+  /// Returns `null` when the signature cannot be safely synthesised (e.g.,
+  /// nested function types that contain unresolved generics that would make
+  /// the cast a contravariance hazard).
+  String? _buildFunctionTypeSignature({
+    required FunctionTypeInfo funcInfo,
+    required String returnCastType,
+    required Map<String, String?> scopedTypeParams,
+    Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
+  }) {
+    String resolveParamType(String rawParamType) {
+      var paramType = _getTypeArgument(
+        rawParamType,
+        typeToUri: typeToUri,
+        classTypeParams: scopedTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      // GEN-062 parity: nested function types with unresolved generics
+      // collapse to bare `Function` to keep contravariance valid. Mirror
+      // the same rule used when emitting the wrapper parameter list.
+      if (paramType.contains('Function(') && paramType.contains('dynamic')) {
+        paramType = 'Function';
+      }
+      return paramType;
+    }
+
+    final positionalSigs = <String>[
+      for (final raw in funcInfo.positionalParamTypes) resolveParamType(raw),
+    ];
+
+    final namedSigs = <String>[];
+    for (final entry in funcInfo.namedParamTypes.entries) {
+      final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
+      final resolved = resolveParamType(entry.value);
+      if (isRequired) {
+        namedSigs.add('required $resolved ${entry.key}');
+      } else {
+        namedSigs.add('$resolved ${entry.key}');
+      }
+    }
+
+    final params = StringBuffer();
+    if (positionalSigs.isNotEmpty) {
+      params.write(positionalSigs.join(', '));
+    }
+    if (namedSigs.isNotEmpty) {
+      if (positionalSigs.isNotEmpty) params.write(', ');
+      params.write('{${namedSigs.join(', ')}}');
+    }
+    return '$returnCastType Function($params)';
   }
 
   /// Generates inline map conversion code for maps with function values.
