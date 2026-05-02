@@ -8910,81 +8910,71 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitInstanceCreationExpression(InstanceCreationExpression node) {
     final constructorNameNode = node.constructorName.type;
-    // These are var because the named-constructor ambiguity resolution below
-    // may reclassify them (mirrors GEN-107 fix in tom_d4rt_ast).
-    var constructorName =
-        constructorNameNode.name2.lexeme; // Name of the class
-    var namedConstructorPart = node
-        .constructorName.name?.name; // Name of the named constructor (or null)
+
+    // Resolve class name and named constructor, handling unresolved AST
+    // ambiguity where the parser can't distinguish ClassName.namedCtor(...)
+    // from importPrefix.ClassName(...). In unresolved AST, ClassName goes
+    // into NamedType.importPrefix and namedCtor goes into NamedType.name2,
+    // with ConstructorName.name being null.
+    //
+    // Mirrors tom_d4rt_ast's visitInstanceCreationExpression: the
+    // importPrefix-as-classname resolution is done UPFRONT, before any
+    // environment.get(constructorName) lookup, so a local variable named
+    // like a constructor (e.g. `final all = ...; ... Border.all(...)`)
+    // cannot shadow the constructor name resolution.
+    String constructorName;
+    String? namedConstructorPart;
     String? resolvedImportPrefix; // Real library prefix for prefix.ClassName()
+
+    if (node.constructorName.name != null) {
+      // Resolved form: type.name2 = class, constructorName.name = named ctor
+      // May also have importPrefix for prefix.ClassName.namedCtor() calls
+      constructorName = constructorNameNode.name2.lexeme;
+      namedConstructorPart = node.constructorName.name!.name;
+      if (constructorNameNode.importPrefix != null) {
+        resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
+      }
+    } else if (constructorNameNode.importPrefix != null) {
+      // Unresolved ambiguity: check if importPrefix is actually a class name.
+      // Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...),
+      // Border.all(...).
+      final possibleClassName = constructorNameNode.importPrefix!.name.lexeme;
+      Object? possibleType;
+      try {
+        possibleType = environment.get(possibleClassName);
+      } on RuntimeD4rtException {
+        possibleType = null;
+      }
+      if (possibleType is InterpretedClass || possibleType is BridgedClass) {
+        // importPrefix was actually the class name, name2 is the named ctor.
+        constructorName = possibleClassName;
+        namedConstructorPart = constructorNameNode.name2.lexeme;
+      } else {
+        // It really is a prefix.ClassName() call (e.g. ui.PointerData()).
+        constructorName = constructorNameNode.name2.lexeme;
+        resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
+        namedConstructorPart = null;
+      }
+    } else {
+      // Simple: ClassName() with no prefix, no named constructor
+      constructorName = constructorNameNode.name2.lexeme;
+      namedConstructorPart = null;
+    }
 
     Logger.debug(
         "[InstanceCreation] Creating instance of '$constructorName'${namedConstructorPart != null ? '.$namedConstructorPart' : ''}");
 
-    // Resolve the type, handling two ambiguous AST shapes:
-    //
-    //  1. Named-constructor ambiguity: the Dart analyzer parses
-    //     ClassName.namedCtor() in an unresolved (no-SDK) context as
-    //       NamedType(importPrefix='ClassName', name2='namedCtor')
-    //     with constructorName.name == null.
-    //     Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...).
-    //
-    //  2. Library-prefix call: prefix.ClassName() where `prefix` is an import
-    //     alias (e.g. `import 'dart:ui' as ui`). In unresolved context the
-    //     analyzer also puts `ui` in importPrefix and `PointerData` in name2.
-    //     We distinguish by checking whether the importPrefix resolves to a
-    //     class (case 1) or an Environment (case 2).
-    //     Mirrors the same logic in tom_d4rt_ast.
-    //
-    // If constructorName.name != null the form is already unambiguous:
-    //   prefix.ClassName.namedCtor() — track the prefix for the lookup below.
-    if (namedConstructorPart != null &&
-        constructorNameNode.importPrefix != null) {
-      resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
-    }
-
+    // Resolve the type — use prefix if present so that e.g. ui.StrutStyle
+    // resolves through the dart:ui prefixed environment, not the current scope.
+    final lookupName = resolvedImportPrefix != null
+        ? '$resolvedImportPrefix.$constructorName'
+        : constructorName;
     Object? typeValue;
     try {
-      final lookupName = resolvedImportPrefix != null
-          ? '$resolvedImportPrefix.$constructorName'
-          : constructorName;
       typeValue = environment.get(lookupName);
     } on RuntimeD4rtException {
-      final prefix = constructorNameNode.importPrefix;
-      if (prefix != null && namedConstructorPart == null) {
-        final possiblePrefix = prefix.name.lexeme;
-        Object? possibleType;
-        try {
-          possibleType = environment.get(possiblePrefix);
-        } on RuntimeD4rtException {
-          possibleType = null;
-        }
-        if (possibleType is InterpretedClass || possibleType is BridgedClass) {
-          // importPrefix was actually the class name, name2 is the named ctor.
-          // Examples: EdgeInsets.symmetric(...), WidgetStateProperty.all(...)
-          typeValue = possibleType;
-          constructorName = possiblePrefix;
-          namedConstructorPart = constructorNameNode.name2.lexeme;
-          Logger.debug(
-              "[InstanceCreation] Ambiguity resolved: class='$constructorName', ctor='$namedConstructorPart'");
-        } else {
-          // importPrefix is a real library prefix (e.g. `ui` for dart:ui).
-          // constructorName is already name2 (e.g. 'PointerData').
-          resolvedImportPrefix = possiblePrefix;
-          final lookupName = '$resolvedImportPrefix.$constructorName';
-          try {
-            typeValue = environment.get(lookupName);
-            Logger.debug(
-                "[InstanceCreation] Prefix-qualified lookup: '$lookupName'");
-          } on RuntimeD4rtException {
-            throw RuntimeD4rtException(
-                "Type '$constructorName' not found for instantiation.");
-          }
-        }
-      } else {
-        throw RuntimeD4rtException(
-            "Type '$constructorName' not found for instantiation.");
-      }
+      throw RuntimeD4rtException(
+          "Type '$constructorName' not found for instantiation.");
     }
 
     // Check the resolved type
