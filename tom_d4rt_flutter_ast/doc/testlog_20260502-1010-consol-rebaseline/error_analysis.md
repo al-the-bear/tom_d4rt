@@ -533,7 +533,7 @@ to the native typed map.
 2. Verify with `dart test test/dcli_example/dcli_example_test.dart
    --name 'environment'` in `tom_dcli_exec/`.
 
-### Cluster STRING-AS-PROCESS — `String.start` extension missing (2 fails)
+### Cluster STRING-AS-PROCESS — `String.start` extension missing (2 fails) — **CLOSED 2026-05-02**
 
 Site: `tom_dcli_exec` (`process_execution`, `redirect`).
 
@@ -544,24 +544,58 @@ Symptom (both):
 > default bridged constructor for 'Progress': type
 > 'InterpretedFunction' is not a subtype of type '(String) => void'`.
 
-**Root cause.** DCli-style `'cmd'.start(progress: …)` uses the
-DCli `StringAsProcess` extension. The extension is not registered
-on the bridged `String` class; secondarily the `Progress`
-constructor expects a native `(String) => void` callback but the
-interpreter passes an `InterpretedFunction`.
+**Actual root cause — stale `bin/dclie` binary.** The
+`StringAsProcess` extension *is* registered correctly in
+`tom_dcli_exec/lib/src/bridges/dcli_bridges.b.dart` (line 346,
+including `start`, `forEach`, `run`, `firstLine`, `lastLine`,
+`toList`, `toParagraph`, `parser`, `write`, `truncate`, `append`),
+and the `forEach` adapter already wraps the
+`InterpretedFunction` callback with a `(String p0) {
+D4.callInterpreterCallback(visitor, raw, [p0]); }` shim that
+becomes a real `(String) => void` Dart closure — so neither hypothesis
+in the original analysis was the actual problem.
 
-**Fix.**
+The real issue is that `test/dcli_example/dcli_example_test.dart`
+runs the *compiled* `bin/dclie` binary, and the rebuild gate in
+`_ensureDclieBinary()` only rebuilt when `bin/dclie.dart` itself
+was newer than the binary:
 
-1. Register the `StringAsProcess` extension methods (`start`,
-   `run`, `forEach`, `firstLine`, `lastLine`, `pipe`, …) on the
-   bridged `String` class for `tom_dcli_exec`. Either generate
-   them via the bridge generator from the DCli source or
-   hand-write a user-bridge in
-   `tom_dcli_exec/lib/src/d4rt_user_bridges/`.
-2. Wrap `InterpretedFunction` arguments at the `Progress`
-   constructor boundary with `D4.toNative<(String) => void>` so
-   the native call site receives a real Dart closure.
-3. Closing this fixes 2 of the 3 `tom_dcli_exec` failures.
+```dart
+// before:
+if (!binary.existsSync() ||
+    source.lastModifiedSync().isAfter(binary.lastModifiedSync())) {
+```
+
+`bin/dclie.dart` is a one-liner that calls `DcliRepl().run(...)` —
+it never changes. Whenever bridge regen updated
+`lib/src/bridges/dcli_bridges.b.dart` (which it did during the
+Cluster CB / IMPORT-CONFLICT / EXPORT fixes earlier in this
+session), the binary stayed at its March-3 build and ran with the
+old-shape extension table that didn't yet have `StringAsProcess`
+in its current form. The test then surfaced the missing-method
+error, exactly as if the bridge were missing.
+
+**Fix applied.**
+
+1. `tom_dcli_exec/test/dcli_example/dcli_example_test.dart`:
+   widened the rebuild gate to walk `bin/` and `lib/` recursively
+   and trigger recompilation if **any** `.dart` file is newer than
+   the binary. Generated `*.b.dart` regen now correctly invalidates
+   the cached binary.
+2. Forced a rebuild (`rm bin/dclie`) so the next test run picks up
+   the current bridge table.
+
+**Verification.**
+
+- `dart test test/dcli_example/dcli_example_test.dart -N process_execution` → PASS.
+- `dart test test/dcli_example/dcli_example_test.dart -N redirect` → PASS.
+- Full `dcli_example_test.dart` suite: +20 -1 (only `environment`
+  remains, which is the separate Cluster MAP-COERCE).
+
+No interpreter / bridge-generator changes — the existing
+`StringAsProcess` registration was already correct. The fix is
+test-infrastructure only and prevents this class of
+"works-after-recompile" flake from recurring.
 
 ### Cluster IMPORT-CONFLICT — Dual `BridgedClass` import (5 errors) — **CLOSED 2026-05-02**
 

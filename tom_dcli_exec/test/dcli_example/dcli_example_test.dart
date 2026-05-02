@@ -47,14 +47,33 @@ String _findProjectRoot() {
 }
 
 /// Compile the dclie binary if it doesn't exist or is outdated.
+///
+/// "Outdated" means: any `.dart` source under `bin/` or `lib/` has a newer
+/// `lastModified` timestamp than the binary. The previous gate only checked
+/// `bin/dclie.dart`, which left the binary stale whenever generated
+/// `*.b.dart` bridges were regenerated — see Cluster STRING-AS-PROCESS in
+/// `tom_d4rt_flutter_ast/doc/testlog_20260502-1010-consol-rebaseline/`.
 Future<String> _ensureDclieBinary() async {
   final binaryPath = p.join(_projectRoot, 'bin', 'dclie');
   final sourcePath = p.join(_projectRoot, 'bin', 'dclie.dart');
   final binary = File(binaryPath);
-  final source = File(sourcePath);
 
-  if (!binary.existsSync() ||
-      source.lastModifiedSync().isAfter(binary.lastModifiedSync())) {
+  bool needsRebuild() {
+    if (!binary.existsSync()) return true;
+    final binMtime = binary.lastModifiedSync();
+    for (final dir in ['bin', 'lib']) {
+      final root = Directory(p.join(_projectRoot, dir));
+      if (!root.existsSync()) continue;
+      for (final entity in root.listSync(recursive: true, followLinks: false)) {
+        if (entity is! File) continue;
+        if (!entity.path.endsWith('.dart')) continue;
+        if (entity.lastModifiedSync().isAfter(binMtime)) return true;
+      }
+    }
+    return false;
+  }
+
+  if (needsRebuild()) {
     final result = await Process.run(
       'dart',
       ['compile', 'exe', sourcePath, '-o', binaryPath],
