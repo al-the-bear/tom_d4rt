@@ -296,7 +296,7 @@ an empty lookup.
    relevant projects.
 4. Closing this cluster removes 2 failures.
 
-### Cluster INTROSPECT — `analyze()` leaks built-ins (4 fails)
+### Cluster INTROSPECT — `analyze()` leaks built-ins (4 fails) — **CLOSED 2026-05-02**
 
 Sites: `tom_d4rt` (`I-FILE-36`, `I-FILE-38`), `tom_d4rt_exec`
 (`I-FILE-36`, `I-FILE-38`).
@@ -308,24 +308,60 @@ Symptom:
 - `I-FILE-38`: expected `<0>`, actual `<1>` for an
   imports-only source.
 
-**Root cause.** `analyze()` returns the full environment including
-auto-registered `dart:core` natives (here, `identityHashCode`).
-The result should be filtered to *user-declared* symbols only.
+**Actual root cause.** `IntrospectionBuilder.buildFromEnvironment`
+walked the global `Environment` and filtered known built-in names
+through a hard-coded blocklist (`_isBuiltinName`) that listed
+common type names — `Object`, `String`, `int`, `print`,
+`identical`, … — but missed many other pre-registered natives. In
+particular `identityHashCode` was not in the list, so an empty
+source produced a one-element `variables` list. For an
+imports-only source the same leak surfaced as `result.all.length
+== 1` instead of `0`. A blocklist that has to enumerate every
+built-in is structurally fragile.
 
-**Fix.**
+**Applied fix.**
 
-1. Locate `analyze()` (likely
-   `tom_d4rt/lib/src/runtime/d4rt_base.dart` and the
-   `tom_d4rt_ast` mirror). It returns an `AnalysisResult` with
-   variables/functions/classes lists.
-2. Filter out symbols whose source identifier matches the
-   stdlib registration tag (the bridge-registered ones can be
-   marked with a flag at registration time, e.g.,
-   `EnvironmentEntry.isBuiltin = true`).
-3. Apply the filter in the `AnalysisResult` builder so the
-   returned lists reflect only the analyzed source.
-4. Run `dart test test/introspection_api_test.dart` in `tom_d4rt`
-   and `tom_d4rt_exec`. Closing this cluster removes 4 failures.
+1. Replaced the blocklist with an AST-derived **whitelist** of the
+   names actually declared in the analyzed source. When the caller
+   provides a `compilationUnit` (the typical case for `analyze()`),
+   `buildFromEnvironment` now collects user-declared names by
+   walking `compilationUnit.declarations`:
+   - `TopLevelVariableDeclaration` → each variable name.
+   - `ExtensionDeclaration` → the extension's name (named
+     extensions only — unnamed ones still get a synthetic
+     `<unnamed extension on T>` entry as before).
+   - `NamedCompilationUnitMember` (`ClassDeclaration`,
+     `EnumDeclaration`, `FunctionDeclaration`, `MixinDeclaration`,
+     `ExtensionTypeDeclaration`, `TypedefDeclaration`) → the
+     declaration's name token.
+   The environment walk then keeps only entries whose key is in
+   that whitelist. Pre-registered natives like `identityHashCode`,
+   `Object`, `print` are no longer reachable.
+2. The legacy `_isBuiltinName` blocklist is kept as a fallback
+   only for callers that build an `IntrospectionResult` without
+   passing a `compilationUnit` (backward-compat).
+3. Mirrored the change in
+   `tom_d4rt_ast/lib/src/runtime/introspection.dart` using
+   `SNamedDeclaration` (the mixin shared by all named
+   `SCompilationUnitMember` subtypes in `tom_ast_model`) per the
+   cross-sync rule.
+
+**Verification.**
+
+- `tom_d4rt`: `dart test test/introspection_api_test.dart` →
+  38/38 pass (I-FILE-36, I-FILE-38 included). Full suite +1740 −6
+  (was −8, Δ −2).
+- `tom_d4rt_exec`: `dart test test/introspection_api_test.dart` →
+  38/38 pass. Full suite +2162 −5 (I-FILE-36/38 gone; the
+  remaining −5 are DCL-RT-OPT-02, D4RT-TESTER-BUSY env flake,
+  G-DOV2-7, I-BUG-14a Won't-Fix, and I-COLL-25 HASHSET — all
+  pre-existing).
+- `tom_d4rt_ast`: full suite unchanged at +115 −2 (only the
+  pre-existing STDLIB-PI errors remain).
+- `dart analyze` on both edited files: no warnings/errors.
+
+Net cluster impact: −4 reds (−2 in `tom_d4rt`, −2 in
+`tom_d4rt_exec`).
 
 ### Cluster RETURNTYPE — Null return for non-nullable not caught (2 fails)
 

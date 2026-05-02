@@ -303,6 +303,16 @@ class IntrospectionBuilder {
     final variableTypeMap = <String, String>{};
     final processedExtensions = <String>{};
 
+    // Cluster INTROSPECT (I-FILE-36/38): when a compilation unit is provided,
+    // collect the names actually declared in the user's source. The
+    // environment also contains pre-registered stdlib natives (e.g.
+    // `identityHashCode`, `Object`, `print`); the legacy `_isBuiltinName`
+    // blocklist covered the common type names but missed many others
+    // (`identityHashCode` in particular). Driving the filter from the AST
+    // is exhaustive — anything not declared by the user is a built-in.
+    final Set<String>? userDeclaredNames =
+        compilationUnit == null ? null : <String>{};
+
     if (compilationUnit != null) {
       // Extract variable type annotations from AST
       for (final declaration in compilationUnit.declarations) {
@@ -313,6 +323,7 @@ class IntrospectionBuilder {
             if (typeName != null) {
               variableTypeMap[variable.name.lexeme] = typeName;
             }
+            userDeclaredNames!.add(variable.name.lexeme);
           }
         } else if (declaration is ExtensionDeclaration) {
           // Handle extensions (including unnamed ones) from AST
@@ -334,8 +345,14 @@ class IntrospectionBuilder {
               onType: onType,
               methods: methodNames,
             ));
+          } else {
+            userDeclaredNames!.add(extName);
           }
           processedExtensions.add(extName);
+        } else if (declaration is NamedCompilationUnitMember) {
+          // ClassDeclaration, EnumDeclaration, FunctionDeclaration,
+          // MixinDeclaration, ExtensionTypeDeclaration — all expose `name`.
+          userDeclaredNames!.add(declaration.name.lexeme);
         }
       }
     }
@@ -345,9 +362,17 @@ class IntrospectionBuilder {
       final name = entry.key;
       final value = entry.value;
 
-      // Skip internal/builtin names unless requested
-      if (!includeBuiltins && _isBuiltinName(name)) {
-        continue;
+      // Filter out anything not declared in the user's source. Two modes:
+      //   1. With a compilation unit (typical for `analyze()`), use the AST
+      //      whitelist — exhaustive and exact.
+      //   2. Without a compilation unit, fall back to the legacy
+      //      `_isBuiltinName` blocklist for backward compatibility.
+      if (!includeBuiltins) {
+        if (userDeclaredNames != null) {
+          if (!userDeclaredNames.contains(name)) continue;
+        } else if (_isBuiltinName(name)) {
+          continue;
+        }
       }
 
       if (value is InterpretedFunction) {
