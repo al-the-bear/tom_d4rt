@@ -174,7 +174,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | Cluster | Count | Symptom | Owner | Status |
 |--------|-------|---------|-------|--------|
 | **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically | **Partial — fixed for `SliderComponentShape` + `SpellCheckService`, deferred for `PreferredSizeWidget` (P1 in `interpreter_unfixable.md`).** See §9 below. |
-| **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances |
+| **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed (partial) — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass; `widgets/windowing_owner_mac_o_s_test.dart` still fails but on a downstream Priority-1 sub-case (`AnimatedBuilder.animation` expecting `Listenable`, getting `InterpretedInstance(RegularWindowControllerMacOS)`) — out of cluster scope. See §10 below.** |
 | **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` |
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the just-fixed `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | bridge generator — mixin chain composition needs to expose `value` getter through `AnimationWithParentMixin` like it does for `Animation<T>` directly |
 | **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents |
@@ -241,3 +241,72 @@ Same priority list as the `ast` analysis (§8):
 | `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/regression/{essential,important,secondary}.{log.txt,result.json}` | Captured regression suite evidence. |
 
 No `*.b.dart` files were edited by hand. No interpreter (`tom_d4rt`/`tom_d4rt_ast`) source change was needed for the fixed sub-cases — only the generator's allowlist needed extension.
+
+## 10. Cluster fix status — Priority 2 (`for-in` over `BridgedInstance<Object>`)
+
+**Status: FIXED (PARTIAL) — interpreter `for-in` unwrap landed; 2 of 3 scripts pass; the 3rd reveals a separate downstream Priority-1 sub-case (out of cluster scope).**
+
+### 10.1 Root cause
+
+Native bridge calls that return an `Iterable<T>` (e.g. `data.take(8)`) get
+wrapped as `BridgedInstance<Object>` because the script-side type is not a
+primitive. The interpreter's *collection-literal* `for-in` branch
+(`ForElement` inside `_processCollectionElement`, for the
+`ForEachPartsWithDeclaration` / `ForEachPartsWithIdentifier` shape) did not
+unwrap such bridged values before iteration — only the *pattern* variant
+directly below it did. Result: `Value used in collection 'for-in' must be
+an Iterable, but got BridgedInstance<Object>` for any list/set literal of
+the form:
+
+```dart
+final List<Widget> children = <Widget>[
+  for (final int n in data.take(8)) _vTile(n, _listAccent),
+];
+```
+
+### 10.2 Fix
+
+Mirror the unwrap that the pattern-variant branch already did: if
+`iterableValue` is not itself an `Iterable`, try `toBridgedInstance(...)` and,
+when its `nativeObject` is an `Iterable`, iterate that. Applied identically
+to both interpreters (per quest sync rule):
+
+| File | Site | Change |
+|------|------|--------|
+| `tom_d4rt/lib/src/interpreter_visitor.dart` (~line 5718) | `_processCollectionElement` → `ForElement` non-pattern branch | Added `BridgedInstance<Iterable>` unwrap; on failure, raise the existing `Value used in collection 'for-in' must be an Iterable, …` runtime error. |
+| `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` (~line 6559) | Same site, AST-driven (`SDeclaredIdentifier` / `SSimpleIdentifier`) | Identical pattern, mirrored 1-for-1. |
+
+No bridge `.b.dart` files touched. No generator change required. No script
+edits.
+
+### 10.3 Verification (rule b — interpreter-side change)
+
+| Script | Result |
+|--------|--------|
+| `painting/axis_test.dart` | **PASS** (was failing — `for (final int n in data.take(8)) ...`) |
+| `widgets/web_browser_detection_test.dart` | **PASS** |
+| `widgets/windowing_owner_mac_o_s_test.dart` | **STILL FAILS** — but the for-in error is gone; the new failure is a downstream Priority-1 sub-case: `AnimatedBuilder.animation` rejects `InterpretedInstance(RegularWindowControllerMacOS)` because the `Listenable` superclass coercion isn't wired up for that bridged type. Tracked under §9 / future Priority-1 sweep, not this cluster. |
+
+Full suites (rule b — must run essential + important + secondary):
+
+| Suite | Result | Baseline match |
+|-------|--------|---------------|
+| `essential_classes_test` | `+107 −1` | matches §9.1 baseline ✅ |
+| `important_classes_test` | `+164` | matches baseline ✅ |
+| `secondary_classes_test` | `+652 ~1 −1` | matches baseline ✅; the single failure remains the unrelated `dart_ui/string_attribute_test.dart` `Undefined variable: LocaleStringAttribute` (Batch-4 / generator-fix legacy, not a regression of this cluster) |
+
+No new regressions introduced.
+
+### 10.4 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_ai/d4rt/tom_d4rt/lib/src/interpreter_visitor.dart` | Added `BridgedInstance<Iterable>` unwrap to the non-pattern `ForElement` branch in `_processCollectionElement`. Cluster-tagged comment `Cluster IT-1`. |
+| `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` | Mirror change (same logic, AST node types). |
+| `tom_ai/d4rt/tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell. |
+
+No `.b.dart` files modified. No buildkit / generator changes. The
+`windowing_owner_mac_o_s_test.dart` residual failure is recorded for the
+Priority-1 sweep; it does not require a workaround entry in
+`interpreter_unfixable.md` — it is a real, fixable bridge issue, just
+outside this cluster's scope.

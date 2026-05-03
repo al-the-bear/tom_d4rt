@@ -5717,7 +5717,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         final iterableValue = iterableExpression.accept<Object?>(this);
 
+        // Cluster IT-1: collection-literal `for (final x in expr)` must
+        // accept a `BridgedInstance` whose native value is an `Iterable`.
+        // Native bridge calls (e.g. `data.take(8)`) return `Iterable<T>`
+        // wrapped in `BridgedInstance<Object>` because the script-side
+        // type is not a primitive. Mirror the unwrap that the pattern
+        // variant below already does. Affects scripts like
+        // `painting/axis_test.dart`, `widgets/web_browser_detection_test.dart`,
+        // `widgets/windowing_owner_mac_o_s_test.dart`.
+        Iterable<Object?>? unwrappedIterable;
         if (iterableValue is Iterable) {
+          unwrappedIterable = iterableValue;
+        } else {
+          final bridged = toBridgedInstance(iterableValue);
+          if (bridged.$2 && bridged.$1?.nativeObject is Iterable) {
+            unwrappedIterable = bridged.$1!.nativeObject as Iterable;
+          }
+        }
+
+        if (unwrappedIterable != null) {
           final loopEnvironment = Environment(enclosing: environment);
           final previousEnvironment = environment;
           environment = loopEnvironment;
@@ -5734,7 +5752,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   'Unexpected for-in loop variable type: ${loopVariableNode.runtimeType}');
             }
 
-            for (final item in iterableValue) {
+            for (final item in unwrappedIterable) {
               environment.assign(variableName, item);
               _processCollectionElement(element.body, collection, isMap: isMap);
             }
