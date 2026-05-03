@@ -1405,15 +1405,17 @@ class _EnumValueCards extends StatelessWidget {
           'One card per ScrollIncrementType.values entry. Everything on the '
           'card — color, defaults, binding — is derived via switch on the '
           'enum value at build time.',
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (final t in ScrollIncrementType.values) ...[
-            Expanded(child: _ValueCard(type: t)),
-            if (t != ScrollIncrementType.values.last)
-              const SizedBox(width: 16),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final t in ScrollIncrementType.values) ...[
+              Expanded(child: _ValueCard(type: t)),
+              if (t != ScrollIncrementType.values.last)
+                const SizedBox(width: 16),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -1879,14 +1881,16 @@ class _TeachingPanel extends StatelessWidget {
       title: '§8  Teaching panel',
       subtitle:
           'Design considerations when customising scroll increment behaviour.',
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (int i = 0; i < tiles.length; i++) ...[
-            Expanded(child: tiles[i]),
-            if (i < tiles.length - 1) const SizedBox(width: 12),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (int i = 0; i < tiles.length; i++) ...[
+              Expanded(child: tiles[i]),
+              if (i < tiles.length - 1) const SizedBox(width: 12),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -1994,14 +1998,16 @@ class _UseCasesStrip extends StatelessWidget {
     return _SectionShell(
       title: '§9  Use cases',
       subtitle: 'Common places where the line/page distinction matters.',
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (int i = 0; i < tiles.length; i++) ...[
-            Expanded(child: tiles[i]),
-            if (i < tiles.length - 1) const SizedBox(width: 10),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (int i = 0; i < tiles.length; i++) ...[
+              Expanded(child: tiles[i]),
+              if (i < tiles.length - 1) const SizedBox(width: 10),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

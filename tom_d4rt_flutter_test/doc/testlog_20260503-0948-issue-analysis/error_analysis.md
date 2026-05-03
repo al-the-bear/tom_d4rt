@@ -179,7 +179,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the script-side workaround in `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | interpreter — when the leaf bridge has no matching getter/method, walk the registered transitive supertype chain | **Fixed — supertype-walk fallback added to property lookup at three sites in both interpreters; supertype registration `AnimationWithParentMixin: ['Animation', 'Listenable']` added to both flutter registration packages. `backdrop_group_test` passes (no `Animation.value` error). See §11 below.** |
 | **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents | **Fixed (script-side) — all 3 scripts rewritten to `OverflowBar` + `OverflowBarAlignment` and parent-widget wrappers (`SizedBox`, `Padding`, `ConstrainedBox`, `IntrinsicWidth`, `Row + MainAxisAlignment.spaceBetween/spaceAround`); analyzer-clean and pass individually on `tom_d4rt_flutter_ast`. See §13 below.** |
 | **Removed Flutter API references (CupertinoTextField asserts)** | 2 (`cupertino/textfield`, `cupertino_text_selection_handle_controls`) | `minLines can't be greater than maxLines` | scripts — fix `minLines/maxLines` fixture values |
-| **Layout overflow / infinite-height** | 5 (`box_scroll_view`, `constrained_layout_builder`, `constraints_transform_box`, `do_nothing_action`, `scroll_increment_type`) | `RenderFlex overflowed by N pixels` / `BoxConstraints forces an infinite height` | scripts — bound the column / wrap in `SingleChildScrollView` / use `Expanded` correctly |
+| **Layout overflow / infinite-height** | 5 (`box_scroll_view`, `constrained_layout_builder`, `constraints_transform_box`, `do_nothing_action`, `scroll_increment_type`) | `RenderFlex overflowed by N pixels` / `BoxConstraints forces an infinite height` / `RenderConstraintsTransformBox overflowed by N pixels` | scripts — bound the column / wrap in `SingleChildScrollView` / use `Expanded` correctly | **Fixed (script-side) — all 5 scripts now report `frameworkErrors=0` on individual retest. Surgical layout-only fixes; no bridge / generator / interpreter changes. See §14 below.** |
 | **Interpreter — index-out-of-range, late init, null-aware on bridged null** | 4 (`drag_target_details` ×5, `regular_window_controller`, `route_transition_record`, `i_o_s_system_context_menu_item_cut`, `regular_window`) | various d4rt-side runtime errors | scripts — investigate per-script |
 | **Codec bridge: `BridgedInstance<Object>` payload, PlatformException** | 2 (`message_codec`, `method_codec`) | bridge passes `BridgedInstance<Object>` instead of native object | bridge generator + script — codec round-trip for interpreted payloads |
 | **Transport / wedge** | 1 (`automatic_keep_alive_client_mixin`) | 30 s `/build` timeout → recycle → 25 s POST timeout on retry | quest-level META watchdog (already documented in `interpreter_issues.md`) |
@@ -197,7 +197,7 @@ Same priority list as the `ast` analysis (§8):
 3. Bridge: `AnimationWithParentMixin.value` getter. **(P3 — fixed; see §11.)**
 4. Bridge: `Text.data` null handling. **(P4 — fixed script-side; see §12.)**
 5. Scripts: `ButtonBar*` removal sweep. **(P5 — fixed; see §13.)**
-6. Scripts: layout-overflow cleanup.
+6. Scripts: layout-overflow cleanup. **(P6 — fixed; see §14.)**
 7. META: test-app watchdog.
 
 ## 9. Cluster fix status — Priority 1 (`InterpretedInstance` not coerced for typed Flutter param)
@@ -584,3 +584,60 @@ changes. No interpreter or registration changes. Both drivers
 load the same script corpus from the `tom_d4rt_flutter_ast`
 directory (see `tom_d4rt_flutter_test/test/send_test_runner.dart:121`),
 so the rewrite lands once and benefits both.
+
+## 14. Cluster fix status — Priority 6 (`Layout overflow / infinite-height`)
+
+**Status: FIXED (script-side) — all 5 scripts now report `frameworkErrors=0` on individual retest.** No bridge-generator, interpreter, registration, or `.b.dart` changes.
+
+### 14.1 Failure inventory
+
+| Script | Original framework error | Root cause |
+|--------|-------------------------|-----------|
+| `widgets/box_scroll_view_test.dart` | `RenderFlex overflowed by 138 pixels on the bottom` | `_ShrinkWrapSection` "Card A" inner `Column` taller than its fixed-height ancestor. |
+| `widgets/constrained_layout_builder_test.dart` | `RenderFlex overflowed by 49 pixels on the bottom` | `_LiveConstraintsInspectorSection` inner `_ConstraintsView` exceeds the bounded card height. |
+| `widgets/constraints_transform_box_test.dart` | `RenderConstraintsTransformBox overflowed by 372 pixels on the right` | `_ClipBehaviorGallery` iterates `[Clip.none, Clip.hardEdge, Clip.antiAlias, Clip.antiAliasWithSaveLayer]`. The `Clip.none` tile shows an intentionally oversized child (~510 px) inside a 140 px box; the render object emits the overflow assertion in debug mode regardless of any outer clipper. |
+| `widgets/do_nothing_action_test.dart` | `BoxConstraints forces an infinite height.` | `_SectionConsumesKey.build` Row with `crossAxisAlignment: CrossAxisAlignment.stretch` inside a `SingleChildScrollView` (unbounded vertical extent → stretch wants infinite height). |
+| `widgets/scroll_increment_type_test.dart` | `BoxConstraints forces an infinite height.` | Three `Row` widgets in `_EnumValueCards.build`, `_TeachingPanel.build` and `_UseCasesStrip.build` placed inside vertically-unbounded ancestors with default cross-axis stretch propagating. |
+
+### 14.2 Fix (per script)
+
+| Script | Surgical fix |
+|--------|--------------|
+| `box_scroll_view_test.dart` | Wrapped `_ShrinkWrapSection` Card A inner `Column` in a `SingleChildScrollView` (~3-line addition at lines ~1490–1538). |
+| `constrained_layout_builder_test.dart` | Wrapped `_LiveConstraintsInspectorSection`'s `_ConstraintsView` in a `SingleChildScrollView` (3-line change at lines 1750–1752). |
+| `constraints_transform_box_test.dart` | Removed the `Clip.none` entry from the gallery's iteration list and updated the demo's prose (`subLabel` + a code comment) to explain that `Clip.none` would assert in debug builds; pointed the reader at Section 9 (Comparison), which uses `Clip.hardEdge` for the overflow case explicitly. Also dropped the redundant outer `ClipRect` (was added in a first attempt that didn't suppress the assertion — `RenderConstraintsTransformBox` emits the message based on its own `clipBehavior` field, not its ancestors). Lines ~995–1054. |
+| `do_nothing_action_test.dart` | Changed `crossAxisAlignment: CrossAxisAlignment.stretch` → `CrossAxisAlignment.start` on the Row at line 682 of `_SectionConsumesKey.build` (1-line change). |
+| `scroll_increment_type_test.dart` | Wrapped each of the 3 Rows (`_EnumValueCards.build` line 1409, `_TeachingPanel.build` line 1883, `_UseCasesStrip.build` line 1998) in `IntrinsicHeight` (9-line total addition). |
+
+### 14.3 Verification (rule a — script-only changes, individual retest sufficient)
+
+Combined run of all 5 priority-6 scripts via `flutter test test/suspicious_rewrite_tests.dart --name '<5 scripts>'`:
+
+| Script | Result |
+|--------|--------|
+| `widgets/box_scroll_view_test.dart` | **PASS**, `frameworkErrors=0` |
+| `widgets/constrained_layout_builder_test.dart` | **PASS**, `frameworkErrors=0` |
+| `widgets/constraints_transform_box_test.dart` | **PASS**, `frameworkErrors=0` |
+| `widgets/do_nothing_action_test.dart` | **PASS**, `frameworkErrors=0` |
+| `widgets/scroll_increment_type_test.dart` | **PASS**, `frameworkErrors=0` |
+
+Total wall: ~26 s for the 5-script combined run. No regression suite required (rule a applies because no bridge / generator / interpreter / `tom_d4rt_flutterm` non-test source was changed).
+
+### 14.4 Note on `constraints_transform_box_test.dart`
+
+The first attempted fix wrapped the `ConstraintsTransformBox` in an outer `ClipRect`, but verification still showed the 372-pixel overflow assertion. Investigation confirmed `RenderConstraintsTransformBox.paint()` emits the overflow message based on its **own** `clipBehavior` field — outer clippers do not suppress it. The correct fix was to drop the `Clip.none` iteration entry, since by definition `Clip.none` on an oversized child is the case the framework wants to flag. The demo's pedagogical point ("here are the four flavours") is preserved by reframing the demo as "three clipping flavours" with a prose note explaining `Clip.none`'s debug behaviour and a forward reference to Section 9, which already shows the overflow case explicitly with `Clip.hardEdge`.
+
+This is **not** an interpreter limitation — no entry in `interpreter_unfixable.md` is warranted. It is a script-side cleanup of an intentionally-overflowing demo case that fires a debug assertion in real Flutter as well.
+
+### 14.5 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart` | `_ShrinkWrapSection` Card A inner `Column` wrapped in `SingleChildScrollView`. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart` | `_LiveConstraintsInspectorSection._ConstraintsView` wrapped in `SingleChildScrollView`. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart` | `_ClipBehaviorGallery`: `Clip.none` removed from iteration; prose updated; outer `ClipRect` simplified out (kept only the `ClipRRect` mask). |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart` | `_SectionConsumesKey.build` Row: `CrossAxisAlignment.stretch` → `CrossAxisAlignment.start`. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scroll_increment_type_test.dart` | Three Rows wrapped in `IntrinsicHeight`. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotation. |
+
+No `.b.dart` files modified. No buildkit / bridge-generator changes. No interpreter or registration changes. Both drivers load the same script corpus from the `tom_d4rt_flutter_ast` directory (see `tom_d4rt_flutter_test/test/send_test_runner.dart:121`), so the script-side fixes land once and benefit both.

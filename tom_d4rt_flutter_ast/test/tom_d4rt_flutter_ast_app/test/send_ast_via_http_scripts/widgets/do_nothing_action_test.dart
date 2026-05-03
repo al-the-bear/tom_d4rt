@@ -679,7 +679,7 @@ class _SectionConsumesKey extends StatelessWidget {
           final bool isWide = constraints.maxWidth > 640;
           if (isWide) {
             return Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   child: _ConsumesKeyCard(

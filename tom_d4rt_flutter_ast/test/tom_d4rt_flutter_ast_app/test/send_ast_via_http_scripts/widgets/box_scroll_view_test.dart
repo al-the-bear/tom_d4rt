@@ -1492,47 +1492,49 @@ class _ShrinkWrapSection extends StatelessWidget {
                 label: 'A) shrinkWrap: true inside a Column',
                 subtitle: 'List sizes to children. Heavy on big lists.',
                 height: 280,
-                child: Column(
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text('Header above'),
-                    ),
-                    LayoutBuilder(
-                      builder: (BuildContext _, BoxConstraints c) {
-                        return Container(
-                          color: Colors.green.withOpacity(0.05),
-                          child: ListView(
-                            shrinkWrap: true,
-                            primary: false,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              for (int i = 0; i < 5; i++)
-                                ListTile(title: Text('SW $i')),
-                              const Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text(
-                                  '⤴ list height matches children',
-                                  style: TextStyle(fontSize: 11),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('Header above'),
+                      ),
+                      LayoutBuilder(
+                        builder: (BuildContext _, BoxConstraints c) {
+                          return Container(
+                            color: Colors.green.withOpacity(0.05),
+                            child: ListView(
+                              shrinkWrap: true,
+                              primary: false,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                for (int i = 0; i < 5; i++)
+                                  ListTile(title: Text('SW $i')),
+                                const Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Text(
+                                    '⤴ list height matches children',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  'avail max=${c.maxWidth.toStringAsFixed(0)}',
-                                  style: const TextStyle(fontSize: 11),
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    'avail max=${c.maxWidth.toStringAsFixed(0)}',
+                                    style: const TextStyle(fontSize: 11),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text('Footer below'),
-                    ),
-                  ],
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('Footer below'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

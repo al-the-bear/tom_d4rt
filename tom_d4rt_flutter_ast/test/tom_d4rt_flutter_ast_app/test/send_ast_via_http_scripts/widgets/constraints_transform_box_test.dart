@@ -997,16 +997,21 @@ class _ClipBehaviorGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: Clip.none is intentionally omitted here. With an oversized child,
+    // Clip.none triggers a `RenderConstraintsTransformBox overflowed …`
+    // assertion in debug builds — useful in production diagnostics, noisy in
+    // a gallery. Section 9 (Comparison) shows the overflow case explicitly
+    // with `Clip.hardEdge` for clean rendering.
     final List<Clip> clips = <Clip>[
-      Clip.none,
       Clip.hardEdge,
       Clip.antiAlias,
       Clip.antiAliasWithSaveLayer,
     ];
     return _DemoCard(
-      label: 'clipBehavior — four flavours',
+      label: 'clipBehavior — three clipping flavours',
       subLabel:
-          'Same overflowing child, four different Clip values. Watch the corners.',
+          'Same overflowing child, three Clip values. Watch the corners. '
+          'Clip.none is omitted because it would assert in debug.',
       child: Wrap(
         spacing: 12,
         runSpacing: 12,

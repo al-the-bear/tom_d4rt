@@ -1748,7 +1748,9 @@ class _LiveConstraintsInspectorSectionState
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.all(12),
-                    child: _ConstraintsView(constraints: constraints),
+                    child: SingleChildScrollView(
+                      child: _ConstraintsView(constraints: constraints),
+                    ),
                   );
                 },
               ),
