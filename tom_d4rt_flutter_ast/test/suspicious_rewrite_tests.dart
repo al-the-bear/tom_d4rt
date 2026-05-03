@@ -142,12 +142,45 @@ void main() {
   });
 
   // ============================================================
-  // DART_UI (1 file)
+  // DART_UI (6 files)
   // ============================================================
   group('dart_ui/', () {
+    test('scene_test.dart', () async {
+      final result = await SendTestRunner.send('dart_ui/scene_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics_action_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/semantics_action_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('string_attribute_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/string_attribute_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('system_color_palette_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/system_color_palette_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('target_image_size_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/target_image_size_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('ztmp_path_metrics_access_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/ztmp_path_metrics_access_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -161,6 +194,19 @@ void main() {
     test('target_platform_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/target_platform_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+  });
+
+  // ============================================================
+  // GESTURES (1 file)
+  // ============================================================
+  group('gestures/', () {
+    test('vertical_multi_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/vertical_multi_drag_gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -439,7 +485,7 @@ void main() {
   });
 
   // ============================================================
-  // PAINTING (2 files)
+  // PAINTING (4 files)
   // ============================================================
   group('painting/', () {
     test('axis_direction_test.dart', () async {
@@ -451,6 +497,20 @@ void main() {
 
     test('axis_test.dart', () async {
       final result = await SendTestRunner.send('painting/axis_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('decoration_image_painter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/decoration_image_painter_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('image_info_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/image_info_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -771,7 +831,7 @@ void main() {
   });
 
   // ============================================================
-  // WIDGETS (47 files)
+  // WIDGETS (48 files)
   // ============================================================
   group('widgets/', () {
     test('action_listener_test.dart', () async {
@@ -796,6 +856,13 @@ void main() {
     test('android_view_surface_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/android_view_surface_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animated_fractionally_sized_box_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animated_fractionally_sized_box_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
