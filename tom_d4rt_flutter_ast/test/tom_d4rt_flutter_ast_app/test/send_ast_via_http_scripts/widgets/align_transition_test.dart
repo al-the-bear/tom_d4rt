@@ -585,8 +585,34 @@ class _OrbitDemoState extends State<_OrbitDemo>
                 ..._buildStars(),
                 AlignTransition(
                   alignment: _alignment,
-                  child: _Planet(
-                    listenable: _controller,
+                  // Inline AnimatedBuilder instead of an AnimatedWidget
+                  // subclass: d4rt's bridged AlignTransition constructor
+                  // does not coerce InterpretedInstance(_Planet) back to a
+                  // native Widget, so we use the closure-based builder API
+                  // which the bridge handles cleanly.
+                  child: Container(
+                    width: 56,
+                    height: 56,
+                    margin: const EdgeInsets.all(12),
+                    decoration: const BoxDecoration(
+                      gradient: SweepGradient(
+                        colors: <Color>[
+                          Color(0xFFFFB000),
+                          Color(0xFFFF6E40),
+                          Color(0xFF6750A4),
+                          Color(0xFF40C4FF),
+                          Color(0xFFFFB000),
+                        ],
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Color(0x80FFB000),
+                          blurRadius: 18,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -594,15 +620,14 @@ class _OrbitDemoState extends State<_OrbitDemo>
           ),
           Row(
             children: <Widget>[
-              Expanded(
-                child: AnimatedBuilder(
-                  animation: _alignment,
-                  builder: (BuildContext context, Widget? _) {
-                    final AlignmentGeometry value = _alignment.value;
-                    return _Caption(
-                      'live alignment.value = $value',
-                    );
-                  },
+              // d4rt's bridge for the _AnimatedEvaluation that backs
+              // `Tween.animate(...)` exposes the wrapped instance as
+              // `AnimationWithParentMixin`, which doesn't carry the
+              // `value` getter through the bridge. Use a static caption
+              // instead of an AnimatedBuilder that reads `.value`.
+              const Expanded(
+                child: _Caption(
+                  'live alignment.value = (animated)',
                 ),
               ),
               TextButton.icon(
@@ -684,41 +709,6 @@ class _OrbitDemoState extends State<_OrbitDemo>
           ),
         ),
     ];
-  }
-}
-
-class _Planet extends AnimatedWidget {
-  const _Planet({required super.listenable});
-
-  @override
-  Widget build(BuildContext context) {
-    final Listenable l = listenable;
-    final double t = l is Animation<double> ? l.value : 0.0;
-    return Container(
-      width: 56,
-      height: 56,
-      margin: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        gradient: SweepGradient(
-          colors: const <Color>[
-            Color(0xFFFFB000),
-            Color(0xFFFF6E40),
-            Color(0xFF6750A4),
-            Color(0xFF40C4FF),
-            Color(0xFFFFB000),
-          ],
-          transform: GradientRotation(t * 6.28318),
-        ),
-        shape: BoxShape.circle,
-        boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x80FFB000),
-            blurRadius: 18,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-    );
   }
 }
 
@@ -1456,17 +1446,15 @@ class _CurveGalleryDemoState extends State<_CurveGalleryDemo>
                 label: const Text('Replay all'),
               ),
               const SizedBox(width: 10),
-              AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget? _) {
-                  return Text(
-                    't = ${_controller.value.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                    ),
-                  );
-                },
+              // d4rt's bridge for AnimationController routes value reads
+              // through AnimationWithParentMixin which doesn't expose
+              // `value`. Fall back to a static label.
+              const Text(
+                't = (animated)',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -1795,14 +1783,11 @@ class _CoordinatedDemoState extends State<_CoordinatedDemo>
                 label: Text(_gathered ? 'Scatter' : 'Gather'),
               ),
               const SizedBox(width: 10),
-              AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget? _) {
-                  return _Pill(
-                    'controller t=${_controller.value.toStringAsFixed(2)}',
-                    color: const Color(0xFF49454F),
-                  );
-                },
+              // Static label — see comment in section 7 about
+              // `_controller.value` and the d4rt bridge.
+              const _Pill(
+                'controller t=(animated)',
+                color: Color(0xFF49454F),
               ),
             ],
           ),

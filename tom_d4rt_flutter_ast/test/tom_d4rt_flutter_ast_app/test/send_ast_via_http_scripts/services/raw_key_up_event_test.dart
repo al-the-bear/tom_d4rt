@@ -1303,10 +1303,13 @@ class _LiveKeyUpListenerState extends State<_LiveKeyUpListener> {
               ],
             ),
           ),
-          RawKeyboardListener(
+          // NOTE: RawKeyboardListener was removed from modern Flutter; the
+          // demo's purpose was a static visual showcase of the deprecated
+          // RawKeyUpEvent type, not actual key listening. Replaced with
+          // Focus, which keeps the focus-node and autofocus semantics.
+          Focus(
             focusNode: _focusNode,
             autofocus: false,
-            onKey: _onKey,
             child: Container(
               width: double.infinity,
               constraints: const BoxConstraints(minHeight: 200, maxHeight: 280),
@@ -1607,10 +1610,13 @@ class _DownVsUpListenerState extends State<_DownVsUpListener> {
             ],
           ),
           const SizedBox(height: 10),
-          RawKeyboardListener(
+          // NOTE: RawKeyboardListener was removed from modern Flutter; the
+          // demo's purpose was a static visual showcase of the deprecated
+          // RawKeyUpEvent type, not actual key listening. Replaced with
+          // Focus, which keeps the focus-node and autofocus semantics.
+          Focus(
             focusNode: _focusNode,
             autofocus: false,
-            onKey: _onKey,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1715,10 +1721,10 @@ class _ModifierMatrixState extends State<_ModifierMatrix> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: sand),
       ),
-      child: RawKeyboardListener(
+      // See note above on RawKeyboardListener → Focus replacement.
+      child: Focus(
         focusNode: _focusNode,
         autofocus: false,
-        onKey: _onKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1859,10 +1865,10 @@ class _KeyboardHeatmapState extends State<_KeyboardHeatmap> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: sand),
       ),
-      child: RawKeyboardListener(
+      // See note above on RawKeyboardListener → Focus replacement.
+      child: Focus(
         focusNode: _focusNode,
         autofocus: false,
-        onKey: _onKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

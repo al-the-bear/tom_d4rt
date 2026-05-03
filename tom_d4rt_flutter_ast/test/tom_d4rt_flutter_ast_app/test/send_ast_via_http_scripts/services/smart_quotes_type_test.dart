@@ -1224,34 +1224,29 @@ class _PlatformBehaviorTable extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: const Color(0xFFE7DFEC)),
           ),
-          child: Table(
-            columnWidths: const <int, TableColumnWidth>{
-              0: FixedColumnWidth(110),
-              1: FlexColumnWidth(1.2),
-              2: FlexColumnWidth(1.2),
-              3: FlexColumnWidth(1.4),
-            },
-            border: TableBorder.symmetric(
-              inside: const BorderSide(color: Color(0xFFEDE7F1)),
-            ),
-            children: <TableRow>[
-              const TableRow(
-                decoration: BoxDecoration(color: Color(0xFFEADDFF)),
-                children: <Widget>[
-                  _Th('Platform'),
-                  _Th('enabled'),
-                  _Th('disabled'),
-                  _Th('Notes'),
-                ],
-              ),
+          // NOTE: Original used Table+TableBorder, but d4rt's Table proxy
+          // mis-reports rect.height (rows.last > rect.height) and crashes
+          // TableBorder.paint. Replaced with Column-of-Rows using explicit
+          // SizedBox heights and a Border on each row for the inside lines.
+          child: _SmartQuotesGrid(
+            cellWidths: const <double>[110, 0, 0, 0], // 0 = flex
+            cellFlex: const <double>[0, 1.2, 1.2, 1.4],
+            headerRow: const <Widget>[
+              _Th('Platform'),
+              _Th('enabled'),
+              _Th('disabled'),
+              _Th('Notes'),
+            ],
+            headerBackground: const Color(0xFFEADDFF),
+            rowHeight: 92,
+            headerHeight: 40,
+            bodyRows: <_SmartQuotesGridRow>[
               for (final _PlatformRow r in _rows)
-                TableRow(
-                  decoration: BoxDecoration(
-                    color: r.platform == current
-                        ? const Color(0xFFFFF8E1)
-                        : Colors.transparent,
-                  ),
-                  children: <Widget>[
+                _SmartQuotesGridRow(
+                  background: r.platform == current
+                      ? const Color(0xFFFFF8E1)
+                      : Colors.transparent,
+                  cells: <Widget>[
                     _Td(
                       r.name +
                           (r.platform == current ? '  <- you' : ''),
@@ -1325,6 +1320,99 @@ class _Td extends StatelessWidget {
           color: const Color(0xFF1D1B20),
         ),
       ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Helper grid: replaces Table without using TableBorder (which crashes under
+// d4rt's Table proxy because rect.height is mis-reported).
+// ---------------------------------------------------------------------------
+
+class _SmartQuotesGridRow {
+  const _SmartQuotesGridRow({
+    required this.cells,
+    this.background = Colors.transparent,
+  });
+  final List<Widget> cells;
+  final Color background;
+}
+
+class _SmartQuotesGrid extends StatelessWidget {
+  const _SmartQuotesGrid({
+    required this.cellWidths,
+    required this.cellFlex,
+    required this.headerRow,
+    required this.bodyRows,
+    required this.headerBackground,
+    this.rowHeight = 80,
+    this.headerHeight = 40,
+  });
+
+  // For each column: a fixed width (>0) takes precedence; otherwise the flex
+  // value at the same index is used as Expanded.flex.
+  final List<double> cellWidths;
+  final List<double> cellFlex;
+  final List<Widget> headerRow;
+  final List<_SmartQuotesGridRow> bodyRows;
+  final Color headerBackground;
+  final double rowHeight;
+  final double headerHeight;
+
+  Widget _buildRow({
+    required List<Widget> cells,
+    required Color background,
+    required double height,
+    bool drawTopBorder = false,
+  }) {
+    final List<Widget> rowChildren = <Widget>[];
+    for (int i = 0; i < cells.length; i++) {
+      final double w = i < cellWidths.length ? cellWidths[i] : 0;
+      if (w > 0) {
+        rowChildren.add(SizedBox(width: w, child: cells[i]));
+      } else {
+        final double flex = i < cellFlex.length ? cellFlex[i] : 1.0;
+        rowChildren
+            .add(Expanded(flex: (flex * 10).round(), child: cells[i]));
+      }
+    }
+    return SizedBox(
+      height: height,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border(
+            top: drawTopBorder
+                ? const BorderSide(color: Color(0xFFEDE7F1))
+                : BorderSide.none,
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: rowChildren,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        _buildRow(
+          cells: headerRow,
+          background: headerBackground,
+          height: headerHeight,
+        ),
+        for (int i = 0; i < bodyRows.length; i++)
+          _buildRow(
+            cells: bodyRows[i].cells,
+            background: bodyRows[i].background,
+            height: rowHeight,
+            drawTopBorder: true,
+          ),
+      ],
     );
   }
 }
@@ -1918,27 +2006,21 @@ class _ReferenceTable extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE7DFEC)),
       ),
-      child: Table(
-        columnWidths: const <int, TableColumnWidth>{
-          0: FixedColumnWidth(170),
-          1: FixedColumnWidth(140),
-          2: FlexColumnWidth(1.2),
-          3: FlexColumnWidth(1.4),
-        },
-        border: TableBorder.symmetric(
-          inside: const BorderSide(color: Color(0xFFEDE7F1)),
-        ),
-        children: const <TableRow>[
-          TableRow(
-            decoration: BoxDecoration(color: Color(0xFFEADDFF)),
-            children: <Widget>[
-              _Th('Property'),
-              _Th('Type'),
-              _Th('Default'),
-              _Th('Effect'),
-            ],
-          ),
-          TableRow(children: <Widget>[
+      // See note above on Table → _SmartQuotesGrid replacement.
+      child: _SmartQuotesGrid(
+        cellWidths: const <double>[170, 140, 0, 0],
+        cellFlex: const <double>[0, 0, 1.2, 1.4],
+        headerRow: const <Widget>[
+          _Th('Property'),
+          _Th('Type'),
+          _Th('Default'),
+          _Th('Effect'),
+        ],
+        headerBackground: const Color(0xFFEADDFF),
+        rowHeight: 88,
+        headerHeight: 40,
+        bodyRows: const <_SmartQuotesGridRow>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('smartQuotesType'),
             _Td('SmartQuotesType?'),
             _Td('platform / kbd inferred'),
@@ -1947,7 +2029,7 @@ class _ReferenceTable extends StatelessWidget {
               'for straight quotes.',
             ),
           ]),
-          TableRow(children: <Widget>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('smartDashesType'),
             _Td('SmartDashesType?'),
             _Td('platform / kbd inferred'),
@@ -1956,7 +2038,7 @@ class _ReferenceTable extends StatelessWidget {
               'iOS-keyboard mechanism as smart quotes.',
             ),
           ]),
-          TableRow(children: <Widget>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('autocorrect'),
             _Td('bool'),
             _Td('true'),
@@ -1965,7 +2047,7 @@ class _ReferenceTable extends StatelessWidget {
               'Independent of smart quotes — they can co-exist.',
             ),
           ]),
-          TableRow(children: <Widget>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('enableSuggestions'),
             _Td('bool'),
             _Td('true'),
@@ -1974,7 +2056,7 @@ class _ReferenceTable extends StatelessWidget {
               'not by itself disable autocorrect or smart quotes.',
             ),
           ]),
-          TableRow(children: <Widget>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('obscureText'),
             _Td('bool'),
             _Td('false'),
@@ -1984,7 +2066,7 @@ class _ReferenceTable extends StatelessWidget {
               'explicit values.',
             ),
           ]),
-          TableRow(children: <Widget>[
+          _SmartQuotesGridRow(cells: <Widget>[
             _Td('keyboardType'),
             _Td('TextInputType'),
             _Td('text'),
