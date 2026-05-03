@@ -143,6 +143,24 @@ class Environment {
     Logger.debug("[Environment] Defined bridge for class: $name");
   }
 
+  /// Looks up a bridged class by name, walking the enclosing scope chain.
+  /// Returns null if no bridge with [name] is registered in this environment
+  /// or any of its parents. Used by the property-access supertype-walk
+  /// fallback in `interpreter_visitor.dart` to resolve getters/methods that
+  /// are declared on a supertype bridge when the leaf bridge has no matching
+  /// adapter (e.g. `_AnimatedEvaluation` wraps as `AnimationWithParentMixin`,
+  /// whose bridge lacks `value`; the walk falls back to the `Animation`
+  /// bridge where `value` is declared).
+  BridgedClass? findBridgedClassByName(String name) {
+    Environment? current = this;
+    while (current != null) {
+      final found = current._bridgedClasses[name];
+      if (found != null) return found;
+      current = current._enclosing;
+    }
+    return null;
+  }
+
   /// Pre-registers a bridge's native-type mapping for runtime type resolution.
   ///
   /// Unlike [defineBridge], this does NOT add [bridgedClass.name] to the

@@ -232,6 +232,14 @@ void _registerBridgedSupertypes() {
     'ValueNotifier': ['ChangeNotifier', 'Listenable'],
     'Animation': ['Listenable'],
     'AnimationController': ['Animation', 'Listenable'],
+    // Cluster-12 (priority 3): `_AnimatedEvaluation<T>` (the private class
+    // returned by `Tween.animate(parent)`) extends `Animation<T>` with
+    // `AnimationWithParentMixin<double>`. `Environment.toBridgedInstance`
+    // wraps it as the mixin (leaf), but the mixin bridge only carries
+    // `parent`/`status`. Recording `Animation` as a supertype lets the
+    // property-access supertype-walk fallback (interpreter_visitor.dart)
+    // find the `value` getter declared on the Animation bridge.
+    'AnimationWithParentMixin': ['Animation', 'Listenable'],
     // Action hierarchy — scripts subclass Action<T> or ContextAction<T> and
     // pass instances to Actions(actions: <Type, Action<Intent>>{…}).
     // Without these entries, transitiveSupertypeNames('ContextAction') returns

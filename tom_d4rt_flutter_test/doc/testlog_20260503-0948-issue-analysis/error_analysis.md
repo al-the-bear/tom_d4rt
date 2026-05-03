@@ -176,7 +176,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically | **Partial — fixed for `SliderComponentShape` + `SpellCheckService`, deferred for `PreferredSizeWidget` (P1 in `interpreter_unfixable.md`).** See §9 below. |
 | **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed (partial) — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass; `widgets/windowing_owner_mac_o_s_test.dart` still fails but on a downstream Priority-1 sub-case (`AnimatedBuilder.animation` expecting `Listenable`, getting `InterpretedInstance(RegularWindowControllerMacOS)`) — out of cluster scope. See §10 below.** |
 | **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` |
-| **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the just-fixed `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | bridge generator — mixin chain composition needs to expose `value` getter through `AnimationWithParentMixin` like it does for `Animation<T>` directly |
+| **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the script-side workaround in `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | interpreter — when the leaf bridge has no matching getter/method, walk the registered transitive supertype chain | **Fixed — supertype-walk fallback added to property lookup at three sites in both interpreters; supertype registration `AnimationWithParentMixin: ['Animation', 'Listenable']` added to both flutter registration packages. `backdrop_group_test` passes (no `Animation.value` error). See §11 below.** |
 | **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents |
 | **Removed Flutter API references (CupertinoTextField asserts)** | 2 (`cupertino/textfield`, `cupertino_text_selection_handle_controls`) | `minLines can't be greater than maxLines` | scripts — fix `minLines/maxLines` fixture values |
 | **Layout overflow / infinite-height** | 5 (`box_scroll_view`, `constrained_layout_builder`, `constraints_transform_box`, `do_nothing_action`, `scroll_increment_type`) | `RenderFlex overflowed by N pixels` / `BoxConstraints forces an infinite height` | scripts — bound the column / wrap in `SingleChildScrollView` / use `Expanded` correctly |
@@ -192,9 +192,9 @@ Failure inventories match 1-for-1 in count, root cause, and script identity. Wal
 
 Same priority list as the `ast` analysis (§8):
 
-1. Bridge: `InterpretedInstance` coercion for abstract Flutter superclasses.
-2. Interpreter: `for-in` over bridged `Iterable` instances.
-3. Bridge: `AnimationWithParentMixin.value` getter.
+1. Bridge: `InterpretedInstance` coercion for abstract Flutter superclasses. **(P1 — partial; see §9.)**
+2. Interpreter: `for-in` over bridged `Iterable` instances. **(P2 — fixed; see §10.)**
+3. Bridge: `AnimationWithParentMixin.value` getter. **(P3 — fixed; see §11.)**
 4. Bridge: `Text.data` null handling.
 5. Scripts: `ButtonBar*` removal sweep.
 6. Scripts: layout-overflow cleanup.
@@ -310,3 +310,90 @@ No `.b.dart` files modified. No buildkit / generator changes. The
 Priority-1 sweep; it does not require a workaround entry in
 `interpreter_unfixable.md` — it is a real, fixable bridge issue, just
 outside this cluster's scope.
+
+## 11. Cluster fix status — Priority 3 (`Animation.value` on `AnimationWithParentMixin`)
+
+**Status: FIXED — interpreter property-lookup now walks the registered transitive supertype chain when the leaf bridge has no matching adapter; supertype registration added for `AnimationWithParentMixin`.**
+
+### 11.1 Root cause
+
+`Tween.animate(parent)` returns a private `_AnimatedEvaluation<T>` that
+extends `Animation<T>` with `AnimationWithParentMixin<double>`.
+`Environment.toBridgedInstance` selects the leaf bridge via
+`_filterToMostSpecific`, which picks `AnimationWithParentMixin` (most
+specific bridge that matches the runtime type). The mixin bridge only
+exposes `parent` and `status`; the `value` getter is declared on the
+`Animation<T>` supertype's bridge. Direct adapter lookup on the leaf
+bridge therefore misses, raising `Undefined property or method 'value'
+on bridged instance of 'AnimationWithParentMixin'`.
+
+This is a generic interpreter-side gap, not specific to
+`AnimationWithParentMixin`: any time the leaf is a mixin (or
+intermediate class) whose bridge is narrower than the chain it sits in,
+property access fails even when an ancestor bridge declares the member.
+
+### 11.2 Fix
+
+Two parts:
+
+1. **Interpreter — supertype-walk fallback.** When property/method
+   lookup on a `BridgedInstance` finds neither a getter nor a method
+   adapter on the leaf bridge, walk
+   `BridgedClass.transitiveSupertypeNames(leaf.name)` and try each
+   ancestor's getter/method adapter in registration order. First match
+   wins — getter result is returned directly, method match returns a
+   `BridgedMethodCallable` tear-off bound to the original instance.
+   Implemented as a single shared helper
+   `InterpreterVisitorExtension.lookupOnBridgedSupertypes(...)` so the
+   same logic runs at all property-access sites (no copy-paste drift).
+2. **Supertype registry seed.** Recorded `AnimationWithParentMixin`'s
+   ancestors (`['Animation', 'Listenable']`) in both flutter
+   registration packages so `transitiveSupertypeNames` returns the
+   chain at runtime. Without this seed the fallback is a no-op for
+   this class.
+
+### 11.3 Verification
+
+Rule (b) — interpreter / registration-side change.
+
+- Individual: `widgets/backdrop_group_test.dart` → **PASS**, no
+  `Undefined property or method 'value'` errors. The single residual
+  framework error (`RenderFlex overflowed by 25 pixels`) is unrelated
+  to the bridge fix.
+- Regression suites (serial; logs in
+  `ztmp/cluster12_logs/{gii,essential,important,secondary}_ast.log`):
+  - `gii_individual_test`: 79 passed / 2 skipped / 2 failed —
+    matches baseline (`tooltip_window_controller_delegate` `Text.data:
+    null` + `windowing_owner_mac_o_s` `AnimatedBuilder.animation`
+    coercion, both pre-existing per-cluster failures, not regressions).
+  - `essential_classes_test`: 107 passed / 1 failed — matches baseline
+    (`CupertinoTextField` `minLines>maxLines` assertion, script-side
+    fixture).
+  - `important_classes_test`: **`All tests passed!`** (164 tests).
+  - `secondary_classes_test`: matches baseline; the single residual
+    failure is the pre-existing `dart_ui/string_attribute_test.dart`
+    transport flake / generator legacy from §10.3, not a new
+    regression.
+
+No `.b.dart` files modified. No buildkit / bridge-generator changes.
+
+### 11.4 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_ai/d4rt/tom_d4rt/lib/src/environment.dart` | Added `findBridgedClassByName(String)` helper that walks the enclosing scope chain. |
+| `tom_ai/d4rt/tom_d4rt/lib/src/utils/extensions/visitor.dart` | Added `lookupOnBridgedSupertypes(BridgedInstance, String)` extension method on `InterpreterVisitor` — shared helper for the supertype-walk fallback. |
+| `tom_ai/d4rt/tom_d4rt/lib/src/interpreter_visitor.dart` | Wired the fallback into three property-lookup sites: `SPropertyAccess` (after `methodAdapter` null branch), `SPrefixedIdentifier` (same shape), and `visitSimpleIdentifier` implicit-`this` path (after method-not-found, before universal Object fallback). Each call site cluster-tagged `Cluster-12 (priority 3)`. |
+| `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/environment.dart` | Mirror of `tom_d4rt` helper. |
+| `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/utils/extensions/visitor.dart` | Mirror of `tom_d4rt` helper. |
+| `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` | Mirror of the three patched call sites. |
+| `tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart` | Registered `'AnimationWithParentMixin': ['Animation', 'Listenable']` so the supertype walk has a chain to traverse. |
+| `tom_ai/d4rt/tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart` | Mirror registration for the test bridge package. |
+| `tom_ai/d4rt/tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotations. |
+
+The script-side workaround in `align_transition_test.dart` (static
+caption replacing the `AnimatedBuilder` reading `.value`) was kept
+in place — it does not block the cluster, and reverting it now would
+expand regression scope without test value. The interpreter fix means
+future scripts and any restored variant will resolve `.value`
+correctly through the supertype walk.

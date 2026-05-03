@@ -492,6 +492,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         Logger.debug(
             "[visitSimpleIdentifier]   Bridged method '$name' not found either.");
+        // Cluster-12 (priority 3): Walk the registered supertype chain when
+        // the leaf bridge has no matching getter/method. See
+        // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+        final supertypeMatch =
+            lookupOnBridgedSupertypes(bridgedInstance, name);
+        if (supertypeMatch.$2) {
+          Logger.debug(
+              "[visitSimpleIdentifier]   Resolved '$name' via supertype walk on '${bridgedInstance.bridgedClass.name}'.");
+          return supertypeMatch.$1;
+        }
         // If neither getter nor method, error
         throw RuntimeD4rtException(
             "Undefined property or method '$name' on bridged instance of '${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'.");
@@ -954,6 +964,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // "Set.contains: Invalid value" RangeError.
         return BridgedMethodCallable(
             bridgedInstance, methodAdapter, memberName);
+      }
+
+      // Cluster-12 (priority 3): Walk the registered supertype chain when
+      // the leaf bridge has no matching getter/method. See
+      // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+      final supertypeMatch =
+          lookupOnBridgedSupertypes(bridgedInstance, memberName);
+      if (supertypeMatch.$2) {
+        Logger.debug(
+            "[PrefixedIdentifier]   Resolved '$memberName' via supertype walk on '${bridgedInstance.bridgedClass.name}'.");
+        return supertypeMatch.$1;
       }
 
       // No adapter found, try extension methods/getters
@@ -4080,6 +4101,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Return a callable bound to the instance
         return BridgedMethodCallable(
             bridgedInstance, methodAdapter, propertyName);
+      }
+
+      // Cluster-12 (priority 3): Walk the registered supertype chain when
+      // the leaf bridge has no matching getter/method. See
+      // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+      final supertypeMatch =
+          lookupOnBridgedSupertypes(bridgedInstance, propertyName);
+      if (supertypeMatch.$2) {
+        Logger.debug(
+            "[PropertyAccess]   Resolved '$propertyName' via supertype walk on '${bridgedInstance.bridgedClass.name}'.");
+        return supertypeMatch.$1;
       }
 
       // Try extension lookup before throwing error

@@ -540,6 +540,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         Logger.debug(
           "[visitSimpleIdentifier]   Bridged method '$name' not found either.",
         );
+        // Cluster-12 (priority 3): Walk the registered supertype chain when
+        // the leaf bridge has no matching getter/method. See
+        // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+        final supertypeMatch =
+            lookupOnBridgedSupertypes(bridgedInstance, name);
+        if (supertypeMatch.$2) {
+          Logger.debug(
+            "[visitSimpleIdentifier]   Resolved '$name' via supertype walk on '${bridgedInstance.bridgedClass.name}'.",
+          );
+          return supertypeMatch.$1;
+        }
         // GEN-075: Fallback for universal Object properties
         switch (name) {
           case 'hashCode':
@@ -1103,6 +1114,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           methodAdapter,
           memberName,
         );
+      }
+
+      // Cluster-12 (priority 3): Walk the registered supertype chain when
+      // the leaf bridge has no matching getter/method. See
+      // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+      final supertypeMatch =
+          lookupOnBridgedSupertypes(bridgedInstance, memberName);
+      if (supertypeMatch.$2) {
+        Logger.debug(
+          "[SPrefixedIdentifier]   Resolved '$memberName' via supertype walk on '${bridgedInstance.bridgedClass.name}'.",
+        );
+        return supertypeMatch.$1;
       }
 
       // No adapter found, try extension methods/getters
@@ -4733,6 +4756,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           methodAdapter,
           propertyName,
         );
+      }
+
+      // Cluster-12 (priority 3): Walk the registered supertype chain when
+      // the leaf bridge has no matching getter/method. See
+      // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
+      final supertypeMatch =
+          lookupOnBridgedSupertypes(bridgedInstance, propertyName);
+      if (supertypeMatch.$2) {
+        Logger.debug(
+          "[SPropertyAccess]   Resolved '$propertyName' via supertype walk on '${bridgedInstance.bridgedClass.name}'.",
+        );
+        return supertypeMatch.$1;
       }
 
       // Try extension lookup before throwing error
