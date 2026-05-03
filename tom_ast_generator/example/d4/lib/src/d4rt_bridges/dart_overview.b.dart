@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-05-02T21:16:18.554421
+// Generated: 2026-05-03T12:23:31.609403
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -610,7 +610,7 @@ class DartOverviewBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; };
+        final transformer = ((int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; }) as int Function(int);
         return $d4_example_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -1447,7 +1447,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
+        return (t as dynamic).transform(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
       },
     },
     constructorSignatures: {
@@ -1756,7 +1756,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
+        return (t as dynamic).map(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
       },
     },
     constructorSignatures: {
@@ -1810,7 +1810,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return (t as dynamic).fold((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); });
+        return (t as dynamic).fold(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }) as dynamic Function(dynamic), ((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); }) as dynamic Function(dynamic));
       },
     },
     constructorSignatures: {
