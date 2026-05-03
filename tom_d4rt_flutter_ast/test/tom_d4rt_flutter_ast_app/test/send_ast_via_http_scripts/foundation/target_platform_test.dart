@@ -11,34 +11,28 @@ import 'package:flutter/cupertino.dart';
 // PLATFORM METADATA HELPERS (top-level, hand-written, no codegen)
 // =============================================================================
 
+// ----------------------------------------------------------------------------
+// Cluster P4 workaround: d4rt may fail to match `case BridgedEnum.value:` in
+// switch statements over bridged Flutter enums (TargetPlatform is one). When
+// that happens a String-returning switch falls through and the function
+// returns null implicitly, which then surfaces as `Text(data: null)` in
+// downstream widgets. Convert each helper to an if/else chain over `==`
+// (the path already used by `_isCupertinoFamily` below — proven working).
+// ----------------------------------------------------------------------------
+
 String _platformOs(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return 'Android';
-    case TargetPlatform.iOS:
-      return 'iOS / iPadOS';
-    case TargetPlatform.fuchsia:
-      return 'Fuchsia';
-    case TargetPlatform.linux:
-      return 'Linux desktop';
-    case TargetPlatform.macOS:
-      return 'macOS';
-    case TargetPlatform.windows:
-      return 'Windows';
-  }
+  if (p == TargetPlatform.android) return 'Android';
+  if (p == TargetPlatform.iOS) return 'iOS / iPadOS';
+  if (p == TargetPlatform.fuchsia) return 'Fuchsia';
+  if (p == TargetPlatform.linux) return 'Linux desktop';
+  if (p == TargetPlatform.macOS) return 'macOS';
+  if (p == TargetPlatform.windows) return 'Windows';
+  return p.name; // unreachable on real Dart; safety net for the d4rt path
 }
 
 String _platformFamily(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.iOS:
-    case TargetPlatform.macOS:
-      return 'Cupertino';
-    case TargetPlatform.android:
-    case TargetPlatform.fuchsia:
-    case TargetPlatform.linux:
-    case TargetPlatform.windows:
-      return 'Material';
-  }
+  if (p == TargetPlatform.iOS || p == TargetPlatform.macOS) return 'Cupertino';
+  return 'Material';
 }
 
 bool _isCupertinoFamily(TargetPlatform p) {
@@ -46,65 +40,43 @@ bool _isCupertinoFamily(TargetPlatform p) {
 }
 
 String _platformFontFamily(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return 'Roboto';
-    case TargetPlatform.iOS:
-      return '.SF Pro Text';
-    case TargetPlatform.fuchsia:
-      return 'Noto Sans';
-    case TargetPlatform.linux:
-      return 'Noto Sans';
-    case TargetPlatform.macOS:
-      return '.SF Pro Display';
-    case TargetPlatform.windows:
-      return 'Segoe UI';
-  }
+  if (p == TargetPlatform.android) return 'Roboto';
+  if (p == TargetPlatform.iOS) return '.SF Pro Text';
+  if (p == TargetPlatform.fuchsia) return 'Noto Sans';
+  if (p == TargetPlatform.linux) return 'Noto Sans';
+  if (p == TargetPlatform.macOS) return '.SF Pro Display';
+  if (p == TargetPlatform.windows) return 'Segoe UI';
+  return 'Roboto';
 }
 
 String _platformBackGesture(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.iOS:
-    case TargetPlatform.macOS:
-      return 'edge swipe + chevron';
-    case TargetPlatform.android:
-    case TargetPlatform.fuchsia:
-      return 'system back + arrow';
-    case TargetPlatform.linux:
-    case TargetPlatform.windows:
-      return 'desktop chrome back';
+  if (p == TargetPlatform.iOS || p == TargetPlatform.macOS) {
+    return 'edge swipe + chevron';
   }
+  if (p == TargetPlatform.android || p == TargetPlatform.fuchsia) {
+    return 'system back + arrow';
+  }
+  return 'desktop chrome back';
 }
 
 String _platformLongPress(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.iOS:
-    case TargetPlatform.macOS:
-      return 'context menu (preview)';
-    case TargetPlatform.android:
-    case TargetPlatform.fuchsia:
-      return 'selection toolbar';
-    case TargetPlatform.linux:
-    case TargetPlatform.windows:
-      return 'right-click menu';
+  if (p == TargetPlatform.iOS || p == TargetPlatform.macOS) {
+    return 'context menu (preview)';
   }
+  if (p == TargetPlatform.android || p == TargetPlatform.fuchsia) {
+    return 'selection toolbar';
+  }
+  return 'right-click menu';
 }
 
 String _platformIcon(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return 'A';
-    case TargetPlatform.iOS:
-      return 'i';
-    case TargetPlatform.fuchsia:
-      return 'F';
-    case TargetPlatform.linux:
-      return 'L';
-    case TargetPlatform.macOS:
-      return 'M';
-    case TargetPlatform.windows:
-      return 'W';
-  }
+  if (p == TargetPlatform.android) return 'A';
+  if (p == TargetPlatform.iOS) return 'i';
+  if (p == TargetPlatform.fuchsia) return 'F';
+  if (p == TargetPlatform.linux) return 'L';
+  if (p == TargetPlatform.macOS) return 'M';
+  if (p == TargetPlatform.windows) return 'W';
+  return '?';
 }
 
 String _platformPhysics(TargetPlatform p) {
@@ -114,60 +86,51 @@ String _platformPhysics(TargetPlatform p) {
 }
 
 Color _platformTint(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return const Color(0xFF2E7D32);
-    case TargetPlatform.iOS:
-      return const Color(0xFF455A64);
-    case TargetPlatform.fuchsia:
-      return const Color(0xFFAD1457);
-    case TargetPlatform.linux:
-      return const Color(0xFF5D4037);
-    case TargetPlatform.macOS:
-      return const Color(0xFF37474F);
-    case TargetPlatform.windows:
-      return const Color(0xFF1565C0);
-  }
+  if (p == TargetPlatform.android) return const Color(0xFF2E7D32);
+  if (p == TargetPlatform.iOS) return const Color(0xFF455A64);
+  if (p == TargetPlatform.fuchsia) return const Color(0xFFAD1457);
+  if (p == TargetPlatform.linux) return const Color(0xFF5D4037);
+  if (p == TargetPlatform.macOS) return const Color(0xFF37474F);
+  if (p == TargetPlatform.windows) return const Color(0xFF1565C0);
+  return const Color(0xFF455A64);
 }
 
 Color _platformTintSoft(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return const Color(0xFFC8E6C9);
-    case TargetPlatform.iOS:
-      return const Color(0xFFCFD8DC);
-    case TargetPlatform.fuchsia:
-      return const Color(0xFFF8BBD0);
-    case TargetPlatform.linux:
-      return const Color(0xFFD7CCC8);
-    case TargetPlatform.macOS:
-      return const Color(0xFFB0BEC5);
-    case TargetPlatform.windows:
-      return const Color(0xFFBBDEFB);
-  }
+  if (p == TargetPlatform.android) return const Color(0xFFC8E6C9);
+  if (p == TargetPlatform.iOS) return const Color(0xFFCFD8DC);
+  if (p == TargetPlatform.fuchsia) return const Color(0xFFF8BBD0);
+  if (p == TargetPlatform.linux) return const Color(0xFFD7CCC8);
+  if (p == TargetPlatform.macOS) return const Color(0xFFB0BEC5);
+  if (p == TargetPlatform.windows) return const Color(0xFFBBDEFB);
+  return const Color(0xFFCFD8DC);
 }
 
 String _platformAdaptSummary(TargetPlatform p) {
-  switch (p) {
-    case TargetPlatform.android:
-      return 'Material 3 widgets, Roboto, ripple feedback, '
-          'ClampingScrollPhysics, MaterialPageRoute fade-up.';
-    case TargetPlatform.iOS:
-      return 'Cupertino widgets, .SF Pro Text, edge-swipe back, '
-          'BouncingScrollPhysics, CupertinoPageRoute slide.';
-    case TargetPlatform.fuchsia:
-      return 'Material widgets with neutral defaults, Noto Sans fallback, '
-          'ClampingScrollPhysics.';
-    case TargetPlatform.linux:
-      return 'Material widgets sized for pointer input, Noto Sans, '
-          'ClampingScrollPhysics, mouse-friendly hit areas.';
-    case TargetPlatform.macOS:
-      return 'Cupertino widgets with desktop spacing, .SF Pro Display, '
-          'BouncingScrollPhysics, native menu/cmd shortcuts.';
-    case TargetPlatform.windows:
-      return 'Material widgets with Windows accent, Segoe UI, '
-          'ClampingScrollPhysics, right-click menus.';
+  if (p == TargetPlatform.android) {
+    return 'Material 3 widgets, Roboto, ripple feedback, '
+        'ClampingScrollPhysics, MaterialPageRoute fade-up.';
   }
+  if (p == TargetPlatform.iOS) {
+    return 'Cupertino widgets, .SF Pro Text, edge-swipe back, '
+        'BouncingScrollPhysics, CupertinoPageRoute slide.';
+  }
+  if (p == TargetPlatform.fuchsia) {
+    return 'Material widgets with neutral defaults, Noto Sans fallback, '
+        'ClampingScrollPhysics.';
+  }
+  if (p == TargetPlatform.linux) {
+    return 'Material widgets sized for pointer input, Noto Sans, '
+        'ClampingScrollPhysics, mouse-friendly hit areas.';
+  }
+  if (p == TargetPlatform.macOS) {
+    return 'Cupertino widgets with desktop spacing, .SF Pro Display, '
+        'BouncingScrollPhysics, native menu/cmd shortcuts.';
+  }
+  if (p == TargetPlatform.windows) {
+    return 'Material widgets with Windows accent, Segoe UI, '
+        'ClampingScrollPhysics, right-click menus.';
+  }
+  return 'Material widgets, default theme.';
 }
 
 // =============================================================================

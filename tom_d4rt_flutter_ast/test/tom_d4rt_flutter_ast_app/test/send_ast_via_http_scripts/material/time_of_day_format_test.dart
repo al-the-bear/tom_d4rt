@@ -31,105 +31,117 @@ int _twelveHour(TimeOfDay t) {
   return h == 0 ? 12 : h;
 }
 
+// ----------------------------------------------------------------------------
+// Cluster P4 workaround: switch-over-bridged-enum can fail to match in d4rt
+// and cause a String-returning helper to return null implicitly, which then
+// surfaces as `Text(data: null)`. Convert each helper to an if/else chain
+// over `==` (matches the proven pattern used in
+// foundation/target_platform_test.dart). Final `return` covers the
+// theoretically unreachable case and guards against any unmatched future
+// enum value the bridged enum might surface as.
+// ----------------------------------------------------------------------------
+
 String formatTime(TimeOfDay t, TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-      return '${_two(t.hour)}:${_formatMinute(t)}';
-    case TimeOfDayFormat.HH_dot_mm:
-      return '${_two(t.hour)}.${_formatMinute(t)}';
-    case TimeOfDayFormat.frenchCanadian:
-      return '${_two(t.hour)} h ${_formatMinute(t)}';
-    case TimeOfDayFormat.H_colon_mm:
-      return '${t.hour}:${_formatMinute(t)}';
-    case TimeOfDayFormat.h_colon_mm_space_a:
-      return '${_twelveHour(t)}:${_formatMinute(t)} ${_amPm(t)}';
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return '${_amPm(t)} ${_twelveHour(t)}:${_formatMinute(t)}';
+  if (fmt == TimeOfDayFormat.HH_colon_mm) {
+    return '${_two(t.hour)}:${_formatMinute(t)}';
   }
+  if (fmt == TimeOfDayFormat.HH_dot_mm) {
+    return '${_two(t.hour)}.${_formatMinute(t)}';
+  }
+  if (fmt == TimeOfDayFormat.frenchCanadian) {
+    return '${_two(t.hour)} h ${_formatMinute(t)}';
+  }
+  if (fmt == TimeOfDayFormat.H_colon_mm) {
+    return '${t.hour}:${_formatMinute(t)}';
+  }
+  if (fmt == TimeOfDayFormat.h_colon_mm_space_a) {
+    return '${_twelveHour(t)}:${_formatMinute(t)} ${_amPm(t)}';
+  }
+  if (fmt == TimeOfDayFormat.a_space_h_colon_mm) {
+    return '${_amPm(t)} ${_twelveHour(t)}:${_formatMinute(t)}';
+  }
+  return '${_two(t.hour)}:${_formatMinute(t)}';
 }
 
 String _icuPattern(TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-      return 'HH:mm';
-    case TimeOfDayFormat.HH_dot_mm:
-      return 'HH.mm';
-    case TimeOfDayFormat.frenchCanadian:
-      return "HH 'h' mm";
-    case TimeOfDayFormat.H_colon_mm:
-      return 'H:mm';
-    case TimeOfDayFormat.h_colon_mm_space_a:
-      return 'h:mm a';
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return 'a h:mm';
-  }
+  if (fmt == TimeOfDayFormat.HH_colon_mm) return 'HH:mm';
+  if (fmt == TimeOfDayFormat.HH_dot_mm) return 'HH.mm';
+  if (fmt == TimeOfDayFormat.frenchCanadian) return "HH 'h' mm";
+  if (fmt == TimeOfDayFormat.H_colon_mm) return 'H:mm';
+  if (fmt == TimeOfDayFormat.h_colon_mm_space_a) return 'h:mm a';
+  if (fmt == TimeOfDayFormat.a_space_h_colon_mm) return 'a h:mm';
+  return 'HH:mm';
 }
 
 String _describeFormat(TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-      return '24-hour, zero-padded, colon separator. Most common European '
-          'pattern.';
-    case TimeOfDayFormat.HH_dot_mm:
-      return '24-hour, zero-padded, dot separator. Used in some Nordic and '
-          'Central-European locales.';
-    case TimeOfDayFormat.frenchCanadian:
-      return "24-hour, zero-padded, separated by the letter 'h'. Used in "
-          "Canadian French.";
-    case TimeOfDayFormat.H_colon_mm:
-      return '24-hour, no padding, colon separator. Common in East-Asian '
-          'locales preferring narrow digits.';
-    case TimeOfDayFormat.h_colon_mm_space_a:
-      return '12-hour, no padding, with day period (AM/PM) trailing. The '
-          'classic en_US-style pattern.';
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return '12-hour, no padding, with day period (AM/PM) leading. Used in '
-          'Korean and some other locales where the day period precedes.';
+  if (fmt == TimeOfDayFormat.HH_colon_mm) {
+    return '24-hour, zero-padded, colon separator. Most common European '
+        'pattern.';
   }
+  if (fmt == TimeOfDayFormat.HH_dot_mm) {
+    return '24-hour, zero-padded, dot separator. Used in some Nordic and '
+        'Central-European locales.';
+  }
+  if (fmt == TimeOfDayFormat.frenchCanadian) {
+    return "24-hour, zero-padded, separated by the letter 'h'. Used in "
+        "Canadian French.";
+  }
+  if (fmt == TimeOfDayFormat.H_colon_mm) {
+    return '24-hour, no padding, colon separator. Common in East-Asian '
+        'locales preferring narrow digits.';
+  }
+  if (fmt == TimeOfDayFormat.h_colon_mm_space_a) {
+    return '12-hour, no padding, with day period (AM/PM) trailing. The '
+        'classic en_US-style pattern.';
+  }
+  if (fmt == TimeOfDayFormat.a_space_h_colon_mm) {
+    return '12-hour, no padding, with day period (AM/PM) leading. Used in '
+        'Korean and some other locales where the day period precedes.';
+  }
+  return '24-hour pattern.';
 }
 
 String _whenItApplies(TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-      return 'en_GB, fr_FR, de_DE, es_ES, it_IT, pt_PT, ru_RU, and many more.';
-    case TimeOfDayFormat.HH_dot_mm:
-      return 'pl_PL, fi_FI and a handful of locales using the dot separator.';
-    case TimeOfDayFormat.frenchCanadian:
-      return 'fr_CA — the only locale that uses this pattern by default.';
-    case TimeOfDayFormat.H_colon_mm:
-      return 'ja_JP, zh_CN, ko_KR (when the locale uses 24-hour clock).';
-    case TimeOfDayFormat.h_colon_mm_space_a:
-      return 'en_US, en_CA (English), en_PH, fil_PH, and other 12h locales.';
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return 'ko_KR (when the locale uses 12-hour clock), some Asian locales.';
+  if (fmt == TimeOfDayFormat.HH_colon_mm) {
+    return 'en_GB, fr_FR, de_DE, es_ES, it_IT, pt_PT, ru_RU, and many more.';
   }
+  if (fmt == TimeOfDayFormat.HH_dot_mm) {
+    return 'pl_PL, fi_FI and a handful of locales using the dot separator.';
+  }
+  if (fmt == TimeOfDayFormat.frenchCanadian) {
+    return 'fr_CA — the only locale that uses this pattern by default.';
+  }
+  if (fmt == TimeOfDayFormat.H_colon_mm) {
+    return 'ja_JP, zh_CN, ko_KR (when the locale uses 24-hour clock).';
+  }
+  if (fmt == TimeOfDayFormat.h_colon_mm_space_a) {
+    return 'en_US, en_CA (English), en_PH, fil_PH, and other 12h locales.';
+  }
+  if (fmt == TimeOfDayFormat.a_space_h_colon_mm) {
+    return 'ko_KR (when the locale uses 12-hour clock), some Asian locales.';
+  }
+  return 'Common locales.';
 }
 
 bool _is24h(TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-    case TimeOfDayFormat.HH_dot_mm:
-    case TimeOfDayFormat.frenchCanadian:
-    case TimeOfDayFormat.H_colon_mm:
-      return true;
-    case TimeOfDayFormat.h_colon_mm_space_a:
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return false;
-  }
+  return fmt == TimeOfDayFormat.HH_colon_mm ||
+      fmt == TimeOfDayFormat.HH_dot_mm ||
+      fmt == TimeOfDayFormat.frenchCanadian ||
+      fmt == TimeOfDayFormat.H_colon_mm;
 }
 
 String _hourFamily(TimeOfDayFormat fmt) {
-  switch (fmt) {
-    case TimeOfDayFormat.HH_colon_mm:
-    case TimeOfDayFormat.HH_dot_mm:
-    case TimeOfDayFormat.frenchCanadian:
-      return 'HH';
-    case TimeOfDayFormat.H_colon_mm:
-      return 'H';
-    case TimeOfDayFormat.h_colon_mm_space_a:
-    case TimeOfDayFormat.a_space_h_colon_mm:
-      return 'h';
+  if (fmt == TimeOfDayFormat.HH_colon_mm ||
+      fmt == TimeOfDayFormat.HH_dot_mm ||
+      fmt == TimeOfDayFormat.frenchCanadian) {
+    return 'HH';
   }
+  if (fmt == TimeOfDayFormat.H_colon_mm) return 'H';
+  if (fmt == TimeOfDayFormat.h_colon_mm_space_a ||
+      fmt == TimeOfDayFormat.a_space_h_colon_mm) {
+    return 'h';
+  }
+  return 'HH';
 }
 
 // ============================================================================

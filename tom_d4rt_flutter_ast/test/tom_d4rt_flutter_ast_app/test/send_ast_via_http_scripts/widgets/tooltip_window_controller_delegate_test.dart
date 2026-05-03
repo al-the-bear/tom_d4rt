@@ -1049,25 +1049,22 @@ class _PlatformNotesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform p = Theme.of(context).platform;
-    String note;
-    switch (p) {
-      case TargetPlatform.macOS:
-        note = 'macOS uses _window_macos.dart and forwards to NSWindow / '
-            'NSPopover for anchored tooltip windows.';
-        break;
-      case TargetPlatform.windows:
-        note = 'Windows uses _window_win32.dart with HWND child windows that '
-            'follow the anchor rect.';
-        break;
-      case TargetPlatform.linux:
-        note = 'Linux uses _window_linux.dart with xdg_popup-shaped surfaces.';
-        break;
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.iOS:
-        note = 'On ${p.name}, real tooltip windows are not currently produced; '
-            'the delegate API is still callable in tests and demos via mock '
-            'controllers like the ones used here.';
+    // Cluster P4 workaround: switch-over-bridged-enum can fail to match in
+    // d4rt and leave `note` unassigned (-> Text(data: null)). Use if/else
+    // chain with `==` (proven path; see _isCupertinoFamily in
+    // foundation/target_platform_test.dart). Default initialiser also
+    // guards against any unmatched future enum value.
+    String note = 'On ${p.name}, real tooltip windows are not currently '
+        'produced; the delegate API is still callable in tests and demos '
+        'via mock controllers like the ones used here.';
+    if (p == TargetPlatform.macOS) {
+      note = 'macOS uses _window_macos.dart and forwards to NSWindow / '
+          'NSPopover for anchored tooltip windows.';
+    } else if (p == TargetPlatform.windows) {
+      note = 'Windows uses _window_win32.dart with HWND child windows that '
+          'follow the anchor rect.';
+    } else if (p == TargetPlatform.linux) {
+      note = 'Linux uses _window_linux.dart with xdg_popup-shaped surfaces.';
     }
     return _SectionCard(
       title: 'Platform Notes',

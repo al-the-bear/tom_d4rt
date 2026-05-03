@@ -175,7 +175,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 |--------|-------|---------|-------|--------|
 | **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically | **Partial — fixed for `SliderComponentShape` + `SpellCheckService`, deferred for `PreferredSizeWidget` (P1 in `interpreter_unfixable.md`).** See §9 below. |
 | **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed (partial) — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass; `widgets/windowing_owner_mac_o_s_test.dart` still fails but on a downstream Priority-1 sub-case (`AnimatedBuilder.animation` expecting `Listenable`, getting `InterpretedInstance(RegularWindowControllerMacOS)`) — out of cluster scope. See §10 below.** |
-| **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` |
+| **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` | **Fixed (script-side) — all 3 scripts pass on both drivers after converting `switch (BridgedEnum)` helpers to `if/else` chains over `==` (the proven `_isCupertinoFamily` pattern). Underlying interpreter limitation documented as `P4` in `interpreter_unfixable.md`. See §12 below.** |
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the script-side workaround in `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | interpreter — when the leaf bridge has no matching getter/method, walk the registered transitive supertype chain | **Fixed — supertype-walk fallback added to property lookup at three sites in both interpreters; supertype registration `AnimationWithParentMixin: ['Animation', 'Listenable']` added to both flutter registration packages. `backdrop_group_test` passes (no `Animation.value` error). See §11 below.** |
 | **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents |
 | **Removed Flutter API references (CupertinoTextField asserts)** | 2 (`cupertino/textfield`, `cupertino_text_selection_handle_controls`) | `minLines can't be greater than maxLines` | scripts — fix `minLines/maxLines` fixture values |
@@ -195,7 +195,7 @@ Same priority list as the `ast` analysis (§8):
 1. Bridge: `InterpretedInstance` coercion for abstract Flutter superclasses. **(P1 — partial; see §9.)**
 2. Interpreter: `for-in` over bridged `Iterable` instances. **(P2 — fixed; see §10.)**
 3. Bridge: `AnimationWithParentMixin.value` getter. **(P3 — fixed; see §11.)**
-4. Bridge: `Text.data` null handling.
+4. Bridge: `Text.data` null handling. **(P4 — fixed script-side; see §12.)**
 5. Scripts: `ButtonBar*` removal sweep.
 6. Scripts: layout-overflow cleanup.
 7. META: test-app watchdog.
@@ -397,3 +397,129 @@ in place — it does not block the cluster, and reverting it now would
 expand regression scope without test value. The interpreter fix means
 future scripts and any restored variant will resolve `.value`
 correctly through the supertype walk.
+
+## 12. Cluster fix status — Priority 4 (`Bridge: Text.data: null`)
+
+**Status: FIXED (script-side) — all 3 affected scripts pass on
+both `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test` after a
+targeted rewrite of `switch (BridgedEnum)` helpers. The
+underlying interpreter limitation is documented as `P4` in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`.**
+
+### 12.1 Root cause
+
+The three affected scripts all use one or more
+`String`-returning helpers (or one declared-but-unassigned
+`String note;` variable) of the shape:
+
+```dart
+String _platformOs(TargetPlatform p) {
+  switch (p) {
+    case TargetPlatform.android: return 'Android';
+    case TargetPlatform.iOS: return 'iOS / iPadOS';
+    // … one return per enum value, no default
+  }
+}
+```
+
+The result then flows into a downstream `Text(...)` either
+directly or via a `String`-typed wrapper parameter
+(`_heroChip(label, _platformFamily(current), tint)` →
+`Text(value, ...)`). When the d4rt interpreter's
+`visitSwitchStatement` fails to match `case BridgedEnum.value:`
+against the runtime bridged enum value, every case is skipped,
+the function falls through without executing any return, and the
+implicit return value is `null`. That null hits the bridged
+`Text(...)` constructor and surfaces as
+`Native error during default bridged constructor for 'Text': … "data": expected String, got Null`.
+
+The Cluster-26 comment alongside the case-equality probe in both
+interpreters acknowledges that the native-enum / `BridgedEnumValue`
+boundary is asymmetric. The bidirectional `==` probe added there
+catches some cases but not all — sees
+`tom_d4rt/lib/src/interpreter_visitor.dart`
+`visitSwitchStatement` and the AST-driven mirror in
+`tom_d4rt_ast`. Plain `p == TargetPlatform.android` evaluated
+outside a switch (e.g. in `_isCupertinoFamily`) works correctly —
+only legacy switch case statements exhibit the asymmetry.
+
+### 12.2 Why the script-side path
+
+A real fix would harden the bridged-enum equality probe in
+`visitSwitchStatement`, mirroring in both interpreters. That
+change is small in principle but would need full regression on
+every script that uses any switch — switch-equality is reused
+for every type, not just enums. Given:
+
+- The cluster description explicitly suggests script-side or
+  interpreter null-check is acceptable.
+- The flutter-material script corpus already prefers the
+  if/else form (`_isCupertinoFamily` proves it).
+- The script-side rewrite is local, mechanical, and produces
+  fewer surprises for future contributors.
+
+…the script-side path is the right closure for this cluster.
+The interpreter limitation is captured in
+`interpreter_unfixable.md` `P4` so it can be picked up as a
+focused interpreter pass later if a non-trivial use case
+arrives.
+
+### 12.3 Fix
+
+For each `String`-returning switch helper in the 3 scripts,
+convert to an `if/else` chain over `==` and add a final `return`
+that covers the theoretically unreachable case (Dart's
+exhaustiveness checker stays satisfied; the d4rt fall-through
+path now hits the default rather than returning `null`):
+
+```dart
+String _platformOs(TargetPlatform p) {
+  if (p == TargetPlatform.android) return 'Android';
+  if (p == TargetPlatform.iOS) return 'iOS / iPadOS';
+  if (p == TargetPlatform.fuchsia) return 'Fuchsia';
+  if (p == TargetPlatform.linux) return 'Linux desktop';
+  if (p == TargetPlatform.macOS) return 'macOS';
+  if (p == TargetPlatform.windows) return 'Windows';
+  return p.name; // unreachable on real Dart; safety net for d4rt
+}
+```
+
+For `String note;` declared-but-unassigned variables fed by a
+switch (the `_PlatformNotesSection.build` site in the tooltip
+script), seed the variable with the default branch's text and
+let the `if/else` chain overwrite it for more specific
+matches.
+
+### 12.4 Verification (rule a — script-only change, individual retest sufficient)
+
+| Script | Driver | Result |
+|--------|--------|--------|
+| `widgets/tooltip_window_controller_delegate_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the gii failure in §2.2) |
+| `widgets/tooltip_window_controller_delegate_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+| `foundation/target_platform_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the hr1 failure in §2.3) |
+| `foundation/target_platform_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+| `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the hr2 failure in §2.4) |
+| `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+
+Logs captured in
+`tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/cluster4_individual/`
+(both `_ast` and `_test` flavours). No regression suite needed
+because the changes are scoped to the 3 scripts only — no
+interpreter, generator, bridge or buildkit edits.
+
+### 12.5 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart` | `_PlatformNotesSection.build`: `String note;` switch → seeded `String note = '…default…'` + `if/else` chain over `==`. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart` | All `String _platformXxx(TargetPlatform p)` and `Color _platformTint(...)` / `_platformTintSoft(...)` and `_platformAdaptSummary(...)` helpers: switch → `if/else` chain over `==` with a final default `return`. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart` | All `formatTime`, `_icuPattern`, `_describeFormat`, `_whenItApplies`, `_is24h`, `_hourFamily` helpers: switch → `if/else` chain over `==` with a final default `return`. |
+| `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | Added `P4` entry + index row + Change Log entry. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotation. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/cluster4_individual/{tooltip,target_platform,time_of_day_format}_{ast,test}.log` | Captured individual retest logs. |
+
+No `.b.dart` files modified. No buildkit / bridge-generator
+changes. No interpreter or registration changes. Both drivers
+load the same script corpus from the `tom_d4rt_flutter_ast`
+directory (see `tom_d4rt_flutter_test/test/send_test_runner.dart:121`),
+so the rewrite lands once and benefits both.

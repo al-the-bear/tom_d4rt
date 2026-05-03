@@ -35,6 +35,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. **Small-overflow + EditableText + C3 sub-pockets all closed 2026-04-29** (see Fa1-N1 §Affected scripts and §Small-overflow pocket — empirical findings 2026-04-29). | ~~`snapshot_mode_test.dart` (small-overflow, 1 FE)~~ closed, ~~`restorable_double_test.dart` (small-overflow, 1 FE)~~ closed, ~~`select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE)~~ closed, ~~`widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE)~~ closed |
 | [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
 | [P1 — `PreferredSizeWidget` cast fails when arg arrives as a cached native widget proxy](#p1--preferredsizewidget-cast-fails-when-arg-arrives-as-a-cached-native-widget-proxy) | Interpreter limitation (proxy walk runs on `InterpretedInstance` only; once the same instance has been wrapped in `_InterpretedStatelessWidget` and cached as `nativeProxy`, the bridge call site receives the native widget directly and the multi-interface walk over `bridgedInterfaces` is skipped). Script-side workaround supplied (`PreferredSize(preferredSize: …, child: AppBar(...))`). | `widgets/snapshot_mode_test.dart` (1 FE — Scaffold.appBar) |
+| [P4 — `switch (BridgedEnum)` may fall through every case, returning null](#p4--switch-bridgedenum-may-fall-through-every-case-returning-null) | Interpreter limitation (bridged-enum case match is unreliable for some Flutter enums in `case BridgedEnum.value:` form — the equality probe in `visitSwitchStatement` returns `false` for both directions on certain bridged enum values, so a `String`-returning helper falls through and returns `null` implicitly). Script-side workaround: convert switches to `if/else` chains over `==` (the path used by `_isCupertinoFamily` is reliable), and seed local result variables with a default. | `widgets/tooltip_window_controller_delegate_test.dart`, `foundation/target_platform_test.dart`, `material/time_of_day_format_test.dart` |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -1416,8 +1417,166 @@ Any of:
 
 ---
 
+## P4 — `switch (BridgedEnum)` may fall through every case, returning null
+
+### What the scripts do
+
+Each affected script defines `String`-returning helpers that
+switch over a Flutter-bridged enum (`TargetPlatform` in
+`foundation/target_platform_test.dart` and
+`widgets/tooltip_window_controller_delegate_test.dart`,
+`TimeOfDayFormat` in `material/time_of_day_format_test.dart`).
+The shape is the canonical exhaustive Dart switch:
+
+```dart
+String _platformOs(TargetPlatform p) {
+  switch (p) {
+    case TargetPlatform.android: return 'Android';
+    case TargetPlatform.iOS: return 'iOS / iPadOS';
+    // … one return per enum value, no default
+  }
+}
+```
+
+The result flows into a downstream `Text(...)` either directly
+(`Text(_icuPattern(fmt))`) or via a wrapper widget that requires
+a non-null `String` parameter (`_heroChip(label, _platformFamily(current), tint)`
+→ `Text(value, ...)`).
+
+### Why it FE-fires under d4rt
+
+The interpreter's `visitSwitchStatement` matches each
+`SSwitchCase` by evaluating the case expression and probing both
+directions:
+
+```dart
+if (switchValue == caseValue ||
+    (caseValue != null && caseValue == switchValue)) {
+  matched = true;
+  execute = true;
+}
+```
+
+The Cluster-26 comment alongside the probe acknowledges that
+"the native enum / BridgedEnumValue boundary is asymmetric." In
+practice, for some bridged enum values neither direction returns
+true at the case-statement boundary, even though the same
+expression `p == TargetPlatform.android` evaluates correctly when
+written outside a switch (`_isCupertinoFamily` in
+`foundation/target_platform_test.dart` uses exactly this `==`
+form and works). Result: every case is skipped, the function
+falls through without executing any return, and the implicit
+return value is `null` — which surfaces downstream as
+`Native error during default bridged constructor for 'Text': … "data": expected String, got Null`.
+
+The mismatch only manifests for `case <BridgedEnum>.value:` forms
+specifically. Pattern cases (`SSwitchPatternCase`) and `==` in
+plain expressions both work — only legacy switch case statements
+exhibit the asymmetry.
+
+### Why we are not fixing this in cluster scope
+
+A real fix would patch the bridged-enum equality probe inside
+`visitSwitchStatement` (mirror in both `tom_d4rt` and
+`tom_d4rt_ast`). The existing Cluster-26 comment shows that the
+asymmetry is recognised and partly defended against — the
+single-side `caseValue == switchValue` probe was added there for
+exactly this reason. Hardening it further (e.g. unwrapping
+`BridgedInstance` operands and comparing native enum identities
+directly) is a small change in principle, but:
+
+- It requires landing in two interpreters in lock-step
+  (`tom_d4rt`, `tom_d4rt_ast`).
+- It needs full regression — switch-equality is reused for every
+  type, not just enums, so a regression risk reaches every
+  script that uses any switch.
+- The flutter-material script corpus already prefers the
+  if/else form (`_isCupertinoFamily` proves it), so the
+  script-side path is uncomplicated and produces fewer surprises
+  for future contributors.
+- The cluster description in
+  `testlog_20260503-0948-issue-analysis/error_analysis.md`
+  explicitly suggests a script-side or interpreter null-check —
+  i.e. a script-side rewrite is acceptable.
+
+### Script-side workaround
+
+For each affected helper, convert `switch (e) { case A: …; case B: …; }`
+to an `if/else` chain over `==` and add a final `return` that
+covers the theoretically unreachable case (Dart's exhaustiveness
+checker stays satisfied; the d4rt fall-through path now hits the
+default instead of returning null):
+
+```dart
+String _platformOs(TargetPlatform p) {
+  if (p == TargetPlatform.android) return 'Android';
+  if (p == TargetPlatform.iOS) return 'iOS / iPadOS';
+  if (p == TargetPlatform.fuchsia) return 'Fuchsia';
+  if (p == TargetPlatform.linux) return 'Linux desktop';
+  if (p == TargetPlatform.macOS) return 'macOS';
+  if (p == TargetPlatform.windows) return 'Windows';
+  return p.name; // unreachable on real Dart; safety net for d4rt
+}
+```
+
+For `String note;`-style declared-but-unassigned variables fed
+by a switch (`tooltip_window_controller_delegate_test.dart`
+`_PlatformNotesSection.build`), seed the variable with the
+default branch's text and let the `if/else` chain overwrite it
+when a more specific branch matches:
+
+```dart
+String note = 'On ${p.name}, real tooltip windows … (default branch text)';
+if (p == TargetPlatform.macOS) note = '…macOS-specific…';
+else if (p == TargetPlatform.windows) note = '…Windows-specific…';
+else if (p == TargetPlatform.linux) note = '…Linux-specific…';
+```
+
+### Verification
+
+Per regression rule (a) in the cluster fix protocol — script-only
+changes need only individual retests, no full essential /
+important / secondary regression suite:
+
+| Script | Driver | Result |
+|--------|--------|--------|
+| `widgets/tooltip_window_controller_delegate_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the gii failure in §2.2) |
+| `widgets/tooltip_window_controller_delegate_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+| `foundation/target_platform_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the hr1 failure in §2.3) |
+| `foundation/target_platform_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+| `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the hr2 failure in §2.4) |
+| `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+
+Captured in
+`tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/cluster4_individual/`.
+
+### Re-opening trigger
+
+Any of:
+
+- A planned interpreter pass that rewrites the bridged-enum
+  case-match probe in `visitSwitchStatement` to unwrap
+  `BridgedInstance` operands and compare native enum identities
+  directly. Mirror in `tom_d4rt` and `tom_d4rt_ast`.
+- A new test script in the corpus that uses `switch
+  (BridgedEnum)` with side-effects in the case bodies (i.e.
+  cannot easily be rewritten as a pure `if/else` returning a
+  String).
+
+---
+
 ## Change Log
 
+- 2026-05-03: **Add P4 — `switch (BridgedEnum)` may fall through
+  every case, returning null.** Documents the priority-4 cluster
+  from `testlog_20260503-0948-issue-analysis` (`Bridge: Text.data:
+  null` ×3). All three scripts
+  (`widgets/tooltip_window_controller_delegate_test.dart`,
+  `foundation/target_platform_test.dart`,
+  `material/time_of_day_format_test.dart`) now pass on both
+  drivers after the script-side rewrite (switch → if/else with
+  `==`, plus a default for declared-but-unassigned `String note;`
+  variables).
 - 2026-05-03: **Add P1 — `PreferredSizeWidget` cast fails when
   arg arrives as a cached native widget proxy.** Documents the
   third sub-case from the
