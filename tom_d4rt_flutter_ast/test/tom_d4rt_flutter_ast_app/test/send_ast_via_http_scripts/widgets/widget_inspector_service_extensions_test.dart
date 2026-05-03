@@ -134,49 +134,70 @@ extension _BucketChrome on _CallBucket {
 }
 
 /// Live mapping from enum value to bucket — exhaustive switch.
+// NOTE: D4rt does not handle empty-case fall-through in switch statements
+// (it returns null instead of the value at the next non-empty arm). Use
+// Set-based membership tests on the enum's `.name` so the lookup works
+// against bridged enum instances regardless of switch semantics.
+const Set<String> _kLifecycleNames = <String>{
+  'disposeAllGroups',
+  'disposeGroup',
+  'isWidgetTreeReady',
+  'disposeId',
+};
+const Set<String> _kPubRootNames = <String>{
+  'setPubRootDirectories',
+  'addPubRootDirectories',
+  'removePubRootDirectories',
+  'getPubRootDirectories',
+};
+const Set<String> _kTreeWalkNames = <String>{
+  'getParentChain',
+  'getProperties',
+  'getChildren',
+  'getChildrenSummaryTree',
+  'getChildrenDetailsSubtree',
+  'getRootWidget',
+  'getRootWidgetTree',
+  'getRootWidgetSummaryTree',
+  'getRootWidgetSummaryTreeWithPreviews',
+  'getDetailsSubtree',
+};
+const Set<String> _kSelectionNames = <String>{
+  'setSelectionById',
+  'getSelectedWidget',
+  'getSelectedSummaryWidget',
+  'isWidgetCreationTracked',
+};
+const Set<String> _kRenderingNames = <String>{'screenshot'};
+const Set<String> _kLayoutExplorerNames = <String>{
+  'getLayoutExplorerNode',
+  'setFlexFit',
+  'setFlexFactor',
+  'setFlexProperties',
+};
+const Set<String> _kProfilingNames = <String>{
+  'trackRebuildDirtyWidgets',
+  'trackRepaintWidgets',
+  'widgetLocationIdMap',
+};
+const Set<String> _kToggleNames = <String>{
+  'structuredErrors',
+  'show',
+};
+
 _CallBucket _bucketFor(WidgetInspectorServiceExtensions ext) {
-  switch (ext) {
-    case WidgetInspectorServiceExtensions.disposeAllGroups:
-    case WidgetInspectorServiceExtensions.disposeGroup:
-    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
-    case WidgetInspectorServiceExtensions.disposeId:
-      return _CallBucket.lifecycle;
-    case WidgetInspectorServiceExtensions.setPubRootDirectories:
-    case WidgetInspectorServiceExtensions.addPubRootDirectories:
-    case WidgetInspectorServiceExtensions.removePubRootDirectories:
-    case WidgetInspectorServiceExtensions.getPubRootDirectories:
-      return _CallBucket.pubRoots;
-    case WidgetInspectorServiceExtensions.getParentChain:
-    case WidgetInspectorServiceExtensions.getProperties:
-    case WidgetInspectorServiceExtensions.getChildren:
-    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
-    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
-    case WidgetInspectorServiceExtensions.getRootWidget:
-    case WidgetInspectorServiceExtensions.getRootWidgetTree:
-    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
-    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
-    case WidgetInspectorServiceExtensions.getDetailsSubtree:
-      return _CallBucket.treeWalk;
-    case WidgetInspectorServiceExtensions.setSelectionById:
-    case WidgetInspectorServiceExtensions.getSelectedWidget:
-    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
-    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
-      return _CallBucket.selection;
-    case WidgetInspectorServiceExtensions.screenshot:
-      return _CallBucket.rendering;
-    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
-    case WidgetInspectorServiceExtensions.setFlexFit:
-    case WidgetInspectorServiceExtensions.setFlexFactor:
-    case WidgetInspectorServiceExtensions.setFlexProperties:
-      return _CallBucket.layoutExplorer;
-    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
-    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
-    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
-      return _CallBucket.profiling;
-    case WidgetInspectorServiceExtensions.structuredErrors:
-    case WidgetInspectorServiceExtensions.show:
-      return _CallBucket.toggles;
-  }
+  final String n = ext.name;
+  if (_kLifecycleNames.contains(n)) return _CallBucket.lifecycle;
+  if (_kPubRootNames.contains(n)) return _CallBucket.pubRoots;
+  if (_kTreeWalkNames.contains(n)) return _CallBucket.treeWalk;
+  if (_kSelectionNames.contains(n)) return _CallBucket.selection;
+  if (_kRenderingNames.contains(n)) return _CallBucket.rendering;
+  if (_kLayoutExplorerNames.contains(n)) return _CallBucket.layoutExplorer;
+  if (_kProfilingNames.contains(n)) return _CallBucket.profiling;
+  if (_kToggleNames.contains(n)) return _CallBucket.toggles;
+  // Fall-back so the function never returns null; new enum values default
+  // to the toggles bucket until the script is updated.
+  return _CallBucket.toggles;
 }
 
 /// One-line summary derived from a switch over every enum value.
@@ -369,43 +390,26 @@ String _responseFor(WidgetInspectorServiceExtensions ext) {
 }
 
 /// Whether the call mutates remote state.
+// See note above `_bucketFor` — same fall-through limitation applies.
+const Set<String> _kMutatorNames = <String>{
+  'structuredErrors',
+  'show',
+  'trackRebuildDirtyWidgets',
+  'trackRepaintWidgets',
+  'disposeAllGroups',
+  'disposeGroup',
+  'disposeId',
+  'setPubRootDirectories',
+  'addPubRootDirectories',
+  'removePubRootDirectories',
+  'setSelectionById',
+  'setFlexFit',
+  'setFlexFactor',
+  'setFlexProperties',
+};
+
 bool _isMutator(WidgetInspectorServiceExtensions ext) {
-  switch (ext) {
-    case WidgetInspectorServiceExtensions.structuredErrors:
-    case WidgetInspectorServiceExtensions.show:
-    case WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets:
-    case WidgetInspectorServiceExtensions.trackRepaintWidgets:
-    case WidgetInspectorServiceExtensions.disposeAllGroups:
-    case WidgetInspectorServiceExtensions.disposeGroup:
-    case WidgetInspectorServiceExtensions.disposeId:
-    case WidgetInspectorServiceExtensions.setPubRootDirectories:
-    case WidgetInspectorServiceExtensions.addPubRootDirectories:
-    case WidgetInspectorServiceExtensions.removePubRootDirectories:
-    case WidgetInspectorServiceExtensions.setSelectionById:
-    case WidgetInspectorServiceExtensions.setFlexFit:
-    case WidgetInspectorServiceExtensions.setFlexFactor:
-    case WidgetInspectorServiceExtensions.setFlexProperties:
-      return true;
-    case WidgetInspectorServiceExtensions.widgetLocationIdMap:
-    case WidgetInspectorServiceExtensions.isWidgetTreeReady:
-    case WidgetInspectorServiceExtensions.getPubRootDirectories:
-    case WidgetInspectorServiceExtensions.getParentChain:
-    case WidgetInspectorServiceExtensions.getProperties:
-    case WidgetInspectorServiceExtensions.getChildren:
-    case WidgetInspectorServiceExtensions.getChildrenSummaryTree:
-    case WidgetInspectorServiceExtensions.getChildrenDetailsSubtree:
-    case WidgetInspectorServiceExtensions.getRootWidget:
-    case WidgetInspectorServiceExtensions.getRootWidgetTree:
-    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTree:
-    case WidgetInspectorServiceExtensions.getRootWidgetSummaryTreeWithPreviews:
-    case WidgetInspectorServiceExtensions.getDetailsSubtree:
-    case WidgetInspectorServiceExtensions.getSelectedWidget:
-    case WidgetInspectorServiceExtensions.getSelectedSummaryWidget:
-    case WidgetInspectorServiceExtensions.isWidgetCreationTracked:
-    case WidgetInspectorServiceExtensions.screenshot:
-    case WidgetInspectorServiceExtensions.getLayoutExplorerNode:
-      return false;
-  }
+  return _kMutatorNames.contains(ext.name);
 }
 
 /// Whether the call is deprecated.
@@ -704,12 +708,33 @@ class _LiveRosterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: under D4rt, `.sort()` on a `List<BridgedInstance<T>>` can
+    // re-wrap the underlying storage as a `BridgedInstance<Object>` so
+    // the subsequent for-in fails ("must be Iterable"). Avoid the
+    // in-place sort and pre-build the children list with a plain
+    // for-loop over a freshly materialized List.
     final List<WidgetInspectorServiceExtensions> values =
-        List<WidgetInspectorServiceExtensions>.from(
-            WidgetInspectorServiceExtensions.values);
-    values.sort((WidgetInspectorServiceExtensions a,
-            WidgetInspectorServiceExtensions b) =>
-        a.name.compareTo(b.name));
+        <WidgetInspectorServiceExtensions>[];
+    for (final WidgetInspectorServiceExtensions e
+        in List<WidgetInspectorServiceExtensions>.from(
+            WidgetInspectorServiceExtensions.values)) {
+      values.add(e);
+    }
+    // Insertion-sort on `name` to avoid relying on `.sort` semantics.
+    for (int i = 1; i < values.length; i++) {
+      final WidgetInspectorServiceExtensions cur = values[i];
+      int j = i - 1;
+      while (j >= 0 && values[j].name.compareTo(cur.name) > 0) {
+        values[j + 1] = values[j];
+        j--;
+      }
+      values[j + 1] = cur;
+    }
+
+    final List<Widget> chips = <Widget>[];
+    for (final WidgetInspectorServiceExtensions ext in values) {
+      chips.add(_RosterChip(ext: ext));
+    }
 
     return _Card(
       title: 'LIVE ENUM ROSTER (alphabetical)',
@@ -720,10 +745,7 @@ class _LiveRosterSection extends StatelessWidget {
       child: Wrap(
         spacing: 8,
         runSpacing: 8,
-        children: <Widget>[
-          for (final WidgetInspectorServiceExtensions ext in values)
-            _RosterChip(ext: ext),
-        ],
+        children: chips,
       ),
     );
   }
@@ -783,8 +805,13 @@ class _BucketGridSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<_CallBucket, List<WidgetInspectorServiceExtensions>> grouped =
         <_CallBucket, List<WidgetInspectorServiceExtensions>>{};
+    // NOTE: `for (... in BridgedEnum.values)` fails inside D4rt because
+    // `.values` returns a `BridgedInstance<Object>` which the iteration
+    // protocol cannot unwrap. Materialize through `List.from(...)` first
+    // — the enum's iterable adapter responds to `.from()` correctly.
     for (final WidgetInspectorServiceExtensions ext
-        in WidgetInspectorServiceExtensions.values) {
+        in List<WidgetInspectorServiceExtensions>.from(
+            WidgetInspectorServiceExtensions.values)) {
       grouped.putIfAbsent(_bucketFor(ext),
           () => <WidgetInspectorServiceExtensions>[]).add(ext);
     }
@@ -1032,8 +1059,13 @@ class _LifecyclePanelState extends State<_LifecyclePanel> {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: `.values.where(...).toList()` returns a `BridgedInstance<Object>`
+    // under D4rt, which the iteration protocol cannot unwrap. Materialize the
+    // bridged enum with `List.from(...)` first, then run filter+toList against
+    // the real Dart `List`.
     final List<WidgetInspectorServiceExtensions> mine =
-        WidgetInspectorServiceExtensions.values
+        List<WidgetInspectorServiceExtensions>.from(
+                WidgetInspectorServiceExtensions.values)
             .where((WidgetInspectorServiceExtensions e) =>
                 _bucketFor(e) == _CallBucket.lifecycle)
             .toList();
@@ -1312,9 +1344,21 @@ class _WireRow extends StatelessWidget {
 
 /// Filters live enum values into the given bucket.
 List<WidgetInspectorServiceExtensions> _membersOf(_CallBucket bucket) {
-  return WidgetInspectorServiceExtensions.values
-      .where((WidgetInspectorServiceExtensions e) => _bucketFor(e) == bucket)
-      .toList();
+  // NOTE: under D4rt the chain `.values.where(...).toList()` can return a
+  // `BridgedInstance<Object>` rather than a native `List`, which then breaks
+  // every downstream `for (... in mine)`. Use an explicit accumulator
+  // populated by a plain for-loop over `List.from(values)` — this is the
+  // most defensive form and matches the pattern that works elsewhere.
+  final List<WidgetInspectorServiceExtensions> out =
+      <WidgetInspectorServiceExtensions>[];
+  for (final WidgetInspectorServiceExtensions e
+      in List<WidgetInspectorServiceExtensions>.from(
+          WidgetInspectorServiceExtensions.values)) {
+    if (_bucketFor(e) == bucket) {
+      out.add(e);
+    }
+  }
+  return out;
 }
 
 // ===========================================================================
@@ -1453,18 +1497,38 @@ class _TreeWalkPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetInspectorServiceExtensions> mine =
-        _membersOf(_CallBucket.treeWalk);
     // Order: pure root walks first, then id-anchored walks.
-    mine.sort((WidgetInspectorServiceExtensions a,
-        WidgetInspectorServiceExtensions b) {
-      final bool aRoot = a.name.startsWith('getRoot');
-      final bool bRoot = b.name.startsWith('getRoot');
-      if (aRoot != bRoot) {
-        return aRoot ? -1 : 1;
+    // NOTE: avoid `mine.sort(...)` — under D4rt, `.sort()` on a
+    // `List<BridgedInstance<T>>` rewraps storage as
+    // `BridgedInstance<Object>`, breaking subsequent for-in iteration.
+    // Hand-rolled insertion sort into a fresh accumulator and use that.
+    final List<WidgetInspectorServiceExtensions> mine =
+        <WidgetInspectorServiceExtensions>[];
+    for (final WidgetInspectorServiceExtensions e
+        in _membersOf(_CallBucket.treeWalk)) {
+      mine.add(e);
+    }
+    for (int i = 1; i < mine.length; i++) {
+      final WidgetInspectorServiceExtensions cur = mine[i];
+      final bool curRoot = cur.name.startsWith('getRoot');
+      int j = i - 1;
+      while (j >= 0) {
+        final WidgetInspectorServiceExtensions a = mine[j];
+        final bool aRoot = a.name.startsWith('getRoot');
+        int cmp;
+        if (aRoot != curRoot) {
+          cmp = aRoot ? -1 : 1;
+        } else {
+          cmp = a.name.compareTo(cur.name);
+        }
+        if (cmp <= 0) {
+          break;
+        }
+        mine[j + 1] = a;
+        j--;
       }
-      return a.name.compareTo(b.name);
-    });
+      mine[j + 1] = cur;
+    }
     return _Card(
       title: 'TREE WALK & PROPERTIES',
       subtitle:
@@ -1706,61 +1770,76 @@ class _RenderingPanel extends StatelessWidget {
               ],
             ),
             const Divider(color: _kIvoryEdge, height: 18),
-            for (final WidgetInspectorServiceExtensions ext in mine) ...<Widget>[
-              Text(
-                ext.name,
-                style: const TextStyle(
-                  color: _kInk,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13,
-                ),
+            // NOTE: D4rt mishandles the `for (... in xs) ...<Widget>[ ... ]`
+            // spread-collection-element form — at runtime the spread target
+            // evaluates to a `BridgedInstance<Object>` rather than an
+            // Iterable, throwing "for-in must be an Iterable". Wrap each
+            // iteration in a `Column` instead, which keeps a single Widget
+            // per iteration and avoids the spread.
+            for (final WidgetInspectorServiceExtensions ext in mine)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    ext.name,
+                    style: const TextStyle(
+                      color: _kInk,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w800,
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  // Switch over the live enum value to render bucket-specific UI.
+                  Builder(builder: (BuildContext _) {
+                    switch (ext) {
+                      case WidgetInspectorServiceExtensions.screenshot:
+                        return Container(
+                          width: double.infinity,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: <Color>[
+                                _kBlueprintPale,
+                                _kIvory,
+                                _kOxbloodPale
+                              ],
+                            ),
+                            border: Border.all(color: _kInk, width: 1),
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '<base64-png placeholder>',
+                            style: TextStyle(
+                              color: _kInk,
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        );
+                      // ignore: no_default_cases
+                      default:
+                        return Text(
+                          _summaryFor(ext),
+                          style:
+                              const TextStyle(color: _kGraphite, fontSize: 12),
+                        );
+                    }
+                  }),
+                  const SizedBox(height: 6),
+                  Text(
+                    'reply: ${_responseFor(ext)}',
+                    style: const TextStyle(
+                      color: _kOxbloodDeep,
+                      fontFamily: 'monospace',
+                      fontSize: 11.5,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 4),
-              // Switch over the live enum value to render bucket-specific UI.
-              Builder(builder: (BuildContext _) {
-                switch (ext) {
-                  case WidgetInspectorServiceExtensions.screenshot:
-                    return Container(
-                      width: double.infinity,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: <Color>[_kBlueprintPale, _kIvory, _kOxbloodPale],
-                        ),
-                        border: Border.all(color: _kInk, width: 1),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        '<base64-png placeholder>',
-                        style: TextStyle(
-                          color: _kInk,
-                          fontFamily: 'monospace',
-                          fontSize: 11,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    );
-                  // ignore: no_default_cases
-                  default:
-                    return Text(
-                      _summaryFor(ext),
-                      style: const TextStyle(color: _kGraphite, fontSize: 12),
-                    );
-                }
-              }),
-              const SizedBox(height: 6),
-              Text(
-                'reply: ${_responseFor(ext)}',
-                style: const TextStyle(
-                  color: _kOxbloodDeep,
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                ),
-              ),
-            ],
           ],
         ),
       ),
@@ -1993,8 +2072,11 @@ class _TogglesPanelState extends State<_TogglesPanel> {
     // Walk the entire enum once to assemble the toggle universe: every value
     // for which `_isStreamToggle` returns true counts as a toggleable diagnostic
     // — that span includes both this bucket and the profiling streams.
+    // See note in lifecycle panel: route through `List.from` first so the
+    // where/toList chain operates on a real Dart list.
     final List<WidgetInspectorServiceExtensions> toggles =
-        WidgetInspectorServiceExtensions.values
+        List<WidgetInspectorServiceExtensions>.from(
+                WidgetInspectorServiceExtensions.values)
             .where(_isStreamToggle)
             .toList();
     final List<WidgetInspectorServiceExtensions> mine =
@@ -2097,11 +2179,15 @@ class _ByNameLookupPanelState extends State<_ByNameLookupPanel> {
   @override
   Widget build(BuildContext context) {
     final WidgetInspectorServiceExtensions? hit = _resolve(_query);
-    final List<String> suggestions = WidgetInspectorServiceExtensions.values
-        .map((WidgetInspectorServiceExtensions e) => e.name)
-        .where((String n) => n.toLowerCase().contains(_query.toLowerCase()))
-        .take(6)
-        .toList();
+    // See note above: route through `List.from` first so the
+    // map/where/take/toList chain runs against a real Dart list.
+    final List<String> suggestions =
+        List<WidgetInspectorServiceExtensions>.from(
+                WidgetInspectorServiceExtensions.values)
+            .map((WidgetInspectorServiceExtensions e) => e.name)
+            .where((String n) => n.toLowerCase().contains(_query.toLowerCase()))
+            .take(6)
+            .toList();
     return _Card(
       title: 'REVERSE LOOKUP — values.byName(...)',
       subtitle:

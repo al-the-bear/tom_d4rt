@@ -40,18 +40,74 @@ import 'package:flutter/material.dart';
 // through the same BackButtonDispatcher pipeline.
 // =============================================================================
 
+// Local shim — ChangeNotifier is not bridged in D4rt, so we
+// hand-roll listener bookkeeping for the demo's RouterDelegate.
+mixin _ChangeNotifierShim {
+  final List<VoidCallback> _listeners = [];
+  @override
+  void addListener(VoidCallback listener) => _listeners.add(listener);
+  @override
+  void removeListener(VoidCallback listener) => _listeners.remove(listener);
+  void notifyListeners() {
+    for (final l in [..._listeners]) {
+      l();
+    }
+  }
+}
+
 dynamic build(BuildContext context) {
   print('=== BackButtonListener Deep Demo START ===');
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: 'BackButtonListener Deep Demo',
-    theme: ThemeData(
-      colorSchemeSeed: Colors.indigo,
-      useMaterial3: true,
-      brightness: Brightness.light,
-    ),
-    home: const _Root(),
-  );
+  // BackButtonListener calls `Router.of(context, rootRouter: true)`,
+  // which throws when no Router ancestor is in the tree. Plain
+  // `MaterialApp` does not provide one — only `MaterialApp.router`
+  // (or an explicit `Router` widget) does. Wrap the demo in a
+  // top-level Router with a no-op delegate so the listener stack
+  // can find a BackButtonDispatcher and Router context.
+  return const _BackButtonListenerShell();
+}
+
+class _BackButtonListenerShell extends StatefulWidget {
+  const _BackButtonListenerShell();
+
+  @override
+  State<_BackButtonListenerShell> createState() =>
+      _BackButtonListenerShellState();
+}
+
+class _BackButtonListenerShellState extends State<_BackButtonListenerShell> {
+  final _routerDelegate = _BBLDemoRouterDelegate();
+  final _rootDispatcher = RootBackButtonDispatcher();
+
+  @override
+  Widget build(BuildContext context) {
+    return Router<Object>(
+      routerDelegate: _routerDelegate,
+      backButtonDispatcher: _rootDispatcher,
+    );
+  }
+}
+
+class _BBLDemoRouterDelegate extends RouterDelegate<Object>
+    with _ChangeNotifierShim {
+  @override
+  Future<void> setNewRoutePath(Object configuration) async {}
+
+  @override
+  Future<bool> popRoute() async => false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'BackButtonListener Deep Demo',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
+        brightness: Brightness.light,
+      ),
+      home: const _Root(),
+    );
+  }
 }
 
 class _Root extends StatelessWidget {
@@ -1305,18 +1361,21 @@ class _NestedNavDemoState extends State<_NestedNavDemo> {
                   return MaterialPageRoute(
                     settings: settings,
                     builder: (ctx) {
-                      switch (settings.name) {
-                        case '/detail':
-                          return _InnerDetailPage(
-                            onPushDeeper: () =>
-                                Navigator.of(ctx).pushNamed('/deeper'),
-                          );
-                        case '/deeper':
-                          return const _InnerDeeperPage();
-                        case '/':
-                        default:
-                          return _InnerHomePage(onPush: _push);
+                      // NOTE: empty `case '/':` falling through to `default:`
+                      // is not handled by the D4rt interpreter — it returns
+                      // null instead of the default-case Widget. Use explicit
+                      // if/else to avoid relying on switch fall-through.
+                      final name = settings.name;
+                      if (name == '/detail') {
+                        return _InnerDetailPage(
+                          onPushDeeper: () =>
+                              Navigator.of(ctx).pushNamed('/deeper'),
+                        );
                       }
+                      if (name == '/deeper') {
+                        return const _InnerDeeperPage();
+                      }
+                      return _InnerHomePage(onPush: _push);
                     },
                   );
                 },

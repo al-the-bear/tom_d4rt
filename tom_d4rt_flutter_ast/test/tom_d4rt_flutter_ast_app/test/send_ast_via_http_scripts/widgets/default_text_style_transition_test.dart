@@ -579,6 +579,14 @@ class _ColorMorphDemoState extends State<_ColorMorphDemo>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<TextStyle> _styleAnimation;
+  // NOTE: keep the tween + Animation<double> driver explicitly so that
+  // script-side `.value` reads can route through `tween.evaluate(driver)`.
+  // Reading `_styleAnimation.value` directly fails in D4rt because the
+  // result of `tween.animate(_controller)` is an `AnimationWithParentMixin`
+  // bridge whose `value` getter is inherited only via `implements
+  // Animation<T>` and is therefore not present in the bridge.
+  late final TextStyleTween _styleTween;
+  late final Animation<double> _styleDriver;
 
   bool _playing = false;
 
@@ -589,7 +597,7 @@ class _ColorMorphDemoState extends State<_ColorMorphDemo>
       vsync: this,
       duration: const Duration(seconds: 2),
     );
-    _styleAnimation = TextStyleTween(
+    _styleTween = TextStyleTween(
       begin: const TextStyle(
         fontSize: 16,
         color: Color(0xFF1976D2),
@@ -602,7 +610,9 @@ class _ColorMorphDemoState extends State<_ColorMorphDemo>
         fontWeight: FontWeight.w500,
         height: 1.4,
       ),
-    ).animate(_controller);
+    );
+    _styleDriver = _controller;
+    _styleAnimation = _styleTween.animate(_styleDriver);
     _controller.addListener(() => setState(() {}));
   }
 
@@ -671,7 +681,7 @@ class _ColorMorphDemoState extends State<_ColorMorphDemo>
           _Caption(label: 't', value: _controller.value.toStringAsFixed(3)),
           _Caption(
             label: 'current.color',
-            value: '0x${(_styleAnimation.value.color?.value ?? 0)
+            value: '0x${(_styleTween.evaluate(_styleDriver).color?.value ?? 0)
                 .toRadixString(16).padLeft(8, '0')}',
           ),
           const _Caption(
@@ -703,6 +713,9 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo>
   late final AnimationController _controller;
   late final Animation<TextStyle> _styleAnimation;
   late final CurvedAnimation _curve;
+  // See `_ColorMorphDemoState` for the rationale; we route script-side
+  // `.value` reads through `tween.evaluate(driver)` instead.
+  late final TextStyleTween _styleTween;
 
   @override
   void initState() {
@@ -712,7 +725,7 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo>
       duration: const Duration(milliseconds: 2200),
     );
     _curve = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _styleAnimation = TextStyleTween(
+    _styleTween = TextStyleTween(
       begin: const TextStyle(
         fontSize: 14,
         color: Color(0xFF20262C),
@@ -725,7 +738,8 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo>
         fontWeight: FontWeight.w500,
         height: 1.3,
       ),
-    ).animate(_curve);
+    );
+    _styleAnimation = _styleTween.animate(_curve);
     _controller.addListener(() => setState(() {}));
   }
 
@@ -776,7 +790,9 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo>
           ),
           _Caption(
             label: 'fontSize',
-            value: _styleAnimation.value.fontSize?.toStringAsFixed(2) ?? '?',
+            value:
+                _styleTween.evaluate(_curve).fontSize?.toStringAsFixed(2) ??
+                    '?',
           ),
           _Caption(label: 'curve', value: 'Curves.easeInOut'),
           _Caption(label: 't', value: _controller.value.toStringAsFixed(3)),
@@ -805,6 +821,10 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<TextStyle> _styleAnimation;
+  // See `_ColorMorphDemoState` for the rationale; we route script-side
+  // `.value` reads through `tween.evaluate(driver)` instead.
+  late final TextStyleTween _styleTween;
+  late final Animation<double> _styleDriver;
 
   @override
   void initState() {
@@ -813,7 +833,7 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
       vsync: this,
       duration: const Duration(milliseconds: 2500),
     );
-    _styleAnimation = TextStyleTween(
+    _styleTween = TextStyleTween(
       begin: const TextStyle(
         fontSize: 22,
         color: Color(0xFF20262C),
@@ -824,7 +844,9 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
         color: Color(0xFF20262C),
         fontWeight: FontWeight.w800,
       ),
-    ).animate(_controller);
+    );
+    _styleDriver = _controller;
+    _styleAnimation = _styleTween.animate(_styleDriver);
     _controller.addListener(() => setState(() {}));
   }
 
@@ -837,7 +859,7 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
   @override
   Widget build(BuildContext context) {
     final FontWeight current =
-        _styleAnimation.value.fontWeight ?? FontWeight.w400;
+        _styleTween.evaluate(_styleDriver).fontWeight ?? FontWeight.w400;
     final int weightValue = current.value;
 
     return _DemoCard(
@@ -977,6 +999,9 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
   late final AnimationController _controller;
   late final Animation<TextStyle> _styleAnimation;
   late final CurvedAnimation _curve;
+  // See `_ColorMorphDemoState` for the rationale; we route script-side
+  // `.value` reads through `tween.evaluate(driver)` instead.
+  late final TextStyleTween _styleTween;
 
   @override
   void initState() {
@@ -989,7 +1014,7 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
       parent: _controller,
       curve: Curves.easeInOutQuart,
     );
-    _styleAnimation = TextStyleTween(
+    _styleTween = TextStyleTween(
       begin: const TextStyle(
         fontSize: 14,
         color: Color(0xFF263238),
@@ -1006,7 +1031,8 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
         fontWeight: FontWeight.w500,
         height: 1.4,
       ),
-    ).animate(_curve);
+    );
+    _styleAnimation = _styleTween.animate(_curve);
     _controller.addListener(() => setState(() {}));
   }
 
@@ -1019,7 +1045,7 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle s = _styleAnimation.value;
+    final TextStyle s = _styleTween.evaluate(_curve);
     return _DemoCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1369,13 +1395,19 @@ class _ComparisonDemoState extends State<_ComparisonDemo>
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(child: _buildLeft()),
-        const SizedBox(width: 12),
-        Expanded(child: _buildRight()),
-      ],
+    // NOTE: `Row(crossAxisAlignment: stretch)` with `Expanded` children
+    // requires bounded height. Wrapping in `IntrinsicHeight` lets the
+    // row size itself to its tallest child instead of receiving an
+    // infinite-height constraint when used inside a scroll view.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child: _buildLeft()),
+          const SizedBox(width: 12),
+          Expanded(child: _buildRight()),
+        ],
+      ),
     );
   }
 
@@ -1520,37 +1552,43 @@ class _HeroCoordinatedDemoState extends State<_HeroCoordinatedDemo>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE8F5E9),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: DefaultTextStyleTransition(
-                    style: _leftAnim,
-                    child: const Text('Card A — green sweep'),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFEBEE),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: DefaultTextStyleTransition(
-                    style: _rightAnim,
-                    child: const Text('Card B — red sweep'),
+          // NOTE: `Row(crossAxisAlignment: stretch)` inside an unbounded
+          // vertical column needs an `IntrinsicHeight` wrapper so that
+          // its `Expanded` children receive a finite height instead of
+          // an `h=Infinity` constraint.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE8F5E9),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DefaultTextStyleTransition(
+                      style: _leftAnim,
+                      child: const Text('Card A — green sweep'),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFEBEE),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DefaultTextStyleTransition(
+                      style: _rightAnim,
+                      child: const Text('Card B — red sweep'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 12),
           Row(

@@ -1155,8 +1155,14 @@ Widget _buildStatusCatalogCard(
 }
 
 Widget _buildEqLabel(String text) {
+  // NOTE: must specify an explicit height — `Container.alignment` makes the
+  // Container "as big as possible" along any unconstrained axis. Inside a
+  // Column that itself receives an unbounded height (SingleChildScrollView),
+  // the absent height becomes Infinity and the inner Text fails layout with
+  // "RenderParagraph was given an infinite size". Match `_buildEqCell`'s 32.
   return Container(
     width: 96.0,
+    height: 32.0,
     padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
     alignment: Alignment.center,
     child: Text(

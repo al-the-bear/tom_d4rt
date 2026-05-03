@@ -456,6 +456,36 @@ class _DiagramBox extends StatelessWidget {
 }
 
 // =============================================================================
+// D4rt-friendly tween-driven animation helpers
+// =============================================================================
+//
+// `tween.animate(controller)` returns an `AnimationWithParentMixin` instance.
+// In D4rt the bridge for that mixin currently lacks `value` (it inherits it
+// only via `implements Animation<T>`, and the bridge generator's
+// `_collectInheritedMembers` walks the superclass chain only). Reading
+// `.value` on the returned animation therefore fails at runtime.
+//
+// As a portable workaround we keep the `BorderTween` instance and its
+// `Animation<double>` driver separately, and call `tween.evaluate(driver)`
+// to obtain the current value. `Tween.evaluate` is bridged, so this is
+// stable across both the analyzer-based and AST-driven runtimes.
+class _BorderAnim {
+  _BorderAnim(this.tween, this.driver);
+  final BorderTween tween;
+  final Animation<double> driver;
+  Border? get value => tween.evaluate(driver);
+  Animation<double> get listenable => driver;
+}
+
+class _BorderRadiusAnim {
+  _BorderRadiusAnim(this.tween, this.driver);
+  final BorderRadiusTween tween;
+  final Animation<double> driver;
+  BorderRadius? get value => tween.evaluate(driver);
+  Animation<double> get listenable => driver;
+}
+
+// =============================================================================
 // 2. Color morph
 // =============================================================================
 
@@ -468,7 +498,7 @@ class _ColorMorph extends StatefulWidget {
 class _ColorMorphState extends State<_ColorMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
 
   @override
   void initState() {
@@ -477,10 +507,13 @@ class _ColorMorphState extends State<_ColorMorph>
       vsync: this,
       duration: const Duration(milliseconds: 1800),
     )..repeat(reverse: true);
-    _border = BorderTween(
-      begin: Border.all(color: Colors.blue, width: 4),
-      end: Border.all(color: Colors.pink, width: 4),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.blue, width: 4),
+        end: Border.all(color: Colors.pink, width: 4),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -503,7 +536,7 @@ class _ColorMorphState extends State<_ColorMorph>
           const SizedBox(height: 12),
           Center(
             child: AnimatedBuilder(
-              animation: _border,
+              animation: _border.listenable,
               builder: (context, _) {
                 return Container(
                   width: 120,
@@ -542,7 +575,7 @@ class _WidthMorph extends StatefulWidget {
 class _WidthMorphState extends State<_WidthMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
 
   @override
   void initState() {
@@ -556,10 +589,13 @@ class _WidthMorphState extends State<_WidthMorph>
       curve: Curves.easeInOut,
       reverseCurve: Curves.easeInOut,
     );
-    _border = BorderTween(
-      begin: Border.all(color: Colors.indigo, width: 1),
-      end: Border.all(color: Colors.indigo, width: 12),
-    ).animate(curved);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.indigo, width: 1),
+        end: Border.all(color: Colors.indigo, width: 12),
+      ),
+      curved,
+    );
   }
 
   @override
@@ -582,7 +618,7 @@ class _WidthMorphState extends State<_WidthMorph>
           const SizedBox(height: 12),
           Center(
             child: AnimatedBuilder(
-              animation: _border,
+              animation: _border.listenable,
               builder: (context, _) {
                 return Container(
                   width: 160,
@@ -619,7 +655,7 @@ class _PerSideMorph extends StatefulWidget {
 class _PerSideMorphState extends State<_PerSideMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
 
   @override
   void initState() {
@@ -628,20 +664,23 @@ class _PerSideMorphState extends State<_PerSideMorph>
       vsync: this,
       duration: const Duration(milliseconds: 2200),
     )..repeat(reverse: true);
-    _border = BorderTween(
-      begin: const Border(
-        top: BorderSide(color: Colors.red, width: 2),
-        right: BorderSide(color: Colors.green, width: 2),
-        bottom: BorderSide(color: Colors.blue, width: 2),
-        left: BorderSide(color: Colors.orange, width: 2),
+    _border = _BorderAnim(
+      BorderTween(
+        begin: const Border(
+          top: BorderSide(color: Colors.red, width: 2),
+          right: BorderSide(color: Colors.green, width: 2),
+          bottom: BorderSide(color: Colors.blue, width: 2),
+          left: BorderSide(color: Colors.orange, width: 2),
+        ),
+        end: const Border(
+          top: BorderSide(color: Colors.purple, width: 8),
+          right: BorderSide(color: Colors.amber, width: 1),
+          bottom: BorderSide(color: Colors.teal, width: 6),
+          left: BorderSide(color: Colors.pink, width: 4),
+        ),
       ),
-      end: const Border(
-        top: BorderSide(color: Colors.purple, width: 8),
-        right: BorderSide(color: Colors.amber, width: 1),
-        bottom: BorderSide(color: Colors.teal, width: 6),
-        left: BorderSide(color: Colors.pink, width: 4),
-      ),
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOutSine));
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeInOutSine),
+    );
   }
 
   @override
@@ -664,7 +703,7 @@ class _PerSideMorphState extends State<_PerSideMorph>
           const SizedBox(height: 12),
           Center(
             child: AnimatedBuilder(
-              animation: _border,
+              animation: _border.listenable,
               builder: (context, _) {
                 return Container(
                   width: 180,
@@ -698,9 +737,9 @@ class _StyleMorph extends StatefulWidget {
 class _StyleMorphState extends State<_StyleMorph>
     with TickerProviderStateMixin {
   late final AnimationController _solidNoneCtrl;
-  late final Animation<Border?> _solidNone;
+  late final _BorderAnim _solidNone;
   late final AnimationController _colorCtrl;
-  late final Animation<Border?> _colorOnly;
+  late final _BorderAnim _colorOnly;
 
   @override
   void initState() {
@@ -709,23 +748,29 @@ class _StyleMorphState extends State<_StyleMorph>
       vsync: this,
       duration: const Duration(milliseconds: 1800),
     )..repeat(reverse: true);
-    _solidNone = BorderTween(
-      begin: Border.all(color: Colors.indigo, width: 4),
-      end: Border.all(
-        color: Colors.indigo,
-        width: 4,
-        style: BorderStyle.none,
+    _solidNone = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.indigo, width: 4),
+        end: Border.all(
+          color: Colors.indigo,
+          width: 4,
+          style: BorderStyle.none,
+        ),
       ),
-    ).animate(_solidNoneCtrl);
+      _solidNoneCtrl,
+    );
 
     _colorCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1600),
     )..repeat(reverse: true);
-    _colorOnly = BorderTween(
-      begin: Border.all(color: Colors.green, width: 3),
-      end: Border.all(color: Colors.deepOrange, width: 3),
-    ).animate(_colorCtrl);
+    _colorOnly = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.green, width: 3),
+        end: Border.all(color: Colors.deepOrange, width: 3),
+      ),
+      _colorCtrl,
+    );
   }
 
   @override
@@ -754,7 +799,7 @@ class _StyleMorphState extends State<_StyleMorph>
               Column(
                 children: [
                   AnimatedBuilder(
-                    animation: _solidNone,
+                    animation: _solidNone.listenable,
                     builder: (context, _) {
                       return Container(
                         width: 110,
@@ -776,7 +821,7 @@ class _StyleMorphState extends State<_StyleMorph>
               Column(
                 children: [
                   AnimatedBuilder(
-                    animation: _colorOnly,
+                    animation: _colorOnly.listenable,
                     builder: (context, _) {
                       return Container(
                         width: 110,
@@ -816,7 +861,7 @@ class _MultiCardMorph extends StatefulWidget {
 class _MultiCardMorphState extends State<_MultiCardMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final List<Animation<Border?>> _borders;
+  late final List<_BorderAnim> _borders;
 
   @override
   void initState() {
@@ -852,16 +897,57 @@ class _MultiCardMorphState extends State<_MultiCardMorph>
       const Interval(0.45, 0.9, curve: Curves.easeOut),
     ];
 
-    _borders = [
-      for (var i = 0; i < tweens.length; i++)
-        tweens[i].animate(CurvedAnimation(parent: _ctrl, curve: intervals[i])),
-    ];
+    // NOTE: under D4rt, a collection-for inside a list literal that
+    // closes over `i` and reads `intervals[i]` has been observed to
+    // index past the loop bound. Use a plain for-loop with an explicit
+    // accumulator to avoid the "Index out of range: 4" failure.
+    final List<_BorderAnim> built = <_BorderAnim>[];
+    for (int i = 0; i < tweens.length; i++) {
+      built.add(
+        _BorderAnim(
+          tweens[i],
+          CurvedAnimation(parent: _ctrl, curve: intervals[i]),
+        ),
+      );
+    }
+    _borders = built;
   }
 
   @override
   void dispose() {
     _ctrl.dispose();
     super.dispose();
+  }
+
+  Widget _buildRow() {
+    final List<Widget> cells = <Widget>[];
+    for (int i = 0; i < _borders.length; i++) {
+      final _BorderAnim anim = _borders[i];
+      final int idx = i;
+      cells.add(
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: AnimatedBuilder(
+              animation: anim.listenable,
+              builder: (context, _) {
+                return Container(
+                  height: 80,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: anim.value,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text('${idx + 1}'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+    }
+    return Row(children: cells);
   }
 
   @override
@@ -876,31 +962,11 @@ class _MultiCardMorphState extends State<_MultiCardMorph>
             'staggered "wave".',
           ),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              for (var i = 0; i < _borders.length; i++)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: AnimatedBuilder(
-                      animation: _borders[i],
-                      builder: (context, _) {
-                        return Container(
-                          height: 80,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: _borders[i].value,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text('${i + 1}'),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-            ],
-          ),
+          // NOTE: build the row's children with a plain for-loop and a
+          // fresh accumulator instead of a collection-for, again to
+          // avoid the D4rt off-by-one observed for list-literal
+          // collection-fors that close over the loop index.
+          _buildRow(),
         ],
       ),
     );
@@ -920,7 +986,7 @@ class _LoopMorph extends StatefulWidget {
 class _LoopMorphState extends State<_LoopMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
 
   @override
   void initState() {
@@ -935,20 +1001,23 @@ class _LoopMorphState extends State<_LoopMorph>
       curve: Curves.easeInOutCubic,
       reverseCurve: Curves.easeOutBack,
     );
-    _border = BorderTween(
-      begin: const Border(
-        top: BorderSide(color: Colors.indigo, width: 2),
-        right: BorderSide(color: Colors.indigo, width: 2),
-        bottom: BorderSide(color: Colors.indigo, width: 2),
-        left: BorderSide(color: Colors.indigo, width: 2),
+    _border = _BorderAnim(
+      BorderTween(
+        begin: const Border(
+          top: BorderSide(color: Colors.indigo, width: 2),
+          right: BorderSide(color: Colors.indigo, width: 2),
+          bottom: BorderSide(color: Colors.indigo, width: 2),
+          left: BorderSide(color: Colors.indigo, width: 2),
+        ),
+        end: const Border(
+          top: BorderSide(color: Colors.pinkAccent, width: 6),
+          right: BorderSide(color: Colors.pinkAccent, width: 6),
+          bottom: BorderSide(color: Colors.pinkAccent, width: 6),
+          left: BorderSide(color: Colors.pinkAccent, width: 6),
+        ),
       ),
-      end: const Border(
-        top: BorderSide(color: Colors.pinkAccent, width: 6),
-        right: BorderSide(color: Colors.pinkAccent, width: 6),
-        bottom: BorderSide(color: Colors.pinkAccent, width: 6),
-        left: BorderSide(color: Colors.pinkAccent, width: 6),
-      ),
-    ).animate(curved);
+      curved,
+    );
   }
 
   @override
@@ -972,7 +1041,7 @@ class _LoopMorphState extends State<_LoopMorph>
           const SizedBox(height: 12),
           Center(
             child: AnimatedBuilder(
-              animation: _border,
+              animation: _border.listenable,
               builder: (context, _) {
                 return Container(
                   width: 220,
@@ -1007,7 +1076,7 @@ class _VsDecoration extends StatefulWidget {
 class _VsDecorationState extends State<_VsDecoration>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
   late final Animation<Decoration> _decoration;
 
   @override
@@ -1017,10 +1086,13 @@ class _VsDecorationState extends State<_VsDecoration>
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
-    _border = BorderTween(
-      begin: Border.all(color: Colors.blueGrey, width: 1),
-      end: Border.all(color: Colors.indigo, width: 5),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.blueGrey, width: 1),
+        end: Border.all(color: Colors.indigo, width: 5),
+      ),
+      _ctrl,
+    );
 
     _decoration = DecorationTween(
       begin: BoxDecoration(
@@ -1061,7 +1133,7 @@ class _VsDecorationState extends State<_VsDecoration>
               Column(
                 children: [
                   AnimatedBuilder(
-                    animation: _border,
+                    animation: _border.listenable,
                     builder: (context, _) {
                       return Container(
                         width: 130,
@@ -1115,7 +1187,7 @@ class _StateMorph extends StatefulWidget {
 class _StateMorphState extends State<_StateMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
   bool _selected = false;
 
   @override
@@ -1125,10 +1197,13 @@ class _StateMorphState extends State<_StateMorph>
       vsync: this,
       duration: const Duration(milliseconds: 280),
     );
-    _border = BorderTween(
-      begin: Border.all(color: Colors.grey.shade400, width: 1),
-      end: Border.all(color: Colors.indigoAccent, width: 4),
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.grey.shade400, width: 1),
+        end: Border.all(color: Colors.indigoAccent, width: 4),
+      ),
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeOut),
+    );
   }
 
   @override
@@ -1161,7 +1236,7 @@ class _StateMorphState extends State<_StateMorph>
             behavior: HitTestBehavior.opaque,
             onTap: _toggle,
             child: AnimatedBuilder(
-              animation: _border,
+              animation: _border.listenable,
               builder: (context, _) {
                 return Container(
                   height: 80,
@@ -1203,8 +1278,8 @@ class _RoundedRectMorph extends StatefulWidget {
 class _RoundedRectMorphState extends State<_RoundedRectMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
-  late final Animation<BorderRadius?> _radius;
+  late final _BorderAnim _border;
+  late final _BorderRadiusAnim _radius;
 
   @override
   void initState() {
@@ -1213,14 +1288,20 @@ class _RoundedRectMorphState extends State<_RoundedRectMorph>
       vsync: this,
       duration: const Duration(milliseconds: 1900),
     )..repeat(reverse: true);
-    _border = BorderTween(
-      begin: Border.all(color: Colors.indigo, width: 2),
-      end: Border.all(color: Colors.deepPurple, width: 6),
-    ).animate(_ctrl);
-    _radius = BorderRadiusTween(
-      begin: BorderRadius.circular(4),
-      end: BorderRadius.circular(36),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.indigo, width: 2),
+        end: Border.all(color: Colors.deepPurple, width: 6),
+      ),
+      _ctrl,
+    );
+    _radius = _BorderRadiusAnim(
+      BorderRadiusTween(
+        begin: BorderRadius.circular(4),
+        end: BorderRadius.circular(36),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -1247,7 +1328,7 @@ class _RoundedRectMorphState extends State<_RoundedRectMorph>
               Column(
                 children: [
                   AnimatedBuilder(
-                    animation: _border,
+                    animation: _border.listenable,
                     builder: (context, _) {
                       return Container(
                         width: 130,
@@ -1270,7 +1351,10 @@ class _RoundedRectMorphState extends State<_RoundedRectMorph>
               Column(
                 children: [
                   AnimatedBuilder(
-                    animation: Listenable.merge([_border, _radius]),
+                    animation: Listenable.merge(<Listenable>[
+                      _border.listenable,
+                      _radius.listenable,
+                    ]),
                     builder: (context, _) {
                       return Container(
                         width: 130,
@@ -1339,7 +1423,7 @@ class _SelectionFeedbackRecipe extends StatefulWidget {
 class _SelectionFeedbackRecipeState extends State<_SelectionFeedbackRecipe>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
   bool _selected = false;
 
   @override
@@ -1349,10 +1433,13 @@ class _SelectionFeedbackRecipeState extends State<_SelectionFeedbackRecipe>
       vsync: this,
       duration: const Duration(milliseconds: 220),
     );
-    _border = BorderTween(
-      begin: Border.all(color: Colors.grey.shade300, width: 1),
-      end: Border.all(color: Colors.indigo, width: 3),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.grey.shade300, width: 1),
+        end: Border.all(color: Colors.indigo, width: 3),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -1378,7 +1465,7 @@ class _SelectionFeedbackRecipeState extends State<_SelectionFeedbackRecipe>
         onTap: _toggle,
         behavior: HitTestBehavior.opaque,
         child: AnimatedBuilder(
-          animation: _border,
+          animation: _border.listenable,
           builder: (context, _) {
             return Container(
               height: 56,
@@ -1407,7 +1494,7 @@ class _ValidationErrorRecipe extends StatefulWidget {
 class _ValidationErrorRecipeState extends State<_ValidationErrorRecipe>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
   bool _hasError = false;
 
   @override
@@ -1417,10 +1504,13 @@ class _ValidationErrorRecipeState extends State<_ValidationErrorRecipe>
       vsync: this,
       duration: const Duration(milliseconds: 260),
     );
-    _border = BorderTween(
-      begin: Border.all(color: Colors.grey.shade400, width: 1),
-      end: Border.all(color: Colors.red, width: 2),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.grey.shade400, width: 1),
+        end: Border.all(color: Colors.red, width: 2),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -1446,7 +1536,7 @@ class _ValidationErrorRecipeState extends State<_ValidationErrorRecipe>
         onTap: _toggleError,
         behavior: HitTestBehavior.opaque,
         child: AnimatedBuilder(
-          animation: _border,
+          animation: _border.listenable,
           builder: (context, _) {
             return Container(
               height: 56,
@@ -1482,7 +1572,7 @@ class _FocusRingRecipe extends StatefulWidget {
 class _FocusRingRecipeState extends State<_FocusRingRecipe>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
   bool _focused = false;
 
   @override
@@ -1492,10 +1582,13 @@ class _FocusRingRecipeState extends State<_FocusRingRecipe>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    _border = BorderTween(
-      begin: Border.all(color: Colors.transparent, width: 0),
-      end: Border.all(color: Colors.lightBlueAccent, width: 4),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.transparent, width: 0),
+        end: Border.all(color: Colors.lightBlueAccent, width: 4),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -1521,7 +1614,7 @@ class _FocusRingRecipeState extends State<_FocusRingRecipe>
         onTap: _toggleFocus,
         behavior: HitTestBehavior.opaque,
         child: AnimatedBuilder(
-          animation: _border,
+          animation: _border.listenable,
           builder: (context, _) {
             return Container(
               height: 56,
@@ -1549,7 +1642,7 @@ class _ShimmerRecipe extends StatefulWidget {
 class _ShimmerRecipeState extends State<_ShimmerRecipe>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<Border?> _border;
+  late final _BorderAnim _border;
 
   @override
   void initState() {
@@ -1558,10 +1651,13 @@ class _ShimmerRecipeState extends State<_ShimmerRecipe>
       vsync: this,
       duration: const Duration(milliseconds: 1100),
     )..repeat(reverse: true);
-    _border = BorderTween(
-      begin: Border.all(color: Colors.grey.shade300, width: 2),
-      end: Border.all(color: Colors.grey.shade600, width: 2),
-    ).animate(_ctrl);
+    _border = _BorderAnim(
+      BorderTween(
+        begin: Border.all(color: Colors.grey.shade300, width: 2),
+        end: Border.all(color: Colors.grey.shade600, width: 2),
+      ),
+      _ctrl,
+    );
   }
 
   @override
@@ -1575,7 +1671,7 @@ class _ShimmerRecipeState extends State<_ShimmerRecipe>
     return _RecipeRow(
       label: 'Loading shimmer (border color cycles)',
       child: AnimatedBuilder(
-        animation: _border,
+        animation: _border.listenable,
         builder: (context, _) {
           return Container(
             height: 56,
