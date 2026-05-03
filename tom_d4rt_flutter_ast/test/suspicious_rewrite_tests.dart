@@ -400,7 +400,7 @@ void main() {
   });
 
   // ============================================================
-  // RENDERING (17 files)
+  // RENDERING (26 files)
   // ============================================================
   group('rendering/', () {
     test('const_test.dart', () async {
@@ -443,6 +443,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('platform_view_layer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/platform_view_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('platform_view_render_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/platform_view_render_box_test.dart',
@@ -464,6 +471,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('render_animated_opacity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_animated_opacity_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('render_animated_opacity_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_animated_opacity_mixin_test.dart',
@@ -478,6 +492,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('render_block_semantics_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_block_semantics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('render_clip_r_superellipse_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_clip_r_superellipse_test.dart',
@@ -485,9 +506,30 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('render_editable_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_editable_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('render_editable_painter_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_editable_painter_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_ignore_pointer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_ignore_pointer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_shader_mask_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_shader_mask_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -506,9 +548,30 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('render_sliver_pinned_persistent_header_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_sliver_pinned_persistent_header_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('render_ui_kit_view_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_ui_kit_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('sliver_hit_test_result_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/sliver_hit_test_result_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('sliver_layout_dimensions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/sliver_layout_dimensions_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
