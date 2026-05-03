@@ -13802,6 +13802,17 @@ class BridgeGenerator {
     //     be introduced by the cast for non-nullable optional named
     //     parameters that the wrapper closure handles via a default.
     if (wrapperReturnCastType != null &&
+        // Skip the outer function-type cast when the return type is `dynamic`.
+        // Dart resolves the type argument of a generic callback parameter
+        // (e.g. `RecognizerCallback<T>` in `T? invokeCallback<T>(...)`) from
+        // the contextual type at the call site. A `dynamic Function()` cast
+        // forces T = dynamic, which then conflicts when the caller's context
+        // is `Object Function()` (T inferred to Object from the bridge
+        // adapter's `Object?` return). Without the cast, the closure literal
+        // gets its return type from inference and assigns cleanly. This does
+        // not regress G-FLP-28 (Object? Function(Object?) text) because that
+        // test exercises non-dynamic returns.
+        wrapperReturnCastType != 'dynamic' &&
         funcInfo.genericTypeParameters.isEmpty &&
         funcInfo.namedParamTypes.isEmpty) {
       final funcTypeSig = _buildFunctionTypeSignature(

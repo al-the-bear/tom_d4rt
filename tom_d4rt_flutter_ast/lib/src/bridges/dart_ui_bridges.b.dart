@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-05-01T00:09:47.655488
+// Generated: 2026-05-03T13:58:26.839494
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -701,7 +701,7 @@ class DartUiBridge {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
         final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        final getTargetSize = getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<$dart_ui.TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); };
+        final getTargetSize = getTargetSizeRaw == null ? null : ((int p0, int p1) { return D4.extractBridgedArg<$dart_ui.TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor) as $dart_ui.TargetImageSize; }) as $dart_ui.TargetImageSize Function(int, int);
         return $dart_ui.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSize);
       },
       'decodeImageFromList': (visitor, positional, named, typeArgs) {
@@ -746,7 +746,7 @@ class DartUiBridge {
           throw ArgumentError('runOnPlatformThread: Missing required argument "computation" at position 0');
         }
         final computationRaw = positional[0];
-        final computation = () { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, computationRaw, []), 'callback', visitor); };
+        final computation = (() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, computationRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function();
         return $dart_ui.runOnPlatformThread<dynamic>(computation);
       },
       'loadFontFromList': (visitor, positional, named, typeArgs) {
@@ -937,7 +937,7 @@ BridgedClass _createChannelBuffersBridge() {
           throw ArgumentError('drain: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        return t.drain(name, (ByteData? p0, void Function(ByteData?) p1) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1]), 'callback', visitor); });
+        return t.drain(name, ((ByteData? p0, void Function(ByteData?) p1) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1]), 'callback', visitor) as Future<void>; }) as Future<void> Function(ByteData?, void Function(ByteData?)));
       },
       'handleMessage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ChannelBuffers>(target, 'ChannelBuffers');
@@ -3757,7 +3757,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.where((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric));
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3770,7 +3770,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
+        return t.expand((($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function($dart_ui.PathMetric));
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3795,7 +3795,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce(($dart_ui.PathMetric p0, $dart_ui.PathMetric p1) { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor); });
+        return t.reduce((($dart_ui.PathMetric p0, $dart_ui.PathMetric p1) { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor) as $dart_ui.PathMetric; }) as $dart_ui.PathMetric Function($dart_ui.PathMetric, $dart_ui.PathMetric));
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3814,7 +3814,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.every((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric));
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3828,7 +3828,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.any((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric));
       },
       'toList': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3852,7 +3852,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.takeWhile((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric));
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3867,7 +3867,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.skipWhile((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric));
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3877,7 +3877,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.firstWhere((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric), orElse: orElseRaw == null ? null : (() { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor) as $dart_ui.PathMetric; }) as $dart_ui.PathMetric Function());
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3887,7 +3887,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.lastWhere((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric), orElse: orElseRaw == null ? null : (() { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor) as $dart_ui.PathMetric; }) as $dart_ui.PathMetric Function());
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3897,7 +3897,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.singleWhere((($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function($dart_ui.PathMetric), orElse: orElseRaw == null ? null : (() { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor) as $dart_ui.PathMetric; }) as $dart_ui.PathMetric Function());
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -5544,7 +5544,7 @@ BridgedClass _createPlatformDispatcherBridge() {
       },
       'onKeyData': (visitor, target, value) {
         final onKeyDataRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKeyData');
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onKeyData = onKeyDataRaw == null ? null : ($dart_ui.KeyData p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onKeyDataRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onKeyData = onKeyDataRaw == null ? null : (($dart_ui.KeyData p0) { return D4.callInterpreterCallback(visitor!, onKeyDataRaw, [p0]) as bool; }) as bool Function($dart_ui.KeyData);
       },
       'onReportTimings': (visitor, target, value) {
         final onReportTimingsRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onReportTimings');
@@ -5588,7 +5588,7 @@ BridgedClass _createPlatformDispatcherBridge() {
       },
       'onError': (visitor, target, value) {
         final onErrorRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onError');
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onError = onErrorRaw == null ? null : (Object p0, StackTrace p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]), 'callback', visitor); };
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onError = onErrorRaw == null ? null : ((Object p0, StackTrace p1) { return D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]) as bool; }) as bool Function(Object, StackTrace);
       },
     },
     methods: {

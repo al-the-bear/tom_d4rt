@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-05-01T00:09:54.636952
+// Generated: 2026-05-03T13:58:33.893651
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -4187,7 +4187,7 @@ BridgedClass _createFlutterErrorDetailsForPointerEventDispatcherBridge() {
         final hitTestEntry = D4.getOptionalNamedArg<$flutter_17.HitTestEntry<$flutter_17.HitTestTarget>?>(named, 'hitTestEntry');
         final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        return $flutter_6.FlutterErrorDetailsForPointerEventDispatcher(exception: exception, stack: stack, library: library, context: context, event: event, hitTestEntry: hitTestEntry, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_4.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); }, silent: silent);
+        return $flutter_6.FlutterErrorDetailsForPointerEventDispatcher(exception: exception, stack: stack, library: library, context: context, event: event, hitTestEntry: hitTestEntry, informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_4.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_4.DiagnosticsNode>; }) as Iterable<$flutter_4.DiagnosticsNode> Function(), silent: silent);
       },
     },
     getters: {
@@ -4212,7 +4212,7 @@ BridgedClass _createFlutterErrorDetailsForPointerEventDispatcherBridge() {
         final silent = D4.getOptionalNamedArg<bool?>(named, 'silent');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final stackFilterRaw = named['stackFilter'];
-        return t.copyWith(context: context, exception: exception, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_4.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); }, library: library, silent: silent, stack: stack, stackFilter: stackFilterRaw == null ? null : (Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor); });
+        return t.copyWith(context: context, exception: exception, informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_4.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_4.DiagnosticsNode>; }) as Iterable<$flutter_4.DiagnosticsNode> Function(), library: library, silent: silent, stack: stack, stackFilter: stackFilterRaw == null ? null : ((Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor) as Iterable<String>; }) as Iterable<String> Function(Iterable<String>));
       },
       'exceptionAsString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.FlutterErrorDetailsForPointerEventDispatcher>(target, 'FlutterErrorDetailsForPointerEventDispatcher');
@@ -4379,7 +4379,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
+        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
       },
       'reassembleApplication': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.GestureBinding>(target, 'GestureBinding');
@@ -4396,7 +4396,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
+        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4410,7 +4410,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
+        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4424,7 +4424,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
+        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -4449,7 +4449,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
+        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4459,7 +4459,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -4538,7 +4538,7 @@ BridgedClass _createPointerEventConverterBridge() {
           throw ArgumentError('expand: Missing required argument "devicePixelRatioForView" at position 1');
         }
         final devicePixelRatioForViewRaw = positional[1];
-        final devicePixelRatioForView = (int p0) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, devicePixelRatioForViewRaw, [p0]), 'callback', visitor); };
+        final devicePixelRatioForView = ((int p0) { return D4.callInterpreterCallback(visitor!, devicePixelRatioForViewRaw, [p0]) as double?; }) as double? Function(int);
         return $flutter_8.PointerEventConverter.expand(data, devicePixelRatioForView);
       },
     },
@@ -5143,7 +5143,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_12.EagerGestureRecognizer(supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -5254,7 +5254,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
@@ -5479,19 +5479,19 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         }
         if (named.containsKey('interpolation') && !named.containsKey('allowedButtonsFilter')) {
           final interpolationRaw = named['interpolation'];
-          final interpolation = (double p0, double p1, double p2) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, interpolationRaw, [p0, p1, p2]), 'callback', visitor); };
+          final interpolation = ((double p0, double p1, double p2) { return D4.callInterpreterCallback(visitor!, interpolationRaw, [p0, p1, p2]) as double; }) as double Function(double, double, double);
           return $flutter_14.ForcePressGestureRecognizer(startPressure: startPressure, peakPressure: peakPressure, debugOwner: debugOwner, supportedDevices: supportedDevices, interpolation: interpolation);
         }
         if (!named.containsKey('interpolation') && named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_14.ForcePressGestureRecognizer(startPressure: startPressure, peakPressure: peakPressure, debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         if (named.containsKey('interpolation') && named.containsKey('allowedButtonsFilter')) {
           final interpolationRaw = named['interpolation'];
-          final interpolation = (double p0, double p1, double p2) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, interpolationRaw, [p0, p1, p2]), 'callback', visitor); };
+          final interpolation = ((double p0, double p1, double p2) { return D4.callInterpreterCallback(visitor!, interpolationRaw, [p0, p1, p2]) as double; }) as double Function(double, double, double);
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_14.ForcePressGestureRecognizer(startPressure: startPressure, peakPressure: peakPressure, debugOwner: debugOwner, supportedDevices: supportedDevices, interpolation: interpolation, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -5625,7 +5625,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
@@ -6069,7 +6069,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-        return $flutter_18.LongPressGestureRecognizer(duration: duration, postAcceptSlopTolerance: postAcceptSlopTolerance, supportedDevices: supportedDevices, debugOwner: debugOwner, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
+        return $flutter_18.LongPressGestureRecognizer(duration: duration, postAcceptSlopTolerance: postAcceptSlopTolerance, supportedDevices: supportedDevices, debugOwner: debugOwner, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int));
       },
     },
     getters: {
@@ -6288,7 +6288,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
@@ -6759,7 +6759,7 @@ BridgedClass _createGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.GestureRecognizer>(target, 'GestureRecognizer');
@@ -6955,7 +6955,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
@@ -7217,7 +7217,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
@@ -7526,7 +7526,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
       'velocityTrackerBuilder': (visitor, target, value) {
         final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder = (($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor) as $flutter_31.VelocityTracker; }) as $flutter_31.VelocityTracker Function($flutter_13.PointerEvent);
       },
     },
     methods: {
@@ -7618,7 +7618,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer');
@@ -7826,7 +7826,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_20.VerticalDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7896,7 +7896,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
       'velocityTrackerBuilder': (visitor, target, value) {
         final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder = (($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor) as $flutter_31.VelocityTracker; }) as $flutter_31.VelocityTracker Function($flutter_13.PointerEvent);
       },
     },
     methods: {
@@ -7988,7 +7988,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
@@ -8199,7 +8199,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_20.HorizontalDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -8269,7 +8269,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
       'velocityTrackerBuilder': (visitor, target, value) {
         final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder = (($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor) as $flutter_31.VelocityTracker; }) as $flutter_31.VelocityTracker Function($flutter_13.PointerEvent);
       },
     },
     methods: {
@@ -8361,7 +8361,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
@@ -8572,7 +8572,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_20.PanGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -8642,7 +8642,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').onlyAcceptDragOnThreshold = D4.extractBridgedArg<bool>(value, 'onlyAcceptDragOnThreshold'),
       'velocityTrackerBuilder': (visitor, target, value) {
         final velocityTrackerBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'velocityTrackerBuilder');
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder = ($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder = (($flutter_13.PointerEvent p0) { return D4.extractBridgedArg<$flutter_31.VelocityTracker>(D4.callInterpreterCallback(visitor!, velocityTrackerBuilderRaw, [p0]), 'callback', visitor) as $flutter_31.VelocityTracker; }) as $flutter_31.VelocityTracker Function($flutter_13.PointerEvent);
       },
     },
     methods: {
@@ -8734,7 +8734,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer');
@@ -8965,7 +8965,7 @@ BridgedClass _createMultiDragPointerStateBridge() {
           throw ArgumentError('accepted: Missing required argument "starter" at position 0');
         }
         final starterRaw = positional[0];
-        t.accepted((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, starterRaw, [p0]), 'callback', visitor); });
+        t.accepted(((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, starterRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset));
         return null;
       },
       'rejected': (visitor, target, positional, named, typeArgs) {
@@ -9022,7 +9022,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
-        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
       },
     },
     methods: {
@@ -9114,7 +9114,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
@@ -9216,7 +9216,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-        return $flutter_21.ImmediateMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
+        return $flutter_21.ImmediateMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int));
       },
     },
     getters: {
@@ -9234,7 +9234,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
-        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
       },
     },
     methods: {
@@ -9326,7 +9326,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
@@ -9431,7 +9431,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-        return $flutter_21.HorizontalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
+        return $flutter_21.HorizontalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int));
       },
     },
     getters: {
@@ -9449,7 +9449,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
-        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
       },
     },
     methods: {
@@ -9541,7 +9541,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
@@ -9646,7 +9646,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-        return $flutter_21.VerticalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
+        return $flutter_21.VerticalMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int));
       },
     },
     getters: {
@@ -9664,7 +9664,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
-        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
       },
     },
     methods: {
@@ -9756,7 +9756,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
@@ -9862,11 +9862,11 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         if (!named.containsKey('delay')) {
-          return $flutter_21.DelayedMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
+          return $flutter_21.DelayedMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int));
         }
         if (named.containsKey('delay')) {
           final delay = D4.getRequiredNamedArg<Duration>(named, 'delay', 'DelayedMultiDragGestureRecognizer');
-          return $flutter_21.DelayedMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, delay: delay);
+          return $flutter_21.DelayedMultiDragGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int), delay: delay);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -9887,7 +9887,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
-        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : (Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); };
+        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
       },
     },
     methods: {
@@ -9979,7 +9979,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
@@ -10356,7 +10356,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
@@ -10572,7 +10572,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_28.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         if (!named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
@@ -10581,7 +10581,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
           return $flutter_28.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, preAcceptSlopTolerance: preAcceptSlopTolerance);
         }
@@ -10591,7 +10591,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
           return $flutter_28.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, postAcceptSlopTolerance: postAcceptSlopTolerance);
         }
@@ -10602,7 +10602,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
           final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
           return $flutter_28.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, preAcceptSlopTolerance: preAcceptSlopTolerance, postAcceptSlopTolerance: postAcceptSlopTolerance);
@@ -10781,7 +10781,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer');
@@ -11024,7 +11024,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_22.DoubleTapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -11147,7 +11147,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
@@ -11254,7 +11254,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_22.MultiTapGestureRecognizer(longTapDelay: longTapDelay, debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -11390,7 +11390,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
@@ -11694,7 +11694,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_22.SerialTapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -11818,7 +11818,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
@@ -12206,7 +12206,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && !named.containsKey('trackpadScrollToScaleFactor')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           return $flutter_27.ScaleGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, dragStartBehavior: dragStartBehavior, trackpadScrollCausesScale: trackpadScrollCausesScale, allowedButtonsFilter: allowedButtonsFilter);
         }
         if (!named.containsKey('allowedButtonsFilter') && named.containsKey('trackpadScrollToScaleFactor')) {
@@ -12215,7 +12215,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         }
         if (named.containsKey('allowedButtonsFilter') && named.containsKey('trackpadScrollToScaleFactor')) {
           final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
-          final allowedButtonsFilter = (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); };
+          final allowedButtonsFilter = ((int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }) as bool Function(int);
           final trackpadScrollToScaleFactor = D4.getRequiredNamedArg<Offset>(named, 'trackpadScrollToScaleFactor', 'ScaleGestureRecognizer');
           return $flutter_27.ScaleGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, dragStartBehavior: dragStartBehavior, trackpadScrollCausesScale: trackpadScrollCausesScale, allowedButtonsFilter: allowedButtonsFilter, trackpadScrollToScaleFactor: trackpadScrollToScaleFactor);
         }
@@ -12352,7 +12352,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
@@ -13029,7 +13029,7 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
@@ -13371,7 +13371,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
@@ -13716,7 +13716,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         }
         final callbackRaw = positional[1];
         final debugReportRaw = named['debugReport'];
-        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, debugReportRaw, []), 'callback', visitor); });
+        return t.invokeCallback(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }, debugReport: debugReportRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, debugReportRaw, []) as String; }) as String Function());
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
