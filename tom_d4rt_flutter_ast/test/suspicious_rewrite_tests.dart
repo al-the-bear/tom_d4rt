@@ -49,9 +49,16 @@ void main() {
   });
 
   // ============================================================
-  // CUPERTINO (8 files)
+  // CUPERTINO (13 files)
   // ============================================================
   group('cupertino/', () {
+    test('cupertino_controls_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_controls_advanced_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('cupertino_desktop_text_selection_controls_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_desktop_text_selection_controls_test.dart',
@@ -66,9 +73,37 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('cupertino_form_scroll_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_form_scroll_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('cupertino_sections_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_sections_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino_secondary_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_secondary_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino_tabbar_scaffold_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_tabbar_scaffold_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino_text_selection_controls_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_text_selection_controls_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -736,13 +771,18 @@ void main() {
   });
 
   // ============================================================
-  // WIDGETS (43 files)
+  // WIDGETS (47 files)
   // ============================================================
   group('widgets/', () {
     test('action_listener_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/action_listener_test.dart',
       );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('actions_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/actions_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -830,6 +870,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('color_filtered_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/color_filtered_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('constrained_layout_builder_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/constrained_layout_builder_test.dart',
@@ -847,6 +894,13 @@ void main() {
     test('context_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/context_action_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('default_asset_bundle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/default_asset_bundle_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -896,6 +950,13 @@ void main() {
     test('drag_target_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/drag_target_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dual_transition_builder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/dual_transition_builder_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

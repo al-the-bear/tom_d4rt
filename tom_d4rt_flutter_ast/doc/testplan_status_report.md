@@ -229,11 +229,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertino_layout_warnings_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_layout_warnings_regression_test.dart) | CupertinoLayoutWarningsRegression | No | No | No | Needs to be created (Batch-0 recurring framework warning pattern without hard failure). |
 | [cupertino_button_size_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | Yes | No | Created on 2026-03-17 at 16:38 |
 | [cupertino_colors_system_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_colors_system_test.dart) | CupertinoColors | No | Yes | No |
-| [cupertino_controls_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_controls_advanced_test.dart) | CupertinoSwitch | No | Yes | No |
+| [cupertino_controls_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_controls_advanced_test.dart) | CupertinoSwitch | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [cupertino_desktop_text_selection_controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_desktop_text_selection_controls_test.dart) | CupertinoDesktopTextSelectionControls | No | Yes | No | Created on 2026-05-02 at 10:43 |
 | [cupertino_expansion_tile_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_expansion_tile_test.dart) | CupertinoExpansionTile | No | Yes | No |
 | [cupertino_focus_halo_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_focus_halo_test.dart) | CupertinoFocusHalo | No | Yes | No | Created on 2026-05-02 at 10:43 |
-| [cupertino_form_scroll_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_form_scroll_test.dart) | CupertinoTextFormFieldRow | No | Yes | No |
+| [cupertino_form_scroll_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_form_scroll_test.dart) | CupertinoTextFormFieldRow | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [cupertino_linear_activity_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_linear_activity_indicator_test.dart) | CupertinoLinearActivityIndicator | No | Yes | No |
 | [cupertino_list_section_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_list_section_type_test.dart) | CupertinoListSectionType | No | Yes | No | Created on 2026-03-17 at 16:45 |
 | [cupertino_list_tile_chevron_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_list_tile_chevron_test.dart) | CupertinoListTileChevron | No | Yes | No |
@@ -245,14 +245,14 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertino_picker_default_selection_overlay_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_picker_default_selection_overlay_test.dart) | CupertinoPickerDefaultSelectionOverlay | No | Yes | No |
 | [cupertino_refresh_mag_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_refresh_mag_test.dart) | CupertinoSliverRefreshControl | No | Yes | No |
 | [cupertino_scroll_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_scroll_behavior_test.dart) | CupertinoScrollBehavior | No | Yes | No |
-| [cupertino_secondary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_secondary_test.dart) | CupertinoColors | No | Yes | No |
+| [cupertino_secondary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_secondary_test.dart) | CupertinoColors | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [cupertino_sections_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sections_test.dart) | CupertinoFormSection | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [cupertino_sheet_route_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sheet_route_test.dart) | CupertinoSheetRoute | No | Yes | No |
 | [cupertino_sheet_transition_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sheet_transition_test.dart) | CupertinoSheetTransition | No | Yes | No |
 | [cupertino_spell_check_suggestions_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_spell_check_suggestions_toolbar_test.dart) | CupertinoSpellCheckSuggestionsToolbar | No | Yes | No |
-| [cupertino_tabbar_scaffold_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_tabbar_scaffold_test.dart) | CupertinoTabBar | No | Yes | No |
+| [cupertino_tabbar_scaffold_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_tabbar_scaffold_test.dart) | CupertinoTabBar | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [cupertino_text_magnifier_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_text_magnifier_test.dart) | CupertinoTextMagnifier | No | Yes | No |
-| [cupertino_text_selection_controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_text_selection_controls_test.dart) | CupertinoTextSelectionControls | No | Yes | No |
+| [cupertino_text_selection_controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_text_selection_controls_test.dart) | CupertinoTextSelectionControls | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [cupertino_text_selection_handle_controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_text_selection_handle_controls_test.dart) | CupertinoTextSelectionHandleControls | No | Yes | No | Created on 2026-05-02 at 10:43 |
 | [cupertino_themes_batch1_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_themes_batch1_test.dart) | CupertinoThemeData | No | Yes | No |
 | [cupertino_themes_batch2_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_themes_batch2_test.dart) | CupertinoThemeData | No | Yes | No |
@@ -1485,7 +1485,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [action_dispatcher_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/action_dispatcher_test.dart) | ActionDispatcher | No | Yes | No | Created on 2026-04-07. |
 | [action_listener_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/action_listener_test.dart) | ActionListener | No | Yes | No | Recreated on 2026-05-02 at 14:35. |
 | [actions_intents_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/actions_intents_test.dart) | SelectIntent | No | Yes | No | Checked. |
-| [actions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/actions_test.dart) | Actions | No | Yes | No | Created on 2026-03-30 at 10:29. |
+| [actions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/actions_test.dart) | Actions | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [activate_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/activate_action_test.dart) | ActivateAction | No | Yes | No | Created on 2026-04-08. |
 | [activate_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/activate_intent_test.dart) | ActivateIntent | No | Yes | No | Created on 2026-04-08. |
 | [align_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/align_test.dart) | Align | No | Yes | No |
@@ -1579,7 +1579,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [clipboard_status_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/clipboard_status_test.dart) | ClipboardStatus | No | Yes | No | Created on 2026-04-08. |
 | [clipping_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/clipping_test.dart) | ClipRect | No | Yes | No | Checked. |
 | [cliprrect_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/cliprrect_test.dart) | ClipRRect | No | Yes | No |
-| [color_filtered_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | Yes | No | Created on 2026-03-30 at 17:12. |
+| [color_filtered_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [column_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/column_test.dart) | Column | No | Yes | No |
 | [component_element_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | Yes | No | Created on 2026-04-08. |
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | Yes | No | Created on 2026-03-30 at 17:28. |
@@ -1606,7 +1606,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [decorated_sliver_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/decorated_sliver_test.dart) | DecoratedSliver | No | Yes | No | Created on 2026-03-30 at 21:59. |
 | [decoratedbox_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/decoratedbox_test.dart) | DecoratedBox | No | Yes | No |
 | [decoration_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | Yes | No | Created on 2026-04-08. |
-| [default_asset_bundle_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_asset_bundle_test.dart) | DefaultAssetBundle | No | Yes | No | Created on 2026-04-15 at 13:00. |
+| [default_asset_bundle_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_asset_bundle_test.dart) | DefaultAssetBundle | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [default_platform_menu_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_platform_menu_delegate_test.dart) | DefaultPlatformMenuDelegate | No | Yes | No | Created on 2026-04-08. |
 | [default_selection_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart) | DefaultSelectionStyle | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
 | [default_text_editing_shortcuts_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/default_text_editing_shortcuts_test.dart) | DefaultTextEditingShortcuts | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
@@ -1659,7 +1659,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [draggable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/draggable_test.dart) | Draggable | No | Yes | No |
 | [draggablescrollablesheet_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/draggablescrollablesheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
 | [driven_scroll_activity_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity | No | Yes | No | Created on 2026-04-08. |
-| [dual_transition_builder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | Yes | No | Created on 2026-04-15 at 13:00. |
+| [dual_transition_builder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
 | [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | Yes | No | Created on 2026-04-08. |
 | [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | Yes | No | Created on 2026-04-08. |
 | [edge_insets_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | Yes | No | Created on 2026-04-08. |
