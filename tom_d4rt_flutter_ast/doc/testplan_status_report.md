@@ -246,7 +246,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertino_refresh_mag_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_refresh_mag_test.dart) | CupertinoSliverRefreshControl | No | Yes | No |
 | [cupertino_scroll_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_scroll_behavior_test.dart) | CupertinoScrollBehavior | No | Yes | No |
 | [cupertino_secondary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_secondary_test.dart) | CupertinoColors | No | Yes | No |
-| [cupertino_sections_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sections_test.dart) | CupertinoFormSection | No | Yes | No |
+| [cupertino_sections_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sections_test.dart) | CupertinoFormSection | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [cupertino_sheet_route_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sheet_route_test.dart) | CupertinoSheetRoute | No | Yes | No |
 | [cupertino_sheet_transition_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_sheet_transition_test.dart) | CupertinoSheetTransition | No | Yes | No |
 | [cupertino_spell_check_suggestions_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_spell_check_suggestions_toolbar_test.dart) | CupertinoSpellCheckSuggestionsToolbar | No | Yes | No |
@@ -601,10 +601,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [button_bar_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_theme_data_test.dart) | ButtonBarThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_bar_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart) | ButtonBarTheme | No | Yes | No | Recreated on 2026-05-02 at 10:54 |
 | [button_style_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_style_button_test.dart) | ButtonStyleButton | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [button_styles_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_styles_misc_test.dart) | ButtonBarTheme | No | Yes | No | Checked. |
+| [button_styles_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_styles_misc_test.dart) | ButtonBarTheme | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [button_text_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart) | ButtonTextTheme | No | Yes | No | Recreated on 2026-05-02 at 10:54 |
 | [button_bar_null_coercion_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_null_coercion_regression_test.dart) | ButtonBarNullCoercionRegression | No | No | No | Needs to be created (Batch-5 failure patterns: null comparison/property access and expected `Widget` vs `InterpretedInstance` coercion around button bar/theme flows). |
-| [button_types_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_types_test.dart) | MaterialButton | No | Yes | No | Checked. |
+| [button_types_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_types_test.dart) | MaterialButton | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [buttons_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/buttons_test.dart) | OutlinedButton | No | Yes | No |
 | [buttonstyle_popup_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/buttonstyle_popup_test.dart) | ButtonStyle | No | Yes | No |
 | [buttonstyle_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/buttonstyle_test.dart) | ButtonStyle | No | Yes | No |
@@ -820,7 +820,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [refresh_indicator_status_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/refresh_indicator_status_test.dart) | RefreshIndicatorStatus | No | Yes | No | Batch 60. 522 lines, Coral/Salmon, prefix ri. Internal mode lifecycle, state transitions, live RefreshIndicator, timeline, patterns. |
 | [refresh_indicator_trigger_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/refresh_indicator_trigger_mode_test.dart) | RefreshIndicatorTriggerMode | No | Yes | No | Batch 60. 554 lines, Marine/Navy, prefix rt. Trigger zone diagrams, scroll simulation, live indicators, conflict analysis. |
 | [refresh_progress_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/refresh_progress_indicator_test.dart) | RefreshProgressIndicator | No | Yes | No | Recreated on 2026-05-02 at 11:07 |
-| [refreshindicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/refreshindicator_test.dart) | RefreshIndicator | No | Yes | No |
+| [refreshindicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/refreshindicator_test.dart) | RefreshIndicator | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [reorderable_material_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/reorderable_material_test.dart) | ReorderableListView | No | Yes | No |
 | [restorable_time_of_day_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/restorable_time_of_day_test.dart) | RestorableTimeOfDay | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [round_range_slider_thumb_shape_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/round_range_slider_thumb_shape_test.dart) | RoundRangeSliderThumbShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
@@ -895,11 +895,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tabs_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | Yes | No | Created on 2026-03-29 at 14:35 |
 | [text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Checked. |
-| [text_button_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | Yes | No | Created on 2026-03-29 at 14:41 |
+| [text_button_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [text_field_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_field_theme_test.dart) | InputDecorationTheme | No | Yes | No | Checked. |
 | [text_magnifier_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_magnifier_test.dart) | TextMagnifier | No | Yes | No | Deep demo created 2025-03-28 |
-| [text_selection_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | Yes | No | Created on 2026-03-29 at 14:45 |
-| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | Yes | No | Created on 2026-03-29 at 14:50 |
+| [text_selection_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
+| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [texttheme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/texttheme_test.dart) | TextTheme | No | Yes | No |
 | [themadata_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [theme_data_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | Yes | No | Created on 2026-03-29 at 15:00 |
@@ -911,11 +911,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [thumb_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [time_of_day_format_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
-| [timeofday_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Checked. |
+| [timeofday_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [timepicker_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Checked. |
 | [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
-| [toggle_segmented_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No |
+| [toggle_segmented_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [togglebuttons_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/togglebuttons_test.dart) | ToggleButtons | No | Yes | No |
 | [tooltip_badge_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No |
 | [toggle_buttons_box_constraints_eq_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_box_constraints_eq_regression_test.dart) | ToggleButtonsBoxConstraintsEqRegression | No | No | No | Needs to be created (Batch-10 failure pattern: bridged `BoxConstraints` operator `==` receives null `other` in toggle buttons theme flows). |

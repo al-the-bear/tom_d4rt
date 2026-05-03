@@ -49,7 +49,7 @@ void main() {
   });
 
   // ============================================================
-  // CUPERTINO (7 files)
+  // CUPERTINO (8 files)
   // ============================================================
   group('cupertino/', () {
     test('cupertino_desktop_text_selection_controls_test.dart', () async {
@@ -62,6 +62,13 @@ void main() {
     test('cupertino_focus_halo_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_focus_halo_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino_sections_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_sections_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -126,7 +133,7 @@ void main() {
   });
 
   // ============================================================
-  // MATERIAL (31 files)
+  // MATERIAL (39 files)
   // ============================================================
   group('material/', () {
     test('bottom_navigation_bar_type_test.dart', () async {
@@ -139,6 +146,20 @@ void main() {
     test('button_bar_layout_behavior_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/button_bar_layout_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('button_styles_misc_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/button_styles_misc_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('button_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/button_types_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -276,8 +297,36 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('refreshindicator_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/refreshindicator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('tabs_test.dart', () async {
       final result = await SendTestRunner.send('material/tabs_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_button_theme_data_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/text_button_theme_data_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_selection_toolbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/text_selection_toolbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_selection_toolbar_text_button_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/text_selection_toolbar_text_button_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -317,6 +366,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('timeofday_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/timeofday_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('toggle_buttons_theme_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/toggle_buttons_theme_data_test.dart',
@@ -327,6 +383,13 @@ void main() {
     test('toggle_buttons_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/toggle_buttons_theme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('toggle_segmented_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/toggle_segmented_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
