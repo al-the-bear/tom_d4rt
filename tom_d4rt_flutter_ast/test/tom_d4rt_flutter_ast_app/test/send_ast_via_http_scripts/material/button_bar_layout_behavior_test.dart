@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo - ButtonBarLayoutBehavior from material
-// Comprehensive demonstration of ButtonBarLayoutBehavior.padded vs constrained
-// across realistic dialog footers, action bars, settings panes, and themed
-// button bars. Although the Flutter team has deprecated ButtonBar in favour of
-// OverflowBar, the ButtonBarLayoutBehavior enum still ships from
-// flutter/material.dart and this file exercises both code paths.
+// Comprehensive demonstration of the ButtonBarLayoutBehavior enum
+// (.padded vs .constrained) across dialog footers, action bars, settings
+// panes, and themed button bars. The bridged enum is the subject; the
+// underlying layout primitive is a plain Wrap so the demo focuses on what
+// each enum value means for the children (constrained adds a 64dp minimum
+// width to each child) without leaning on a sibling widget like OverflowBar.
 
 import 'package:flutter/material.dart';
 
@@ -250,7 +251,7 @@ dynamic build(BuildContext context) {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Text(
                   'ButtonBarLayoutBehavior.${behavior.name} '
-                  '(rendered via OverflowBar — modern equivalent)',
+                  '(constrained = each child wrapped in SizedBox(width: 64))',
                   style: const TextStyle(
                     fontSize: 10,
                     color: Colors.black54,
@@ -258,9 +259,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              OverflowBar(
-                alignment: MainAxisAlignment.end,
+              Wrap(
+                alignment: WrapAlignment.end,
                 spacing: 8,
+                runSpacing: 6,
                 children: behavior == ButtonBarLayoutBehavior.constrained
                     ? <Widget>[
                         for (final Widget kid in children)
@@ -578,8 +580,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.fromLTRB(12, 6, 12, 4),
             child: Text(
               'footer layoutBehavior reference: '
-              'ButtonBarLayoutBehavior.${behavior.name} '
-              '(rendered via OverflowBar)',
+              'ButtonBarLayoutBehavior.${behavior.name}',
               style: const TextStyle(
                 fontSize: 10,
                 color: Colors.black54,
@@ -589,10 +590,10 @@ dynamic build(BuildContext context) {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
-            child: OverflowBar(
-              alignment: MainAxisAlignment.end,
+            child: Wrap(
+              alignment: WrapAlignment.end,
               spacing: 8,
-              overflowSpacing: 6,
+              runSpacing: 6,
               children: behavior == ButtonBarLayoutBehavior.constrained
                   ? <Widget>[
                       for (final Widget action in actions)
@@ -727,14 +728,15 @@ dynamic build(BuildContext context) {
     required ButtonBarLayoutBehavior behavior,
     required String title,
   }) {
-    // The original demo wrapped this column in a ButtonBarTheme + a
-    // ButtonBarThemeData carrying layoutBehavior, alignment, buttonTextTheme,
-    // buttonHeight, and buttonMinWidth. ButtonBarThemeData is no longer
-    // bridged — modern Flutter renders the same row via OverflowBar, which
-    // does not consult ButtonBarLayoutBehavior. We recreate the visual
-    // intent: each child is wrapped in a SizedBox of the original button
-    // height (40) and, when behavior is constrained, the original
-    // buttonMinWidth (80) — otherwise the natural width is preserved.
+    // The historical ButtonBarTheme used a ButtonBarThemeData carrying
+    // layoutBehavior, alignment, buttonTextTheme, buttonHeight, and
+    // buttonMinWidth. ButtonBarThemeData is unbridged here, so this column
+    // recreates the same visual intent without a theme widget: each child
+    // is wrapped in a SizedBox of the historical button height (40) and,
+    // when the enum value is .constrained, the historical buttonMinWidth
+    // (80) — otherwise the natural width is preserved. This makes the
+    // ButtonBarLayoutBehavior value the single visible differentiator
+    // between the two columns rendered side by side.
     final double rowHeight = 40;
     final double? minWidth =
         behavior == ButtonBarLayoutBehavior.constrained ? 80 : null;
@@ -747,10 +749,10 @@ dynamic build(BuildContext context) {
     }
 
     Widget bar(List<Widget> kids) {
-      return OverflowBar(
-        alignment: MainAxisAlignment.end,
+      return Wrap(
+        alignment: WrapAlignment.end,
         spacing: 8,
-        overflowSpacing: 6,
+        runSpacing: 6,
         children: <Widget>[for (final Widget k in kids) shape(k)],
       );
     }
@@ -776,10 +778,9 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4),
           Text(
             'inherits ButtonBarLayoutBehavior.${behavior.name} '
-            '(referenced via the enum; rendered via OverflowBar — '
-            'ButtonTextTheme.primary, buttonHeight=40'
-            '${minWidth != null ? ', buttonMinWidth=80' : ''} from the '
-            'original ButtonBarThemeData are simulated by SizedBox)',
+            '(buttonHeight=40'
+            '${minWidth != null ? ', buttonMinWidth=80' : ''} simulated by '
+            'SizedBox per child)',
             style: const TextStyle(
               fontSize: 10,
               color: Colors.black54,
@@ -916,10 +917,7 @@ dynamic build(BuildContext context) {
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: Text(
-              'ButtonBarLayoutBehavior.${b.name} '
-              '(rendered via OverflowBar — modern Flutter equivalent; '
-              'OverflowBar does not honour ButtonBarLayoutBehavior natively, '
-              'the enum value is shown above for reference)',
+              'ButtonBarLayoutBehavior.${b.name}',
               style: const TextStyle(
                 fontSize: 10,
                 color: Colors.black54,
@@ -927,10 +925,10 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          OverflowBar(
-            alignment: MainAxisAlignment.end,
+          Wrap(
+            alignment: WrapAlignment.end,
             spacing: 8,
-            overflowSpacing: 6,
+            runSpacing: 6,
             children: <Widget>[
               const TextButton(
                 onPressed: null,
@@ -1038,10 +1036,9 @@ dynamic build(BuildContext context) {
         longRow(ButtonBarLayoutBehavior.constrained),
         const SizedBox(height: 16),
         const Text(
-          'Bonus: the same content rendered with a modern OverflowBar (the '
-          'replacement that Material now recommends). OverflowBar does not '
-          'consult ButtonBarLayoutBehavior — it has its own knobs '
-          '(overflowAlignment, overflowSpacing, alignment).',
+          'Bonus: the same content laid out with the enum index next to each '
+          'value, to confirm the bridged enum still round-trips name and '
+          'index identifiers through the AST.',
           style: TextStyle(color: longText, height: 1.4),
         ),
         const SizedBox(height: 8),
@@ -1052,20 +1049,29 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(8),
-          child: const OverflowBar(
-            spacing: 8,
-            overflowSpacing: 8,
-            alignment: MainAxisAlignment.end,
-            children: [
-              TextButton(onPressed: null, child: Text('Maybe later')),
-              OutlinedButton(
-                onPressed: null,
-                child: Text('Read the privacy notice'),
-              ),
-              ElevatedButton(
-                onPressed: null,
-                child: Text('I accept the terms and conditions'),
-              ),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 6,
+            children: <Widget>[
+              for (final v in ButtonBarLayoutBehavior.values)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: longAccent.withOpacity(0.85),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'name=${v.name} · index=${v.index}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
@@ -1228,9 +1234,9 @@ dynamic build(BuildContext context) {
   // contact form footer. Each mockup chooses the layout behaviour that best
   // suits its content.
   // ==========================================================================
-  // Compact reusable footer that simulates the legacy ButtonBar/ButtonBarTheme
-  // wrapper using OverflowBar. The ButtonBarLayoutBehavior enum is referenced
-  // for documentation; constrained wraps each child in a 64dp-min SizedBox.
+  // Compact reusable footer driven by the ButtonBarLayoutBehavior enum:
+  // .constrained wraps each child in a 64dp-min SizedBox; .padded leaves
+  // the natural intrinsic widths alone. The enum value is the only knob.
   Widget galleryFooter(ButtonBarLayoutBehavior b, List<Widget> kids) {
     final List<Widget> rendered = b == ButtonBarLayoutBehavior.constrained
         ? <Widget>[for (final Widget k in kids) SizedBox(width: 64, child: k)]
@@ -1243,8 +1249,7 @@ dynamic build(BuildContext context) {
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: Text(
-              'footer reference: ButtonBarLayoutBehavior.${b.name} '
-              '(rendered via OverflowBar)',
+              'footer reference: ButtonBarLayoutBehavior.${b.name}',
               style: const TextStyle(
                 fontSize: 10,
                 color: Colors.black54,
@@ -1252,10 +1257,10 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          OverflowBar(
-            alignment: MainAxisAlignment.end,
+          Wrap(
+            alignment: WrapAlignment.end,
             spacing: 8,
-            overflowSpacing: 6,
+            runSpacing: 6,
             children: rendered,
           ),
         ],

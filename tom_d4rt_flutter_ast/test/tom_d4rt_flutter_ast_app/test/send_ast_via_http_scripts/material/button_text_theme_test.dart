@@ -168,7 +168,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Deprecation note: ButtonBarThemeData.buttonTextTheme historically propagated this enum down a widget subtree. Modern Flutter has dropped that propagation; the equivalent today is per-button styling via style: overrides on ElevatedButton, TextButton, OutlinedButton etc. This demo therefore renders OverflowBar instead of the deprecated ButtonBar.',
+                    'Deprecation note: ButtonBarThemeData.buttonTextTheme historically propagated this enum down a widget subtree. Modern Flutter has dropped that propagation; the equivalent today is per-button styling via style: overrides on ElevatedButton, TextButton, OutlinedButton etc. This demo focuses on the ButtonTextTheme enum itself - every visible button below sets MaterialButton.textTheme directly so the resolved colour is driven by the enum value alone.',
                     style: TextStyle(
                       fontSize: 12.5,
                       color: const Color(0xFF7A4A00),
@@ -442,12 +442,12 @@ dynamic build(BuildContext context) {
   );
 
   // ==========================================================================
-  // SECTION 4 - BUTTONBAR THEME INTEGRATION
-  // ButtonBarTheme.buttonTextTheme is the ambient default. We render three
-  // ButtonBars, each scoped under a different ButtonBarTheme, and the
-  // contained children are the same set of MaterialButton-family widgets.
-  // The point: a child does not need to set textTheme explicitly when an
-  // ambient ButtonBarTheme already defines it.
+  // SECTION 4 - FOOTER ROW APPLICATION
+  // The classic place to mix ButtonTextTheme values is a card footer with two
+  // or three actions. Each footer below renders the same trio of
+  // MaterialButton actions, with one ButtonTextTheme value applied per row.
+  // The wrapping layout primitive is a plain Wrap so nothing competes with
+  // the enum as the visual subject.
   // ==========================================================================
   final buttonBarSection = Card(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -463,7 +463,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            '4 - ButtonBarTheme integration',
+            '4 - Footer row application',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -472,12 +472,12 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 4),
           const Text(
-            'Three ButtonBar rows, identical children, different ambient '
-            'ButtonBarThemeData.buttonTextTheme.',
+            'Three footer rows, identical children, different '
+            'ButtonTextTheme value applied per MaterialButton.',
             style: TextStyle(fontSize: 13, color: Color(0xFF00695C)),
           ),
           const SizedBox(height: 18),
-          _buttonBarRow(
+          _textThemeRow(
             label: 'ButtonTextTheme.normal',
             description: 'inherits text colour from theme body',
             theme: ButtonTextTheme.normal,
@@ -485,7 +485,7 @@ dynamic build(BuildContext context) {
             stripeColor: const Color(0xFF00838F),
           ),
           const SizedBox(height: 12),
-          _buttonBarRow(
+          _textThemeRow(
             label: 'ButtonTextTheme.accent',
             description: 'inherits colorScheme.secondary',
             theme: ButtonTextTheme.accent,
@@ -493,7 +493,7 @@ dynamic build(BuildContext context) {
             stripeColor: const Color(0xFF00796B),
           ),
           const SizedBox(height: 12),
-          _buttonBarRow(
+          _textThemeRow(
             label: 'ButtonTextTheme.primary',
             description: 'inherits colorScheme.primary',
             theme: ButtonTextTheme.primary,
@@ -806,9 +806,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 6),
           Text(
             'ButtonTextTheme is small but central to legacy Material button '
-            'styling. The same enum drives ButtonBarTheme defaults, the '
-            'foreground of FlatButton / RaisedButton / OutlineButton, and '
-            'the cascade of colorScheme tinting.',
+            'styling. The same three values drive the foreground of '
+            'FlatButton / RaisedButton / OutlineButton via the cascade of '
+            'colorScheme tinting; modern style: overrides on TextButton / '
+            'ElevatedButton replicate it on a per-button basis.',
             style: TextStyle(
               color: Color(0xFF94A3B8),
               fontSize: 12.5,
@@ -1002,7 +1003,7 @@ Widget _swatch(Color color, String letter) {
   );
 }
 
-Widget _buttonBarRow({
+Widget _textThemeRow({
   required String label,
   required String description,
   required ButtonTextTheme theme,
@@ -1036,7 +1037,7 @@ Widget _buttonBarRow({
         Padding(
           padding: const EdgeInsets.only(bottom: 4),
           child: Text(
-            'ButtonTextTheme.${theme.name}',
+            'ButtonTextTheme.${theme.name}  (index ${theme.index})',
             style: TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w700,
@@ -1045,10 +1046,9 @@ Widget _buttonBarRow({
             ),
           ),
         ),
-        OverflowBar(
-          alignment: MainAxisAlignment.start,
+        Wrap(
           spacing: 6,
-          overflowAlignment: OverflowBarAlignment.start,
+          runSpacing: 4,
           children: [
             MaterialButton(
               onPressed: () {},
@@ -1069,7 +1069,10 @@ Widget _buttonBarRow({
         ),
         const SizedBox(height: 6),
         Text(
-          'Legacy note: a ButtonBarThemeData(buttonTextTheme: ...) wrapping a ButtonBar would have propagated this enum to descendants. Modern Flutter uses per-button style: arguments (ElevatedButton.styleFrom / TextButton.styleFrom / OutlinedButton.styleFrom); OverflowBar replaces ButtonBar.',
+          'Each MaterialButton above sets textTheme: ${theme.name} directly. '
+          'The enum value is the only differentiator between rows; layout '
+          'primitives (Wrap, Container, Padding) are deliberately neutral so '
+          'nothing distracts from the colour resolution path.',
           style: const TextStyle(
               fontSize: 11, color: Color(0xFF334155), height: 1.35),
         ),
