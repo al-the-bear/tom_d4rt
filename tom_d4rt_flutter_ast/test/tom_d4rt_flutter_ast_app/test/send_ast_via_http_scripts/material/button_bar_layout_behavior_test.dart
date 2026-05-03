@@ -242,12 +242,33 @@ dynamic build(BuildContext context) {
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: ButtonBarTheme(
-            data: ButtonBarThemeData(layoutBehavior: behavior),
-            child: ButtonBar(
-              alignment: MainAxisAlignment.end,
-              children: children,
-            ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  'ButtonBarLayoutBehavior.${behavior.name} '
+                  '(rendered via OverflowBar — modern equivalent)',
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.black54,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+              OverflowBar(
+                alignment: MainAxisAlignment.end,
+                spacing: 8,
+                children: behavior == ButtonBarLayoutBehavior.constrained
+                    ? <Widget>[
+                        for (final Widget kid in children)
+                          SizedBox(width: 64, child: kid),
+                      ]
+                    : children,
+              ),
+            ],
           ),
         ),
       ],
@@ -553,12 +574,32 @@ dynamic build(BuildContext context) {
             ),
           ),
           const Divider(height: 1),
-          ButtonBarTheme(
-            data: ButtonBarThemeData(
-              layoutBehavior: behavior,
-              alignment: MainAxisAlignment.end,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 4),
+            child: Text(
+              'footer layoutBehavior reference: '
+              'ButtonBarLayoutBehavior.${behavior.name} '
+              '(rendered via OverflowBar)',
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black54,
+                fontStyle: FontStyle.italic,
+              ),
             ),
-            child: ButtonBar(children: actions),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
+            child: OverflowBar(
+              alignment: MainAxisAlignment.end,
+              spacing: 8,
+              overflowSpacing: 6,
+              children: behavior == ButtonBarLayoutBehavior.constrained
+                  ? <Widget>[
+                      for (final Widget action in actions)
+                        SizedBox(width: 64, child: action),
+                    ]
+                  : actions,
+            ),
           ),
         ],
       ),
@@ -686,57 +727,81 @@ dynamic build(BuildContext context) {
     required ButtonBarLayoutBehavior behavior,
     required String title,
   }) {
-    return ButtonBarTheme(
-      data: ButtonBarThemeData(
-        layoutBehavior: behavior,
+    // The original demo wrapped this column in a ButtonBarTheme + a
+    // ButtonBarThemeData carrying layoutBehavior, alignment, buttonTextTheme,
+    // buttonHeight, and buttonMinWidth. ButtonBarThemeData is no longer
+    // bridged — modern Flutter renders the same row via OverflowBar, which
+    // does not consult ButtonBarLayoutBehavior. We recreate the visual
+    // intent: each child is wrapped in a SizedBox of the original button
+    // height (40) and, when behavior is constrained, the original
+    // buttonMinWidth (80) — otherwise the natural width is preserved.
+    final double rowHeight = 40;
+    final double? minWidth =
+        behavior == ButtonBarLayoutBehavior.constrained ? 80 : null;
+    Widget shape(Widget kid) {
+      return SizedBox(
+        height: rowHeight,
+        width: minWidth,
+        child: kid,
+      );
+    }
+
+    Widget bar(List<Widget> kids) {
+      return OverflowBar(
         alignment: MainAxisAlignment.end,
-        buttonTextTheme: ButtonTextTheme.primary,
-        buttonHeight: 40,
-        buttonMinWidth: behavior == ButtonBarLayoutBehavior.constrained
-            ? 80
-            : null,
+        spacing: 8,
+        overflowSpacing: 6,
+        children: <Widget>[for (final Widget k in kids) shape(k)],
+      );
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: themeAccent.withOpacity(0.6)),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: themeAccent.withOpacity(0.6)),
-        ),
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: themeText,
-                fontSize: 14,
-              ),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: themeText,
+              fontSize: 14,
             ),
-            const SizedBox(height: 8),
-            ButtonBar(
-              children: const [
-                TextButton(onPressed: null, child: Text('Cancel')),
-                ElevatedButton(onPressed: null, child: Text('OK')),
-              ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'inherits ButtonBarLayoutBehavior.${behavior.name} '
+            '(referenced via the enum; rendered via OverflowBar — '
+            'ButtonTextTheme.primary, buttonHeight=40'
+            '${minWidth != null ? ', buttonMinWidth=80' : ''} from the '
+            'original ButtonBarThemeData are simulated by SizedBox)',
+            style: const TextStyle(
+              fontSize: 10,
+              color: Colors.black54,
+              fontStyle: FontStyle.italic,
             ),
-            const Divider(height: 1),
-            ButtonBar(
-              children: const [
-                TextButton(onPressed: null, child: Text('Back')),
-                OutlinedButton(onPressed: null, child: Text('Skip')),
-                ElevatedButton(onPressed: null, child: Text('Next')),
-              ],
-            ),
-            const Divider(height: 1),
-            ButtonBar(
-              children: const [
-                ElevatedButton(onPressed: null, child: Text('Continue')),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+          bar(const <Widget>[
+            TextButton(onPressed: null, child: Text('Cancel')),
+            ElevatedButton(onPressed: null, child: Text('OK')),
+          ]),
+          const Divider(height: 1),
+          bar(const <Widget>[
+            TextButton(onPressed: null, child: Text('Back')),
+            OutlinedButton(onPressed: null, child: Text('Skip')),
+            ElevatedButton(onPressed: null, child: Text('Next')),
+          ]),
+          const Divider(height: 1),
+          bar(const <Widget>[
+            ElevatedButton(onPressed: null, child: Text('Continue')),
+          ]),
+        ],
       ),
     );
   }
@@ -844,27 +909,44 @@ dynamic build(BuildContext context) {
         border: Border.all(color: longAccent.withOpacity(0.6)),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: ButtonBarTheme(
-        data: ButtonBarThemeData(
-          layoutBehavior: b,
-          alignment: MainAxisAlignment.end,
-        ),
-        child: ButtonBar(
-          children: const [
-            TextButton(
-              onPressed: null,
-              child: Text('Maybe later'),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              'ButtonBarLayoutBehavior.${b.name} '
+              '(rendered via OverflowBar — modern Flutter equivalent; '
+              'OverflowBar does not honour ButtonBarLayoutBehavior natively, '
+              'the enum value is shown above for reference)',
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black54,
+                fontStyle: FontStyle.italic,
+              ),
             ),
-            OutlinedButton(
-              onPressed: null,
-              child: Text('Read the privacy notice'),
-            ),
-            ElevatedButton(
-              onPressed: null,
-              child: Text('I accept the terms and conditions'),
-            ),
-          ],
-        ),
+          ),
+          OverflowBar(
+            alignment: MainAxisAlignment.end,
+            spacing: 8,
+            overflowSpacing: 6,
+            children: <Widget>[
+              const TextButton(
+                onPressed: null,
+                child: Text('Maybe later'),
+              ),
+              const OutlinedButton(
+                onPressed: null,
+                child: Text('Read the privacy notice'),
+              ),
+              const ElevatedButton(
+                onPressed: null,
+                child: Text('I accept the terms and conditions'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -1146,6 +1228,41 @@ dynamic build(BuildContext context) {
   // contact form footer. Each mockup chooses the layout behaviour that best
   // suits its content.
   // ==========================================================================
+  // Compact reusable footer that simulates the legacy ButtonBar/ButtonBarTheme
+  // wrapper using OverflowBar. The ButtonBarLayoutBehavior enum is referenced
+  // for documentation; constrained wraps each child in a 64dp-min SizedBox.
+  Widget galleryFooter(ButtonBarLayoutBehavior b, List<Widget> kids) {
+    final List<Widget> rendered = b == ButtonBarLayoutBehavior.constrained
+        ? <Widget>[for (final Widget k in kids) SizedBox(width: 64, child: k)]
+        : kids;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 6, 12, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              'footer reference: ButtonBarLayoutBehavior.${b.name} '
+              '(rendered via OverflowBar)',
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black54,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+          OverflowBar(
+            alignment: MainAxisAlignment.end,
+            spacing: 8,
+            overflowSpacing: 6,
+            children: rendered,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget galleryCard({
     required String title,
     required String subtitle,
@@ -1277,17 +1394,12 @@ dynamic build(BuildContext context) {
             'Are you sure you want to permanently remove "Q3 forecast.xlsx"?',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer: ButtonBarTheme(
-            data: const ButtonBarThemeData(
-              layoutBehavior: ButtonBarLayoutBehavior.constrained,
-              alignment: MainAxisAlignment.end,
-            ),
-            child: ButtonBar(
-              children: const [
-                TextButton(onPressed: null, child: Text('No')),
-                ElevatedButton(onPressed: null, child: Text('Yes')),
-              ],
-            ),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.constrained,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('No')),
+              ElevatedButton(onPressed: null, child: Text('Yes')),
+            ],
           ),
         ),
         const SizedBox(height: 14),
@@ -1299,18 +1411,13 @@ dynamic build(BuildContext context) {
             'You changed the notification preferences but have not saved yet.',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer: ButtonBarTheme(
-            data: const ButtonBarThemeData(
-              layoutBehavior: ButtonBarLayoutBehavior.padded,
-              alignment: MainAxisAlignment.end,
-            ),
-            child: ButtonBar(
-              children: const [
-                TextButton(onPressed: null, child: Text('Discard')),
-                OutlinedButton(onPressed: null, child: Text('Keep editing')),
-                ElevatedButton(onPressed: null, child: Text('Save')),
-              ],
-            ),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.padded,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('Discard')),
+              OutlinedButton(onPressed: null, child: Text('Keep editing')),
+              ElevatedButton(onPressed: null, child: Text('Save')),
+            ],
           ),
         ),
         const SizedBox(height: 14),
@@ -1323,20 +1430,15 @@ dynamic build(BuildContext context) {
             'you are happy with the contents.',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer: ButtonBarTheme(
-            data: const ButtonBarThemeData(
-              layoutBehavior: ButtonBarLayoutBehavior.constrained,
-              alignment: MainAxisAlignment.end,
-            ),
-            child: ButtonBar(
-              children: const [
-                TextButton(onPressed: null, child: Text('Help')),
-                TextButton(onPressed: null, child: Text('Cancel')),
-                OutlinedButton(onPressed: null, child: Text('Reset')),
-                OutlinedButton(onPressed: null, child: Text('Draft')),
-                ElevatedButton(onPressed: null, child: Text('Send')),
-              ],
-            ),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.constrained,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('Help')),
+              TextButton(onPressed: null, child: Text('Cancel')),
+              OutlinedButton(onPressed: null, child: Text('Reset')),
+              OutlinedButton(onPressed: null, child: Text('Draft')),
+              ElevatedButton(onPressed: null, child: Text('Send')),
+            ],
           ),
         ),
         const SizedBox(height: 14),

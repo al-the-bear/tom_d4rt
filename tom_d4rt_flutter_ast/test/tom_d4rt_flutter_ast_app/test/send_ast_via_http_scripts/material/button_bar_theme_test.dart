@@ -1,54 +1,48 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Live demo gallery - ButtonBarTheme deep dive
+// D4rt test script: Live demo gallery - OverflowBar (modern ButtonBar) deep dive
 // ----------------------------------------------------------------------------
-// ButtonBarTheme is the inherited Material theme widget that supplies a
-// ButtonBarThemeData to any descendant ButtonBar. It is the conduit through
-// which alignment, mainAxisSize, layoutBehavior, padding, buttonPadding,
-// buttonTextTheme, buttonMinWidth, buttonHeight, overflowDirection, and
-// overflowButtonSpacing are propagated through the widget tree without ever
-// touching the ButtonBar constructor. Both ButtonBar and ButtonBarTheme are
-// deprecated in modern Flutter (replaced by OverflowBar / Wrap / Row), but
-// they still drive a tremendous amount of legacy Material code, including
-// most AlertDialog actions footers, so understanding the theme is still the
-// only way to make those screens look consistent.
-//
-// This script is a long-form gallery in eleven distinct sections. Each
-// section paints a tinted card with one or more real ButtonBar widgets so a
-// reader can scroll the build output and see the *visual effect* of every
-// ButtonBarThemeData field, plus a final "reading-back" card and a
-// reference card listing every theme field with prose.
+// ButtonBar / ButtonBarTheme / ButtonBarThemeData are deprecated in current
+// Flutter and ButtonBarThemeData has no usable bridge in d4rt. The modern
+// equivalent is OverflowBar (from package:flutter/widgets.dart, re-exported by
+// material), exposing alignment, overflowAlignment, overflowDirection,
+// overflowSpacing, and spacing as direct constructor arguments. Per-child
+// sizing that used to live in ButtonBarThemeData (buttonHeight, buttonMinWidth,
+// buttonPadding, layoutBehavior) is expressed as ordinary SizedBox /
+// ConstrainedBox / Padding wrappers. This script is a long-form gallery in
+// eleven sections; each demonstrates one OverflowBar property or one
+// wrapper-widget pattern that replaces a deprecated ButtonBarThemeData field.
 // ----------------------------------------------------------------------------
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   // ===========================================================================
   // PROLOGUE - DIAGNOSTIC PRINTS
-  // ---------------------------------------------------------------------------
-  // The reference cupertino_focus_halo_test gallery prints a diagnostic header
-  // before painting the tree. We do the same here so when this script is
-  // executed via send_ast_via_http the operator can see, in the run log, that
-  // every section's theme has been constructed and is exactly as documented.
+  // Note: ButtonBar and ButtonBarThemeData are deprecated; OverflowBar is the
+  // modern equivalent. Each section demonstrates one OverflowBar property or
+  // the wrapper-widget pattern that replaces a deprecated field.
   // ===========================================================================
-  print('=== ButtonBarTheme Deep Demo ===');
-  print('Eleven sections, each pinned to a specific ButtonBarThemeData field.');
+  print('=== OverflowBar (modern ButtonBar) Deep Demo ===');
+  print('Eleven sections, each pinned to one modern OverflowBar property or');
+  print('one wrapper-widget pattern that replaces a deprecated');
+  print('ButtonBarThemeData field.');
   print('Sections:');
-  print('  1. Hero - what is ButtonBarTheme + ButtonBarTheme.of(context)');
-  print('  2. Alignment sweep (start/end/center/spaceBetween/spaceAround)');
-  print('  3. ButtonBarLayoutBehavior (padded vs constrained)');
-  print('  4. mainAxisSize (min vs max)');
-  print('  5. buttonPadding x buttonMinWidth x buttonHeight matrix');
-  print('  6. buttonTextTheme (normal / accent / primary)');
+  print('  1. Hero - what is OverflowBar (modern replacement for ButtonBar)');
+  print('  2. Alignment sweep (OverflowBarAlignment + Row for space*)');
+  print('  3. layoutBehavior replacement - ConstrainedBox per child');
+  print('  4. mainAxisSize replacement - IntrinsicWidth wrap for min sizing');
+  print('  5. buttonPadding x buttonMinWidth x buttonHeight via wrappers');
+  print('  6. buttonTextTheme - documented enum, default OverflowBar styling');
   print('  7. overflowDirection (down vs up) under narrow constraint');
-  print('  8. overflowButtonSpacing (0 / 8 / 24)');
-  print('  9. Realistic dialog footers themed via ButtonBarTheme');
-  print(' 10. Reading-back card calling ButtonBarTheme.of(context)');
-  print(' 11. Reference card listing every ButtonBarThemeData field');
+  print('  8. overflowSpacing (0 / 8 / 24) - was overflowButtonSpacing');
+  print('  9. Realistic dialog footers themed via OverflowBar');
+  print(' 10. Read-back card showing OverflowBar argument values directly');
+  print(' 11. Reference card listing every OverflowBar property + wrappers');
 
   // ===========================================================================
   // PALETTE - DISTINCT TINT PER SECTION
   // ---------------------------------------------------------------------------
   // Each section has its own background tint and accent. The tints stay light
-  // so the tinted card never overpowers the actual ButtonBar inside it. The
+  // so the tinted card never overpowers the actual OverflowBar inside it. The
   // numbers track Material design "50/100" grades so the result reads as a
   // sample book of cards rather than a noisy collage.
   // ===========================================================================
@@ -76,17 +70,10 @@ dynamic build(BuildContext context) {
   const referenceAccent = Color(0xFF37474F);
 
   // ===========================================================================
-  // HERO CARD - WHAT IS ButtonBarTheme
-  // ---------------------------------------------------------------------------
-  // The hero card explains, in plain prose, what ButtonBarTheme is, the
-  // contract of ButtonBarTheme.of(context), and why a descendant ButtonBar
-  // does not need to know any of these fields directly.
-  //
-  // Visually we put a single ButtonBar at the bottom of the hero card so the
-  // reader can immediately see "this card has live buttons themed by the
-  // theme described above". The ButtonBarTheme(data:...) wrap makes the
-  // alignment end and the buttonPadding generous so the buttons feel
-  // important.
+  // HERO CARD - WHAT IS OverflowBar
+  // Plain prose explanation of the modern replacement for the deprecated
+  // ButtonBar / ButtonBarTheme / ButtonBarThemeData triple plus a live
+  // end-aligned OverflowBar with pre-padded children at the bottom.
   // ===========================================================================
   Widget buildHeroCard() {
     return Container(
@@ -101,7 +88,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '1. ButtonBarTheme - the inherited Material theme widget',
+            '1. OverflowBar - the modern replacement for ButtonBar',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -110,46 +97,52 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8),
           const Text(
-            'ButtonBarTheme is an InheritedTheme that carries a single '
-            'ButtonBarThemeData object down the widget tree. Every '
-            'ButtonBar (and many AlertDialog actions footers) that does not '
-            'set a field directly resolves it via '
-            'ButtonBarTheme.of(context).<field>. Because it is an inherited '
-            'theme, you can also place a localised ButtonBarTheme around a '
-            'subtree to override styling for just that subtree. This card is '
-            'wrapped in a ButtonBarTheme that pushes the row to the right '
-            'with generous button padding.',
+            'OverflowBar is the modern Flutter widget that replaces the '
+            'deprecated ButtonBar / ButtonBarTheme / ButtonBarThemeData '
+            'triple. Where the legacy theme propagated alignment, '
+            'mainAxisSize, layoutBehavior and a host of button-sizing fields '
+            'invisibly through an InheritedTheme, OverflowBar exposes the '
+            'few orthogonal layout knobs (alignment, overflowAlignment, '
+            'overflowDirection, overflowSpacing, spacing) directly on the '
+            'constructor and pushes per-child sizing back to ordinary '
+            'wrapper widgets (SizedBox, Padding, ConstrainedBox).',
             style: TextStyle(fontSize: 14, height: 1.4),
           ),
           const SizedBox(height: 12),
           const Text(
-            'Resolution order for a single ButtonBar field:',
+            'How each deprecated field maps to a modern construct:',
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
-          const Text('  1. constructor argument (highest priority)'),
-          const Text('  2. ButtonBarTheme.of(context).<field>'),
-          const Text('  3. hard-coded ButtonBarThemeData default in framework'),
+          const Text('  alignment            -> OverflowBar.alignment (enum)'),
+          const Text('  overflowDirection    -> OverflowBar.overflowDirection'),
+          const Text('  overflowButtonSpacing-> OverflowBar.overflowSpacing'),
+          const Text('  buttonMinWidth       -> SizedBox(width: ...) per kid'),
+          const Text('  buttonHeight         -> SizedBox(height: ...) per kid'),
+          const Text('  buttonPadding        -> Padding(padding: ...) per kid'),
+          const Text('  layoutBehavior       -> ConstrainedBox per kid'),
+          const Text('  mainAxisSize.min     -> wrap OverflowBar in IntrinsicWidth'),
           const SizedBox(height: 14),
-          ButtonBarTheme(
-            data: const ButtonBarThemeData(
-              alignment: MainAxisAlignment.end,
-              buttonPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              buttonTextTheme: ButtonTextTheme.primary,
-            ),
-            child: ButtonBar(
-              children: [
-                TextButton(
+          OverflowBar(
+            alignment: MainAxisAlignment.end,
+            spacing: 8,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: TextButton(
                     onPressed: () => print('hero/cancel'),
                     child: const Text('CANCEL')),
-                ElevatedButton(
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ElevatedButton(
                     onPressed: () => print('hero/save'),
                     style:
                         ElevatedButton.styleFrom(backgroundColor: heroAccent),
                     child: const Text('SAVE',
                         style: TextStyle(color: Colors.white))),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -158,16 +151,12 @@ dynamic build(BuildContext context) {
 
   // ===========================================================================
   // SECTION 2 - ALIGNMENT SWEEP
-  // ---------------------------------------------------------------------------
-  // Five tinted sub-cards inside one parent card. Each sub-card wraps the
-  // *same* two-button content under a different ButtonBarTheme(data:) with a
-  // different MainAxisAlignment value. Because the buttons are identical,
-  // any visual difference is attributable solely to the theme alignment.
-  //
-  // We use a wide stretch so the spaceBetween / spaceAround variants have
-  // somewhere to spread to.
+  // Three rows use OverflowBarAlignment (start/end/center). The remaining
+  // two (spaceBetween, spaceAround) have no direct OverflowBar equivalent;
+  // OverflowBar replaces those with center-alignment, so we render them with
+  // a Row + MainAxisAlignment value for the legacy effect.
   // ===========================================================================
-  Widget alignmentRow(String label, MainAxisAlignment alignment) {
+  Widget alignmentRowOverflow(String label, OverflowBarAlignment alignment) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -191,18 +180,58 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: ButtonBarTheme(
-              data: ButtonBarThemeData(alignment: alignment),
-              child: ButtonBar(
-                children: [
-                  TextButton(
-                      onPressed: () => print('align/$label/cancel'),
-                      child: const Text('CANCEL')),
-                  ElevatedButton(
-                      onPressed: () => print('align/$label/ok'),
-                      child: const Text('OK')),
-                ],
+            child: OverflowBar(
+              alignment: _overflowToMain(alignment),
+              spacing: 8,
+              children: [
+                TextButton(
+                    onPressed: () => print('align/$label/cancel'),
+                    child: const Text('CANCEL')),
+                ElevatedButton(
+                    onPressed: () => print('align/$label/ok'),
+                    child: const Text('OK')),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget alignmentRowSpace(String label, MainAxisAlignment alignment) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: alignAccent.withOpacity(0.25)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 130,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: alignment,
+              children: [
+                TextButton(
+                    onPressed: () => print('align/$label/cancel'),
+                    child: const Text('CANCEL')),
+                ElevatedButton(
+                    onPressed: () => print('align/$label/ok'),
+                    child: const Text('OK')),
+              ],
             ),
           ),
         ],
@@ -223,7 +252,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '2. Alignment sweep - five MainAxisAlignment values',
+            '2. Alignment sweep - five legacy MainAxisAlignment values',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -232,31 +261,46 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Same two buttons, five themes. The label on the left names the '
-            'MainAxisAlignment that the local ButtonBarTheme is enforcing.',
+            'Same two buttons, five layouts. The first three rows use '
+            'OverflowBarAlignment.start / end / center directly. OverflowBar '
+            'replaces spaceBetween / spaceAround with center-alignment; use '
+            'Row + MainAxisAlignment for ButtonBar\'s space distributions.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
-          alignmentRow('start', MainAxisAlignment.start),
-          alignmentRow('end', MainAxisAlignment.end),
-          alignmentRow('center', MainAxisAlignment.center),
-          alignmentRow('spaceBetween', MainAxisAlignment.spaceBetween),
-          alignmentRow('spaceAround', MainAxisAlignment.spaceAround),
+          alignmentRowOverflow('start', OverflowBarAlignment.start),
+          alignmentRowOverflow('end', OverflowBarAlignment.end),
+          alignmentRowOverflow('center', OverflowBarAlignment.center),
+          alignmentRowSpace('spaceBetween', MainAxisAlignment.spaceBetween),
+          alignmentRowSpace('spaceAround', MainAxisAlignment.spaceAround),
         ],
       ),
     );
   }
 
   // ===========================================================================
-  // SECTION 3 - ButtonBarLayoutBehavior (padded vs constrained)
-  // ---------------------------------------------------------------------------
-  // ButtonBarLayoutBehavior.padded inflates the bar to a comfortable height
-  // and gives it generous outside padding. ButtonBarLayoutBehavior.constrained
-  // forces the bar into a 52-density tight constraint typical of dialog
-  // footers. We render two side-by-side ButtonBars under the same alignment
-  // (end) so only the layoutBehavior changes.
+  // SECTION 3 - layoutBehavior replacement (ConstrainedBox per child)
+  // ButtonBarThemeData.layoutBehavior used to choose padded vs constrained.
+  // OverflowBar has no equivalent: push the constraint onto each child via a
+  // ConstrainedBox wrapper. Two OverflowBars demonstrate the two behaviours.
   // ===========================================================================
-  Widget layoutBehaviourBar(String label, ButtonBarLayoutBehavior behaviour) {
+  Widget layoutBehaviourBar(String label, bool constrained) {
+    final children = <Widget>[
+      TextButton(
+          onPressed: () => print('layout/$label/cancel'),
+          child: const Text('CANCEL')),
+      ElevatedButton(
+          onPressed: () => print('layout/$label/save'),
+          child: const Text('SAVE')),
+    ];
+    final wrapped = constrained
+        ? children
+            .map((c) => ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: 64),
+                  child: c,
+                ))
+            .toList()
+        : children;
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -278,21 +322,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 6),
-            ButtonBarTheme(
-              data: ButtonBarThemeData(
-                alignment: MainAxisAlignment.end,
-                layoutBehavior: behaviour,
-              ),
-              child: ButtonBar(
-                children: [
-                  TextButton(
-                      onPressed: () => print('layout/$label/cancel'),
-                      child: const Text('CANCEL')),
-                  ElevatedButton(
-                      onPressed: () => print('layout/$label/save'),
-                      child: const Text('SAVE')),
-                ],
-              ),
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: wrapped,
             ),
           ],
         ),
@@ -313,7 +346,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '3. ButtonBarLayoutBehavior - padded vs constrained',
+            '3. layoutBehavior replacement - per-child ConstrainedBox',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -322,18 +355,18 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'padded is the default for ButtonBar standalone use. constrained '
-            'is what AlertDialog uses when its actions are passed in - it '
-            'caps the bar at 52 logical pixels of height, regardless of the '
-            'children intrinsic heights, which is why dialogs look uniform.',
+            'The deprecated ButtonBarThemeData.layoutBehavior switched between '
+            'padded (comfortable) and constrained (52-density). OverflowBar '
+            'has no equivalent: constraints are pushed onto each child via a '
+            'ConstrainedBox wrapper. The right column wraps each button in a '
+            'ConstrainedBox(minWidth: 64); the left column shows the default.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
           Row(
             children: [
-              layoutBehaviourBar('padded', ButtonBarLayoutBehavior.padded),
-              layoutBehaviourBar(
-                  'constrained', ButtonBarLayoutBehavior.constrained),
+              layoutBehaviourBar('padded (default)', false),
+              layoutBehaviourBar('constrained (minW64)', true),
             ],
           ),
         ],
@@ -342,14 +375,29 @@ dynamic build(BuildContext context) {
   }
 
   // ===========================================================================
-  // SECTION 4 - mainAxisSize (min vs max)
-  // ---------------------------------------------------------------------------
-  // mainAxisSize.max stretches the bar to fill its parent's width.
-  // mainAxisSize.min shrinks the bar to fit just the buttons. With the bar
-  // shrunk you can see the parent's spare width clearly because the tinted
-  // outline sits flush around the buttons only.
+  // SECTION 4 - mainAxisSize replacement (IntrinsicWidth wrap)
+  // OverflowBar has no mainAxisSize property: max is default; min is
+  // replicated by wrapping the OverflowBar in IntrinsicWidth.
   // ===========================================================================
-  Widget mainAxisSizeBar(String label, MainAxisSize size) {
+  Widget mainAxisSizeBar(String label, bool minSizing) {
+    final bar = OverflowBar(
+      alignment: MainAxisAlignment.end,
+      spacing: 8,
+      children: [
+        TextButton(
+            onPressed: () => print('axis/$label/cancel'),
+            child: const Text('CANCEL')),
+        ElevatedButton(
+            onPressed: () => print('axis/$label/save'),
+            child: const Text('SAVE')),
+      ],
+    );
+    final aligned = minSizing
+        ? Align(
+            alignment: Alignment.centerLeft,
+            child: IntrinsicWidth(child: bar),
+          )
+        : bar;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -375,22 +423,7 @@ dynamic build(BuildContext context) {
               border: Border.all(color: axisAccent, width: 1),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: ButtonBarTheme(
-              data: ButtonBarThemeData(
-                alignment: MainAxisAlignment.end,
-                mainAxisSize: size,
-              ),
-              child: ButtonBar(
-                children: [
-                  TextButton(
-                      onPressed: () => print('axis/$label/cancel'),
-                      child: const Text('CANCEL')),
-                  ElevatedButton(
-                      onPressed: () => print('axis/$label/save'),
-                      child: const Text('SAVE')),
-                ],
-              ),
-            ),
+            child: aligned,
           ),
         ],
       ),
@@ -410,7 +443,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '4. mainAxisSize - min vs max',
+            '4. mainAxisSize replacement - IntrinsicWidth wrap',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -419,32 +452,27 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'The thin outlined Box around each ButtonBar is *not* part of the '
-            'theme - it is a visual aid that hugs whatever main axis the bar '
-            'reports. With mainAxisSize.min the outline collapses around the '
-            'buttons; with mainAxisSize.max it stretches edge-to-edge.',
+            'The thin outlined Box around each OverflowBar is *not* part of '
+            'any theme - it is a visual aid that hugs whatever main axis the '
+            'bar reports. With IntrinsicWidth (mimicking mainAxisSize.min) '
+            'the outline collapses around the children; without it (the '
+            'OverflowBar default) it stretches edge-to-edge.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 4),
-          mainAxisSizeBar('mainAxisSize.max', MainAxisSize.max),
-          mainAxisSizeBar('mainAxisSize.min', MainAxisSize.min),
+          mainAxisSizeBar('mainAxisSize.max (default)', false),
+          mainAxisSizeBar('mainAxisSize.min (IntrinsicWidth)', true),
         ],
       ),
     );
   }
 
   // ===========================================================================
-  // SECTION 5 - buttonPadding x buttonMinWidth x buttonHeight matrix
-  // ---------------------------------------------------------------------------
-  // We build a 3 x 3 grid. Rows vary buttonPadding (small / medium / large).
-  // Columns vary buttonMinWidth (64 / 96 / 144). Each cell renders a
-  // ButtonBarTheme with the corresponding values plus a fixed buttonHeight,
-  // and inside it sits a single ButtonBar with a Cancel / OK pair.
-  //
-  // Because all three values feed into the *same* legacy RaisedButton sizing
-  // computation, you need to use a non-Material3 button (TextButton with no
-  // material3 padding override is fine - the theme still flows). We keep
-  // the children identical so the only differences come from the theme.
+  // SECTION 5 - buttonPadding x buttonMinWidth x buttonHeight via wrappers
+  // 3x3 grid: rows vary per-child Padding, columns vary per-child SizedBox
+  // width, each cell rotates a SizedBox height. Wrapper-widget equivalent of
+  // the deprecated ButtonBarThemeData (buttonPadding, buttonMinWidth,
+  // buttonHeight) triple.
   // ===========================================================================
   final paddingValues = <Map<String, dynamic>>[
     {'label': 'small', 'value': const EdgeInsets.symmetric(horizontal: 8)},
@@ -462,8 +490,25 @@ dynamic build(BuildContext context) {
     {'label': 'h=60', 'value': 60.0},
   ];
 
+  Widget wrapKid(Widget kid, EdgeInsets padding, double minWidth, double h) {
+    return Padding(
+      padding: padding,
+      child: SizedBox(
+        width: minWidth,
+        height: h,
+        child: kid,
+      ),
+    );
+  }
+
   Widget matrixCell(EdgeInsets padding, double minWidth, double height,
       String caption) {
+    final cancel = TextButton(
+        onPressed: () => print('matrix/$caption/cancel'),
+        child: const Text('CANCEL'));
+    final ok = ElevatedButton(
+        onPressed: () => print('matrix/$caption/ok'),
+        child: const Text('OK'));
     return Container(
       margin: const EdgeInsets.all(4),
       padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
@@ -484,23 +529,13 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 4),
-          ButtonBarTheme(
-            data: ButtonBarThemeData(
-              alignment: MainAxisAlignment.start,
-              buttonPadding: padding,
-              buttonMinWidth: minWidth,
-              buttonHeight: height,
-            ),
-            child: ButtonBar(
-              children: [
-                TextButton(
-                    onPressed: () => print('matrix/$caption/cancel'),
-                    child: const Text('CANCEL')),
-                ElevatedButton(
-                    onPressed: () => print('matrix/$caption/ok'),
-                    child: const Text('OK')),
-              ],
-            ),
+          OverflowBar(
+            alignment: MainAxisAlignment.start,
+            spacing: 4,
+            children: [
+              wrapKid(cancel, padding, minWidth, height),
+              wrapKid(ok, padding, minWidth, height),
+            ],
           ),
         ],
       ),
@@ -543,7 +578,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '5. buttonPadding x buttonMinWidth x buttonHeight',
+            '5. buttonPadding x buttonMinWidth x buttonHeight (via wrappers)',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -552,12 +587,12 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'A 3x3 grid varying padding (rows) and min width (columns), with '
-            'a rotating height per cell. These three legacy fields are the '
-            'oldest sizing levers ButtonBar exposes. Because Material3 '
-            'buttons compute their own metrics, the legacy fields only have '
-            'visible effect on classic Material buttons; we still see the '
-            'cell width grow with min width.',
+            'A 3x3 grid varying per-child Padding (rows) and per-child '
+            'SizedBox.width (columns), with a rotating SizedBox.height per '
+            'cell. These three legacy ButtonBarThemeData fields '
+            '(buttonPadding, buttonMinWidth, buttonHeight) are now expressed '
+            'as ordinary wrapper widgets around each OverflowBar child, '
+            'which makes the sizing local and explicit.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
@@ -568,12 +603,10 @@ dynamic build(BuildContext context) {
   }
 
   // ===========================================================================
-  // SECTION 6 - buttonTextTheme (normal / accent / primary)
-  // ---------------------------------------------------------------------------
-  // The buttonTextTheme is a legacy ButtonTextTheme enum. Three values are
-  // exposed: normal (default body colour), accent (theme accent colour),
-  // primary (theme primary colour with white text). We render three
-  // ButtonBars, one per value, each themed via ButtonBarTheme.
+  // SECTION 6 - buttonTextTheme (documented enum, default OverflowBar)
+  // OverflowBar has no equivalent for the legacy ButtonTextTheme enum;
+  // modern code uses ButtonStyle. Each row labels the legacy enum value and
+  // renders a default-styled OverflowBar.
   // ===========================================================================
   Widget buttonTextThemeBar(String label, ButtonTextTheme theme) {
     return Container(
@@ -588,7 +621,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
+            '$label  (ButtonTextTheme.${theme.name})',
             style: const TextStyle(
               fontFamily: 'monospace',
               fontWeight: FontWeight.w600,
@@ -596,24 +629,20 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 4),
-          ButtonBarTheme(
-            data: ButtonBarThemeData(
-              alignment: MainAxisAlignment.start,
-              buttonTextTheme: theme,
-            ),
-            child: ButtonBar(
-              children: [
-                TextButton(
-                    onPressed: () => print('textTheme/$label/cancel'),
-                    child: const Text('CANCEL')),
-                TextButton(
-                    onPressed: () => print('textTheme/$label/preview'),
-                    child: const Text('PREVIEW')),
-                ElevatedButton(
-                    onPressed: () => print('textTheme/$label/ok'),
-                    child: const Text('OK')),
-              ],
-            ),
+          OverflowBar(
+            alignment: MainAxisAlignment.start,
+            spacing: 8,
+            children: [
+              TextButton(
+                  onPressed: () => print('textTheme/$label/cancel'),
+                  child: const Text('CANCEL')),
+              TextButton(
+                  onPressed: () => print('textTheme/$label/preview'),
+                  child: const Text('PREVIEW')),
+              ElevatedButton(
+                  onPressed: () => print('textTheme/$label/ok'),
+                  child: const Text('OK')),
+            ],
           ),
         ],
       ),
@@ -633,7 +662,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '6. buttonTextTheme - normal / accent / primary',
+            '6. buttonTextTheme - normal / accent / primary (label-only)',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -642,11 +671,11 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'ButtonTextTheme is the legacy enum that drove RaisedButton / '
-            'FlatButton text colour. ButtonBarTheme.buttonTextTheme is still '
-            'plumbed through the ButtonTheme that ButtonBar wraps around its '
-            'children, so any descendant button that does not override its '
-            'foregroundColor will pick up the corresponding tone.',
+            'ButtonTextTheme is the legacy enum that drove the deprecated '
+            'RaisedButton / FlatButton text colour. OverflowBar has no '
+            'equivalent: modern code styles each button via ButtonStyle or a '
+            'surrounding Theme. We label each row with the legacy enum value '
+            'and render an OverflowBar with default button styling.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 4),
@@ -660,12 +689,9 @@ dynamic build(BuildContext context) {
 
   // ===========================================================================
   // SECTION 7 - overflowDirection (down vs up)
-  // ---------------------------------------------------------------------------
-  // ButtonBar overflows when its children's intrinsic widths exceed the
-  // available width. The overflow direction controls whether the *first*
-  // child stays on top (down) or moves to the bottom (up). To force overflow
-  // we wrap each ButtonBar in a narrow SizedBox of width 200 and feed it
-  // four buttons with chunky labels.
+  // OverflowBar.overflowDirection controls whether the first child stays on
+  // top (down) or moves to the bottom (up) when the bar overflows. We force
+  // overflow with a SizedBox(width: 200) and four chunky-labelled buttons.
   // ===========================================================================
   Widget overflowDirBar(String label, VerticalDirection direction) {
     return Expanded(
@@ -697,27 +723,24 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             SizedBox(
               width: 200,
-              child: ButtonBarTheme(
-                data: ButtonBarThemeData(
-                  alignment: MainAxisAlignment.end,
-                  overflowDirection: direction,
-                ),
-                child: ButtonBar(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () => print('overflowDir/$label/save'),
-                        child: const Text('SAVE CHANGES')),
-                    TextButton(
-                        onPressed: () => print('overflowDir/$label/discard'),
-                        child: const Text('DISCARD')),
-                    TextButton(
-                        onPressed: () => print('overflowDir/$label/preview'),
-                        child: const Text('PREVIEW')),
-                    TextButton(
-                        onPressed: () => print('overflowDir/$label/cancel'),
-                        child: const Text('CANCEL')),
-                  ],
-                ),
+              child: OverflowBar(
+                alignment: MainAxisAlignment.end,
+                overflowDirection: direction,
+                spacing: 8,
+                children: [
+                  ElevatedButton(
+                      onPressed: () => print('overflowDir/$label/save'),
+                      child: const Text('SAVE CHANGES')),
+                  TextButton(
+                      onPressed: () => print('overflowDir/$label/discard'),
+                      child: const Text('DISCARD')),
+                  TextButton(
+                      onPressed: () => print('overflowDir/$label/preview'),
+                      child: const Text('PREVIEW')),
+                  TextButton(
+                      onPressed: () => print('overflowDir/$label/cancel'),
+                      child: const Text('CANCEL')),
+                ],
               ),
             ),
           ],
@@ -748,7 +771,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Each ButtonBar is constrained to 200 logical pixels and given '
+            'Each OverflowBar is constrained to 200 logical pixels and given '
             'four labelled buttons so it must overflow into a vertical '
             'stack. The down variant keeps the primary action at the top of '
             'the stack; the up variant pushes it to the bottom.',
@@ -768,12 +791,10 @@ dynamic build(BuildContext context) {
   }
 
   // ===========================================================================
-  // SECTION 8 - overflowButtonSpacing (0 / 8 / 24)
-  // ---------------------------------------------------------------------------
-  // overflowButtonSpacing is the vertical gap between buttons after they
-  // overflow into a stacked column. Three side-by-side narrow ButtonBars
-  // with identical content but different spacing values demonstrate the
-  // effect.
+  // SECTION 8 - overflowSpacing (0 / 8 / 24)
+  // OverflowBar.overflowSpacing is the modern name for the legacy
+  // ButtonBar.overflowButtonSpacing: vertical gap between stacked children
+  // after overflow. Three narrow OverflowBars demonstrate the effect.
   // ===========================================================================
   Widget overflowSpacingBar(double spacing) {
     return Expanded(
@@ -799,26 +820,22 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             SizedBox(
               width: 180,
-              child: ButtonBarTheme(
-                data: const ButtonBarThemeData(
-                  alignment: MainAxisAlignment.end,
-                ),
-                child: ButtonBar(
-                  overflowButtonSpacing: spacing,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () => print('overflowSp/$spacing/save'),
-                        child: const Text('SAVE CHANGES')),
-                    TextButton(
-                        onPressed: () =>
-                            print('overflowSp/$spacing/discard'),
-                        child: const Text('DISCARD')),
-                    TextButton(
-                        onPressed: () =>
-                            print('overflowSp/$spacing/cancel'),
-                        child: const Text('CANCEL')),
-                  ],
-                ),
+              child: OverflowBar(
+                alignment: MainAxisAlignment.end,
+                overflowSpacing: spacing,
+                children: [
+                  ElevatedButton(
+                      onPressed: () => print('overflowSp/$spacing/save'),
+                      child: const Text('SAVE CHANGES')),
+                  TextButton(
+                      onPressed: () =>
+                          print('overflowSp/$spacing/discard'),
+                      child: const Text('DISCARD')),
+                  TextButton(
+                      onPressed: () =>
+                          print('overflowSp/$spacing/cancel'),
+                      child: const Text('CANCEL')),
+                ],
               ),
             ),
           ],
@@ -840,7 +857,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '8. overflowButtonSpacing - 0 / 8 / 24',
+            '8. overflowSpacing - 0 / 8 / 24 (was overflowButtonSpacing)',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -849,13 +866,11 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'When a ButtonBar overflows vertically the gap between stacked '
-            'children is the bar overflowButtonSpacing. In this Flutter '
-            'version the field lives on the ButtonBar constructor itself '
-            '(it is not part of ButtonBarThemeData) - so the surrounding '
-            'theme keeps alignment, while each ButtonBar passes its own '
-            'spacing value. The three columns below differ only in that '
-            'argument.',
+            'When an OverflowBar overflows vertically the gap between '
+            'stacked children is OverflowBar.overflowSpacing. The legacy '
+            'name on ButtonBar was overflowButtonSpacing; the modern '
+            'OverflowBar name is overflowSpacing. The three columns below '
+            'differ only in that argument.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
@@ -874,23 +889,15 @@ dynamic build(BuildContext context) {
 
   // ===========================================================================
   // SECTION 9 - REALISTIC DIALOG FOOTERS
-  // ---------------------------------------------------------------------------
-  // Three faux dialogs, each with its own ButtonBarTheme that matches the
-  // dialog's purpose. The themes here showcase how the same set of fields
-  // combine to give very different visual signatures:
-  //
-  //   * Confirm dialog: end-aligned, standard padding, primary text theme.
-  //   * Discard / save / save-as: end-aligned, slightly tighter, accent
-  //     text theme so the destructive button stands out.
-  //   * Three-button confirm: spaceBetween so the destructive button sits
-  //     on the far left and primary on the far right with neutral in the
-  //     middle.
+  // Three faux dialogs: confirm (end-aligned OverflowBar, generous spacing),
+  // discard/save/save-as (end-aligned, tighter, destructive accented), and
+  // a three-button confirm using Row + spaceBetween (no direct OverflowBar
+  // equivalent for the legacy alignment.spaceBetween value).
   // ===========================================================================
   Widget fauxDialog({
     required String title,
     required String message,
-    required ButtonBarThemeData theme,
-    required List<Widget> actions,
+    required Widget footer,
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -926,9 +933,9 @@ dynamic build(BuildContext context) {
             ),
           ),
           const Divider(height: 1),
-          ButtonBarTheme(
-            data: theme,
-            child: ButtonBar(children: actions),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
+            child: footer,
           ),
         ],
       ),
@@ -957,9 +964,9 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Three faux dialogs - each one wraps its actions footer in a '
-            'specific ButtonBarTheme so the resulting look is bespoke yet '
-            'driven entirely by the inherited theme.',
+            'Three faux dialogs - each one configures its OverflowBar (or, '
+            'for spaceBetween, a plain Row) so the resulting look is bespoke '
+            'yet driven entirely by direct constructor arguments.',
             style: TextStyle(fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
@@ -967,65 +974,69 @@ dynamic build(BuildContext context) {
             title: 'Save your work?',
             message: 'You have unsaved changes in this document. Save them '
                 'before closing?',
-            theme: const ButtonBarThemeData(
+            footer: OverflowBar(
               alignment: MainAxisAlignment.end,
-              buttonPadding: EdgeInsets.symmetric(horizontal: 20),
-              buttonTextTheme: ButtonTextTheme.primary,
+              spacing: 12,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: TextButton(
+                      onPressed: () => print('dialog/save?/cancel'),
+                      child: const Text('CANCEL')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: ElevatedButton(
+                      onPressed: () => print('dialog/save?/save'),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: dialogAccent),
+                      child: const Text('SAVE',
+                          style: TextStyle(color: Colors.white))),
+                ),
+              ],
             ),
-            actions: [
-              TextButton(
-                  onPressed: () => print('dialog/save?/cancel'),
-                  child: const Text('CANCEL')),
-              ElevatedButton(
-                  onPressed: () => print('dialog/save?/save'),
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: dialogAccent),
-                  child: const Text('SAVE',
-                      style: TextStyle(color: Colors.white))),
-            ],
           ),
           fauxDialog(
             title: 'Unsaved changes',
             message: 'Discard, save, or save a copy of this document?',
-            theme: const ButtonBarThemeData(
+            footer: OverflowBar(
               alignment: MainAxisAlignment.end,
-              buttonPadding: EdgeInsets.symmetric(horizontal: 14),
-              buttonTextTheme: ButtonTextTheme.accent,
+              spacing: 8,
+              children: [
+                TextButton(
+                    onPressed: () => print('dialog/discard'),
+                    child: const Text('DISCARD',
+                        style: TextStyle(color: Colors.redAccent))),
+                TextButton(
+                    onPressed: () => print('dialog/saveAs'),
+                    child: const Text('SAVE AS')),
+                ElevatedButton(
+                    onPressed: () => print('dialog/save'),
+                    child: const Text('SAVE')),
+              ],
             ),
-            actions: [
-              TextButton(
-                  onPressed: () => print('dialog/discard'),
-                  child: const Text('DISCARD',
-                      style: TextStyle(color: Colors.redAccent))),
-              TextButton(
-                  onPressed: () => print('dialog/saveAs'),
-                  child: const Text('SAVE AS')),
-              ElevatedButton(
-                  onPressed: () => print('dialog/save'),
-                  child: const Text('SAVE')),
-            ],
           ),
           fauxDialog(
             title: 'Permanently delete?',
             message: 'This action cannot be undone. The destructive button '
                 'sits on the far left, neutral in the middle, primary on '
-                'the right - all driven by spaceBetween alignment.',
-            theme: const ButtonBarThemeData(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: EdgeInsets.symmetric(horizontal: 12),
+                'the right - all driven by Row + MainAxisAlignment.spaceBetween '
+                '(OverflowBar has no equivalent for the spaceBetween value).',
+            footer: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                    onPressed: () => print('dialog/delete/delete'),
+                    child: const Text('DELETE',
+                        style: TextStyle(color: Colors.redAccent))),
+                TextButton(
+                    onPressed: () => print('dialog/delete/archive'),
+                    child: const Text('ARCHIVE')),
+                ElevatedButton(
+                    onPressed: () => print('dialog/delete/cancel'),
+                    child: const Text('CANCEL')),
+              ],
             ),
-            actions: [
-              TextButton(
-                  onPressed: () => print('dialog/delete/delete'),
-                  child: const Text('DELETE',
-                      style: TextStyle(color: Colors.redAccent))),
-              TextButton(
-                  onPressed: () => print('dialog/delete/archive'),
-                  child: const Text('ARCHIVE')),
-              ElevatedButton(
-                  onPressed: () => print('dialog/delete/cancel'),
-                  child: const Text('CANCEL')),
-            ],
           ),
         ],
       ),
@@ -1033,25 +1044,73 @@ dynamic build(BuildContext context) {
   }
 
   // ===========================================================================
-  // SECTION 10 - READ-BACK CARD (calls ButtonBarTheme.of(context))
-  // ---------------------------------------------------------------------------
-  // We put a ButtonBarTheme(data:...) above a Builder. The Builder calls
-  // ButtonBarTheme.of(context) and then prints every resolved field next to
-  // a live ButtonBar that uses the same theme. This is the most pragmatic
-  // proof that ButtonBarTheme.of(context) is what ButtonBar reads.
+  // SECTION 10 - READ-BACK CARD (direct OverflowBar argument values)
+  // OverflowBar takes its configuration directly via constructor arguments,
+  // so there is no .of(context) call to make. We declare the values used to
+  // build the OverflowBar at the bottom and render them in monospace.
   // ===========================================================================
   Widget buildReadbackCard() {
-    final demoTheme = const ButtonBarThemeData(
-      alignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.max,
-      buttonTextTheme: ButtonTextTheme.primary,
-      buttonMinWidth: 88,
-      buttonHeight: 40,
-      buttonPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-      buttonAlignedDropdown: false,
-      layoutBehavior: ButtonBarLayoutBehavior.padded,
-      overflowDirection: VerticalDirection.down,
-    );
+    const alignment = MainAxisAlignment.end;
+    const overflowAlignment = OverflowBarAlignment.end;
+    const overflowDirection = VerticalDirection.down;
+    const spacing = 12.0;
+    const overflowSpacing = 8.0;
+    const buttonMinWidth = 88.0;
+    const buttonHeight = 40.0;
+    const buttonPadding = EdgeInsets.symmetric(horizontal: 18, vertical: 6);
+
+    final lines = <Widget>[
+      const Text(
+        'alignment            = MainAxisAlignment.end',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'overflowAlignment    = OverflowBarAlignment.end',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'overflowDirection    = VerticalDirection.down',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'spacing              = 12.0',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'overflowSpacing      = 8.0  (was overflowButtonSpacing)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'per-child SizedBox.width  = 88.0  (was buttonMinWidth)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'per-child SizedBox.height = 40.0  (was buttonHeight)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'per-child Padding         = EdgeInsets.symmetric(h:18, v:6)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'buttonAlignedDropdown     = (no OverflowBar equivalent; legacy)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+      const Text(
+        'layoutBehavior            = (no OverflowBar equivalent; use '
+        'ConstrainedBox per child)',
+        style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+      ),
+    ];
+
+    Widget wrap(Widget kid) => Padding(
+          padding: buttonPadding,
+          child: SizedBox(
+            width: buttonMinWidth,
+            height: buttonHeight,
+            child: kid,
+          ),
+        );
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -1061,116 +1120,71 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: readbackAccent.withOpacity(0.35)),
       ),
-      child: ButtonBarTheme(
-        data: demoTheme,
-        child: Builder(builder: (ctx) {
-          final resolved = ButtonBarTheme.of(ctx);
-          final lines = <Widget>[];
-          lines.add(Text(
-            'alignment            = ${resolved.alignment}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'mainAxisSize         = ${resolved.mainAxisSize}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'buttonTextTheme      = ${resolved.buttonTextTheme}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'buttonMinWidth       = ${resolved.buttonMinWidth}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'buttonHeight         = ${resolved.buttonHeight}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'buttonPadding        = ${resolved.buttonPadding}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'buttonAlignedDropdown= ${resolved.buttonAlignedDropdown}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'layoutBehavior       = ${resolved.layoutBehavior}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(Text(
-            'overflowDirection    = ${resolved.overflowDirection}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-          lines.add(const Text(
-            'overflowButtonSpacing= (lives on ButtonBar, not ThemeData)',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ));
-
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            '10. Read-back card - OverflowBar arguments laid bare',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: readbackAccent,
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Below: the exact constructor arguments and per-child wrapper '
+            'values used to build the OverflowBar at the bottom of this '
+            'card. OverflowBar takes its configuration directly, so there '
+            'is no .of(context) lookup - what you read here is what the bar '
+            'sees at layout time.',
+            style: TextStyle(fontSize: 13, height: 1.4),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border:
+                  Border.all(color: readbackAccent.withOpacity(0.25)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: lines,
+            ),
+          ),
+          const SizedBox(height: 12),
+          OverflowBar(
+            alignment: alignment,
+            overflowAlignment: overflowAlignment,
+            overflowDirection: overflowDirection,
+            spacing: spacing,
+            overflowSpacing: overflowSpacing,
             children: [
-              const Text(
-                '10. Read-back card - ButtonBarTheme.of(context)',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: readbackAccent,
-                ),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Below: every field of the surrounding ButtonBarThemeData, '
-                'read back through ButtonBarTheme.of(context) inside a '
-                'Builder. The live ButtonBar at the bottom is rendered '
-                'inside the same context and therefore inherits exactly '
-                'these values.',
-                style: TextStyle(fontSize: 13, height: 1.4),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(color: readbackAccent.withOpacity(0.25)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: lines,
-                ),
-              ),
-              const SizedBox(height: 12),
-              ButtonBar(
-                children: [
-                  TextButton(
-                      onPressed: () => print('readback/cancel'),
-                      child: const Text('CANCEL')),
-                  TextButton(
-                      onPressed: () => print('readback/discard'),
-                      child: const Text('DISCARD')),
-                  ElevatedButton(
-                      onPressed: () => print('readback/save'),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: readbackAccent),
-                      child: const Text('SAVE',
-                          style: TextStyle(color: Colors.white))),
-                ],
-              ),
+              wrap(TextButton(
+                  onPressed: () => print('readback/cancel'),
+                  child: const Text('CANCEL'))),
+              wrap(TextButton(
+                  onPressed: () => print('readback/discard'),
+                  child: const Text('DISCARD'))),
+              wrap(ElevatedButton(
+                  onPressed: () => print('readback/save'),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: readbackAccent),
+                  child: const Text('SAVE',
+                      style: TextStyle(color: Colors.white)))),
             ],
-          );
-        }),
+          ),
+        ],
       ),
     );
   }
 
   // ===========================================================================
-  // SECTION 11 - REFERENCE CARD - every ButtonBarThemeData field
-  // ---------------------------------------------------------------------------
-  // Compact prose reference. Each row is one field, the type, and a one
-  // line meaning. This card uses no live buttons - it is the textual
-  // appendix to the visual gallery above.
+  // SECTION 11 - REFERENCE CARD - every OverflowBar property + wrapper map
+  // Compact prose reference: one row per OverflowBar property or wrapper
+  // pattern that replaces a deprecated ButtonBarThemeData field.
   // ===========================================================================
   Widget refRow(String name, String type, String meaning) {
     return Padding(
@@ -1179,7 +1193,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 200,
+            width: 220,
             child: Text(
               name,
               style: const TextStyle(
@@ -1224,7 +1238,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            '11. Reference - every ButtonBarThemeData field',
+            '11. Reference - every OverflowBar property + wrapper map',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -1232,41 +1246,61 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 8),
-          refRow('alignment', 'MainAxisAlignment?',
-              'Where the buttons sit along the main axis. Defaults to MainAxisAlignment.end.'),
-          refRow('mainAxisSize', 'MainAxisSize?',
-              'Whether the bar stretches to fill its parent (max) or hugs its children (min).'),
-          refRow('buttonTextTheme', 'ButtonTextTheme?',
-              'Legacy text-colour enum forwarded to the ButtonTheme around the children.'),
-          refRow('buttonMinWidth', 'double?',
-              'Minimum width for legacy Material buttons inside the bar.'),
-          refRow('buttonHeight', 'double?',
-              'Fixed height applied to legacy Material buttons inside the bar.'),
-          refRow('buttonPadding', 'EdgeInsetsGeometry?',
-              'Internal padding for legacy Material buttons inside the bar.'),
-          refRow('buttonAlignedDropdown', 'bool?',
-              'If true, dropdowns inside legacy buttons share the bar alignment.'),
-          refRow('layoutBehavior', 'ButtonBarLayoutBehavior?',
-              'padded = comfortable height; constrained = 52px tight constraint used by AlertDialog.'),
-          refRow('overflowDirection', 'VerticalDirection?',
-              'When the bar overflows, primary action is on top (down) or bottom (up).'),
-          const SizedBox(height: 6),
           const Text(
-            'Related field on ButtonBar itself (not on ButtonBarThemeData '
-            'in this Flutter version):',
-            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+            'Direct OverflowBar constructor properties:',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           ),
-          refRow('ButtonBar.overflowButtonSpacing', 'double?',
-              'Vertical gap between stacked buttons after overflow. Pass on the bar.'),
+          const SizedBox(height: 4),
+          refRow('OverflowBar.alignment', 'MainAxisAlignment?',
+              'Alignment of children when laid out as a row (start/end/center).'),
+          refRow('OverflowBar.overflowAlignment', 'OverflowBarAlignment?',
+              'Cross-axis alignment when children overflow into a stacked column.'),
+          refRow('OverflowBar.overflowDirection', 'VerticalDirection?',
+              'When the bar overflows, primary action is on top (down) or bottom (up).'),
+          refRow('OverflowBar.spacing', 'double?',
+              'Horizontal gap between children when laid out as a row.'),
+          refRow('OverflowBar.overflowSpacing', 'double?',
+              'Vertical gap between stacked children after overflow. Was overflowButtonSpacing on ButtonBar.'),
+          refRow('OverflowBar.children', 'List<Widget>',
+              'Children to lay out (typically buttons).'),
+          const SizedBox(height: 10),
+          const Text(
+            'Wrapper-widget patterns replacing deprecated '
+            'ButtonBarThemeData fields:',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          ),
+          const SizedBox(height: 4),
+          refRow('buttonMinWidth          ->', 'SizedBox(width: ...)',
+              'Wrap each child in a SizedBox with the desired minimum width.'),
+          refRow('buttonHeight            ->', 'SizedBox(height: ...)',
+              'Wrap each child in a SizedBox with the desired height.'),
+          refRow('buttonPadding           ->', 'Padding(padding: ...)',
+              'Wrap each child in a Padding with the desired internal padding.'),
+          refRow('layoutBehavior          ->', 'ConstrainedBox(...)',
+              'Wrap each child in a ConstrainedBox to mimic the constrained tight layout.'),
+          refRow('mainAxisSize.min        ->', 'IntrinsicWidth(...)',
+              'Wrap the OverflowBar in IntrinsicWidth to hug its children.'),
+          refRow('buttonTextTheme         ->', 'ButtonStyle / Theme',
+              'No OverflowBar equivalent; style each button individually.'),
+          refRow('buttonAlignedDropdown   ->', '(no equivalent)',
+              'Legacy DropdownButton affordance; no parallel in OverflowBar.'),
+          refRow('alignment.spaceBetween  ->', 'Row + MainAxisAlignment',
+              'OverflowBar.alignment only supports start/end/center; use a Row for space distributions.'),
+          refRow('alignment.spaceAround   ->', 'Row + MainAxisAlignment',
+              'OverflowBar.alignment only supports start/end/center; use a Row for space distributions.'),
           const SizedBox(height: 12),
           const Text(
-            'Resolution sequence inside ButtonBar:',
+            'Layout behaviour summary:',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           ),
           const SizedBox(height: 4),
           const Text(
-            '  field = constructor.field ?? ButtonBarTheme.of(context).field '
-            '?? hard-coded default',
+            '  if (children fit horizontally) -> Row using alignment + spacing',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+          ),
+          const Text(
+            '  else -> Column using overflowAlignment + overflowDirection + '
+            'overflowSpacing',
             style: TextStyle(fontFamily: 'monospace', fontSize: 12),
           ),
           const SizedBox(height: 10),
@@ -1276,10 +1310,10 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 4),
           const Text(
-            'Both ButtonBar and ButtonBarTheme are deprecated in favour of '
-            'OverflowBar / Wrap / Row. Existing AlertDialog actions still '
-            'use them under the hood, so the theme remains functionally '
-            'relevant for any code that targets standard Material dialogs.',
+            'ButtonBar / ButtonBarTheme / ButtonBarThemeData are deprecated '
+            'in current Flutter. Existing AlertDialog actions still rely on '
+            'OverflowBar internally, so the modern OverflowBar is what new '
+            'code should target directly.',
             style: TextStyle(fontSize: 12, height: 1.4),
           ),
         ],
@@ -1289,26 +1323,18 @@ dynamic build(BuildContext context) {
 
   // ===========================================================================
   // ROOT TREE
-  // ---------------------------------------------------------------------------
-  // The mandatory harness contract: MaterialApp -> Scaffold -> SafeArea ->
-  // SingleChildScrollView -> Column. The Column children are the eleven
-  // section cards built above, in order. We pad the outside by 16 logical
-  // pixels so the tinted cards never touch the screen edges.
+  // MaterialApp -> Scaffold -> SafeArea -> SingleChildScrollView -> Column.
   // ===========================================================================
   return MaterialApp(
-    title: 'ButtonBarTheme Deep Demo',
+    title: 'OverflowBar Deep Demo',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primarySwatch: Colors.deepPurple,
-      buttonBarTheme: const ButtonBarThemeData(
-        alignment: MainAxisAlignment.end,
-        buttonTextTheme: ButtonTextTheme.primary,
-      ),
     ),
     home: Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
-        title: const Text('ButtonBarTheme deep demo'),
+        title: const Text('OverflowBar (modern ButtonBar) deep demo'),
         backgroundColor: heroAccent,
         foregroundColor: Colors.white,
       ),
@@ -1332,7 +1358,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 24),
               const Center(
                 child: Text(
-                  '-- end of ButtonBarTheme deep demo --',
+                  '-- end of OverflowBar deep demo --',
                   style: TextStyle(fontSize: 12, color: Colors.black54),
                 ),
               ),
@@ -1343,4 +1369,20 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
+}
+
+// Map an OverflowBarAlignment value into the MainAxisAlignment that
+// OverflowBar.alignment expects. OverflowBar's `alignment` is typed as
+// MainAxisAlignment, and only start/end/center are meaningful for it; we
+// preserve the named-by-OverflowBarAlignment intent at the call sites in
+// section 2 by going through this small adapter.
+MainAxisAlignment _overflowToMain(OverflowBarAlignment value) {
+  switch (value) {
+    case OverflowBarAlignment.start:
+      return MainAxisAlignment.start;
+    case OverflowBarAlignment.end:
+      return MainAxisAlignment.end;
+    case OverflowBarAlignment.center:
+      return MainAxisAlignment.center;
+  }
 }

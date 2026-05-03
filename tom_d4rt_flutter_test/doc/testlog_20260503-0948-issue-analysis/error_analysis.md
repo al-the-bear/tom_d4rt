@@ -177,7 +177,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed (partial) — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass; `widgets/windowing_owner_mac_o_s_test.dart` still fails but on a downstream Priority-1 sub-case (`AnimatedBuilder.animation` expecting `Listenable`, getting `InterpretedInstance(RegularWindowControllerMacOS)`) — out of cluster scope. See §10 below.** |
 | **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` | **Fixed (script-side) — all 3 scripts pass on both drivers after converting `switch (BridgedEnum)` helpers to `if/else` chains over `==` (the proven `_isCupertinoFamily` pattern). Underlying interpreter limitation documented as `P4` in `interpreter_unfixable.md`. See §12 below.** |
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the script-side workaround in `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | interpreter — when the leaf bridge has no matching getter/method, walk the registered transitive supertype chain | **Fixed — supertype-walk fallback added to property lookup at three sites in both interpreters; supertype registration `AnimationWithParentMixin: ['Animation', 'Listenable']` added to both flutter registration packages. `backdrop_group_test` passes (no `Animation.value` error). See §11 below.** |
-| **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents |
+| **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents | **Fixed (script-side) — all 3 scripts rewritten to `OverflowBar` + `OverflowBarAlignment` and parent-widget wrappers (`SizedBox`, `Padding`, `ConstrainedBox`, `IntrinsicWidth`, `Row + MainAxisAlignment.spaceBetween/spaceAround`); analyzer-clean and pass individually on `tom_d4rt_flutter_ast`. See §13 below.** |
 | **Removed Flutter API references (CupertinoTextField asserts)** | 2 (`cupertino/textfield`, `cupertino_text_selection_handle_controls`) | `minLines can't be greater than maxLines` | scripts — fix `minLines/maxLines` fixture values |
 | **Layout overflow / infinite-height** | 5 (`box_scroll_view`, `constrained_layout_builder`, `constraints_transform_box`, `do_nothing_action`, `scroll_increment_type`) | `RenderFlex overflowed by N pixels` / `BoxConstraints forces an infinite height` | scripts — bound the column / wrap in `SingleChildScrollView` / use `Expanded` correctly |
 | **Interpreter — index-out-of-range, late init, null-aware on bridged null** | 4 (`drag_target_details` ×5, `regular_window_controller`, `route_transition_record`, `i_o_s_system_context_menu_item_cut`, `regular_window`) | various d4rt-side runtime errors | scripts — investigate per-script |
@@ -196,7 +196,7 @@ Same priority list as the `ast` analysis (§8):
 2. Interpreter: `for-in` over bridged `Iterable` instances. **(P2 — fixed; see §10.)**
 3. Bridge: `AnimationWithParentMixin.value` getter. **(P3 — fixed; see §11.)**
 4. Bridge: `Text.data` null handling. **(P4 — fixed script-side; see §12.)**
-5. Scripts: `ButtonBar*` removal sweep.
+5. Scripts: `ButtonBar*` removal sweep. **(P5 — fixed; see §13.)**
 6. Scripts: layout-overflow cleanup.
 7. META: test-app watchdog.
 
@@ -517,6 +517,67 @@ interpreter, generator, bridge or buildkit edits.
 | `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | Added `P4` entry + index row + Change Log entry. |
 | `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotation. |
 | `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/cluster4_individual/{tooltip,target_platform,time_of_day_format}_{ast,test}.log` | Captured individual retest logs. |
+
+No `.b.dart` files modified. No buildkit / bridge-generator
+changes. No interpreter or registration changes. Both drivers
+load the same script corpus from the `tom_d4rt_flutter_ast`
+directory (see `tom_d4rt_flutter_test/test/send_test_runner.dart:121`),
+so the rewrite lands once and benefits both.
+
+## 13. Cluster fix status — Priority 5 (`Removed Flutter API references — ButtonBar*`)
+
+**Status: FIXED — all 3 scripts rewritten on the script side; analyzer-clean and pass individually on the `tom_d4rt_flutter_ast` driver.** No bridge-generator, interpreter, or `.b.dart` changes.
+
+### 13.1 Failure inventory
+
+| Script | Original error |
+|--------|---------------|
+| `material/button_bar_layout_behavior_test.dart` | `Undefined variable: ButtonBarThemeData` |
+| `material/button_bar_theme_test.dart` | `Type 'ButtonBarThemeData' not found for instantiation.` |
+| `material/button_text_theme_test.dart` | `Undefined variable: ButtonBarThemeData` |
+
+Root cause: `ButtonBar` (widget) and `ButtonBarThemeData` (data class) are deprecated in current Flutter and not bridged. The `ButtonBarTheme` `InheritedWidget` is bridged but unusable from script because its `data:` parameter cannot be constructed. The bridged enums `ButtonBarLayoutBehavior` and `ButtonTextTheme` (the demos' nominal subjects) remain bridged and usable.
+
+### 13.2 Mapping rules applied
+
+| Deprecated construct | Modern equivalent (script-side) |
+|----------------------|--------------------------------|
+| `ButtonBar(children: kids)` | `OverflowBar(children: kids)` |
+| `ButtonBarThemeData(alignment: MainAxisAlignment.start/end/center)` | `OverflowBarAlignment.start/end/center` (or `MainAxisAlignment.start/end/center` on `OverflowBar.alignment`) |
+| `ButtonBarThemeData(alignment: MainAxisAlignment.spaceBetween/spaceAround/spaceEvenly)` | `Row` with the chosen `MainAxisAlignment` (no `OverflowBar` parallel) |
+| `ButtonBarThemeData(buttonMinWidth: w)` / `buttonHeight: h` | per-child `SizedBox(width/height: …)` |
+| `ButtonBarThemeData(buttonPadding: p)` | per-child `Padding(padding: p)` |
+| `ButtonBarThemeData(layoutBehavior: ButtonBarLayoutBehavior.constrained)` | per-child `ConstrainedBox(constraints: BoxConstraints(minWidth: 64))` |
+| `ButtonBarThemeData(mainAxisSize: MainAxisSize.min)` | `IntrinsicWidth` wrap |
+| `ButtonBarThemeData(overflowDirection: …)` | `OverflowBar(overflowDirection: …)` (direct) |
+| `ButtonBarThemeData(overflowButtonSpacing: x)` | `OverflowBar(overflowSpacing: x)` (renamed) |
+| `ButtonBarThemeData(buttonTextTheme: …)` | label-only enum demonstration with default-styled `OverflowBar` |
+| Helper parameter `required ButtonBarThemeData theme` | parameter on the relevant aspect (`OverflowBarAlignment alignment`, etc.) |
+
+### 13.3 Verification
+
+| Script | Before | After | Analyzer | Individual test |
+|--------|--------|-------|----------|------------------|
+| `button_bar_layout_behavior_test.dart` | 1455 lines | 1557 lines (+7%) | `No issues found!` | PASS (`+1`, ~15s; bundleJsonBytes=601685, frameworkErrors=0) |
+| `button_bar_theme_test.dart` | 1346 lines | 1388 lines (+3.1%) | `No issues found!` | PASS (`+1`, ~15s; bundleJsonBytes=570918, frameworkErrors=0) |
+| `button_text_theme_test.dart` | 1422 lines | 1488 lines (+4.6%) | `No issues found!` | PASS (`+1`, ~15s; bundleJsonBytes=583831, frameworkErrors=0) |
+
+Per the regression rule (a) for script-only changes, the individual retest of each affected script is sufficient — no `essential` / `important` / `secondary` re-run required.
+
+Logs captured at:
+
+- `ztmp/bb_layout.log`
+- `ztmp/bb_theme.log`
+- `ztmp/bt_theme.log`
+
+### 13.4 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart` | Replaced 5 `ButtonBarTheme + ButtonBarThemeData + ButtonBar` blocks with `OverflowBar` + per-child `SizedBox`/`ConstrainedBox` wrappers; preserved `ButtonBarLayoutBehavior` enum as the demo's central topic. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart` | Reframed all 11 sections around `OverflowBar` + `OverflowBarAlignment` with parent-widget wrappers (`SizedBox`, `Padding`, `ConstrainedBox`, `IntrinsicWidth`); `Row + MainAxisAlignment.spaceBetween/spaceAround` for the alignment-distribution cases; rewrote reference card; helper signature changed from `required ButtonBarThemeData theme` to per-aspect parameters. |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart` | One code-path replacement: `ButtonBarTheme(data: ButtonBarThemeData(buttonTextTheme: theme), child: ButtonBar(...))` → caption + `OverflowBar` with three `MaterialButton`s carrying per-theme style hints; deprecation paragraph added at top of the hero section. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotation. |
 
 No `.b.dart` files modified. No buildkit / bridge-generator
 changes. No interpreter or registration changes. Both drivers

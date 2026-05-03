@@ -153,6 +153,32 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFF4E5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: const Color(0xFFFFD180), width: 1),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.warning_amber_rounded,
+                    color: const Color(0xFFB26A00), size: 18),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Deprecation note: ButtonBarThemeData.buttonTextTheme historically propagated this enum down a widget subtree. Modern Flutter has dropped that propagation; the equivalent today is per-button styling via style: overrides on ElevatedButton, TextButton, OutlinedButton etc. This demo therefore renders OverflowBar instead of the deprecated ButtonBar.',
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: const Color(0xFF7A4A00),
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     ),
@@ -1007,20 +1033,60 @@ Widget _buttonBarRow({
           style: const TextStyle(fontSize: 11.5, color: Color(0xFF334155)),
         ),
         const SizedBox(height: 6),
-        ButtonBarTheme(
-          data: ButtonBarThemeData(buttonTextTheme: theme),
-          child: ButtonBar(
-            alignment: MainAxisAlignment.start,
-            children: [
-              MaterialButton(onPressed: () {}, child: const Text('Cancel')),
-              MaterialButton(onPressed: () {}, child: const Text('Discard')),
-              MaterialButton(onPressed: () {}, child: const Text('Save')),
-            ],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4),
+          child: Text(
+            'ButtonTextTheme.${theme.name}',
+            style: TextStyle(
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+              color: stripeColor,
+              letterSpacing: 0.4,
+            ),
           ),
+        ),
+        OverflowBar(
+          alignment: MainAxisAlignment.start,
+          spacing: 6,
+          overflowAlignment: OverflowBarAlignment.start,
+          children: [
+            MaterialButton(
+              onPressed: () {},
+              textTheme: theme,
+              child: Text(_styleHintFor(theme, 'Cancel')),
+            ),
+            MaterialButton(
+              onPressed: () {},
+              textTheme: theme,
+              child: Text(_styleHintFor(theme, 'Discard')),
+            ),
+            MaterialButton(
+              onPressed: () {},
+              textTheme: theme,
+              child: Text(_styleHintFor(theme, 'Save')),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Legacy note: a ButtonBarThemeData(buttonTextTheme: ...) wrapping a ButtonBar would have propagated this enum to descendants. Modern Flutter uses per-button style: arguments (ElevatedButton.styleFrom / TextButton.styleFrom / OutlinedButton.styleFrom); OverflowBar replaces ButtonBar.',
+          style: const TextStyle(
+              fontSize: 11, color: Color(0xFF334155), height: 1.35),
         ),
       ],
     ),
   );
+}
+
+String _styleHintFor(ButtonTextTheme theme, String base) {
+  switch (theme) {
+    case ButtonTextTheme.normal:
+      return '$base (Normal sizing)';
+    case ButtonTextTheme.accent:
+      return '$base (Accent text)';
+    case ButtonTextTheme.primary:
+      return '$base (Padded sizing)';
+  }
 }
 
 Widget _disabledPair(
