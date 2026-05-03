@@ -1,0 +1,1484 @@
+
+┌─────────────────────────────────────────────────────────┐
+│ A new version of Flutter is available!                  │
+│                                                         │
+│ To update to the latest version, run "flutter upgrade". │
+└─────────────────────────────────────────────────────────┘
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/suspicious_rewrite_tests.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+[METRIC] script=cupertino/cupertino_desktop_text_selection_controls_test.dart sourceChars=87413 clearMs=71 httpMs=3131 totalMs=3216 status=success httpStatus=200 outputLines=16 frameworkErrors=29
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_desktop_text_selection_controls_test.dart (29 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#b3296 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#d93eb NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#dee53 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#e2965 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#256ef NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#9cd3f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#dd366 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#3d8a7 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#9b42d NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#c012c NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#b92c2 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#15cdc NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#c76f8 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#6656c NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:13 +2: cupertino/ cupertino_focus_halo_test.dart
+[METRIC] script=cupertino/cupertino_focus_halo_test.dart sourceChars=58724 clearMs=268 httpMs=2307 totalMs=2576 status=success httpStatus=200 outputLines=8 frameworkErrors=7
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_focus_halo_test.dart (7 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#3c026 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#dffb9 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#f9325 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:16 +3: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceChars=52660 clearMs=99 httpMs=1992 totalMs=2092 status=error httpStatus=400 outputLines=67 frameworkErrors=0
+
+  ✗ BUILD ERROR in cupertino/cupertino_text_selection_handle_controls_test.dart:
+    Runtime Error: Native error during default bridged constructor for 'CupertinoTextField': 'package:flutter/src/cupertino/text_field.dart': Failed assertion: line 320 pos 10: '(maxLines == null) || (minLines == null) || (maxLines >= minLines)': minLines can't be greater than maxLines
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3668:11)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #3      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #4      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #5      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #6      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3538:32)
+    #7      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #8      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #9      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #10     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #11     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #12     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #13     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #14     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #15     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #16     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #17     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #18     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #19     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #20     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #21     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #22     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #23     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #24     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #25     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #26     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #27     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #28     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #29     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    … 28 more line(s)
+00:18 +3 -1: cupertino/ cupertino_text_selection_handle_controls_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'CupertinoTextField': 'package:flutter/src/cupertino/text_field.dart': Failed assertion: line 320 pos 10: '(maxLines == null) || (minLines == null) || (maxLines >= minLines)': minLines can't be greater than maxLines
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 61:7             main.<fn>.<fn>
+  
+00:18 +3 -1: cupertino/ form_test.dart
+[METRIC] script=cupertino/form_test.dart sourceChars=37209 clearMs=90 httpMs=3870 totalMs=3962 status=success httpStatus=200 outputLines=2 frameworkErrors=45
+
+  ⚠️  FRAMEWORK ERROR in cupertino/form_test.dart (45 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#743c8 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#c6a7e NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#13ff4 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#2fdb0 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#69e27 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#bb269 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#d9ef4 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#0a35e NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#fed30 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#b36fd NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#aef85 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#65ed0 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#8daf9 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#35b59 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#aa5ea NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#6817d NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#2f4c5 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#fc44e NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#52ef6 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#27cd8 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#06880 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#2aa8f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:22 +4 -1: cupertino/ inherited_cupertino_theme_test.dart
+[METRIC] script=cupertino/inherited_cupertino_theme_test.dart sourceChars=39775 clearMs=68 httpMs=2120 totalMs=2190 status=success httpStatus=200 outputLines=7 frameworkErrors=13
+
+  ⚠️  FRAMEWORK ERROR in cupertino/inherited_cupertino_theme_test.dart (13 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#011c4 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#d16e8 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#a33e1 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#26832 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#5cf1d NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#208b2 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:24 +5 -1: cupertino/ overlay_visibility_mode_test.dart
+[METRIC] script=cupertino/overlay_visibility_mode_test.dart sourceChars=49726 clearMs=89 httpMs=2338 totalMs=2428 status=success httpStatus=200 outputLines=5 frameworkErrors=27
+
+  ⚠️  FRAMEWORK ERROR in cupertino/overlay_visibility_mode_test.dart (27 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#b5b17 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#b3877 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#ec8f8 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#3f516 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#71498 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#53347 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#d898e NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#99a5d NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#4cc95 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#94f37 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#ecb69 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#eebbb NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#b7bb6 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:26 +6 -1: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=55 httpMs=2006 totalMs=2066 status=error httpStatus=400 outputLines=54 frameworkErrors=0
+
+  ✗ BUILD ERROR in cupertino/textfield_test.dart:
+    Runtime Error: Native error during default bridged constructor for 'CupertinoTextField': 'package:flutter/src/cupertino/text_field.dart': Failed assertion: line 320 pos 10: '(maxLines == null) || (minLines == null) || (maxLines >= minLines)': minLines can't be greater than maxLines
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3668:11)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #3      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #4      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #5      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #6      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3538:32)
+    #7      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #8      InterpreterVisitor.visitVariableDeclarationList (package:tom_d4rt/src/interpreter_visitor.dart:4996:44)
+    #9      VariableDeclarationListImpl.accept (package:analyzer/src/dart/ast/ast.dart:25600:15)
+    #10     InterpreterVisitor.visitVariableDeclarationStatement (package:tom_d4rt/src/interpreter_visitor.dart:205:27)
+    #11     VariableDeclarationStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:25696:15)
+    #12     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:136:33)
+    #13     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #14     D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1247:43)
+    #15     D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #16     SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:66:34)
+    #17     SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:97:18)
+    #18     SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:65:62)
+    #19     _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:439:34)
+    #20     _rootRun (dart:async/zone_root.dart:35:13)
+    #21     _CustomZone.run (dart:async/zone.dart:726:19)
+    #22     _runZoned (dart:async/zone_api.dart:166:6)
+    #23     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #24     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:436:7)
+    #25     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:697:26)
+    #26     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #27     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #28     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #29     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    … 12 more line(s)
+00:28 +6 -2: cupertino/ textfield_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'CupertinoTextField': 'package:flutter/src/cupertino/text_field.dart': Failed assertion: line 320 pos 10: '(maxLines == null) || (minLines == null) || (maxLines >= minLines)': minLines can't be greater than maxLines
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 85:7             main.<fn>.<fn>
+  
+00:28 +6 -2: dart_ui/ system_color_palette_test.dart
+[METRIC] script=dart_ui/system_color_palette_test.dart sourceChars=63558 clearMs=45 httpMs=1888 totalMs=1935 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:30 +7 -2: foundation/ target_platform_test.dart
+[METRIC] script=foundation/target_platform_test.dart sourceChars=51179 clearMs=44 httpMs=3029 totalMs=3074 status=error httpStatus=400 outputLines=99 frameworkErrors=0
+
+  ✗ BUILD ERROR in foundation/target_platform_test.dart:
+    Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3668:11)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #3      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #4      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #5      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #6      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #7      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #8      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #9      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #10     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #11     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #12     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #13     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #14     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #15     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #16     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #17     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #18     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #19     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #20     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #21     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #22     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #23     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #24     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #25     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #26     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #27     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #28     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #29     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    … 58 more line(s)
+00:33 +7 -3: foundation/ target_platform_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 111:7            main.<fn>.<fn>
+  
+00:33 +7 -3: material/ bottom_navigation_bar_type_test.dart
+[METRIC] script=material/bottom_navigation_bar_type_test.dart sourceChars=62876 clearMs=25 httpMs=1941 totalMs=1968 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:35 +8 -3: material/ button_bar_layout_behavior_test.dart
+[METRIC] script=material/button_bar_layout_behavior_test.dart sourceChars=50683 clearMs=71 httpMs=1478 totalMs=1551 status=error httpStatus=400 outputLines=81 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/button_bar_layout_behavior_test.dart:
+    Runtime Error: Undefined variable: ButtonBarThemeData
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitSimpleIdentifier (package:tom_d4rt/src/interpreter_visitor.dart:445:7)
+    #1      SimpleIdentifierImpl.accept (package:analyzer/src/dart/ast/ast.dart:22221:50)
+    #2      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:2820:37)
+    #3      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #4      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #5      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #6      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #7      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #8      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #9      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #10     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #11     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #12     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #13     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #14     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #15     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #16     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #17     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #18     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #19     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #20     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #21     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #22     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #23     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #24     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #25     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #26     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #27     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #28     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #29     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    … 44 more line(s)
+00:37 +8 -4: material/ button_bar_layout_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: ButtonBarThemeData
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 131:7            main.<fn>.<fn>
+  
+00:37 +8 -4: material/ button_bar_theme_test.dart
+[METRIC] script=material/button_bar_theme_test.dart sourceChars=53967 clearMs=67 httpMs=1480 totalMs=1548 status=error httpStatus=400 outputLines=55 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/button_bar_theme_test.dart:
+    Runtime Error: Type 'ButtonBarThemeData' not found for instantiation.
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitInstanceCreationExpression (package:tom_d4rt/src/interpreter_visitor.dart:8971:9)
+    #1      InstanceCreationExpressionImpl.accept (package:analyzer/src/dart/ast/ast.dart:14056:15)
+    #2      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #3      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #4      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #5      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #6      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #7      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #8      InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #9      ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #10     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #11     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #12     D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1247:43)
+    #13     D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #14     SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:66:34)
+    #15     SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:97:18)
+    #16     SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:65:62)
+    #17     _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:439:34)
+    #18     _rootRun (dart:async/zone_root.dart:35:13)
+    #19     _CustomZone.run (dart:async/zone.dart:726:19)
+    #20     _runZoned (dart:async/zone_api.dart:166:6)
+    #21     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #22     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:436:7)
+    #23     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:697:26)
+    #24     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #25     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #26     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #27     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #28     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #29     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    … 10 more line(s)
+00:38 +8 -5: material/ button_bar_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Type 'ButtonBarThemeData' not found for instantiation.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 138:7            main.<fn>.<fn>
+  
+00:38 +8 -5: material/ button_text_theme_test.dart
+[METRIC] script=material/button_text_theme_test.dart sourceChars=48451 clearMs=58 httpMs=1668 totalMs=1728 status=error httpStatus=400 outputLines=73 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/button_text_theme_test.dart:
+    Runtime Error: Undefined variable: ButtonBarThemeData
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitSimpleIdentifier (package:tom_d4rt/src/interpreter_visitor.dart:445:7)
+    #1      SimpleIdentifierImpl.accept (package:analyzer/src/dart/ast/ast.dart:22221:50)
+    #2      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:2820:37)
+    #3      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #4      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #5      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #6      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #7      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #8      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #9      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #10     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #11     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #12     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #13     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #14     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #15     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #16     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #17     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #18     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #19     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #20     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #21     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #22     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #23     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #24     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #25     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #26     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #27     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #28     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #29     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    … 38 more line(s)
+00:40 +8 -6: material/ button_text_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: ButtonBarThemeData
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 145:7            main.<fn>.<fn>
+  
+00:40 +8 -6: material/ collapse_mode_test.dart
+[METRIC] script=material/collapse_mode_test.dart sourceChars=60334 clearMs=89 httpMs=2491 totalMs=2582 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:43 +9 -6: material/ drawer_controller_state_test.dart
+[METRIC] script=material/drawer_controller_state_test.dart sourceChars=74747 clearMs=90 httpMs=1885 totalMs=1976 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:45 +10 -6: material/ dropdown_menu_close_behavior_test.dart
+[METRIC] script=material/dropdown_menu_close_behavior_test.dart sourceChars=64717 clearMs=111 httpMs=2619 totalMs=2732 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:47 +11 -6: material/ end_drawer_button_test.dart
+[METRIC] script=material/end_drawer_button_test.dart sourceChars=53648 clearMs=81 httpMs=1772 totalMs=1855 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:49 +12 -6: material/ gapped_range_slider_track_shape_test.dart
+[METRIC] script=material/gapped_range_slider_track_shape_test.dart sourceChars=57391 clearMs=93 httpMs=1812 totalMs=1906 status=success httpStatus=200 outputLines=2 frameworkErrors=15
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_range_slider_track_shape_test.dart (15 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:51 +13 -6: material/ gapped_slider_track_shape_test.dart
+[METRIC] script=material/gapped_slider_track_shape_test.dart sourceChars=69472 clearMs=69 httpMs=1702 totalMs=1773 status=success httpStatus=200 outputLines=6 frameworkErrors=18
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_slider_track_shape_test.dart (18 error(s)):
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+00:53 +14 -6: material/ hour_format_test.dart
+[METRIC] script=material/hour_format_test.dart sourceChars=49485 clearMs=117 httpMs=2402 totalMs=2521 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:56 +15 -6: material/ list_tile_title_alignment_test.dart
+[METRIC] script=material/list_tile_title_alignment_test.dart sourceChars=54338 clearMs=80 httpMs=1947 totalMs=2029 status=success httpStatus=200 outputLines=6 frameworkErrors=23
+
+  ⚠️  FRAMEWORK ERROR in material/list_tile_title_alignment_test.dart (23 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#90563 relayoutBoundary=up20 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#fc4a5 relayoutBoundary=up19 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#653a1 relayoutBoundary=up18 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderPadding#febfe relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#4e6ae relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#b43c7 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#0961a relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderPadding#db3b4 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#58804 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#7e3e9 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#fcef0 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#f7790 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#dbb60 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#ab16d relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#045d2 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#c2b27 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#efbde relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#e02e2 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#0c916 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#a2fca relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderTransform#e02e2 relayoutBoundary=up3 NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:58 +16 -6: material/ material_banner_closed_reason_test.dart
+[METRIC] script=material/material_banner_closed_reason_test.dart sourceChars=56275 clearMs=85 httpMs=1889 totalMs=1976 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:00 +17 -6: material/ menu_accelerator_callback_binding_test.dart
+[METRIC] script=material/menu_accelerator_callback_binding_test.dart sourceChars=46456 clearMs=65 httpMs=1760 totalMs=1827 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:01 +18 -6: material/ navigation_destination_label_behavior_test.dart
+[METRIC] script=material/navigation_destination_label_behavior_test.dart sourceChars=57302 clearMs=108 httpMs=2133 totalMs=2242 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:04 +19 -6: material/ navigation_drawer_theme_test.dart
+[METRIC] script=material/navigation_drawer_theme_test.dart sourceChars=49466 clearMs=85 httpMs=2198 totalMs=2284 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:06 +20 -6: material/ navigation_rail_label_type_test.dart
+[METRIC] script=material/navigation_rail_label_type_test.dart sourceChars=62077 clearMs=82 httpMs=1912 totalMs=1996 status=success httpStatus=200 outputLines=5 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in material/navigation_rail_label_type_test.dart (4 error(s)):
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 44 pixels on the bottom.
+       A RenderFlex overflowed by 44 pixels on the bottom.
+       A RenderFlex overflowed by 44 pixels on the bottom.
+01:08 +21 -6: material/ paginated_data_table_state_test.dart
+[METRIC] script=material/paginated_data_table_state_test.dart sourceChars=47402 clearMs=74 httpMs=2041 totalMs=2116 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:10 +22 -6: material/ popup_menu_position_test.dart
+[METRIC] script=material/popup_menu_position_test.dart sourceChars=99210 clearMs=99 httpMs=2342 totalMs=2442 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:13 +23 -6: material/ progress_indicator_test.dart
+[METRIC] script=material/progress_indicator_test.dart sourceChars=57629 clearMs=89 httpMs=1709 totalMs=1800 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/progress_indicator_test.dart (1 error(s)):
+       Progress bar value, minValue, and maxValue must be valid numbers. value: "0%", minValue: "0", maxValue: "100"
+01:14 +24 -6: material/ refresh_progress_indicator_test.dart
+[METRIC] script=material/refresh_progress_indicator_test.dart sourceChars=42929 clearMs=77 httpMs=1820 totalMs=1898 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:16 +25 -6: material/ tabs_test.dart
+[METRIC] script=material/tabs_test.dart sourceChars=77081 clearMs=114 httpMs=2011 totalMs=2126 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:18 +26 -6: material/ themadata_test.dart
+[METRIC] script=material/themadata_test.dart sourceChars=62294 clearMs=95 httpMs=2860 totalMs=2957 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:21 +27 -6: material/ theme_extension_test.dart
+[METRIC] script=material/theme_extension_test.dart sourceChars=66040 clearMs=92 httpMs=1821 totalMs=1915 status=success httpStatus=200 outputLines=1 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/theme_extension_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'surfaceTint' on bridged instance of 'ThemeExtension'.
+01:23 +28 -6: material/ theme_mode_test.dart
+[METRIC] script=material/theme_mode_test.dart sourceChars=61729 clearMs=88 httpMs=2388 totalMs=2478 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:26 +29 -6: material/ thumb_test.dart
+[METRIC] script=material/thumb_test.dart sourceChars=79828 clearMs=89 httpMs=1716 totalMs=1807 status=success httpStatus=200 outputLines=2 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in material/thumb_test.dart (2 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'SliderThemeData': Argument Error: Invalid parameter "thumbShape": expected SliderComponentShape?, got InterpretedInstance(_DiamondTh…
+       Runtime Error: Native error during default bridged constructor for 'SliderThemeData': Argument Error: Invalid parameter "thumbShape": expected SliderComponentShape?, got InterpretedInstance(_SquareChe…
+01:28 +30 -6: material/ time_of_day_format_test.dart
+[METRIC] script=material/time_of_day_format_test.dart sourceChars=69078 clearMs=83 httpMs=1578 totalMs=1663 status=error httpStatus=400 outputLines=121 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/time_of_day_format_test.dart:
+    Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3668:11)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #3      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #4      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #5      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #6      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #7      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #8      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #9      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #10     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #11     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #12     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #13     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #14     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #15     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #16     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #17     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #18     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #19     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #20     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #21     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #22     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #23     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #24     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5739:15)
+    #25     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #26     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #27     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #28     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #29     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    … 78 more line(s)
+01:29 +30 -7: material/ time_of_day_format_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 298:7            main.<fn>.<fn>
+  
+01:29 +30 -7: material/ time_picker_entry_mode_test.dart
+[METRIC] script=material/time_picker_entry_mode_test.dart sourceChars=75555 clearMs=53 httpMs=1793 totalMs=1847 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:31 +31 -7: material/ toggle_buttons_theme_data_test.dart
+[METRIC] script=material/toggle_buttons_theme_data_test.dart sourceChars=77068 clearMs=86 httpMs=2224 totalMs=2312 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:33 +32 -7: material/ toggle_buttons_theme_test.dart
+[METRIC] script=material/toggle_buttons_theme_test.dart sourceChars=59425 clearMs=91 httpMs=1992 totalMs=2084 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:35 +33 -7: material/ tooltip_state_test.dart
+[METRIC] script=material/tooltip_state_test.dart sourceChars=103422 clearMs=89 httpMs=1918 totalMs=2008 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:37 +34 -7: painting/ axis_direction_test.dart
+[METRIC] script=painting/axis_direction_test.dart sourceChars=82461 clearMs=78 httpMs=2400 totalMs=2479 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:40 +35 -7: painting/ axis_test.dart
+[METRIC] script=painting/axis_test.dart sourceChars=62155 clearMs=93 httpMs=1506 totalMs=1601 status=error httpStatus=400 outputLines=75 frameworkErrors=0
+
+  ✗ BUILD ERROR in painting/axis_test.dart:
+    Runtime Error: Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>
+
+  Stack trace (remote):
+    #0      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5745:11)
+    #1      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #2      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #3      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #4      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #5      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #6      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #7      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #8      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #9      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #10     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #11     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #12     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #13     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #14     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #15     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #16     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3538:32)
+    #17     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #18     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #19     ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #20     InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #21     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #22     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #23     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #24     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #25     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #26     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #27     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #28     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #29     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    … 44 more line(s)
+01:42 +35 -8: painting/ axis_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 344:7            main.<fn>.<fn>
+  
+01:42 +35 -8: proxies/ customclipper_proxy_test.dart
+[METRIC] script=proxies/customclipper_proxy_test.dart sourceChars=91042 clearMs=101 httpMs=1932 totalMs=2035 status=success httpStatus=200 outputLines=1 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in proxies/customclipper_proxy_test.dart (4 error(s)):
+       type '_NativePath' is not a subtype of type 'Rect' in type cast
+       type '_NativePath' is not a subtype of type 'Rect' in type cast
+       type '_NativePath' is not a subtype of type 'Rect' in type cast
+       type '_NativePath' is not a subtype of type 'Rect' in type cast
+01:44 +36 -8: proxies/ custompaint_proxy_test.dart
+[METRIC] script=proxies/custompaint_proxy_test.dart sourceChars=76569 clearMs=72 httpMs=3070 totalMs=3144 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in proxies/custompaint_proxy_test.dart (1 error(s)):
+       Build scheduled during frame.
+While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
+This might be because setState() was called from a lay…
+01:47 +37 -8: proxies/ flowdelegate_proxy_test.dart
+[METRIC] script=proxies/flowdelegate_proxy_test.dart sourceChars=61277 clearMs=94 httpMs=1944 totalMs=2040 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:49 +38 -8: proxies/ multichildlayout_proxy_test.dart
+[METRIC] script=proxies/multichildlayout_proxy_test.dart sourceChars=63549 clearMs=72 httpMs=1809 totalMs=1883 status=success httpStatus=200 outputLines=1 frameworkErrors=14
+
+  ⚠️  FRAMEWORK ERROR in proxies/multichildlayout_proxy_test.dart (14 error(s)):
+       RenderCustomMultiChildLayoutBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another rende…
+       RenderPositionedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object tha…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderSemanticsAnnotations object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render obj…
+       _RenderInkFeatures object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderCustomPaint object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that …
+       RenderPhysicalShape object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object tha…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderSemanticsAnnotations object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render obj…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+01:51 +39 -8: proxies/ singlechildlayout_proxy_test.dart
+[METRIC] script=proxies/singlechildlayout_proxy_test.dart sourceChars=79681 clearMs=63 httpMs=1780 totalMs=1844 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:53 +40 -8: rendering/ const_test.dart
+[METRIC] script=rendering/const_test.dart sourceChars=44684 clearMs=79 httpMs=1734 totalMs=1815 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:54 +41 -8: rendering/ floating_header_snap_configuration_test.dart
+[METRIC] script=rendering/floating_header_snap_configuration_test.dart sourceChars=43940 clearMs=69 httpMs=1964 totalMs=2035 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:56 +42 -8: rendering/ hit_test_behavior_test.dart
+[METRIC] script=rendering/hit_test_behavior_test.dart sourceChars=107858 clearMs=87 httpMs=1850 totalMs=1938 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:58 +43 -8: rendering/ over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=rendering/over_scroll_header_stretch_configuration_test.dart sourceChars=40130 clearMs=68 httpMs=1819 totalMs=1888 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:00 +44 -8: rendering/ pipeline_manifold_test.dart
+[METRIC] script=rendering/pipeline_manifold_test.dart sourceChars=74725 clearMs=107 httpMs=2215 totalMs=2324 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:03 +45 -8: rendering/ placeholder_span_index_semantics_tag_test.dart
+[METRIC] script=rendering/placeholder_span_index_semantics_tag_test.dart sourceChars=71133 clearMs=92 httpMs=5412 totalMs=5506 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+02:08 +46 -8: rendering/ platform_view_render_box_test.dart
+[METRIC] script=rendering/platform_view_render_box_test.dart sourceChars=68619 clearMs=82 httpMs=2078 totalMs=2162 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:10 +47 -8: rendering/ render_abstract_viewport_test.dart
+[METRIC] script=rendering/render_abstract_viewport_test.dart sourceChars=76442 clearMs=87 httpMs=2505 totalMs=2594 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:13 +48 -8: rendering/ render_android_view_test.dart
+[METRIC] script=rendering/render_android_view_test.dart sourceChars=72573 clearMs=105 httpMs=1918 totalMs=2025 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:15 +49 -8: rendering/ render_animated_opacity_mixin_test.dart
+[METRIC] script=rendering/render_animated_opacity_mixin_test.dart sourceChars=74700 clearMs=80 httpMs=2404 totalMs=2485 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:17 +50 -8: rendering/ render_animated_size_state_test.dart
+[METRIC] script=rendering/render_animated_size_state_test.dart sourceChars=67596 clearMs=106 httpMs=1962 totalMs=2069 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:19 +51 -8: rendering/ render_clip_r_superellipse_test.dart
+[METRIC] script=rendering/render_clip_r_superellipse_test.dart sourceChars=64894 clearMs=109 httpMs=3171 totalMs=3281 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:23 +52 -8: rendering/ render_editable_painter_test.dart
+[METRIC] script=rendering/render_editable_painter_test.dart sourceChars=54906 clearMs=77 httpMs=2240 totalMs=2319 status=success httpStatus=200 outputLines=1 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_editable_painter_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#bf3dd NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+02:25 +53 -8: rendering/ render_sliver_box_child_manager_test.dart
+[METRIC] script=rendering/render_sliver_box_child_manager_test.dart sourceChars=81839 clearMs=82 httpMs=2195 totalMs=2278 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:27 +54 -8: rendering/ render_sliver_floating_pinned_persistent_header_test.dart
+[METRIC] script=rendering/render_sliver_floating_pinned_persistent_header_test.dart sourceChars=83742 clearMs=94 httpMs=2208 totalMs=2304 status=success httpStatus=200 outputLines=2 frameworkErrors=11
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_sliver_floating_pinned_persistent_header_test.dart (11 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderTable object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       No TabController for TabBar.
+When creating a TabBar, you must either provide an explicit TabController using the "controller" property, or you must ensure that there is a DefaultTabController above th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       SemanticsNode#8258(Rect.fromLTRB(0.0, 0.0, 0.0, 0.0), invisible) (with null) tried to set a non-finite rect.
+'package:flutter/src/semantics/semantics.dart':
+Failed assertion: line 2830 pos 12: 'value.…
+02:30 +55 -8: rendering/ render_ui_kit_view_test.dart
+[METRIC] script=rendering/render_ui_kit_view_test.dart sourceChars=68343 clearMs=41 httpMs=1979 totalMs=2021 status=success httpStatus=200 outputLines=6 frameworkErrors=21
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_ui_kit_view_test.dart (21 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#39b40 relayoutBoundary=up18 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderLayoutBuilder#d0c89 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderFlex#e1bb7 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#875de relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#875a1 relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#ce5f9 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderFlex#1916d relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#def1d relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#10c47 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#99104 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#e336f relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#7808b relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#65b1b relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#4b4c8 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#17f75 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#9a1ba relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#66561 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#22478 relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderTransform#9a1ba relayoutBoundary=up3
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+02:32 +56 -8: rendering/ sliver_paint_order_test.dart
+[METRIC] script=rendering/sliver_paint_order_test.dart sourceChars=73217 clearMs=79 httpMs=1534 totalMs=1613 status=error httpStatus=400 outputLines=62 frameworkErrors=0
+
+  ✗ BUILD ERROR in rendering/sliver_paint_order_test.dart:
+    Runtime Error: Identifier 'all' resolved to List<BridgedEnumValue>, which is not a class type that can be instantiated.
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitInstanceCreationExpression (package:tom_d4rt/src/interpreter_visitor.dart:9210:7)
+    #1      InstanceCreationExpressionImpl.accept (package:analyzer/src/dart/ast/ast.dart:14056:15)
+    #2      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #3      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #4      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #5      InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    #6      ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #7      InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #8      InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #9      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3561:28)
+    #10     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #11     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #12     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #13     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #14     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #15     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #16     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #17     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #18     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #19     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #20     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #21     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #22     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #23     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #24     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #25     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #26     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #27     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #28     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #29     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    … 31 more line(s)
+02:33 +56 -9: rendering/ sliver_paint_order_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Identifier 'all' resolved to List<BridgedEnumValue>, which is not a class type that can be instantiated.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 508:7            main.<fn>.<fn>
+  
+02:33 +56 -9: repro_fa5/ canary_must_fail.dart
+[METRIC] script=repro_fa5/canary_must_fail.dart sourceChars=706 clearMs=71 httpMs=1479 totalMs=1551 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in repro_fa5/canary_must_fail.dart (1 error(s)):
+       InternalInterpreterException(originalThrownValue: Bad state: fa5-canary: deliberate throw to verify harness signal)
+02:35 +57 -9: repro_fa5/ inherited_widget_exact_type.dart
+[METRIC] script=repro_fa5/inherited_widget_exact_type.dart sourceChars=2265 clearMs=52 httpMs=1470 totalMs=1523 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:36 +58 -9: repro_fa6/ canary_must_fail.dart
+[METRIC] script=repro_fa6/canary_must_fail.dart sourceChars=688 clearMs=65 httpMs=1471 totalMs=1537 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in repro_fa6/canary_must_fail.dart (1 error(s)):
+       InternalInterpreterException(originalThrownValue: Bad state: fa6-canary: deliberate throw to verify harness signal)
+02:38 +59 -9: semantics/ semantics_handle_test.dart
+[METRIC] script=semantics/semantics_handle_test.dart sourceChars=67654 clearMs=61 httpMs=2115 totalMs=2177 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:40 +60 -9: services/ message_codec_test.dart
+[METRIC] script=services/message_codec_test.dart sourceChars=57666 clearMs=90 httpMs=1874 totalMs=1965 status=error httpStatus=400 outputLines=40 frameworkErrors=0
+
+  ✗ BUILD ERROR in services/message_codec_test.dart:
+    Runtime Error: Native error during bridged method call 'encodeMessage' on StandardMessageCodec: Invalid argument: Instance of 'BridgedInstance<Object>'
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3112:13)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor.visitVariableDeclarationList (package:tom_d4rt/src/interpreter_visitor.dart:4996:44)
+    #3      VariableDeclarationListImpl.accept (package:analyzer/src/dart/ast/ast.dart:25600:15)
+    #4      InterpreterVisitor.visitVariableDeclarationStatement (package:tom_d4rt/src/interpreter_visitor.dart:205:27)
+    #5      VariableDeclarationStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:25696:15)
+    #6      InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:136:33)
+    #7      InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1284:38)
+    #8      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1247:43)
+    #9      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #10     SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:66:34)
+    #11     SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:97:18)
+    #12     SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:65:62)
+    #13     _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:439:34)
+    #14     _rootRun (dart:async/zone_root.dart:35:13)
+    #15     _CustomZone.run (dart:async/zone.dart:726:19)
+    #16     _runZoned (dart:async/zone_api.dart:166:6)
+    #17     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #18     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:436:7)
+    #19     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:697:26)
+    #20     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #21     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #22     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #23     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #24     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #25     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #26     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #27     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #28     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #29     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    … 6 more line(s)
+02:42 +60 -10: services/ message_codec_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged method call 'encodeMessage' on StandardMessageCodec: Invalid argument: Instance of 'BridgedInstance<Object>'
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 567:7            main.<fn>.<fn>
+  
+02:42 +60 -10: services/ method_codec_test.dart
+[METRIC] script=services/method_codec_test.dart sourceChars=62258 clearMs=102 httpMs=1830 totalMs=1933 status=error httpStatus=400 outputLines=32 frameworkErrors=0
+
+  ✗ BUILD ERROR in services/method_codec_test.dart:
+    Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(BOOT_FAIL, unable to start, {attempt: 1}, null)
+
+  Stack trace (remote):
+    #0      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1256:9)
+    #1      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #2      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:66:34)
+    #3      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:97:18)
+    #4      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:65:62)
+    #5      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:439:34)
+    #6      _rootRun (dart:async/zone_root.dart:35:13)
+    #7      _CustomZone.run (dart:async/zone.dart:726:19)
+    #8      _runZoned (dart:async/zone_api.dart:166:6)
+    #9      runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #10     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:436:7)
+    #11     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:697:26)
+    #12     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #13     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #14     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #15     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #16     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #17     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #18     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #19     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #20     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #21     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #22     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #23     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #24     _invoke (dart:ui/hooks.dart:356:13)
+    #25     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #26     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+02:44 +60 -11: services/ method_codec_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(BOOT_FAIL, unable to start, {attempt: 1}, null)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 574:7            main.<fn>.<fn>
+  
+02:44 +60 -11: services/ raw_key_up_event_test.dart
+[METRIC] script=services/raw_key_up_event_test.dart sourceChars=66620 clearMs=31 httpMs=2314 totalMs=2346 status=success httpStatus=200 outputLines=15 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_up_event_test.dart (4 error(s)):
+       Runtime Error: Undefined variable: RawKeyboardListener (Original error: Undefined property 'RawKeyboardListener' on _LiveKeyUpListenerState.)
+       Runtime Error: Undefined variable: RawKeyboardListener (Original error: Undefined property 'RawKeyboardListener' on _DownVsUpListenerState.)
+       Runtime Error: Undefined variable: RawKeyboardListener (Original error: Undefined property 'RawKeyboardListener' on _ModifierMatrixState.)
+       Runtime Error: Undefined variable: RawKeyboardListener (Original error: Undefined property 'RawKeyboardListener' on _KeyboardHeatmapState.)
+02:46 +61 -11: services/ smart_quotes_type_test.dart
+[METRIC] script=services/smart_quotes_type_test.dart sourceChars=66967 clearMs=58 httpMs=3922 totalMs=3982 status=success httpStatus=200 outputLines=0 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in services/smart_quotes_type_test.dart (9 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#e62d2 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#c332c NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/table_border.dart': Failed assertion: line 289 pos 12: 'rows.isEmpty || (rows.first >= 0.0 && rows.last <= rect.height)': is not true.
+       RenderBox was not laid out: _RenderEditableCustomPaint#d61e1 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/table_border.dart': Failed assertion: line 289 pos 12: 'rows.isEmpty || (rows.first >= 0.0 && rows.last <= rect.height)': is not true.
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+02:50 +62 -11: services/ spell_check_service_test.dart
+[METRIC] script=services/spell_check_service_test.dart sourceChars=77971 clearMs=71 httpMs=1962 totalMs=2035 status=error httpStatus=400 outputLines=87 frameworkErrors=0
+
+  ✗ BUILD ERROR in services/spell_check_service_test.dart:
+    Runtime Error: Native error during default bridged constructor for 'SpellCheckConfiguration': Argument Error: Invalid parameter "spellCheckService": expected SpellCheckService?, got InterpretedInstance(_MockSpellCheckService)
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3668:11)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #3      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #4      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #5      InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #6      InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #7      ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #8      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #9      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #10     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #11     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #12     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #13     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #14     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #15     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #16     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #17     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #18     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #19     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #20     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #21     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #22     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #23     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5608:29)
+    #24     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5124:7)
+    #25     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #26     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9319:38)
+    #27     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3632:34)
+    #28     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #29     InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:5944:38)
+    … 55 more line(s)
+02:52 +62 -12: services/ spell_check_service_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'SpellCheckConfiguration': Argument Error: Invalid parameter "spellCheckService": expected SpellCheckService?, got InterpretedInstance(_MockSpellCheckService)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/suspicious_rewrite_tests.dart 595:7            main.<fn>.<fn>
+  
+02:52 +62 -12: widgets/ action_listener_test.dart
+[METRIC] script=widgets/action_listener_test.dart sourceChars=64029 clearMs=48 httpMs=2179 totalMs=2229 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:55 +63 -12: widgets/ align_transition_test.dart
+[METRIC] script=widgets/align_transition_test.dart sourceChars=87193 clearMs=81 httpMs=2237 totalMs=2320 status=success httpStatus=200 outputLines=4 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/align_transition_test.dart (1 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'AlignTransition': Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(_Planet)
+02:57 +64 -12: widgets/ android_view_surface_test.dart
+[METRIC] script=widgets/android_view_surface_test.dart sourceChars=59828 clearMs=90 httpMs=2118 totalMs=2210 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:59 +65 -12: widgets/ animated_positioned_directional_test.dart
+[METRIC] script=widgets/animated_positioned_directional_test.dart sourceChars=57162 clearMs=103 httpMs=1912 totalMs=2017 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+03:01 +66 -12: widgets/ app_kit_view_test.dart
+[METRIC] script=widgets/app_kit_view_test.dart sourceChars=59441 clearMs=102 httpMs=1870 totalMs=1973 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:03 +67 -12: widgets/ autocomplete_highlighted_option_test.dart
+[METRIC] script=widgets/autocomplete_highlighted_option_test.dart sourceChars=95516 clearMs=101 httpMs=1923 totalMs=2026 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:05 +68 -12: widgets/ autofill_group_state_test.dart
+[METRIC] script=widgets/autofill_group_state_test.dart sourceChars=77766 clearMs=83 httpMs=2327 totalMs=2412 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+03:08 +69 -12: widgets/ automatic_keep_alive_client_mixin_test.dart
+03:38 +69 -13: widgets/ automatic_keep_alive_client_mixin_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+03:38 +69 -13: widgets/ back_button_listener_test.dart
+04:08 +69 -14: widgets/ back_button_listener_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+04:08 +69 -14: widgets/ backdrop_group_test.dart
+04:38 +69 -15: widgets/ backdrop_group_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+04:38 +69 -15: widgets/ border_tween_test.dart
+05:08 +69 -16: widgets/ border_tween_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+05:08 +69 -16: widgets/ box_scroll_view_test.dart
+05:38 +69 -17: widgets/ box_scroll_view_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+05:38 +69 -17: widgets/ clip_r_superellipse_test.dart
+06:08 +69 -18: widgets/ clip_r_superellipse_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+06:08 +69 -18: widgets/ constrained_layout_builder_test.dart
+06:38 +69 -19: widgets/ constrained_layout_builder_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+06:38 +69 -19: widgets/ constraints_transform_box_test.dart
+07:08 +69 -20: widgets/ constraints_transform_box_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+07:08 +69 -20: widgets/ context_action_test.dart
+07:38 +69 -21: widgets/ context_action_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+07:38 +69 -21: widgets/ default_selection_style_test.dart
+08:08 +69 -22: widgets/ default_selection_style_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+08:08 +69 -22: widgets/ default_text_editing_shortcuts_test.dart
+08:38 +69 -23: widgets/ default_text_editing_shortcuts_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+08:38 +69 -23: widgets/ default_text_style_transition_test.dart
+09:08 +69 -24: widgets/ default_text_style_transition_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+09:08 +69 -24: widgets/ dismiss_intent_test.dart
+09:38 +69 -25: widgets/ dismiss_intent_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+09:38 +69 -25: widgets/ do_nothing_action_test.dart
+10:08 +69 -26: widgets/ do_nothing_action_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+10:08 +69 -26: widgets/ do_nothing_and_stop_propagation_intent_test.dart
+10:38 +69 -27: widgets/ do_nothing_and_stop_propagation_intent_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+10:38 +69 -27: widgets/ drag_target_details_test.dart
+11:08 +69 -28: widgets/ drag_target_details_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+11:08 +69 -28: widgets/ hero_controller_scope_test.dart
+11:38 +69 -29: widgets/ hero_controller_scope_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+11:38 +69 -29: widgets/ i_o_s_system_context_menu_item_copy_test.dart
+12:08 +69 -30: widgets/ i_o_s_system_context_menu_item_copy_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+12:08 +69 -30: widgets/ i_o_s_system_context_menu_item_cut_test.dart
+12:38 +69 -31: widgets/ i_o_s_system_context_menu_item_cut_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+12:38 +69 -31: widgets/ img_element_platform_view_test.dart
+13:08 +69 -32: widgets/ img_element_platform_view_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+13:08 +69 -32: widgets/ keep_alive_handle_test.dart
+13:38 +69 -33: widgets/ keep_alive_handle_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+13:38 +69 -33: widgets/ navigatorstate_test.dart
+14:08 +69 -34: widgets/ navigatorstate_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+14:08 +69 -34: widgets/ regular_window_controller_mac_o_s_test.dart
+14:38 +69 -35: widgets/ regular_window_controller_mac_o_s_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+14:38 +69 -35: widgets/ regular_window_controller_test.dart
+15:08 +69 -36: widgets/ regular_window_controller_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+15:08 +69 -36: widgets/ regular_window_test.dart
+15:38 +69 -37: widgets/ regular_window_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+15:38 +69 -37: widgets/ route_transition_record_test.dart
+16:08 +69 -38: widgets/ route_transition_record_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+16:08 +69 -38: widgets/ scroll_increment_type_test.dart
+16:38 +69 -39: widgets/ scroll_increment_type_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+16:38 +69 -39: widgets/ selectable_region_selection_status_test.dart
+17:08 +69 -40: widgets/ selectable_region_selection_status_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+17:08 +69 -40: widgets/ selection_details_test.dart
+17:38 +69 -41: widgets/ selection_details_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+17:38 +69 -41: widgets/ snapshot_mode_test.dart
+18:08 +69 -42: widgets/ snapshot_mode_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+18:08 +69 -42: widgets/ tooltip_window_controller_delegate_test.dart
+18:38 +69 -43: widgets/ tooltip_window_controller_delegate_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+18:38 +69 -43: widgets/ unmanaged_restoration_scope_test.dart
+19:08 +69 -44: widgets/ unmanaged_restoration_scope_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+19:08 +69 -44: widgets/ web_browser_detection_test.dart
+19:38 +69 -45: widgets/ web_browser_detection_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+19:38 +69 -45: widgets/ widget_inspector_service_extensions_test.dart
+20:08 +69 -46: widgets/ widget_inspector_service_extensions_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+20:08 +69 -46: widgets/ windowing_owner_mac_o_s_test.dart
+20:38 +69 -47: widgets/ windowing_owner_mac_o_s_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+20:38 +69 -47: widgets/ windowing_owner_win32_test.dart
+21:08 +69 -48: widgets/ windowing_owner_win32_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+21:08 +69 -48: (tearDownAll)
+21:08 +69 -48: Some tests failed.

@@ -1,0 +1,22 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Interactive tests showDialog - can tap OK button to dismiss
+[METRIC] script=material/showdialog_test.dart sourceChars=2832 clearMs=38 httpMs=1692 totalMs=1739 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:14 +1: Interactive tests showBottomSheet - can tap to select option
+[METRIC] script=material/showbottomsheet_test.dart sourceChars=4787 clearMs=72 httpMs=1358 totalMs=1431 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:17 +2: Interactive tests showMenu - can tap menu item
+[METRIC] script=material/showmenu_test.dart sourceChars=3688 clearMs=75 httpMs=1922 totalMs=1999 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:21 +3: Interactive tests interaction - dismiss modal via barrier tap
+[METRIC] script=material/showdialog_test.dart sourceChars=2832 clearMs=90 httpMs=1305 totalMs=1397 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Dismiss result: InteractResult(success, output: [])
+00:24 +4: Interactive tests showDatePicker - can tap Cancel to dismiss
+[METRIC] script=material/showdatepicker_test.dart sourceChars=3181 clearMs=63 httpMs=1381 totalMs=1446 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:27 +5: Interactive tests showTimePicker - can tap Cancel to dismiss
+[METRIC] script=material/showtimepicker_test.dart sourceChars=3589 clearMs=96 httpMs=1317 totalMs=1414 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:31 +6: (tearDownAll)
+00:32 +6: All tests passed!

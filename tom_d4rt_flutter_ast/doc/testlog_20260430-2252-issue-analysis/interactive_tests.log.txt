@@ -1,0 +1,46 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (100.0.0 available)
+  analyzer 8.4.1 (13.0.0 available)
+  async 2.13.0 (2.13.1 available)
+  build 4.0.4 (4.0.6 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.2 (4.1.4 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.2 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.11 (2.6.21 available)
+  tom_d4rt 1.8.10 (1.8.19 available)
+  vector_math 2.2.0 (2.3.0 available)
+  vm_service 15.0.2 (15.2.0 available)
+  win32 5.15.0 (6.1.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/interactive_tests_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Interactive tests showDialog - can tap OK button to dismiss
+[METRIC] script=material/showdialog_test.dart sourceBytes=2832 sourceChars=2832 bundleJsonBytes=31340 clearMs=52 readMs=7 bundleMs=124 httpMs=1723 totalMs=1910 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:15 +1: Interactive tests showBottomSheet - can tap to select option
+[METRIC] script=material/showbottomsheet_test.dart sourceBytes=4787 sourceChars=4787 bundleJsonBytes=50390 clearMs=78 readMs=0 bundleMs=31 httpMs=1548 totalMs=1659 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:19 +2: Interactive tests showMenu - can tap menu item
+[METRIC] script=material/showmenu_test.dart sourceBytes=3690 sourceChars=3688 bundleJsonBytes=49441 clearMs=116 readMs=1 bundleMs=45 httpMs=2141 totalMs=2304 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:23 +3: Interactive tests interaction - dismiss modal via barrier tap
+[METRIC] script=material/showdialog_test.dart sourceBytes=2832 sourceChars=2832 bundleJsonBytes=31340 clearMs=83 readMs=0 bundleMs=6 httpMs=1475 totalMs=1566 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Dismiss result: InteractResult(success, output: [])
+00:27 +4: Interactive tests showDatePicker - can tap Cancel to dismiss
+[METRIC] script=material/showdatepicker_test.dart sourceBytes=3181 sourceChars=3181 bundleJsonBytes=39409 clearMs=66 readMs=0 bundleMs=15 httpMs=1587 totalMs=1670 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:31 +5: Interactive tests showTimePicker - can tap Cancel to dismiss
+[METRIC] script=material/showtimepicker_test.dart sourceBytes=3589 sourceChars=3589 bundleJsonBytes=52499 clearMs=83 readMs=0 bundleMs=14 httpMs=1477 totalMs=1577 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:34 +6: (tearDownAll)
+00:35 +6: All tests passed!

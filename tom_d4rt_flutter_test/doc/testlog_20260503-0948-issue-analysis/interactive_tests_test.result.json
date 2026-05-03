@@ -1,0 +1,36 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":512526,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":0}
+{"count":1,"time":4,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1611}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":null,"column":null,"url":null},"type":"group","time":1615}
+{"test":{"id":3,"name":"(setUpAll)","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":14,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":1616}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":11785}
+{"group":{"id":4,"suiteID":0,"parentID":2,"name":"Interactive tests","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":22,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"group","time":11786}
+{"test":{"id":5,"name":"Interactive tests showDialog - can tap OK button to dismiss","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":23,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":11786}
+{"testID":5,"messageType":"print","message":"[METRIC] script=material/showdialog_test.dart sourceChars=2832 clearMs=38 httpMs=1692 totalMs=1739 status=success httpStatus=200 outputLines=2 frameworkErrors=0","type":"print","time":13535}
+{"testID":5,"messageType":"print","message":"Interaction result: InteractResult(success, output: [])","type":"print","time":15627}
+{"testID":5,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":15627}
+{"test":{"id":6,"name":"Interactive tests showBottomSheet - can tap to select option","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":54,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":15650}
+{"testID":6,"messageType":"print","message":"[METRIC] script=material/showbottomsheet_test.dart sourceChars=4787 clearMs=72 httpMs=1358 totalMs=1431 status=success httpStatus=200 outputLines=2 frameworkErrors=0","type":"print","time":17085}
+{"testID":6,"messageType":"print","message":"Interaction result: InteractResult(success, output: [])","type":"print","time":18950}
+{"testID":6,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":18951}
+{"test":{"id":7,"name":"Interactive tests showMenu - can tap menu item","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":76,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":18952}
+{"testID":7,"messageType":"print","message":"[METRIC] script=material/showmenu_test.dart sourceChars=3688 clearMs=75 httpMs=1922 totalMs=1999 status=success httpStatus=200 outputLines=2 frameworkErrors=0","type":"print","time":20954}
+{"testID":7,"messageType":"print","message":"Interaction result: InteractResult(success, output: [])","type":"print","time":22886}
+{"testID":7,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":22887}
+{"test":{"id":8,"name":"Interactive tests interaction - dismiss modal via barrier tap","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":98,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":22887}
+{"testID":8,"messageType":"print","message":"[METRIC] script=material/showdialog_test.dart sourceChars=2832 clearMs=90 httpMs=1305 totalMs=1397 status=success httpStatus=200 outputLines=2 frameworkErrors=0","type":"print","time":24287}
+{"testID":8,"messageType":"print","message":"Dismiss result: InteractResult(success, output: [])","type":"print","time":25954}
+{"testID":8,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":25955}
+{"test":{"id":9,"name":"Interactive tests showDatePicker - can tap Cancel to dismiss","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":120,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":25977}
+{"testID":9,"messageType":"print","message":"[METRIC] script=material/showdatepicker_test.dart sourceChars=3181 clearMs=63 httpMs=1381 totalMs=1446 status=success httpStatus=200 outputLines=2 frameworkErrors=0","type":"print","time":27427}
+{"testID":9,"messageType":"print","message":"Interaction result: InteractResult(success, output: [])","type":"print","time":29519}
+{"testID":9,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":29519}
+{"test":{"id":10,"name":"Interactive tests showTimePicker - can tap Cancel to dismiss","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":143,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":29519}
+{"testID":10,"messageType":"print","message":"[METRIC] script=material/showtimepicker_test.dart sourceChars=3589 clearMs=96 httpMs=1317 totalMs=1414 status=success httpStatus=200 outputLines=16 frameworkErrors=0","type":"print","time":30937}
+{"testID":10,"messageType":"print","message":"Interaction result: InteractResult(success, output: [])","type":"print","time":32990}
+{"testID":10,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":32990}
+{"test":{"id":11,"name":"(tearDownAll)","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":18,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart"},"type":"testStart","time":32991}
+{"testID":11,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":33861}
+{"success":true,"type":"done","time":33891}
