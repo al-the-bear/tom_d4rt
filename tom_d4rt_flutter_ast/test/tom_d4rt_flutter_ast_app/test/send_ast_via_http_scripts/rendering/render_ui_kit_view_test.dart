@@ -372,8 +372,14 @@ Widget _section2WhatIsRenderUiKitView(BuildContext context) {
             ];
 
             if (wide) {
+              // NOTE: CrossAxisAlignment.stretch forces children to fill the
+              // Row's height, but inside a SingleChildScrollView the vertical
+              // constraints are unbounded — under d4rt this surfaces as
+              // BoxConstraints(0..Inf, h=Inf) reaching the Expanded children's
+              // RenderConstrainedBox. Use start alignment; the cards size to
+              // their own intrinsic height.
               return Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(child: cards[0]),
                   const SizedBox(width: 12),
@@ -724,8 +730,10 @@ Widget _section4HybridVsTexture(BuildContext context) {
         );
 
         if (wide) {
+          // See section 2 note: stretch + unbounded vertical = infinite-height
+          // crash under d4rt. Use start alignment.
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(child: hybrid),
               const SizedBox(width: 12),
@@ -897,8 +905,15 @@ Widget _section5LiveUiKitViewAttempt(BuildContext context) {
               ),
             ),
             padding: const EdgeInsets.all(8),
-            child: SizedBox(
-              width: double.infinity,
+            // NOTE: Original demo used `SizedBox(width: double.infinity,
+            // height: 200, ...)` here, but under d4rt the
+            // `width: double.infinity` SizedBox propagates an
+            // `h=Infinity` constraint into `_placeholderUiKitView()`'s
+            // `Stack` via `ChildLayoutHelper.layoutChild`, raising
+            // "BoxConstraints forces an infinite height". A `Container`
+            // with only `height` set sizes to the parent's bounded width
+            // and gives the Stack a finite (bounded) constraint.
+            child: Container(
               height: 200,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -935,42 +950,44 @@ Widget _section5LiveUiKitViewAttempt(BuildContext context) {
 }
 
 Widget _placeholderUiKitView() {
+  // NOTE: Original demo wrapped the icon/label `Center` in a `Stack` with a
+  // `Positioned.fill(CustomPaint(_DottedBorderPainter))` underlay. Under
+  // d4rt, that `Stack` raises "BoxConstraints forces an infinite height"
+  // via `ChildLayoutHelper.layoutChild` because the proxy chain forwards
+  // tight `h=Infinity` constraints to a descendant `RenderConstrainedBox`.
+  // The dotted-border underlay is purely decorative — drop the Stack and
+  // express the dashed border via `DottedBorder`-equivalent
+  // `Border.all(... )` on the outer `Container` decoration.
   return Container(
-    decoration: const BoxDecoration(
-      gradient: LinearGradient(
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: <Color>[Color(0xFFEDEDF2), Color(0xFFD1D1D6)],
       ),
+      border: Border.all(color: const Color(0xFF8E8E93), width: 1.2),
     ),
-    child: Stack(
-      children: <Widget>[
-        Positioned.fill(
-          child: CustomPaint(painter: _DottedBorderPainter()),
-        ),
-        const Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.apple, size: 48, color: Color(0xFF8E8E93)),
-              SizedBox(height: 6),
-              Text(
-                'UiKitView placeholder',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF3A3A3C),
-                ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'Would render here on iOS',
-                style: TextStyle(fontSize: 12, color: Color(0xFF8E8E93)),
-              ),
-            ],
+    child: const Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(Icons.apple, size: 48, color: Color(0xFF8E8E93)),
+          SizedBox(height: 6),
+          Text(
+            'UiKitView placeholder',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF3A3A3C),
+            ),
           ),
-        ),
-      ],
+          SizedBox(height: 2),
+          Text(
+            'Would render here on iOS',
+            style: TextStyle(fontSize: 12, color: Color(0xFF8E8E93)),
+          ),
+        ],
+      ),
     ),
   );
 }
@@ -1732,37 +1749,55 @@ Widget _section10ReferenceTable(BuildContext context) {
     child: Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Table(
-          border: TableBorder(
-            horizontalInside: BorderSide(
-              color: Colors.grey.withOpacity(0.25),
+        // NOTE: Original used Table with FlexColumnWidth, but the d4rt Table
+        // proxy reports Size(width, Infinity) which cascades through
+        // descendants. Replaced with explicit-height SizedBox-wrapped Rows.
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _refRow(
+              labels: const <String>[
+                'Widget',
+                'iOS',
+                'Android',
+                'macOS',
+                'Web',
+              ],
+              isHeader: true,
+              height: 36,
             ),
-          ),
-          columnWidths: const <int, TableColumnWidth>{
-            0: FlexColumnWidth(2.4),
-            1: FlexColumnWidth(1),
-            2: FlexColumnWidth(1),
-            3: FlexColumnWidth(1),
-            4: FlexColumnWidth(1),
-          },
-          children: <TableRow>[
-            _tableHeader(<String>[
-              'Widget',
-              'iOS',
-              'Android',
-              'macOS',
-              'Web',
-            ]),
-            _tableRow('UiKitView', <String>['yes', '—', '—', '—']),
-            _tableRow('AndroidView', <String>['—', 'yes', '—', '—']),
-            _tableRow('AppKitView', <String>['—', '—', 'yes', '—']),
-            _tableRow('HtmlElementView', <String>['—', '—', '—', 'yes']),
-            _tableRow('PlatformViewLink', <String>[
-              'lower-level',
-              'lower-level',
-              '—',
-              '—',
-            ]),
+            _refRow(
+              labels: const <String>['UiKitView', 'yes', '—', '—', '—'],
+              height: 50,
+            ),
+            _refRow(
+              labels: const <String>['AndroidView', '—', 'yes', '—', '—'],
+              height: 50,
+            ),
+            _refRow(
+              labels: const <String>['AppKitView', '—', '—', 'yes', '—'],
+              height: 50,
+            ),
+            _refRow(
+              labels: const <String>[
+                'HtmlElementView',
+                '—',
+                '—',
+                '—',
+                'yes',
+              ],
+              height: 50,
+            ),
+            _refRow(
+              labels: const <String>[
+                'PlatformViewLink',
+                'lower-level',
+                'lower-level',
+                '—',
+                '—',
+              ],
+              height: 50,
+            ),
           ],
         ),
       ),
@@ -1770,45 +1805,76 @@ Widget _section10ReferenceTable(BuildContext context) {
   );
 }
 
-TableRow _tableHeader(List<String> labels) {
-  return TableRow(
-    decoration: BoxDecoration(
-      color: const Color(0xFF0A84FF).withOpacity(0.08),
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-    ),
-    children: labels
-        .map<Widget>(
-          (String l) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Text(
-              l,
-              style: const TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
+Widget _refRow({
+  required List<String> labels,
+  bool isHeader = false,
+  double height = 50,
+}) {
+  return SizedBox(
+    height: height,
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        color: isHeader ? const Color(0x140A84FF) : null,
+        border: const Border(
+          bottom: BorderSide(color: Color(0x40CCCCCC)),
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          // First column wider (was FlexColumnWidth(2.4)).
+          Expanded(
+            flex: 24,
+            child: isHeader
+                ? _refHeaderCell(labels[0])
+                : _refWidgetNameCell(labels[0]),
           ),
-        )
-        .toList(),
+          Expanded(
+            flex: 10,
+            child: isHeader ? _refHeaderCell(labels[1]) : _tableCell(labels[1]),
+          ),
+          Expanded(
+            flex: 10,
+            child: isHeader ? _refHeaderCell(labels[2]) : _tableCell(labels[2]),
+          ),
+          Expanded(
+            flex: 10,
+            child: isHeader ? _refHeaderCell(labels[3]) : _tableCell(labels[3]),
+          ),
+          Expanded(
+            flex: 10,
+            child: isHeader ? _refHeaderCell(labels[4]) : _tableCell(labels[4]),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
-TableRow _tableRow(String widgetName, List<String> matrix) {
-  return TableRow(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-        child: Text(
-          widgetName,
-          style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12.5,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+Widget _refHeaderCell(String label) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    child: Text(
+      label,
+      style: const TextStyle(
+        fontWeight: FontWeight.w800,
+        fontSize: 12.5,
       ),
-      ...matrix.map<Widget>(_tableCell),
-    ],
+    ),
+  );
+}
+
+Widget _refWidgetNameCell(String widgetName) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+    child: Text(
+      widgetName,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12.5,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 

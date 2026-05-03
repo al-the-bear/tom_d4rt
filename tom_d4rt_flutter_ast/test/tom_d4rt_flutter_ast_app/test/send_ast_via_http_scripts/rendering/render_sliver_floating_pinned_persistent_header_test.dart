@@ -271,56 +271,105 @@ class _MatrixDiagram extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      border: TableBorder.all(color: const Color(0xFF00796B), width: 1),
-      columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(110),
-        1: FlexColumnWidth(1),
-        2: FlexColumnWidth(1),
-      },
-      children: <TableRow>[
-        const TableRow(
-          decoration: BoxDecoration(color: Color(0xFF00796B)),
+    // NOTE: The original demo used `Table(columnWidths: …, children: …)`
+    // here, but the d4rt Table proxy reports `Size(width, Infinity)`
+    // instead of shrink-wrapping vertically — every descendant
+    // RenderFlex/RenderPadding/RenderParagraph then cascades the same
+    // infinite-size error. Render the same content as a `DecoratedBox` +
+    // `Column` of `Row`s with `SizedBox(width: 110)` for the fixed column
+    // and `Expanded` for the two flex columns. Same widths, same look,
+    // but only uses primitives that lay out reliably under d4rt.
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFF00796B)),
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          // Header row: three column headings on the teal accent.
+          _MatrixRow(
+            background: Color(0xFF00796B),
+            height: 40,
+            children: <Widget>[
+              _MatrixCell('', isHeader: true),
+              _MatrixCell('pinned: false', isHeader: true),
+              _MatrixCell('pinned: true', isHeader: true),
+            ],
+          ),
+          _MatrixRow(
+            children: <Widget>[
+              _MatrixCell('floating: false', isHeader: true, dark: true),
+              _MatrixCell.body(
+                'RenderSliverScrollingPersistentHeader',
+                'Scrolls off normally; never reappears until you scroll past it.',
+                Color(0xFFE0F2F1),
+              ),
+              _MatrixCell.body(
+                'RenderSliverPinnedPersistentHeader',
+                'Always glued to the top at minExtent.',
+                Color(0xFFB2DFDB),
+              ),
+            ],
+          ),
+          _MatrixRow(
+            children: <Widget>[
+              _MatrixCell('floating: true', isHeader: true, dark: true),
+              _MatrixCell.body(
+                'RenderSliverFloatingPersistentHeader',
+                'Reappears on reverse scroll, but disappears completely when '
+                    'scrolled forward.',
+                Color(0xFFE0F2F1),
+              ),
+              _MatrixCell.body(
+                'RenderSliverFloatingPinnedPersistentHeader',
+                'Stays at minExtent always, re-expands to maxExtent eagerly on '
+                    'reverse scroll.  THIS DEMO.',
+                Color(0xFF80CBC4),
+                emphasis: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// One logical row of the matrix diagram: 110px fixed-width column then
+// two flex-1 columns, with a fixed `height` outer bound. We give the
+// row an explicit `SizedBox(height:)` rather than `IntrinsicHeight`
+// because d4rt's `IntrinsicHeight` + `Row(stretch)` proxy chain raises
+// `'height.isFinite': is not true` from `RenderConstrainedBox`. The row
+// height is sized generously (90 for header, 110 for body) so that the
+// longest body text wraps inside the cell without overflowing.
+class _MatrixRow extends StatelessWidget {
+  const _MatrixRow({
+    required this.children,
+    this.background,
+    this.height = 110,
+  });
+  final List<Widget> children;
+  final Color? background;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: const Border(bottom: BorderSide(color: Color(0xFF00796B))),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _MatrixCell('', isHeader: true),
-            _MatrixCell('pinned: false', isHeader: true),
-            _MatrixCell('pinned: true', isHeader: true),
+            SizedBox(width: 110, child: children[0]),
+            Expanded(child: children[1]),
+            Expanded(child: children[2]),
           ],
         ),
-        TableRow(
-          children: <Widget>[
-            const _MatrixCell('floating: false', isHeader: true, dark: true),
-            _MatrixCell.body(
-              'RenderSliverScrollingPersistentHeader',
-              'Scrolls off normally; never reappears until you scroll past it.',
-              const Color(0xFFE0F2F1),
-            ),
-            _MatrixCell.body(
-              'RenderSliverPinnedPersistentHeader',
-              'Always glued to the top at minExtent.',
-              const Color(0xFFB2DFDB),
-            ),
-          ],
-        ),
-        TableRow(
-          children: <Widget>[
-            const _MatrixCell('floating: true', isHeader: true, dark: true),
-            _MatrixCell.body(
-              'RenderSliverFloatingPersistentHeader',
-              'Reappears on reverse scroll, but disappears completely when '
-                  'scrolled forward.',
-              const Color(0xFFE0F2F1),
-            ),
-            _MatrixCell.body(
-              'RenderSliverFloatingPinnedPersistentHeader',
-              'Stays at minExtent always, re-expands to maxExtent eagerly on '
-                  'reverse scroll.  THIS DEMO.',
-              const Color(0xFF80CBC4),
-              emphasis: true,
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
@@ -358,7 +407,14 @@ class _MatrixCell extends StatelessWidget {
       return Container(
         color: background,
         padding: const EdgeInsets.all(8),
+        // `mainAxisSize: MainAxisSize.min` forces this inner Column to
+        // shrink-wrap to its [Text, SizedBox, Text] content. Without it,
+        // the Column inherits `MainAxisSize.max` from the unbounded-height
+        // `Row` ancestor and reports infinite height — cascading the
+        // "object was given an infinite size" error up through the parent
+        // matrix-row, the section column, and the page-level scroll view.
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
@@ -2101,7 +2157,14 @@ class _RecipeTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    // Wrap in `DefaultTabController` so the `TabBar` in the `SliverAppBar.bottom`
+    // can find a controller. Without it, `TabBar.build` raises
+    // "No TabController for TabBar" and the bottom slot fails to lay out,
+    // cascading through every descendant Padding/Flex/Paragraph as
+    // "given an infinite size".
+    return DefaultTabController(
+      length: 4,
+      child: CustomScrollView(
       slivers: <Widget>[
         const SliverAppBar(
           pinned: true,
@@ -2164,6 +2227,7 @@ class _RecipeTabBar extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }
@@ -2345,59 +2409,73 @@ class _Section10ReferenceTable extends StatelessWidget {
             style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFFE65100)),
           ),
           const SizedBox(height: 10),
-          Table(
-            border: TableBorder.all(color: const Color(0xFFEF6C00)),
-            columnWidths: const <int, TableColumnWidth>{
-              0: FixedColumnWidth(80),
-              1: FixedColumnWidth(80),
-              2: FlexColumnWidth(1),
-              3: FlexColumnWidth(1),
-            },
-            children: const <TableRow>[
-              TableRow(
-                decoration: BoxDecoration(color: Color(0xFFEF6C00)),
-                children: <Widget>[
-                  _RefHeaderCell('floating'),
-                  _RefHeaderCell('pinned'),
-                  _RefHeaderCell('render object'),
-                  _RefHeaderCell('behaviour'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _RefBodyCell('false'),
-                  _RefBodyCell('false'),
-                  _RefBodyCell('RenderSliverScrollingPersistentHeader'),
-                  _RefBodyCell('Scrolls off normally; reappears only when scrolled back into view.'),
-                ],
-              ),
-              TableRow(
-                decoration: BoxDecoration(color: Color(0xFFFFF3E0)),
-                children: <Widget>[
-                  _RefBodyCell('true'),
-                  _RefBodyCell('false'),
-                  _RefBodyCell('RenderSliverFloatingPersistentHeader'),
-                  _RefBodyCell('Reappears the moment you reverse scroll, even if scrolled far past.'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _RefBodyCell('false'),
-                  _RefBodyCell('true'),
-                  _RefBodyCell('RenderSliverPinnedPersistentHeader'),
-                  _RefBodyCell('Always glued to the leading edge at minExtent, never expands floating.'),
-                ],
-              ),
-              TableRow(
-                decoration: BoxDecoration(color: Color(0xFFFFE0B2)),
-                children: <Widget>[
-                  _RefBodyCell('true'),
-                  _RefBodyCell('true'),
-                  _RefBodyCell('RenderSliverFloatingPinnedPersistentHeader'),
-                  _RefBodyCell('Both behaviours combined — visible at minExtent always, expands eagerly on reverse scroll.'),
-                ],
-              ),
-            ],
+          // NOTE: Original demo used `Table(columnWidths: …, children: …)`
+          // here, but the d4rt Table proxy reports `Size(width, Infinity)`
+          // instead of shrink-wrapping vertically, which raises a 10-frame
+          // cascade of "object given an infinite size" errors. Render the
+          // same content as a `Column` of `Row`s with `SizedBox`-fixed and
+          // `Expanded`-flex columns — same widths, same look, but uses only
+          // primitives that lay out reliably under d4rt.
+          DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFEF6C00)),
+            ),
+            child: const Column(
+              children: <Widget>[
+                _RefRow(
+                  background: Color(0xFFEF6C00),
+                  height: 36,
+                  cells: <_RefCellSpec>[
+                    _RefCellSpec(text: 'floating', isHeader: true),
+                    _RefCellSpec(text: 'pinned', isHeader: true),
+                    _RefCellSpec(text: 'render object', isHeader: true),
+                    _RefCellSpec(text: 'behaviour', isHeader: true),
+                  ],
+                ),
+                _RefRow(
+                  cells: <_RefCellSpec>[
+                    _RefCellSpec(text: 'false'),
+                    _RefCellSpec(text: 'false'),
+                    _RefCellSpec(text: 'RenderSliverScrollingPersistentHeader'),
+                    _RefCellSpec(
+                      text: 'Scrolls off normally; reappears only when scrolled back into view.',
+                    ),
+                  ],
+                ),
+                _RefRow(
+                  background: Color(0xFFFFF3E0),
+                  cells: <_RefCellSpec>[
+                    _RefCellSpec(text: 'true'),
+                    _RefCellSpec(text: 'false'),
+                    _RefCellSpec(text: 'RenderSliverFloatingPersistentHeader'),
+                    _RefCellSpec(
+                      text: 'Reappears the moment you reverse scroll, even if scrolled far past.',
+                    ),
+                  ],
+                ),
+                _RefRow(
+                  cells: <_RefCellSpec>[
+                    _RefCellSpec(text: 'false'),
+                    _RefCellSpec(text: 'true'),
+                    _RefCellSpec(text: 'RenderSliverPinnedPersistentHeader'),
+                    _RefCellSpec(
+                      text: 'Always glued to the leading edge at minExtent, never expands floating.',
+                    ),
+                  ],
+                ),
+                _RefRow(
+                  background: Color(0xFFFFE0B2),
+                  cells: <_RefCellSpec>[
+                    _RefCellSpec(text: 'true'),
+                    _RefCellSpec(text: 'true'),
+                    _RefCellSpec(text: 'RenderSliverFloatingPinnedPersistentHeader'),
+                    _RefCellSpec(
+                      text: 'Both behaviours combined — visible at minExtent always, expands eagerly on reverse scroll.',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 14),
           Container(
@@ -2429,43 +2507,82 @@ class _Section10ReferenceTable extends StatelessWidget {
   }
 }
 
-class _RefHeaderCell extends StatelessWidget {
-  const _RefHeaderCell(this.text);
+// Cell content spec for `_RefRow`. `isHeader` flips the styling between
+// header (white bold on accent) and body (mono on cream).
+class _RefCellSpec {
+  const _RefCellSpec({required this.text, this.isHeader = false});
   final String text;
+  final bool isHeader;
+}
+
+// Single row of the `(floating × pinned) → render object` reference table.
+// Lays out four cells with the same column widths as the original `Table`
+// (80px, 80px, flex-1, flex-1) using `SizedBox` + `Expanded` inside a `Row`
+// inside an explicit `SizedBox(height:)`.
+//
+// We use a fixed outer height instead of `IntrinsicHeight` because d4rt's
+// `IntrinsicHeight` + `Row(stretch)` proxy chain raises
+// `'height.isFinite': is not true` from `RenderConstrainedBox`. The row
+// height is sized generously so the longest behaviour string wraps inside
+// the cell.
+class _RefRow extends StatelessWidget {
+  const _RefRow({
+    required this.cells,
+    this.background,
+    this.height = 70,
+  });
+  final List<_RefCellSpec> cells;
+  final Color? background;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w800,
-          fontFamily: 'monospace',
+    return SizedBox(
+      height: height,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: const Border(
+            bottom: BorderSide(color: Color(0xFFEF6C00)),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(width: 80, child: _RefCell(spec: cells[0])),
+            SizedBox(width: 80, child: _RefCell(spec: cells[1])),
+            Expanded(child: _RefCell(spec: cells[2])),
+            Expanded(child: _RefCell(spec: cells[3])),
+          ],
         ),
       ),
     );
   }
 }
 
-class _RefBodyCell extends StatelessWidget {
-  const _RefBodyCell(this.text);
-  final String text;
+class _RefCell extends StatelessWidget {
+  const _RefCell({required this.spec});
+  final _RefCellSpec spec;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Text(
-        text,
-        style: const TextStyle(
-          color: Color(0xFF4E342E),
-          fontSize: 11,
-          fontFamily: 'monospace',
-          height: 1.4,
-        ),
+        spec.text,
+        style: spec.isHeader
+            ? const TextStyle(
+                color: Colors.white,
+                fontSize: 11.5,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              )
+            : const TextStyle(
+                color: Color(0xFF4E342E),
+                fontSize: 11,
+                fontFamily: 'monospace',
+                height: 1.4,
+              ),
       ),
     );
   }

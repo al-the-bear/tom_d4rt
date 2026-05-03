@@ -853,7 +853,13 @@ class _WastefulPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    counter.value = counter.value + 1;
+    // Defer the counter bump out of the paint phase. Mutating a `ValueNotifier`
+    // here would notify any `ValueListenableBuilder` listener synchronously and
+    // schedule a `setState` while the framework is still painting, raising
+    // "Build scheduled during frame." See `_FrugalPainter` for the same idiom.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      counter.value = counter.value + 1;
+    });
     final Paint bg = Paint()..color = const Color(0xFFD7CCC8);
     canvas.drawRect(Offset.zero & size, bg);
 
@@ -876,7 +882,12 @@ class _FrugalPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    counter.value = counter.value + 1;
+    // Same deferral as `_WastefulPainter`: bump the counter after the frame
+    // completes so the `ValueListenableBuilder<int>` rebuild does not fire
+    // synchronously inside paint.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      counter.value = counter.value + 1;
+    });
     final Paint bg = Paint()..color = const Color(0xFFD7CCC8);
     canvas.drawRect(Offset.zero & size, bg);
 

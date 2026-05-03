@@ -964,9 +964,21 @@ dynamic build(BuildContext context) {
                 background: const Color(0xFFFEF3C7),
                 titleColor: const Color(0xFF78350F),
                 descriptionColor: const Color(0xFF78350F),
+                // Even though `_PuzzleSolverLayoutDelegate.getSize` returns a
+                // bounded `Size` via `constraints.constrain(...)`, we still box
+                // the layout explicitly. The d4rt `MultiChildLayoutDelegate`
+                // proxy does not always invoke the user `getSize` override
+                // before the underlying `RenderCustomMultiChildLayoutBox` asks
+                // for `constraints.biggest`, so leaving this in `Center` (which
+                // forwards loose unbounded constraints) raised
+                // "RenderCustomMultiChildLayoutBox given an infinite size"
+                // followed by a 12-frame cascade through every descendant.
                 child: Center(
-                  child: CustomMultiChildLayout(
-                    delegate: _PuzzleSolverLayoutDelegate(
+                  child: SizedBox(
+                    width: 280,
+                    height: 220,
+                    child: CustomMultiChildLayout(
+                      delegate: _PuzzleSolverLayoutDelegate(
                       cellSize: 64,
                       columns: 4,
                       rows: 3,
@@ -1003,6 +1015,7 @@ dynamic build(BuildContext context) {
                         child: _puzzlePiece('D', const Color(0xFF92400E)),
                       ),
                     ],
+                    ),
                   ),
                 ),
               ),

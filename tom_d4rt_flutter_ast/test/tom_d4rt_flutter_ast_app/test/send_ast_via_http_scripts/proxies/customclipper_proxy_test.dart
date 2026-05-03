@@ -384,6 +384,40 @@ class _StripeClipper extends CustomClipper<Rect> {
 }
 
 // -----------------------------------------------------------------------------
+// _StripePathClipper — same stripe geometry as `_StripeClipper`, but typed
+// as `CustomClipper<Path>` so it can drive `ClipPath`.
+//
+// Why this exists: the live `ClipRect` demo sections below want to render a
+// `_StripeClipper`-shaped rectangular stripe, but the d4rt `CustomClipper<T>`
+// proxy currently collapses the generic `T` to `Path` regardless of the
+// declared type, so using `_StripeClipper` (a `CustomClipper<Rect>`) under
+// `ClipRect` raises `type '_NativePath' is not a subtype of type 'Rect' in
+// type cast` at clip time. Until the proxy honours the generic, the live
+// sections drive `ClipPath` with this Path-typed equivalent and the original
+// `_StripeClipper` is referenced in prose / comparison columns.
+// -----------------------------------------------------------------------------
+class _StripePathClipper extends CustomClipper<Path> {
+  const _StripePathClipper({this.fraction = 0.5, this.height = 40.0});
+
+  final double fraction;
+  final double height;
+
+  @override
+  Path getClip(Size size) {
+    final double clamped = fraction.clamp(0.0, 1.0);
+    final double top = (size.height - height) * clamped;
+    final Path path = Path();
+    path.addRect(Rect.fromLTWH(0, top, size.width, height));
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant _StripePathClipper oldClipper) {
+    return oldClipper.fraction != fraction || oldClipper.height != height;
+  }
+}
+
+// -----------------------------------------------------------------------------
 // _AnimatedWaveClipper — wave that responds to a `ValueListenable<double>`.
 //
 // Notice that the constructor accepts a `Listenable` and forwards it to the
@@ -1114,8 +1148,9 @@ dynamic build(BuildContext context) {
                       'a full path-intersection test). ClipRect consumes it.',
                       _stripeInk,
                     ),
-                    ClipRect(
-                      clipper: const _StripeClipper(fraction: 0.5, height: 50),
+                    ClipPath(
+                      clipper:
+                          const _StripePathClipper(fraction: 0.5, height: 50),
                       child: Container(
                         height: 120,
                         decoration: BoxDecoration(
@@ -1143,9 +1178,9 @@ dynamic build(BuildContext context) {
                     Row(
                       children: [
                         Expanded(
-                          child: ClipRect(
-                            clipper:
-                                const _StripeClipper(fraction: 0.0, height: 30),
+                          child: ClipPath(
+                            clipper: const _StripePathClipper(
+                                fraction: 0.0, height: 30),
                             child: Container(
                               height: 90,
                               color: const Color(0xFF004D40),
@@ -1159,9 +1194,9 @@ dynamic build(BuildContext context) {
                         ),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: ClipRect(
-                            clipper:
-                                const _StripeClipper(fraction: 1.0, height: 30),
+                          child: ClipPath(
+                            clipper: const _StripePathClipper(
+                                fraction: 1.0, height: 30),
                             child: Container(
                               height: 90,
                               color: const Color(0xFF00695C),
@@ -1241,8 +1276,8 @@ dynamic build(BuildContext context) {
                             children: [
                               SizedBox(
                                 height: 110,
-                                child: ClipRect(
-                                  clipper: const _StripeClipper(
+                                child: ClipPath(
+                                  clipper: const _StripePathClipper(
                                       fraction: 0.5, height: 60),
                                   child: _coloredBlock(
                                     color: const Color(0xFF3949AB),
