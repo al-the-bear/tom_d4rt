@@ -44,6 +44,23 @@ d4rtgen:
     # widgets/shader_mask_test.dart). Without an interpreter proxy, instances
     # of script subclasses cannot be passed to `LinearGradient(transform: …)`.
     - GradientTransform
+    # Cluster `20260503-0948-issue-analysis` priority 1:
+    # SliderComponentShape is the abstract base class used by Slider and
+    # RangeSlider for every painted spot (thumb, tick, overlay, value
+    # indicator). Scripts subclass it to provide custom thumb shapes
+    # (see material/thumb_test.dart). Two abstract methods:
+    #   getPreferredSize(bool isEnabled, bool isDiscrete) -> Size
+    #   paint(...)
+    # Without a proxy, SliderThemeData(thumbShape: …) rejects the
+    # InterpretedInstance.
+    - SliderComponentShape
+    # Cluster `20260503-0948-issue-analysis` priority 1:
+    # SpellCheckService is a single-method abstract service that
+    # SpellCheckConfiguration accepts. Scripts mock it for spell-check
+    # plumbing tests (see services/spell_check_service_test.dart).
+    # One abstract method:
+    #   fetchSpellCheckSuggestions(Locale, String) -> Future<List<SuggestionSpan>?>
+    - SpellCheckService
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

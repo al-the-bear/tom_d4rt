@@ -171,9 +171,9 @@ Per-suite breakdown lives next to the headline counts in `*.log.txt` (`status=�
 
 Grouped across files, the 17 hard failures + 17 framework errors fall into these classes (identical to the `tom_d4rt_flutter_ast` analysis):
 
-| Cluster | Count | Symptom | Owner |
-|--------|-------|---------|-------|
-| **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically |
+| Cluster | Count | Symptom | Owner | Status |
+|--------|-------|---------|-------|--------|
+| **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically | **Partial — fixed for `SliderComponentShape` + `SpellCheckService`, deferred for `PreferredSizeWidget` (P1 in `interpreter_unfixable.md`).** See §9 below. |
 | **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances |
 | **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` |
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the just-fixed `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | bridge generator — mixin chain composition needs to expose `value` getter through `AnimationWithParentMixin` like it does for `Animation<T>` directly |
@@ -199,3 +199,45 @@ Same priority list as the `ast` analysis (§8):
 5. Scripts: `ButtonBar*` removal sweep.
 6. Scripts: layout-overflow cleanup.
 7. META: test-app watchdog.
+
+## 9. Cluster fix status — Priority 1 (`InterpretedInstance` not coerced for typed Flutter param)
+
+**Status: PARTIAL — 2 of 3 bridge-side sub-cases fixed; 1 sub-case deferred with documented script-side workaround.**
+
+### 9.1 Fixed sub-cases
+
+| Sub-case | Trigger | Fix |
+|----------|---------|-----|
+| `material/thumb_test.dart` (×2 FE — `SliderThemeData.thumbShape`) | Script-side `_DiamondThumbShape extends SliderComponentShape` is rejected by `SliderThemeData(thumbShape: …)` because no proxy adapter coerces the `InterpretedInstance` to a native `SliderComponentShape`. | Added `SliderComponentShape` to `proxyClasses` in both `tom_d4rt_flutter_ast/buildkit.yaml` and `tom_d4rt_flutter_test/buildkit.yaml`; regenerated `flutter_proxies.b.dart` to emit `D4rtSliderComponentShape` proxy + `D4.registerInterfaceProxy('SliderComponentShape', …)`. The proxy walk in `extractBridgedArg<T>` now matches abstract subclasses through `bridgedSuperclass`. |
+| `services/spell_check_service_test.dart` (1 hard failure — `SpellCheckConfiguration.spellCheckService`) | Script-side `_MockSpellCheckService extends SpellCheckService` was rejected by `SpellCheckConfiguration(spellCheckService: …)` for the same reason. | Same approach: added `SpellCheckService` to `proxyClasses` in both buildkits, regenerated bridges. `D4rtSpellCheckService` proxy emitted with `fetchSpellCheckSuggestions` adapter; `D4.registerInterfaceProxy('SpellCheckService', …)` registered. |
+
+**Verification (rule b — bridge-side change):**
+
+- Individual retests (in `individual/`):
+  - `material/thumb_test.dart`: PASS, 0 FE blocks
+  - `services/spell_check_service_test.dart`: PASS, was the single hard failure in baseline secondary suite
+- Full regression (in `regression/`):
+  - `essential_classes_test`: `+107 −1` ✅ matches baseline
+  - `important_classes_test`: `+164` ✅ matches baseline
+  - `secondary_classes_test`: `+652 ~1 −1` matches baseline counts; `spell_check_service_test` PASS-pair restored, swapped against the pre-existing `dart_ui/string_attribute_test.dart` regression (unrelated to this cluster — already documented as a Batch 4 / generator-fix `4aac542a` regression in the prior session, `LocaleStringAttribute` is still emitted in `dart_ui_bridges.b.dart` so it is a script/build-resolution issue rather than a missing bridge.)
+
+### 9.2 Deferred sub-case
+
+| Sub-case | Trigger | Disposition |
+|----------|---------|-------------|
+| `widgets/snapshot_mode_test.dart` (1 FE — `Scaffold.appBar`) | Script-side `class _SmodeAppBar extends StatelessWidget implements PreferredSizeWidget`. The `_InterpretedStatelessWidget` adapter is set as the `nativeProxy` *before* the value reaches `Scaffold(appBar: …)`, so `extractBridgedArg<PreferredSizeWidget>` sees the cached native proxy (not an `InterpretedInstance`) and skips the multi-interface walk. The hand-written `_InterpretedPreferredSizeWidget` proxy is therefore never selected. | **Deferred to interpreter architectural pass.** Documented as P1 in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` with: (a) full failure trace, (b) reasoning why a real fix needs an `InterpretedNativeProxy` marker + a re-walk branch in `extractBridgedArg<T>` (out of cluster scope), and (c) script-side workaround `PreferredSize(preferredSize: Size.fromHeight(88), child: AppBar(...))`. |
+
+### 9.3 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_d4rt_flutter_ast/buildkit.yaml` | Added `SliderComponentShape`, `SpellCheckService` to `proxyClasses` (with cluster-tagged comments). |
+| `tom_d4rt_flutter_test/buildkit.yaml` | Same two entries (this project has its own buildkit and depends on `tom_d4rt`, not `tom_d4rt_ast`). |
+| `tom_d4rt_flutter_ast/lib/src/bridges/flutter_proxies.b.dart` | Regenerated — adds `D4rtSliderComponentShape`, `D4rtSpellCheckService`, plus their `D4.registerInterfaceProxy` calls. |
+| `tom_d4rt_flutter_test/lib/src/bridges/flutter_proxies.b.dart` | Regenerated — same proxies. |
+| `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | Added P1 entry for `PreferredSizeWidget` + index row + Change Log entry. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | Updated cluster status (this section) and table in §6. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/individual/{spell_check_service,thumb,snapshot_mode}.{log.txt,result.json}` | Captured individual retest evidence. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/regression/{essential,important,secondary}.{log.txt,result.json}` | Captured regression suite evidence. |
+
+No `*.b.dart` files were edited by hand. No interpreter (`tom_d4rt`/`tom_d4rt_ast`) source change was needed for the fixed sub-cases — only the generator's allowlist needed extension.

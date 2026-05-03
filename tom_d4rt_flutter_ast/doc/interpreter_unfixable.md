@@ -34,6 +34,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
 | [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. **Small-overflow + EditableText + C3 sub-pockets all closed 2026-04-29** (see Fa1-N1 §Affected scripts and §Small-overflow pocket — empirical findings 2026-04-29). | ~~`snapshot_mode_test.dart` (small-overflow, 1 FE)~~ closed, ~~`restorable_double_test.dart` (small-overflow, 1 FE)~~ closed, ~~`select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE)~~ closed, ~~`widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE)~~ closed |
 | [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
+| [P1 — `PreferredSizeWidget` cast fails when arg arrives as a cached native widget proxy](#p1--preferredsizewidget-cast-fails-when-arg-arrives-as-a-cached-native-widget-proxy) | Interpreter limitation (proxy walk runs on `InterpretedInstance` only; once the same instance has been wrapped in `_InterpretedStatelessWidget` and cached as `nativeProxy`, the bridge call site receives the native widget directly and the multi-interface walk over `bridgedInterfaces` is skipped). Script-side workaround supplied (`PreferredSize(preferredSize: …, child: AppBar(...))`). | `widgets/snapshot_mode_test.dart` (1 FE — Scaffold.appBar) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -1267,8 +1268,176 @@ naturally fold this in.
 
 ---
 
+## P1 — `PreferredSizeWidget` cast fails when arg arrives as a cached native widget proxy
+
+**Source:** `testlog_20260503-0948-issue-analysis` priority-1
+cluster ("Bridge: `InterpretedInstance` not coerced for typed
+Flutter param"). Two of the three reported sub-cases —
+`SliderThemeData.thumbShape` and
+`SpellCheckConfiguration.spellCheckService` — were closed by
+adding `SliderComponentShape` and `SpellCheckService` to the
+`proxyClasses` allowlist in `buildkit.yaml` and regenerating
+`flutter_proxies.b.dart`. The third sub-case
+(`Scaffold.appBar` in `widgets/snapshot_mode_test.dart`) does
+**not** close on the same fix and is documented here as an
+interpreter architectural limitation.
+
+### What the script does
+
+`widgets/snapshot_mode_test.dart` follows the canonical Flutter
+pattern for a custom app bar:
+
+```dart
+class _SmodeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _SmodeAppBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(88);
+
+  @override
+  Widget build(BuildContext context) => AppBar(...);
+}
+
+// later, in a build method:
+Scaffold(appBar: const _SmodeAppBar(), body: ...)
+```
+
+The class chain has `bridgedSuperclass = StatelessWidget` and
+`bridgedInterfaces = [PreferredSizeWidget]`.
+
+### Why the cast fails
+
+The `Scaffold` bridge constructor calls
+`D4.extractBridgedArg<PreferredSizeWidget?>(arg, 'appBar', visitor)`.
+The reported error is:
+
+```
+Native error during default bridged constructor for 'Scaffold':
+Argument Error: Invalid parameter "appBar":
+expected PreferredSizeWidget?, got _InterpretedStatelessWidget
+```
+
+Trace:
+
+1. The interpreter evaluates `_SmodeAppBar()` and creates an
+   `InterpretedInstance`. As part of its lifecycle (auto-instantiation
+   via the `StatelessWidget` proxy factory) the instance's
+   `nativeProxy` is set to a `_InterpretedStatelessWidget` —
+   the proxy registered for the *first* matching bridged
+   superclass walked, which is `StatelessWidget`.
+2. By the time the `Scaffold` argument list is assembled by the
+   visitor, the value reaching the bridge is the cached
+   `_InterpretedStatelessWidget` itself, **not** the
+   `InterpretedInstance` — the framework-side caller already
+   "extracted" the native Widget proxy when the value was bound
+   into the widget tree.
+3. `extractBridgedArg<T>` in
+   `tom_d4rt/lib/src/generator/d4.dart` and the mirror in
+   `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` only run the
+   `tryCreateInterfaceProxyWithVisitor<T>` walk when
+   `arg is InterpretedInstance`. With a native Widget arg the
+   walk is skipped, and the final `arg as T` cast fails because
+   `_InterpretedStatelessWidget` does not implement
+   `PreferredSizeWidget`.
+4. The hand-written `_InterpretedPreferredSizeWidget` proxy
+   *would* have satisfied the cast — the proxy walk in
+   `tryCreateInterfaceProxyWithVisitor<PreferredSizeWidget>` even
+   collects it correctly via `bridgedInterfaces` (see
+   `d4.dart:1929-1949`). The issue is that the walk never runs
+   because the arg's type changed upstream.
+
+### Why we are not fixing this in cluster scope
+
+A clean fix would require:
+
+- A marker abstraction (e.g. `InterpretedNativeProxy`) that every
+  hand-written `_Interpreted…Widget` proxy implements, exposing
+  the underlying `InterpretedInstance` and `InterpreterVisitor`.
+- A new branch in `extractBridgedArg<T>` that, when arg matches
+  `InterpretedNativeProxy` *and* the cast `arg is T` already
+  fails, re-runs `tryCreateInterfaceProxyWithVisitor<T>` against
+  the wrapped instance — picking up other registered proxies on
+  the same script class for a different `T`.
+- Mirrored changes in `tom_d4rt` and `tom_d4rt_ast`, plus a
+  retroactive update of every existing
+  `_Interpreted…Widget`/`_Interpreted…Element` proxy in
+  `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
+  and the `tom_d4rt_flutter_test` mirror to implement the marker.
+
+The change touches the interpreter's ergonomic argument-coercion
+path on every bridged constructor call. It is well outside the
+scope of a single-cluster fix and risks regressions across the
+whole bridge surface, so it is deferred.
+
+### Script-side workaround (functional equivalent)
+
+Flutter ships a concrete `PreferredSize` widget that wraps any
+child with a declared preferred size:
+
+```dart
+PreferredSize(
+  preferredSize: const Size.fromHeight(88),
+  child: AppBar(
+    backgroundColor: _kSmodeCharcoalDeep,
+    elevation: 0,
+    automaticallyImplyLeading: false,
+    toolbarHeight: 88,
+    title: ...,
+  ),
+)
+```
+
+`PreferredSize` is a `StatelessWidget` that *implements*
+`PreferredSizeWidget` natively, so passing one to
+`Scaffold(appBar: ...)` satisfies the cast directly. The
+functional result is identical: the appBar's preferred height is
+declared, `Scaffold` reserves the right amount of vertical
+space, and the `AppBar` body renders unchanged. The only
+behavioural difference is that the script no longer needs a
+custom subclass — the `_SmodeAppBar` declaration can be folded
+into a top-level `Widget _smodeAppBar()` factory or directly
+inline at the call site.
+
+This is the recommended rewrite for any d4rt script that hits
+the same FE; whether to apply it now or wait for the
+interpreter-level fix is left to the per-script cluster owner.
+
+### Re-opening trigger
+
+Any of:
+
+- A planned interpreter pass that introduces an
+  `InterpretedNativeProxy` marker interface (or equivalent
+  re-walk hook) on the cached `nativeProxy` field.
+- A new test script in the corpus that fails the same way and
+  cannot be rewritten to use `PreferredSize(...)` (e.g. a script
+  that needs to expose other state through the
+  `PreferredSizeWidget` interface beyond `preferredSize`).
+
+---
+
 ## Change Log
 
+- 2026-05-03: **Add P1 — `PreferredSizeWidget` cast fails when
+  arg arrives as a cached native widget proxy.** Documents the
+  third sub-case from the
+  `testlog_20260503-0948-issue-analysis` priority-1 cluster
+  (`widgets/snapshot_mode_test.dart` Scaffold.appBar FE). The
+  other two sub-cases (`SliderThemeData.thumbShape`,
+  `SpellCheckConfiguration.spellCheckService`) were closed by
+  adding `SliderComponentShape` and `SpellCheckService` to the
+  `proxyClasses` allowlists in
+  `tom_d4rt_flutter_ast/buildkit.yaml` and
+  `tom_d4rt_flutter_test/buildkit.yaml` and regenerating
+  `flutter_proxies.b.dart`. The `snapshot_mode_test` case did
+  not close on the same fix because the arg reaches the bridge
+  as the cached `_InterpretedStatelessWidget` native proxy
+  rather than the original `InterpretedInstance`, so the
+  multi-interface proxy walk in
+  `tryCreateInterfaceProxyWithVisitor` is never executed —
+  documented as an interpreter architectural limitation with a
+  script-side `PreferredSize(preferredSize: …, child: AppBar(…))`
+  workaround.
 - 2026-04-28 (latest): **Close E9 in `error_analysis.md` —
   `clampDouble` class is empty.** Sweep of essential, important,
   secondary, hr5, and gii suites recorded zero

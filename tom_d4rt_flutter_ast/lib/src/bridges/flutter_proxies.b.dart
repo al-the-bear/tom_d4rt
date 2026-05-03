@@ -12,6 +12,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -477,6 +478,54 @@ class D4rtGradientTransform extends GradientTransform {
   @override
   Matrix4? transform(Rect bounds, {TextDirection? textDirection}) =>
       onTransform(bounds, textDirection: textDirection);
+
+}
+
+/// D4rt proxy for [SliderComponentShape].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [SliderComponentShape] via named
+/// function parameters.
+class D4rtSliderComponentShape extends SliderComponentShape {
+  /// Callback for [SliderComponentShape.getPreferredSize].
+  final Size Function(bool, bool) onGetPreferredSize;
+
+  /// Callback for [SliderComponentShape.paint].
+  final void Function(PaintingContext, Offset, {required Animation<double> activationAnimation, required Animation<double> enableAnimation, required bool isDiscrete, required TextPainter labelPainter, required RenderBox parentBox, required SliderThemeData sliderTheme, required TextDirection textDirection, required double value, required double textScaleFactor, required Size sizeWithOverflow}) onPaint;
+
+  /// Creates a [D4rtSliderComponentShape] with callback implementations.
+  D4rtSliderComponentShape({
+    required this.onGetPreferredSize,
+    required this.onPaint,
+  });
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
+      onGetPreferredSize(isEnabled, isDiscrete);
+
+  @override
+  void paint(PaintingContext context, Offset center, {required Animation<double> activationAnimation, required Animation<double> enableAnimation, required bool isDiscrete, required TextPainter labelPainter, required RenderBox parentBox, required SliderThemeData sliderTheme, required TextDirection textDirection, required double value, required double textScaleFactor, required Size sizeWithOverflow}) =>
+      onPaint(context, center, activationAnimation: activationAnimation, enableAnimation: enableAnimation, isDiscrete: isDiscrete, labelPainter: labelPainter, parentBox: parentBox, sliderTheme: sliderTheme, textDirection: textDirection, value: value, textScaleFactor: textScaleFactor, sizeWithOverflow: sizeWithOverflow);
+
+}
+
+/// D4rt proxy for [SpellCheckService].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [SpellCheckService] via named
+/// function parameters.
+class D4rtSpellCheckService extends SpellCheckService {
+  /// Callback for [SpellCheckService.fetchSpellCheckSuggestions].
+  final Future<List<SuggestionSpan>?> Function(Locale, String) onFetchSpellCheckSuggestions;
+
+  /// Creates a [D4rtSpellCheckService] with callback implementations.
+  D4rtSpellCheckService({
+    required this.onFetchSpellCheckSuggestions,
+  });
+
+  @override
+  Future<List<SuggestionSpan>?> fetchSpellCheckSuggestions(Locale locale, String text) =>
+      onFetchSpellCheckSuggestions(locale, text);
 
 }
 
@@ -1029,6 +1078,42 @@ void registerProxyFactories() {
            return D4.extractBridgedArg<Matrix4?>(result, 'transform');
         }
         throw StateError('Interpreted class ${instance.klass.name} does not implement transform');
+      },
+    );
+  });
+
+  // Register factory for SliderComponentShape
+  D4.registerInterfaceProxy('SliderComponentShape', (visitor, instance) {
+    return D4rtSliderComponentShape(
+      onGetPreferredSize: (bool isEnabled, bool isDiscrete) {
+        final method = instance.klass.findInstanceMethod('getPreferredSize');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [isEnabled, isDiscrete], {});
+           return D4.extractBridgedArg<Size>(result, 'getPreferredSize');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement getPreferredSize');
+      },
+      onPaint: (PaintingContext context, Offset center, {required Animation<double> activationAnimation, required Animation<double> enableAnimation, required bool isDiscrete, required TextPainter labelPainter, required RenderBox parentBox, required SliderThemeData sliderTheme, required TextDirection textDirection, required double value, required double textScaleFactor, required Size sizeWithOverflow}) {
+        final method = instance.klass.findInstanceMethod('paint');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [context, center], {'activationAnimation': activationAnimation, 'enableAnimation': enableAnimation, 'isDiscrete': isDiscrete, 'labelPainter': labelPainter, 'parentBox': parentBox, 'sliderTheme': sliderTheme, 'textDirection': textDirection, 'value': value, 'textScaleFactor': textScaleFactor, 'sizeWithOverflow': sizeWithOverflow});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement paint');
+      },
+    );
+  });
+
+  // Register factory for SpellCheckService
+  D4.registerInterfaceProxy('SpellCheckService', (visitor, instance) {
+    return D4rtSpellCheckService(
+      onFetchSpellCheckSuggestions: (Locale locale, String text) {
+        final method = instance.klass.findInstanceMethod('fetchSpellCheckSuggestions');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [locale, text], {});
+           return D4.extractBridgedArg<Future<List<SuggestionSpan>?>>(result, 'fetchSpellCheckSuggestions');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement fetchSpellCheckSuggestions');
       },
     );
   });
