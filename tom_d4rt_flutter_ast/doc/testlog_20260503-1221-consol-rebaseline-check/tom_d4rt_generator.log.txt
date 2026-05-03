@@ -1,0 +1,1080 @@
+00:00 +0: loading test/dcli_bridge_gaps_test.dart
+00:00 +0: test/dcli_bridge_gaps_test.dart: (setUpAll)
+00:00 +0: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:01 +1: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:01 +2: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:01 +3: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +4: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +5: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +6: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +7: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +7: test/dart_overview_failures_test.dart: DOV: Dart Overview Interpreter Failures Switch Case Pattern Variable Scoping G-DOV-8: Sealed class switch statement pattern variable scoping. [2026-02-10 12:00] (PASS)
+
+======================================================================
+                       DART CLASS MODIFIERS
+======================================================================
+
+
+======================================================================
+  1. CLASS MODIFIERS
+======================================================================
+
+=== Class Modifiers (Dart 3.0+) ===
+
+--- abstract ---
+car.move(): Car is driving
+motorcycle.move(): Motorcycle is riding
+
+--- base ---
+DogAnimal: Buddy
+Buddy is eating
+
+--- interface (conceptual) ---
+jsonSource.fetch(): JSON data from API
+xmlSource.fetch(): XML data from file
+
+--- final ---
+Config: Production, debug: true
+config.getSetting(): Environment: Production
+
+--- sealed ---
+<class SealedCircle> area: 78.53975
+<class SealedSquare> area: 16
+<class SealedTriangle> area: 6.0
+
+--- mixin class ---
+[LOG] Direct instance
+[LOG] Performing action...
+
+=== Modifier Combinations ===
+
+--- abstract base ---
+Derived implementation
+
+--- abstract interface ---
+REST: REST: GET /users
+GraphQL: GraphQL: { users { id } }
+
+--- abstract final (same library only) ---
+Singleton value: 42
+
+=== End of Class Modifiers Demo ===
+
+======================================================================
+  2. SEALED CLASSES
+======================================================================
+
+=== Sealed Classes ===
+
+--- Basic Sealed Class ---
+Success: Data loaded
+Error: Network error
+Loading...
+
+--- Sealed with Data ---
+[200] Data: {user: Alice}
+[404] Error: Not found
+[301] Redirect to: https://new-url.com
+
+--- Exhaustive Switch Expression ---
+<class CreditCard>: $100 + fee = $102.50
+<class DebitCard>: $100 + fee = $101.00
+<class PayPal>: $100 + fee = $102.90
+<class BankTransfer>: $100 + fee = $101.50
+
+--- Pattern Matching with Destructuring ---
+<instance of NumberExpr> = 42
+<instance of BinaryExpr> = 15
+<instance of BinaryExpr> = 60
+<instance of BinaryExpr> = 20
+
+--- Nested Sealed Hierarchy ---
+Click at (100, 200)
+Key pressed: Enter
+Swipe left: 150.0px
+Vertical swipe: 80.0px
+
+--- Guards with Sealed Types ---
+Alice logged in as ADMIN
+Bob logged in with role: user
+Failed: Invalid password (3 attempts)
+Account locked after 5 attempts
+Pending: Two-factor required
+
+=== End of Sealed Classes Demo ===
+
+======================================================================
+  All class_modifiers demos completed!
+======================================================================
+00:02 +8: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +9: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +10: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +11: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:02 +12: test/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+Warning: Failed to log d4rtgen invocation: PathNotFoundException: Cannot open file, path = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log' (OS Error: No such file or directory, errno = 2)
+00:03 +12: test/d4rt_tester_test.dart: (setUpAll)
+Resolving dependencies for summary caching...
+Found 88 dependencies (86 cacheable).
+Generating 2 missing summaries...
+00:03 +12: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +13: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +14: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +15: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +16: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +17: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +18: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +19: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +20: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +21: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +22: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +23: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +24: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +25: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +26: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +27: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +28: test/phase3_default_values_test.dart: (setUpAll)
+00:03 +28: test/d4rt_tester_test.dart: (setUpAll)
+  Generating summary (1/86): args
+  Generating summary (2/86): chalkdart
+  Generating summary (3/86): characters
+  Generating summary (4/86): circular_buffer
+  Generating summary (5/86): clock
+  Generating summary (6/86): collection
+  Generating summary (7/86): csv
+  Generating summary (8/86): ffi
+    Skipping lints: no public libraries
+    Skipping tom_build_base: no public libraries
+  Generating summary (9/86): fixnum
+  Generating summary (10/86): ini
+  Generating summary (11/86): lints
+  Generating summary (12/86): logging
+  Generating summary (13/86): marked
+  Generating summary (14/86): console_markdown
+  Generating summary (15/86): meta
+  Generating summary (16/86): _fe_analyzer_shared
+  Generating summary (17/86): async
+  Generating summary (18/86): chunked_stream
+  Generating summary (19/86): equatable
+  Generating summary (20/86): functional_data
+  Generating summary (21/86): http_multi_server
+  Generating summary (22/86): json2yaml
+  Generating summary (23/86): mime
+  Generating summary (24/86): native_synchronization_temp
+  Generating summary (25/86): node_preamble
+  Generating summary (26/86): path
+  Generating summary (27/86): file
+  Generating summary (28/86): frontend_server_client
+  Generating summary (29/86): globbing
+  Generating summary (30/86): intl
+  Generating summary (31/86): package_config
+  Generating summary (32/86): posix
+  Generating summary (33/86): archive
+  Generating summary (34/86): pub_semver
+  Generating summary (35/86): scope
+  Generating summary (36/86): dcli_common
+  Generating summary (37/86): simple_sparse_list
+  Generating summary (38/86): stack_trace
+  Generating summary (39/86): pool
+  Generating summary (40/86): stream_channel
+  Generating summary (41/86): sum_types
+  Generating summary (42/86): system_info2
+  Generating summary (43/86): term_glyph
+  Generating summary (44/86): source_span
+  Generating summary (45/86): source_maps
+  Generating summary (46/86): source_map_stack_trace
+  Generating summary (47/86): string_scanner
+  Generating summary (48/86): boolean_selector
+  Generating summary (49/86): glob
+  Generating summary (50/86): io
+  Generating summary (51/86): test_api
+  Generating summary (52/86): matcher
+  Generating summary (53/86): tom_build_base
+  Generating summary (54/86): typed_data
+  Generating summary (55/86): convert
+  Generating summary (56/86): crypto
+  Generating summary (57/86): http_parser
+  Generating summary (58/86): shelf
+  Generating summary (59/86): shelf_static
+  Generating summary (60/86): shelf_packages_handler
+  Generating summary (61/86): unicode
+  Generating summary (62/86): strings
+  Generating summary (63/86): pubspec_manager
+  Generating summary (64/86): uuid
+  Generating summary (65/86): dcli_core
+  Generating summary (66/86): validators2
+  Generating summary (67/86): vm_service
+  Generating summary (68/86): watcher
+  Generating summary (69/86): web
+  Generating summary (70/86): web_socket
+  Generating summary (71/86): web_socket_channel
+  Generating summary (72/86): shelf_web_socket
+  Generating summary (73/86): webkit_inspection_protocol
+  Generating summary (74/86): win32
+  Generating summary (75/86): dart_console
+  Generating summary (76/86): dcli_terminal
+  Generating summary (77/86): yaml
+  Generating summary (78/86): analyzer
+  Generating summary (79/86): build
+  Generating summary (80/86): cli_config
+  Generating summary (81/86): coverage
+  Generating summary (82/86): pubspec_lock
+  Generating summary (83/86): settings_yaml
+  Generating summary (84/86): dcli
+  Generating summary (85/86): test_core
+  Generating summary (86/86): test
+Loading 84 cached summaries.
+00:04 +28: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +29: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +30: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +31: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +32: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +33: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +34: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +35: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +36: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +37: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +38: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:04 +39: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:05 +39: test/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module core_extensions generated 2 classes, global total: 2
+00:05 +40: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:05 +41: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:05 +42: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:05 +43: test/gen_issues_test.dart: GEN-095: Static Factory Method Bridges (setUpAll)
+00:05 +43: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +44: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +45: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +46: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +47: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +48: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +49: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +50: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +51: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +52: test/d4rt_tester_test.dart: (setUpAll)
+00:05 +53: test/d4rt_tester_test.dart: (setUpAll)
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  GEN-076: Module example_project generated 23 classes, global total: 25
+  GEN-076: Module user_guide generated 2 classes, global total: 26
+  GEN-076: Module user_reference generated 6 classes, global total: 31
+00:07 +54: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +55: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +56: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +57: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +58: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +59: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +60: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +61: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +62: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +63: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +64: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +65: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +66: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +67: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +68: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +69: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +70: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +71: test/d4rt_tester_test.dart: (setUpAll)
+00:07 +72: test/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module userbridge_override generated 1 classes, global total: 32
+00:09 +72: test/import_extension_discovery_test.dart: GEN-049: Extension Discovery from Imports (setUpAll)
+[element-mode] extracted 1 classes, 1 functions, 0 enums, 0 extensions from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/imports_external_extensions.dart
+  GEN-049: Discovered extension ImportedIntHelpers on int from import file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/external_extensions.dart
+  GEN-049: Discovered extension ImportedListHelpers on List from import file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/external_extensions.dart
+[element-mode] globals: extracted 1 functions, 0 variables, 0 enums, 2 extensions (2 from imports) from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/imports_external_extensions.dart
+00:09 +72: test/d4rt_tester_test.dart: (setUpAll)
+00:09 +73: test/d4rt_tester_test.dart: (setUpAll)
+00:09 +74: test/d4rt_tester_test.dart: (setUpAll)
+00:09 +75: test/d4rt_tester_test.dart: (setUpAll)
+00:09 +76: test/d4rt_tester_test.dart: (setUpAll)
+00:09 +77: test/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module userbridge_user_guide generated 2 classes, global total: 33
+  GEN-076: Module dart_overview generated 97 classes, global total: 118
+00:10 +78: test/d4rt_tester_test.dart: (setUpAll)
+00:10 +79: test/d4rt_tester_test.dart: (setUpAll)
+00:10 +80: test/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module path generated 5 classes, global total: 123
+  GEN-076: Module dcli generated 67 classes, global total: 190
+  GEN-076: Module test_part_of_files generated 3 classes, global total: 193
+  GEN-076: Module test_callback_types generated 2 classes, global total: 195
+  RELAXER: Generated empty stub (no reachable relaxers) → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/src/d4rt_bridges/relaxers.b.dart
+  GEN-079 WARNING: No ClassInfo for generic base type "MapEntry" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "Sink" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "FutureOr" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: Box is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for FutureOr — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for MapEntry — skipping wrapper
+  GEN-079 WARNING: Maybe is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for Sink — skipping wrapper
+  GEN-079 WARNING: Wrapper is not re-exported by any barrel import — skipping wrapper
+00:12 +80: test/type_erasure_test.dart: Type Parameter Erasure (setUpAll)
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+00:12 +80: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +81: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +82: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +83: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +84: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +85: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +86: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +87: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +88: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +89: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +90: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +91: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +92: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +93: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +94: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +95: test/d4rt_tester_test.dart: (setUpAll)
+00:12 +96: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +96: test/gen072_permissive_override_test.dart: GEN-072: permissive export overrides restrictive same-package re-export G-ISS-19: Full bridge generation includes all classes from direct export. [2026-03-01] (PASS)
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen072_test_OGLWYL/pkg/lib/barrel.dart
+00:13 +96: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +97: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +98: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +99: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +100: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +101: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +102: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +103: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +104: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +105: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +106: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +107: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +108: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +109: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +110: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +111: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +112: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +113: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +114: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +115: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +116: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +117: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +118: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +119: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +120: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +121: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +122: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +123: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +124: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +125: test/d4rt_tester_test.dart: (setUpAll)
+00:13 +125: test/gen072_permissive_override_test.dart: GEN-072: permissive export overrides restrictive same-package re-export G-ISS-19: Full bridge generation includes all classes from direct export. [2026-03-01] (PASS)
+[element-mode] extracted 2 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen072_test_OGLWYL/pkg/lib/src/source.dart
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen072_test_OGLWYL/pkg/lib/src/intermediate.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen072_test_OGLWYL/pkg/lib/barrel.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen072_test_OGLWYL/pkg/lib/src/source.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen072_test_OGLWYL/pkg/lib/src/intermediate.dart
+00:13 +126: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +127: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +128: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +129: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +130: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +131: test/d4rt_tester_test.dart: (setUpAll)
+00:14 +132: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +133: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +134: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +135: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +136: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +137: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +138: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +139: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +140: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +141: test/d4rt_tester_test.dart: (setUpAll)
+00:16 +142: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +143: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +144: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +145: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +146: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +147: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +148: test/d4rt_tester_test.dart: (setUpAll)
+00:17 +149: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +150: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +151: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +152: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +153: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +154: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +155: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +156: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +157: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +158: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +159: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +160: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +161: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +162: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +163: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +164: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +165: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +166: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +167: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +168: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +169: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +170: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +171: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +172: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +173: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +174: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +175: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +176: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +177: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +178: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +179: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +180: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +181: test/d4rt_tester_test.dart: (setUpAll)
+00:18 +182: test/d4rt_tester_test.dart: (setUpAll)
+00:19 +183: test/d4rt_tester_test.dart: (setUpAll)
+00:19 +183: test/edge_cases_test.dart: Generator Options G-EDGE-33: Verbose mode does not affect output structure. [2026-02-10 06:37] (PASS)
+[element-mode] extracted 2 classes, 0 functions, 6 enums, 0 extensions from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/enum_test_source.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 6 enums, 0 extensions (0 from imports) from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/test/fixtures/enum_test_source.dart
+00:20 +184: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +185: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +186: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +187: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +188: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +189: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +190: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +191: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +192: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +192: test/v2/d4rtgen_traversal_test.dart: D4G-EXE: D4rtgen Executor D4G-EXE-4: lists project in listOnly mode
+  d4rtgen_test_SQWRHT
+00:21 +193: test/d4rt_tester_test.dart: (setUpAll)
+00:21 +193: test/v2/d4rtgen_traversal_test.dart: D4G-EXE: D4rtgen Executor D4G-EXE-5: test runner imports use pubspec package name, not d4rtgen name. [2026-02-27] (FAIL)
+Resolving dependencies for summary caching...
+Warning: Could not resolve dependencies for summary caching: FileSystemException: pubspec.lock not found. Run "dart pub get" first., path = '/tmp/d4rtgen_test_AKZDED/pubspec.lock'
+00:22 +193: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +194: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +195: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +196: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +197: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +198: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +199: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +200: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +201: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +202: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +203: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +204: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +205: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +206: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +207: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +208: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +209: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +210: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +211: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +212: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +213: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +214: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +215: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +216: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +217: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +218: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +219: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +220: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +221: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +222: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +223: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +224: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +225: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +226: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +227: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +228: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +229: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +230: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +231: test/d4rt_tester_test.dart: (setUpAll)
+00:22 +232: test/d4rt_tester_test.dart: (setUpAll)
+00:24 +232: test/v2/d4rtgen_traversal_test.dart: D4G-EXE: D4rtgen Executor D4G-EXE-5: test runner imports use pubspec package name, not d4rtgen name. [2026-02-27] (FAIL)
+  GEN-079 WARNING: No generic extraction sites collected during bridge generation
+00:24 +233: test/d4rt_tester_test.dart: (setUpAll)
+00:24 +234: test/d4rt_tester_test.dart: (setUpAll)
+00:24 +235: test/d4rt_tester_test.dart: (setUpAll)
+00:24 +236: test/d4rt_tester_test.dart: (setUpAll)
+00:24 +237: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +238: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +239: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +240: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +241: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +242: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +243: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +244: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +245: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +246: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +247: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +248: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +249: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +250: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +251: test/d4rt_tester_test.dart: (setUpAll)
+00:25 +252: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +253: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +254: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +255: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +256: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +257: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +258: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +259: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +260: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +261: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +262: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +263: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +264: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +265: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +266: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +267: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +268: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +269: test/d4rt_tester_test.dart: (setUpAll)
+00:26 +270: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +271: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +272: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +273: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +274: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +275: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +276: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +277: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +278: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +279: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +280: test/d4rt_tester_test.dart: (setUpAll)
+00:27 +280: test/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_YJGNIU/main/lib/main.dart
+00:28 +280: test/d4rt_tester_test.dart: (setUpAll)
+00:28 +281: test/d4rt_tester_test.dart: (setUpAll)
+00:28 +282: test/d4rt_tester_test.dart: (setUpAll)
+00:28 +283: test/d4rt_tester_test.dart: (setUpAll)
+00:28 +283: test/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 1 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_YJGNIU/dep/lib/src/my_class.dart
+00:29 +283: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +284: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +285: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +286: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +287: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +288: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +289: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +290: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +291: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +292: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +293: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +294: test/d4rt_tester_test.dart: (setUpAll)
+00:29 +294: test/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_YJGNIU/dep/lib/dep.dart
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_YJGNIU/main/lib/src/reexporter.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_YJGNIU/main/lib/main.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_YJGNIU/dep/lib/src/my_class.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_YJGNIU/dep/lib/dep.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_YJGNIU/main/lib/src/reexporter.dart
+00:29 +295: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +296: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +297: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +298: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +299: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +300: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +301: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +302: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +303: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +304: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +305: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +306: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +307: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +308: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +309: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +310: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +311: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +312: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +313: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +314: test/d4rt_tester_test.dart: (setUpAll)
+00:30 +315: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +316: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +317: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +318: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +319: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +320: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +321: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +322: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +323: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +324: test/d4rt_tester_test.dart: (setUpAll)
+00:31 +325: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +325: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL)
+Cast to String?: I might be null
+Cast null to String?: null
+00:32 +326: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +326: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL)
+Created settings: [<instance of Settings>, <instance of Settings>]
+00:32 +327: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +327: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (FAIL)
+Circle area: 78.53975
+Square area: 16
+00:32 +328: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +328: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL)
+clamp(15, 10, 20): 15
+clamp(5, 10, 20): 10
+clamp(25, 10, 20): 20
+00:32 +329: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +329: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (FAIL)
+Cast to List<int>: [1, 2, 3]
+00:32 +330: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +330: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL)
+Eagle name: Eddie
+Eddie is flying high!
+00:32 +331: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +331: test/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (OK)
+status: Status.active
+displayName: Active
+isActive: true
+00:32 +332: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +333: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +334: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +335: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +336: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +337: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +338: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +339: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +340: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +341: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +342: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +343: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +344: test/d4rt_tester_test.dart: (setUpAll)
+00:32 +345: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +345: test/dart_overview_failures3_test.dart: Dart Overview Failures Round 3 G-DOV3-1: Extension type getter access [2026-02-10] (FAIL)
+UserId: 123
+UserId.isValid: true
+00:33 +346: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +347: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +348: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +349: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +350: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +351: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +352: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +353: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +354: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +355: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +356: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +357: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +358: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +359: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +360: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +361: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +362: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +363: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +364: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +365: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +366: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +367: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +368: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +369: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +370: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +371: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +372: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +373: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +374: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +375: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +376: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +377: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +378: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +379: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +380: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +381: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +382: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +383: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +384: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +385: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +386: test/d4rt_tester_test.dart: (setUpAll)
+00:33 +387: test/d4rt_tester_test.dart: (setUpAll)
+00:34 +388: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +389: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +390: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +391: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +392: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +393: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +394: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +395: test/d4rt_tester_test.dart: (setUpAll)
+00:35 +396: test/d4rt_tester_test.dart: (setUpAll)
+Warning: Failed to log d4rtgen invocation: PathNotFoundException: Cannot open file, path = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log' (OS Error: No such file or directory, errno = 2)
+00:35 +396: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+Resolving dependencies for summary caching...
+00:36 +396: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +397: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +398: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +399: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +400: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +401: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +401: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+Found 88 dependencies (86 cacheable).
+Generating 2 missing summaries...
+  Generating summary (1/86): args
+  Generating summary (2/86): chalkdart
+  Generating summary (3/86): characters
+  Generating summary (4/86): circular_buffer
+  Generating summary (5/86): clock
+  Generating summary (6/86): collection
+  Generating summary (7/86): csv
+  Generating summary (8/86): ffi
+  Generating summary (9/86): fixnum
+  Generating summary (10/86): ini
+  Generating summary (11/86): lints
+    Skipping lints: no public libraries
+  Generating summary (12/86): logging
+  Generating summary (13/86): marked
+  Generating summary (14/86): console_markdown
+  Generating summary (15/86): meta
+  Generating summary (16/86): _fe_analyzer_shared
+  Generating summary (17/86): async
+  Generating summary (18/86): chunked_stream
+  Generating summary (19/86): equatable
+  Generating summary (20/86): functional_data
+  Generating summary (21/86): http_multi_server
+  Generating summary (22/86): json2yaml
+  Generating summary (23/86): mime
+  Generating summary (24/86): native_synchronization_temp
+  Generating summary (25/86): node_preamble
+  Generating summary (26/86): path
+  Generating summary (27/86): file
+  Generating summary (28/86): frontend_server_client
+  Generating summary (29/86): globbing
+  Generating summary (30/86): intl
+  Generating summary (31/86): package_config
+  Generating summary (32/86): posix
+  Generating summary (33/86): archive
+  Generating summary (34/86): pub_semver
+  Generating summary (35/86): scope
+  Generating summary (36/86): dcli_common
+  Generating summary (37/86): simple_sparse_list
+  Generating summary (38/86): stack_trace
+  Generating summary (39/86): pool
+  Generating summary (40/86): stream_channel
+  Generating summary (41/86): sum_types
+  Generating summary (42/86): system_info2
+  Generating summary (43/86): term_glyph
+  Generating summary (44/86): source_span
+  Generating summary (45/86): source_maps
+  Generating summary (46/86): source_map_stack_trace
+  Generating summary (47/86): string_scanner
+  Generating summary (48/86): boolean_selector
+  Generating summary (49/86): glob
+  Generating summary (50/86): io
+  Generating summary (51/86): test_api
+  Generating summary (52/86): matcher
+  Generating summary (53/86): tom_build_base
+    Skipping tom_build_base: no public libraries
+  Generating summary (54/86): typed_data
+  Generating summary (55/86): convert
+  Generating summary (56/86): crypto
+  Generating summary (57/86): http_parser
+  Generating summary (58/86): shelf
+  Generating summary (59/86): shelf_static
+  Generating summary (60/86): shelf_packages_handler
+  Generating summary (61/86): unicode
+  Generating summary (62/86): strings
+  Generating summary (63/86): pubspec_manager
+  Generating summary (64/86): uuid
+  Generating summary (65/86): dcli_core
+  Generating summary (66/86): validators2
+  Generating summary (67/86): vm_service
+  Generating summary (68/86): watcher
+  Generating summary (69/86): web
+  Generating summary (70/86): web_socket
+  Generating summary (71/86): web_socket_channel
+  Generating summary (72/86): shelf_web_socket
+  Generating summary (73/86): webkit_inspection_protocol
+  Generating summary (74/86): win32
+  Generating summary (75/86): dart_console
+  Generating summary (76/86): dcli_terminal
+  Generating summary (77/86): yaml
+  Generating summary (78/86): analyzer
+  Generating summary (79/86): build
+  Generating summary (80/86): cli_config
+  Generating summary (81/86): coverage
+  Generating summary (82/86): pubspec_lock
+  Generating summary (83/86): settings_yaml
+  Generating summary (84/86): dcli
+  Generating summary (85/86): test_core
+  Generating summary (86/86): test
+Loading 84 cached summaries.
+00:36 +401: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +402: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +403: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +404: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +405: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +406: test/d4rt_tester_test.dart: (setUpAll)
+00:36 +407: test/d4rt_tester_test.dart: (setUpAll)
+00:37 +407: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module core_extensions generated 2 classes, global total: 2
+00:37 +407: test/d4rt_tester_test.dart: (setUpAll)
+00:37 +408: test/d4rt_tester_test.dart: (setUpAll)
+00:37 +409: test/d4rt_tester_test.dart: (setUpAll)
+00:37 +410: test/d4rt_tester_test.dart: (setUpAll)
+00:37 +411: test/d4rt_tester_test.dart: (setUpAll)
+00:38 +411: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  GEN-076: Module example_project generated 23 classes, global total: 25
+  GEN-076: Module user_guide generated 2 classes, global total: 26
+  GEN-076: Module user_reference generated 6 classes, global total: 31
+00:38 +411: test/d4rt_tester_test.dart: (setUpAll)
+00:38 +412: test/d4rt_tester_test.dart: (setUpAll)
+00:38 +413: test/d4rt_tester_test.dart: (setUpAll)
+00:38 +414: test/d4rt_tester_test.dart: (setUpAll)
+00:38 +415: test/d4rt_tester_test.dart: (setUpAll)
+00:39 +415: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +416: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +417: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +418: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +419: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +420: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +421: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +422: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:39 +423: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +424: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +425: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +426: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +427: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +428: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +429: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +430: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:40 +431: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +432: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +433: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +434: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +435: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module userbridge_override generated 1 classes, global total: 32
+00:41 +436: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +437: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +438: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +439: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +440: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +441: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +442: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +443: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +444: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +445: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +446: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +447: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +448: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +449: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +450: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +451: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:41 +452: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +453: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +454: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +455: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +456: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +457: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:42 +458: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module userbridge_user_guide generated 2 classes, global total: 33
+00:42 +459: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module dart_overview generated 97 classes, global total: 118
+  GEN-076: Module path generated 5 classes, global total: 123
+  GEN-076: Module dcli generated 67 classes, global total: 190
+00:44 +460: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +461: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +462: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +463: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +464: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +465: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +466: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +467: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +468: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module test_part_of_files generated 3 classes, global total: 193
+00:44 +469: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +470: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +471: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +472: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +473: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +474: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +475: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +476: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +477: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +478: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +479: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +480: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +481: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +482: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +483: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +484: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +485: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +486: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +487: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +488: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +489: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +490: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +491: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +492: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +493: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +494: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +495: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +496: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +497: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +498: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +499: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +500: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +501: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +502: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +503: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +504: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +505: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +506: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +507: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +508: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +509: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +510: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module test_callback_types generated 2 classes, global total: 195
+00:45 +511: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +512: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +513: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +514: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  RELAXER: Generated empty stub (no reachable relaxers) → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/src/d4rt_bridges/relaxers.b.dart
+  GEN-079 WARNING: No ClassInfo for generic base type "MapEntry" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "Sink" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "FutureOr" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: Box is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for FutureOr — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for MapEntry — skipping wrapper
+  GEN-079 WARNING: Maybe is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for Sink — skipping wrapper
+  GEN-079 WARNING: Wrapper is not re-exported by any barrel import — skipping wrapper
+00:45 +515: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +516: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +517: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +518: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +519: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +520: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +521: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +522: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +523: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +524: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +525: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +526: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +527: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +528: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +529: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +530: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +531: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +532: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +533: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +534: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +535: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +536: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +537: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +538: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +539: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +540: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +541: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +542: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +543: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +544: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +545: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +546: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +547: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +548: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +549: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +550: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +551: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +552: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +553: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:56 +554: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +555: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +556: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +557: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +558: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +559: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +560: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +561: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +562: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +563: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +564: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +565: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:03 +566: test/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:11 +566: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-42: TOP01: concrete class. [2026-02-10 06:37] (PASS)
+01:11 +567: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-51: TOP02: abstract class. [2026-02-10 06:37] (PASS)
+01:11 +568: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-60: TOP03: sealed class. [2026-02-10 06:37] (PASS)
+01:11 +569: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-68: TOP04: base class. [2026-02-10 06:37] (PASS)
+01:12 +570: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-69: TOP05: interface class. [2026-02-10 06:37] (PASS)
+01:12 +571: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-74: TOP06: final class. [2026-02-10 06:37] (PASS)
+01:12 +572: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-1: TOP07: mixin class. [2026-02-10 06:37] (PASS)
+01:12 +573: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-2: TOP08: simple enum (GEN-044: .values not bridged). [2026-02-10 06:37] (PASS)
+01:12 +574: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-3: TOP09: enhanced enum fields. [2026-02-10 06:37] (PASS)
+01:12 +575: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-4: TOP10: enhanced enum methods. [2026-02-10 06:37] (PASS)
+01:12 +576: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-5: TOP11: enhanced enum implements. [2026-02-10 06:37] (PASS)
+01:12 +577: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-12: Enhanced enum with mixin. [2026-02-10 06:37] (PASS)
+01:12 +578: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-6: TOP14: mixin. [2026-02-10 06:37] (PASS)
+01:12 +579: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-13: Generic enum N/A Dart limit. [2026-02-10 06:37] (PASS)
+01:12 +580: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-7: TOP15: base mixin. [2026-02-10 06:37] (PASS)
+01:12 +581: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-8: TOP16: named extension (not supported). [2026-02-10 06:37] (PASS)
+01:13 +582: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-9: TOP17: anonymous extension (not supported). [2026-02-10 06:37] (PASS)
+01:13 +583: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-10: TOP18: extension type (not supported). [2026-02-10 06:37] (PASS)
+01:13 +584: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-19: Typedef function not needed. [2026-02-10 06:37] (PASS)
+01:13 +585: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-11: TOP20: typedef (type alias, not needed). [2026-02-10 06:37] (PASS)
+01:13 +586: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-12: TOP21: typedef (generic, not needed). [2026-02-10 06:37] (PASS)
+01:13 +587: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-13: TOP22: top-level function. [2026-02-10 06:37] (PASS)
+01:13 +588: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-14: TOP25: top-level variable. [2026-02-10 06:37] (PASS)
+01:13 +589: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-15: TOP26: top-level const. [2026-02-10 06:37] (PASS)
+01:13 +590: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-16: TOP27: top-level getter. [2026-02-10 06:37] (PASS)
+01:13 +591: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-17: TOP23: top-level generic function. [2026-02-10 06:37] (PASS)
+01:13 +592: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-24: Top-level async function. [2026-02-10 06:37] (PASS)
+01:13 +593: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-28: Top-level setter. [2026-02-10 06:37] (PASS)
+01:14 +594: test/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-18: TOP29: mixin application (class = with). [2026-02-10 06:37] (PASS)
+01:14 +595: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-19: CLS01: instance field getter. [2026-02-10 06:37] (PASS)
+01:14 +596: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-20: CLS02: instance field setter. [2026-02-10 06:37] (PASS)
+01:14 +597: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-21: CLS03: final field. [2026-02-10 06:37] (PASS)
+01:14 +598: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-22: CLS04: private field with public getter. [2026-02-10 06:37] (PASS)
+01:14 +599: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-23: CLS07: static field (mutable). [2026-02-10 06:37] (PASS)
+01:14 +600: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-24: CLS08: static const field (not in barrel). [2026-02-10 06:37] (PASS)
+01:14 +601: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-25: CLS09: computed getter. [2026-02-10 06:37] (PASS)
+01:14 +602: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-26: CLS10: explicit setter. [2026-02-10 06:37] (PASS)
+01:14 +603: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-27: CLS11: static method. [2026-02-10 06:37] (PASS)
+01:14 +604: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-28: CLS14: instance method. [2026-02-10 06:37] (PASS)
+01:14 +605: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-29: CLS15: abstract method. [2026-02-10 06:37] (PASS)
+01:15 +606: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-30: CLS16: toString override. [2026-02-10 06:37] (PASS)
+01:15 +607: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-31: CLS05: nullable instance field. [2026-02-10 06:37] (PASS)
+01:15 +608: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-CLS-6b: Late field. [2026-02-10 06:37] (PASS)
+01:15 +609: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-32: CLS12: static getter. [2026-02-10 06:37] (PASS)
+01:15 +610: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-33: CLS13: static setter. [2026-02-10 06:37] (PASS)
+01:15 +611: test/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-34: CLS17: call() method (callable class). [2026-02-10 06:37] (PASS)
+01:15 +612: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-35: CTOR01: unnamed constructor. [2026-02-10 06:37] (PASS)
+01:15 +613: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-36: CTOR02: implicit default constructor (GEN-042). [2026-02-10 06:37] (PASS)
+01:15 +614: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-37: CTOR03: named constructor. [2026-02-10 06:37] (PASS)
+01:15 +615: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-38: CTOR04: factory-like constructor (fromMap). [2026-02-10 06:37] (PASS)
+01:15 +616: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-39: CTOR05: const constructor. [2026-02-10 06:37] (PASS)
+01:15 +617: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-40: CTOR06: redirecting constructor. [2026-02-10 06:37] (PASS)
+01:15 +618: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-41: CTOR07: private constructor + factory. [2026-02-10 06:37] (PASS)
+01:16 +619: test/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-43: CTOR08: super parameters. [2026-02-10 06:37] (PASS)
+01:16 +620: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-44: PAR01: required positional. [2026-02-10 06:37] (PASS)
+01:16 +621: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-45: PAR02: optional positional. [2026-02-10 06:37] (PASS)
+01:16 +622: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-46: PAR03: named parameters (not in barrel). [2026-02-10 06:37] (PASS)
+01:16 +623: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-47: PAR04: required named. [2026-02-10 06:37] (PASS)
+01:16 +624: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-48: PAR05: default values. [2026-02-10 06:37] (PASS)
+01:16 +625: test/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-PAR-6: Function-typed parameter. [2026-02-10 06:37] (PASS)
+01:16 +626: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-49: GNRC01: single type parameter. [2026-02-10 06:37] (PASS)
+01:16 +627: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-50: GNRC02: two type parameters. [2026-02-10 06:37] (PASS)
+01:16 +628: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-52: GNRC04: generic method. [2026-02-10 06:37] (PASS)
+01:16 +629: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-53: GNRC06: generic collection (Stack/Queue, GEN-042). [2026-02-10 06:37] (PASS)
+01:16 +630: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-54: GNRC03: upper bound constraint. [2026-02-10 06:37] (PASS)
+01:16 +631: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-55: GNRC05: generic static factory. [2026-02-10 06:37] (PASS)
+01:17 +632: test/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-GNRC-7: F-bounded polymorphism. [2026-02-10 06:37] (PASS)
+01:17 +633: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-56: INH01: single-level extends. [2026-02-10 06:37] (PASS)
+01:17 +634: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-57: INH02: multi-level extends. [2026-02-10 06:37] (PASS)
+01:17 +635: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-58: INH03: implements (interface). [2026-02-10 06:37] (PASS)
+01:17 +636: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-59: INH04: mixin with. [2026-02-10 06:37] (PASS)
+01:17 +637: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-61: INH05: super constructor call. [2026-02-10 06:37] (PASS)
+01:17 +638: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-62: INH06: method override. [2026-02-10 06:37] (PASS)
+01:17 +639: test/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance GEN-045: barrel name collision (constrained mixin blocked). [2026-02-10] (FAIL)
+01:17 +640: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-63: OP05: operator / (divide). [2026-02-10 06:37] (PASS)
+01:17 +641: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-64: OP06: operator ~/ (integer divide). [2026-02-10 06:37] (PASS)
+01:17 +642: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-65: OP07: operator % (modulo). [2026-02-10 06:37] (PASS)
+01:17 +643: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-OP-8: Operator == equality. [2026-02-10 06:37] (PASS)
+01:18 +644: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-66: OP09: comparison operators (compareTo). [2026-02-10 06:37] (PASS)
+01:18 +645: test/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-67: OP12: bitwise operators. [2026-02-10 06:37] (PASS)
+01:18 +646: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-1: Async function Future. [2026-02-10 06:37] (PASS)
+01:18 +647: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-2: Async* generator Stream. [2026-02-10 06:37] (PASS)
+01:18 +648: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-3: Sync* generator Iterable. [2026-02-10 06:37] (PASS)
+01:18 +649: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-4: Callback parameter Function. [2026-02-10 06:37] (PASS)
+01:18 +650: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-5: Instance async method Future. [2026-02-10 06:37] (PASS)
+01:18 +651: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-6: Instance sync* method Iterable. [2026-02-10 06:37] (PASS)
+01:19 +652: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-7: Instance async* method Stream. [2026-02-10 06:37] (PASS)
+01:19 +653: test/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-8: Static sync*/async* method. [2026-02-10 06:37] (PASS)
+01:19 +654: test/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-TYPE-1: Record parameter. [2026-02-10 06:37] (FAIL)
+01:19 +655: test/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-TYPE-2: Record return type. [2026-02-10 06:37] (FAIL)
+01:19 +656: test/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-70: TYPE03: nullable parameter. [2026-02-10 06:37] (PASS)
+01:19 +657: test/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-71: TYPE04: nullable return type. [2026-02-10 06:37] (PASS)
+01:19 +658: test/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-72: TYPE05: dynamic type. [2026-02-10 06:37] (PASS)
+01:19 +659: test/d4rt_coverage_test.dart: dart_overview coverage VIS: Visibility G-COV-73: VIS03: show/hide combinators. [2026-02-10 06:37] (PASS)
+01:19 +660: test/d4rt_coverage_test.dart: dart_overview coverage (tearDownAll)
+01:19 +660: All tests passed!

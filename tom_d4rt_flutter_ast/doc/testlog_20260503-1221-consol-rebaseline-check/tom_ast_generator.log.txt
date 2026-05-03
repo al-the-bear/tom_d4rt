@@ -1,0 +1,920 @@
+00:00 +0: loading test/bundler/ast_bundler_test.dart
+00:00 +0: test/bundler/ast_bundler_test.dart: AstBundlerConfig has sensible defaults
+00:00 +1: test/bundler/ast_bundler_test.dart: AstBundlerConfig can be customized
+00:00 +2: test/bundler/ast_bundler_test.dart: ImportResolution include carries source and canonicalUri
+00:00 +3: test/bundler/ast_bundler_test.dart: ImportResolution skip carries canonicalUri
+00:00 +4: test/bundler/ast_bundler_test.dart: ImportResolution error carries message and canonicalUri
+00:00 +5: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource bundles simple source with no imports
+00:00 +6: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource uses custom sourcePath as entry point URI
+00:00 +7: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource skips dart: stdlib imports
+00:00 +8: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource skips bridged library imports
+00:00 +9: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource includes explicit sources
+00:00 +10: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource errors on unresolvable package imports
+00:00 +11: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource handles export directives
+00:00 +12: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource deduplicates imports
+00:00 +13: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource recurses through explicit source imports
+00:00 +14: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource respects custom stdlib schemes
+00:00 +15: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource detects circular imports without infinite loop
+00:00 +16: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource returns valid AstBundle
+00:00 +17: test/bundler/ast_bundler_test.dart: AstBundler.createFromSource throws FormatException on parse errors by default
+00:00 +18: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile bundles a simple file
+00:00 +19: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile throws on non-existent file
+00:00 +20: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile resolves relative imports from disk
+00:00 +21: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile resolves package: imports for same package from disk
+00:00 +22: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile resolves nested relative imports recursively
+00:00 +23: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile combines bridged, explicit, and file-system imports
+00:00 +24: test/bundler/ast_bundler_test.dart: AstBundler.createFromFile detects project root from pubspec.yaml
+00:00 +25: test/bundler/ast_bundler_test.dart: AstBundler edge cases handles empty source
+00:00 +26: test/bundler/ast_bundler_test.dart: AstBundler edge cases handles source with only imports (no declarations)
+00:00 +27: test/bundler/ast_bundler_test.dart: AstBundler edge cases part directive import resolution can be disabled
+00:00 +28: test/bundler/ast_bundler_test.dart: AstBundler edge cases AstBundle from bundler is serializable
+00:00 +29: test/bundler/ast_bundler_test.dart: AstBundler edge cases AstBundle from bundler serializes to bytes
+00:00 +30: test/tom_d4rt_ast_test.dart: AST Serialization SSimpleIdentifier serialization round-trip
+00:00 +31: test/tom_d4rt_ast_test.dart: AST Serialization SIntegerLiteral serialization round-trip
+00:00 +32: test/tom_d4rt_ast_test.dart: AST Serialization Full Dart code round-trip serialization
+00:05 +33: test/v2/astgen_traversal_test.dart: AST-TOOL: Astgen ToolDefinition AST-TOOL-1: has correct name and mode
+00:05 +34: test/v2/astgen_traversal_test.dart: AST-TOOL: Astgen ToolDefinition AST-TOOL-2: has project traversal enabled
+00:05 +35: test/v2/astgen_traversal_test.dart: AST-TOOL: Astgen ToolDefinition AST-TOOL-3: has dry-run feature enabled
+00:05 +36: test/v2/astgen_traversal_test.dart: AST-TOOL: Astgen ToolDefinition AST-TOOL-4: has expected global options
+00:05 +37: test/v2/astgen_traversal_test.dart: AST-TOOL: Astgen ToolDefinition AST-TOOL-5: has version info
+00:05 +38: test/v2/astgen_traversal_test.dart: AST-EXE: Astgen Executor AST-EXE-1: createAstgenExecutors returns default executor
+00:05 +39: test/v2/astgen_traversal_test.dart: AST-EXE: Astgen Executor AST-EXE-2: skips project without buildkit.yaml config
+00:05 +40: test/v2/astgen_traversal_test.dart: AST-EXE: Astgen Executor AST-EXE-3: skips project without astgen section
+00:05 +41: test/v2/astgen_traversal_test.dart: AST-EXE: Astgen Executor AST-EXE-4: lists project in listOnly mode
+  astgen_test_AJWIHX
+00:05 +42: test/v2/astgen_traversal_test.dart: AST-RUN: Astgen ToolRunner integration AST-RUN-1: --help exits successfully
+00:05 +43: test/v2/astgen_traversal_test.dart: AST-RUN: Astgen ToolRunner integration AST-RUN-2: --version exits successfully
+00:05 +44: test/v2/astgen_traversal_test.dart: AST-RUN: Astgen ToolRunner integration AST-RUN-3: --list scans empty dir without error
+00:05 +45: test/v2/astgen_traversal_test.dart: AST-RUN: Astgen ToolRunner integration AST-RUN-4: --dry-run flag is accepted
+00:06 +46: test/generator_tests/dcli_bridge_gaps_test.dart: (setUpAll)
+00:06 +46: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +47: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +48: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +49: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +50: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +51: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +52: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:06 +53: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+Warning: Failed to log d4rtgen invocation: PathNotFoundException: Cannot open file, path = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log' (OS Error: No such file or directory, errno = 2)
+00:07 +53: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+Resolving dependencies for summary caching...
+00:07 +53: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +53: test/generator_tests/dart_overview_failures_test.dart: DOV: Dart Overview Interpreter Failures Switch Case Pattern Variable Scoping G-DOV-8: Sealed class switch statement pattern variable scoping. [2026-02-10 12:00] (PASS)
+
+======================================================================
+                       DART CLASS MODIFIERS
+======================================================================
+
+
+======================================================================
+  1. CLASS MODIFIERS
+======================================================================
+
+=== Class Modifiers (Dart 3.0+) ===
+
+--- abstract ---
+car.move(): Car is driving
+motorcycle.move(): Motorcycle is riding
+
+--- base ---
+DogAnimal: Buddy
+Buddy is eating
+
+--- interface (conceptual) ---
+jsonSource.fetch(): JSON data from API
+xmlSource.fetch(): XML data from file
+
+--- final ---
+Config: Production, debug: true
+config.getSetting(): Environment: Production
+
+--- sealed ---
+<class SealedCircle> area: 78.53975
+<class SealedSquare> area: 16
+<class SealedTriangle> area: 6.0
+
+--- mixin class ---
+[LOG] Direct instance
+[LOG] Performing action...
+
+=== Modifier Combinations ===
+
+--- abstract base ---
+Derived implementation
+
+--- abstract interface ---
+REST: REST: GET /users
+GraphQL: GraphQL: { users { id } }
+
+--- abstract final (same library only) ---
+Singleton value: 42
+
+=== End of Class Modifiers Demo ===
+
+======================================================================
+  2. SEALED CLASSES
+======================================================================
+
+=== Sealed Classes ===
+
+--- Basic Sealed Class ---
+Success: Data loaded
+Error: Network error
+Loading...
+
+--- Sealed with Data ---
+[200] Data: {user: Alice}
+[404] Error: Not found
+[301] Redirect to: https://new-url.com
+
+--- Exhaustive Switch Expression ---
+<class CreditCard>: $100 + fee = $102.50
+<class DebitCard>: $100 + fee = $101.00
+<class PayPal>: $100 + fee = $102.90
+<class BankTransfer>: $100 + fee = $101.50
+
+--- Pattern Matching with Destructuring ---
+<instance of NumberExpr> = 42
+<instance of BinaryExpr> = 15
+<instance of BinaryExpr> = 60
+<instance of BinaryExpr> = 20
+
+--- Nested Sealed Hierarchy ---
+Click at (100, 200)
+Key pressed: Enter
+Swipe left: 150.0px
+Vertical swipe: 80.0px
+
+--- Guards with Sealed Types ---
+Alice logged in as ADMIN
+Bob logged in with role: user
+Failed: Invalid password (3 attempts)
+Account locked after 5 attempts
+Pending: Two-factor required
+
+=== End of Sealed Classes Demo ===
+
+======================================================================
+  All class_modifiers demos completed!
+======================================================================
+00:07 +54: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +55: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +56: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +57: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +58: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:07 +58: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+Found 89 dependencies (85 cacheable).
+Generating 1 missing summaries...
+  Generating summary (1/85): args
+  Generating summary (2/85): chalkdart
+  Generating summary (3/85): characters
+  Generating summary (4/85): circular_buffer
+  Generating summary (5/85): clock
+  Generating summary (6/85): collection
+  Generating summary (7/85): csv
+  Generating summary (8/85): ffi
+  Generating summary (9/85): fixnum
+  Generating summary (10/85): ini
+  Generating summary (11/85): lints
+    Skipping lints: no public libraries
+  Generating summary (12/85): logging
+  Generating summary (13/85): marked
+  Generating summary (14/85): console_markdown
+  Generating summary (15/85): meta
+  Generating summary (16/85): _fe_analyzer_shared
+  Generating summary (17/85): async
+  Generating summary (18/85): chunked_stream
+  Generating summary (19/85): equatable
+  Generating summary (20/85): functional_data
+  Generating summary (21/85): http_multi_server
+  Generating summary (22/85): json2yaml
+  Generating summary (23/85): mime
+  Generating summary (24/85): native_synchronization_temp
+  Generating summary (25/85): node_preamble
+  Generating summary (26/85): path
+  Generating summary (27/85): file
+  Generating summary (28/85): frontend_server_client
+  Generating summary (29/85): globbing
+  Generating summary (30/85): intl
+  Generating summary (31/85): package_config
+  Generating summary (32/85): posix
+  Generating summary (33/85): archive
+  Generating summary (34/85): pub_semver
+  Generating summary (35/85): scope
+  Generating summary (36/85): dcli_common
+  Generating summary (37/85): simple_sparse_list
+  Generating summary (38/85): stack_trace
+  Generating summary (39/85): pool
+  Generating summary (40/85): stream_channel
+  Generating summary (41/85): sum_types
+  Generating summary (42/85): system_info2
+  Generating summary (43/85): term_glyph
+  Generating summary (44/85): source_span
+  Generating summary (45/85): source_maps
+  Generating summary (46/85): source_map_stack_trace
+  Generating summary (47/85): string_scanner
+  Generating summary (48/85): boolean_selector
+  Generating summary (49/85): glob
+  Generating summary (50/85): io
+  Generating summary (51/85): test_api
+  Generating summary (52/85): matcher
+  Generating summary (53/85): typed_data
+  Generating summary (54/85): convert
+  Generating summary (55/85): crypto
+  Generating summary (56/85): http_parser
+  Generating summary (57/85): shelf
+  Generating summary (58/85): shelf_static
+  Generating summary (59/85): shelf_packages_handler
+  Generating summary (60/85): unicode
+  Generating summary (61/85): strings
+  Generating summary (62/85): pubspec_manager
+  Generating summary (63/85): uuid
+  Generating summary (64/85): dcli_core
+  Generating summary (65/85): validators2
+  Generating summary (66/85): vm_service
+  Generating summary (67/85): watcher
+  Generating summary (68/85): web
+  Generating summary (69/85): web_socket
+  Generating summary (70/85): web_socket_channel
+  Generating summary (71/85): shelf_web_socket
+  Generating summary (72/85): webkit_inspection_protocol
+  Generating summary (73/85): win32
+  Generating summary (74/85): dart_console
+  Generating summary (75/85): dcli_terminal
+  Generating summary (76/85): yaml
+  Generating summary (77/85): analyzer
+  Generating summary (78/85): cli_config
+  Generating summary (79/85): coverage
+  Generating summary (80/85): pubspec_lock
+  Generating summary (81/85): settings_yaml
+  Generating summary (82/85): dcli
+  Generating summary (83/85): test_core
+  Generating summary (84/85): test
+  Generating summary (85/85): tom_build_base
+Loading 84 cached summaries.
+00:08 +59: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:08 +60: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:08 +61: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:08 +62: test/generator_tests/dcli_bridge_gaps_test.dart: DCli Bridge Gaps (setUpAll)
+00:08 +62: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module core_extensions generated 2 classes, global total: 2
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  GEN-076: Module example_project generated 23 classes, global total: 25
+00:09 +63: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +64: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +65: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +66: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +67: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +68: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +69: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +70: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +71: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +72: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +73: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +74: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +75: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +76: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +77: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:09 +78: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module user_guide generated 2 classes, global total: 26
+  GEN-076: Module user_reference generated 6 classes, global total: 31
+00:10 +79: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +80: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +81: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +82: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +83: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +84: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +85: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +86: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +87: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +88: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:10 +89: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +89: test/generator_tests/import_extension_discovery_test.dart: GEN-049: Extension Discovery from Imports (setUpAll)
+[element-mode] extracted 1 classes, 1 functions, 0 enums, 0 extensions from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/imports_external_extensions.dart
+  GEN-049: Discovered extension ImportedIntHelpers on int from import file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/external_extensions.dart
+  GEN-049: Discovered extension ImportedListHelpers on List from import file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/external_extensions.dart
+[element-mode] globals: extracted 1 functions, 0 variables, 0 enums, 2 extensions (2 from imports) from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/imports_external_extensions.dart
+00:12 +89: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +90: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +91: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +92: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +93: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:12 +94: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module userbridge_override generated 1 classes, global total: 32
+00:14 +94: test/generator_tests/type_erasure_test.dart: Type Parameter Erasure (setUpAll)
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+00:14 +94: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +95: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +96: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +97: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +98: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +99: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +100: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +101: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +102: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +103: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +104: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +105: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +106: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +107: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +108: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +109: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:14 +110: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module userbridge_user_guide generated 2 classes, global total: 33
+00:14 +111: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +112: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +113: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +114: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +115: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +116: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +117: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +118: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +119: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +120: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +121: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +122: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +123: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +124: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +125: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +126: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +127: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +128: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +129: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +130: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +131: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +132: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +133: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +134: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +135: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +136: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +137: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +138: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +139: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +140: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +141: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +142: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +143: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +144: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +145: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +146: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +147: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +147: test/generator_tests/v2/d4rtgen_traversal_test.dart: D4G-EXE: D4rtgen Executor D4G-EXE-4: lists project in listOnly mode
+  d4rtgen_test_OYLADE
+00:15 +148: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +149: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module dart_overview generated 97 classes, global total: 118
+00:15 +150: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +151: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:15 +152: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module path generated 5 classes, global total: 123
+00:16 +153: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +154: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +155: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +156: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +157: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +158: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module dcli generated 65 classes, global total: 188
+00:16 +159: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +160: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +161: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +162: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +163: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +164: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +165: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +166: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:16 +167: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+  GEN-076: Module test_part_of_files generated 3 classes, global total: 191
+  GEN-076: Module test_callback_types generated 2 classes, global total: 193
+  RELAXER: Generated empty stub (no reachable relaxers) → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/example/d4/lib/src/d4rt_bridges/relaxers.b.dart
+  GEN-079 WARNING: No ClassInfo for generic base type "MapEntry" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "Sink" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "FutureOr" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: Box is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for FutureOr — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for MapEntry — skipping wrapper
+  GEN-079 WARNING: Maybe is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: ScopeKey is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for Sink — skipping wrapper
+  GEN-079 WARNING: Wrapper is not re-exported by any barrel import — skipping wrapper
+00:16 +168: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:17 +169: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:17 +170: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:17 +171: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:17 +172: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:17 +173: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:18 +174: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:18 +175: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:18 +176: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +177: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +178: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +179: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +180: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +181: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +182: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +183: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +184: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +185: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +186: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +187: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +188: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +189: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +190: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +191: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:19 +192: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:20 +193: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:20 +193: test/generator_tests/edge_cases_test.dart: Generator Options G-EDGE-33: Verbose mode does not affect output structure. [2026-02-10 06:37] (PASS)
+[element-mode] extracted 2 classes, 0 functions, 6 enums, 0 extensions from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/enum_test_source.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 6 enums, 0 extensions (0 from imports) from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/test/generator_tests/fixtures/enum_test_source.dart
+00:21 +194: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +195: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +196: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +197: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +198: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +199: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +200: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +201: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +202: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +203: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +204: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +205: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +206: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +207: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +208: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +209: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +210: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +211: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +212: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:22 +212: test/generator_tests/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_KYBYDW/main/lib/main.dart
+00:23 +212: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +213: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +214: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +215: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +216: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +217: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +218: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +219: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +220: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +221: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +222: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:23 +222: test/generator_tests/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 1 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_KYBYDW/dep/lib/src/my_class.dart
+00:24 +222: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +223: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +224: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +225: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +225: test/generator_tests/gen070_reexport_show_test.dart: GEN-070: re-export through show clause with visited barrel G-ISS-12: Full bridge generation includes re-exported class. [2026-02-15] (PASS)
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_KYBYDW/dep/lib/dep.dart
+[element-mode] extracted 0 classes, 0 functions, 0 enums, 0 extensions from /tmp/gen070_test_KYBYDW/main/lib/src/reexporter.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_KYBYDW/main/lib/main.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_KYBYDW/dep/lib/src/my_class.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_KYBYDW/dep/lib/dep.dart
+[element-mode] globals: extracted 0 functions, 0 variables, 0 enums, 0 extensions (0 from imports) from /tmp/gen070_test_KYBYDW/main/lib/src/reexporter.dart
+00:24 +226: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +227: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +228: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +229: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +230: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +231: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +232: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +233: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +234: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +235: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +236: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +237: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +238: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +239: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +240: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +241: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:24 +242: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +243: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +244: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +245: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +246: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +247: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +248: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +249: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +250: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +251: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +252: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +253: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +254: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +255: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +256: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +257: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +258: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:25 +259: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +260: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +261: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +262: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +263: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +264: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +265: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +266: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +267: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +268: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +269: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +270: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +271: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +272: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +273: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:26 +274: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +275: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +275: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL)
+Cast to String?: I might be null
+Cast null to String?: null
+00:27 +276: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +276: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL)
+Created settings: [<instance of Settings>, <instance of Settings>]
+00:27 +277: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +277: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (FAIL)
+Circle area: 78.53975
+Square area: 16
+00:27 +278: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +278: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL)
+clamp(15, 10, 20): 15
+clamp(5, 10, 20): 10
+clamp(25, 10, 20): 20
+00:27 +279: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +279: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (FAIL)
+Cast to List<int>: [1, 2, 3]
+00:27 +280: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +280: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL)
+Eagle name: Eddie
+Eddie is flying high!
+00:27 +281: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:27 +282: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +282: test/generator_tests/dart_overview_failures2_test.dart: Dart Overview Failures Round 2 G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (OK)
+status: Status.active
+displayName: Active
+isActive: true
+00:28 +283: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +284: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +285: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +286: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +287: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +288: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +289: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +290: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +291: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +292: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +293: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +294: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +295: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +296: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +297: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +298: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +299: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +300: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +301: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +302: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +303: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +304: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +305: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +306: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +307: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +308: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +309: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +310: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +311: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +312: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +313: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +314: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +315: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +316: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +317: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +318: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +319: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +320: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +321: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +322: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +323: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:28 +323: test/generator_tests/dart_overview_failures3_test.dart: Dart Overview Failures Round 3 G-DOV3-1: Extension type getter access [2026-02-10] (FAIL)
+UserId: 123
+UserId.isValid: true
+00:28 +324: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+Warning: Failed to log d4rtgen invocation: PathNotFoundException: Cannot open file, path = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log' (OS Error: No such file or directory, errno = 2)
+00:29 +324: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+Resolving dependencies for summary caching...
+00:29 +324: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +324: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+Found 89 dependencies (85 cacheable).
+Generating 1 missing summaries...
+00:29 +324: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +325: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +326: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +327: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +328: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +329: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +330: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:29 +331: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +331: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  Generating summary (1/85): args
+  Generating summary (2/85): chalkdart
+  Generating summary (3/85): characters
+  Generating summary (4/85): circular_buffer
+  Generating summary (5/85): clock
+  Generating summary (6/85): collection
+  Generating summary (7/85): csv
+  Generating summary (8/85): ffi
+  Generating summary (9/85): fixnum
+  Generating summary (10/85): ini
+  Generating summary (11/85): lints
+    Skipping lints: no public libraries
+  Generating summary (12/85): logging
+  Generating summary (13/85): marked
+  Generating summary (14/85): console_markdown
+  Generating summary (15/85): meta
+  Generating summary (16/85): _fe_analyzer_shared
+  Generating summary (17/85): async
+  Generating summary (18/85): chunked_stream
+  Generating summary (19/85): equatable
+  Generating summary (20/85): functional_data
+  Generating summary (21/85): http_multi_server
+  Generating summary (22/85): json2yaml
+  Generating summary (23/85): mime
+  Generating summary (24/85): native_synchronization_temp
+  Generating summary (25/85): node_preamble
+  Generating summary (26/85): path
+  Generating summary (27/85): file
+  Generating summary (28/85): frontend_server_client
+  Generating summary (29/85): globbing
+  Generating summary (30/85): intl
+  Generating summary (31/85): package_config
+  Generating summary (32/85): posix
+  Generating summary (33/85): archive
+  Generating summary (34/85): pub_semver
+  Generating summary (35/85): scope
+  Generating summary (36/85): dcli_common
+  Generating summary (37/85): simple_sparse_list
+  Generating summary (38/85): stack_trace
+  Generating summary (39/85): pool
+  Generating summary (40/85): stream_channel
+  Generating summary (41/85): sum_types
+  Generating summary (42/85): system_info2
+  Generating summary (43/85): term_glyph
+  Generating summary (44/85): source_span
+  Generating summary (45/85): source_maps
+  Generating summary (46/85): source_map_stack_trace
+  Generating summary (47/85): string_scanner
+  Generating summary (48/85): boolean_selector
+  Generating summary (49/85): glob
+  Generating summary (50/85): io
+  Generating summary (51/85): test_api
+  Generating summary (52/85): matcher
+  Generating summary (53/85): typed_data
+  Generating summary (54/85): convert
+  Generating summary (55/85): crypto
+  Generating summary (56/85): http_parser
+  Generating summary (57/85): shelf
+  Generating summary (58/85): shelf_static
+  Generating summary (59/85): shelf_packages_handler
+  Generating summary (60/85): unicode
+  Generating summary (61/85): strings
+  Generating summary (62/85): pubspec_manager
+  Generating summary (63/85): uuid
+  Generating summary (64/85): dcli_core
+  Generating summary (65/85): validators2
+  Generating summary (66/85): vm_service
+  Generating summary (67/85): watcher
+  Generating summary (68/85): web
+  Generating summary (69/85): web_socket
+  Generating summary (70/85): web_socket_channel
+  Generating summary (71/85): shelf_web_socket
+  Generating summary (72/85): webkit_inspection_protocol
+  Generating summary (73/85): win32
+  Generating summary (74/85): dart_console
+  Generating summary (75/85): dcli_terminal
+  Generating summary (76/85): yaml
+  Generating summary (77/85): analyzer
+  Generating summary (78/85): cli_config
+  Generating summary (79/85): coverage
+  Generating summary (80/85): pubspec_lock
+  Generating summary (81/85): settings_yaml
+  Generating summary (82/85): dcli
+  Generating summary (83/85): test_core
+  Generating summary (84/85): test
+  Generating summary (85/85): tom_build_base
+Loading 84 cached summaries.
+00:30 +331: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +332: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +333: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +334: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +335: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +336: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:30 +336: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module core_extensions generated 2 classes, global total: 2
+  Warning: Function "sortItems" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "minValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  Warning: Function "maxValue" has recursive type bounds (T). Runtime dispatch limited to: num, String, DateTime, Duration, BigInt
+  GEN-076: Module example_project generated 23 classes, global total: 25
+00:31 +336: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:31 +336: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module user_guide generated 2 classes, global total: 26
+  GEN-076: Module user_reference generated 6 classes, global total: 31
+00:32 +336: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +337: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +338: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +339: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +340: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +341: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +342: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +343: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +344: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +345: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +346: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +347: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:32 +348: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:33 +348: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module userbridge_override generated 1 classes, global total: 32
+00:34 +348: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:34 +349: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:34 +350: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:34 +351: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:34 +352: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:34 +353: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:35 +353: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module userbridge_user_guide generated 2 classes, global total: 33
+00:35 +353: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:35 +353: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module dart_overview generated 97 classes, global total: 118
+  GEN-076: Module path generated 5 classes, global total: 123
+00:36 +353: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:36 +354: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:36 +355: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:36 +356: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:36 +357: test/generator_tests/d4rt_tester_test.dart: (setUpAll)
+00:36 +357: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+  GEN-076: Module dcli generated 65 classes, global total: 188
+  GEN-076: Module test_part_of_files generated 3 classes, global total: 191
+  GEN-076: Module test_callback_types generated 2 classes, global total: 193
+  RELAXER: Generated empty stub (no reachable relaxers) → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_ast_generator/example/d4/lib/src/d4rt_bridges/relaxers.b.dart
+  GEN-079 WARNING: No ClassInfo for generic base type "MapEntry" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "Sink" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "FutureOr" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: Box is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for FutureOr — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for MapEntry — skipping wrapper
+  GEN-079 WARNING: Maybe is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: ScopeKey is not re-exported by any barrel import — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for Sink — skipping wrapper
+  GEN-079 WARNING: Wrapper is not re-exported by any barrel import — skipping wrapper
+00:43 +358: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:43 +359: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:43 +360: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:43 +361: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +362: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +363: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +364: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +365: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +366: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +367: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:44 +368: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +369: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +370: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +371: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +372: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +373: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:45 +374: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +375: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +376: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +377: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +378: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:46 +379: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +380: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +381: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +382: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +383: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +384: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:47 +385: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +386: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +387: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +388: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +389: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +390: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +391: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +392: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +393: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +394: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +395: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +396: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +397: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +398: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +399: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +400: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +401: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +402: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +403: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:48 +404: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +405: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +406: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +407: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +408: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +409: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +410: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +411: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +412: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +413: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +414: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +415: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+00:55 +416: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (setUpAll)
+01:05 +416: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-42: TOP01: concrete class. [2026-02-10 06:37] (PASS)
+01:05 +417: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-51: TOP02: abstract class. [2026-02-10 06:37] (PASS)
+01:05 +418: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-60: TOP03: sealed class. [2026-02-10 06:37] (PASS)
+01:05 +419: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-68: TOP04: base class. [2026-02-10 06:37] (PASS)
+01:05 +420: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-69: TOP05: interface class. [2026-02-10 06:37] (PASS)
+01:05 +421: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-74: TOP06: final class. [2026-02-10 06:37] (PASS)
+01:05 +422: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-1: TOP07: mixin class. [2026-02-10 06:37] (PASS)
+01:05 +423: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-2: TOP08: simple enum (GEN-044: .values not bridged). [2026-02-10 06:37] (PASS)
+01:05 +424: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-3: TOP09: enhanced enum fields. [2026-02-10 06:37] (PASS)
+01:05 +425: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-4: TOP10: enhanced enum methods. [2026-02-10 06:37] (PASS)
+01:05 +426: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-5: TOP11: enhanced enum implements. [2026-02-10 06:37] (PASS)
+01:05 +427: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-12: Enhanced enum with mixin. [2026-02-10 06:37] (PASS)
+01:06 +428: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-6: TOP14: mixin. [2026-02-10 06:37] (PASS)
+01:06 +429: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-13: Generic enum N/A Dart limit. [2026-02-10 06:37] (PASS)
+01:06 +430: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-7: TOP15: base mixin. [2026-02-10 06:37] (PASS)
+01:06 +431: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-8: TOP16: named extension (not supported). [2026-02-10 06:37] (PASS)
+01:06 +432: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-9: TOP17: anonymous extension (not supported). [2026-02-10 06:37] (PASS)
+01:06 +433: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-10: TOP18: extension type (not supported). [2026-02-10 06:37] (PASS)
+01:06 +434: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-19: Typedef function not needed. [2026-02-10 06:37] (PASS)
+01:06 +435: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-11: TOP20: typedef (type alias, not needed). [2026-02-10 06:37] (PASS)
+01:06 +436: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-12: TOP21: typedef (generic, not needed). [2026-02-10 06:37] (PASS)
+01:06 +437: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-13: TOP22: top-level function. [2026-02-10 06:37] (PASS)
+01:06 +438: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-14: TOP25: top-level variable. [2026-02-10 06:37] (PASS)
+01:06 +439: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-15: TOP26: top-level const. [2026-02-10 06:37] (PASS)
+01:06 +440: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-16: TOP27: top-level getter. [2026-02-10 06:37] (PASS)
+01:07 +441: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-17: TOP23: top-level generic function. [2026-02-10 06:37] (PASS)
+01:07 +442: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-24: Top-level async function. [2026-02-10 06:37] (PASS)
+01:07 +443: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-TOP-28: Top-level setter. [2026-02-10 06:37] (PASS)
+01:07 +444: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TOP: Top-Level Exportables G-COV-18: TOP29: mixin application (class = with). [2026-02-10 06:37] (PASS)
+01:07 +445: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-19: CLS01: instance field getter. [2026-02-10 06:37] (PASS)
+01:07 +446: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-20: CLS02: instance field setter. [2026-02-10 06:37] (PASS)
+01:07 +447: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-21: CLS03: final field. [2026-02-10 06:37] (PASS)
+01:07 +448: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-22: CLS04: private field with public getter. [2026-02-10 06:37] (PASS)
+01:07 +449: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-23: CLS07: static field (mutable). [2026-02-10 06:37] (PASS)
+01:07 +450: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-24: CLS08: static const field (not in barrel). [2026-02-10 06:37] (PASS)
+01:07 +451: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-25: CLS09: computed getter. [2026-02-10 06:37] (PASS)
+01:07 +452: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-26: CLS10: explicit setter. [2026-02-10 06:37] (PASS)
+01:07 +453: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-27: CLS11: static method. [2026-02-10 06:37] (PASS)
+01:08 +454: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-28: CLS14: instance method. [2026-02-10 06:37] (PASS)
+01:08 +455: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-29: CLS15: abstract method. [2026-02-10 06:37] (PASS)
+01:08 +456: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-30: CLS16: toString override. [2026-02-10 06:37] (PASS)
+01:08 +457: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-31: CLS05: nullable instance field. [2026-02-10 06:37] (PASS)
+01:08 +458: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-CLS-6b: Late field. [2026-02-10 06:37] (PASS)
+01:08 +459: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-32: CLS12: static getter. [2026-02-10 06:37] (PASS)
+01:08 +460: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-33: CLS13: static setter. [2026-02-10 06:37] (PASS)
+01:08 +461: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CLS: Class Members G-COV-34: CLS17: call() method (callable class). [2026-02-10 06:37] (PASS)
+01:08 +462: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-35: CTOR01: unnamed constructor. [2026-02-10 06:37] (PASS)
+01:08 +463: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-36: CTOR02: implicit default constructor (GEN-042). [2026-02-10 06:37] (PASS)
+01:08 +464: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-37: CTOR03: named constructor. [2026-02-10 06:37] (PASS)
+01:08 +465: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-38: CTOR04: factory-like constructor (fromMap). [2026-02-10 06:37] (PASS)
+01:09 +466: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-39: CTOR05: const constructor. [2026-02-10 06:37] (PASS)
+01:09 +467: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-40: CTOR06: redirecting constructor. [2026-02-10 06:37] (PASS)
+01:09 +468: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-41: CTOR07: private constructor + factory. [2026-02-10 06:37] (PASS)
+01:09 +469: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage CTOR: Constructors G-COV-43: CTOR08: super parameters. [2026-02-10 06:37] (PASS)
+01:09 +470: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-44: PAR01: required positional. [2026-02-10 06:37] (PASS)
+01:09 +471: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-45: PAR02: optional positional. [2026-02-10 06:37] (PASS)
+01:09 +472: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-46: PAR03: named parameters (not in barrel). [2026-02-10 06:37] (PASS)
+01:09 +473: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-47: PAR04: required named. [2026-02-10 06:37] (PASS)
+01:09 +474: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-COV-48: PAR05: default values. [2026-02-10 06:37] (PASS)
+01:09 +475: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage PAR: Parameters G-PAR-6: Function-typed parameter. [2026-02-10 06:37] (PASS)
+01:09 +476: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-49: GNRC01: single type parameter. [2026-02-10 06:37] (PASS)
+01:09 +477: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-50: GNRC02: two type parameters. [2026-02-10 06:37] (PASS)
+01:09 +478: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-52: GNRC04: generic method. [2026-02-10 06:37] (PASS)
+01:10 +479: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-53: GNRC06: generic collection (Stack/Queue, GEN-042). [2026-02-10 06:37] (PASS)
+01:10 +480: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-54: GNRC03: upper bound constraint. [2026-02-10 06:37] (PASS)
+01:10 +481: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-COV-55: GNRC05: generic static factory. [2026-02-10 06:37] (PASS)
+01:10 +482: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage GNRC: Generics G-GNRC-7: F-bounded polymorphism. [2026-02-10 06:37] (PASS)
+01:10 +483: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-56: INH01: single-level extends. [2026-02-10 06:37] (PASS)
+01:10 +484: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-57: INH02: multi-level extends. [2026-02-10 06:37] (PASS)
+01:10 +485: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-58: INH03: implements (interface). [2026-02-10 06:37] (PASS)
+01:10 +486: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-59: INH04: mixin with. [2026-02-10 06:37] (PASS)
+01:10 +487: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-61: INH05: super constructor call. [2026-02-10 06:37] (PASS)
+01:10 +488: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance G-COV-62: INH06: method override. [2026-02-10 06:37] (PASS)
+01:10 +489: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage INH: Inheritance GEN-045: barrel name collision (constrained mixin blocked). [2026-02-10] (FAIL)
+01:10 +490: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-63: OP05: operator / (divide). [2026-02-10 06:37] (PASS)
+01:10 +491: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-64: OP06: operator ~/ (integer divide). [2026-02-10 06:37] (PASS)
+01:10 +492: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-65: OP07: operator % (modulo). [2026-02-10 06:37] (PASS)
+01:11 +493: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-OP-8: Operator == equality. [2026-02-10 06:37] (PASS)
+01:11 +494: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-66: OP09: comparison operators (compareTo). [2026-02-10 06:37] (PASS)
+01:11 +495: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage OP: Operators G-COV-67: OP12: bitwise operators. [2026-02-10 06:37] (PASS)
+01:11 +496: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-1: Async function Future. [2026-02-10 06:37] (PASS)
+01:11 +497: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-2: Async* generator Stream. [2026-02-10 06:37] (PASS)
+01:11 +498: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-3: Sync* generator Iterable. [2026-02-10 06:37] (PASS)
+01:11 +499: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-4: Callback parameter Function. [2026-02-10 06:37] (PASS)
+01:11 +500: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-5: Instance async method Future. [2026-02-10 06:37] (PASS)
+01:11 +501: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-6: Instance sync* method Iterable. [2026-02-10 06:37] (PASS)
+01:12 +502: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-7: Instance async* method Stream. [2026-02-10 06:37] (PASS)
+01:12 +503: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage ASYNC: Async Features G-ASYNC-8: Static sync*/async* method. [2026-02-10 06:37] (PASS)
+01:12 +504: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-TYPE-1: Record parameter. [2026-02-10 06:37] (FAIL)
+01:12 +505: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-TYPE-2: Record return type. [2026-02-10 06:37] (FAIL)
+01:12 +506: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-70: TYPE03: nullable parameter. [2026-02-10 06:37] (PASS)
+01:12 +507: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-71: TYPE04: nullable return type. [2026-02-10 06:37] (PASS)
+01:12 +508: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage TYPE: Type Features G-COV-72: TYPE05: dynamic type. [2026-02-10 06:37] (PASS)
+01:12 +509: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage VIS: Visibility G-COV-73: VIS03: show/hide combinators. [2026-02-10 06:37] (PASS)
+01:12 +510: test/generator_tests/d4rt_coverage_test.dart: dart_overview coverage (tearDownAll)
+01:12 +510: All tests passed!
