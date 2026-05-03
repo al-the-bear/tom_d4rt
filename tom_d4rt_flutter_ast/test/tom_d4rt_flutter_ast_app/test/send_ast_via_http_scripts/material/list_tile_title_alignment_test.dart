@@ -427,49 +427,54 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: sweepAccent.withOpacity(0.5)),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            width: 96,
-            decoration: BoxDecoration(
-              color: sweepSoft,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                bottomLeft: Radius.circular(8),
+      // `IntrinsicHeight` bounds the Row's vertical axis so the
+      // `CrossAxisAlignment.stretch` doesn't propagate `h=Infinity` from the
+      // outer `SingleChildScrollView` down into the side label container.
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 96,
+              decoration: BoxDecoration(
+                color: sweepSoft,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                ),
               ),
-            ),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-            child: Text(
-              value.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: sweepFg,
-                fontWeight: FontWeight.w700,
-                fontSize: 13,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListTile(
-              titleAlignment: value,
-              leading: Icon(Icons.bookmark_border, color: sweepAccent),
-              title: Text(
-                'Identical title text',
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+              child: Text(
+                value.name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: sweepFg, fontWeight: FontWeight.w600),
+                  color: sweepFg,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  fontFamily: 'monospace',
+                ),
               ),
-              subtitle: Text(
-                'Identical two-line subtitle so only the alignment varies '
-                'across this column.',
-                style: TextStyle(color: sweepFg.withOpacity(0.85)),
-              ),
-              trailing: Icon(Icons.more_vert, color: sweepAccent),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListTile(
+                titleAlignment: value,
+                leading: Icon(Icons.bookmark_border, color: sweepAccent),
+                title: Text(
+                  'Identical title text',
+                  style: TextStyle(
+                      color: sweepFg, fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(
+                  'Identical two-line subtitle so only the alignment varies '
+                  'across this column.',
+                  style: TextStyle(color: sweepFg.withOpacity(0.85)),
+                ),
+                trailing: Icon(Icons.more_vert, color: sweepAccent),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

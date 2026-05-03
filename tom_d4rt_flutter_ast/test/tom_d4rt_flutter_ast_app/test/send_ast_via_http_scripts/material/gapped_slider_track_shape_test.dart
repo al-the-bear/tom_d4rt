@@ -214,7 +214,7 @@ dynamic build(BuildContext context) {
                       builder: (BuildContext _, StateSetter setHero) {
                         return SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: Colors.white,
                             inactiveTrackColor: Colors.white24,
@@ -357,7 +357,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 8,
                                 activeTrackColor: const Color(0xFF3B5BDB),
                                 inactiveTrackColor: const Color(0xFFC4CCE6),
@@ -417,7 +417,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 4,
                                   activeTrackColor: const Color(0xFF1F8E5A),
                                   inactiveTrackColor: const Color(0xFFB7E4C7),
@@ -451,7 +451,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFFB37FEB),
                                   inactiveTrackColor: const Color(0xFFE2D2F5),
@@ -485,7 +485,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 16,
                                   activeTrackColor: const Color(0xFFD9480F),
                                   inactiveTrackColor: const Color(0xFFFFD8A8),
@@ -554,7 +554,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFF0B7285),
                                   inactiveTrackColor: const Color(0xFF99E9F2),
@@ -606,7 +606,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFFE8590C),
                                   inactiveTrackColor: const Color(0xFFFFD8A8),
@@ -658,7 +658,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFF2B8A3E),
                                   inactiveTrackColor: const Color(0xFFB2F2BB),
@@ -726,7 +726,7 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFFE03131),
                             inactiveTrackColor: const Color(0xFFFFC9C9),
@@ -756,7 +756,7 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFF1864AB),
                             inactiveTrackColor: const Color(0xFFA5D8FF),
@@ -786,7 +786,7 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFF6741D9),
                             inactiveTrackColor: const Color(0xFFD0BFFF),
@@ -855,7 +855,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
-                        trackShape: const GappedSliderTrackShape(),
+                        trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                         trackHeight: 8,
                         disabledActiveTrackColor: const Color(0xFFADB5BD),
                         disabledInactiveTrackColor: const Color(0xFFDEE2E6),
@@ -910,7 +910,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             thumbShape: const RoundSliderThumbShape(
                               enabledThumbRadius: 12,
                             ),
@@ -947,7 +947,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             thumbShape: const HandleThumbShape(),
                             trackHeight: 16,
                             activeTrackColor: const Color(0xFFAE3EC9),
@@ -1035,7 +1035,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 8),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 10,
                             activeTrackColor: const Color(0xFFFFE8CC),
                             inactiveTrackColor: const Color(0x55FFFFFF),
@@ -1118,7 +1118,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 4,
                                 activeTrackColor: const Color(0xFF40C057),
                                 inactiveTrackColor: const Color(0xFF495057),
@@ -1177,7 +1177,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 10,
                                 activeTrackColor: const Color(0xFFFD7E14),
                                 inactiveTrackColor: const Color(0xFF495057),
@@ -1272,7 +1272,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFFD6336C),
                             inactiveTrackColor: const Color(0xFFFFDEEB),

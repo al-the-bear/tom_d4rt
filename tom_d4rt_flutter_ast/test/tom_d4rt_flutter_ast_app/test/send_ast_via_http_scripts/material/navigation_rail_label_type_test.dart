@@ -332,8 +332,12 @@ dynamic build(BuildContext context) {
                 border: Border.all(color: const Color(0xFF26A69A)),
               ),
               padding: const EdgeInsets.all(8),
+              // The extended rail's leading + trailing widgets plus the
+              // collapsed labelType=all variant push intrinsic height
+              // just past 320; use 360 so toggling `extended` doesn't
+              // produce a 4 px RenderFlex overflow.
               child: SizedBox(
-                height: 320,
+                height: 360,
                 child: Row(
                   children: [
                     NavigationRail(
@@ -463,8 +467,16 @@ dynamic build(BuildContext context) {
                               ),
                             ),
                             const SizedBox(height: 4),
+                            // The intrinsic height of a NavigationRail with 4
+                            // destinations grows with labelType: `none` is
+                            // ~224, `selected` ~264, `all` ~308. The original
+                            // 220 height clipped all three variants and
+                            // produced 1×4 + 3×44 RenderFlex bottom overflows
+                            // across the 3×3 matrix. 360 fits all variants
+                            // with margin and matches the themedRailSection
+                            // layout below.
                             SizedBox(
-                              height: 220,
+                              height: 360,
                               child: Row(
                                 children: [
                                   NavigationRail(
@@ -1386,8 +1398,13 @@ class _LocalRailFrame extends StatelessWidget {
               ],
             ),
           ),
+          // labelType=all with 4 destinations has an intrinsic height
+          // around ~324, which overflows the original 320 SizedBox by
+          // ~4 pixels. Match the matrix cell height (360) so all label
+          // type variants of this frame render without RenderFlex
+          // overflow.
           SizedBox(
-            height: 320,
+            height: 360,
             child: Row(
               children: [
                 NavigationRail(
@@ -1516,8 +1533,11 @@ class _LocalToggle extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
+          // labelType=all switches dynamically through this rail; bump
+          // the SizedBox height to 360 so the tallest variant doesn't
+          // overflow once the user picks `all`.
           SizedBox(
-            height: 320,
+            height: 360,
             child: Row(
               children: [
                 NavigationRail(

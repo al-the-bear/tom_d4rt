@@ -238,7 +238,7 @@ dynamic build(BuildContext context) {
                   children: [
                     SliderTheme(
                       data: SliderThemeData(
-                        rangeTrackShape: const GappedRangeSliderTrackShape(),
+                        rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                         activeTrackColor: _heroAccent,
                         inactiveTrackColor: _heroAccent.withOpacity(0.25),
                         thumbColor: _heroAccent,
@@ -358,7 +358,7 @@ dynamic build(BuildContext context) {
                   children: [
                     SliderTheme(
                       data: SliderThemeData(
-                        rangeTrackShape: const GappedRangeSliderTrackShape(),
+                        rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                         activeTrackColor: _compareGapped,
                         inactiveTrackColor: _compareGapped.withOpacity(0.25),
                         thumbColor: _compareGapped,
@@ -430,7 +430,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: _heightActive,
                       inactiveTrackColor: _heightInactive,
                       thumbColor: _heightActive,
@@ -551,7 +551,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: active,
                       inactiveTrackColor: inactive,
                       thumbColor: active,
@@ -649,7 +649,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: _divisionInk,
                       inactiveTrackColor: _divisionInk.withOpacity(0.2),
                       thumbColor: _divisionInk,
@@ -761,7 +761,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         SliderTheme(
           data: SliderThemeData(
-            rangeTrackShape: const GappedRangeSliderTrackShape(),
+            rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
             activeTrackColor: _disabledInk,
             inactiveTrackColor: _disabledInk.withOpacity(0.25),
             disabledActiveTrackColor: _disabledInk.withOpacity(0.4),
@@ -888,7 +888,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _priceInk,
                           inactiveTrackColor: _priceInk.withOpacity(0.2),
                           thumbColor: _priceInk,
@@ -1038,7 +1038,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _tempInk,
                           inactiveTrackColor: _tempCool.withOpacity(0.4),
                           thumbColor: _tempInk,
@@ -1194,7 +1194,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _soundInk,
                           inactiveTrackColor: _soundInk.withOpacity(0.2),
                           thumbColor: _soundInk,
@@ -1341,7 +1341,7 @@ dynamic build(BuildContext context) {
             'Snippet:\n\n'
             'SliderTheme(\n'
             '  data: SliderThemeData(\n'
-            '    rangeTrackShape: const GappedRangeSliderTrackShape(),\n'
+            '    rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,\n'
             '    activeTrackColor: ...,\n'
             '    inactiveTrackColor: ...,\n'
             '    trackHeight: 8,\n'

@@ -375,7 +375,10 @@ Widget _section2DeterminateCircular() {
                     color: _palette2Tint,
                     backgroundColor: const Color(0xFFFFE0B2),
                     semanticsLabel: 'download progress',
-                    semanticsValue: '${(v * 100).round()}%',
+                    // Flutter's debug-mode `_semanticsProgressBar` validator
+                    // parses semanticsValue as a number (no "%"). Match the
+                    // built-in default formatter from progress_indicator.dart.
+                    semanticsValue: '${(v * 100).round()}',
                   ),
                 ),
                 const SizedBox(height: 8.0),
