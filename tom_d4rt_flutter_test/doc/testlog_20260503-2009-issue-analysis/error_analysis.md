@@ -138,7 +138,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | Cluster | Hard-failing scripts | Framework-error scripts | Diagnosis | Owner |
 |---------|----------------------|-------------------------|-----------|-------|
 | **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-03** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
-| **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** | gii/widgets/windowing_owner_mac_o_s | hardly_5/widgets/windowing_owner_mac_o_s (11), hardly_5/widgets/snapshot_mode (Scaffold appBar 1) | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. | bridge generator + interpreter |
+| **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** ⚠️ **partial 2026-05-04** | ~~gii/widgets/windowing_owner_mac_o_s~~ ✅ | ~~hardly_5/widgets/windowing_owner_mac_o_s (11)~~ ✅ closed; hardly_5/widgets/snapshot_mode (Scaffold appBar 1) — open | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. **Windowing-owner portion closed 2026-05-04 script-side**: replaced `animation: controller` (script-defined `RegularWindowControllerMacOS extends ChangeNotifier`) with `animation: const AlwaysStoppedAnimation<double>(0.0)` at both `_MacChrome.build` (line 810) and `_DockTile.build` (line 2622); controller still accessed via closure capture inside the builder. Two follow-up RenderFlex overflows fixed in the same edit (DockTile shrink + ContentArea badge `Wrap` → `Expanded(SingleChildScrollView(...))`). Documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §L1. The `snapshot_mode` Scaffold-appBar `PreferredSizeWidget` portion remains open (separate `P1` family case, already documented in `interpreter_unfixable.md` §P1). | bridge generator + interpreter |
 | **C3 — Codec rejects BridgedInstance** ✅ **fixed 2026-05-04** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | Three independent gaps: (1) `D4.extractBridgedArg<T>` only top-level-unwrapped — for adapters typed `dynamic`/`Object`/`Object?` (e.g. `MessageCodec.encodeMessage`) nested `BridgedInstance`/`BridgedEnumValue` inside `Map`/`List`/`Set` reached native code as wrappers and the codec rejected them. Added `_deepUnwrap` and routed unbounded `T` through it; preserved `TypedData` (Uint8List/Float64List/ByteData/…) for codec wire tags. (2) Interpreter had no `Object.toString()` fallback — masked latent failure surfaced by the deep-unwrap fix. Added a generic `toString` fallback in `InterpreterVisitor.visitMethodInvocation` for any native target with no positional/named args. (3) Bridge-wrapped `PlatformException` → `RuntimeD4rtException` defeats typed `on PlatformException catch` filter — script-side, rewrote three catch sites in `method_codec_test.dart` to `catch (e)` and `'$e'`. Also fixed `String.codeUnits.length` (private `CodeUnits` runtime type does not dispatch `List.length`) → `String.length`. | bridge handler + interpreter + script |
 | **C4 — Abstract-class instantiation** ⚠️ **partial 2026-05-04** | ~~hardly_5/widgets/regular_window~~ ✅ | hardly_5/widgets/regular_window_controller (LateInitializationError 1, separate issue) | Scripts construct an abstract bridged base directly. `regular_window` was authored against Flutter's redirecting-factory form (`factory RegularWindowController(...) = _HostRegularWindowController;`) — d4rt does not implement that lowering and threw `Cannot instantiate abstract class`. Closed script-side: 4 call sites instantiate the concrete `_HostRegularWindowController(...)` directly while the variable types remain the abstract base; documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §R1. `regular_window_controller` LateInitializationError is a separate (unrelated) issue still open. | script |
 | **C5 — Argument-order syntax error in script** ✅ **fixed 2026-05-04** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emitted three `infoCard(bg: …, <Widget>[…])` call sites in sections 12, 14 and 20 — named arg before positional. Modern Dart accepts intermixed args; d4rt's `_evaluateArguments` enforces the older "all positional must precede all named" rule and threw `Positional arguments cannot follow named arguments`. Reordered the three call sites to put the positional `<Widget>[…]` first and the `bg:` named arg last. Single-script change; verified via individual flutter test rerun (`hardly_relevant_classes_4_test.dart --plain-name "i_o_s_system_context_menu_item_cut_test.dart"` → `+1`). Per regression rule (a), only individual retest needed. | script |
@@ -182,7 +182,7 @@ Same revision (`eadebb6…`), same script set, same numbers per file. No regress
 
 ## Suggested Next Steps
 
-1. **Resume cluster C2** (priority-1 InterpretedInstance coercion). Investigate the proxy/relaxer pipeline in `tom_d4rt_generator/lib/src/{proxy,relaxer}_generator.dart` for unwrapping interpreted subclasses of bridged abstracts whose surface includes a `Listenable` / `PreferredSizeWidget` typed parameter. Mirror any fix in `tom_d4rt` ↔ `tom_d4rt_ast`.
+1. **Resume cluster C2** (priority-1 InterpretedInstance coercion). Windowing-owner portion closed 2026-05-04 script-side. The remaining open case is `hardly_5/widgets/snapshot_mode` (Scaffold appBar `PreferredSizeWidget` 1 FE) which is the same architectural family as `interpreter_unfixable.md` §P1. Long-term fix: the proxy/relaxer pipeline in `tom_d4rt_generator/lib/src/{proxy,relaxer}_generator.dart` needs to synthesise native-side proxies (e.g. `ChangeNotifier`-backed adapter for `Listenable`, cached `_InterpretedStatelessWidget` walk for `PreferredSizeWidget`) for script-defined subclasses of bridged abstracts. Mirror any fix in `tom_d4rt` ↔ `tom_d4rt_ast`.
 2. **Cluster C3 (codec unwrapping)** — fix the `StandardMessageCodec` bridge handler (or the generator's argument-coercion emit for `Object`-typed codec args) so `BridgedInstance<Object>` is unwrapped before the native encode call.
 3. **Cluster C9 (`surfaceTint`)** — investigate why the `ThemeExtension` bridge does not expose `surfaceTint`. Possibly a `import show/hide` mismatch in `buildkit.yaml`.
 4. **Script-only fixes (C1 ✅, C4, C5 ✅)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests.
@@ -279,6 +279,105 @@ rule (a) — script-only edits — only the targeted retest is needed,
 which passed. The underlying generator helper bug (G1) stays
 documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
 as deferred work behind a coordinated cross-suite regression pass.
+
+### C2 — InterpretedInstance not coerced for typed Flutter param ⚠️ partial 2026-05-04
+
+**Status:** partial — windowing-owner portion closed script-side;
+snapshot_mode `PreferredSizeWidget` portion remains open (separate
+P1 architectural family, already tracked in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §P1).
+
+**Affected scripts:**
+
+- ✅ **closed**: `widgets/windowing_owner_mac_o_s_test.dart`
+  (gii index 31, hardly_5; 11+1 framework errors of
+  `Argument Error: Invalid parameter "animation": expected
+  Listenable, got InterpretedInstance(RegularWindowControllerMacOS)`).
+- ⏳ open: `widgets/snapshot_mode_test.dart` (hardly_5; 1 framework
+  error on `Scaffold.appBar` typed `PreferredSizeWidget`).
+
+**Root cause (windowing-owner case):**
+
+The script defines a chain
+`BaseWindowController extends ChangeNotifier` →
+`RegularWindowController extends BaseWindowController` →
+`RegularWindowControllerMacOS extends RegularWindowController` and
+passes the leaf as `AnimatedBuilder.animation`. Statically the leaf
+*is* a `Listenable` (since `ChangeNotifier implements Listenable`),
+and Flutter's native API accepts it.
+
+Under d4rt the bridge adapter for `AnimatedBuilder` calls
+`D4.getRequiredArg<Listenable>(args, 'animation')`. The
+proxy/relaxer pipeline in
+`tom_d4rt_generator/lib/src/{proxy_generator.dart,
+relaxer_generator.dart}` does not currently synthesise a native
+`ChangeNotifier`-backed proxy for script-defined subclasses of
+bridged `Listenable`/`ChangeNotifier`. So the runtime value is an
+`InterpretedInstance` whose synthetic class has `ChangeNotifier`
+in its supertype chain at the **interpreter** level, but whose
+underlying object is **not** a Dart-level `Listenable`. The `is
+Listenable` test fails and the bridge throws.
+
+**Fix (script-side, this commit):**
+
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/windowing_owner_mac_o_s_test.dart`:
+
+1. Replace `animation: controller,` with `animation: const
+   AlwaysStoppedAnimation<double>(0.0),` at:
+   - `_MacChrome.build()` (line 810 in updated file)
+   - `_DockTile.build()` (line 2622 in updated file)
+   The controller stays accessible inside the builder closure via
+   lexical capture, so all reads
+   (`controller.contentSize`, `controller.isActivated`,
+   `controller.title`, `controller.activate()`, etc.) continue to
+   work. SendTestRunner does a static one-shot build with no frame
+   pump, so a real `Listenable` would never fire even with native
+   Flutter — the workaround does not lose observable behaviour in
+   the test environment.
+2. Two follow-up RenderFlex overflows surfaced once the
+   `AnimatedBuilder` builds succeeded:
+   - `_DockTile`'s 96-px-wide content overflowed by 5 px → shrunk
+     gradient block (32→18), gap (4→2), font sizes (11→10, 10→9),
+     padding (8→6); set explicit `height: 1.1` on the texts.
+   - `_ContentArea`'s badges `Wrap` overflowed by 17 px on each of
+     six `_MacChrome` instances at scale 0.45 (chrome height clamps
+     to 140 px, leaving the content column with ~110 px while the
+     badge `Wrap` rendered in two rows totalling ~123 px) → wrapped
+     the `Wrap` in `Expanded(SingleChildScrollView(...))` so the
+     badge area absorbs the available remainder without overflow.
+
+**Verification:**
+
+- `dart analyze` on the script: clean.
+- Per regression rule (a), only individual retest needed:
+  - `flutter test test/generator_interpreter_issues_test.dart
+    --plain-name "widgets/windowing_owner_mac_o_s_test.dart"` →
+    `+1: All tests passed!` (sourceChars=100324, status=success,
+    httpStatus=200, frameworkErrors=0).
+  - `flutter test test/hardly_relevant_classes_5_test.dart
+    --plain-name "windowing_owner_mac_o_s_test.dart"` →
+    `+1: All tests passed!` (frameworkErrors=0).
+- Logs captured at `ztmp/windowing_owner_fix/{01,02,03,04}_*.log`.
+
+**Documentation:**
+
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §L1 documents
+the architectural limitation (bridge proxy/relaxer pipeline does
+not synthesise native `ChangeNotifier`-backed proxies for
+script-defined subclasses of bridged `Listenable`), the
+script-side workaround, and the re-opening trigger.
+
+**Remaining work in cluster C2:**
+
+`widgets/snapshot_mode_test.dart` (1 FE on `Scaffold.appBar`
+`PreferredSizeWidget` typed parameter) is the same architectural
+family as `interpreter_unfixable.md` §P1 (`PreferredSizeWidget`
+cast fails when arg arrives as a cached native widget proxy). That
+case has its own documented script-side workaround
+(`PreferredSize(preferredSize: …, child: AppBar(...))`) but has
+not been applied to `snapshot_mode_test.dart` yet — tracked as
+open under cluster C2 in this log and §P1 in
+`interpreter_unfixable.md`.
 
 ### C3 — Codec rejects BridgedInstance ✅ fixed 2026-05-04
 

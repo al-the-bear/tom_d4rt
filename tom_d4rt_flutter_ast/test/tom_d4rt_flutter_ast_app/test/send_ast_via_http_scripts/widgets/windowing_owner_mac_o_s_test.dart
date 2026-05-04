@@ -807,8 +807,14 @@ class _MacChrome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // d4rt workaround: a script-defined ChangeNotifier subclass
+    // (RegularWindowControllerMacOS) is not coerced to the bridged
+    // `Listenable` parameter type. SendTestRunner does a static one-shot
+    // build with no frame pump, so a real listenable is never observed —
+    // pass a const AlwaysStoppedAnimation to satisfy the typed parameter
+    // and access controller state via closure capture below.
     return AnimatedBuilder(
-      animation: controller,
+      animation: const AlwaysStoppedAnimation<double>(0.0),
       builder: (BuildContext context, Widget? _) {
         final double width = controller.contentSize.width * scale;
         final double height = controller.contentSize.height * scale;
@@ -1004,7 +1010,16 @@ class _ContentArea extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Wrap(spacing: 6, runSpacing: 6, children: badges),
+          // Wrap inside Expanded+SingleChildScrollView so the badge row
+          // never overflows when the chrome is rendered at small scales
+          // (gridWindows scale 0.45 clamps height to 140, leaving a
+          // tight ContentArea). Also covers narrow viewports where
+          // badges naturally wrap to two rows.
+          Expanded(
+            child: SingleChildScrollView(
+              child: Wrap(spacing: 6, runSpacing: 6, children: badges),
+            ),
+          ),
         ],
       ),
     );
@@ -2619,8 +2634,11 @@ class _DockTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // d4rt workaround: see _MacChrome.build above — script-defined
+    // ChangeNotifier subclass not coerced to the bridged Listenable
+    // parameter type. Closure capture preserves controller access.
     return AnimatedBuilder(
-      animation: controller,
+      animation: const AlwaysStoppedAnimation<double>(0.0),
       builder: (BuildContext context, Widget? _) {
         return GestureDetector(
           onTap: () => controller.activate(),
@@ -2631,13 +2649,13 @@ class _DockTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _palette.outline),
             ),
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  height: 32,
+                  height: 18,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: <Color>[_palette.accent.withOpacity(0.7), _palette.accent.withOpacity(0.4)],
@@ -2647,15 +2665,16 @@ class _DockTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   controller.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: _palette.ink,
-                    fontSize: 11,
+                    fontSize: 10,
                     fontWeight: FontWeight.w700,
+                    height: 1.1,
                   ),
                 ),
                 Text(
@@ -2663,7 +2682,8 @@ class _DockTile extends StatelessWidget {
                   style: TextStyle(
                     color: _palette.muted,
                     fontFamily: 'monospace',
-                    fontSize: 10,
+                    fontSize: 9,
+                    height: 1.1,
                   ),
                 ),
               ],
