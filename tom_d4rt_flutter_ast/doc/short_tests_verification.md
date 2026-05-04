@@ -9,16 +9,16 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |--:|------|------:|------:|:-------:|:-----:|:-----:|
 | 1 | `repro_fa6/canary_must_fail.dart` | 690 | 23 | (x) | ( ) | ( ) |
 | 2 | `repro_fa5/canary_must_fail.dart` | 708 | 23 | (x) | ( ) | ( ) |
-| 3 | `gestures/drag_down_details_test.dart` | 943 | 26 | (x) | (x) | ( ) |
-| 4 | `services/swipe_edge_test.dart` | 943 | 31 | (x) | (x) | ( ) |
-| 5 | `physics/spring_type_test.dart` | 953 | 31 | (x) | (x) | ( ) |
-| 6 | `gestures/one_sequence_gesture_recognizer_test.dart` | 958 | 28 | (x) | (x) | ( ) |
-| 7 | `gestures/hit_testable_test.dart` | 979 | 27 | (x) | (x) | ( ) |
-| 8 | `services/system_ui_mode_test.dart` | 979 | 31 | (x) | (x) | ( ) |
-| 9 | `gestures/long_press_down_details_test.dart` | 983 | 29 | (x) | (x) | ( ) |
-| 10 | `material/stepper_type_test.dart` | 985 | 31 | (x) | (x) | ( ) |
-| 11 | `services/undo_direction_test.dart` | 991 | 31 | (x) | (x) | ( ) |
-| 12 | `semantics/assertiveness_test.dart` | 993 | 31 | (x) | (x) | ( ) |
+| 3 | `gestures/drag_down_details_test.dart` | 943 | 26 | (x) | (x) | (x) |
+| 4 | `services/swipe_edge_test.dart` | 943 | 31 | (x) | (x) | (x) |
+| 5 | `physics/spring_type_test.dart` | 953 | 31 | (x) | (x) | (x) |
+| 6 | `gestures/one_sequence_gesture_recognizer_test.dart` | 958 | 28 | (x) | (x) | (x) |
+| 7 | `gestures/hit_testable_test.dart` | 979 | 27 | (x) | (x) | (x) |
+| 8 | `services/system_ui_mode_test.dart` | 979 | 31 | (x) | (x) | (x) |
+| 9 | `gestures/long_press_down_details_test.dart` | 983 | 29 | (x) | (x) | (x) |
+| 10 | `material/stepper_type_test.dart` | 985 | 31 | (x) | (x) | (x) |
+| 11 | `services/undo_direction_test.dart` | 991 | 31 | (x) | (x) | (x) |
+| 12 | `semantics/assertiveness_test.dart` | 993 | 31 | (x) | (x) | (x) |
 | 13 | `material/material_type_test.dart` | 997 | 31 | (x) | (x) | ( ) |
 | 14 | `scheduler/scheduler_phase_test.dart` | 1,005 | 31 | (x) | (x) | ( ) |
 | 15 | `gestures/pointer_added_event_test.dart` | 1,010 | 29 | (x) | (x) | ( ) |

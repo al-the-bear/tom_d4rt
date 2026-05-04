@@ -201,12 +201,53 @@ void main() {
   });
 
   // ============================================================
-  // GESTURES (1 file)
+  // GESTURES (5 files)
   // ============================================================
   group('gestures/', () {
+    test('drag_down_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/drag_down_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('hit_testable_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/hit_testable_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('long_press_down_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/long_press_down_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('one_sequence_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/one_sequence_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('vertical_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/vertical_multi_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+  });
+
+  // ============================================================
+  // PHYSICS (1 file)
+  // ============================================================
+  group('physics/', () {
+    test('spring_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'physics/spring_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -381,6 +422,13 @@ void main() {
     test('refreshindicator_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/refreshindicator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('stepper_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/stepper_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -777,9 +825,16 @@ void main() {
   });
 
   // ============================================================
-  // SEMANTICS (1 file)
+  // SEMANTICS (2 files)
   // ============================================================
   group('semantics/', () {
+    test('assertiveness_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/assertiveness_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('semantics_handle_test.dart', () async {
       final result = await SendTestRunner.send(
         'semantics/semantics_handle_test.dart',
@@ -824,6 +879,27 @@ void main() {
     test('spell_check_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/spell_check_service_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('swipe_edge_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/swipe_edge_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('system_ui_mode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/system_ui_mode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('undo_direction_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/undo_direction_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
