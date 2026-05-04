@@ -894,7 +894,6 @@ dynamic build(BuildContext context) {
         'Common mistakes when wiring IOSSystemContextMenuItemCut.',
       ),
       infoCard(
-        bg: const Color(0xFFFFF8E1),
         <Widget>[
           bullet(
             'Including IOSSystemContextMenuItemCut in a read-only field violates user expectation; iOS may render it but the action will be a no-op.',
@@ -918,6 +917,7 @@ dynamic build(BuildContext context) {
             'On non-iOS, IOSSystemContextMenuItemCut is constructed but its data is never consumed. That is fine — the constructor is cheap and produces a const value.',
           ),
         ],
+        bg: const Color(0xFFFFF8E1),
       ),
     ],
   );
@@ -959,7 +959,6 @@ dynamic build(BuildContext context) {
         'Summary of every cut variant exercised by this demo.',
       ),
       infoCard(
-        bg: _Palette.blush,
         <Widget>[
           bullet('Section 3 — single-item cut menu (live).'),
           bullet('Section 4 — cut alongside copy/paste/selectAll (live).'),
@@ -980,6 +979,7 @@ dynamic build(BuildContext context) {
             ),
           ),
         ],
+        bg: _Palette.blush,
       ),
     ],
   );
@@ -1451,7 +1451,6 @@ dynamic build(BuildContext context) {
         'Walk through this checklist before shipping a feature that wires IOSSystemContextMenuItemCut into a custom contextMenuBuilder.',
       ),
       infoCard(
-        bg: _Palette.blush,
         <Widget>[
           checklistRow(
             'Cut is omitted from items when the field is read-only or disabled.',
@@ -1484,6 +1483,7 @@ dynamic build(BuildContext context) {
             'Accessibility audit: VoiceOver announces "Cut" when the user lands on the menu entry.',
           ),
         ],
+        bg: _Palette.blush,
       ),
     ],
   );
