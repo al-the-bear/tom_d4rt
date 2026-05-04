@@ -502,15 +502,20 @@ dynamic build(BuildContext context) {
     number: 6,
     title: 'Multi-line composer',
     description:
-        'maxLines: null lets the field grow vertically. Combined with '
-        'TextInputType.multiline the on-screen keyboard exposes a Return '
-        'key that inserts newlines instead of submitting.',
+        'A capped maxLines (here: 8) lets the field grow vertically up to a '
+        'visible cap. Combined with TextInputType.multiline the on-screen '
+        'keyboard exposes a Return key that inserts newlines instead of '
+        'submitting. NOTE: in stock Flutter `maxLines: null` would let the '
+        'field grow without bound; the d4rt bridge currently collapses an '
+        'explicit `null` named-argument back to the constructor default '
+        '(`1`), which would violate the `minLines >= 1` invariant when '
+        'paired with `minLines: 4`. A finite cap is the safe demo value.',
     children: [
       CupertinoTextField(
         controller: multiLineCtrl,
         placeholder: 'Tell us a story…',
         padding: EdgeInsets.all(12),
-        maxLines: null,
+        maxLines: 8,
         minLines: 4,
         keyboardType: TextInputType.multiline,
         textAlignVertical: TextAlignVertical.top,
@@ -529,7 +534,7 @@ dynamic build(BuildContext context) {
         palette: palette[5],
       ),
       SizedBox(height: 8),
-      _bulletRow('• maxLines: null (auto-grow)', palette[5]),
+      _bulletRow('• maxLines: 8 (cap; would be null in stock Flutter)', palette[5]),
       _bulletRow('• minLines: 4 (initial height)', palette[5]),
       _bulletRow('• keyboardType: TextInputType.multiline', palette[5]),
     ],

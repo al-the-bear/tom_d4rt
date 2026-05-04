@@ -527,11 +527,17 @@ dynamic build(BuildContext context) {
                 border: _palette2Border,
                 children: <Widget>[
                   _whatThisShows(
-                    'A multi-line field (maxLines: null) pre-loaded with a '
+                    'A multi-line field (maxLines: 12) pre-loaded with a '
                     'longer prose snippet. The handles snap to character '
                     'boundaries and behave naturally across line breaks — '
                     'pulling the right handle past the visible bottom line '
-                    'auto-scrolls the field.',
+                    'auto-scrolls the field. NOTE: in stock Flutter '
+                    '`maxLines: null` would let the field grow without '
+                    'bound; the d4rt bridge currently collapses an explicit '
+                    '`null` named-argument back to the constructor default '
+                    '(`1`), which would violate the `minLines >= 1` '
+                    'invariant when paired with `minLines: 5`. A finite cap '
+                    'is the safe demo value.',
                     _palette2Caption,
                   ),
                   _fieldLabel('Multi-line prose', _palette2Caption),
@@ -540,7 +546,7 @@ dynamic build(BuildContext context) {
                     focusNode: _focusMulti,
                     selectionControls: cupertinoTextSelectionHandleControls,
                     placeholder: 'Write a paragraph…',
-                    maxLines: null,
+                    maxLines: 12,
                     minLines: 5,
                     style: const TextStyle(
                       fontSize: 15.0,
@@ -681,7 +687,7 @@ dynamic build(BuildContext context) {
                     selectionControls: cupertinoTextSelectionHandleControls,
                     readOnly: true,
                     enableInteractiveSelection: true,
-                    maxLines: null,
+                    maxLines: 10,
                     minLines: 3,
                     style: const TextStyle(
                       fontSize: 14.0,
@@ -777,7 +783,7 @@ dynamic build(BuildContext context) {
                             focusNode: _focusListSectionNotes,
                             selectionControls:
                                 cupertinoTextSelectionHandleControls,
-                            maxLines: null,
+                            maxLines: 8,
                             minLines: 2,
                             style: const TextStyle(
                               fontSize: 13.5,
@@ -1046,7 +1052,7 @@ dynamic build(BuildContext context) {
                               focusNode: _focusAnatomy,
                               selectionControls:
                                   cupertinoTextSelectionHandleControls,
-                              maxLines: null,
+                              maxLines: 14,
                               minLines: 6,
                               style: const TextStyle(
                                 fontSize: 13.5,

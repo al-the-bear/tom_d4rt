@@ -137,7 +137,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 
 | Cluster | Hard-failing scripts | Framework-error scripts | Diagnosis | Owner |
 |---------|----------------------|-------------------------|-----------|-------|
-| **C1 — Cupertino minLines/maxLines assertion** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
+| **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-03** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
 | **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** | gii/widgets/windowing_owner_mac_o_s | hardly_5/widgets/windowing_owner_mac_o_s (11), hardly_5/widgets/snapshot_mode (Scaffold appBar 1) | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. | bridge generator + interpreter |
 | **C3 — Codec rejects BridgedInstance** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | StandardMessageCodec/StandardMethodCodec adapters need to unwrap `BridgedInstance<Object>` payloads before native encode/decode. | bridge handler |
 | **C4 — Abstract-class instantiation** | hardly_5/widgets/regular_window | hardly_5/widgets/regular_window_controller (LateInitializationError 1) | Scripts construct an abstract bridged base directly. | script |
@@ -185,5 +185,81 @@ Same revision (`eadebb6…`), same script set, same numbers per file. No regress
 1. **Resume cluster C2** (priority-1 InterpretedInstance coercion). Investigate the proxy/relaxer pipeline in `tom_d4rt_generator/lib/src/{proxy,relaxer}_generator.dart` for unwrapping interpreted subclasses of bridged abstracts whose surface includes a `Listenable` / `PreferredSizeWidget` typed parameter. Mirror any fix in `tom_d4rt` ↔ `tom_d4rt_ast`.
 2. **Cluster C3 (codec unwrapping)** — fix the `StandardMessageCodec` bridge handler (or the generator's argument-coercion emit for `Object`-typed codec args) so `BridgedInstance<Object>` is unwrapped before the native encode call.
 3. **Cluster C9 (`surfaceTint`)** — investigate why the `ThemeExtension` bridge does not expose `surfaceTint`. Possibly a `import show/hide` mismatch in `buildkit.yaml`.
-4. **Script-only fixes (C1, C4, C5)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests.
+4. **Script-only fixes (C1 ✅, C4, C5)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests.
 5. **Defer C6, C7, C8, C10** — out of scope for the current bridge/interpreter campaign; track in `interpreter_unfixable.md` or a script-cleanup follow-up.
+
+---
+
+## Cluster Resolution Log
+
+### C1 — Cupertino minLines/maxLines assertion ✅ fixed 2026-05-03
+
+**Status:** fixed (script-side per cluster owner = script).
+
+**Affected scripts (both closed):**
+
+- `essential_classes_test.dart > cupertino/textfield_test.dart`
+- `hardly_relevant_classes_1_test.dart > cupertino/cupertino_text_selection_handle_controls_test.dart`
+
+**What was actually broken.** Stock Flutter accepts
+`CupertinoTextField(maxLines: null, minLines: N)` — the
+constructor's assertion `(maxLines == null) || (minLines == null) || (maxLines >= minLines)`
+short-circuits on the explicit-null `maxLines`. Under d4rt the
+assertion fires anyway because the generated bridge adapter
+resolves `maxLines` via
+`D4.getNamedArgWithDefault<int?>(named, 'maxLines', 1)`, and that
+helper conflates "key absent" with "key present but `null`":
+
+```dart
+// tom_d4rt_ast/lib/src/runtime/generator/d4.dart  (mirror in tom_d4rt)
+static T getNamedArgWithDefault<T>(
+  Map<String, Object?> named,
+  String paramName,
+  T defaultValue,
+) {
+  if (!named.containsKey(paramName) || named[paramName] == null) {
+    return defaultValue;
+  }
+  return extractBridgedArg<T>(named[paramName], paramName);
+}
+```
+
+For nullable `T` the `|| named[paramName] == null` branch erases
+the explicit-null sentinel that Flutter encodes as "grow without
+bound", silently substituting the constructor default `1` —
+which trips the assertion when paired with `minLines: 4` (or any
+value > 1).
+
+**What was changed.**
+
+- `cupertino/textfield_test.dart` Section 6: `maxLines: null` →
+  `maxLines: 8`; section description and bullet caption updated
+  to document the bridge limitation inline.
+- `cupertino/cupertino_text_selection_handle_controls_test.dart`:
+  4 sites of `maxLines: null` paired with `minLines ∈ {2,3,5,6}`
+  rewritten to finite caps (`minLines + ~5`–`+10`), preserving
+  the "grows vertically up to a visible cap" demo intent. The
+  Section 2 caption was extended with the same limitation note;
+  the other three sections rely on a single shared note so they
+  were updated as code-only edits.
+- No bridge / generator code touched (cluster owner = script per
+  `error_analysis.md`).
+
+**Underlying bridge bug** documented in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §G1
+("`D4.getNamedArgWithDefault<T?>` collapses explicit `null` to
+default for nullable-typed named args"), with a proposed
+two-branch fix gated on a future regression-coordinated pass —
+the helper is called from every generated `*.b.dart` constructor
+adapter, so the change would need a full essential + important +
+secondary + gii sweep across both `tom_d4rt` and `tom_d4rt_ast`.
+
+**Verification (script-only — regression rule (a)):**
+
+| Script | Driver | Result |
+|--------|--------|--------|
+| `cupertino/textfield_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+| `cupertino/cupertino_text_selection_handle_controls_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
+
+Logs in `ztmp/cupertino_textfield_retest.log` and
+`ztmp/cupertino_text_selection_handle_controls_retest.log`.

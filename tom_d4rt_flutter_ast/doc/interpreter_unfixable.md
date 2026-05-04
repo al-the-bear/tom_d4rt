@@ -36,6 +36,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
 | [P1 — `PreferredSizeWidget` cast fails when arg arrives as a cached native widget proxy](#p1--preferredsizewidget-cast-fails-when-arg-arrives-as-a-cached-native-widget-proxy) | Interpreter limitation (proxy walk runs on `InterpretedInstance` only; once the same instance has been wrapped in `_InterpretedStatelessWidget` and cached as `nativeProxy`, the bridge call site receives the native widget directly and the multi-interface walk over `bridgedInterfaces` is skipped). Script-side workaround supplied (`PreferredSize(preferredSize: …, child: AppBar(...))`). | `widgets/snapshot_mode_test.dart` (1 FE — Scaffold.appBar) |
 | [P4 — `switch (BridgedEnum)` may fall through every case, returning null](#p4--switch-bridgedenum-may-fall-through-every-case-returning-null) | Interpreter limitation (bridged-enum case match is unreliable for some Flutter enums in `case BridgedEnum.value:` form — the equality probe in `visitSwitchStatement` returns `false` for both directions on certain bridged enum values, so a `String`-returning helper falls through and returns `null` implicitly). Script-side workaround: convert switches to `if/else` chains over `==` (the path used by `_isCupertinoFamily` is reliable), and seed local result variables with a default. | `widgets/tooltip_window_controller_delegate_test.dart`, `foundation/target_platform_test.dart`, `material/time_of_day_format_test.dart` |
+| [G1 — `D4.getNamedArgWithDefault<T?>` collapses explicit `null` to default](#g1--d4getnamedargwithdefaultt-collapses-explicit-null-to-default-for-nullable-typed-named-args) | Generator/runtime helper limitation (the helper conflates "key absent" with "key present but `null`" by guarding on `!named.containsKey(p) || named[p] == null`, so an explicit `null` named-arg falls back to the constructor default). Script-side workaround: prefer a finite cap over an explicit `null` when the bridge default would violate a downstream invariant (`CupertinoTextField`'s `(maxLines == null) || (maxLines >= minLines)` assertion). | `cupertino/textfield_test.dart`, `cupertino/cupertino_text_selection_handle_controls_test.dart` |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -1565,8 +1566,208 @@ Any of:
 
 ---
 
+## G1 — `D4.getNamedArgWithDefault<T?>` collapses explicit `null` to default for nullable-typed named args
+
+**Source cluster:** `testlog_20260503-2009-issue-analysis`
+cluster **C1 — Cupertino minLines/maxLines assertion** (essential
+`cupertino/textfield_test.dart`, hardly_1
+`cupertino/cupertino_text_selection_handle_controls_test.dart`).
+
+**Status:** generator/runtime architectural limitation; closed
+script-side per cluster owner = script.
+
+### Symptom
+
+Both Cupertino scripts authored deep-demos that paired
+`maxLines: null` (Flutter's "grow without bound" sentinel) with
+`minLines: N` (N ≥ 2). Stock Flutter accepts this combination —
+the constructor assertion is
+
+```dart
+// flutter/lib/src/cupertino/text_field.dart:310-320
+assert(
+  (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+  'minLines can\'t be greater than maxLines',
+);
+```
+
+— so passing `maxLines: null` short-circuits the assertion. Under
+d4rt the assertion fires:
+
+```
+Native error during default bridged constructor for
+'CupertinoTextField': 'package:flutter/src/cupertino/text_field.dart':
+Failed assertion: line 320 pos 10: '(maxLines == null) ||
+(minLines == null) || (maxLines >= minLines)':
+minLines can't be greater than maxLines
+```
+
+— because by the time the assertion runs, `maxLines` is **`1`**
+(the constructor's default), not the `null` the script passed.
+
+### Root cause
+
+The generated `cupertino_bridges.b.dart` constructor adapter for
+`CupertinoTextField` resolves `maxLines` via:
+
+```dart
+final maxLines = D4.getNamedArgWithDefault<int?>(named, 'maxLines', 1);
+```
+
+where `D4.getNamedArgWithDefault` is defined in both
+`tom_d4rt/lib/src/generator/d4.dart` (≈line 1590) and
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart` (≈line 1634) as:
+
+```dart
+static T getNamedArgWithDefault<T>(
+  Map<String, Object?> named,
+  String paramName,
+  T defaultValue,
+) {
+  if (!named.containsKey(paramName) || named[paramName] == null) {
+    return defaultValue;
+  }
+  return extractBridgedArg<T>(named[paramName], paramName);
+}
+```
+
+The guard `!named.containsKey(paramName) || named[paramName] == null`
+**conflates two semantically distinct cases**:
+
+1. The caller did not pass the named arg (key absent) — fall back
+   to the bridge-supplied default.
+2. The caller explicitly passed `null` (key present, value
+   `null`) — keep `null`.
+
+For nullable-typed parameters (`T = int?`, `T = double?`,
+`T = String?`, …), case (2) is the user's deliberate signal. The
+helper silently rewrites it back to (1), erasing the distinction
+between "I want the framework's default" and "I want the
+explicit-null sentinel".
+
+`CupertinoTextField` is the noisy surface because Flutter encodes
+"grow without bound" as the explicit-null sentinel and pairs it
+with an assertion that depends on it.
+
+### Why we are not fixing this in cluster scope
+
+A correct fix would replace the helper's single guard with two
+branches:
+
+```dart
+static T getNamedArgWithDefault<T>(
+  Map<String, Object?> named,
+  String paramName,
+  T defaultValue,
+) {
+  if (!named.containsKey(paramName)) return defaultValue;
+  final raw = named[paramName];
+  if (raw == null) {
+    // Explicit null is the caller's intent; only fall back to the
+    // default when T is non-nullable, since extractBridgedArg<T>
+    // would throw on null in that case.
+    return null is T ? null as T : defaultValue;
+  }
+  return extractBridgedArg<T>(raw, paramName);
+}
+```
+
+The change is small in principle, but:
+
+- It must mirror in **both** `tom_d4rt/lib/src/generator/d4.dart`
+  and `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` (per the
+  quest's "keep tom_d4rt ↔ tom_d4rt_ast in sync" rule).
+- `getNamedArgWithDefault` is called from every generated
+  `*.b.dart` constructor adapter across the entire
+  `flutter-material` corpus (and any other bridge package that
+  uses the generator). Some bridge defaults intentionally rely on
+  the current "null → default" coalescing — switching to the
+  null-aware semantics will move all such call sites onto the
+  explicit-null path. Full essential + important + secondary +
+  gii regression is required and may surface secondary-effect
+  failures elsewhere.
+- The cluster ticket in
+  `testlog_20260503-2009-issue-analysis/error_analysis.md`
+  classifies C1 as `owner: script` — i.e. the rewrite is the
+  preferred closing path for this cluster.
+
+### Script-side workaround
+
+Replace any `maxLines: null` paired with a non-trivial `minLines`
+by a finite cap that preserves the demo's "grows vertically"
+intent without violating the assertion. The cap should be ≥
+`minLines` so the assertion passes regardless of how the bridge
+treats the named arg:
+
+```dart
+// before — relies on stock-Flutter null sentinel
+CupertinoTextField(
+  controller: _ctrl,
+  maxLines: null,
+  minLines: 4,
+  // …
+)
+
+// after — finite cap, demo still grows up to the cap
+CupertinoTextField(
+  controller: _ctrl,
+  maxLines: 8,           // visible cap; would be null in stock Flutter
+  minLines: 4,
+  // …
+)
+```
+
+For the demo description / caption strings, document the bridge
+limitation inline (so future readers understand why the cap is
+finite) — see `cupertino/textfield_test.dart` Section 6 for the
+canonical phrasing.
+
+### Verification
+
+Per regression rule (a) in the cluster fix protocol — script-only
+changes need only individual retests, no full essential /
+important / secondary regression suite:
+
+| Script | Driver | Result |
+|--------|--------|--------|
+| `cupertino/textfield_test.dart` | `tom_d4rt_flutter_test` | **PASS** (was the C1 essential failure) |
+| `cupertino/cupertino_text_selection_handle_controls_test.dart` | `tom_d4rt_flutter_test` | **PASS** (was the C1 hardly_1 failure; 4 sites rewritten) |
+
+Captured in
+`tom_d4rt_flutter_test/doc/testlog_20260503-2009-issue-analysis/`
+(retest logs in `ztmp/cupertino_*_retest.log`).
+
+### Re-opening trigger
+
+Any of:
+
+- A script that genuinely depends on the explicit-null sentinel
+  reaching the bridge (e.g. it asserts in an `expect(...)` that
+  `maxLines == null`). The current corpus does not have one.
+- A planned generator pass that splits "key absent" from
+  "explicit null" in `D4.getNamedArgWithDefault` and runs the
+  full essential + important + secondary + gii regression to
+  surface secondary-effect call sites. Mirror in `tom_d4rt` ↔
+  `tom_d4rt_ast`.
+
+---
+
 ## Change Log
 
+- 2026-05-03 (later): **Add G1 — `D4.getNamedArgWithDefault<T?>`
+  collapses explicit `null` to default for nullable-typed named
+  args.** Documents the
+  `testlog_20260503-2009-issue-analysis` cluster C1 (Cupertino
+  `(maxLines == null) || (minLines == null) || (maxLines >= minLines)`
+  assertion). Underlying generator/runtime helper conflates "key
+  absent" with "explicit null"; `CupertinoTextField` exposes it
+  because Flutter encodes "grow without bound" as the
+  explicit-null sentinel. Both affected scripts
+  (`cupertino/textfield_test.dart`,
+  `cupertino/cupertino_text_selection_handle_controls_test.dart`,
+  4 sites) closed script-side per cluster owner = script: replace
+  `maxLines: null` with a finite cap ≥ `minLines`; bridge fix
+  proposed in §G1 for a future regression-coordinated pass.
 - 2026-05-03: **Add P4 — `switch (BridgedEnum)` may fall through
   every case, returning null.** Documents the priority-4 cluster
   from `testlog_20260503-0948-issue-analysis` (`Bridge: Text.data:
