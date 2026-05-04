@@ -263,3 +263,19 @@ secondary + gii sweep across both `tom_d4rt` and `tom_d4rt_ast`.
 
 Logs in `ztmp/cupertino_textfield_retest.log` and
 `ztmp/cupertino_text_selection_handle_controls_retest.log`.
+
+**Re-verification (2026-05-04).** Targeted retest of
+`hardly_relevant_classes_1_test.dart > cupertino/cupertino_text_selection_handle_controls_test.dart`
+on the current `main` (`1a30f9f3` — post-string_attribute fix):
+
+```
+00:10 +0: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceChars=53095 clearMs=60 httpMs=2766 totalMs=2838 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+00:13 +1: All tests passed!
+```
+
+Cluster C1 remains ✅ **fixed**; no regression. Per the regression
+rule (a) — script-only edits — only the targeted retest is needed,
+which passed. The underlying generator helper bug (G1) stays
+documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
+as deferred work behind a coordinated cross-suite regression pass.
