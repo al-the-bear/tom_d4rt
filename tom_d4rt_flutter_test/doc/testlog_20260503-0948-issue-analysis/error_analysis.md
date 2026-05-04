@@ -709,3 +709,56 @@ interpreter level — no script-side workaround remains.
 | `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell. |
 
 No `.b.dart` files modified. No buildkit / bridge-generator changes. No `interpreter_unfixable.md` entries needed — both root causes are now generically fixed at the interpreter/bridge layer.
+
+## 16. Cluster fix status — Prefixed `is` type-test on bridged type
+
+**Status: FIXED — `tom_d4rt`'s analyzer-based `visitIsExpression` now resolves prefixed type names (`value is ui.LocaleStringAttribute`) through the prefixed-imports environment instead of stripping the prefix and looking up the bare name.**
+
+This is the residual `dart_ui/string_attribute_test.dart` failure repeatedly cited as a "pre-existing legacy" in §10.3 / §11.3 / §15.3. It is now properly fixed at the interpreter layer — the script passes on both the analyzer-based (`tom_d4rt`) and the analyzer-free (`tom_d4rt_ast`) paths without script-side workarounds.
+
+### 16.1 Root cause
+
+`tom_d4rt/lib/src/interpreter_visitor.dart::visitIsExpression` extracted only `typeNode.name2.lexeme` from the right-hand-side `NamedType`, ignoring `typeNode.importPrefix`. For an expression like `attribute is ui.LocaleStringAttribute`, the bare name `LocaleStringAttribute` is then looked up via `environment.get('LocaleStringAttribute')`, which fails because the type is registered under the prefixed key `ui.LocaleStringAttribute` in the `_prefixedImports` map. The interpreter raised "Undefined variable: LocaleStringAttribute" and the script halted before producing a widget.
+
+The analyzer-free `tom_d4rt_ast` path (`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart::visitIsExpression`) already handles `typeNode.importPrefix` correctly (GEN-100c). Only the analyzer-based interpreter was missing the parallel fix — confirmed by reading `_resolveTypeAnnotationWithEnvironment` at the same level, which already prepended `importPrefix` for the same reason.
+
+### 16.2 Fix
+
+Single-site change in `tom_d4rt/lib/src/interpreter_visitor.dart::visitIsExpression`: when the right-hand-side `NamedType` has a non-null `importPrefix`, prepend it to the type name before the built-in/user-type dispatch. `Environment.get('prefix.identifier')` already routes through `_prefixedImports`, so the existing user-type branch resolves correctly without further changes. Built-in primitives (`int`, `String`, …) are never imported with a prefix, so a non-null `importPrefix` always routes to the user-type lookup.
+
+```dart
+final bareTypeName = typeNode.name2.lexeme;
+final typePrefix = typeNode.importPrefix?.name.lexeme;
+final typeName = typePrefix != null
+    ? '$typePrefix.$bareTypeName'
+    : bareTypeName;
+```
+
+### 16.3 Verification
+
+Rule (b) — interpreter-side change.
+
+- **Script revert:** removed the three D4RT-SCRIPT-LIMITATION workaround sites in `tom_d4rt_flutter_ast/.../dart_ui/string_attribute_test.dart`:
+  - `_buildRangeRow` no longer takes `String? localeOverride`; the row computes `localeStr` and `summary` inline from `attribute is ui.LocaleStringAttribute`.
+  - `_buildRecipeCard` and `_buildFootgunRow` now take `List<ui.StringAttribute> attributes` and compute the description list inline using `attribute is ui.LocaleStringAttribute`.
+  - The `_describeLocaleAttr` / `_describeSpellOutAttr` helper functions and all D4RT-SCRIPT-LIMITATION comment blocks were removed.
+- **Individual scripts (analyzer-based via `tom_d4rt_flutter_test`):**
+  - `dart_ui/locale_string_attribute_test.dart` → **PASS**
+  - `dart_ui/spell_out_string_attribute_test.dart` → **PASS**
+  - `dart_ui/string_attribute_test.dart` → **PASS** (was failing on `Undefined variable: LocaleStringAttribute`)
+- **`tom_d4rt` unit tests:** `+1751 ~1 -1` — only `I-BUG-14a` (Open Bugs — Won't Fix), pre-existing. No new regressions.
+- **Full suites (serial, never parallel per quest rule):**
+  - `essential_classes_test`: **`+108: All tests passed!`** (matches §15.3 baseline `+108`).
+  - `important_classes_test`: **`+164: All tests passed!`** (matches §15.3 baseline `+164`).
+  - `secondary_classes_test`: **`+653 ~1: All tests passed!`** — improvement over the previous baseline of `+652 ~1 -1`. The single residual failure (the `dart_ui/string_attribute_test.dart` "legacy" cited in §10.3 / §11.3 / §15.3) is now a PASS.
+
+No `.b.dart` files modified. No buildkit / bridge-generator changes. No `interpreter_unfixable.md` entries needed — the bug is generically fixed at the interpreter layer.
+
+### 16.4 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_ai/d4rt/tom_d4rt/lib/src/interpreter_visitor.dart` | `visitIsExpression`: prepend `typeNode.importPrefix` to the resolved type name so prefixed `is` checks route through `Environment.get('prefix.Name')` (mirrors the `tom_d4rt_ast` and `_resolveTypeAnnotationWithEnvironment` patterns). |
+| `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` | Mirror — already had the prefix-aware path (GEN-100c); verified, no edit needed. |
+| `tom_ai/d4rt/tom_d4rt_flutter_ast/.../dart_ui/string_attribute_test.dart` | Reverted three D4RT-SCRIPT-LIMITATION workarounds: dropped `localeOverride` from `_buildRangeRow`; switched `_buildRecipeCard` / `_buildFootgunRow` to take `List<ui.StringAttribute>`; removed `_describeLocaleAttr` / `_describeSpellOutAttr` helpers and all related comment blocks. |
+| `tom_ai/d4rt/tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section. |
