@@ -143,7 +143,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | **C4 — Abstract-class instantiation** | hardly_5/widgets/regular_window | hardly_5/widgets/regular_window_controller (LateInitializationError 1) | Scripts construct an abstract bridged base directly. | script |
 | **C5 — Argument-order syntax error in script** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emits positional after named. | script |
 | **C6 — Script timeout (infinite work)** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Test wedges build endpoint for 25 s; needs throttled or deterministic test loop. | script |
-| **C7 — Transport failure on huge bundle** | secondary/dart_ui/string_attribute | — | 968 KB bundle exceeds local HTTP read window. | infra (script size *or* runner timeout) |
+| **C7 — `string_attribute_test.dart` (misclassified as transport failure) ✅ fixed 2026-05-04** | secondary/dart_ui/string_attribute | — | Two unrelated script-side issues: (1) Skia bidi shaper crash on Linux test runtime triggered by an Arabic-Indic-digit `TextSpan` sandwiched between ASCII flanking spans inside a `RichText` (3-child layout), and (2) an `attribute is ui.LocaleStringAttribute` runtime type test that fails on the older `tom_d4rt` because the import prefix is stripped before resolving the bare type name. The bisect proved the bundle size (968 KB) is *not* the cause — the previous "transport failure on huge bundle" diagnosis was wrong. Script rewritten: locale5 demo switched to Russian Cyrillic (no bidi reorder) and the prefixed `is`-test replaced with pre-computed description strings / locale overrides at the call site (3 helper signatures changed). Verified passing on both `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`. See `script_rewrites.md` ("Arabic-Indic digit `TextSpan` sandwiched in `RichText`" + "Prefixed `is` type-test on `dart:ui` type"). | script |
 | **C8 — Layout-overflow / infinite-size warnings** | — | 16 scripts, ~63 framework errors | Deep-demo content overflows the test viewport. Cosmetic; suppressible by scoping the demo to a `MediaQuery`/`SizedBox` of a fixed size. | script |
 | **C9 — Missing bridge member** | — | hardly_2/material/theme_extension (`surfaceTint`) | Bridge for `ThemeExtension` does not expose `surfaceTint`. | bridge generator |
 | **C10 — Null-aware regression** | — | hardly_5/widgets/route_transition_record (`withValues` on null) | Script invokes `Color.withValues` without null check; could be a generator omission of the `?.` callsite or simply a script bug. | script (likely) |
@@ -160,7 +160,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
   - `widgets/inherited_notifier_test.dart` — 1.55 MB JSON
   - `widgets/weak_map_test.dart` — 1.51 MB JSON
   - `widgets/gesture_detector_adv_test.dart` — 1.47 MB JSON
-- All bundle transfers succeeded with `httpStatus=200` except `dart_ui/string_attribute_test.dart` (transport failure on 968 KB bundle).
+- All bundle transfers succeeded with `httpStatus=200` except `dart_ui/string_attribute_test.dart`. Note (2026-05-04): the 968 KB bundle is *not* the cause — the script bisects to a Skia bidi-shaper crash on a 3-child `RichText` plus a prefixed-`is`-test the older `tom_d4rt` mishandles. See cluster C7 below; fixed script-side.
 
 ---
 
@@ -186,7 +186,7 @@ Same revision (`eadebb6…`), same script set, same numbers per file. No regress
 2. **Cluster C3 (codec unwrapping)** — fix the `StandardMessageCodec` bridge handler (or the generator's argument-coercion emit for `Object`-typed codec args) so `BridgedInstance<Object>` is unwrapped before the native encode call.
 3. **Cluster C9 (`surfaceTint`)** — investigate why the `ThemeExtension` bridge does not expose `surfaceTint`. Possibly a `import show/hide` mismatch in `buildkit.yaml`.
 4. **Script-only fixes (C1 ✅, C4, C5)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests.
-5. **Defer C6, C7, C8, C10** — out of scope for the current bridge/interpreter campaign; track in `interpreter_unfixable.md` or a script-cleanup follow-up.
+5. **Defer C6, C8, C10** — out of scope for the current bridge/interpreter campaign; track in `interpreter_unfixable.md` or a script-cleanup follow-up. (C7 is closed as of 2026-05-04 — see cluster row.)
 
 ---
 

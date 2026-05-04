@@ -99,6 +99,30 @@ const LinearGradient _kGradientCheatsheet = LinearGradient(
   colors: [Color(0xFF132A44), Color(0xFFB89BFF), Color(0xFF34D8FF)],
 );
 
+// ---------------------------------------------------------------------
+// Attribute description helpers
+// ---------------------------------------------------------------------
+//
+// D4RT-SCRIPT-LIMITATION: render-time descriptions for `StringAttribute`
+// values are produced by these typed helpers instead of by an
+// `attribute is ui.LocaleStringAttribute` runtime type test. The older
+// `tom_d4rt` interpreter strips the `ui.` import prefix before resolving
+// the right-hand side of a prefixed `is`-test and then fails with
+// `Undefined variable: LocaleStringAttribute`. The analyzer-free
+// `tom_d4rt_ast` resolves the prefixed name correctly. Pre-computing
+// description strings at the call site (where the static type is
+// concrete) keeps the script working on both interpreters. See
+// `script_rewrites.md` ("Prefixed `is` type-test on dart:ui type") for
+// the full investigation.
+
+String _describeLocaleAttr(ui.LocaleStringAttribute a) {
+  return 'LocaleStringAttribute([${a.range.start}..${a.range.end}), ${a.locale})';
+}
+
+String _describeSpellOutAttr(ui.SpellOutStringAttribute a) {
+  return 'SpellOutStringAttribute([${a.range.start}..${a.range.end}))';
+}
+
 // =====================================================================
 // build()  — sole top-level entry point.
 // =====================================================================
@@ -790,6 +814,15 @@ Widget _buildRangeVisualisationSection() {
 
   // Visual rows: each row paints a single attribute's underline beneath
   // the same shared sample sentence. Each row's colour is unique.
+  // D4RT-SCRIPT-LIMITATION: the older `tom_d4rt` interpreter strips the
+  // import-prefix from a type-test pattern (`is ui.LocaleStringAttribute`)
+  // and looks up the unprefixed name in scope, raising "Undefined
+  // variable: LocaleStringAttribute". The analyzer-free `tom_d4rt_ast`
+  // path resolves the prefix correctly. Pre-computing the locale string
+  // at the call site (where the static type is concrete) sidesteps the
+  // limitation without losing the visual demo. See
+  // `script_rewrites.md` ("Prefixed `is` type-test in older
+  // `tom_d4rt`") for the full bisect log.
   final List<Widget> rows = [
     _buildRangeRow(
       sample: sample,
@@ -797,6 +830,7 @@ Widget _buildRangeVisualisationSection() {
       label: 'SpellOut "NASA"',
       explanation: 'Speaks "N-A-S-A" instead of as a word.',
       color: _kAccentGold,
+      localeOverride: null,
     ),
     _buildRangeRow(
       sample: sample,
@@ -804,6 +838,7 @@ Widget _buildRangeVisualisationSection() {
       label: 'SpellOut "PM"',
       explanation: 'Speaks "P-M", clearer than the homophone "pm".',
       color: _kAccentMint,
+      localeOverride: null,
     ),
     _buildRangeRow(
       sample: sample,
@@ -811,6 +846,7 @@ Widget _buildRangeVisualisationSection() {
       label: 'SpellOut "8"',
       explanation: 'Forces the digit to be voiced as a single character.',
       color: _kAccentLilac,
+      localeOverride: null,
     ),
     _buildRangeRow(
       sample: sample,
@@ -818,6 +854,7 @@ Widget _buildRangeVisualisationSection() {
       label: 'Locale fr_FR "Paris"',
       explanation: 'Switches the voice to French for the city name.',
       color: _kAccentRose,
+      localeOverride: rangeParis.locale.toString(),
     ),
     _buildRangeRow(
       sample: sample,
@@ -825,6 +862,7 @@ Widget _buildRangeVisualisationSection() {
       label: 'Locale en_US whole sentence',
       explanation: 'Default voice baseline; nested locale overrides it.',
       color: _kAccentCyan,
+      localeOverride: rangeWhole.locale.toString(),
     ),
   ];
 
@@ -860,13 +898,12 @@ Widget _buildRangeRow({
   required String label,
   required String explanation,
   required Color color,
+  required String? localeOverride,
 }) {
   final int start = attribute.range.start;
   final int end = attribute.range.end;
-  final String localeStr = attribute is ui.LocaleStringAttribute
-      ? attribute.locale.toString()
-      : '';
-  final String summary = attribute is ui.LocaleStringAttribute
+  final String localeStr = localeOverride ?? '';
+  final String summary = (localeOverride != null)
       ? 'Locale($localeStr) [$start..$end)'
       : 'SpellOut [$start..$end)';
 
@@ -1195,9 +1232,19 @@ Widget _buildLocaleShowcaseSection() {
     range: const TextRange(start: 13, end: 19),
     locale: const Locale('ja', 'JP'),
   );
+  // D4RT-SCRIPT-LIMITATION: bidi-text-shaping crash in headless Flutter
+  // test runtime — a `RichText` with three `TextSpan` children where
+  // the middle span contains Arabic-Indic digits ("٤٥٢") between
+  // ASCII flanking spans crashes the test process with
+  // "Lost connection to device" (reproduces with const-only widgets,
+  // i.e. independent of the d4rt interpreter / bridges). See
+  // `script_rewrites.md` ("Arabic-Indic digit TextSpan sandwiched in
+  // RichText") for the full bisect log. The Russian Cyrillic example
+  // below preserves the "non-Latin script demonstrates locale
+  // switching" intent without triggering the bidi-shaping path.
   final ui.LocaleStringAttribute locale5 = ui.LocaleStringAttribute(
-    range: const TextRange(start: 11, end: 16),
-    locale: const Locale('ar', 'EG'),
+    range: const TextRange(start: 11, end: 18),
+    locale: const Locale('ru', 'RU'),
   );
 
   final List<Widget> cards = [
@@ -1242,11 +1289,11 @@ Widget _buildLocaleShowcaseSection() {
       ),
     ),
     _buildLocaleCard(
-      base: 'The number ٤٥٢ counts something rare.',
+      base: 'A friendly спасибо works wonders today.',
       attribute: locale5,
-      title: 'Arabic numerals',
-      reason: 'Arabic-Indic digit glyphs render visually but the engine '
-          'needs ar_EG to know how to read them aloud in Arabic.',
+      title: 'Russian Cyrillic',
+      reason: 'Cyrillic letters carry stress marks the English voice cannot '
+          'infer; the ru_RU voice handles the soft-sign and "и" cleanly.',
       gradient: const LinearGradient(
         colors: [Color(0xFF132A44), Color(0xFFFF9966)],
       ),
@@ -1592,6 +1639,15 @@ Widget _buildAccessibilityRecipeSection() {
           'the cost of constructing extra attributes is negligible compared with the gain in '
           'accessibility quality.',
     ],
+    // D4RT-SCRIPT-LIMITATION: pass pre-computed description strings instead
+    // of `List<ui.StringAttribute>` so the recipe card can render the lines
+    // without an `attribute is ui.LocaleStringAttribute` runtime type test.
+    // The older `tom_d4rt` interpreter strips the `ui.` import prefix from
+    // a prefixed type-test pattern and then fails to resolve the bare name
+    // (`Undefined variable: LocaleStringAttribute`). The analyzer-free
+    // `tom_d4rt_ast` resolves it correctly. Pre-computing here keeps the
+    // script working on both interpreters. See `script_rewrites.md`
+    // ("Prefixed `is` type-test on dart:ui type") for details.
     body: Wrap(
       spacing: 14,
       runSpacing: 14,
@@ -1603,7 +1659,7 @@ Widget _buildAccessibilityRecipeSection() {
             sentence: 'Network error: connexion expirée',
             symptom: 'Default English voice mispronounces "connexion expirée" as gibberish.',
             recipeText: 'Wrap "connexion expirée" with LocaleStringAttribute(fr_FR).',
-            attributes: [recipeLocaleErr],
+            descriptions: [_describeLocaleAttr(recipeLocaleErr)],
             color: _kAccentRose,
           ),
         ),
@@ -1614,7 +1670,7 @@ Widget _buildAccessibilityRecipeSection() {
             sentence: 'Welcome NASA engineers!',
             symptom: 'Reader says "NASS-uh", losing brand recognition.',
             recipeText: 'Add SpellOutStringAttribute over "NASA".',
-            attributes: [recipeBrand],
+            descriptions: [_describeSpellOutAttr(recipeBrand)],
             color: _kAccentGold,
           ),
         ),
@@ -1625,7 +1681,10 @@ Widget _buildAccessibilityRecipeSection() {
             sentence: 'Mailing to: München, Germany',
             symptom: 'Both city and country names need German voicing.',
             recipeText: 'Two LocaleStringAttribute(de_DE) covering the city and the country.',
-            attributes: [recipeAddrCity, recipeAddrCountry],
+            descriptions: [
+              _describeLocaleAttr(recipeAddrCity),
+              _describeLocaleAttr(recipeAddrCountry),
+            ],
             color: _kAccentLilac,
           ),
         ),
@@ -1636,7 +1695,7 @@ Widget _buildAccessibilityRecipeSection() {
             sentence: 'Add 1.5 tsp of salt now.',
             symptom: 'Voice may collapse "tsp" into a non-word.',
             recipeText: 'SpellOut over "tsp" to make it "T-S-P".',
-            attributes: [recipeMeasure],
+            descriptions: [_describeSpellOutAttr(recipeMeasure)],
             color: _kAccentMint,
           ),
         ),
@@ -1650,7 +1709,7 @@ Widget _buildRecipeCard({
   required String sentence,
   required String symptom,
   required String recipeText,
-  required List<ui.StringAttribute> attributes,
+  required List<String> descriptions,
   required Color color,
 }) {
   return Container(
@@ -1735,11 +1794,8 @@ Widget _buildRecipeCard({
         const SizedBox(height: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: List<Widget>.generate(attributes.length, (int i) {
-            final ui.StringAttribute a = attributes[i];
-            final String desc = a is ui.LocaleStringAttribute
-                ? 'LocaleStringAttribute([${a.range.start}..${a.range.end}), ${a.locale})'
-                : 'SpellOutStringAttribute([${a.range.start}..${a.range.end}))';
+          children: List<Widget>.generate(descriptions.length, (int i) {
+            final String desc = descriptions[i];
             return Padding(
               padding: const EdgeInsets.only(bottom: 3),
               child: Text(
@@ -1789,6 +1845,11 @@ Widget _buildFootgunSection() {
     locale: const Locale('fr', 'FR'),
   );
 
+  // D4RT-SCRIPT-LIMITATION: same workaround as the recipe section — pass a
+  // pre-computed `List<String>` of attribute descriptions so the footgun row
+  // does not need an `is ui.LocaleStringAttribute` runtime type test (the
+  // older `tom_d4rt` interpreter mishandles prefixed type tests on
+  // dart:ui types). See `script_rewrites.md` for details.
   return _buildSectionShell(
     gradient: _kGradientFootgun,
     sectionNumber: '07',
@@ -1814,28 +1875,34 @@ Widget _buildFootgunSection() {
           title: 'Overlapping spell-out ranges',
           description: 'Two SpellOuts share characters 3..5. The engine may '
               'collapse them or pick one arbitrarily.',
-          attrs: [fgOverA, fgOverB],
+          descriptions: [
+            _describeSpellOutAttr(fgOverA),
+            _describeSpellOutAttr(fgOverB),
+          ],
           sample: 'OverLap',
         ),
         _buildFootgunRow(
           title: 'Off-by-one (end exclusive)',
           description: 'TextRange end is exclusive. To cover "NASA" use '
               'end=4 not end=5; otherwise the trailing space is included.',
-          attrs: [fgOff],
+          descriptions: [_describeSpellOutAttr(fgOff)],
           sample: 'NASA team',
         ),
         _buildFootgunRow(
           title: 'Range past the string length',
           description: 'A range that stretches beyond the base string will '
               'be clamped or rejected. Defensive code must verify length.',
-          attrs: [fgPast],
+          descriptions: [_describeSpellOutAttr(fgPast)],
           sample: 'short',
         ),
         _buildFootgunRow(
           title: 'Conflicting locale on identical range',
           description: 'Two LocaleStringAttribute objects on the same range '
               'with different locales — the engine will choose unpredictably.',
-          attrs: [fgConflictA, fgConflictB],
+          descriptions: [
+            _describeLocaleAttr(fgConflictA),
+            _describeLocaleAttr(fgConflictB),
+          ],
           sample: 'Hello!',
         ),
       ],
@@ -1846,7 +1913,7 @@ Widget _buildFootgunSection() {
 Widget _buildFootgunRow({
   required String title,
   required String description,
-  required List<ui.StringAttribute> attrs,
+  required List<String> descriptions,
   required String sample,
 }) {
   return Container(
@@ -1898,11 +1965,8 @@ Widget _buildFootgunRow({
         const SizedBox(height: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: List<Widget>.generate(attrs.length, (int i) {
-            final ui.StringAttribute a = attrs[i];
-            final String desc = a is ui.LocaleStringAttribute
-                ? 'LocaleStringAttribute([${a.range.start}..${a.range.end}), ${a.locale})'
-                : 'SpellOutStringAttribute([${a.range.start}..${a.range.end}))';
+          children: List<Widget>.generate(descriptions.length, (int i) {
+            final String desc = descriptions[i];
             return Padding(
               padding: const EdgeInsets.only(top: 2),
               child: Text(

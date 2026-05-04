@@ -27,6 +27,8 @@ script-side rewrite that makes the test pass cleanly.
 | [`whereType<T>()` does not filter nulls in d4rt stdlib](#wheretypet-does-not-filter-nulls-in-d4rt-stdlib-e7) | `widgets/restorable_double_n_test.dart` | d4rt stdlib generic-erasure limitation |
 | [`RangeSlider` with `onChanged: null` + default M3 gapped track shape](#rangeslider-with-onchanged-null--default-m3-gapped-track-shape-index-32) | `material/gapped_range_slider_track_shape_test.dart` | Flutter `RangeSliderTrackShape.paint` disabled-state contract |
 | [`FragmentProgram` engine cascade in multi-test suites](#fragmentprogram-engine-cascade-in-multi-test-suites) | `dart_ui/image_sampler_slot_test.dart` | Engine pipeline teardown |
+| [Arabic-Indic digit `TextSpan` sandwiched in `RichText`](#arabic-indic-digit-textspan-sandwiched-in-richtext) | `dart_ui/string_attribute_test.dart` | Flutter/Skia bidi-text shaping |
+| [Prefixed `is` type-test on `dart:ui` type](#prefixed-is-type-test-on-dartui-type) | `dart_ui/string_attribute_test.dart` | Older `tom_d4rt` import-prefix handling |
 
 ---
 
@@ -457,6 +459,106 @@ script-side rewrite that makes the test pass cleanly.
 
 ---
 
+## Arabic-Indic digit `TextSpan` sandwiched in `RichText`
+
+- **Source:** `dart_ui/string_attribute_test.dart` (Section 5,
+  `_buildLocaleShowcaseSection` → "Arabic city + numerals" card).
+- **Symptom.** The flutter-test process hangs and eventually
+  reports `Lost connection to device` while building the locale
+  showcase. The runner sees the bundle build successfully, the
+  HTTP `/build` request returns `200`, then the test app process
+  silently dies. Headless `flutter test` reproduces the crash
+  with an equivalent script that contains *only* `const`
+  widgets — i.e. the trigger is independent of the d4rt
+  interpreter and the bridge generator.
+- **Underlying Dart/Flutter trigger.** A `RichText` whose
+  `TextSpan` contains exactly three children, where the *middle*
+  child carries Arabic-Indic digits (`٤٥٢`) and the flanking
+  children are ASCII text, drives the Skia bidi shaper into a
+  state that crashes the headless test runtime on Linux. The
+  pattern is "ASCII | Arabic-Indic digits | ASCII" inside a
+  single `RichText`, with no explicit `textDirection` override.
+- **Bisect log (Section 5).**
+  1. Disabling Section 5 wholesale → all green.
+  2. Re-enabling locale1–4 (English / French / Spanish /
+     Portuguese) one at a time → all green.
+  3. Re-enabling locale5 (Arabic / Saudi Arabia, "تم استلام
+     الطلب رقم ٤٥٢ بنجاح") → crash returns.
+  4. Reducing the locale5 card to a single `Text` widget → no
+     crash. The crash is gated on the three-`TextSpan`
+     `RichText` layout, not on the Arabic string per se.
+  5. Replacing the digits with ASCII numerals while keeping
+     Arabic letters → no crash. The crash needs Arabic-Indic
+     digits sandwiched between ASCII flanking spans.
+- **Why this is script-side, not interpreter-side or
+  framework-bug.** The crash reproduces with a const-only
+  reduction of the same widget tree run through vanilla
+  `flutter test` (no interpreter, no bridges). It is a
+  Flutter/Skia headless-renderer limitation on Linux that the
+  d4rt stack cannot influence. Filing upstream as a Flutter
+  issue is appropriate, but is out of scope for the d4rt
+  quest — the script must work on the current toolchain today.
+- **Workaround.** Replace locale5's Arabic-Indic-digit content
+  with a non-Latin script that does not need bidi-shaping
+  reordering. The script now uses Russian Cyrillic ("A friendly
+  спасибо works wonders today.") which preserves the original
+  intent ("non-Latin script demonstrates locale switching")
+  without triggering the Skia bidi crash.
+- **Verification.** `dart_ui/string_attribute_test.dart` passes
+  individually in both `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test` after the rewrite
+  (`status=success httpStatus=200 frameworkErrors=0`).
+
+---
+
+## Prefixed `is` type-test on `dart:ui` type
+
+- **Source:** `dart_ui/string_attribute_test.dart` (three sites:
+  `_buildRangeRow`, `_buildRecipeCard`, `_buildFootgunRow`).
+- **Symptom.** Running the script under `tom_d4rt_flutter_test`
+  (the older analyzer-based `tom_d4rt` interpreter) emits a
+  `Type check failed` / `Undefined variable:
+  LocaleStringAttribute` error and the script returns
+  `httpStatus=400 status=error`. The same script passes cleanly
+  on `tom_d4rt_flutter_ast` (analyzer-free).
+- **Underlying interpreter trigger.** The script writes the
+  natural Dart pattern
+  `attribute is ui.LocaleStringAttribute ? … : …` over a
+  variable typed as `ui.StringAttribute`. The older `tom_d4rt`
+  interpreter, when resolving the right-hand side of a prefixed
+  `is`-test, strips the import prefix (`ui.`) and then tries to
+  look up the bare type name (`LocaleStringAttribute`) in the
+  current environment — which fails because the import is only
+  visible through the `ui` prefix. The analyzer-free
+  `tom_d4rt_ast` carries the prefix through and resolves
+  correctly.
+- **Why this is documented as a script rewrite, not an
+  interpreter fix.** The bug is real and exists in the older
+  `tom_d4rt`. Fixing it there means modifying the analyzer-based
+  interpreter, which is the historical reference baseline that
+  many downstream projects still depend on. The migration plan
+  in the d4rt quest is to move to `tom_d4rt_ast` rather than
+  patch `tom_d4rt`. Until that migration completes, scripts that
+  must run on both interpreters need a portable rewrite.
+- **Workaround.** Replace the runtime type test with one of:
+  1. A pre-computed `String? localeOverride` parameter on the
+     helper, supplied by the call site where the static type of
+     each attribute is concrete (used in `_buildRangeRow`).
+  2. A pre-computed `List<String> descriptions` parameter, with
+     two tiny typed helpers
+     (`_describeLocaleAttr(ui.LocaleStringAttribute)` /
+     `_describeSpellOutAttr(ui.SpellOutStringAttribute)`)
+     called from the construction site (used in
+     `_buildRecipeCard` and `_buildFootgunRow`).
+  Both shapes preserve the original output, avoid the prefixed
+  `is`-test entirely, and work on both interpreters.
+- **Verification.** `dart_ui/string_attribute_test.dart` passes
+  individually in both `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test` after the rewrite
+  (`status=success httpStatus=200 frameworkErrors=0`).
+
+---
+
 ## Resolved entries (kept for history)
 
 The following entries were once tracked here and have been
@@ -479,6 +581,17 @@ treat as an active script-rewrite case again.
 
 ## Change Log
 
+- **2026-05-04:** Added two entries for
+  `dart_ui/string_attribute_test.dart` — (1) Arabic-Indic digit
+  `TextSpan` sandwiched in `RichText` (Skia bidi shaper crash on
+  Linux test runtime, fixed by switching locale5's content to
+  Russian Cyrillic), and (2) prefixed `is` type-test on
+  `dart:ui` type (older `tom_d4rt` strips import prefix and
+  fails to resolve bare type name; fixed by pre-computing
+  description strings / locale overrides at the call site
+  through three helper signatures). Both fixes verified
+  individually under `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test`.
 - **2026-04-28 (latest):** Added Index 32
   `gapped_range_slider_track_shape_test.dart`, migrated from
   `interpreter_unfixable.md` per user assessment that the
