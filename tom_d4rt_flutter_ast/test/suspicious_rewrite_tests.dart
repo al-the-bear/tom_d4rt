@@ -150,6 +150,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('shader_mask_engine_layer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/shader_mask_engine_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('semantics_action_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/semantics_action_event_test.dart',
@@ -205,9 +212,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('flag_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/flag_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('flutter_memory_allocations_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flutter_memory_allocations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('iterable_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/iterable_property_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -270,6 +291,13 @@ void main() {
     test('drag_start_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/drag_start_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('drag_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/drag_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -340,6 +368,13 @@ void main() {
     test('pointer_added_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/pointer_added_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_down_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_down_event_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -775,6 +810,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('selection_extend_direction_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/selection_extend_direction_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('selection_result_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/selection_result_test.dart',
@@ -841,6 +883,13 @@ void main() {
     test('platform_view_render_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/platform_view_render_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering_service_extensions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/rendering_service_extensions_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -984,6 +1033,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('scheduler_service_extensions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'scheduler/scheduler_service_extensions_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1023,6 +1079,13 @@ void main() {
   // SEMANTICS (2 files)
   // ============================================================
   group('semantics/', () {
+    test('accessibility_focus_block_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/accessibility_focus_block_type_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('assertiveness_test.dart', () async {
       final result = await SendTestRunner.send(
         'semantics/assertiveness_test.dart',
@@ -1116,6 +1179,13 @@ void main() {
     test('selection_changed_cause_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/selection_changed_cause_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services_service_extensions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/services_service_extensions_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
