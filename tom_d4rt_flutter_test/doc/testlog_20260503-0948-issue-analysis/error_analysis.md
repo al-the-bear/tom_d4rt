@@ -181,7 +181,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | **Removed Flutter API references (CupertinoTextField asserts)** | 2 (`cupertino/textfield`, `cupertino_text_selection_handle_controls`) | `minLines can't be greater than maxLines` | scripts — fix `minLines/maxLines` fixture values |
 | **Layout overflow / infinite-height** | 5 (`box_scroll_view`, `constrained_layout_builder`, `constraints_transform_box`, `do_nothing_action`, `scroll_increment_type`) | `RenderFlex overflowed by N pixels` / `BoxConstraints forces an infinite height` / `RenderConstraintsTransformBox overflowed by N pixels` | scripts — bound the column / wrap in `SingleChildScrollView` / use `Expanded` correctly | **Fixed (script-side) — all 5 scripts now report `frameworkErrors=0` on individual retest. Surgical layout-only fixes; no bridge / generator / interpreter changes. See §14 below.** |
 | **Interpreter — index-out-of-range, late init, null-aware on bridged null** | 4 (`drag_target_details` ×5, `regular_window_controller`, `route_transition_record`, `i_o_s_system_context_menu_item_cut`, `regular_window`) | various d4rt-side runtime errors | scripts — investigate per-script |
-| **Codec bridge: `BridgedInstance<Object>` payload, PlatformException** | 2 (`message_codec`, `method_codec`) | bridge passes `BridgedInstance<Object>` instead of native object | bridge generator + script — codec round-trip for interpreted payloads |
+| **Codec bridge: `BridgedInstance<Object>` payload, PlatformException** | 2 (`message_codec`, `method_codec`) | bridge passes `BridgedInstance<Object>` instead of native object | bridge generator + script — codec round-trip for interpreted payloads | **Fully fixed at the interpreter level (no script workarounds).** Codec receivers were closed in cluster C3 (commit `50083b5b`); the residual `String.codeUnits.length` failure was closed in **GEN-C3d** (List bridge `isAssignable`) and the residual `RuntimeD4rtException.toString()` trace in **GEN-C3c** (universal Object-member fallback in `visitPropertyAccess` / `visitPrefixedIdentifier`). See §15 below. |
 | **Transport / wedge** | 1 (`automatic_keep_alive_client_mixin`) | 30 s `/build` timeout → recycle → 25 s POST timeout on retry | quest-level META watchdog (already documented in `interpreter_issues.md`) |
 
 ## 7. Comparison vs `tom_d4rt_flutter_ast`
@@ -641,3 +641,71 @@ This is **not** an interpreter limitation — no entry in `interpreter_unfixable
 | `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell + §8 priority annotation. |
 
 No `.b.dart` files modified. No buildkit / bridge-generator changes. No interpreter or registration changes. Both drivers load the same script corpus from the `tom_d4rt_flutter_ast` directory (see `tom_d4rt_flutter_test/test/send_test_runner.dart:121`), so the script-side fixes land once and benefit both.
+
+## 15. Cluster fix status — Codec bridge residuals (GEN-C3c + GEN-C3d)
+
+**Status: FIXED (interpreter-level).**
+
+After the codec receiver fix in cluster C3 (commit `50083b5b`),
+`services/message_codec_test.dart` still tripped on two non-codec
+issues that the script exercises. Both have now been closed at the
+interpreter level — no script-side workaround remains.
+
+### 15.1 Root causes
+
+1. **GEN-C3d — `String.codeUnits.length` failure on private List
+   subtype.** `String.codeUnits` returns Dart's private `CodeUnits`
+   type (a `List<int>` subclass). The d4rt List stdlib bridge
+   only registered exact-type matches via `nativeType: List`, so
+   `toBridgedInstance` could not resolve `CodeUnits` → no `length`
+   getter dispatch. The same failure mode applied to any private
+   List subtype (`UnmodifiableListView`, `_GrowableList`,
+   `CastList`, etc.).
+2. **GEN-C3c — `e.toString()` / `e.hashCode` / `e.runtimeType` on
+   raw native targets.** Universal Object members worked on
+   `BridgedInstance` (handled at GEN-107) but not on arbitrary
+   native targets like `RuntimeD4rtException`, the runtime-thrown
+   exception type. `visitPropertyAccess` and
+   `visitPrefixedIdentifier` both threw "Cannot access property
+   '<name>' on target of type <Type>" before ever attempting
+   the universal-fallback dispatch.
+
+### 15.2 Fixes
+
+| ID | Location | Change |
+|----|----------|--------|
+| **GEN-C3d** | `tom_d4rt/lib/src/stdlib/core/list.dart` and `tom_d4rt_ast/lib/src/runtime/stdlib/core/list.dart` | Added `isAssignable: (v) => v is List` to the List `BridgedClass` definition. The 3-step lookup chain in `toBridgedInstance` now matches any List subtype on the second pass, mirroring the `Set` bridge that already used this pattern. Generic — covers all current and future private List subclasses without enumerating them. |
+| **GEN-C3c** | `tom_d4rt/lib/src/interpreter_visitor.dart` and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` | Added a universal Object-member fallback in **two** sites per file: (a) `visitPropertyAccess` "else" branch (after the extension-getter lookup, before the throw), (b) `visitPrefixedIdentifier` after the `Enum`-narrowing block (before the throw). Cases handled: `hashCode` returns native `target.hashCode`; `runtimeType` returns native `target.runtimeType`; `toString` returns a `NativeFunction` of arity 0 that delegates to `target.toString()`. Mirrors the existing BridgedInstance fallback at GEN-107 and the Callable fallback at ENG-006. Both edits cluster-tagged `GEN-C3c`. |
+
+### 15.3 Verification
+
+- **Focused unit tests added (in both `tom_d4rt` and `tom_d4rt_exec`):**
+  - `test/object_universal_members_test.dart` — `I-OBJ-UNI-1..4` exercise `e.toString()`, `e.hashCode`, `e.runtimeType.toString()`, and a `toString` tear-off invocation, all on a `RuntimeD4rtException` thrown by `int.parse("not a number")`. All four pass on both packages.
+  - `test/stdlib/core/string_test.dart` — `I-STRING-16a` (`text.codeUnits.length` returns 5) and `I-STRING-16b` (`cu.first`, `cu.last`, `cu.isEmpty`, `cu.isNotEmpty` round-trip). Both pass on both packages.
+- **Full unit-test regression:**
+  - `tom_d4rt`: `+1751 -1` — the `-1` is the documented pre-existing baseline (`I-BUG-14a: Records with named fields`, "Open Bugs — Won't Fix", verified pre-existing on origin/main with all changes stashed). No new regressions.
+  - `tom_d4rt_exec`: `+2265 -1` — same `I-BUG-14a` baseline failure. No new regressions.
+  - `dart analyze` clean for the new test files (`No issues found!`); analyzer warnings on the modified interpreter files pre-date these changes (unnecessary_cast on the Fix I Enum block and pre-existing curly-braces info-level lints — none introduced by GEN-C3c/GEN-C3d).
+- **Script-side workaround reverted:**
+  - `tom_d4rt_flutter_ast/.../services/message_codec_test.dart` line ~140: replaced the 7-line UTF-16-count workaround comment + `final codeUnits = sample.value.length;` with the original `final codeUnits = sample.value.codeUnits.length;`. Individually re-running the script via `flutter test test/hardly_relevant_classes_3_test.dart -N "message_codec_test.dart"` passes (`+1: All tests passed!`, `frameworkErrors=0`).
+- **Suite regression (serial — never parallel per quest rule):**
+  - `essential_classes_test`: `+108: All tests passed!`
+  - `important_classes_test`: `+164: All tests passed!`
+  - `secondary_classes_test`: pending — running serially after the others.
+
+### 15.4 Files touched (cluster-scope)
+
+| Path | Change |
+|------|--------|
+| `tom_d4rt/lib/src/interpreter_visitor.dart` | GEN-C3c fallback added in `visitPropertyAccess` (else-branch, line ~4407) and `visitPrefixedIdentifier` (after Enum block, line ~1240). |
+| `tom_d4rt/lib/src/stdlib/core/list.dart` | GEN-C3d `isAssignable: (v) => v is List` on the List `BridgedClass` definition. |
+| `tom_d4rt/test/object_universal_members_test.dart` | New file: `I-OBJ-UNI-1..4`. |
+| `tom_d4rt/test/stdlib/core/string_test.dart` | Added `I-STRING-16a` and `I-STRING-16b`. |
+| `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` | Mirror of GEN-C3c at the equivalent sites in the AST-driven interpreter (`SPropertyAccess` else-branch and `SPrefixedIdentifier` after Enum block). |
+| `tom_d4rt_ast/lib/src/runtime/stdlib/core/list.dart` | Mirror of GEN-C3d. |
+| `tom_d4rt_exec/test/object_universal_members_test.dart` | Mirror of `I-OBJ-UNI-1..4`. |
+| `tom_d4rt_exec/test/stdlib/core/string_test.dart` | Added `I-STRING-16a` and `I-STRING-16b`. |
+| `tom_d4rt_flutter_ast/.../services/message_codec_test.dart` | Workaround reverted: restored `sample.value.codeUnits.length`; removed UTF-16-count fallback comment block. |
+| `tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell. |
+
+No `.b.dart` files modified. No buildkit / bridge-generator changes. No `interpreter_unfixable.md` entries needed — both root causes are now generically fixed at the interpreter/bridge layer.
