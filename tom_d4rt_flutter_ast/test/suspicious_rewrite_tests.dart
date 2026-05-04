@@ -227,6 +227,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('semantics_flag_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/semantics_flag_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -341,6 +348,13 @@ void main() {
     test('text_tree_renderer_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/text_tree_renderer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('stack_frame_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/stack_frame_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -494,6 +508,13 @@ void main() {
     test('vertical_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/vertical_multi_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_cancel_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_cancel_event_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -852,6 +873,34 @@ void main() {
     test('image_info_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/image_info_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('color_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/color_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('edge_insets_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/edge_insets_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('flutter_logo_decoration_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/flutter_logo_decoration_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('transform_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/transform_property_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1742,6 +1791,20 @@ void main() {
     test('windowing_owner_win32_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/windowing_owner_win32_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animatedsize_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedsize_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('heromode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/heromode_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

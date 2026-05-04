@@ -91,15 +91,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 82 | `material/text_button_test.dart` | 1,483 | 59 | (x) | (x) | (x) |
 | 83 | `dart_ui/view_constraints_test.dart` | 1,485 | 34 | (x) | (x) | (x) |
 | 84 | `dart_ui/semantics_action_test.dart` | 1,498 | 43 | (x) | (x) | (x) |
-| 85 | `widgets/heromode_test.dart` | 1,508 | 55 | (x) | (x) | ( ) |
-| 86 | `foundation/stack_frame_test.dart` | 1,533 | 48 | (x) | (x) | ( ) |
-| 87 | `dart_ui/semantics_flag_test.dart` | 1,574 | 45 | (x) | (x) | ( ) |
-| 88 | `widgets/animatedsize_test.dart` | 1,773 | 50 | (x) | (x) | ( ) |
-| 89 | `painting/transform_property_test.dart` | 1,815 | 65 | (x) | ( ) | ( ) |
-| 90 | `painting/edge_insets_test.dart` | 1,886 | 65 | (x) | (x) | ( ) |
-| 91 | `gestures/pointer_cancel_event_test.dart` | 1,891 | 67 | (x) | (x) | ( ) |
-| 92 | `painting/flutter_logo_decoration_test.dart` | 1,906 | 66 | (x) | (x) | ( ) |
-| 93 | `painting/color_property_test.dart` | 1,916 | 67 | (x) | (x) | ( ) |
+| 85 | `widgets/heromode_test.dart` | 1,508 | 55 | (x) | (x) | (x) |
+| 86 | `foundation/stack_frame_test.dart` | 1,533 | 48 | (x) | (x) | (x) |
+| 87 | `dart_ui/semantics_flag_test.dart` | 1,574 | 45 | (x) | (x) | (x) |
+| 88 | `widgets/animatedsize_test.dart` | 1,773 | 50 | (x) | (x) | (x) |
+| 89 | `painting/transform_property_test.dart` | 1,815 | 65 | (x) | ( ) | (x) |
+| 90 | `painting/edge_insets_test.dart` | 1,886 | 65 | (x) | (x) | (x) |
+| 91 | `gestures/pointer_cancel_event_test.dart` | 1,891 | 67 | (x) | (x) | (x) |
+| 92 | `painting/flutter_logo_decoration_test.dart` | 1,906 | 66 | (x) | (x) | (x) |
+| 93 | `painting/color_property_test.dart` | 1,916 | 67 | (x) | (x) | (x) |
 | 94 | `widgets/focus_test.dart` | 1,917 | 77 | (x) | (x) | ( ) |
 | 95 | `widgets/tooltip_test.dart` | 1,920 | 61 | (x) | (x) | ( ) |
 | 96 | `painting/accumulator_test.dart` | 1,921 | 71 | (x) | (x) | ( ) |
