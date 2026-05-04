@@ -119,15 +119,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 110 | `foundation/error_spacer_test.dart` | 2,014 | 61 | (x) | ( ) | (x) |
 | 111 | `painting/inline_span_test.dart` | 2,015 | 68 | (x) | (x) | (x) |
 | 112 | `services/i_o_s_system_context_menu_item_data_look_up_test.dart` | 2,015 | 68 | (x) | (x) | (x) |
-| 113 | `painting/inline_span_semantics_information_test.dart` | 2,017 | 68 | (x) | (x) | ( ) |
-| 114 | `painting/linear_border_edge_test.dart` | 2,020 | 67 | (x) | (x) | ( ) |
-| 115 | `painting/resize_image_test.dart` | 2,021 | 71 | (x) | (x) | ( ) |
-| 116 | `painting/image_size_info_test.dart` | 2,024 | 68 | (x) | (x) | ( ) |
-| 117 | `widgets/render_sliver_overlap_absorber_test.dart` | 2,024 | 53 | (x) | ( ) | ( ) |
-| 118 | `widgets/opacity_full_test.dart` | 2,027 | 76 | (x) | (x) | ( ) |
-| 119 | `material/aboutdialog_test.dart` | 2,033 | 64 | (x) | (x) | ( ) |
-| 120 | `gestures/multi_drag_pointer_state_test.dart` | 2,041 | 61 | (x) | ( ) | ( ) |
-| 121 | `painting/box_painter_test.dart` | 2,052 | 69 | (x) | ( ) | ( ) |
+| 113 | `painting/inline_span_semantics_information_test.dart` | 2,017 | 68 | (x) | (x) | (x) |
+| 114 | `painting/linear_border_edge_test.dart` | 2,020 | 67 | (x) | (x) | (x) |
+| 115 | `painting/resize_image_test.dart` | 2,021 | 71 | (x) | (x) | (x) |
+| 116 | `painting/image_size_info_test.dart` | 2,024 | 68 | (x) | (x) | (x) |
+| 117 | `widgets/render_sliver_overlap_absorber_test.dart` | 2,024 | 53 | (x) | ( ) | (x) |
+| 118 | `widgets/opacity_full_test.dart` | 2,027 | 76 | (x) | (x) | (x) |
+| 119 | `material/aboutdialog_test.dart` | 2,033 | 64 | (x) | (x) | (x) |
+| 120 | `gestures/multi_drag_pointer_state_test.dart` | 2,041 | 61 | (x) | ( ) | (x) |
+| 121 | `painting/box_painter_test.dart` | 2,052 | 69 | (x) | ( ) | (x) |
 | 122 | `painting/star_border_test.dart` | 2,059 | 75 | (x) | (x) | ( ) |
 | 123 | `painting/image_chunk_event_test.dart` | 2,063 | 66 | (x) | ( ) | ( ) |
 | 124 | `rendering/render_error_box_test.dart` | 2,066 | 60 | (x) | ( ) | ( ) |

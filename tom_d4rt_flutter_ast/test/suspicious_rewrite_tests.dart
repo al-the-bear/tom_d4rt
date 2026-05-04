@@ -540,6 +540,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('multi_drag_pointer_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/multi_drag_pointer_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -873,6 +880,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('aboutdialog_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/aboutdialog_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -971,6 +985,41 @@ void main() {
     test('inline_span_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/inline_span_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('inline_span_semantics_information_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/inline_span_semantics_information_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('linear_border_edge_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/linear_border_edge_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('resize_image_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/resize_image_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('image_size_info_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/image_size_info_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('box_painter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/box_painter_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1931,6 +1980,20 @@ void main() {
     test('container_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/container_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_sliver_overlap_absorber_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/render_sliver_overlap_absorber_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('opacity_full_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/opacity_full_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
