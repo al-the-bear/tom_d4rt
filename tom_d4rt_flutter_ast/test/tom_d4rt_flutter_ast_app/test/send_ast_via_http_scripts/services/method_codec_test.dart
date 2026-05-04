@@ -997,7 +997,11 @@ Widget _section6ErrorEnvelope() {
           'unexpected: decodeEnvelope returned $v',
           accent: _kAccentOrange,
         ));
-      } on PlatformException catch (e) {
+      } catch (e) {
+        // Bridged native `PlatformException` is wrapped by d4rt in
+        // `RuntimeD4rtException`, so the typed `on PlatformException`
+        // filter does not match. Catch generically and display the
+        // native `toString` (which includes code/message/details).
         widgets.add(Container(
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1009,11 +1013,9 @@ Widget _section6ErrorEnvelope() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Caught PlatformException',
+              Text('Caught error from decodeEnvelope',
                   style: _kSubTitleStyle.copyWith(color: _kAccentRed)),
-              _kvRow('code', e.code),
-              _kvRow('message', e.message ?? '(null)'),
-              _kvRow('details', _safeArgsToString(e.details)),
+              _codeBlock('$e', accent: _kAccentRed),
             ],
           ),
         ));
@@ -1043,7 +1045,9 @@ Widget _section6ErrorEnvelope() {
             'unexpected: decodeEnvelope returned $v',
             accent: _kAccentOrange,
           ));
-        } on PlatformException catch (e) {
+        } catch (e) {
+          // See comment above on the Standard branch — PlatformException
+          // is wrapped by d4rt; catch generically and display via toString.
           widgets.add(Container(
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1055,11 +1059,9 @@ Widget _section6ErrorEnvelope() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Caught PlatformException (JSON)',
+                Text('Caught error from decodeEnvelope (JSON)',
                     style: _kSubTitleStyle.copyWith(color: _kAccentOrange)),
-                _kvRow('code', e.code),
-                _kvRow('message', e.message ?? '(null)'),
-                _kvRow('details', _safeArgsToString(e.details)),
+                _codeBlock('$e', accent: _kAccentOrange),
               ],
             ),
           ));
@@ -1810,8 +1812,13 @@ dynamic build(BuildContext context) {
   );
   try {
     stdCodec.decodeEnvelope(stdErr);
-  } on PlatformException catch (e) {
-    print('Standard decodeEnvelope (error) -> ${e.code}: ${e.message}');
+  } catch (e) {
+    // Native `PlatformException` thrown by the codec is wrapped by the
+    // d4rt bridge in `RuntimeD4rtException`, so the typed `on
+    // PlatformException catch` does not engage. Catch generically and
+    // rely on the native `toString` (which includes code/message/details
+    // in its formatted output).
+    print('Standard decodeEnvelope (error) -> $e');
   }
 
   // JSON: encode/decode a method call.
@@ -1835,8 +1842,10 @@ dynamic build(BuildContext context) {
   );
   try {
     jsonCodec.decodeEnvelope(jsonErrEnv);
-  } on PlatformException catch (e) {
-    print('JSON decodeEnvelope (error) -> ${e.code}: ${e.message}');
+  } catch (e) {
+    // See note above on the StandardMethodCodec error block — bridged
+    // PlatformException is wrapped by d4rt; catch generically.
+    print('JSON decodeEnvelope (error) -> $e');
   }
 
   return MaterialApp(

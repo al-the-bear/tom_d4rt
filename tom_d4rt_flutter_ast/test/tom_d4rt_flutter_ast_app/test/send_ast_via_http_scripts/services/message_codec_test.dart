@@ -534,7 +534,13 @@ Widget buildStringCodecSection() {
   for (final sample in samples) {
     final encoded = codec.encodeMessage(sample.value);
     final decoded = codec.decodeMessage(encoded);
-    final codeUnits = sample.value.codeUnits.length;
+    // `String.length` already returns the UTF-16 code-unit count in Dart.
+    // Avoid `String.codeUnits.length` because the private runtime type
+    // (`CodeUnits`) returned by the getter is not registered as a List in
+    // the d4rt interpreter (List dispatch is per-runtimeType), so the
+    // `.length` access fails with "Undefined property or method 'length' on
+    // CodeUnits".
+    final codeUnits = sample.value.length;
     final byteCount = byteLength(encoded);
     rows.add(
       infoCard(

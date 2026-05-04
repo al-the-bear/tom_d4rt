@@ -5,6 +5,8 @@
 /// NOTE: This is work in progress - API may change.
 library;
 
+import 'dart:typed_data';
+
 import '../bridge/bridged_types.dart';
 import '../bridge/bridged_enum.dart';
 import '../bridge/registration.dart'
@@ -1177,6 +1179,45 @@ class D4 {
   // Bridged Argument Extraction
   // ==========================================================================
 
+  /// Recursively unwrap [BridgedInstance] and [BridgedEnumValue] values that
+  /// may be nested inside `Map`, `List`, or `Set` containers.
+  ///
+  /// Used by [extractBridgedArg] when the requested type `T` is unbounded
+  /// (`dynamic`/`Object`/`Object?`). Native code receiving such values
+  /// (e.g. `StandardMessageCodec.encodeMessage`, JSON codecs) cannot
+  /// interpret the `BridgedInstance` wrapper and rejects it with
+  /// `Invalid argument: Instance of 'BridgedInstance<...>'`.
+  ///
+  /// Typed parameters use [coerceMap]/[coerceList]/[coerceSet] instead, which
+  /// recurse with element-type information.
+  static Object? _deepUnwrap(Object? value) {
+    if (value == null) return null;
+    if (value is BridgedInstance) return _deepUnwrap(value.nativeObject);
+    if (value is BridgedEnumValue) return value.nativeValue;
+    // Preserve typed_data buffers as-is. `Uint8List`, `Int32List`,
+    // `Float64List`, `ByteData`, … extend `List<int>`/`List<double>` so a
+    // naive `value is List` branch would convert them to a plain
+    // `List<Object?>` and break codec round-trips that rely on the runtime
+    // type (StandardMessageCodec encodes typed buffers with dedicated tags).
+    if (value is TypedData) return value;
+    if (value is Map) {
+      // Preserve as Map<Object?, Object?> — the codec contract for
+      // StandardMessageCodec and JSON encoders is keyed on Object?.
+      final out = <Object?, Object?>{};
+      value.forEach((k, v) {
+        out[_deepUnwrap(k)] = _deepUnwrap(v);
+      });
+      return out;
+    }
+    if (value is List) {
+      return value.map<Object?>(_deepUnwrap).toList();
+    }
+    if (value is Set) {
+      return value.map<Object?>(_deepUnwrap).toSet();
+    }
+    return value;
+  }
+
   /// Extract a typed value from a BridgedInstance or native object.
   ///
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
@@ -1200,6 +1241,21 @@ class D4 {
         : arg;
 
     if (unwrapped is T) {
+      // GEN-C3: Deep-unwrap container contents for unbounded T.
+      // When the bridge adapter requests `dynamic`, `Object`, or `Object?`
+      // (typically because the underlying parameter is declared as such —
+      // e.g. `MessageCodec.encodeMessage(dynamic message)`), nested
+      // BridgedInstance/BridgedEnumValue values inside Map/List/Set
+      // containers must be unwrapped before reaching native code. Native
+      // receivers (StandardMessageCodec, JSON codecs, …) cannot interpret
+      // BridgedInstance wrappers and reject them with `Invalid argument`.
+      // Typed parameters (e.g. `Map<String, Widget>`) take a different
+      // path via `coerceMap` and are unaffected by this branch.
+      final tName = T.toString();
+      if (tName == 'dynamic' || tName == 'Object' || tName == 'Object?') {
+        final deep = _deepUnwrap(unwrapped);
+        if (deep is T) return deep;
+      }
       return unwrapped;
     }
 

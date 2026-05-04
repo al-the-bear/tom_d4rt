@@ -3545,6 +3545,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
 
+          // GEN-C3b: Universal `Object.toString()` fallback.
+          // Every Dart Object has `toString()`. If a script catches a native
+          // exception (e.g. `RuntimeD4rtException`, `ArgumentError`,
+          // `JsonUnsupportedObjectError`) and calls `.toString()` on it,
+          // dispatch to the native method directly when no bridge or
+          // extension provides one. The method is no-arg and never fails.
+          if (methodName == 'toString' &&
+              positionalArgs.isEmpty &&
+              namedArgs.isEmpty) {
+            return targetValue.toString();
+          }
+
           // No extension method found either, rethrow the original stdlib error
           Logger.debug(
               "[MethodInvocation] Extension method '$methodName' not found. Rethrowing original error.");
