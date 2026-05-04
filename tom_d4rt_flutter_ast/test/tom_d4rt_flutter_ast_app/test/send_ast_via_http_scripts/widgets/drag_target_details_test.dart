@@ -1471,58 +1471,64 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
           ),
           const SizedBox(height: 12),
           Row(
-            children: [
-              for (var i = 0; i < rankSlots.length; i++)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: DragTarget<int>(
-                      key: rankKeys[i],
-                      onWillAcceptWithDetails: (details) {
-                        return _isNearestSlot(i, details.offset);
-                      },
-                      onAcceptWithDetails: (details) {
-                        setState(() {
-                          rankSlots[i] = details.data;
-                          rankNote =
-                              'Slot $i accepted ${details.data} at ${fmtOffset(details.offset)}';
-                          _record(
-                            zone: 'rank-slot-$i',
-                            outcome: 'accept',
-                            dataDesc: '${details.data}',
-                            offset: details.offset,
-                            dataType: int,
-                          );
-                        });
-                      },
-                      builder: (ctx, candidate, rejected) {
-                        final hovering = candidate.isNotEmpty;
-                        return Container(
-                          height: 70,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: hovering
-                                ? Colors.deepPurple.withOpacity(0.20)
-                                : Colors.deepPurple.withOpacity(0.05),
-                            border: Border.all(
-                              color: Colors.deepPurple,
-                              width: hovering ? 3 : 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            rankSlots[i]?.toString() ?? '—',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+            // Use List.generate instead of a collection-for so the index
+            // `i` is captured per-iteration via a fresh function parameter.
+            // Necessary because the d4rt interpreter currently shares the
+            // for-loop variable across closures, so by the time the
+            // DragTarget builders run (post-loop) they would all see i == 5
+            // and crash on `rankSlots[i]` / `rankKeys[i]`. See
+            // interpreter_unfixable.md → I1 (for-loop closure capture).
+            children: List<Widget>.generate(rankSlots.length, (int i) {
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: DragTarget<int>(
+                    key: rankKeys[i],
+                    onWillAcceptWithDetails: (details) {
+                      return _isNearestSlot(i, details.offset);
+                    },
+                    onAcceptWithDetails: (details) {
+                      setState(() {
+                        rankSlots[i] = details.data;
+                        rankNote =
+                            'Slot $i accepted ${details.data} at ${fmtOffset(details.offset)}';
+                        _record(
+                          zone: 'rank-slot-$i',
+                          outcome: 'accept',
+                          dataDesc: '${details.data}',
+                          offset: details.offset,
+                          dataType: int,
                         );
-                      },
-                    ),
+                      });
+                    },
+                    builder: (ctx, candidate, rejected) {
+                      final hovering = candidate.isNotEmpty;
+                      return Container(
+                        height: 70,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: hovering
+                              ? Colors.deepPurple.withOpacity(0.20)
+                              : Colors.deepPurple.withOpacity(0.05),
+                          border: Border.all(
+                            color: Colors.deepPurple,
+                            width: hovering ? 3 : 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          rankSlots[i]?.toString() ?? '—',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-            ],
+              );
+            }),
           ),
           const SizedBox(height: 8),
           Text(rankNote, style: const TextStyle(fontStyle: FontStyle.italic)),

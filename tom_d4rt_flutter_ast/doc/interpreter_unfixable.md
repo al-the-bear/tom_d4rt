@@ -39,6 +39,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [G1 — `D4.getNamedArgWithDefault<T?>` collapses explicit `null` to default](#g1--d4getnamedargwithdefaultt-collapses-explicit-null-to-default-for-nullable-typed-named-args) | Generator/runtime helper limitation (the helper conflates "key absent" with "key present but `null`" by guarding on `!named.containsKey(p) || named[p] == null`, so an explicit `null` named-arg falls back to the constructor default). Script-side workaround: prefer a finite cap over an explicit `null` when the bridge default would violate a downstream invariant (`CupertinoTextField`'s `(maxLines == null) || (maxLines >= minLines)` assertion). | `cupertino/textfield_test.dart`, `cupertino/cupertino_text_selection_handle_controls_test.dart` |
 | [R1 — Redirecting factory constructor syntax (`factory X() = Y`) not implemented](#r1--redirecting-factory-constructor-syntax-factory-x--y-not-implemented) | Interpreter limitation (parser/interpreter does not lower the redirecting-factory `=` form into a forwarding call to the redirected concrete constructor; the abstract class is treated as directly instantiable and throws `Cannot instantiate abstract class`). Script-side workaround: instantiate the redirected concrete subclass directly while keeping the variable type as the abstract base. | `widgets/regular_window_test.dart` (4 sites: `RegularWindowController(...)` → `_HostRegularWindowController(...)`) |
 | [L1 — `AnimatedBuilder.animation` rejects script-defined subclass of bridged `Listenable`/`ChangeNotifier`](#l1--animatedbuilderanimation-rejects-script-defined-subclass-of-bridged-listenablechangenotifier) | Bridge-generator architectural limitation (proxy/relaxer pipeline does not synthesise native `ChangeNotifier`-backed proxies for script-defined subclasses of bridged `Listenable`; `D4.getRequiredArg<Listenable>` rejects the `InterpretedInstance` even though its synthetic class hierarchy reaches `ChangeNotifier`). Script-side workaround: pass `const AlwaysStoppedAnimation<double>(0.0)` as the `animation:` argument and access the controller via closure capture inside the `builder`. | `widgets/windowing_owner_mac_o_s_test.dart` (2 sites: `_MacChrome.build`, `_DockTile.build`) |
+| [I1 — C-style `for (var i = 0; …; i++)` shares loop variable across closures](#i1--c-style-for-loop-shares-loop-variable-across-closures-interpreter-limitation) | Interpreter limitation (`_executeClassicFor` creates one `loopEnvironment` for the whole loop and reuses it every iteration; standard Dart instead allocates a fresh per-iteration variable so closures created inside the body each capture their own `i`). Script-side workaround: replace collection-`for` / body-less for-loops that build closures over `i` with `List<T>.generate(n, (i) => …)`, which gives each iteration a fresh function-parameter `i`. | `widgets/drag_target_details_test.dart` (Section 11 rank-slot row, 5 FE) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2134,8 +2135,114 @@ Any of:
 
 ---
 
+## I1 — C-style for loop shares loop variable across closures (interpreter limitation)
+
+### Symptom
+
+A C-style `for (var i = 0; i < n; i++)` whose body builds widgets
+that close over `i` (e.g. inside DragTarget callbacks, ListTile
+`onTap`, etc.) crashes with `Index out of range: <n>` when those
+closures fire after layout. The most direct repro is
+
+```dart
+Row(
+  children: [
+    for (var i = 0; i < rankSlots.length; i++)
+      DragTarget<int>(
+        builder: (ctx, _, __) => Text(rankSlots[i]?.toString() ?? '—'),
+      ),
+  ],
+)
+```
+
+— five DragTarget builders are constructed during the for-loop, but
+when Flutter calls the `builder` lambdas during the next paint the
+captured `i` is `5` for every one of them, and `rankSlots[i]`
+throws.
+
+### Root cause
+
+`InterpreterVisitor._executeClassicFor`
+(`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` ~line
+5396) creates **one** `loopEnvironment` *before* entering the
+while-loop and reuses it for every iteration. The standard Dart
+spec instead requires the loop variable to be allocated *per
+iteration* so that each closure captures a fresh binding (the
+practical effect that any post-ES6/Dart-2 programmer relies on).
+Because d4rt's loop env is a single shared env, every closure
+captures the same `i` cell, and after the loop ends that cell holds
+`n`.
+
+The mirror `tom_d4rt/.../interpreter_visitor.dart` has the same
+shape, so the analyzer-based interpreter has the identical
+behaviour.
+
+A correct fix would, on each iteration:
+
+1. Snapshot the loop variables' current values.
+2. Open a fresh `Environment` rooted in the loop's outer scope,
+   re-define the loop-variable names with the snapshot values, and
+   execute the body inside that env (so closures created in the
+   body capture the fresh env).
+3. After the body, copy the variables back into the persistent
+   loop env so updaters and the next condition check observe any
+   in-body mutations.
+
+The change is small but touches a hot path; mirroring it across
+both interpreters and re-running the full essential / important /
+secondary suites is the price of admission. The work is queued —
+deferred from this cluster because the script-side rewrite is one
+line per call site and unblocks the corpus immediately.
+
+### Script-side workaround
+
+Replace the collection-`for` / body-less for-loop with
+`List<T>.generate`, which calls the builder with `i` as a function
+parameter — each invocation has its own parameter binding, which
+the interpreter handles correctly.
+
+```dart
+Row(
+  children: List<Widget>.generate(rankSlots.length, (int i) {
+    return DragTarget<int>(
+      builder: (ctx, _, __) => Text(rankSlots[i]?.toString() ?? '—'),
+    );
+  }),
+)
+```
+
+`List.generate` sidesteps `_executeClassicFor` entirely (the
+builder runs once per index inside the bridged `List.generate`
+implementation, and its parameter env is fresh per call).
+
+### Affected scripts
+
+| Script | Site | FE before | FE after |
+|---|---|---:|---:|
+| `widgets/drag_target_details_test.dart` | Section 11 (`_buildRankSlots`) | 5 | 0 |
+
+### Future fix path
+
+Land per-iteration capture in `_executeClassicFor` in both
+`tom_d4rt` and `tom_d4rt_ast`, regenerate bridges, run the four
+suites. Once landed, the script-side `List.generate` rewrite can
+revert to the original `for` form (left in place for now — it is a
+valid Dart shape and not a regression).
+
+---
+
 ## Change Log
 
+- 2026-05-04: **Add I1 — C-style `for (var i = 0; …; i++)` shares
+  loop variable across closures.** Documents the interpreter
+  limitation diagnosed via stack-trace from
+  `widgets/drag_target_details_test.dart` Section 11 (5 FE). The
+  C-style for-loop's `loopEnvironment` is shared across all
+  iterations, so DragTarget builder closures all see the post-loop
+  `i = 5`. Cluster-scope fix is the script-side rewrite to
+  `List<T>.generate`; the architectural fix (per-iteration
+  variable capture in `_executeClassicFor` in both interpreters)
+  is queued.
 - 2026-05-04: **Add L1 — `AnimatedBuilder.animation` rejects
   script-defined subclass of bridged `Listenable`/`ChangeNotifier`.**
   Documents `testlog_20260503-2009-issue-analysis` cluster C2 for
