@@ -137,7 +137,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 
 | Cluster | Hard-failing scripts | Framework-error scripts | Diagnosis | Owner |
 |---------|----------------------|-------------------------|-----------|-------|
-| **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-03** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
+| **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-04 (helper-level)** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Original script-side workaround (2026-05-03) was an interim measure. Underlying bug is in `D4.getNamedArgWithDefault<T>`: `!contains \|\| raw == null` collapses explicit `null` to default, erasing Flutter's `maxLines: null` "grow without bound" sentinel. Fixed at the helper level in both `tom_d4rt` and `tom_d4rt_ast` by splitting the guard into two branches: key absent → default; key present with `null` → return `null` if `null is T`, otherwise default. Script-side workarounds reverted; `maxLines: null` form passes again. Verified individual + essential (108/108) + important (164/164) + secondary (653/+1 skip) — see Cluster Resolution Log entry. | interpreter (helper) |
 | **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** ✅ **fixed 2026-05-04** | ~~gii/widgets/windowing_owner_mac_o_s~~ ✅ | ~~hardly_5/widgets/windowing_owner_mac_o_s (11)~~ ✅ closed; ~~hardly_5/widgets/snapshot_mode (Scaffold appBar 1)~~ ✅ closed | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. **Windowing-owner portion closed 2026-05-04 script-side**: replaced `animation: controller` (script-defined `RegularWindowControllerMacOS extends ChangeNotifier`) with `animation: const AlwaysStoppedAnimation<double>(0.0)` at both `_MacChrome.build` (line 810) and `_DockTile.build` (line 2622); controller still accessed via closure capture inside the builder. Two follow-up RenderFlex overflows fixed in the same edit (DockTile shrink + ContentArea badge `Wrap` → `Expanded(SingleChildScrollView(...))`). Documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §L1. **Snapshot-mode portion closed 2026-05-04 script-side**: applied §P1 `PreferredSizeWidget` workaround — wrapped `appBar: const _SmodeAppBar()` in `PreferredSize(preferredSize: Size.fromHeight(88), child: _SmodeAppBar())` so the outer `Scaffold.appBar?` slot sees a concrete `PreferredSizeWidget`. Individual retest: `frameworkErrors=0`. | bridge generator + interpreter |
 | **C3 — Codec rejects BridgedInstance** ✅ **fixed 2026-05-04** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | Three independent gaps: (1) `D4.extractBridgedArg<T>` only top-level-unwrapped — for adapters typed `dynamic`/`Object`/`Object?` (e.g. `MessageCodec.encodeMessage`) nested `BridgedInstance`/`BridgedEnumValue` inside `Map`/`List`/`Set` reached native code as wrappers and the codec rejected them. Added `_deepUnwrap` and routed unbounded `T` through it; preserved `TypedData` (Uint8List/Float64List/ByteData/…) for codec wire tags. (2) Interpreter had no `Object.toString()` fallback — masked latent failure surfaced by the deep-unwrap fix. Added a generic `toString` fallback in `InterpreterVisitor.visitMethodInvocation` for any native target with no positional/named args. (3) Bridge-wrapped `PlatformException` → `RuntimeD4rtException` defeats typed `on PlatformException catch` filter — script-side, rewrote three catch sites in `method_codec_test.dart` to `catch (e)` and `'$e'`. Also fixed `String.codeUnits.length` (private `CodeUnits` runtime type does not dispatch `List.length`) → `String.length`. | bridge handler + interpreter + script |
 | **C4 — Abstract-class instantiation** ✅ **fixed 2026-05-04** | ~~hardly_5/widgets/regular_window~~ ✅ | ~~hardly_5/widgets/regular_window_controller (LateInitializationError 1)~~ ✅ | Scripts construct an abstract bridged base directly. `regular_window` was authored against Flutter's redirecting-factory form (`factory RegularWindowController(...) = _HostRegularWindowController;`) — d4rt does not implement that lowering and threw `Cannot instantiate abstract class`. Closed script-side: 4 call sites instantiate the concrete `_HostRegularWindowController(...)` directly while the variable types remain the abstract base; documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §R1. **`regular_window_controller` LateInitializationError closed 2026-05-04 script-side**: replaced `late final RegularWindowController _primary` (assigned only inside `initState`) and the two `late` `_confirmingDelegate`/`_confirmingWindow` fields with explicit field initializers using `_makeRegularWindowController(...)` and a no-op `_ConfirmingDelegate` at field-declaration time. The d4rt interpreter reads State fields before `initState` completes in some pockets, which fired the late-init error; eager initialisation guarantees the field is live on first read. `initState` still rewires `_confirmingDelegate`/`_confirmingWindow` with the live callbacks. Individual retest: `frameworkErrors=0`. | script |
@@ -281,6 +281,32 @@ rule (a) — script-only edits — only the targeted retest is needed,
 which passed. The underlying generator helper bug (G1) stays
 documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
 as deferred work behind a coordinated cross-suite regression pass.
+
+**Final resolution at the helper level (2026-05-04).**
+The deferred bridge bug §G1 was fixed today. The runtime helper
+`D4.getNamedArgWithDefault<T>` was changed in both
+`tom_d4rt/lib/src/generator/d4.dart` and
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart` to split the
+old `!contains || raw == null` guard into two branches: key
+absent → fall back to default; key present with `null` → return
+`null` when `T` accepts null (`null is T`), otherwise fall back
+to default. With the helper fixed, the two script-side
+workarounds were reverted to their original `maxLines: null`
+form via `git checkout`, then re-tested:
+
+| Script | Result |
+|--------|--------|
+| `cupertino/textfield_test.dart` (individual) | ✅ pass |
+| `cupertino/cupertino_text_selection_handle_controls_test.dart` (individual) | ✅ pass |
+| `essential_classes_test.dart` (full) | ✅ 108/108 |
+| `important_classes_test.dart` (full) | ✅ 164/164 |
+| `secondary_classes_test.dart` (full) | ✅ 653 pass / 1 skip |
+
+Logs in `doc/testlog_20260504-g1fix-verify/`. No regressions in
+any of the three serial suites — the new branching honours
+nullable explicit-null without disturbing non-nullable adapters.
+Cluster owner moves from "script" → "interpreter (closed)".
+§G1 in `interpreter_unfixable.md` updated to RESOLVED.
 
 ### C2 — InterpretedInstance not coerced for typed Flutter param ⚠️ partial 2026-05-04
 

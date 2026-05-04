@@ -1,0 +1,8 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart
+00:00 +0: (setUpAll)
+00:22 +0: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=86 httpMs=3081 totalMs=3181 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:25 +1: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=257 httpMs=1711 totalMs=1973 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:27 +2: (tearDownAll)
+00:28 +2: All tests passed!

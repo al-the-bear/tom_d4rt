@@ -1644,16 +1644,39 @@ class D4 {
 
   /// Get an optional named argument with default value.
   ///
-  /// Returns defaultValue if missing, throws if present but wrong type.
+  /// Returns `defaultValue` only when the key is **absent** from `named`.
+  /// When the key is present with an explicit `null`:
+  ///   • if `T` is nullable, returns `null` (the script's intent — Flutter
+  ///     uses `null` as a sentinel in several APIs, e.g. `TextField.maxLines:
+  ///     null` meaning "grow without bound"). The constructor default must
+  ///     not be substituted in that case.
+  ///   • if `T` is non-nullable, falls back to `defaultValue` (an explicit
+  ///     null on a non-nullable param is treated as an omission).
+  /// Throws if present but the wrong runtime type.
+  ///
+  /// Bug §G1 (2026-05-04): the prior implementation treated "key absent"
+  /// and "explicit null" identically — `!containsKey || value == null →
+  /// defaultValue` — which silently rewrote `maxLines: null` to `1` and
+  /// triggered Flutter's `(maxLines == null) || (minLines == null) ||
+  /// (maxLines >= minLines)` assertion when paired with `minLines >= 2`.
   static T getNamedArgWithDefault<T>(
     Map<String, Object?> named,
     String paramName,
     T defaultValue,
   ) {
-    if (!named.containsKey(paramName) || named[paramName] == null) {
+    if (!named.containsKey(paramName)) {
       return defaultValue;
     }
-    return extractBridgedArg<T>(named[paramName], paramName);
+    final value = named[paramName];
+    if (value == null) {
+      // Distinguish nullable T from non-nullable T at runtime:
+      // `null is T` is true iff T accepts null.
+      if (null is T) {
+        return null as T;
+      }
+      return defaultValue;
+    }
+    return extractBridgedArg<T>(value, paramName);
   }
 
   // ==========================================================================

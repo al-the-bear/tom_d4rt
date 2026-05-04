@@ -1577,8 +1577,12 @@ cluster **C1 — Cupertino minLines/maxLines assertion** (essential
 `cupertino/textfield_test.dart`, hardly_1
 `cupertino/cupertino_text_selection_handle_controls_test.dart`).
 
-**Status:** generator/runtime architectural limitation; closed
-script-side per cluster owner = script.
+**Status:** ✅ **RESOLVED at the helper level (2026-05-04).** The
+two-branch fix proposed below was applied to both
+`tom_d4rt/lib/src/generator/d4.dart` and
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart`. The script-side
+workaround has been reverted — the two Cupertino scripts now use
+the original `maxLines: null` form again and pass.
 
 ### Symptom
 
@@ -1653,10 +1657,11 @@ explicit-null sentinel".
 "grow without bound" as the explicit-null sentinel and pairs it
 with an assertion that depends on it.
 
-### Why we are not fixing this in cluster scope
+### Resolution applied (2026-05-04)
 
-A correct fix would replace the helper's single guard with two
-branches:
+The helper's single guard was replaced with two branches in both
+`tom_d4rt/lib/src/generator/d4.dart` and
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart`:
 
 ```dart
 static T getNamedArgWithDefault<T>(
@@ -1676,83 +1681,60 @@ static T getNamedArgWithDefault<T>(
 }
 ```
 
-The change is small in principle, but:
+Rationale:
 
-- It must mirror in **both** `tom_d4rt/lib/src/generator/d4.dart`
-  and `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` (per the
-  quest's "keep tom_d4rt ↔ tom_d4rt_ast in sync" rule).
-- `getNamedArgWithDefault` is called from every generated
-  `*.b.dart` constructor adapter across the entire
-  `flutter-material` corpus (and any other bridge package that
-  uses the generator). Some bridge defaults intentionally rely on
-  the current "null → default" coalescing — switching to the
-  null-aware semantics will move all such call sites onto the
-  explicit-null path. Full essential + important + secondary +
-  gii regression is required and may surface secondary-effect
-  failures elsewhere.
-- The cluster ticket in
-  `testlog_20260503-2009-issue-analysis/error_analysis.md`
-  classifies C1 as `owner: script` — i.e. the rewrite is the
-  preferred closing path for this cluster.
+- `null is T` is true iff `T` accepts null. For nullable type
+  parameters (`int?`, `Widget?`, `SpellCheckService?`, …) the
+  helper now preserves the script's explicit-null intent; for
+  non-nullable type parameters it still falls back to the
+  bridge-supplied default (an explicit null on a non-nullable
+  param is treated as an omission — `extractBridgedArg<T>` would
+  otherwise throw on null).
+- The helper is mirrored in both `tom_d4rt` and `tom_d4rt_ast`
+  per the quest's "keep tom_d4rt ↔ tom_d4rt_ast in sync" rule.
 
-### Script-side workaround
+### Script-side workaround (no longer required)
 
-Replace any `maxLines: null` paired with a non-trivial `minLines`
-by a finite cap that preserves the demo's "grows vertically"
-intent without violating the assertion. The cap should be ≥
-`minLines` so the assertion passes regardless of how the bridge
-treats the named arg:
+Historically the closing path for this cluster was to replace
+`maxLines: null` with a finite cap. **As of 2026-05-04 this is no
+longer necessary** — the helper now honours explicit-null. The two
+Cupertino scripts have been reverted to use `maxLines: null`
+again. The captured workaround text below is kept for history.
 
 ```dart
-// before — relies on stock-Flutter null sentinel
+// reverted form — explicit-null is now honoured by the helper
 CupertinoTextField(
   controller: _ctrl,
   maxLines: null,
   minLines: 4,
   // …
 )
-
-// after — finite cap, demo still grows up to the cap
-CupertinoTextField(
-  controller: _ctrl,
-  maxLines: 8,           // visible cap; would be null in stock Flutter
-  minLines: 4,
-  // …
-)
 ```
-
-For the demo description / caption strings, document the bridge
-limitation inline (so future readers understand why the cap is
-finite) — see `cupertino/textfield_test.dart` Section 6 for the
-canonical phrasing.
 
 ### Verification
 
-Per regression rule (a) in the cluster fix protocol — script-only
-changes need only individual retests, no full essential /
-important / secondary regression suite:
+The runtime helper is called from every generated `*.b.dart`
+constructor adapter across the entire `flutter-material` corpus.
+Per regression rule (b) in the cluster fix protocol —
+interpreter/runtime change requires the individual scripts plus
+the essential, important, and secondary suites:
 
 | Script | Driver | Result |
 |--------|--------|--------|
-| `cupertino/textfield_test.dart` | `tom_d4rt_flutter_test` | **PASS** (was the C1 essential failure) |
-| `cupertino/cupertino_text_selection_handle_controls_test.dart` | `tom_d4rt_flutter_test` | **PASS** (was the C1 hardly_1 failure; 4 sites rewritten) |
-
-Captured in
-`tom_d4rt_flutter_test/doc/testlog_20260503-2009-issue-analysis/`
-(retest logs in `ztmp/cupertino_*_retest.log`).
+| `cupertino/textfield_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`testlog_20260504-g1fix-verify/textfield_individual.*`) |
+| `cupertino/cupertino_text_selection_handle_controls_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`testlog_20260504-g1fix-verify/handle_controls_individual.*`) |
+| `essential_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 108/108 pass |
+| `important_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 164/164 pass |
+| `secondary_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 653 pass / 1 skip |
 
 ### Re-opening trigger
 
-Any of:
-
-- A script that genuinely depends on the explicit-null sentinel
-  reaching the bridge (e.g. it asserts in an `expect(...)` that
-  `maxLines == null`). The current corpus does not have one.
-- A planned generator pass that splits "key absent" from
-  "explicit null" in `D4.getNamedArgWithDefault` and runs the
-  full essential + important + secondary + gii regression to
-  surface secondary-effect call sites. Mirror in `tom_d4rt` ↔
-  `tom_d4rt_ast`.
+The bug is closed. A re-open would only be triggered by a future
+finding that the new helper semantics break a different bridge
+adapter that genuinely relies on the old "null → default"
+coalescing. Such a case must surface in the regression suites
+captured at fix time; if it appears later, raise a new bug rather
+than re-opening §G1.
 
 ---
 

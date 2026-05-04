@@ -1,0 +1,19 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":1289548,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":1}
+{"count":1,"time":5,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1871}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":2,"line":null,"column":null,"url":null},"type":"group","time":1874}
+{"test":{"id":3,"name":"(setUpAll)","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":22,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"testStart","time":1875}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":24127}
+{"group":{"id":4,"suiteID":0,"parentID":2,"name":"cupertino/","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":59,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"group","time":24128}
+{"test":{"id":5,"name":"cupertino/ textfield_test.dart","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":124,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"testStart","time":24128}
+{"testID":5,"messageType":"print","message":"[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=86 httpMs=3081 totalMs=3181 status=success httpStatus=200 outputLines=11 frameworkErrors=0","type":"print","time":27317}
+{"testID":5,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":27322}
+{"group":{"id":6,"suiteID":0,"parentID":2,"name":"widgets/","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":492,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"group","time":27323}
+{"test":{"id":7,"name":"widgets/ textfield_test.dart","suiteID":0,"groupIDs":[2,6],"metadata":{"skip":false,"skipReason":null},"line":656,"column":5,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"testStart","time":27323}
+{"testID":7,"messageType":"print","message":"[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=257 httpMs=1711 totalMs=1973 status=success httpStatus=200 outputLines=49 frameworkErrors=0","type":"print","time":29299}
+{"testID":7,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":29300}
+{"test":{"id":8,"name":"(tearDownAll)","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":26,"column":3,"url":"file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart"},"type":"testStart","time":29301}
+{"testID":8,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":30129}
+{"success":true,"type":"done","time":30165}
