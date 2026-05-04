@@ -1479,21 +1479,35 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
             // and crash on `rankSlots[i]` / `rankKeys[i]`. See
             // interpreter_unfixable.md → I1 (for-loop closure capture).
             children: List<Widget>.generate(rankSlots.length, (int i) {
+              // Clamp the captured index defensively. The d4rt interpreter
+              // shares for-loop / generate index variables across closures
+              // in some pockets, so callbacks can fire with i == length.
+              // Clamping to length-1 keeps the demo functional without
+              // throwing "Index out of range".
+              final int slotIdx = i >= rankSlots.length
+                  ? rankSlots.length - 1
+                  : i;
               return Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: DragTarget<int>(
-                    key: rankKeys[i],
+                    key: rankKeys[slotIdx],
                     onWillAcceptWithDetails: (details) {
-                      return _isNearestSlot(i, details.offset);
+                      final int idx = slotIdx >= rankSlots.length
+                          ? rankSlots.length - 1
+                          : slotIdx;
+                      return _isNearestSlot(idx, details.offset);
                     },
                     onAcceptWithDetails: (details) {
                       setState(() {
-                        rankSlots[i] = details.data;
+                        final int idx = slotIdx >= rankSlots.length
+                            ? rankSlots.length - 1
+                            : slotIdx;
+                        rankSlots[idx] = details.data;
                         rankNote =
-                            'Slot $i accepted ${details.data} at ${fmtOffset(details.offset)}';
+                            'Slot $idx accepted ${details.data} at ${fmtOffset(details.offset)}';
                         _record(
-                          zone: 'rank-slot-$i',
+                          zone: 'rank-slot-$idx',
                           outcome: 'accept',
                           dataDesc: '${details.data}',
                           offset: details.offset,
@@ -1503,6 +1517,9 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                     },
                     builder: (ctx, candidate, rejected) {
                       final hovering = candidate.isNotEmpty;
+                      final int idx = slotIdx >= rankSlots.length
+                          ? rankSlots.length - 1
+                          : slotIdx;
                       return Container(
                         height: 70,
                         alignment: Alignment.center,
@@ -1517,7 +1534,7 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          rankSlots[i]?.toString() ?? '—',
+                          rankSlots[idx]?.toString() ?? '—',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,

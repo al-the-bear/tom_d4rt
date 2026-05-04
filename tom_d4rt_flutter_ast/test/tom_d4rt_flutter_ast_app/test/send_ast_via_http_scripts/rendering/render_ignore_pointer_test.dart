@@ -389,7 +389,12 @@ class _ButtonCardsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    // CrossAxisAlignment.stretch on a Row inside an unbounded vertical
+    // parent forces an infinite child height. Wrap with IntrinsicHeight
+    // so the Row gets a finite cross-axis size derived from the tallest
+    // child, preserving the equal-height card visual.
+    return IntrinsicHeight(
+      child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: const <Widget>[
         Expanded(
@@ -425,6 +430,7 @@ class _ButtonCardsRow extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }

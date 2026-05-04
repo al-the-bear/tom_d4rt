@@ -1375,7 +1375,12 @@ Widget _buildComparisonSection() {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          child: Row(
+          // CrossAxisAlignment.stretch on a Row inside an unbounded
+          // vertical parent (the master SingleChildScrollView/Column)
+          // forces an infinite child height. Wrap in IntrinsicHeight so
+          // the Row gets a finite cross-axis size from the tallest card.
+          child: IntrinsicHeight(
+            child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(child: _comparisonCard(
@@ -1425,6 +1430,7 @@ Widget _buildComparisonSection() {
                 accent: kAccentTeal,
               )),
             ],
+          ),
           ),
         ),
         Padding(

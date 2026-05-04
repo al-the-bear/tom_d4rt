@@ -1710,7 +1710,9 @@ class _RecipeModalSheet extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             SizedBox(
-              height: 160,
+              // Bumped from 160 → 200 to give the bottom-aligned modal
+              // sheet (now 140px tall) room above it without overflowing.
+              height: 200,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Stack(
@@ -1727,7 +1729,11 @@ class _RecipeModalSheet extends StatelessWidget {
                             filter: ui.ImageFilter.blur(
                                 sigmaX: 18, sigmaY: 18),
                             child: Container(
-                              height: 110,
+                              // Bumped from 110 → 140 to absorb the
+                              // ~25px bottom overflow caused by the inner
+                              // Column (title + body + Spacer + Row of
+                              // pills) on slightly larger test surfaces.
+                              height: 140,
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.20),

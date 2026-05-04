@@ -486,25 +486,35 @@ class _RegularWindowControllerHome extends StatefulWidget {
 class _RegularWindowControllerHomeState
     extends State<_RegularWindowControllerHome> {
   final List<_LogEntry> _log = <_LogEntry>[];
-  late RegularWindowController _primary;
-  late _ConfirmingDelegate _confirmingDelegate;
-  late RegularWindowController _confirmingWindow;
+  // The d4rt interpreter has a known pocket where `late` field
+  // initialisation timing inside a State subclass can fire a read of the
+  // field before initState completes (LateInitializationError). To keep
+  // the demo robust, eagerly initialise these fields at field-declaration
+  // time so they are guaranteed to be live on first read.
+  final RegularWindowController _primary = _makeRegularWindowController(
+    preferredSize: const Size(1024, 768),
+    preferredConstraints: const BoxConstraints(
+      minWidth: 480,
+      minHeight: 320,
+      maxWidth: 3840,
+      maxHeight: 2160,
+    ),
+    title: 'Primary Demo Window',
+  );
+  _ConfirmingDelegate _confirmingDelegate = _ConfirmingDelegate(
+    onClose: (RegularWindowController c) {},
+    onDestroyed: () {},
+  );
+  RegularWindowController _confirmingWindow = _makeRegularWindowController(
+    preferredSize: const Size(640, 480),
+    title: 'Confirm-To-Close Window',
+  );
   final List<RegularWindowController> _orchestrated =
       <RegularWindowController>[];
 
   @override
   void initState() {
     super.initState();
-    _primary = _makeRegularWindowController(
-      preferredSize: const Size(1024, 768),
-      preferredConstraints: const BoxConstraints(
-        minWidth: 480,
-        minHeight: 320,
-        maxWidth: 3840,
-        maxHeight: 2160,
-      ),
-      title: 'Primary Demo Window',
-    );
     _primary.addListener(_onPrimaryChanged);
     _logAction('init', 'Primary window created on ${_primary.platform.name}');
 

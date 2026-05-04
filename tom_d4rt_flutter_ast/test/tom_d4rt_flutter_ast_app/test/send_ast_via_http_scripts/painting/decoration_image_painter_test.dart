@@ -1711,10 +1711,17 @@ Widget _recipeCard(_Recipe r) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
+        // Wrap (not Row) so the badge title + status chip can flow onto a
+        // second line if the combined natural width exceeds the 292 px
+        // (width:320 − padding:14*2) inner constraint of the card. The
+        // longer recipe titles ("Painter constructed" + "Parallax layer"
+        // etc.) otherwise overflow by ~18 px on the right.
+        Wrap(
+          spacing: 8,
+          runSpacing: 6,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             _badge(r.title, r.tone),
-            SizedBox(width: 8),
             _chip(
               r.spec.constructed ? 'Painter constructed' : 'Skipped (offline)',
               r.spec.constructed ? _kAccent2 : _kAccent3,
@@ -1797,6 +1804,9 @@ Widget _recipeRepeatTexture() {
     height: 130,
     color: Color(0xFF0A1626),
     child: ClipRect(
+      // Tile is 20x20 so 14 columns × 20 = 280 fits in 290 and 6 rows × 20
+      // = 120 fits in 130 — earlier 22-px tiles overflowed by exactly 18 px
+      // on the right (6× errors, one per row) and 2 px on the bottom.
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: List<Widget>.generate(6, (int r) {
@@ -1804,7 +1814,7 @@ Widget _recipeRepeatTexture() {
             mainAxisSize: MainAxisSize.min,
             children: List<Widget>.generate(
               14,
-              (int c) => _patternTile(22, Color(0xFF1F6FEB), Color(0xFF59C2FF)),
+              (int c) => _patternTile(20, Color(0xFF1F6FEB), Color(0xFF59C2FF)),
             ),
           );
         }),
@@ -1983,15 +1993,23 @@ Widget _section6Recipes() {
       title: 'Parallax layer',
       useCase: 'Vertical parallax sublayer',
       fields: 'fit: cover\nalignment: (0, 0.2)\nfilterQuality: medium',
-      visual: ClipRect(
-        child: OverflowBox(
-          maxHeight: 160,
-          alignment: Alignment(0, 0.2),
-          child: _bitmap(
-            imgWidth: 290,
-            imgHeight: 160,
-            gradient: _gradEmber(),
-            label: 'PARALLAX',
+      // Wrap the OverflowBox in a bounded SizedBox so layout has a
+      // finite size to give the RenderConstrainedOverflowBox. Without
+      // this bound the surrounding Column / Wrap chain leaves height
+      // unbounded and OverflowBox throws "infinite size during layout".
+      visual: SizedBox(
+        width: 290,
+        height: 130,
+        child: ClipRect(
+          child: OverflowBox(
+            maxHeight: 160,
+            alignment: Alignment(0, 0.2),
+            child: _bitmap(
+              imgWidth: 290,
+              imgHeight: 160,
+              gradient: _gradEmber(),
+              label: 'PARALLAX',
+            ),
           ),
         ),
       ),

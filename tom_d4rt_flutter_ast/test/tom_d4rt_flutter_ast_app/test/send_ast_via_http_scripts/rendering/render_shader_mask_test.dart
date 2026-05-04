@@ -397,7 +397,11 @@ Widget gradientTextVariantCard(
 Widget radialFadeCard() {
   return Container(
     width: 320.0,
-    height: 220.0,
+    // Bumped from 220 → 300 to absorb the ~74px bottom overflow when
+    // the inner Column (header Row + body Text wrapping to multiple
+    // lines + Spacer + chip Row) is laid out at slightly wider test
+    // surfaces.
+    height: 300.0,
     decoration: outlinedCard(tint: kAccentRose),
     clipBehavior: Clip.antiAlias,
     child: ShaderMask(
@@ -1379,7 +1383,11 @@ dynamic build(BuildContext context) {
       radialFadeCard(),
       Container(
         width: 320.0,
-        height: 220.0,
+        // Bumped from 220 → 300 to match the radialFadeCard sibling and
+        // absorb the bottom overflow when the inner Column (header Row +
+        // multi-line body Text + codeSnippet block) renders at the test
+        // surface width — was the actual source of the 74px overflow.
+        height: 300.0,
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(20.0),
         decoration: outlinedCard(tint: kAccentRose),
