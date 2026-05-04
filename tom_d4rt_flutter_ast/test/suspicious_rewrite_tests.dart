@@ -178,6 +178,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('transform_engine_layer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/transform_engine_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('ztmp_path_metrics_access_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/ztmp_path_metrics_access_test.dart',
@@ -191,6 +198,13 @@ void main() {
   // FOUNDATION (1 file)
   // ============================================================
   group('foundation/', () {
+    test('diagnostics_tree_style_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnostics_tree_style_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('flutter_memory_allocations_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flutter_memory_allocations_test.dart',
@@ -219,6 +233,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('unicode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/unicode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -228,6 +249,13 @@ void main() {
     test('drag_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/drag_down_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/drag_gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -246,6 +274,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('flutter_error_details_for_pointer_event_dispatcher_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('gesture_disposition_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/gesture_disposition_test.dart',
@@ -256,6 +291,13 @@ void main() {
     test('gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gesture_recognizer_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_recognizer_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -281,6 +323,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('multitouch_drag_strategy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/multitouch_drag_strategy_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('one_sequence_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/one_sequence_gesture_recognizer_test.dart',
@@ -291,6 +340,13 @@ void main() {
     test('pointer_added_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/pointer_added_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_enter_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_enter_event_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -974,6 +1030,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('debug_semantics_dump_order_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/debug_semantics_dump_order_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('semantics_handle_test.dart', () async {
       final result = await SendTestRunner.send(
         'semantics/semantics_handle_test.dart',
@@ -997,6 +1060,13 @@ void main() {
     test('device_orientation_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/device_orientation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('floating_cursor_drag_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/floating_cursor_drag_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
