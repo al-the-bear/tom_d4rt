@@ -29,16 +29,16 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 20 | `rendering/selection_result_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
 | 21 | `rendering/selection_status_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
 | 22 | `rendering/text_granularity_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
-| 23 | `foundation/percent_property_test.dart` | 1,022 | 34 | (x) | (x) | ( ) |
-| 24 | `services/keyboard_lock_mode_test.dart` | 1,027 | 31 | (x) | (x) | ( ) |
-| 25 | `foundation/flutter_memory_allocations_test.dart` | 1,036 | 36 | (x) | (x) | ( ) |
-| 26 | `widgets/tooltip_trigger_mode_test.dart` | 1,037 | 31 | (x) | (x) | ( ) |
-| 27 | `gestures/gesture_recognizer_test.dart` | 1,039 | 28 | (x) | (x) | ( ) |
-| 28 | `services/device_orientation_test.dart` | 1,039 | 31 | (x) | (x) | ( ) |
-| 29 | `material/snack_bar_behavior_test.dart` | 1,045 | 31 | (x) | (x) | ( ) |
-| 30 | `services/content_sensitivity_test.dart` | 1,051 | 31 | (x) | (x) | ( ) |
-| 31 | `services/text_capitalization_test.dart` | 1,051 | 31 | (x) | (x) | ( ) |
-| 32 | `foundation/string_property_test.dart` | 1,054 | 33 | (x) | (x) | ( ) |
+| 23 | `foundation/percent_property_test.dart` | 1,022 | 34 | (x) | (x) | (x) |
+| 24 | `services/keyboard_lock_mode_test.dart` | 1,027 | 31 | (x) | (x) | (x) |
+| 25 | `foundation/flutter_memory_allocations_test.dart` | 1,036 | 36 | (x) | (x) | (x) |
+| 26 | `widgets/tooltip_trigger_mode_test.dart` | 1,037 | 31 | (x) | (x) | (x) |
+| 27 | `gestures/gesture_recognizer_test.dart` | 1,039 | 28 | (x) | (x) | (x) |
+| 28 | `services/device_orientation_test.dart` | 1,039 | 31 | (x) | (x) | (x) |
+| 29 | `material/snack_bar_behavior_test.dart` | 1,045 | 31 | (x) | (x) | (x) |
+| 30 | `services/content_sensitivity_test.dart` | 1,051 | 31 | (x) | (x) | (x) |
+| 31 | `services/text_capitalization_test.dart` | 1,051 | 31 | (x) | (x) | (x) |
+| 32 | `foundation/string_property_test.dart` | 1,054 | 33 | (x) | (x) | (x) |
 | 33 | `gestures/gesture_disposition_test.dart` | 1,054 | 31 | (x) | (x) | ( ) |
 | 34 | `rendering/selection_event_type_test.dart` | 1,055 | 31 | (x) | (x) | ( ) |
 | 35 | `services/selection_changed_cause_test.dart` | 1,056 | 32 | (x) | (x) | ( ) |

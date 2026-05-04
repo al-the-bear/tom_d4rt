@@ -191,6 +191,27 @@ void main() {
   // FOUNDATION (1 file)
   // ============================================================
   group('foundation/', () {
+    test('flutter_memory_allocations_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/flutter_memory_allocations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('percent_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/percent_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('string_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/string_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('target_platform_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/target_platform_test.dart',
@@ -207,6 +228,13 @@ void main() {
     test('drag_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/drag_down_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -436,6 +464,13 @@ void main() {
     test('refreshindicator_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/refreshindicator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('snack_bar_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/snack_bar_behavior_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -903,6 +938,27 @@ void main() {
   // SERVICES (5 files)
   // ============================================================
   group('services/', () {
+    test('content_sensitivity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/content_sensitivity_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('device_orientation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/device_orientation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('keyboard_lock_mode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/keyboard_lock_mode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('message_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/message_codec_test.dart',
@@ -962,6 +1018,13 @@ void main() {
     test('system_ui_overlay_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_ui_overlay_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_capitalization_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/text_capitalization_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1274,6 +1337,13 @@ void main() {
     test('snapshot_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/snapshot_mode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tooltip_trigger_mode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/tooltip_trigger_mode_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

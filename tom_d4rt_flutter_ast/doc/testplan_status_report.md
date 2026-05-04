@@ -452,7 +452,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [factory_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Yes | No | Batch 57 deep demo. |
 | [flag_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flag_property_test.dart) | FlagProperty | No | Yes | No | Checked. |
 | [flags_summary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flags_summary_test.dart) | FlagsSummary | No | Yes | No | Batch 57 deep demo. |
-| [flutter_memory_allocations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_memory_allocations_test.dart) | FlutterMemoryAllocations | No | Yes | No | Checked. |
+| [flutter_memory_allocations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_memory_allocations_test.dart) | FlutterMemoryAllocations | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [flutter_timeline_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_timeline_test.dart) | FlutterTimeline | Yes | Yes | No |
 | [foundation_misc_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_misc_adv_test.dart) | TargetPlatformVariant | No | Yes | No | Checked. |
 | [foundation_service_extensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_service_extensions_test.dart) | FoundationServiceExtensions | No | Yes | No | Checked. |
@@ -469,13 +469,13 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [object_flag_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_flag_property_test.dart) | ObjectFlagProperty | No | Yes | No | Checked. |
 | [observer_list_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/observer_list_test.dart) | ObserverList | No | Yes | No | Checked. |
 | [partial_stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/partial_stack_frame_test.dart) | PartialStackFrame | No | Yes | No | Checked. |
-| [percent_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/percent_property_test.dart) | PercentProperty | No | Yes | No | Checked. |
+| [percent_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/percent_property_test.dart) | PercentProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [persistent_hash_map_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/persistent_hash_map_test.dart) | PersistentHashMap | Yes | Yes | No |
 | [read_buffer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/read_buffer_test.dart) | ReadBuffer | Yes | Yes | No |
 | [repetitive_stack_frame_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/repetitive_stack_frame_filter_test.dart) | RepetitiveStackFrameFilter | Yes | Yes | No |
 | [stack_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_filter_test.dart) | StackFilter | No | Yes | No | Checked. |
 | [stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_frame_test.dart) | StackFrame | No | Yes | No | Checked. |
-| [string_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/string_property_test.dart) | StringProperty | No | Yes | No | Checked. |
+| [string_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/string_property_test.dart) | StringProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [summary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/summary_test.dart) | Summary | No | Yes | No | Checked. |
 | [synchronousfuture_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/synchronousfuture_test.dart) | SynchronousFuture | Yes | Yes | No |
 | [target_platform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart) | TargetPlatform | No | Yes | No | Recreated on 2026-05-02 at 10:43 |
@@ -506,7 +506,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [gesture_callbacks_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_test.dart) | GestureRecognizerCallback | No | Yes | No | Checked. |
 | [gesture_disposition_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_disposition_test.dart) | GestureDisposition | No | Yes | No | Checked. |
 | [gesture_recognizer_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_state_test.dart) | GestureRecognizerState | No | Yes | No | Checked. |
-| [gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_test.dart) | GestureRecognizer | No | Yes | No | Checked. |
+| [gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_test.dart) | GestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [hit_test_dispatcher_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/hit_test_dispatcher_test.dart) | HitTestDispatcher | No | Yes | No | Checked. |
 | [hit_testable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/hit_testable_test.dart) | HitTestable | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer | No | Yes | No | Checked. |
@@ -871,7 +871,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [slider_track_shape_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/slider_track_shape_test.dart) | SliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [sliverappbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/sliverappbar_test.dart) | SliverAppBar | No | Yes | No |
 | [snack_bar_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snack_bar_action_test.dart) | SnackBarAction | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [snack_bar_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snack_bar_behavior_test.dart) | SnackBarBehavior | No | Yes | No | Checked. |
+| [snack_bar_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snack_bar_behavior_test.dart) | SnackBarBehavior | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [snack_bar_closed_reason_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snack_bar_closed_reason_test.dart) | SnackBarClosedReason | No | Yes | No | Checked. |
 | [snack_bar_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snack_bar_theme_data_test.dart) | SnackBarThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [snackbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/snackbar_test.dart) | SnackBar | No | Yes | No |
@@ -1334,14 +1334,14 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/class_test.dart) | Class | No | Yes | No | Created on 2026-04-08. |
 | [codecs_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/codecs_test.dart) | StandardMessageCodec | No | Yes | No | Checked. |
 | codecs_bytedata_symbol_resolution_regression_test.dart | StandardMessageCodec (regression) | No | No | No | Needs to be created. Regression test for `BRIDGE-SDK-SYMBOL-RESOLUTION`: unresolved `ByteData` symbol in runtime bridge context (Batch-55 Index 279). |
-| [content_sensitivity_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/content_sensitivity_test.dart) | ContentSensitivity | No | Yes | No | Checked. |
+| [content_sensitivity_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/content_sensitivity_test.dart) | ContentSensitivity | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [cursor_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/cursor_test.dart) | MouseCursor | No | Yes | No | Checked. |
 | [darwin_platform_view_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/darwin_platform_view_controller_test.dart) | DarwinPlatformViewController | No | Deep-Demo DONE | No | B69: Plum/Orchid theme, 16 sections, dp prefix. |
 | [default_process_text_service_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/default_process_text_service_test.dart) | DefaultProcessTextService | No | Yes | No | Checked. |
 | [default_spell_check_service_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/default_spell_check_service_test.dart) | DefaultSpellCheckService | No | Yes | No | Checked. |
 | [deferred_component_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/deferred_component_test.dart) | DeferredComponent | No | Deep-Demo DONE | No | B69: Olive/Sage theme, 16 sections, dc prefix. |
 | [delta_text_input_client_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/delta_text_input_client_test.dart) | DeltaTextInputClient | No | Deep-Demo DONE | No | B70: Copper/Bronze theme, 16 sections, dt prefix. |
-| [device_orientation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/device_orientation_test.dart) | DeviceOrientation | No | Yes | No | Checked. |
+| [device_orientation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/device_orientation_test.dart) | DeviceOrientation | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [expensive_android_view_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/expensive_android_view_controller_test.dart) | ExpensiveAndroidViewController | No | Deep-Demo DONE | No | B70: Navy/Steel theme, 16 sections, ea prefix. |
 | [floating_cursor_drag_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/floating_cursor_drag_state_test.dart) | FloatingCursorDragState | No | Yes | No | Checked. |
 | [flutter_version_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/flutter_version_test.dart) | FlutterVersion | No | Yes | No | Checked. |
@@ -1370,7 +1370,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [key_repeat_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_repeat_event_test.dart) | KeyRepeatEvent | No | Yes | No | Checked. |
 | [key_up_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_up_event_test.dart) | KeyUpEvent | No | Yes | No | Checked. |
 | [keyboard_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_key_test.dart) | KeyboardKey | No | Yes | No | Checked. |
-| [keyboard_lock_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_lock_mode_test.dart) | KeyboardLockMode | No | Yes | No | Checked. |
+| [keyboard_lock_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_lock_mode_test.dart) | KeyboardLockMode | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [keyboard_side_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_side_test.dart) | KeyboardSide | No | Yes | No | Checked. |
 | [keyboard_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_test.dart) | LogicalKeyboardKey | No | Yes | No | Checked. |
 | [live_text_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/live_text_test.dart) | LiveText | No | Deep-Demo DONE | No | B71: Coral/Peach theme, 16 sections, lt prefix. |
@@ -1431,7 +1431,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [system_sound_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/system_sound_type_test.dart) | SystemSoundType | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [system_ui_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/system_ui_mode_test.dart) | SystemUiMode | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [system_ui_overlay_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/system_ui_overlay_test.dart) | SystemUiOverlay | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
-| [text_capitalization_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/text_capitalization_test.dart) | TextCapitalization | No | Yes | No | Checked. |
+| [text_capitalization_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/text_capitalization_test.dart) | TextCapitalization | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [text_editing_delta_deletion_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/text_editing_delta_deletion_test.dart) | TextEditingDeltaDeletion | No | Yes | No | Checked. |
 | [text_editing_delta_insertion_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/text_editing_delta_insertion_test.dart) | TextEditingDeltaInsertion | No | Yes | No | Checked. |
 | [text_editing_delta_non_text_update_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/text_editing_delta_non_text_update_test.dart) | TextEditingDeltaNonTextUpdate | No | Yes | No | Checked. |
@@ -2215,7 +2215,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [tooltip_position_context_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart) | TooltipPositionContext | No | Yes | No | Created on 2026-04-10 at 22:59 |
 | tooltip_position_context_private_constructor_regression_test.dart | TooltipPositionContext (regression) | No | No | No | Needs to be created. Regression test for BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT: `_CaseDefinition` private class constructor not bridged (Batch-43, Index 219). |
 | [tooltip_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_test.dart) | Tooltip | No | Yes | No | Checked. |
-| [tooltip_trigger_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_trigger_mode_test.dart) | TooltipTriggerMode | No | Yes | No | Checked. |
+| [tooltip_trigger_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_trigger_mode_test.dart) | TooltipTriggerMode | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [tooltip_window_controller_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart) | TooltipWindowControllerDelegate | No | Yes | No | Recreated on 2026-05-02 at 19:15. |
 | tooltip_window_controller_delegate_private_constructor_regression_test.dart | TooltipWindowControllerDelegate (regression) | No | No | No | Needs to be created. Regression test for BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT: `_PolicyPreset` private class constructor not bridged (Batch-44, Index 220). |
 | [tooltip_window_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart) | TooltipWindowController | No | Yes | No | Created on 2026-04-10 at 22:59 |
