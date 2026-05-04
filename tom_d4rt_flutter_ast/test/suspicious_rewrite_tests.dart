@@ -519,6 +519,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('eager_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/eager_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -845,6 +852,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('elevated_button_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/elevated_button_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -901,6 +915,20 @@ void main() {
     test('transform_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/transform_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('accumulator_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/accumulator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('image_stream_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/image_stream_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1805,6 +1833,41 @@ void main() {
     test('heromode_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/heromode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('focus_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/focus_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tooltip_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/tooltip_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('streambuilder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/streambuilder_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('sized_box_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/sized_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animatedpositioned_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedpositioned_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

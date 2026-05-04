@@ -500,7 +500,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [drag_start_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_start_behavior_test.dart) | DragStartBehavior | No | Yes | No | Recreated on 2026-05-04 at 18:09 |
 | [drag_start_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_start_details_test.dart) | DragStartDetails | No | Yes | No | Recreated on 2026-05-04 at 18:09 |
 | [drag_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_test.dart) | Drag | No | Yes | No | Recreated on 2026-05-04 at 19:05 |
-| [eager_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/eager_gesture_recognizer_test.dart) | EagerGestureRecognizer | No | Yes | No | Checked. |
+| [eager_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/eager_gesture_recognizer_test.dart) | EagerGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [flutter_error_details_for_pointer_event_dispatcher_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart) | FlutterErrorDetailsForPointerEventDispatcher | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
 | [gesture_callbacks_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_adv_test.dart) | GestureScaleEndCallback | No | Yes | No | Checked. |
 | [gesture_callbacks_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_callbacks_test.dart) | GestureRecognizerCallback | No | Yes | No | Checked. |
@@ -681,7 +681,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [durations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/durations_test.dart) | Durations | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dynamic_scheme_variant_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dynamic_scheme_variant_test.dart) | DynamicSchemeVariant | No | Yes | No | Batch 59 deep-demo. 363 lines, Copper/Bronze, prefix ds. |
 | [easing_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/easing_test.dart) | Easing | No | Yes | No | Created on 2026-03-21 at 09:34 |
-| [elevated_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/elevated_button_test.dart) | ElevatedButton | No | Yes | No | Checked. |
+| [elevated_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/elevated_button_test.dart) | ElevatedButton | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [elevation_overlay_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/elevation_overlay_test.dart) | ElevationOverlay | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [end_drawer_button_icon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/end_drawer_button_icon_test.dart) | EndDrawerButtonIcon | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [end_drawer_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/end_drawer_button_test.dart) | EndDrawerButton | No | Yes | No | Recreated on 2026-05-02 at 10:54 |
@@ -932,7 +932,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
-| [accumulator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/accumulator_test.dart) | Accumulator | No | Yes | No | Checked. |
+| [accumulator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/accumulator_test.dart) | Accumulator | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [advanced_decorations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/advanced_decorations_test.dart) | advanced | No | Yes | No | Checked. |
 | [alignment_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/alignment_test.dart) | Alignment | No | Yes | No |
 | [asset_bundle_image_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_key_test.dart) | AssetBundleImageKey | No | Yes | No | Checked. |
@@ -976,7 +976,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [image_stream_completer_handle_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_completer_handle_test.dart) | ImageStreamCompleterHandle | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [image_stream_completer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_completer_test.dart) | ImageStreamCompleter | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [image_stream_listener_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_listener_test.dart) | ImageStreamListener | No | Yes | No | Checked. |
-| [image_stream_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_test.dart) | ImageStream | No | Yes | No | Checked. |
+| [image_stream_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_test.dart) | ImageStream | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [imagestream_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/imagestream_misc_test.dart) | painting | No | Yes | No | Checked. |
 | [inline_span_semantics_information_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/inline_span_semantics_information_test.dart) | InlineSpanSemanticsInformation | No | Yes | No | Checked. |
 | [inline_span_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/inline_span_test.dart) | InlineSpan | No | Yes | No | Checked. |
@@ -1516,7 +1516,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animatedlist_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedlist_test.dart) | AnimatedList | No | Yes | No |
 | [animatedopacity_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedopacity_test.dart) | AnimatedOpacity | No | Yes | No |
 | [animatedpadding_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedpadding_test.dart) | AnimatedPadding | No | Yes | No | Checked. |
-| [animatedpositioned_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedpositioned_test.dart) | AnimatedPositioned | No | Yes | No | Checked. |
+| [animatedpositioned_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedpositioned_test.dart) | AnimatedPositioned | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [animatedsize_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animatedsize_test.dart) | AnimatedSize | No | Yes | No | Recreated on 2026-05-04 at 12:30 |
 | [animation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/animation_test.dart) | Animation | No | Yes | No | Checked. |
 | [annotated_region_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | Yes | No | Deep demo created 2025-03-28 |
@@ -1706,7 +1706,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [focus_order_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_order_test.dart) | FocusOrder | No | Yes | No | Created on 2026-04-08. |
 | [focus_properties_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-09 at 03:40. |
 | [focus_scope_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-08. |
-| [focus_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | Yes | No | Checked. |
+| [focus_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy | Yes (B31) | Yes | Checked. |
 | [focus_traversal_order_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder | No | Yes | No | Created on 2026-04-08. |
 | [focusnode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focusnode_test.dart) | FocusNode | No | Yes | No |
@@ -2109,7 +2109,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [singlechildscrollview_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/singlechildscrollview_test.dart) | SingleChildScrollView | No | Yes | No |
 | [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | Yes | No | Created on 2026-04-24 at 05:45. Deep demo (1850 lines): Resize Seismograph — CustomPainter trace with magenta spikes, slider-driven resizer, 3x3 animated cell grid with per-cell counters, LayoutBuilder vs SizeChangedLayoutNotification compare, notification log, info trio. |
 | [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | Yes | No | Created on 2026-04-07 at 21:15. |
-| [sized_box_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/sized_box_test.dart) | SizedBox | No | Yes | No | Checked. |
+| [sized_box_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/sized_box_test.dart) | SizedBox | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [sized_overflow_box_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/sized_overflow_box_test.dart) | SizedOverflowBox | No | Yes | No | Created on 2026-04-07 at 21:00. |
 | [sizing_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/sizing_test.dart) | UnconstrainedBox | No | Yes | No | Checked. |
 | [slidetransition_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/slidetransition_test.dart) | SlideTransition | No | Yes | No |
@@ -2170,7 +2170,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [static_selection_container_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/static_selection_container_delegate_test.dart) | StaticSelectionContainerDelegate | No | Yes | No | Created on 2026-04-24 at 08:02. Deep demo (2162 lines): Selection Plinth Hall — marble/gold-leaf/obsidian museum aesthetic with animated gold-leaf sweep hero and velvet-rope painter, 2×2 plinth hall with four SelectionContainer plinths each backed by real StaticSelectionContainerDelegate (poem/plaque/label/placard curated content), laboratory panel with live SelectionGeometry readout (status / hasContent / start+end points / lineHeights), imperative control row wired through Actions.maybeInvoke<SelectAllTextIntent>/<CopySelectionTextIntent> and SelectableRegionState.clearSelection, static-vs-dynamic comparison card, quoted API card, dynamic-children pitfall card. |
 | [status_transition_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/status_transition_widget_test.dart) | StatusTransitionWidget | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [stream_builder_base_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/stream_builder_base_test.dart) | StreamBuilderBase | No | Yes | No | Created on 2025-07-21 at 13:15. Deep demo (869 lines): lifecycle hooks, ConnectionState, custom implementation, StreamBuilder comparison, event flow, usage patterns. |
-| [streambuilder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart) | StreamBuilder | No | Yes | No | Checked. |
+| [streambuilder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart) | StreamBuilder | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [stretch_effect_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/stretch_effect_test.dart) | StretchEffect | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [stretching_overscroll_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/stretching_overscroll_indicator_test.dart) | StretchingOverscrollIndicator | No | Yes | No | Created on 2026-04-07 at 18:57 |
 | [system_context_menu_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/system_context_menu_test.dart) | SystemContextMenu | No | Yes | No | Created on 2026-04-07 at 18:57 |
@@ -2214,7 +2214,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | toolbar_options_private_constructor_regression_test.dart | ToolbarOptions (regression) | No | No | No | Needs to be created. Regression test for BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT: `_LegacyToolbarProfile` private class constructor not bridged (Batch-43, Index 218). |
 | [tooltip_position_context_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart) | TooltipPositionContext | No | Yes | No | Created on 2026-04-10 at 22:59 |
 | tooltip_position_context_private_constructor_regression_test.dart | TooltipPositionContext (regression) | No | No | No | Needs to be created. Regression test for BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT: `_CaseDefinition` private class constructor not bridged (Batch-43, Index 219). |
-| [tooltip_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_test.dart) | Tooltip | No | Yes | No | Checked. |
+| [tooltip_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_test.dart) | Tooltip | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [tooltip_trigger_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_trigger_mode_test.dart) | TooltipTriggerMode | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [tooltip_window_controller_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart) | TooltipWindowControllerDelegate | No | Yes | No | Recreated on 2026-05-02 at 19:15. |
 | tooltip_window_controller_delegate_private_constructor_regression_test.dart | TooltipWindowControllerDelegate (regression) | No | No | No | Needs to be created. Regression test for BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT: `_PolicyPreset` private class constructor not bridged (Batch-44, Index 220). |
