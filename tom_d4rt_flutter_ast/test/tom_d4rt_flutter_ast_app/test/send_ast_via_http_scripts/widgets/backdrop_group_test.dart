@@ -1095,7 +1095,7 @@ class _IosNotificationBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 240,
+      height: 280,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Stack(
@@ -1135,9 +1135,12 @@ class _IosNotificationBanner extends StatelessWidget {
                 ),
               ),
             ),
-            // The frosted notification banner stack.
+            // The frosted notification banner stack. Wrapped in
+            // SingleChildScrollView so the content can never overflow the
+            // Stack's enforced height (StackFit.expand) on wide test
+            // surfaces where text rendering may add a few extra pixels.
             BackdropGroup(
-              child: Padding(
+              child: SingleChildScrollView(
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: <Widget>[
