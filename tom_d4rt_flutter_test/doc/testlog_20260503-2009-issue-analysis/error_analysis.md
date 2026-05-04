@@ -145,7 +145,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | **C6 — Script timeout (infinite work)** ✅ **fixed 2026-05-04** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Original demo authored stateful widgets (`AnimationController`, `PageController`, `TabController`, `ScrollController`, `setState`-driven live counters) which the static-build SendTestRunner cannot service: there is no live frame pump, so the controllers never fire, the build endpoint waits, and the 25 s timeout fires. Rewrote the file (2184 → 2535 lines) as a fully static visual demo — every authored class is a `StatelessWidget`, the page/tab/sliver-list cases are mocked as side-by-side card compositions with baked-in counter / scroll / form values illustrating what *would* be preserved if the mixin were active, and the lifecycle is rendered through two anatomy diagrams (`_AnatomyDiagram`, `_ProtocolSequence`) + 6 code-block snippets covering the contract, common bugs, and `super.build(context)` rule. Single import, single `// ignore_for_file:` block, dart-analyze clean. Individual retest via `flutter test test/hardly_relevant_classes_4_test.dart --plain-name "automatic_keep_alive_client_mixin_test.dart"`: build completes in 2.8 s, `httpStatus=200`, `frameworkErrors=0`, all tests passed. Per regression rule (a), individual retest is sufficient — only the test script changed. | script |
 | **C7 — `string_attribute_test.dart` (misclassified as transport failure) ✅ fixed 2026-05-04** | secondary/dart_ui/string_attribute | — | Two unrelated script-side issues: (1) Skia bidi shaper crash on Linux test runtime triggered by an Arabic-Indic-digit `TextSpan` sandwiched between ASCII flanking spans inside a `RichText` (3-child layout), and (2) an `attribute is ui.LocaleStringAttribute` runtime type test that fails on the older `tom_d4rt` because the import prefix is stripped before resolving the bare type name. The bisect proved the bundle size (968 KB) is *not* the cause — the previous "transport failure on huge bundle" diagnosis was wrong. Script rewritten: locale5 demo switched to Russian Cyrillic (no bidi reorder) and the prefixed `is`-test replaced with pre-computed description strings / locale overrides at the call site (3 helper signatures changed). Verified passing on both `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`. See `script_rewrites.md` ("Arabic-Indic digit `TextSpan` sandwiched in `RichText`" + "Prefixed `is` type-test on `dart:ui` type"). | script |
 | **C8 — Layout-overflow / infinite-size warnings** | — | 16 scripts, ~63 framework errors | Deep-demo content overflows the test viewport. Cosmetic; suppressible by scoping the demo to a `MediaQuery`/`SizedBox` of a fixed size. | script |
-| **C9 — Missing bridge member** | — | hardly_2/material/theme_extension (`surfaceTint`) | Bridge for `ThemeExtension` does not expose `surfaceTint`. | bridge generator |
+| **C9 — `_InterpretedThemeExtension` proxy didn't unwrap to InterpretedInstance** ✅ **fixed 2026-05-04** | — | ~~hardly_2/material/theme_extension (`surfaceTint`)~~ ✅ | The native `_InterpretedThemeExtension` proxy (used to wrap user `ThemeExtension<T>` subclasses returned by `Theme.of(context).extension<BrandColors>()`) did not implement the `D4InterpretedProxy` marker. Property access on the bridged wrapper therefore couldn't fall through the visitor's D2 unwrap path to the `InterpretedInstance` carrying the script-defined `surfaceTint` field, so `brand.surfaceTint` raised `Undefined property or method 'surfaceTint' on bridged instance of 'ThemeExtension'`. | proxy registration (no generator change) |
 | **C10 — Null-aware regression** | — | hardly_5/widgets/route_transition_record (`withValues` on null) | Script invokes `Color.withValues` without null check; could be a generator omission of the `?.` callsite or simply a script bug. | script (likely) |
 
 ---
@@ -658,3 +658,112 @@ change — individual retest is sufficient; no need to rerun
 essential / important / secondary / gii.
 
 Cluster C5 closed.
+
+### C9 — `_InterpretedThemeExtension` proxy didn't expose its InterpretedInstance ✅ fixed 2026-05-04
+
+**Status:** fixed (proxy-registration change in
+`tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart` and
+`tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`;
+no generator or bridge regeneration needed).
+
+**Affected script (closed):**
+
+- `hardly_relevant_classes_2_test.dart > material/theme_extension_test.dart`
+
+**What was actually broken.** Cluster C6b in the parallel
+`tom_d4rt_flutter_ast` log had introduced a hand-written
+`_InterpretedThemeExtension` proxy:
+
+```dart
+class _InterpretedThemeExtension
+    extends ThemeExtension<_InterpretedThemeExtension> {
+  _InterpretedThemeExtension(this._visitor, this._instance);
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+  // ...
+}
+```
+
+The proxy is constructed by the
+`Theme.of(context).extension<T>()` interceptor (lines ~3368–3387 of
+the same file) so that user `ThemeExtension<T>` subclasses
+declared in script (`BrandColors`, `SemanticSpacing`,
+`Elevations`, …) round-trip through `ThemeData.extensions`
+without losing their script-side identity. When the script later
+read `brand.surfaceTint`, the access landed on a
+`BridgedInstance<_InterpretedThemeExtension>`. The interpreter's
+`visitPropertyAccess` / `visitPrefixedIdentifier` already had a
+D2 unwrap fallback for native proxies that *implement* the
+`D4InterpretedProxy` marker:
+
+```dart
+final native = bridgedInstance.nativeObject;
+if (native is D4InterpretedProxy) {
+  final inner = native.d4rtInstance;
+  if (inner is InterpretedInstance) {
+    try { return inner.get(propertyName, visitor: this); }
+    catch (_) { /* fall through */ }
+  }
+}
+throw RuntimeD4rtException("Undefined property or method '$propertyName'…");
+```
+
+But `_InterpretedThemeExtension` did not implement
+`D4InterpretedProxy`, so the unwrap branch never fired — the
+visitor walked through the bridged dispatch (which only knows
+about Flutter's stock `ThemeExtension` API: `copyWith`, `lerp`,
+`type`) and ultimately threw with a misleading `'ThemeExtension'`
+class label.
+
+**Fix.** Made `_InterpretedThemeExtension` implement
+`D4InterpretedProxy` and expose the wrapped `InterpretedInstance`
+through `d4rtInstance`:
+
+```dart
+class _InterpretedThemeExtension
+    extends ThemeExtension<_InterpretedThemeExtension>
+    implements D4InterpretedProxy {
+  // …
+  @override
+  Object get d4rtInstance => _instance;
+  // …
+}
+```
+
+This is the exact same pattern used by the other ~14 native
+proxies registered in the same file (`_InterpretedCustomPainter`,
+`_InterpretedRenderBox`, `_InterpretedShaderWarmUp`, …). Applied
+identically to both `tom_d4rt_flutter_test` (interpreter package
+loaded by this `error_analysis.md`'s test suite) and
+`tom_d4rt_flutter_ast` (analyzer-free mirror, per quest sync rule
+in `_ai/quests/d4rt/overview.d4rt.md`). No generator change, no
+`.b.dart` regeneration.
+
+**Cleanup.** While debugging, temporary `[DBG …]` markers had
+been added to the `RuntimeD4rtException` throw-sites in
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+(`visitSPropertyAccess` line ~4894 and `visitSPrefixedIdentifier`
+line ~1212). The fallback path itself stays — only the debug
+strings were reverted. `tom_d4rt/lib/src/interpreter_visitor.dart`
+(analyzer-based mirror) already had the same fallback at lines
+~1040 and ~4217 with no debug noise — verified in sync.
+
+**Verification.**
+
+- Individual retest:
+  `flutter test test/hardly_relevant_classes_2_test.dart --plain-name "theme_extension_test.dart"`
+  → `00:25 +1: All tests passed!`,
+  `httpStatus=200`, `outputLines=1`, `frameworkErrors=0` (down
+  from `frameworkErrors=1`).
+- Per regression rule (b) — interpreter / runtime-registration
+  change — full regression run serially:
+  - `generator_interpreter_issues_test.dart` → `+81 ~2` (81
+    passed, 2 pre-existing skips, 0 failures).
+  - `essential_classes_test.dart` → `+108` all passed.
+  - `important_classes_test.dart` → `+164` all passed.
+  - `secondary_classes_test.dart` → `+653 ~1` (653 passed, 1
+    pre-existing skip).
+  - `hardly_relevant_classes_2_test.dart` → `+203` all passed,
+    no `surfaceTint` framework error.
+
+Cluster C9 closed.

@@ -3534,11 +3534,15 @@ Object _unwrapInheritedWidget(InheritedWidget widget) {
 /// `type` is overridden to return the [InterpretedClass] so each script-side
 /// ThemeExtension subclass occupies its own slot in `ThemeData.extensions`.
 class _InterpretedThemeExtension
-    extends ThemeExtension<_InterpretedThemeExtension> {
+    extends ThemeExtension<_InterpretedThemeExtension>
+    implements D4InterpretedProxy {
   _InterpretedThemeExtension(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
 
   @override
   Object get type => _instance.klass;

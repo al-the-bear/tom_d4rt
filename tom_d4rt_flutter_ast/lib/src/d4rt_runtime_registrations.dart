@@ -3539,12 +3539,26 @@ Object _unwrapInheritedWidget(InheritedWidget widget) {
 ///
 /// `type` is overridden to return the [InterpretedClass] so each script-side
 /// ThemeExtension subclass occupies its own slot in `ThemeData.extensions`.
+///
+/// Implements [D4InterpretedProxy] so that when this proxy crosses back to
+/// the interpreter as a `BridgedInstance<_InterpretedThemeExtension>` (e.g.
+/// when `Theme.of(ctx).extension<T>()` returns the proxy itself rather than
+/// the underlying [InterpretedInstance], or when `lerp(...)` returns a fresh
+/// proxy), property accesses for script-defined fields like
+/// `brand.surfaceTint` unwrap to the underlying [InterpretedInstance] via
+/// the D2 unwrap fallback in `visitSPropertyAccess` /
+/// `visitSPrefixedIdentifier`. Without this marker, those accesses fail
+/// with "Undefined property '<name>' on bridged instance of 'ThemeExtension'".
 class _InterpretedThemeExtension
-    extends ThemeExtension<_InterpretedThemeExtension> {
+    extends ThemeExtension<_InterpretedThemeExtension>
+    implements D4InterpretedProxy {
   _InterpretedThemeExtension(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
 
   @override
   Object get type => _instance.klass;

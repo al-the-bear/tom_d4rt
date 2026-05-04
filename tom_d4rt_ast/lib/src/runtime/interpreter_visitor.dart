@@ -1200,7 +1200,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             return inner.get(memberName, visitor: this);
           } catch (_) {
-            // fall through
+            // Fall through to the "Undefined property" error below.
           }
         }
       }
@@ -4882,7 +4882,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             return inner.get(propertyName, visitor: this);
           } catch (_) {
-            // fall through to throw with original context
+            // Fall through to the "Undefined property" error below.
           }
         }
       }
