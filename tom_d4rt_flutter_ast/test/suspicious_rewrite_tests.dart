@@ -232,6 +232,27 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('drag_start_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/drag_start_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('drag_start_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/drag_start_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gesture_disposition_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_disposition_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/gesture_recognizer_test.dart',
@@ -249,6 +270,13 @@ void main() {
     test('long_press_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/long_press_down_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('multi_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/multi_drag_gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -475,9 +503,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('snack_bar_closed_reason_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/snack_bar_closed_reason_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('stepper_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/stepper_type_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tab_bar_indicator_size_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/tab_bar_indicator_size_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -666,6 +708,13 @@ void main() {
     test('scroll_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/scroll_direction_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_event_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/selection_event_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -959,6 +1008,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('keyboard_side_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/keyboard_side_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('max_length_enforcement_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/max_length_enforcement_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('message_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/message_codec_test.dart',
@@ -976,6 +1039,13 @@ void main() {
     test('raw_key_up_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_up_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_changed_cause_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/selection_changed_cause_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
