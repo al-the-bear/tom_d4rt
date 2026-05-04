@@ -206,6 +206,27 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('semantics_action_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/semantics_action_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('view_constraints_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/view_constraints_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('view_focus_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/view_focus_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -285,6 +306,41 @@ void main() {
     test('unicode_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/unicode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('aggregated_timings_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/aggregated_timings_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('diagnostics_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnostics_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('object_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/object_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('partial_stack_frame_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/partial_stack_frame_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_tree_renderer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/text_tree_renderer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -757,6 +813,13 @@ void main() {
     test('tooltip_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/tooltip_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_button_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/text_button_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1318,6 +1381,13 @@ void main() {
     test('undo_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/undo_direction_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('modifier_key_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/modifier_key_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

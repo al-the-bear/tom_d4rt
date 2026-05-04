@@ -80,17 +80,17 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 71 | `foundation/double_property_test.dart` | 1,212 | 36 | (x) | (x) | (x) |
 | 72 | `dart_ui/semantics_flags_test.dart` | 1,215 | 33 | (x) | (x) | (x) |
 | 73 | `gestures/multi_tap_gesture_recognizer_test.dart` | 1,215 | 29 | (x) | (x) | (x) |
-| 74 | `services/modifier_key_test.dart` | 1,219 | 38 | (x) | ( ) | ( ) |
-| 75 | `dart_ui/view_focus_event_test.dart` | 1,256 | 35 | (x) | (x) | ( ) |
-| 76 | `foundation/text_tree_renderer_test.dart` | 1,303 | 40 | (x) | (x) | ( ) |
-| 77 | `foundation/diagnostics_property_test.dart` | 1,310 | 37 | (x) | (x) | ( ) |
-| 78 | `foundation/partial_stack_frame_test.dart` | 1,390 | 48 | (x) | (x) | ( ) |
+| 74 | `services/modifier_key_test.dart` | 1,219 | 38 | (x) | (x) | (x) |
+| 75 | `dart_ui/view_focus_event_test.dart` | 1,256 | 35 | (x) | (x) | (x) |
+| 76 | `foundation/text_tree_renderer_test.dart` | 1,303 | 40 | (x) | (x) | (x) |
+| 77 | `foundation/diagnostics_property_test.dart` | 1,310 | 37 | (x) | (x) | (x) |
+| 78 | `foundation/partial_stack_frame_test.dart` | 1,390 | 48 | (x) | (x) | (x) |
 | 79 | `repro_fa2/state_field_controller_min.dart` | 1,421 | 55 | (x) | ( ) | ( ) |
-| 80 | `foundation/object_event_test.dart` | 1,441 | 43 | (x) | (x) | ( ) |
-| 81 | `foundation/aggregated_timings_test.dart` | 1,466 | 44 | (x) | (x) | ( ) |
-| 82 | `material/text_button_test.dart` | 1,483 | 59 | (x) | (x) | ( ) |
-| 83 | `dart_ui/view_constraints_test.dart` | 1,485 | 34 | (x) | (x) | ( ) |
-| 84 | `dart_ui/semantics_action_test.dart` | 1,498 | 43 | (x) | (x) | ( ) |
+| 80 | `foundation/object_event_test.dart` | 1,441 | 43 | (x) | (x) | (x) |
+| 81 | `foundation/aggregated_timings_test.dart` | 1,466 | 44 | (x) | (x) | (x) |
+| 82 | `material/text_button_test.dart` | 1,483 | 59 | (x) | (x) | (x) |
+| 83 | `dart_ui/view_constraints_test.dart` | 1,485 | 34 | (x) | (x) | (x) |
+| 84 | `dart_ui/semantics_action_test.dart` | 1,498 | 43 | (x) | (x) | (x) |
 | 85 | `widgets/heromode_test.dart` | 1,508 | 55 | (x) | (x) | ( ) |
 | 86 | `foundation/stack_frame_test.dart` | 1,533 | 48 | (x) | (x) | ( ) |
 | 87 | `dart_ui/semantics_flag_test.dart` | 1,574 | 45 | (x) | (x) | ( ) |

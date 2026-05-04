@@ -378,7 +378,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [scene_builder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/scene_builder_test.dart) | SceneBuilder | No | Yes | No | Checked. |
 | [scene_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/scene_test.dart) | Scene | No | Yes | No | Recreated on 2026-05-03 at 13:39 |
 | [semantics_action_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_event_test.dart) | SemanticsActionEvent | No | Yes | No | Recreated on 2026-05-03 at 13:39 |
-| [semantics_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_test.dart) | SemanticsAction | No | Yes | No | Checked. |
+| [semantics_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_test.dart) | SemanticsAction | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [semantics_flag_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_flag_test.dart) | SemanticsFlag | No | Yes | No | Checked. |
 | [semantics_flags_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_flags_test.dart) | SemanticsFlags | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [semantics_hit_test_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_hit_test_behavior_test.dart) | SemanticsHitTestBehavior | No | Yes | No | Checked. |
@@ -415,9 +415,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [uniform_vec4_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_vec4_slot_test.dart) | UniformVec4Slot | No | Yes | No | Checked. |
 | [vertex_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/vertex_mode_test.dart) | VertexMode | No | Yes | No | Checked. |
 | [vertices_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/vertices_test.dart) | Vertices | No | Yes | No | Checked. |
-| [view_constraints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_constraints_test.dart) | ViewConstraints | No | Yes | No | Checked. |
+| [view_constraints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_constraints_test.dart) | ViewConstraints | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [view_focus_direction_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_focus_direction_test.dart) | ViewFocusDirection | No | Yes | No | Checked. |
-| [view_focus_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_focus_event_test.dart) | ViewFocusEvent | No | Yes | No | Checked. |
+| [view_focus_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_focus_event_test.dart) | ViewFocusEvent | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [view_focus_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_focus_state_test.dart) | ViewFocusState | No | Yes | No | Checked. |
 | [ztmp_path_metrics_access_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/ztmp_path_metrics_access_test.dart) | PathMetricsAccess | No | Yes | No | Recreated on 2026-05-03 at 13:39 |
 ## foundation/ (60 files)
@@ -426,7 +426,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [abstract_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/abstract_node_test.dart) | AbstractNode | Yes | Yes | No |
 | [aggregated_timed_block_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/aggregated_timed_block_test.dart) | AggregatedTimedBlock | Yes | Yes | No |
-| [aggregated_timings_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/aggregated_timings_test.dart) | AggregatedTimings | No | Yes | No | Checked. |
+| [aggregated_timings_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/aggregated_timings_test.dart) | AggregatedTimings | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [bit_field_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/bit_field_test.dart) | BitField | Yes | Yes | No |
 | [buffers_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/buffers_misc_test.dart) | foundation | Yes | Yes | No |
 | [caching_iterable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/caching_iterable_test.dart) | CachingIterable | Yes | Yes | No |
@@ -439,7 +439,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [diagnosticable_tree_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_node_test.dart) | DiagnosticableTreeNode | Yes | Yes | No |
 | [diagnosticable_tree_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_test.dart) | DiagnosticableTree | No | Yes | No | Checked. |
 | [diagnostics_block_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_block_test.dart) | DiagnosticsBlock | Yes | Yes | No |
-| [diagnostics_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_property_test.dart) | DiagnosticsProperty | No | Yes | No | Checked. |
+| [diagnostics_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_property_test.dart) | DiagnosticsProperty | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [diagnostics_serialization_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_serialization_delegate_test.dart) | DiagnosticsSerializationDelegate | Yes | Yes | No |
 | [diagnostics_stack_trace_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_stack_trace_test.dart) | DiagnosticsStackTrace | No | Yes | No | Checked. |
 | [diagnostics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_test.dart) | DiagnosticsNode | No | Yes | No | Checked. |
@@ -465,10 +465,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [object_created_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart) | ObjectCreated | No | Yes | No | Checked. |
 | [object_disposed_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart) | ObjectDisposed | No | Yes | No | Checked. |
 | [object_default_constructor_bridge_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_default_constructor_bridge_regression_test.dart) | ObjectDefaultConstructorBridgeRegression | No | No | No | Needs to be created (Batch-3 failure pattern: `Object` default constructor not callable in bridge). |
-| [object_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart) | ObjectEvent | No | Yes | No | Checked. |
+| [object_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart) | ObjectEvent | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [object_flag_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_flag_property_test.dart) | ObjectFlagProperty | No | Yes | No | Checked. |
 | [observer_list_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/observer_list_test.dart) | ObserverList | No | Yes | No | Checked. |
-| [partial_stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/partial_stack_frame_test.dart) | PartialStackFrame | No | Yes | No | Checked. |
+| [partial_stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/partial_stack_frame_test.dart) | PartialStackFrame | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [percent_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/percent_property_test.dart) | PercentProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [persistent_hash_map_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/persistent_hash_map_test.dart) | PersistentHashMap | Yes | Yes | No |
 | [read_buffer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/read_buffer_test.dart) | ReadBuffer | Yes | Yes | No |
@@ -481,7 +481,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [target_platform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart) | TargetPlatform | No | Yes | No | Recreated on 2026-05-02 at 10:43 |
 | [targetplatform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/targetplatform_test.dart) | TargetPlatform | No | Yes | No | Checked. |
 | [text_tree_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/text_tree_configuration_test.dart) | TextTreeConfiguration | Yes | Yes | No |
-| [text_tree_renderer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/text_tree_renderer_test.dart) | TextTreeRenderer | No | Yes | No | Checked. |
+| [text_tree_renderer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/text_tree_renderer_test.dart) | TextTreeRenderer | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [timed_block_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/timed_block_test.dart) | TimedBlock | No | Yes | No | Checked. |
 | [unicode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/unicode_test.dart) | Unicode | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
 | [write_buffer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/write_buffer_test.dart) | WriteBuffer | Yes | Yes | No |
@@ -894,7 +894,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [table_row_ink_well_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | Yes | No | Deep demo created 2025-03-28 |
 | [tabs_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | Yes | No | Created on 2026-03-29 at 14:35 |
-| [text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Checked. |
+| [text_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [text_button_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [text_field_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_field_theme_test.dart) | InputDecorationTheme | No | Yes | No | Checked. |
 | [text_magnifier_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/text_magnifier_test.dart) | TextMagnifier | No | Yes | No | Deep demo created 2025-03-28 |
@@ -1379,7 +1379,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [method_codec_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/method_codec_test.dart) | MethodCodec | No | Yes | No | Recreated on 2026-05-02 at 14:35. |
 | [codec_byte_data_view_length_in_bytes_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/codec_byte_data_view_length_in_bytes_regression_test.dart) | CodecByteDataViewLengthInBytesRegression | No | No | No | Needs to be created (Batch-14 failure pattern: `_ByteDataView.lengthInBytes` missing/inaccessible in message/method codec flows). |
 | [missing_plugin_exception_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/missing_plugin_exception_test.dart) | MissingPluginException | No | Yes | No | Checked. |
-| [modifier_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/modifier_key_test.dart) | ModifierKey | No | Yes | No | Checked. |
+| [modifier_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/modifier_key_test.dart) | ModifierKey | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
 | [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | Deep-Demo DONE | No | B71: Slate/Silver theme, 16 sections, mc prefix. |
 | [mouse_cursor_session_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/mouse_cursor_session_test.dart) | MouseCursorSession | No | Yes | No | Created on 2026-04-08 at 21:49. |
 | [mouse_tracker_annotation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/mouse_tracker_annotation_test.dart) | MouseTrackerAnnotation | No | Yes | No | Checked. |
