@@ -19,16 +19,16 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 10 | `material/stepper_type_test.dart` | 985 | 31 | (x) | (x) | (x) |
 | 11 | `services/undo_direction_test.dart` | 991 | 31 | (x) | (x) | (x) |
 | 12 | `semantics/assertiveness_test.dart` | 993 | 31 | (x) | (x) | (x) |
-| 13 | `material/material_type_test.dart` | 997 | 31 | (x) | (x) | ( ) |
-| 14 | `scheduler/scheduler_phase_test.dart` | 1,005 | 31 | (x) | (x) | ( ) |
-| 15 | `gestures/pointer_added_event_test.dart` | 1,010 | 29 | (x) | (x) | ( ) |
-| 16 | `services/system_sound_type_test.dart` | 1,015 | 31 | (x) | (x) | ( ) |
-| 17 | `services/system_ui_overlay_test.dart` | 1,015 | 31 | (x) | (x) | ( ) |
-| 18 | `services/text_input_action_test.dart` | 1,015 | 31 | (x) | (x) | ( ) |
-| 19 | `rendering/scroll_direction_test.dart` | 1,019 | 31 | (x) | (x) | ( ) |
-| 20 | `rendering/selection_result_test.dart` | 1,019 | 31 | (x) | (x) | ( ) |
-| 21 | `rendering/selection_status_test.dart` | 1,019 | 31 | (x) | (x) | ( ) |
-| 22 | `rendering/text_granularity_test.dart` | 1,019 | 31 | (x) | (x) | ( ) |
+| 13 | `material/material_type_test.dart` | 997 | 31 | (x) | (x) | (x) |
+| 14 | `scheduler/scheduler_phase_test.dart` | 1,005 | 31 | (x) | (x) | (x) |
+| 15 | `gestures/pointer_added_event_test.dart` | 1,010 | 29 | (x) | (x) | (x) |
+| 16 | `services/system_sound_type_test.dart` | 1,015 | 31 | (x) | (x) | (x) |
+| 17 | `services/system_ui_overlay_test.dart` | 1,015 | 31 | (x) | (x) | (x) |
+| 18 | `services/text_input_action_test.dart` | 1,015 | 31 | (x) | (x) | (x) |
+| 19 | `rendering/scroll_direction_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
+| 20 | `rendering/selection_result_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
+| 21 | `rendering/selection_status_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
+| 22 | `rendering/text_granularity_test.dart` | 1,019 | 31 | (x) | (x) | (x) |
 | 23 | `foundation/percent_property_test.dart` | 1,022 | 34 | (x) | (x) | ( ) |
 | 24 | `services/keyboard_lock_mode_test.dart` | 1,027 | 31 | (x) | (x) | ( ) |
 | 25 | `foundation/flutter_memory_allocations_test.dart` | 1,036 | 36 | (x) | (x) | ( ) |

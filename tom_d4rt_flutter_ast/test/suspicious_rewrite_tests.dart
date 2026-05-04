@@ -232,6 +232,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('pointer_added_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_added_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('vertical_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/vertical_multi_drag_gesture_recognizer_test.dart',
@@ -359,6 +366,13 @@ void main() {
     test('material_banner_closed_reason_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/material_banner_closed_reason_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/material_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -606,11 +620,39 @@ void main() {
   });
 
   // ============================================================
-  // RENDERING (26 files)
+  // RENDERING (30 files)
   // ============================================================
   group('rendering/', () {
     test('const_test.dart', () async {
       final result = await SendTestRunner.send('rendering/const_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scroll_direction_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/scroll_direction_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_result_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/selection_result_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_status_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/selection_status_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_granularity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/text_granularity_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -792,6 +834,19 @@ void main() {
   });
 
   // ============================================================
+  // SCHEDULER (1 file)
+  // ============================================================
+  group('scheduler/', () {
+    test('scheduler_phase_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'scheduler/scheduler_phase_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+  });
+
+  // ============================================================
   // REPRO_FA5 (2 files)
   // ============================================================
   group('repro_fa5/', () {
@@ -890,9 +945,30 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('system_sound_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/system_sound_type_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('system_ui_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_ui_mode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('system_ui_overlay_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/system_ui_overlay_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('text_input_action_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/text_input_action_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
