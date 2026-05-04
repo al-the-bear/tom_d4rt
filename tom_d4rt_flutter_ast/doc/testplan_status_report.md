@@ -380,7 +380,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [semantics_action_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_event_test.dart) | SemanticsActionEvent | No | Yes | No | Recreated on 2026-05-03 at 13:39 |
 | [semantics_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_test.dart) | SemanticsAction | No | Yes | No | Checked. |
 | [semantics_flag_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_flag_test.dart) | SemanticsFlag | No | Yes | No | Checked. |
-| [semantics_flags_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_flags_test.dart) | SemanticsFlags | No | Yes | No | Checked. |
+| [semantics_flags_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_flags_test.dart) | SemanticsFlags | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [semantics_hit_test_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_hit_test_behavior_test.dart) | SemanticsHitTestBehavior | No | Yes | No | Checked. |
 | [semantics_input_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_input_type_test.dart) | SemanticsInputType | No | Yes | No | Checked. |
 | [semantics_role_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/semantics_role_test.dart) | SemanticsRole | No | Yes | No | Checked. |
@@ -445,8 +445,8 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [diagnostics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_test.dart) | DiagnosticsNode | No | Yes | No | Checked. |
 | [diagnostics_tree_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_tree_style_test.dart) | DiagnosticsTreeStyle | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
 | [documentation_icon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/documentation_icon_test.dart) | DocumentationIcon | No | Yes | No | Checked. |
-| [double_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/double_property_test.dart) | DoubleProperty | No | Yes | No | Checked. |
-| [enum_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/enum_property_test.dart) | EnumProperty | No | Yes | No | Checked. |
+| [double_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/double_property_test.dart) | DoubleProperty | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
+| [enum_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/enum_property_test.dart) | EnumProperty | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [error_spacer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/error_spacer_test.dart) | ErrorSpacer | No | Yes | No | Checked. |
 | [error_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/error_test.dart) | FlutterError | Yes | Yes | No |
 | [factory_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Yes | No | Batch 57 deep demo. |
@@ -455,7 +455,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [flutter_memory_allocations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_memory_allocations_test.dart) | FlutterMemoryAllocations | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [flutter_timeline_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_timeline_test.dart) | FlutterTimeline | Yes | Yes | No |
 | [foundation_misc_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_misc_adv_test.dart) | TargetPlatformVariant | No | Yes | No | Checked. |
-| [foundation_service_extensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_service_extensions_test.dart) | FoundationServiceExtensions | No | Yes | No | Checked. |
+| [foundation_service_extensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_service_extensions_test.dart) | FoundationServiceExtensions | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [int_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/int_property_test.dart) | IntProperty | No | Yes | No | Checked. |
 | [iterable_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/iterable_property_test.dart) | IterableProperty | No | Yes | No | Recreated on 2026-05-04 at 19:05 |
 | [key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/key_test.dart) | Key | No | Yes | No |
@@ -494,7 +494,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | Yes | No | Batch 58 deep demo. |
 | [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | Yes | No | Checked. |
 | [details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/details_test.dart) | gesture | No | Yes | No |
-| [device_gesture_settings_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | Yes | No | Checked. |
+| [device_gesture_settings_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [drag_down_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_down_details_test.dart) | DragDownDetails | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_gesture_recognizer_test.dart) | DragGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
 | [drag_start_behavior_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_start_behavior_test.dart) | DragStartBehavior | No | Yes | No | Recreated on 2026-05-04 at 18:09 |
@@ -514,10 +514,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [immediate_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/immediate_multi_drag_gesture_recognizer_test.dart) | ImmediateMultiDragGestureRecognizer | Yes | Yes | No |
 | [least_squares_solver_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/least_squares_solver_test.dart) | LeastSquaresSolver | Yes | Yes | No |
 | [long_press_down_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/long_press_down_details_test.dart) | LongPressDownDetails | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
-| [mac_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart) | MacOSScrollViewFlingVelocityTracker | No | Yes | No | Checked. |
+| [mac_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart) | MacOSScrollViewFlingVelocityTracker | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/multi_drag_gesture_recognizer_test.dart) | MultiDragGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 18:09 |
 | [multi_drag_pointer_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/multi_drag_pointer_state_test.dart) | MultiDragPointerState | No | Yes | No | Checked. |
-| [multi_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/multi_tap_gesture_recognizer_test.dart) | MultiTapGestureRecognizer | No | Yes | No | Checked. |
+| [multi_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/multi_tap_gesture_recognizer_test.dart) | MultiTapGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [multitouch_drag_strategy_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/multitouch_drag_strategy_test.dart) | MultitouchDragStrategy | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
 | [offset_pair_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/offset_pair_test.dart) | OffsetPair | Yes | Yes | No |
 | [one_sequence_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/one_sequence_gesture_recognizer_test.dart) | OneSequenceGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
@@ -1359,7 +1359,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [i_o_s_system_context_menu_item_data_select_all_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_select_all_test.dart) | IOSSystemContextMenuItemDataSelectAll | No | Yes | No | Checked. |
 | [i_o_s_system_context_menu_item_data_share_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_share_test.dart) | IOSSystemContextMenuItemDataShare | No | Yes | No | Checked. |
 | [i_o_s_system_context_menu_item_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_test.dart) | IOSSystemContextMenuItemData | No | Deep-Demo DONE | No | B70: Ruby/Garnet theme, 16 sections, io prefix. |
-| [key_data_transit_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_data_transit_mode_test.dart) | KeyDataTransitMode | No | Yes | No | Checked. |
+| [key_data_transit_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_data_transit_mode_test.dart) | KeyDataTransitMode | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [key_down_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_down_event_test.dart) | KeyDownEvent | No | Yes | No | Checked. |
 | [key_event_manager_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_event_manager_test.dart) | KeyEventManager | No | Deep-Demo DONE | No | B70: Cobalt/Azure theme, 16 sections, ke prefix. |
 | [key_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_event_test.dart) | KeyEvent | No | Yes | No | Checked. |
@@ -2099,7 +2099,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [shortcut_serialization_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Yes | No | Created on 2026-04-21 at 21:20. |
 | shortcut_serialization_private_constructor_regression_test.dart | _TriggerInfo private constructor | No | No | No | Needs to be created |
 | [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
-| [shortcuts_actions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Checked. |
+| [shortcuts_actions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | Yes | No | Created on 2026-04-07 at 21:00. |
 | [single_activator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | Yes | No | Created on 2026-04-21 at 21:20. |
 | single_activator_private_constructor_regression_test.dart | _Key private constructor | No | No | No | Needs to be created |

@@ -164,6 +164,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('semantics_flags_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/semantics_flags_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('string_attribute_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/string_attribute_test.dart',
@@ -212,6 +219,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('double_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/double_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('enum_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/enum_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('flag_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flag_property_test.dart',
@@ -222,6 +243,13 @@ void main() {
     test('flutter_memory_allocations_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flutter_memory_allocations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation_service_extensions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/foundation_service_extensions_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -267,6 +295,13 @@ void main() {
   // GESTURES (5 files)
   // ============================================================
   group('gestures/', () {
+    test('device_gesture_settings_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/device_gesture_settings_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('drag_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/drag_down_details_test.dart',
@@ -344,9 +379,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('mac_o_s_scroll_view_fling_velocity_tracker_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/multi_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('multi_tap_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/multi_tap_gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1076,6 +1125,19 @@ void main() {
   });
 
   // ============================================================
+  // RETEST/FOUNDATION (1 file)
+  // ============================================================
+  group('retest/foundation/', () {
+    test('object_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/foundation/object_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+  });
+
+  // ============================================================
   // SEMANTICS (2 files)
   // ============================================================
   group('semantics/', () {
@@ -1130,6 +1192,13 @@ void main() {
     test('floating_cursor_drag_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/floating_cursor_drag_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('key_data_transit_mode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/key_data_transit_mode_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1540,6 +1609,13 @@ void main() {
     test('selection_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/selection_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('shortcuts_actions_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/shortcuts_actions_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
