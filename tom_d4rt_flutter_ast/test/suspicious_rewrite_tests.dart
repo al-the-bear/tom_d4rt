@@ -1101,6 +1101,34 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('gradients_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/gradients_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rounded_superellipse_border_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/rounded_superellipse_border_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('outlined_border_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/outlined_border_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('notched_shape_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/notched_shape_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1380,6 +1408,13 @@ void main() {
     test('render_error_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_error_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('select_word_selection_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/select_word_selection_event_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1688,6 +1723,20 @@ void main() {
     test('platform_views_registry_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_views_registry_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('keyboard_key_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/keyboard_key_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('selection_rect_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/selection_rect_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -2126,6 +2175,20 @@ void main() {
     test('padding_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/padding_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('render_sliver_overlap_injector_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/render_sliver_overlap_injector_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('futurebuilder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/futurebuilder_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
