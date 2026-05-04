@@ -4,6 +4,13 @@ class ListCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: List,
         name: 'List',
+        // GEN-C3d: match any List subtype, including private impls like
+        // `CodeUnits` (returned by `String.codeUnits`),
+        // `UnmodifiableListView`, `_GrowableList`, etc. Without this,
+        // `String.codeUnits.length` failed because `toBridgedInstance` could
+        // not bridge the private `CodeUnits` runtime type. Mirrors the
+        // pattern already used by the `Set` bridge.
+        isAssignable: (v) => v is List,
         typeParameterCount: 1,
         constructors: {
           'empty': (visitor, positionalArgs, namedArgs) {

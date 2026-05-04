@@ -1237,6 +1237,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
+      // GEN-C3c: Universal Object-member fallback for arbitrary native
+      // targets reached via PrefixedIdentifier. Every Dart Object exposes
+      // `toString`, `hashCode`, and `runtimeType`; these must always
+      // resolve. Mirrors the BridgedInstance branch (GEN-107) above and
+      // the same fallback in visitPropertyAccess.
+      if (prefixValue != null) {
+        switch (memberName) {
+          case 'hashCode':
+            return prefixValue.hashCode;
+          case 'runtimeType':
+            return prefixValue.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (_, args, __, ___) => prefixValue.toString(),
+              arity: 0,
+              name: 'toString',
+            );
+        }
+      }
+
       throw RuntimeD4rtException(
           "Cannot access property '$memberName' on target of type ${prefixValue?.runtimeType}.");
     }
@@ -4387,6 +4407,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "Error executing extension getter '$propertyName': $e");
         }
       } else {
+        // GEN-C3c: Universal Object-member fallback for arbitrary native
+        // targets. Every Dart Object has `toString`, `hashCode`, and
+        // `runtimeType`; these must always resolve regardless of whether the
+        // runtime type is bridged or not. Mirrors the BridgedInstance branch
+        // at GEN-107 above and the Callable branch at ENG-006. `target` is
+        // non-null here — the early-return at the top of visitPropertyAccess
+        // handles the null-receiver case.
+        switch (propertyName) {
+          case 'hashCode':
+            return target.hashCode;
+          case 'runtimeType':
+            return target.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (visitor, args, namedArgs, typeArgs) => target.toString(),
+              arity: 0,
+              name: 'toString',
+            );
+        }
+
         // No extension getter found either, rethrow the original stdlib error
         Logger.debug(
             "[PropertyAccess] Extension getter '$propertyName' not found. Rethrowing original error.");

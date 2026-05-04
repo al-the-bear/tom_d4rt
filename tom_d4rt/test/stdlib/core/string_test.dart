@@ -213,6 +213,32 @@ void main() {
       expect(execute(source), equals([104, 101, 108, 108, 111]));
     });
 
+    test('I-STRING-16a: CodeUnits.length. [2026-05-04 09:00] (PASS)', () {
+      // GEN-C3d: regression — `String.codeUnits` returns the private
+      // `CodeUnits` type, which used to fail List dispatch because the
+      // List bridge had no `isAssignable`. With `isAssignable: (v) => v
+      // is List` on the List bridge, generic List members resolve.
+      const source = '''
+      main() {
+        String text = "hello";
+        return text.codeUnits.length;
+      }
+      ''';
+      expect(execute(source), equals(5));
+    });
+
+    test('I-STRING-16b: CodeUnits.first/.last/.isEmpty. '
+        '[2026-05-04 09:00] (PASS)', () {
+      const source = '''
+      main() {
+        String text = "ab";
+        final cu = text.codeUnits;
+        return [cu.first, cu.last, cu.isEmpty, cu.isNotEmpty];
+      }
+      ''';
+      expect(execute(source), equals([97, 98, false, true]));
+    });
+
     test('I-STRING-17: Runes. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
