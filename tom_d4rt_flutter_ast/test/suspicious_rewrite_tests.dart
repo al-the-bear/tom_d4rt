@@ -359,6 +359,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('error_spacer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/error_spacer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -522,6 +529,13 @@ void main() {
     test('eager_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/eager_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('delayed_multi_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/delayed_multi_drag_gesture_recognizer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -929,6 +943,34 @@ void main() {
     test('image_stream_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/image_stream_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('network_image_load_exception_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/network_image_load_exception_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('placeholder_span_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/placeholder_span_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gradient_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/gradient_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('inline_span_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/inline_span_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1469,6 +1511,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('i_o_s_system_context_menu_item_data_share_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/i_o_s_system_context_menu_item_data_share_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('i_o_s_system_context_menu_item_data_look_up_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/i_o_s_system_context_menu_item_data_look_up_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1868,6 +1924,13 @@ void main() {
     test('animatedpositioned_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/animatedpositioned_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('container_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/container_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

@@ -447,7 +447,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [documentation_icon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/documentation_icon_test.dart) | DocumentationIcon | No | Yes | No | Checked. |
 | [double_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/double_property_test.dart) | DoubleProperty | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [enum_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/enum_property_test.dart) | EnumProperty | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
-| [error_spacer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/error_spacer_test.dart) | ErrorSpacer | No | Yes | No | Checked. |
+| [error_spacer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/error_spacer_test.dart) | ErrorSpacer | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [error_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/error_test.dart) | FlutterError | Yes | Yes | No |
 | [factory_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Yes | No | Batch 57 deep demo. |
 | [flag_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flag_property_test.dart) | FlagProperty | No | Yes | No | Recreated on 2026-05-04 at 19:05 |
@@ -492,7 +492,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [base_tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/base_tap_and_drag_gesture_recognizer_test.dart) | BaseTapAndDragGestureRecognizer | No | Yes | No | Checked. |
 | [base_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/base_tap_gesture_recognizer_test.dart) | BaseTapGestureRecognizer | No | Yes | No | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | Yes | No | Batch 58 deep demo. |
-| [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | Yes | No | Checked. |
+| [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/details_test.dart) | gesture | No | Yes | No |
 | [device_gesture_settings_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [drag_down_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/drag_down_details_test.dart) | DragDownDetails | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
@@ -962,7 +962,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [flutter_logo_decoration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/flutter_logo_decoration_test.dart) | FlutterLogoDecoration | No | Yes | No | Recreated on 2026-05-04 at 12:30 |
 | [flutter_logo_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/flutter_logo_style_test.dart) | FlutterLogoStyle | No | Yes | No | Batch 64 deep demo |
 | [gradient_shadow_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/gradient_shadow_test.dart) | LinearGradient | No | Yes | No |
-| [gradient_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/gradient_test.dart) | Gradient | No | Yes | No | Checked. |
+| [gradient_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/gradient_test.dart) | Gradient | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [gradient_transform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/gradient_transform_test.dart) | GradientTransform | No | Yes | No |
 | [gradients_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/gradients_test.dart) | RadialGradient | No | Yes | No | Checked. |
 | [image_cache_status_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_cache_status_test.dart) | ImageCacheStatus | No | Yes | No | Created on 2026-03-22 at 10:30 |
@@ -979,21 +979,21 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [image_stream_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/image_stream_test.dart) | ImageStream | No | Yes | No | Recreated on 2026-05-04 at 12:50 |
 | [imagestream_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/imagestream_misc_test.dart) | painting | No | Yes | No | Checked. |
 | [inline_span_semantics_information_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/inline_span_semantics_information_test.dart) | InlineSpanSemanticsInformation | No | Yes | No | Checked. |
-| [inline_span_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/inline_span_test.dart) | InlineSpan | No | Yes | No | Checked. |
+| [inline_span_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/inline_span_test.dart) | InlineSpan | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [linear_border_edge_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/linear_border_edge_test.dart) | LinearBorderEdge | No | Yes | No | Checked. |
 | [linear_border_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/linear_border_test.dart) | LinearBorder | No | Yes | No | Checked. |
 | [matrix_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrix_test.dart) | Matrix4 | No | Yes | No |
 | [matrix_utils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrix_utils_test.dart) | MatrixUtils | No | Yes | No | Checked. |
 | [matrixutils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrixutils_test.dart) | MatrixUtils | No | Yes | No | Checked. |
 | [multi_frame_image_stream_completer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/multi_frame_image_stream_completer_test.dart) | MultiFrameImageStreamCompleter | No | Yes | No | Created on 2026-03-22 at 10:30 |
-| [network_image_load_exception_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/network_image_load_exception_test.dart) | NetworkImageLoadException | No | Yes | No | Checked. |
+| [network_image_load_exception_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/network_image_load_exception_test.dart) | NetworkImageLoadException | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [notched_shape_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/notched_shape_test.dart) | YestchedShape | No | Yes | No | Checked. |
 | [notched_shapes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/notched_shapes_test.dart) | CircularNotchedRectangle | No | Yes | No |
 | [one_frame_image_stream_completer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/one_frame_image_stream_completer_test.dart) | OneFrameImageStreamCompleter | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [outlined_border_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/outlined_border_test.dart) | OutlinedBorder | No | Yes | No | Checked. |
 | [painting_binding_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/painting_binding_test.dart) | PaintingBinding | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [placeholder_dimensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/placeholder_dimensions_test.dart) | PlaceholderDimensions | No | Yes | No | Checked. |
-| [placeholder_span_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/placeholder_span_test.dart) | PlaceholderSpan | No | Yes | No | Checked. |
+| [placeholder_span_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/placeholder_span_test.dart) | PlaceholderSpan | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [render_comparison_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/render_comparison_test.dart) | RenderComparison | No | Yes | No | Batch 64 deep demo |
 | [resize_image_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/resize_image_key_test.dart) | ResizeImageKey | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [resize_image_policy_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/resize_image_policy_test.dart) | ResizeImagePolicy | No | Yes | No | Batch 64 deep demo |
@@ -1353,11 +1353,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [i_o_s_system_context_menu_item_data_custom_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_custom_test.dart) | IOSSystemContextMenuItemDataCustom | No | Yes | No | Checked. |
 | [i_o_s_system_context_menu_item_data_cut_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_cut_test.dart) | IOSSystemContextMenuItemDataCut | No | Yes | No | Checked. |
 | [i_o_s_system_context_menu_item_data_live_text_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_live_text_test.dart) | IOSSystemContextMenuItemDataLiveText | No | Yes | No | Checked. |
-| [i_o_s_system_context_menu_item_data_look_up_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_look_up_test.dart) | IOSSystemContextMenuItemDataLookUp | No | Yes | No | Checked. |
+| [i_o_s_system_context_menu_item_data_look_up_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_look_up_test.dart) | IOSSystemContextMenuItemDataLookUp | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [i_o_s_system_context_menu_item_data_paste_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_paste_test.dart) | IOSSystemContextMenuItemDataPaste | No | Yes | No | Checked. |
 | [i_o_s_system_context_menu_item_data_search_web_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_search_web_test.dart) | IOSSystemContextMenuItemDataSearchWeb | No | Yes | No | Created on 2026-04-08 at 21:49. |
 | [i_o_s_system_context_menu_item_data_select_all_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_select_all_test.dart) | IOSSystemContextMenuItemDataSelectAll | No | Yes | No | Checked. |
-| [i_o_s_system_context_menu_item_data_share_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_share_test.dart) | IOSSystemContextMenuItemDataShare | No | Yes | No | Checked. |
+| [i_o_s_system_context_menu_item_data_share_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_share_test.dart) | IOSSystemContextMenuItemDataShare | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [i_o_s_system_context_menu_item_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/i_o_s_system_context_menu_item_data_test.dart) | IOSSystemContextMenuItemData | No | Deep-Demo DONE | No | B70: Ruby/Garnet theme, 16 sections, io prefix. |
 | [key_data_transit_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_data_transit_mode_test.dart) | KeyDataTransitMode | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [key_down_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_down_event_test.dart) | KeyDownEvent | No | Yes | No | Checked. |
@@ -1589,7 +1589,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [constrained_layout_builder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart) | ConstrainedLayoutBuilder | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
 | [constrainedbox_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/constrainedbox_test.dart) | ConstrainedBox | No | Yes | No |
 | [constraints_transform_box_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart) | ConstraintsTransformBox | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
-| [container_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/container_test.dart) | Container | No | Yes | No | Checked. |
+| [container_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/container_test.dart) | Container | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [container_child_widget_coercion_bridge_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/container_child_widget_coercion_bridge_regression_test.dart) | ContainerChildWidgetCoercionBridgeRegression | No | No | No | Needs to be created (Batch-71 failure pattern: `Container` constructor rejects interpreted `child` where `Widget?` is required). |
 | [content_insertion_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/content_insertion_configuration_test.dart) | ContentInsertionConfiguration | No | Yes | No | Created on 2026-04-08. |
 | [context_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart) | ContextAction | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
