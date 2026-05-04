@@ -1267,12 +1267,9 @@ Widget _recipeStep({
     decoration: BoxDecoration(
       color: kBgPanelSoft,
       borderRadius: BorderRadius.circular(kInnerRadius),
-      border: Border(
-        left: BorderSide(color: color, width: 4),
-        top: BorderSide(color: color.withOpacity(0.20)),
-        right: BorderSide(color: color.withOpacity(0.20)),
-        bottom: BorderSide(color: color.withOpacity(0.20)),
-      ),
+      // Flutter forbids non-uniform border colors when borderRadius is set;
+      // use a uniform border and surface the accent via the leading badge below.
+      border: Border.all(color: color.withOpacity(0.20)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

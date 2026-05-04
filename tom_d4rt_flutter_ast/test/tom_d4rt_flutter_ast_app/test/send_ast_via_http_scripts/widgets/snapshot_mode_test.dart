@@ -218,7 +218,14 @@ class _SmodeHome extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: _kSmodeCharcoal,
-      appBar: const _SmodeAppBar(),
+      // D4rt workaround (§P1): _SmodeAppBar is a user StatelessWidget that
+      // implements PreferredSizeWidget, but D4rt sees only the StatelessWidget
+      // base type and rejects the Scaffold.appBar PreferredSizeWidget? slot.
+      // Wrap the child in PreferredSize so the outer type is concrete.
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(88),
+        child: _SmodeAppBar(),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),

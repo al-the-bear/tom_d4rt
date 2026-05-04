@@ -549,34 +549,26 @@ class _RouteTransitionStagingDemoState
   }
 
   Color _platformAccent(BuildContext context) {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-        return _kPlum;
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-        return _kMintDeep;
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return _kIndigoDark;
+    final TargetPlatform platform = Theme.of(context).platform;
+    if (platform == TargetPlatform.iOS ||
+        platform == TargetPlatform.macOS) {
+      return _kPlum;
     }
+    if (platform == TargetPlatform.android ||
+        platform == TargetPlatform.fuchsia) {
+      return _kMintDeep;
+    }
+    return _kIndigoDark;
   }
 
   String _platformLabel(BuildContext context) {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.iOS:
-        return 'iOS';
-      case TargetPlatform.macOS:
-        return 'macOS';
-      case TargetPlatform.android:
-        return 'Android';
-      case TargetPlatform.fuchsia:
-        return 'Fuchsia';
-      case TargetPlatform.linux:
-        return 'Linux';
-      case TargetPlatform.windows:
-        return 'Windows';
-    }
+    final TargetPlatform platform = Theme.of(context).platform;
+    if (platform == TargetPlatform.iOS) return 'iOS';
+    if (platform == TargetPlatform.macOS) return 'macOS';
+    if (platform == TargetPlatform.android) return 'Android';
+    if (platform == TargetPlatform.fuchsia) return 'Fuchsia';
+    if (platform == TargetPlatform.linux) return 'Linux';
+    return 'Windows';
   }
 
   @override
@@ -841,7 +833,11 @@ class _RouteTransitionStagingDemoState
     final String routeName = record.route.settings.name ?? '<unnamed>';
     final bool waitingEnter = record.isWaitingForEnteringDecision;
     final bool waitingExit = record.isWaitingForExitingDecision;
-    final String runtime = record.runtimeType.toString();
+    // D4rt workaround: runtimeType.toString() on user-defined interpreted
+    // classes triggers "no static method 'toString'". Use a manual label.
+    final String runtime = record is _DemoRouteTransitionRecord
+        ? '_DemoRouteTransitionRecord'
+        : 'RouteTransitionRecord';
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 10),
       child: Row(

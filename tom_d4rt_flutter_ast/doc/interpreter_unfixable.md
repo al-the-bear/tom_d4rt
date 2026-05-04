@@ -40,6 +40,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [R1 — Redirecting factory constructor syntax (`factory X() = Y`) not implemented](#r1--redirecting-factory-constructor-syntax-factory-x--y-not-implemented) | Interpreter limitation (parser/interpreter does not lower the redirecting-factory `=` form into a forwarding call to the redirected concrete constructor; the abstract class is treated as directly instantiable and throws `Cannot instantiate abstract class`). Script-side workaround: instantiate the redirected concrete subclass directly while keeping the variable type as the abstract base. | `widgets/regular_window_test.dart` (4 sites: `RegularWindowController(...)` → `_HostRegularWindowController(...)`) |
 | [L1 — `AnimatedBuilder.animation` rejects script-defined subclass of bridged `Listenable`/`ChangeNotifier`](#l1--animatedbuilderanimation-rejects-script-defined-subclass-of-bridged-listenablechangenotifier) | Bridge-generator architectural limitation (proxy/relaxer pipeline does not synthesise native `ChangeNotifier`-backed proxies for script-defined subclasses of bridged `Listenable`; `D4.getRequiredArg<Listenable>` rejects the `InterpretedInstance` even though its synthetic class hierarchy reaches `ChangeNotifier`). Script-side workaround: pass `const AlwaysStoppedAnimation<double>(0.0)` as the `animation:` argument and access the controller via closure capture inside the `builder`. | `widgets/windowing_owner_mac_o_s_test.dart` (2 sites: `_MacChrome.build`, `_DockTile.build`) |
 | [I1 — C-style `for (var i = 0; …; i++)` shares loop variable across closures](#i1--c-style-for-loop-shares-loop-variable-across-closures-interpreter-limitation) | Interpreter limitation (`_executeClassicFor` creates one `loopEnvironment` for the whole loop and reuses it every iteration; standard Dart instead allocates a fresh per-iteration variable so closures created inside the body each capture their own `i`). Script-side workaround: replace collection-`for` / body-less for-loops that build closures over `i` with `List<T>.generate(n, (i) => …)`, which gives each iteration a fresh function-parameter `i`. | `widgets/drag_target_details_test.dart` (Section 11 rank-slot row, 5 FE) |
+| [T1 — `runtimeType.toString()` on user-defined interpreted classes](#t1--runtimetypetostring-on-user-defined-interpreted-classes) | Interpreter limitation (`InterpretedInstance.runtimeType` returns the `InterpretedClass`, which does not expose `toString` as a callable static — the chained call resolves to a static lookup and throws). Script-side workaround: emit the class-name string from an explicit `is`-check ladder. | `widgets/route_transition_record_test.dart` (1 FE — `_buildSurfaceRow` line 836) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2135,6 +2136,67 @@ Any of:
 
 ---
 
+## T1 — `runtimeType.toString()` on user-defined interpreted classes
+
+### Symptom
+
+```text
+Runtime Error: Class '_DemoRouteTransitionRecord' has no static
+method or named constructor named 'toString'.
+```
+
+Surfaces wherever a script reads `someInstance.runtimeType` and
+then calls `.toString()` on the result, e.g. for diagnostic
+labels:
+
+```dart
+final String runtime = record.runtimeType.toString();
+```
+
+### Diagnosis
+
+For native Dart objects, `Object.runtimeType` returns a `Type`
+instance whose `toString()` is the class name. The d4rt
+interpreter, however, returns the interpreted class itself
+(`InterpretedClass`) as the `runtimeType` of an
+`InterpretedInstance`. `InterpretedClass.toString` is not
+exposed as a callable member, so the chained `.toString()`
+invocation looks up a static method named `toString` on the class
+and throws `no static method or named constructor named
+'toString'`.
+
+The same construct works on bridged native classes because their
+`runtimeType` resolves to a real `Type` whose `toString()` lives on
+the native side.
+
+### Workaround (script-side)
+
+Emit the class-name string manually using `is` checks against the
+expected concrete subclass:
+
+```dart
+final String runtime = record is _DemoRouteTransitionRecord
+    ? '_DemoRouteTransitionRecord'
+    : 'RouteTransitionRecord';
+```
+
+For diagnostic-only contexts (logging, debug labels), this is
+purely cosmetic and behavioural-equivalent. If a script actually
+needs to dispatch on runtime type, use a `switch (record) {
+case _Foo(): ... }` pattern instead.
+
+### Architectural fix (deferred)
+
+`InterpreterVisitor` should expose `toString` (and the rest of
+`Object`'s universal members) when the `runtimeType` of an
+`InterpretedInstance` is dereferenced. The cleanest path is to
+return a `Type`-shaped façade with `toString()` defined to return
+`InterpretedClass.name`, mirroring what GEN-094 did for
+universal `Object` members on instances. Mirror the change in
+`tom_d4rt` and `tom_d4rt_ast` per the sync rule.
+
+---
+
 ## I1 — C-style for loop shares loop variable across closures (interpreter limitation)
 
 ### Symptom
@@ -2233,6 +2295,15 @@ valid Dart shape and not a regression).
 
 ## Change Log
 
+- 2026-05-04: **Add T1 — `runtimeType.toString()` on user-defined
+  interpreted classes throws "no static method 'toString'".**
+  Documents `testlog_20260503-2009-issue-analysis` cluster C10
+  follow-up. `InterpretedInstance.runtimeType` returns the
+  `InterpretedClass` itself, which does not expose `toString` as a
+  callable static. Workaround: emit the class-name string from an
+  explicit `is`-check ladder. Architectural fix (universal-Object
+  shim on the runtimeType façade) queued. Surfaced in
+  `widgets/route_transition_record_test.dart` line 836.
 - 2026-05-04: **Add I1 — C-style `for (var i = 0; …; i++)` shares
   loop variable across closures.** Documents the interpreter
   limitation diagnosed via stack-trace from
