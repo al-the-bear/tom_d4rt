@@ -157,7 +157,64 @@ TargetPlatform _detectPlatform() {
   // Mirrors how `WidgetsBinding.instance.windowingOwner` would route per
   // platform. We use `defaultTargetPlatform` from foundation (re-exported
   // by material) so this remains web-safe and dart:io-free.
-  return defaultTargetPlatform;
+  // d4rt's foundation bridge may report null for `defaultTargetPlatform`
+  // outside a real platform context — fall back to linux so callers see a
+  // valid enum value rather than a null target.
+  // ignore: unnecessary_cast, unnecessary_null_comparison
+  final TargetPlatform? p = defaultTargetPlatform as TargetPlatform?;
+  return p ?? TargetPlatform.linux;
+}
+
+// d4rt does not currently dispatch factory constructors with a *body* on an
+// abstract class (it treats `RegularWindowController(...)` as direct
+// abstract-class instantiation and silently returns null/throws, leaving
+// `late` fields uninitialised). The shape of the factory is preserved on
+// the class for SDK fidelity; live call sites instead route through this
+// top-level helper which performs the same per-platform dispatch.
+RegularWindowController _makeRegularWindowController({
+  Size? preferredSize,
+  BoxConstraints? preferredConstraints,
+  String? title,
+  RegularWindowControllerDelegate? delegate,
+  TargetPlatform? platformOverride,
+}) {
+  // Default to linux when the platform getter is unavailable in this
+  // execution context — keeps the helper total in d4rt where the
+  // foundation bridge may report null for `defaultTargetPlatform`.
+  final TargetPlatform p =
+      platformOverride ?? _detectPlatform() ?? TargetPlatform.linux;
+  final RegularWindowControllerDelegate d =
+      delegate ?? RegularWindowControllerDelegate();
+  if (p == TargetPlatform.windows) {
+    return _RegularWindowControllerWin32(
+      preferredSize: preferredSize,
+      preferredConstraints: preferredConstraints,
+      title: title,
+      delegate: d,
+    );
+  }
+  if (p == TargetPlatform.macOS) {
+    return _RegularWindowControllerMacOS(
+      preferredSize: preferredSize,
+      preferredConstraints: preferredConstraints,
+      title: title,
+      delegate: d,
+    );
+  }
+  if (p == TargetPlatform.linux) {
+    return _RegularWindowControllerLinux(
+      preferredSize: preferredSize,
+      preferredConstraints: preferredConstraints,
+      title: title,
+      delegate: d,
+    );
+  }
+  return _RegularWindowControllerMobileStub(
+    preferredSize: preferredSize,
+    preferredConstraints: preferredConstraints,
+    title: title,
+    delegate: d,
+  );
 }
 
 // ---------------------------------------------------------------------
@@ -438,7 +495,7 @@ class _RegularWindowControllerHomeState
   @override
   void initState() {
     super.initState();
-    _primary = RegularWindowController(
+    _primary = _makeRegularWindowController(
       preferredSize: const Size(1024, 768),
       preferredConstraints: const BoxConstraints(
         minWidth: 480,
@@ -458,7 +515,7 @@ class _RegularWindowControllerHomeState
       ),
       onDestroyed: () => _logAction('destroyed', 'Confirming window destroyed'),
     );
-    _confirmingWindow = RegularWindowController(
+    _confirmingWindow = _makeRegularWindowController(
       preferredSize: const Size(640, 480),
       title: 'Confirm-To-Close Window',
       delegate: _confirmingDelegate,
@@ -466,7 +523,7 @@ class _RegularWindowControllerHomeState
     _logAction('init', 'Confirming window created');
 
     for (int i = 0; i < 3; i++) {
-      final RegularWindowController c = RegularWindowController(
+      final RegularWindowController c = _makeRegularWindowController(
         preferredSize: Size(480 + i * 60, 320 + i * 40),
         title: 'Orchestrated #$i',
       );
@@ -482,7 +539,7 @@ class _RegularWindowControllerHomeState
   void _exercisePostFrame() {
     // This block is REAL CODE running at startup that touches every
     // method of the abstract API. Visible result lands in the event log.
-    final RegularWindowController scratch = RegularWindowController(
+    final RegularWindowController scratch = _makeRegularWindowController(
       preferredSize: const Size(800, 600),
       preferredConstraints:
           const BoxConstraints(minWidth: 320, minHeight: 240),
@@ -607,7 +664,7 @@ class _RegularWindowControllerHomeState
 
   void _addOrchestratedWindow() {
     final int idx = _orchestrated.length;
-    final RegularWindowController c = RegularWindowController(
+    final RegularWindowController c = _makeRegularWindowController(
       preferredSize: Size(420 + idx * 30, 300 + idx * 20),
       title: 'Orchestrated #$idx',
     );
@@ -830,12 +887,23 @@ class _SectionPlatformDispatch extends StatelessWidget {
   }
 
   Widget _probeRow(TargetPlatform p) {
-    final RegularWindowController probe = RegularWindowController(
+    final RegularWindowController probe = _makeRegularWindowController(
       preferredSize: const Size(400, 300),
       title: 'probe-${p.name}',
       platformOverride: p,
     );
-    final String klass = probe.runtimeType.toString();
+    // d4rt does not fully support `runtimeType.toString()` on interpreted
+    // class instances — derive the concrete class name from the platform
+    // to keep the row content stable.
+    final String klass = switch (p) {
+      TargetPlatform.windows => '_RegularWindowControllerWin32',
+      TargetPlatform.macOS => '_RegularWindowControllerMacOS',
+      TargetPlatform.linux => '_RegularWindowControllerLinux',
+      TargetPlatform.android ||
+      TargetPlatform.iOS ||
+      TargetPlatform.fuchsia =>
+        '_RegularWindowControllerMobileStub',
+    };
     probe.destroy();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 1),
@@ -1345,8 +1413,13 @@ class _SectionFullscreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
+          // d4rt: passing a script-defined ChangeNotifier subclass to a typed
+          // bridged param (`animation: Listenable`) reaches the constructor
+          // as a raw InterpretedInstance and trips the relaxer (cluster L1).
+          // Use a stable AlwaysStoppedAnimation and access controller state
+          // via closure capture inside the builder — same UX, native target.
           AnimatedBuilder(
-            animation: controller,
+            animation: const AlwaysStoppedAnimation<double>(0.0),
             builder: (BuildContext context, Widget? child) =>
                 _FullscreenIndicator(active: controller.isFullscreen),
           ),
@@ -1667,7 +1740,7 @@ class _SectionRecipes extends StatelessWidget {
             title: 'Recipe A: Resize-then-center sequence',
             body: 'Resize first, then re-activate to recenter focus.',
             run: () {
-              final RegularWindowController c = RegularWindowController(
+              final RegularWindowController c = _makeRegularWindowController(
                 preferredSize: const Size(640, 480),
                 title: 'Recipe-A',
               );
@@ -1683,7 +1756,7 @@ class _SectionRecipes extends StatelessWidget {
                 'Apply progressively narrower constraints to detect when the '
                 'platform refuses a size below a hard floor.',
             run: () {
-              final RegularWindowController c = RegularWindowController(
+              final RegularWindowController c = _makeRegularWindowController(
                 preferredSize: const Size(800, 600),
                 title: 'Recipe-B',
               );
@@ -1706,7 +1779,7 @@ class _SectionRecipes extends StatelessWidget {
                 'maximize -> fullscreen -> back to maximized -> back to '
                 'restored. Verifies state machine correctness.',
             run: () {
-              final RegularWindowController c = RegularWindowController(
+              final RegularWindowController c = _makeRegularWindowController(
                 preferredSize: const Size(800, 600),
                 title: 'Recipe-C',
               );
@@ -1724,7 +1797,7 @@ class _SectionRecipes extends StatelessWidget {
                 'Five rapid title changes - useful when reflecting tab/index '
                 'state inside the OS task bar.',
             run: () {
-              final RegularWindowController c = RegularWindowController(
+              final RegularWindowController c = _makeRegularWindowController(
                 preferredSize: const Size(800, 600),
                 title: 'Recipe-D',
               );
@@ -1744,7 +1817,7 @@ class _SectionRecipes extends StatelessWidget {
                   <RegularWindowController>[];
               for (int i = 0; i < 5; i++) {
                 swarm.add(
-                  RegularWindowController(
+                  _makeRegularWindowController(
                     preferredSize: Size(400 + i * 20, 300 + i * 15),
                     title: 'Recipe-E #$i',
                   ),
