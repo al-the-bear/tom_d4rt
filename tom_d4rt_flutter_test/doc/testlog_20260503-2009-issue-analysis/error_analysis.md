@@ -139,7 +139,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 |---------|----------------------|-------------------------|-----------|-------|
 | **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-03** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
 | **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** | gii/widgets/windowing_owner_mac_o_s | hardly_5/widgets/windowing_owner_mac_o_s (11), hardly_5/widgets/snapshot_mode (Scaffold appBar 1) | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. | bridge generator + interpreter |
-| **C3 — Codec rejects BridgedInstance** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | StandardMessageCodec/StandardMethodCodec adapters need to unwrap `BridgedInstance<Object>` payloads before native encode/decode. | bridge handler |
+| **C3 — Codec rejects BridgedInstance** ✅ **fixed 2026-05-04** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | Three independent gaps: (1) `D4.extractBridgedArg<T>` only top-level-unwrapped — for adapters typed `dynamic`/`Object`/`Object?` (e.g. `MessageCodec.encodeMessage`) nested `BridgedInstance`/`BridgedEnumValue` inside `Map`/`List`/`Set` reached native code as wrappers and the codec rejected them. Added `_deepUnwrap` and routed unbounded `T` through it; preserved `TypedData` (Uint8List/Float64List/ByteData/…) for codec wire tags. (2) Interpreter had no `Object.toString()` fallback — masked latent failure surfaced by the deep-unwrap fix. Added a generic `toString` fallback in `InterpreterVisitor.visitMethodInvocation` for any native target with no positional/named args. (3) Bridge-wrapped `PlatformException` → `RuntimeD4rtException` defeats typed `on PlatformException catch` filter — script-side, rewrote three catch sites in `method_codec_test.dart` to `catch (e)` and `'$e'`. Also fixed `String.codeUnits.length` (private `CodeUnits` runtime type does not dispatch `List.length`) → `String.length`. | bridge handler + interpreter + script |
 | **C4 — Abstract-class instantiation** | hardly_5/widgets/regular_window | hardly_5/widgets/regular_window_controller (LateInitializationError 1) | Scripts construct an abstract bridged base directly. | script |
 | **C5 — Argument-order syntax error in script** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emits positional after named. | script |
 | **C6 — Script timeout (infinite work)** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Test wedges build endpoint for 25 s; needs throttled or deterministic test loop. | script |
@@ -279,3 +279,135 @@ rule (a) — script-only edits — only the targeted retest is needed,
 which passed. The underlying generator helper bug (G1) stays
 documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
 as deferred work behind a coordinated cross-suite regression pass.
+
+### C3 — Codec rejects BridgedInstance ✅ fixed 2026-05-04
+
+**Status:** fixed (cluster owner = bridge handler + interpreter +
+script — three independent gaps closed in one commit
+[`50083b5b`](../../..)).
+
+**Affected scripts (both closed):**
+
+- `hardly_relevant_classes_3_test.dart > services/message_codec_test.dart`
+- `hardly_relevant_classes_3_test.dart > services/method_codec_test.dart`
+
+**What was actually broken.** The codec deep-demos exercise
+`StandardMessageCodec.encodeMessage(dynamic)` /
+`StandardMethodCodec.encodeMethodCall(MethodCall)` /
+`decodeEnvelope(ByteData)` and a few JSON-codec round-trips. Three
+independent issues stacked on top of each other:
+
+1. **`D4.extractBridgedArg<T>` only unwrapped at the top level.**
+   For codec adapters typed `dynamic` / `Object` / `Object?`,
+   nested `BridgedInstance` / `BridgedEnumValue` values that lived
+   inside `Map` / `List` / `Set` payloads reached native code as
+   wrappers. The codec walks the tree and chokes on
+   `Instance of 'BridgedInstance<Object>'` because no wire tag
+   maps to it.
+
+   ```dart
+   // tom_d4rt/lib/src/generator/d4.dart  (mirror in tom_d4rt_ast)
+   if (unwrapped is T) {
+     final tName = T.toString();
+     if (tName == 'dynamic' || tName == 'Object' || tName == 'Object?') {
+       final deep = _deepUnwrap(unwrapped);
+       if (deep is T) return deep;
+     }
+     return unwrapped;
+   }
+   ```
+
+   `_deepUnwrap` recurses through `Map`/`List`/`Set` and replaces
+   `BridgedInstance` with `nativeObject` and `BridgedEnumValue`
+   with `nativeValue`. Crucially, **`TypedData` is preserved
+   as-is** (`Uint8List`, `Int32List`, …, `ByteData`) — those
+   classes extend `List<int>` so a naive `value is List` branch
+   would convert them to a plain `List<Object?>` and the codec
+   would lose the dedicated typed-data wire tags. Bounded `T`
+   (e.g. `Map<String, Object?>`) keeps the existing fast path.
+
+2. **No `Object.toString()` fallback in the interpreter.** Once
+   the deep-unwrap fix landed, `buildErrorPathsSection` started
+   working as intended and exposed a latent failure: the catch
+   block ran `'$e'` on a native `RuntimeD4rtException`, which
+   went through `InterpreterVisitor.visitMethodInvocation` ➜
+   "Undefined property or method 'toString' on
+   RuntimeD4rtException." Bridges register the public surface of
+   the wrapped exception type but not the universal
+   `Object.toString` because the exception runtime type isn't
+   itself a bridged class. Added a generic fallback before the
+   throw:
+
+   ```dart
+   // GEN-C3b: Universal Object.toString() fallback.
+   if (methodName == 'toString' &&
+       positionalArgs.isEmpty &&
+       namedArgs.isEmpty) {
+     return targetValue.toString();
+   }
+   ```
+
+   Mirrored on both `tom_d4rt/lib/src/interpreter_visitor.dart`
+   (line ~3554) and
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+   (line ~4093).
+
+3. **Typed `on PlatformException catch (e)` defeated by bridge
+   wrapping.** The bridge call wrapper at
+   `interpreter_visitor.dart:3133-3134` rewraps native errors as
+   `RuntimeD4rtException`, so a script-side typed catch filter
+   never matches. Per the C3 cluster diagnosis (script-side
+   adjustment), the three catch sites in
+   `services/method_codec_test.dart` were rewritten to generic
+   `catch (e)` + `'$e'`. While in the file, fixed
+   `String.codeUnits.length` (the private `CodeUnits` runtime
+   type does not dispatch `List.length`) → `String.length` — the
+   UTF-16 code-unit count is what `.length` already returns.
+
+**What was changed.**
+
+- `tom_d4rt/lib/src/generator/d4.dart` — added `_deepUnwrap`
+  helper, routed unbounded-`T` through it in
+  `extractBridgedArg<T>`. `import 'dart:typed_data'` added for
+  the `TypedData` preserve branch.
+- `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` — identical
+  mirror (kept the `tom_d4rt_ast` two-space-indent style).
+- `tom_d4rt/lib/src/interpreter_visitor.dart` — `Object.toString`
+  fallback before the rethrow at the universal-method-dispatch
+  failure site.
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` — same
+  fallback at the mirror site.
+- `services/message_codec_test.dart` — one line:
+  `String.codeUnits.length` → `String.length` (Section 7).
+- `services/method_codec_test.dart` — three catch sites converted
+  from typed `on PlatformException catch (e)` (accessing
+  `e.code/.message/.details`) to generic `catch (e)` and a single
+  `_codeBlock('$e')`.
+
+**Verification — regression rule (b)** (interpreter changes
+require essential + important + secondary serial regression):
+
+| Suite | Result | Δ vs baseline |
+|-------|--------|---------------|
+| `services/message_codec_test.dart` (individual) | **PASS** (4.7s) | new pass (was hard fail) |
+| `services/method_codec_test.dart` (individual) | **PASS** (5.3s) | new pass (was hard fail) |
+| `essential_classes_test.dart` | **108/0/0** | +1 (C1 fix carried) |
+| `important_classes_test.dart` | **164/0/0** | 0 |
+| `secondary_classes_test.dart` | **653/0/1 skip** | 0 (skip = string_attribute, separate retry queue) |
+| `hardly_relevant_classes_3_test.dart` | **201/0/0** | +2 (both C3 scripts fixed) |
+
+All four suites run **serially** with `D4RT_SKIP_BRIDGE_REGEN=1`
+on the shared port-4242 HTTP server — never parallel. Logs in
+`/tmp/secondary.log` and the foreground hardly_3 retest output.
+
+**Why this lands as one commit, not three.** The deep-unwrap and
+the `Object.toString` fallback are coupled: without (2) the
+deep-unwrap fix surfaces the `RuntimeD4rtException.toString`
+failure and the codec test fails for a *different* reason. The
+two had to ship together to flip the script from red to green,
+and the script edits (including the `String.length` cleanup) are
+necessary because the bridge cannot fix a typed `on Type catch`
+filter that filters on the wrapped exception type — that is a
+bridge-architectural property, documented in cluster row C3.
+
+Cluster C3 closed; commit `50083b5b` on `main`.
