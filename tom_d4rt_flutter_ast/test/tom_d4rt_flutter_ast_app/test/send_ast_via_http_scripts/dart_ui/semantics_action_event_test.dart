@@ -532,7 +532,15 @@ Widget _eventCard({
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
+        // C8: long action names like `didGainAccessibilityFocus` and
+        // `moveCursorForwardByCharacter` overflow this card's 360-px
+        // SizedBox by ~7 px when shown next to nodeId/viewId labels in a
+        // strict Row. Use a Wrap so the labels drop to a second line for
+        // long names but stay inline for short ones.
+        Wrap(
+          spacing: 10,
+          runSpacing: 6,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
@@ -557,7 +565,6 @@ Widget _eventCard({
                 ),
               ),
             ),
-            const SizedBox(width: 10),
             Text(
               'nodeId=${event.nodeId}',
               style: const TextStyle(
@@ -566,7 +573,6 @@ Widget _eventCard({
                 fontFamily: 'monospace',
               ),
             ),
-            const SizedBox(width: 10),
             Text(
               'viewId=${event.viewId}',
               style: const TextStyle(

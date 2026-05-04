@@ -1154,8 +1154,11 @@ Widget _recipeIllustration2() {
 
 Widget _recipeIllustration3() {
   // Multi-finger expandable shelf
+  // C8: shelves (18+22+30+38) + 3 margins of 4 + SizedBox(4) + caption ≈ 142 px,
+  // which overflows the previous 140-padding(20) = 120 px usable area by ~22 px.
+  // Bump the box to 170 so the four shelves and the caption fit cleanly.
   return Container(
-    height: 140,
+    height: 170,
     decoration: BoxDecoration(
       color: _panelDeep,
       borderRadius: BorderRadius.circular(12),

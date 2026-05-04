@@ -144,7 +144,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | **C5 — Argument-order syntax error in script** ✅ **fixed 2026-05-04** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emitted three `infoCard(bg: …, <Widget>[…])` call sites in sections 12, 14 and 20 — named arg before positional. Modern Dart accepts intermixed args; d4rt's `_evaluateArguments` enforces the older "all positional must precede all named" rule and threw `Positional arguments cannot follow named arguments`. Reordered the three call sites to put the positional `<Widget>[…]` first and the `bg:` named arg last. Single-script change; verified via individual flutter test rerun (`hardly_relevant_classes_4_test.dart --plain-name "i_o_s_system_context_menu_item_cut_test.dart"` → `+1`). Per regression rule (a), only individual retest needed. | script |
 | **C6 — Script timeout (infinite work)** ✅ **fixed 2026-05-04** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Original demo authored stateful widgets (`AnimationController`, `PageController`, `TabController`, `ScrollController`, `setState`-driven live counters) which the static-build SendTestRunner cannot service: there is no live frame pump, so the controllers never fire, the build endpoint waits, and the 25 s timeout fires. Rewrote the file (2184 → 2535 lines) as a fully static visual demo — every authored class is a `StatelessWidget`, the page/tab/sliver-list cases are mocked as side-by-side card compositions with baked-in counter / scroll / form values illustrating what *would* be preserved if the mixin were active, and the lifecycle is rendered through two anatomy diagrams (`_AnatomyDiagram`, `_ProtocolSequence`) + 6 code-block snippets covering the contract, common bugs, and `super.build(context)` rule. Single import, single `// ignore_for_file:` block, dart-analyze clean. Individual retest via `flutter test test/hardly_relevant_classes_4_test.dart --plain-name "automatic_keep_alive_client_mixin_test.dart"`: build completes in 2.8 s, `httpStatus=200`, `frameworkErrors=0`, all tests passed. Per regression rule (a), individual retest is sufficient — only the test script changed. | script |
 | **C7 — `string_attribute_test.dart` (misclassified as transport failure) ✅ fixed 2026-05-04** | secondary/dart_ui/string_attribute | — | Two unrelated script-side issues: (1) Skia bidi shaper crash on Linux test runtime triggered by an Arabic-Indic-digit `TextSpan` sandwiched between ASCII flanking spans inside a `RichText` (3-child layout), and (2) an `attribute is ui.LocaleStringAttribute` runtime type test that fails on the older `tom_d4rt` because the import prefix is stripped before resolving the bare type name. The bisect proved the bundle size (968 KB) is *not* the cause — the previous "transport failure on huge bundle" diagnosis was wrong. Script rewritten: locale5 demo switched to Russian Cyrillic (no bidi reorder) and the prefixed `is`-test replaced with pre-computed description strings / locale overrides at the call site (3 helper signatures changed). Verified passing on both `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`. See `script_rewrites.md` ("Arabic-Indic digit `TextSpan` sandwiched in `RichText`" + "Prefixed `is` type-test on `dart:ui` type"). | script |
-| **C8 — Layout-overflow / infinite-size warnings** | — | 16 scripts, ~63 framework errors | Deep-demo content overflows the test viewport. Cosmetic; suppressible by scoping the demo to a `MediaQuery`/`SizedBox` of a fixed size. | script |
+| **C8 — Layout-overflow / infinite-size warnings** ⚠️ **partial 2026-05-04** | — | ~~material/text_selection_toolbar (8)~~ ✅; ~~rendering/render_animated_opacity (BoxConstraints inf height)~~ ✅; ~~gestures/vertical_multi_drag_gesture_recognizer (22 px bottom)~~ ✅; ~~dart_ui/semantics_action_event (7.1 px right)~~ ✅; 12 scripts remain | Four scripts closed 2026-05-04 with targeted script-side layout fixes: (1) `material/text_selection_toolbar_test.dart` — 8 `Stack`-positioned `TextSelectionToolbar` slots gave unbounded vertical/horizontal constraints to `CustomSingleChildLayout`; bounded each `Positioned` with explicit `width`/`height`. (2) `rendering/render_animated_opacity_test.dart` §3 — `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` inside the outer vertical `SingleChildScrollView` propagated tight infinite height to each `Expanded` child, colliding with `_ContrastCard`'s 220-px `ConstrainedBox`; switched to `CrossAxisAlignment.start`. (3) `gestures/vertical_multi_drag_gesture_recognizer_test.dart` `_recipeIllustration3` — fixed `Container(height: 140)` was 22 px short of the four shelves + caption Column; bumped to 170. (4) `dart_ui/semantics_action_event_test.dart` `_eventCard` — inner `Row` of action-name chip + `nodeId=` + `viewId=` overflowed the 360-px `SizedBox` by ~7 px when the chip held a long monospace name like `didGainAccessibilityFocus`/`moveCursorForwardByCharacter`; converted the `Row` to a `Wrap`. All four verified `frameworkErrors=0` via individual retests. Remaining ~12 layout-overflow scripts in this cluster are still pending. | script |
 | **C9 — `_InterpretedThemeExtension` proxy didn't unwrap to InterpretedInstance** ✅ **fixed 2026-05-04** | — | ~~hardly_2/material/theme_extension (`surfaceTint`)~~ ✅ | The native `_InterpretedThemeExtension` proxy (used to wrap user `ThemeExtension<T>` subclasses returned by `Theme.of(context).extension<BrandColors>()`) did not implement the `D4InterpretedProxy` marker. Property access on the bridged wrapper therefore couldn't fall through the visitor's D2 unwrap path to the `InterpretedInstance` carrying the script-defined `surfaceTint` field, so `brand.surfaceTint` raised `Undefined property or method 'surfaceTint' on bridged instance of 'ThemeExtension'`. | proxy registration (no generator change) |
 | **C10 — Null-aware regression** ✅ **fixed 2026-05-04** | — | ~~hardly_5/widgets/route_transition_record (`withValues` on null)~~ ✅ | Two unrelated script-side issues exposed in sequence: (1) `_platformAccent`/`_platformLabel` used a `switch (Theme.of(context).platform)` with all enum cases covered and no fallback `return`; D4rt does not infer enum exhaustiveness, so the function fell through and returned `null`, then `accent.withValues(...)` crashed at line 739. Fixed by converting both helpers to if-chains with an explicit final fallback (cluster P4 family — same pattern as commit `4f183f46`). (2) After the first fix, a second framework error surfaced at line 836: `record.runtimeType.toString()` on a script-defined `_DemoRouteTransitionRecord` raised `Class '_DemoRouteTransitionRecord' has no static method or named constructor named 'toString'`. D4rt's `runtimeType` on user-defined interpreted classes returns the InterpretedClass which does not expose `toString` as a callable. Replaced with a manual `is _DemoRouteTransitionRecord ? '_DemoRouteTransitionRecord' : 'RouteTransitionRecord'` literal. Individual retest: `frameworkErrors=0`. Per regression rule (a), only individual retest needed. Documented in `interpreter_unfixable.md` §T1 (new). | script |
 | **C11 — Non-uniform `Border.color` with `borderRadius`** ✅ **fixed 2026-05-04** | — | ~~secondary/dart_ui/scene_test (8)~~ ✅ | Script's `_recipeStep` helper built a `BoxDecoration` with `borderRadius: BorderRadius.circular(...)` and a `Border(left: BorderSide(color: color, ...), top/right/bottom: BorderSide(color: color.withOpacity(0.20), ...))` — non-uniform colors. Flutter rejects this combination with `A borderRadius can only be given on borders with uniform colors.`; the helper is invoked 8× per build, producing 8 identical errors. Fixed script-side: replaced the asymmetric four-side `Border` with a uniform `Border.all(color: color.withOpacity(0.20))` (the leading accent stripe is already provided by the numbered badge in the row). Individual retest: `frameworkErrors=0`. | script |
@@ -768,3 +768,85 @@ strings were reverted. `tom_d4rt/lib/src/interpreter_visitor.dart`
     no `surfaceTint` framework error.
 
 Cluster C9 closed.
+
+### C8 — Layout-overflow / infinite-size warnings ⚠️ partial 2026-05-04 (4 of 16 scripts closed)
+
+**Status:** four scripts closed (script-side); remaining
+~12 scripts still pending under this cluster.
+
+**Affected scripts closed 2026-05-04:**
+
+- `secondary_classes_test.dart > material/text_selection_toolbar_test.dart`
+- `secondary_classes_test.dart > rendering/render_animated_opacity_test.dart`
+- `secondary_classes_test.dart > gestures/vertical_multi_drag_gesture_recognizer_test.dart`
+- `secondary_classes_test.dart > dart_ui/semantics_action_event_test.dart`
+
+**What was broken — per script.**
+
+1. **`material/text_selection_toolbar_test.dart`** —
+   `TextSelectionToolbar` builds its own bounded toolbar via
+   `CustomSingleChildLayout`, which insists on a finite parent
+   constraint. Eight call sites embedded the toolbar inside a
+   `Stack` with `Positioned(left: …, top: …, child: …)` and **no
+   `right`/`width` or `bottom`/`height`** — those `Positioned`
+   slots hand `BoxConstraints(0.0<=w<=Infinity, 0.0<=h<=Infinity)`
+   to their child, which the layout helper rejects with "given an
+   infinite size during layout". Fixed by bounding each of the 8
+   `Positioned` sites with explicit `width:` 360/480/540 and
+   `height:` 60/64.
+
+2. **`rendering/render_animated_opacity_test.dart` (Section 3,
+   "before/after contrast")** — `_section3BeforeAfterContrast`
+   built a `Row(crossAxisAlignment: CrossAxisAlignment.stretch,
+   children: [Expanded(_ContrastCard…), SizedBox, Expanded(_ContrastCard…)])`
+   inside the outer page-level vertical `SingleChildScrollView`.
+   The scroll view's vertical max is `Infinity`, the Column passes
+   that through, and `stretch` then turns it into a *tight* infinite
+   height for each `Expanded`'s child — which collided with
+   `_ContrastCard`'s own `ConstrainedBox(maxHeight: 220)` and
+   produced
+   `BoxConstraints(0.0<=w<=Infinity, h=Infinity)`. Fixed by
+   switching the row to `CrossAxisAlignment.start`; the cards
+   self-size off their content and the cross axis stays
+   loose-infinite (acceptable).
+
+3. **`gestures/vertical_multi_drag_gesture_recognizer_test.dart`
+   (`_recipeIllustration3`)** — fixed-height `Container(height:
+   140, padding: EdgeInsets.all(20), child: Column(…))` housed four
+   stacked "shelves" (heights 18, 22, 30, 38) plus three 4-px
+   spacers, a 4-px gap, and a caption `Text` — total ≈ 142 px of
+   content vs (140 − 20 padding) = 120 px usable, producing a
+   `RenderFlex overflowed by 22 pixels on the bottom`. Fixed by
+   bumping the box to `height: 170`, leaving comfortable headroom.
+
+4. **`dart_ui/semantics_action_event_test.dart` (`_eventCard`)** —
+   each card sits inside a `SizedBox(width: 360)` (Wrap children
+   in section 5 "Argument shapes per action"). The card's first
+   row was `Row(children: [chip, SizedBox(10), Text(nodeId=…),
+   SizedBox(10), Text(viewId=…)])`. Container padding 14×2 leaves
+   332 px usable; for the longest action names
+   (`didGainAccessibilityFocus` 25 chars, `moveCursorForwardByCharacter`
+   28 chars), the monospace 12.5 chip pushes the row to ≈ 339 px
+   — `RenderFlex overflowed by 7.1 pixels on the right`. Fixed by
+   replacing the inner `Row` with a `Wrap(spacing: 10, runSpacing:
+   6, crossAxisAlignment: WrapCrossAlignment.center, children:
+   [chip, nodeIdText, viewIdText])` so long names cause the
+   labels to drop to a second line for that one card; short names
+   still render inline.
+
+**Verification.** Each script retested individually via
+`flutter test test/secondary_classes_test.dart --plain-name '…'`
+with `D4RT_SKIP_BRIDGE_REGEN=1`; all four reported
+`frameworkErrors=0`, `httpStatus=200`, and `+1: All tests
+passed!`. Per regression rule (a) — script-only changes — only
+individual retests are required for this batch.
+
+**Remaining work in cluster C8:** ~12 other layout-overflow
+scripts are still flagged in the framework-error blocks (e.g.
+`painting/decoration_image_painter_test.dart` with 27
+`RenderConstrainedOverflowBox infinite size` errors). They are
+all the same architectural family (deep-demo content that
+overflows the 800×600 test viewport) and can be picked up
+script-by-script in the same way.
+
+Cluster C8 partial — 4 of 16 closed.

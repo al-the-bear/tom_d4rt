@@ -214,6 +214,11 @@ Widget _buildAnchorAboveSection() {
                 Positioned(
                   left: 50,
                   top: 30,
+                  // C8: bound width+height so TextSelectionToolbar's
+                  // CustomSingleChildLayout doesn't see infinite max
+                  // constraints from a Positioned with only left/top.
+                  width: 480,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(150, 110),
                     anchorBelow: const Offset(150, 170),
@@ -297,6 +302,8 @@ Widget _buildAnchorBelowSection() {
                 Positioned(
                   left: 60,
                   top: 90,
+                  width: 480,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(150, 0),
                     anchorBelow: const Offset(150, 70),
@@ -471,6 +478,8 @@ Widget _toolbarRow({
               Positioned(
                 left: offset.dx,
                 top: offset.dy - 50,
+                width: 360,
+                height: 60,
                 child: TextSelectionToolbar(
                   anchorAbove: Offset(offset.dx + 70, offset.dy - 10),
                   anchorBelow: Offset(offset.dx + 70, offset.dy + 30),
@@ -531,6 +540,8 @@ Widget _buildLongActionLabels() {
                 Positioned(
                   left: 20,
                   top: 30,
+                  width: 540,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(170, 110),
                     anchorBelow: const Offset(170, 170),
@@ -556,6 +567,8 @@ Widget _buildLongActionLabels() {
                 Positioned(
                   left: 20,
                   top: 110,
+                  width: 540,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(170, 90),
                     anchorBelow: const Offset(170, 150),
@@ -626,6 +639,8 @@ Widget _buildIconActionsRow() {
                 Positioned(
                   left: 20,
                   top: 30,
+                  width: 480,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(180, 110),
                     anchorBelow: const Offset(180, 170),
@@ -766,6 +781,8 @@ Widget _buildAnatomyDiagram() {
                 Positioned(
                   left: 30,
                   top: 30,
+                  width: 480,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(160, 120),
                     anchorBelow: const Offset(160, 170),
@@ -932,6 +949,8 @@ Widget _buildComparisonWithCupertino() {
                 Positioned(
                   left: 30,
                   top: 30,
+                  width: 480,
+                  height: 64,
                   child: TextSelectionToolbar(
                     anchorAbove: const Offset(160, 110),
                     anchorBelow: const Offset(160, 170),

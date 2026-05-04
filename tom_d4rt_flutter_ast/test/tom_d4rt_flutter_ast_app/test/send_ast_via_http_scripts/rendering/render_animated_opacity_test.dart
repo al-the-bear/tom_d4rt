@@ -449,8 +449,13 @@ Widget _section3BeforeAfterContrast() {
         'The left card is fully opaque (alpha 255). The right card is fully '
         'transparent (alpha 0): RenderAnimatedOpacity skips painting its child '
         'entirely, but the box still consumes the same layout slot.',
+    // C8: drop CrossAxisAlignment.stretch on this Row. The enclosing Column
+    // sits inside a vertical SingleChildScrollView, so the Row's cross axis
+    // (vertical) max is infinite — `stretch` would then pass tight infinite
+    // height to each Expanded's child, which collides with _ContrastCard's
+    // own `height: 220` ConstrainedBox.
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: _ContrastCard(opacity: 1.0, label: 'opacity 1.0')),
         const SizedBox(width: 12),
