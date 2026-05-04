@@ -554,6 +554,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('serial_tap_cancel_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/serial_tap_cancel_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('base_tap_and_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/base_tap_and_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1066,6 +1080,27 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('fitted_sizes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/fitted_sizes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('automatic_notched_shape_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/automatic_notched_shape_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('box_border_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/box_border_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1418,6 +1453,19 @@ void main() {
   });
 
   // ============================================================
+  // RETEST/SERVICES (1 file)
+  // ============================================================
+  group('retest/services/', () {
+    test('method_codec_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/services/method_codec_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+  });
+
+  // ============================================================
   // SEMANTICS (2 files)
   // ============================================================
   group('semantics/', () {
@@ -1626,6 +1674,20 @@ void main() {
     test('missing_plugin_exception_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/missing_plugin_exception_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('platform_exception_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/platform_exception_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('platform_views_registry_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/platform_views_registry_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -2057,6 +2119,13 @@ void main() {
     test('animatedpadding_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/animatedpadding_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('padding_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/padding_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

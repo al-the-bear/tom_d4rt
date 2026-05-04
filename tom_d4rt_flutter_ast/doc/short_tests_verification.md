@@ -137,15 +137,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 128 | `services/missing_plugin_exception_test.dart` | 2,083 | 67 | (x) | ( ) | (x) |
 | 129 | `material/licensepage_test.dart` | 2,085 | 64 | (x) | (x) | (x) |
 | 130 | `painting/image_stream_listener_test.dart` | 2,088 | 68 | (x) | ( ) | (x) |
-| 131 | `gestures/serial_tap_cancel_details_test.dart` | 2,095 | 62 | (x) | ( ) | ( ) |
-| 132 | `painting/fitted_sizes_test.dart` | 2,098 | 68 | (x) | ( ) | ( ) |
-| 133 | `painting/automatic_notched_shape_test.dart` | 2,099 | 68 | (x) | ( ) | ( ) |
-| 134 | `widgets/padding_test.dart` | 2,100 | 66 | (x) | (x) | ( ) |
-| 135 | `painting/box_border_test.dart` | 2,108 | 70 | (x) | ( ) | ( ) |
-| 136 | `retest/services/method_codec_test.dart` | 2,113 | 61 | (x) | ( ) | ( ) |
-| 137 | `gestures/base_tap_and_drag_gesture_recognizer_test.dart` | 2,116 | 66 | (x) | ( ) | ( ) |
-| 138 | `services/platform_exception_test.dart` | 2,118 | 70 | (x) | ( ) | ( ) |
-| 139 | `services/platform_views_registry_test.dart` | 2,120 | 67 | (x) | ( ) | ( ) |
+| 131 | `gestures/serial_tap_cancel_details_test.dart` | 2,095 | 62 | (x) | ( ) | (x) |
+| 132 | `painting/fitted_sizes_test.dart` | 2,098 | 68 | (x) | ( ) | (x) |
+| 133 | `painting/automatic_notched_shape_test.dart` | 2,099 | 68 | (x) | ( ) | (x) |
+| 134 | `widgets/padding_test.dart` | 2,100 | 66 | (x) | (x) | (x) |
+| 135 | `painting/box_border_test.dart` | 2,108 | 70 | (x) | ( ) | (x) |
+| 136 | `retest/services/method_codec_test.dart` | 2,113 | 61 | (x) | ( ) | (x) |
+| 137 | `gestures/base_tap_and_drag_gesture_recognizer_test.dart` | 2,116 | 66 | (x) | ( ) | (x) |
+| 138 | `services/platform_exception_test.dart` | 2,118 | 70 | (x) | ( ) | (x) |
+| 139 | `services/platform_views_registry_test.dart` | 2,120 | 67 | (x) | ( ) | (x) |
 | 140 | `painting/gradients_test.dart` | 2,126 | 68 | (x) | (x) | ( ) |
 | 141 | `painting/rounded_superellipse_border_test.dart` | 2,142 | 73 | (x) | ( ) | ( ) |
 | 142 | `widgets/render_sliver_overlap_injector_test.dart` | 2,148 | 57 | (x) | ( ) | ( ) |
