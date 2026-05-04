@@ -8702,7 +8702,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     bool result = false;
 
     if (typeNode is NamedType) {
-      final typeName = typeNode.name2.lexeme;
+      final bareTypeName = typeNode.name2.lexeme;
+      // GEN-100c: Prefixed type-tests (e.g. `attribute is ui.LocaleStringAttribute`)
+      // need to resolve the right-hand side via the prefixed import environment,
+      // not as the bare identifier. Mirrors the same fix in
+      // `_resolveTypeAnnotationWithEnvironment` and the `tom_d4rt_ast` visitor.
+      // Built-in primitives (`int`, `String`, …) are never prefixed, so a
+      // non-null `importPrefix` always routes to the user-type lookup.
+      final typePrefix = typeNode.importPrefix?.name.lexeme;
+      final typeName = typePrefix != null
+          ? '$typePrefix.$bareTypeName'
+          : bareTypeName;
 
       // Handle built-in types first
       switch (typeName) {
