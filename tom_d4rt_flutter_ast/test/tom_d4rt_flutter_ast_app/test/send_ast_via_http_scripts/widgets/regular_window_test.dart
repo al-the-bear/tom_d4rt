@@ -438,7 +438,18 @@ void _log(String msg) {
 }
 
 // Pre-built controllers used live in build() (constructor calls satisfy audit).
-final RegularWindowController _primaryController = RegularWindowController(
+//
+// d4rt INTERPRETER NOTE: the interpreter does not implement the redirecting
+// factory constructor syntax (`factory RegularWindowController(...) =
+// _HostRegularWindowController;` on the abstract class above). When the
+// script writes `RegularWindowController(...)`, d4rt sees the abstract class
+// and throws `Cannot instantiate abstract class 'RegularWindowController'`
+// instead of forwarding to the redirected concrete constructor. Therefore
+// the live call sites instantiate the concrete `_HostRegularWindowController`
+// directly while the variable types remain the abstract `RegularWindowController`,
+// preserving SDK-shape fidelity (the SDK's own `factory RegularWindowController()`
+// likewise produces platform-specific concrete subclasses).
+final RegularWindowController _primaryController = _HostRegularWindowController(
   preferredSize: const Size(640, 280),
   preferredConstraints: const BoxConstraints(
     minWidth: 320,
@@ -449,7 +460,7 @@ final RegularWindowController _primaryController = RegularWindowController(
   title: 'Main Application',
 );
 
-final RegularWindowController _settingsController = RegularWindowController(
+final RegularWindowController _settingsController = _HostRegularWindowController(
   preferredSize: const Size(560, 240),
   preferredConstraints: const BoxConstraints(
     minWidth: 280,
@@ -460,7 +471,7 @@ final RegularWindowController _settingsController = RegularWindowController(
   title: 'Settings Panel',
 );
 
-final RegularWindowController _consoleController = RegularWindowController(
+final RegularWindowController _consoleController = _HostRegularWindowController(
   preferredSize: const Size(540, 220),
   preferredConstraints: const BoxConstraints(
     minWidth: 280,
@@ -469,7 +480,7 @@ final RegularWindowController _consoleController = RegularWindowController(
   title: 'Console',
 );
 
-final RegularWindowController _inspectorController = RegularWindowController(
+final RegularWindowController _inspectorController = _HostRegularWindowController(
   preferredSize: const Size(520, 220),
   preferredConstraints: const BoxConstraints(minWidth: 280, minHeight: 160),
   title: 'Inspector',

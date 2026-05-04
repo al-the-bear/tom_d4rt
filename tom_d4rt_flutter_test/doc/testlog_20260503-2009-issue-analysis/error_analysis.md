@@ -140,7 +140,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | **C1 — Cupertino minLines/maxLines assertion** ✅ **fixed 2026-05-03** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
 | **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** | gii/widgets/windowing_owner_mac_o_s | hardly_5/widgets/windowing_owner_mac_o_s (11), hardly_5/widgets/snapshot_mode (Scaffold appBar 1) | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. | bridge generator + interpreter |
 | **C3 — Codec rejects BridgedInstance** ✅ **fixed 2026-05-04** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | Three independent gaps: (1) `D4.extractBridgedArg<T>` only top-level-unwrapped — for adapters typed `dynamic`/`Object`/`Object?` (e.g. `MessageCodec.encodeMessage`) nested `BridgedInstance`/`BridgedEnumValue` inside `Map`/`List`/`Set` reached native code as wrappers and the codec rejected them. Added `_deepUnwrap` and routed unbounded `T` through it; preserved `TypedData` (Uint8List/Float64List/ByteData/…) for codec wire tags. (2) Interpreter had no `Object.toString()` fallback — masked latent failure surfaced by the deep-unwrap fix. Added a generic `toString` fallback in `InterpreterVisitor.visitMethodInvocation` for any native target with no positional/named args. (3) Bridge-wrapped `PlatformException` → `RuntimeD4rtException` defeats typed `on PlatformException catch` filter — script-side, rewrote three catch sites in `method_codec_test.dart` to `catch (e)` and `'$e'`. Also fixed `String.codeUnits.length` (private `CodeUnits` runtime type does not dispatch `List.length`) → `String.length`. | bridge handler + interpreter + script |
-| **C4 — Abstract-class instantiation** | hardly_5/widgets/regular_window | hardly_5/widgets/regular_window_controller (LateInitializationError 1) | Scripts construct an abstract bridged base directly. | script |
+| **C4 — Abstract-class instantiation** ⚠️ **partial 2026-05-04** | ~~hardly_5/widgets/regular_window~~ ✅ | hardly_5/widgets/regular_window_controller (LateInitializationError 1, separate issue) | Scripts construct an abstract bridged base directly. `regular_window` was authored against Flutter's redirecting-factory form (`factory RegularWindowController(...) = _HostRegularWindowController;`) — d4rt does not implement that lowering and threw `Cannot instantiate abstract class`. Closed script-side: 4 call sites instantiate the concrete `_HostRegularWindowController(...)` directly while the variable types remain the abstract base; documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §R1. `regular_window_controller` LateInitializationError is a separate (unrelated) issue still open. | script |
 | **C5 — Argument-order syntax error in script** ✅ **fixed 2026-05-04** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emitted three `infoCard(bg: …, <Widget>[…])` call sites in sections 12, 14 and 20 — named arg before positional. Modern Dart accepts intermixed args; d4rt's `_evaluateArguments` enforces the older "all positional must precede all named" rule and threw `Positional arguments cannot follow named arguments`. Reordered the three call sites to put the positional `<Widget>[…]` first and the `bg:` named arg last. Single-script change; verified via individual flutter test rerun (`hardly_relevant_classes_4_test.dart --plain-name "i_o_s_system_context_menu_item_cut_test.dart"` → `+1`). Per regression rule (a), only individual retest needed. | script |
 | **C6 — Script timeout (infinite work)** ✅ **fixed 2026-05-04** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Original demo authored stateful widgets (`AnimationController`, `PageController`, `TabController`, `ScrollController`, `setState`-driven live counters) which the static-build SendTestRunner cannot service: there is no live frame pump, so the controllers never fire, the build endpoint waits, and the 25 s timeout fires. Rewrote the file (2184 → 2535 lines) as a fully static visual demo — every authored class is a `StatelessWidget`, the page/tab/sliver-list cases are mocked as side-by-side card compositions with baked-in counter / scroll / form values illustrating what *would* be preserved if the mixin were active, and the lifecycle is rendered through two anatomy diagrams (`_AnatomyDiagram`, `_ProtocolSequence`) + 6 code-block snippets covering the contract, common bugs, and `super.build(context)` rule. Single import, single `// ignore_for_file:` block, dart-analyze clean. Individual retest via `flutter test test/hardly_relevant_classes_4_test.dart --plain-name "automatic_keep_alive_client_mixin_test.dart"`: build completes in 2.8 s, `httpStatus=200`, `frameworkErrors=0`, all tests passed. Per regression rule (a), individual retest is sufficient — only the test script changed. | script |
 | **C7 — `string_attribute_test.dart` (misclassified as transport failure) ✅ fixed 2026-05-04** | secondary/dart_ui/string_attribute | — | Two unrelated script-side issues: (1) Skia bidi shaper crash on Linux test runtime triggered by an Arabic-Indic-digit `TextSpan` sandwiched between ASCII flanking spans inside a `RichText` (3-child layout), and (2) an `attribute is ui.LocaleStringAttribute` runtime type test that fails on the older `tom_d4rt` because the import prefix is stripped before resolving the bare type name. The bisect proved the bundle size (968 KB) is *not* the cause — the previous "transport failure on huge bundle" diagnosis was wrong. Script rewritten: locale5 demo switched to Russian Cyrillic (no bidi reorder) and the prefixed `is`-test replaced with pre-computed description strings / locale overrides at the call site (3 helper signatures changed). Verified passing on both `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`. See `script_rewrites.md` ("Arabic-Indic digit `TextSpan` sandwiched in `RichText`" + "Prefixed `is` type-test on `dart:ui` type"). | script |
@@ -411,6 +411,92 @@ filter that filters on the wrapped exception type — that is a
 bridge-architectural property, documented in cluster row C3.
 
 Cluster C3 closed; commit `50083b5b` on `main`.
+
+### C4 — Abstract-class instantiation ⚠️ partial 2026-05-04
+
+**Status:** partial (`regular_window` closed script-side;
+`regular_window_controller` LateInitializationError is a separate
+issue still open).
+
+**Affected scripts:**
+
+- `hardly_relevant_classes_5_test.dart > widgets/regular_window_test.dart` — ✅ closed
+- `hardly_relevant_classes_5_test.dart > widgets/regular_window_controller_test.dart` — open (different root cause: `LateInitializationError: Late variable '_primary' without initializer`)
+
+**What was actually broken (`regular_window`).** The deep-demo
+script declared an abstract base mirroring Flutter's modern
+desktop-window API:
+
+```dart
+abstract class RegularWindowController extends ChangeNotifier {
+  factory RegularWindowController({
+    Size? preferredSize,
+    Offset? preferredPosition,
+    String? title,
+    BoxConstraints? preferredConstraints,
+    bool isActivated = true,
+  }) = _HostRegularWindowController;
+  // ... abstract API surface ...
+}
+
+class _HostRegularWindowController extends RegularWindowController {
+  _HostRegularWindowController({...}) : super._();
+  // ... concrete implementation ...
+}
+```
+
+Four call sites then wrote `RegularWindowController(...)` against
+that redirecting factory. Stock Dart lowers the
+`factory X(...) = Y;` form into a forwarding call to `Y(...)`, so
+the analyzer never lets `RegularWindowController` reach the
+runtime as an abstract instantiation. d4rt does not implement
+that lowering: the interpreter only honours
+`redirectedConstructor` in the enum-declaration path
+(`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` line
+~8895, `UnimplementedD4rtException` for enums) and only the
+**initializer-list** redirect form
+(`MyClass.alt() : this(arg);`) at the class level via
+`SRedirectingConstructorInvocation` in
+`tom_d4rt_ast/lib/src/runtime/callable.dart` (lines ~1010-1075).
+The factory-redirect form is silently treated as an abstract
+constructor with no body, so the call resolves to the abstract
+class and throws `Cannot instantiate abstract class
+'RegularWindowController'`.
+
+**Why we are not fixing this in cluster scope.** Implementing
+class-level redirecting factory constructors requires a new (or
+extended) AST node carrying the `redirectedConstructor`
+reference, `tom_ast_generator` changes to copy it from the
+analyzer AST into the mirror AST, interpreter dispatch logic
+that resolves the redirected target (handling chained redirects
+and named-target forms `= Y.named`), and a mirror across
+`tom_d4rt` ↔ `tom_d4rt_ast` plus a regression-coordinated
+essential + important + secondary + gii sweep. That is a
+multi-day interpreter feature, not a cluster-scope fix.
+
+**Script-side fix applied.** Replaced the four
+`RegularWindowController(...)` call sites with direct
+`_HostRegularWindowController(...)` instantiations while keeping
+the variable types as the abstract `RegularWindowController` —
+the analyzer would have lowered the original to exactly this, so
+the public API surface and the rest of the script stay
+unchanged. Added an explanatory `// d4rt INTERPRETER NOTE: ...`
+comment block at the first call site documenting the limitation
+inline.
+
+**Verification.** Individual flutter test on
+`widgets/regular_window_test.dart` after the rewrite:
+`+1: All tests passed!` (status=success, httpStatus=200,
+frameworkErrors=0, bundleJsonBytes≈917 KB,
+totalMs≈3153). `dart analyze` on `tom_d4rt_flutter_ast`: clean.
+Per regression rule (a), only individual retest is needed —
+script-only edit, the generator and interpreter were not
+touched.
+
+**Documented limitation.** Added §R1 ("Redirecting factory
+constructor syntax (`factory X() = Y`) not implemented") to
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`, indexed
+alongside the other interpreter-architectural limitations.
 
 ### C5 — Argument-order syntax error in script ✅ fixed 2026-05-04
 

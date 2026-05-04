@@ -37,6 +37,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [P1 — `PreferredSizeWidget` cast fails when arg arrives as a cached native widget proxy](#p1--preferredsizewidget-cast-fails-when-arg-arrives-as-a-cached-native-widget-proxy) | Interpreter limitation (proxy walk runs on `InterpretedInstance` only; once the same instance has been wrapped in `_InterpretedStatelessWidget` and cached as `nativeProxy`, the bridge call site receives the native widget directly and the multi-interface walk over `bridgedInterfaces` is skipped). Script-side workaround supplied (`PreferredSize(preferredSize: …, child: AppBar(...))`). | `widgets/snapshot_mode_test.dart` (1 FE — Scaffold.appBar) |
 | [P4 — `switch (BridgedEnum)` may fall through every case, returning null](#p4--switch-bridgedenum-may-fall-through-every-case-returning-null) | Interpreter limitation (bridged-enum case match is unreliable for some Flutter enums in `case BridgedEnum.value:` form — the equality probe in `visitSwitchStatement` returns `false` for both directions on certain bridged enum values, so a `String`-returning helper falls through and returns `null` implicitly). Script-side workaround: convert switches to `if/else` chains over `==` (the path used by `_isCupertinoFamily` is reliable), and seed local result variables with a default. | `widgets/tooltip_window_controller_delegate_test.dart`, `foundation/target_platform_test.dart`, `material/time_of_day_format_test.dart` |
 | [G1 — `D4.getNamedArgWithDefault<T?>` collapses explicit `null` to default](#g1--d4getnamedargwithdefaultt-collapses-explicit-null-to-default-for-nullable-typed-named-args) | Generator/runtime helper limitation (the helper conflates "key absent" with "key present but `null`" by guarding on `!named.containsKey(p) || named[p] == null`, so an explicit `null` named-arg falls back to the constructor default). Script-side workaround: prefer a finite cap over an explicit `null` when the bridge default would violate a downstream invariant (`CupertinoTextField`'s `(maxLines == null) || (maxLines >= minLines)` assertion). | `cupertino/textfield_test.dart`, `cupertino/cupertino_text_selection_handle_controls_test.dart` |
+| [R1 — Redirecting factory constructor syntax (`factory X() = Y`) not implemented](#r1--redirecting-factory-constructor-syntax-factory-x--y-not-implemented) | Interpreter limitation (parser/interpreter does not lower the redirecting-factory `=` form into a forwarding call to the redirected concrete constructor; the abstract class is treated as directly instantiable and throws `Cannot instantiate abstract class`). Script-side workaround: instantiate the redirected concrete subclass directly while keeping the variable type as the abstract base. | `widgets/regular_window_test.dart` (4 sites: `RegularWindowController(...)` → `_HostRegularWindowController(...)`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -1752,8 +1753,195 @@ Any of:
 
 ---
 
+## R1 — Redirecting factory constructor syntax (`factory X() = Y`) not implemented
+
+### What the script does
+
+Flutter's modern public API for `RegularWindowController` (and a
+growing number of other framework classes) uses the **redirecting
+factory constructor** form to keep a clean public abstract type
+while delegating instantiation to a private host implementation:
+
+```dart
+abstract class RegularWindowController extends ChangeNotifier {
+  // Redirecting factory: `RegularWindowController(...)` forwards to
+  // `_HostRegularWindowController(...)` at the language level — no
+  // body, no `return`, just `=`.
+  factory RegularWindowController({
+    Size? preferredSize,
+    Offset? preferredPosition,
+    String? title,
+    BoxConstraints? preferredConstraints,
+    bool isActivated = true,
+  }) = _HostRegularWindowController;
+
+  // ... abstract API surface ...
+}
+
+class _HostRegularWindowController extends RegularWindowController {
+  _HostRegularWindowController({...}) : super._();
+  // ... concrete implementation ...
+}
+```
+
+Call sites then look like:
+
+```dart
+final RegularWindowController controller = RegularWindowController(
+  preferredSize: const Size(640, 280),
+  title: 'Regular Window Demo',
+);
+```
+
+This is the same pattern Flutter uses for many factory-bound types
+(`Map`, `Set`, `List` historically; modern window/desktop APIs;
+material `Color` factories with platform fallbacks). The Dart
+analyzer lowers the abstract-class `factory X(...) = Y;` form into
+a forwarding call to the redirected concrete constructor, so the
+runtime sees `Y(...)` even though the source wrote `X(...)`.
+
+### Why it FE-fires under d4rt
+
+The d4rt interpreter does not implement the redirecting-factory
+`=` form. Concretely:
+
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` only
+  honours `redirectedConstructor` in the **enum** declaration path
+  (around line 8895), where it throws an `UnimplementedD4rtException`
+  for redirected enum constructors. There is no class-level
+  handling.
+- `tom_d4rt_ast/lib/src/runtime/callable.dart` (lines ~1010-1075)
+  handles `SRedirectingConstructorInvocation` — but that node
+  type represents only the **initializer-list** redirect form
+  (`MyClass.alt() : this(arg);`), not the **factory** redirect
+  form (`factory MyClass() = Other;`).
+- When the interpreter encounters
+  `RegularWindowController(preferredSize: …)`, it resolves the
+  identifier to the abstract class, finds no concrete
+  constructor body to execute, and throws `Cannot instantiate
+  abstract class 'RegularWindowController'`. The redirected target
+  `_HostRegularWindowController` is never consulted.
+
+The same limitation applies to any abstract class that exposes its
+public constructor purely as a redirecting factory; scripts
+calling the abstract name directly will all fail this way.
+
+### Why we are not fixing this in cluster scope
+
+Implementing redirecting factory constructors correctly requires:
+
+1. A new AST node (or extension of the existing factory-constructor
+   node) carrying the `redirectedConstructor` reference at class
+   level.
+2. `tom_ast_generator` changes to copy the analyzer's
+   `redirectedConstructor` field into the mirror AST.
+3. Interpreter dispatch logic that, when a constructor invocation
+   resolves to a redirecting factory, looks up the redirected
+   target (potentially in another library), substitutes the type
+   arguments, and forwards the original arguments — including
+   handling chains of redirects and constructor-name forms
+   (`= Y.named`).
+4. Mirror in `tom_d4rt` (analyzer-based) ↔ `tom_d4rt_ast`
+   (mirror-AST) so both drivers behave identically.
+5. A regression-coordinated pass through essential + important +
+   secondary + gii to surface secondary-effect call sites — the
+   current corpus has at least one (`RegularWindowController`),
+   and the SDK uses this form widely so silent forwarding could
+   produce surprising aliasing in unrelated tests.
+
+That is a multi-day interpreter feature, not a cluster-scope fix.
+
+### Script-side workaround (functional equivalent)
+
+Replace the abstract-class call with a direct instantiation of the
+concrete redirected subclass, while keeping the variable type as
+the abstract base so the rest of the script still exercises the
+public API:
+
+```dart
+// BEFORE — relies on redirecting factory:
+final RegularWindowController _primaryController =
+    RegularWindowController(
+  preferredSize: const Size(640, 280),
+  title: 'Regular Window Demo',
+);
+
+// AFTER — direct concrete instantiation, abstract type preserved:
+//
+// d4rt INTERPRETER NOTE: the interpreter does not implement the
+// redirecting factory constructor syntax
+// (`factory RegularWindowController(...) = _HostRegularWindowController;`
+// on the abstract class above). When the script writes
+// `RegularWindowController(...)`, d4rt sees the abstract class and
+// throws `Cannot instantiate abstract class
+// 'RegularWindowController'` instead of forwarding to the
+// redirected concrete constructor. Therefore the live call sites
+// instantiate the concrete `_HostRegularWindowController` directly
+// while the variable types remain the abstract
+// `RegularWindowController`, preserving SDK-shape fidelity.
+final RegularWindowController _primaryController =
+    _HostRegularWindowController(
+  preferredSize: const Size(640, 280),
+  title: 'Regular Window Demo',
+);
+```
+
+This is **functionally identical** to the redirected call: the
+analyzer would have lowered the original to exactly this. The
+abstract base type continues to drive all subsequent code (method
+calls, listener wiring, the `RegularWindowController` API
+contract), so the rest of the script remains unchanged.
+
+### Verification
+
+- Individual flutter test on
+  `widgets/regular_window_test.dart` after the rewrite:
+  `+1: All tests passed!` (status=success, httpStatus=200,
+  frameworkErrors=0, bundleJsonBytes≈917 KB).
+- `dart analyze` on `tom_d4rt_flutter_ast` after the edit: clean.
+
+### Re-opening trigger
+
+Any of:
+
+- A planned interpreter pass that implements redirecting factory
+  constructors at class scope (mirror across `tom_d4rt` ↔
+  `tom_d4rt_ast`, with the AST + astgen changes outlined above and
+  a regression-coordinated essential + important + secondary + gii
+  sweep).
+- A script that genuinely depends on the abstract-name
+  instantiation being observable through reflection (e.g. asserts
+  `runtimeType == RegularWindowController` rather than the
+  concrete subclass). The current rewrite preserves the **static**
+  type but the **runtime** type is the concrete subclass — same
+  behaviour as the analyzer's lowered output, so this is not
+  actually a divergence from native Flutter.
+
+---
+
 ## Change Log
 
+- 2026-05-04: **Add R1 — Redirecting factory constructor syntax
+  (`factory X() = Y`) not implemented.** Documents the
+  `testlog_20260503-2009-issue-analysis` cluster C4
+  (`widgets/regular_window_test.dart`,
+  `Cannot instantiate abstract class 'RegularWindowController'`).
+  The script authored Flutter's modern desktop-window pattern:
+  abstract `RegularWindowController` with a
+  `factory RegularWindowController(...) = _HostRegularWindowController;`
+  redirect. d4rt only handles class-level redirecting constructors
+  in the **initializer-list** form
+  (`SRedirectingConstructorInvocation`,
+  `tom_d4rt_ast/.../callable.dart`); the analyzer's class-level
+  factory redirect is not lowered, so the abstract class is
+  treated as directly instantiable and FE-fires. Closed script-side
+  per cluster owner = script: 4 call sites instantiate the
+  concrete `_HostRegularWindowController` directly while the
+  variable types remain the abstract base — functionally identical
+  to the analyzer's lowered output. Bridge fix proposed in §R1
+  for a future regression-coordinated pass that mirrors across
+  `tom_d4rt` ↔ `tom_d4rt_ast` and runs essential + important +
+  secondary + gii.
 - 2026-05-03 (later): **Add G1 — `D4.getNamedArgWithDefault<T?>`
   collapses explicit `null` to default for nullable-typed named
   args.** Documents the
