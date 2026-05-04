@@ -128,15 +128,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 119 | `material/aboutdialog_test.dart` | 2,033 | 64 | (x) | (x) | (x) |
 | 120 | `gestures/multi_drag_pointer_state_test.dart` | 2,041 | 61 | (x) | ( ) | (x) |
 | 121 | `painting/box_painter_test.dart` | 2,052 | 69 | (x) | ( ) | (x) |
-| 122 | `painting/star_border_test.dart` | 2,059 | 75 | (x) | (x) | ( ) |
-| 123 | `painting/image_chunk_event_test.dart` | 2,063 | 66 | (x) | ( ) | ( ) |
-| 124 | `rendering/render_error_box_test.dart` | 2,066 | 60 | (x) | ( ) | ( ) |
-| 125 | `gestures/base_tap_gesture_recognizer_test.dart` | 2,069 | 64 | (x) | ( ) | ( ) |
-| 126 | `widgets/animatedpadding_test.dart` | 2,072 | 57 | (x) | (x) | ( ) |
-| 127 | `painting/border_directional_test.dart` | 2,083 | 71 | (x) | ( ) | ( ) |
-| 128 | `services/missing_plugin_exception_test.dart` | 2,083 | 67 | (x) | ( ) | ( ) |
-| 129 | `material/licensepage_test.dart` | 2,085 | 64 | (x) | (x) | ( ) |
-| 130 | `painting/image_stream_listener_test.dart` | 2,088 | 68 | (x) | ( ) | ( ) |
+| 122 | `painting/star_border_test.dart` | 2,059 | 75 | (x) | (x) | (x) |
+| 123 | `painting/image_chunk_event_test.dart` | 2,063 | 66 | (x) | ( ) | (x) |
+| 124 | `rendering/render_error_box_test.dart` | 2,066 | 60 | (x) | ( ) | (x) |
+| 125 | `gestures/base_tap_gesture_recognizer_test.dart` | 2,069 | 64 | (x) | ( ) | (x) |
+| 126 | `widgets/animatedpadding_test.dart` | 2,072 | 57 | (x) | (x) | (x) |
+| 127 | `painting/border_directional_test.dart` | 2,083 | 71 | (x) | ( ) | (x) |
+| 128 | `services/missing_plugin_exception_test.dart` | 2,083 | 67 | (x) | ( ) | (x) |
+| 129 | `material/licensepage_test.dart` | 2,085 | 64 | (x) | (x) | (x) |
+| 130 | `painting/image_stream_listener_test.dart` | 2,088 | 68 | (x) | ( ) | (x) |
 | 131 | `gestures/serial_tap_cancel_details_test.dart` | 2,095 | 62 | (x) | ( ) | ( ) |
 | 132 | `painting/fitted_sizes_test.dart` | 2,098 | 68 | (x) | ( ) | ( ) |
 | 133 | `painting/automatic_notched_shape_test.dart` | 2,099 | 68 | (x) | ( ) | ( ) |
