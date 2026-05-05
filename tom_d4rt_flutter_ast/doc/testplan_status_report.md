@@ -530,7 +530,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [pointer_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_event_test.dart) | PointerEvent | No | Yes | No | Checked. |
 | [pointer_exit_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_exit_event_test.dart) | PointerExitEvent | No | Yes | No | Checked. |
 | [pointer_hover_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_hover_event_test.dart) | PointerHoverEvent | No | Yes | No | Checked. |
-| [pointer_move_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_move_event_test.dart) | PointerMoveEvent | No | Yes | No | Checked. |
+| [pointer_move_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_move_event_test.dart) | PointerMoveEvent | No | Yes | No | Created on 2026-05-05 at 15:56 |
 | [pointer_pan_zoom_end_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_end_event_test.dart) | PointerPanZoomEndEvent | No | Yes | No | Checked. |
 | [pointer_pan_zoom_start_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_start_event_test.dart) | PointerPanZoomStartEvent | No | Yes | No | Checked. |
 | [pointer_pan_zoom_update_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_update_event_test.dart) | PointerPanZoomUpdateEvent | No | Yes | No | Checked. |
@@ -576,7 +576,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [adaptive_text_selection_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/adaptive_text_selection_toolbar_test.dart) | AdaptiveTextSelectionToolbar | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [animated_icon_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animated_icon_data_test.dart) | AnimatedIconData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [animated_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animated_theme_test.dart) | AnimatedTheme | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [animatedicon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animatedicon_test.dart) | AnimatedIcon | No | Yes | No |
+| [animatedicon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animatedicon_test.dart) | AnimatedIcon | No | Yes | No | Created on 2026-05-05 at 15:58 |
 | [app_bar_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/app_bar_theme_data_test.dart) | AppBarThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [appbar_themes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/appbar_themes_test.dart) | AppBarTheme | No | Yes | No | Checked. |
 | [autocomplete_chips_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/autocomplete_chips_test.dart) | showDateRangePicker | No | Yes | No | Checked. |
@@ -651,7 +651,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [default_material_localizations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/default_material_localizations_test.dart) | DefaultMaterialLocalizations | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [deletable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/deletable_chip_attributes_test.dart) | DeletableChipAttributes | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [desktop_text_selection_controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/desktop_text_selection_controls_test.dart) | DesktopTextSelectionControls | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [desktop_text_selection_toolbar_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/desktop_text_selection_toolbar_button_test.dart) | DesktopTextSelectionToolbarButton | Yes | Yes | No |
+| [desktop_text_selection_toolbar_button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/desktop_text_selection_toolbar_button_test.dart) | DesktopTextSelectionToolbarButton | Yes | Yes | No | Created on 2026-05-05 at 15:56 |
 | [desktop_text_selection_toolbar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/desktop_text_selection_toolbar_test.dart) | DesktopTextSelectionToolbar | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [dialog_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_advanced_test.dart) | SimpleDialog | No | Yes | No | Checked. |
 | [dialog_bottom_sheet_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_bottom_sheet_test.dart) | Dialog | No | Yes | No |
@@ -888,7 +888,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tab_bar_indicator_size_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_bar_indicator_size_test.dart) | TabBarIndicatorSize | No | Yes | No | Recreated on 2026-05-04 at 18:09 |
 | [tab_bar_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_bar_theme_data_test.dart) | TabBarThemeData | No | Yes | No | Created on 2026-03-29 at 14:31 |
 | [tab_indicator_animation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_indicator_animation_test.dart) | TabIndicatorAnimation | No | Yes | No | Batch 61 deep demo (Mulberry/Plum, ti). 1110 lines, 16 sections. |
-| [tab_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_indicator_test.dart) | UnderlineTabIndicator | No | Yes | No |
+| [tab_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_indicator_test.dart) | UnderlineTabIndicator | No | Yes | No | Created on 2026-05-05 at 15:56 |
 | [tab_page_selector_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_page_selector_indicator_test.dart) | TabPageSelectorIndicator | No | Yes | No | Deep demo created 2025-03-28 |
 | [tab_page_selector_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | Yes | No | Deep demo created 2025-03-28 |
 | [table_row_ink_well_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | Yes | No | Deep demo created 2025-03-28 |
@@ -907,7 +907,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [theme_extension_copywith_extensions_bridge_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_extension_copywith_extensions_bridge_regression_test.dart) | ThemeExtensionCopyWithExtensionsBridgeRegression | No | No | No | Needs to be created (Batch-9 failure pattern: bridge conversion of `ThemeData.copyWith(extensions: ...)` from interpreted list to `List<ThemeExtension<dynamic>>`). |
 | [theme_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/theme_test.dart) | Theme | No | Yes | No |
-| [themes_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
+| [themes_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-05-05 at 15:59 |
 | [thumb_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [time_of_day_format_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
@@ -1043,7 +1043,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [canvas_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/canvas_test.dart) | Canvas | No | Yes | No | Checked. |
 | [child_layout_helper_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/child_layout_helper_test.dart) | ChildLayoutHelper | No | Yes | No | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/class_test.dart) | Class | No | Yes | No | B65 deep demo — Ember/Ash theme, prefix rn, 1292 lines. |
-| [clear_selection_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/clear_selection_event_test.dart) | ClearSelectionEvent | No | Yes | No | Checked. |
+| [clear_selection_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/clear_selection_event_test.dart) | ClearSelectionEvent | No | Yes | No | Created on 2026-05-05 at 15:56 |
 | [clip_path_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/clip_path_layer_test.dart) | ClipPathLayer | No | Yes | No | Checked. |
 | [clip_r_superellipse_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/clip_r_superellipse_layer_test.dart) | ClipRSuperellipseLayer | No | Yes | No | Checked. |
 | [color_filter_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/color_filter_layer_test.dart) | ColorFilterLayer | No | Yes | No | Checked. |
@@ -1344,7 +1344,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [device_orientation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/device_orientation_test.dart) | DeviceOrientation | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [expensive_android_view_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/expensive_android_view_controller_test.dart) | ExpensiveAndroidViewController | No | Deep-Demo DONE | No | B70: Navy/Steel theme, 16 sections, ea prefix. |
 | [floating_cursor_drag_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/floating_cursor_drag_state_test.dart) | FloatingCursorDragState | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
-| [flutter_version_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/flutter_version_test.dart) | FlutterVersion | No | Yes | No | Checked. |
+| [flutter_version_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/flutter_version_test.dart) | FlutterVersion | No | Yes | No | Created on 2026-05-05 at 15:56 |
 | [font_loader_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/font_loader_test.dart) | FontLoader | No | Yes | No | Checked. |
 | [g_l_f_w_key_helper_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/g_l_f_w_key_helper_test.dart) | GLFWKeyHelper | No | Deep-Demo DONE | No | B70: Pine/Emerald theme, 16 sections, gk prefix. |
 | [gtk_key_helper_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/gtk_key_helper_test.dart) | GtkKeyHelper | No | Yes | No | Created on 2026-04-08. |
@@ -1699,7 +1699,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [flex_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/flex_test.dart) | Flex | No | Yes | No | Created on 2026-04-15 at 14:00. |
 | [flexible_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/flexible_test.dart) | Flexible | No | Yes | No |
 | [floating_header_snap_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/floating_header_snap_mode_test.dart) | FloatingHeaderSnapMode | No | Yes | No | Created on 2026-04-08. |
-| [flow_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/flow_test.dart) | Flow | No | Yes | No | Checked. |
+| [flow_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/flow_test.dart) | Flow | No | Yes | No | Created on 2026-05-05 at 15:58 |
 | [focus_attachment_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_attachment_test.dart) | FocusAttachment | No | Yes | No | Created on 2026-04-08. |
 | [focus_highlight_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_highlight_mode_test.dart) | FocusHighlightMode | No | Yes | No | Created on 2026-04-08. |
 | [focus_highlight_strategy_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/focus_highlight_strategy_test.dart) | FocusHighlightStrategy | No | Yes | No | Created on 2026-04-08. |
@@ -1882,7 +1882,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [physical_shape_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [physicalmodel_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel | No | Yes | No |
 | [pinned_header_sliver_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver | No | Yes | No | Created on 2026-04-07 at 04:18 |
-| [placeholder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder | No | Yes | No | Checked. |
+| [placeholder_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder | No | Yes | No | Created on 2026-05-05 at 15:56 |
 | [platform_menu_bar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar | No | Yes | No | Created on 2026-04-07 at 04:40 |
 | [platform_menu_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/platform_menu_delegate_test.dart) | PlatformMenuDelegate | No | Deep | No | B89: 838 lines, 15 sections, Amber/Gold palette, simulated macOS menu bar, delegate method cards, architecture pipeline. |
 | [platform_menu_item_group_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_group_test.dart) | PlatformMenuItemGroup | No | Yes | No | Created on 2026-04-07 at 04:40 |

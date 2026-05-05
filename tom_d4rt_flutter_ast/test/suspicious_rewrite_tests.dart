@@ -701,6 +701,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('pointer_move_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_move_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1058,6 +1065,34 @@ void main() {
     test('licensepage_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/licensepage_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animatedicon_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/animatedicon_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('desktop_text_selection_toolbar_button_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/desktop_text_selection_toolbar_button_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tab_indicator_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/tab_indicator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('themes_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/themes_advanced_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1629,6 +1664,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('clear_selection_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/clear_selection_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -1961,6 +2003,13 @@ void main() {
     test('system_channels_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_channels_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('flutter_version_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/flutter_version_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -2441,6 +2490,20 @@ void main() {
     test('banner_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/banner_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('flow_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/flow_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('placeholder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/placeholder_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
