@@ -2774,4 +2774,88 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 2 DEEP DEMOS (9 files, 2026-05-05)
+  // Hand-authored 1500+-line demos for the next nine entries
+  // (idx 253..261) in `doc/short_tests_verification.md`. All nine
+  // were short stubs (80-102 lines) before this batch; each was
+  // rewritten as a 12-section magazine with a unique palette
+  // theme, real instances of the target class, and 1500+ lines.
+  //
+  // Themes:
+  //   - PointerEventResampler          → Phosphor Lagoon
+  //   - LongPressSemanticsEvent        → Granite Watchtower
+  //   - PointerPanZoomUpdateEvent      → Glacial Topaz
+  //   - IOSSystemContextMenuItemDataCut → Slate Iris
+  //   - CarouselController             → Carnival Citrine
+  //   - MenuAnchor                     → Aubergine Velvet
+  //   - ReorderableListView            → Mosaic Plum
+  //   - KeyHelper                      → Steel Cypress
+  //   - FontLoader                     → Letterpress Saffron
+  // ============================================================
+  group('batch2_deep_demos/', () {
+    test('gestures/pointer_event_resampler_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_event_resampler_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics/long_press_semantics_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/long_press_semantics_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/pointer_pan_zoom_update_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_pan_zoom_update_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/i_o_s_system_context_menu_item_data_cut_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/i_o_s_system_context_menu_item_data_cut_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/carousel_controller_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/carousel_controller_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/menuanchor_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/menuanchor_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/reorderablelistview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/reorderablelistview_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/key_helper_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/key_helper_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/font_loader_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/font_loader_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
