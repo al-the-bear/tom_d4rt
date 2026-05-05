@@ -2858,4 +2858,91 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // Batch 3 deep demos — hand-authored 1500+ line rewrites of
+  // verbose stub scripts. Each demo is themed and dramatises one
+  // Flutter type with multiple visual displays + instructive prose.
+  //   - TargetPlatform                              → Compass Obsidian
+  //   - Priority                                    → Tide Cobalt
+  //   - BoxDecoration                               → Stained Glass Cathedral
+  //   - AttributedStringProperty                    → Inkwell Verbena
+  //   - BoundedFrictionSimulation                   → Glacier Citrus
+  //   - PersistentHeaderShowOnScreenConfiguration   → Tide Limestone
+  //   - Localizations                               → Atlas Walnut
+  //   - IOSSystemContextMenuItemDataPaste           → Tablet Marigold
+  //   - OffsetPair                                  → Compass Mahogany
+  // (idx 264 repro_fa2/scrolling_pill.dart is a narrow hypothesis
+  //  reproducer — intentionally left as-is; idx 271 substituted.)
+  // ============================================================
+  group('batch3_deep_demos/', () {
+    test('foundation/targetplatform_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/targetplatform_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scheduler/priority_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'scheduler/priority_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/box_decoration_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/box_decoration_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics/attributed_string_property_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/attributed_string_property_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('physics/bounded_friction_simulation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'physics/bounded_friction_simulation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'rendering/persistent_header_show_on_screen_configuration_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/persistent_header_show_on_screen_configuration_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('widgets/localizations_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/localizations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'services/i_o_s_system_context_menu_item_data_paste_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/i_o_s_system_context_menu_item_data_paste_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('gestures/offset_pair_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/offset_pair_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

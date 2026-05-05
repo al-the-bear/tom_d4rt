@@ -268,16 +268,16 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 259 | `widgets/reorderablelistview_test.dart` | 2,897 | 102 | (x) | (x) | (x) |
 | 260 | `services/key_helper_test.dart` | 2,899 | 96 | (x) | ( ) | (x) |
 | 261 | `services/font_loader_test.dart` | 2,925 | 90 | (x) | (x) | (x) |
-| 262 | `foundation/targetplatform_test.dart` | 2,934 | 96 | (x) | (x) | ( ) |
-| 263 | `scheduler/priority_test.dart` | 2,947 | 97 | (x) | (x) | ( ) |
+| 262 | `foundation/targetplatform_test.dart` | 2,934 | 96 | (x) | (x) | (x) |
+| 263 | `scheduler/priority_test.dart` | 2,947 | 97 | (x) | (x) | (x) |
 | 264 | `repro_fa2/scrolling_pill.dart` | 2,949 | 94 | (x) | ( ) | ( ) |
-| 265 | `painting/box_decoration_test.dart` | 2,952 | 107 | (x) | (x) | ( ) |
-| 266 | `semantics/attributed_string_property_test.dart` | 2,967 | 92 | (x) | ( ) | ( ) |
-| 267 | `physics/bounded_friction_simulation_test.dart` | 2,968 | 94 | (x) | ( ) | ( ) |
-| 268 | `rendering/persistent_header_show_on_screen_configuration_test.dart` | 2,971 | 86 | (x) | ( ) | ( ) |
-| 269 | `widgets/localizations_test.dart` | 2,975 | 85 | (x) | (x) | ( ) |
-| 270 | `services/i_o_s_system_context_menu_item_data_paste_test.dart` | 2,981 | 96 | (x) | ( ) | ( ) |
-| 271 | `gestures/offset_pair_test.dart` | 2,984 | 82 | (x) | ( ) | ( ) |
+| 265 | `painting/box_decoration_test.dart` | 2,952 | 107 | (x) | (x) | (x) |
+| 266 | `semantics/attributed_string_property_test.dart` | 2,967 | 92 | (x) | ( ) | (x) |
+| 267 | `physics/bounded_friction_simulation_test.dart` | 2,968 | 94 | (x) | ( ) | (x) |
+| 268 | `rendering/persistent_header_show_on_screen_configuration_test.dart` | 2,971 | 86 | (x) | ( ) | (x) |
+| 269 | `widgets/localizations_test.dart` | 2,975 | 85 | (x) | (x) | (x) |
+| 270 | `services/i_o_s_system_context_menu_item_data_paste_test.dart` | 2,981 | 96 | (x) | ( ) | (x) |
+| 271 | `gestures/offset_pair_test.dart` | 2,984 | 82 | (x) | ( ) | (x) |
 | 272 | `semantics/semantics_event_test.dart` | 2,989 | 95 | (x) | ( ) | ( ) |
 | 273 | `material/scaffold_advanced_test.dart` | 2,990 | 83 | (x) | ( ) | ( ) |
 | 274 | `widgets/icon_test.dart` | 2,990 | 105 | (x) | (x) | ( ) |
