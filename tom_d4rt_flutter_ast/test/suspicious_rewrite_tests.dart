@@ -2698,4 +2698,80 @@ void main() {
     });
 
   });
+
+  // ============================================================
+  // BATCH 1 DEEP DEMOS (9 files, 2026-05-05)
+  // Hand-authored 1467+-line demos for the next nine entries
+  // (idx 244..252) in `doc/short_tests_verification.md`. Six
+  // were already deep when the batch opened (showdialog,
+  // announce_semantics_event, animation_min, painting/matrix,
+  // root_isolate_token, editable_text_misc); three were freshly
+  // authored in this turn (focus_semantic_event, clamped_simulation,
+  // selectable_chip_attributes). All nine are pinned here so any
+  // future bridge/interpreter regression keeps them visible in CI.
+  // ============================================================
+  group('batch1_deep_demos/', () {
+    test('material/showdialog_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/showdialog_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics/announce_semantics_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/announce_semantics_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics/focus_semantic_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/focus_semantic_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/animation_min_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/animation_min_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('physics/clamped_simulation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'physics/clamped_simulation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/matrix_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/matrix_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/selectable_chip_attributes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/selectable_chip_attributes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/editable_text_misc_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/editable_text_misc_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/root_isolate_token_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/root_isolate_token_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
