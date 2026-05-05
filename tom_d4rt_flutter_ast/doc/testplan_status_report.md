@@ -412,7 +412,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [uniform_float_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_float_slot_test.dart) | UniformFloatSlot | No | Yes | No | Checked. |
 | [uniform_vec2_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_vec2_slot_test.dart) | UniformVec2Slot | No | Yes | No | Checked. |
 | [uniform_vec3_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_vec3_slot_test.dart) | UniformVec3Slot | No | Yes | No | Checked. |
-| [uniform_vec4_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_vec4_slot_test.dart) | UniformVec4Slot | No | Yes | No | Checked. |
+| [uniform_vec4_slot_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/uniform_vec4_slot_test.dart) | UniformVec4Slot | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [vertex_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/vertex_mode_test.dart) | VertexMode | No | Yes | No | Checked. |
 | [vertices_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/vertices_test.dart) | Vertices | No | Yes | No | Checked. |
 | [view_constraints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/view_constraints_test.dart) | ViewConstraints | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
@@ -509,7 +509,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/gesture_recognizer_test.dart) | GestureRecognizer | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [hit_test_dispatcher_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/hit_test_dispatcher_test.dart) | HitTestDispatcher | No | Yes | No | Checked. |
 | [hit_testable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/hit_testable_test.dart) | HitTestable | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
-| [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer | No | Yes | No | Checked. |
+| [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [i_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart) | IOSScrollViewFlingVelocityTracker | No | Yes | No | Batch 58 deep demo. |
 | [immediate_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/immediate_multi_drag_gesture_recognizer_test.dart) | ImmediateMultiDragGestureRecognizer | Yes | Yes | No |
 | [least_squares_solver_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/least_squares_solver_test.dart) | LeastSquaresSolver | Yes | Yes | No |
@@ -536,7 +536,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [pointer_pan_zoom_update_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_pan_zoom_update_event_test.dart) | PointerPanZoomUpdateEvent | No | Yes | No | Checked. |
 | [pointer_removed_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_removed_event_test.dart) | PointerRemovedEvent | No | Yes | No | Checked. |
 | [pointer_scale_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_scale_event_test.dart) | PointerScaleEvent | Yes | Yes | No |
-| [pointer_scroll_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_event_test.dart) | PointerScrollEvent | Yes | Yes | No |
+| [pointer_scroll_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_event_test.dart) | PointerScrollEvent | Yes | Yes | No | Created on 2026-05-05 at 16:30 |
 | [pointer_scroll_inertia_cancel_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_scroll_inertia_cancel_event_test.dart) | PointerScrollInertiaCancelEvent | No | Yes | No | Checked. |
 | [pointer_signal_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_signal_event_test.dart) | PointerSignalEvent | No | Yes | No | Checked. |
 | [pointer_signal_resolver_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/pointer_signal_resolver_test.dart) | PointerSignalResolver | No | Yes | No | Checked. |
@@ -549,7 +549,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [scale_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/scale_details_test.dart) | ScaleStartDetails | Yes | Yes | No |
 | [serial_tap_cancel_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/serial_tap_cancel_details_test.dart) | SerialTapCancelDetails | No | Yes | No | Recreated on 2026-05-05 at 11:00 |
 | [serial_tap_down_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/serial_tap_down_details_test.dart) | SerialTapDownDetails | No | Yes | No | Checked. |
-| [serial_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/serial_tap_gesture_recognizer_test.dart) | SerialTapGestureRecognizer | No | Yes | No | Checked. |
+| [serial_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/serial_tap_gesture_recognizer_test.dart) | SerialTapGestureRecognizer | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [serial_tap_up_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/serial_tap_up_details_test.dart) | SerialTapUpDetails | No | Yes | No | Checked. |
 | [tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_and_drag_gesture_recognizer_test.dart) | TapAndDragGestureRecognizer | No | Yes | No | Checked. |
 | [tap_and_horizontal_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart) | TapAndHorizontalDragGestureRecognizer | No | Yes | No | Checked. |
@@ -912,7 +912,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [time_of_day_format_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [timeofday_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
-| [timepicker_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Checked. |
+| [timepicker_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [toggle_segmented_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
@@ -1062,7 +1062,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [flex_fit_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/flex_fit_test.dart) | FlexFit | No | Yes | No | Checked. |
 | [floating_header_snap_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/floating_header_snap_configuration_test.dart) | FloatingHeaderSnapConfiguration | No | Yes | No | Recreated on 2026-05-02 at 11:31 |
 | [flow_painting_context_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/flow_painting_context_test.dart) | FlowPaintingContext | No | Yes | No | Created on 2026-03-22 at 14:00 |
-| [flow_parent_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/flow_parent_data_test.dart) | FlowParentData | No | Yes | No | Checked. |
+| [flow_parent_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/flow_parent_data_test.dart) | FlowParentData | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [follower_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/follower_layer_test.dart) | FollowerLayer | No | Yes | No | Checked. |
 | [fraction_column_width_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/fraction_column_width_test.dart) | FractionColumnWidth | No | Yes | No | Checked. |
 | [fractional_offset_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/fractional_offset_tween_test.dart) | FractionalOffsetTween | No | Yes | No | Checked. |
@@ -1641,7 +1641,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dismiss_update_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | Yes | No | Created on 2026-04-08. |
 | [dismissible_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-30 at 22:54. |
 | [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | Yes | No | Created on 2026-03-30 at 23:00. |
-| [display_feature_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Checked. |
+| [display_feature_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [disposable_build_context_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | Yes | No | Created on 2026-04-08. |
 | [do_nothing_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction | No | Yes | No | Recreated on 2026-05-02 at 16:30. |
 | [do_nothing_and_stop_propagation_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_intent_test.dart) | DoNothingAndStopPropagationIntent | No | Yes | No | Recreated on 2026-05-02 at 17:30. |
@@ -1936,7 +1936,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [raw_tooltip_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_test.dart) | RawTooltip | No | Yes | No | Created on 2026-04-07 at 19:00. |
 | [raw_view_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_view_test.dart) | RawView | No | Yes | No | Created on 2026-04-07 at 14:00. |
 | [raw_web_image_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_web_image_test.dart) | RawWebImage | No | Yes | No | Created on 2026-04-07 at 14:15. |
-| [raw_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_widgets_test.dart) | RawScrollbar | No | Yes | No | Checked. |
+| [raw_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/raw_widgets_test.dart) | RawScrollbar | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [reading_order_traversal_policy_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/reading_order_traversal_policy_test.dart) | ReadingOrderTraversalPolicy | No | Yes | No | Created on 2026-04-10 at 14:30. |
 | [redo_text_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/redo_text_intent_test.dart) | RedoTextIntent | No | Yes | No | Created on 2026-04-15 at 19:00. |
 | [regular_window_controller_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_delegate_test.dart) | RegularWindowControllerDelegate | No | Yes | No | Created on 2026-04-15 at 19:00. |
@@ -2195,7 +2195,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [text_selection_overlay_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_selection_overlay_test.dart) | TextSelectionOverlay | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [text_selection_toolbar_anchors_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_anchors_test.dart) | TextSelectionToolbarAnchors | No | Yes | No | Created on 2026-04-10 at 22:47 |
 | [text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_layout_delegate_test.dart) | TextSelectionToolbarLayoutDelegate | No | Yes | No | Created on 2026-04-10 at 22:47 |
-| [text_selection_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_selection_widgets_test.dart) | TextSelectionTheme | No | Yes | No | Checked. |
+| [text_selection_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_selection_widgets_test.dart) | TextSelectionTheme | No | Yes | No | Created on 2026-05-05 at 16:30 |
 | [text_style_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [text_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/text_test.dart) | Text | No | Yes | No |
 | [textcontroller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/textcontroller_test.dart) | TextEditingController | No | Yes | No | Checked. |
