@@ -75,13 +75,11 @@ const Color _kNeonPink = Color(0xFFFF2E88);
 const Color _kNeonPinkSoft = Color(0xFFFF7AB6);
 const Color _kNeonPinkGlow = Color(0xFFFFB8D8);
 const Color _kAccentTeal = Color(0xFF24C7C0);
-const Color _kAccentTealSoft = Color(0xFF7CE1DD);
 const Color _kAccentLime = Color(0xFFB8E84B);
 const Color _kAccentSun = Color(0xFFF7C948);
 const Color _kAccentBlood = Color(0xFFB8243A);
 const Color _kAccentRoyal = Color(0xFF3A39B5);
 const Color _kAccentPlum = Color(0xFF6B2A78);
-const Color _kAccentDust = Color(0xFFB89A78);
 const Color _kRegisterMark = Color(0xFFFF2E88);
 const Color _kPaperShadow = Color(0x55000000);
 
