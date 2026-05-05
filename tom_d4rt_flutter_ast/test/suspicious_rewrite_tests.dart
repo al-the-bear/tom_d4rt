@@ -261,6 +261,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('object_disposed_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/object_disposed_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
     test('double_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/double_property_test.dart',
@@ -389,6 +396,48 @@ void main() {
     test('device_gesture_settings_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/device_gesture_settings_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_removed_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_removed_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('primary_pointer_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/primary_pointer_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tap_and_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/tap_and_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tap_and_horizontal_drag_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tap_drag_update_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/tap_drag_update_details_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -674,6 +723,20 @@ void main() {
     test('bottom_navigation_bar_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/bottom_navigation_bar_type_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('card_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/card_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scaffold_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/scaffold_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
