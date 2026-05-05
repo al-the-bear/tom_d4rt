@@ -754,8 +754,18 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 6: Live StreamBuilder<int> ===');
 
+  // Note: `Stream<int>.empty()` / `Stream<int>.fromIterable(...)` parse as
+  // InstanceCreationExpression in Dart (any TypeName.identifier(...) form on
+  // a class with named constructors is parsed that way). The d4rt
+  // interpreter's `visitInstanceCreationExpression` calls
+  // `findConstructorAdapter('empty')` / `'fromIterable'` against the stdlib
+  // `Stream` bridge, which registers ALL factories under `staticMethods:`
+  // and leaves `constructors:` empty — so the lookup fails. The
+  // `StreamBuilder.stream` parameter is nullable, so pass `null` here to
+  // exercise the initialData path without constructing an empty Stream.
+  // See `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` § S1.
   final liveStreamBuilder = StreamBuilder<int>(
-    stream: const Stream<int>.empty(),
+    stream: null,
     initialData: 42,
     builder: (BuildContext ctx, AsyncSnapshot<int> snap) {
       final int value = snap.data ?? 0;

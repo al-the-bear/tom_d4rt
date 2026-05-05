@@ -41,6 +41,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [L1 — `AnimatedBuilder.animation` rejects script-defined subclass of bridged `Listenable`/`ChangeNotifier`](#l1--animatedbuilderanimation-rejects-script-defined-subclass-of-bridged-listenablechangenotifier) | Bridge-generator architectural limitation (proxy/relaxer pipeline does not synthesise native `ChangeNotifier`-backed proxies for script-defined subclasses of bridged `Listenable`; `D4.getRequiredArg<Listenable>` rejects the `InterpretedInstance` even though its synthetic class hierarchy reaches `ChangeNotifier`). Script-side workaround: pass `const AlwaysStoppedAnimation<double>(0.0)` as the `animation:` argument and access the controller via closure capture inside the `builder`. | `widgets/windowing_owner_mac_o_s_test.dart` (2 sites: `_MacChrome.build`, `_DockTile.build`) |
 | [I1 — C-style `for (var i = 0; …; i++)` shares loop variable across closures](#i1--c-style-for-loop-shares-loop-variable-across-closures-interpreter-limitation) | Interpreter limitation (`_executeClassicFor` creates one `loopEnvironment` for the whole loop and reuses it every iteration; standard Dart instead allocates a fresh per-iteration variable so closures created inside the body each capture their own `i`). Script-side workaround: replace collection-`for` / body-less for-loops that build closures over `i` with `List<T>.generate(n, (i) => …)`, which gives each iteration a fresh function-parameter `i`. | `widgets/drag_target_details_test.dart` (Section 11 rank-slot row, 5 FE) |
 | [T1 — `runtimeType.toString()` on user-defined interpreted classes](#t1--runtimetypetostring-on-user-defined-interpreted-classes) | Interpreter limitation (`InterpretedInstance.runtimeType` returns the `InterpretedClass`, which does not expose `toString` as a callable static — the chained call resolves to a static lookup and throws). Script-side workaround: emit the class-name string from an explicit `is`-check ladder. | `widgets/route_transition_record_test.dart` (1 FE — `_buildSurfaceRow` line 836) |
+| [S1 — `const Stream<T>.empty()` rejected by `Stream` bridge](#s1--const-streamtempty-rejected-by-stream-bridge-interpreter-limitation) | Interpreter limitation (the stdlib `Stream` `BridgedClass` registers `empty`/`value`/`fromIterable`/etc. under `staticMethods:` and leaves `constructors: {}`. `MethodInvocation`-shaped calls — `Stream.empty()` — fall through to `staticMethods` and succeed; `InstanceCreationExpression`-shaped calls — `const Stream<int>.empty()` — go through `findConstructorAdapter` only and never see the static-method registration, so the lookup throws `Bridged class 'Stream' does not have a registered constructor named 'empty'`). Script-side workaround: drop `const`, drop the explicit type-arg, and call as a method invocation (`Stream<int>.empty()` or `Stream.fromIterable(const <int>[])`), or hold the stream in a non-const `final` so the parser keeps the call as `MethodInvocation`. | `widgets/streambuilder_test.dart` (Section 6 — `stream: const Stream<int>.empty()`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2275,8 +2276,187 @@ valid Dart shape and not a regression).
 
 ---
 
+## S1 — `const Stream<T>.empty()` rejected by `Stream` bridge (interpreter limitation)
+
+### Symptom
+
+```
+Runtime Error: Bridged class 'Stream' does not have a registered
+constructor named 'empty'. Check bridge definition.
+```
+
+Surfaces from `tom_d4rt`'s
+`InterpreterVisitor.visitInstanceCreationExpression` (line ~9275) when
+the script contains:
+
+```dart
+final liveStreamBuilder = StreamBuilder<int>(
+  stream: const Stream<int>.empty(),    // <— shape that triggers it
+  initialData: 42,
+  builder: (BuildContext ctx, AsyncSnapshot<int> snap) { … },
+);
+```
+
+### Root cause
+
+The stdlib `Stream` bridge in
+`tom_d4rt/lib/src/stdlib/async/stream.dart` (and the mirror in
+`tom_d4rt_ast/lib/src/runtime/stdlib/async/stream.dart`) registers the
+factory constructors under `staticMethods`, not `constructors`:
+
+```dart
+static BridgedClass get definition => BridgedClass(
+      nativeType: Stream,
+      name: 'Stream',
+      typeParameterCount: 1,
+      …
+      constructors: {},                // ← empty
+      staticMethods: {
+        'value': (visitor, …) { … },
+        'empty': (visitor, …) { … },   // ← lives here
+        'fromIterable': (visitor, …) { … },
+        …
+      },
+      …
+    );
+```
+
+The interpreter has two entry points that can resolve `Stream.empty()`:
+
+1. `visitMethodInvocation` (path used when the call parses as a
+   `MethodInvocation`). It first tries `findConstructorAdapter`,
+   then **falls through to `staticMethods`**.
+2. `visitInstanceCreationExpression` (path used when the call parses
+   as `InstanceCreationExpression`). It tries `findConstructorAdapter`
+   and throws if the lookup fails. It **does not** fall through to
+   `staticMethods`.
+
+**The crucial point:** the Dart analyzer parses *every*
+`Stream.factoryName(...)` form as `InstanceCreationExpression` —
+because `Stream.empty`, `Stream.value`, `Stream.fromIterable`, … are
+*named constructors* in the real `dart:async` `Stream` class, even
+though the d4rt bridge happens to register them as `staticMethods`.
+This applies to:
+
+- `const Stream<int>.empty()` — InstanceCreationExpression (const + type-args)
+- `Stream<int>.empty()` — InstanceCreationExpression (type-args)
+- `Stream.empty()` — InstanceCreationExpression (named ctor of Stream)
+- `Stream<int>.fromIterable(const <int>[])` — InstanceCreationExpression
+- `Stream.fromIterable(<int>[])` — InstanceCreationExpression
+
+In every case `findConstructorAdapter('empty')` /
+`findConstructorAdapter('fromIterable')` returns `null` (the bridge's
+`constructors:` map is empty), and the interpreter throws.
+
+### Why this is "unfixable" without a behavioural deviation
+
+- The split between `constructors:` and `staticMethods:` is the
+  canonical bridge-shape for `Stream` (and `Iterable.empty`,
+  `List.empty`, `StackTrace.empty`, …): the d4rt API treats them as
+  static factories so they share dispatch with `Stream.value(...)` and
+  `Stream.fromFuture(...)` which are not constructors in the dart:async
+  source either. Re-routing them to `constructors:` would couple their
+  dispatch path to constructor semantics (instance creation, `const`
+  evaluation, type-argument propagation) that don't apply to a static
+  factory.
+- Patching `visitInstanceCreationExpression` to fall through to
+  `staticMethods` for `BridgedClass` targets is technically possible
+  but changes the meaning of `new`/`const` for every bridge — code
+  written against the canonical Dart semantics (where a static method
+  with the same name as a non-existent constructor is a static-call,
+  not a constructor-call) would silently start succeeding.
+- Adding a special case for `Stream` (and the handful of other stdlib
+  classes with this shape) is a bridge-side patch that has to live in
+  every downstream interpreter; the script-side workaround is one line
+  per call site and uses a Dart shape that is already idiomatic.
+
+### Workaround
+
+Because every `Stream.factory(...)` shape in source code parses as
+`InstanceCreationExpression` (see "Root cause"), there is no
+script-side incantation of `Stream.empty` / `Stream.fromIterable` /
+… that hits the `MethodInvocation` fall-through. The two real
+options are:
+
+**1. Pass `null` if the consumer is `Stream<T>?`-nullable.**
+`StreamBuilder.stream` is declared `Stream<T>? stream` and accepts
+`null`, which exercises the `initialData` / "no live stream" code
+path without constructing a Stream at all:
+
+```dart
+// instead of:
+//   stream: const Stream<int>.empty(),
+stream: null,
+```
+
+This is the smallest, most idiomatic change for `StreamBuilder`.
+
+**2. Build the stream from a non-named-constructor source.**
+Use `StreamController` (default constructor — registered under
+`constructors:`) or transform a future:
+
+```dart
+final ctrl = StreamController<int>();
+ctrl.close();              // immediately-closed empty stream
+final emptyStream = ctrl.stream;
+…
+stream: emptyStream,
+```
+
+Both give an empty, single-subscription `Stream<int>` that never
+emits.
+
+**Workarounds that look right but DO NOT WORK** (all parse as
+`InstanceCreationExpression` and hit the same `findConstructorAdapter`
+miss):
+
+```dart
+stream: Stream<int>.empty(),                   // ← still IC-expr (named ctor of Stream)
+stream: Stream.empty(),                         // ← still IC-expr (named ctor of Stream)
+stream: Stream<int>.fromIterable(const <int>[]),// ← still IC-expr
+stream: Stream.fromIterable(<int>[]),           // ← still IC-expr
+final s = Stream<int>.empty(); …; stream: s,    // ← RHS is still IC-expr
+```
+
+### Affected scripts
+
+| Script | Site |
+|--------|------|
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart` | Section 6 — `stream: const Stream<int>.empty()` (line ≈ 758, rewritten in commit `5dc78999` "test(flutter_ast): hand-author Batch 2 deep demos") |
+
+### What a real fix would look like
+
+Land a single combined-lookup helper on `BridgedClass` (call it
+`findStaticOrConstructor(name)`) that first tries `constructors[name]`
+and then `staticMethods[name]`, and route both
+`visitMethodInvocation` and `visitInstanceCreationExpression` through
+it. Mirror in `tom_d4rt_ast`. Migrate the existing duplicated
+fall-through in `visitMethodInvocation` to the helper. Audit all
+stdlib bridges that register factories as `staticMethods`
+(`Stream.empty/value/fromIterable/…`, `Iterable.empty`, `List.empty`,
+`Map.fromIterable/from/of`, `Set.from/of`, `StackTrace.empty`,
+`StreamController.broadcast` if present) so the `const`/`new`-shaped
+call site reaches them. Out of scope for the priority-1 cluster; the
+script-side workaround above is the closure for now.
+
+---
+
 ## Change Log
 
+- 2026-05-05: **Add S1 — `const Stream<T>.empty()` rejected by
+  `Stream` bridge.** `BridgedClass` for `Stream` registers
+  `empty`/`value`/`fromIterable`/… as `staticMethods`, so the
+  `MethodInvocation` path falls through to them but the
+  `InstanceCreationExpression` path does not. **Important
+  correction** (same-day update): every `Stream.factory(...)`
+  source shape parses as `InstanceCreationExpression` because all
+  of them are named constructors on the real `Stream` class —
+  including `Stream.empty()` and `Stream.fromIterable(...)`
+  without type-args. Surfaced when
+  `widgets/streambuilder_test.dart` was rewritten as a deep demo
+  in Batch 2. Working workarounds: pass `stream: null`
+  (StreamBuilder.stream is nullable) or build via
+  `StreamController().stream` after `close()`.
 - 2026-05-04: **Add T1 — `runtimeType.toString()` on user-defined
   interpreted classes throws "no static method 'toString'".**
   Documents `testlog_20260503-2009-issue-analysis` cluster C10

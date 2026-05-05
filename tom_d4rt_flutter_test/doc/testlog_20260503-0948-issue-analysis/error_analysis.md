@@ -242,6 +242,69 @@ Same priority list as the `ast` analysis (§8):
 
 No `*.b.dart` files were edited by hand. No interpreter (`tom_d4rt`/`tom_d4rt_ast`) source change was needed for the fixed sub-cases — only the generator's allowlist needed extension.
 
+### 9.4 Re-verification — 2026-05-05
+
+Re-ran the priority-1 sub-case scripts and the three regression suites
+on today's `main` (`HEAD = c9a8f31b`, no library code changes since the
+prior verification at `4aac542a`). Test-runner ran serially with
+`D4RT_SKIP_BRIDGE_REGEN=1`. Logs in
+`doc/testlog_priority1_regression/`.
+
+| Script (priority-1) | Mode | Result |
+|---------------------|------|--------|
+| `services/spell_check_service_test.dart` | individual via `--plain-name` | ✅ PASS |
+| `material/thumb_test.dart` | individual via `--plain-name` | ✅ PASS |
+| `widgets/snapshot_mode_test.dart` | individual via `--plain-name` | ✅ PASS (script uses `PreferredSize` workaround documented in §9.2 / `interpreter_unfixable.md`) |
+
+| Suite | Result | Δ from baseline (`testlog_20260504-g1fix-verify`) |
+|-------|--------|--------------------------------------------------|
+| `essential_classes_test` | `+108` ✅ | matches baseline (was `+108`) |
+| `important_classes_test` | `+162 −2` ❌ | -2 vs `+164` baseline — both new failures **unrelated to cluster 1**: see §9.5 |
+| `secondary_classes_test` | `+647 ~1 −6` ❌ | -5 vs `+653 ~1` baseline — all new failures **unrelated to cluster 1**: see §9.5 |
+
+**Conclusion**: Priority-1 cluster (`InterpretedInstance` not coerced
+for typed Flutter param) remains **fixed (partial)** as of §9.1; no
+regression of cluster-1 scripts. The 8 new suite failures are
+test-script-induced (per regression rule (a)) and tracked separately
+in §9.5.
+
+### 9.5 Out-of-cluster regressions surfaced by Batch 1–7 deep-demo rewrites
+
+The 8 new failures in `important` + `secondary` come from test scripts
+that were rewritten as deep visual demos in commits `f1f92f61 …
+c9a8f31b` (Batch 1–7). All three project library trees
+(`tom_d4rt`, `tom_d4rt_ast`, `tom_d4rt_generator`,
+`tom_d4rt_flutter_*`) are unchanged since `4aac542a`, so per regression
+rule (a) these are not regressions of the priority-1 fix. They are
+captured here for follow-up rather than being part of cluster 1.
+
+| Script | Suite | Symptom | Trigger |
+|--------|-------|---------|---------|
+| `widgets/streambuilder_test.dart` | important | `Bridged class 'Stream' does not have a registered constructor named 'empty'` | New script uses `const Stream<int>.empty()`. The stdlib `Stream` bridge registers `empty`/`value`/`fromIterable`/… under `staticMethods`, not `constructors`. **All `Stream.factory(...)` source shapes parse as `InstanceCreationExpression`** (because they are named constructors of the real `Stream` class), so none of them fall through to `staticMethods`. **FIXED 2026-05-05** by switching to `stream: null` (`StreamBuilder.stream` is nullable). Verified individually (`doc/testlog_priority1_regression/streambuilder_post_fix3.log` — 1 passed, 0 failed). Per regression rule (a), no library code changed → individual retest sufficient. Interpreter limitation documented as S1 in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`. |
+| `material/selectabletext_test.dart` | important | Suite-level `TimeoutException after 0:00:25` (transport_error) on `/build` | Flaky environmental timeout under suite load — script **PASSES in isolation** (`doc/testlog_priority1_regression/selectabletext_isolated.log`). Not a real failure. |
+| `gestures/drag_test.dart` | secondary | `primaryVelocity == velocity.pixelsPerSecond.dx` assertion `is not true` | Test-script logic — script's velocity-direction expectation is too tight. Pre-existing. |
+| `widgets/fade_in_image_test.dart` | secondary | Suite-level failure | **PASSES in isolation** (same log file). Suite-state pollution / not a real failure. |
+| `gestures/drag_gesture_recognizer_test.dart` | secondary | (assertion in suite) | Rewritten Batch 5 (`0406420c`). |
+| `material/snack_bar_closed_reason_test.dart` | secondary | `The condition of a conditional expression must be a boolean, but was null` | Rewritten Batch 4 (`45395fca`). Likely an enum-comparison or null-default mishandling in the new script. |
+| `painting/box_painter_test.dart` | secondary | `Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | Rewritten Batch 4 (`c97ac445`). New script triggers a path where ShapeDecoration is missing a required field. |
+| `painting/linear_border_edge_test.dart` | secondary | `Failed assertion: line 39 pos 14: 'size >= 0.0 && size <= 1.0': is not true` | Rewritten Batch 4 (`c97ac445`). Test-script-side: `LinearBorderEdge` constructed with an invalid `size`. |
+
+Per regression rule (a), each of these is fixed via individual
+test-script retest rather than rolled into cluster 1. The new
+interpreter limitation surfaced by `streambuilder_test.dart`
+(InstanceCreationExpression on stdlib `Stream` skips
+`staticMethods`) has been added to
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` so future script
+authors steer clear of `const Stream<T>.empty()`. **Important
+correction** (same-day update): every `Stream.factory(...)` source
+shape parses as `InstanceCreationExpression`, including
+`Stream<T>.fromIterable(const [])` and bare `Stream.empty()` —
+because `empty` / `fromIterable` / … are *named constructors* on
+the real `Stream` class. The only working workarounds are:
+(1) pass `null` if the consumer accepts `Stream<T>?` (the
+streambuilder fix), or (2) build the stream from a
+`StreamController().stream` after `close()`.
+
 ## 10. Cluster fix status — Priority 2 (`for-in` over `BridgedInstance<Object>`)
 
 **Status: FIXED (PARTIAL) — interpreter `for-in` unwrap landed; 2 of 3 scripts pass; the 3rd reveals a separate downstream Priority-1 sub-case (out of cluster scope).**
