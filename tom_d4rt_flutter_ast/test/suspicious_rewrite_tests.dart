@@ -255,6 +255,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('spell_out_string_attribute_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/spell_out_string_attribute_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -739,6 +746,20 @@ void main() {
     test('tap_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('tap_and_pan_gesture_recognizer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/tap_and_pan_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('pointer_scale_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/pointer_scale_event_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1861,6 +1882,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    test('tooltip_semantics_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/tooltip_semantics_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
   });
 
   // ============================================================
@@ -2087,6 +2115,13 @@ void main() {
     test('flutter_version_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/flutter_version_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('i_o_s_system_context_menu_item_data_copy_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/i_o_s_system_context_menu_item_data_copy_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -2630,6 +2665,34 @@ void main() {
     test('text_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/text_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('flexible_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/flexible_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('textcontroller_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/textcontroller_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('notification_locale_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/notification_locale_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('nestedscrollview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/nestedscrollview_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
