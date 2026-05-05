@@ -3030,4 +3030,72 @@ void main() {
       },
     );
   });
+
+  group('batch5_deep_demos/', () {
+    test('widgets/scroll_metrics_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scroll_metrics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/valuelistenablebuilder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/valuelistenablebuilder_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/raw_floating_cursor_point_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/raw_floating_cursor_point_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/least_squares_solver_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/least_squares_solver_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_expansion_tile_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_expansion_tile_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/context_menu_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/context_menu_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/sliverfillremaining_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/sliverfillremaining_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'services/i_o_s_system_context_menu_item_data_select_all_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/i_o_s_system_context_menu_item_data_select_all_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('widgets/formstate_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/formstate_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
