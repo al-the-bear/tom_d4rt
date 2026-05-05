@@ -2945,4 +2945,89 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // Batch 4 deep demos — hand-authored 1900+ line rewrites of
+  // verbose stub scripts (idx 272-280). Each demo dramatises one
+  // Flutter type with multiple visual displays + instructive prose.
+  //   - SemanticsEvent                       → Lighthouse Beacon
+  //   - Scaffold (advanced slots)            → Compass Cinnabar
+  //   - Icon                                 → Glyph Lapis
+  //   - Velocity / VelocityTracker           → Drift Argent
+  //   - SuggestionSpan                       → Quill Tangerine
+  //   - ListBody                             → Stack Spruce
+  //   - FadeForwardsPageTransitionsBuilder   → Curtain Garnet
+  //   - TextSelectionToolbarAnchors          → Pin Saffron
+  //   - TextSelectionToolbarLayoutDelegate   → Sextant Indigo
+  // ============================================================
+  group('batch4_deep_demos/', () {
+    test('semantics/semantics_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/semantics_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/scaffold_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/scaffold_advanced_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/icon_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/icon_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/velocity_drag_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/velocity_drag_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/suggestion_span_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/suggestion_span_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/listbody_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/listbody_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'material/fade_forwards_page_transitions_builder_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/fade_forwards_page_transitions_builder_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('widgets/text_selection_toolbar_anchors_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/text_selection_toolbar_anchors_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'widgets/text_selection_toolbar_layout_delegate_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/text_selection_toolbar_layout_delegate_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+  });
 }
