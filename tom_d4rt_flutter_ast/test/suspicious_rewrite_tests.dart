@@ -3194,4 +3194,70 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch7_deep_demos/', () {
+    test('material/showdatepicker_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/showdatepicker_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/network_asset_bundle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/network_asset_bundle_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/shapes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/shapes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/mouse_tracker_annotation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/mouse_tracker_annotation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('physics/gravity_simulation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'physics/gravity_simulation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/scale_details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/scale_details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/autofill_context_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/autofill_context_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/text_selection_handle_controls_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/text_selection_handle_controls_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/i_o_s_system_context_menu_item_data_custom_test.dart',
+        () async {
+      final result = await SendTestRunner.send(
+        'services/i_o_s_system_context_menu_item_data_custom_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
