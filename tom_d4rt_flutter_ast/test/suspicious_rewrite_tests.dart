@@ -3098,4 +3098,100 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 6 DEEP DEMOS (9 files, 2026-05-08)
+  // First batch of the next-100 campaign. Hand-authored
+  // 1500+-line deep demos with unique themes per file. Three
+  // entries (decoration_test, documentation_icon_test,
+  // bottom_navigation_bar_landscape_layout_test) were already
+  // 2000+-line deep demos authored in earlier work but had
+  // never been registered here; they were normalized
+  // (analyzer-clean, single ignore_for_file line) and
+  // registered alongside the six freshly authored entries.
+  //
+  // Themes:
+  //   - DefaultSpellCheckService       → The Proofreader's Desk
+  //   - Decoration (abstract)          → Plaster Carmine
+  //   - IconData / IconDataProperty    → Atlas Iris
+  //   - PerformanceModeRequestHandle   → Cockpit Performance Gauges
+  //   - DefaultProcessTextService      → Etymologist's Workbench
+  //   - IOSSystemContextMenuItemData
+  //         (LiveText, sealed siblings) → iOS Brushed Aluminum
+  //   - BottomNavigationBarLandscapeLayout → Pier Cerulean
+  //   - Sliver delegates (builder/list/
+  //         animated/safe-area/visibility/
+  //         layout-builder)            → Card-Catalog Drawer
+  //   - Stack / Positioned / IndexedStack → Theatrical Stage
+  // ============================================================
+  group('batch6_deep_demos/', () {
+    test('services/default_spell_check_service_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/default_spell_check_service_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/decoration_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/decoration_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/documentation_icon_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/documentation_icon_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scheduler/performance_mode_request_handle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'scheduler/performance_mode_request_handle_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/default_process_text_service_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/default_process_text_service_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'services/i_o_s_system_context_menu_item_data_live_text_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/i_o_s_system_context_menu_item_data_live_text_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test(
+      'material/bottom_navigation_bar_landscape_layout_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/bottom_navigation_bar_landscape_layout_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('widgets/sliver_delegates_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/sliver_delegates_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/stack_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/stack_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
