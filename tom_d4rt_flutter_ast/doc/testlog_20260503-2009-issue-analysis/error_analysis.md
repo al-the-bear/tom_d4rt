@@ -140,7 +140,7 @@ Total framework-error blocks: **~80** across 16 distinct scripts. Most are layou
 | **C1 — Cupertino minLines/maxLines assertion** | essential/cupertino/textfield, hardly_1/cupertino/cupertino_text_selection_handle_controls | — | Deep-demo script generates `CupertinoTextField` with `minLines > maxLines`. | script |
 | **C2 — InterpretedInstance not coerced for typed Flutter param (priority 1)** | gii/widgets/windowing_owner_mac_o_s | hardly_5/widgets/windowing_owner_mac_o_s (11), hardly_5/widgets/snapshot_mode (Scaffold appBar 1) | User subclasses of bridged abstract `Listenable` / `PreferredSizeWidget` reach typed Flutter constructors as raw `InterpretedInstance`s. Relaxer/proxy pipeline must unwrap interpreted subclasses of these abstracts. | bridge generator + interpreter |
 | **C3 — Codec rejects BridgedInstance** | hardly_3/services/message_codec, hardly_3/services/method_codec | — | StandardMessageCodec/StandardMethodCodec adapters need to unwrap `BridgedInstance<Object>` payloads before native encode/decode. | bridge handler |
-| **C4 — Abstract-class instantiation** | hardly_5/widgets/regular_window | hardly_5/widgets/regular_window_controller (LateInitializationError 1) | Scripts construct an abstract bridged base directly. | script |
+| **C4 — Abstract-class instantiation** ⚠️ **partial 2026-05-04** | ~~hardly_5/widgets/regular_window~~ ✅ | hardly_5/widgets/regular_window_controller (LateInitializationError 1) — open (different root cause) | `regular_window` was authored against Flutter's redirecting-factory form (`factory RegularWindowController(...) = _HostRegularWindowController;`). d4rt does not lower that form (mirror AST has no class-level `redirectedConstructor`; only the enum path and the initializer-list `SRedirectingConstructorInvocation` are handled). Closed script-side: 4 call sites instantiate the concrete `_HostRegularWindowController(...)` directly while the variable types remain the abstract base; documented in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §R1. The `regular_window_controller` LateInitializationError is a separate root cause — tracked separately. See Cluster Resolution Log entry below. | script (cluster); interpreter feature gap (deferred, multi-day) |
 | **C5 — Argument-order syntax error in script** | hardly_4/widgets/i_o_s_system_context_menu_item_cut | — | Deep-demo emits positional after named. | script |
 | **C6 — Script timeout (infinite work)** ✅ **fixed 2026-05-04** | hardly_4/widgets/automatic_keep_alive_client_mixin | — | Original demo authored stateful widgets (`AnimationController`, `PageController`, `TabController`, `ScrollController`, `setState`-driven live counters) which the static-build SendTestRunner cannot service: there is no live frame pump, so the controllers never fire, the build endpoint waits, and the 25 s timeout fires. Rewrote the file (2184 → 2535 lines) as a fully static visual demo — every authored class is a `StatelessWidget`, the page/tab/sliver-list cases are mocked as side-by-side card compositions with baked-in counter / scroll / form values illustrating what *would* be preserved if the mixin were active, and the lifecycle is rendered through two anatomy diagrams (`_AnatomyDiagram`, `_ProtocolSequence`) + 6 code-block snippets covering the contract, common bugs, and `super.build(context)` rule. Single import, single `// ignore_for_file:` block, dart-analyze clean. Individual retest via `flutter test test/hardly_relevant_classes_4_test.dart --plain-name "automatic_keep_alive_client_mixin_test.dart"`: build completes in 2.8 s, `httpStatus=200`, `frameworkErrors=0`, all tests passed. Per regression rule (a), individual retest is sufficient — only the test script changed. | script |
 | **C7 — Transport failure on huge bundle** | secondary/dart_ui/string_attribute | — | 968 KB bundle exceeds local HTTP read window. | infra (script size *or* runner timeout) |
@@ -185,5 +185,104 @@ Same revision (`eadebb6…`), same script set, same numbers per file. No regress
 1. **Resume cluster C2** (priority-1 InterpretedInstance coercion). Investigate the proxy/relaxer pipeline in `tom_d4rt_generator/lib/src/{proxy,relaxer}_generator.dart` for unwrapping interpreted subclasses of bridged abstracts whose surface includes a `Listenable` / `PreferredSizeWidget` typed parameter. Mirror any fix in `tom_d4rt` ↔ `tom_d4rt_ast`.
 2. **Cluster C3 (codec unwrapping)** — fix the `StandardMessageCodec` bridge handler (or the generator's argument-coercion emit for `Object`-typed codec args) so `BridgedInstance<Object>` is unwrapped before the native encode call.
 3. **Cluster C9 (`surfaceTint`)** — investigate why the `ThemeExtension` bridge does not expose `surfaceTint`. Possibly a `import show/hide` mismatch in `buildkit.yaml`.
-4. **Script-only fixes (C1, C4, C5)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests.
+4. **Script-only fixes (C1, C4 ⚠️ partial, C5)** — straightforward deep-demo rewrites; safe to ship script-by-script with individual retests. C4 `regular_window` closed script-side; `regular_window_controller` LateInitializationError tracked separately.
 5. **Defer C6, C7, C8, C10** — out of scope for the current bridge/interpreter campaign; track in `interpreter_unfixable.md` or a script-cleanup follow-up.
+
+---
+
+## Cluster Resolution Log
+
+### C4 — Abstract-class instantiation ⚠️ partial 2026-05-04
+
+**Status:** partial (`regular_window` closed script-side;
+`regular_window_controller` LateInitializationError is a separate
+issue still open).
+
+**Affected scripts:**
+
+- `hardly_relevant_classes_5_test.dart > widgets/regular_window_test.dart` — ✅ closed
+- `hardly_relevant_classes_5_test.dart > widgets/regular_window_controller_test.dart` — open (different root cause: `LateInitializationError: Late variable '_primary' without initializer`)
+
+**What was actually broken (`regular_window`).** The deep-demo
+script declared an abstract base mirroring Flutter's modern
+desktop-window API:
+
+```dart
+abstract class RegularWindowController extends ChangeNotifier {
+  factory RegularWindowController({
+    Size? preferredSize,
+    Offset? preferredPosition,
+    String? title,
+    BoxConstraints? preferredConstraints,
+    bool isActivated = true,
+  }) = _HostRegularWindowController;
+  // ... abstract API surface ...
+}
+
+class _HostRegularWindowController extends RegularWindowController {
+  _HostRegularWindowController({...}) : super._();
+  // ... concrete implementation ...
+}
+```
+
+Four call sites then wrote `RegularWindowController(...)` against
+that redirecting factory. Stock Dart lowers the
+`factory X(...) = Y;` form into a forwarding call to `Y(...)`, so
+the analyzer never lets `RegularWindowController` reach the
+runtime as an abstract instantiation. d4rt does not implement
+that lowering: the interpreter only honours
+`redirectedConstructor` in the enum-declaration path
+(`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` line
+~8895, `UnimplementedD4rtException` for enums) and only the
+**initializer-list** redirect form
+(`MyClass.alt() : this(arg);`) at the class level via
+`SRedirectingConstructorInvocation` in
+`tom_d4rt_ast/lib/src/runtime/callable.dart` (lines ~1010-1075).
+The factory-redirect form is silently treated as an abstract
+constructor with no body, so the call resolves to the abstract
+class and throws `Cannot instantiate abstract class
+'RegularWindowController'`.
+
+**Why we are not fixing this in cluster scope.** Implementing
+class-level redirecting factory constructors requires a new (or
+extended) AST node carrying the `redirectedConstructor`
+reference, `tom_ast_generator` changes to copy it from the
+analyzer AST into the mirror AST, interpreter dispatch logic
+that resolves the redirected target (handling chained redirects
+and named-target forms `= Y.named`), and a mirror across
+`tom_d4rt` ↔ `tom_d4rt_ast` plus a regression-coordinated
+essential + important + secondary + gii sweep. That is a
+multi-day interpreter feature, not a cluster-scope fix.
+
+**Script-side fix applied.** Replaced the four
+`RegularWindowController(...)` call sites with direct
+`_HostRegularWindowController(...)` instantiations while keeping
+the variable types as the abstract `RegularWindowController` —
+the analyzer would have lowered the original to exactly this, so
+the public API surface and the rest of the script stay
+unchanged. Added an explanatory `// d4rt INTERPRETER NOTE: ...`
+comment block at the first call site documenting the limitation
+inline.
+
+**Verification.** Individual flutter test on
+`widgets/regular_window_test.dart` after the rewrite:
+`+1: All tests passed!` (status=success, httpStatus=200,
+frameworkErrors=0, bundleJsonBytes≈917 KB,
+totalMs≈3153). `dart analyze` on `tom_d4rt_flutter_ast`: clean.
+Per regression rule (a), only individual retest is needed —
+script-only edit, the generator and interpreter were not
+touched.
+
+**Documented limitation.** Added §R1 ("Redirecting factory
+constructor syntax (`factory X() = Y`) not implemented") to
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`, indexed
+alongside the other interpreter-architectural limitations.
+
+**Open follow-up (separate issue, not this cluster).**
+`hardly_relevant_classes_5_test.dart > widgets/regular_window_controller_test.dart`
+still emits a `LateInitializationError: Late variable '_primary'
+without initializer is accessed before being assigned.` This is
+not the redirecting-factory pattern — the script uses a
+script-defined State class with `late final` fields read before
+`initState` completes. Separate root cause; will be triaged on
+its own.
