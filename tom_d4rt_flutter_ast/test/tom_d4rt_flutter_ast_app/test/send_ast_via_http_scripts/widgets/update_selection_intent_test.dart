@@ -1811,7 +1811,7 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      body: const _UsiLabScaffoldBg(
+      body: _UsiLabScaffoldBg(
         child: SafeArea(
           // Fa1 — C22 ListView replacement to avoid the
           // SingleChildScrollView + Column(stretch) infinite-height cascade.

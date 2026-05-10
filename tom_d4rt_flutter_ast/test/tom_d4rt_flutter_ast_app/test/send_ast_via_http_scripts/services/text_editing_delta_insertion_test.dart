@@ -3,6 +3,7 @@
 // Deep Demo: Visual demonstration of IME insertion deltas, anatomy,
 // composing ranges, sibling delta types, and apply() flow.
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 dynamic build(BuildContext context) {
   print('TextEditingDeltaInsertion Deep Demo executing');

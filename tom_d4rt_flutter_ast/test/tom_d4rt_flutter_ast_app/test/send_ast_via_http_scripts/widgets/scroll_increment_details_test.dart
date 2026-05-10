@@ -135,7 +135,7 @@ class _IncrementCalculatorPage extends StatelessWidget {
       // the infinite-height cascade (same C22 pattern).
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-        children: const <Widget>[
+        children: <Widget>[
           Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 1100),

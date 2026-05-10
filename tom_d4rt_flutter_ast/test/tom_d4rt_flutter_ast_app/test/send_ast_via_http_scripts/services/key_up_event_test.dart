@@ -1193,46 +1193,39 @@ Widget _layoutCard(
 Widget _buildDeviceTypeShowcase() {
   final List<Map<String, Object?>> devices = <Map<String, Object?>>[
     {
-      'type': KeyEventDeviceType.keyboard,
+      'type': ui.KeyEventDeviceType.keyboard,
       'label': 'keyboard',
       'icon': Icons.keyboard_alt_outlined,
       'descr': 'A traditional alphanumeric keyboard.',
       'tone': _kTealDeep,
     },
     {
-      'type': KeyEventDeviceType.directionalPad,
+      'type': ui.KeyEventDeviceType.directionalPad,
       'label': 'directionalPad',
       'icon': Icons.dialpad_outlined,
       'descr': 'Phone d-pad / TV remote four-direction cluster.',
       'tone': _kAmberDeep,
     },
     {
-      'type': KeyEventDeviceType.gamepad,
+      'type': ui.KeyEventDeviceType.gamepad,
       'label': 'gamepad',
       'icon': Icons.sports_esports_outlined,
       'descr': 'Console-style gamepad buttons mapped to keys.',
       'tone': _kRoseDeep,
     },
     {
-      'type': KeyEventDeviceType.joystick,
+      'type': ui.KeyEventDeviceType.joystick,
       'label': 'joystick',
       'icon': Icons.gamepad_outlined,
       'descr': 'Joystick / flight stick reporting key-style events.',
       'tone': _kSkyDeep,
     },
     {
-      'type': KeyEventDeviceType.hdmi,
+      'type': ui.KeyEventDeviceType.hdmi,
       'label': 'hdmi',
       'icon': Icons.cable_outlined,
       'descr': 'HDMI-CEC remote (TV / receiver).',
       'tone': _kTealMid,
-    },
-    {
-      'type': KeyEventDeviceType.unknown,
-      'label': 'unknown',
-      'icon': Icons.help_outline,
-      'descr': 'Source unspecified — treat as generic input.',
-      'tone': _kSlateSoft,
     },
   ];
 
@@ -1246,7 +1239,7 @@ Widget _buildDeviceTypeShowcase() {
 
 Widget _deviceCard(Map<String, Object?> entry) {
   final Color tone = entry['tone'] as Color;
-  final KeyEventDeviceType deviceType = entry['type'] as KeyEventDeviceType;
+  final ui.KeyEventDeviceType deviceType = entry['type'] as ui.KeyEventDeviceType;
   // Construct an example KeyUpEvent with this deviceType (no setState — pure data).
   final KeyUpEvent example = KeyUpEvent(
     physicalKey: PhysicalKeyboardKey.enter,
