@@ -3619,4 +3619,76 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+  group('batch13_deep_demos/', () {
+    test('repro_fa5/inherited_model_inherit_from.dart', () async {
+      final result = await SendTestRunner.send(
+        'repro_fa5/inherited_model_inherit_from.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/velocity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/velocity_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/text_editing_delta_replacement_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/text_editing_delta_replacement_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dialog_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dialog_advanced_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/pagecontroller_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/pagecontroller_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/raw_key_event_data_android_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/raw_key_event_data_android_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/menu_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/menu_advanced_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_basic_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_basic_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/showtimepicker_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/showtimepicker_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/asset_metadata_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/asset_metadata_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
+
 }
