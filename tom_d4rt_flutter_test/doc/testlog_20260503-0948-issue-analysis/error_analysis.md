@@ -305,6 +305,41 @@ the real `Stream` class. The only working workarounds are:
 streambuilder fix), or (2) build the stream from a
 `StreamController().stream` after `close()`.
 
+### 9.6 Re-verification — 2026-05-10
+
+Re-ran all priority-1 sub-case scripts and the three regression
+suites on today's `main` (`HEAD = 9c6ff3d5`). No library code in
+`tom_d4rt`, `tom_d4rt_ast`, `tom_d4rt_generator` or the flutter
+bridge packages has changed since `4aac542a` (the §9.4 verification
+HEAD `c9a8f31b` is reachable from today's HEAD; only `test(flutter_ast)`
+deep-demo rewrite commits land in between). Test-runner ran
+serially with `D4RT_SKIP_BRIDGE_REGEN=1`. Logs in
+`doc/testlog_20260510-priority1-reverify/`.
+
+| Script (priority-1) | Mode | Result |
+|---------------------|------|--------|
+| `services/spell_check_service_test.dart` | individual via `--plain-name` | ✅ PASS, `frameworkErrors=0` |
+| `material/thumb_test.dart` | individual via `--plain-name` | ✅ PASS, `frameworkErrors=0` |
+| `widgets/snapshot_mode_test.dart` | individual via `--plain-name` | ✅ PASS, `frameworkErrors=0` (continues to use the §9.2 `PreferredSize` workaround) |
+| `widgets/align_transition_test.dart` | individual via `--plain-name` | ✅ PASS, `frameworkErrors=0` (the original `_Planet` sub-case stays fixed) |
+
+| Suite | Result | Δ from §9.4 baseline (2026-05-05) |
+|-------|--------|-----------------------------------|
+| `essential_classes_test` | `+108` ✅ | unchanged (matches §9.4) |
+| `important_classes_test` | `+163 −1` | +1 vs §9.4 (`+162 −2`); the single failure is `painting/text_painting_test.dart` — out-of-cluster, script-side (`Undefined property or method 'textScaleFactor' on bridged instance of 'double'` in a string-interpolation expression), regression rule (a) applies |
+| `secondary_classes_test` | `+646 ~1 −7` | -1 net vs §9.4 (`+647 ~1 −6`); 5 of 7 failures match the §9.5 list (`drag_test`, `drag_gesture_recognizer_test`, `snack_bar_closed_reason_test`, `box_painter_test`, `linear_border_edge_test`); the 2 new failures (`foundation/targetplatform_test.dart` — `Text(data: null)` from a Batch 3 deep-demo rewrite, fits cluster Priority 4; `widgets/sliver_advanced_test.dart` — uncommitted script edit) are both test-script-induced |
+
+**Conclusion**: Priority-1 cluster (`InterpretedInstance` not coerced
+for typed Flutter param) remains **fixed (partial)** as documented in
+§9.1–§9.2; no regression of cluster-1 scripts and no regression
+attributable to library code (none has changed since §9.4). All net-new
+suite failures since §9.4 are out-of-cluster script-side issues that
+fall under regression rule (a) (individual retest sufficient) and are
+either already documented as Priority-4 (`Text(data: null)`, see §12)
+or attached to uncommitted test-script edits in
+`tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/` that should
+be addressed in a follow-up by the script author.
+
 ## 10. Cluster fix status — Priority 2 (`for-in` over `BridgedInstance<Object>`)
 
 **Status: FIXED (PARTIAL) — interpreter `for-in` unwrap landed; 2 of 3 scripts pass; the 3rd reveals a separate downstream Priority-1 sub-case (out of cluster scope).**
