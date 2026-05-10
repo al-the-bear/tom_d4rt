@@ -807,14 +807,8 @@ class _MacChrome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // d4rt workaround: a script-defined ChangeNotifier subclass
-    // (RegularWindowControllerMacOS) is not coerced to the bridged
-    // `Listenable` parameter type. SendTestRunner does a static one-shot
-    // build with no frame pump, so a real listenable is never observed —
-    // pass a const AlwaysStoppedAnimation to satisfy the typed parameter
-    // and access controller state via closure capture below.
     return AnimatedBuilder(
-      animation: const AlwaysStoppedAnimation<double>(0.0),
+      animation: controller,
       builder: (BuildContext context, Widget? _) {
         final double width = controller.contentSize.width * scale;
         final double height = controller.contentSize.height * scale;
@@ -2634,11 +2628,8 @@ class _DockTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // d4rt workaround: see _MacChrome.build above — script-defined
-    // ChangeNotifier subclass not coerced to the bridged Listenable
-    // parameter type. Closure capture preserves controller access.
     return AnimatedBuilder(
-      animation: const AlwaysStoppedAnimation<double>(0.0),
+      animation: controller,
       builder: (BuildContext context, Widget? _) {
         return GestureDetector(
           onTap: () => controller.activate(),

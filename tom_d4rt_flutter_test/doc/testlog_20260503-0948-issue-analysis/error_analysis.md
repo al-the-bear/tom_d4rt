@@ -174,7 +174,7 @@ Grouped across files, the 17 hard failures + 17 framework errors fall into these
 | Cluster | Count | Symptom | Owner | Status |
 |--------|-------|---------|-------|--------|
 | **Bridge: `InterpretedInstance` not coerced for typed Flutter param** | ≥ 4 | `SliderThemeData.thumbShape`, `SpellCheckConfiguration.spellCheckService`, `Scaffold.appBar`, plus the just-fixed `_Planet` case in `align_transition_test` | bridge generator (mirror in `tom_d4rt`/`tom_d4rt_ast`) — extend the proxy/relaxer pipeline so user subclasses of bridged abstracts coerce automatically | **Partial — fixed for `SliderComponentShape` + `SpellCheckService`, deferred for `PreferredSizeWidget` (P1 in `interpreter_unfixable.md`).** See §9 below. |
-| **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed (partial) — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass; `widgets/windowing_owner_mac_o_s_test.dart` still fails but on a downstream Priority-1 sub-case (`AnimatedBuilder.animation` expecting `Listenable`, getting `InterpretedInstance(RegularWindowControllerMacOS)`) — out of cluster scope. See §10 below.** |
+| **Bridge: `for-in` over `BridgedInstance<Object>`** | 3 (`windowing_owner_mac_o_s`, `painting/axis`, `web_browser_detection`) | `Value used in collection 'for-in' must be an Iterable, but got BridgedInstance<Object>` | interpreter `tom_d4rt_ast`/`tom_d4rt` — extend `for-in` iteration to recognise bridged `Iterable` instances | **Fixed — for-in unwrap added to both interpreters; `painting/axis_test.dart` and `widgets/web_browser_detection_test.dart` now pass. `widgets/windowing_owner_mac_o_s_test.dart` follow-on (`AnimatedBuilder.animation` rejecting `InterpretedInstance(RegularWindowControllerMacOS)`) closed 2026-05-10 by registering `ChangeNotifier`/`Listenable` interface-proxy factories in both flutter registration packages — see §10.5 below.** |
 | **Bridge: `Text.data: null`** | 3 (`tooltip_window_controller_delegate`, `target_platform`, `time_of_day_format`) | `Text` constructor rejects `data: null` — script passes `null` from interpolation | script-side or interpreter null-check; verify the script prepares the value correctly before passing it to `Text(...)` | **Fixed (script-side) — all 3 scripts pass on both drivers after converting `switch (BridgedEnum)` helpers to `if/else` chains over `==` (the proven `_isCupertinoFamily` pattern). Underlying interpreter limitation documented as `P4` in `interpreter_unfixable.md`. See §12 below.** |
 | **Bridge: `Animation.value` on `AnimationWithParentMixin`** | 2 (`backdrop_group_test`, the script-side workaround in `align_transition_test`) | `Undefined property or method 'value' on bridged instance of 'AnimationWithParentMixin'` | interpreter — when the leaf bridge has no matching getter/method, walk the registered transitive supertype chain | **Fixed — supertype-walk fallback added to property lookup at three sites in both interpreters; supertype registration `AnimationWithParentMixin: ['Animation', 'Listenable']` added to both flutter registration packages. `backdrop_group_test` passes (no `Animation.value` error). See §11 below.** |
 | **Removed Flutter API references** | 3 (`ButtonBar*` cluster) | `Undefined variable: ButtonBarThemeData` / `Type 'ButtonBarThemeData' not found for instantiation` | scripts — rewrite to use the modern Flutter equivalents | **Fixed (script-side) — all 3 scripts rewritten to `OverflowBar` + `OverflowBarAlignment` and parent-widget wrappers (`SizedBox`, `Padding`, `ConstrainedBox`, `IntrinsicWidth`, `Row + MainAxisAlignment.spaceBetween/spaceAround`); analyzer-clean and pass individually on `tom_d4rt_flutter_ast`. See §13 below.** |
@@ -383,7 +383,7 @@ edits.
 |--------|--------|
 | `painting/axis_test.dart` | **PASS** (was failing — `for (final int n in data.take(8)) ...`) |
 | `widgets/web_browser_detection_test.dart` | **PASS** |
-| `widgets/windowing_owner_mac_o_s_test.dart` | **STILL FAILS** — but the for-in error is gone; the new failure is a downstream Priority-1 sub-case: `AnimatedBuilder.animation` rejects `InterpretedInstance(RegularWindowControllerMacOS)` because the `Listenable` superclass coercion isn't wired up for that bridged type. Tracked under §9 / future Priority-1 sweep, not this cluster. |
+| `widgets/windowing_owner_mac_o_s_test.dart` | **PASS (2026-05-10)** — the for-in fix uncovered a downstream Priority-1 sub-case (`AnimatedBuilder.animation` rejecting `InterpretedInstance(RegularWindowControllerMacOS)`); closed by registering `ChangeNotifier` and `Listenable` interface-proxy factories in both `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart` and `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`. Both factories return `instance.bridgedSuperObject` (the real `ChangeNotifier()` already created by `runtime_types.dart` Path B for any script class extending `ChangeNotifier`), so listener identity is preserved end-to-end. Script reverted to its natural `animation: controller` form. See §9.3. |
 
 Full suites (rule b — must run essential + important + secondary):
 
@@ -404,10 +404,107 @@ No new regressions introduced.
 | `tom_ai/d4rt/tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/error_analysis.md` | This section + §6 status cell. |
 
 No `.b.dart` files modified. No buildkit / generator changes. The
-`windowing_owner_mac_o_s_test.dart` residual failure is recorded for the
-Priority-1 sweep; it does not require a workaround entry in
-`interpreter_unfixable.md` — it is a real, fixable bridge issue, just
-outside this cluster's scope.
+`windowing_owner_mac_o_s_test.dart` residual failure was closed on
+2026-05-10 — see §10.5.
+
+### 10.5 Closing the `windowing_owner_mac_o_s_test.dart` residual (2026-05-10)
+
+**Status: FIXED — `ChangeNotifier`/`Listenable` interface-proxy factories registered in both flutter registration packages; script reverted to its natural form.**
+
+#### 10.5.1 Trigger
+
+After the §10.2 for-in fix, `widgets/windowing_owner_mac_o_s_test.dart`
+surfaced a downstream Priority-1 sub-case:
+`AnimatedBuilder(animation: controller, …)` where `controller` is a
+script-side subclass of `RegularWindowControllerMacOS` (which extends
+`RegularWindowController` — itself a Flutter `ChangeNotifier`, i.e. a
+`Listenable`). The bridge constructor argument coercer
+(`D4.getRequiredNamedArg<Listenable>` →
+`D4.extractBridgedArg<Listenable>`) saw the value as
+`InterpretedInstance(RegularWindowControllerMacOS)` and rejected it
+because no proxy factory was registered for `Listenable` /
+`ChangeNotifier` — even though the runtime had already created a real
+backing `ChangeNotifier()` on `instance.bridgedSuperObject` via
+`runtime_types.dart` Path B (the "extends-bridged" code path).
+
+#### 10.5.2 Fix
+
+Registered two interface-proxy factories — one for `ChangeNotifier`,
+one for `Listenable` — in **both** flutter registration packages:
+
+```dart
+D4.registerInterfaceProxy('ChangeNotifier', (visitor, instance) {
+  final bridgedSuper = instance.bridgedSuperObject;
+  if (bridgedSuper is ChangeNotifier) return bridgedSuper;
+  final cached = instance.nativeProxy;
+  if (cached is ChangeNotifier) return cached;
+  final proxy = ChangeNotifier();
+  instance.nativeProxy ??= proxy;
+  return proxy;
+});
+
+D4.registerInterfaceProxy('Listenable', (visitor, instance) {
+  final bridgedSuper = instance.bridgedSuperObject;
+  if (bridgedSuper is Listenable) return bridgedSuper;
+  final cached = instance.nativeProxy;
+  if (cached is Listenable) return cached;
+  final proxy = ChangeNotifier();
+  instance.nativeProxy ??= proxy;
+  return proxy;
+});
+```
+
+Both factories prefer `bridgedSuperObject` (the real Flutter
+`ChangeNotifier` already created by Path B for any script class that
+extends a bridged `ChangeNotifier`/`Listenable`), then `nativeProxy`,
+then a fresh `ChangeNotifier()`. Because the script's
+`notifyListeners()` already routes through `bridgedSuperObject` per
+`runtime_types.dart` line 1319 (`bridgedSuperObject ?? nativeProxy`
+dispatch), returning `bridgedSuperObject` here preserves listener
+identity end-to-end: an `AnimatedBuilder` listening on this object
+sees the script's `notifyListeners()` rebuilds correctly.
+
+`D4.tryCreateInterfaceProxyWithVisitor<T>` (in
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and the mirror in
+`tom_d4rt`) already walks the
+`bridgedSuperclass`/`bridgedInterfaces`/`bridgedMixins` chain plus
+`BridgedClass.transitiveSupertypeNames`, so once both factory names
+are registered the existing extraction path picks them up. **No
+generator change. No bridge regeneration. No interpreter change.**
+
+#### 10.5.3 Script revert
+
+The earlier script-side workaround in
+`tom_d4rt_flutter_ast/test/.../widgets/windowing_owner_mac_o_s_test.dart`
+(commit `967d17cf` — replacing `animation: controller` with
+`animation: const AlwaysStoppedAnimation<double>(0.0)` at the
+`_MacChrome.build` and `_DockTile.build` call sites) was reverted —
+the natural `animation: controller` form is now accepted by the
+bridge. Layout fixes from the same commit (gradient height, font
+sizes, padding shrink, badge `Wrap` in
+`Expanded(SingleChildScrollView)`) were **kept** because they fix
+real layout-overflow bugs unrelated to the proxy issue.
+
+#### 10.5.4 Verification (rule b — bridge-side change)
+
+| Mode | Result |
+|------|--------|
+| Individual: `flutter test test/generator_interpreter_issues_test.dart --plain-name "windowing_owner_mac_o_s"` | ✅ PASS, `frameworkErrors=0`, `sourceChars=99640` |
+| `essential_classes_test` (serial) | ✅ `+108`, `All tests passed!` |
+| `important_classes_test` (serial) | ⏳ in regression sweep (see header notes) |
+| `secondary_classes_test` (serial) | ⏳ in regression sweep |
+
+#### 10.5.5 Files touched
+
+| Path | Change |
+|------|--------|
+| `tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart` | Added `Listenable` to flutter/foundation.dart import; appended `ChangeNotifier` + `Listenable` interface-proxy factories. |
+| `tom_ai/d4rt/tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart` | Mirror — this is the file actually loaded by the analyzer-driven test app. |
+| `tom_ai/d4rt/tom_d4rt_flutter_ast/test/.../widgets/windowing_owner_mac_o_s_test.dart` | Reverted `animation: …` workaround at `_MacChrome.build` and `_DockTile.build`. Layout fixes retained. |
+| `tom_ai/d4rt/tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | L1 entry updated to RESOLVED 2026-05-10 with full design notes (no generator change, no interpreter change — registry-only fix). |
+
+No `.b.dart`, generator, or interpreter source modified. No buildkit
+change.
 
 ## 11. Cluster fix status — Priority 3 (`Animation.value` on `AnimationWithParentMixin`)
 
@@ -463,7 +560,10 @@ Rule (b) — interpreter / registration-side change.
   - `gii_individual_test`: 79 passed / 2 skipped / 2 failed —
     matches baseline (`tooltip_window_controller_delegate` `Text.data:
     null` + `windowing_owner_mac_o_s` `AnimatedBuilder.animation`
-    coercion, both pre-existing per-cluster failures, not regressions).
+    coercion, both pre-existing per-cluster failures at the time of
+    the §11 sweep — both since closed; the latter on 2026-05-10 via the
+    `ChangeNotifier`/`Listenable` interface-proxy factories registered
+    in both flutter registration packages, see updated §10).
   - `essential_classes_test`: 107 passed / 1 failed — matches baseline
     (`CupertinoTextField` `minLines>maxLines` assertion, script-side
     fixture).

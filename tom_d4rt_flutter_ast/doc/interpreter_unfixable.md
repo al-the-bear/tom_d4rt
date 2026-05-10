@@ -1905,7 +1905,18 @@ Any of:
 
 ---
 
-## L1 — `AnimatedBuilder.animation` rejects script-defined subclass of bridged `Listenable`/`ChangeNotifier`
+## L1 — `AnimatedBuilder.animation` rejects script-defined subclass of bridged `Listenable`/`ChangeNotifier` (RESOLVED 2026-05-10)
+
+> **Status: resolved** — the architectural gap described below is
+> closed by registering a `ChangeNotifier` / `Listenable` interface
+> proxy in `d4rt_runtime_registrations.dart` (both
+> `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`). The
+> script-side workaround in
+> `widgets/windowing_owner_mac_o_s_test.dart` was reverted; the
+> two layout fixes (`_DockTile` overflow, `_ContentArea` badge
+> overflow) that were necessary follow-ups remain. This entry is
+> kept for historical context — see "Resolution" below for the
+> final design.
 
 ### What the script does
 
@@ -1940,7 +1951,7 @@ native Flutter because `RegularWindowControllerMacOS extends
 ChangeNotifier`, and `ChangeNotifier implements Listenable`, so the
 script-defined class is statically and dynamically a `Listenable`.
 
-The trigger appears in
+The trigger appeared in
 `testlog_20260503-2009-issue-analysis/error_analysis.md` cluster
 **C2** for `widgets/windowing_owner_mac_o_s_test.dart`, with 11
 failure events of:
@@ -1951,171 +1962,131 @@ Argument Error: Invalid parameter "animation":
 expected Listenable, got InterpretedInstance(RegularWindowControllerMacOS)
 ```
 
-The same family of errors hits any script that authors a
+The same family of errors hit any script that authors a
 `ChangeNotifier`-based controller and hands it to a bridged Flutter
 type whose constructor parameter is typed `Listenable` (or
 `Animation<T>`, or anything in that hierarchy).
 
-### Why it FE-fires under d4rt
+### Why it FE-fired under d4rt
 
 The bridge generator emits the `AnimatedBuilder` constructor
 adapter with a typed coercion for `animation`:
 
 ```dart
-animation: D4.getRequiredArg<Listenable>(args, 'animation'),
+final animation = D4.getRequiredNamedArg<Listenable>(
+    named, 'animation', 'AnimatedBuilder');
 ```
 
-`D4.getRequiredArg<T>` does an `is T` test against the value pulled
-from the arg map. For native bridged classes that implement
-`Listenable` (e.g. `AlwaysStoppedAnimation`, `AnimationController`)
-the underlying value is a `BridgedInstance` whose target *is* a
-real `Listenable`, and a `D4.unwrapAs<Listenable>` step before the
-type test succeeds.
+`getRequiredNamedArg<T>` delegates to `D4.extractBridgedArg<T>`
+which, for an `InterpretedInstance` argument, walks (1) the cached
+`nativeProxy`, (2) `bridgedSuperObject`, (3) registered generic
+wrapper factories, (4) registered **interface proxy factories**
+(`tryCreateInterfaceProxyWithVisitor<T>`). The proxy walk collects
+candidate names from the InterpretedClass's `bridgedSuperclass`,
+`bridgedInterfaces`, `bridgedMixins` (recursively, via
+interpreted `superclass`/`mixins`/`interfaces`) plus
+`BridgedClass.transitiveSupertypeNames`. For
+`RegularWindowControllerMacOS extends RegularWindowController
+extends BaseWindowController extends ChangeNotifier`, the candidate
+list reaches `ChangeNotifier` and `Listenable` correctly.
 
-For a script-defined class that `extends ChangeNotifier`, the
-runtime value is an `InterpretedInstance` whose synthetic class has
-`ChangeNotifier` in its supertype chain at the **interpreter**
-level, but the underlying object is **not** a native `Listenable`:
+The gap was simply that **no proxy factory was registered** for
+`'ChangeNotifier'` or `'Listenable'`. The walk therefore returned
+null and `extractBridgedArg` fell through to its terminal throw.
 
-- `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`'s
-  `InterpretedInstance` does not currently install a native
-  `Listenable` proxy when a script-defined class extends a bridged
-  abstract `Listenable`/`ChangeNotifier`. The proxy/relaxer
-  pipeline in
-  `tom_d4rt_generator/lib/src/{proxy_generator.dart,
-  relaxer_generator.dart}` only synthesises proxies for
-  abstract-with-no-state contracts (`RouterDelegate`, listener
-  interfaces, painter delegates) — it does **not** subclass
-  `ChangeNotifier` and forward `addListener` /
-  `removeListener` / `hasListeners` / `notifyListeners` to the
-  interpreted instance's listener registry.
-- Without that proxy, the bridge adapter's
-  `D4.getRequiredArg<Listenable>` rejects the
-  `InterpretedInstance` because it is not a Dart-level `Listenable`,
-  even though the script's class hierarchy claims it is one.
+### Resolution (2026-05-10)
 
-So the failure is **architectural** in the bridge proxy pipeline,
-not a one-line bridge bug: making `extends ChangeNotifier` produce
-a real native `Listenable` requires a new code path that synthesises
-a `ChangeNotifier`-backed adapter for every script class with a
-bridged `ChangeNotifier` ancestor, plumbs `notifyListeners()` calls
-from the interpreter (when the script hits any setter that calls
-`super.notifyListeners()`) into the native side, and keeps the
-listener registry consistent across instance lifecycle.
-
-### Why we are not fixing this in cluster scope
-
-Adding `ChangeNotifier`-backed proxies to the bridge generator is a
-multi-day effort that needs:
-
-1. A `D4UserBridge`-style adapter or generator-side template for
-   *every* bridged class that extends `ChangeNotifier`
-   (`ScrollController`, `TextEditingController`, `TabController`,
-   `RegularWindowController`, plus user-defined ones in the
-   flutter-material corpus).
-2. Interpreter-side wiring so that `notifyListeners()` calls inside
-   interpreted methods invoke the proxy's native-side listeners.
-3. Garbage-collection / dispose coordination so the proxy doesn't
-   outlive the interpreted instance.
-4. Coordinated mirroring across `tom_d4rt` ↔ `tom_d4rt_ast`
-   (interpreter + runtime types + callable invocation paths) plus
-   essential + important + secondary + gii regression sweeps for
-   each bridged superclass.
-
-Cluster scope is the single failing script. The script-side
-workaround is mechanical, preserves the demonstrative AnimatedBuilder
-API surface, and does not regress observable behaviour under
-SendTestRunner (which performs a static one-shot build with no
-frame pump — there is no listener to fire even with native
-Flutter).
-
-### Script-side workaround
-
-Replace the `animation: controller,` argument with
-`animation: const AlwaysStoppedAnimation<double>(0.0),` at every
-`AnimatedBuilder` call site that previously fed a script-defined
-`ChangeNotifier` subclass. The controller is still accessible
-inside the builder closure via lexical capture, so all reads of
-`controller.contentSize`, `controller.isActivated`,
-`controller.title`, `controller.activate()`, etc. continue to
-work:
+Both `ChangeNotifier` and `Listenable` are now registered in
+`_registerInterfaceProxies()` (same code in both
+`tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test` so the
+analyzer-free and analyzer-based variants behave identically):
 
 ```dart
-return AnimatedBuilder(
-  // d4rt workaround: a script-defined ChangeNotifier subclass
-  // is not coerced to the bridged Listenable parameter type.
-  // SendTestRunner does a static one-shot build with no frame
-  // pump, so a real listenable is never observed — pass a const
-  // AlwaysStoppedAnimation to satisfy the typed parameter and
-  // access controller state via closure capture below.
-  animation: const AlwaysStoppedAnimation<double>(0.0),
-  builder: (BuildContext context, Widget? _) {
-    return Text(controller.title);
-  },
-);
+D4.registerInterfaceProxy('ChangeNotifier', (visitor, instance) {
+  final bridgedSuper = instance.bridgedSuperObject;
+  if (bridgedSuper is ChangeNotifier) return bridgedSuper;
+  final cached = instance.nativeProxy;
+  if (cached is ChangeNotifier) return cached;
+  final proxy = ChangeNotifier();
+  instance.nativeProxy ??= proxy;
+  return proxy;
+});
+D4.registerInterfaceProxy('Listenable', (visitor, instance) {
+  final bridgedSuper = instance.bridgedSuperObject;
+  if (bridgedSuper is Listenable) return bridgedSuper;
+  final cached = instance.nativeProxy;
+  if (cached is Listenable) return cached;
+  final proxy = ChangeNotifier();
+  instance.nativeProxy ??= proxy;
+  return proxy;
+});
 ```
 
-`AlwaysStoppedAnimation` is bridged, never fires, and is a real
-native `Listenable`, so the bridge adapter accepts it. Since
-SendTestRunner does not pump frames, no rebuild is missed in the
-test environment. Under live Flutter (outside the test driver),
-this would degrade `setState`-on-controller-change rebuilds inside
-the builder — but the demo also calls `setState` from outer event
-handlers, so the visible behaviour is preserved.
+Why this works without any generator change:
 
-Applied at two call sites in
-`widgets/windowing_owner_mac_o_s_test.dart`:
-
-- `_MacChrome.build()` (line 810)
-- `_DockTile.build()` (line 2622)
-
-The workaround surfaced two follow-up RenderFlex overflows
-(previously masked by the AnimatedBuilder build failing before
-layout). Those are a separate, layout-only follow-up:
-
-- `_DockTile`'s 96-px-wide column overflowed by 5 px because the
-  gradient block + two text rows + 16-px padding totalled ~97 px
-  in an 80-px-tall content slot. Fix: shrink gradient height
-  (32→18), gap (4→2), text sizes (11→10, 10→9), padding (8→6),
-  set explicit `height: 1.1` on the texts.
-- `_ContentArea`'s badges `Wrap` overflowed by 17 px when six
-  `_MacChrome` instances render at scale 0.45 (chrome height
-  clamps to 140 px, leaving the content column with ~110 px while
-  badge `Wrap` rendered in two rows totalling ~123 px). Fix: wrap
-  the badge `Wrap` in `Expanded(SingleChildScrollView(...))` so
-  the badge area absorbs the available remainder without
-  overflowing.
+1. **No new wrapper allocation in the common case.** When a script
+   class declares `extends ChangeNotifier` (with or without an
+   explicit constructor that calls `super()`), the interpreter
+   already invokes the bridged `ChangeNotifier` default constructor
+   and stores the resulting native `ChangeNotifier()` on
+   `instance.bridgedSuperObject`
+   (`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` Path B,
+   `callable.dart` explicit-super paths).
+2. **Listener contract is preserved end-to-end.** Bridged-super
+   method dispatch on the InterpretedInstance routes through
+   `bridgedSuperObject ?? nativeProxy`
+   (`runtime_types.dart` line 1319), so:
+    - Flutter widgets call `proxy.addListener(_handleChange)` →
+      native `ChangeNotifier.addListener` registers the listener
+      on the same instance the proxy returned.
+    - Script code calls `controller.notifyListeners()` → resolves
+      to the bridged `ChangeNotifier.notifyListeners` adapter,
+      which forwards to `bridgedSuperObject.notifyListeners()` —
+      the same `ChangeNotifier` the listener was registered on.
+   Identity is preserved, the listener fires, and the AnimatedBuilder
+   rebuild path works.
+3. **Fallback for `implements Listenable` (no bridged super).**
+   When `bridgedSuperObject` is null, allocate a fresh
+   `ChangeNotifier()` lazily and cache on `nativeProxy`. Bridged
+   dispatch's `bridgedSuperObject ?? nativeProxy` then routes
+   `notifyListeners()` calls through the same instance. Pure
+   `implements Listenable` script classes that define their own
+   `addListener`/`notifyListeners` without ever delegating to a
+   bridged method are not covered by this fallback — that's a
+   separate, narrower limitation.
 
 ### Verification
 
-- `dart analyze` on the script after edits: clean.
-- `flutter test test/generator_interpreter_issues_test.dart
-  --plain-name "widgets/windowing_owner_mac_o_s_test.dart"` :
-  `1: All tests passed!` (status=success, frameworkErrors=0,
-  sourceChars=100324).
-- `flutter test test/hardly_relevant_classes_5_test.dart
-  --plain-name "windowing_owner_mac_o_s_test.dart"` :
-  `1: All tests passed!` (status=success, frameworkErrors=0).
-- The fix is script-side only — no bridge or interpreter change —
-  so per regression rule (a) the individual retest is sufficient.
+- Individual retest:
+  `flutter test test/generator_interpreter_issues_test.dart
+  --plain-name "windowing_owner_mac_o_s"` →
+  `+1: All tests passed!` (status=success, frameworkErrors=0,
+  sourceChars=99640).
+- The script-side workaround at
+  `_MacChrome.build()` (line 810) and `_DockTile.build()`
+  (line 2622) was reverted: `animation: const
+  AlwaysStoppedAnimation<double>(0.0)` → `animation: controller`.
+- The `_DockTile` and `_ContentArea` layout fixes from the
+  workaround commit (gradient/font/padding shrink, badge `Wrap`
+  wrapped in `Expanded(SingleChildScrollView)`) remain in place —
+  those are real layout bugs that surfaced once `AnimatedBuilder`
+  builds actually completed and are not specific to d4rt.
+- Per regression rule (b) — change outside `test/` — the
+  fix was followed by an essential + important + secondary
+  classes serial sweep before commit. Results recorded in the
+  resolution commit message.
 
-### Re-opening trigger
+### Why this is **not** in the proxy generator
 
-Any of:
-
-- A planned bridge-generator pass that synthesises native
-  `ChangeNotifier`-backed proxies for script-defined classes whose
-  hierarchy reaches a bridged `Listenable`, with cross-package
-  mirroring (tom_d4rt ↔ tom_d4rt_ast) and a coordinated essential
-  + important + secondary + gii regression sweep covering at least
-  `ScrollController`, `TabController`, `TextEditingController`,
-  `RegularWindowController`, and `AnimationController` consumers.
-- A script that genuinely needs the controller's
-  `notifyListeners()` to drive `AnimatedBuilder` rebuilds inside
-  SendTestRunner (none of the current corpus does — they all rely
-  on outer `setState` to trigger rebuilds). If such a case
-  appears, prioritise (a) above instead of widening the
-  workaround.
+Earlier analysis assumed this needed a generator-side template that
+emits `ChangeNotifier`-backed proxy classes per bridged
+`ChangeNotifier` subclass. That assumption was wrong: the existing
+runtime infrastructure (proxy registry + `bridgedSuperObject`
+backing + bridged-super method dispatch fallback) already covers
+the listener contract correctly when the candidate name is known to
+the registry. Two factory registrations are sufficient — the
+generator doesn't need to know about ChangeNotifier semantics at
+all. This keeps the generator simple and the fix narrowly scoped.
 
 ---
 

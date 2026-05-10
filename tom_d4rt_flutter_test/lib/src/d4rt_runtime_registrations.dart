@@ -14,7 +14,14 @@ import 'dart:ui' show Color, Offset;
 
 import 'package:flutter/animation.dart' show Tween;
 import 'package:flutter/foundation.dart'
-    show ChangeNotifier, Key, ValueKey, ValueNotifier, VoidCallback, debugPrint;
+    show
+        ChangeNotifier,
+        Key,
+        Listenable,
+        ValueKey,
+        ValueNotifier,
+        VoidCallback,
+        debugPrint;
 import 'package:flutter/material.dart'
     show
         ButtonSegment,
@@ -485,6 +492,64 @@ void _registerInterfaceProxies() {
     final cached = instance.nativeProxy;
     if (cached is WidgetStatesConstraint) return cached;
     final proxy = _InterpretedWidgetStatesConstraint(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // C2 (priority-1): ChangeNotifier / Listenable — script classes that
+  // extend `ChangeNotifier` (or any subclass: `ValueNotifier`,
+  // `RegularWindowControllerMacOS`, custom controllers, …) reach typed
+  // bridge boundaries such as `AnimatedBuilder.animation: Listenable`,
+  // `ListenableBuilder.listenable: Listenable`, or any consumer that
+  // expects a `ChangeNotifier`. Without a registered proxy,
+  // `D4.extractBridgedArg<Listenable>` falls through and rejects the
+  // InterpretedInstance.
+  //
+  // Design — return `bridgedSuperObject` directly when present:
+  //   When a script class declares `extends ChangeNotifier` (with no
+  //   explicit constructor, or with `super()`), the interpreter calls
+  //   the bridged ChangeNotifier default constructor and stores the
+  //   real `ChangeNotifier()` on `instance.bridgedSuperObject`
+  //   (runtime_types.dart Path B; callable.dart explicit-super path).
+  //   Bridged-super method dispatch on the InterpretedInstance also
+  //   routes through `bridgedSuperObject` (runtime_types.dart line 1319,
+  //   `bridgedSuperObject ?? nativeProxy`), so:
+  //
+  //     - Flutter widgets call `proxy.addListener(_handleChange)` →
+  //       native `ChangeNotifier.addListener` registers the listener.
+  //     - Script code calls `controller.notifyListeners()` → resolved
+  //       to the bridged `ChangeNotifier.notifyListeners` adapter,
+  //       which forwards to `bridgedSuperObject.notifyListeners()` —
+  //       the SAME ChangeNotifier the listener was registered on.
+  //
+  //   Identity is preserved (no wrapper allocation) and the listener
+  //   contract works end-to-end.
+  //
+  // Fallback — when `bridgedSuperObject` is not a `ChangeNotifier`
+  // (e.g. a script class that `implements Listenable` without extending
+  // any bridged ChangeNotifier subclass), lazily allocate a fresh
+  // `ChangeNotifier()` and cache it on `instance.nativeProxy`. The
+  // bridged-super dispatch fall-through (`bridgedSuperObject ??
+  // nativeProxy`) then routes any `notifyListeners()` calls through
+  // this same instance. Note: pure `implements Listenable` script
+  // classes that do NOT call any bridged method to fire listeners
+  // (because there's no bridged super) won't see listeners trigger —
+  // that's a separate edge case not covered here.
+  D4.registerInterfaceProxy('ChangeNotifier', (visitor, instance) {
+    final bridgedSuper = instance.bridgedSuperObject;
+    if (bridgedSuper is ChangeNotifier) return bridgedSuper;
+    final cached = instance.nativeProxy;
+    if (cached is ChangeNotifier) return cached;
+    final proxy = ChangeNotifier();
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('Listenable', (visitor, instance) {
+    final bridgedSuper = instance.bridgedSuperObject;
+    if (bridgedSuper is Listenable) return bridgedSuper;
+    final cached = instance.nativeProxy;
+    if (cached is Listenable) return cached;
+    final proxy = ChangeNotifier();
     instance.nativeProxy ??= proxy;
     return proxy;
   });
