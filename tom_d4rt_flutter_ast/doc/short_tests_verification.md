@@ -270,7 +270,7 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 261 | `services/font_loader_test.dart` | 2,925 | 90 | (x) | (x) | (x) |
 | 262 | `foundation/targetplatform_test.dart` | 2,934 | 96 | (x) | (x) | (x) |
 | 263 | `scheduler/priority_test.dart` | 2,947 | 97 | (x) | (x) | (x) |
-| 264 | `repro_fa2/scrolling_pill.dart` | 2,949 | 94 | (x) | ( ) | ( ) |
+| 264 | `repro_fa2/scrolling_pill.dart` | 2,949 | 94 | (x) | ( ) | (x) |
 | 265 | `painting/box_decoration_test.dart` | 2,952 | 107 | (x) | (x) | (x) |
 | 266 | `semantics/attributed_string_property_test.dart` | 2,967 | 92 | (x) | ( ) | (x) |
 | 267 | `physics/bounded_friction_simulation_test.dart` | 2,968 | 94 | (x) | ( ) | (x) |
@@ -374,7 +374,7 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 365 | `rendering/renderobjects_basic_test.dart` | 3,582 | 101 | (x) | ( ) | (x) |
 | 366 | `material/showtimepicker_test.dart` | 3,589 | 104 | (x) | (x) | (x) |
 | 367 | `services/asset_metadata_test.dart` | 3,596 | 114 | (x) | (x) | (x) |
-| 368 | `repro_fa2/state_field_controller_full.dart` | 3,597 | 137 | (x) | ( ) | ( ) |
+| 368 | `repro_fa2/state_field_controller_full.dart` | 3,597 | 137 | (x) | ( ) | (x) |
 | 369 | `widgets/draggablescrollablesheet_test.dart` | 3,603 | 130 | (x) | (x) | (x) |
 | 370 | `foundation/diagnosticable_tree_test.dart` | 3,604 | 98 | (x) | (x) | (x) |
 | 371 | `widgets/focus_traversal_advanced_test.dart` | 3,609 | 101 | (x) | (x) | (x) |
@@ -465,22 +465,22 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 456 | `foundation/bit_field_test.dart` | 4,370 | 140 | (x) | ( ) | (x) |
 | 457 | `services/restoration_platform_test.dart` | 4,371 | 126 | (x) | (x) | (x) |
 | 458 | `foundation/object_created_test.dart` | 4,372 | 140 | (x) | ( ) | (x) |
-| 459 | `repro_fa6/three_mixin_relayout_container.dart` | 4,378 | 138 | (x) | (x) | ( ) |
+| 459 | `repro_fa6/three_mixin_relayout_container.dart` | 4,378 | 138 | (x) | (x) | (x) |
 | 460 | `foundation/buffers_misc_test.dart` | 4,381 | 140 | (x) | ( ) | (x) |
 | 461 | `painting/text_selection_test.dart` | 4,384 | 118 | (x) | (x) | (x) |
 | 462 | `widgets/gridview_test.dart` | 4,414 | 159 | (x) | (x) | (x) |
 | 463 | `material/badge_test.dart` | 4,428 | 149 | (x) | (x) | (x) |
 | 464 | `services/spellcheck_test.dart` | 4,434 | 124 | (x) | ( ) | (x) |
-| 465 | `widgets/restorable_values_test.dart` | 4,450 | 116 | (x) | ( ) | ( ) |
+| 465 | `widgets/restorable_values_test.dart` | 4,450 | 116 | (x) | ( ) | (x) |
 | 466 | `painting/imagestream_misc_test.dart` | 4,455 | 130 | (x) | ( ) | (x) |
 | 467 | `dart_ui/vertices_test.dart` | 4,465 | 139 | (x) | ( ) | (x) |
-| 468 | `cupertino/restorable_cupertino_tab_controller_test.dart` | 4,468 | 110 | (x) | ( ) | ( ) |
+| 468 | `cupertino/restorable_cupertino_tab_controller_test.dart` | 4,468 | 110 | (x) | ( ) | (x) |
 | 469 | `services/platform_channels_test.dart` | 4,517 | 125 | (x) | ( ) | (x) |
-| 470 | `widgets/focustraversal_test.dart` | 4,521 | 159 | (x) | (x) | ( ) |
+| 470 | `widgets/focustraversal_test.dart` | 4,521 | 159 | (x) | (x) | (x) |
 | 471 | `cupertino/cupertino_linear_activity_indicator_test.dart` | 4,536 | 141 | (x) | (x) | (x) |
-| 472 | `cupertino/cupertino_sheet_transition_test.dart` | 4,545 | 136 | (x) | (x) | ( ) |
-| 473 | `material/input_borders_test.dart` | 4,549 | 130 | (x) | ( ) | ( ) |
-| 474 | `painting/image_cache_test.dart` | 4,549 | 125 | (x) | ( ) | ( ) |
+| 472 | `cupertino/cupertino_sheet_transition_test.dart` | 4,545 | 136 | (x) | (x) | (x) |
+| 473 | `material/input_borders_test.dart` | 4,549 | 130 | (x) | ( ) | (x) |
+| 474 | `painting/image_cache_test.dart` | 4,549 | 125 | (x) | ( ) | (x) |
 | 475 | `cupertino/cupertino_sheet_route_test.dart` | 4,558 | 140 | (x) | ( ) | ( ) |
 | 476 | `cupertino/magnifier_test.dart` | 4,570 | 134 | (x) | (x) | ( ) |
 | 477 | `semantics/semantics_events_test.dart` | 4,574 | 128 | (x) | ( ) | ( ) |
