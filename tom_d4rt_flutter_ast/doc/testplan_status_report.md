@@ -436,11 +436,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [diagnosticable_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_node_test.dart) | DiagnosticableNode | Yes | Yes | No | Recreated on 2026-05-11 at 12:00. Hand-authored visual deep demo (~2334 lines, batch 16). |
 | [diagnosticable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_test.dart) | Diagnosticable | Yes | Yes | No | Recreated on 2026-05-11 at 13:30. Hand-authored visual deep demo (~2678 lines, batch 15). |
 | [diagnosticable_tree_mixin_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_mixin_test.dart) | DiagnosticableTreeMixin | No | Yes | No | Checked. Recreated on 2026-05-10 at 14:11. Hand-authored visual deep demo (committed in batch). |
-| [diagnosticable_tree_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_node_test.dart) | DiagnosticableTreeNode | Yes | Yes | No |
+| [diagnosticable_tree_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_node_test.dart) | DiagnosticableTreeNode | Yes | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1769 lines, batch 16). |
 | [diagnosticable_tree_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_test.dart) | DiagnosticableTree | No | Yes | No | Recreated on 2026-05-11 at 12:00. Hand-authored visual deep demo (~3426 lines, batch 14). |
 | [diagnostics_block_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_block_test.dart) | DiagnosticsBlock | Yes | Yes | No Recreated on 2026-05-10 at 14:11. Hand-authored visual deep demo (committed in batch). |
 | [diagnostics_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_property_test.dart) | DiagnosticsProperty | No | Yes | No | Recreated on 2026-05-04 at 23:03 |
-| [diagnostics_serialization_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_serialization_delegate_test.dart) | DiagnosticsSerializationDelegate | Yes | Yes | No |
+| [diagnostics_serialization_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_serialization_delegate_test.dart) | DiagnosticsSerializationDelegate | Yes | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (2171 lines, batch 16). |
 | [diagnostics_stack_trace_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_stack_trace_test.dart) | DiagnosticsStackTrace | No | Yes | No | Recreated on 2026-05-11 at 12:30. Hand-authored visual deep demo (~2270 lines, batch 17). |
 | [diagnostics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_test.dart) | DiagnosticsNode | No | Yes | No | Checked. |
 | [diagnostics_tree_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_tree_style_test.dart) | DiagnosticsTreeStyle | No | Yes | No | Recreated on 2026-05-04 at 18:35 |
@@ -456,7 +456,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [flutter_timeline_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/flutter_timeline_test.dart) | FlutterTimeline | Yes | Yes | No |
 | [foundation_misc_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_misc_adv_test.dart) | TargetPlatformVariant | No | Yes | No | Checked. |
 | [foundation_service_extensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/foundation_service_extensions_test.dart) | FoundationServiceExtensions | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
-| [int_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/int_property_test.dart) | IntProperty | No | Yes | No | Checked. |
+| [int_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/int_property_test.dart) | IntProperty | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1385 lines, batch 16). |
 | [iterable_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/iterable_property_test.dart) | IterableProperty | No | Yes | No | Recreated on 2026-05-04 at 19:05 |
 | [key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/key_test.dart) | Key | No | Yes | No |
 | [license_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/license_test.dart) | LicenseEntry | No | Yes | No | Checked. |
@@ -472,7 +472,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [percent_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/percent_property_test.dart) | PercentProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [persistent_hash_map_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/persistent_hash_map_test.dart) | PersistentHashMap | Yes | Yes | No |
 | [read_buffer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/read_buffer_test.dart) | ReadBuffer | Yes | Yes | No |
-| [repetitive_stack_frame_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/repetitive_stack_frame_filter_test.dart) | RepetitiveStackFrameFilter | Yes | Yes | No |
+| [repetitive_stack_frame_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/repetitive_stack_frame_filter_test.dart) | RepetitiveStackFrameFilter | Yes | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1621 lines, batch 16). |
 | [stack_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_filter_test.dart) | StackFilter | No | Yes | No | Checked. |
 | [stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_frame_test.dart) | StackFrame | No | Yes | No | Recreated on 2026-05-04 at 12:30 |
 | [string_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/string_property_test.dart) | StringProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
@@ -622,7 +622,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [checkmarkable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/checkmarkable_chip_attributes_test.dart) | CheckmarkableChipAttributes | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [chip_animation_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/chip_animation_style_test.dart) | ChipAnimationStyle | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/chip_attributes_test.dart) | RawChip | No | Yes | No Recreated on 2026-05-10 at 13:47. Hand-authored visual deep demo (committed in batch). |
-| [chip_variants_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/chip_variants_test.dart) | Chip | No | Yes | No |
+| [chip_variants_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/chip_variants_test.dart) | Chip | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1741 lines, batch 16). |
 | [chips_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/chips_test.dart) | Chip | No | Yes | No |
 | [circleavatar_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/circleavatar_test.dart) | CircleAvatar | No | Yes | No |
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (1044 lines, 17 sections with Scaffold). |
@@ -645,7 +645,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [date_range_picker_dialog_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/date_range_picker_dialog_test.dart) | DateRangePickerDialog | Yes | Yes | No Recreated on 2026-05-10 at 14:25. Hand-authored visual deep demo (committed in batch). |
 | [date_time_range_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/date_time_range_test.dart) | DateTimeRange | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [date_utils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/date_utils_test.dart) | DateUtils | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [datepicker_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/datepicker_widgets_test.dart) | DatePickerDialog | No | Yes | No |
+| [datepicker_widgets_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/datepicker_widgets_test.dart) | DatePickerDialog | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1537 lines, batch 16). |
 | [datetime_utils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/datetime_utils_test.dart) | DatetimeUtils | Yes | Yes | No | Created on 2026-05-05 at 16:55 |
 | [day_period_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/day_period_test.dart) | DayPeriod | No | Yes | No | Created on 2026-03-28 at 20:06. |
 | [default_material_localizations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/default_material_localizations_test.dart) | DefaultMaterialLocalizations | No | Yes | No | Created on 20.03.2026 at 19:11 |
@@ -1321,7 +1321,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [asset_metadata_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/asset_metadata_test.dart) | AssetMetadata | No | Yes | No | Checked. Recreated on 2026-05-10 at 23:07. Hand-authored visual deep demo (batch 13). |
 | [asset_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/asset_test.dart) | AssetImage | No | Yes | No | Checked. |
 | [autofill_client_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_client_test.dart) | AutofillClient | No | Deep-Demo DONE | No | B68: Mint/Jade theme, 16 sections, ac prefix. |
-| [autofill_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_configuration_test.dart) | AutofillConfiguration | No | Yes | No | Checked. |
+| [autofill_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_configuration_test.dart) | AutofillConfiguration | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1356 lines, batch 16). |
 | [autofill_hints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_hints_test.dart) | AutofillHints | No | Deep-Demo DONE | No | B68: Crimson/Ruby theme, 16 sections, ah prefix. |
 | [autofill_scope_mixin_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_scope_mixin_test.dart) | AutofillScopeMixin | No | Deep-Demo DONE | No | B68: Teal/Lagoon theme, 16 sections, as prefix. |
 | [autofill_scope_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/autofill_scope_test.dart) | AutofillScope | No | Deep-Demo DONE | No | B69: Amber/Honey theme, 16 sections, af prefix. |
@@ -1367,7 +1367,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [key_events_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_events_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
 | [key_helper_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_helper_test.dart) | KeyHelper | No | Yes | No | Created on 2026-05-05 at 21:08 |
 | [key_message_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_message_test.dart) | KeyMessage | No | Yes | No | Checked. |
-| [key_repeat_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_repeat_event_test.dart) | KeyRepeatEvent | No | Yes | No | Checked. |
+| [key_repeat_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_repeat_event_test.dart) | KeyRepeatEvent | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1615 lines, batch 16). |
 | [key_up_event_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/key_up_event_test.dart) | KeyUpEvent | No | Yes | No | Checked. |
 | [keyboard_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_key_test.dart) | KeyboardKey | No | Yes | No | Recreated on 2026-05-05 at 11:30 |
 | [keyboard_lock_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/keyboard_lock_mode_test.dart) | KeyboardLockMode | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
@@ -1779,7 +1779,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [key_set_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key | No | Yes | No |
 | [keyboard_listener_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keyboard_listener_test.dart) | KeyboardListener | No | Yes | No | Created on 2026-04-15 at 15:00. |
-| [keyedsubtree_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keyedsubtree_test.dart) | KeyedSubtree | No | Yes | No |
+| [keyedsubtree_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keyedsubtree_test.dart) | KeyedSubtree | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (2052 lines, batch 16). |
 | [labeled_global_key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/labeled_global_key_test.dart) | LabeledGlobalKey | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [layout_builder_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/layout_builder_adv_test.dart) | LayoutBuilder | No | Yes | No |
 | [layout_id_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/layout_id_test.dart) | LayoutId | No | Yes | No | Created on 2026-04-15 at 16:00. |
@@ -1812,7 +1812,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [magnifier_info_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo | No | Yes | No | Created on 2025-04-09 at 16:30. |
 | [matrix4_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween | No | Yes | No | Created on 2025-04-09 at 16:40. |
 | [matrix_transition_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition | No | Yes | No | Created on 2026-04-15 at 16:00. |
-| [media_query_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData | No | Yes | No | Checked. |
+| [media_query_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData | No | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (2246 lines, batch 16). |
 | [mediaquery_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/mediaquery_test.dart) | MediaQuery | No | Yes | No |
 | [menu_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | Yes | No | Created on 2025-04-09 at 16:50. |
 | [menu_serializable_shortcut_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/menu_serializable_shortcut_test.dart) | MenuSerializableShortcut | No | Yes | No | Checked. |
