@@ -3950,4 +3950,77 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 18 DEEP DEMOS (9 files, 2026-05-11)
+  // Hand-authored visual demos averaging ~1950 lines covering
+  // BitField, ReadBuffer/WriteBuffer, ObjectCreated lifecycle
+  // (×2 variants), RenderView/RenderViewport, RestorationMixin,
+  // RestorationManager platform round-trip, TextSelection model,
+  // and the GridView constructor family.
+  // ============================================================
+  group('batch18_deep_demos/', () {
+    test('foundation/bit_field_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/bit_field_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/buffers_misc_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/buffers_misc_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/object_created_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/object_created_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/foundation/object_created_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/foundation/object_created_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/restoration_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/restoration_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/restoration_platform_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/restoration_platform_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/text_selection_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/text_selection_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/gridview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/gridview_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
