@@ -224,7 +224,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/button_test.dart) | CupertinoButton | No | Yes | No |
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (130 lines, CupertinoApp with theme/colors/icons). |
-| [contextmenu_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No |
+| [contextmenu_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1821 lines, batch 19). |
 | [controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/controls_test.dart) | Controls | No | Yes | No |
 | [cupertino_layout_warnings_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_layout_warnings_regression_test.dart) | CupertinoLayoutWarningsRegression | No | No | No | Needs to be created (Batch-0 recurring framework warning pattern without hard failure). |
 | [cupertino_button_size_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | Yes | No | Created on 2026-03-17 at 16:38 |
@@ -431,7 +431,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [buffers_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/buffers_misc_test.dart) | foundation | Yes | Yes | No |
 | [caching_iterable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/caching_iterable_test.dart) | CachingIterable | Yes | Yes | No |
 | [category_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/category_test.dart) | Category | Yes | Yes | No | Recreated on 2026-05-11 at 12:00. Hand-authored visual deep demo (~2713 lines, batch 16). |
-| [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (141 lines, Scaffold with custom widgets). |
+| [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2752 lines, batch 19). |
 | [diagnostic_level_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | Yes | No | Batch 57 deep demo. |
 | [diagnosticable_node_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_node_test.dart) | DiagnosticableNode | Yes | Yes | No | Recreated on 2026-05-11 at 12:00. Hand-authored visual deep demo (~2334 lines, batch 16). |
 | [diagnosticable_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnosticable_test.dart) | Diagnosticable | Yes | Yes | No | Recreated on 2026-05-11 at 13:30. Hand-authored visual deep demo (~2678 lines, batch 15). |
@@ -473,11 +473,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [persistent_hash_map_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/persistent_hash_map_test.dart) | PersistentHashMap | Yes | Yes | No | Recreated on 2026-05-11 at 13:30. Hand-authored visual deep demo (1748 lines, batch 17). |
 | [read_buffer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/read_buffer_test.dart) | ReadBuffer | Yes | Yes | No | Recreated on 2026-05-11 at 13:30. Hand-authored visual deep demo (1776 lines, batch 17). |
 | [repetitive_stack_frame_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/repetitive_stack_frame_filter_test.dart) | RepetitiveStackFrameFilter | Yes | Yes | No | Recreated on 2026-05-11 at 12:43. Hand-authored visual deep demo (1621 lines, batch 16). |
-| [stack_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_filter_test.dart) | StackFilter | No | Yes | No | Checked. |
+| [stack_filter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_filter_test.dart) | StackFilter | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1666 lines, batch 19). |
 | [stack_frame_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/stack_frame_test.dart) | StackFrame | No | Yes | No | Recreated on 2026-05-04 at 12:30 |
 | [string_property_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/string_property_test.dart) | StringProperty | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [summary_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/summary_test.dart) | Summary | No | Yes | No | Checked. Recreated on 2026-05-10 at 14:11. Hand-authored visual deep demo (committed in batch). |
-| [synchronousfuture_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/synchronousfuture_test.dart) | SynchronousFuture | Yes | Yes | No |
+| [synchronousfuture_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/synchronousfuture_test.dart) | SynchronousFuture | Yes | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1694 lines, batch 19). |
 | [target_platform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart) | TargetPlatform | No | Yes | No | Recreated on 2026-05-02 at 10:43 |
 | [targetplatform_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/targetplatform_test.dart) | TargetPlatform | No | Yes | No | Created on 2026-05-05 at 21:26 |
 | [text_tree_configuration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/text_tree_configuration_test.dart) | TextTreeConfiguration | Yes | Yes | No |
@@ -556,7 +556,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tap_and_pan_gesture_recognizer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_and_pan_gesture_recognizer_test.dart) | TapAndPanGestureRecognizer | No | Yes | No | Created on 2026-05-05 at 17:25 |
 | [tap_drag_down_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_down_details_test.dart) | TapDragDownDetails | No | Yes | No | Checked. |
 | [tap_drag_end_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_end_details_test.dart) | TapDragEndDetails | No | Yes | No | Checked. |
-| [tap_drag_start_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_start_details_test.dart) | TapDragStartDetails | Yes | Yes | No |
+| [tap_drag_start_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_start_details_test.dart) | TapDragStartDetails | Yes | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2303 lines, batch 19). |
 | [tap_drag_up_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_up_details_test.dart) | TapDragUpDetails | No | Yes | No | Checked. |
 | [tap_drag_update_details_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_drag_update_details_test.dart) | TapDragUpdateDetails | No | Yes | No | Checked. |
 | [tap_force_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/gestures/tap_force_test.dart) | TapDownDetails | No | Yes | No | Checked. |
@@ -984,7 +984,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [linear_border_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/linear_border_test.dart) | LinearBorder | No | Yes | No | Checked. |
 | [matrix_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrix_test.dart) | Matrix4 | No | Yes | No | Created on 2026-05-05 at 20:54 |
 | [matrix_utils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrix_utils_test.dart) | MatrixUtils | No | Yes | No | Checked. |
-| [matrixutils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrixutils_test.dart) | MatrixUtils | No | Yes | No | Checked. |
+| [matrixutils_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrixutils_test.dart) | MatrixUtils | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2268 lines, batch 19). |
 | [multi_frame_image_stream_completer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/multi_frame_image_stream_completer_test.dart) | MultiFrameImageStreamCompleter | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [network_image_load_exception_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/network_image_load_exception_test.dart) | NetworkImageLoadException | No | Yes | No | Recreated on 2026-05-04 at 13:10 |
 | [notched_shape_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/notched_shape_test.dart) | NotchedShape | No | Yes | No | Recreated on 2026-05-05 at 11:30 |
@@ -1024,7 +1024,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [simulations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/simulations_test.dart) | SpringSimulation | No | Yes | No | Checked. |
 | [spring_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/spring_test.dart) | SpringDescription | No | Yes | No | Checked. |
 | [spring_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/spring_type_test.dart) | SpringType | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
-| [springdescription_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/springdescription_test.dart) | SpringDescription | No | Yes | No | Checked. |
+| [springdescription_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/springdescription_test.dart) | SpringDescription | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2576 lines, batch 19). |
 ## rendering/ (227 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
@@ -1580,7 +1580,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [clipping_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/clipping_test.dart) | ClipRect | No | Yes | No | Checked. |
 | [cliprrect_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/cliprrect_test.dart) | ClipRRect | No | Yes | No |
 | [color_filtered_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | Yes | No | Recreated on 2026-05-03 at 13:19 |
-| [column_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/column_test.dart) | Column | No | Yes | No |
+| [column_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/column_test.dart) | Column | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1977 lines, batch 19). |
 | [component_element_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | Yes | No | Created on 2026-04-08. |
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | Yes | No | Created on 2026-03-30 at 17:28. |
 | [composited_transform_follower_state_widget_property_bridge_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_state_widget_property_bridge_regression_test.dart) | CompositedTransformFollowerStateWidgetPropertyBridgeRegression | No | No | No | Needs to be created (Batch-67 failure pattern: inherited `State.widget` property not exposed on interpreted `_LinkPrimerState`). |
@@ -1774,7 +1774,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [interactiveviewer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/interactiveviewer_test.dart) | InteractiveViewer | No | Yes | No |
 | [keep_alive_handle_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle | No | Yes | No | Recreated on 2026-05-02 at 17:30. |
 | [keep_alive_notification_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | Yes | No | Created on 2026-04-09 at 14:34. |
-| [keepalive_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No |
+| [keepalive_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2335 lines, batch 19). |
 | [key_event_result_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult | No | Yes | No | Created on 2026-04-09 at 14:34. |
 | [key_set_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [key_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key | No | Yes | No |
@@ -2064,7 +2064,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | scrollbar_state_widget_accessor_regression_test.dart | State.widget accessor on private subclass | No | No | No | Needs to be created |
 | [scrollbar_painter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollbar_painter_test.dart) | ScrollbarPainter | No | Yes | No | Created on 2026-04-24 at 00:30. Deep demo (2343 lines): ScrollbarPainter Studio — hero header with live breathing preview, 30-item driver ListView sharing metrics with a 2x2 grid of styled ScrollbarPainter previews (thickness/radius/color/trackColor variations), horizontal ScrollbarOrientation.bottom demo, AnimationController-driven fade slider, framed-track styling showcase, 16-row constructor reference table. |
 | [scrollnotification_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollnotification_test.dart) | ScrollNotification | No | Yes | No |
-| [scrollphysics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollphysics_test.dart) | ScrollPhysics | No | Yes | No | Checked. |
+| [scrollphysics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollphysics_test.dart) | ScrollPhysics | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1825 lines, batch 19). |
 | [select_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart) | SelectAction | No | Yes | No | Created on 2026-04-22 at 14:00. Deep demo (1629 lines): Intent/Action system, 4-step flow, Workshop with 12-item selection grid, Scenarios with keyboard list/action chain/multi-scope. |
 | select_action_private_constructor_regression_test.dart | _ChainItem private constructor | No | No | No | Needs to be created |
 | [select_all_text_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/select_all_text_intent_test.dart) | SelectAllTextIntent | No | Yes | No | Created on 2026-04-24 at 04:15. Deep demo (1906 lines): Select-All Command Center — animated selection-sweep hero, ripple-glow keycap HUD, 3-tier Shortcuts+Actions demo (TextField logger, SelectableText with keyboard cause, SelectionArea toolbar button), rolling dispatch log, platform mapping table, when/why/gotchas trio. |
