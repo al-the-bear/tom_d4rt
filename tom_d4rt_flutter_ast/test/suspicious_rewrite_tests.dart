@@ -3755,4 +3755,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch15_deep_demos/', () {
+    test('cupertino/cupertino_text_magnifier_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_text_magnifier_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/color_scheme_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/color_scheme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_clip_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_clip_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/scroll_notifications_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scroll_notifications_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/velocity_tracker_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/velocity_tracker_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/diagnosticable_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnosticable_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/raw_key_event_data_linux_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/raw_key_event_data_linux_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/raw_key_event_data_windows_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/raw_key_event_data_windows_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/shaderfilter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/shaderfilter_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

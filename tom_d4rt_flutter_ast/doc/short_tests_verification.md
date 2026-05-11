@@ -384,15 +384,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 375 | `material/popup_advanced_test.dart` | 3,624 | 108 | (x) | (x) | (x) |
 | 376 | `rendering/render_box_types_test.dart` | 3,628 | 108 | (x) | ( ) | (x) |
 | 377 | `widgets/tabcontroller_test.dart` | 3,639 | 116 | (x) | (x) | (x) |
-| 378 | `cupertino/cupertino_text_magnifier_test.dart` | 3,641 | 93 | (x) | ( ) | ( ) |
-| 379 | `material/color_scheme_test.dart` | 3,642 | 113 | (x) | (x) | ( ) |
-| 380 | `rendering/renderobjects_clip_test.dart` | 3,643 | 104 | (x) | ( ) | ( ) |
-| 381 | `widgets/scroll_notifications_adv_test.dart` | 3,644 | 103 | (x) | (x) | ( ) |
-| 382 | `gestures/velocity_tracker_test.dart` | 3,645 | 111 | (x) | (x) | ( ) |
-| 383 | `foundation/diagnosticable_test.dart` | 3,656 | 117 | (x) | ( ) | ( ) |
-| 384 | `services/raw_key_event_data_linux_test.dart` | 3,662 | 118 | (x) | ( ) | ( ) |
-| 385 | `services/raw_key_event_data_windows_test.dart` | 3,667 | 112 | (x) | ( ) | ( ) |
-| 386 | `widgets/shaderfilter_test.dart` | 3,671 | 132 | (x) | (x) | ( ) |
+| 378 | `cupertino/cupertino_text_magnifier_test.dart` | 3,641 | 93 | (x) | ( ) | (x) |
+| 379 | `material/color_scheme_test.dart` | 3,642 | 113 | (x) | (x) | (x) |
+| 380 | `rendering/renderobjects_clip_test.dart` | 3,643 | 104 | (x) | ( ) | (x) |
+| 381 | `widgets/scroll_notifications_adv_test.dart` | 3,644 | 103 | (x) | (x) | (x) |
+| 382 | `gestures/velocity_tracker_test.dart` | 3,645 | 111 | (x) | (x) | (x) |
+| 383 | `foundation/diagnosticable_test.dart` | 3,656 | 117 | (x) | ( ) | (x) |
+| 384 | `services/raw_key_event_data_linux_test.dart` | 3,662 | 118 | (x) | ( ) | (x) |
+| 385 | `services/raw_key_event_data_windows_test.dart` | 3,667 | 112 | (x) | ( ) | (x) |
+| 386 | `widgets/shaderfilter_test.dart` | 3,671 | 132 | (x) | (x) | (x) |
 | 387 | `widgets/preferredsize_test.dart` | 3,673 | 133 | (x) | (x) | ( ) |
 | 388 | `material/snackbar_test.dart` | 3,674 | 128 | (x) | ( ) | ( ) |
 | 389 | `cupertino/cupertino_scroll_behavior_test.dart` | 3,676 | 110 | (x) | (x) | ( ) |
