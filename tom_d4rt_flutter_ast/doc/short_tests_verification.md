@@ -469,15 +469,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 460 | `foundation/buffers_misc_test.dart` | 4,381 | 140 | (x) | ( ) | (x) |
 | 461 | `painting/text_selection_test.dart` | 4,384 | 118 | (x) | (x) | (x) |
 | 462 | `widgets/gridview_test.dart` | 4,414 | 159 | (x) | (x) | (x) |
-| 463 | `material/badge_test.dart` | 4,428 | 149 | (x) | (x) | ( ) |
-| 464 | `services/spellcheck_test.dart` | 4,434 | 124 | (x) | ( ) | ( ) |
+| 463 | `material/badge_test.dart` | 4,428 | 149 | (x) | (x) | (x) |
+| 464 | `services/spellcheck_test.dart` | 4,434 | 124 | (x) | ( ) | (x) |
 | 465 | `widgets/restorable_values_test.dart` | 4,450 | 116 | (x) | ( ) | ( ) |
-| 466 | `painting/imagestream_misc_test.dart` | 4,455 | 130 | (x) | ( ) | ( ) |
-| 467 | `dart_ui/vertices_test.dart` | 4,465 | 139 | (x) | ( ) | ( ) |
+| 466 | `painting/imagestream_misc_test.dart` | 4,455 | 130 | (x) | ( ) | (x) |
+| 467 | `dart_ui/vertices_test.dart` | 4,465 | 139 | (x) | ( ) | (x) |
 | 468 | `cupertino/restorable_cupertino_tab_controller_test.dart` | 4,468 | 110 | (x) | ( ) | ( ) |
-| 469 | `services/platform_channels_test.dart` | 4,517 | 125 | (x) | ( ) | ( ) |
+| 469 | `services/platform_channels_test.dart` | 4,517 | 125 | (x) | ( ) | (x) |
 | 470 | `widgets/focustraversal_test.dart` | 4,521 | 159 | (x) | (x) | ( ) |
-| 471 | `cupertino/cupertino_linear_activity_indicator_test.dart` | 4,536 | 141 | (x) | (x) | ( ) |
+| 471 | `cupertino/cupertino_linear_activity_indicator_test.dart` | 4,536 | 141 | (x) | (x) | (x) |
 | 472 | `cupertino/cupertino_sheet_transition_test.dart` | 4,545 | 136 | (x) | (x) | ( ) |
 | 473 | `material/input_borders_test.dart` | 4,549 | 130 | (x) | ( ) | ( ) |
 | 474 | `painting/image_cache_test.dart` | 4,549 | 125 | (x) | ( ) | ( ) |
