@@ -3885,4 +3885,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch17_deep_demos/', () {
+    test('rendering/render_composite_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_composite_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/progress_sheet_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/progress_sheet_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/divider_listtile_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/divider_listtile_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/widgets/raw_keyboard_listener_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/raw_keyboard_listener_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/binary_messenger_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/binary_messenger_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_list_tile_chevron_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_list_tile_chevron_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/diagnostics_stack_trace_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnostics_stack_trace_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/key_down_event_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/key_down_event_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/blocksemantics_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/blocksemantics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
