@@ -3820,4 +3820,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch16_deep_demos/', () {
+    test('widgets/preferredsize_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/preferredsize_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/snackbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/snackbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_scroll_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_scroll_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/services/message_codec_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/services/message_codec_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/showmenu_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/showmenu_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/abstract_node_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/abstract_node_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/category_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/category_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/diagnosticable_node_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnosticable_node_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/application_switcher_description_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/application_switcher_description_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

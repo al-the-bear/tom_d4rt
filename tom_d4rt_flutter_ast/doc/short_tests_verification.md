@@ -393,15 +393,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 384 | `services/raw_key_event_data_linux_test.dart` | 3,662 | 118 | (x) | ( ) | (x) |
 | 385 | `services/raw_key_event_data_windows_test.dart` | 3,667 | 112 | (x) | ( ) | (x) |
 | 386 | `widgets/shaderfilter_test.dart` | 3,671 | 132 | (x) | (x) | (x) |
-| 387 | `widgets/preferredsize_test.dart` | 3,673 | 133 | (x) | (x) | ( ) |
-| 388 | `material/snackbar_test.dart` | 3,674 | 128 | (x) | ( ) | ( ) |
-| 389 | `cupertino/cupertino_scroll_behavior_test.dart` | 3,676 | 110 | (x) | (x) | ( ) |
-| 390 | `retest/services/message_codec_test.dart` | 3,686 | 98 | (x) | ( ) | ( ) |
-| 391 | `material/showmenu_test.dart` | 3,690 | 115 | (x) | (x) | ( ) |
-| 392 | `foundation/abstract_node_test.dart` | 3,705 | 111 | (x) | ( ) | ( ) |
-| 393 | `foundation/category_test.dart` | 3,712 | 117 | (x) | ( ) | ( ) |
-| 394 | `foundation/diagnosticable_node_test.dart` | 3,712 | 116 | (x) | ( ) | ( ) |
-| 395 | `services/application_switcher_description_test.dart` | 3,726 | 109 | (x) | ( ) | ( ) |
+| 387 | `widgets/preferredsize_test.dart` | 3,673 | 133 | (x) | (x) | (x) |
+| 388 | `material/snackbar_test.dart` | 3,674 | 128 | (x) | ( ) | (x) |
+| 389 | `cupertino/cupertino_scroll_behavior_test.dart` | 3,676 | 110 | (x) | (x) | (x) |
+| 390 | `retest/services/message_codec_test.dart` | 3,686 | 98 | (x) | ( ) | (x) |
+| 391 | `material/showmenu_test.dart` | 3,690 | 115 | (x) | (x) | (x) |
+| 392 | `foundation/abstract_node_test.dart` | 3,705 | 111 | (x) | ( ) | (x) |
+| 393 | `foundation/category_test.dart` | 3,712 | 117 | (x) | ( ) | (x) |
+| 394 | `foundation/diagnosticable_node_test.dart` | 3,712 | 116 | (x) | ( ) | (x) |
+| 395 | `services/application_switcher_description_test.dart` | 3,726 | 109 | (x) | ( ) | (x) |
 | 396 | `rendering/render_composite_test.dart` | 3,729 | 118 | (x) | (x) | ( ) |
 | 397 | `material/progress_sheet_test.dart` | 3,731 | 115 | (x) | (x) | ( ) |
 | 398 | `material/divider_listtile_test.dart` | 3,745 | 121 | (x) | (x) | ( ) |
