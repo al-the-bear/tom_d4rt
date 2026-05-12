@@ -223,7 +223,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [button_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/button_test.dart) | CupertinoButton | No | Yes | No |
-| [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (130 lines, CupertinoApp with theme/colors/icons). |
+| [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~1723 lines, batch 20). |
 | [contextmenu_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1821 lines, batch 19). |
 | [controls_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/controls_test.dart) | Controls | No | Yes | No |
 | [cupertino_layout_warnings_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_layout_warnings_regression_test.dart) | CupertinoLayoutWarningsRegression | No | No | No | Needs to be created (Batch-0 recurring framework warning pattern without hard failure). |
@@ -258,7 +258,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cupertino_themes_batch2_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_themes_batch2_test.dart) | CupertinoThemeData | No | Yes | No |
 | [cupertino_themes_batch3_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_themes_batch3_test.dart) | CupertinoTheme | No | Yes | No |
 | [cupertino_themes_batch4_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_themes_batch4_test.dart) | YesDefaultCupertinoThemeData | No | Yes | No |
-| [cupertino_theming_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_theming_test.dart) | CupertinoColors | No | Yes | No |
+| [cupertino_theming_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_theming_test.dart) | CupertinoThemeData | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2046 lines, batch 20). |
 | [cupertino_thumb_painter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertino_thumb_painter_test.dart) | CupertinoThumbPainter | No | Yes | No |
 | [cupertinoapp_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/cupertinoapp_test.dart) | CupertinoApp | No | Yes | No |
 | [datepicker_modes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/datepicker_modes_test.dart) | CupertinoDatePicker | No | Yes | No |
@@ -353,7 +353,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [opacity_engine_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/opacity_engine_layer_test.dart) | OpacityEngineLayer | No | Yes | No | Checked. |
 | [paint_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/paint_test.dart) | Paint | No | Yes | No | Checked. |
 | [painting_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/painting_style_test.dart) | PaintingStyle | No | Yes | No | Checked. |
-| [paragraph_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/paragraph_test.dart) | Paragraph | No | Yes | No | Checked. |
+| [paragraph_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/paragraph_test.dart) | Paragraph | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2115 lines, batch 20). |
 | [path_fill_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/path_fill_type_test.dart) | PathFillType | No | Yes | No | Checked. |
 | [path_metric_iterator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/path_metric_iterator_test.dart) | PathMetricIterator | No | Yes | No | Created on 2026-03-28 at 18:43. |
 | [path_metric_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/path_metric_test.dart) | PathMetric | No | Yes | No | Checked. |
@@ -578,7 +578,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [animated_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animated_theme_test.dart) | AnimatedTheme | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [animatedicon_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/animatedicon_test.dart) | AnimatedIcon | No | Yes | No | Created on 2026-05-05 at 15:58 |
 | [app_bar_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/app_bar_theme_data_test.dart) | AppBarThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [appbar_themes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/appbar_themes_test.dart) | AppBarTheme | No | Yes | No | Checked. |
+| [appbar_themes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/appbar_themes_test.dart) | AppBarTheme | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2131 lines, batch 20). |
 | [autocomplete_chips_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/autocomplete_chips_test.dart) | showDateRangePicker | No | Yes | No | Checked. |
 | [autocomplete_datepicker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/autocomplete_datepicker_test.dart) | Autocomplete | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [autocomplete_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/autocomplete_test.dart) | Autocomplete | No | Yes | No | Created on 20.03.2026 at 19:11 |
@@ -859,7 +859,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [selection_area_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/selection_area_test.dart) | SelectionArea | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [shape_border_tween_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/shape_border_tween_test.dart) | ShapeBorderTween | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [show_value_indicator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | Yes | No | Batch 61 deep demo (Tangerine/Apricot, sv). 1165 lines, 16 sections. |
-| [showbottomsheet_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/showbottomsheet_test.dart) | showModalBottomSheet | No | Yes | No |
+| [showbottomsheet_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/showbottomsheet_test.dart) | showModalBottomSheet | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2504 lines, batch 20). |
 | [showdatepicker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/showdatepicker_test.dart) | showDatePicker | No | Yes | No | Created on 2026-05-08 at 17:19. 
 | [showdialog_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/showdialog_test.dart) | showDialog | No | Yes | No | Created on 2026-05-05 at 20:54 |
 | [showmenu_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/showmenu_test.dart) | showMenu | No | Yes | No | Recreated on 2026-05-11 at 12:00. Hand-authored visual deep demo (~2860 lines, batch 16). |
@@ -1532,7 +1532,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [autocomplete_previous_option_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_option_intent_test.dart) | AutocompletePreviousOptionIntent | No | Yes | No | Created on 2026-04-08 at 23:40. |
 | [autocomplete_previous_page_option_intent_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_page_option_intent_test.dart) | AutocompletePreviousPageOptionIntent | No | Yes | No | Created on 2026-04-08 at 23:40. |
 | [autofill_context_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_context_action_test.dart) | AutofillContextAction | No | Yes | No | Created on 2026-04-08. |
-| [autofill_context_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_context_adv_test.dart) | AutofillContextAdv | No | Yes | No | Checked. |
+| [autofill_context_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_context_adv_test.dart) | AutofillContextAdv | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~1663 lines, batch 20). |
 | [autofill_context_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_context_test.dart) | AutofillGroup | No | Yes | No | Created on 2026-05-08 at 17:19. |
 | [autofill_group_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_group_state_test.dart) | AutofillGroupState | No | Yes | No | Recreated on 2026-05-02 at 14:45. |
 | [autofill_group_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/autofill_group_test.dart) | AutofillGroup | No | Yes | No | Created on 2026-03-30 at 14:45. |
@@ -2063,7 +2063,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scrollbar_orientation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollbar_orientation_test.dart) | ScrollbarOrientation | No | Yes | No | Created on 2026-04-10 at 19:45. Deep demo (824 lines): four enum values, scroll direction mapping, interactive orientation switcher with thickness/visibility, four-panel grid comparison. |
 | scrollbar_state_widget_accessor_regression_test.dart | State.widget accessor on private subclass | No | No | No | Needs to be created |
 | [scrollbar_painter_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollbar_painter_test.dart) | ScrollbarPainter | No | Yes | No | Created on 2026-04-24 at 00:30. Deep demo (2343 lines): ScrollbarPainter Studio — hero header with live breathing preview, 30-item driver ListView sharing metrics with a 2x2 grid of styled ScrollbarPainter previews (thickness/radius/color/trackColor variations), horizontal ScrollbarOrientation.bottom demo, AnimationController-driven fade slider, framed-track styling showcase, 16-row constructor reference table. |
-| [scrollnotification_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollnotification_test.dart) | ScrollNotification | No | Yes | No |
+| [scrollnotification_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollnotification_test.dart) | ScrollNotification | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2207 lines, batch 20). |
 | [scrollphysics_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/scrollphysics_test.dart) | ScrollPhysics | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (1825 lines, batch 19). |
 | [select_action_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart) | SelectAction | No | Yes | No | Created on 2026-04-22 at 14:00. Deep demo (1629 lines): Intent/Action system, 4-step flow, Workshop with 12-item selection grid, Scenarios with keyboard list/action chain/multi-scope. |
 | select_action_private_constructor_regression_test.dart | _ChainItem private constructor | No | No | No | Needs to be created |
@@ -2098,7 +2098,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [shortcut_registry_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_test.dart) | ShortcutRegistry | No | Yes | No | Created on 2026-04-07 at 20:15. |
 | [shortcut_serialization_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Yes | No | Created on 2026-04-21 at 21:20. |
 | shortcut_serialization_private_constructor_regression_test.dart | _TriggerInfo private constructor | No | No | No | Needs to be created |
-| [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
+| [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Recreated on 2026-05-12 at 16:30. Hand-authored visual deep demo (~2209 lines, batch 20). |
 | [shortcuts_actions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Recreated on 2026-05-04 at 19:30 |
 | [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | Yes | No | Created on 2026-04-07 at 21:00. |
 | [single_activator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | Yes | No | Created on 2026-04-21 at 21:20. |

@@ -4083,4 +4083,78 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 20 DEEP DEMOS (9 files, 2026-05-12)
+  // First batch of the 100-file rewrite campaign. Hand-authored
+  // visual posters averaging ~2100 lines each, covering
+  // ScrollPhysics deceleration, CupertinoThemeData, Shortcuts/
+  // Actions infrastructure, AutofillGroup, dart:ui Paragraph,
+  // ScrollNotification, Cupertino class tour, AppBarTheme, and
+  // showModalBottomSheet. All analyzer-clean.
+  // ============================================================
+  group('batch20_deep_demos/', () {
+    test('repro_fa2/scroll_decel_minus_telemetry.dart', () async {
+      final result = await SendTestRunner.send(
+        'repro_fa2/scroll_decel_minus_telemetry.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_theming_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_theming_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/shortcuts_actions_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/shortcuts_actions_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/autofill_context_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/autofill_context_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/paragraph_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/paragraph_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/scrollnotification_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scrollnotification_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/class_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/class_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/appbar_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/appbar_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/showbottomsheet_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/showbottomsheet_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

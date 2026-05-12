@@ -490,15 +490,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 481 | `cupertino/controls_test.dart` | 4,648 | 140 | (x) | (x) | (x) |
 | 482 | `rendering/canvas_test.dart` | 4,663 | 153 | (x) | ( ) | (x) |
 | 483 | `material/buttonstyle_popup_test.dart` | 4,670 | 129 | (x) | (x) | (x) |
-| 484 | `repro_fa2/scroll_decel_minus_telemetry.dart` | 4,672 | 166 | (x) | ( ) | ( ) |
-| 485 | `cupertino/cupertino_theming_test.dart` | 4,673 | 130 | (x) | (x) | ( ) |
-| 486 | `widgets/shortcuts_actions_adv_test.dart` | 4,708 | 113 | (x) | (x) | ( ) |
-| 487 | `widgets/autofill_context_adv_test.dart` | 4,736 | 121 | (x) | (x) | ( ) |
-| 488 | `dart_ui/paragraph_test.dart` | 4,752 | 135 | (x) | ( ) | ( ) |
-| 489 | `widgets/scrollnotification_test.dart` | 4,766 | 155 | (x) | (x) | ( ) |
-| 490 | `cupertino/class_test.dart` | 4,774 | 130 | (x) | ( ) | ( ) |
-| 491 | `material/appbar_themes_test.dart` | 4,778 | 131 | (x) | (x) | ( ) |
-| 492 | `material/showbottomsheet_test.dart` | 4,787 | 140 | (x) | (x) | ( ) |
+| 484 | `repro_fa2/scroll_decel_minus_telemetry.dart` | 4,672 | 166 | (x) | (x) | (x) |
+| 485 | `cupertino/cupertino_theming_test.dart` | 4,673 | 130 | (x) | (x) | (x) |
+| 486 | `widgets/shortcuts_actions_adv_test.dart` | 4,708 | 113 | (x) | (x) | (x) |
+| 487 | `widgets/autofill_context_adv_test.dart` | 4,736 | 121 | (x) | (x) | (x) |
+| 488 | `dart_ui/paragraph_test.dart` | 4,752 | 135 | (x) | (x) | (x) |
+| 489 | `widgets/scrollnotification_test.dart` | 4,766 | 155 | (x) | (x) | (x) |
+| 490 | `cupertino/class_test.dart` | 4,774 | 130 | (x) | (x) | (x) |
+| 491 | `material/appbar_themes_test.dart` | 4,778 | 131 | (x) | (x) | (x) |
+| 492 | `material/showbottomsheet_test.dart` | 4,787 | 140 | (x) | (x) | (x) |
 | 493 | `widgets/table_wrap_flow_test.dart` | 4,811 | 155 | (x) | (x) | ( ) |
 | 494 | `material/expansiontile_test.dart` | 4,831 | 155 | (x) | (x) | ( ) |
 | 495 | `material/scaffold_fab_test.dart` | 4,841 | 120 | (x) | ( ) | ( ) |
