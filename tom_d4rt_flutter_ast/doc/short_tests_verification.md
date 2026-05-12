@@ -508,15 +508,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 499 | `foundation/error_test.dart` | 4,897 | 143 | (x) | (x) | (x) |
 | 500 | `rendering/renderobjects_sizing_test.dart` | 4,904 | 127 | (x) | (x) | (x) |
 | 501 | `cupertino/list_test.dart` | 4,908 | 154 | (x) | (x) | (x) |
-| 502 | `material/fablocation_messenger_test.dart` | 4,915 | 135 | (x) | ( ) | ( ) |
-| 503 | `cupertino/cupertino_thumb_painter_test.dart` | 4,923 | 151 | (x) | ( ) | ( ) |
-| 504 | `cupertino/cupertino_refresh_mag_test.dart` | 4,929 | 149 | (x) | (x) | ( ) |
-| 505 | `painting/image_stream_adv_test.dart` | 4,951 | 122 | (x) | ( ) | ( ) |
-| 506 | `material/data_table_test.dart` | 4,962 | 172 | (x) | (x) | ( ) |
-| 507 | `services/text_editing_value_test.dart` | 4,975 | 131 | (x) | (x) | ( ) |
-| 508 | `widgets/listview_test.dart` | 4,975 | 188 | (x) | (x) | ( ) |
-| 509 | `widgets/gesturedetector_test.dart` | 5,011 | 186 | (x) | (x) | ( ) |
-| 510 | `scheduler/tickerfuture_test.dart` | 5,047 | 135 | (x) | ( ) | ( ) |
+| 502 | `material/fablocation_messenger_test.dart` | 4,915 | 135 | (x) | (x) | (x) |
+| 503 | `cupertino/cupertino_thumb_painter_test.dart` | 4,923 | 151 | (x) | (x) | (x) |
+| 504 | `cupertino/cupertino_refresh_mag_test.dart` | 4,929 | 149 | (x) | (x) | (x) |
+| 505 | `painting/image_stream_adv_test.dart` | 4,951 | 122 | (x) | (x) | (x) |
+| 506 | `material/data_table_test.dart` | 4,962 | 172 | (x) | (x) | (x) |
+| 507 | `services/text_editing_value_test.dart` | 4,975 | 131 | (x) | (x) | (x) |
+| 508 | `widgets/listview_test.dart` | 4,975 | 188 | (x) | (x) | (x) |
+| 509 | `widgets/gesturedetector_test.dart` | 5,011 | 186 | (x) | (x) | (x) |
+| 510 | `scheduler/tickerfuture_test.dart` | 5,047 | 135 | (x) | (x) | (x) |
 | 511 | `gestures/tap_force_test.dart` | 5,064 | 144 | (x) | (x) | ( ) |
 | 512 | `material/rawscrollbar_test.dart` | 5,082 | 173 | (x) | (x) | ( ) |
 | 513 | `cupertino/obstructing_preferred_size_widget_test.dart` | 5,088 | 145 | (x) | (x) | ( ) |

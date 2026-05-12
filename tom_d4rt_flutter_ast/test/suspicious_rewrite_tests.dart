@@ -4231,4 +4231,76 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 22 DEEP DEMOS (9 files, 2026-05-12)
+  // Hand-authored ~800-2600 line visual deep demos covering:
+  // FAB locations + ScaffoldMessenger, CupertinoThumbPainter,
+  // CupertinoSliverRefreshControl, ImageStream, DataTable,
+  // TextEditingValue, ListView, GestureDetector, TickerFuture.
+  // ============================================================
+  group('batch22_deep_demos/', () {
+    test('material/fablocation_messenger_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/fablocation_messenger_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_thumb_painter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_thumb_painter_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_refresh_mag_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_refresh_mag_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/image_stream_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/image_stream_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/data_table_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/data_table_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/text_editing_value_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/text_editing_value_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/listview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/listview_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/gesturedetector_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/gesturedetector_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scheduler/tickerfuture_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'scheduler/tickerfuture_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
