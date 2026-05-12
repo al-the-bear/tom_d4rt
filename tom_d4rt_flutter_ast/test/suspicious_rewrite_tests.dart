@@ -4157,4 +4157,78 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 21 DEEP DEMOS (9 files, 2026-05-12)
+  // Second batch of the 100-file rewrite campaign. Hand-authored
+  // visual posters averaging ~2200 lines each, covering
+  // Table/Wrap/Flow layout-of-many, ExpansionTile, Scaffold
+  // FAB locations, advanced foundation primitives, RenderObject
+  // layer pipeline, CupertinoPicker overlays, FlutterError,
+  // RenderObject sizing, and Cupertino list widgets.
+  // ============================================================
+  group('batch21_deep_demos/', () {
+    test('widgets/table_wrap_flow_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/table_wrap_flow_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/expansiontile_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/expansiontile_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/scaffold_fab_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/scaffold_fab_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/foundation_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/foundation_misc_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/render_layers_pipeline_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_layers_pipeline_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_picker_default_selection_overlay_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_picker_default_selection_overlay_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/error_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/error_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_sizing_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_sizing_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/list_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/list_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
