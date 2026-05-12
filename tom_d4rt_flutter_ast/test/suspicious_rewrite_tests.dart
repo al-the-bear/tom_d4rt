@@ -4023,4 +4023,64 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 19 DEEP DEMOS (7 files, 2026-05-12)
+  // Carry-over hand-authored visual demos for CupertinoColors,
+  // BottomAppBar, SegmentedButton, FocusNode, LayoutBuilder,
+  // Opacity, and RotationTransition. Each file is 1800+ lines
+  // with rich semantic content, multi-panel visual layouts,
+  // and instructive prose. Analyzer-clean with no ignore
+  // pragmas.
+  // ============================================================
+  group('batch19_deep_demos/', () {
+    test('cupertino/cupertino_colors_system_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_colors_system_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/bottom_app_bar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/bottom_app_bar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/segmentedbutton_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/segmentedbutton_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/focusnode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/focusnode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/layoutbuilder_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/layoutbuilder_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/opacity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/opacity_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/rotationtransition_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/rotationtransition_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
