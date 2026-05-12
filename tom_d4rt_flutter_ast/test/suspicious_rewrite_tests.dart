@@ -4303,4 +4303,78 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // BATCH 23 DEEP DEMOS (9 files, 2026-05-12)
+  // Hand-authored ~1400-2600 line visual deep demos covering:
+  // gesture details (Tap/Force/Drag/Scale), RawScrollbar,
+  // ObstructingPreferredSizeWidget/CupertinoNavigationBar,
+  // MediaQuery, AssetBundle/AssetImage, advanced TextField,
+  // Offstage/Visibility/IgnorePointer family, SystemChrome,
+  // dart:ui Paragraph/TextStyle primitives.
+  // ============================================================
+  group('batch23_deep_demos/', () {
+    test('gestures/tap_force_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/tap_force_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/rawscrollbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/rawscrollbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/obstructing_preferred_size_widget_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/obstructing_preferred_size_widget_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/mediaquery_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/mediaquery_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/asset_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/asset_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/text_editing_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/text_editing_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/offstage_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/offstage_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/system_chrome_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/system_chrome_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/text_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/text_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
