@@ -4442,4 +4442,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch25_deep_demos/', () {
+    test('animation/animation_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/animation_misc_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_sliver_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_sliver_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_page_route_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_page_route_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/renderobjects_layout_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/renderobjects_layout_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_misc_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_misc_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/render_mixins_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_mixins_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/autocomplete_chips_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/autocomplete_chips_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/layers_data_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/layers_data_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/gradient_rendering_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/gradient_rendering_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
