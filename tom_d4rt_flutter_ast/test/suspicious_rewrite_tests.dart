@@ -4694,4 +4694,71 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // Batch A — 2026-05-16 deep-demo continuation (9 files)
+  // CircleAvatar, InputDecorationTheme, Builder, MaterialBanner,
+  // Key, LayoutBuilder (adv), SelectableText,
+  // FloatingActionButton, CupertinoApp
+  // ============================================================
+  group('batch29_deep_demos/', () {
+    test('material/circleavatar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/circleavatar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/text_field_theme_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/text_field_theme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/builder_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/builder_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/materialbanner_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/materialbanner_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/key_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/key_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/layout_builder_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/layout_builder_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/selectabletext_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/selectabletext_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/floatingactionbutton_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/floatingactionbutton_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertinoapp_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertinoapp_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
