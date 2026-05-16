@@ -4761,4 +4761,82 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // Batch B — 2026-05-16 deep-demo continuation (11 files)
+  // 8 rewritten (Hero, DialogTheme, RenderSliver types,
+  // DropdownMenu, ScaleTransition, CupertinoSliverRefreshControl,
+  // Dialog/BottomSheet, Form) plus 3 already-deep + analyzer-clean
+  // (AnimatedContainer, AnimatedList, FormField) marked Fixed.
+  // ============================================================
+  group('batch30_deep_demos/', () {
+    test('widgets/hero_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/hero_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dialog_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dialog_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/render_sliver_types_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_sliver_types_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dropdown_menu_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dropdown_menu_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/scaletransition_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/scaletransition_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/refresh_test.dart', () async {
+      final result = await SendTestRunner.send('cupertino/refresh_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dialog_bottom_sheet_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dialog_bottom_sheet_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/form_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/form_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/form_field_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/form_field_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animatedcontainer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedcontainer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animatedlist_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedlist_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
