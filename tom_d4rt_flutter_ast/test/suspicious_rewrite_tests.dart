@@ -4572,4 +4572,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch27_deep_demos/', () {
+    test('material/nav_badge_advanced_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/nav_badge_advanced_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/gesture_callbacks_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_callbacks_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/channels_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/channels_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/slidetransition_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/slidetransition_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/fadetransition_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/fadetransition_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/key_events_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/key_events_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/listtile_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/listtile_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/gesture_callbacks_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/gesture_callbacks_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/draggable_sheet_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/draggable_sheet_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
