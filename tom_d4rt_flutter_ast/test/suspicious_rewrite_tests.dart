@@ -4377,4 +4377,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch24_deep_demos/', () {
+    test('widgets/safearea_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/safearea_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_page_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_page_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/route_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/route_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/pageroute_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/pageroute_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/reorderable_material_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/reorderable_material_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/texttheme_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/texttheme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animated_widgets_adv_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animated_widgets_adv_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/license_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/license_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/advanced_decorations_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/advanced_decorations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
