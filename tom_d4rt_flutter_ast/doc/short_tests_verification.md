@@ -562,15 +562,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 553 | `material/listtile_test.dart` | 6,155 | 211 | (x) | (x) | (x) |
 | 554 | `gestures/gesture_callbacks_test.dart` | 6,163 | 145 | (x) | ( ) | (x) |
 | 555 | `widgets/draggable_sheet_test.dart` | 6,163 | 182 | (x) | (x) | (x) |
-| 556 | `widgets/page_view_tabview_test.dart` | 6,175 | 178 | (x) | (x) | ( ) |
-| 557 | `widgets/animatedopacity_test.dart` | 6,178 | 205 | (x) | (x) | ( ) |
-| 558 | `semantics/semantics_data_test.dart` | 6,250 | 177 | (x) | ( ) | ( ) |
-| 559 | `rendering/sliver_delegates_test.dart` | 6,271 | 160 | (x) | ( ) | ( ) |
-| 560 | `widgets/image_test.dart` | 6,276 | 217 | (x) | ( ) | ( ) |
-| 561 | `widgets/visibility_test.dart` | 6,312 | 217 | (x) | (x) | ( ) |
-| 562 | `widgets/custompaint_test.dart` | 6,330 | 196 | (x) | (x) | ( ) |
-| 563 | `services/cursor_test.dart` | 6,422 | 190 | (x) | ( ) | ( ) |
-| 564 | `foundation/diagnostics_test.dart` | 6,510 | 195 | (x) | ( ) | ( ) |
+| 556 | `widgets/page_view_tabview_test.dart` | 6,175 | 178 | (x) | (x) | (x) |
+| 557 | `widgets/animatedopacity_test.dart` | 6,178 | 205 | (x) | (x) | (x) |
+| 558 | `semantics/semantics_data_test.dart` | 6,250 | 177 | (x) | ( ) | (x) |
+| 559 | `rendering/sliver_delegates_test.dart` | 6,271 | 160 | (x) | ( ) | (x) |
+| 560 | `widgets/image_test.dart` | 6,276 | 217 | (x) | ( ) | (x) |
+| 561 | `widgets/visibility_test.dart` | 6,312 | 217 | (x) | (x) | (x) |
+| 562 | `widgets/custompaint_test.dart` | 6,330 | 196 | (x) | (x) | (x) |
+| 563 | `services/cursor_test.dart` | 6,422 | 190 | (x) | ( ) | (x) |
+| 564 | `foundation/diagnostics_test.dart` | 6,510 | 195 | (x) | ( ) | (x) |
 | 565 | `widgets/form_field_test.dart` | 6,517 | 183 | (x) | (x) | ( ) |
 | 566 | `services/keyboard_test.dart` | 6,558 | 186 | (x) | ( ) | (x) |
 | 567 | `rendering/parentdata_test.dart` | 6,613 | 191 | (x) | ( ) | (x) |

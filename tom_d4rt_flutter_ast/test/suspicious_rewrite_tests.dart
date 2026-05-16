@@ -4637,4 +4637,61 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch28_deep_demos/', () {
+    test('widgets/page_view_tabview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/page_view_tabview_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animatedopacity_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedopacity_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('semantics/semantics_data_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'semantics/semantics_data_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/sliver_delegates_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/sliver_delegates_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/image_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/image_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/visibility_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/visibility_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/custompaint_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/custompaint_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/cursor_test.dart', () async {
+      final result = await SendTestRunner.send('services/cursor_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/diagnostics_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/diagnostics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
