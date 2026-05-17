@@ -61,70 +61,84 @@ dynamic build(BuildContext context) {
   // demo renders even if a constructor signature drifts.
   // ---------------------------------------------------------------------------
   String announceToString = '(unbuilt)';
-  Map<String, dynamic> announceData = const <String, dynamic>{};
+  // C18 workaround: the d4rt Map bridge's `nativeNames` list does not
+  // include `_ConstMap`, the Dart-internal runtime class returned by
+  // `const <K, V>{}` literals. Several `SemanticsEvent.getDataMap()`
+  // implementations in Flutter (`LongPressSemanticsEvent`,
+  // `TapSemanticEvent`, `FocusSemanticEvent`, and the
+  // payload-free branches of others) return `const <String, Object>{}`
+  // for events without data, so the assignment below would yield a
+  // `_ConstMap` and a downstream `.entries` lookup throws
+  // `Cannot access property 'entries' on target of type _ConstMap<String, dynamic>`.
+  // Two precautions: (1) the default is a non-const literal so the
+  // catch-block fallback is a regular LinkedHashMap; (2) the success
+  // path copies the bridged map into a fresh `Map<String, dynamic>` so
+  // it is always a regular LinkedHashMap regardless of what
+  // `getDataMap()` returned.
+  Map<String, dynamic> announceData = <String, dynamic>{};
   String announceType = 'announce';
   try {
     final probe = AnnounceSemanticsEvent('Item added to cart', TextDirection.ltr, 0);
     announceToString = probe.toString();
-    announceData = probe.getDataMap();
+    announceData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     announceType = probe.type;
   } catch (e) {
     announceToString = 'AnnounceSemanticsEvent(<construct failed: $e>)';
   }
 
   String announceRtlToString = '(unbuilt)';
-  Map<String, dynamic> announceRtlData = const <String, dynamic>{};
+  Map<String, dynamic> announceRtlData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   try {
     final probe = AnnounceSemanticsEvent('تمت الإضافة', TextDirection.rtl, 1);
     announceRtlToString = probe.toString();
-    announceRtlData = probe.getDataMap();
+    announceRtlData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
   } catch (e) {
     announceRtlToString = 'AnnounceSemanticsEvent(<construct failed: $e>)';
   }
 
   String tooltipToString = '(unbuilt)';
-  Map<String, dynamic> tooltipData = const <String, dynamic>{};
+  Map<String, dynamic> tooltipData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String tooltipType = 'tooltip';
   try {
     final probe = TooltipSemanticsEvent('Save document');
     tooltipToString = probe.toString();
-    tooltipData = probe.getDataMap();
+    tooltipData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     tooltipType = probe.type;
   } catch (e) {
     tooltipToString = 'TooltipSemanticsEvent(<construct failed: $e>)';
   }
 
   String longPressToString = '(unbuilt)';
-  Map<String, dynamic> longPressData = const <String, dynamic>{};
+  Map<String, dynamic> longPressData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String longPressType = 'longPress';
   try {
     final probe = LongPressSemanticsEvent();
     longPressToString = probe.toString();
-    longPressData = probe.getDataMap();
+    longPressData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     longPressType = probe.type;
   } catch (e) {
     longPressToString = 'LongPressSemanticsEvent(<construct failed: $e>)';
   }
 
   String tapToString = '(unbuilt)';
-  Map<String, dynamic> tapData = const <String, dynamic>{};
+  Map<String, dynamic> tapData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String tapType = 'tap';
   try {
     final probe = TapSemanticEvent();
     tapToString = probe.toString();
-    tapData = probe.getDataMap();
+    tapData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     tapType = probe.type;
   } catch (e) {
     tapToString = 'TapSemanticEvent(<construct failed: $e>)';
   }
 
   String focusToString = '(unbuilt)';
-  Map<String, dynamic> focusData = const <String, dynamic>{};
+  Map<String, dynamic> focusData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String focusType = 'focus';
   try {
     final probe = FocusSemanticEvent();
     focusToString = probe.toString();
-    focusData = probe.getDataMap();
+    focusData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     focusType = probe.type;
   } catch (e) {
     focusToString = 'FocusSemanticEvent(<construct failed: $e>)';
