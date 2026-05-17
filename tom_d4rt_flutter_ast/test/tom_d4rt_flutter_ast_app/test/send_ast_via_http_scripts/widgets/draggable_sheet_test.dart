@@ -2014,7 +2014,11 @@ Widget _snapshotTile(
                 maxChildSize: maxSize,
                 snap: snap,
                 snapSizes: snap ? <double>[minSize, initial, maxSize] : null,
-                snapAnimationDuration: Duration.zero,
+                // Flutter asserts snapAnimationDuration > Duration.zero
+                // (draggable_scrollable_sheet.dart line 315). Use a 1ms
+                // value to preserve the author's "near-instant snap"
+                // intent without tripping the assertion.
+                snapAnimationDuration: Duration(milliseconds: 1),
                 expand: true,
                 builder: (ctx, scrollController) {
                   return Container(
@@ -2237,7 +2241,11 @@ Widget _recipeCard(
                 maxChildSize: maxSize,
                 snap: true,
                 snapSizes: snapSizes,
-                snapAnimationDuration: Duration.zero,
+                // Flutter asserts snapAnimationDuration > Duration.zero
+                // (draggable_scrollable_sheet.dart line 315). Use a 1ms
+                // value to preserve the author's "near-instant snap"
+                // intent without tripping the assertion.
+                snapAnimationDuration: Duration(milliseconds: 1),
                 expand: true,
                 shouldCloseOnMinExtent: false,
                 builder: (ctx, scrollController) {
