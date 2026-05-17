@@ -60,7 +60,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C24** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: 'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered'` | ☑ fixed (script) |
 | **C25** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Null check operator used on a null value` | ☑ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
-| **C27** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☐ |
+| **C27** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☐ |
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☐ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
@@ -1496,13 +1496,71 @@ None of the failures are caused by the C26 fix. Logs under each
 package's `ztmp/c26_verify_*` files.
 
 #### C27 — `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
- — `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 234 | gestures/ individual drag_gesture_recognizer_test.dart |
+
+**Status:** fixed (2026-05-18, GEN-095).
+
+**Root cause.** The script does
+`vd.supportedDevices = <PointerDeviceKind>{PointerDeviceKind.touch, PointerDeviceKind.mouse}`.
+The bridge setter for `Set<PointerDeviceKind>` was emitted as
+`(value as Set).cast<PointerDeviceKind>().toSet()`. `.cast<T>()`
+returns a *view* that casts elements on iteration; the D4rt set
+literal contains `BridgedEnumValue` wrappers, not raw
+`PointerDeviceKind` instances, so the first `CastIterator.current`
+fails with the reported `BridgedEnumValue` cast error. The same
+shape (Cast view via `.cast<T>().toList()` / `.cast<K,V>()`)
+existed for List- and Map-typed setters wherever elements are
+wrapped enums or bridged instances.
+
+**Fix.** `BridgeGenerator._generateSetterCast`
+(`tom_d4rt_generator/lib/src/bridge_generator.dart`, ~L11322) now
+calls the D4 unwrap helpers instead of CastList / CastSet / CastMap
+views:
+
+- `List<T>` → `D4.coerceList<T>(value, '<paramName>')`
+- `Set<T>` → `D4.coerceSet<T>(value, '<paramName>')`
+- `Map<K, V>` → `D4.coerceMap<K, V>(value, '<paramName>', visitor)`
+
+Each helper iterates eagerly and unwraps `BridgedEnumValue`,
+`BridgedInstance`, and `InterpretedInstance` before casting,
+returning a real `List<T>` / `Set<T>` / `Map<K, V>`. Helpers were
+already present in both `tom_d4rt_ast` and `tom_d4rt`; no
+interpreter change required. Bridges were regenerated in both
+flutter packages.
+
+**Regression scope:** rule (b) — generator change.
+
+**Verification (AST driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- C27 single-script:
+  `gestures/drag_gesture_recognizer_test.dart` →
+  `success=true, frameworkErrors=0`
+  (log `tom_d4rt_flutter_ast/ztmp/c27_diag_verify.log.txt`).
+- essential: 108/0/0
+  (`tom_d4rt_flutter_ast/ztmp/c27_verify_ast_essential.log.txt`).
+- important: 164/0/0
+  (`tom_d4rt_flutter_ast/ztmp/c27_verify_ast_important.log.txt`).
+- secondary: 649/1 skip/-4 — failures down from 5 to 4. C27
+  fixed; remaining are pre-existing C28
+  (drag_test, positioned_gesture_details), C30 (box_painter),
+  C31 (linear_border_edge). No new regressions
+  (`tom_d4rt_flutter_ast/ztmp/c27_verify_ast_secondary.log.txt`).
+
+**Verification (analyzer driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- essential: 108/0/0 (`ztmp/c27_verify_analyzer_essential.log.txt`)
+- important: 164/0/0 (`ztmp/c27_verify_analyzer_important.log.txt`)
+- secondary: 648/1 skip/-5 — failures down from 6 to 5. C27
+  fixed; remaining are pre-existing C28
+  (drag_test, positioned_gesture_details), C29
+  (tap_drag_start_details — analyzer-only), C30 (box_painter),
+  C31 (linear_border_edge). No new regressions
+  (`ztmp/c27_verify_analyzer_secondary.log.txt`).
 
 #### C28 — `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile`
 
