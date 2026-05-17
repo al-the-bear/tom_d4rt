@@ -48,6 +48,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U4 — Standalone `'\n'` `TextSpan` between two styled siblings crashes the test-app transport](#u4--standalone-n-textspan-between-two-styled-siblings-crashes-the-test-app-transport-truly-unfixable) | Truly unfixable — Dart-VM-level crash inside the bridged render path; `Lost connection to device.` surfaces only as `Bad state: Transport failure while running …`. Trigger is specifically a child `TextSpan(text: '\n')` (literal newline, with or without `style`, with or without `const`) sitting between two other `TextSpan` siblings that each carry a non-null `style`, in the same parent `TextSpan.children` list (`RichText` / `Tooltip(richMessage:)` / `Text.rich(...)`). Both the `'\n'` character and the flanking pair of style-bearing siblings are necessary. Mandatory script-side workaround: append the `'\n'` to the preceding styled `TextSpan`'s `text` and drop the standalone newline child. | `material/tooltip_feedback_test.dart` (C15 closed 2026-05-17 — `_privateRichMessageExample` `RichText`) |
 | [U5 — Interpreted subclass of native abstract `NotchedShape` / `FloatingActionButtonLocation` rejected at the bridged-constructor boundary](#u5--interpreted-subclass-of-native-abstract-notchedshape--floatingactionbuttonlocation-rejected-at-the-bridged-constructor-boundary-interpreter-limitation) | Interpreter limitation (same adapter-proxy delegation gap as U3 for `Curve`). The bridge generator does not synthesise a proxy that recognises a script-defined `InterpretedInstance` as a valid native `NotchedShape` / `FloatingActionButtonLocation` argument, so `D4.getNamedArg<T>` rejects the value with `Argument Error: Invalid parameter "shape": expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)` (or the analogous `floatingActionButtonLocation` error). Workaround: use a framework-provided subclass (`CircularNotchedRectangle`, `AutomaticNotchedShape`; `FloatingActionButtonLocation.endFloat`, `.centerDocked`, …). | `material/bottom_app_bar_test.dart` (C16 closed 2026-05-17 — `_TopRoundedNotchedShape extends NotchedShape`, `_CustomFabLocation extends FloatingActionButtonLocation`) |
 | [U6 — Direct import of `package:vector_math/vector_math_64.dart` is not resolvable in d4rt scripts](#u6--direct-import-of-packagevector_mathvector_math_64dart-is-not-resolvable-in-d4rt-scripts-module-loader-limitation) | Module-loader / bundler limitation. The `vector_math` package is not in `bridgedLibraries` and not registered as an `explicitSources` entry for either driver, so the bundler (AST driver: `AstBundler._resolveImports`) and module loader (analyzer driver: `SourceCodeException: Module source not preloaded`) reject the import at bundle/load time even though Flutter bridges *consume* `Vector3` as a parameter type internally (`$vector_math_1.Vector3` is referenced throughout `painting_bridges.b.dart`). Workaround: drop the import; access `Matrix4.storage` (bridged, returns `Float64List`) and compute matrix·vector products inline. | `painting/matrixutils_test.dart` (C17 closed 2026-05-17 — `Vector3(40, 0, 0)` fed through `Matrix4.transform3`) |
+| [U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames`](#u7--dart-internal-_constmap-runtime-class-of-const-k-v-is-not-in-the-map-bridges-nativenames-interpreter-limitation) | Interpreter limitation. The Map `BridgedClass` (`tom_d4rt/lib/src/stdlib/core/map.dart` and `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart`) lists `UnmodifiableMapView`, `_UnmodifiableMapView`, `_CompactLinkedHashMap`, `ListMapView`, `_MapView` in `nativeNames`, but not `_ConstMap` — the Dart-internal runtime type of `const <K, V>{}`. Any member access on a `_ConstMap` (`.entries`, `.keys`, `.length`, …) falls through the `SPrefixedIdentifier` lookup and throws `Cannot access property '<name>' on target of type _ConstMap<…>.`. The trigger comes both from script-side `const <K, V>{}` defaults and from Flutter APIs that return `const <…>{}` themselves — notably `SemanticsEvent.getDataMap()` for payload-free events (`LongPressSemanticsEvent`, `TapSemanticEvent`, `FocusSemanticEvent`). Workaround: drop `const` on script-side defaults and copy bridged map values through `Map<K, V>.from(value)` at the assignment site so the runtime type is a regular `LinkedHashMap`. | `semantics/semantics_events_test.dart` (C18 closed 2026-05-17 — `dataMap.entries.toList()` on the values of `probe.getDataMap()` for `LongPressSemanticsEvent` / `TapSemanticEvent` / `FocusSemanticEvent`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -3252,7 +3253,156 @@ rewriting.
 
 ---
 
+## U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames` (interpreter limitation)
+
+**Category.** Interpreter / stdlib-bridge limitation. The d4rt
+Map `BridgedClass` registers a curated `nativeNames` list so that
+member access on arbitrary native Map subclasses still routes
+through the Map adapter:
+
+```dart
+// tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart  (~lines 10-15)
+nativeNames: const [
+  'UnmodifiableMapView',
+  '_UnmodifiableMapView',
+  '_CompactLinkedHashMap',
+  'ListMapView',
+  '_MapView',
+],
+```
+
+The same list lives in `tom_d4rt/lib/src/stdlib/core/map.dart`.
+Missing from it is **`_ConstMap`** — the Dart-internal runtime
+type that `const <K, V>{}` literals evaluate to. When a `_ConstMap`
+value reaches the member-access path in
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+(`SPrefixedIdentifier` lookup, lines 1419-1421), no bridged class
+matches, the `.entries` / `.keys` / `.length` / … getter is not
+resolved, and the visitor throws:
+
+```text
+Runtime Error: Cannot access property 'entries'
+  on target of type _ConstMap<String, dynamic>.
+```
+
+The error surfaces for any member access on a `_ConstMap`, so it
+is not specific to `.entries`.
+
+**Reproducer.** Two trigger shapes that both produce a `_ConstMap`
+at runtime:
+
+1. **Script-side `const` default.** The script declares a default
+   value with `const`:
+
+   ```dart
+   Map<String, dynamic> data = const <String, dynamic>{};
+   try {
+     data = probe.getDataMap();
+   } catch (_) {/* fallback path keeps the const default */}
+   for (final entry in data.entries) { … }   // <-- throws
+   ```
+
+   If `getDataMap()` raises, the catch-block leaves `data` as the
+   `_ConstMap` default, and the subsequent `.entries` access
+   throws.
+
+2. **Flutter API returning `const <…>{}`.** Several
+   `SemanticsEvent` implementations in Flutter return a const
+   empty map for payload-free events:
+
+   ```dart
+   // flutter/lib/src/semantics/semantics_event.dart
+   class LongPressSemanticsEvent extends SemanticsEvent { … }
+   class TapSemanticEvent      extends SemanticsEvent { … }
+   class FocusSemanticEvent    extends SemanticsEvent { … }
+   // each overrides:
+   @override Map<String, Object> getDataMap() => const <String, Object>{};
+   ```
+
+   Even with a non-const script-side default, assigning
+   `data = probe.getDataMap();` puts a `_ConstMap` back into
+   `data`, and `.entries` throws on the next access.
+
+**Constraints.**
+
+- Adding `_ConstMap` to the Map bridge's `nativeNames` is
+  technically a one-line change in two files (`tom_d4rt`,
+  `tom_d4rt_ast`), but `_ConstMap` is a Dart-VM internal class
+  whose name is not guaranteed across SDK versions (the canonical
+  reference is `dart:core` private; the analyzer / mirrors path
+  has historically reported variants such as `_ConstMap`,
+  `_HashMap`, `_InternalLinkedHashMap`, `_ImmutableMap` depending
+  on platform). A targeted fix would need to either match all of
+  them or detect "any `Map` instance" structurally.
+- A broader fix would teach the Map adapter to fall back to
+  `target is Map` whenever the runtime type lookup misses, so
+  every native `Map` flavour (including future SDK additions and
+  user-side third-party `Map` types) gets bridged getter
+  resolution for free. That is the better architectural fix but
+  is **not** in cluster scope.
+- Until the interpreter ships either fix, every script-side or
+  bridge-side `_ConstMap` traversal will fail at member-access
+  time, even though the equivalent native Dart code works.
+
+**Script-side workaround (mandatory).** Two cooperating
+precautions are needed because the trigger can come from either
+side of the assignment:
+
+```dart
+// C18 workaround:
+// 1) Default is a non-const literal so the catch-block fallback
+//    is a regular LinkedHashMap, not a _ConstMap.
+Map<String, dynamic> data = <String, dynamic>{};
+try {
+  // 2) Copy bridged map values through Map<K, V>.from so the
+  //    runtime type is a regular LinkedHashMap regardless of
+  //    what getDataMap() returned.
+  data = Map<String, dynamic>.from(probe.getDataMap());
+} catch (_) {/* keep the non-const default */}
+for (final entry in data.entries) { … }      // OK
+```
+
+Either precaution alone is insufficient — the script-side default
+matters only on the catch branch; the `Map.from` copy matters
+only on the success branch.
+
+**Diagnostic guidance.** Any runtime error of the shape
+`Cannot access property '<name>' on target of type _ConstMap<…>.`
+points at this gap. Trace the value back to its assignment site:
+if either end (`const <…>{}` literal, or a bridged API returning
+a const empty map) produces a `_ConstMap`, apply the two-step
+workaround at that site. `SemanticsEvent.getDataMap()` is the
+known Flutter culprit; suspect any payload-optional bridged API
+that returns `const <…>{}` for the empty case.
+
+The script's class definitions remain unchanged; only the
+variable declaration and the bridged-call assignment need
+rewriting.
+
+---
+
 ## Change Log
+
+- 2026-05-17: **Add U7 — Dart-internal `_ConstMap` (runtime
+  class of `const <K, V>{}`) is not in the Map bridge's
+  `nativeNames`.** Documents the `testlog_20260517-0914` C18
+  cluster (`semantics/semantics_events_test.dart`,
+  `dataMap.entries.toList()` on the values of
+  `probe.getDataMap()` for `LongPressSemanticsEvent`,
+  `TapSemanticEvent`, and `FocusSemanticEvent`). Root cause:
+  `_ConstMap` is missing from the curated `nativeNames` list on
+  the Map `BridgedClass` in both `tom_d4rt` and `tom_d4rt_ast`,
+  and several Flutter `SemanticsEvent.getDataMap()`
+  implementations return `const <String, Object>{}` for
+  payload-free events, so the bridged-call result lands as a
+  `_ConstMap` and any subsequent member access throws. A
+  targeted name-list fix is fragile across SDK versions; the
+  architectural fix is to teach the Map adapter to fall back to
+  `target is Map`, which is out of scope for a single cluster
+  pass. Mandatory script-side workaround: drop `const` on
+  defaults and copy bridged map values through
+  `Map<K, V>.from(value)` at the assignment site so the runtime
+  type is always a regular `LinkedHashMap`.
 
 - 2026-05-17: **Add U6 — Direct import of
   `package:vector_math/vector_math_64.dart` is not resolvable in

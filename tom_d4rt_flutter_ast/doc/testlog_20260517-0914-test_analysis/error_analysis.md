@@ -51,7 +51,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☑ fixed (script) |
 | **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☑ fixed (script) |
-| **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
+| **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (script) |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☐ |
@@ -1125,11 +1125,70 @@ Logs: `ztmp/c17_verify_ast_secondary.log.txt`,
 
 #### C18 — `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 102 | semantics/ semantics_events_test.dart |
+
+**Root cause.** Two-layer issue rooted in d4rt's Map bridge not
+covering Dart's internal `_ConstMap` runtime class:
+
+1. The d4rt Map bridge's `nativeNames` list in
+   `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart` (lines
+   ~10-15) registers `UnmodifiableMapView`, `_UnmodifiableMapView`,
+   `_CompactLinkedHashMap`, `ListMapView`, and `_MapView`, but
+   **not** `_ConstMap` — the Dart-internal runtime class that
+   `const <K, V>{}` literals evaluate to. When a `_ConstMap`
+   reaches the `SPrefixedIdentifier` member-access path in
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+   (lines 1419-1421), it does not match any bridged class and
+   falls through to the generic
+   `"Cannot access property '$memberName' on target of type
+   ${prefixValue?.runtimeType}."` error.
+2. The script declared each of the six probe `Map<String, dynamic>`
+   variables with a `const <String, dynamic>{}` default, and
+   several Flutter `SemanticsEvent.getDataMap()` implementations
+   (`LongPressSemanticsEvent`, `TapSemanticEvent`,
+   `FocusSemanticEvent`, and the payload-free branches of others)
+   themselves return `const <String, Object>{}`. So both the
+   default and the value assigned from `probe.getDataMap()` could
+   end up as a `_ConstMap`, and the downstream
+   `dataMap.entries.toList()` access on line 1374 would throw.
+
+**Fix.** Script-only. In
+`semantics/semantics_events_test.dart`:
+
+1. Six `Map<String, dynamic> XxxData = const <String, dynamic>{};`
+   defaults changed to non-const `<String, dynamic>{}` so the
+   catch-block fallback is a regular `LinkedHashMap`, not a
+   `_ConstMap`.
+2. The six success-path assignments
+   `XxxData = probe.getDataMap();` wrapped as
+   `XxxData = Map<String, dynamic>.from(probe.getDataMap());` so
+   the bridged map is copied into a regular `LinkedHashMap`
+   regardless of what `getDataMap()` returned.
+
+A C18 workaround comment above the first probe documents both
+precautions and the underlying `_ConstMap` gap. The interpreter
+limitation is documented in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (U7 — Dart's
+internal `_ConstMap` runtime class is not in the Map bridge's
+`nativeNames`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `semantics/semantics_events_test.dart` | `+1` All tests passed |
+| flutter_test | `semantics/semantics_events_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c18_verify_ast_secondary.log.txt`,
+`ztmp/c18_verify_analyzer_secondary.log.txt`. Repro log:
+`ztmp/c18_repro_ast.log.txt`.
 
 #### C19 — `Runtime Error: Positional arguments cannot follow named arguments.`
 
