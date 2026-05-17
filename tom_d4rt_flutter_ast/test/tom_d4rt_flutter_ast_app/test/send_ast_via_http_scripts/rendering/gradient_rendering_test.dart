@@ -1413,9 +1413,32 @@ Widget _buildLowLevelApi() {
     80.0,
     <Color>[kSpecYellow, kInk],
   );
+  // ui.Gradient.sweep declares `double endAngle = math.pi * 2` as the
+  // default — a non-const expression the bridge generator currently
+  // marks as non-wrappable, so callers must specify it explicitly. We
+  // also fill in the preceding optional positionals (colorStops,
+  // tileMode, startAngle) because dart:ui.Gradient.sweep is positional-
+  // only. dart:ui validates `colors.length == 2 || colorStops != null`,
+  // so the 9-color rainbow needs an explicit evenly-spaced stop list.
+  // See `interpreter_unfixable.md` (U2) for the underlying generator
+  // limitation.
   final ui.Gradient sweep = ui.Gradient.sweep(
     Offset(100.0, 60.0),
     kRainbow + <Color>[kSpecRed],
+    <double>[
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0,
+    ], // 9 evenly-spaced stops for the 9-colour rainbow
+    TileMode.clamp, // tileMode
+    0.0, // startAngle
+    math.pi * 2.0, // endAngle (non-wrappable default in generator)
   );
 
   return _sectionCard(

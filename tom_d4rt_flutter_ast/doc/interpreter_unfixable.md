@@ -43,6 +43,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [T1 — `runtimeType.toString()` on user-defined interpreted classes](#t1--runtimetypetostring-on-user-defined-interpreted-classes) | Interpreter limitation (`InterpretedInstance.runtimeType` returns the `InterpretedClass`, which does not expose `toString` as a callable static — the chained call resolves to a static lookup and throws). Script-side workaround: emit the class-name string from an explicit `is`-check ladder. | `widgets/route_transition_record_test.dart` (1 FE — `_buildSurfaceRow` line 836) |
 | [S1 — `const Stream<T>.empty()` rejected by `Stream` bridge](#s1--const-streamtempty-rejected-by-stream-bridge-interpreter-limitation) | Interpreter limitation (the stdlib `Stream` `BridgedClass` registers `empty`/`value`/`fromIterable`/etc. under `staticMethods:` and leaves `constructors: {}`. `MethodInvocation`-shaped calls — `Stream.empty()` — fall through to `staticMethods` and succeed; `InstanceCreationExpression`-shaped calls — `const Stream<int>.empty()` — go through `findConstructorAdapter` only and never see the static-method registration, so the lookup throws `Bridged class 'Stream' does not have a registered constructor named 'empty'`). Script-side workaround: drop `const`, drop the explicit type-arg, and call as a method invocation (`Stream<int>.empty()` or `Stream.fromIterable(const <int>[])`), or hold the stream in a non-const `final` so the parser keeps the call as `MethodInvocation`. | `widgets/streambuilder_test.dart` (Section 6 — `stream: const Stream<int>.empty()`) |
 | [U1 — Demo-scale renderings that overload the test-app transport](#u1--demo-scale-renderings-that-overload-the-test-app-transport-interpreter-limitation) | Interpreter limitation, two sub-cases. (1) Top-level `const` of an interpreted subclass of a *native* abstract class (here `extends Notification`) exercises the adapter-proxy infrastructure before the visitor has wired its context, and crashes the test-app transport (`Lost connection to device`, no stderr). (2) `SelectableText.rich(TextSpan(children: spans))` with ~1000+ TextSpans (built per-character by an interpreted Dart colorizer from a ~1.8 KB code listing) exceeds the test-app per-frame transport budget and the device disconnects. Workaround: keep the displayed values as top-level `const` primitives (no native-abstract subclass), and render long code listings (>≈500 chars / >≈22 lines) through a sibling helper that wraps a single plain monospace `Text` instead of the per-char colorizer + `SelectableText.rich`. | `widgets/notificationlistener_test.dart` (C05 closed 2026-05-17) |
+| [U2 — Non-wrappable arithmetic defaults on positional-only native constructors](#u2--non-wrappable-arithmetic-defaults-on-positional-only-native-constructors-generator-limitation) | Generator limitation. `BridgeGenerator._wrapDefaultValue` returns `null` for any default expression containing an operator (e.g. `double endAngle = math.pi * 2`), so the generated bridge emits `D4.getRequiredArgTodoDefault<…>(…, 'math.pi * 2')` which throws `Argument Error: <Class>: Parameter "<name>" has non-wrappable default …` when the argument is omitted. For purely-positional native constructors (`dart:ui` `Gradient.sweep`, `Gradient.radial`, …) the script cannot use named-arg form to skip earlier optional positionals, so any default expression with an operator anywhere in the positional list becomes mandatory at every call site beyond that index. Workaround: at every call site, supply *all* preceding optional positionals up to and including the offending one (use the framework's documented default value literally, e.g. `math.pi * 2.0`). | `rendering/gradient_rendering_test.dart` (C09 closed 2026-05-17 — `ui.Gradient.sweep` `endAngle = math.pi * 2`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2589,8 +2590,185 @@ to accommodate ≥4000 small object constructions.
 
 ---
 
+## U2 — Non-wrappable arithmetic defaults on positional-only native constructors (generator limitation)
+
+### Symptom
+
+Calling a positional-only bridged constructor whose Dart signature
+has an arithmetic-expression default value, while passing fewer
+positionals than the index of that parameter, throws:
+
+```
+Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient':
+Argument Error: Gradient: Parameter "endAngle" has non-wrappable default (math.pi * 2).
+Value must be specified but was null.
+```
+
+Reproduced in `testlog_20260517-0914` C09 on both drivers
+(`tom_d4rt_flutter_ast`, `tom_d4rt_flutter_test`) for
+`rendering/gradient_rendering_test.dart` calling
+`ui.Gradient.sweep(Offset(...), kRainbow)`.
+
+### Root cause
+
+`BridgeGenerator._wrapDefaultValue`
+(`tom_d4rt_generator/lib/src/bridge_generator.dart` lines 4606–4613)
+returns `null` for any default expression containing an operator,
+because the generator can only inline literal values / simple
+named constants and would otherwise have to parse and re-emit the
+expression in the generated bridge file. When `_wrapDefaultValue`
+returns `null`, the parameter is recorded as a non-wrappable
+default and the generated bridge emits, for that positional slot:
+
+```dart
+final endAngle = D4.getRequiredArgTodoDefault<double>(
+    positional, 5, 'endAngle', 'Gradient', 'math.pi * 2');
+```
+
+`getRequiredArgTodoDefault` throws an `ArgumentError` whenever the
+positional slot is absent (`positional.length <= 5`) — there is no
+fallback to "synthesise the default at runtime" because the
+generator could not produce one.
+
+For *named-only* constructors this is mostly cosmetic: callers
+that omit the named arg get the same error, but adding the named
+arg back is trivial. For **positional-only** native constructors
+— `dart:ui` `Gradient.sweep`, `Gradient.radial`, `Gradient.linear`,
+several `Path` and `Picture` methods — there is no way to skip the
+earlier optional positionals while supplying a later one. Once a
+single positional default contains an operator, every call site
+must spell out every preceding positional, with the framework's
+own default values, all the way up to the operator-bearing index.
+
+Concretely for `Gradient.sweep`:
+
+```dart
+external factory Gradient.sweep(
+  Offset center,
+  List<Color> colors,
+  [ List<double>? colorStops,
+    TileMode tileMode = TileMode.clamp,    // ← OK (enum constant)
+    double startAngle = 0.0,               // ← OK (literal)
+    double endAngle = math.pi * 2,         // ← non-wrappable (operator)
+    Float64List? matrix4, ]);
+```
+
+Calling `Gradient.sweep(center, colors)` works in native Dart
+because the engine resolves all four defaults internally. Through
+the bridge, the generator can wrap `colorStops` (null literal),
+`tileMode` (enum constant), and `startAngle` (numeric literal) — but
+fails on `endAngle` because `math.pi * 2` is an arithmetic
+expression. The call then throws on the 6th positional even though
+the script only intended to supply the 2 mandatory ones.
+
+### Why this is a generator limitation rather than "truly unfixable"
+
+The generator could grow a small evaluator for the limited
+shape of arithmetic-default expressions actually used by the
+framework SDKs (`identifier * literal`, `identifier / literal`,
+`-literal`, `literal * literal`, possibly `identifier.identifier *
+literal`). All known offending cases in `dart:ui` /
+`flutter/{painting,rendering}` resolve to numeric primitives once
+the `math.pi`/`math.e` constants are bound. Implementing this
+would unblock the entire family without per-call-site script
+edits.
+
+A safer narrower fix: have `_wrapDefaultValue` recognise
+expressions of the form `math.<name> <op> <numericLiteral>` and
+emit the equivalent numeric constant directly (since `math.pi` and
+`math.e` are compile-time-known doubles, the multiplication
+result is also compile-time-known).
+
+Neither variant is in scope for the C09 cluster — fixing the
+generator and regenerating every bridge package would put
+hundreds of `.b.dart` files in the diff.
+
+### Workaround
+
+At each call site, supply *all* preceding optional positionals up
+to and including the operator-bearing one, using the framework's
+documented defaults literally. For `ui.Gradient.sweep`:
+
+```dart
+// Don't (compiles natively, but the bridged form throws on `endAngle`):
+final ui.Gradient sweep = ui.Gradient.sweep(
+  Offset(100.0, 60.0),
+  kRainbow,
+);
+
+// Do — spell out every preceding positional default, plus the
+// operator-bearing one, using the framework's defaults literally:
+final ui.Gradient sweep = ui.Gradient.sweep(
+  Offset(100.0, 60.0),
+  kRainbow + <Color>[kSpecRed],
+  <double>[0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0], // colorStops
+  TileMode.clamp,                                                  // tileMode
+  0.0,                                                             // startAngle
+  math.pi * 2.0,                                                   // endAngle (operator-bearing default)
+);
+```
+
+Two practical notes when applying this workaround:
+
+1. **The `colors`/`colorStops` invariant runs natively on
+   `dart:ui`.** Once `colorStops` becomes an explicit list rather
+   than `null`, the engine enforces
+   `colorStops.length == colors.length` (and not the
+   `colors.length == 2 || colorStops != null` form that handles
+   the `null` case). Build the stops list to match the colour
+   count exactly — usually evenly spaced
+   (`List.generate(n, (i) => i / (n - 1))`).
+2. **Keep `math.pi * 2.0` literally, not a `kTwoPi` constant.**
+   The framework spells it `math.pi * 2`, and matching that form
+   in the script keeps the workaround intent obvious: every
+   preceding positional plus the operator default. Using a named
+   constant invites a future reader to think the value is
+   significant rather than load-bearing-for-bridge-defaults.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `rendering/gradient_rendering_test.dart` | 1 (Section "sweep gradient", lines 1416–1437) | `ui.Gradient.sweep(center, colors)` expanded to 6 positionals (added `colorStops` 9-element stop list, `TileMode.clamp`, `0.0`, `math.pi * 2.0`). C09 closed 2026-05-17 on both drivers. |
+
+### What a real fix would look like
+
+In `tom_d4rt_generator/lib/src/bridge_generator.dart`'s
+`_wrapDefaultValue`: before falling through to the final
+`return null;` on line 4613, detect arithmetic-default expressions
+that reference only compile-time-known constants (`math.pi`,
+`math.e`, numeric literals) and one of the four basic operators
+(`+`, `-`, `*`, `/`). Evaluate them at generation time and emit
+the resulting numeric literal as the wrapped default. The bridge
+will then accept the omitted argument instead of routing it
+through `getRequiredArgTodoDefault`.
+
+A test fixture in `tom_d4rt_generator/test/` exercising this
+shape against `dart:ui` `Gradient.sweep` / `radial` / `linear`
+would catch regressions if the operator list ever grows.
+
+---
+
 ## Change Log
 
+- 2026-05-17: **Add U2 — Non-wrappable arithmetic defaults on
+  positional-only native constructors.** Documents the
+  `testlog_20260517-0914` C09 cluster
+  (`rendering/gradient_rendering_test.dart`, `ui.Gradient.sweep`
+  rejecting `endAngle` with `Parameter "endAngle" has non-wrappable
+  default (math.pi * 2)`). Root cause is
+  `BridgeGenerator._wrapDefaultValue` returning `null` for any
+  default expression containing an operator
+  (`tom_d4rt_generator/lib/src/bridge_generator.dart:4606-4613`),
+  so the generated bridge emits `D4.getRequiredArgTodoDefault<…>`
+  for `endAngle` and throws when the slot is omitted. Workaround
+  applied script-side: spell out all preceding optional positionals
+  using the framework's documented defaults literally
+  (`colorStops` explicit 9-element stop list, `TileMode.clamp`,
+  `0.0`, `math.pi * 2.0`). C09 closes on both drivers 2026-05-17.
+  Long-term fix sketched: have the generator evaluate
+  `math.pi`/`math.e` arithmetic at generation time and emit the
+  resulting numeric literal as the wrapped default.
 - 2026-05-17: **Add U1 — Demo-scale renderings that overload the
   test-app transport.** Documents the
   `testlog_20260517-0914` C05 cluster (`widgets/notificationlistener_test.dart`,

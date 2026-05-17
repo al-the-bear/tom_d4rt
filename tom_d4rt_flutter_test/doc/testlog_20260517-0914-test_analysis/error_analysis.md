@@ -42,7 +42,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☑ fixed |
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☑ fixed |
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☑ fixed |
-| **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☐ |
+| **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☑ fixed |
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☐ |
 | **C11** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☐ |
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
@@ -434,11 +434,65 @@ script corpus; single-test verification on both drivers
 
 #### C09 — `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 179 | rendering/ gradient_rendering_test.dart |
+
+**Root cause.** Bridge-generator limitation, not an interpreter
+bug. `ui.Gradient.sweep` is positional-only and declares
+`double endAngle = math.pi * 2` as its 6th positional default.
+`BridgeGenerator._wrapDefaultValue`
+(`tom_d4rt_generator/lib/src/bridge_generator.dart` lines
+4606–4613) returns `null` for any default expression containing an
+operator, so the generated bridge emits
+`D4.getRequiredArgTodoDefault<double>(positional, 5, 'endAngle',
+'Gradient', 'math.pi * 2')` and throws `Argument Error: Gradient:
+Parameter "endAngle" has non-wrappable default (math.pi * 2).
+Value must be specified but was null.` whenever the call site
+omits the 6th positional. Because the constructor is
+positional-only, every call site that omits *any* later
+positional must also spell out all earlier ones up to the
+offending operator default. The full mechanism and the
+generator-side fix sketch are catalogued as **U2** in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`.
+
+**Fix (script-only, rule a).** Expanded the
+`ui.Gradient.sweep(Offset(...), kRainbow)` call site in the
+shared script corpus
+(`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/gradient_rendering_test.dart`
+lines 1416–1437) to pass all preceding positional defaults
+explicitly:
+
+```dart
+final ui.Gradient sweep = ui.Gradient.sweep(
+  Offset(100.0, 60.0),
+  kRainbow + <Color>[kSpecRed],
+  <double>[0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0], // colorStops
+  TileMode.clamp,                                                  // tileMode
+  0.0,                                                             // startAngle
+  math.pi * 2.0,                                                   // endAngle (operator-bearing default)
+);
+```
+
+Two corrections were needed in sequence. (1) Just adding
+`math.pi * 2.0` as the 6th positional satisfied the
+`getRequiredArgTodoDefault` check but raised the follow-up
+native-engine assertion `colors must have length 2 if colorStops
+is omitted`. (2) Once `colorStops` was supplied explicitly,
+`dart:ui` enforces `colorStops.length == colors.length`, so the
+9-colour rainbow (`kRainbow` 8 colours + closing `kSpecRed`)
+needed a 9-element evenly-spaced stop list. The inline comment in
+the script records both the index math and the generator
+limitation that motivates the workaround. No interpreter or
+generator change.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus; single-test verification on both drivers
+(flutter_ast `00:15 +1: All tests passed!`, flutter_test
+`00:11 +1: All tests passed!`). Logs in
+`ztmp/c09_ast_fixed.log.txt` and `ztmp/c09_test_fixed.log.txt`.
 
 Representative error texts:
 
