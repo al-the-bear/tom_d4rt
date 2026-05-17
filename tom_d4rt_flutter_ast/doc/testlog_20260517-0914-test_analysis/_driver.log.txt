@@ -1,0 +1,30 @@
+[driver] AST suite starting at Sun May 17 09:17:27 AM CEST 2026
+[driver] START essential_classes_test at Sun May 17 09:17:27 AM CEST 2026
+[driver] DONE  essential_classes_test rc=1 dur=261s
+[driver] START important_classes_test at Sun May 17 09:21:48 AM CEST 2026
+[driver] DONE  important_classes_test rc=1 dur=393s
+[driver] START secondary_classes_test at Sun May 17 09:28:21 AM CEST 2026
+[driver] DONE  secondary_classes_test rc=1 dur=1639s
+[driver] START hardly_relevant_classes_1_test at Sun May 17 09:55:40 AM CEST 2026
+[driver] DONE  hardly_relevant_classes_1_test rc=1 dur=535s
+[driver] START hardly_relevant_classes_2_test at Sun May 17 10:04:35 AM CEST 2026
+[driver] DONE  hardly_relevant_classes_2_test rc=1 dur=375s
+[driver] START hardly_relevant_classes_3_test at Sun May 17 10:10:50 AM CEST 2026
+[driver] DONE  hardly_relevant_classes_3_test rc=1 dur=513s
+[driver] START hardly_relevant_classes_4_test at Sun May 17 10:19:23 AM CEST 2026
+[driver] DONE  hardly_relevant_classes_4_test rc=0 dur=433s
+[driver] START hardly_relevant_classes_5_test at Sun May 17 10:26:36 AM CEST 2026
+[driver] DONE  hardly_relevant_classes_5_test rc=1 dur=493s
+[driver] START crashing_tests_test at Sun May 17 10:34:49 AM CEST 2026
+[driver] DONE  crashing_tests_test rc=0 dur=31s
+[driver] START timeout_tests_test at Sun May 17 10:35:20 AM CEST 2026
+[driver] DONE  timeout_tests_test rc=1 dur=122s
+[driver] START blocking_tests_test at Sun May 17 10:37:22 AM CEST 2026
+[driver] DONE  blocking_tests_test rc=0 dur=54s
+[driver] START generator_interpreter_issues_test at Sun May 17 10:38:16 AM CEST 2026
+[driver] DONE  generator_interpreter_issues_test rc=1 dur=184s
+[driver] START generator_interpreter_retest_test at Sun May 17 10:41:20 AM CEST 2026
+[driver] DONE  generator_interpreter_retest_test rc=1 dur=126s
+[driver] START interactive_tests_test at Sun May 17 10:43:26 AM CEST 2026
+[driver] DONE  interactive_tests_test rc=0 dur=54s
+[driver] AST suite finished at Sun May 17 10:44:20 AM CEST 2026 (wall=5213s)
