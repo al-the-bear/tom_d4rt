@@ -9332,11 +9332,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       ArgumentList argumentList) {
     List<Object?> positionalArgs = [];
     Map<String, Object?> namedArgs = {};
-    bool namedArgsEncountered = false;
 
+    // Note: Dart allows named arguments to appear anywhere in the argument
+    // list (Dart 3 relaxed the old "named must come last" rule). Positional
+    // arguments are appended in source order; named arguments are keyed by
+    // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
       if (arg is NamedExpression) {
-        namedArgsEncountered = true;
         final name = arg.name.label.name;
         final value = arg.expression.accept<Object?>(this);
 
@@ -9353,10 +9355,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         namedArgs[name] = _bridgeInterpreterValueToNative(
             bridgedInstance.$2 ? bridgedInstance.$1!.nativeObject : value);
       } else {
-        if (namedArgsEncountered) {
-          throw RuntimeD4rtException(
-              "Positional arguments cannot follow named arguments.");
-        }
         final a = arg.accept<Object?>(this);
 
         // Check for async suspension in positional arguments
@@ -9426,11 +9424,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? _evaluateArgumentsAsync(ArgumentList argumentList) {
     List<Object?> positionalArgs = [];
     Map<String, Object?> namedArgs = {};
-    bool namedArgsEncountered = false;
 
+    // Note: Dart allows named arguments to appear anywhere in the argument
+    // list (Dart 3 relaxed the old "named must come last" rule). Positional
+    // arguments are appended in source order; named arguments are keyed by
+    // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
       if (arg is NamedExpression) {
-        namedArgsEncountered = true;
         final name = arg.name.label.name;
         final value = arg.expression.accept<Object?>(this);
 
@@ -9449,10 +9449,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         namedArgs[name] = _bridgeInterpreterValueToNative(
             bridgedInstance.$2 ? bridgedInstance.$1!.nativeObject : value);
       } else {
-        if (namedArgsEncountered) {
-          throw RuntimeD4rtException(
-              "Positional arguments cannot follow named arguments.");
-        }
         final a = arg.accept<Object?>(this);
 
         // Check for async suspension in positional arguments

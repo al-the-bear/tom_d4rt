@@ -34,9 +34,9 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 
 | # | File | Tests | Error key | Status |
 |---|------|------:|-----------|:------:|
-| **C01** | `essential_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C01** | `essential_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☐ |
-| **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☐ |
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☐ |
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☐ |
@@ -52,7 +52,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
 | **C17** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not ` | ☐ |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
-| **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☐ |
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
@@ -100,7 +100,30 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 
 #### C01 — `Runtime Error: Positional arguments cannot follow named arguments.`
 
-- [ ] fixed and re-verified
+- [x] **fixed** (2026-05-17) — also closes C03 and C19, same root cause.
+
+**Root cause.** The d4rt interpreter enforced an obsolete "named arguments
+must come last" ordering rule when evaluating `ArgumentList`. Dart 3
+permits named arguments to appear anywhere in the argument list; the
+scripts call `_codeBlock(title: '...', '''...''')` (named before
+positional), which is valid Dart (and analyzes cleanly), but blew up in
+`_evaluateArgumentsAsync` at `interpreter_visitor.dart:9453`.
+
+**Fix.** Removed the ordering check in four places, mirrored across
+`tom_d4rt` and `tom_d4rt_ast`:
+
+- `tom_d4rt/lib/src/interpreter_visitor.dart` — `_evaluateArguments`,
+  `_evaluateArgumentsAsync`.
+- `tom_d4rt/lib/src/callable.dart` — redirecting `this(...)` constructor
+  arg evaluation, and `_evaluateArgumentsForInvocation`.
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` — same two
+  helpers (SArgumentList variant).
+- `tom_d4rt_ast/lib/src/runtime/callable.dart` — same two locations.
+
+**Verification.** flutter_test: essential 108/0/0, important 157/7/0
+(was 13 fails — C03's 6 closed), secondary 630/23/1 (was 25 fails — C19's
+2 closed). flutter_ast: essential 108/0/0, important 157/7/0,
+secondary 631/22/1. No new regressions in any of the six suites.
 
 | testID | Test name |
 |-------:|-----------|
@@ -130,7 +153,8 @@ Representative error texts:
 
 #### C03 — `Runtime Error: Positional arguments cannot follow named arguments.`
 
-- [ ] fixed and re-verified
+- [x] **fixed** (2026-05-17) — same root cause and fix as C01; see C01
+  section for details. All 6 tests passed in the post-fix regression run.
 
 | testID | Test name |
 |-------:|-----------|
@@ -296,7 +320,8 @@ Representative error texts:
 
 #### C19 — `Runtime Error: Positional arguments cannot follow named arguments.`
 
-- [ ] fixed and re-verified
+- [x] **fixed** (2026-05-17) — same root cause and fix as C01; see C01
+  section for details. Both tests passed in the post-fix regression run.
 
 | testID | Test name |
 |-------:|-----------|

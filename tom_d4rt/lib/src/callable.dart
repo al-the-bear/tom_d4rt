@@ -883,10 +883,11 @@ class InterpretedFunction implements Callable {
                     "Class '${ownerType?.name ?? '<unknown>'}' does not have a constructor named '$targetConstructorName' for redirection."); // Use ownerType?.name
               }
 
-              // Evaluate arguments for this(...) call
+              // Evaluate arguments for this(...) call.
+              // Dart 3 permits named arguments anywhere in the argument list,
+              // so we no longer enforce a "named must come last" ordering.
               final List<Object?> targetPositionalArgs = [];
               final Map<String, Object?> targetNamedArgs = {};
-              bool targetNamedArgsEncountered = false;
               for (final arg in initializer.argumentList.arguments) {
                 final argValue = arg.accept<Object?>(visitor);
                 if (argValue is AsyncSuspensionRequest) {
@@ -897,7 +898,6 @@ class InterpretedFunction implements Callable {
                 }
 
                 if (arg is NamedExpression) {
-                  targetNamedArgsEncountered = true;
                   final name = arg.name.label.name;
                   // Use already evaluated value
                   if (targetNamedArgs.containsKey(name)) {
@@ -906,10 +906,6 @@ class InterpretedFunction implements Callable {
                   }
                   targetNamedArgs[name] = argValue;
                 } else {
-                  if (targetNamedArgsEncountered) {
-                    throw RuntimeD4rtException(
-                        "Positional arguments cannot follow named arguments in this().");
-                  }
                   targetPositionalArgs
                       .add(argValue); // Use already evaluated value
                 }
@@ -3971,8 +3967,9 @@ class InterpretedFunction implements Callable {
       ) {
     final List<Object?> positionalArgs = [];
     final Map<String, Object?> namedArgs = {};
-    bool namedArgsEncountered = false;
 
+    // Dart 3 permits named arguments anywhere in the argument list, so we no
+    // longer enforce a "named must come last" ordering for $invocationType.
     for (final arg in argumentList.arguments) {
       // Evaluate argument, disallow await for now in constructor contexts
       final argValue = arg.accept<Object?>(visitor);
@@ -3982,7 +3979,6 @@ class InterpretedFunction implements Callable {
       }
 
       if (arg is NamedExpression) {
-        namedArgsEncountered = true;
         final name = arg.name.label.name;
         final value = arg.expression
             .accept<Object?>(visitor); // Evaluate the expression part
@@ -3998,10 +3994,6 @@ class InterpretedFunction implements Callable {
         }
         namedArgs[name] = value;
       } else {
-        if (namedArgsEncountered) {
-          throw RuntimeD4rtException(
-              "Positional arguments cannot follow named arguments in $invocationType.");
-        }
         positionalArgs.add(argValue);
         Logger.debug(
             " [_evalArgs] Evaluated POSITIONAL arg = $argValue (${argValue?.runtimeType})");
