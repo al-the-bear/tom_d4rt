@@ -47,6 +47,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U3 — Interpreted subclass of native abstract `Curve`: `transformInternal` override not routed through `Curve.transform`](#u3--interpreted-subclass-of-native-abstract-curve-transforminternal-override-not-routed-through-curvetransform-interpreter-limitation) | Interpreter limitation (adapter-proxy delegation gap). The native `Curve.transform(t)` template-methods through `Curve.transformInternal(t)`; for script-defined subclasses of `Curve`, the adapter proxy does not intercept the native call to `transformInternal` and route it back to the interpreted override, so `transform()` returns `null` to the bridge consumer. Downstream arithmetic on the null sample (`28.0 * s`, then `12.0 + …`) throws `Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`. Reproduces both const and non-const, so distinct from U1. Workaround: use a framework-provided `Curve` subclass (`FlippedCurve(Curves.easeInOut)`) instead of a script-defined `Curve` subclass. | `animation/animation_misc_adv_test.dart` (C10 closed 2026-05-17 — `_FlippedShim extends Curve`) |
 | [U4 — Standalone `'\n'` `TextSpan` between two styled siblings crashes the test-app transport](#u4--standalone-n-textspan-between-two-styled-siblings-crashes-the-test-app-transport-truly-unfixable) | Truly unfixable — Dart-VM-level crash inside the bridged render path; `Lost connection to device.` surfaces only as `Bad state: Transport failure while running …`. Trigger is specifically a child `TextSpan(text: '\n')` (literal newline, with or without `style`, with or without `const`) sitting between two other `TextSpan` siblings that each carry a non-null `style`, in the same parent `TextSpan.children` list (`RichText` / `Tooltip(richMessage:)` / `Text.rich(...)`). Both the `'\n'` character and the flanking pair of style-bearing siblings are necessary. Mandatory script-side workaround: append the `'\n'` to the preceding styled `TextSpan`'s `text` and drop the standalone newline child. | `material/tooltip_feedback_test.dart` (C15 closed 2026-05-17 — `_privateRichMessageExample` `RichText`) |
 | [U5 — Interpreted subclass of native abstract `NotchedShape` / `FloatingActionButtonLocation` rejected at the bridged-constructor boundary](#u5--interpreted-subclass-of-native-abstract-notchedshape--floatingactionbuttonlocation-rejected-at-the-bridged-constructor-boundary-interpreter-limitation) | Interpreter limitation (same adapter-proxy delegation gap as U3 for `Curve`). The bridge generator does not synthesise a proxy that recognises a script-defined `InterpretedInstance` as a valid native `NotchedShape` / `FloatingActionButtonLocation` argument, so `D4.getNamedArg<T>` rejects the value with `Argument Error: Invalid parameter "shape": expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)` (or the analogous `floatingActionButtonLocation` error). Workaround: use a framework-provided subclass (`CircularNotchedRectangle`, `AutomaticNotchedShape`; `FloatingActionButtonLocation.endFloat`, `.centerDocked`, …). | `material/bottom_app_bar_test.dart` (C16 closed 2026-05-17 — `_TopRoundedNotchedShape extends NotchedShape`, `_CustomFabLocation extends FloatingActionButtonLocation`) |
+| [U6 — Direct import of `package:vector_math/vector_math_64.dart` is not resolvable in d4rt scripts](#u6--direct-import-of-packagevector_mathvector_math_64dart-is-not-resolvable-in-d4rt-scripts-module-loader-limitation) | Module-loader / bundler limitation. The `vector_math` package is not in `bridgedLibraries` and not registered as an `explicitSources` entry for either driver, so the bundler (AST driver: `AstBundler._resolveImports`) and module loader (analyzer driver: `SourceCodeException: Module source not preloaded`) reject the import at bundle/load time even though Flutter bridges *consume* `Vector3` as a parameter type internally (`$vector_math_1.Vector3` is referenced throughout `painting_bridges.b.dart`). Workaround: drop the import; access `Matrix4.storage` (bridged, returns `Float64List`) and compute matrix·vector products inline. | `painting/matrixutils_test.dart` (C17 closed 2026-05-17 — `Vector3(40, 0, 0)` fed through `Matrix4.transform3`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -3143,7 +3144,130 @@ framework-provided subclass at the call site.
 
 ---
 
+## U6 — Direct import of `package:vector_math/vector_math_64.dart` is not resolvable in d4rt scripts (module-loader limitation)
+
+**Category.** Module-loader / bundler limitation. The `vector_math`
+package — a foundational dependency of `dart:ui` / Flutter
+rendering (the `Matrix4`, `Vector3`, `Vector4`, `Quaternion`
+geometry primitives) — is **not** in either driver's bridged-
+libraries set and is **not** registered as an `explicitSources`
+entry. Even though the generated bridges reference types from it
+internally (`$vector_math_1.Vector3` is used throughout
+`tom_d4rt_flutter_ast/lib/src/bridges/painting_bridges.b.dart` as
+the parameter type on dozens of `Matrix4` methods such as
+`translateByVector3`, `scaleByVector3`, `rotate`,
+`setFromTranslationRotation`, …), the library itself is opaque to
+the d4rt script bundler.
+
+**Reproducer.** Any d4rt script that imports `vector_math`
+directly:
+
+```dart
+import 'package:vector_math/vector_math_64.dart' show Vector3;
+
+Widget build(BuildContext context) {
+  final Vector3 v = Vector3(40.0, 0.0, 0.0);
+  // …
+}
+```
+
+Yields at bundle/load time, **before any interpreter code runs**:
+
+- **AST driver** (`tom_d4rt_flutter_ast` / `tom_ast_generator`):
+
+  ```text
+  Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart"
+  from main.dart: Package import "package:vector_math/vector_math_64.dart"
+  is not bridged and not in the same package. Either add it to
+  bridgedLibraries or provide it via explicitSources.
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 335:11
+    AstBundler._resolveImports
+  ```
+
+- **Analyzer driver** (`tom_d4rt_flutter_test` / `tom_d4rt`):
+
+  ```text
+  Runtime Error: Unexpected error: SourceCodeException: Module source
+  not preloaded for URI: package:vector_math/vector_math_64.dart, and
+  not …
+  ```
+
+Same root cause; the two drivers detect it at different layers of
+their respective load pipelines.
+
+**Constraints.**
+
+- Registering `vector_math` as a bridged library on either driver
+  would require generating a full `BridgedClass` set for the
+  package's public API (`Vector2`, `Vector3`, `Vector4`,
+  `Quaternion`, `Matrix2`, `Matrix3`, `Matrix4`, `Aabb2`, `Aabb3`,
+  `Frustum`, `Plane`, `Ray`, `Sphere`, `Triangle`, plus several
+  free functions). The Flutter painting/rendering bridges already
+  cover the `Matrix4` consumer-surface that scripts actually use,
+  so this would be a large amount of generation churn for a small
+  amount of new script-side capability.
+- Registering it as an `explicitSources` entry (load source as-is
+  and let the interpreter execute the `vector_math` library) is
+  technically possible but requires the interpreter to handle the
+  package's internal `Float64List`-backed math and its FFI/typed-
+  data path, which has not been validated and is out of scope for
+  a single cluster-by-cluster pass.
+
+**Script-side workaround (mandatory).** The Flutter bridges
+already expose `Matrix4.storage` as a `Float64List` getter. Drop
+the direct `vector_math_64` import and compute the same matrix·
+vector products inline. `Matrix4` is column-major, so for a
+4-vector `(x, y, z, 1)` the transformed components are:
+
+```dart
+// Matrix4.transform3((x, y, z)) for affine matrices (no perspective row):
+final List<double> s = m.storage;
+final double tx = s[0] * x + s[4] * y + s[8]  * z + s[12];
+final double ty = s[1] * x + s[5] * y + s[9]  * z + s[13];
+final double tz = s[2] * x + s[6] * y + s[10] * z + s[14];
+```
+
+If the script only needs the (x, y) component projected through a
+2D affine, `MatrixUtils.transformPoint(matrix, Offset)` is already
+bridged and is the recommended Flutter idiom anyway (it also
+handles the perspective-divide that `transform3` does not).
+
+**Diagnostic guidance.** Any script-side error mentioning
+`vector_math` (`vector_math_64.dart` is the explicit-precision
+variant; `vector_math.dart` is the SIMD-style variant — both fail
+the same way) at bundle or load time means the import has to come
+out. The replacement strategy depends on what the script was
+constructing:
+
+| Original use | Replacement |
+|--------------|-------------|
+| `Vector3(x, y, z)` + `Matrix4.transform3` | Inline column-major matrix·vector product over `Matrix4.storage` |
+| `Matrix4.transform3((x, y, 0))` for 2D | `MatrixUtils.transformPoint(matrix, Offset(x, y))` |
+| `Matrix4.getTranslation()` → `Vector3` reads | Read `Matrix4.storage[12..14]` directly |
+| `Quaternion` rotations | Use `Matrix4.rotationZ` / `Matrix4.rotationX` / `Matrix4.rotationY` on the Flutter side (these accept `double` radians, not `Quaternion`) |
+
+The script's class definitions (none in C17's case) remain
+unchanged; only the import and the runtime construction sites need
+rewriting.
+
+---
+
 ## Change Log
+
+- 2026-05-17: **Add U6 — Direct import of
+  `package:vector_math/vector_math_64.dart` is not resolvable in
+  d4rt scripts.** Documents the `testlog_20260517-0914` C17 cluster
+  (`painting/matrixutils_test.dart`,
+  `Vector3(40, 0, 0)` fed through `Matrix4.transform3`). Root
+  cause: `vector_math` is not in either driver's `bridgedLibraries`
+  / `explicitSources` set, so the bundler (AST) / module loader
+  (analyzer) reject the direct import at bundle/load time. Adding
+  it as a bridged library would require generating bridges for the
+  whole `vector_math` public API — out of scope for a single
+  cluster pass. Mandatory script-side workaround: drop the import
+  and compute matrix·vector products inline over `Matrix4.storage`
+  (bridged `Float64List`), or use `MatrixUtils.transformPoint` for
+  2D screen-space transforms.
 
 - 2026-05-17: **Add U5 — Interpreted subclass of native abstract
   `NotchedShape` / `FloatingActionButtonLocation` rejected at the

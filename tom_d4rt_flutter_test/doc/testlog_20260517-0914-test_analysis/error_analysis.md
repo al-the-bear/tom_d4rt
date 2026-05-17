@@ -50,7 +50,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☑ fixed (script) |
-| **C17** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not ` | ☐ |
+| **C17** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not ` | ☑ fixed (script) |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
@@ -969,11 +969,60 @@ Logs: `ztmp/c16_verify_ast_secondary.log.txt`,
 
 #### C17 — `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not `
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 82 | painting/ matrixutils_test.dart |
+
+**Root cause.** The script's
+`import 'package:vector_math/vector_math_64.dart' show Vector3;`
+directive fails import resolution. On the analyzer driver the
+`SourceCodeException: Module source not preloaded for URI:
+package:vector_math/vector_math_64.dart, and not …` error is the
+analyzer-driver equivalent of the AST driver's bundler error
+("Package import … is not bridged and not in the same package").
+`vector_math` is not registered as a bridged library and not
+preloaded as an explicit source.
+
+The only runtime use was `Matrix4.transform3(Vector3(40, 0, 0))`
+inside the raw-vs-MatrixUtils comparison section of
+`painting/matrixutils_test.dart`.
+
+**Fix.** Script-only. Scripts are shared via the corpus under
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/painting/matrixutils_test.dart`.
+Drop the direct `vector_math_64` import and replace the
+`Vector3`-construction + `transform3` call with an inline
+column-major matrix·vector product over the bridged
+`Matrix4.storage` `Float64List`:
+
+```dart
+final List<double> _mStore = mCompositeTRS.storage;
+final double _rawTransformedX = _mStore[0] * 40.0 + _mStore[12];
+final double _rawTransformedY = _mStore[1] * 40.0 + _mStore[13];
+final double _rawTransformedZ = _mStore[2] * 40.0 + _mStore[14];
+final Offset rawAsOffset = Offset(_rawTransformedX, _rawTransformedY);
+```
+
+For an affine `Matrix4` this matches `Matrix4.transform3((40,0,0))`
+exactly.
+
+Documented as U6 in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (direct import
+of `package:vector_math/vector_math_64.dart`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `painting/matrixutils_test.dart` | `+1` All tests passed |
+| flutter_test | `painting/matrixutils_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c17_verify_ast_secondary.log.txt`,
+`ztmp/c17_verify_analyzer_secondary.log.txt`.
 
 #### C18 — `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.`
 

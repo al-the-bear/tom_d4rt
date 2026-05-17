@@ -50,7 +50,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☑ fixed (script) |
-| **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☐ |
+| **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☑ fixed (script) |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
@@ -1037,11 +1037,91 @@ Logs: `ztmp/c16_verify_ast_secondary.log.txt`,
 
 #### C17 — `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 82 | painting/ matrixutils_test.dart |
+
+**Root cause.** The script directly imports
+`package:vector_math/vector_math_64.dart` (show `Vector3`) at the
+top of the file. The tom_ast_generator bundler's import resolver
+rejects the import outright:
+
+```text
+Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart"
+from main.dart: Package import "package:vector_math/vector_math_64.dart"
+is not bridged and not in the same package. Either add it to
+bridgedLibraries or provide it via explicitSources.
+package:tom_ast_generator/src/bundler/ast_bundler.dart 335:11
+  AstBundler._resolveImports
+```
+
+`vector_math` is not in the d4rt module loader's `bridgedLibraries`
+set and not registered as an `explicitSources` entry. The Flutter
+material/painting bridges *consume* `Vector3` as a parameter type
+in many `Matrix4` methods (the generated bridge file references
+`$vector_math_1.Vector3` throughout `painting_bridges.b.dart`), but
+the d4rt bundler treats the `vector_math` library itself as an
+opaque, non-bridged package and refuses to resolve the import
+statement at bundle time. This trips before any interpreter code
+runs.
+
+The analyzer-driver path emits the equivalent error at module-load
+time (`Module source not preloaded for URI:
+package:vector_math/vector_math_64.dart`).
+
+The only runtime use of the imported `Vector3` in the script was
+inside the "Section: raw vs MatrixUtils comparison" block:
+
+```dart
+final Vector3 rawV = Vector3(40.0, 0.0, 0.0);
+final Vector3 rawTransformed = mCompositeTRS.transform3(rawV.clone());
+final Offset rawAsOffset = Offset(rawTransformed.x, rawTransformed.y);
+```
+
+**Fix.** Script-only. Two changes in
+`painting/matrixutils_test.dart`:
+
+1. Drop the `import 'package:vector_math/vector_math_64.dart' show Vector3;`
+   directive (left a `// C17 workaround` comment in its place).
+2. Replace `Matrix4.transform3(Vector3(40, 0, 0))` with an inline
+   column-major matrix·vector product over `Matrix4.storage`
+   (bridged via the painting library, returns a `Float64List`):
+
+   ```dart
+   final List<double> _mStore = mCompositeTRS.storage;
+   final double _rawTransformedX = _mStore[0] * 40.0 + _mStore[12];
+   final double _rawTransformedY = _mStore[1] * 40.0 + _mStore[13];
+   final double _rawTransformedZ = _mStore[2] * 40.0 + _mStore[14];
+   final Offset rawAsOffset = Offset(_rawTransformedX, _rawTransformedY);
+   ```
+
+   For the input `(40, 0, 0, 1)` this equals exactly what
+   `Matrix4.transform3` would return for affine matrices (no
+   perspective row), which is what the visual section compares
+   against `MatrixUtils.transformPoint`. The displayed
+   `'Matrix4.transform3 -> Vector3(x, y, z)'` text was updated to
+   read the same three local doubles.
+
+The underlying interpreter/bundler limitation and the matrix-
+storage workaround are documented in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (U6 — direct
+import of `package:vector_math/vector_math_64.dart`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `painting/matrixutils_test.dart` | `+1` All tests passed |
+| flutter_test | `painting/matrixutils_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c17_verify_ast_secondary.log.txt`,
+`ztmp/c17_verify_analyzer_secondary.log.txt`. Repro log:
+`ztmp/c17_repro_ast.log.txt`.
 
 #### C18 — `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.`
 
