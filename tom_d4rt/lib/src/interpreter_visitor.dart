@@ -3154,6 +3154,46 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e");
           }
         } else {
+          // C13 follow-up: before falling back to extensions, try a getter
+          // with the same name. Dart allows `obj.foo()` where `foo` is a
+          // getter returning a callable value (e.g. dart:foundation
+          // Factory<T>.constructor returns ValueGetter<T>); the call-site
+          // expects getter+invoke semantics, not method-not-found.
+          final getterAdapter =
+              bridgedClass.findInstanceGetterAdapter(methodName);
+          if (getterAdapter != null) {
+            final getterValue = D4.withActiveVisitor<Object?>(
+              this,
+              () => getterAdapter(this, bridgedInstance.nativeObject),
+            );
+            if (getterValue is Callable || getterValue is Function) {
+              final evaluationResult =
+                  _evaluateArgumentsAsync(node.argumentList);
+              if (evaluationResult is AsyncSuspensionRequest) {
+                return evaluationResult;
+              }
+              final (positionalArgs, namedArgs) =
+                  evaluationResult as (List<Object?>, Map<String, Object?>);
+              if (getterValue is Callable) {
+                return getterValue.call(this, positionalArgs, namedArgs);
+              }
+              final symbolNamed = namedArgs.isEmpty
+                  ? const <Symbol, Object?>{}
+                  : namedArgs
+                      .map<Symbol, Object?>((k, v) => MapEntry(Symbol(k), v));
+              try {
+                return Function.apply(
+                  getterValue as Function,
+                  positionalArgs,
+                  symbolNamed,
+                );
+              } on ReturnException catch (e) {
+                return e.value;
+              }
+            }
+            // Getter returned a non-callable — fall through to the
+            // "not a method" error path below for a clear message.
+          }
           // No adapter found for this method name, try extension methods
           Logger.debug(
               "[visitMethodInvocation] Bridged method '$methodName' not found directly for ${bridgedClass.name}. Trying extensions.");
@@ -5605,6 +5645,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           currentValue = indexTarget[indexValue];
         } else if (indexTarget is Map) {
           currentValue = indexTarget[indexValue];
+        } else if (toBridgedInstance(indexTarget).$2) {
+          // C13: bridged operator[] for compound assignment in cascade
+          // (e.g. dart:foundation BitField<T>).
+          final bridgedInstance = toBridgedInstance(indexTarget).$1!;
+          final getAdapter = bridgedInstance.bridgedClass
+              .findInstanceMethodAdapter('[]');
+          if (getAdapter == null) {
+            throw RuntimeD4rtException(
+                "No operator '[]' on ${bridgedInstance.bridgedClass.name} "
+                "for compound index assignment in cascade.");
+          }
+          currentValue = getAdapter(
+            this,
+            bridgedInstance.nativeObject,
+            [indexValue],
+            {},
+            null,
+          );
         } else {
           throw RuntimeD4rtException(
               "Compound index assignment target must be List or Map in cascade.");
@@ -5622,6 +5680,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         indexTarget[indexValue] = newValue;
       } else if (indexTarget is Map) {
         indexTarget[indexValue] = newValue;
+      } else if (toBridgedInstance(indexTarget).$2) {
+        // C13: bridged operator[]= in cascade (e.g. dart:foundation
+        // BitField<T> used via `..[key] = value`).
+        final bridgedInstance = toBridgedInstance(indexTarget).$1!;
+        final setAdapter = bridgedInstance.bridgedClass
+            .findInstanceMethodAdapter('[]=');
+        if (setAdapter == null) {
+          throw RuntimeD4rtException(
+              "No operator '[]=' on ${bridgedInstance.bridgedClass.name} "
+              "for index assignment in cascade.");
+        }
+        setAdapter(
+          this,
+          bridgedInstance.nativeObject,
+          [indexValue, newValue],
+          {},
+          null,
+        );
       } else {
         throw RuntimeD4rtException(
             "Index assignment target must be List or Map in cascade.");
