@@ -860,9 +860,24 @@ Widget _customCurves() {
       'FlippedCurve(easeIn)',
       FlippedCurve(Curves.easeIn),
     ),
-    const MapEntry<String, Curve>(
-      'Curves.easeInOut.flipped',
-      _FlippedShim(),
+    // 'Curves.easeInOut.flipped' specimen replaced by FlippedCurve below
+    // — see C10 / U3 in
+    // tom_d4rt_flutter_ast/doc/interpreter_unfixable.md: a script-side
+    // subclass of the native abstract Curve (the `_FlippedShim` defined
+    // further down) reaches its override of `transformInternal`
+    // correctly when called directly, but the native chain
+    // `Curve.transform(t) → Curve.transformInternal(t)` does not route
+    // back to the interpreted override through the adapter proxy, so
+    // `transform()` returns `null` to the bridge consumer. The null
+    // propagates into the strip rendering's `12.0 + (28.0 * s)` and
+    // surfaces as `Null is not a subtype of num`. Both const and
+    // non-const construction reproduce the failure; the gap is in the
+    // proxy's `transform → transformInternal` delegation, not in const
+    // evaluation. Use the framework's own `FlippedCurve(...)` (which is
+    // listed two entries up) as the documentation-equivalent specimen.
+    MapEntry<String, Curve>(
+      'FlippedCurve(easeInOut) [native]',
+      FlippedCurve(Curves.easeInOut),
     ),
   ];
 
@@ -908,7 +923,15 @@ Widget _customCurves() {
   );
 }
 
-// Light shim so we can reference the catalog item; flipped is a getter on Curves entries.
+// Light shim retained as documentation of the user-extension pattern.
+// Not used as a catalog specimen — see C10 / U3 in
+// tom_d4rt_flutter_ast/doc/interpreter_unfixable.md: the native chain
+// Curve.transform → Curve.transformInternal does not route back to the
+// interpreted override through the adapter proxy, so `transform()`
+// returns `null` to bridge consumers. The class is referenced via a
+// type-only `ignore: unused_element` so analyzer warnings do not mask
+// the rest of the file.
+// ignore: unused_element
 class _FlippedShim extends Curve {
   const _FlippedShim();
   @override

@@ -43,7 +43,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☑ fixed |
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☑ fixed |
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☑ fixed |
-| **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☐ |
+| **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☑ fixed |
 | **C11** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☐ |
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☐ |
@@ -529,11 +529,67 @@ Representative error texts:
 
 #### C10 — `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 8 | animation/ animation_misc_adv_test.dart |
+
+**Root cause.** Interpreter / adapter-proxy delegation gap, not an
+arithmetic bug at the failure site. The script's curves catalog
+included a specimen `class _FlippedShim extends Curve` that
+overrode `transformInternal(double t)` (the framework's standard
+extension hook). Native `Curve.transform(double t)` is a
+template-method that validates `t ∈ [0, 1]`, handles the edges,
+and delegates the interior to `transformInternal(t)`. For a
+script-defined subclass of the native abstract `Curve`, the
+adapter proxy does **not** override `transformInternal` natively
+to route back to the interpreted method via
+`InterpretedInstance.invoke`, so the framework's template method
+calls the proxy's abstract `transformInternal` and `transform()`
+returns `null` through the bridge. The null sample then enters
+`_curveStrip` as `final double s = curve.transform(i / (steps - 1))`
+(original line ~278) and the next downstream
+`height: 12.0 + (28.0 * s)` (original line ~281) throws
+`Native error during bridged operator '+' on double: type 'Null'
+is not a subtype of type 'num' in type cast`. Bisection confirmed
+the failure reproduces identically whether `_FlippedShim()` is
+constructed as a top-level `const` or as a non-const local, which
+rules out U1 (top-level const of interpreted-subclass-of-native
+crashing the test-app transport). The full mechanism and the
+proxy-generator fix sketch are catalogued as **U3** in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`.
+
+**Fix (script-only, rule a).** Replaced the catalog specimen in
+the shared corpus file
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/animation/animation_misc_adv_test.dart`
+(original `_customCurves` list, lines ~863–866):
+
+```dart
+// Don't (bridged `transform()` returns null):
+const MapEntry<String, Curve>(
+  'Curves.easeInOut.flipped',
+  _FlippedShim(),
+),
+
+// Do — use the framework's native FlippedCurve:
+MapEntry<String, Curve>(
+  'FlippedCurve(easeInOut) [native]',
+  FlippedCurve(Curves.easeInOut),
+),
+```
+
+The `_FlippedShim` class declaration (lines ~911–935) is retained
+as documentation of the user-extension pattern with a multi-line
+explanatory comment and `// ignore: unused_element` so the
+analyzer doesn't warn. No interpreter, generator, or `.b.dart`
+change.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus; single-test verification on both drivers
+(flutter_ast `00:15 +1: All tests passed!`, flutter_test
+`00:15 +1: All tests passed!`). Logs in
+`ztmp/c10_ast_fixed.log.txt` and `ztmp/c10_test_fixed.log.txt`.
 
 #### C11 — `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.`
 

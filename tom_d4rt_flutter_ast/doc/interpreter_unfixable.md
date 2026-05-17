@@ -44,6 +44,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [S1 — `const Stream<T>.empty()` rejected by `Stream` bridge](#s1--const-streamtempty-rejected-by-stream-bridge-interpreter-limitation) | Interpreter limitation (the stdlib `Stream` `BridgedClass` registers `empty`/`value`/`fromIterable`/etc. under `staticMethods:` and leaves `constructors: {}`. `MethodInvocation`-shaped calls — `Stream.empty()` — fall through to `staticMethods` and succeed; `InstanceCreationExpression`-shaped calls — `const Stream<int>.empty()` — go through `findConstructorAdapter` only and never see the static-method registration, so the lookup throws `Bridged class 'Stream' does not have a registered constructor named 'empty'`). Script-side workaround: drop `const`, drop the explicit type-arg, and call as a method invocation (`Stream<int>.empty()` or `Stream.fromIterable(const <int>[])`), or hold the stream in a non-const `final` so the parser keeps the call as `MethodInvocation`. | `widgets/streambuilder_test.dart` (Section 6 — `stream: const Stream<int>.empty()`) |
 | [U1 — Demo-scale renderings that overload the test-app transport](#u1--demo-scale-renderings-that-overload-the-test-app-transport-interpreter-limitation) | Interpreter limitation, two sub-cases. (1) Top-level `const` of an interpreted subclass of a *native* abstract class (here `extends Notification`) exercises the adapter-proxy infrastructure before the visitor has wired its context, and crashes the test-app transport (`Lost connection to device`, no stderr). (2) `SelectableText.rich(TextSpan(children: spans))` with ~1000+ TextSpans (built per-character by an interpreted Dart colorizer from a ~1.8 KB code listing) exceeds the test-app per-frame transport budget and the device disconnects. Workaround: keep the displayed values as top-level `const` primitives (no native-abstract subclass), and render long code listings (>≈500 chars / >≈22 lines) through a sibling helper that wraps a single plain monospace `Text` instead of the per-char colorizer + `SelectableText.rich`. | `widgets/notificationlistener_test.dart` (C05 closed 2026-05-17) |
 | [U2 — Non-wrappable arithmetic defaults on positional-only native constructors](#u2--non-wrappable-arithmetic-defaults-on-positional-only-native-constructors-generator-limitation) | Generator limitation. `BridgeGenerator._wrapDefaultValue` returns `null` for any default expression containing an operator (e.g. `double endAngle = math.pi * 2`), so the generated bridge emits `D4.getRequiredArgTodoDefault<…>(…, 'math.pi * 2')` which throws `Argument Error: <Class>: Parameter "<name>" has non-wrappable default …` when the argument is omitted. For purely-positional native constructors (`dart:ui` `Gradient.sweep`, `Gradient.radial`, …) the script cannot use named-arg form to skip earlier optional positionals, so any default expression with an operator anywhere in the positional list becomes mandatory at every call site beyond that index. Workaround: at every call site, supply *all* preceding optional positionals up to and including the offending one (use the framework's documented default value literally, e.g. `math.pi * 2.0`). | `rendering/gradient_rendering_test.dart` (C09 closed 2026-05-17 — `ui.Gradient.sweep` `endAngle = math.pi * 2`) |
+| [U3 — Interpreted subclass of native abstract `Curve`: `transformInternal` override not routed through `Curve.transform`](#u3--interpreted-subclass-of-native-abstract-curve-transforminternal-override-not-routed-through-curvetransform-interpreter-limitation) | Interpreter limitation (adapter-proxy delegation gap). The native `Curve.transform(t)` template-methods through `Curve.transformInternal(t)`; for script-defined subclasses of `Curve`, the adapter proxy does not intercept the native call to `transformInternal` and route it back to the interpreted override, so `transform()` returns `null` to the bridge consumer. Downstream arithmetic on the null sample (`28.0 * s`, then `12.0 + …`) throws `Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`. Reproduces both const and non-const, so distinct from U1. Workaround: use a framework-provided `Curve` subclass (`FlippedCurve(Curves.easeInOut)`) instead of a script-defined `Curve` subclass. | `animation/animation_misc_adv_test.dart` (C10 closed 2026-05-17 — `_FlippedShim extends Curve`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2749,8 +2750,183 @@ would catch regressions if the operator list ever grows.
 
 ---
 
+## U3 — Interpreted subclass of native abstract `Curve`: `transformInternal` override not routed through `Curve.transform` (interpreter limitation)
+
+### Symptom
+
+A D4rt-script-defined subclass of the native abstract
+`flutter/animation` `Curve` class — overriding `transformInternal(double t)`
+as the framework expects — returns `null` from `curve.transform(t)`
+when invoked through the bridge. Downstream arithmetic on the null
+sample then throws:
+
+```
+Runtime Error: Native error during bridged operator '+' on double:
+type 'Null' is not a subtype of type 'num' in type cast
+```
+
+The stack trace bottoms out in `visitBinaryExpression` at the
+`12.0 + (28.0 * s)` site (where `s = curve.transform(i / (steps - 1))`),
+two `_processCollectionElement` frames deep inside the for-element
+that builds the curve-strip's sample bars.
+
+Reproduced in `testlog_20260517-0914` C10 on both drivers
+(`tom_d4rt_flutter_ast`, `tom_d4rt_flutter_test`) for
+`animation/animation_misc_adv_test.dart` with the catalog specimen
+`_FlippedShim extends Curve` (overriding `transformInternal` to flip
+`Curves.easeInOut`).
+
+### Root cause
+
+Native `Curve.transform(double t)` is a *template method*: it
+validates `t ∈ [0, 1]`, handles the `t == 0` / `t == 1` edges, and
+delegates the interior to `transformInternal(t)`. Subclasses are
+expected to override `transformInternal`, not `transform`.
+
+When a D4rt script declares `class _FlippedShim extends Curve` and
+implements only `transformInternal`, the adapter-proxy
+infrastructure builds a `_InterpretedCurve` native shim that holds
+the `InterpretedInstance`. A bridge consumer that calls
+`curve.transform(t)` invokes the *native* `Curve.transform`
+implementation on the proxy, which then calls `this.transformInternal(t)`
+on the proxy itself — but the proxy does not override
+`transformInternal` to route back to the interpreted method. The
+native `Curve.transformInternal` is abstract; on the proxy it
+either resolves to `null` (effectively returning the missing
+implementation as null through the bridge) or to a default that
+yields null in the consumer's `num` arithmetic.
+
+The net effect: the interpreted `transformInternal` override is
+never called by the framework's own `transform` template, so the
+sample returns null, and the next bridged `*` / `+` on a `double`
+rejects the null right-hand operand with the cast error above.
+
+The failure reproduces identically whether `_FlippedShim()` is
+constructed as a top-level `const` or as a non-const local — so this
+is **not** the same bug as U1 (top-level `const` of an interpreted
+subclass crashing the test-app transport before the visitor is
+wired). U1 is a transport/lifecycle crash; U3 is a steady-state
+delegation gap that surfaces only when the native template method
+calls back into a method the script overrides.
+
+### Why this is an interpreter / generator limitation rather than "truly unfixable"
+
+The adapter-proxy / bridge generator could synthesise a
+`transformInternal` override on the native `_InterpretedCurve`
+proxy that calls `InterpretedInstance.invoke('transformInternal', [t])`
+on the held interpreted instance. The same pattern already exists
+for `State.build`, `StatelessWidget.build`, and several other
+abstract-method template-method pairs; `Curve.transformInternal` is
+just another case of the same shape.
+
+The general fix is to identify *every* template-method/abstract-hook
+pair in framework abstract classes the script can subclass (Curve →
+transformInternal, ScrollPhysics → applyPhysicsToUserOffset, …) and
+have the proxy generator emit native overrides that route back to
+the interpreted instance.
+
+Neither variant is in scope for the C10 cluster — touching the
+proxy generator would put dozens of `.b.dart` files in the diff and
+risks regressing the existing `State` / `StatelessWidget`
+adapter-proxy paths.
+
+### Workaround
+
+Use a framework-provided `Curve` subclass instead of a
+script-defined one. The script's catalog specimen needs only to
+*display* a curve named "flipped easeInOut", which `FlippedCurve`
+(in `flutter/animation`) implements natively:
+
+```dart
+// Don't (compiles, but bridged `transform()` returns null):
+const MapEntry<String, Curve>(
+  'Curves.easeInOut.flipped',
+  _FlippedShim(),
+),
+// where:
+class _FlippedShim extends Curve {
+  const _FlippedShim();
+  @override
+  double transformInternal(double t) {
+    final double v = Curves.easeInOut.transform(1.0 - t);
+    return 1.0 - v;
+  }
+}
+
+// Do — use the framework's `FlippedCurve`:
+MapEntry<String, Curve>(
+  'FlippedCurve(easeInOut) [native]',
+  FlippedCurve(Curves.easeInOut),
+),
+```
+
+The catalog still demonstrates the "flipped" curve shape; the
+sampling now goes through `FlippedCurve.transformInternal`, which
+is real native Dart and runs identically to a hand-rolled flip.
+
+The `_FlippedShim` class itself can be kept in the script as
+documentation of the user-extension pattern, annotated with
+`// ignore: unused_element` so the analyzer does not warn.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `animation/animation_misc_adv_test.dart` | 1 (`_customCurves` specimens list, original lines 863–866; specimen class `_FlippedShim` at original lines 911–935) | Replaced specimen with `MapEntry<String, Curve>('FlippedCurve(easeInOut) [native]', FlippedCurve(Curves.easeInOut))`. `_FlippedShim` class retained for documentation with `// ignore: unused_element`. C10 closed 2026-05-17 on both drivers. |
+
+### What a real fix would look like
+
+In `tom_d4rt_generator/lib/src/proxy_generator.dart`: when
+generating the native proxy class for an abstract framework class
+that follows the template-method pattern (public method calls a
+hookable protected/abstract method), emit native overrides on the
+proxy for the hookable method(s) that delegate to
+`interpretedInstance.invoke(hookName, args)`. Concretely for `Curve`:
+
+```dart
+class _InterpretedCurve extends Curve {
+  _InterpretedCurve(this.interpretedInstance);
+  final InterpretedInstance interpretedInstance;
+  @override
+  double transformInternal(double t) {
+    return interpretedInstance
+        .invoke('transformInternal', <Object?>[t]) as double;
+  }
+}
+```
+
+A test fixture exercising
+`class MyCurve extends Curve { @override double transformInternal(double t) => 1 - t; }`
+sampled through `MyCurve().transform(0.25)` would catch regressions
+across this whole family.
+
+---
+
 ## Change Log
 
+- 2026-05-17: **Add U3 — Interpreted subclass of native abstract
+  `Curve`: `transformInternal` override not routed through
+  `Curve.transform`.** Documents the `testlog_20260517-0914` C10
+  cluster (`animation/animation_misc_adv_test.dart`, `_FlippedShim
+  extends Curve` returning `null` from bridged `transform()` and
+  the resulting `Native error during bridged operator '+' on
+  double: type 'Null' is not a subtype of type 'num' in type cast`
+  in `12.0 + (28.0 * s)`). Root cause: the adapter-proxy for a
+  script-defined `Curve` subclass does not synthesise a native
+  `transformInternal` override that routes the framework's
+  template-method `Curve.transform(t)` call back into the
+  interpreted method via `InterpretedInstance.invoke`. Distinct
+  from U1: reproduces both const and non-const, and is a
+  steady-state delegation gap rather than a startup transport
+  crash. Workaround applied script-side: replace the catalog
+  specimen with the framework-provided
+  `FlippedCurve(Curves.easeInOut)` and retain the `_FlippedShim`
+  class as documentation with `// ignore: unused_element`. C10
+  closes on both drivers 2026-05-17. Long-term fix sketched:
+  proxy-generator emits native `transformInternal` override that
+  delegates to `interpretedInstance.invoke('transformInternal',
+  [t])`; same shape applies to other template-method/hook pairs
+  (`ScrollPhysics.applyPhysicsToUserOffset`, …).
 - 2026-05-17: **Add U2 — Non-wrappable arithmetic defaults on
   positional-only native constructors.** Documents the
   `testlog_20260517-0914` C09 cluster
