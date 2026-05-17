@@ -57,7 +57,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☑ fixed (script) |
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (script) |
 | **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☑ fixed (script) |
-| **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☐ |
+| **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☑ fixed (script) |
 | **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☐ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☐ |
@@ -1442,11 +1442,51 @@ Logs: `ztmp/c23_verify_ast.log.txt`,
 
 #### C24 — `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — script-only change
 
 | testID | Test name |
 |-------:|-----------|
 | 161 | widgets/ restoration_adv_test.dart |
+
+**Root cause.** The script's top-level `build()` instantiates a
+batch of `RestorableInt/Double/String/Bool/DateTime` properties
+inline, then reads `.value` on each one to interpolate it into a
+log line. `RestorableValue<T>.value` asserts `isRegistered` at
+`package:flutter/src/widgets/restoration_properties.dart:85`,
+which is a debug-mode assertion that `flutter test` always
+exercises. The only legal way to register a Restorable is via
+`RestorationMixin.registerForRestoration(...)`, which requires a
+host `StatefulWidget` subclass — the script corpus rejects custom
+`State` subclasses, so registration cannot happen here.
+
+**Fix.** Pure script-side change in
+`widgets/restoration_adv_test.dart`. Shadow each restorable with a
+plain Dart variable holding the construction-time default
+(`riValue = 42`, `rdValue = 3.14159`, `rsValue = 'Tom'`,
+`rbValue = true`, `rdtValue = DateTime(2026, 5, 11)`) and read the
+shadow in the print interpolations instead of `.value`. The
+restorable instances themselves remain in scope and are still
+printed via `$ri / $rd / …`, preserving the original log shape.
+This is functionally exact because the script never reassigns
+`.value` anywhere — confirmed by `grep 'r[a-z]*\.value\s*='` over
+the script returning zero matches.
+
+**Underlying limitation.** Documented as `U8(2)` in
+`interpreter_unfixable.md` — script-side Restorable* reads outside
+a real `RestorationMixin` host always trip the `isRegistered`
+assertion. The shadow-variable pattern is the canonical
+work-around when `.value` is only read.
+
+**Regression scope.** Script-only change, no interpreter or
+bridge code touched. Single-test retest on both drivers is
+sufficient per the regression rules.
+
+**Verification.** AST driver: `flutter test secondary --plain-name
+"restoration_adv_test.dart"` → 1/0/0 (log
+`ztmp/c24_verify_ast.log.txt`). Analyzer driver: same command in
+`tom_d4rt_flutter_test` → 1/0/0 (log
+`ztmp/c24_verify_analyzer.log.txt`). Repro log:
+`ztmp/c24_repro_ast.log.txt`.
 
 #### C25 — `Null check operator used on a null value`
 
