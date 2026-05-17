@@ -58,7 +58,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (script) |
 | **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☑ fixed (script) |
 | **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☑ fixed (script) |
-| **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☐ |
+| **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☑ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☐ |
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☐ |
@@ -1490,11 +1490,53 @@ sufficient per the regression rules.
 
 #### C25 — `Null check operator used on a null value`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — script-only change
 
 | testID | Test name |
 |-------:|-----------|
 | 170 | cupertino/ individual cupertino_page_test.dart |
+
+**Root cause.** The script's top-level `build()` constructed a
+plain `CupertinoPageRoute<dynamic>` named `routeBasic` and then
+read `routeBasic.popGestureEnabled` to interpolate it into a log
+line. `ModalRoute.popGestureEnabled`
+(`package:flutter/src/widgets/routes.dart:1930`) dereferences
+`animation!.isCompleted`, but `animation` is only set when the
+route has been pushed onto a `Navigator`. The route was
+constructed standalone for documentation purposes — never pushed
+— so `animation` was null and the null-check assertion fired.
+Stack trace confirmed via `c25_diag_test.dart` dump:
+`ModalRoute.popGestureEnabled → PageRoute.popGestureEnabled →
+_createCupertinoPageRouteBridge.<closure>`.
+
+**Fix.** Pure script-side change in
+`cupertino/cupertino_page_test.dart`. Replace the
+`${routeBasic.popGestureEnabled}` interpolation with a static
+descriptive string `(requires attached Navigator)`. The route is
+documented as supporting the swipe-to-pop gesture; the actual
+boolean is a runtime navigator-attached value that has no defined
+answer for a detached route. A NOTE comment is added explaining
+why `popGestureEnabled` cannot be read here.
+
+**Underlying limitation.** None — this is standard Flutter
+contract: `ModalRoute.popGestureEnabled` requires
+`route.animation` to be non-null, which only happens after the
+route is pushed onto a Navigator. The script corpus rejects
+custom `Navigator` setups, so navigator-attached getters cannot
+be exercised. Other navigator-attached getters
+(`isFirst`, `isActive`, `isCurrent`) would fail the same way and
+should be avoided in scripts.
+
+**Regression scope.** Script-only change, no interpreter or
+bridge code touched. Single-test retest on both drivers is
+sufficient per the regression rules.
+
+**Verification.** AST driver: `flutter test secondary --plain-name
+"cupertino_page_test.dart"` → 1/0/0 (log
+`ztmp/c25_verify_ast.log.txt`). Analyzer driver: same command in
+`tom_d4rt_flutter_test` → 1/0/0 (log
+`ztmp/c25_verify_analyzer.log.txt`). Repro log:
+`ztmp/c25_repro_ast.log.txt`.
 
 #### C26 — `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.`
 
