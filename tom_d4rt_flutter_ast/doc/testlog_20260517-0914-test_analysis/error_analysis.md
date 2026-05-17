@@ -47,7 +47,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C11** | `secondary_classes_test.dart` | 1 | `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☑ fixed |
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
-| **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☐ |
+| **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
 | **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☐ |
@@ -820,11 +820,54 @@ regressions on either driver.
 
 #### C14 — `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.`
 
-- [ ] fixed and re-verified
+- [x] **fixed and re-verified** (2026-05-17) — script-only change
 
 | testID | Test name |
 |-------:|-----------|
 | 37 | gestures/ tap_force_test.dart |
+
+**Root cause.** Not a d4rt bug. The script's "all callbacks wired"
+demonstration constructed a single `GestureDetector` with both pan
+and scale callback families:
+
+```dart
+GestureDetector(
+  onTapDown: …, onTapUp: …,
+  onLongPressStart: …, onLongPressMoveUpdate: …, onLongPressEnd: …,
+  onForcePressStart: …, onForcePressEnd: …,
+  onForcePressUpdate: …, onForcePressPeak: …,
+  onPanDown: …, onPanStart: …, onPanUpdate: …, onPanEnd: …,
+  onScaleStart: …, onScaleUpdate: …, onScaleEnd: …,
+  …
+)
+```
+
+Flutter's `GestureDetector._debugCheckGestureArguments` asserts that
+pan and scale are mutually exclusive on the same detector — scale
+subsumes pan (1-pointer scale = pan). The assertion throws
+`Incorrect GestureDetector arguments` regardless of whether the
+constructor is invoked from native Dart or via the d4rt bridge.
+
+**Fix.** Script-only. Dropped the `onPanDown` / `onPanStart` /
+`onPanUpdate` / `onPanEnd` arguments from the wired `GestureDetector`
+(scale is the superset) and updated the comment + `Text` label to
+reflect the change. The pan closure declarations (`onDragDown`, …)
+are left in place above so the typed-wiring catalogue is still
+exercised at parse time — they're already printed via
+`onDragDown.runtimeType`.
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test rerun
+on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `gestures/tap_force_test.dart` | `+1` All tests passed |
+| flutter_test | `gestures/tap_force_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c14_ast_single.log.txt`,
+`ztmp/c14_test_single.log.txt`.
 
 #### C15 — `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`
 
