@@ -46,7 +46,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☑ fixed |
 | **C11** | `secondary_classes_test.dart` | 1 | `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☑ fixed |
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed |
-| **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☐ |
+| **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☐ |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
@@ -738,11 +738,85 @@ regressions on either driver.
 
 #### C13 — `Runtime Error: Index assignment target must be List or Map in cascade.`
 
-- [ ] fixed and re-verified
+- [x] **fixed and re-verified** (2026-05-17)
 
 | testID | Test name |
 |-------:|-----------|
 | 33 | foundation/ foundation_misc_adv_test.dart |
+
+**Root cause.** `foundation_misc_adv_test.dart` exercises the
+`dart:foundation` `BitField<T>` API with a cascade `[]=` write:
+
+```dart
+final BitField<TargetPlatform> bf =
+    BitField<TargetPlatform>(TargetPlatform.values.length)
+      ..[TargetPlatform.android] = true
+      ..[TargetPlatform.iOS] = true;
+```
+
+`_executeCascadeAssignment`'s `SIndexExpression` branch only knew how
+to write to `List` or `Map`. When the resolved `indexTarget` was a
+`BridgedInstance` of `BitField`, it took the catch-all `else` and
+threw "Index assignment target must be List or Map in cascade." —
+even though the non-cascade `[]=` handler (used for
+`bf[android] = true` written non-cascade) already dispatches via
+`bridgedClass.findInstanceMethodAdapter('[]=')`.
+
+Once that was fixed the script hit a follow-up: `Bridged class
+'Factory' has no instance method named 'constructor'.` `Factory<T>`
+exposes `constructor` as a getter returning `ValueGetter<T>` (a
+function); the script calls it with `stringFactory.constructor()`.
+`visitMethodInvocation` looked up an instance method named
+`constructor`, found none, then went straight to extension lookup
+and threw. It never tried the getter — even though the Dart semantics
+for `obj.foo()` are "if there is a method `foo`, call it; otherwise
+if there is a getter `foo`, get the value and invoke it."
+
+**Fix.** Two surgical changes, both mirrored across
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` and
+`tom_d4rt/lib/src/interpreter_visitor.dart`:
+
+1. In `_executeCascadeAssignment`'s `SIndexExpression` branch
+   (compound + plain `=` paths), dispatch to the bridged
+   `findInstanceMethodAdapter('[]')` / `findInstanceMethodAdapter('[]=')`
+   when `indexTarget` is a `BridgedInstance`. The "must be List or
+   Map" error becomes a final fallback only when no adapter exists.
+
+2. In `visitMethodInvocation`'s bridged-method branch, before the
+   extension-method fallback, try
+   `bridgedClass.findInstanceGetterAdapter(methodName)`. If the
+   getter returns a `Callable` or `Function`, evaluate the argument
+   list and invoke the callable; otherwise fall through to the
+   existing "no such method" path. This is local to the bridged
+   branch — `InterpretedClass`/`InterpretedInstance` already had
+   the right semantics.
+
+No bridge or generator change.
+
+**Regression scope (rule b: interpreter change, both drivers).**
+
+flutter_ast:
+
+| suite | baseline (post-C12) | post-C13 | notes |
+|-------|---------------------|----------|-------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | matches |
+| essential | `+108` | `+108` | clean |
+| important | `+164` | `+164` | clean |
+| secondary | `+635 ~1 -18` | `+636 ~1 -17` | C13 fixed; no regressions |
+
+flutter_test (analyzer driver, picks up the `tom_d4rt` mirror via the
+path override in `tom_d4rt_flutter_test/pubspec_overrides.yaml`):
+
+| suite | baseline (post-C12) | post-C13 | notes |
+|-------|---------------------|----------|-------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | matches |
+| essential | `+108` | `+108` | clean |
+| important | `+164` | `+164` | clean |
+| secondary | `+634 ~1 -19` | `+635 ~1 -18` | C13 fixed; no regressions |
+
+Logs: `ztmp/c13_ast_{gii,essential,important,secondary}.log.txt`,
+`ztmp/c13_test_{gii,essential,important,secondary}.log.txt`. No new
+regressions on either driver.
 
 #### C14 — `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.`
 
