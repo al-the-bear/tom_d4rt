@@ -1282,9 +1282,19 @@ class D4 {
       // Check if T is "SomeType?" and unwrapped is "SomeType"
       if (tStr.endsWith('?') &&
           tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
-        // The types match semantically, force the return through dynamic
-        final dynamic temp = unwrapped;
-        return temp as T;
+        // The types match semantically, force the return through dynamic.
+        // GEN-100b (C07): When two classes share a simple name but live in
+        // different libraries (e.g. painting.StrutStyle vs dart:ui.StrutStyle),
+        // the `as T` cast still throws TypeError even though the simple-name
+        // match succeeded. Wrap in try/catch so the subsequent RC-3
+        // cross-package type-coercion path can fire on the same argument
+        // instead of surfacing a raw TypeError out of the bridge.
+        try {
+          final dynamic temp = unwrapped;
+          return temp as T;
+        } catch (_) {
+          // Fall through to RC-3 coercion or final ArgumentD4rtException.
+        }
       }
     }
 

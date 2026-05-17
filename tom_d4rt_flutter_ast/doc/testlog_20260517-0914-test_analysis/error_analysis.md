@@ -40,7 +40,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☑ fixed |
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☑ fixed |
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☑ fixed |
-| **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☐ |
+| **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☑ fixed |
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☐ |
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☐ |
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☐ |
@@ -327,11 +327,73 @@ script corpus; single-test verification on both drivers
 
 #### C07 — `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | dart_ui/ text_data_test.dart |
+
+**Root cause.** `text_data_test.dart` constructs
+`ui.ParagraphStyle(strutStyle: ui.StrutStyle(...))` at three call
+sites. The `dart:ui.StrutStyle` constructor is overridden by the
+`StrutStyleUserBridge` (intentionally — the engine type is opaque,
+so we materialise `painting.StrutStyle` to give D4rt scripts full
+getter support). The `painting.StrutStyle → dart:ui.StrutStyle`
+RC-3 coercion required by `ParagraphStyle.strutStyle` IS
+registered in `d4rt_runtime_registrations.dart`, but it never
+fires: the `ParagraphStyle` bridge constructor calls
+`D4.getOptionalNamedArg<ui.StrutStyle?>(named, 'strutStyle')`,
+which delegates to `D4.extractBridgedArg<T = ui.StrutStyle?>`.
+Inside `extractBridgedArg`, the **GEN-100** simple-name fallback
+short-circuits the resolution: `T.toString() == 'StrutStyle?'` and
+`unwrapped.runtimeType.toString() == 'StrutStyle'` (both classes
+share the simple name across `package:flutter/painting.dart` and
+`dart:ui`), so GEN-100 force-casts `painting.StrutStyle as
+ui.StrutStyle?` and the cast throws an unhandled `TypeError` —
+surfacing as the bridge constructor failure, well before the RC-3
+coercion block at line 1561 could be reached.
+
+**Fix (rule b — interpreter change).** Wrapped GEN-100's `as T`
+in a `try/catch` so the cast failure falls through to the
+subsequent paths instead of escaping. The next block in
+`extractBridgedArg` is the RC-3 `_typeCoercionsByType` lookup,
+which now picks up the registered `painting.StrutStyle →
+ui.StrutStyle` coercion and returns the engine-level value. The
+patch is documented inline as **GEN-100b**. Mirrored in both
+copies of the interpreter helper:
+
+- `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/generator/d4.dart` (AST driver)
+- `tom_ai/d4rt/tom_d4rt/lib/src/generator/d4.dart` (analyzer driver)
+
+No script or generated bridge changes. The fix only affects
+extractions whose simple-name match succeeds **and** whose
+explicit cast throws — every other code path retains identical
+behaviour, so non-`StrutStyle` arguments cannot regress through
+this branch.
+
+**Regression scope (rule b).** Interpreter helper changed, so
+essential + important + secondary + gii must pass on both
+drivers. Single-test verification:
+
+- flutter_ast: `00:28 +1: All tests passed!`
+  (`ztmp/c07_ast_singletest.log.txt`)
+- flutter_test: `00:27 +1: All tests passed!`
+  (`ztmp/c07_test_singletest.log.txt`)
+
+Suite-level results (post-fix) — identical to pre-fix baseline
+for the failure counts in each cluster the workstream tracks:
+
+| Suite | flutter_ast | flutter_test | Notes |
+|-------|-------------|--------------|-------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | 2 pre-existing failures (nestedscrollview, render_custom_multi_child_layout_box) confirmed by pre-fix stash baseline run |
+| essential | `+108` ALL PASSED | `+108` ALL PASSED | No regressions |
+| important | `+162 -2` | `+162 -2` | -2 = C08 (spellcheck) + C09 (gradient), both still open; C07 (text_data) no longer in the failure list |
+| secondary | `+630 ~1 -22` | `+630 ~1 -23` | All pre-existing failures; the +1 difference (`tap_drag_start_details_test.dart`) is an inventory gap between the two drivers, unrelated to this fix |
+
+Logs in `ztmp/c07_ast_{gii,essential,important,secondary}.log.txt`
+and `ztmp/c07_test_{gii,essential,important,secondary}.log.txt`,
+plus the pre-fix gii baseline in
+`ztmp/c07_ast_gii_prefix.log.txt`.
 
 #### C08 — `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16`
 
