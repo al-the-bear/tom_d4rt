@@ -128,7 +128,11 @@ dynamic build(BuildContext context) {
   print('  routeBasic.barrierDismissible = ${routeBasic.barrierDismissible}');
   print('  routeBasic.barrierColor = ${routeBasic.barrierColor}');
   print('  routeBasic.barrierLabel = ${routeBasic.barrierLabel}');
-  print('  routeBasic.popGestureEnabled = ${routeBasic.popGestureEnabled}');
+  // Note: routeBasic.popGestureEnabled is not read here — that getter
+  // dereferences `animation!` (routes.dart:1930) which is null on a
+  // detached route (one that has not been pushed onto a Navigator). The
+  // gesture-enabled state is illustrated in Section 6 (anatomy diagram).
+  print('  routeBasic.popGestureEnabled = (requires attached Navigator)');
   print('  routeBasic.transitionDuration = ${routeBasic.transitionDuration}');
   print('  routeBasic.reverseTransitionDuration = ${routeBasic.reverseTransitionDuration}');
 
