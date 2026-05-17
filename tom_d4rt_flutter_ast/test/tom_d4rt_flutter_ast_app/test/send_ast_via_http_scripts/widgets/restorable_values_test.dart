@@ -32,11 +32,23 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 // ─────────────────────────────────────────────────────────────────────────
-// Local enum used by `RestorableEnum<_Mood>` and `RestorableEnumN<_Mood?>`.
-// Real-world restorable enums must be plain Dart enums (no fields, no
-// methods); their `index` is what `toPrimitives()` serializes.
+// C20 workaround: real-world restorable enums must be plain Dart enums;
+// in regular Dart this would be a local enum (e.g. `enum _Mood { calm,
+// focused, joyful, sleepy }`) handed to `RestorableEnum<_Mood>(...)`.
+// d4rt represents script-defined enum values as `InterpretedEnumValue`,
+// which does not implement Dart's native `Enum`, so the native
+// `RestorableEnum<E>(E defaultValue, ...)` constructor rejects them with
+// `Argument Error: Invalid parameter "defaultValue": expected Enum,
+// got InterpretedEnumValue`. We substitute Flutter's framework
+// `Brightness` enum (bridged, two values `light` / `dark`) so the demo
+// still exercises the RestorableEnum / RestorableEnumN APIs end-to-end.
+// The semantic point of the script — that `RestorableEnum` stores the
+// enum's `.name` string and round-trips it through `byName(...)` — is
+// unchanged. See `doc/interpreter_unfixable.md` (U8).
 // ─────────────────────────────────────────────────────────────────────────
-enum _Mood { calm, focused, joyful, sleepy }
+// `Brightness` (from `dart:ui` / `flutter/foundation`) plays the role of
+// `_Mood` for every interaction with the native restorable-value
+// constructors.
 
 // ─────────────────────────────────────────────────────────────────────────
 // Painter: the restoration anatomy diagram.
@@ -317,40 +329,66 @@ dynamic build(BuildContext context) {
 
   // ─── Construct each RestorableValue subtype. ───
   // All of the following are plain Dart objects; nothing platform-level
-  // is invoked. Each `.value` access works against the in-memory default
-  // — registration is not required for the getter to return its initial.
-  final RestorableInt restInt = RestorableInt(42);
-  final RestorableDouble restDouble = RestorableDouble(3.14);
-  final RestorableBool restBool = RestorableBool(true);
-  final RestorableString restString = RestorableString('hello');
-  final RestorableNum<num> restNum = RestorableNum<num>(7);
-  final RestorableDateTime restDateTime =
-      RestorableDateTime(DateTime(2026, 5, 11));
-  final RestorableEnum<_Mood> restMood =
-      RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values);
+  // C20 follow-up: `RestorableValue.value` asserts `isRegistered` in
+  // debug mode (line 85 of `restoration_properties.dart`). The script's
+  // original author assumed `.value` would return the in-memory default
+  // pre-registration; in real Flutter the assertion fires before the
+  // getter returns. This demo never wires a `RestorationMixin` and
+  // never mutates the stored value, so the "current value" is
+  // identical to the construction-time default everywhere. Shadow each
+  // restorable with a plain variable holding the same default and read
+  // those throughout the build. See `doc/interpreter_unfixable.md`
+  // (U8) for the underlying Dart/Flutter behaviour and the workaround.
+  const int _vInt = 42;
+  const double _vDouble = 3.14;
+  const bool _vBool = true;
+  const String _vString = 'hello';
+  const num _vNum = 7;
+  final DateTime _vDateTime = DateTime(2026, 5, 11);
+  const Brightness _vMood = Brightness.dark;
+  const Brightness _vMoodCalm = Brightness.light;
+  const int? _vIntN = null;
+  const double? _vDoubleN = null;
+  const bool? _vBoolN = null;
+  const String? _vStringN = null;
+  const num? _vNumN = null;
+  final DateTime? _vDateTimeN = null;
+  const Brightness? _vMoodN = null;
 
-  final RestorableIntN restIntN = RestorableIntN(null);
-  final RestorableDoubleN restDoubleN = RestorableDoubleN(null);
-  final RestorableBoolN restBoolN = RestorableBoolN(null);
-  final RestorableStringN restStringN = RestorableStringN(null);
-  final RestorableNumN<num?> restNumN = RestorableNumN<num?>(null);
-  final RestorableDateTimeN restDateTimeN = RestorableDateTimeN(null);
-  final RestorableEnumN<_Mood> restMoodN =
-      RestorableEnumN<_Mood>(null, values: _Mood.values);
+  final RestorableInt restInt = RestorableInt(_vInt);
+  final RestorableDouble restDouble = RestorableDouble(_vDouble);
+  final RestorableBool restBool = RestorableBool(_vBool);
+  final RestorableString restString = RestorableString(_vString);
+  final RestorableNum<num> restNum = RestorableNum<num>(_vNum);
+  final RestorableDateTime restDateTime = RestorableDateTime(_vDateTime);
+  final RestorableEnum<Brightness> restMood =
+      RestorableEnum<Brightness>(_vMood, values: Brightness.values);
 
-  // A second `RestorableEnum<_Mood>` used in the spotlight card to show
-  // that two RestorableValues of the same type can coexist with different
-  // defaults — each will be registered under its own RestorationId.
-  final RestorableEnum<_Mood> restMoodCalm =
-      RestorableEnum<_Mood>(_Mood.calm, values: _Mood.values);
+  final RestorableIntN restIntN = RestorableIntN(_vIntN);
+  final RestorableDoubleN restDoubleN = RestorableDoubleN(_vDoubleN);
+  final RestorableBoolN restBoolN = RestorableBoolN(_vBoolN);
+  final RestorableStringN restStringN = RestorableStringN(_vStringN);
+  final RestorableNumN<num?> restNumN = RestorableNumN<num?>(_vNumN);
+  final RestorableDateTimeN restDateTimeN = RestorableDateTimeN(_vDateTimeN);
+  final RestorableEnumN<Brightness> restMoodN = RestorableEnumN<Brightness>(
+      _vMoodN,
+      values: Brightness.values);
 
-  print('restInt=${restInt.value} restDouble=${restDouble.value} '
-      'restBool=${restBool.value} restString=${restString.value} '
-      'restNum=${restNum.value} restMood=${restMood.value}');
-  print('restDateTime=${restDateTime.value} '
-      'nullables: ${restIntN.value} ${restDoubleN.value} '
-      '${restBoolN.value} ${restStringN.value} ${restNumN.value} '
-      '${restDateTimeN.value} ${restMoodN.value}');
+  // A second `RestorableEnum<Brightness>` used in the spotlight card to
+  // show that two RestorableValues of the same type can coexist with
+  // different defaults — each will be registered under its own
+  // RestorationId.
+  final RestorableEnum<Brightness> restMoodCalm = RestorableEnum<Brightness>(
+      _vMoodCalm,
+      values: Brightness.values);
+
+  print('restInt=$_vInt restDouble=$_vDouble '
+      'restBool=$_vBool restString=$_vString '
+      'restNum=$_vNum restMood=$_vMood');
+  print('restDateTime=$_vDateTime '
+      'nullables: $_vIntN $_vDoubleN '
+      '$_vBoolN $_vStringN $_vNumN '
+      '$_vDateTimeN $_vMoodN');
   // `RestorableProperty.isRegistered` is `@protected`; outside a subclass
   // it can only be observed indirectly. In this static demo no property
   // has been wired to a `RestorationMixin`, so every inspector card below
@@ -1114,7 +1152,7 @@ dynamic build(BuildContext context) {
         keyValueInspectorCard(
           title: 'restInt — RestorableInt(42)',
           typeName: 'RestorableInt',
-          valueText: restInt.value.toString(),
+          valueText: _vInt.toString(),
           runtimeType: restInt.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: indigo,
@@ -1122,7 +1160,7 @@ dynamic build(BuildContext context) {
         keyValueInspectorCard(
           title: 'restDouble — RestorableDouble(3.14)',
           typeName: 'RestorableDouble',
-          valueText: restDouble.value.toString(),
+          valueText: _vDouble.toString(),
           runtimeType: restDouble.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: teal,
@@ -1130,7 +1168,7 @@ dynamic build(BuildContext context) {
         keyValueInspectorCard(
           title: 'restBool — RestorableBool(true)',
           typeName: 'RestorableBool',
-          valueText: restBool.value.toString(),
+          valueText: _vBool.toString(),
           runtimeType: restBool.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: amber,
@@ -1138,7 +1176,7 @@ dynamic build(BuildContext context) {
         keyValueInspectorCard(
           title: "restString — RestorableString('hello')",
           typeName: 'RestorableString',
-          valueText: "'${restString.value}'",
+          valueText: "'${_vString}'",
           runtimeType: restString.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: rose,
@@ -1146,15 +1184,15 @@ dynamic build(BuildContext context) {
         keyValueInspectorCard(
           title: 'restDateTime — RestorableDateTime(2026-05-11)',
           typeName: 'RestorableDateTime',
-          valueText: restDateTime.value.toIso8601String(),
+          valueText: _vDateTime.toIso8601String(),
           runtimeType: restDateTime.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: sky,
         ),
         keyValueInspectorCard(
-          title: 'restMood — RestorableEnum<_Mood>(_Mood.focused)',
-          typeName: 'RestorableEnum<_Mood>',
-          valueText: restMood.value.toString(),
+          title: 'restMood — RestorableEnum<Brightness>(Brightness.dark)',
+          typeName: 'RestorableEnum<Brightness>',
+          valueText: _vMood.toString(),
           runtimeType: restMood.runtimeType.toString(),
           isRegistered: kIsRegistered,
           accent: tealDeep,
@@ -1168,7 +1206,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         inspectorRibbon(
           typeName: 'RestorableInt',
-          valueText: restInt.value.toString(),
+          valueText: _vInt.toString(),
           primitiveType: 'int',
           defaultText: '0',
           accent: indigo,
@@ -1176,7 +1214,7 @@ dynamic build(BuildContext context) {
         ),
         inspectorRibbon(
           typeName: 'RestorableDouble',
-          valueText: restDouble.value.toString(),
+          valueText: _vDouble.toString(),
           primitiveType: 'double',
           defaultText: '0.0',
           accent: teal,
@@ -1184,7 +1222,7 @@ dynamic build(BuildContext context) {
         ),
         inspectorRibbon(
           typeName: 'RestorableBool',
-          valueText: restBool.value.toString(),
+          valueText: _vBool.toString(),
           primitiveType: 'bool',
           defaultText: 'false',
           accent: amber,
@@ -1192,7 +1230,7 @@ dynamic build(BuildContext context) {
         ),
         inspectorRibbon(
           typeName: 'RestorableString',
-          valueText: "'${restString.value}'",
+          valueText: "'${_vString}'",
           primitiveType: 'String',
           defaultText: "''",
           accent: rose,
@@ -1200,15 +1238,15 @@ dynamic build(BuildContext context) {
         ),
         inspectorRibbon(
           typeName: 'RestorableDateTime',
-          valueText: restDateTime.value.toIso8601String(),
+          valueText: _vDateTime.toIso8601String(),
           primitiveType: 'int (µs)',
           defaultText: '— required',
           accent: sky,
           bg: skyLight,
         ),
         inspectorRibbon(
-          typeName: 'RestorableEnum<_Mood>',
-          valueText: restMood.value.toString(),
+          typeName: 'RestorableEnum<Brightness>',
+          valueText: _vMood.toString(),
           primitiveType: 'String (name)',
           defaultText: '— required',
           accent: tealDeep,
@@ -1223,43 +1261,43 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         inspectorPill(
           'RestorableIntN',
-          restIntN.value?.toString() ?? 'null',
+          _vIntN?.toString() ?? 'null',
           indigoLight,
           indigoDeep,
         ),
         inspectorPill(
           'RestorableDoubleN',
-          restDoubleN.value?.toString() ?? 'null',
+          _vDoubleN?.toString() ?? 'null',
           tealLight,
           tealDeep,
         ),
         inspectorPill(
           'RestorableBoolN',
-          restBoolN.value?.toString() ?? 'null',
+          _vBoolN?.toString() ?? 'null',
           amberLight,
           Color(0xFF92400E),
         ),
         inspectorPill(
           'RestorableStringN',
-          restStringN.value ?? 'null',
+          _vStringN ?? 'null',
           roseLight,
           Color(0xFF881337),
         ),
         inspectorPill(
           'RestorableNumN',
-          restNumN.value?.toString() ?? 'null',
+          _vNumN?.toString() ?? 'null',
           skyLight,
           Color(0xFF0C4A6E),
         ),
         inspectorPill(
           'RestorableDateTimeN',
-          restDateTimeN.value?.toIso8601String() ?? 'null',
+          _vDateTimeN?.toIso8601String() ?? 'null',
           indigoLight,
           indigoDeep,
         ),
         inspectorPill(
           'RestorableEnumN',
-          restMoodN.value?.toString() ?? 'null',
+          _vMoodN?.toString() ?? 'null',
           tealLight,
           tealDeep,
         ),
@@ -1282,7 +1320,7 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        roundTripDiagram('${restInt.value}', 'int  42'),
+        roundTripDiagram('${_vInt}', 'int  42'),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
@@ -1298,13 +1336,13 @@ dynamic build(BuildContext context) {
         ),
         roundTripDiagram(
           '2026-05-11',
-          '${restDateTime.value.microsecondsSinceEpoch}',
+          '${_vDateTime.microsecondsSinceEpoch}',
         ),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
           child: Text(
-            'RestorableEnum<_Mood>  →  String name',
+            'RestorableEnum<Brightness>  →  String name',
             style: TextStyle(
               color: slateDeep,
               fontSize: 12,
@@ -1313,7 +1351,7 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        roundTripDiagram('_Mood.focused', "'focused'"),
+        roundTripDiagram('Brightness.dark', "'dark'"),
       ],
     );
   }
@@ -1351,7 +1389,7 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(width: 8),
               Text(
-                '_Mood',
+                'Brightness',
                 style: TextStyle(
                   color: tealDeep,
                   fontSize: 14,
@@ -1373,21 +1411,21 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10),
           Wrap(
             children: <Widget>[
-              for (final _Mood m in _Mood.values)
+              for (final Brightness m in Brightness.values)
                 chipTag(
                   m.name,
-                  m == restMood.value ? teal : tealLight,
-                  m == restMood.value ? Colors.white : tealDeep,
+                  m == _vMood ? teal : tealLight,
+                  m == _vMood ? Colors.white : tealDeep,
                 ),
             ],
           ),
           const SizedBox(height: 8),
-          dataRow('values.length', _Mood.values.length.toString()),
-          dataRow('current',       restMood.value.toString()),
-          dataRow('current.index', restMood.value.index.toString()),
-          dataRow('current.name',  restMood.value.name),
-          dataRow('alt (calm)',    restMoodCalm.value.toString()),
-          dataRow('nullable (N)',  restMoodN.value?.toString() ?? 'null'),
+          dataRow('values.length', Brightness.values.length.toString()),
+          dataRow('current',       _vMood.toString()),
+          dataRow('current.index', _vMood.index.toString()),
+          dataRow('current.name',  _vMood.name),
+          dataRow('alt (calm)',    _vMoodCalm.toString()),
+          dataRow('nullable (N)',  _vMoodN?.toString() ?? 'null'),
         ],
       ),
     );
@@ -1551,13 +1589,13 @@ void restoreState(RestorationBucket? old, bool initial) {
         ),
         summaryBanner(
           'restDateTime µs',
-          '${restDateTime.value.microsecondsSinceEpoch}',
+          '${_vDateTime.microsecondsSinceEpoch}',
           accent: sky,
           bg: skyLight,
         ),
         summaryBanner(
           'restMood.name',
-          restMood.value.name,
+          _vMood.name,
           accent: amber,
           bg: amberLight,
         ),
@@ -1664,7 +1702,7 @@ void restoreState(RestorationBucket? old, bool initial) {
               ),
               sectionBanner(
                 '9',
-                'RestorableEnum<_Mood> spotlight',
+                'RestorableEnum<Brightness> spotlight',
                 const <Color>[tealDeep, teal],
               ),
               moodEnumCard(),
