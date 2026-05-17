@@ -39,7 +39,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☑ fixed |
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☑ fixed |
-| **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☐ |
+| **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☑ fixed |
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☐ |
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☐ |
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☐ |
@@ -290,11 +290,40 @@ limitations documented as **U1** in `interpreter_unfixable.md`.
 
 #### C06 — `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 81 | material/ batch 3 datepicker_widgets_test.dart |
+
+**Root cause.** Real Flutter assertion at
+`calendar_date_picker.dart:154` —
+`selectableDayPredicate == null || initialDate == null ||
+selectableDayPredicate!(initialDate!)`. The script's shared
+`now = DateTime(2025, 6, 15)` (a Sunday, day=15 odd) was used as
+`initialDate` for two `CalendarDatePicker` instances whose
+`selectableDayPredicate` rejects it:
+
+- 3c (`calWeekdays`): predicate is `weekday >= monday && weekday <= friday`. `2025-06-15` is a Sunday → fails.
+- 3d (`calEvens`): predicate is `d.day.isEven`. Day 15 is odd → fails.
+
+Not an interpreter bug — the demo data simply doesn't satisfy
+the picker's own contract. Same failure would occur in a native
+Flutter app with the same code.
+
+**Fix (script-only).** Replace `initialDate: now` with
+`initialDate: DateTime(2025, 6, 16)` for both 3c and 3d (Monday,
+even day) so the supplied predicate accepts the initial date.
+The other four `CalendarDatePicker` instances (3a/3b without a
+predicate, 3e with its own date inside the narrow quarter
+window, 3f with no predicate) are unaffected.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus; single-test verification on both drivers
+(flutter_ast `00:15 +1: All tests passed!`, flutter_test
+`00:12 +1: All tests passed!`). Logs in
+`ztmp/c06_ast_fixed.log.txt` and
+`ztmp/c06_test_fixed.log.txt`.
 
 #### C07 — `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?`
 

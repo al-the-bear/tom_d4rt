@@ -89,9 +89,12 @@ dynamic build(BuildContext context) {
     },
   );
 
-  // 3c - weekdays-only selectable predicate
+  // 3c - weekdays-only selectable predicate.
+  // initialDate must satisfy the predicate (Flutter assertion at
+  // calendar_date_picker.dart:154). `now` is a Sunday, so use the
+  // following Monday instead.
   final calWeekdays = CalendarDatePicker(
-    initialDate: now,
+    initialDate: DateTime(2025, 6, 16),
     firstDate: firstDate,
     lastDate: lastDate,
     selectableDayPredicate: (DateTime d) =>
@@ -101,9 +104,10 @@ dynamic build(BuildContext context) {
     },
   );
 
-  // 3d - even days only
+  // 3d - even days only. `now`'s day is 15 (odd) and would fail the
+  // same assertion; pick a nearby even-day date instead.
   final calEvens = CalendarDatePicker(
-    initialDate: now,
+    initialDate: DateTime(2025, 6, 16),
     firstDate: firstDate,
     lastDate: lastDate,
     selectableDayPredicate: (DateTime d) => d.day.isEven,
