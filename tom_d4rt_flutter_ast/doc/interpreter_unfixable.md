@@ -46,6 +46,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U2 — Non-wrappable arithmetic defaults on positional-only native constructors](#u2--non-wrappable-arithmetic-defaults-on-positional-only-native-constructors-generator-limitation) | Generator limitation. `BridgeGenerator._wrapDefaultValue` returns `null` for any default expression containing an operator (e.g. `double endAngle = math.pi * 2`), so the generated bridge emits `D4.getRequiredArgTodoDefault<…>(…, 'math.pi * 2')` which throws `Argument Error: <Class>: Parameter "<name>" has non-wrappable default …` when the argument is omitted. For purely-positional native constructors (`dart:ui` `Gradient.sweep`, `Gradient.radial`, …) the script cannot use named-arg form to skip earlier optional positionals, so any default expression with an operator anywhere in the positional list becomes mandatory at every call site beyond that index. Workaround: at every call site, supply *all* preceding optional positionals up to and including the offending one (use the framework's documented default value literally, e.g. `math.pi * 2.0`). | `rendering/gradient_rendering_test.dart` (C09 closed 2026-05-17 — `ui.Gradient.sweep` `endAngle = math.pi * 2`) |
 | [U3 — Interpreted subclass of native abstract `Curve`: `transformInternal` override not routed through `Curve.transform`](#u3--interpreted-subclass-of-native-abstract-curve-transforminternal-override-not-routed-through-curvetransform-interpreter-limitation) | Interpreter limitation (adapter-proxy delegation gap). The native `Curve.transform(t)` template-methods through `Curve.transformInternal(t)`; for script-defined subclasses of `Curve`, the adapter proxy does not intercept the native call to `transformInternal` and route it back to the interpreted override, so `transform()` returns `null` to the bridge consumer. Downstream arithmetic on the null sample (`28.0 * s`, then `12.0 + …`) throws `Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`. Reproduces both const and non-const, so distinct from U1. Workaround: use a framework-provided `Curve` subclass (`FlippedCurve(Curves.easeInOut)`) instead of a script-defined `Curve` subclass. | `animation/animation_misc_adv_test.dart` (C10 closed 2026-05-17 — `_FlippedShim extends Curve`) |
 | [U4 — Standalone `'\n'` `TextSpan` between two styled siblings crashes the test-app transport](#u4--standalone-n-textspan-between-two-styled-siblings-crashes-the-test-app-transport-truly-unfixable) | Truly unfixable — Dart-VM-level crash inside the bridged render path; `Lost connection to device.` surfaces only as `Bad state: Transport failure while running …`. Trigger is specifically a child `TextSpan(text: '\n')` (literal newline, with or without `style`, with or without `const`) sitting between two other `TextSpan` siblings that each carry a non-null `style`, in the same parent `TextSpan.children` list (`RichText` / `Tooltip(richMessage:)` / `Text.rich(...)`). Both the `'\n'` character and the flanking pair of style-bearing siblings are necessary. Mandatory script-side workaround: append the `'\n'` to the preceding styled `TextSpan`'s `text` and drop the standalone newline child. | `material/tooltip_feedback_test.dart` (C15 closed 2026-05-17 — `_privateRichMessageExample` `RichText`) |
+| [U5 — Interpreted subclass of native abstract `NotchedShape` / `FloatingActionButtonLocation` rejected at the bridged-constructor boundary](#u5--interpreted-subclass-of-native-abstract-notchedshape--floatingactionbuttonlocation-rejected-at-the-bridged-constructor-boundary-interpreter-limitation) | Interpreter limitation (same adapter-proxy delegation gap as U3 for `Curve`). The bridge generator does not synthesise a proxy that recognises a script-defined `InterpretedInstance` as a valid native `NotchedShape` / `FloatingActionButtonLocation` argument, so `D4.getNamedArg<T>` rejects the value with `Argument Error: Invalid parameter "shape": expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)` (or the analogous `floatingActionButtonLocation` error). Workaround: use a framework-provided subclass (`CircularNotchedRectangle`, `AutomaticNotchedShape`; `FloatingActionButtonLocation.endFloat`, `.centerDocked`, …). | `material/bottom_app_bar_test.dart` (C16 closed 2026-05-17 — `_TopRoundedNotchedShape extends NotchedShape`, `_CustomFabLocation extends FloatingActionButtonLocation`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -3000,7 +3001,165 @@ probes documented in C15 to confirm.
 
 ---
 
+## U5 — Interpreted subclass of native abstract `NotchedShape` / `FloatingActionButtonLocation` rejected at the bridged-constructor boundary (interpreter limitation)
+
+**Category.** Interpreter / bridge-generator architectural
+limitation — the **same adapter-proxy delegation gap** documented as
+U3 for `Curve`, manifesting on two additional native abstract types:
+`NotchedShape` (consumed by `BottomAppBar.shape`) and
+`FloatingActionButtonLocation` (consumed by
+`Scaffold.floatingActionButtonLocation`, `MaterialApp` route
+scaffolds, and any `_fabLocationCell`-style helper that accepts a
+location-typed argument and forwards it into a native bridged
+constructor).
+
+**Reproducer.**
+
+```dart
+class _TopRoundedNotchedShape extends NotchedShape {
+  const _TopRoundedNotchedShape({required this.radius});
+  final double radius;
+  @override
+  Path getOuterPath(Rect host, Rect? guest) { … }
+}
+
+// Passing the script subclass to a native bridged constructor fails:
+BottomAppBar(
+  shape: const _TopRoundedNotchedShape(radius: 18.0), // ← Argument Error
+  …
+)
+```
+
+Yields, at the d4rt → native boundary:
+
+```text
+Runtime Error: Native error during default bridged constructor for
+'BottomAppBar': Argument Error: Invalid parameter "shape":
+expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)
+```
+
+Same shape for `FloatingActionButtonLocation`:
+
+```dart
+class _CustomFabLocation extends FloatingActionButtonLocation {
+  const _CustomFabLocation();
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry s) { … }
+  @override
+  String toString() => '_CustomFabLocation';
+}
+
+Scaffold(
+  floatingActionButtonLocation: const _CustomFabLocation(), // ← Argument Error
+  …
+)
+```
+
+```text
+Runtime Error: Native error during default bridged constructor for
+'Scaffold': Argument Error: Invalid parameter "floatingActionButtonLocation":
+expected FloatingActionButtonLocation?, got
+InterpretedInstance(_CustomFabLocation)
+```
+
+**Root cause.** The bridge generator emits a `BridgedClass` for the
+abstract base (`NotchedShape`, `FloatingActionButtonLocation`) but
+does **not** synthesise an adapter-proxy that:
+
+1. Wraps an `InterpretedInstance` of a script subclass in a native
+   subclass that implements the abstract methods by routing back
+   into the interpreter, **and**
+2. Lets `D4.getNamedArg<NotchedShape?>` / `D4.getRequiredArg<…>`
+   recognise that the `InterpretedInstance` is "is-a" of the
+   bridged class.
+
+So even though the `extends NotchedShape` clause is honoured
+*inside* d4rt-space (the script can do `is NotchedShape` checks
+and call `getOuterPath` through the interpreter), the value can
+never cross the d4rt → native boundary as a `NotchedShape`. The
+native `BottomAppBar` constructor receives the raw
+`InterpretedInstance` and the typed-arg validator throws.
+
+This is the same architectural gap as U3 (`Curve`): script-defined
+subclasses of native abstract classes that hold polymorphic
+state/behaviour for the framework's own consumption work in
+isolation but cannot be handed back to native APIs.
+
+**Constraints.**
+
+- The bridge-generator side of the fix is open-ended — it would
+  need to generate a per-abstract-class native proxy that
+  implements every required abstract method by dispatching to the
+  interpreted override (analogous to the manual `D4UserBridge`
+  proxies for `State`, `StatelessWidget`, etc., but generated). This
+  is the same E12-class of work documented under "Abstract Class
+  Inheritance" above.
+- For one-off script call sites that just need *some*
+  `NotchedShape` / `FloatingActionButtonLocation`, Flutter already
+  ships fully-functional concrete subclasses; there is no business
+  reason to insist on a script-defined one in a corpus script whose
+  purpose is to exercise the *consumer* (`BottomAppBar`,
+  `Scaffold`), not the *shape*.
+
+**Script-side workaround (mandatory).** Use a framework-provided
+subclass of the native abstract type:
+
+| Abstract type | Framework alternatives |
+|---------------|------------------------|
+| `NotchedShape` | `CircularNotchedRectangle()`, `AutomaticNotchedShape(OutlinedBorder host, [ShapeBorder? guest])` |
+| `FloatingActionButtonLocation` | `FloatingActionButtonLocation.{centerDocked, endDocked, startDocked, miniCenterDocked, miniEndDocked, centerFloat, endFloat, startFloat, miniCenterFloat, miniEndFloat, miniStartFloat, centerTop, endTop, startTop, endContained}` |
+
+```dart
+// Was:
+BottomAppBar(shape: const _TopRoundedNotchedShape(radius: 18.0), …)
+// Becomes:
+BottomAppBar(shape: const CircularNotchedRectangle(), …)
+
+// Was:
+_fabLocationCell(location: const _CustomFabLocation(), …)
+// Becomes:
+_fabLocationCell(location: FloatingActionButtonLocation.endFloat, …)
+```
+
+The script's class definitions (`_TopRoundedNotchedShape`,
+`_CustomFabLocation`) can remain as compile-only declarations if
+they are still referenced by adjacent source-as-string
+documentation blocks; they just must not be instantiated at
+runtime.
+
+**Diagnostic guidance.** Any
+`Argument Error: Invalid parameter "<x>": expected <BaseType>, got InterpretedInstance(<ScriptName>)`
+at a native bridged constructor where `<ScriptName>` is a script
+class with `extends <BaseType>` is this same family. Triage by
+checking whether `<BaseType>` is one of: `NotchedShape`,
+`FloatingActionButtonLocation`, `Curve`, `ShapeBorder`,
+`InputBorder`, `OutlinedBorder`, `BoxBorder`, `ScrollPhysics`,
+`InteractiveInkFeatureFactory`, `MaterialStateProperty<T>`,
+`PageTransitionsBuilder`, `RouteTransitionRecord`, `Decoration`,
+`MaterialColor`-like, or any other Flutter abstract class whose
+purpose is "factor out a piece of paint/layout/animation
+behaviour". The fix is always the same: switch to a
+framework-provided subclass at the call site.
+
+---
+
 ## Change Log
+
+- 2026-05-17: **Add U5 — Interpreted subclass of native abstract
+  `NotchedShape` / `FloatingActionButtonLocation` rejected at the
+  bridged-constructor boundary.** Documents the
+  `testlog_20260517-0914` C16 cluster
+  (`material/bottom_app_bar_test.dart`,
+  `_TopRoundedNotchedShape extends NotchedShape` →
+  `BottomAppBar.shape`, and `_CustomFabLocation extends
+  FloatingActionButtonLocation` → `Scaffold.floatingActionButtonLocation`
+  via `_fabLocationCell`). Same family as U3 (`Curve`): the bridge
+  generator does not synthesise an adapter-proxy that lets a
+  script-defined `InterpretedInstance` cross the d4rt → native
+  boundary as the native abstract type. Mandatory script-side
+  workaround: use a framework-provided subclass
+  (`CircularNotchedRectangle`, `FloatingActionButtonLocation.endFloat`,
+  etc.) at the call site.
 
 - 2026-05-17: **Add U4 — Standalone `'\n'` `TextSpan` between two
   styled siblings crashes the test-app transport.** Documents the

@@ -49,7 +49,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
-| **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
+| **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☑ fixed (script) |
 | **C17** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not ` | ☐ |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
@@ -919,11 +919,53 @@ Logs: `ztmp/c15_verify_ast_secondary.log.txt`,
 
 #### C16 — `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 69 | material/ bottom_app_bar_test.dart |
+
+**Root cause.** Same as the flutter_ast driver — the corpus script
+defines two subclasses of native abstract Flutter classes and
+passes their instances to native bridged constructors:
+
+1. `class _TopRoundedNotchedShape extends NotchedShape { … }` →
+   `BottomAppBar(shape: …)`.
+2. `class _CustomFabLocation extends FloatingActionButtonLocation { … }`
+   → `Scaffold(floatingActionButtonLocation: …)` via
+   `_fabLocationCell(location: const _CustomFabLocation(), …)`.
+
+The bridge generator does not synthesise an adapter-proxy that
+recognises a script-defined `InterpretedInstance` as a valid native
+`NotchedShape` / `FloatingActionButtonLocation` argument.
+`D4.getNamedArg<T>` rejects the value at the d4rt → native boundary.
+Same family as U3 (`Curve` subclass).
+
+**Fix.** Script-only. Same two substitutions as the flutter_ast
+driver (scripts are shared via the corpus under
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/bottom_app_bar_test.dart`):
+
+1. `shape: const _TopRoundedNotchedShape(radius: 18.0)` →
+   `shape: const CircularNotchedRectangle()`.
+2. `location: const _CustomFabLocation()` →
+   `location: FloatingActionButtonLocation.endFloat`.
+
+Documented as U5 in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (script subclass
+of native abstract `NotchedShape` / `FloatingActionButtonLocation`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `material/bottom_app_bar_test.dart` | `+1` All tests passed |
+| flutter_test | `material/bottom_app_bar_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c16_verify_ast_secondary.log.txt`,
+`ztmp/c16_verify_analyzer_secondary.log.txt`.
 
 #### C17 — `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not `
 

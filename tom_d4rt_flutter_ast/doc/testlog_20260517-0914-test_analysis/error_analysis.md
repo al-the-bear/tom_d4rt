@@ -49,7 +49,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
-| **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
+| **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☑ fixed (script) |
 | **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☐ |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
@@ -968,11 +968,72 @@ Logs: `ztmp/c15_verify_ast_secondary.log.txt`,
 
 #### C16 — `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 69 | material/ bottom_app_bar_test.dart |
+
+**Root cause.** The script defines two subclasses of native abstract
+Flutter classes and passes their instances to native bridged
+constructors:
+
+1. `class _TopRoundedNotchedShape extends NotchedShape { … }` →
+   passed as `BottomAppBar(shape: …)` at the original line 1128.
+2. `class _CustomFabLocation extends FloatingActionButtonLocation { … }`
+   → passed as `Scaffold(floatingActionButtonLocation: …)` via
+   `_fabLocationCell(location: const _CustomFabLocation(), …)` in
+   the FAB-location matrix.
+
+In both cases the bridge generator does not synthesise an
+adapter-proxy that recognises a script-defined `InterpretedInstance`
+as a valid native `NotchedShape` / `FloatingActionButtonLocation`
+argument. `D4.getNamedArg<T>` rejects the value with
+`Argument Error: Invalid parameter "shape": expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)`
+(and analogously for the FAB location after the first fix).
+
+Same family as U3 (script subclass of `Curve` cannot be passed to
+native `transformInternal`-consuming APIs) — the bridge for the
+native abstract class does not delegate `instanceof` / argument
+unwrap to script subclasses, so a script `extends` of a native
+abstract class is recognised only inside d4rt-space, never at
+the d4rt → native boundary.
+
+**Fix.** Script-only. Two substitutions in
+`material/bottom_app_bar_test.dart`, each using a framework-provided
+subclass of the native abstract type:
+
+1. `shape: const _TopRoundedNotchedShape(radius: 18.0)` →
+   `shape: const CircularNotchedRectangle()` (matches the sibling
+   "Variant 5" cell at line 1094 which already uses the same
+   framework shape).
+2. `location: const _CustomFabLocation()` →
+   `location: FloatingActionButtonLocation.endFloat` (keeps the
+   matrix visually distinct from the other docked variants).
+
+The class definitions `_TopRoundedNotchedShape` and
+`_CustomFabLocation` remain in the script as compile-only
+declarations (they are still referenced in Section-4 source-as-string
+documentation blocks) but are no longer instantiated at runtime.
+
+The underlying interpreter limitation and the framework-shape
+workaround are documented in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (U5 — script
+subclass of native abstract `NotchedShape` /
+`FloatingActionButtonLocation`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `material/bottom_app_bar_test.dart` | `+1` All tests passed |
+| flutter_test | `material/bottom_app_bar_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c16_verify_ast_secondary.log.txt`,
+`ztmp/c16_verify_analyzer_secondary.log.txt`.
 
 #### C17 — `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6`
 
