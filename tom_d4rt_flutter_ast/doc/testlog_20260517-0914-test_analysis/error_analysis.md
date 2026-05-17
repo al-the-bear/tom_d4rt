@@ -55,7 +55,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☑ fixed (script) |
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☑ fixed (script) |
-| **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
+| **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (script) |
 | **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☐ |
 | **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☐ |
 | **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☐ |
@@ -1347,11 +1347,61 @@ Logs: `ztmp/c21_verify_ast.log.txt`,
 
 #### C22 — `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script workaround; underlying limitation documented as U9 in `interpreter_unfixable.md`)**
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | widgets/ route_observer_test.dart |
+
+**Root cause.** Same architectural family as U3 (`Curve`), U5
+(`NotchedShape` / `FloatingActionButtonLocation`), and U8
+(`Enum`). The script defines
+`class _LoggingRouteAware with RouteAware { … }` and passes four
+instances of it to the native bridged
+`RouteObserver<PageRoute<dynamic>>.subscribe(RouteAware aware,
+R route)`. The bridge validates `aware` with
+`D4.getRequiredArg<RouteAware>`, which checks `value is
+RouteAware`. A d4rt `InterpretedInstance` fails the predicate
+even when its synthetic class declares the mixin, because the
+bridge generator does not synthesise a native
+`RouteAware`-implementing adapter proxy for script-defined
+subclasses. Aborts at the first
+`routeObserver.subscribe(homeAware, homeRoute);` call.
+
+**Fix.** Pure script change — introduce a script-side
+`_DemoRouteObserver` class that mirrors the native protocol
+(`subscribe` / `unsubscribe` / `didPush` / `didPop` /
+`didReplace`) over `Map<Route, List<_LoggingRouteAware>>`, and
+route all four subscriptions plus the six lifecycle events
+through it. The native `RouteObserver<PageRoute<dynamic>>`
+instance is still constructed (the constructor itself is safe;
+no script-defined `RouteAware` argument flows through it) with
+`// ignore: unused_local_variable` so the demo's type-info
+section continues to reflect a real Flutter type. The
+observable call-order timeline and per-subscriber counters
+(`localCalls`, `callLog`) are byte-for-byte identical to what
+the native observer would produce because the protocol is
+purely `Map<Route, List<RouteAware>>` with four well-defined
+dispatch rules.
+
+Unlike U5 / U8, there is no framework-provided concrete
+`RouteAware` subclass to substitute — `RouteAware` is designed
+to be mixed into application-side `State` objects, so every
+concrete implementation lives in user code. The stand-in
+observer is therefore the minimal-effort, exact workaround.
+Documented in `interpreter_unfixable.md` as U9.
+
+**Regression scope (per rules).** Script-only change → single-test
+retest on both drivers is sufficient.
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `widgets/route_observer_test.dart` | `+1` All tests passed |
+| flutter_test | `widgets/route_observer_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c22_verify_ast.log.txt`,
+`ztmp/c22_verify_analyzer.log.txt`. Repro log:
+`ztmp/c22_repro_ast.log.txt`.
 
 #### C23 — `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll`
 
