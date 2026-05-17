@@ -11343,10 +11343,16 @@ class BridgeGenerator {
         sourceFilePath: sourceFilePath,
       );
 
+      // Cluster C27 FIX: Use D4.coerceList instead of a CastList view.
+      // D4rt creates List<Object?> for literals, with elements potentially
+      // wrapped in BridgedInstance or BridgedEnumValue. A `.cast<T>()` view
+      // only checks the type on element access, which fails when an
+      // enum-typed setter receives BridgedEnumValue elements. coerceList
+      // unwraps each element before the cast.
       if (isNullable) {
-        return 'value == null ? null : (value as List).cast<$prefixedElementType>().toList()';
+        return "value == null ? null : D4.coerceList<$prefixedElementType>(value, '$paramName')";
       } else {
-        return '(value as List).cast<$prefixedElementType>().toList()';
+        return "D4.coerceList<$prefixedElementType>(value, '$paramName')";
       }
     }
 
@@ -11360,10 +11366,12 @@ class BridgeGenerator {
         sourceFilePath: sourceFilePath,
       );
 
+      // Cluster C27 FIX: Use D4.coerceSet instead of a CastSet view.
+      // See List<T> handling above for the same root cause.
       if (isNullable) {
-        return 'value == null ? null : (value as Set).cast<$prefixedElementType>().toSet()';
+        return "value == null ? null : D4.coerceSet<$prefixedElementType>(value, '$paramName')";
       } else {
-        return '(value as Set).cast<$prefixedElementType>().toSet()';
+        return "D4.coerceSet<$prefixedElementType>(value, '$paramName')";
       }
     }
 
@@ -11402,10 +11410,13 @@ class BridgeGenerator {
           );
         }
 
+        // Cluster C27 FIX: Use D4.coerceMap instead of a CastMap view.
+        // CastMap views type-check on key/value access; this fails when
+        // D4rt elements are wrapped in BridgedInstance/BridgedEnumValue.
         if (isNullable) {
-          return 'value == null ? null : (value as Map).cast<$prefixedKeyType, $prefixedValueType>()';
+          return "value == null ? null : D4.coerceMap<$prefixedKeyType, $prefixedValueType>(value, '$paramName', visitor)";
         } else {
-          return '(value as Map).cast<$prefixedKeyType, $prefixedValueType>()';
+          return "D4.coerceMap<$prefixedKeyType, $prefixedValueType>(value, '$paramName', visitor)";
         }
       }
     }
