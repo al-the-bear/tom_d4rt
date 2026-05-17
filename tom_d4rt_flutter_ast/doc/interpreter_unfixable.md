@@ -42,6 +42,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [I1 — C-style `for (var i = 0; …; i++)` shares loop variable across closures](#i1--c-style-for-loop-shares-loop-variable-across-closures-interpreter-limitation) | Interpreter limitation (`_executeClassicFor` creates one `loopEnvironment` for the whole loop and reuses it every iteration; standard Dart instead allocates a fresh per-iteration variable so closures created inside the body each capture their own `i`). Script-side workaround: replace collection-`for` / body-less for-loops that build closures over `i` with `List<T>.generate(n, (i) => …)`, which gives each iteration a fresh function-parameter `i`. | `widgets/drag_target_details_test.dart` (Section 11 rank-slot row, 5 FE) |
 | [T1 — `runtimeType.toString()` on user-defined interpreted classes](#t1--runtimetypetostring-on-user-defined-interpreted-classes) | Interpreter limitation (`InterpretedInstance.runtimeType` returns the `InterpretedClass`, which does not expose `toString` as a callable static — the chained call resolves to a static lookup and throws). Script-side workaround: emit the class-name string from an explicit `is`-check ladder. | `widgets/route_transition_record_test.dart` (1 FE — `_buildSurfaceRow` line 836) |
 | [S1 — `const Stream<T>.empty()` rejected by `Stream` bridge](#s1--const-streamtempty-rejected-by-stream-bridge-interpreter-limitation) | Interpreter limitation (the stdlib `Stream` `BridgedClass` registers `empty`/`value`/`fromIterable`/etc. under `staticMethods:` and leaves `constructors: {}`. `MethodInvocation`-shaped calls — `Stream.empty()` — fall through to `staticMethods` and succeed; `InstanceCreationExpression`-shaped calls — `const Stream<int>.empty()` — go through `findConstructorAdapter` only and never see the static-method registration, so the lookup throws `Bridged class 'Stream' does not have a registered constructor named 'empty'`). Script-side workaround: drop `const`, drop the explicit type-arg, and call as a method invocation (`Stream<int>.empty()` or `Stream.fromIterable(const <int>[])`), or hold the stream in a non-const `final` so the parser keeps the call as `MethodInvocation`. | `widgets/streambuilder_test.dart` (Section 6 — `stream: const Stream<int>.empty()`) |
+| [U1 — Demo-scale renderings that overload the test-app transport](#u1--demo-scale-renderings-that-overload-the-test-app-transport-interpreter-limitation) | Interpreter limitation, two sub-cases. (1) Top-level `const` of an interpreted subclass of a *native* abstract class (here `extends Notification`) exercises the adapter-proxy infrastructure before the visitor has wired its context, and crashes the test-app transport (`Lost connection to device`, no stderr). (2) `SelectableText.rich(TextSpan(children: spans))` with ~1000+ TextSpans (built per-character by an interpreted Dart colorizer from a ~1.8 KB code listing) exceeds the test-app per-frame transport budget and the device disconnects. Workaround: keep the displayed values as top-level `const` primitives (no native-abstract subclass), and render long code listings (>≈500 chars / >≈22 lines) through a sibling helper that wraps a single plain monospace `Text` instead of the per-char colorizer + `SelectableText.rich`. | `widgets/notificationlistener_test.dart` (C05 closed 2026-05-17) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2412,8 +2413,200 @@ script-side workaround above is the closure for now.
 
 ---
 
+## U1 — Demo-scale renderings that overload the test-app transport (interpreter limitation)
+
+### Symptom
+
+The Flutter test app crashes mid-run with:
+
+```
+Bad state: Transport failure
+Lost connection to device.
+```
+
+No interpreter stack, no analyzer error, no framework exception
+surfaces — the app process simply detaches from the HTTP transport
+mid-execution and the test fails as
+`status=transport_failure`. From `flutter test`'s point of view the
+device just disconnected.
+
+Reproduces deterministically on
+`widgets/notificationlistener_test.dart` (C05 in
+`testlog_20260517-0914`) and on both drivers
+(`tom_d4rt_flutter_ast`, `tom_d4rt_flutter_test`).
+
+### Root cause
+
+The C05 demo combined two independently-fatal shapes:
+
+1. **Top-level `const` of an interpreted subclass of a native
+   abstract class** — the script declared
+   `class _PrivateScoreNotification extends Notification` (where
+   `Notification` is the *native* abstract class from
+   `package:flutter/widgets.dart`) and instantiated three
+   top-level `const _PrivateScoreNotification(...)` values during
+   the script's static initialization. The interpreter does
+   support interpreted subclasses of native abstract classes via
+   adapter proxies (see *Abstract Class Inheritance*), but the
+   adapter-proxy infrastructure is intended for *instance*
+   construction inside `build()`/lifecycle methods; running it
+   during the top-level constant-evaluation phase, before the
+   interpreter has wired up its full visitor context, causes the
+   process to terminate before any error gets serialised over the
+   transport.
+
+2. **A very large `SelectableText.rich` TextSpan tree built
+   per-character by an interpreted colorizer** — the demo had a
+   `_privateCodeBlock(String code)` helper that ran
+   `_privateColorizeDart(code)` to produce a `List<TextSpan>` one
+   character at a time (each non-keyword/non-string char became
+   its own `TextSpan(text: c)`), then fed the list into
+   `SelectableText.rich(TextSpan(children: spans))`. For most
+   sections (≤500 chars / ≤22 lines of code) this works fine. The
+   "mini recipe" code listing in Section 7 was ~1.8 KB / ~58
+   lines, producing roughly 1000+ TextSpan objects. Rendering it
+   exhausts whatever the transport budget is and the app
+   disconnects without surfacing an error.
+
+Both sub-cases were confirmed by bisection on `build()`'s child
+list (`ztmp/c05_repro.log.txt`,
+`ztmp/c05_bisect_s7_only.log.txt`,
+`ztmp/c05_ast_fixed.log.txt`). Removing either sub-case alone is
+not enough; both must be neutralised.
+
+### Why this is interpreter-limitation rather than "truly unfixable"
+
+- The native-abstract-subclass-at-top-level-const case is a real
+  blind spot in the adapter-proxy initialisation order. A
+  long-term fix would land in `tom_d4rt` and `tom_d4rt_ast` by
+  hoisting the proxy registration into the
+  `DeclarationVisitor`'s pre-pass so that any top-level
+  `const`-evaluated interpreted subclass of a native abstract
+  class has a working proxy ready before constant evaluation
+  begins. This is a non-trivial cross-cutting change (mirrors,
+  abstract-class scanner, proxy wiring) and not in scope for the
+  C05 cluster.
+- The large-TextSpan-tree case is a transport-budget interaction:
+  every TextSpan that the interpreter constructs has to be
+  serialised through the bridge boundary into a real Flutter
+  `TextSpan` object. For ~1000+ spans this exceeds whatever
+  per-frame transport budget the test-app is configured for. The
+  fix-shaped solution is either bridge-side batching of
+  `TextSpan` construction, or a transport-budget bump in the
+  test-app HTTP harness; either would be a separate workstream.
+
+### Workaround
+
+Both sub-cases admit a clean script-side rewrite that preserves
+the *documentation intent* of the demo:
+
+**1. Don't declare an interpreted subclass of a native abstract
+class for a value the demo never actually dispatches.** The
+`_PrivateScoreNotification` class was only used for its `score`
+and `label` fields displayed in a UI card; nothing ever called
+`.dispatch(context)`. Inline the displayed values as top-level
+`const` primitives and keep the class definition only in the
+*code-listing text* (which is the documentation intent anyway):
+
+```dart
+// Don't do (top-level, const, before build()):
+//   class _PrivateScoreNotification extends Notification {
+//     final int score;
+//     final String label;
+//     const _PrivateScoreNotification(this.score, {this.label = 'score'});
+//     …
+//   }
+//   const _PrivateScoreNotification _kSampleScoreB =
+//       _PrivateScoreNotification(108, label: 'levelB');
+//
+// Do (inline the displayed values, keep the class only as text):
+const int _kSampleScoreBValue = 108;
+const String _kSampleScoreBLabel = 'levelB';
+
+// … and in the banner widget:
+Text('$_kSampleScoreBValue', …)
+Text('label: $_kSampleScoreBLabel', …)
+```
+
+**2. Render large code listings with a single plain monospace
+`Text` widget, not `SelectableText.rich`-of-many-TextSpans.**
+Define a sibling helper that keeps the same dark-card visual
+container but skips per-char colorization for snippets above
+~1KB / ~25 lines:
+
+```dart
+Widget _privatePlainCodeBlock(String code) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+    decoration: BoxDecoration(
+      color: _kCodeBg,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: _kPageInkFaint.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
+    ),
+    child: Text(
+      code,
+      style: TextStyle(
+        color: _kCodeFg,
+        fontFamily: 'monospace',
+        fontSize: 12,
+        height: 1.5,
+      ),
+    ),
+  );
+}
+```
+
+Use `_privateCodeBlock` (the colorized helper) for code listings
+of ≲500 chars / ≲22 lines (the size used in Sections 3–6 of the
+demo). Use `_privatePlainCodeBlock` (plain Text) for anything
+larger.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `widgets/notificationlistener_test.dart` | top-level `_PrivateScoreNotification` class + 3 `const _kSampleScore*` values; Section 7's `_privateCodeBlock(...)` (~1.8 KB recipe) | Both sub-cases neutralised by inlining displayed values and switching Section 7 to `_privatePlainCodeBlock`. C05 closed 2026-05-17 on both drivers. |
+
+### What a real fix would look like
+
+For sub-case (1): in `DeclarationVisitor` (both `tom_d4rt` and
+`tom_d4rt_ast`), pre-register adapter proxies for every
+interpreted class whose direct or indirect base is a native
+abstract class *before* visiting top-level `const`-evaluated
+variable declarations. The current dispatch order constructs
+proxies on first instantiation inside an evaluated method body,
+which is too late for top-level `const` literals.
+
+For sub-case (2): batch
+`SelectableText.rich`/`TextSpan(children: …)` transport so the
+interpreter ships the full span tree as a single payload rather
+than synthesising each `TextSpan` through the bridge boundary
+individually. Or raise the test-app per-frame transport budget
+to accommodate ≥4000 small object constructions.
+
+---
+
 ## Change Log
 
+- 2026-05-17: **Add U1 — Demo-scale renderings that overload the
+  test-app transport.** Documents the
+  `testlog_20260517-0914` C05 cluster (`widgets/notificationlistener_test.dart`,
+  "Lost connection to device"). Two independent fatal shapes
+  bundled: (1) top-level `const` of an interpreted subclass of
+  the native abstract `Notification`, which exercises the
+  adapter-proxy infrastructure before the visitor has finished
+  wiring its context, and (2) `SelectableText.rich` with a ~1000+
+  TextSpan tree produced by the demo's per-character
+  `_privateColorizeDart` helper from a ~1.8 KB code listing,
+  which exceeds the test-app transport budget. Both neutralised
+  script-side by inlining the demo's displayed values
+  (`_kSampleScoreBValue`, `_kSampleScoreBLabel`) and rendering
+  Section 7's large code listing as a single plain monospace
+  `Text` widget through a new `_privatePlainCodeBlock` helper.
+  Cluster closes on both drivers 2026-05-17.
 - 2026-05-05: **Add S1 — `const Stream<T>.empty()` rejected by
   `Stream` bridge.** `BridgedClass` for `Stream` registers
   `empty`/`value`/`fromIterable`/… as `staticMethods`, so the

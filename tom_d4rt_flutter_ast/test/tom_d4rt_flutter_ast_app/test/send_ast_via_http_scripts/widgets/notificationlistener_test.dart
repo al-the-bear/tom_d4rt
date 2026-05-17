@@ -70,22 +70,17 @@ const Color _kCodeNumber = Color(0xFFE9D27A);
 //  code-listing cards and as a worked example of the pattern.
 // ---------------------------------------------------------------------
 
-class _PrivateScoreNotification extends Notification {
-  final int score;
-  final String label;
-  const _PrivateScoreNotification(this.score, {this.label = 'score'});
-
-  @override
-  String toString() =>
-      '_PrivateScoreNotification(label: \$label, score: \$score)';
-}
-
-const _PrivateScoreNotification _kSampleScoreA =
-    _PrivateScoreNotification(42, label: 'levelA');
-const _PrivateScoreNotification _kSampleScoreB =
-    _PrivateScoreNotification(108, label: 'levelB');
-const _PrivateScoreNotification _kSampleScoreC =
-    _PrivateScoreNotification(733, label: 'finalRound');
+// NOTE: We do not actually declare `_PrivateScoreNotification extends
+// Notification` here, even though the demo describes such a class in its
+// code-listing cards. Constructing an interpreted subclass of the native
+// abstract `Notification` at top-level const-eval time crashed the test
+// app process (transport failure, "Lost connection to device"). The demo
+// itself never dispatches the notification — it only displays the score
+// and label values — so we inline those values directly at their call
+// sites. The class definition still appears as text in the code-listing
+// cards, which is the documentation intent of this demo.
+const int _kSampleScoreBValue = 108;
+const String _kSampleScoreBLabel = 'levelB';
 
 // =====================================================================
 //  Entry point
@@ -1421,7 +1416,7 @@ Widget _privateScoreBanner() {
             ),
             SizedBox(height: 2),
             Text(
-              '${_kSampleScoreB.score}',
+              '$_kSampleScoreBValue',
               style: TextStyle(
                 color: _kCardWhite,
                 fontSize: 26,
@@ -1443,7 +1438,7 @@ Widget _privateScoreBanner() {
             ),
           ),
           child: Text(
-            'label: ${_kSampleScoreB.label}',
+            'label: $_kSampleScoreBLabel',
             style: TextStyle(
               color: _kCardWhite,
               fontSize: 11.5,
@@ -1573,7 +1568,15 @@ Widget _privateBuildSection7Recipe() {
           ),
         ),
         SizedBox(height: 16),
-        _privateCodeBlock(
+        // NOTE: This code listing is rendered as a plain monospace Text
+        // widget rather than via _privateCodeBlock(), because the latter
+        // (per-character TextSpan colorization fed into
+        // SelectableText.rich) crashes the d4rt interpreter test app
+        // (transport failure, "Lost connection to device") when the input
+        // is roughly this large (~1.8KB / ~58 lines). Other code listings
+        // in this demo stay below that threshold and continue to use the
+        // colorized helper. See interpreter_unfixable.md.
+        _privatePlainCodeBlock(
           '// 1) Define the notification subclass.\n'
           'class CountChangedNotification extends Notification {\n'
           '  final int newCount;\n'
@@ -1635,6 +1638,33 @@ Widget _privateBuildSection7Recipe() {
           '}',
         ),
       ],
+    ),
+  );
+}
+
+// Lightweight code-listing widget for large snippets that would
+// otherwise overload _privateCodeBlock's per-character colorizer.
+// Same visual container; plain monospace Text instead of a SelectableText
+// with a large TextSpan tree.
+Widget _privatePlainCodeBlock(String code) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+    decoration: BoxDecoration(
+      color: _kCodeBg,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: _kPageInkFaint.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
+    ),
+    child: Text(
+      code,
+      style: TextStyle(
+        color: _kCodeFg,
+        fontFamily: 'monospace',
+        fontSize: 12,
+        height: 1.5,
+      ),
     ),
   );
 }

@@ -38,7 +38,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☑ fixed |
 | **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☑ fixed |
-| **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☐ |
+| **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☑ fixed |
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☐ |
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☐ |
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☐ |
@@ -244,11 +244,49 @@ passes.
 
 #### C05 — `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 56 | widgets/ notificationlistener_test.dart |
+
+**Root cause.** The C05 demo combined two independently-fatal
+shapes whose only symptom is `Lost connection to device` with no
+useful stderr: (1) a top-level `class _PrivateScoreNotification
+extends Notification` plus three top-level `const
+_PrivateScoreNotification(...)` constants — constructing an
+interpreted subclass of the *native* abstract `Notification` at
+top-level const-evaluation time exercises the adapter-proxy
+infrastructure before the visitor has wired its context, and
+crashes the test-app transport; (2) Section 7's
+`_privateCodeBlock(...)` rendering a ~1.8 KB / ~58-line code
+listing through a per-character `_privateColorizeDart` colorizer
+into `SelectableText.rich(TextSpan(children: spans))`, producing
+~1000+ TextSpans and exceeding the test-app per-frame transport
+budget. Bisection on `build()`'s child list confirmed both
+sub-cases (see `ztmp/c05_*.log.txt`).
+
+**Fix (script-only).** (1) Removed the
+`_PrivateScoreNotification` class and its three constants;
+inlined the displayed values as top-level `const int
+_kSampleScoreBValue = 108;` and `const String _kSampleScoreBLabel
+= 'levelB';` (the class definition still appears as text in the
+code-listing cards, which is the documentation intent). (2)
+Added a sibling helper
+`Widget _privatePlainCodeBlock(String code)` that wraps a single
+plain monospace `Text` widget in the same dark-card visual
+container, and routed Section 7's large recipe through it
+instead of `_privateCodeBlock`. Sections 3–6 (small code
+listings, ≤500 chars / ≤22 lines) continue to use the colorized
+`_privateCodeBlock`.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus; single-test verification on both drivers
+(flutter_ast `00:16 +1: All tests passed!`, flutter_test
+`00:12 +1: All tests passed!`). Logged in
+`ztmp/c05_ast_fixed.log.txt` and
+`ztmp/c05_test_fixed.log.txt`. Underlying interpreter
+limitations documented as **U1** in `interpreter_unfixable.md`.
 
 #### C06 — `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.`
 
