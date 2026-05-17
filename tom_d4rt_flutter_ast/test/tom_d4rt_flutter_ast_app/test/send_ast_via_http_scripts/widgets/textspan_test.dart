@@ -904,7 +904,12 @@ Widget _sectionFive(List<Map<String, dynamic>> alignmentRows) {
         TextSpan(text: 'text '),
         WidgetSpan(
           alignment: alignment,
-          baseline: alignment == PlaceholderAlignment.baseline
+          // Flutter asserts baseline != null for aboveBaseline / belowBaseline /
+          // baseline alignments (widget_span.dart line 83). Supply it for all
+          // three; ignored by the other three alignments.
+          baseline: (alignment == PlaceholderAlignment.baseline ||
+                  alignment == PlaceholderAlignment.aboveBaseline ||
+                  alignment == PlaceholderAlignment.belowBaseline)
               ? TextBaseline.alphabetic
               : null,
           child: Container(
