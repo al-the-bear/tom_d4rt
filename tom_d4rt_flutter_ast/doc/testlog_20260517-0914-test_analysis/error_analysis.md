@@ -61,7 +61,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☑ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
-| **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☐ |
+| **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
@@ -1705,12 +1705,67 @@ and updated the 14 `*.b.dart` bridge files in each package.
 
 #### C28 — `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 235 | gestures/ individual drag_test.dart |
 | 243 | gestures/ individual positioned_gesture_details_test.dart |
+
+**Status:** fixed (2026-05-18). Test-script-only change — rule (a).
+
+**Root cause.** Flutter's `DragEndDetails` constructor asserts
+(`package:flutter/src/gestures/drag_details.dart:217`):
+
+```dart
+primaryVelocity == null ||
+    (primaryVelocity == velocity.pixelsPerSecond.dx && velocity.pixelsPerSecond.dy == 0) ||
+    (primaryVelocity == velocity.pixelsPerSecond.dy && velocity.pixelsPerSecond.dx == 0)
+```
+
+i.e. when `primaryVelocity` is non-null it must equal one axis of
+`velocity.pixelsPerSecond` while the *other* axis is exactly `0`.
+
+Both scripts constructed `DragEndDetails` with a non-zero off-axis
+component alongside a non-null `primaryVelocity`, which violates
+the assertion:
+
+- `drag_test.dart:34`
+  `velocity: Velocity(pixelsPerSecond: Offset(1200.0, 80.0)), primaryVelocity: 1200.0`
+  → dx=1200 matches primaryVelocity but dy=80 ≠ 0.
+- `positioned_gesture_details_test.dart:265`
+  `velocity: Velocity(pixelsPerSecond: Offset(420.0, 180.0)), primaryVelocity: 420.0`
+  → dx=420 matches primaryVelocity but dy=180 ≠ 0.
+
+This is a script-authoring bug, not an interpreter bug — the
+constructor would have failed identically in native Dart.
+
+**Fix.** Set the off-axis component to `0.0` in both scripts so
+the values satisfy Flutter's invariant. The intent (a horizontal
+fling) is unchanged; the values are display-only (visualised in
+sample cards).
+
+- `drag_test.dart:34` → `Offset(1200.0, 0.0)`.
+- `positioned_gesture_details_test.dart:265` →
+  `Offset(420.0, 0.0)` (and the matching `literal:` display string
+  at L438 updated to `Offset(420, 0)` to stay consistent).
+
+**Verification (AST driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- `gestures/drag_test.dart` → success, 0 frameworkErrors
+  (log `ztmp/c28_verify_ast_drag.log.txt`).
+- `gestures/positioned_gesture_details_test.dart` → success, the
+  remaining 1 framework error is a pre-existing layout warning
+  (`BoxConstraints forces an infinite height`) unrelated to C28
+  (log `ztmp/c28_verify_ast_pgd.log.txt`).
+
+**Verification (analyzer driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- `gestures/drag_test.dart` → success, 0 frameworkErrors
+  (log `ztmp/c28_verify_analyzer_drag.log.txt`).
+- `gestures/positioned_gesture_details_test.dart` → success, same
+  unrelated layout warning as AST driver
+  (log `ztmp/c28_verify_analyzer_pgd.log.txt`).
 
 #### C29 — `Runtime Error: The condition of a conditional expression must be a boolean, but was null.`
 

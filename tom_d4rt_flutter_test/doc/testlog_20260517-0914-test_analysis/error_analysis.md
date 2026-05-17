@@ -61,7 +61,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C25** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Null check operator used on a null value` | ☑ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
-| **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☐ |
+| **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☐ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
@@ -1564,12 +1564,58 @@ flutter packages.
 
 #### C28 — `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 235 | gestures/ individual drag_test.dart |
 | 243 | gestures/ individual positioned_gesture_details_test.dart |
+
+**Status:** fixed (2026-05-18). Test-script-only change — rule (a).
+
+**Root cause.** Flutter's `DragEndDetails` constructor asserts at
+`package:flutter/src/gestures/drag_details.dart:217`:
+
+```dart
+primaryVelocity == null ||
+    (primaryVelocity == velocity.pixelsPerSecond.dx && velocity.pixelsPerSecond.dy == 0) ||
+    (primaryVelocity == velocity.pixelsPerSecond.dy && velocity.pixelsPerSecond.dx == 0)
+```
+
+When `primaryVelocity` is non-null it must equal one axis of
+`velocity.pixelsPerSecond` while the other axis is exactly `0`.
+
+Both scripts violated this:
+
+- `drag_test.dart:34`: `(1200.0, 80.0)` with `primaryVelocity: 1200.0`.
+- `positioned_gesture_details_test.dart:265`: `(420.0, 180.0)`
+  with `primaryVelocity: 420.0`.
+
+The constructor would have failed identically in native Dart — a
+script-authoring bug, not an interpreter bug.
+
+**Fix.** Set the off-axis to `0.0` in both scripts; intent (a
+horizontal fling) is unchanged. The matching display literal at
+`positioned_gesture_details_test.dart:438` was updated for
+consistency.
+
+**Verification (AST driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- `gestures/drag_test.dart` → success, 0 frameworkErrors
+  (`tom_d4rt_flutter_ast/ztmp/c28_verify_ast_drag.log.txt`).
+- `gestures/positioned_gesture_details_test.dart` → success; the
+  one remaining framework error is a pre-existing
+  `BoxConstraints forces an infinite height` layout warning,
+  unrelated to C28
+  (`tom_d4rt_flutter_ast/ztmp/c28_verify_ast_pgd.log.txt`).
+
+**Verification (analyzer driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- `gestures/drag_test.dart` → success, 0 frameworkErrors
+  (`ztmp/c28_verify_analyzer_drag.log.txt`).
+- `gestures/positioned_gesture_details_test.dart` → success, same
+  unrelated layout warning
+  (`ztmp/c28_verify_analyzer_pgd.log.txt`).
 
 #### C29 — `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast`
 
