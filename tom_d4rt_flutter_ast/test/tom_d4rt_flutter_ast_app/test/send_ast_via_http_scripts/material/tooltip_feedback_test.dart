@@ -1568,14 +1568,17 @@ Widget _privateRichMessageExample() {
               ),
               children: [
                 const TextSpan(text: 'Save changes '),
+                // C15 workaround: '\n' appended to preceding span instead of
+                // standalone `const TextSpan(text: '\n')` between two styled
+                // spans, which crashes the Dart VM under d4rt. See
+                // interpreter_unfixable.md (C15: standalone-newline TextSpan).
                 TextSpan(
-                  text: '(Cmd+S)',
+                  text: '(Cmd+S)\n',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     color: _privateMint,
                   ),
                 ),
-                const TextSpan(text: '\n'),
                 TextSpan(
                   text: 'tip:',
                   style: TextStyle(
