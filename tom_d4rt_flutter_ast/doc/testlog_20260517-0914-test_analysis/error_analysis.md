@@ -53,7 +53,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☑ fixed (script) |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (script) |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
-| **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
+| **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☑ fixed (script) |
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☐ |
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
 | **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☐ |
@@ -1202,11 +1202,100 @@ Logs: `ztmp/c18_verify_ast_secondary.log.txt`,
 
 #### C20 — `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 119 | widgets/ restorable_values_test.dart |
+
+**Root cause.** Two issues, fixed in the same script edit.
+
+*Primary (C20).* The script declared a local `enum _Mood { calm,
+focused, joyful, sleepy }` and constructed three native
+`RestorableEnum<_Mood>` / `RestorableEnumN<_Mood>` instances. d4rt
+represents script-defined enum values as `InterpretedEnumValue`
+(`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` line 1861 —
+`implements RuntimeValue`, **not** `Enum`). The native
+`RestorableEnum<E>(E defaultValue, ...)` constructor's bridge
+adapter runs `D4.getRequiredArg<Enum>` on the first positional
+argument and rejects the value:
+
+```text
+Runtime Error: Native error during default bridged constructor
+for 'RestorableEnum': Argument Error: Invalid parameter
+"defaultValue": expected Enum, got InterpretedEnumValue
+```
+
+Same family as U3 (`Curve`), U5 (`NotchedShape` /
+`FloatingActionButtonLocation`): a script-defined subtype of a
+bridged native abstract / built-in type cannot cross the
+d4rt → native boundary as that native type.
+
+*Follow-up (exposed by the primary fix).* After replacing
+`_Mood` with `Brightness`, construction succeeded and execution
+proceeded to `.value` reads on the 15 restorable instances. The
+Flutter `RestorableValue<T>.value` getter asserts `isRegistered`:
+
+```dart
+// flutter/lib/src/widgets/restoration_properties.dart, line 85
+T get value {
+  assert(isRegistered);
+  return _value as T;
+}
+```
+
+`flutter test` runs in debug mode, so the assertion fires. The
+script's original author had a (factually incorrect) comment
+above the restorable declarations: *"Each `.value` access works
+against the in-memory default — registration is not required for
+the getter to return its initial."* That assertion has been in
+Flutter for years; the C20 error masked it because construction
+failed before any `.value` read happened.
+
+**Fix.** Script-only. In
+`widgets/restorable_values_test.dart`:
+
+1. Replace the script-defined `enum _Mood { calm, focused, joyful,
+   sleepy }` with the framework-provided `Brightness` enum (two
+   values `light` / `dark`). The three `RestorableEnum` /
+   `RestorableEnumN` constructors are switched to
+   `RestorableEnum<Brightness>` / `RestorableEnumN<Brightness>`,
+   and the iteration `for (final _Mood m in _Mood.values)`
+   switches to `Brightness.values`.
+2. Shadow each `RestorableXxx` with a plain Dart variable holding
+   the same construction-time default (`_vInt`, `_vDouble`,
+   `_vBool`, `_vString`, `_vNum`, `_vDateTime`, `_vMood`,
+   `_vMoodCalm`, plus the `_vXxxN` nullable shadows). Replace
+   every `restXxx.value` read in the display widgets with the
+   corresponding shadow variable (44 sites). The demo never
+   mutates the stored values, so the shadow equals what the
+   getter would return — the substitution is exact.
+
+The script's `.runtimeType` reads on the restorables stay
+unchanged (they don't trigger the assertion), as does the
+`final int registered = […].where(...).length` summary footer
+(which only counts list entries, never reads `.value`).
+
+A C20-workaround comment above the shadow declarations
+documents both precautions. The underlying limitations and the
+workaround pattern are documented in
+`doc/interpreter_unfixable.md` (U8 — script-defined enums can't
+cross the d4rt → native boundary as `Enum`, plus
+`RestorableValue.value` requires registration).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `widgets/restorable_values_test.dart` | `+1` All tests passed |
+| flutter_test | `widgets/restorable_values_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c20_verify_ast.log.txt`,
+`ztmp/c20_verify_analyzer.log.txt`. Repro log:
+`ztmp/c20_repro_ast.log.txt`.
 
 #### C21 — `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse`
 

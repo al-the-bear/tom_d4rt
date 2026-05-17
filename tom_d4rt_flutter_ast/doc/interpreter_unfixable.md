@@ -49,6 +49,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U5 — Interpreted subclass of native abstract `NotchedShape` / `FloatingActionButtonLocation` rejected at the bridged-constructor boundary](#u5--interpreted-subclass-of-native-abstract-notchedshape--floatingactionbuttonlocation-rejected-at-the-bridged-constructor-boundary-interpreter-limitation) | Interpreter limitation (same adapter-proxy delegation gap as U3 for `Curve`). The bridge generator does not synthesise a proxy that recognises a script-defined `InterpretedInstance` as a valid native `NotchedShape` / `FloatingActionButtonLocation` argument, so `D4.getNamedArg<T>` rejects the value with `Argument Error: Invalid parameter "shape": expected NotchedShape?, got InterpretedInstance(_TopRoundedNotchedShape)` (or the analogous `floatingActionButtonLocation` error). Workaround: use a framework-provided subclass (`CircularNotchedRectangle`, `AutomaticNotchedShape`; `FloatingActionButtonLocation.endFloat`, `.centerDocked`, …). | `material/bottom_app_bar_test.dart` (C16 closed 2026-05-17 — `_TopRoundedNotchedShape extends NotchedShape`, `_CustomFabLocation extends FloatingActionButtonLocation`) |
 | [U6 — Direct import of `package:vector_math/vector_math_64.dart` is not resolvable in d4rt scripts](#u6--direct-import-of-packagevector_mathvector_math_64dart-is-not-resolvable-in-d4rt-scripts-module-loader-limitation) | Module-loader / bundler limitation. The `vector_math` package is not in `bridgedLibraries` and not registered as an `explicitSources` entry for either driver, so the bundler (AST driver: `AstBundler._resolveImports`) and module loader (analyzer driver: `SourceCodeException: Module source not preloaded`) reject the import at bundle/load time even though Flutter bridges *consume* `Vector3` as a parameter type internally (`$vector_math_1.Vector3` is referenced throughout `painting_bridges.b.dart`). Workaround: drop the import; access `Matrix4.storage` (bridged, returns `Float64List`) and compute matrix·vector products inline. | `painting/matrixutils_test.dart` (C17 closed 2026-05-17 — `Vector3(40, 0, 0)` fed through `Matrix4.transform3`) |
 | [U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames`](#u7--dart-internal-_constmap-runtime-class-of-const-k-v-is-not-in-the-map-bridges-nativenames-interpreter-limitation) | Interpreter limitation. The Map `BridgedClass` (`tom_d4rt/lib/src/stdlib/core/map.dart` and `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart`) lists `UnmodifiableMapView`, `_UnmodifiableMapView`, `_CompactLinkedHashMap`, `ListMapView`, `_MapView` in `nativeNames`, but not `_ConstMap` — the Dart-internal runtime type of `const <K, V>{}`. Any member access on a `_ConstMap` (`.entries`, `.keys`, `.length`, …) falls through the `SPrefixedIdentifier` lookup and throws `Cannot access property '<name>' on target of type _ConstMap<…>.`. The trigger comes both from script-side `const <K, V>{}` defaults and from Flutter APIs that return `const <…>{}` themselves — notably `SemanticsEvent.getDataMap()` for payload-free events (`LongPressSemanticsEvent`, `TapSemanticEvent`, `FocusSemanticEvent`). Workaround: drop `const` on script-side defaults and copy bridged map values through `Map<K, V>.from(value)` at the assignment site so the runtime type is a regular `LinkedHashMap`. | `semantics/semantics_events_test.dart` (C18 closed 2026-05-17 — `dataMap.entries.toList()` on the values of `probe.getDataMap()` for `LongPressSemanticsEvent` / `TapSemanticEvent` / `FocusSemanticEvent`) |
+| [U8 — Script-defined enum values are `InterpretedEnumValue`, not native `Enum`; plus `RestorableValue.value` asserts `isRegistered`](#u8--script-defined-enum-values-are-interpretedenumvalue-not-native-enum-plus-restorablevaluevalue-asserts-isregistered-interpreter-limitation--scripting-trap) | Interpreter limitation + scripting trap. (1) d4rt represents every script-defined `enum X { … }` value as `InterpretedEnumValue` (`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` line 1861), which implements `RuntimeValue` but **not** Dart's native `Enum`. Any bridged API parameter typed `Enum` (`RestorableEnum<E>(E defaultValue, …)`, `RestorableEnumN<E>`, generic enum-typed setters) rejects the script value at the bridge boundary via `D4.getRequiredArg<Enum>`. Same family as U3 / U5 — script-defined subtypes can't cross d4rt → native as the native abstract / built-in type. (2) Latent Flutter trap that often surfaces *after* the U8 enum workaround unmasks it: `RestorableValue<T>.value` asserts `isRegistered` at line 85 of `restoration_properties.dart`; in debug mode (which is how `flutter test` runs) accessing `.value` on an unregistered restorable throws. Workarounds: (a) replace any script-defined enum used at a native API boundary with a framework enum (`Brightness`, `TargetPlatform`, `TextDirection`, …); (b) when reading `RestorableValue.value` on a restorable that the script never registers via `RestorationMixin`, shadow each restorable with a plain Dart variable holding the construction-time default and read the shadow (the demo never mutates the stored value, so the shadow equals what the getter would return). | `widgets/restorable_values_test.dart` (C20 closed 2026-05-17 — `RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values)` plus 44 `restXxx.value` reads on never-registered restorables) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -3381,7 +3382,208 @@ rewriting.
 
 ---
 
+## U8 — Script-defined enum values are `InterpretedEnumValue`, not native `Enum`; plus `RestorableValue.value` asserts `isRegistered` (interpreter limitation + scripting trap)
+
+**Category.** Two cooperating issues that surface together on
+restorable-value demos that use a local script-defined enum.
+
+**(1) Interpreter limitation — `InterpretedEnumValue` is not
+`Enum`.** d4rt represents every script-defined enum value
+through a dedicated runtime class:
+
+```dart
+// tom_d4rt_ast/lib/src/runtime/runtime_types.dart  (line 1861)
+class InterpretedEnumValue implements RuntimeValue { /* … */ }
+```
+
+The same shape exists in `tom_d4rt`. `InterpretedEnumValue`
+implements `RuntimeValue` but **not** Dart's native `Enum`. Any
+bridged API parameter that is typed `Enum` (or that delegates
+through `D4.getRequiredArg<Enum>` / `D4.getNamedArg<Enum>`) sees
+the script value as a `RuntimeValue`, fails the `is Enum`
+predicate, and throws:
+
+```text
+Runtime Error: Native error during default bridged constructor
+for 'RestorableEnum': Argument Error: Invalid parameter
+"defaultValue": expected Enum, got InterpretedEnumValue
+```
+
+Same family as U3 (`Curve`) and U5 (`NotchedShape` /
+`FloatingActionButtonLocation`): a script-defined subtype of a
+bridged native abstract / built-in type cannot cross the
+d4rt → native boundary as that native type. Concretely, the
+trigger is anywhere a bridged constructor or method is typed
+`Enum` (or a `T extends Enum` generic parameter is reified
+against `Enum`), e.g. `RestorableEnum<E>(E defaultValue,
+{required List<E> values})`,
+`RestorableEnumN<E>(E? defaultValue, {required List<E?> values})`,
+`Set<Enum>` parameters, `EnumName` extension calls reaching
+native ground.
+
+**(2) Scripting trap — `RestorableValue.value` requires
+registration.** The Flutter `RestorableValue<T>.value` getter
+asserts the property is registered with a `RestorationMixin`:
+
+```dart
+// flutter/lib/src/widgets/restoration_properties.dart  (line 85)
+T get value {
+  assert(isRegistered);
+  return _value as T;
+}
+```
+
+`flutter test` runs in debug mode, so the assertion fires when
+the script reads `.value` on a restorable that the script never
+wired through `registerForRestoration(...)`. This is **not** a
+d4rt limitation — it is real Dart/Flutter behaviour that the
+same code would exhibit in plain Flutter. It tends to surface
+*together with* U8(1) because the C20-style constructor error
+on a script-defined enum aborts execution before the first
+`.value` access, masking the assertion until the enum
+workaround unmasks it.
+
+**Reproducer (combined).** The smallest combined repro is the
+`testlog_20260517-0914` C20 cluster
+(`widgets/restorable_values_test.dart`):
+
+```dart
+enum _Mood { calm, focused, joyful, sleepy }
+
+dynamic build(BuildContext context) {
+  final RestorableEnum<_Mood> restMood =
+      RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values);
+  // … (never registered with a RestorationMixin)
+  print('restMood=${restMood.value}');  // (never reached: U8(1) trips first)
+  // …
+}
+```
+
+Yields:
+
+```text
+Runtime Error: Native error during default bridged constructor
+for 'RestorableEnum': Argument Error: Invalid parameter
+"defaultValue": expected Enum, got InterpretedEnumValue
+```
+
+at the constructor call. If U8(1) is sidestepped by switching
+to a framework enum, the next failure is U8(2):
+
+```text
+'package:flutter/src/widgets/restoration_properties.dart':
+Failed assertion: line 85 pos 12: 'isRegistered': is not true.
+```
+
+at the first `restMood.value` read.
+
+**Constraints.**
+
+- A targeted interpreter fix for (1) would require
+  `InterpretedEnumValue` to *implement* `Enum` (add `index`,
+  `name`, and have the runtime type pass `is Enum`). `Enum` is a
+  Dart-VM-special sealed type — class subtyping is constrained
+  by the VM's reified-enum machinery, so a straight
+  `implements Enum` would not satisfy the native `is Enum`
+  check at the bridge boundary. The fix is non-trivial and out
+  of cluster scope.
+- A targeted fix for (2) would require the script to wire a
+  `RestorationMixin` host widget around every restorable demo.
+  That refactors the entire script into a `StatefulWidget` and
+  is invasive. In a static demo where values never mutate the
+  shadow-variable workaround is functionally exact and
+  minimally disruptive.
+
+**Script-side workarounds (mandatory).**
+
+*For (1):* Replace any script-defined enum used at a native
+API boundary with a framework-provided one. Good substitutes,
+sorted by member count:
+
+| Substitute | Values | Notes |
+|------------|-------:|-------|
+| `Brightness` | 2 | Cleanest two-state enum |
+| `TextDirection` | 2 | ltr / rtl |
+| `Orientation` | 2 | portrait / landscape |
+| `Axis` | 2 | horizontal / vertical |
+| `CrossAxisAlignment` | 5 | start / end / center / stretch / baseline |
+| `MainAxisAlignment` | 6 | start / end / center / spaceBetween / spaceAround / spaceEvenly |
+| `TargetPlatform` | 6 | android / fuchsia / iOS / linux / macOS / windows |
+
+The script's own `enum X { … }` declaration can stay if it is
+used purely on the d4rt side (iteration, switch statements,
+display); the substitution is only at the call sites that hand
+the value to a native bridge that types it as `Enum`.
+
+*For (2):* Shadow each restorable with a plain Dart variable
+holding the same construction-time default, and read the shadow
+in display widgets. The substitution is exact whenever the
+demo doesn't mutate `.value` (verified via
+`grep 'restXxx\\.value\\s*=' script.dart`). Pattern:
+
+```dart
+// Shadows
+const int _vInt = 42;
+const Brightness _vMood = Brightness.dark;
+final DateTime _vDateTime = DateTime(2026, 5, 11);
+
+// Restorables share the same default
+final RestorableInt restInt = RestorableInt(_vInt);
+final RestorableEnum<Brightness> restMood =
+    RestorableEnum<Brightness>(_vMood, values: Brightness.values);
+final RestorableDateTime restDateTime = RestorableDateTime(_vDateTime);
+
+// Displays use the shadow, not `restXxx.value`
+Text('$_vInt')
+Text('${_vMood.name}')
+Text(_vDateTime.toIso8601String())
+```
+
+`.runtimeType` reads on the restorables stay fine — they do not
+trigger the assertion.
+
+**Diagnostic guidance.** Any one of:
+
+- `expected Enum, got InterpretedEnumValue` →
+  bridge-boundary enum mismatch (U8(1)). Look for the
+  script-defined enum at the failing call site and substitute a
+  framework enum.
+- `'isRegistered': is not true.` at line 85 of
+  `restoration_properties.dart` → `.value` read on an
+  unregistered restorable (U8(2)). Apply the shadow-variable
+  pattern.
+
+When both errors are likely, fix (1) first; (2) will surface
+afterwards if it applies.
+
+---
+
 ## Change Log
+
+- 2026-05-17: **Add U8 — Script-defined enum values are
+  `InterpretedEnumValue`, not native `Enum`; plus
+  `RestorableValue.value` asserts `isRegistered`.** Documents
+  the `testlog_20260517-0914` C20 cluster
+  (`widgets/restorable_values_test.dart` —
+  `RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values)`
+  with 44 follow-up `restXxx.value` reads on never-registered
+  restorables). Two cooperating issues: (1) d4rt's
+  `InterpretedEnumValue` (`runtime_types.dart` line 1861)
+  implements `RuntimeValue` but not `Enum`, so any bridged API
+  typed `Enum` rejects script-defined enum values at the
+  d4rt → native boundary; same family as U3 / U5. (2)
+  Flutter's `RestorableValue<T>.value` asserts `isRegistered`
+  at line 85 of `restoration_properties.dart`; the script
+  never wires a `RestorationMixin`, so `flutter test` (which
+  runs in debug mode) trips the assertion on the first
+  `.value` read. (2) is real Dart/Flutter behaviour, not a
+  d4rt limitation; (1)'s constructor failure had masked it.
+  Mandatory script-side workarounds: substitute the
+  script-defined enum with a framework enum (`Brightness`
+  shown), and shadow each restorable with a plain Dart
+  variable holding the construction-time default, reading the
+  shadow throughout the build (exact when `.value` is never
+  reassigned).
 
 - 2026-05-17: **Add U7 — Dart-internal `_ConstMap` (runtime
   class of `const <K, V>{}`) is not in the Map bridge's
