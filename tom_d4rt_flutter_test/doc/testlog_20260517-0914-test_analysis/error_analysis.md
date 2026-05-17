@@ -44,7 +44,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☑ fixed |
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☑ fixed |
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☑ fixed |
-| **C11** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☐ |
+| **C11** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☑ fixed |
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☐ |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☐ |
@@ -593,11 +593,72 @@ script corpus; single-test verification on both drivers
 
 #### C11 — `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 31 | foundation/ synchronousfuture_test.dart |
+
+**Root cause.** Two compounded interpreter bugs surfaced by the
+script's import set (`flutter/material.dart` +
+`flutter/foundation.dart` + `dart:async`).
+
+1. **Self-import in `Environment.importEnvironment`.** Diagnostic
+   logging confirmed the module loader returns the importing
+   environment itself for a transitive import:
+   `_unnamedExtensions.addAll(sameList)` iterates the list while
+   mutating it, raising `ConcurrentModificationError` at the first
+   add (length=50 — the registered extensions in the
+   foundation/material transitive closure). Surfaced at
+   `environment.dart:1203` /
+   `interpreter_visitor.dart:visitImportDirective`.
+2. **`FutureOr<Object>` rejects null in `then` bridge.** With (1)
+   fixed, the next exception was `Native error during bridged
+   method call 'then' on SynchronousFuture: Argument Error:
+   Invalid parameter "callback": expected Object, got Null`. The
+   bridge generator's GEN-061 substitution turned an unresolved
+   `FutureOr<dynamic>` callback return into the non-nullable
+   `FutureOr<Object>`, then funnelled it through
+   `extractBridgedArg<FutureOr<Object>>` which throws on `null`.
+   Void-returning callbacks like `sf.then((v) { ... })` produce
+   `null` at the boundary.
+
+**Fix (interpreter + generator, rule b).** Three layered changes
+applied symmetrically to both interpreters and the shared
+generator:
+
+1. `tom_d4rt_ast/lib/src/runtime/environment.dart` (and mirrored in
+   `tom_d4rt/lib/src/environment.dart`): guard the
+   `_unnamedExtensions.addAll(...)` call with `if (!identical(...))`
+   to skip the merge when both environments share the same
+   underlying list.
+2. `tom_d4rt_generator/lib/src/bridge_generator.dart` (~line 13710):
+   the GEN-061 substitution emits `FutureOr<Object?>` instead of
+   `FutureOr<Object>` so void-returning callbacks (whose result is
+   `null`) are accepted.
+3. Same file (~line 13725): extend the `isDynamicReturn` condition
+   to include `castType == 'FutureOr<Object?>'`, routing
+   `FutureOr<Object?>` callbacks through `D4.castCallbackResult`
+   which handles `null` safely via `null is R`.
+
+Both bridge corpora regenerated via `tool/regenerate_bridges.dart`.
+Single-test verification: flutter_ast
+`00:34 +1: All tests passed!`, flutter_test
+`00:31 +1: All tests passed!`. Logs:
+`ztmp/c11_ast_fixed.log.txt`, `ztmp/c11_test_fixed.log.txt`.
+
+**Regression scope (rule b).** Interpreter + generator change →
+gii + essential + important + secondary on both drivers, serial.
+
+| Suite | flutter_ast | flutter_test | Baseline |
+|-------|-------------|--------------|----------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | matches |
+| essential | `+108` | `+108` | clean |
+| important | `+164` | `+164` | clean |
+| secondary | `+633 ~1 -20` | `+632 ~1 -21` | C11 fixed; all 20/21 remaining failures map to open clusters C12–C31 plus the known `tap_drag_start_details_test.dart` inventory gap |
+
+Logs: `ztmp/c11_{ast,test}_{gii,essential,important,secondary}.log.txt`.
+No new regressions on either driver.
 
 #### C12 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
 
