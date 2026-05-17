@@ -1125,7 +1125,13 @@ Widget _customShapeScaffold() {
     bottomNavigationBar: BottomAppBar(
       color: _kTealSoft,
       elevation: 4.0,
-      shape: const _TopRoundedNotchedShape(radius: 18.0),
+      // C16 workaround: script-defined `_TopRoundedNotchedShape` (a
+      // subclass of the native abstract `NotchedShape`) cannot be passed
+      // to a native bridged constructor — the bridge generator does not
+      // synthesise an adapter-proxy that recognises script subclasses of
+      // `NotchedShape` as valid `NotchedShape` arguments. Same family as
+      // U3 (`Curve` subclass). Use a framework-provided `NotchedShape`.
+      shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
       clipBehavior: Clip.antiAlias,
       height: 62.0,
@@ -1405,9 +1411,16 @@ Widget _fabLocationMatrix() {
           location: FloatingActionButtonLocation.miniEndDocked,
           mini: true,
         ),
+        // C16 workaround: script-defined `_CustomFabLocation` (a subclass
+        // of the native abstract `FloatingActionButtonLocation`) cannot be
+        // passed to a native bridged constructor — the bridge generator
+        // does not synthesise an adapter-proxy that recognises script
+        // subclasses of `FloatingActionButtonLocation` as valid arguments.
+        // Same family as U3 (`Curve` subclass). Use a framework-provided
+        // location.
         _fabLocationCell(
-          label: 'custom (3/4 docked)',
-          location: const _CustomFabLocation(),
+          label: 'endFloat',
+          location: FloatingActionButtonLocation.endFloat,
           mini: false,
         ),
       ]),
