@@ -2424,6 +2424,14 @@ dynamic build(BuildContext context) {
   // Construct a GestureDetector with every callback wired (still no-op).
   // It WILL never receive a real pointer because it's behind an
   // IgnorePointer, but the typed wiring is still validated by the parser.
+  //
+  // Note: Flutter's GestureDetector forbids combining onPan* and onScale*
+  // callbacks on the same detector — scale subsumes pan, and Flutter's
+  // `_debugCheckGestureArguments` asserts the two families are mutually
+  // exclusive. The pan callback *types* (DragDownDetails, …) are still
+  // exercised above via the unused closure declarations, so the typed
+  // wiring is still validated even though they aren't passed to this
+  // GestureDetector.
   final wiredDetector = IgnorePointer(
     ignoring: true,
     child: GestureDetector(
@@ -2436,10 +2444,6 @@ dynamic build(BuildContext context) {
       onForcePressEnd: onForce,
       onForcePressUpdate: onForce,
       onForcePressPeak: onForce,
-      onPanDown: onDragDown,
-      onPanStart: onDragStart,
-      onPanUpdate: onDragUpdate,
-      onPanEnd: onDragEnd,
       onScaleStart: onScaleStart,
       onScaleUpdate: onScaleUpdate,
       onScaleEnd: onScaleEnd,
@@ -2452,7 +2456,7 @@ dynamic build(BuildContext context) {
         ),
         alignment: Alignment.center,
         child: const Text(
-          'GestureDetector wired to all 13 callbacks (IgnorePointer; no-op)',
+          'GestureDetector wired to tap/LP/force/scale (IgnorePointer; no-op)',
           style: TextStyle(
             color: Color(0xFF1F6FEB),
             fontWeight: FontWeight.w700,
