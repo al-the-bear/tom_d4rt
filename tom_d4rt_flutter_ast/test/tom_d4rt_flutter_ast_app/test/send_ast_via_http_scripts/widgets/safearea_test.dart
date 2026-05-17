@@ -509,17 +509,22 @@ Widget _nestedRecipeStep(String title, String body, Color color) {
 Widget _buildNestedSafeAreaRecipe() {
   // Outer SafeArea consumes top padding. The inner SafeArea is wrapped in a
   // MediaQuery.removePadding(removeTop:true) so it cannot double-consume.
-  final Widget inner = MediaQuery.removePadding(
-    context: _NullCtx(),
-    removeTop: true,
-    child: SafeArea(
-      child: Container(
-        height: 70.0,
-        color: Color(0xFF5C6BC0),
-        alignment: Alignment.center,
-        child: Text(
-          'inner SafeArea (top already removed)',
-          style: TextStyle(color: Colors.white, fontSize: 12.0),
+  // Use Builder to obtain a real BuildContext under the outer MediaQuery —
+  // MediaQuery.removePadding calls MediaQuery.of(context) internally, so a
+  // synthetic "null" context cannot satisfy the call.
+  final Widget inner = Builder(
+    builder: (BuildContext ctx) => MediaQuery.removePadding(
+      context: ctx,
+      removeTop: true,
+      child: SafeArea(
+        child: Container(
+          height: 70.0,
+          color: Color(0xFF5C6BC0),
+          alignment: Alignment.center,
+          child: Text(
+            'inner SafeArea (top already removed)',
+            style: TextStyle(color: Colors.white, fontSize: 12.0),
+          ),
         ),
       ),
     ),
@@ -588,11 +593,6 @@ Widget _buildNestedSafeAreaRecipe() {
       ],
     ),
   );
-}
-
-class _NullCtx implements BuildContext {
-  @override
-  dynamic noSuchMethod(Invocation invocation) => null;
 }
 
 // ---------------------------------------------------------------------------

@@ -37,7 +37,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C01** | `essential_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☑ fixed |
 | **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
-| **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☐ |
+| **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☑ fixed |
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☐ |
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☐ |
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☐ |
@@ -201,11 +201,49 @@ in both packages passes; no regression suite required.
 
 #### C04 — `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": `
 
-- [ ] fixed and re-verified
+- [x] **fixed** (2026-05-17) — script-only fix. See root-cause note
+  below.
 
 | testID | Test name |
 |-------:|-----------|
 | 32 | widgets/ safearea_test.dart |
+
+**Root cause (script bug).** The deep demo
+`send_ast_via_http_scripts/widgets/safearea_test.dart` had a hand-rolled
+`class _NullCtx implements BuildContext` that returned `null` from every
+method via `noSuchMethod`, and passed an instance of it to
+`MediaQuery.removePadding(context: _NullCtx(), removeTop: true, ...)`.
+The native constructor calls `MediaQuery.of(context)` internally, which
+needs a real `BuildContext` with a live `Element` chain — even in pure
+Flutter the `_NullCtx` trick would fail. In the interpreter context it
+fails earlier at the bridge layer because the argument is an
+`InterpretedInstance(_NullCtx)`, not a native `BuildContext`.
+
+The rest of the script (lines 1131, 1149, 1167) already used the correct
+pattern: wrap `MediaQuery.removePadding` in a `Builder` so it gets a real
+descendant context from the surrounding `MediaQuery`.
+
+**Fix.** Replace the `_NullCtx()` call site with the `Builder` pattern;
+delete the unused `_NullCtx` class:
+
+```dart
+final Widget inner = Builder(
+  builder: (BuildContext ctx) => MediaQuery.removePadding(
+    context: ctx,
+    removeTop: true,
+    child: SafeArea(...),
+  ),
+);
+```
+
+This preserves the demo's intent — the inner `SafeArea` sees a
+MediaQueryData whose top padding has been stripped — and follows the
+recipe documented inline in `_nestedRecipeStep` cards 1–4.
+
+**Regression scope (rule a).** Script-only change in the shared script
+corpus (`tom_d4rt_flutter_ast/.../send_ast_via_http_scripts/widgets/
+safearea_test.dart`); single-test verification in both flutter_test and
+flutter_ast passes.
 
 #### C05 — `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"`
 
