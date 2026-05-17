@@ -262,10 +262,13 @@ final DragUpdateDetails kSampleDragUpdate = DragUpdateDetails(
   sourceTimeStamp: Duration(milliseconds: 360),
 );
 
+// Cluster C28 FIX: dy must be 0 when primaryVelocity == dx
+// (DragEndDetails asserts primaryVelocity matches one axis with the
+// other axis being zero).
 final DragEndDetails kSampleDragEnd = DragEndDetails(
   globalPosition: Offset(360.0, 320.0),
   localPosition: Offset(280.0, 260.0),
-  velocity: Velocity(pixelsPerSecond: Offset(420.0, 180.0)),
+  velocity: Velocity(pixelsPerSecond: Offset(420.0, 0.0)),
   primaryVelocity: 420.0,
 );
 
@@ -435,7 +438,7 @@ const List<DetailsCardData> kDetailsCards = <DetailsCardData>[
       'primaryVelocity: double?',
     ],
     literal:
-        'DragEndDetails(\n  globalPosition: Offset(360, 320),\n  localPosition: Offset(280, 260),\n  velocity: Velocity(pixelsPerSecond: Offset(420, 180)),\n  primaryVelocity: 420,\n)',
+        'DragEndDetails(\n  globalPosition: Offset(360, 320),\n  localPosition: Offset(280, 260),\n  velocity: Velocity(pixelsPerSecond: Offset(420, 0)),\n  primaryVelocity: 420,\n)',
     accent: kAccentDrag,
     icon: Icons.flag,
   ),

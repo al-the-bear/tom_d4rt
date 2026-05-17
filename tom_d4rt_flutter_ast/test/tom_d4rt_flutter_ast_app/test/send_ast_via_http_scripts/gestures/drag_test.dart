@@ -31,8 +31,11 @@ dynamic build(BuildContext context) {
     sourceTimeStamp: Duration(milliseconds: 48),
   );
 
+  // Cluster C28 FIX: dy must be 0 when primaryVelocity == dx
+  // (DragEndDetails asserts primaryVelocity matches one axis with the
+  // other axis being zero).
   final endFling = DragEndDetails(
-    velocity: Velocity(pixelsPerSecond: Offset(1200.0, 80.0)),
+    velocity: Velocity(pixelsPerSecond: Offset(1200.0, 0.0)),
     primaryVelocity: 1200.0,
   );
   final endSlow = DragEndDetails(
