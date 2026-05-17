@@ -1410,16 +1410,31 @@ dynamic build(BuildContext context) {
   print('--- Property family ---');
   // We instantiate a few properties just to prove they exist; we never
   // register them with a real bucket.
+  //
+  // NOTE: RestorableValue.value asserts `isRegistered` at
+  // package:flutter/src/widgets/restoration_properties.dart:85 (debug-mode
+  // assertion that fires in flutter_test). Outside of a RestorationMixin
+  // these properties are never registered, so reading `.value` throws.
+  // We shadow each restorable with the construction-time default and read
+  // the shadow when interpolating into log strings. This is functionally
+  // exact because the script never reassigns `.value` anywhere — the
+  // restorables remain at their constructor defaults for the entire build.
+  // See `doc/interpreter_unfixable.md` U8(2) for the underlying limitation.
   final RestorableInt    ri  = RestorableInt(42);
   final RestorableDouble rd  = RestorableDouble(3.14159);
   final RestorableString rs  = RestorableString('Tom');
   final RestorableBool   rb  = RestorableBool(true);
   final RestorableDateTime rdt = RestorableDateTime(DateTime(2026, 5, 11));
-  print('RestorableInt(42)             : $ri (value=${ri.value})');
-  print('RestorableDouble(3.14)        : $rd (value=${rd.value})');
-  print('RestorableString("Tom")       : $rs (value=${rs.value})');
-  print('RestorableBool(true)          : $rb (value=${rb.value})');
-  print('RestorableDateTime(2026-5-11) : $rdt (value=${rdt.value})');
+  const int      riValue = 42;
+  const double   rdValue = 3.14159;
+  const String   rsValue = 'Tom';
+  const bool     rbValue = true;
+  final DateTime rdtValue = DateTime(2026, 5, 11);
+  print('RestorableInt(42)             : $ri (value=$riValue)');
+  print('RestorableDouble(3.14)        : $rd (value=$rdValue)');
+  print('RestorableString("Tom")       : $rs (value=$rsValue)');
+  print('RestorableBool(true)          : $rb (value=$rbValue)');
+  print('RestorableDateTime(2026-5-11) : $rdt (value=$rdtValue)');
   // Reach into the services library to prove the import is used.
   const ClipboardData clip = ClipboardData(text: 'restorationId');
   print('ClipboardData("restorationId"): ${clip.text}');
