@@ -9837,7 +9837,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Cluster C2: Dart 3 SwitchPatternCase with a constant pattern
             // does not fall through. After running its body, exit the
             // member loop so subsequent cases are not re-executed.
-            if (patternCaseMatchedThisIteration) {
+            //
+            // Cluster C12: …but only break when the matching case actually
+            // had statements. Dart 3 multi-case grouping —
+            //   case A:
+            //   case B:
+            //     stmt;
+            // — is parsed as two SwitchPatternCase nodes: A with empty
+            // statements and B with the body. The match fires on A, then
+            // we must fall through to B so the body runs. Breaking out on
+            // A would skip the body and silently return null from the
+            // enclosing function (mirror of the fix in tom_d4rt_ast).
+            if (patternCaseMatchedThisIteration &&
+                statementsToExecute.isNotEmpty) {
               execute = false;
               break;
             }
