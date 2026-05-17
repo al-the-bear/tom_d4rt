@@ -1131,8 +1131,16 @@ class Environment {
       _prefixedImports[name] = env;
     });
 
-    // Unnamed extensions are additive.
-    _unnamedExtensions.addAll(sourceEnvToImportFrom._unnamedExtensions);
+    // Unnamed extensions are additive. C11: Guard against the self-import /
+    // shared-reference case where `this` and `sourceEnvToImportFrom` share the
+    // same `_unnamedExtensions` list (mirror of the fix in tom_d4rt_ast).
+    // When they alias, `addAll(sameList)` iterates the list while mutating it
+    // and throws `ConcurrentModificationError`. Skipping the merge is
+    // correct: the destination already contains every element of the source.
+    if (!identical(
+        _unnamedExtensions, sourceEnvToImportFrom._unnamedExtensions)) {
+      _unnamedExtensions.addAll(sourceEnvToImportFrom._unnamedExtensions);
+    }
 
     Logger.debug(
         "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.");

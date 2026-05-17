@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-05-03T15:30:00.638593
+// Generated: 2026-05-17T15:05:44.384328
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -22639,7 +22639,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_95.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<$dart_developer.Flow?>(named, 'flow');
-        return t.scheduleTask((() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(), priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }) as FutureOr<Object?> Function(), priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding');
@@ -23645,7 +23645,7 @@ BridgedClass _createWidgetsBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_95.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<$dart_developer.Flow?>(named, 'flow');
-        return t.scheduleTask((() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(), priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }) as FutureOr<Object?> Function(), priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding');

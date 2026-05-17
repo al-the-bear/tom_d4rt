@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-05-03T15:32:16.887913
+// Generated: 2026-05-17T15:08:54.322256
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1149,7 +1149,7 @@ BridgedClass _createAssetBundleBridge() {
           throw ArgumentError('loadStructuredBinaryData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(ByteData));
+        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0])); }) as FutureOr<Object?> Function(ByteData));
       },
       'evict': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.AssetBundle>(target, 'AssetBundle');
@@ -1235,7 +1235,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
           throw ArgumentError('loadStructuredBinaryData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(ByteData));
+        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0])); }) as FutureOr<Object?> Function(ByteData));
       },
       'evict': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(target, 'NetworkAssetBundle');
@@ -1320,7 +1320,7 @@ BridgedClass _createCachingAssetBundleBridge() {
           throw ArgumentError('loadStructuredBinaryData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(ByteData));
+        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0])); }) as FutureOr<Object?> Function(ByteData));
       },
       'evict': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(target, 'CachingAssetBundle');
@@ -1404,7 +1404,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
           throw ArgumentError('loadStructuredBinaryData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(ByteData));
+        return t.loadStructuredBinaryData(key, ((ByteData p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0])); }) as FutureOr<Object?> Function(ByteData));
       },
       'evict': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(target, 'PlatformAssetBundle');
@@ -6577,7 +6577,7 @@ BridgedClass _createServicesBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_9.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask((() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(), priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }) as FutureOr<Object?> Function(), priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');

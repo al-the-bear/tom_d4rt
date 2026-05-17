@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-05-03T15:32:13.967705
+// Generated: 2026-05-17T15:08:51.508799
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -707,7 +707,7 @@ class FlutterFoundationBridge {
           throw ArgumentError('compute: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = ((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(dynamic);
+        final callback = ((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic);
         final message = D4.getRequiredArg<dynamic>(positional, 1, 'message', 'compute');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         return $flutter_13.compute<dynamic, dynamic>(callback, message, debugLabel: debugLabel);
@@ -7231,14 +7231,14 @@ BridgedClass _createSynchronousFutureBridge() {
         }
         final onValueRaw = positional[0];
         final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return (t as dynamic).then(((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, onValueRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(dynamic), onError: onError);
+        return (t as dynamic).then(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [p0])); }) as FutureOr<Object?> Function(dynamic), onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'timeout');
         final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
         final onTimeoutRaw = named['onTimeout'];
-        return (t as dynamic).timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : (() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function());
+        return (t as dynamic).timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : (() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, [])); }) as FutureOr<Object?> Function());
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
@@ -7247,7 +7247,7 @@ BridgedClass _createSynchronousFutureBridge() {
           throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        return t.whenComplete((() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function());
+        return t.whenComplete((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, actionRaw, [])); }) as FutureOr<Object?> Function());
       },
     },
     constructorSignatures: {

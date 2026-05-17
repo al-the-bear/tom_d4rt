@@ -13704,10 +13704,18 @@ class BridgeGenerator {
     } else {
       // GEN-061 fix: FutureOr<dynamic> is not assignable to FutureOr<T> where T is bounded.
       // When the return type is FutureOr<dynamic> (from unresolved type parameter),
-      // use FutureOr<Object> which is assignable to FutureOr<T> where T defaults to Object.
+      // use FutureOr<Object?> which is assignable to FutureOr<T> where T defaults
+      // to Object? (the default upper bound for unbounded type parameters in Dart).
+      //
+      // C11 fix: previously this used `FutureOr<Object>` (non-nullable). That
+      // rejected void-returning callbacks like `sf.then((v) { ... })` because
+      // the void return surfaces as `null` at the boundary, and
+      // `extractBridgedArg<FutureOr<Object>>` throws on null. The nullable
+      // variant `FutureOr<Object?>` combined with the `castCallbackResult`
+      // routing below accepts null safely.
       var effectiveReturnType = prefixedReturnType;
       if (prefixedReturnType == 'FutureOr<dynamic>') {
-        effectiveReturnType = 'FutureOr<Object>';
+        effectiveReturnType = 'FutureOr<Object?>';
       }
       final nullableReturnType = _makeNullable(effectiveReturnType);
       final castType = funcInfo.returnTypeNullable
@@ -13719,10 +13727,13 @@ class BridgeGenerator {
       // ENG-011: Use castCallbackResult for generic returns (when type is dynamic or Object).
       // This handles null safely when the callback's return type is a type parameter
       // that could be nullable or non-nullable depending on how it's instantiated.
+      // C11: Also route `FutureOr<Object?>` through castCallbackResult so that
+      // void-returning callbacks (whose result surfaces as null) are accepted.
       final isDynamicReturn =
           normalizedReturnType == 'dynamic' ||
           castType == 'dynamic' ||
-          castType == 'Object?';
+          castType == 'Object?' ||
+          castType == 'FutureOr<Object?>';
 
       if (isDynamicReturn) {
         // Use castCallbackResult to handle null safely for generic returns
