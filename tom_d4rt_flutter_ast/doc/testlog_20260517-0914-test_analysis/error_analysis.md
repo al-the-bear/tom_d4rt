@@ -54,7 +54,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (script) |
 | **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☑ fixed (script) |
-| **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☐ |
+| **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☑ fixed (script) |
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
 | **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☐ |
 | **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☐ |
@@ -1299,11 +1299,51 @@ Logs: `ztmp/c20_verify_ast.log.txt`,
 
 #### C21 — `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 125 | widgets/ textspan_test.dart |
+
+**Root cause.** The script's `alignmentDemo()` helper iterates over six
+`PlaceholderAlignment` values and constructs a `WidgetSpan` for each.
+The `baseline:` argument was supplied only when alignment equalled
+`PlaceholderAlignment.baseline`. Flutter's `WidgetSpan` constructor
+asserts (`widget_span.dart` line 83) that `baseline != null` whenever
+alignment is one of **three** values:
+`aboveBaseline`, `belowBaseline`, **or** `baseline`. The script
+omitted `baseline` for the first two, tripping the assertion as soon
+as the section reached the `aboveBaseline` row.
+
+**Fix.** Pure script change — broaden the conditional so `baseline`
+is supplied for all three baseline-relative alignments:
+
+```dart
+WidgetSpan(
+  alignment: alignment,
+  baseline: (alignment == PlaceholderAlignment.baseline ||
+          alignment == PlaceholderAlignment.aboveBaseline ||
+          alignment == PlaceholderAlignment.belowBaseline)
+      ? TextBaseline.alphabetic
+      : null,
+  child: ...,
+)
+```
+
+Not an interpreter or generator bug — the corpus's original code is
+strictly under-constrained relative to Flutter's runtime contract.
+
+**Regression scope (per rules).** Script-only change → single-test
+retest on both drivers is sufficient.
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `widgets/textspan_test.dart` | `+1` All tests passed |
+| flutter_test | `widgets/textspan_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c21_verify_ast.log.txt`,
+`ztmp/c21_verify_analyzer.log.txt`. Repro log:
+`ztmp/c21_repro_ast.log.txt`.
 
 #### C22 — `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
 
