@@ -56,7 +56,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☑ fixed (script) |
 | **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☑ fixed (script) |
 | **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (script) |
-| **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☐ |
+| **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☑ fixed (script) |
 | **C24** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: 'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered'` | ☐ |
 | **C25** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Null check operator used on a null value` | ☐ |
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
@@ -1287,11 +1287,40 @@ Logs: `ztmp/c22_verify_ast.log.txt`,
 
 #### C23 — `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **fixed (script)**
 
 | testID | Test name |
 |-------:|-----------|
 | 153 | widgets/ draggable_sheet_test.dart |
+
+**Root cause.** The script passed
+`snapAnimationDuration: Duration.zero` to two
+`DraggableScrollableSheet(...)` constructors (lines 2017 and
+2240) to express "instantaneous snap, no animation". Flutter's
+constructor asserts (`draggable_scrollable_sheet.dart` line 315)
+that `snapAnimationDuration == null || snapAnimationDuration >
+Duration.zero`. `Duration.zero` is neither `null` nor strictly
+positive, so the assertion fires immediately when the first sheet
+is built.
+
+**Fix.** Pure script change — replace `Duration.zero` with
+`Duration(milliseconds: 1)` at both call sites. This preserves
+the author's "near-instant snap" intent (a 1ms animation is
+visually indistinguishable from zero) and satisfies the
+constructor's strictly-positive contract. Not an interpreter or
+generator bug.
+
+**Regression scope (per rules).** Script-only change → single-test
+retest on both drivers is sufficient.
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `widgets/draggable_sheet_test.dart` | `+1` All tests passed |
+| flutter_test | `widgets/draggable_sheet_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c23_verify_ast.log.txt`,
+`ztmp/c23_verify_analyzer.log.txt`. Repro log:
+`ztmp/c23_repro_ast.log.txt`.
 
 #### C24 — `Runtime Error: Unexpected error: 'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered'`
 
