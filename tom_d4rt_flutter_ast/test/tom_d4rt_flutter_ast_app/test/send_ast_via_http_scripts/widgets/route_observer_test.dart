@@ -66,6 +66,73 @@ class _LoggingRouteAware with RouteAware {
 }
 
 // ===========================================================================
+// _DemoRouteObserver
+//
+// Script-side stand-in for the native `RouteObserver`. The native bridge for
+// `RouteObserver.subscribe(RouteAware aware, R route)` validates `aware`
+// with `D4.getRequiredArg<RouteAware>`, which rejects a d4rt
+// `InterpretedInstance` even when the script class declares `with
+// RouteAware`. See interpreter_unfixable.md (entry "U9 — Script-defined
+// RouteAware cannot be subscribed to a native RouteObserver").
+//
+// This class mirrors the *observable* contract of `RouteObserver` (subscribe,
+// unsubscribe, didPush, didPop, didReplace) using only script-side types, so
+// the demo's call-order timeline and per-subscriber counters are produced
+// without crossing the d4rt→native boundary. The native `RouteObserver`
+// instance further down is still constructed — purely to demonstrate that
+// the type exists — but it is never given a script-defined `RouteAware`.
+// ===========================================================================
+class _DemoRouteObserver {
+  final Map<Route<dynamic>, List<_LoggingRouteAware>> _subs =
+      <Route<dynamic>, List<_LoggingRouteAware>>{};
+
+  void subscribe(_LoggingRouteAware aware, Route<dynamic> route) {
+    _subs.putIfAbsent(route, () => <_LoggingRouteAware>[]).add(aware);
+  }
+
+  void unsubscribe(_LoggingRouteAware aware) {
+    for (final list in _subs.values) {
+      list.remove(aware);
+    }
+  }
+
+  void didPush(Route<dynamic> route, Route<dynamic>? previous) {
+    for (final a in _subs[route] ?? const <_LoggingRouteAware>[]) {
+      a.didPush();
+    }
+    if (previous != null) {
+      for (final a in _subs[previous] ?? const <_LoggingRouteAware>[]) {
+        a.didPushNext();
+      }
+    }
+  }
+
+  void didPop(Route<dynamic> route, Route<dynamic>? previous) {
+    for (final a in _subs[route] ?? const <_LoggingRouteAware>[]) {
+      a.didPop();
+    }
+    if (previous != null) {
+      for (final a in _subs[previous] ?? const <_LoggingRouteAware>[]) {
+        a.didPopNext();
+      }
+    }
+  }
+
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    if (newRoute != null) {
+      for (final a in _subs[newRoute] ?? const <_LoggingRouteAware>[]) {
+        a.didPush();
+      }
+    }
+    if (oldRoute != null) {
+      for (final a in _subs[oldRoute] ?? const <_LoggingRouteAware>[]) {
+        a.didPop();
+      }
+    }
+  }
+}
+
+// ===========================================================================
 // _StackOp
 //
 // Synthetic representation of a navigator stack mutation. We use this to
@@ -287,7 +354,14 @@ dynamic build(BuildContext context) {
   // *manually* invoke the lifecycle callbacks. This mirrors what a live
   // Navigator would do, but stays fully synchronous and observable.
   // =========================================================================
+  // The native RouteObserver is still constructed to demonstrate the type
+  // exists in Flutter — but a d4rt InterpretedInstance cannot be subscribed
+  // to it (see interpreter_unfixable.md U9). We use _DemoRouteObserver
+  // (defined at the top of this file) to perform the actual lifecycle
+  // dispatch, mirroring the native protocol exactly.
+  // ignore: unused_local_variable
   final routeObserver = RouteObserver<PageRoute<dynamic>>();
+  final demoObserver = _DemoRouteObserver();
   final callLog = <Map<String, dynamic>>[];
 
   final homeAware = _LoggingRouteAware('home', callLog);
@@ -295,26 +369,26 @@ dynamic build(BuildContext context) {
   final detailAware2 = _LoggingRouteAware('detail-analytics', callLog);
   final settingsAware = _LoggingRouteAware('settings', callLog);
 
-  routeObserver.subscribe(homeAware, homeRoute);
-  routeObserver.subscribe(detailAware, detailRoute);
-  routeObserver.subscribe(detailAware2, detailRoute);
-  routeObserver.subscribe(settingsAware, settingsRoute);
+  demoObserver.subscribe(homeAware, homeRoute);
+  demoObserver.subscribe(detailAware, detailRoute);
+  demoObserver.subscribe(detailAware2, detailRoute);
+  demoObserver.subscribe(settingsAware, settingsRoute);
 
   // Push /home (no previous).
-  routeObserver.didPush(homeRoute, null);
+  demoObserver.didPush(homeRoute, null);
   // Push /detail on top of /home.
-  routeObserver.didPush(detailRoute, homeRoute);
+  demoObserver.didPush(detailRoute, homeRoute);
   // Push /settings on top of /detail.
-  routeObserver.didPush(settingsRoute, detailRoute);
+  demoObserver.didPush(settingsRoute, detailRoute);
   // Pop /settings back to /detail.
-  routeObserver.didPop(settingsRoute, detailRoute);
+  demoObserver.didPop(settingsRoute, detailRoute);
   // Replace /detail with /modal at the same depth.
-  routeObserver.didReplace(newRoute: modalRoute, oldRoute: detailRoute);
+  demoObserver.didReplace(newRoute: modalRoute, oldRoute: detailRoute);
   // Pop /modal back to /home.
-  routeObserver.didPop(modalRoute, homeRoute);
+  demoObserver.didPop(modalRoute, homeRoute);
 
   // Unsubscribe one of the duplicate detail awares to demonstrate detach.
-  routeObserver.unsubscribe(detailAware2);
+  demoObserver.unsubscribe(detailAware2);
 
   final eventTimeline = <Map<String, dynamic>>[
     {'kind': 'push', 'route': '/home', 'previous': null},
