@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-05-17T15:05:39.616623
+// Generated: 2026-05-17T23:23:14.247269
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -5161,7 +5161,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_12.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
     },
@@ -5516,7 +5516,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'onStart': (visitor, target, value) {
@@ -6111,7 +6111,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'onLongPressDown': (visitor, target, value) {
@@ -6668,7 +6668,7 @@ BridgedClass _createGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_25.GestureRecognizer>(target, 'GestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_25.GestureRecognizer>(target, 'GestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_25.GestureRecognizer>(target, 'GestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -6862,7 +6862,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
     },
@@ -7124,7 +7124,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
     },
@@ -7489,7 +7489,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DragGestureRecognizer>(target, 'DragGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -7859,7 +7859,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -8232,7 +8232,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -8605,7 +8605,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.PanGestureRecognizer>(target, 'PanGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -9019,7 +9019,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
         D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
@@ -9231,7 +9231,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
         D4.validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
@@ -9446,7 +9446,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
         D4.validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
@@ -9661,7 +9661,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
         D4.validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
@@ -9884,7 +9884,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onStart': (visitor, target, value) {
         final onStartRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onStart');
         D4.validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = onStartRaw == null ? null : ((Offset p0) { return D4.extractBridgedArg<$flutter_10.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor) as $flutter_10.Drag?; }) as $flutter_10.Drag? Function(Offset);
@@ -10263,7 +10263,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
     },
@@ -10640,7 +10640,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.TapGestureRecognizer>(target, 'TapGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'onTapDown': (visitor, target, value) {
@@ -11044,7 +11044,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onDoubleTapDown': (visitor, target, value) {
         final onDoubleTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDoubleTapDown');
         D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown = onDoubleTapDownRaw == null ? null : ($flutter_28.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onDoubleTapDownRaw, [p0]); };
@@ -11277,7 +11277,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onTapDown': (visitor, target, value) {
         final onTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTapDown');
         D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapDown = onTapDownRaw == null ? null : (int p0, $flutter_28.TapDownDetails p1) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0, p1]); };
@@ -11715,7 +11715,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'onSerialTapDown': (visitor, target, value) {
         final onSerialTapDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSerialTapDown');
         D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown = onSerialTapDownRaw == null ? null : ($flutter_22.SerialTapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSerialTapDownRaw, [p0]); };
@@ -12241,7 +12241,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -12896,7 +12896,7 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -13238,7 +13238,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 
@@ -13583,7 +13583,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'gestureSettings': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').gestureSettings = D4.extractBridgedArgOrNull<$flutter_16.DeviceGestureSettings>(value, 'gestureSettings'),
       'supportedDevices': (visitor, target, value) => 
-        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+        D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').supportedDevices = value == null ? null : D4.coerceSet<PointerDeviceKind>(value, 'supportedDevices'),
       'team': (visitor, target, value) => 
         D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').team = D4.extractBridgedArgOrNull<$flutter_30.GestureArenaTeam>(value, 'team'),
       'dragStartBehavior': (visitor, target, value) => 

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-05-17T15:05:40.811957
+// Generated: 2026-05-17T23:23:15.399050
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -52086,7 +52086,7 @@ BridgedClass _createRenderSemanticsGestureHandlerBridge() {
       'scrollFactor': (visitor, target, value) => 
         D4.validateTarget<$flutter_63.RenderSemanticsGestureHandler>(target, 'RenderSemanticsGestureHandler').scrollFactor = D4.extractBridgedArg<double>(value, 'scrollFactor'),
       'validActions': (visitor, target, value) => 
-        D4.validateTarget<$flutter_63.RenderSemanticsGestureHandler>(target, 'RenderSemanticsGestureHandler').validActions = value == null ? null : (value as Set).cast<SemanticsAction>().toSet(),
+        D4.validateTarget<$flutter_63.RenderSemanticsGestureHandler>(target, 'RenderSemanticsGestureHandler').validActions = value == null ? null : D4.coerceSet<SemanticsAction>(value, 'validActions'),
       'onTap': (visitor, target, value) {
         final onTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap');
         D4.validateTarget<$flutter_63.RenderSemanticsGestureHandler>(target, 'RenderSemanticsGestureHandler').onTap = onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); };
@@ -93016,7 +93016,7 @@ BridgedClass _createRenderTableBridge() {
       'border': (visitor, target, value) => 
         D4.validateTarget<$flutter_80.RenderTable>(target, 'RenderTable').border = D4.extractBridgedArgOrNull<$flutter_81.TableBorder>(value, 'border'),
       'rowDecorations': (visitor, target, value) => 
-        D4.validateTarget<$flutter_80.RenderTable>(target, 'RenderTable').rowDecorations = value == null ? null : (value as List).cast<$flutter_29.Decoration?>().toList(),
+        D4.validateTarget<$flutter_80.RenderTable>(target, 'RenderTable').rowDecorations = value == null ? null : D4.coerceList<$flutter_29.Decoration?>(value, 'rowDecorations'),
       'configuration': (visitor, target, value) => 
         D4.validateTarget<$flutter_80.RenderTable>(target, 'RenderTable').configuration = D4.extractBridgedArg<$flutter_34.ImageConfiguration>(value, 'configuration'),
       'defaultVerticalAlignment': (visitor, target, value) => 
