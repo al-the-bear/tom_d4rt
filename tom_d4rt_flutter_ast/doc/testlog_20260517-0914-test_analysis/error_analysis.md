@@ -41,7 +41,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☑ fixed |
 | **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☑ fixed |
 | **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☑ fixed |
-| **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☐ |
+| **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☑ fixed |
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☐ |
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☐ |
 | **C11** | `secondary_classes_test.dart` | 1 | `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☐ |
@@ -397,11 +397,36 @@ plus the pre-fix gii baseline in
 
 #### C08 — `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 161 | services/ spellcheck_test.dart |
+
+**Root cause.** Off-by-one in the test fixture, not an interpreter
+bug. The sample text is the 16-character string
+`'helo wrold today'`, and the script defines three
+`SuggestionSpan`s. The third (`sampleSpanC`) declared
+`TextRange(start: 12, end: 17)` for the word "today", but "today"
+actually starts at index **11** (after `'helo'` (4) + `' '` (1) +
+`'wrold'` (5) + `' '` (1) = 11) and ends at **16**. Section 3 of
+the demo then calls
+`sampleResults.spellCheckedText.substring(span.range.start,
+span.range.end)`, which on the native String triggers
+`RangeError (end): Invalid value: Not in inclusive range 12..16:
+17`. Same error would surface in a native Flutter app with the
+same fixture.
+
+**Fix (script-only, rule a).** Corrected the third
+`SuggestionSpan`'s `TextRange` from `start: 12, end: 17` to
+`start: 11, end: 16`, with an inline comment recording the index
+math. No interpreter or generator change.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus; single-test verification on both drivers
+(flutter_ast `00:15 +1: All tests passed!`, flutter_test
+`00:11 +1: All tests passed!`). Logs in
+`ztmp/c08_ast_fixed.log.txt` and `ztmp/c08_test_fixed.log.txt`.
 
 #### C09 — `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-`
 

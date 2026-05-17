@@ -217,8 +217,11 @@ dynamic build(BuildContext context) {
     const TextRange(start: 6, end: 11),
     const <String>['world', 'would', 'word'],
   );
+  // 'helo wrold today' has length 16; 'today' starts at index 11
+  // (after 'helo'+' '+'wrold'+' ' = 11 chars) and ends at 16. The previous
+  // 12..17 range overshot by one and raised RangeError on substring().
   final SuggestionSpan sampleSpanC = SuggestionSpan(
-    const TextRange(start: 12, end: 17),
+    const TextRange(start: 11, end: 16),
     const <String>['today', 'todays', 'toyota'],
   );
   final SpellCheckResults sampleResults = SpellCheckResults(
