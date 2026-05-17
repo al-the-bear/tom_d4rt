@@ -831,6 +831,23 @@ class Environment {
     if (value is Map) typeName = 'Map';
 
     if (typeName != null) {
+      // Cluster C26 FIX: For List/Map, prefer a more-specific bridged class
+      // (e.g. Uint8List, Int32List) registered for the actual runtime type.
+      // `value is List` matches typed-data subclasses, which previously
+      // collapsed their runtime type to plain `List` and broke return-type
+      // checks on functions declared to return `Uint8List` and friends.
+      // If `toBridgedClass` resolves to a more specific bridge, return it;
+      // otherwise fall through to the generic lookup below.
+      if (value != null && (typeName == 'List' || typeName == 'Map')) {
+        try {
+          final specific = toBridgedClass(value.runtimeType);
+          if (specific.name != typeName) {
+            return specific;
+          }
+        } on RuntimeD4rtException {
+          // No specific bridge — fall through to generic typeName lookup.
+        }
+      }
       try {
         final typeObj = get(typeName); // Look up the type name
         if (typeObj is RuntimeType) {
