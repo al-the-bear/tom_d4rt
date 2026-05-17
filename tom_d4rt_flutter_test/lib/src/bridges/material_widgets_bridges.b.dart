@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-05-17T15:09:04.691625
+// Generated: 2026-05-17T23:24:09.397609
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -49143,7 +49143,7 @@ BridgedClass _createMaterialStateMixinBridge() {
     },
     setters: {
       'materialStates': (visitor, target, value) => 
-        D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin').materialStates = (value as Set).cast<$flutter_326.WidgetState>().toSet(),
+        D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin').materialStates = D4.coerceSet<$flutter_326.WidgetState>(value, 'materialStates'),
     },
     methods: {
       'initState': (visitor, target, positional, named, typeArgs) {

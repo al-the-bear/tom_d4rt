@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-05-17T15:08:59.975054
+// Generated: 2026-05-17T23:24:04.826530
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -8787,7 +8787,7 @@ BridgedClass _createWidgetsAppBridge() {
       'debugAllowBannerOverride': (visitor, value) => 
         $flutter_129.WidgetsApp.debugAllowBannerOverride = D4.extractBridgedArg<bool>(value, 'debugAllowBannerOverride'),
       'defaultActions': (visitor, value) => 
-        $flutter_129.WidgetsApp.defaultActions = (value as Map).cast<Type, $flutter_122.Action<$flutter_122.Intent>>(),
+        $flutter_129.WidgetsApp.defaultActions = D4.coerceMap<Type, $flutter_122.Action<$flutter_122.Intent>>(value, 'defaultActions', visitor),
       'debugShowWidgetInspectorOverride': (visitor, value) => 
         $flutter_129.WidgetsApp.debugShowWidgetInspectorOverride = D4.extractBridgedArg<bool>(value, 'debugShowWidgetInspectorOverride'),
     },
@@ -66439,7 +66439,7 @@ BridgedClass _createRestorableEnumNBridge() {
       'value': (visitor, target, value) => 
         D4.validateTarget<$flutter_216.RestorableEnumN>(target, 'RestorableEnumN').value = D4.extractBridgedArgOrNull<Enum>(value, 'value'),
       'values': (visitor, target, value) => 
-        D4.validateTarget<$flutter_216.RestorableEnumN>(target, 'RestorableEnumN').values = (value as Set).cast<Enum>().toSet(),
+        D4.validateTarget<$flutter_216.RestorableEnumN>(target, 'RestorableEnumN').values = D4.coerceSet<Enum>(value, 'values'),
     },
     methods: {
       'createDefaultValue': (visitor, target, positional, named, typeArgs) {
@@ -66562,7 +66562,7 @@ BridgedClass _createRestorableEnumBridge() {
       'value': (visitor, target, value) => 
         D4.validateTarget<$flutter_216.RestorableEnum>(target, 'RestorableEnum').value = D4.extractBridgedArg<Enum>(value, 'value'),
       'values': (visitor, target, value) => 
-        D4.validateTarget<$flutter_216.RestorableEnum>(target, 'RestorableEnum').values = (value as Set).cast<Enum>().toSet(),
+        D4.validateTarget<$flutter_216.RestorableEnum>(target, 'RestorableEnum').values = D4.coerceSet<Enum>(value, 'values'),
     },
     methods: {
       'createDefaultValue': (visitor, target, positional, named, typeArgs) {
@@ -78649,7 +78649,7 @@ BridgedClass _createStaticSelectionContainerDelegateBridge() {
     },
     setters: {
       'selectables': (visitor, target, value) => 
-        D4.validateTarget<$flutter_237.StaticSelectionContainerDelegate>(target, 'StaticSelectionContainerDelegate').selectables = (value as List).cast<$flutter_75.Selectable>().toList(),
+        D4.validateTarget<$flutter_237.StaticSelectionContainerDelegate>(target, 'StaticSelectionContainerDelegate').selectables = D4.coerceList<$flutter_75.Selectable>(value, 'selectables'),
       'currentSelectionEndIndex': (visitor, target, value) => 
         (D4.validateTarget<$flutter_237.StaticSelectionContainerDelegate>(target, 'StaticSelectionContainerDelegate') as dynamic).currentSelectionEndIndex = value,
       'currentSelectionStartIndex': (visitor, target, value) => 
@@ -78914,7 +78914,7 @@ BridgedClass _createMultiSelectableSelectionContainerDelegateBridge() {
     },
     setters: {
       'selectables': (visitor, target, value) => 
-        D4.validateTarget<$flutter_237.MultiSelectableSelectionContainerDelegate>(target, 'MultiSelectableSelectionContainerDelegate').selectables = (value as List).cast<$flutter_75.Selectable>().toList(),
+        D4.validateTarget<$flutter_237.MultiSelectableSelectionContainerDelegate>(target, 'MultiSelectableSelectionContainerDelegate').selectables = D4.coerceList<$flutter_75.Selectable>(value, 'selectables'),
       'currentSelectionEndIndex': (visitor, target, value) => 
         (D4.validateTarget<$flutter_237.MultiSelectableSelectionContainerDelegate>(target, 'MultiSelectableSelectionContainerDelegate') as dynamic).currentSelectionEndIndex = value,
       'currentSelectionStartIndex': (visitor, target, value) => 
@@ -92850,7 +92850,7 @@ BridgedClass _createSelectionOverlayBridge() {
       'lineHeightAtEnd': (visitor, target, value) => 
         D4.validateTarget<$flutter_266.SelectionOverlay>(target, 'SelectionOverlay').lineHeightAtEnd = D4.extractBridgedArg<double>(value, 'lineHeightAtEnd'),
       'selectionEndpoints': (visitor, target, value) => 
-        D4.validateTarget<$flutter_266.SelectionOverlay>(target, 'SelectionOverlay').selectionEndpoints = (value as List).cast<$flutter_59.TextSelectionPoint>().toList(),
+        D4.validateTarget<$flutter_266.SelectionOverlay>(target, 'SelectionOverlay').selectionEndpoints = D4.coerceList<$flutter_59.TextSelectionPoint>(value, 'selectionEndpoints'),
       'toolbarLocation': (visitor, target, value) => 
         D4.validateTarget<$flutter_266.SelectionOverlay>(target, 'SelectionOverlay').toolbarLocation = D4.extractBridgedArgOrNull<Offset>(value, 'toolbarLocation'),
     },
@@ -100365,7 +100365,7 @@ BridgedClass _createInspectorSelectionBridge() {
     },
     setters: {
       'candidates': (visitor, target, value) => 
-        D4.validateTarget<$flutter_283.InspectorSelection>(target, 'InspectorSelection').candidates = (value as List).cast<$flutter_68.RenderObject>().toList(),
+        D4.validateTarget<$flutter_283.InspectorSelection>(target, 'InspectorSelection').candidates = D4.coerceList<$flutter_68.RenderObject>(value, 'candidates'),
       'index': (visitor, target, value) => 
         D4.validateTarget<$flutter_283.InspectorSelection>(target, 'InspectorSelection').index = D4.extractBridgedArg<int>(value, 'index'),
       'current': (visitor, target, value) => 
@@ -103090,7 +103090,7 @@ BridgedClass _createWidgetStatesControllerBridge() {
     },
     setters: {
       'value': (visitor, target, value) => 
-        D4.validateTarget<$flutter_285.WidgetStatesController>(target, 'WidgetStatesController').value = (value as Set).cast<$flutter_285.WidgetState>().toSet(),
+        D4.validateTarget<$flutter_285.WidgetStatesController>(target, 'WidgetStatesController').value = D4.coerceSet<$flutter_285.WidgetState>(value, 'value'),
     },
     methods: {
       'update': (visitor, target, positional, named, typeArgs) {

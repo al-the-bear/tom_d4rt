@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-05-17T15:08:53.432155
+// Generated: 2026-05-17T23:23:58.454101
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2300,7 +2300,7 @@ BridgedClass _createSemanticsNodeBridge() {
       'indexInParent': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').indexInParent = D4.extractBridgedArgOrNull<int>(value, 'indexInParent'),
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').tags = value == null ? null : (value as Set).cast<$flutter_7.SemanticsTag>().toSet(),
+        D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').tags = value == null ? null : D4.coerceSet<$flutter_7.SemanticsTag>(value, 'tags'),
       'transform': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsNode>(target, 'SemanticsNode').transform = D4.extractBridgedArgOrNull<$vector_math_1.Matrix4>(value, 'transform'),
       'rect': (visitor, target, value) => 
@@ -2983,7 +2983,7 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'scrollExtentMin': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin = D4.extractBridgedArgOrNull<double>(value, 'scrollExtentMin'),
       'controlsNodes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value == null ? null : (value as Set).cast<String>().toSet(),
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value == null ? null : D4.coerceSet<String>(value, 'controlsNodes'),
       'validationResult': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult = D4.extractBridgedArg<SemanticsValidationResult>(value, 'validationResult'),
       'hitTestBehavior': (visitor, target, value) => 
