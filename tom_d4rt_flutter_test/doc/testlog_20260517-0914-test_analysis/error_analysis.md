@@ -45,7 +45,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☑ fixed |
 | **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☑ fixed |
 | **C11** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☑ fixed |
-| **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
+| **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☐ |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☐ |
 | **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
@@ -662,11 +662,82 @@ No new regressions on either driver.
 
 #### C12 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 32 | foundation/ targetplatform_test.dart |
+
+**Root cause.** Dart 3 multi-case grouping —
+
+```dart
+switch (p) {
+  case TargetPlatform.android:
+  case TargetPlatform.fuchsia:
+  case TargetPlatform.linux:
+  case TargetPlatform.windows:
+    return 'Material Switch';
+  ...
+}
+```
+
+— is parsed as one `SSwitchPatternCase` per `case X:` label. The first
+three cases have **empty `statements`**; only the last carries the body.
+Cluster C2's earlier fix (added in
+`tom_d4rt/lib/src/interpreter_visitor.dart` and mirrored in
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`)
+unconditionally broke out of the member loop on any
+`SSwitchPatternCase` match to prevent the body from running twice. That
+was correct for single-statement cases, but for grouped cases it broke
+on the first match (the empty `case android:`) without ever falling
+through to the case that holds the return. `switchFor(android)`
+therefore returned `null`, the helper's result fed `Text(null)`, and
+the bridged `Text` constructor rejected it as "expected String, got
+Null."
+
+**Fix.** Only break after the matched case if it actually had
+statements:
+
+```dart
+if (patternCaseMatchedThisIteration &&
+    statementsToExecute.isNotEmpty) {
+  execute = false;
+  break;
+}
+```
+
+Empty matched cases now fall through naturally to the next member,
+which either is another empty grouping label or the case that carries
+the body. Once a non-empty body runs, the existing
+`patternCaseMatchedThisIteration` guard still terminates the loop, so
+the C2 no-fall-through guarantee survives. Applied symmetrically in
+`tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. No bridge or
+generator change.
+
+**Regression scope (rule b: interpreter change, both drivers).**
+
+flutter_test (analyzer driver):
+
+| suite | baseline | post-C12 | notes |
+|-------|----------|----------|-------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | matches |
+| essential | `+108` | `+108` | clean |
+| important | `+164` | `+164` | clean |
+| secondary | `+633 ~1 -20` | `+634 ~1 -19` | C12 fixed; no regressions |
+
+flutter_ast (mirror-AST driver):
+
+| suite | baseline | post-C12 | notes |
+|-------|----------|----------|-------|
+| gii | `+79 ~2 -2` | `+79 ~2 -2` | matches |
+| essential | `+108` | `+108` | clean |
+| important | `+164` | `+164` | clean |
+| secondary | `+632 ~1 -21` | `+635 ~1 -18` | C12 fixed plus two other grouped-case scripts now pass; no regressions |
+
+Logs (in the respective driver `ztmp/` dirs):
+`c12_{ast,test}_{gii,essential,important,secondary}.log.txt`. No new
+regressions on either driver.
 
 #### C13 — `Runtime Error: Index assignment target must be List or Map in cascade.`
 
