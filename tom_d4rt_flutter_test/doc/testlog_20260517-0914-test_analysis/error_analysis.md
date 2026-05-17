@@ -1423,13 +1423,80 @@ driver: same command in `tom_d4rt_flutter_test` → 1/0/0 (log
 
 #### C26 — `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — interpreter fix in `getRuntimeType`
 
 | testID | Test name |
 |-------:|-----------|
 | 223 | foundation/ individual read_buffer_test.dart |
 
+**Root cause.** The script defined a perfectly idiomatic Flutter
+binary-protocol helper:
+
+```dart
+Uint8List encodeFrame(int cmd, List<int> payload) {
+  final wb = WriteBuffer();
+  ...
+  return wb.done().buffer.asUint8List();
+}
+```
+
+The interpreter's return-type check
+(`InterpreterVisitor.visitReturnStatement`) called
+`Environment.getRuntimeType(returnValue)` and got back the generic
+`List` `RuntimeType` instead of the specific `Uint8List` bridge —
+even though the value's actual runtime type is a `Uint8List`
+subclass (`_Uint8List` / `_Uint8ArrayView`) that has its own
+registered `BridgedClass`. The check then reported the value as a
+`List` and rejected it against the declared `Uint8List` return
+type. Source of the misclassification was in
+`Environment.getRuntimeType`:
+
+```dart
+if (value is List) typeName = 'List';
+```
+
+`Uint8List` (and `Int8List`, `Int32List`, etc.) `is List<int>`, so
+the value was collapsed to the generic `List` bridge *before* the
+more-specific `toBridgedClass(value.runtimeType)` lookup further
+down had a chance to find the proper typed-data bridge.
+
+**Fix.** Interpreter change in both engines (kept in sync):
+
+- `tom_d4rt_ast/lib/src/runtime/environment.dart` —
+  `getRuntimeType` now, when the candidate `typeName` is `'List'`
+  or `'Map'`, first attempts `toBridgedClass(value.runtimeType)`
+  and returns that bridge if it differs from the generic
+  `typeName`. Falls through to the existing generic-name lookup
+  on no specific match.
+- `tom_d4rt/lib/src/environment.dart` — mirror change.
+
+The narrow guard (`typeName == 'List' || typeName == 'Map'`) keeps
+String/int/double/bool on their fast path and only adds a single
+extra bridge lookup for collection-like values where a typed
+subclass might exist. The same change also fixes any other script
+that returns a typed-data subtype (`Int8List`, `Int32List`,
+`Float64List`, etc.) from a function declared with that specific
+typed return.
+
+**Underlying limitation.** None remaining. The bridged-class
+registry already had `Uint8List` (and the other typed-data
+subclasses) registered correctly; the runtime-type resolver just
+wasn't consulting it for values that also satisfied `is List`.
+
+**Regression scope.** Interpreter change (rule b): essential +
+important + secondary on both drivers.
+
+**Verification.** AST driver (`tom_d4rt_flutter_ast`): essential
+108/0/0, important 164/0/0, secondary 648/-5 (all 5 failures are
+pre-existing clusters C27/C28/C30/C31). Analyzer driver
+(`tom_d4rt_flutter_test`): essential 108/0/0, important 164/0/0,
+secondary 647/-6 (all 6 failures are pre-existing clusters
+C27/C28/C29 [analyzer-only `tap_drag_start_details`]/C30/C31).
+None of the failures are caused by the C26 fix. Logs under each
+package's `ztmp/c26_verify_*` files.
+
 #### C27 — `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
+ — `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
 
 - [ ] fixed and re-verified
 

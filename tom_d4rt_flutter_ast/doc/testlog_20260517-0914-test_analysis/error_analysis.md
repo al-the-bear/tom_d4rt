@@ -1540,11 +1540,93 @@ sufficient per the regression rules.
 
 #### C26 — `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — interpreter fix in `getRuntimeType`
 
 | testID | Test name |
 |-------:|-----------|
 | 223 | foundation/ individual read_buffer_test.dart |
+
+**Root cause.** The script defined a perfectly idiomatic Flutter
+binary-protocol helper:
+
+```dart
+Uint8List encodeFrame(int cmd, List<int> payload) {
+  final wb = WriteBuffer();
+  ...
+  return wb.done().buffer.asUint8List();
+}
+```
+
+The interpreter's return-type check in
+`InterpreterVisitor.visitReturnStatement`
+(`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart:7090`)
+called `Environment.getRuntimeType(returnValue)` and got back the
+generic `List` `RuntimeType` instead of the specific `Uint8List`
+bridge — even though the value's actual runtime type is a
+`Uint8List` subclass (`_Uint8List` / `_Uint8ArrayView`) that has
+its own registered `BridgedClass` (see
+`tom_d4rt_ast/lib/src/runtime/stdlib/typed_data/uint8_list.dart:18`).
+The check then reported the value as a `List` and rejected it
+against the declared `Uint8List` return type. Stack trace dumped
+via `c26_diag_test.dart` pointed straight at the return-type
+check; the source of the misclassification is in
+`Environment.getRuntimeType` (line ~867):
+
+```dart
+if (value is List) typeName = 'List';
+```
+
+`Uint8List` (and `Int8List`, `Int32List`, etc.) `is List<int>`, so
+the value was collapsed to the generic `List` bridge *before* the
+more-specific `toBridgedClass(value.runtimeType)` lookup further
+down had a chance to find the proper typed-data bridge.
+
+**Fix.** Interpreter change in both engines (kept in sync):
+
+- `tom_d4rt_ast/lib/src/runtime/environment.dart` —
+  `getRuntimeType` now, when the candidate `typeName` is `'List'`
+  or `'Map'`, first attempts `toBridgedClass(value.runtimeType)`
+  and returns that bridge if it differs from the generic
+  `typeName`. Falls through to the existing generic-name lookup
+  on no specific match.
+- `tom_d4rt/lib/src/environment.dart` — mirror change.
+
+The narrow guard (`typeName == 'List' || typeName == 'Map'`) keeps
+String/int/double/bool on their fast path and only adds a single
+extra bridge lookup for collection-like values where a typed
+subclass might exist. The same change also fixes any other script
+that returns a typed-data subtype (`Int8List`, `Int32List`,
+`Float64List`, etc.) from a function declared with that specific
+typed return.
+
+**Underlying limitation.** None remaining. The bridged-class
+registry already had `Uint8List` (and the other typed-data
+subclasses) registered correctly; the runtime-type resolver just
+wasn't consulting it for values that also satisfied `is List`.
+
+**Regression scope.** Interpreter change (rule b): essential +
+important + secondary on both drivers.
+
+**Verification.** AST driver (`tom_d4rt_flutter_ast`):
+
+- essential: 108/0/0 (log `ztmp/c26_verify_ast_essential.log.txt`)
+- important: 164/0/0 (log `ztmp/c26_verify_ast_important.log.txt`)
+- secondary: 648/1 skip/-5 — all 5 failures are pre-existing
+  clusters C27 (drag_gesture_recognizer), C28 (drag_test,
+  positioned_gesture_details), C30 (box_painter_test), C31
+  (linear_border_edge_test); none caused by the C26 fix
+  (log `ztmp/c26_verify_ast_secondary.log.txt`).
+- C26 single-script: success (log `ztmp/c26_verify_diag.log.txt`).
+- Repro log: `ztmp/c26_repro_ast.log.txt`.
+
+Analyzer driver (`tom_d4rt_flutter_test`):
+
+- essential: 108/0/0 (log `ztmp/c26_verify_analyzer_essential.log.txt`)
+- important: 164/0/0 (log `ztmp/c26_verify_analyzer_important.log.txt`)
+- secondary: 647/1 skip/-6 — all 6 failures are pre-existing
+  clusters C27/C28/C29 (analyzer-only `tap_drag_start_details`)
+  /C30/C31; none caused by the C26 fix
+  (log `ztmp/c26_verify_analyzer_secondary.log.txt`).
 
 #### C27 — `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
 
