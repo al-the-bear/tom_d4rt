@@ -28,11 +28,77 @@
 
 > `FE` is the sum of `frameworkErrors=N` reported by the per-script `[METRIC]` lines — these are widget-tree exceptions that did **not** flip the HTTP response to non-200 but were surfaced by SendTestRunner. Listed below as framework-error blocks.
 
+## Hard-Failure Cluster Index
+
+Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C##` matches the inline cluster heading in *Hard Failures — File by File* below.
+
+| # | File | Tests | Error key | Status |
+|---|------|------:|-----------|:------:|
+| **C01** | `essential_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☐ |
+| **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☐ |
+| **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☐ |
+| **C06** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.` | ☐ |
+| **C07** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?` | ☐ |
+| **C08** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16` | ☐ |
+| **C09** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-` | ☐ |
+| **C10** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast` | ☐ |
+| **C11** | `secondary_classes_test.dart` | 1 | `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.` | ☐ |
+| **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
+| **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☐ |
+| **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☐ |
+| **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
+| **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
+| **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☐ |
+| **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
+| **C19** | `secondary_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☐ |
+| **C20** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec` | ☐ |
+| **C21** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse` | ☐ |
+| **C22** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
+| **C23** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll` | ☐ |
+| **C24** | `secondary_classes_test.dart` | 1 | `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.` | ☐ |
+| **C25** | `secondary_classes_test.dart` | 1 | `Null check operator used on a null value` | ☐ |
+| **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
+| **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☐ |
+| **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☐ |
+| **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
+| **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
+| **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
+| **C32** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
+| **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☐ |
+| **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☐ |
+| **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☐ |
+| **C36** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☐ |
+| **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': ` | ☐ |
+| **C38** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT` | ☐ |
+| **C39** | `hardly_relevant_classes_1_test.dart` | 1 | `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts \|\| Bad state: Transport f` | ☐ |
+| **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
+| **C41** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ☐ |
+| **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☐ |
+| **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
+| **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
+| **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
+| **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
+| **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
+| **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
+| **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
+| **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
+| **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
+| **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
+| **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
+| **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
+| **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☐ |
+| **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
+| **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
+
 ## Hard Failures — File by File
 
 ### essential_classes_test.dart
 
-**Cluster:** `Runtime Error: Positional arguments cannot follow named arguments.`
+#### C01 — `Runtime Error: Positional arguments cannot follow named arguments.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -52,13 +118,17 @@ Representative error texts:
 
 ### important_classes_test.dart
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'`
+#### C02 — `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 18 | widgets/ animatedopacity_test.dart |
 
-**Cluster:** `Runtime Error: Positional arguments cannot follow named arguments.`
+#### C03 — `Runtime Error: Positional arguments cannot follow named arguments.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -69,37 +139,49 @@ Representative error texts:
 | 158 | services/ keyboard_test.dart |
 | 172 | rendering/ renderobjects_sizing_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": `
+#### C04 — `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": `
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 32 | widgets/ safearea_test.dart |
 
-**Cluster:** `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"`
+#### C05 — `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 56 | widgets/ notificationlistener_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.`
+#### C06 — `Runtime Error: Native error during default bridged constructor for 'CalendarDatePicker': 'package:flutter/src/material/calendar_date_picker.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 81 | material/ batch 3 datepicker_widgets_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?`
+#### C07 — `Runtime Error: Native error during default bridged constructor for 'ParagraphStyle': type 'StrutStyle' is not a subtype of type 'StrutStyle?`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | dart_ui/ text_data_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16`
+#### C08 — `Runtime Error: Native error during bridged method call 'substring' on String: RangeError (end): Invalid value: Not in inclusive range 12..16`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 161 | services/ spellcheck_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-`
+#### C09 — `Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Argument Error: Gradient: Parameter "endAngle" has non-`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -138,135 +220,179 @@ Representative error texts:
 
 ### secondary_classes_test.dart
 
-**Cluster:** `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`
+#### C10 — `Runtime Error: Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 8 | animation/ animation_misc_adv_test.dart |
 
-**Cluster:** `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.`
+#### C11 — `Concurrent modification during iteration: Instance(length:50) of '_GrowableList'.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 31 | foundation/ synchronousfuture_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
+#### C12 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 32 | foundation/ targetplatform_test.dart |
 
-**Cluster:** `Runtime Error: Index assignment target must be List or Map in cascade.`
+#### C13 — `Runtime Error: Index assignment target must be List or Map in cascade.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 33 | foundation/ foundation_misc_adv_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.`
+#### C14 — `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 37 | gestures/ tap_force_test.dart |
 
-**Cluster:** `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`
+#### C15 — `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 58 | material/ tooltip_feedback_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
+#### C16 — `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 69 | material/ bottom_app_bar_test.dart |
 
-**Cluster:** `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6`
+#### C17 — `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 82 | painting/ matrixutils_test.dart |
 
-**Cluster:** `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.`
+#### C18 — `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 102 | semantics/ semantics_events_test.dart |
 
-**Cluster:** `Runtime Error: Positional arguments cannot follow named arguments.`
+#### C19 — `Runtime Error: Positional arguments cannot follow named arguments.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 108 | services/ platform_channels_test.dart |
 | 143 | widgets/ table_wrap_flow_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec`
+#### C20 — `Runtime Error: Native error during default bridged constructor for 'RestorableEnum': Argument Error: Invalid parameter "defaultValue": expec`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 119 | widgets/ restorable_values_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse`
+#### C21 — `Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed asse`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 125 | widgets/ textspan_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
+#### C22 — `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | widgets/ route_observer_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll`
+#### C23 — `Runtime Error: Native error during default bridged constructor for 'DraggableScrollableSheet': 'package:flutter/src/widgets/draggable_scroll`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 153 | widgets/ draggable_sheet_test.dart |
 
-**Cluster:** `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.`
+#### C24 — `'package:flutter/src/widgets/restoration_properties.dart': Failed assertion: line 85 pos 12: 'isRegistered': is not true.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 161 | widgets/ restoration_adv_test.dart |
 
-**Cluster:** `Null check operator used on a null value`
+#### C25 — `Null check operator used on a null value`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 170 | cupertino/ individual cupertino_page_test.dart |
 
-**Cluster:** `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.`
+#### C26 — `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 223 | foundation/ individual read_buffer_test.dart |
 
-**Cluster:** `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
+#### C27 — `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 234 | gestures/ individual drag_gesture_recognizer_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile`
+#### C28 — `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 235 | gestures/ individual drag_test.dart |
 | 243 | gestures/ individual positioned_gesture_details_test.dart |
 
-**Cluster:** `Runtime Error: The condition of a conditional expression must be a boolean, but was null.`
+#### C29 — `Runtime Error: The condition of a conditional expression must be a boolean, but was null.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 319 | material/ individual snack_bar_closed_reason_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value`
+#### C30 — `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 335 | painting/ individual box_painter_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa`
+#### C31 — `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -305,55 +431,73 @@ Representative error texts:
 
 ### hardly_relevant_classes_1_test.dart
 
-**Cluster:** `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.`
+#### C32 — `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 124 | dart_ui/ uniform_float_slot_test.dart |
 
-**Cluster:** `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.`
+#### C33 — `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 125 | dart_ui/ uniform_vec2_slot_test.dart |
 
-**Cluster:** `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It`
+#### C34 — `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 133 | foundation/ caching_iterable_test.dart |
 
-**Cluster:** `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos`
+#### C35 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 135 | foundation/ class_test.dart |
 
-**Cluster:** `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di`
+#### C36 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 144 | foundation/ diagnostics_serialization_delegate_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': `
+#### C37 — `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': `
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 162 | foundation/ object_flag_property_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
+#### C38 — `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 180 | gestures/ hit_testable_test.dart |
 
-**Cluster:** `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
+#### C39 — `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 182 | gestures/ least_squares_solver_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
+#### C40 — `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -388,7 +532,9 @@ Representative error texts:
 
 ### hardly_relevant_classes_2_test.dart
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a`
+#### C41 — `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -403,61 +549,81 @@ Representative error texts:
 
 ### hardly_relevant_classes_3_test.dart
 
-**Cluster:** `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.`
+#### C42 — `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 117 | semantics/ tap_semantic_event_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: KeyDataTransitMode`
+#### C43 — `Runtime Error: Undefined variable: KeyDataTransitMode`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | services/ key_data_transit_mode_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: KeyboardSide`
+#### C44 — `Runtime Error: Undefined variable: KeyboardSide`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 157 | services/ keyboard_side_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: MaterialState (in Set literal)`
+#### C45 — `Runtime Error: Undefined variable: MaterialState (in Set literal)`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 165 | services/ mouse_tracker_annotation_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio`
+#### C46 — `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 167 | services/ raw_floating_cursor_point_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: build`
+#### C47 — `Runtime Error: Undefined variable: build`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 171 | services/ raw_key_event_data_ios_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: RawKeyEventDataWeb`
+#### C48 — `Runtime Error: Undefined variable: RawKeyEventDataWeb`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 175 | services/ raw_key_event_data_web_test.dart |
 
-**Cluster:** `Runtime Error: Undefined variable: RawKeyEventDataLinux`
+#### C49 — `Runtime Error: Undefined variable: RawKeyEventDataLinux`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 177 | services/ raw_key_event_test.dart |
 
-**Cluster:** `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
+#### C50 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 194 | services/ text_capitalization_test.dart |
 
-**Cluster:** `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"`
+#### C51 — `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -492,7 +658,9 @@ Representative error texts:
 
 ### hardly_relevant_classes_5_test.dart
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
+#### C52 — `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -507,7 +675,9 @@ Representative error texts:
 
 ### timeout_tests_test.dart
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
+#### C53 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -522,13 +692,17 @@ Representative error texts:
 
 ### generator_interpreter_issues_test.dart
 
-**Cluster:** `BoxConstraints forces an infinite height.`
+#### C54 — `BoxConstraints forces an infinite height.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 34 | Section 2 - Bridge Generator Issues (80) widgets/nestedscrollview_test.dart |
 
-**Cluster:** `A RenderFlex overflowed by 7.0 pixels on the bottom.`
+#### C55 — `A RenderFlex overflowed by 7.0 pixels on the bottom.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
@@ -549,13 +723,17 @@ Representative error texts:
 
 ### generator_interpreter_retest_test.dart
 
-**Cluster:** `A borderRadius can only be given on borders with uniform colors.`
+#### C56 — `A borderRadius can only be given on borders with uniform colors.`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 33 | Section 1 - Tests with workarounds reverted retest: services/message_codec_test.dart |
 
-**Cluster:** `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
+#### C57 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
+
+- [ ] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
