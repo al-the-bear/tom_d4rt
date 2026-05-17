@@ -48,7 +48,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
-| **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
+| **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
 | **C17** | `secondary_classes_test.dart` | 1 | `Bad state: Cannot resolve import "package:vector_math/vector_math_64.dart" from main.dart: Package import "package:vector_math/vector_math_6` | ☐ |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
@@ -871,11 +871,100 @@ Logs: `ztmp/c14_ast_single.log.txt`,
 
 #### C15 — `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`
 
-- [ ] fixed and re-verified
+- [x] **fixed and re-verified** (2026-05-17) — script-only workaround
 
 | testID | Test name |
 |-------:|-----------|
 | 58 | material/ tooltip_feedback_test.dart |
+
+**Root cause.** Not an interpreter logic bug — a Dart-VM-level crash
+triggered by a specific `RichText` / `TextSpan` shape under d4rt.
+The crash signature is `Lost connection to device.` (test app dies
+mid-build, HTTP transport closes before the `/build` response
+header is sent); the runner surfaces it as
+`Bad state: Transport failure while running …`.
+
+Bisection (logs in `ztmp/c15_probe_*.log.txt`) narrowed the trigger
+to section 9 (`_privateRichMessageExample`) inside
+`tooltip_feedback_test.dart`, then to the `RichText` widget's
+`TextSpan.children` list, and finally to a *single* element:
+
+```dart
+RichText(
+  text: TextSpan(
+    style: const TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+    children: [
+      const TextSpan(text: 'Save changes '),
+      TextSpan(text: '(Cmd+S)', style: TextStyle(…mint)),
+      const TextSpan(text: '\n'),                       // ← trigger
+      TextSpan(text: 'tip:',    style: TextStyle(…amber)),
+      const TextSpan(text: ' shift to save-as'),
+    ],
+  ),
+)
+```
+
+The minimal repro is `[styled, TextSpan(text: '\n', …), styled]`
+inside a parent `TextSpan.children`: a child `TextSpan` whose
+`text` is exactly the single-character newline string `'\n'`,
+sitting between two other `TextSpan`s that each carry a non-null
+`style`, kills the Dart VM. Verified isolation:
+
+| children layout | result |
+|-----------------|--------|
+| `[styled, styled, styled]` (no plain `\n` child) | pass |
+| `[styled, TextSpan(text:'middle', style:red), styled]` | pass |
+| `[styled, TextSpan(text:'\n'), styled]` (no `const`, no `style`) | **crash** |
+| `[styled, TextSpan(text:'\n', style: TextStyle()), styled]` | **crash** |
+| `[styled, TextSpan(text:'\n', style: white), styled]` | **crash** |
+| `[styled, TextSpan(text:' ',  style: white), styled]` | pass |
+| `[styled('(Cmd+S)\n'), styled]` (merge `\n` into preceding) | pass |
+
+The "Lost connection to device" mode of failure is not a catchable
+`RuntimeD4rtException` — it bubbles up only through the HTTP
+transport — so it cannot be made to surface a meaningful error to
+the user; it has to be avoided structurally. We have no smaller
+reproducer outside the bundled-script transport (a hand-written
+`RichText` with the same shape in native Dart renders fine), so
+the fault lives somewhere in the bridged-render path under the
+d4rt VM.
+
+**Fix.** Script-only. Replaced the standalone
+`const TextSpan(text: '\n')` with appending `'\n'` to the preceding
+styled span (`text: '(Cmd+S)\n'`), and dropped the now-redundant
+plain-`\n` child:
+
+```dart
+children: [
+  const TextSpan(text: 'Save changes '),
+  TextSpan(text: '(Cmd+S)\n', style: TextStyle(…mint)), // \n merged in
+  TextSpan(text: 'tip:',      style: TextStyle(…amber)),
+  const TextSpan(text: ' shift to save-as'),
+],
+```
+
+The visual semantics are unchanged: the newline still hard-breaks
+between `(Cmd+S)` and `tip:`; the mint style on `'\n'` is
+invisible for whitespace.
+
+The underlying trigger and constraints are documented as a
+permanent workaround in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (C15 — standalone
+newline `TextSpan`).
+
+No interpreter, bridge, or generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `material/tooltip_feedback_test.dart` | `+1` All tests passed |
+| flutter_test | `material/tooltip_feedback_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c15_verify_ast_secondary.log.txt`,
+`ztmp/c15_verify_analyzer_secondary.log.txt`. Bisection trail:
+`ztmp/c15_probe_*.log.txt`.
 
 #### C16 — `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
 

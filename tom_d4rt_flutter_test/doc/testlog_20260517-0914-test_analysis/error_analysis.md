@@ -48,7 +48,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C12** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed |
 | **C13** | `secondary_classes_test.dart` | 1 | `Runtime Error: Index assignment target must be List or Map in cascade.` | ☑ fixed |
 | **C14** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'GestureDetector': Incorrect GestureDetector arguments.` | ☑ fixed (script) |
-| **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☐ |
+| **C15** | `secondary_classes_test.dart` | 1 | `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"` | ☑ fixed (script) |
 | **C16** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch` | ☐ |
 | **C17** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: SourceCodeException: Module source not preloaded for URI: package:vector_math/vector_math_64.dart, and not ` | ☐ |
 | **C18** | `secondary_classes_test.dart` | 1 | `Runtime Error: Cannot access property 'entries' on target of type _ConstMap<String, dynamic>.` | ☐ |
@@ -878,11 +878,44 @@ Logs: `ztmp/c14_ast_single.log.txt`,
 
 #### C15 — `Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`
 
-- [ ] fixed and re-verified
+- [x] **fixed and re-verified** (2026-05-17) — script-only workaround
 
 | testID | Test name |
 |-------:|-----------|
 | 58 | material/ tooltip_feedback_test.dart |
+
+**Root cause.** Same as flutter_ast — a Dart-VM-level crash
+(`Lost connection to device.`) triggered when a parent `TextSpan`'s
+`children` list contains a child `TextSpan` whose `text` is exactly
+the single-character newline `'\n'` and that child sits between
+two other `TextSpan`s carrying a non-null `style`. The runner
+surfaces it as
+`Bad state: Transport failure while running "material/tooltip_feedback_test.dart"`.
+
+Bisection (logs in `ztmp/c15_probe_*.log.txt`) walked down to the
+`_privateRichMessageExample()` `RichText` and the standalone
+`const TextSpan(text: '\n')` element. The full repro table and
+trigger discussion live in the flutter_ast sibling
+`error_analysis.md` and in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (C15 — standalone
+newline `TextSpan`).
+
+**Fix.** Script-only. Both drivers share
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`,
+so the single script edit (`'\n'` merged into the preceding styled
+`TextSpan`'s text) covers both. No interpreter, bridge, or
+generator change.
+
+**Regression scope (rule a: script-only change).** Single-test
+rerun on both drivers:
+
+| Driver | Test | Result |
+|--------|------|--------|
+| flutter_ast | `material/tooltip_feedback_test.dart` | `+1` All tests passed |
+| flutter_test | `material/tooltip_feedback_test.dart` | `+1` All tests passed |
+
+Logs: `ztmp/c15_verify_ast_secondary.log.txt`,
+`ztmp/c15_verify_analyzer_secondary.log.txt`.
 
 #### C16 — `Runtime Error: Native error during default bridged constructor for 'BottomAppBar': Argument Error: Invalid parameter "shape": expected Notch`
 

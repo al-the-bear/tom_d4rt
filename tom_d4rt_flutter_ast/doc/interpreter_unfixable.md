@@ -45,6 +45,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U1 — Demo-scale renderings that overload the test-app transport](#u1--demo-scale-renderings-that-overload-the-test-app-transport-interpreter-limitation) | Interpreter limitation, two sub-cases. (1) Top-level `const` of an interpreted subclass of a *native* abstract class (here `extends Notification`) exercises the adapter-proxy infrastructure before the visitor has wired its context, and crashes the test-app transport (`Lost connection to device`, no stderr). (2) `SelectableText.rich(TextSpan(children: spans))` with ~1000+ TextSpans (built per-character by an interpreted Dart colorizer from a ~1.8 KB code listing) exceeds the test-app per-frame transport budget and the device disconnects. Workaround: keep the displayed values as top-level `const` primitives (no native-abstract subclass), and render long code listings (>≈500 chars / >≈22 lines) through a sibling helper that wraps a single plain monospace `Text` instead of the per-char colorizer + `SelectableText.rich`. | `widgets/notificationlistener_test.dart` (C05 closed 2026-05-17) |
 | [U2 — Non-wrappable arithmetic defaults on positional-only native constructors](#u2--non-wrappable-arithmetic-defaults-on-positional-only-native-constructors-generator-limitation) | Generator limitation. `BridgeGenerator._wrapDefaultValue` returns `null` for any default expression containing an operator (e.g. `double endAngle = math.pi * 2`), so the generated bridge emits `D4.getRequiredArgTodoDefault<…>(…, 'math.pi * 2')` which throws `Argument Error: <Class>: Parameter "<name>" has non-wrappable default …` when the argument is omitted. For purely-positional native constructors (`dart:ui` `Gradient.sweep`, `Gradient.radial`, …) the script cannot use named-arg form to skip earlier optional positionals, so any default expression with an operator anywhere in the positional list becomes mandatory at every call site beyond that index. Workaround: at every call site, supply *all* preceding optional positionals up to and including the offending one (use the framework's documented default value literally, e.g. `math.pi * 2.0`). | `rendering/gradient_rendering_test.dart` (C09 closed 2026-05-17 — `ui.Gradient.sweep` `endAngle = math.pi * 2`) |
 | [U3 — Interpreted subclass of native abstract `Curve`: `transformInternal` override not routed through `Curve.transform`](#u3--interpreted-subclass-of-native-abstract-curve-transforminternal-override-not-routed-through-curvetransform-interpreter-limitation) | Interpreter limitation (adapter-proxy delegation gap). The native `Curve.transform(t)` template-methods through `Curve.transformInternal(t)`; for script-defined subclasses of `Curve`, the adapter proxy does not intercept the native call to `transformInternal` and route it back to the interpreted override, so `transform()` returns `null` to the bridge consumer. Downstream arithmetic on the null sample (`28.0 * s`, then `12.0 + …`) throws `Native error during bridged operator '+' on double: type 'Null' is not a subtype of type 'num' in type cast`. Reproduces both const and non-const, so distinct from U1. Workaround: use a framework-provided `Curve` subclass (`FlippedCurve(Curves.easeInOut)`) instead of a script-defined `Curve` subclass. | `animation/animation_misc_adv_test.dart` (C10 closed 2026-05-17 — `_FlippedShim extends Curve`) |
+| [U4 — Standalone `'\n'` `TextSpan` between two styled siblings crashes the test-app transport](#u4--standalone-n-textspan-between-two-styled-siblings-crashes-the-test-app-transport-truly-unfixable) | Truly unfixable — Dart-VM-level crash inside the bridged render path; `Lost connection to device.` surfaces only as `Bad state: Transport failure while running …`. Trigger is specifically a child `TextSpan(text: '\n')` (literal newline, with or without `style`, with or without `const`) sitting between two other `TextSpan` siblings that each carry a non-null `style`, in the same parent `TextSpan.children` list (`RichText` / `Tooltip(richMessage:)` / `Text.rich(...)`). Both the `'\n'` character and the flanking pair of style-bearing siblings are necessary. Mandatory script-side workaround: append the `'\n'` to the preceding styled `TextSpan`'s `text` and drop the standalone newline child. | `material/tooltip_feedback_test.dart` (C15 closed 2026-05-17 — `_privateRichMessageExample` `RichText`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -2902,7 +2903,117 @@ across this whole family.
 
 ---
 
+## U4 — Standalone `'\n'` `TextSpan` between two styled siblings crashes the test-app transport (truly unfixable)
+
+**Category.** Truly unfixable — Dart-VM-level crash inside the
+bridged render path. The fault does not surface as a catchable
+`RuntimeD4rtException`; the test-app process dies and the HTTP
+transport closes mid-build, manifesting at the runner level as
+`Bad state: Transport failure while running …` and on the device
+side as `Lost connection to device.`.
+
+**Reproducer.** Inside a parent `TextSpan.children` list, a child
+`TextSpan` whose `text` is exactly the single-character newline
+string `'\n'` — sitting *between* two other `TextSpan`s that each
+carry a non-null `style` — kills the Dart VM during build:
+
+```dart
+RichText(
+  text: TextSpan(
+    style: const TextStyle(color: Colors.white, fontSize: 13),
+    children: [
+      TextSpan(text: '(Cmd+S)', style: TextStyle(color: mint)),
+      const TextSpan(text: '\n'),                         // ← crash
+      TextSpan(text: 'tip:',    style: TextStyle(color: amber)),
+    ],
+  ),
+)
+```
+
+Equivalence cases verified during bisection (see C15 entry in
+`testlog_20260517-0914-test_analysis/error_analysis.md` for the
+full bisect trail and probe-log filenames):
+
+| children layout | result |
+|-----------------|--------|
+| `[styled, styled, styled]` (no `\n`-only child) | pass |
+| `[styled, TextSpan(text: 'middle', style: red), styled]` | pass |
+| `[styled, TextSpan(text: '\n'), styled]` (no `const`, no `style`) | crash |
+| `[styled, TextSpan(text: '\n', style: TextStyle()), styled]` | crash |
+| `[styled, TextSpan(text: '\n', style: white), styled]` | crash |
+| `[styled, TextSpan(text: ' ',  style: white), styled]` | pass |
+| `[styled('(Cmd+S)\n'), styled]` (merge `\n` into preceding) | pass |
+| `[plain, styled, plain]` (single styled, no second styled) | pass |
+| `[const, styled, const, styled]` (alt form of the trigger) | crash |
+| `[styled, styled]` (two adjacent styled, no `\n`-only between) | pass |
+
+So both the *character* `'\n'` in the middle child *and* the
+flanking pair of style-bearing siblings are necessary. Adding a
+`style:` to the middle child is **not** sufficient; the trigger
+depends on the literal `'\n'` text value.
+
+**Constraints.**
+
+- No smaller reproducer exists outside the bundled-script HTTP
+  transport: a hand-written `RichText` with the exact same shape,
+  rendered from native Dart, renders fine. The fault therefore
+  lives in the d4rt bridged-render path, not in Flutter itself.
+- The crash terminates the Dart VM (`Lost connection to device`),
+  so neither the interpreter nor the test runner can intercept
+  it and present a usable error.
+- The bundle JSON size, byte difference between repro and
+  workaround (2 bytes for `'\n'` → `' '`), and ordinal position
+  within the script are all neutral; only the literal `'\n'`-as-
+  sole-text in the middle child matters.
+
+**Script-side workaround (mandatory).** Append the `'\n'` to the
+preceding styled span's `text` and drop the standalone newline
+child:
+
+```dart
+children: [
+  const TextSpan(text: 'Save changes '),
+  TextSpan(text: '(Cmd+S)\n', style: TextStyle(color: mint)), // \n merged in
+  TextSpan(text: 'tip:',      style: TextStyle(color: amber)),
+  const TextSpan(text: ' shift to save-as'),
+],
+```
+
+The newline still hard-breaks at the same visual position because
+`TextSpan` glyph layout is style-insensitive for whitespace.
+
+If merging into the preceding span is structurally awkward (e.g.,
+the preceding span is `const` and the surrounding `children:` is
+also `const`), a `WidgetSpan(child: SizedBox(width: double.infinity, height: 0))`
+sandwiched in place of the `'\n'` `TextSpan` is the next-best
+alternative — it forces a line break without any text content at
+all.
+
+**Diagnostic guidance.** If a script newly added under a
+cluster-by-cluster pass turns up
+`Bad state: Transport failure while running …` with no preceding
+framework-error block and the script contains a `RichText` /
+`Tooltip(richMessage:)` / `Text.rich(...)` with multiple styled
+`TextSpan` children, suspect a literal `'\n'`-only child between
+them first. Strip down the offending children list with the
+probes documented in C15 to confirm.
+
+---
+
 ## Change Log
+
+- 2026-05-17: **Add U4 — Standalone `'\n'` `TextSpan` between two
+  styled siblings crashes the test-app transport.** Documents the
+  `testlog_20260517-0914` C15 cluster
+  (`material/tooltip_feedback_test.dart`, `_privateRichMessageExample`
+  `RichText`). Root cause is a Dart-VM-level crash in the
+  bridged-render path triggered specifically by a child
+  `TextSpan(text: '\n')` between two other styled `TextSpan`s in
+  the same `children:`. No interpreter or generator fix is
+  feasible: the failure mode is `Lost connection to device.`,
+  which is uncatchable. Mandatory script-side workaround:
+  append `'\n'` to the preceding styled `TextSpan` and drop the
+  standalone newline child.
 
 - 2026-05-17: **Add U3 — Interpreted subclass of native abstract
   `Curve`: `transformInternal` override not routed through
