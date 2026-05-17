@@ -33,7 +33,13 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vector_math/vector_math_64.dart' show Vector3;
+// C17 workaround: `package:vector_math/vector_math_64.dart` is not in
+// the d4rt module loader's bridged-libraries set and is not in the
+// same package as the host, so the AST bundler refuses to resolve a
+// direct import. The only runtime use was `Vector3(40, 0, 0)` fed
+// through `Matrix4.transform3`; we compute the same components by
+// hand below using `Matrix4.storage` (bridged via the painting
+// library).
 
 // =====================================================================
 // Palette / typography constants
@@ -770,9 +776,18 @@ dynamic build(BuildContext context) {
   final bool eqNullRight = MatrixUtils.matrixEquals(mIdentity, null);
 
   // Raw Matrix4.transform3 vs MatrixUtils.transformPoint comparison.
-  final Vector3 rawV = Vector3(40.0, 0.0, 0.0);
-  final Vector3 rawTransformed = mCompositeTRS.transform3(rawV.clone());
-  final Offset rawAsOffset = Offset(rawTransformed.x, rawTransformed.y);
+  //
+  // C17 workaround: cannot import `Vector3` from
+  // `package:vector_math/vector_math_64.dart` in a d4rt script (the
+  // package isn't bridged). Compute the column-major matrix·vector
+  // product for v=(40,0,0,1) by hand from `Matrix4.storage`; this
+  // matches what `Matrix4.transform3(Vector3(40,0,0))` would return
+  // for affine transforms (no perspective row).
+  final List<double> _mStore = mCompositeTRS.storage;
+  final double _rawTransformedX = _mStore[0] * 40.0 + _mStore[12];
+  final double _rawTransformedY = _mStore[1] * 40.0 + _mStore[13];
+  final double _rawTransformedZ = _mStore[2] * 40.0 + _mStore[14];
+  final Offset rawAsOffset = Offset(_rawTransformedX, _rawTransformedY);
   final Offset utilsAsOffset =
       MatrixUtils.transformPoint(mCompositeTRS, const Offset(40.0, 0.0));
 
@@ -2090,9 +2105,9 @@ dynamic build(BuildContext context) {
                       Text('input Offset: (40, 0)', style: _tsMonoDim),
                       Text(
                         'Matrix4.transform3 -> Vector3'
-                        '(${_fmt(rawTransformed.x)}, '
-                        '${_fmt(rawTransformed.y)}, '
-                        '${_fmt(rawTransformed.z)})',
+                        '(${_fmt(_rawTransformedX)}, '
+                        '${_fmt(_rawTransformedY)}, '
+                        '${_fmt(_rawTransformedZ)})',
                         style: _tsMono.copyWith(color: _accIndigo),
                       ),
                       Text(
