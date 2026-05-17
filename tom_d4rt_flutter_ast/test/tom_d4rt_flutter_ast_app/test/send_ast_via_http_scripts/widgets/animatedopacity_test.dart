@@ -1799,7 +1799,10 @@ dynamic build(BuildContext context) {
                   child: Column(
                     children: <Widget>[
                       AnimatedOpacity(
-                        opacity: curve.transform(t),
+                        // Clamp because non-monotone curves (bounceIn,
+                        // elasticOut) return values outside [0.0, 1.0],
+                        // which would violate AnimatedOpacity's assertion.
+                        opacity: curve.transform(t).clamp(0.0, 1.0),
                         duration: Duration.zero,
                         child: Container(
                           width: 36.0,

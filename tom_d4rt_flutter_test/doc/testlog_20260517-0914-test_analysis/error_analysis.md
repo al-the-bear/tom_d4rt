@@ -35,7 +35,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | # | File | Tests | Error key | Status |
 |---|------|------:|-----------|:------:|
 | **C01** | `essential_classes_test.dart` | 2 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
-| **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☐ |
+| **C02** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'` | ☑ fixed |
 | **C03** | `important_classes_test.dart` | 6 | `Runtime Error: Positional arguments cannot follow named arguments.` | ☑ fixed |
 | **C04** | `important_classes_test.dart` | 1 | `Runtime Error: Native error during bridged constructor 'removePadding' for class 'MediaQuery': Argument Error: Invalid parameter "context": ` | ☐ |
 | **C05** | `important_classes_test.dart` | 1 | `Bad state: Transport failure while running "widgets/notificationlistener_test.dart"` | ☐ |
@@ -145,11 +145,45 @@ Representative error texts:
 
 #### C02 — `Runtime Error: Native error during default bridged constructor for 'AnimatedOpacity': 'package:flutter/src/widgets/implicit_animations.dart'`
 
-- [ ] fixed and re-verified
+- [x] **fixed** (2026-05-17) — script-only fix. See root-cause note
+  below.
 
 | testID | Test name |
 |-------:|-----------|
 | 18 | widgets/ animatedopacity_test.dart |
+
+**Root cause (script bug, not an interpreter/bridge bug).** The
+deep demo at `send_ast_via_http_scripts/widgets/animatedopacity_test.dart`
+exercises `AnimatedOpacity` against a row of non-monotone curves in
+Section 8 ("Curve studies"), including `Curves.bounceIn` and
+`Curves.elasticOut`. Both curves intentionally overshoot/undershoot
+the [0, 1] range — `elasticOut.transform(0.6) ≈ 1.077`, `bounceIn`
+similarly dips just below 0 — which trips the native assertion
+`opacity >= 0.0 && opacity <= 1.0`. The script even acknowledges
+this in its own quote card ("Curves.bounceIn or Curves.elasticOut
+... almost never belong on opacity"), but still hands the unclamped
+value to `AnimatedOpacity.opacity`.
+
+**Fix.** Clamp the value before it reaches `AnimatedOpacity`:
+
+```dart
+AnimatedOpacity(
+  opacity: curve.transform(t).clamp(0.0, 1.0),
+  duration: Duration.zero,
+  child: ...,
+)
+```
+
+The Text below the swatch still shows the raw `curve.transform(t)`
+so the visualization of curve behavior remains intact — only the
+alpha fed into the assertion is clamped.
+
+**Regression scope (rule a).** Script-only change in the shared
+script corpus (`tom_d4rt_flutter_ast/.../send_ast_via_http_scripts/
+widgets/animatedopacity_test.dart`); the same file is consumed by
+both flutter_test (source-based) and flutter_ast (AST-based) test
+suites via `SendTestRunner.scriptsPath`. Single-test verification
+in both packages passes; no regression suite required.
 
 #### C03 — `Runtime Error: Positional arguments cannot follow named arguments.`
 
