@@ -1187,12 +1187,17 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 9: footguns ===');
 
-  // Out-of-range size and alignment values still construct, but render oddly
-  final oversizedEdge = LinearBorderEdge(size: 1.5, alignment: 0.0);
-  final negativeSizeEdge = LinearBorderEdge(size: -0.2, alignment: 0.0);
+  // Cluster C31: the Flutter SDK enforces `size in [0.0, 1.0]` via an
+  // `assert(...)` inside LinearBorderEdge's constructor
+  // (linear_border.dart L39). Earlier revisions of this script claimed
+  // out-of-range sizes "still construct" — that's incorrect: in debug
+  // mode the assertion throws immediately. Use boundary values only,
+  // and demonstrate the *constraint* in the footguns prose instead.
+  final maxSizeEdge = LinearBorderEdge(size: 1.0, alignment: 0.0);
+  final minSizeEdge = LinearBorderEdge(size: 0.0, alignment: 0.0);
   final overshootAlign = LinearBorderEdge(size: 0.5, alignment: 2.0);
-  print('Oversized size: ${oversizedEdge.size} (clamped at paint)');
-  print('Negative size: ${negativeSizeEdge.size}');
+  print('Max size: ${maxSizeEdge.size} (boundary)');
+  print('Min size: ${minSizeEdge.size} (invisible boundary)');
   print('Overshoot alignment: ${overshootAlign.alignment}');
 
   final List<Map<String, dynamic>> footguns = [
@@ -1200,15 +1205,15 @@ dynamic build(BuildContext context) {
       'icon': Icons.warning_amber,
       'title': 'size > 1.0',
       'desc':
-          'Values outside [0,1] still construct but the painted edge is '
-          'clamped/clipped — visual surprises.',
+          'The LinearBorderEdge constructor asserts size is in [0,1]. '
+          'Values outside this range throw at construction in debug mode.',
     },
     {
       'icon': Icons.do_not_disturb_on,
       'title': 'size < 0',
       'desc':
-          'Negative sizes are accepted by the constructor but produce an '
-          'invisible edge.',
+          'Same assert(size >= 0.0 && size <= 1.0) rejects negatives — '
+          'clamp inputs before constructing the edge.',
     },
     {
       'icon': Icons.swap_horiz,
@@ -1331,8 +1336,8 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(6.0),
           ),
           child: Text(
-            'oversized=${oversizedEdge.size}  '
-            'neg=${negativeSizeEdge.size}  '
+            'max=${maxSizeEdge.size}  '
+            'min=${minSizeEdge.size}  '
             'overshoot=${overshootAlign.alignment}',
             style: TextStyle(
               fontFamily: 'monospace',
