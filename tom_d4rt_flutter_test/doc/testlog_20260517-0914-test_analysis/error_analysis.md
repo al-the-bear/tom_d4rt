@@ -83,7 +83,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
-| **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
+| **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☑ fixed (script · U12-A) |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C52** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
 | **C53** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
@@ -2576,9 +2576,9 @@ sufficient; no regression suite needed.
 **Interpreter catalogue.** Covered by **U12 —
 `@Deprecated`-annotated SDK symbols are filtered out of the
 bridge surface by design (generator policy)** in
-`interpreter_unfixable.md`. Same workaround pattern still
-expected for remaining "Undefined variable: <DeprecatedSymbol>"
-clusters C49/C50.
+`interpreter_unfixable.md`. With C49 and C50 now closed there
+are no further "Undefined variable: <DeprecatedSymbol>"
+clusters outstanding in this test log.
 
 #### C46 — `Runtime Error: Undefined variable: MaterialState (in Set literal)`
 
@@ -2793,11 +2793,71 @@ only. AST + test drivers both green (logs:
 
 #### C50 — `Runtime Error: Undefined variable: RawKeyEventDataLinux`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 177 | services/ raw_key_event_test.dart |
+
+**Status:** fixed (script · U12-A) on 2026-05-18. AST/C49 equivalent
+on the AST driver.
+
+**Root cause.** The script renders a didactic deep-demo of the entire
+`RawKeyEvent` family on Linux platform data, exercising
+`RawKeyEvent`, `RawKeyDownEvent`, `RawKeyUpEvent`,
+`RawKeyEventDataLinux`, `GLFWKeyHelper`, plus the enums
+`ModifierKey` and `KeyboardSide`. All seven of these SDK symbols
+are `@Deprecated` upstream and are therefore filtered off the d4rt
+bridge surface by `ElementModeExtractor.generateDeprecatedElements
+= false` — see U12 in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`. The first
+unbridged reference (`RawKeyEventDataLinux`) trips the interpreter
+with `Runtime Error: Undefined variable`.
+
+`LogicalKeyboardKey` and `PhysicalKeyboardKey` are **not**
+deprecated and remain fully bridged.
+
+**Fix.** U12 variant A (local stand-in) — variant B
+(typedef-rename swap) does not apply because the modernisation path
+`RawKeyEvent → KeyEvent` is an entirely different API shape (no
+platform-specific `RawKeyEventData` subclass on the modern
+`KeyEvent`). Injected after the imports in
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/raw_key_event_test.dart`:
+
+- `enum _ModifierKey { controlModifier, shiftModifier, altModifier,
+  metaModifier, capsLockModifier, numLockModifier,
+  scrollLockModifier, functionModifier, symbolModifier }`
+- `enum _KeyboardSide { any, left, right, all }`
+- `class _GLFWKeyHelper { const _GLFWKeyHelper(); }`
+- `class _RawKeyEventDataLinux` — fields
+  `keyHelper / unicodeScalarValues / keyCode / scanCode / modifiers
+  / isDown`; `isModifierPressed(_ModifierKey, {_KeyboardSide side =
+  _KeyboardSide.any})` evaluates the GLFW bitmask
+  (shift=0x0001, control=0x0002, alt=0x0004, super/meta=0x0008).
+- `abstract class _RawKeyEvent` — fields `data / character`;
+  getters `logicalKey` / `physicalKey` returning real bridged
+  `LogicalKeyboardKey` / `PhysicalKeyboardKey` instances seeded
+  from `data.unicodeScalarValues` / `data.scanCode`, plus
+  `isShiftPressed`/`isControlPressed`/`isAltPressed`/
+  `isMetaPressed` forwarders and `repeat => false`.
+- `class _RawKeyDownEvent extends _RawKeyEvent` and
+  `class _RawKeyUpEvent extends _RawKeyEvent` — bare-bones
+  forwarders for the two concrete event subclasses.
+
+Every code-position reference to the deprecated SDK names was
+routed through the `_*` stand-ins; string literals and comments
+preserve the SDK names verbatim so the didactic copy still
+documents them. Shared with the AST driver via
+`SendTestRunner.scriptsPath`, so a single script edit closes both
+drivers.
+
+**Verification.** Logs in `ztmp/c50/{ast,test}_after.log`:
+`+1 All tests passed!` on both drivers
+(`services/raw_key_event_test.dart`, `outputLines=108`,
+`status=success`). One trivial `RenderFlex overflowed` UI warning
+remains (the demo widget tree is intentionally tall) — not a
+script failure. Regression rule (a) applies: script-only change,
+individual retest sufficient.
 
 #### C51 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
 

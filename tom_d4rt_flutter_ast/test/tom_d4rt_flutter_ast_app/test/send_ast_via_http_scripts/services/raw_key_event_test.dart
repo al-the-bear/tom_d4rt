@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last, unused_field
 //
 // =====================================================================
 //  raw_key_event_test.dart
@@ -59,6 +59,130 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// ---------------------------------------------------------------------
+//  U12 — local stand-ins for the @Deprecated RawKeyboard family.
+// ---------------------------------------------------------------------
+//
+// The Flutter SDK classes used by this demo are all annotated
+// `@Deprecated` and are therefore filtered out of the d4rt bridge
+// surface by design (`ElementModeExtractor.generateDeprecatedElements
+// = false`). See U12 in tom_d4rt_flutter_ast/doc/interpreter_unfixable.md.
+//
+// Deprecated SDK members this script references:
+//   * RawKeyEvent          (raw_keyboard.dart:364, abstract base class)
+//   * RawKeyDownEvent      (raw_keyboard.dart:674)
+//   * RawKeyUpEvent        (raw_keyboard.dart:695)
+//   * RawKeyEventDataLinux (raw_keyboard_linux.dart:30)
+//   * GLFWKeyHelper        (raw_keyboard_linux.dart:255)
+//   * ModifierKey          (raw_keyboard.dart:68 — enum)
+//   * KeyboardSide         (raw_keyboard.dart:40 — enum)
+//
+// Variant B (typedef-rename swap) does not apply: the modernisation
+// path is `RawKeyEvent → KeyEvent`, an entirely different API shape
+// (no platform-specific RawKeyEventData subclass on KeyEvent — the
+// platform layer is folded behind logicalKey/physicalKey). Variant A
+// (local stand-in) is the only option. Every code-position reference
+// to the deprecated names below is routed through the `_*` stand-ins;
+// strings and comments preserve the SDK names verbatim so the
+// didactic copy still documents them.
+//
+// `LogicalKeyboardKey` and `PhysicalKeyboardKey` are *not* deprecated
+// and remain fully bridged — the stand-ins return real instances so
+// `logicalKey.keyLabel`, `logicalKey.keyId`, `physicalKey.debugName`
+// all resolve via the SDK as before.
+
+enum _ModifierKey {
+  controlModifier,
+  shiftModifier,
+  altModifier,
+  metaModifier,
+  capsLockModifier,
+  numLockModifier,
+  scrollLockModifier,
+  functionModifier,
+  symbolModifier,
+}
+
+enum _KeyboardSide { any, left, right, all }
+
+class _GLFWKeyHelper {
+  const _GLFWKeyHelper();
+}
+
+class _RawKeyEventDataLinux {
+  const _RawKeyEventDataLinux({
+    required this.keyHelper,
+    required this.unicodeScalarValues,
+    required this.keyCode,
+    required this.scanCode,
+    required this.modifiers,
+    required this.isDown,
+  });
+  final _GLFWKeyHelper keyHelper;
+  final int unicodeScalarValues;
+  final int keyCode;
+  final int scanCode;
+  final int modifiers;
+  final bool isDown;
+
+  // GLFW modifier bitmask (mirrors the constants the demo cites):
+  //   shift=0x0001, control=0x0002, alt=0x0004, super/meta=0x0008.
+  bool isModifierPressed(_ModifierKey key,
+      {_KeyboardSide side = _KeyboardSide.any}) {
+    switch (key) {
+      case _ModifierKey.shiftModifier:
+        return (modifiers & 0x0001) != 0;
+      case _ModifierKey.controlModifier:
+        return (modifiers & 0x0002) != 0;
+      case _ModifierKey.altModifier:
+        return (modifiers & 0x0004) != 0;
+      case _ModifierKey.metaModifier:
+        return (modifiers & 0x0008) != 0;
+      default:
+        return false;
+    }
+  }
+}
+
+abstract class _RawKeyEvent {
+  const _RawKeyEvent({required this.data, this.character});
+  final _RawKeyEventDataLinux data;
+  final String? character;
+
+  // The demo uses unicodeScalarValues as the seed for logical id and
+  // scanCode for the physical hid-usage. A non-positive scalar value
+  // falls back to a stable placeholder so `keyLabel` / `debugName`
+  // remain printable.
+  LogicalKeyboardKey get logicalKey =>
+      LogicalKeyboardKey(data.unicodeScalarValues == 0
+          ? 0x100000000
+          : data.unicodeScalarValues);
+  PhysicalKeyboardKey get physicalKey =>
+      PhysicalKeyboardKey(data.scanCode == 0
+          ? 0x00070004
+          : 0x00070000 | data.scanCode);
+
+  bool get repeat => false;
+
+  // Event-level modifier getters forward to the platform data — same
+  // shape the real RawKeyEvent superclass uses.
+  bool get isShiftPressed =>
+      data.isModifierPressed(_ModifierKey.shiftModifier);
+  bool get isControlPressed =>
+      data.isModifierPressed(_ModifierKey.controlModifier);
+  bool get isAltPressed => data.isModifierPressed(_ModifierKey.altModifier);
+  bool get isMetaPressed =>
+      data.isModifierPressed(_ModifierKey.metaModifier);
+}
+
+class _RawKeyDownEvent extends _RawKeyEvent {
+  const _RawKeyDownEvent({required super.data, super.character});
+}
+
+class _RawKeyUpEvent extends _RawKeyEvent {
+  const _RawKeyUpEvent({required super.data, super.character});
+}
 
 // ---------------------------------------------------------------------
 //  Vintage-typewriter palette (≥10 const Colors).
@@ -383,8 +507,8 @@ dynamic build(BuildContext context) {
   // GLFW key helper for GLFW-style event codes (used by Linux desktop).
   // Note: GLFWKeyHelper has no const constructor, so RawKeyEventDataLinux
   // instances built with it cannot themselves be const.
-  final RawKeyEventDataLinux linuxData = RawKeyEventDataLinux(
-    keyHelper: GLFWKeyHelper(),
+  final _RawKeyEventDataLinux linuxData = _RawKeyEventDataLinux(
+    keyHelper: _GLFWKeyHelper(),
     unicodeScalarValues: 0x61, // 'a'
     keyCode: 0x61,
     scanCode: 38, // X11 scancode for 'a' on a typical PC keyboard.
@@ -392,7 +516,7 @@ dynamic build(BuildContext context) {
     isDown: true,
   );
 
-  final RawKeyDownEvent anchorDown = RawKeyDownEvent(
+  final _RawKeyDownEvent anchorDown = _RawKeyDownEvent(
     data: linuxData,
     character: 'a',
   );
@@ -410,15 +534,15 @@ dynamic build(BuildContext context) {
   bullet('repeat             = ${anchorDown.repeat}');
 
   // A matching key-up event lets us discuss the press lifecycle.
-  final RawKeyEventDataLinux linuxDataUp = RawKeyEventDataLinux(
-    keyHelper: GLFWKeyHelper(),
+  final _RawKeyEventDataLinux linuxDataUp = _RawKeyEventDataLinux(
+    keyHelper: _GLFWKeyHelper(),
     unicodeScalarValues: 0x61,
     keyCode: 0x61,
     scanCode: 38,
     modifiers: 0,
     isDown: false,
   );
-  final RawKeyUpEvent anchorUp = RawKeyUpEvent(
+  final _RawKeyUpEvent anchorUp = _RawKeyUpEvent(
     data: linuxDataUp,
     character: null,
   );
@@ -469,9 +593,9 @@ dynamic build(BuildContext context) {
   print('Six hand-built events covering letters, digits, modifier combos.');
 
   // 3.1  Plain 'b' down.
-  final RawKeyDownEvent ev1 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev1 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0x62,
       keyCode: 0x62,
       scanCode: 56,
@@ -482,9 +606,9 @@ dynamic build(BuildContext context) {
   );
 
   // 3.2  Shift+C  (modifiers bit for shift in GLFW = 0x0001).
-  final RawKeyDownEvent ev2 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev2 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0x43,
       keyCode: 0x43,
       scanCode: 54,
@@ -495,9 +619,9 @@ dynamic build(BuildContext context) {
   );
 
   // 3.3  Digit '1'
-  final RawKeyDownEvent ev3 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev3 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0x31,
       keyCode: 0x31,
       scanCode: 10,
@@ -508,9 +632,9 @@ dynamic build(BuildContext context) {
   );
 
   // 3.4  Ctrl+S (control bit in GLFW = 0x0002).
-  final RawKeyDownEvent ev4 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev4 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0x73,
       keyCode: 0x73,
       scanCode: 39,
@@ -521,9 +645,9 @@ dynamic build(BuildContext context) {
   );
 
   // 3.5  Alt+Tab (alt bit = 0x0004).
-  final RawKeyDownEvent ev5 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev5 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0,
       keyCode: 0xff09,
       scanCode: 23,
@@ -534,9 +658,9 @@ dynamic build(BuildContext context) {
   );
 
   // 3.6  Meta+Q (super/meta bit = 0x0008).
-  final RawKeyDownEvent ev6 = RawKeyDownEvent(
-    data: RawKeyEventDataLinux(
-      keyHelper: GLFWKeyHelper(),
+  final _RawKeyDownEvent ev6 = _RawKeyDownEvent(
+    data: _RawKeyEventDataLinux(
+      keyHelper: _GLFWKeyHelper(),
       unicodeScalarValues: 0x71,
       keyCode: 0x71,
       scanCode: 24,
@@ -553,7 +677,7 @@ dynamic build(BuildContext context) {
   bullet('ev5 Alt+Tab       -> alt=${ev5.isAltPressed} char=${ev5.character}');
   bullet('ev6 Meta+Q        -> meta=${ev6.isMetaPressed} char=${ev6.character}');
 
-  final List<RawKeyDownEvent> gallery = <RawKeyDownEvent>[
+  final List<_RawKeyDownEvent> gallery = <_RawKeyDownEvent>[
     ev1, ev2, ev3, ev4, ev5, ev6,
   ];
   final List<String> galleryLabels = <String>[
@@ -629,20 +753,20 @@ dynamic build(BuildContext context) {
   // event itself.  The event-level getters (isShiftPressed, etc.) forward
   // to event.data.isModifierPressed under the hood.
   final bool ev2ShiftAny = ev2.data.isModifierPressed(
-    ModifierKey.shiftModifier,
-    side: KeyboardSide.any,
+    _ModifierKey.shiftModifier,
+    side: _KeyboardSide.any,
   );
   final bool ev4ControlAny = ev4.data.isModifierPressed(
-    ModifierKey.controlModifier,
-    side: KeyboardSide.any,
+    _ModifierKey.controlModifier,
+    side: _KeyboardSide.any,
   );
   final bool ev5AltAny = ev5.data.isModifierPressed(
-    ModifierKey.altModifier,
-    side: KeyboardSide.any,
+    _ModifierKey.altModifier,
+    side: _KeyboardSide.any,
   );
   final bool ev6MetaAny = ev6.data.isModifierPressed(
-    ModifierKey.metaModifier,
-    side: KeyboardSide.any,
+    _ModifierKey.metaModifier,
+    side: _KeyboardSide.any,
   );
   bullet('ev2 isModifierPressed(shift,   any) = $ev2ShiftAny');
   bullet('ev4 isModifierPressed(control, any) = $ev4ControlAny');

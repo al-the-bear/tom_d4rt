@@ -4325,11 +4325,47 @@ deprecated symbol's shape.
   the engine bit constants, and best-effort `physicalKey` /
   `logicalKey` strings for the demo's print output). Fixed
   2026-05-18.
+- **C50 / test driver (ast/C49) — multi-class stand-in for the
+  entire `RawKeyEvent` family.**
+  `services/raw_key_event_test.dart` is a deep-demo that exercises
+  seven `@Deprecated` SDK symbols at once: `RawKeyEvent`
+  (`raw_keyboard.dart:364`), `RawKeyDownEvent`
+  (`raw_keyboard.dart:674`), `RawKeyUpEvent`
+  (`raw_keyboard.dart:695`), `RawKeyEventDataLinux`
+  (`raw_keyboard_linux.dart:30`), `GLFWKeyHelper`
+  (`raw_keyboard_linux.dart:255`), and the enums `ModifierKey`
+  (`raw_keyboard.dart:68`) and `KeyboardSide`
+  (`raw_keyboard.dart:40`). Variant B does not apply
+  (`RawKeyEvent → KeyEvent` is an entirely different API shape, no
+  per-platform `RawKeyEventData` subclass on the modern
+  `KeyEvent`). Variant A applied with a coordinated set of local
+  stand-ins:
+  - enums `_ModifierKey` and `_KeyboardSide` mirroring the SDK
+    value sets;
+  - `class _GLFWKeyHelper` (const, no fields);
+  - `class _RawKeyEventDataLinux` with the constructor fields
+    `keyHelper / unicodeScalarValues / keyCode / scanCode /
+    modifiers / isDown` plus
+    `isModifierPressed(_ModifierKey, {_KeyboardSide side})` that
+    honours the GLFW bitmask (shift=0x0001, control=0x0002,
+    alt=0x0004, super/meta=0x0008);
+  - abstract `_RawKeyEvent` with the data/character fields and
+    `logicalKey` / `physicalKey` getters returning real bridged
+    `LogicalKeyboardKey` / `PhysicalKeyboardKey` instances
+    (those classes are *not* deprecated) seeded from
+    `unicodeScalarValues` / `scanCode`, plus the
+    `isShiftPressed` / `isControlPressed` / `isAltPressed` /
+    `isMetaPressed` event-level forwarders and `repeat => false`;
+  - concrete `_RawKeyDownEvent` and `_RawKeyUpEvent` subclasses
+    forwarding to the superclass.
+  Every code-position reference is routed through the `_*`
+  stand-ins; string literals and comments preserve the SDK names
+  verbatim so the didactic copy still documents them. Fixed
+  2026-05-18.
 
-Structurally identical "deprecated-name" pattern is still
-expected for the remaining cluster C50 (`RawKeyEventDataLinux`) —
-should be confirmed `@Deprecated` upstream before applying the
-appropriate workaround variant.
+With C44/C45/C46/C48/C49/C50 closed, no further
+"deprecated-name" clusters remain outstanding in test log
+`testlog_20260517-0914`.
 
 **Workaround variants.**
 
@@ -4355,6 +4391,19 @@ alias verbatim.
 
 ## Change Log
 
+- 2026-05-18: **Close C50 (`RawKeyEventDataLinux` + the full
+  `RawKeyEvent` family) under U12.** Variant A applied with a
+  coordinated multi-class stand-in: enums `_ModifierKey` /
+  `_KeyboardSide`, `_GLFWKeyHelper`, `_RawKeyEventDataLinux`
+  (with `isModifierPressed` honouring the GLFW bitmask), and
+  the abstract `_RawKeyEvent` plus concrete `_RawKeyDownEvent`
+  / `_RawKeyUpEvent` family. Stand-ins return real bridged
+  `LogicalKeyboardKey` / `PhysicalKeyboardKey` instances since
+  those classes are *not* deprecated. Variant B not available
+  (`RawKeyEvent → KeyEvent` is a different API shape). Pairs as
+  test-driver C50 ≡ AST-driver C49. With this cluster closed
+  there are no further "deprecated-name" clusters outstanding
+  in `testlog_20260517-0914`.
 - 2026-05-18: **Close C49 (`RawKeyEventDataWeb`) under U12.**
   Variant A applied with a private `class _RawKeyEventDataWeb`
   carrying the constructor fields (`code`, `key`, `location`,

@@ -82,7 +82,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
-| **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
+| **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☑ fixed (script · U12-A) |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
@@ -2415,10 +2415,10 @@ framework assertion, no `interpreter_unfixable.md` entry needed.
   - analyzer driver: `00:11 +1: All tests passed!` — `ztmp/c44/test_after.log`
 
   Test-script-only change → rule (a) individual retest
-  sufficient. Same workaround pattern is expected for C44
-  (`KeyboardSide`), C49 (`RawKeyEventDataWeb`), C50
-  (`RawKeyEventDataLinux`) on this driver (C45/C49/C50 on test
-  driver), if those symbols are also `@Deprecated`.
+  sufficient. With C48 (`RawKeyEventDataWeb`) and C49
+  (`RawKeyEventDataLinux`) now closed the remaining
+  "Undefined variable: <DeprecatedSymbol>" pattern in this test
+  log is exhausted.
 
 | testID | Test name |
 |-------:|-----------|
@@ -2642,11 +2642,61 @@ only. Both drivers green (`ztmp/c49/{ast,test}_after.log`).
 
 #### C49 — `Runtime Error: Undefined variable: RawKeyEventDataLinux`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 177 | services/ raw_key_event_test.dart |
+
+**Status: ☑ fixed (script, U12 variant A)** — paired with test-driver
+C50 (same script).
+
+**Root cause.** The deep-demo script for the `RawKeyEvent` family
+references seven SDK symbols that are all `@Deprecated` upstream
+and therefore filtered off the d4rt bridge surface by
+`ElementModeExtractor.generateDeprecatedElements = false` (U12 in
+`interpreter_unfixable.md`):
+
+- `RawKeyEvent` — `flutter/src/services/raw_keyboard.dart:364`
+- `RawKeyDownEvent` — `raw_keyboard.dart:674`
+- `RawKeyUpEvent` — `raw_keyboard.dart:695`
+- `RawKeyEventDataLinux` — `raw_keyboard_linux.dart:30`
+- `GLFWKeyHelper` — `raw_keyboard_linux.dart:255`
+- `ModifierKey` — `raw_keyboard.dart:68` (enum)
+- `KeyboardSide` — `raw_keyboard.dart:40` (enum)
+
+The first unbridged reference (`RawKeyEventDataLinux`) trips the
+interpreter with `Runtime Error: Undefined variable`.
+
+`LogicalKeyboardKey` / `PhysicalKeyboardKey` are **not** deprecated
+and remain fully bridged.
+
+**Fix.** U12 variant A (local stand-in). Variant B (typedef-rename
+swap) does not apply because the modernisation path
+`RawKeyEvent → KeyEvent` is an entirely different API shape (no
+platform-specific `RawKeyEventData` subclass on the modern
+`KeyEvent`). Local stand-ins injected after the script's imports
+mirror the SDK shape: `_ModifierKey`, `_KeyboardSide`,
+`_GLFWKeyHelper`, `_RawKeyEventDataLinux` (with full
+`isModifierPressed(_ModifierKey, {_KeyboardSide side})` honouring
+the GLFW bitmask), abstract `_RawKeyEvent` (returning real bridged
+`LogicalKeyboardKey` / `PhysicalKeyboardKey` instances seeded from
+the data) plus concrete `_RawKeyDownEvent` / `_RawKeyUpEvent`.
+Every code-position reference to the deprecated SDK names is now
+routed through the `_*` stand-ins; string literals and comments
+preserve the SDK names verbatim so the didactic copy still
+documents them.
+
+Shared with the test driver via `SendTestRunner.scriptsPath`, so
+one script edit closes both drivers.
+
+**Verification.** Logs in `ztmp/c50/{ast,test}_after.log`:
+`+1 All tests passed!` on both drivers (script
+`services/raw_key_event_test.dart`, `outputLines=108`,
+`status=success`). One benign `RenderFlex overflowed` UI warning
+remains (the demo widget tree is intentionally tall). Regression
+rule (a) applies: script-only change, individual retest
+sufficient.
 
 #### C50 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
 
