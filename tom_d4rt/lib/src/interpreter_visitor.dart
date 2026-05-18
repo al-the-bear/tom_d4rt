@@ -729,6 +729,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return _NamedConstructorTearOff(
                 prefixValue, namedConstructor, memberName);
           }
+          // Cluster C33: class-as-value (Type literal) semantics. A
+          // PrefixedIdentifier like `slotType.hashCode` where `slotType`
+          // is bound to an InterpretedClass should dispatch
+          // `Object.hashCode`/`Object.runtimeType` on the Type instance,
+          // not look up a static member. Fall back before throwing.
+          if (memberName == 'hashCode') {
+            return prefixValue.hashCode;
+          }
+          if (memberName == 'runtimeType') {
+            return prefixValue.runtimeType;
+          }
           throw RuntimeD4rtException(
               "Undefined static member '$memberName' on class '${prefixValue.name}'.");
         }
@@ -836,6 +847,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.debug(
             "[PrefixedIdentifier] Returning bridged named-constructor tear-off '${bridgedClass.name}.$memberName'.");
         return _BridgedConstructorTearOff(bridgedClass, namedCtor, memberName);
+      }
+      // Cluster C32: class-as-value (Type literal) semantics. A
+      // PrefixedIdentifier like `slotType.hashCode` where `slotType` is
+      // bound to a BridgedClass should dispatch
+      // `Object.hashCode`/`Object.runtimeType` on the Type instance, not
+      // look up a static member. Fall back before throwing.
+      if (memberName == 'hashCode') {
+        return bridgedClass.hashCode;
+      }
+      if (memberName == 'runtimeType') {
+        return bridgedClass.runtimeType;
       }
       throw RuntimeD4rtException(
           "Undefined static member '$memberName' on bridged class '${bridgedClass.name}'.");
@@ -3280,6 +3302,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             calleeValue =
                 staticMethod; // It's already the function, no binding needed
           } else {
+            // Cluster C33: class-as-value (Type literal) semantics. A script
+            // that does `final Type t = SomeClass; t.toString();` expects
+            // `Object.toString()` on the Type instance, which in real Dart
+            // returns the class name. Fall back here before reporting an
+            // undefined-method error.
+            if (methodName == 'toString' &&
+                node.argumentList.arguments.isEmpty) {
+              return targetValue.name;
+            }
             throw RuntimeD4rtException(
                 "Class '${targetValue.name}' has no static method or named constructor named '$methodName'.");
           }
@@ -3449,6 +3480,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e");
             }
           } else {
+            // Cluster C32: class-as-value (Type literal) semantics. A script
+            // that does `final Type t = SomeBridgedClass; t.toString();`
+            // expects `Object.toString()` on the Type instance. Real Dart
+            // returns the class name. Fall back here before reporting an
+            // undefined-method error.
+            if (methodName == 'toString' &&
+                node.argumentList.arguments.isEmpty) {
+              return bridgedClass.name;
+            }
             throw RuntimeD4rtException(
                 "Bridged class '${bridgedClass.name}' has no constructor or static method named '$methodName'.");
           }
@@ -4085,6 +4125,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return staticMember;
           }
         } else {
+          // Cluster C32/C33: class-as-value (Type literal) semantics. When
+          // a script binds a class identifier to a `Type` variable and
+          // reads `Object` getters off it (`hashCode`, `runtimeType`), the
+          // expected behaviour is `Object.hashCode` / `Object.runtimeType`
+          // on the Type instance, not a static-member lookup on the class.
+          // Fall back to the underlying Dart object's getters before
+          // reporting an undefined-static error.
+          if (propertyName == 'hashCode') {
+            return target.hashCode;
+          }
+          if (propertyName == 'runtimeType') {
+            return target.runtimeType;
+          }
           throw RuntimeD4rtException(
               "Undefined static member '$propertyName' on class '${target.name}'.");
         }
@@ -4143,6 +4196,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Returning bridged static methods as values from PropertyAccess is not yet supported.");
         // return BridgedStaticMethodCallable(bridgedClass, staticMethod, propertyName);
       } else {
+        // Cluster C32: class-as-value (Type literal) semantics. A script
+        // that does `final Type t = SomeBridgedClass; t.hashCode;` expects
+        // `Object.hashCode` on the Type instance, not a static-member
+        // lookup on the bridged class. Fall back to the underlying Dart
+        // object's getters before reporting an undefined-static error.
+        if (propertyName == 'hashCode') {
+          return bridgedClass.hashCode;
+        }
+        if (propertyName == 'runtimeType') {
+          return bridgedClass.runtimeType;
+        }
         throw RuntimeD4rtException(
             "Undefined static member '$propertyName' on bridged class '${bridgedClass.name}'.");
       }
