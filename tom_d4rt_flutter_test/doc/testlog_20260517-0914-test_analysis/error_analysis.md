@@ -66,8 +66,8 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☑ |
 | **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☑ |
-| **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
-| **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☐ |
+| **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☑ |
+| **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☑ |
 | **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☐ |
 | **C36** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☐ |
 | **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☐ |
@@ -1830,19 +1830,93 @@ Representative error texts:
 
 #### C33 — `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 124 | dart_ui/ uniform_float_slot_test.dart |
 
+**Status:** fixed (2026-05-18) — interpreter change in both
+`tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Closes
+both C33 (BridgedClass branch) and C34 (InterpretedClass branch)
+in a single change. (Cluster numbering offset: AST C32/C33 ≡ test
+driver C33/C34.)
+
+**Root cause.** When a script binds a class identifier to a
+`Type` variable (`final Type slotType = ui.UniformFloatSlot;`) and
+then reads `Object` getters off it (`slotType.hashCode`,
+`slotType.runtimeType`) or calls `Object` methods on it
+(`slotType.toString()`), real Dart dispatches those calls on the
+*Type instance* — they are not static-member lookups on the class
+the Type refers to. The d4rt interpreter modelled class-as-value
+as the `BridgedClass`/`InterpretedClass` meta-object directly and
+treated every member access as a static lookup, throwing
+`Undefined static member 'hashCode' on bridged class
+'UniformFloatSlot'` (or `… on class 'UniformVec2Slot'` for
+interpreted classes) when the script reached the first `Object`
+getter. The same gap existed in three resolution paths:
+
+1. `visitPrefixedIdentifier` (`tom_d4rt`) /
+   `visitSPrefixedIdentifier` (`tom_d4rt_ast`) — for
+   `slotType.hashCode` parsed as a `PrefixedIdentifier`.
+2. `visitPropertyAccess` / `visitSPropertyAccess` — for the
+   chained `slotType.runtimeType.toString()` form where the LHS
+   is the result of a previous expression.
+3. `visitMethodInvocation` / `visitSMethodInvocation` — for
+   `slotType.toString()` parsed as a `MethodInvocation`.
+
+**Fix.** In all three paths, before throwing the
+"Undefined static member" / "no constructor or static method"
+errors, fall back to the underlying Dart object's own getters /
+`name` for the `Object` trio:
+
+- `hashCode` → `bridgedClass.hashCode` / `target.hashCode`
+- `runtimeType` → `bridgedClass.runtimeType` / `target.runtimeType`
+- `toString()` (no args) → `bridgedClass.name` / `target.name`
+  (matches the Dart spec: `Type.toString()` returns the class name)
+
+The fallback fires only after every static-lookup attempt fails,
+so existing scripts that happen to define a `static hashCode`
+getter (extremely uncommon and discouraged) keep their previous
+semantics. Mirrored fix in both `tom_d4rt` and `tom_d4rt_ast`.
+
+**Verification.** Non-script interpreter change → full
+four-suite regression on both drivers per cluster protocol rule
+(b).
+
+- AST driver: individual `dart_ui/uniform_float_slot_test.dart`
+  → `status=success outputLines=61 frameworkErrors=1` (pre-
+  existing layout); individual `dart_ui/uniform_vec2_slot_test.dart`
+  → `status=success outputLines=65 frameworkErrors=22`
+  (pre-existing layout). Four-suite: gii `79/2/-2` (baseline:
+  same `nestedscrollview_test`, `render_custom_multi_child_layout_box_test`
+  layout pre-existing), essential `108/0/0`, important
+  `164/0/0`, secondary `653/1/0` (gained 1 over baseline). Logs
+  in `ztmp/c32/ast_*.log`.
+- Test driver: individual `dart_ui/uniform_float_slot_test.dart`
+  → `status=success outputLines=61 frameworkErrors=1`; individual
+  `dart_ui/uniform_vec2_slot_test.dart` → `status=success
+  outputLines=65 frameworkErrors=22`. Four-suite: gii
+  `79/2/-2` (same pre-existing layout failures), essential
+  `108/0/0`, important `164/0/0`, secondary `653/1/0` (gained 1
+  over baseline). Logs in `ztmp/c32/test_*.log`.
+
+No interpreter regressions on either driver.
+
 #### C34 — `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 125 | dart_ui/ uniform_vec2_slot_test.dart |
+
+**Status:** fixed (2026-05-18) — closed by the same interpreter
+change as C33 (InterpretedClass branch of the same
+`PrefixedIdentifier`/`PropertyAccess`/`MethodInvocation` fallback
+trio). See C33 for full root-cause analysis, fix description, and
+verification numbers.
 
 #### C35 — `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It`
 
