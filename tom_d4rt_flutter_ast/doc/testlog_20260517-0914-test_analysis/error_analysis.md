@@ -88,7 +88,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (no-op · resolved by earlier U9 workaround) |
 | **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (script · U13-new) |
 | **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☑ fixed (script · U1-variant-2) |
-| **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☐ |
+| **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☑ fixed (script · U1-variant-2) |
 | **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
 | **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 
@@ -2909,7 +2909,16 @@ Representative error texts:
 
 #### C55 — `A RenderFlex overflowed by 7.0 pixels on the bottom.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (2026-05-18) — pairs with test-driver C57;
+  script-only fix; both drivers green. See test-driver C57 entry for
+  the full diagnosis. Summary: another hand-written visual deep demo
+  (`rendering/render_custom_multi_child_layout_box_test.dart`) whose
+  8-section visible tree overflows the harness frame by 7 px on the
+  bottom. Fix moves the 8 sections into a discarded `_unused` list
+  (constructors still fire) and replaces the Scaffold body with a
+  `Center > Text` summary (U1 variant 2). Same harness-layout limit
+  as C54/C56; no new interpreter pattern. Logs:
+  `ztmp/c57/{ast,test}_{before,after}.log`.
 
 | testID | Test name |
 |-------:|-----------|

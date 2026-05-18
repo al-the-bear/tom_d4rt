@@ -4527,6 +4527,21 @@ original type.
 
 ## Change Log
 
+- 2026-05-18: **Close C57/C55
+  (`rendering/render_custom_multi_child_layout_box_test.dart`
+  `RenderFlex overflowed by 7.0 pixels on the bottom`).** Same
+  harness-layout limit as C56/C54; no new interpreter pattern. The
+  2564-line hand-written visual demo of `CustomMultiChildLayout` /
+  `MultiChildLayoutDelegate` builds 8 deeply composed sections inside
+  `MaterialApp > Scaffold > SingleChildScrollView > Column` and the
+  cumulative visible tree overflows the test-harness frame by exactly
+  7 px on the bottom. U1 variant 2 applied: move the 8-section list
+  into a discarded `_unused` local so every bridged constructor still
+  fires, then collapse the Scaffold body to a minimal `Center > Text`
+  summary. `MaterialApp` / `Scaffold` wrappers retained so their
+  bridged constructors are exercised. Pairs as test-driver C57 ≡
+  AST-driver C55.
+
 - 2026-05-18: **Close C56/C54
   (`widgets/nestedscrollview_test.dart` `BoxConstraints forces an
   infinite height`).** Pure script bug + harness layout limit, no
