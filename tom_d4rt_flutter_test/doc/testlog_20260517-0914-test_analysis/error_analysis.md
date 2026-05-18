@@ -82,7 +82,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
-| **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
+| **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C52** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
@@ -2754,11 +2754,42 @@ only. AST driver and test driver both run the test green (logs:
 
 #### C49 — `Runtime Error: Undefined variable: RawKeyEventDataWeb`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 175 | services/ raw_key_event_data_web_test.dart |
+
+**Status: ☑ fixed (script, U12 variant A)**
+
+**Root cause:** `RawKeyEventDataWeb` (`flutter/services.dart`,
+`raw_keyboard_web.dart:32-37`) is `@Deprecated` in the Flutter SDK
+and is therefore filtered out of the d4rt bridge surface by design
+(`ElementModeExtractor.generateDeprecatedElements = false`). The
+script actively constructs and reads `RawKeyEventDataWeb` instances
+(it is the demo's subject), so the missing bridge symbol triggers
+`Runtime Error: Undefined variable: RawKeyEventDataWeb`. Confirmed
+`@Deprecated` upstream — same pattern as C44 / C45 / C50 (see U12 in
+`interpreter_unfixable.md`).
+
+**Fix (variant A — local stand-in):** No typedef-rename target
+exists (the modernisation path is
+`RawKeyEventDataWeb → KeyEvent.physicalKey/logicalKey`, a different
+API shape), so variant B does not apply. Declared a private
+`class _RawKeyEventDataWeb` with the constructor fields the script
+uses (`code`, `key`, `location`, `metaState`, `keyCode`) plus the
+modifier-bit accessors (`isShiftPressed`, `isControlPressed`,
+`isAltPressed`, `isMetaPressed`) and best-effort `physicalKey` /
+`logicalKey` getters for the demo's print output. All code-position
+references in
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/raw_key_event_data_web_test.dart`
+were rewritten to `_RawKeyEventDataWeb`; strings and comments
+preserve the SDK name so the didactic copy still documents it
+verbatim.
+
+**Regression test rule (a):** script-only change → individual retest
+only. AST + test drivers both green (logs:
+`ztmp/c49/{ast,test}_after.log`, `+1 All tests passed!`).
 
 #### C50 — `Runtime Error: Undefined variable: RawKeyEventDataLinux`
 

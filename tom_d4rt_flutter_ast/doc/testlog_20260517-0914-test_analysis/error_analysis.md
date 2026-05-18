@@ -81,7 +81,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
-| **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
+| **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
@@ -2610,11 +2610,35 @@ only. Both drivers green
 
 #### C48 — `Runtime Error: Undefined variable: RawKeyEventDataWeb`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 175 | services/ raw_key_event_data_web_test.dart |
+
+**Status: ☑ fixed (script, U12 variant A)** — paired with test-driver
+C49 (same script).
+
+**Root cause:** `RawKeyEventDataWeb` (`flutter/services.dart`,
+`raw_keyboard_web.dart:32-37`) is `@Deprecated` in the Flutter SDK
+and is filtered out of the d4rt bridge surface by design (U12). The
+script actively constructs and reads `RawKeyEventDataWeb` instances
+(it is the demo's subject), so missing symbol → `Undefined variable:
+RawKeyEventDataWeb`.
+
+**Fix (variant A — local stand-in):** No typedef-rename target exists
+(the modernisation path is
+`RawKeyEventDataWeb → KeyEvent.physicalKey/logicalKey`, a different
+API shape), so variant B does not apply. Declared a private
+`class _RawKeyEventDataWeb` with the constructor fields the script
+uses (`code`, `key`, `location`, `metaState`, `keyCode`) and the
+modifier-bit / physical-key / logical-key accessors the demo reads
+(`isShiftPressed`, …, `physicalKey`, `logicalKey`). All code-position
+references were rewritten to `_RawKeyEventDataWeb`; strings and
+comments preserve the SDK name verbatim.
+
+**Regression test rule (a):** script-only change → individual retest
+only. Both drivers green (`ztmp/c49/{ast,test}_after.log`).
 
 #### C49 — `Runtime Error: Undefined variable: RawKeyEventDataLinux`
 

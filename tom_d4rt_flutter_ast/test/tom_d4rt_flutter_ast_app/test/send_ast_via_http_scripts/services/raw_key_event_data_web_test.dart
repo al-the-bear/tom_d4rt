@@ -14,6 +14,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // ───────────────────────────────────────────────────────────────────────────
+// U12 — local stand-in for the SDK's `@Deprecated` `RawKeyEventDataWeb`.
+//
+// The Flutter SDK class `RawKeyEventDataWeb` (`flutter/services.dart`,
+// `raw_keyboard_web.dart:32-37`) is annotated `@Deprecated` and is therefore
+// filtered out of the d4rt bridge surface (see U12 in
+// `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`). The deprecation
+// path is `RawKeyboard → HardwareKeyboard / RawKeyEvent → KeyEvent /
+// RawKeyEventDataWeb → (folded into KeyEvent.physicalKey/logicalKey)`,
+// i.e. there is no typedef-rename — variant B does not apply. We use
+// variant A: a private local class with the same constructor shape and
+// the small set of accessors this demo actually reads. Code positions
+// reference `_RawKeyEventDataWeb`; strings and comments preserve the
+// original SDK name so the didactic copy still documents it verbatim.
+// ───────────────────────────────────────────────────────────────────────────
+class _RawKeyEventDataWeb {
+  const _RawKeyEventDataWeb({
+    required this.code,
+    required this.key,
+    required this.location,
+    required this.metaState,
+    required this.keyCode,
+  });
+
+  final String code;
+  final String key;
+  final int location;
+  final int metaState;
+  final int keyCode;
+
+  // Modifier bits — match the engine constants documented in the demo.
+  bool get isShiftPressed => (metaState & 0x01) != 0;
+  bool get isControlPressed => (metaState & 0x02) != 0;
+  bool get isAltPressed => (metaState & 0x04) != 0;
+  bool get isMetaPressed => (metaState & 0x08) != 0;
+
+  // The demo only prints these — best-effort placeholder strings that
+  // preserve the visual shape of the historical output.
+  String get physicalKey => 'PhysicalKeyboardKey(code: $code)';
+  String get logicalKey => 'LogicalKeyboardKey(key: $key)';
+}
+
+// ───────────────────────────────────────────────────────────────────────────
 // Color palette — "Web flavor": indigo for chrome, cyan for browser glass,
 // amber for the keyboard, magenta accents for modifier bits.
 // ───────────────────────────────────────────────────────────────────────────
@@ -1027,7 +1069,7 @@ Widget rweModifierSection() {
 // Section 6 — Six concrete sample event cards. Each instantiates a real
 // RawKeyEventDataWeb and prints it as a JSON-like blob.
 // ───────────────────────────────────────────────────────────────────────────
-String rweJsonish(RawKeyEventDataWeb d) {
+String rweJsonish(_RawKeyEventDataWeb d) {
   return '{\n'
       '  "code"     : "${d.code}",\n'
       '  "key"      : "${d.key}",\n'
@@ -1052,7 +1094,7 @@ String rweLocationName(int loc) {
   }
 }
 
-Widget rweEventCard(String title, RawKeyEventDataWeb data, String narrative,
+Widget rweEventCard(String title, _RawKeyEventDataWeb data, String narrative,
     Color accent) {
   final List<String> mods = [];
   if ((data.metaState & 0x01) != 0) mods.add('Shift');
@@ -1114,42 +1156,42 @@ Widget rweSampleEventsSection() {
   // Construct six real RawKeyEventDataWeb instances. These exercise all
   // four location regions, the modifier bitmask and both `code` ≠ `key`
   // and `code` == `key` shapes.
-  final RawKeyEventDataWeb evKeyA = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evKeyA = _RawKeyEventDataWeb(
     code: 'KeyA',
     key: 'a',
     location: 0,
     metaState: 0,
     keyCode: 65,
   );
-  final RawKeyEventDataWeb evNumpad1 = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evNumpad1 = _RawKeyEventDataWeb(
     code: 'Numpad1',
     key: '1',
     location: 3,
     metaState: 32, // NumLock latched
     keyCode: 97,
   );
-  final RawKeyEventDataWeb evArrowUp = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evArrowUp = _RawKeyEventDataWeb(
     code: 'ArrowUp',
     key: 'ArrowUp',
     location: 0,
     metaState: 0,
     keyCode: 38,
   );
-  final RawKeyEventDataWeb evMetaLeft = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evMetaLeft = _RawKeyEventDataWeb(
     code: 'MetaLeft',
     key: 'Meta',
     location: 1,
     metaState: 8,
     keyCode: 91,
   );
-  final RawKeyEventDataWeb evMetaRight = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evMetaRight = _RawKeyEventDataWeb(
     code: 'MetaRight',
     key: 'Meta',
     location: 2,
     metaState: 8,
     keyCode: 93,
   );
-  final RawKeyEventDataWeb evShiftA = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evShiftA = _RawKeyEventDataWeb(
     code: 'KeyA',
     key: 'A',
     location: 0,
@@ -1698,25 +1740,25 @@ void rwePrintConsoleReport() {
   print('  • keyCode   int      legacy                    deprecated by W3C');
   print('');
   print('Sample instances:');
-  final RawKeyEventDataWeb evKeyA = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evKeyA = _RawKeyEventDataWeb(
     code: 'KeyA', key: 'a', location: 0, metaState: 0, keyCode: 65,
   );
-  final RawKeyEventDataWeb evShiftA = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evShiftA = _RawKeyEventDataWeb(
     code: 'KeyA', key: 'A', location: 0, metaState: 1, keyCode: 65,
   );
-  final RawKeyEventDataWeb evNumpad1 = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evNumpad1 = _RawKeyEventDataWeb(
     code: 'Numpad1', key: '1', location: 3, metaState: 32, keyCode: 97,
   );
-  final RawKeyEventDataWeb evMetaLeft = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evMetaLeft = _RawKeyEventDataWeb(
     code: 'MetaLeft', key: 'Meta', location: 1, metaState: 8, keyCode: 91,
   );
-  final RawKeyEventDataWeb evMetaRight = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evMetaRight = _RawKeyEventDataWeb(
     code: 'MetaRight', key: 'Meta', location: 2, metaState: 8, keyCode: 93,
   );
-  final RawKeyEventDataWeb evArrowUp = RawKeyEventDataWeb(
+  final _RawKeyEventDataWeb evArrowUp = _RawKeyEventDataWeb(
     code: 'ArrowUp', key: 'ArrowUp', location: 0, metaState: 0, keyCode: 38,
   );
-  for (final RawKeyEventDataWeb ev in [
+  for (final _RawKeyEventDataWeb ev in [
     evKeyA,
     evShiftA,
     evNumpad1,

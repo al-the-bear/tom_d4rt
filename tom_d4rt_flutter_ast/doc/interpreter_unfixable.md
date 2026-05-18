@@ -4311,10 +4311,23 @@ deprecated symbol's shape.
   modern names in code positions, preserve the alias in
   in-string / in-comment mentions. No local stand-in needed.
   Fixed 2026-05-18.
+- **C49 / test driver (ast/C48) — class stand-in for a
+  deprecated subclass.** `services/raw_key_event_data_web_test.dart`
+  uses `RawKeyEventDataWeb` (a `RawKeyEventData` subclass), which is
+  `@Deprecated` at `flutter/services.dart`
+  → `raw_keyboard_web.dart:32-37`. Variant B does not apply: the
+  modernisation path is
+  `RawKeyEventDataWeb → KeyEvent.physicalKey/logicalKey`, an entirely
+  different API shape. Variant A applied with a private
+  `class _RawKeyEventDataWeb` carrying the constructor parameters the
+  script uses (`code`, `key`, `location`, `metaState`, `keyCode`) plus
+  the small set of accessors the demo reads (`isShiftPressed` … via
+  the engine bit constants, and best-effort `physicalKey` /
+  `logicalKey` strings for the demo's print output). Fixed
+  2026-05-18.
 
 Structurally identical "deprecated-name" pattern is still
-expected for the remaining clusters C49
-(`RawKeyEventDataWeb`) and C50 (`RawKeyEventDataLinux`) — each
+expected for the remaining cluster C50 (`RawKeyEventDataLinux`) —
 should be confirmed `@Deprecated` upstream before applying the
 appropriate workaround variant.
 
@@ -4342,6 +4355,15 @@ alias verbatim.
 
 ## Change Log
 
+- 2026-05-18: **Close C49 (`RawKeyEventDataWeb`) under U12.**
+  Variant A applied with a private `class _RawKeyEventDataWeb`
+  carrying the constructor fields (`code`, `key`, `location`,
+  `metaState`, `keyCode`) and the modifier-bit / physical-key /
+  logical-key accessors the demo reads. The SDK class is
+  `@Deprecated` at `raw_keyboard_web.dart:32-37`; modernisation
+  path is `RawKeyEventDataWeb → KeyEvent.physicalKey/logicalKey`,
+  so variant B (typedef-rename swap) is not available — the modern
+  API shape is different. Pairs as test-driver C49 ≡ AST-driver C48.
 - 2026-05-18: **Extend U12 with the typedef-rename
   sub-pattern.** Test-driver C46
   (`services/mouse_tracker_annotation_test.dart`, AST driver
