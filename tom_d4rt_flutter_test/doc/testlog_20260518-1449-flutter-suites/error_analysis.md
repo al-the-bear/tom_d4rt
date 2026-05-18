@@ -186,3 +186,185 @@ is the test's success criterion. All three host tests passed.
 - Identical result structure to `tom_d4rt_flutter_ast` (mirror
   project, mirror corpus). Any divergence would itself be a
   regression signal — none observed.
+
+---
+
+## Fix plan — framework noise & bridged-target unwrapping
+
+Multi-step plan to attack the framework-noise inventory in §2 **in
+priority order**. Steps tagged **[bug]** are genuine
+interpreter / generator defects; steps tagged **[advisory]** are
+script-side patterns the host test treats as benign — default
+disposition is "do not change" unless the noise masks a real
+failure. Each step has its own verification gate; the next step
+starts only after the prior one is verified green.
+
+The plan is identical in `tom_d4rt_flutter_ast` and
+`tom_d4rt_flutter_test`; the same noise inventory was emitted by
+both projects and the same fixes apply. Bridge/interpreter
+changes must land in **both** `tom_d4rt` and `tom_d4rt_ast` per
+the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
+
+### Phase 1 — Triage (no code changes)
+
+- [ ] **Step 1 · Per-script noise audit.** [advisory]
+  For every script that contributes a "⚠️ FRAMEWORK ERROR" banner
+  (see §2), open the script under
+  `test/tom_d4rt_flutter_test_app/test/send_ast_via_http_scripts/`
+  (or the `flutter_ast` analogue) and tag each noise event:
+  - **A** — script intentionally exercises an error path; the host
+    test asserts on the consequence, not the underlying widget
+    output. No fix.
+  - **B** — script under-constrains its widget tree (infinite-size
+    family); the test does not assert on layout. No fix.
+  - **C** — runtime/bridge error that is not exercised by any
+    assertion and may be masking a real contract failure.
+    Escalate to Phase 2.
+  **DoD:** A markdown table under "Audit results" below lists every
+  banner with its tag.
+
+- [ ] **Step 2 · Lock down the Phase-2 candidate list.** [advisory]
+  After Step 1, the only Phase-2 candidates are items tagged **C**.
+  Pre-tagged candidates from the §2 sampling that should land in
+  **C** unless Step 1 contradicts:
+  - `DiagnosticableTreeMixin.toStringDeep` mixin-target mismatch →
+    Step 3.
+  - `Gradient.linear` "colors must have length 2 if colorStops is
+    omitted" → Step 4.
+  - 0.5 px `RenderFlex overflow` (450 events in
+    `important_classes_test`) → Step 5.
+  **DoD:** Short `[cluster-id, script-path, error-shape]` list
+  appended below the audit table.
+
+### Phase 2 — Interpreter / generator fixes
+
+- [ ] **Step 3 · Unwrap interpreted target before bridged mixin
+  dispatch.** [bug]
+  **Symptom:**
+  `Native error in bridged mixin method
+  'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid
+  target: expected DiagnosticableTreeMixin, got
+  InterpretedInstance.`
+  **Diagnosis:** the mixin-method adapter receives the
+  `InterpretedInstance` directly and invokes the native method
+  without first unwrapping to its native shadow (the underlying
+  widget / diagnosticable).
+  **Fix path:** the mixin proxy emitted by
+  `tom_d4rt_generator/lib/src/proxy_generator.dart`, or the
+  mixin-dispatch site in
+  `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+  (equivalent in `tom_d4rt/lib/src/interpreter_visitor.dart`),
+  must call `D4.unwrapAs<MixinType>(target)` before dispatch.
+  **Mirror the fix in tom_d4rt and tom_d4rt_ast.** Regenerate
+  bridges via `tool/regenerate_bridges.dart`.
+  **Never edit `.b.dart` directly** (quest hard rule).
+  **Verification:**
+  1. Reproduce: run only the affected script(s) — the
+     `DiagnosticableTreeMixin.toStringDeep` shape disappears.
+  2. Run `essential_classes_test`, `important_classes_test`,
+     `secondary_classes_test`, and the 5 `hardly_relevant_*`
+     suites **serially** (parallel runs corrupt the shared
+     test-app HTTP server — quest hard rule). Pass count must be
+     ≥ 2216 — no regression vs the 1449 baseline.
+  **DoD:** Banner shape gone from a re-run's `error_analysis.md`;
+  totals ≥ 1449's pass count.
+
+- [ ] **Step 4 · Tighten `Gradient.linear` bridge constructor
+  validation.** [bug, low priority]
+  **Symptom:**
+  `Native error during bridged constructor 'linear' for class
+  'Gradient': "colors" must have length 2 if "colorStops" is
+  omitted.`
+  **Diagnosis:** the bridge passes the script's `colors:` arg
+  through to the native constructor, which asserts. Two choices:
+  (a) accept the script's pattern by synthesising a default
+  `colorStops`, or (b) reject earlier with a script-friendly
+  message.
+  **Default disposition:** reject earlier with a clear
+  `Gradient.linear requires colors.length >= 2 when colorStops is
+  null` message. Do **not** silently fill defaults — that would
+  hide intent.
+  **Fix path:** argument-coercion lambda in the generated `linear`
+  constructor wrapper in `bridge_generator.dart`. Implement once;
+  regenerate all `.b.dart`. Never edit `.b.dart` directly.
+  **Verification:** affected script reports the script-friendly
+  error string; no other failures introduced; serial suite run
+  matches Step 3's verification gate.
+  **DoD:** error shape replaced by the friendly message in the
+  next baseline's `error_analysis.md`.
+
+- [ ] **Step 5 · Investigate the 0.5 px `RenderFlex overflow`.**
+  [bug, low priority]
+  **Symptom:** `A RenderFlex overflowed by 0.500 pixels on the
+  bottom.` 610 banners total across the suite; 450 in
+  `important_classes_test` (same Material scaffold template).
+  **Diagnosis hypothesis:** the test driver's default
+  `MediaQuery` height differs by 0.5 from the height the bridged
+  scaffold computes — likely a `kToolbarHeight` rounding artefact
+  or a `SafeArea` mis-calc in the bridge's default surface.
+  **Investigation procedure:**
+  1. Pick the smallest `important_classes_test` script that emits
+     the banner.
+  2. Print `MediaQueryData` + the scaffold's `preferredSize` from
+     within the bridged surface.
+  3. Compare to the test driver's expected viewport.
+  4. Fix at the source — bridge default surface **or** test-app
+     viewport setup. **Do not** change scripts; this is bridge /
+     harness layer.
+  **Verification:** 0.5 px banner count drops to ≤ 5 % of the 1449
+  count for `important_classes_test` (i.e. ≥ 427 fewer events)
+  without changing pass counts.
+  **DoD:** new baseline's noise table shows the reduction.
+
+### Phase 3 — Verification & close-out
+
+- [ ] **Step 6 · Per-cluster verification, serial only.** [process]
+  After **each** Phase-2 step (don't batch fixes — quest rule:
+  one cluster per commit, verify, push):
+  1. Regenerate bridges if the generator changed.
+  2. Run the affected cluster's reproduction scripts (see the
+     cluster-fix verification protocol in
+     `tom_d4rt_flutter_ast/doc/interpreter_issues.md`).
+  3. Run the four anchor suites (`essential`, `important`,
+     `secondary`, and one `hardly_relevant_*` selected by which
+     script the fix touches) **serially** — never in parallel.
+     Chain with `&&` or sequential Bash calls.
+  4. Commit + push immediately (quest rule: commit + push each
+     turn; split unrelated concerns into multiple commits).
+
+- [ ] **Step 7 · Full re-baseline.** [process]
+  Once Steps 3 + 4 + 5 are all green, run the full 14-suite serial
+  matrix and produce `testlog_<id>-flutter-suites-fixes/` in
+  **both** projects, mirroring the structure of
+  `testlog_20260518-1449-flutter-suites/`. Acceptance criteria:
+  - Pass count ≥ 2216 (no regression).
+  - Banner counts in the noise inventory drop to the targets set
+    in Steps 3 / 4 / 5.
+  - The 1 remaining flake
+    (`gestures/least_squares_solver_test.dart`) is allowed to stay
+    until the test-app pacing fix lands (out of scope here).
+  **DoD:** New baseline's "Bottom line" section reflects the
+  fixes; close this Fix-plan with a
+  `**Closed YYYY-MM-DD by commit <sha>.**` footer.
+
+### Steps explicitly out of scope
+
+- **Infinite-size warnings** (520+ events) — script-side
+  under-constraining; advisory only.
+- **`Index out of range`, null property/method access, null
+  for-in iterable** — scripts probe resilience; advisory only.
+- **3 Bad-state probes in `interactive_tests_test`** —
+  intentional dismiss-flow tests; host tests pass and assert on
+  the failure of the inner action.
+- **`gestures/least_squares_solver_test.dart` transport timeout**
+  — pre-existing test-app pacing flake; tracks in its own
+  follow-up (raise per-test timeout, or add settle step in
+  `SendTestRunner` between scripts).
+
+### Audit results
+
+_To be filled in during Step 1._
+
+### Phase-2 candidate list (Step 2 output)
+
+_To be filled in after Step 1._
