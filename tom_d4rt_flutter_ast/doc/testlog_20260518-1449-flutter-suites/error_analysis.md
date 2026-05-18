@@ -263,8 +263,8 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   every banner with: script path, host-test path, tag,
   one-sentence rationale.
 
-- [ ] **Step 2 · Lock down the candidate list across all banner
-  shapes.** [advisory]
+- [x] **Step 2 · Lock down the candidate list across all banner
+  shapes.** [advisory] · **Status: fixed (2026-05-18).**
   After Step 1, every banner has a tag. Group them and route:
   - **B-bridge** → Steps 3 / 4 / 5.
   - **B-layout** → Step 6.
@@ -276,6 +276,16 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   **DoD:** Candidate list appended below the audit table groups
   each banner by its target step; total banner count in §2's
   inventory matches the sum of the routed groups.
+  **Outcome:** Phase-2 candidate list inserted below; all 161
+  banners routed. Step 3 = 1, Step 4 = 1, Step 5 = 1, Step 6 =
+  148, Step 7 = 10, Step 8 = 0 (DoD met — empty per Step 1),
+  Step 9 = F1 (non-banner transport timeout). Routing refinement
+  noted under Step 6: the 33 `B-bridge-borderRadius-uniform`
+  banners go to Step 6 (script-side fix) rather than Step 3/4/5,
+  because per-script inspection (e.g. `cupertino/route_test.dart`
+  combining `BorderRadius.circular(10)` with a non-uniform
+  `Border`) shows these are script-induced framework asserts, not
+  interpreter bugs.
 
 ### Phase 2 — Interpreter / generator fixes
 
@@ -700,4 +710,244 @@ Plus 1 non-banner transport-timeout error (F1 above, `least_squares_solver_test.
 
 ### Phase-2 candidate list (Step 2 output)
 
-_To be filled in after Step 1._
+#### Step 3 — Bridged mixin target unwrap (`DiagnosticableTreeMixin.toStringDeep`)
+
+**1 banner(s).**
+
+- *B-bridge-diagnosticable-mixin* (1 banner(s)):
+  - `hardly_relevant_classes_1_test` · `foundation/diagnosticable_tree_mixin_test.dart` (1e)
+
+#### Step 4 — `Gradient.linear` argument validation
+
+**1 banner(s).**
+
+- *B-bridge-gradient-linear* (1 banner(s)):
+  - `hardly_relevant_classes_1_test` · `dart_ui/shader_mask_engine_layer_test.dart` (36e)
+
+#### Step 5 — 0.500 px `RenderFlex` overflow (subpixel artefact)
+
+**1 banner(s).**
+
+- *B-layout-overflow* (1 banner(s)):
+  - `hardly_relevant_classes_1_test` · `cupertino/restorable_cupertino_tab_controller_test.dart` (76e) — 0.500-px overflow events × 55
+
+#### Step 6 — Layout warnings (infinite-size, unbounded constraints, non-uniform Border with borderRadius, etc.)
+
+**148 banner(s).**
+
+> **Routing refinement from Step 2 inspection.** The 33 `B-bridge-borderRadius-uniform` banners
+> were tagged `B-bridge` in §6's audit table (rationale: "already-tracked bridge defect, see C58"),
+> but on script-level inspection (e.g. `cupertino/route_test.dart` line 89-90 combining
+> `BorderRadius.circular(10)` with `Border(left: BorderSide(...))`) these are script-side framework
+> assertions, not interpreter defects. They are routed to **Step 6 (script-side fix)**, not Step 3/4/5.
+> The 3 `I-*` shapes listed under Step 6 here are interpreter-runtime errors that present as layout
+> failures and are simplest to suppress / fix in the script's host harness; the remaining `I-*` shapes
+> go to Step 7.
+
+- *B-bridge-borderRadius-uniform* (33 banner(s)):
+  - `essential_classes_test` · `cupertino/route_test.dart` (9e)
+  - `essential_classes_test` · `painting/border_radius_test.dart` (5e)
+  - `essential_classes_test` · `painting/box_decoration_test.dart` (9e)
+  - `essential_classes_test` · `widgets/inkwell_test.dart` (11e)
+  - `hardly_relevant_classes_1_test` · `foundation/caching_iterable_test.dart` (3e)
+  - `hardly_relevant_classes_1_test` · `foundation/diagnosticable_node_test.dart` (9e)
+  - `hardly_relevant_classes_1_test` · `gestures/hit_testable_test.dart` (4e)
+  - `hardly_relevant_classes_1_test` · `gestures/one_sequence_gesture_recognizer_test.dart` (6e)
+  - `hardly_relevant_classes_1_test` · `gestures/tap_move_details_test.dart` (6e)
+  - `hardly_relevant_classes_3_test` · `rendering/scroll_direction_test.dart` (8e)
+  - `hardly_relevant_classes_3_test` · `rendering/select_paragraph_selection_event_test.dart` (12e)
+  - `hardly_relevant_classes_3_test` · `rendering/selection_status_test.dart` (5e)
+  - `hardly_relevant_classes_3_test` · `semantics/accessibility_focus_block_type_test.dart` (5e)
+  - `hardly_relevant_classes_3_test` · `semantics/announce_semantics_event_test.dart` (6e)
+  - `hardly_relevant_classes_3_test` · `semantics/attributed_string_property_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `semantics/focus_semantic_event_test.dart` (16e)
+  - `hardly_relevant_classes_3_test` · `semantics/tooltip_semantics_event_test.dart` (24e)
+  - `hardly_relevant_classes_3_test` · `services/key_up_event_test.dart` (5e)
+  - `hardly_relevant_classes_3_test` · `services/platform_exception_test.dart` (5e)
+  - `hardly_relevant_classes_3_test` · `services/raw_keyboard_test.dart` (10e)
+  - `hardly_relevant_classes_4_test` · `widgets/menu_serializable_shortcut_test.dart` (5e)
+  - `important_classes_test` · `material/animatedicon_test.dart` (6e)
+  - `interactive_tests_test` · `material/showtimepicker_test.dart` (8e)
+  - `secondary_classes_test` · `material/scaffold_advanced_test.dart` (14e)
+  - `secondary_classes_test` · `material/menu_advanced_test.dart` (6e)
+  - `secondary_classes_test` · `painting/image_cache_test.dart` (8e)
+  - `secondary_classes_test` · `widgets/inherited_model_test.dart` (6e)
+  - `secondary_classes_test` · `gestures/serial_tap_up_details_test.dart` (5e)
+  - `secondary_classes_test` · `material/material_type_test.dart` (6e)
+  - `secondary_classes_test` · `material/snack_bar_behavior_test.dart` (6e)
+  - `secondary_classes_test` · `painting/border_directional_test.dart` (4e)
+  - `secondary_classes_test` · `painting/box_border_test.dart` (5e)
+  - `secondary_classes_test` · `painting/star_border_test.dart` (5e)
+- *B-layout-flex-unbounded* (4 banner(s)):
+  - `hardly_relevant_classes_2_test` · `material/fade_forwards_page_transitions_builder_test.dart` (1e)
+  - `important_classes_test` · `widgets/listbody_test.dart` (1e)
+  - `important_classes_test` · `painting/image_providers_test.dart` (1e)
+  - `secondary_classes_test` · `material/expansion_stepper_test.dart` (1e)
+- *B-layout-infinite* (22 banner(s)):
+  - `essential_classes_test` · `cupertino/segmented_test.dart` (12e)
+  - `hardly_relevant_classes_1_test` · `dart_ui/uniform_vec2_slot_test.dart` (22e)
+  - `hardly_relevant_classes_1_test` · `foundation/diagnosticable_tree_node_test.dart` (18e)
+  - `hardly_relevant_classes_1_test` · `foundation/error_spacer_test.dart` (12e)
+  - `hardly_relevant_classes_1_test` · `foundation/object_disposed_test.dart` (14e)
+  - `hardly_relevant_classes_1_test` · `foundation/string_property_test.dart` (12e)
+  - `hardly_relevant_classes_2_test` · `painting/accumulator_test.dart` (13e)
+  - `hardly_relevant_classes_3_test` · `rendering/clear_selection_event_test.dart` (58e)
+  - `hardly_relevant_classes_3_test` · `semantics/tap_semantic_event_test.dart` (8e)
+  - `hardly_relevant_classes_3_test` · `services/key_message_test.dart` (12e)
+  - `hardly_relevant_classes_3_test` · `services/raw_key_event_data_ios_test.dart` (28e)
+  - `hardly_relevant_classes_3_test` · `services/raw_key_event_data_linux_test.dart` (28e)
+  - `hardly_relevant_classes_3_test` · `services/text_editing_delta_non_text_update_test.dart` (38e)
+  - `important_classes_test` · `widgets/formstate_test.dart` (33e)
+  - `secondary_classes_test` · `foundation/observer_list_test.dart` (33e)
+  - `secondary_classes_test` · `widgets/undo_history_test.dart` (33e)
+  - `secondary_classes_test` · `widgets/context_menu_test.dart` (36e)
+  - `secondary_classes_test` · `widgets/element_types_test.dart` (58e)
+  - `secondary_classes_test` · `foundation/repetitive_stack_frame_filter_test.dart` (10e)
+  - `secondary_classes_test` · `gestures/serial_tap_gesture_recognizer_test.dart` (15e)
+  - `secondary_classes_test` · `services/autofill_configuration_test.dart` (18e)
+  - `secondary_classes_test` · `services/network_asset_bundle_test.dart` (14e)
+- *B-layout-infiniteH* (34 banner(s)):
+  - `essential_classes_test` · `material/scaffold_test.dart` (1e)
+  - `essential_classes_test` · `widgets/icon_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `animation/cubic_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `dart_ui/uniform_vec3_slot_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `foundation/abstract_node_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `foundation/diagnosticable_tree_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `foundation/object_event_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `gestures/pointer_move_event_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `gestures/pointer_pan_zoom_start_event_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `gestures/pointer_scroll_event_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `gestures/velocity_estimate_test.dart` (1e)
+  - `hardly_relevant_classes_2_test` · `painting/image_size_info_test.dart` (1e)
+  - `hardly_relevant_classes_2_test` · `painting/inline_span_semantics_information_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `services/i_o_s_system_context_menu_item_data_share_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `services/raw_key_event_data_windows_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `services/text_selection_test.dart` (1e)
+  - `hardly_relevant_classes_5_test` · `widgets/render_sliver_overlap_absorber_test.dart` (1e)
+  - `important_classes_test` · `widgets/heromode_test.dart` (1e)
+  - `important_classes_test` · `widgets/draggablescrollablesheet_test.dart` (1e)
+  - `important_classes_test` · `material/pageroute_test.dart` (1e)
+  - `important_classes_test` · `widgets/scaffoldstate_test.dart` (1e)
+  - `important_classes_test` · `gestures/velocity_test.dart` (1e)
+  - `important_classes_test` · `services/platform_test.dart` (1e)
+  - `important_classes_test` · `rendering/renderobjects_layout_test.dart` (1e)
+  - `important_classes_test` · `rendering/renderobjects_sizing_test.dart` (1e)
+  - `important_classes_test` · `rendering/layers_data_test.dart` (1e)
+  - `secondary_classes_test` · `widgets/scroll_behavior_test.dart` (1e)
+  - `secondary_classes_test` · `widgets/notification_locale_test.dart` (1e)
+  - `secondary_classes_test` · `cupertino/cupertino_page_test.dart` (1e)
+  - `secondary_classes_test` · `foundation/unicode_test.dart` (1e)
+  - `secondary_classes_test` · `gestures/horizontal_multi_drag_gesture_recognizer_test.dart` (1e)
+  - `secondary_classes_test` · `gestures/positioned_gesture_details_test.dart` (1e)
+  - `secondary_classes_test` · `material/desktop_text_selection_toolbar_button_test.dart` (1e)
+  - `secondary_classes_test` · `semantics/semantics_event_test.dart` (1e)
+- *B-layout-negative-minh* (1 banner(s)):
+  - `secondary_classes_test` · `widgets/placeholder_test.dart` (1e)
+- *B-layout-not-normalized* (2 banner(s)):
+  - `secondary_classes_test` · `rendering/render_constraints_transform_box_test.dart` (1e)
+  - `timeout_tests_test` · `rendering/render_constraints_transform_box_test.dart` (1e)
+- *B-layout-overflow* (44 banner(s)):
+  - `essential_classes_test` · `foundation/key_test.dart` (1e)
+  - `essential_classes_test` · `material/floatingactionbutton_test.dart` (1e)
+  - `essential_classes_test` · `widgets/appbar_test.dart` (6e)
+  - `essential_classes_test` · `widgets/expanded_test.dart` (1e)
+  - `essential_classes_test` · `widgets/flexible_test.dart` (2e)
+  - `essential_classes_test` · `widgets/focusnode_test.dart` (1e)
+  - `essential_classes_test` · `widgets/row_test.dart` (1e)
+  - `essential_classes_test` · `widgets/scaffold_test.dart` (2e)
+  - `hardly_relevant_classes_1_test` · `dart_ui/uniform_float_slot_test.dart` (1e)
+  - `hardly_relevant_classes_1_test` · `gestures/pointer_exit_event_test.dart` (1e)
+  - `hardly_relevant_classes_2_test` · `material/bottom_navigation_bar_landscape_layout_test.dart` (4e)
+  - `hardly_relevant_classes_2_test` · `material/carousel_controller_test.dart` (2e)
+  - `hardly_relevant_classes_2_test` · `painting/matrix_utils_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `rendering/rendering_service_extensions_test.dart` (1e)
+  - `hardly_relevant_classes_3_test` · `services/raw_key_event_data_android_test.dart` (54e)
+  - `hardly_relevant_classes_3_test` · `services/raw_key_event_test.dart` (1e)
+  - `hardly_relevant_classes_5_test` · `widgets/text_selection_toolbar_layout_delegate_test.dart` (1e)
+  - `important_classes_test` · `widgets/hero_test.dart` (2e)
+  - `important_classes_test` · `widgets/clipping_test.dart` (1e)
+  - `important_classes_test` · `widgets/transform_full_test.dart` (413e)
+  - `important_classes_test` · `widgets/sizing_test.dart` (1e)
+  - `important_classes_test` · `widgets/animatedbuilder_test.dart` (1e)
+  - `important_classes_test` · `widgets/valuelistenablebuilder_test.dart` (1e)
+  - `important_classes_test` · `material/licensepage_test.dart` (4e)
+  - `important_classes_test` · `widgets/listener_test.dart` (1e)
+  - `important_classes_test` · `widgets/router_test.dart` (2e)
+  - `important_classes_test` · `rendering/sliver_delegates_test.dart` (24e)
+  - `interactive_tests_test` · `material/showbottomsheet_test.dart` (6e)
+  - `secondary_classes_test` · `cupertino/cupertino_nav_segmented_test.dart` (2e)
+  - `secondary_classes_test` · `material/divider_listtile_test.dart` (4e)
+  - `secondary_classes_test` · `material/dialog_bottom_sheet_test.dart` (6e)
+  - `secondary_classes_test` · `material/scaffold_fab_test.dart` (1e)
+  - `secondary_classes_test` · `painting/advanced_decorations_test.dart` (1e)
+  - `secondary_classes_test` · `rendering/render_mixins_test.dart` (4e)
+  - `secondary_classes_test` · `widgets/defaulttextstyle_test.dart` (1e)
+  - `secondary_classes_test` · `widgets/scrollbar_layout_misc_test.dart` (1e)
+  - `secondary_classes_test` · `widgets/page_view_tabview_test.dart` (1e)
+  - `secondary_classes_test` · `cupertino/cupertino_scroll_behavior_test.dart` (2e)
+  - `secondary_classes_test` · `gestures/serial_tap_down_details_test.dart` (1e)
+  - `secondary_classes_test` · `gestures/tap_drag_start_details_test.dart` (1e)
+  - `secondary_classes_test` · `gestures/tap_drag_update_details_test.dart` (1e)
+  - `secondary_classes_test` · `painting/shape_border_test.dart` (1e)
+  - `secondary_classes_test` · `rendering/render_follower_layer_test.dart` (5e)
+  - `secondary_classes_test` · `services/flutter_version_test.dart` (1e)
+- *B-layout-parentdata* (1 banner(s)):
+  - `important_classes_test` · `widgets/keepalive_test.dart` (7e)
+- *B-layout-stack-bounded* (1 banner(s)):
+  - `essential_classes_test` · `widgets/stack_test.dart` (1e)
+- *B-layout-tableborder* (1 banner(s)):
+  - `secondary_classes_test` · `widgets/editable_text_misc_test.dart` (1e)
+- *B-layout-textBaseline* (1 banner(s)):
+  - `secondary_classes_test` · `widgets/table_wrap_flow_test.dart` (1e)
+- *B-layout-vviewport* (1 banner(s)):
+  - `essential_classes_test` · `widgets/gridview_test.dart` (2e)
+- *I-null-check-op* (2 banner(s)):
+  - `hardly_relevant_classes_5_test` · `widgets/render_sliver_overlap_injector_test.dart` (4e)
+  - `important_classes_test` · `widgets/animatedlist_test.dart` (5e)
+- *I-runtime-error* (1 banner(s)):
+  - `secondary_classes_test` · `material/chip_attributes_test.dart` (6e)
+
+#### Step 7 — Test contract bugs (Runtime Errors, framework asserts triggered by script — no try/catch + no host-test assertion)
+
+**10 banner(s).**
+
+- *I-chip-assert* (1 banner(s)):
+  - `secondary_classes_test` · `material/chip_variants_test.dart` (1e)
+- *I-http-400* (1 banner(s)):
+  - `hardly_relevant_classes_1_test` · `dart_ui/blur_style_test.dart` (1e)
+- *I-runtime-error* (7 banner(s)):
+  - `hardly_relevant_classes_3_test` · `services/android_pointer_coords_test.dart` (7e)
+  - `important_classes_test` · `material/expansionpanel_test.dart` (1e)
+  - `important_classes_test` · `rendering/renderobjects_clip_test.dart` (14e)
+  - `interactive_tests_test` · `material/showmenu_test.dart` (9e)
+  - `secondary_classes_test` · `widgets/preferredsize_test.dart` (6e)
+  - `secondary_classes_test` · `foundation/bit_field_test.dart` (1e)
+  - `secondary_classes_test` · `rendering/follower_layer_test.dart` (3e)
+- *I-utf16* (1 banner(s)):
+  - `important_classes_test` · `services/textboundary_test.dart` (5e)
+
+#### Step 8 — Runner-side filter for I-handled banners (none identified)
+
+No banner candidates — Step 1's audit found 0 scripts wrapping in try/catch + 0 host tests asserting on captured error content, so the I-handled set is empty.
+
+#### Step 9 — Environment / pacing flakes (`least_squares_solver_test`)
+
+- F1 · `gestures/least_squares_solver_test.dart` in `hardly_relevant_classes_1_test` — transport timeout (non-banner error event, see §1 F1).
+
+#### Unassigned (must remain empty per Step 2 DoD)
+
+No banner candidates.
+
+### Routing totals
+
+| Step | Banner count |
+|---|---:|
+| Step 3 | 1 |
+| Step 4 | 1 |
+| Step 5 | 1 |
+| Step 6 | 148 |
+| Step 7 | 10 |
+| **Total routed** | **161** |
+| §2 banner inventory | 161 |
+
+All 161 banners are routed to a Phase-2 step. No banner remains untagged or out of scope. ✅ DoD met.
