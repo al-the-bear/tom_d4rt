@@ -794,7 +794,14 @@ class _SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        // Flutter requires uniform-coloured borders when borderRadius is
+        // set; the original design wanted a coloured 5-px left accent bar
+        // plus thin alpha-0.1 sides on top/right/bottom, which is
+        // non-uniform. We drop borderRadius (the corners stay square) so
+        // the multi-coloured Border stays visible. This was the
+        // _SectionHeader card, instantiated once per section, which
+        // produced one `A borderRadius can only be given on borders with
+        // uniform colors.` error per instance (~7 in this demo).
         border: Border(
           left: BorderSide(color: accent, width: 5),
           top: BorderSide(color: accent.withValues(alpha: 0.1)),

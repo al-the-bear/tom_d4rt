@@ -4527,6 +4527,18 @@ original type.
 
 ## Change Log
 
+- 2026-05-18: **Close C58/C56
+  (`retest/services/message_codec_test.dart`: "A borderRadius can
+  only be given on borders with uniform colors").** Pure script bug,
+  no new interpreter pattern. The `_SectionHeader` widget combined
+  `borderRadius: BorderRadius.all(Radius.circular(10))` with a
+  deliberately non-uniform `Border` (5-px accent left bar plus thin
+  alpha-0.1 sides on top/right/bottom). Flutter's `Border` invariant
+  rejects `borderRadius` on non-uniform-colour borders. Script-side
+  fix: drop the `borderRadius` so the coloured accent bar stays
+  visible (square corners). Pairs as test-driver C58 ≡ AST-driver
+  C56.
+
 - 2026-05-18: **Close C57/C55
   (`rendering/render_custom_multi_child_layout_box_test.dart`
   `RenderFlex overflowed by 7.0 pixels on the bottom`).** Same

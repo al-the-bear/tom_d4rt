@@ -89,7 +89,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (script · U13-new) |
 | **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☑ fixed (script · U1-variant-2) |
 | **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☑ fixed (script · U1-variant-2) |
-| **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
+| **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☑ fixed (script · script-bug) |
 | **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 
 ## Hard Failures — File by File
@@ -2941,7 +2941,16 @@ Representative error texts:
 
 #### C56 — `A borderRadius can only be given on borders with uniform colors.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (2026-05-18) — pairs with test-driver C58;
+  script-only fix; both drivers green. See test-driver C58 entry for
+  the full diagnosis. Summary: the `_SectionHeader` widget in
+  `retest/services/message_codec_test.dart` (line 793) combined
+  `borderRadius: BorderRadius.all(...)` with a deliberately
+  non-uniform `Border` (5-px accent left bar + thin alpha-0.1 sides
+  elsewhere). Flutter rejects this combination. Fix drops the
+  `borderRadius` so the multi-coloured Border stays visible; corners
+  become square. Pure script bug — no new interpreter pattern. Logs:
+  `ztmp/c58/{ast,test}_{before,after}.log`.
 
 | testID | Test name |
 |-------:|-----------|
