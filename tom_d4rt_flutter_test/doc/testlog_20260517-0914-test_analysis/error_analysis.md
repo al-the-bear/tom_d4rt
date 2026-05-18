@@ -65,7 +65,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☑ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☑ |
-| **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
+| **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☑ |
 | **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
 | **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☐ |
 | **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☐ |
@@ -1766,11 +1766,34 @@ C32 remains). No regressions; logs in `ztmp/c30_*.log.txt`.
 
 #### C32 — `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 346 | painting/ individual linear_border_edge_test.dart |
+
+**Status:** fixed (2026-05-18) — same script-only patch as AST driver
+C31 (cluster numbering offset: AST C31 ≡ test driver C32).
+
+**Root cause.** Flutter's `LinearBorderEdge` constructor asserts that
+`size` is in `[0.0, 1.0]`
+(`packages/flutter/lib/src/painting/linear_border.dart:38-39`). The
+test script's "footguns" section constructed
+`LinearBorderEdge(size: 1.5, ...)` and `LinearBorderEdge(size: -0.2, ...)`,
+violating the assertion. D4rt surfaced the SDK assertion verbatim.
+
+**Fix.** Single shared script (the AST driver app hosts it over HTTP
+for both drivers):
+`tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/painting/linear_border_edge_test.dart`.
+Replace out-of-range values with in-range boundaries (`size: 1.0`,
+`size: 0.0`) and update the footgun prose to describe the SDK's
+actual assert-at-construction behaviour.
+
+**Verification (test driver).** Script-only change → individual
+retest sufficient per cluster protocol rule (a). `painting/
+individual linear_border_edge_test.dart`:
+`status=success httpStatus=200 outputLines=44 frameworkErrors=0`
+(`ztmp/c31_verify_test.log.txt`).
 
 Representative error texts:
 
