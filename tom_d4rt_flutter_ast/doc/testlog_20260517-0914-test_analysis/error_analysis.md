@@ -63,7 +63,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☑ |
-| **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
+| **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☑ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
 | **C32** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
 | **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☐ |
@@ -1789,11 +1789,73 @@ driver.
 
 #### C30 — `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 335 | painting/ individual box_painter_test.dart |
+
+**Status:** fixed (2026-05-18) — two-part fix: generator hardening
+(GEN-096) + script patch for an SDK contract.
+
+**Root cause.** Flutter's `Decoration.createBoxPainter` is declared
+using legacy Dart syntax with an optional positional non-nullable
+function parameter:
+
+```dart
+BoxPainter createBoxPainter([VoidCallback onChanged]);
+// shape_decoration.dart, box_decoration.dart, flutter_logo.dart
+// override it as: createBoxPainter([VoidCallback? onChanged])
+```
+
+Two problems combined:
+
+1. The generated bridge wrapper followed GEN-069 nullability rules
+   (based on declared type alone) and produced a non-null closure
+   wrapper. When the interpreter called it with no argument
+   (`raw == null`), the wrapper attempted
+   `D4.callInterpreterCallback(visitor!, null, [])` and threw
+   "Null check operator used on a null value".
+2. After fixing the wrapper to be nullable, static dispatch against
+   the non-nullable declared parameter type
+   (`void Function() onChanged`) failed to compile because the
+   wrapper now had type `void Function()?`.
+3. Even with both generator fixes, `ShapeDecoration.createBoxPainter`
+   in the Flutter SDK uses `onChanged!` unconditionally
+   (`shape_decoration.dart:286`), so the SDK itself throws regardless
+   of how D4rt passes the callback. The script must supply one.
+
+**Fix.**
+
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  (`_generatePositionalParamExtraction`): treat optional positional
+  function-typed parameters without a default value as nullable for
+  wrapper generation, so the emitted wrapper is null-guarded
+  (`raw == null ? null : () { ... }`).
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  (`_generateMethodBody`): detect legacy optional positional
+  function-typed parameters with non-nullable declared type and no
+  default, and dispatch through `(t as dynamic)` so the nullable
+  closure wrapper reaches the concrete subclass override that
+  redeclares the param as nullable.
+- `test/.../send_ast_via_http_scripts/painting/box_painter_test.dart`:
+  pass `() {}` to `ShapeDecoration.createBoxPainter` to satisfy the
+  Flutter SDK's `onChanged!` precondition (script-only patch, the
+  bug is in the SDK contract not D4rt).
+
+**Verification.** Bridges regenerated for both drivers, then four
+suites run serially on each driver:
+
+- AST driver: gii `79/2/-2` (baseline), essential `108/0/0`,
+  important `164/0/0`, secondary `652/1/-1` (baseline was
+  `629/1/-24`; 23 incidental fixes from earlier clusters surfaced,
+  only pre-existing `linear_border_edge_test.dart` C31 remains).
+- Test driver: gii `79/2/-2` (baseline), essential `108/0/0`,
+  important `164/0/0`, secondary `652/1/-1` (baseline was
+  `628/1/-25`; same pattern, only C32 `linear_border_edge_test`
+  remains).
+
+No regressions; logs in `ztmp/c30_*.log.txt`.
 
 #### C31 — `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa`
 

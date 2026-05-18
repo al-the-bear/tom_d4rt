@@ -64,7 +64,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
 | **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☑ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
-| **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
+| **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☑ |
 | **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
 | **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
 | **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☐ |
@@ -1710,11 +1710,59 @@ new regressions
 
 #### C31 — `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 335 | painting/ individual box_painter_test.dart |
+
+**Status:** fixed (2026-05-18) — same fix as AST driver C30 (cluster
+numbering is offset by one between drivers: AST C30 ≡ test driver
+C31).
+
+**Root cause.** Flutter's `Decoration.createBoxPainter` is declared
+using legacy Dart syntax with an optional positional non-nullable
+function parameter:
+
+```dart
+BoxPainter createBoxPainter([VoidCallback onChanged]);
+// shape_decoration.dart, box_decoration.dart, flutter_logo.dart
+// override it as: createBoxPainter([VoidCallback? onChanged])
+```
+
+Two compounding problems:
+
+1. The generated bridge wrapper followed GEN-069 nullability rules
+   (based on declared type alone) and produced a non-null closure
+   wrapper. Calling with no argument hit
+   `D4.callInterpreterCallback(visitor!, null, [])` → "Null check
+   operator used on a null value".
+2. Making the wrapper nullable failed static dispatch against the
+   non-nullable declared parameter type.
+3. Even with both generator fixes, `ShapeDecoration.createBoxPainter`
+   uses `onChanged!` unconditionally (`shape_decoration.dart:286`),
+   so the SDK itself throws regardless.
+
+**Fix.**
+
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  (`_generatePositionalParamExtraction`): nullable wrapper for
+  optional positional function-typed params without a default.
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  (`_generateMethodBody`): `(t as dynamic)` dispatch when method has
+  a legacy optional positional function param with non-nullable
+  declared type and no default, so the nullable closure wrapper
+  reaches the concrete override.
+- `tom_d4rt_flutter_ast/test/.../painting/box_painter_test.dart`
+  (shared script via HTTP): pass `() {}` to
+  `ShapeDecoration.createBoxPainter` to satisfy the SDK's
+  `onChanged!` precondition.
+
+**Verification (test driver).** gii `79/2/-2` (baseline),
+essential `108/0/0`, important `164/0/0`, secondary `652/1/-1`
+(baseline was `628/1/-25`; 24 incidental fixes from earlier
+clusters surfaced, only pre-existing `linear_border_edge_test.dart`
+C32 remains). No regressions; logs in `ztmp/c30_*.log.txt`.
 
 #### C32 — `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa`
 
