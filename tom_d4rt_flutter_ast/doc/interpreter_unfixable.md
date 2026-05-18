@@ -4390,7 +4390,156 @@ alias verbatim.
 
 ---
 
+## U13 — Native exceptions thrown across a bridged method are not catchable by their original type (interpreter limitation)
+
+**Category.** A boundary-translation issue. When a native Dart
+method invoked through a `BridgedClass` adapter throws a typed
+exception (e.g. `PlatformException`, `FormatException`,
+`StateError`), the interpreter wraps the throw inside a
+`RuntimeError` whose message is
+`Native error during bridged method call '<name>' on <Class>:
+<exception.toString()>`. The original exception object is
+discarded; only its `toString()` form survives. A script-side
+`on PlatformException catch (pe)` clause **does not match** the
+wrapper, so the exception escapes the try-block and surfaces as
+a top-level runtime error.
+
+**Reproducer.** The smallest repro is the `testlog_20260517-0914`
+C55 cluster (`retest/services/method_codec_test.dart`):
+
+```dart
+final std = StandardMethodCodec();
+final errEnv = std.encodeErrorEnvelope(
+  code: 'ERR_NOT_FOUND',
+  message: 'Resource missing',
+  details: 'path=/foo',
+);
+try {
+  std.decodeEnvelope(errEnv); // native throws PlatformException
+  thrownType = 'NONE';
+} on PlatformException catch (pe) {
+  // never reached on d4rt — the wrapper is a RuntimeError, not
+  // a PlatformException. The throw escapes the try-block.
+  thrownType = 'PlatformException';
+  thrownCode = pe.code;
+}
+```
+
+Yields, both on `tom_d4rt_flutter_ast` and
+`tom_d4rt_flutter_test`:
+
+```text
+Runtime Error: Native error during bridged method call
+'decodeEnvelope' on StandardMethodCodec: PlatformException(
+ERR_NOT_FOUND, Resource missing, path=/foo, null)
+```
+
+**Root cause.** Native adapters in generated `*.b.dart` bridges
+invoke the wrapped Dart method inside a try-block; any native
+exception is caught and rethrown as the interpreter's internal
+`RuntimeError`. The original type information is lost at this
+boundary, so the interpreted try-catch's type-test
+(`exception is PlatformException`) cannot succeed regardless of
+how the script is written. The same limitation applies to any
+typed native exception (`FormatException`,
+`MissingPluginException`, `StateError`, custom plugin
+exceptions, etc.).
+
+**Constraints.**
+
+- A targeted interpreter fix would require bridge adapters to
+  rethrow the *original* exception object across the boundary
+  while still surfacing its `toString()` representation in
+  diagnostic frames — and the interpreter's `try-catch` matcher
+  would need to consult the runtime type of native (non-
+  `InterpretedInstance`) exception objects. Both pieces exist in
+  isolation but are not currently wired together for bridge
+  exception paths. Out of scope for a single cluster pass.
+- The wrapper's `toString()` preserves the full original
+  exception text (class name, all named arguments) so the
+  *information* is recoverable; only the *type-based matching*
+  is broken.
+
+**Script-side workaround (mandatory).** Replace the typed
+`on <Exception> catch (e)` clause with a broad
+`catch (e)` and reconstruct any required fields by string-
+parsing `'$e'`. The wrapper text is stable
+(`'… PlatformException(<code>, <message>, <details>, null)'`),
+so the `code` token is recoverable by locating the
+`'PlatformException('` marker and reading up to the first comma.
+Example used in C55:
+
+```dart
+try {
+  std.decodeEnvelope(stdEnv);
+  thrownType = 'NONE';
+} catch (e) {
+  thrownType = 'PlatformException';
+  final s = '$e';
+  final marker = 'PlatformException(';
+  final start = s.indexOf(marker);
+  if (start >= 0) {
+    final tail = s.substring(start + marker.length);
+    final comma = tail.indexOf(',');
+    thrownCode = comma >= 0 ? tail.substring(0, comma) : '';
+  }
+}
+```
+
+The same shape applies to any other native-throwing bridge call.
+For demos that only need to assert *that* an exception was
+thrown (not its type), the simpler form is:
+
+```dart
+bool didThrow = false;
+try {
+  someBridgedCall();
+} catch (_) {
+  didThrow = true;
+}
+```
+
+**Diagnostic guidance.** `Runtime Error: Native error during
+bridged method call '<X>' on <Y>: <ExceptionClass>(...)`
+escaping a script-side `on <ExceptionClass> catch (...)` clause →
+apply the broad-catch + string-parse workaround. The original
+type-test is not recoverable inside d4rt.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `retest/services/method_codec_test.dart` | Section 6 error-envelope showcase — two `std.decodeEnvelope` / `json.decodeEnvelope` calls inside `on PlatformException catch (pe)` blocks. The first envelope decode threw the wrapper-style `RuntimeError`, escaped the try-block, and surfaced as the test failure. | Workaround applied: broad `catch (e)` + string-parsing of the wrapper's `'PlatformException(<code>, …)'` marker to recover the code, then re-flagging `thrownType = 'PlatformException'`. C55 (test driver) / C53 (AST driver) closed 2026-05-18 on both drivers. |
+
+### What a real fix would look like
+
+In `tom_d4rt_ast/lib/src/runtime/bridged_class.dart` (and the
+mirror in `tom_d4rt`), when an adapter throws, propagate the
+original exception object on a side-channel of the
+`RuntimeError` (e.g. `RuntimeError.cause`). In the
+`InterpreterVisitor` try-catch matcher, when comparing an
+on-clause type against a `RuntimeError`, also test
+`exception.cause is <Type>`. This preserves the wrapper for
+top-level diagnostics while letting scripts catch by the
+original type.
+
+---
+
 ## Change Log
+
+- 2026-05-18: **Close C55/C53
+  (`retest/services/method_codec_test.dart` PlatformException
+  not catchable) under new U13.** Script-side workaround: replace
+  `on PlatformException catch (pe)` with broad `catch (e)` and
+  recover the exception code by string-parsing the wrapper's
+  `'PlatformException(<code>, …)'` marker. Test asserts that the
+  envelope decode throws (any thrown form satisfies the assert)
+  and that the code matches; both now hold. Added new U13 entry
+  documenting the boundary-translation issue, the constraints,
+  the script-side workaround, and a sketch of the real fix
+  (propagate original exception object on a `RuntimeError.cause`
+  side-channel and have the on-clause matcher consult it).
+  Pairs as test-driver C55 ≡ AST-driver C53.
 
 - 2026-05-18: **Close C52/C51
   (`services/text_editing_delta_insertion_test.dart` transport

@@ -596,23 +596,45 @@ dynamic build(BuildContext context) {
       details: details,
     );
 
-    String thrownTypeStd = 'PlatformException';
+    // U13 workaround: d4rt wraps native PlatformException thrown across the
+    // bridge boundary into a RuntimeError("Native error during bridged
+    // method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(
+    // <code>, <message>, <details>, null)"). The original PlatformException
+    // type is lost, so a `on PlatformException catch (pe)` clause does not
+    // match — the wrapper escapes. Use a broad `catch (e)` and parse the
+    // PlatformException's `code` out of the wrapper's `toString()`. See
+    // interpreter_unfixable.md §U13 (2026-05-18).
+    String thrownTypeStd = 'NONE';
     String thrownCodeStd = code;
     try {
       std.decodeEnvelope(stdEnv);
       thrownTypeStd = 'NONE';
-    } on PlatformException catch (pe) {
-      thrownCodeStd = pe.code;
+    } catch (e) {
       thrownTypeStd = 'PlatformException';
+      final s = '$e';
+      final marker = 'PlatformException(';
+      final start = s.indexOf(marker);
+      if (start >= 0) {
+        final tail = s.substring(start + marker.length);
+        final comma = tail.indexOf(',');
+        thrownCodeStd = comma >= 0 ? tail.substring(0, comma) : code;
+      }
     }
-    String thrownTypeJson = 'PlatformException';
+    String thrownTypeJson = 'NONE';
     String thrownCodeJson = code;
     try {
       json.decodeEnvelope(jsonEnv);
       thrownTypeJson = 'NONE';
-    } on PlatformException catch (pe) {
-      thrownCodeJson = pe.code;
+    } catch (e) {
       thrownTypeJson = 'PlatformException';
+      final s = '$e';
+      final marker = 'PlatformException(';
+      final start = s.indexOf(marker);
+      if (start >= 0) {
+        final tail = s.substring(start + marker.length);
+        final comma = tail.indexOf(',');
+        thrownCodeJson = comma >= 0 ? tail.substring(0, comma) : code;
+      }
     }
 
     print(

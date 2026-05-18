@@ -86,7 +86,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed (no-op · resolved by earlier cluster work) |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☑ fixed (script · U1-variant) |
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (no-op · resolved by earlier U9 workaround) |
-| **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
+| **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (script · U13-new) |
 | **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
 | **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☐ |
 | **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
@@ -2846,11 +2846,39 @@ No script changes required for C52. Pairs with test-driver C53.
 
 #### C53 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (script · U13-new, 2026-05-18)
 
 | testID | Test name |
 |-------:|-----------|
 | 29 | services/ retest: services/method_codec_test.dart |
+
+**Resolution.** New `interpreter_unfixable.md` §U13 — native
+exceptions thrown across a bridged method are not catchable by
+their original type. The interpreter wraps any native throw into
+a `RuntimeError("Native error during bridged method call '…' on
+…: <exception.toString()>")`, discarding the original exception
+object. Section 6 of `retest/services/method_codec_test.dart`
+wraps two `decodeEnvelope(...)` calls in
+`on PlatformException catch (pe)` blocks expecting the native
+throw; the wrapper escaped those blocks because it is a
+`RuntimeError`, not a `PlatformException`.
+
+**Workaround applied** (script-side): replaced both
+`on PlatformException catch (pe)` clauses with broad
+`catch (e)` and recovered the exception code by string-parsing
+the wrapper's `'PlatformException(<code>, …)'` marker out of
+`'$e'`. Behaviour is preserved — the demo still reports
+`thrownType=PlatformException(<code>)` for both standard and
+JSON envelopes, and the row labels in the error-envelope cards
+match the original output.
+
+**Verification.** Both drivers green:
+- AST driver: `status=success`, `outputLines=39`,
+  `+1 All tests passed!` (`ztmp/c55/ast_after.log`).
+- Test driver: `status=success`, `outputLines=39`,
+  `+1 All tests passed!` (`ztmp/c55/test_after.log`).
+
+Pairs with test-driver C55.
 
 Representative error texts:
 
