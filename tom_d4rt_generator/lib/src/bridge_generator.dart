@@ -9559,12 +9559,32 @@ class BridgeGenerator {
     final isVoid = method.returnType == 'void';
     // GEN-092: Use dynamic dispatch when method has function-typed params
     // that reference class type parameters (avoids function type mismatch)
+    //
+    // Cluster C30 FIX: also use dynamic dispatch when the method has an
+    // optional positional function-typed param with a non-nullable
+    // declared type and no default value (legacy Dart syntax found in
+    // abstract method declarations such as
+    // `Decoration.createBoxPainter([VoidCallback onChanged])`). The
+    // generated wrapper for that param is `Raw == null ? null : (){...}`
+    // which evaluates to a nullable closure type — static dispatch
+    // against the non-nullable declared parameter type fails to
+    // compile. Concrete overrides redeclare the parameter as nullable
+    // (`[VoidCallback? onChanged]`), so dynamic dispatch reaches a
+    // compatible runtime signature.
+    final hasLegacyOptionalFuncParam = method.parameters.any((p) {
+      if (p.isNamed || p.isRequired) return false;
+      if (p.defaultValue != null) return false;
+      if (p.type.endsWith('?')) return false;
+      return p.functionTypeInfo != null ||
+          _isFunctionTypeName(p.type);
+    });
     final callTarget =
         _requiresDynamicMemberDispatch(method.name) ||
             _methodHasFunctionParamsReferencingClassTypeParams(
               method.parameters,
               cls.typeParameters,
-            )
+            ) ||
+            hasLegacyOptionalFuncParam
         ? '(t as dynamic)'
         : 't';
     if (useCombinatorial) {
@@ -10439,10 +10459,23 @@ class BridgeGenerator {
       }
 
       // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
+      //
+      // Cluster C30 FIX: optional positional function-typed parameters
+      // without a default value can be null at runtime even when the
+      // declared type is non-nullable (legacy Dart syntax used in
+      // abstract method declarations, e.g. Flutter's
+      // `Decoration.createBoxPainter([VoidCallback onChanged])`).
+      // Treat such parameters as nullable so the generated wrapper is
+      // null-guarded — otherwise the wrapper is always emitted as a
+      // non-null closure, and invoking it later with a null `Raw`
+      // value throws "Null check operator used on a null value" inside
+      // `D4.callInterpreterCallback`.
+      final wrapperIsNullable = isNullable ||
+          (!param.isRequired && param.defaultValue == null);
       final wrapperExpr = _generateFunctionWrapper(
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
-        isNullable: isNullable,
+        isNullable: wrapperIsNullable,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
