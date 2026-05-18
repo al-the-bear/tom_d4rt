@@ -91,7 +91,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C55** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (script · U13-new) |
 | **C56** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☑ fixed (script · U1-variant-2) |
 | **C57** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☑ fixed (script · U1-variant-2) |
-| **C58** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
+| **C58** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☑ fixed (script · script-bug) |
 | **C59** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 
 ## Hard Failures — File by File
@@ -3173,11 +3173,31 @@ Representative error texts:
 
 #### C58 — `A borderRadius can only be given on borders with uniform colors.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (2026-05-18) — script-only fix; both
+  drivers green.
 
 | testID | Test name |
 |-------:|-----------|
 | 33 | Section 1 - Tests with workarounds reverted retest: services/message_codec_test.dart |
+
+**Diagnosis.** Pure script bug. The `_SectionHeader` widget in
+`retest/services/message_codec_test.dart` (line 793) builds its
+section card with `BoxDecoration(borderRadius: BorderRadius.all(
+Radius.circular(10)), border: Border(left: BorderSide(color: accent,
+width: 5), top/right/bottom: BorderSide(color:
+accent.withValues(alpha: 0.1))))` — a coloured 5-px left accent bar
+with thin alpha-0.1 sides everywhere else. Flutter's invariant says
+`borderRadius` can only be given on a `Border` with uniform colors;
+this Border is intentionally non-uniform, so it asserts. The
+`_SectionHeader` is instantiated once per section (~7 times),
+producing one assertion per instance.
+
+**Fix.** Pure script-side: drop the `borderRadius` on the
+`_SectionHeader`'s `BoxDecoration`. The multi-coloured accent bar
+(the more important design element) stays; the corners become square,
+which is fine for a bridge-coverage test. No new interpreter pattern;
+the same `BoxDecoration` / `Border` / `BorderSide` bridges fire in
+both code paths. Logs: `ztmp/c58/{ast,test}_{before,after}.log`.
 
 #### C59 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
 
