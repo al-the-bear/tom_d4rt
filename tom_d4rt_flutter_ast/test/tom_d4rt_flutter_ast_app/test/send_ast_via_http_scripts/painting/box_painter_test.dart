@@ -599,7 +599,12 @@ dynamic build(BuildContext context) {
       ),
     ],
   );
-  final BoxPainter shapeDecoPainter = shapeDecoSample.createBoxPainter();
+  // Cluster C30: ShapeDecoration.createBoxPainter dereferences `onChanged!`
+  // unconditionally in Flutter's SDK (shape_decoration.dart L286), so a
+  // null callback throws "Null check operator used on a null value"
+  // immediately when constructing _ShapeDecorationPainter. Pass an empty
+  // callback to satisfy the SDK contract.
+  final BoxPainter shapeDecoPainter = shapeDecoSample.createBoxPainter(() {});
   print('shapeDecoPainter runtimeType=${shapeDecoPainter.runtimeType}');
 
   // 6c. FlutterLogoDecoration painter
