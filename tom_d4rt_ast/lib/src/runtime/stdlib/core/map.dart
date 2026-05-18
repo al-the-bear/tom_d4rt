@@ -11,6 +11,14 @@ class MapCore {
       '_CompactLinkedHashMap',
       'ListMapView', // List.asMap() return type
       '_MapView', // Internal MapView implementation
+      // C43: SDK runtime type for `const {}` literals and the value
+      // returned by `SemanticsEvent.getDataMap()` on events whose
+      // payload is empty (e.g. TapSemanticEvent / LongPressSemanticsEvent
+      // / FocusSemanticEvent). Without this entry, `_ConstMap<K, V>`
+      // bypasses the Map bridge and `.isEmpty` / `.keys` / `.length`
+      // raise "Cannot access property 'X' on target of type
+      // _ConstMap<...>".
+      '_ConstMap',
     ],
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {

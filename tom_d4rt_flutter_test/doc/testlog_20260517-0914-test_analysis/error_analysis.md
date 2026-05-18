@@ -76,7 +76,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts \|\| Bad state: Transport f` | ☐ |
 | **C41** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
 | **C42** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
-| **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☐ |
+| **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
@@ -2411,11 +2411,59 @@ interpreter limitation — same posture as C41).
 
 #### C43 — `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 117 | semantics/ tap_semantic_event_test.dart |
+
+**Root cause.** Same `_ConstMap` runtime-type gap previously
+worked around at the script level for C18: Dart's SDK uses the
+private `_ConstMap<K, V>` runtime class as the concrete type of
+`const {}` literals, and `SemanticsEvent.getDataMap()` returns
+that same `_ConstMap` instance when the event's payload is empty
+(`TapSemanticEvent`, `LongPressSemanticsEvent`,
+`FocusSemanticEvent`). The interpreter's
+`Environment.toBridgedClass` strips a single leading underscore
+and then uses `_longestNativeNamePrefixMatch` against each
+`BridgedClass.nativeNames` to dispatch private SDK impl types to
+their public bridges — but `_ConstMap` was not in the Map
+bridge's `nativeNames` registry, so `tapMap.isEmpty` /
+`tapMap.keys` / `tapMap.length` raised "Cannot access property
+'X' on target of type _ConstMap<...>".
+
+**Fix.** Added `'_ConstMap'` to the Map `BridgedClass.nativeNames`
+list in both interpreter copies so `_ConstMap` instances dispatch
+through the regular Map bridge. With the bridge entry in place,
+the script's `tapMap.isEmpty` / `tapMap.keys` calls route through
+`MapCore.getters['isEmpty']` etc. without any per-script
+workaround:
+
+- `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart`
+- `tom_d4rt/lib/src/stdlib/core/map.dart`
+
+This subsumes the C18 workaround posture — future scripts hitting
+`_ConstMap` no longer need defensive `Map.from(...)` copies.
+
+**Verification.**
+
+- Reproduction (AST driver, pre-fix): "Cannot access property
+  'isEmpty' on target of type _ConstMap<String, dynamic>" —
+  `ztmp/c43/ast_before.log`
+- C43 script post-fix:
+  - AST: `01:04 +1: All tests passed!` — `ztmp/c43/ast_after.log`
+  - analyzer: `01:00 +1: All tests passed!` — `ztmp/c43/test_after.log`
+- Rule (b) regression on AST driver (interpreter change):
+  - essential `04:01 +108` — `ztmp/c43/ast_essential.log`
+  - important `06:13 +164` — `ztmp/c43/ast_important.log`
+  - secondary `30:15 +653 ~1` — `ztmp/c43/ast_secondary.log`
+- Rule (b) regression on analyzer driver:
+  - essential `04:01 +108` — `ztmp/c43/test_essential.log`
+  - important `05:33 +164` — `ztmp/c43/test_important.log`
+  - secondary `28:54 +653 ~1` — `ztmp/c43/test_secondary.log`
+
+No `interpreter_unfixable.md` entry — this fix repairs the
+limitation rather than working around it.
 
 #### C44 — `Runtime Error: Undefined variable: KeyDataTransitMode`
 

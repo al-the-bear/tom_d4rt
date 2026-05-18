@@ -75,7 +75,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C39** | `hardly_relevant_classes_1_test.dart` | 1 | `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts \|\| Bad state: Transport f` | ☐ |
 | **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
 | **C41** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
-| **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☐ |
+| **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
@@ -2351,7 +2351,38 @@ framework assertion, no `interpreter_unfixable.md` entry needed.
 
 #### C42 — `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **interpreter fix** (AST driver C42 ≡
+  test driver C43). Added `'_ConstMap'` to the Map bridge's
+  `nativeNames` list so the SDK's private `_ConstMap<K, V>`
+  runtime class (used for `const {}` literals and the value
+  returned by `SemanticsEvent.getDataMap()` on empty payloads)
+  dispatches through the regular Map bridge. The interpreter's
+  `Environment.toBridgedClass` uses
+  `_longestNativeNamePrefixMatch` against each bridge's
+  `nativeNames` to route private SDK impl types; with this entry
+  in place, `tapMap.isEmpty` / `.keys` / `.length` route through
+  `MapCore.getters` without per-script defensive copies.
+  Subsumes the C18 script workaround posture. Mirrored in both
+  interpreter copies:
+  - `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart`
+  - `tom_d4rt/lib/src/stdlib/core/map.dart`
+
+  Verification — C43 script post-fix:
+  - AST `01:04 +1` (`ztmp/c43/ast_after.log`)
+  - analyzer `01:00 +1` (`ztmp/c43/test_after.log`)
+
+  Rule (b) regression on AST driver (interpreter change):
+  - essential `04:01 +108` — `ztmp/c43/ast_essential.log`
+  - important `06:13 +164` — `ztmp/c43/ast_important.log`
+  - secondary `30:15 +653 ~1` — `ztmp/c43/ast_secondary.log`
+
+  Rule (b) regression on analyzer driver:
+  - essential `04:01 +108` — `ztmp/c43/test_essential.log`
+  - important `05:33 +164` — `ztmp/c43/test_important.log`
+  - secondary `28:54 +653 ~1` — `ztmp/c43/test_secondary.log`
+
+  No `interpreter_unfixable.md` entry — fix repairs the
+  limitation rather than working around it.
 
 | testID | Test name |
 |-------:|-----------|
