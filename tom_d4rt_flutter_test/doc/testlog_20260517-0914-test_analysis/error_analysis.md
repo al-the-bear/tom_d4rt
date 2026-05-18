@@ -77,7 +77,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C41** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
 | **C42** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
-| **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
+| **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
@@ -2467,11 +2467,61 @@ limitation rather than working around it.
 
 #### C44 — `Runtime Error: Undefined variable: KeyDataTransitMode`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 147 | services/ key_data_transit_mode_test.dart |
+
+**Root cause.** `KeyDataTransitMode` is annotated
+`@Deprecated('No longer supported. Transit mode is always key
+data only. This feature was deprecated after v3.18.0-2.0.pre.')`
+at `flutter/lib/src/services/hardware_keyboard.dart:725`. The
+bridge generator
+(`tom_d4rt_generator/lib/src/element_mode_extractor.dart`)
+sets `generateDeprecatedElements = false` by default and
+calls `_hasDeprecatedAnnotation` on every enum/class/member
+candidate, skipping any that carry `@Deprecated`. So the SDK
+enum is exported by `package:flutter/services.dart` but never
+registered as a `BridgedEnumDefinition` — `KeyDataTransitMode`
+name resolution falls through to "Undefined variable" at the
+first use site.
+
+**Fix.** Script-side. The demo's premise is to document the
+*shape* of the deprecated enum, so retiring the enum would
+gut the demo. Instead, declared a private local stand-in
+`enum _KeyDataTransitMode { rawKeyData, keyDataThenRawKeyData }`
+at the top of
+`services/key_data_transit_mode_test.dart`, then replaced
+every code-level `KeyDataTransitMode` reference (type
+annotations, `.values`, `.values.firstWhere`,
+`.values.map`, parameter types, field types — 11 code sites
+across lines 415/432/433/445/446/461/543-545/583-585/633/1221/1412)
+with `_KeyDataTransitMode`. All in-string mentions
+(`title: 'KeyDataTransitMode Deep Demo'`, code-shape strings,
+recap card text, ASCII banner) remain unchanged so the demo
+still documents the (former) SDK API. Added a
+`D4RT-LIMITATION (C44)` block to the file header explaining
+the bridge-generator policy.
+
+**Verification.**
+
+- Pre-fix reproduction (AST driver): "Undefined variable:
+  KeyDataTransitMode" — `ztmp/c44/ast_before.log`
+- AST driver: `00:15 +1: All tests passed!` —
+  `ztmp/c44/ast_after.log`
+- analyzer driver: `00:11 +1: All tests passed!` —
+  `ztmp/c44/test_after.log`
+
+Test-script-only change → rule (a) individual retest
+sufficient; no regression suite needed.
+
+**Interpreter catalogue.** Added as **U12 —
+`@Deprecated`-annotated SDK symbols are filtered out of the
+bridge surface by design (generator policy)** in
+`interpreter_unfixable.md`. Same workaround pattern is
+expected for the remaining "Undefined variable:
+<DeprecatedSymbol>" clusters C45/C49/C50.
 
 #### C45 — `Runtime Error: Undefined variable: KeyboardSide`
 

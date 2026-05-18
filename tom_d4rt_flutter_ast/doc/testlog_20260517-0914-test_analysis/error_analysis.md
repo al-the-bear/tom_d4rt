@@ -76,7 +76,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
 | **C41** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
 | **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
-| **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
+| **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
@@ -2390,7 +2390,35 @@ framework assertion, no `interpreter_unfixable.md` entry needed.
 
 #### C43 — `Runtime Error: Undefined variable: KeyDataTransitMode`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **script-side stand-in** (AST
+  driver C43 ≡ test driver C44). `KeyDataTransitMode` is
+  annotated `@Deprecated('No longer supported. Transit mode is
+  always key data only.')` at
+  `flutter/lib/src/services/hardware_keyboard.dart:725`, and
+  the bridge generator's
+  `ElementModeExtractor.generateDeprecatedElements = false`
+  policy filters every `@Deprecated`-tagged element out of the
+  bridge surface by design (see U12 in
+  `interpreter_unfixable.md`). The demo's premise is to
+  document the enum's shape, so retiring it would gut the
+  visual content. Workaround: declared a private local
+  `enum _KeyDataTransitMode { rawKeyData, keyDataThenRawKeyData }`
+  at the top of the script and replaced the 11 code-level
+  `KeyDataTransitMode` references (type annotations, `.values`,
+  `.values.firstWhere`, `.values.map`, parameter and field
+  types) with `_KeyDataTransitMode`. All in-string mentions
+  remain so the demo still documents the (former) SDK surface.
+  Added a `D4RT-LIMITATION (C44)` block to the file header.
+
+  Verification:
+  - AST driver: `00:15 +1: All tests passed!` — `ztmp/c44/ast_after.log`
+  - analyzer driver: `00:11 +1: All tests passed!` — `ztmp/c44/test_after.log`
+
+  Test-script-only change → rule (a) individual retest
+  sufficient. Same workaround pattern is expected for C44
+  (`KeyboardSide`), C49 (`RawKeyEventDataWeb`), C50
+  (`RawKeyEventDataLinux`) on this driver (C45/C49/C50 on test
+  driver), if those symbols are also `@Deprecated`.
 
 | testID | Test name |
 |-------:|-----------|

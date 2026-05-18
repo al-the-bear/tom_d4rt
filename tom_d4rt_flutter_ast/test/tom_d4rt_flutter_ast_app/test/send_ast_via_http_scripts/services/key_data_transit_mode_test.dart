@@ -24,12 +24,33 @@
 // exported from `package:flutter/services.dart` so this file imports it
 // directly (the file-level `deprecated_member_use` ignore covers the warning).
 //
+// D4RT-LIMITATION (C44): the d4rt bridge generator filters out symbols
+// annotated `@Deprecated` by design (`generateDeprecatedElements = false`),
+// so `KeyDataTransitMode` is not exposed to interpreted scripts — every
+// `KeyDataTransitMode.values` / type-annotation access raised "Undefined
+// variable: KeyDataTransitMode" under d4rt. To preserve the visual demo
+// without resurrecting deprecated symbols on the bridge surface, this
+// script declares a private `_KeyDataTransitMode` enum that mirrors the
+// SDK enum's shape (same value names: `rawKeyData`, `keyDataThenRawKeyData`)
+// and exercises that local stand-in for the demo's typed lookups. All
+// human-readable copy continues to mention `KeyDataTransitMode` by name so
+// the demo still documents the (former) SDK API surface.
+//
 // This file is hand-authored static visual content.  There are no tests, no
 // `main()`, and no animation tickers — every animation uses
 // `AlwaysStoppedAnimation<double>` and `Duration.zero` so the layout is
 // completely deterministic for the AST-roundtrip corpus.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Local stand-in for the deprecated `KeyDataTransitMode` enum that the
+// bridge generator filters out (see D4RT-LIMITATION note above). Same
+// value names and ordering as the SDK enum so all demo copy referencing
+// `.name` / `.index` stays accurate.
+enum _KeyDataTransitMode {
+  rawKeyData,
+  keyDataThenRawKeyData,
+}
 
 // ---------------------------------------------------------------------------
 // Public entry point.
@@ -391,7 +412,7 @@ class _AnatomyArrow extends StatelessWidget {
 // ===========================================================================
 Widget _buildEnumValuesRow() {
   // Iterate the actual enum so that if the SDK adds a value the demo notices.
-  final List<KeyDataTransitMode> values = KeyDataTransitMode.values;
+  final List<_KeyDataTransitMode> values = _KeyDataTransitMode.values;
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -408,8 +429,8 @@ Widget _buildEnumValuesRow() {
           Expanded(
             child: _enumValueTile(
               mode: values.firstWhere(
-                (KeyDataTransitMode m) => m.name == 'rawKeyData',
-                orElse: () => KeyDataTransitMode.values.first,
+                (_KeyDataTransitMode m) => m.name == 'rawKeyData',
+                orElse: () => _KeyDataTransitMode.values.first,
               ),
               accent: const Color(0xFFB91C1C),
               accentSoft: const Color(0xFFFEE2E2),
@@ -421,8 +442,8 @@ Widget _buildEnumValuesRow() {
           Expanded(
             child: _enumValueTile(
               mode: values.firstWhere(
-                (KeyDataTransitMode m) => m.name == 'keyDataThenRawKeyData',
-                orElse: () => KeyDataTransitMode.values.last,
+                (_KeyDataTransitMode m) => m.name == 'keyDataThenRawKeyData',
+                orElse: () => _KeyDataTransitMode.values.last,
               ),
               accent: const Color(0xFF1D4ED8),
               accentSoft: const Color(0xFFDBEAFE),
@@ -437,7 +458,7 @@ Widget _buildEnumValuesRow() {
 }
 
 Widget _enumValueTile({
-  required KeyDataTransitMode mode,
+  required _KeyDataTransitMode mode,
   required Color accent,
   required Color accentSoft,
   required IconData icon,
@@ -519,9 +540,9 @@ Widget _enumValueTile({
 // SECTION 4 — Per-value deep dive: rawKeyData
 // ===========================================================================
 Widget _buildRawKeyDataCard() {
-  final KeyDataTransitMode mode = KeyDataTransitMode.values.firstWhere(
-    (KeyDataTransitMode m) => m.name == 'rawKeyData',
-    orElse: () => KeyDataTransitMode.values.first,
+  final _KeyDataTransitMode mode = _KeyDataTransitMode.values.firstWhere(
+    (_KeyDataTransitMode m) => m.name == 'rawKeyData',
+    orElse: () => _KeyDataTransitMode.values.first,
   );
   const Color accent = Color(0xFFB91C1C);
   const Color soft = Color(0xFFFEE2E2);
@@ -559,9 +580,9 @@ Widget _buildRawKeyDataCard() {
 // SECTION 5 — Per-value deep dive: keyDataThenRawKeyData
 // ===========================================================================
 Widget _buildKeyDataThenRawKeyDataCard() {
-  final KeyDataTransitMode mode = KeyDataTransitMode.values.firstWhere(
-    (KeyDataTransitMode m) => m.name == 'keyDataThenRawKeyData',
-    orElse: () => KeyDataTransitMode.values.last,
+  final _KeyDataTransitMode mode = _KeyDataTransitMode.values.firstWhere(
+    (_KeyDataTransitMode m) => m.name == 'keyDataThenRawKeyData',
+    orElse: () => _KeyDataTransitMode.values.last,
   );
   const Color accent = Color(0xFF1D4ED8);
   const Color soft = Color(0xFFDBEAFE);
@@ -609,7 +630,7 @@ class _PerValueCard extends StatelessWidget {
     required this.snippet,
   });
 
-  final KeyDataTransitMode mode;
+  final _KeyDataTransitMode mode;
   final Color accent;
   final Color soft;
   final IconData headerIcon;
@@ -1197,7 +1218,7 @@ Widget _pitfallRow(String headline, String body) {
 // SECTION 8 — Comparison table
 // ===========================================================================
 Widget _buildComparisonTable() {
-  final List<KeyDataTransitMode> values = KeyDataTransitMode.values;
+  final List<_KeyDataTransitMode> values = _KeyDataTransitMode.values;
 
   final List<List<String>> rows = <List<String>>[
     <String>['Channel(s) used', 'Method channel only', 'ui.KeyData + method channel'],
@@ -1388,7 +1409,7 @@ Widget _buildQuickReference() {
         _quickRow('Library', 'package:flutter/services.dart'),
         _quickRow('Source path', 'src/services/hardware_keyboard.dart'),
         _quickRow('Kind', 'enum (deprecated)'),
-        _quickRow('Values', KeyDataTransitMode.values.map((KeyDataTransitMode m) => m.name).join(', ')),
+        _quickRow('Values', _KeyDataTransitMode.values.map((_KeyDataTransitMode m) => m.name).join(', ')),
         _quickRow('Used by', 'KeyEventManager._transitMode'),
         _quickRow('Dispatched on', 'HardwareKeyboard, RawKeyboard, KeyMessage'),
         _quickRow('Replacement', 'HardwareKeyboard / Focus.onKeyEvent'),
