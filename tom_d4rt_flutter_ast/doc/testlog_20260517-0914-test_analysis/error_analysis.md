@@ -2255,11 +2255,40 @@ addressing it at the interpreter level. Logs in `ztmp/c40/`.
 
 #### C40 — `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 194 | gestures/ pointer_exit_event_test.dart |
+
+**Root cause.** Genuine script bug — not interpreter-related.
+Section 3 device-kind gallery constructed
+`PointerExitEvent(kind: PointerDeviceKind.trackpad, ...)`, which
+violates the Flutter framework assert
+`!identical(kind, PointerDeviceKind.trackpad)` at
+`events.dart:1387`. Trackpad-hover *exits* route through the
+mouse pathway with `kind: PointerDeviceKind.mouse`; trackpad
+pan/zoom uses `PointerPanZoom*` events. (Test driver C41 ≡ AST
+driver C40.)
+
+**Fix.** Script-side. Changed `eTrackpad` to
+`kind: PointerDeviceKind.mouse` so it honours the framework
+assert, updated the trackpad card's label to
+`"trackpad (mouse-routed)"` and rewrote its narrative to
+reference the assert site + the `PointerPanZoom*` family. The
+6-card gallery layout is preserved. No
+`interpreter_unfixable.md` entry — the underlying issue is a
+Flutter framework assertion that scripts must respect.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:16 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:15 +1: All tests passed!` |
+
+(1 cosmetic `RenderFlex overflowed by 4986 pixels` warning is
+pre-existing layout noise.) Logs in `ztmp/c41/`.
 
 Representative error texts:
 

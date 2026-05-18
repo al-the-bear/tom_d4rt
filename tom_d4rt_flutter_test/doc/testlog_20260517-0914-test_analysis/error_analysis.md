@@ -2284,11 +2284,52 @@ Logs in `ztmp/c40/`.
 
 #### C41 — `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 194 | gestures/ pointer_exit_event_test.dart |
+
+**Root cause.** Genuine script bug — not an interpreter or
+bridge limitation. The Section 3 device-kind gallery
+constructed a `PointerExitEvent(kind: PointerDeviceKind.trackpad,
+...)`, which violates Flutter's
+`!identical(kind, PointerDeviceKind.trackpad)` debug assert at
+`events.dart:1387`. The framework reserves the trackpad kind for
+the `PointerPanZoom*` event family; trackpad-hover *exits*
+route through the mouse pathway and arrive with
+`kind: PointerDeviceKind.mouse`. The original script author
+appears to have assumed the gallery could enumerate all six
+`PointerDeviceKind` values uniformly through `PointerExitEvent`,
+which the framework does not allow.
+
+**Fix (script-side).** Changed the `eTrackpad` construction to
+`kind: PointerDeviceKind.mouse` so it honours the framework
+assert, and updated the trackpad card's label to
+`"trackpad (mouse-routed)"` plus its narrative to explain the
+framework constraint (assert site + mention that pan/zoom uses
+`PointerPanZoom*` events instead). The 6-card gallery shape is
+preserved; only the substantive content of the trackpad card
+now matches Flutter's actual model. Added an in-code comment
+at the construction site referencing the assert.
+
+The change lives entirely in the test script — no interpreter
+or bridge edits — so it is a rule-(a) change and individual
+retest is sufficient. No `interpreter_unfixable.md` entry: the
+underlying issue is a Flutter framework assertion that the
+script must respect, not a d4rt limitation.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:16 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:15 +1: All tests passed!` |
+
+(1 pre-existing cosmetic `RenderFlex overflowed by 4986 pixels`
+framework warning is a layout-cascade issue unrelated to C41 —
+the long narrative panels overflow the off-screen render box;
+not a test failure.) Logs in `ztmp/c41/`.
 
 Representative error texts:
 

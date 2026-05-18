@@ -622,10 +622,20 @@ Widget buildSection3Gallery() {
     position: Offset(160, 30),
     delta: Offset(-2, 2),
   );
+  // Framework constraint: `PointerExitEvent` asserts
+  // `!identical(kind, PointerDeviceKind.trackpad)` at
+  // events.dart:1387 — trackpad-pan gestures route through the
+  // `PointerPanZoom*` event family instead. Single-finger trackpad
+  // *hover* exits do reach `MouseRegion.onExit`, but they arrive
+  // as `kind: PointerDeviceKind.mouse` (the trackpad emulates a
+  // mouse for hover purposes). The card label is kept as
+  // "trackpad" so the gallery still illustrates the six device
+  // categories Flutter cares about, but the constructed event
+  // honours the framework assert by using `kind: mouse`.
   final PointerExitEvent eTrackpad = PointerExitEvent(
     timeStamp: Duration(milliseconds: 5000),
     pointer: 15,
-    kind: PointerDeviceKind.trackpad,
+    kind: PointerDeviceKind.mouse,
     device: 5,
     position: Offset(200, 110),
     delta: Offset(1, -1),
@@ -732,13 +742,17 @@ Widget buildSection3Gallery() {
             ),
             _kindCard(
               event: eTrackpad,
-              label: 'trackpad',
+              label: 'trackpad (mouse-routed)',
               icon: Icons.swipe,
               accent: kSignalCyan,
               shadowAccent: kSignalCyan,
               narrative:
-                  'A trackpad gesture pointer leaves the region. Behaves '
-                  'like mouse hover for exit purposes.',
+                  'A trackpad hover-exit routes through the mouse '
+                  'pathway and arrives with kind=mouse — Flutter '
+                  'asserts !identical(kind, trackpad) on '
+                  'PointerExitEvent (events.dart:1387). Trackpad '
+                  'pan/zoom gestures use PointerPanZoom* events '
+                  'instead, not the exit family.',
             ),
             _kindCard(
               event: eUnknown,
