@@ -9,10 +9,47 @@
 // of every value, the underlying mock keyboard layout, the shortcut tables you
 // might wire it into, and the desktop / web pitfalls you should keep in mind
 // when porting code that depends on side-aware modifiers.
+//
+// D4RT-LIMITATION (C45): both `KeyboardSide`
+// (`flutter/lib/src/services/raw_keyboard.dart:44`) and `ModifierKey`
+// (`raw_keyboard.dart:72`) are annotated `@Deprecated('No longer
+// supported. ... This feature was deprecated after v3.18.0-2.0.pre.')`.
+// The d4rt bridge generator filters every `@Deprecated`-annotated
+// element out of the bridge surface by design
+// (`ElementModeExtractor.generateDeprecatedElements = false`), so
+// these two SDK enums are not registered as `BridgedEnumDefinition`
+// even though they are still exported by
+// `package:flutter/services.dart`. Same posture as U12 in
+// `interpreter_unfixable.md`. To preserve the visual demo without
+// resurrecting deprecated symbols on the bridge surface, this script
+// declares private `_KeyboardSide` and `_ModifierKey` stand-in enums
+// that mirror the SDK enums' shape (same value names and ordering)
+// and exercises those local stand-ins for typed lookups. All
+// human-readable copy continues to mention the SDK names so the demo
+// still documents the (former) framework surface.
 // ---------------------------------------------------------------------------
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Local stand-ins for the deprecated `KeyboardSide` and `ModifierKey`
+// SDK enums (see D4RT-LIMITATION note above). Same value names and
+// ordering as `raw_keyboard.dart:44` (KeyboardSide) and
+// `raw_keyboard.dart:72` (ModifierKey) so all `.name` / `.index` /
+// `.values.length` copy stays accurate.
+enum _KeyboardSide { any, left, right, all }
+
+enum _ModifierKey {
+  controlModifier,
+  shiftModifier,
+  altModifier,
+  metaModifier,
+  capsLockModifier,
+  numLockModifier,
+  scrollLockModifier,
+  functionModifier,
+  symbolModifier,
+}
 
 // ===========================================================================
 // SPEC: every KeyboardSide value carries a tightly bundled set of metadata so
@@ -36,7 +73,7 @@ class _SideSpec {
     required this.gotcha,
   });
 
-  final KeyboardSide side;
+  final _KeyboardSide side;
   final String label;
   final String headline;
   final String tagline;
@@ -56,7 +93,7 @@ class _SideSpec {
 // future SDK change immediately surfaces here instead of silently drifting.
 const List<_SideSpec> _sideSpecs = <_SideSpec>[
   _SideSpec(
-    side: KeyboardSide.any,
+    side: _KeyboardSide.any,
     label: 'any',
     headline: 'EITHER SIDE WILL DO',
     tagline: 'Match left, right, or both — the default for most APIs.',
@@ -78,7 +115,7 @@ const List<_SideSpec> _sideSpecs = <_SideSpec>[
         'right modifiers you must NOT use `any`.',
   ),
   _SideSpec(
-    side: KeyboardSide.left,
+    side: _KeyboardSide.left,
     label: 'left',
     headline: 'LEFT MODIFIER ONLY',
     tagline: 'Match only the LEFT-hand version of the key.',
@@ -101,7 +138,7 @@ const List<_SideSpec> _sideSpecs = <_SideSpec>[
         'platforms that lack side information.',
   ),
   _SideSpec(
-    side: KeyboardSide.right,
+    side: _KeyboardSide.right,
     label: 'right',
     headline: 'RIGHT MODIFIER ONLY',
     tagline: 'Match only the RIGHT-hand version of the key.',
@@ -124,7 +161,7 @@ const List<_SideSpec> _sideSpecs = <_SideSpec>[
         'never rely on it for primary actions.',
   ),
   _SideSpec(
-    side: KeyboardSide.all,
+    side: _KeyboardSide.all,
     label: 'all',
     headline: 'BOTH SIDES TOGETHER',
     tagline: 'Match only when LEFT *and* RIGHT are pressed simultaneously.',
@@ -156,7 +193,7 @@ const List<_SideSpec> _sideSpecs = <_SideSpec>[
 class _Key {
   const _Key(this.label, {this.side, this.isModifier = false, this.flex = 1});
   final String label;
-  final KeyboardSide? side;
+  final _KeyboardSide? side;
   final bool isModifier;
   final int flex;
 }
@@ -192,7 +229,7 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
   ],
   <_Key>[
     _Key('L-Shift',
-        side: KeyboardSide.left, isModifier: true, flex: 2),
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('Z'),
     _Key('X'),
     _Key('C'),
@@ -203,22 +240,22 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
     _Key(','),
     _Key('.'),
     _Key('R-Shift',
-        side: KeyboardSide.right, isModifier: true, flex: 2),
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
   ],
   <_Key>[
     _Key('L-Ctrl',
-        side: KeyboardSide.left, isModifier: true, flex: 2),
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('L-Meta',
-        side: KeyboardSide.left, isModifier: true, flex: 2),
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('L-Alt',
-        side: KeyboardSide.left, isModifier: true, flex: 2),
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('Space', flex: 6),
     _Key('R-Alt',
-        side: KeyboardSide.right, isModifier: true, flex: 2),
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
     _Key('R-Meta',
-        side: KeyboardSide.right, isModifier: true, flex: 2),
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
     _Key('R-Ctrl',
-        side: KeyboardSide.right, isModifier: true, flex: 2),
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
   ],
 ];
 
@@ -228,18 +265,18 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
 //   left  -> only the left-hand modifiers.
 //   right -> only the right-hand modifiers.
 //   all   -> light up both sides simultaneously (drawn with a pulse outline).
-bool _isHighlighted(_Key key, KeyboardSide side) {
+bool _isHighlighted(_Key key, _KeyboardSide side) {
   if (!key.isModifier) {
     return false;
   }
   switch (side) {
-    case KeyboardSide.any:
+    case _KeyboardSide.any:
       return true;
-    case KeyboardSide.left:
-      return key.side == KeyboardSide.left;
-    case KeyboardSide.right:
-      return key.side == KeyboardSide.right;
-    case KeyboardSide.all:
+    case _KeyboardSide.left:
+      return key.side == _KeyboardSide.left;
+    case _KeyboardSide.right:
+      return key.side == _KeyboardSide.right;
+    case _KeyboardSide.all:
       return true;
   }
 }
@@ -380,12 +417,12 @@ dynamic build(BuildContext context) {
   // expected ordering. The count is asserted at runtime — if a Flutter SDK
   // upgrade ever changes the enum cardinality the demo will surface here.
   // -------------------------------------------------------------------------
-  for (final KeyboardSide value in KeyboardSide.values) {
+  for (final _KeyboardSide value in _KeyboardSide.values) {
     print('  KeyboardSide.${value.name} (index ${value.index})');
   }
-  print('Total values: ${KeyboardSide.values.length}');
+  print('Total values: ${_KeyboardSide.values.length}');
   // The SDK currently exposes 4 values: any, left, right, all.
-  assert(KeyboardSide.values.length == 4,
+  assert(_KeyboardSide.values.length == 4,
       'KeyboardSide is expected to expose 4 values.');
 
   // Frozen "progress" used by every progress-bar in the demo so we satisfy
@@ -548,7 +585,7 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: <Widget>[
-            for (final KeyboardSide v in KeyboardSide.values)
+            for (final _KeyboardSide v in _KeyboardSide.values)
               Container(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 6.0),
@@ -928,46 +965,46 @@ dynamic build(BuildContext context) {
   // matrix where each cell carries a tiny chord glyph (e.g. "L-Ctrl + R-Alt"
   // for ModifierKey.controlModifier × KeyboardSide.all is left+right Ctrl).
   // =========================================================================
-  const List<ModifierKey> modifierKeys = <ModifierKey>[
-    ModifierKey.shiftModifier,
-    ModifierKey.controlModifier,
-    ModifierKey.altModifier,
-    ModifierKey.metaModifier,
+  const List<_ModifierKey> modifierKeys = <_ModifierKey>[
+    _ModifierKey.shiftModifier,
+    _ModifierKey.controlModifier,
+    _ModifierKey.altModifier,
+    _ModifierKey.metaModifier,
   ];
 
-  String modifierGlyph(ModifierKey key) {
+  String modifierGlyph(_ModifierKey key) {
     switch (key) {
-      case ModifierKey.shiftModifier:
+      case _ModifierKey.shiftModifier:
         return '⇧';
-      case ModifierKey.controlModifier:
+      case _ModifierKey.controlModifier:
         return '⌃';
-      case ModifierKey.altModifier:
+      case _ModifierKey.altModifier:
         return '⌥';
-      case ModifierKey.metaModifier:
+      case _ModifierKey.metaModifier:
         return '⌘';
-      case ModifierKey.capsLockModifier:
+      case _ModifierKey.capsLockModifier:
         return '⇪';
-      case ModifierKey.numLockModifier:
+      case _ModifierKey.numLockModifier:
         return '#';
-      case ModifierKey.scrollLockModifier:
+      case _ModifierKey.scrollLockModifier:
         return '↧';
-      case ModifierKey.functionModifier:
+      case _ModifierKey.functionModifier:
         return 'fn';
-      case ModifierKey.symbolModifier:
+      case _ModifierKey.symbolModifier:
         return 'sy';
     }
   }
 
-  String chord(ModifierKey key, KeyboardSide side) {
+  String chord(_ModifierKey key, _KeyboardSide side) {
     final String g = modifierGlyph(key);
     switch (side) {
-      case KeyboardSide.any:
+      case _KeyboardSide.any:
         return g;
-      case KeyboardSide.left:
+      case _KeyboardSide.left:
         return 'L-$g';
-      case KeyboardSide.right:
+      case _KeyboardSide.right:
         return 'R-$g';
-      case KeyboardSide.all:
+      case _KeyboardSide.all:
         return 'L-$g + R-$g';
     }
   }
@@ -995,7 +1032,7 @@ dynamic build(BuildContext context) {
         Row(
           children: <Widget>[
             const SizedBox(width: 110.0),
-            for (final KeyboardSide side in KeyboardSide.values)
+            for (final _KeyboardSide side in _KeyboardSide.values)
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -1014,7 +1051,7 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 6.0),
-        for (final ModifierKey key in modifierKeys)
+        for (final _ModifierKey key in modifierKeys)
           Container(
             margin: const EdgeInsets.symmetric(vertical: 3.0),
             padding:
@@ -1034,7 +1071,7 @@ dynamic build(BuildContext context) {
                         weight: FontWeight.w700),
                   ),
                 ),
-                for (final KeyboardSide side in KeyboardSide.values)
+                for (final _KeyboardSide side in _KeyboardSide.values)
                   Expanded(
                     child: Center(
                       child: Container(
@@ -1255,7 +1292,7 @@ dynamic build(BuildContext context) {
           '|  right ::             matches R                        |\n'
           '|  all   ::                          matches L+R         |\n'
           '|                                                        |\n'
-          '|  -- emitted ${KeyboardSide.values.length} values, '
+          '|  -- emitted ${_KeyboardSide.values.length} values, '
           '${_sideSpecs.length} cards, '
           '${_mockKeyboard.length} keyboard rows --      |\n'
           '+--------------------------------------------------------+',
@@ -1436,15 +1473,15 @@ Widget _keyCap(_Key k, _SideSpec spec, bool highlighted) {
 }
 
 // Returns a short legend describing what is currently lit up.
-String _keyboardLegend(KeyboardSide side) {
+String _keyboardLegend(_KeyboardSide side) {
   switch (side) {
-    case KeyboardSide.any:
+    case _KeyboardSide.any:
       return '// any → every modifier glows; the predicate fires on either side.';
-    case KeyboardSide.left:
+    case _KeyboardSide.left:
       return '// left → only the four left-hand modifiers glow.';
-    case KeyboardSide.right:
+    case _KeyboardSide.right:
       return '// right → only the four right-hand modifiers glow.';
-    case KeyboardSide.all:
+    case _KeyboardSide.all:
       return '// all → every modifier glows, but the chord requires both at once.';
   }
 }
@@ -1630,15 +1667,15 @@ class _ShortcutCase {
 
   // Returns true when this event would be matched by `isModifierPressed` with
   // the given KeyboardSide. Mirrors the SDK's documented semantics.
-  bool matches(KeyboardSide side) {
+  bool matches(_KeyboardSide side) {
     switch (side) {
-      case KeyboardSide.any:
+      case _KeyboardSide.any:
         return leftPressed || rightPressed;
-      case KeyboardSide.left:
+      case _KeyboardSide.left:
         return leftPressed && !rightPressed;
-      case KeyboardSide.right:
+      case _KeyboardSide.right:
         return rightPressed && !leftPressed;
-      case KeyboardSide.all:
+      case _KeyboardSide.all:
         return leftPressed && rightPressed;
     }
   }

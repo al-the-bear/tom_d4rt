@@ -78,7 +78,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C42** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
-| **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
+| **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☑ fixed (script) |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
@@ -2525,11 +2525,60 @@ expected for the remaining "Undefined variable:
 
 #### C45 — `Runtime Error: Undefined variable: KeyboardSide`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 157 | services/ keyboard_side_test.dart |
+
+**Root cause.** `KeyboardSide` is annotated `@Deprecated('Use
+KeyEvent and HardwareKeyboard instead. This feature was
+deprecated after v3.18.0-2.0.pre.')` at
+`flutter/lib/src/services/raw_keyboard.dart:40-44`. The same
+generator policy that hid `KeyDataTransitMode` (see C44 / U12)
+also skips `KeyboardSide`. The script additionally references
+`ModifierKey`, which is `@Deprecated` at
+`raw_keyboard.dart:68-72` for the same reason — both symbols
+are filtered out of the bridge surface.
+
+**Fix.** Script-side, same pattern as C44 (dual-enum scope).
+Declared two private local stand-ins at the top of
+`services/keyboard_side_test.dart`:
+
+- `enum _KeyboardSide { any, left, right, all }`
+- `enum _ModifierKey { controlModifier, shiftModifier,
+  altModifier, metaModifier, capsLockModifier, numLockModifier,
+  scrollLockModifier, functionModifier, symbolModifier }`
+
+with value names/ordering matching the SDK declarations.
+Replaced every code-position `KeyboardSide` / `ModifierKey`
+reference (type annotations, `.values`, switch patterns, field
+types, interpolated `${KeyboardSide.values.length}` reads in
+print/string-builder code) with the underscore-prefixed
+stand-ins. In-string mentions (titles, code-shape recap
+strings, banner art, comments) remain unchanged so the demo
+still documents the (former) SDK API verbatim. Added a
+`D4RT-LIMITATION (C45)` block to the file header pointing at
+U12.
+
+**Verification.**
+
+- Pre-fix reproduction (AST driver): "Undefined variable:
+  KeyboardSide" — `ztmp/c45/ast_before.log`
+- AST driver: `00:16 +1: All tests passed!` —
+  `ztmp/c45/ast_after.log`
+- analyzer driver: `00:12 +1: All tests passed!` —
+  `ztmp/c45/test_after.log`
+
+Test-script-only change → rule (a) individual retest
+sufficient; no regression suite needed.
+
+**Interpreter catalogue.** Covered by **U12 —
+`@Deprecated`-annotated SDK symbols are filtered out of the
+bridge surface by design (generator policy)** in
+`interpreter_unfixable.md`. Same workaround pattern still
+expected for remaining "Undefined variable: <DeprecatedSymbol>"
+clusters C49/C50.
 
 #### C46 — `Runtime Error: Undefined variable: MaterialState (in Set literal)`
 
