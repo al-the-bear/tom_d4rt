@@ -86,7 +86,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☑ fixed (script · U12-A) |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed (no-op · resolved by earlier cluster work) |
 | **C52** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☑ fixed (script · U1-variant) |
-| **C53** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
+| **C53** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (no-op · resolved by earlier U9 workaround) |
 | **C54** | `timeout_tests_test.dart` | 1 | `Bad state: Transport failure while running "rendering/render_custom_paint_test.dart"` | ☐ |
 | **C55** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 | **C56** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
@@ -2969,7 +2969,7 @@ Representative error texts:
 
 #### C53 — `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (no-op · resolved by earlier U9 workaround, 2026-05-18)
 
 | testID | Test name |
 |-------:|-----------|
@@ -2981,6 +2981,24 @@ Representative error texts:
   > Expected: true
   >   Actual: <false>
   > Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expected RouteAware, got InterpretedInstance(_LoggingRouteAware)
+
+**Resolution.** Re-running the cluster on both drivers
+post-summary shows `+1 All tests passed!` with
+`status=success`, `outputLines=4`, `frameworkErrors=0`
+(`ztmp/c53/{ast,test}_before.log`). Inspection of
+`widgets/route_observer_test.dart` confirms the script already
+carries the §U9 workaround documented in
+`interpreter_unfixable.md`: a script-side `_DemoRouteObserver`
+class (lines 85–129) mirrors the native protocol
+(`subscribe` / `unsubscribe` / `didPush` / `didPop` /
+`didReplace`), all subscription calls go through `demoObserver`
+(lines 372–391), and the native
+`RouteObserver<PageRoute<dynamic>>()` (line 363) is constructed
+solely to demonstrate the type exists in Flutter
+(`// ignore: unused_local_variable`) without ever receiving a
+script-defined `_LoggingRouteAware`. The workaround predates the
+current testlog and has been verified intact at this snapshot.
+No script changes required for C53. Pairs with AST-driver C52.
 
 ### timeout_tests_test.dart
 
