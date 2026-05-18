@@ -138,8 +138,17 @@ dynamic build(BuildContext context) {
     null,
     ifNull: 'not wired',
   );
-  final gPresentNoText = ObjectFlagProperty<Function>('onTap', () {});
-  final gAbsentNoText = ObjectFlagProperty<Function>('onTap', null);
+  // Framework runtime contract: at least one of `ifPresent` / `ifNull` must
+  // be non-null (see diagnostics.dart `ObjectFlagProperty` assertion). For
+  // the "no-display-text" demo entries below, only the *opposite* slot is
+  // exercised (value present → `ifNull` not displayed; value null →
+  // `ifPresent` not displayed), so we pass an empty-string fallback in the
+  // unused slot to satisfy the assertion without affecting the visible
+  // output.
+  final gPresentNoText =
+      ObjectFlagProperty<Function>('onTap', () {}, ifNull: '');
+  final gAbsentNoText =
+      ObjectFlagProperty<Function>('onTap', null, ifPresent: '');
   final gBoth = ObjectFlagProperty<String>(
     'title',
     'Hello',
@@ -281,21 +290,27 @@ dynamic build(BuildContext context) {
     onError: null,
   );
 
+  // D4RT-SCRIPT-WORKAROUND (U10): `_DemoConfig with Diagnosticable` cannot
+  // reach the bridged `toDiagnosticsNode().toStringDeep()` chain — same
+  // architectural family as C36/C37, just on the parent `Diagnosticable`
+  // mixin rather than `DiagnosticableTreeMixin`. We build the deep dump
+  // manually by invoking the script's own `debugFillProperties` on a fresh
+  // `DiagnosticPropertiesBuilder` and formatting its `properties` list.
   final diagnosticableExamples = <Map<String, String>>[
     {
       'label': config1.label,
       'short': config1.toStringShort(),
-      'deep': config1.toDiagnosticsNode().toStringDeep(),
+      'deep': _diagnosticableDeepDump(config1),
     },
     {
       'label': config2.label,
       'short': config2.toStringShort(),
-      'deep': config2.toDiagnosticsNode().toStringDeep(),
+      'deep': _diagnosticableDeepDump(config2),
     },
     {
       'label': config3.label,
       'short': config3.toStringShort(),
-      'deep': config3.toDiagnosticsNode().toStringDeep(),
+      'deep': _diagnosticableDeepDump(config3),
     },
   ];
 
@@ -1734,7 +1749,11 @@ class _DemoConfig with Diagnosticable {
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
+    // D4RT-SCRIPT-WORKAROUND (U10 family): the bridged `Diagnosticable` mixin
+    // does not support `super.debugFillProperties(...)` dispatch from a
+    // script-defined class (no native super for the InterpretedInstance).
+    // `Diagnosticable.debugFillProperties` is a no-op in native Dart anyway,
+    // so dropping the super call has no effect on the displayed output.
     properties.add(StringProperty('label', label));
     properties.add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap));
     properties.add(
@@ -1748,6 +1767,21 @@ class _DemoConfig with Diagnosticable {
 
   @override
   String toStringShort() => '_DemoConfig($label)';
+}
+
+// D4RT-SCRIPT-WORKAROUND (U10): build a `toStringDeep()`-like dump without
+// crossing the d4rt → native boundary. The script's own `debugFillProperties`
+// is called directly to populate a bridged `DiagnosticPropertiesBuilder`;
+// each emitted property's bridged `toString()` produces the canonical
+// "name: value" line that `toStringDeep` would also emit.
+String _diagnosticableDeepDump(_DemoConfig c) {
+  final DiagnosticPropertiesBuilder builder = DiagnosticPropertiesBuilder();
+  c.debugFillProperties(builder);
+  final List<String> lines = <String>[c.toStringShort()];
+  for (final DiagnosticsNode p in builder.properties) {
+    lines.add(' │ ${p.toString()}');
+  }
+  return lines.join('\n');
 }
 
 class _SectionShell extends StatelessWidget {

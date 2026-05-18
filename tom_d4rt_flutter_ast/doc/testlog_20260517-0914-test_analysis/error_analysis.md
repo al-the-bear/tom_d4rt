@@ -2143,11 +2143,48 @@ change). Logs in `ztmp/c37/`.
 
 #### C37 — `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': `
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 162 | foundation/ object_flag_property_test.dart |
+
+**Root cause.** Three layered issues — one genuine script bug,
+two U10 instances. See test-driver C38 entry for the full
+write-up (test driver C38 ≡ AST driver C37). Brief:
+
+1. Script bug — two `ObjectFlagProperty` construction-gallery
+   entries omitted both `ifPresent` and `ifNull`, violating the
+   framework's `ifPresent != null || ifNull != null` debug
+   assert at `diagnostics.dart:2389`. Fixed by supplying an
+   empty-string in the unused slot.
+2. U10 — parent `Diagnosticable` mixin variant.
+   `config.toDiagnosticsNode().toStringDeep()` on a
+   `_DemoConfig with Diagnosticable` is rejected by
+   `D4.validateTarget<Diagnosticable>`. Same family as C35/C36
+   on this driver.
+3. U10 — new symptom — `super.debugFillProperties(...)` from an
+   interpreted class with bridged-mixin-only super throws
+   *`Class '_DemoConfig' does not have a standard or bridged
+   superclass, cannot use 'super'.`* Native is a no-op anyway,
+   so dropping the super call is safe.
+
+**Fix.** All script-side: empty-string fallback for
+ifPresent/ifNull slot, `_diagnosticableDeepDump(config)` helper
+replacing the `toDiagnosticsNode().toStringDeep()` chain, drop
+the `super.debugFillProperties(properties);` call. U10 entry in
+`interpreter_unfixable.md` extended with a third-instance
+subsection.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:15 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:11 +1: All tests passed!` |
+
+Logs in `ztmp/c38/` (script lives in the AST driver; both
+drivers fetch the same source over HTTP).
 
 #### C38 — `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
 

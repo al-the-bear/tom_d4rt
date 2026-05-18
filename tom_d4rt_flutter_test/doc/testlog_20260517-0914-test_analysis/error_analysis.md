@@ -2123,11 +2123,72 @@ Logs in `ztmp/c37/`.
 
 #### C38 — `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': `
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 162 | foundation/ object_flag_property_test.dart |
+
+**Root cause.** Three layered issues; one is a genuine script
+bug, two are U10 instances.
+
+1. *Script bug — framework assert violation.* Two of the
+   `ObjectFlagProperty` construction-gallery entries omitted both
+   `ifPresent` and `ifNull`, violating the framework's
+   `ifPresent != null || ifNull != null` debug assert at line
+   2389 of `diagnostics.dart`. Fixed at the script level by
+   supplying an empty-string in the unused slot.
+2. *U10 — parent `Diagnosticable` mixin variant.* The
+   diagnostics-output side of the demo defined
+   `class _DemoConfig with Diagnosticable` and called
+   `config.toDiagnosticsNode().toStringDeep()` inside a Map
+   literal. The bridged `Diagnosticable.toDiagnosticsNode`
+   adapter strict-checks the target via
+   `D4.validateTarget<Diagnosticable>`, which rejects the
+   `InterpretedInstance` — same architectural family as C36/C37,
+   just on the parent mixin rather than the tree variant.
+3. *U10 second new symptom — `super.debugFillProperties(...)`
+   dispatch fails.* The script's own `debugFillProperties`
+   override called `super.debugFillProperties(properties);`,
+   which the interpreter rejects with *`Class '_DemoConfig' does
+   not have a standard or bridged superclass, cannot use
+   'super'.`* The interpreter does not resolve `super` calls
+   into a bridged-mixin super-chain for purely-interpreted
+   classes. Native `Diagnosticable.debugFillProperties` is a
+   no-op anyway, so dropping the super call is safe.
+
+**Fix (script-side, mandatory).**
+
+1. Lines 141-142: provide an empty-string `ifNull` /
+   `ifPresent` in the otherwise-unused slot so both gallery
+   entries satisfy the framework assert (kept the names
+   `gPresentNoText` / `gAbsentNoText` to signal intent).
+2. Lines 293-309: replace
+   `config.toDiagnosticsNode().toStringDeep()` chain calls with
+   a script-side `_diagnosticableDeepDump(config)` helper that
+   calls `c.debugFillProperties(builder)` directly, iterates
+   `builder.properties`, and concatenates `toStringShort()` +
+   each `p.toString()` into a multi-line dump.
+3. `_DemoConfig.debugFillProperties` override: drop the
+   `super.debugFillProperties(properties);` call. Annotated
+   with a `D4RT-SCRIPT-WORKAROUND (U10 family)` comment.
+
+The change lives entirely in the test script — no interpreter
+or bridge edits — so it is a rule-(a) change and individual
+retest is sufficient.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:15 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:11 +1: All tests passed!` |
+
+Logs in `ztmp/c38/`. U10 entry in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` extended
+with a third-instance subsection covering both the parent
+`Diagnosticable` mixin variant and the new
+`super.debugFillProperties` interpreter limitation.
 
 #### C39 — `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
 
