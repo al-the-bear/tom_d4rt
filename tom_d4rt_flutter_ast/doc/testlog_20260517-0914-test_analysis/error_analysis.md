@@ -68,7 +68,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C32** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☑ |
 | **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☑ |
 | **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☑ |
-| **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☐ |
+| **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☑ |
 | **C36** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☐ |
 | **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': ` | ☐ |
 | **C38** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT` | ☐ |
@@ -2100,11 +2100,24 @@ No interpreter regressions on either driver. Logs in `ztmp/c35/`.
 
 #### C35 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 135 | foundation/ class_test.dart |
+
+Same cluster as the analyzer-driver `tom_d4rt_flutter_test/C36`
+— see that driver's `error_analysis.md` for the full root-cause
+analysis and resolution writeup. Closed via the **U10**
+architectural-limitation documentation in
+`interpreter_unfixable.md` (script-defined class
+`with DiagnosticableTreeMixin` cannot reach inherited concrete
+methods) plus the mandatory script-side `_dumpNode` workaround
+applied at `foundation/class_test.dart` lines 268 (helper) and
+288 (`_dumpNode(tree)` replaces `tree.toStringDeep()`).
+
+Verified individually on both drivers (rule a — script-only
+change). Logs in `ztmp/c36/`.
 
 #### C36 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di`
 

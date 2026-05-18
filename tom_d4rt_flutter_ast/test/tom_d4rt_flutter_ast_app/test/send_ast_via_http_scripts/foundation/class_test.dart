@@ -268,6 +268,31 @@ class _Node with DiagnosticableTreeMixin {
   String toStringShort() => 'Node($name)';
 }
 
+// D4RT-SCRIPT-WORKAROUND (U10 in interpreter_unfixable.md):
+// `tree.toStringDeep()` would invoke the bridged
+// `DiagnosticableTreeMixin.toStringDeep`, which strict-checks the
+// target as a native `DiagnosticableTreeMixin` and rejects the
+// `InterpretedInstance`. We build the dump manually here using the
+// same `debugFillProperties` / `debugDescribeChildren` overrides
+// the script supplies above, formatted with box-drawing connectors
+// analogous to Flutter's real output.
+String _dumpNode(_Node n, [String prefix = '', String childPrefix = '']) {
+  final header =
+      '$prefix${n.toStringShort()}(name: "${n.name}", value: ${n.value}, childCount: ${n.children.length})';
+  final lines = <String>[header];
+  for (var i = 0; i < n.children.length; i++) {
+    final isLast = i == n.children.length - 1;
+    final branch = isLast ? ' └─ ' : ' ├─ ';
+    final descent = isLast ? '    ' : ' │  ';
+    lines.add(_dumpNode(
+      n.children[i],
+      childPrefix + branch,
+      childPrefix + descent,
+    ));
+  }
+  return lines.join('\n');
+}
+
 // -----------------------------------------------------------------------------
 // build() — the entry point. All Flutter widgets returned from here are
 // constructed inline; helper widgets are defined as small stateless classes
@@ -285,7 +310,8 @@ dynamic build(BuildContext context) {
     ],
   );
 
-  final String treeDump = tree.toStringDeep();
+  // D4RT-SCRIPT-WORKAROUND (U10): manual dump — see `_dumpNode` above.
+  final String treeDump = _dumpNode(tree);
 
   // Concrete widget instances we will inspect.
   final Object cWidget = Container();
