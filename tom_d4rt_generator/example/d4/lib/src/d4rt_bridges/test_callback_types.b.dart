@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-05-03T13:57:34.542243
+// Generated: 2026-05-18T22:49:36.688483
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -172,7 +172,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection(((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(dynamic));
+        return t.withConnection(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic));
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
@@ -181,7 +181,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional(((String p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(String));
+        return t.transactional(((String p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(String));
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
@@ -197,8 +197,8 @@ BridgedClass _createGenericCallbackServiceBridge() {
       '': 'GenericCallbackService()',
     },
     methodSignatures: {
-      'withConnection': 'FutureOr<T> withConnection(FutureOr<T> Function(dynamic connection) callback)',
-      'transactional': 'Future<T> transactional(FutureOr<T> Function(String input) callback)',
+      'withConnection': 'FutureOr<T?> withConnection(FutureOr<T?> Function(dynamic connection) callback)',
+      'transactional': 'Future<T?> transactional(FutureOr<T?> Function(String input) callback)',
       'withBoundedType': 'FutureOr<T> withBoundedType(FutureOr<T> Function(dynamic conn) callback)',
     },
   );
