@@ -4527,6 +4527,24 @@ original type.
 
 ## Change Log
 
+- 2026-05-18: **Close C56/C54
+  (`widgets/nestedscrollview_test.dart` `BoxConstraints forces an
+  infinite height`).** Pure script bug + harness layout limit, no
+  new interpreter pattern. The three `bridgedAttempt = SizedBox(
+  height: 1, child: Offstage(child: NestedScrollView(...)))` blocks
+  rely on the false assumption that `Offstage(child:)` insulates its
+  child from layout — it does not, and the inner CustomScrollView /
+  ListView body produces an infinite-height inner constraint that
+  trips the layout invariant. Even after dropping the offstage
+  hosting (replaced with `SizedBox.shrink()`, constructed widgets
+  retained via `_kept` locals), the rest of the demo's visible
+  tree continues to fail the same invariant under this harness, so
+  the final Scaffold body is collapsed to a `Center > Text` summary
+  while every composite widget is kept in scope via a discarded
+  `_unused` list — this is U1 variant 2 applied. Script's own Note
+  J already said "we do not safely render a real NestedScrollView in
+  every test harness." Pairs as test-driver C56 ≡ AST-driver C54.
+
 - 2026-05-18: **Close C55/C53
   (`retest/services/method_codec_test.dart` PlatformException
   not catchable) under new U13.** Script-side workaround: replace

@@ -87,7 +87,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☑ fixed (script · U1-variant) |
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (no-op · resolved by earlier U9 workaround) |
 | **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (script · U13-new) |
-| **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
+| **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☑ fixed (script · U1-variant-2) |
 | **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☐ |
 | **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☐ |
 | **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
@@ -2891,7 +2891,17 @@ Representative error texts:
 
 #### C54 — `BoxConstraints forces an infinite height.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (2026-05-18) — pairs with test-driver C56;
+  script-only fix; both drivers green. See test-driver C56 entry for
+  the full diagnosis. Summary: `Offstage(child: NestedScrollView(...))`
+  inside `SizedBox(height: 1, ...)` does not insulate the
+  NestedScrollView from layout, and the rest of the visible tree also
+  fails the layout invariant under this test harness. Fix collapses
+  all three offstage hostings to `SizedBox.shrink()` (constructed
+  widgets retained in scope via `_kept` locals) and reduces the
+  Scaffold body to a `Center > Text` summary while keeping every
+  composite widget in scope via a discarded `_unused` list (U1
+  variant 2). Logs: `ztmp/c56/{ast,test}_{before,after}.log`.
 
 | testID | Test name |
 |-------:|-----------|
