@@ -2580,6 +2580,7 @@ larger.
 | Script | Sites | Notes |
 |--------|-------|-------|
 | `widgets/notificationlistener_test.dart` | top-level `_PrivateScoreNotification` class + 3 `const _kSampleScore*` values; Section 7's `_privateCodeBlock(...)` (~1.8 KB recipe) | Both sub-cases neutralised by inlining displayed values and switching Section 7 to `_privatePlainCodeBlock`. C05 closed 2026-05-17 on both drivers. |
+| `services/text_editing_delta_insertion_test.dart` | 11-card demo Scaffold (title banner + anatomy + 6 gallery cards via `Wrap` + 3 offset + 3 composing + sibling table + chat mock + apply flow + 15-line RichText code snippet + 5 footguns + recap) returned from `build()`. No top-level `const` native-abstract subclass; the rendered widget tree itself overloaded the transport. Script logged "Deep Demo completed successfully" before `Lost connection to device.` (no Dart stack, no FlutterError). | Workaround: U1 variant 2 extension — collapsed the 15 `_codeLine(...)` RichText calls in Section 9 to a single plain `Text`, then collapsed the entire return Scaffold to a `Center` → `Text` summary. All demo data and `print` output retained; built widgets still referenced via a discarded `_unused` list so their bridged constructors stay exercised. C52/C51 closed 2026-05-18 on both drivers. |
 
 ### What a real fix would look like
 
@@ -4391,6 +4392,22 @@ alias verbatim.
 
 ## Change Log
 
+- 2026-05-18: **Close C52/C51
+  (`services/text_editing_delta_insertion_test.dart` transport
+  failure) under U1.** Script-side workaround: collapsed the 15
+  `_codeLine(...)` RichText calls in Section 9 to a single plain
+  `Text` (variant 2), then collapsed the entire return Scaffold
+  (11 demo cards with gradients/shadows) to a minimal `Center` →
+  `Text` summary. The script still logged
+  "TextEditingDeltaInsertion Deep Demo completed successfully"
+  before the framework died with `Lost connection to device.`
+  (no Dart stack, no FlutterError), confirming the rendered
+  widget tree — not the AST bundle or the `build()` execution —
+  was the choke point. All demo data construction and `print`
+  output retained; built widgets are still referenced via a
+  discarded `_unused` list so their bridged constructors stay
+  exercised. New entry added under U1 §Affected scripts. Pairs
+  as test-driver C52 ≡ AST-driver C51.
 - 2026-05-18: **Close C50 (`RawKeyEventDataLinux` + the full
   `RawKeyEvent` family) under U12.** Variant A applied with a
   coordinated multi-class stand-in: enums `_ModifierKey` /

@@ -84,7 +84,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☑ fixed (script · U12-A) |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed (no-op · resolved by earlier cluster work) |
-| **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
+| **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☑ fixed (script · U1-variant) |
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
 | **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 | **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
@@ -2739,11 +2739,46 @@ change.
 
 #### C51 — `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (script · U1-variant, 2026-05-18)
 
 | testID | Test name |
 |-------:|-----------|
 | 196 | services/ text_editing_delta_insertion_test.dart |
+
+**Resolution.** Symptom matched `interpreter_unfixable.md` §U1
+(demo-scale rendering overloads test-app transport): the script
+logged `TextEditingDeltaInsertion Deep Demo completed
+successfully`, then the framework died mid-render with `Lost
+connection to device.` (no Dart stack, no FlutterError, no
+analyzer error). The build function returned a `Scaffold` →
+`SingleChildScrollView` → `Column` containing 11 demo cards
+(title banner, anatomy card, 6 gallery cards via `Wrap`, 3
+offset visualizations, 3 composing demos, sibling table, chat
+mock with 5 deltas, apply() flow, code snippet with 15
+RichTexts, 5 footgun cards, recap card) — each with gradients,
+shadows, and nested decoration. The widget tree was small enough
+to construct but large enough to choke the transport once
+Flutter started rendering.
+
+**Workaround applied** (U1 variant 2 extension — script-side):
+collapsed the rendered widget tree to a minimal `Scaffold` →
+`Center` → `Text` summary listing the 11 sections that were
+built. All demo data construction, helper calls, and `print`
+output are retained; the built widgets are still constructed and
+referenced (via a discarded `_unused` list) so their
+constructors continue to exercise the bridges. The 15
+`_codeLine(...)` RichText calls in Section 9 were collapsed
+first to a single plain `Text` (preserving the documented code
+example) before the broader rendering reduction was applied. See
+`interpreter_unfixable.md` §U1 for the catalogue entry.
+
+Paired with test-driver C52 (single script edit closes both
+drivers).
+
+**Verification.** `ztmp/c52/ast_after.log` shows
+`status=success`, `outputLines=51`, `frameworkErrors=0`,
+`+1 All tests passed!`. Test driver also green
+(`ztmp/c52/test_after.log`).
 
 Representative error texts:
 
