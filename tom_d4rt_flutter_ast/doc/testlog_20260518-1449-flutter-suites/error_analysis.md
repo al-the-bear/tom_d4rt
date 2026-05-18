@@ -192,50 +192,78 @@ is the test's success criterion. All three host tests passed.
 
 ## Fix plan — framework noise & bridged-target unwrapping
 
-Multi-step plan to attack the framework-noise inventory in §2 **in
-priority order**. Steps tagged **[bug]** are genuine
-interpreter / generator defects; steps tagged **[advisory]** are
-script-side patterns the host test treats as benign — default
-disposition is "do not change" unless the noise masks a real
-failure. Each step has its own verification gate; the next step
-starts only after the prior one is verified green.
+Multi-step plan to drive **every** framework-error banner in §2
+to zero, in priority order. Step tags:
+
+- **[bug]** — interpreter / generator / script defect to be
+  fixed in source.
+- **[advisory]** — non-code work (triage, intent verification).
+- **[runner]** — test-runner-side change so genuinely
+  intentional + asserted errors don't surface as noise.
+- **[env]** — environment / pacing flake.
+
+Per the user's 2026-05-18 directive **no banner shape is out of
+scope**. Each one either resolves to a code-level fix or to a
+proper containment that removes it from the noise inventory.
+Each step has its own verification gate; the next step starts
+only after the prior one is verified green.
 
 The plan is identical in `tom_d4rt_flutter_ast` and
 `tom_d4rt_flutter_test`; the same noise inventory was emitted by
-both projects and the same fixes apply. Bridge/interpreter
+both projects and the same fixes apply. Bridge / interpreter
 changes must land in **both** `tom_d4rt` and `tom_d4rt_ast` per
 the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
 
-### Phase 1 — Triage (no code changes)
+### Phase 1 — Triage + rigorous intent verification (no code changes)
 
-- [ ] **Step 1 · Per-script noise audit.** [advisory]
+- [ ] **Step 1 · Per-script noise audit with intent
+  verification.** [advisory]
   For every script that contributes a "⚠️ FRAMEWORK ERROR" banner
   (see §2), open the script under
   `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`
-  (or the `flutter_test` analogue) and tag each noise event:
-  - **A** — script intentionally exercises an error path; the host
-    test asserts on the consequence, not the underlying widget
-    output. No fix.
-  - **B** — script under-constrains its widget tree (infinite-size
-    family); the test does not assert on layout. No fix.
-  - **C** — runtime/bridge error that is not exercised by any
-    assertion and may be masking a real contract failure.
-    Escalate to Phase 2.
-  **DoD:** A markdown table under "Audit results" below lists every
-  banner with its tag.
+  (or the `flutter_test` analogue) **and** open the host test in
+  `test/<suite>_test.dart`. Treat the §2 sampling labels as
+  hypotheses, not conclusions — every banner must be tagged from
+  the source, not from the noise inventory's category line.
+  For each banner event, answer:
+  1. **Does the script wrap the noisy call in `try`/`catch`** (or
+     equivalent error-handling)?
+  2. **Does the host test assert on the resulting failure** (e.g.
+     `expect(..., throwsA(...))`, `InteractResult.failed`,
+     captured stdout, explicit error-string assertion)?
+  Tag with one of:
+  - **I-handled** — both answers "yes". The error is genuinely
+    intentional **and** contained; the banner is runner-side
+    spurious noise → Step 8.
+  - **I-unhandled** — either answer "no". The script reaches the
+    error path but the test does not contain it or does not
+    assert on it. **This is a script / test contract bug** —
+    the test is silently passing because its assertions don't
+    reach the affected code path → Step 7.
+  - **B-bridge** — interpreter / generator defect (mixin target
+    unwrap, native-arg validation, sub-pixel layout) →
+    Steps 3 / 4 / 5.
+  - **B-layout** — infinite-size warning from an
+    under-constrained widget tree → Step 6.
+  - **E-env** — environment / pacing flake
+    (`least_squares_solver`) → Step 9.
+  **DoD:** Markdown table under "Audit results" below lists
+  every banner with: script path, host-test path, tag,
+  one-sentence rationale.
 
-- [ ] **Step 2 · Lock down the Phase-2 candidate list.** [advisory]
-  After Step 1, the only Phase-2 candidates are items tagged **C**.
-  Pre-tagged candidates from the §2 sampling that should land in
-  **C** unless Step 1 contradicts:
-  - `DiagnosticableTreeMixin.toStringDeep` mixin-target mismatch →
-    Step 3.
-  - `Gradient.linear` "colors must have length 2 if colorStops is
-    omitted" → Step 4.
-  - 0.5 px `RenderFlex overflow` (450 events in
-    `important_classes_test`) → Step 5.
-  **DoD:** Short `[cluster-id, script-path, error-shape]` list
-  appended below the audit table.
+- [ ] **Step 2 · Lock down the candidate list across all banner
+  shapes.** [advisory]
+  After Step 1, every banner has a tag. Group them and route:
+  - **B-bridge** → Steps 3 / 4 / 5.
+  - **B-layout** → Step 6.
+  - **I-unhandled** → Step 7.
+  - **I-handled** → Step 8.
+  - **E-env** → Step 9.
+  **No banner remains untagged or out of scope** — Phase 2's
+  step set must cover every banner that §2 reports.
+  **DoD:** Candidate list appended below the audit table groups
+  each banner by its target step; total banner count in §2's
+  inventory matches the sum of the routed groups.
 
 ### Phase 2 — Interpreter / generator fixes
 
@@ -317,9 +345,130 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   without changing pass counts.
   **DoD:** new baseline's noise table shows the reduction.
 
+- [ ] **Step 6 · Resolve `infinite size during layout` warnings.**
+  [bug or script, depending on Step 1 verdict]
+  **Symptom:** 520+ banners across suites; variants on
+  `RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
+  RenderPadding / RenderParagraph / RenderWrap object was given an
+  infinite size during layout`.
+  **Per-banner disposition:**
+  - If Step 1 tagged the banner **B-layout** because *the script
+    under-constrains its own widget tree* (e.g. an unbounded
+    `Column` inside a `SingleChildScrollView` without
+    `mainAxisSize: MainAxisSize.min`), fix the **script** —
+    re-write the smallest hunk that removes the warning while
+    preserving the test's intent. Scripts are inputs to the
+    interpreter, not specification of intended runtime behaviour,
+    so editing them is permitted *only* when the host test does
+    not assert on the warning. Confirm by re-reading the host
+    test.
+  - If the same shape recurs across many scripts using a shared
+    bridged default surface (i.e. the script is structurally
+    correct but the bridge's default layout wraps it in an
+    unbounded parent), fix the **bridge** default surface or the
+    test-app's default `MediaQuery` setup, **not** the scripts.
+  **Fix path:** scripts live under
+  `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`
+  (and the `flutter_test` analogue). Default surface lives in the
+  test-app's harness.
+  **Verification:** banner count in §2's "infinite size warnings"
+  column drops to 0 for affected suites; pass count unchanged.
+  **DoD:** next baseline's noise table shows 0 in the relevant
+  column for the suites in scope.
+
+- [ ] **Step 7 · Resolve `Runtime Error: Index out of range` and
+  null-target Runtime Errors.** [bug, test contract]
+  **Symptom:** 85 total Runtime Error banners across the suite.
+  Sampled shapes:
+  - `Runtime Error: Index out of range: 3`
+  - `Runtime Error: Value used in for-in loop must be an Iterable,
+    but got null`
+  - `Runtime Error: Cannot access property 'name' on target of
+    type null.`
+  - `Runtime Error: Cannot invoke method 'getChildren' on null.
+    Use '?.' for null-aware method invocation.`
+  **Per Step 1 verdict:**
+  - **I-unhandled** (script reaches error path, host test does not
+    assert on it): this is a **test contract bug** — the test is
+    silently passing because its assertions never reach the
+    affected branch. Per
+    `_copilot_guidelines/test_driven_development.md` ("never adapt
+    the test to match buggy behaviour"), do **not** weaken the
+    test to swallow the error. Two acceptable fixes, decided
+    per-banner:
+    1. The error path is genuinely intentional. Wrap the noisy
+       call in the **script** with a narrow `try`/`catch` that
+       records the captured exception, **and** add
+       `expect(captured, isA<…>())` / `throwsA(…)` in the host
+       test so the contract is explicit.
+    2. The error path indicates a real script bug (off-by-one,
+       missed null guard). Fix the script.
+  - **I-handled** (already caught + asserted): routes to Step 8.
+  - **B-bridge** (interpreter / bridge defect that produced the
+    error): routes to Steps 3 / 4 / 5.
+  **Fix path:** scripts under
+  `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`
+  and host tests in `test/<suite>_test.dart`. No interpreter
+  change for I-unhandled banners — the interpreter is reporting
+  the error correctly; the contract is what's missing.
+  **Verification:** "Runtime Error" column in §2 reaches 0 across
+  suites; banner shapes that remain are routed to Step 3 / 4 / 5
+  or Step 8.
+  **DoD:** zero Runtime Error banners in the next baseline whose
+  intent has not been explicitly asserted by the host test.
+
+- [ ] **Step 8 · Runner-side filter for handled + asserted
+  errors.** [runner]
+  **Scope:** banners tagged **I-handled** in Step 1 — the script
+  catches the exception **and** the host test asserts on the
+  contained failure (e.g. the 3 `Bad state` events in
+  `interactive_tests_test` where `InteractResult.failed` is the
+  test's success criterion). The runner currently prints the
+  banner anyway because it inspects captured runtime exceptions
+  independently of host-test pass/fail.
+  **Fix path:** modify the banner emission in
+  `tom_d4rt_flutter_ast/test/send_test_runner.dart` (around
+  L864 — the captured-error logging branch in
+  `SendTestRunner.send` / its receiver) and the mirror in
+  `tom_d4rt_flutter_test/test/send_test_runner.dart` (around
+  L513). Tag handled exceptions at the runtime catch site (push
+  a marker into the captured-error record indicating the script
+  swallowed the exception), and have the runner suppress the
+  banner when (a) the marker is set **and** (b) the host test
+  passed.
+  **Verification:** Bad-state count in §2 for
+  `interactive_tests_test` drops to 0; no host test changes from
+  pass to fail; counts in §2 for I-handled banners on other
+  suites drop accordingly.
+  **DoD:** next baseline's noise inventory shows 0 banners for
+  I-handled rows.
+
+- [ ] **Step 9 · `gestures/least_squares_solver_test.dart`
+  transport flake.** [env]
+  **Symptom:** dart-test default 30 s timeout fires before the
+  test-app's `/build` HTTP POST returns; `SendTestRunner.send`
+  HTTP timeout is 25 s (see `test/send_test_runner.dart:864`);
+  app stdout shows queued `ObjectEvent: ObjectDisposed` drainage.
+  **Fix options** (pick one based on the audit; both projects
+  must apply the same option):
+  - **A. Raise per-test timeout to 60 s** for this script. Add
+    `@Timeout(Duration(seconds: 60))` to the host test in
+    `hardly_relevant_classes_1_test.dart` only for testID 182, or
+    pass `--timeout=60s` selectively. Lowest-risk option.
+  - **B. Add settle step in `SendTestRunner.send`** between
+    scripts: after each script returns, poll `/status` until the
+    ObjectDisposed queue is empty (or up to a 5 s cap) before
+    sending the next `/build`. Eliminates the contention root
+    cause but touches the runner used by all suites — verify no
+    perf regression on the full 14-suite matrix.
+  **Verification:** Three consecutive full-suite runs of
+  `hardly_relevant_classes_1_test` produce 0 errors.
+  **DoD:** F1 in §1 removed from the next baseline; "Failures /
+  errors" total = 0.
+
 ### Phase 3 — Verification & close-out
 
-- [ ] **Step 6 · Per-cluster verification, serial only.** [process]
+- [ ] **Step 10 · Per-cluster verification, serial only.** [process]
   After **each** Phase-2 step (don't batch fixes — quest rule:
   one cluster per commit, verify, push):
   1. Regenerate bridges if the generator changed.
@@ -333,34 +482,29 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   4. Commit + push immediately (quest rule: commit + push each
      turn; split unrelated concerns into multiple commits).
 
-- [ ] **Step 7 · Full re-baseline.** [process]
-  Once Steps 3 + 4 + 5 are all green, run the full 14-suite serial
-  matrix and produce `testlog_<id>-flutter-suites-fixes/` in
-  **both** projects, mirroring the structure of
-  `testlog_20260518-1449-flutter-suites/`. Acceptance criteria:
+- [ ] **Step 11 · Full re-baseline.** [process]
+  Once Steps 3 + 4 + 5 + 6 + 7 + 8 + 9 are all green, run the full
+  14-suite serial matrix and produce
+  `testlog_<id>-flutter-suites-fixes/` in **both** projects,
+  mirroring the structure of `testlog_20260518-1449-flutter-suites/`.
+  Acceptance criteria:
   - Pass count ≥ 2216 (no regression).
-  - Banner counts in the noise inventory drop to the targets set
-    in Steps 3 / 4 / 5.
-  - The 1 remaining flake
-    (`gestures/least_squares_solver_test.dart`) is allowed to stay
-    until the test-app pacing fix lands (out of scope here).
+  - Banner counts in the noise inventory drop to 0 across every
+    column.
+  - Failures / errors total = 0.
   **DoD:** New baseline's "Bottom line" section reflects the
   fixes; close this Fix-plan with a
   `**Closed YYYY-MM-DD by commit <sha>.**` footer.
 
-### Steps explicitly out of scope
+### Scope note
 
-- **Infinite-size warnings** (520+ events) — script-side
-  under-constraining; advisory only.
-- **`Index out of range`, null property/method access, null
-  for-in iterable** — scripts probe resilience; advisory only.
-- **3 Bad-state probes in `interactive_tests_test`** —
-  intentional dismiss-flow tests; host tests pass and assert on
-  the failure of the inner action.
-- **`gestures/least_squares_solver_test.dart` transport timeout**
-  — pre-existing test-app pacing flake; tracks in its own
-  follow-up (raise per-test timeout, or add settle step in
-  `SendTestRunner` between scripts).
+Per the user's 2026-05-18 directive **no framework-error banner
+shape is out of scope**. Every banner in §2 is routed to one of
+Steps 3 – 9, including the previously-deferred categories:
+infinite-size layout warnings (Step 6), null & Index Runtime
+Errors (Step 7), Bad-state interactive probes (Step 8 once
+Step 1 confirms intent), and the `least_squares_solver` transport
+timeout (Step 9).
 
 ### Audit results
 
