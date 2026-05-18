@@ -1279,11 +1279,12 @@ dynamic build(BuildContext context) {
           'value back to zero.',
     },
     <String, String>{
-      'title': 'Negative addends',
+      'title': 'Negative addends are rejected',
       'desc':
-          'increment(-1) is allowed. Sometimes useful (e.g. unwinding), '
-          'but if your invariant is "monotonically increasing", a stray '
-          'minus sign will silently break it.',
+          'Framework asserts addend >= 0 (inline_span.dart:39). '
+          'Accumulator is monotonically increasing by contract — there '
+          'is no "unwind by passing a negative value" mode. If you need '
+          'reversible counting, use a plain int variable instead.',
     },
     <String, String>{
       'title': 'Confusing it with ValueNotifier',
@@ -1363,12 +1364,17 @@ dynamic build(BuildContext context) {
     );
   }
 
-  // Show a small worked example for the negative-addend case.
-  final Accumulator negDemo = Accumulator();
-  negDemo.increment(10);
-  negDemo.increment(-3);
-  negDemo.increment(-2);
-  print('negDemo = ${negDemo.value}');
+  // Worked example illustrating the framework's addend >= 0 contract.
+  // The interpreter forwards `increment` to the native Accumulator,
+  // which asserts addend >= 0 at inline_span.dart:39 — so we
+  // deliberately *never* call increment with a negative number. The
+  // demo below stays additive and shows how to compose a "delta"
+  // separately if you want one.
+  final Accumulator monoDemo = Accumulator();
+  monoDemo.increment(10);
+  monoDemo.increment(3);
+  monoDemo.increment(2);
+  print('monoDemo = ${monoDemo.value}');
 
   final Widget section10 = cardShell(
     gradient: const [cardSurface, Color(0xFFFFEBEE)],
@@ -1391,7 +1397,7 @@ dynamic build(BuildContext context) {
             border: Border.all(color: amberDeep, width: 1.2),
           ),
           child: Text(
-            'Negative addend demo: 10 + (-3) + (-2) = ${negDemo.value}',
+            'Monotonic addend demo: 10 + 3 + 2 = ${monoDemo.value}',
             style: const TextStyle(
               fontFamily: 'monospace',
               fontSize: 12.5,
@@ -1416,7 +1422,7 @@ dynamic build(BuildContext context) {
     <String, String>{'k': 'Mutability', 'v': 'mutable, reference-typed'},
     <String, String>{'k': 'Reactivity', 'v': 'none — not a ChangeNotifier'},
     <String, String>{'k': 'Reset?', 'v': 'no — allocate a new instance'},
-    <String, String>{'k': 'Negative addends', 'v': 'allowed'},
+    <String, String>{'k': 'Negative addends', 'v': 'rejected (addend >= 0 assert)'},
     <String, String>{'k': 'Typical caller', 'v': 'TextPainter / InlineSpan'},
   ];
 

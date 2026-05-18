@@ -74,7 +74,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C38** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT` | ☐ |
 | **C39** | `hardly_relevant_classes_1_test.dart` | 1 | `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts \|\| Bad state: Transport f` | ☐ |
 | **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as` | ☐ |
-| **C41** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ☐ |
+| **C41** | `hardly_relevant_classes_2_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a` | ✅ closed |
 | **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☐ |
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☐ |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☐ |
@@ -2321,7 +2321,8 @@ Representative error texts:
 
 #### C41 — `Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed a`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — **script bug** (test driver C42 ≡ AST
+  driver C41)
 
 | testID | Test name |
 |-------:|-----------|
@@ -2333,6 +2334,18 @@ Representative error texts:
   > Expected: true
   >   Actual: <false>
   > Runtime Error: Native error during bridged method call 'increment' on Accumulator: 'package:flutter/src/painting/inline_span.dart': Failed assertion: line 39 pos 12: 'addend >= 0': is not true.
+
+**Root cause + fix.** Script's negative-addend footgun section
+called `negDemo.increment(-3)` / `negDemo.increment(-2)`. Native
+`Accumulator.increment` asserts `addend >= 0` at
+`inline_span.dart:39` — the script's own commentary claiming
+"increment(-1) is allowed" was incorrect. Fixed at the script
+level: renamed demo to `monoDemo` with `+10, +3, +2`; retitled
+footgun row to "Negative addends are rejected"; corrected recap
+row to `rejected (addend >= 0 assert)`; added explanatory comment
+at the demo site. AST driver `00:15 +1`, analyzer driver
+`00:11 +1`. Same posture as C40 (≡ test C41) — genuine Flutter
+framework assertion, no `interpreter_unfixable.md` entry needed.
 
 ### hardly_relevant_classes_3_test.dart
 
