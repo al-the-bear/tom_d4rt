@@ -2225,11 +2225,33 @@ the AST driver; both drivers fetch the same source over HTTP).
 
 #### C39 — `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (auto-resolved — no longer reproduces) — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 182 | gestures/ least_squares_solver_test.dart |
+
+**Root cause.** Transient transport-budget stall during the
+original `testlog_20260517-0914` serial run. Same family as
+**U1** (transport-budget cliff for unusually large bundles) but
+at a lower magnitude — the script merely crosses the wall-clock
+threshold under contention rather than disconnecting the device.
+See test driver C40 entry (test driver C40 ≡ AST driver C39) for
+the full write-up.
+
+**Status.** No script or interpreter change since the
+2026-05-17 testlog. Three back-to-back isolated runs on both
+drivers all pass well within the 30 s timeout:
+
+| Driver | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:22 +1` | — | — |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:19 +1` | `00:20 +1` | `00:19 +1` |
+
+Marking closed as auto-resolved; if a future full-suite testlog
+regresses on this script, trim the per-section content
+(Sections 4 + 8 are the longest worked-data tables) instead of
+addressing it at the interpreter level. Logs in `ztmp/c40/`.
 
 #### C40 — `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
 

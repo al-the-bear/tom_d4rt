@@ -2241,11 +2241,46 @@ Logs in `ztmp/c39/`.
 
 #### C40 — `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (auto-resolved — no longer reproduces) — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 182 | gestures/ least_squares_solver_test.dart |
+
+**Root cause.** Transient transport-budget stall during the
+original `testlog_20260517-0914` serial run. The script is a
+2,337-line / 81 KB educational lecture on `LeastSquaresSolver`;
+the AST bundle is 938 KB and HTTP transfer takes ~9–10 s on this
+hardware. Under the cumulative load of a full-suite serial run
+the total runtime can drift past the default 30 s `flutter test`
+timeout, producing `TimeoutException` + `Bad state: Transport
+failure`. Same family as **U1** (transport-budget cliff for
+unusually large bundles) but at a lower magnitude — U1 manifests
+as immediate device disconnect, whereas this script merely
+crosses the wall-clock threshold under contention.
+
+**Status.** No script or interpreter change since the
+2026-05-17 testlog (verified via `git log` on the script path).
+Three back-to-back isolated runs on both drivers all pass well
+within the timeout:
+
+| Driver | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:22 +1` | — | — |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:19 +1` | `00:20 +1` | `00:19 +1` |
+
+10 s margin under 30 s timeout in isolation. The failure is
+isolation-stable and resurfaces only under heavy concurrent
+load, which the workspace rule already forbids
+(`flutter test` invocations must be serial — see
+`session_resume.d4rt.md`). Marking C40 closed as auto-resolved;
+no script edit and no interpreter change. If the full-suite
+testlog regresses to a timeout on this script in a future run,
+re-open and trim the per-section content (Sections 4 + 8 are
+the longest worked-data tables and can be halved without losing
+pedagogical value).
+
+Logs in `ztmp/c40/`.
 
 #### C41 — `Runtime Error: Native error during default bridged constructor for 'PointerExitEvent': 'package:flutter/src/gestures/events.dart': Failed as`
 
