@@ -62,7 +62,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
-| **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
+| **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☑ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
 | **C32** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☐ |
@@ -1769,11 +1769,23 @@ sample cards).
 
 #### C29 — `Runtime Error: The condition of a conditional expression must be a boolean, but was null.`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 319 | material/ individual snack_bar_closed_reason_test.dart |
+
+**Status:** fixed (2026-05-18) — incidental.
+
+`material/snack_bar_closed_reason_test.dart` already passed in the
+C27 verification run (`ztmp/c27_verify_ast_secondary.log.txt`,
+line 1298 → `+294 -2`, i.e. moved the pass counter up). The
+underlying null-condition bug was incidentally resolved by one of
+the earlier cluster fixes (most likely GEN-094/GEN-095 / C26 type
+resolution). Re-confirmed in
+`ztmp/c29_check_ast_snack.log.txt`: `success=true,
+frameworkErrors=0`. No code change in this cluster on the AST
+driver.
 
 #### C30 — `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value`
 

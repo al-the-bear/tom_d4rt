@@ -62,7 +62,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C26** | `secondary_classes_test.dart` | 1 | `Runtime Error: A value of type 'List' can't be returned from the function 'encodeFrame' because it has a return type of 'Uint8List'.` | ☐ |
 | **C27** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'BridgedEnumValue' is not a subtype of type 'PointerDeviceKind' in type cast` | ☑ |
 | **C28** | `secondary_classes_test.dart` | 2 | `Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Faile` | ☑ |
-| **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☐ |
+| **C29** | `secondary_classes_test.dart` | 1 | `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast` | ☑ |
 | **C30** | `secondary_classes_test.dart` | 1 | `Runtime Error: The condition of a conditional expression must be a boolean, but was null.` | ☐ |
 | **C31** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'createBoxPainter' on ShapeDecoration: Null check operator used on a null value` | ☐ |
 | **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☐ |
@@ -1619,11 +1619,86 @@ consistency.
 
 #### C29 — `Runtime Error: Unexpected error: type 'String' is not a subtype of type 'InterpretedFunction?' in type cast`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 252 | gestures/ individual tap_drag_start_details_test.dart |
+
+**Status:** fixed (2026-05-18). Analyzer-driver-only — bug in
+`tom_d4rt`'s analyzer-based interpreter visitor. The AST mirror
+interpreter never had this bug because it routes through
+`currentFunction` directly.
+
+**Root cause.** In `tom_d4rt/lib/src/interpreter_visitor.dart`
+inside `visitReturnStatement` (~L6140), when the enclosing AST
+node was a `FunctionDeclaration` the code resolved the function
+name via:
+
+```dart
+currentCallable = environment.get(functionName) as InterpretedFunction?;
+```
+
+If the surrounding scope contains a local binding whose name
+collides with the enclosing function (for example, a parameter
+named the same as a generic helper such as `'callback'` or
+`'name'` that is also a function declaration in a different
+scope), `environment.get(functionName)` returns that other value
+(in this case a `String`), and the hard `as InterpretedFunction?`
+throws
+
+```
+type 'String' is not a subtype of type 'InterpretedFunction?' in type cast
+```
+
+which then surfaces as the wrapper `RuntimeD4rtException`
+"Unexpected error: …" raised by `_executeInEnvironment`
+(`d4rt_base.dart:1272`).
+
+**Fix.** Replace the hard cast with an `is`-checked assignment
+that falls back to `currentFunction` when the environment binding
+is not actually an `InterpretedFunction`. This matches the mirror
+AST visitor (`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`),
+which uses `currentFunction` directly because the mirror AST has
+no parent references and never walks up the AST.
+
+```dart
+final fromEnv = environment.get(functionName);
+if (fromEnv is InterpretedFunction) {
+  currentCallable = fromEnv;
+} else {
+  currentCallable = currentFunction;
+}
+```
+
+No mirror change to `tom_d4rt_ast` is required — the AST visitor
+already has the correct shape.
+
+**Regression scope:** rule (b) — interpreter change.
+
+**Verification (analyzer driver, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+- C29 single-script: `gestures/tap_drag_start_details_test.dart`
+  → `success=true, outputLines=166`. The remaining 1 framework
+  error is a pre-existing layout overflow warning unrelated to
+  C29 (log `ztmp/c29_verify_analyzer_tdsd.log.txt`).
+- essential: 108/0/0
+  (`ztmp/c29_verify_analyzer_essential.log.txt`).
+- important: 164/0/0
+  (`ztmp/c29_verify_analyzer_important.log.txt`).
+- secondary: 651/1 skip/-2 — was -5 (after C27/C28 in previous
+  runs). C29 (tap_drag_start_details) and C28 (drag_test,
+  positioned_gesture_details) are both fixed; remaining 2
+  failures are pre-existing C30 (box_painter_test) and C31
+  (linear_border_edge_test). No new regressions
+  (`ztmp/c29_verify_analyzer_secondary.log.txt`).
+
+**Verification (AST driver, `D4RT_SKIP_BRIDGE_REGEN=1`):** AST
+runtime does not use `tom_d4rt`'s interpreter visitor, but rule
+(b) was run anyway. essential 108/0/0, important 164/0/0,
+secondary 651/1 skip/-2 — only pre-existing C30/C31 remain, no
+new regressions
+(`tom_d4rt_flutter_ast/ztmp/c29_verify_ast_*.log.txt`).
 
 #### C30 — `Runtime Error: The condition of a conditional expression must be a boolean, but was null.`
 
