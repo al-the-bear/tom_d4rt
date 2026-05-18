@@ -1435,6 +1435,38 @@ class D4 {
       }
     }
 
+    // C35: Iterator<Object?> → Iterator<T>.
+    // Typed list literals (e.g. `<int>[1, 2, 3]`) lose their element type
+    // inside the interpreter and produce a `List<Object?>`, whose `.iterator`
+    // is `ListIterator<Object?>`. Bridge constructors that declare an
+    // `Iterator<T>` parameter (e.g. `CachingIterable<T>(Iterator<T> source)`)
+    // then reject the value via reified-generics TypeError. Wrap the source
+    // iterator in a typed cast iterator that lazily casts each `current`
+    // element, mirroring `Iterable.cast<T>().iterator`.
+    if (unwrapped is Iterator && tStr.startsWith('Iterator<')) {
+      final elementType = tStr.substring(9, tStr.length - 1);
+      final source = unwrapped;
+      final Iterator<Object?>? result = switch (elementType) {
+        'int' => _CastIterator<int>(source),
+        'double' => _PromotingDoubleIterator(source),
+        'String' => _CastIterator<String>(source),
+        'num' => _CastIterator<num>(source),
+        'bool' => _CastIterator<bool>(source),
+        'Object' ||
+        'dynamic' ||
+        'Object?' =>
+          _CastIterator<Object?>(source),
+        _ => null,
+      };
+      if (result != null) {
+        try {
+          return result as T;
+        } catch (_) {
+          // Fall through to error.
+        }
+      }
+    }
+
     // Set<Object?> → Set<T>
     if ((unwrapped is Set || (unwrapped is Map && tStr.startsWith('Set<'))) &&
         tStr.startsWith('Set<')) {
@@ -2209,6 +2241,46 @@ abstract class D4UserRelaxer {
   /// The unparameterized base type name this relaxer targets.
   /// E.g., 'ValueNotifier', 'Animation', 'ReactiveStream'.
   String get baseTypeName;
+}
+
+// =============================================================================
+// C35: Typed-Cast Iterator helpers used by extractBridgedArg<Iterator<T>>.
+// =============================================================================
+
+/// Lazy element-wise cast wrapper around an arbitrary [Iterator].
+///
+/// The interpreter materializes typed list literals as `List<Object?>` so
+/// `<int>[1, 2, 3].iterator` arrives at a bridge constructor as
+/// `ListIterator<Object?>`. Reified generics then reject it against
+/// `Iterator<int>`. [_CastIterator] satisfies the strict type without copying
+/// by casting each `current` element on access — same idea as
+/// `Iterable.cast<T>().iterator`, but for a bare iterator.
+class _CastIterator<T> implements Iterator<T> {
+  final Iterator _source;
+  _CastIterator(this._source);
+
+  @override
+  T get current => _source.current as T;
+
+  @override
+  bool moveNext() => _source.moveNext();
+}
+
+/// `Iterator<Object?> → Iterator<double>` with `int → double` promotion
+/// on the fly. Mirrors the int-to-double promotion the List branch already
+/// performs for `<double>[1, 2, 3]`-style literals.
+class _PromotingDoubleIterator implements Iterator<double> {
+  final Iterator _source;
+  _PromotingDoubleIterator(this._source);
+
+  @override
+  double get current {
+    final value = _source.current;
+    return value is int ? value.toDouble() : value as double;
+  }
+
+  @override
+  bool moveNext() => _source.moveNext();
 }
 
 // =============================================================================
