@@ -68,7 +68,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C32** | `secondary_classes_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'LinearBorderEdge': 'package:flutter/src/painting/linear_border.dart': Fa` | ☑ |
 | **C33** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on bridged class 'UniformFloatSlot'.` | ☑ |
 | **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☑ |
-| **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☐ |
+| **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☑ |
 | **C36** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☐ |
 | **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☐ |
 | **C38** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': ` | ☐ |
@@ -1920,11 +1920,82 @@ verification numbers.
 
 #### C35 — `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 133 | foundation/ caching_iterable_test.dart |
+
+**Status:** fixed (2026-05-18).
+
+**Root cause.** The script constructs a typed list literal and then
+passes its iterator to a bridged generic constructor:
+
+```dart
+final Iterator<int> source = <int>[1, 2, 3, /*...*/].iterator;
+final CachingIterable<int> cache = CachingIterable<int>(source);
+```
+
+In native Dart, `<int>[1, 2, 3].iterator` is a `ListIterator<int>`. The
+d4rt interpreter (both analyzer-based and AST-based) materialises typed
+list literals as `List<Object?>` instead — the element-type annotation
+is dropped during literal construction. The `.iterator` getter on that
+list therefore returns `ListIterator<Object?>`.
+
+The RC-2 generic-constructor factory for `CachingIterable<int>` in
+`flutter_relaxers.b.dart` calls
+`D4.extractBridgedArg<Iterator<int>>(_prefillIterator, ...)` to coerce
+the source. `extractBridgedArg<T>` had branches for List / Iterable /
+Set / Map but **none for `Iterator<T>`**, so the strict reified-generics
+cast failed and surfaced as the user-visible error.
+
+**Fix.** Added an `Iterator<T>` coercion branch to `D4.extractBridgedArg`
+in both interpreters, plus a lazy element-wise cast wrapper:
+
+- `lib/src/generator/d4.dart` (tom_d4rt) — analyzer-based interpreter.
+- `lib/src/runtime/generator/d4.dart` (tom_d4rt_ast) — AST-based interpreter.
+
+```dart
+class _CastIterator<T> implements Iterator<T> {
+  final Iterator _source;
+  _CastIterator(this._source);
+  @override T get current => _source.current as T;
+  @override bool moveNext() => _source.moveNext();
+}
+```
+
+When `T == Iterator<X>` and `unwrapped is Iterator`, the branch wraps
+the source in `_CastIterator<X>` (or `_PromotingDoubleIterator` for
+`Iterator<double>` to handle `int → double` promotion, mirroring the
+existing List branch). Primitive element types (`int`, `double`,
+`String`, `num`, `bool`, `Object`/`dynamic`/`Object?`) are covered.
+Non-primitive element types are not currently coerced because
+reified-generics require a compile-time type argument that
+`extractBridgedArg` cannot synthesise without ceremony — but the
+existing `<int>[...].iterator` shape, which is the only one this corpus
+exercises, is fully handled.
+
+**Verification.**
+
+Individual reproduction & retest:
+
+- AST driver — `flutter test test/hardly_relevant_classes_1_test.dart --plain-name 'caching_iterable_test.dart'`:
+  - before: `Runtime Error: ... expected Iterator<int>, got ListIterator<Object?>`
+  - after: `01:03 +1: All tests passed!` (`ztmp/c35/ast_caching_iterable_after.log`)
+- Analyzer driver — same command in `tom_d4rt_flutter_test/`:
+  - before: same error
+  - after: `00:59 +1: All tests passed!` (`ztmp/c35/test_caching_iterable_after.log`)
+
+Four-suite rule-b regression (both drivers, serial):
+
+| Suite     | AST driver       | Analyzer driver  | Baseline |
+|-----------|------------------|------------------|----------|
+| gii       | `+79 ~2 -2`      | `+79 ~2 -2`      | `+79 ~2 -2` (pre-existing layout fails: `nestedscrollview_test`, `render_custom_multi_child_layout_box_test`) |
+| essential | `+108`           | `+108`           | `+108/0/0` |
+| important | `+164`           | `+164`           | `+164/0/0` |
+| secondary | `+653 ~1`        | `+653 ~1`        | `+653 ~1` |
+
+No interpreter regressions on either driver. Logs in `ztmp/c35/`.
 
 #### C36 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos`
 
