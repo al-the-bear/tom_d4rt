@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-05-17T23:23:55.888477
+// Generated: 2026-05-18T02:37:32.369240
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -5167,7 +5167,7 @@ BridgedClass _createDecorationBridge() {
       'createBoxPainter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.Decoration>(target, 'Decoration');
         final onChangedRaw = positional.isNotEmpty ? positional[0] : null;
-        return t.createBoxPainter(() { D4.callInterpreterCallback(visitor!, onChangedRaw, []); });
+        return (t as dynamic).createBoxPainter(onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onChangedRaw, []); });
       },
       'getClipPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.Decoration>(target, 'Decoration');
