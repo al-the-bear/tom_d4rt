@@ -81,7 +81,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☑ fixed (script) |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
-| **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
+| **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
@@ -2719,11 +2719,38 @@ final startLocation = startLocationRaw == null
 
 #### C48 — `Runtime Error: Undefined variable: build`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 171 | services/ raw_key_event_data_ios_test.dart |
+
+**Status: ☑ fixed (script-only)**
+
+**Root cause:** `services/raw_key_event_data_ios_test.dart` declared 20+
+`_*` widget classes (`_SectionFrame`, `_Hero`, `_DeprecationBanner`,
+`_AnatomyDiagram`, `_ModifierFieldDiagram`, `_EventJourneys`,
+`_CharactersExplainer`, `_HidUsageTable`, …) but no top-level
+`build(BuildContext context)` function. The d4rt test harness invokes
+the script's top-level `build` to obtain the root widget; without it the
+interpreter resolves `build` as a bare identifier and throws
+`Undefined variable: build`. The class `RawKeyEventDataIos` itself is
+`@Deprecated` SDK surface and is intentionally filtered out by the
+bridge generator (see U12 in `interpreter_unfixable.md`); the script
+only references the type name in strings and comments.
+
+**Fix:** Appended a composing top-level `Widget build(BuildContext)` to
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/services/raw_key_event_data_ios_test.dart`
+that returns a `Container/SingleChildScrollView/Column` of the script's
+existing widgets (`_DeprecationBanner`, `_Hero`, five `_SectionFrame`
+sections). The script corpus is shared between both drivers via
+`SendTestRunner.scriptsPath` →
+`../tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts`,
+so the single edit fixes both drivers.
+
+**Regression test rule (a):** script-only change → individual retest
+only. AST driver and test driver both run the test green (logs:
+`ztmp/c48/{ast,test}_after.log`).
 
 #### C49 — `Runtime Error: Undefined variable: RawKeyEventDataWeb`
 

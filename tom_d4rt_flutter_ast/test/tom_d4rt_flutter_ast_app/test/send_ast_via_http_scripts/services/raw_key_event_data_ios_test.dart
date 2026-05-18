@@ -1867,3 +1867,73 @@ class _UsageRow {
   final Color color;
   const _UsageRow(this.name, this.value, this.meaning, this.color);
 }
+
+// ===========================================================================
+// Top-level entrypoint required by the d4rt test harness.
+//
+// The harness invokes a top-level `build(BuildContext context)` to obtain the
+// root widget for a script. This file is a deep visual demo composed of many
+// `_*` widgets — without this function the harness fails with
+// `Runtime Error: Undefined variable: build` (cluster C48 in the test driver
+// and C47 in the AST driver).
+//
+// Note: `RawKeyEventDataIos` itself is `@Deprecated` and is therefore not
+// bridged into d4rt by the generator (deprecated SDK surface is filtered
+// out — see U12 in interpreter_unfixable.md). The script intentionally only
+// references the class name in strings and comments; no runtime use.
+// ===========================================================================
+Widget build(BuildContext context) {
+  return Container(
+    color: _Palette.bg,
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          _DeprecationBanner(),
+          _Hero(),
+          _SectionFrame(
+            index: '2',
+            title: 'Anatomy of RawKeyEventDataIos',
+            lead:
+                'Field-by-field shape of the legacy iOS adapter — keyCode, '
+                'characters, charactersIgnoringModifiers, modifiers, platform.',
+            child: _AnatomyDiagram(),
+          ),
+          _SectionFrame(
+            index: '3',
+            title: 'Modifier bitfield',
+            lead:
+                'The `modifiers` integer is a packed UIKeyModifierFlags. Each '
+                'kModifierFlag* constant maps to a single bit.',
+            child: _ModifierFieldDiagram(),
+          ),
+          _SectionFrame(
+            index: '4',
+            title: 'Event journeys',
+            lead:
+                'Two illustrative sequences of UIKey → RawKeyEventDataIos as '
+                'observed on the legacy raw-keyboard channel.',
+            child: _EventJourneys(),
+          ),
+          _SectionFrame(
+            index: '5',
+            title: 'Characters vs charactersIgnoringModifiers',
+            lead:
+                'The two text-bearing fields diverge whenever a modifier '
+                'changes the produced glyph (Shift, Option, …).',
+            child: _CharactersExplainer(),
+          ),
+          _SectionFrame(
+            index: '6',
+            title: 'HID Usage table excerpt',
+            lead:
+                'A short table of UIKeyboardHIDUsage values that surface as '
+                '`keyCode` on RawKeyEventDataIos.',
+            child: _HidUsageTable(),
+          ),
+          SizedBox(height: 32),
+        ],
+      ),
+    ),
+  );
+}
