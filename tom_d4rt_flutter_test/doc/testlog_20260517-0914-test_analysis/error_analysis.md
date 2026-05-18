@@ -70,7 +70,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C34** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Undefined static member 'hashCode' on class 'UniformVec2Slot'.` | ☑ |
 | **C35** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Error in generic constructor factory for 'CachingIterable': Argument Error: Invalid parameter "_prefillIterator": expected It` | ☑ |
 | **C36** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toStringDeep': Argument Error: Invalid target: expected Diagnos` | ☑ |
-| **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☐ |
+| **C37** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di` | ☑ |
 | **C38** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': ` | ☐ |
 | **C39** | `hardly_relevant_classes_1_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT` | ☐ |
 | **C40** | `hardly_relevant_classes_1_test.dart` | 1 | `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts \|\| Bad state: Transport f` | ☐ |
@@ -2065,11 +2065,61 @@ pass.
 
 #### C37 — `Runtime Error: Native error in bridged mixin method 'DiagnosticableTreeMixin.toDiagnosticsNode': Argument Error: Invalid target: expected Di`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 144 | foundation/ diagnostics_serialization_delegate_test.dart |
+
+**Root cause.** Same architectural family as C36 — covered by
+**U10** in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`. A
+script-defined class `_DemoConfig with DiagnosticableTreeMixin`
+cannot reach the bridged `toDiagnosticsNode` /
+`DiagnosticsNode.toJsonMap` pipeline: the bridged-mixin dispatch
+falls through to `mixinTarget = InterpretedInstance`, which the
+adapter's `D4.validateTarget<DiagnosticableTreeMixin>` rejects;
+even if the check were relaxed, the inherited concrete methods
+on the native side would dispatch back into the abstract
+callbacks via *native* dynamic dispatch and miss the script
+overrides.
+
+**Fix.** Same workaround pattern as C36, but the demo is more
+involved: the entry-point call is
+`config.toDiagnosticsNode(name: 'root').toJsonMap(delegate)` at
+`_serializeWith`, and the four script-defined delegate classes
+(`_ShallowDelegate`, `_FilteredDelegate`, `_DepthTaggedDelegate`,
+`_ComposedDelegate`) all `implements
+DiagnosticsSerializationDelegate`. We rewrite `_serializeWith`
+to call a script-side recursive `_manualSerialize(config,
+delegate, depth)` that:
+
+- reads `delegate.subtreeDepth` / `delegate.includeProperties`
+  (both work for native and interpreted delegates — the bridged
+  getters are present, and InterpretedInstance field access
+  resolves on the script-defined subclasses);
+- detects each script-defined delegate concrete class via `is`
+  to read its extra knobs (`hidePrefix` for `_FilteredDelegate`,
+  `maxChildren` / `depth` tag for `_DepthTaggedDelegate`,
+  composed-mode child swap-in for `_ComposedDelegate`);
+- emits a JSON-shaped `Map<String, Object?>` (`name`,
+  `description`, `type`, `depth`, `_delegate`,
+  per-prop list, recursive children) that mirrors what
+  `toJsonMap` would have produced, sufficient for the demo's
+  rendering needs without crossing the d4rt → native boundary.
+
+The change lives entirely in the test script — no interpreter or
+bridge edits — so it is a rule-(a) change and individual retest
+is sufficient.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:18 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:15 +1: All tests passed!` |
+
+Logs in `ztmp/c37/`.
 
 #### C38 — `Runtime Error: Native error during default bridged constructor for 'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart': `
 

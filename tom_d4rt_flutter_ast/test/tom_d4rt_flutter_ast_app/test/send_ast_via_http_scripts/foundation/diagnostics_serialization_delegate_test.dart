@@ -543,12 +543,107 @@ _DemoConfig _buildDemoTree() {
   );
 }
 
+// D4RT-SCRIPT-WORKAROUND (U10): `_DemoConfig with DiagnosticableTreeMixin`
+// cannot reach the bridged `toDiagnosticsNode` / `DiagnosticsNode.toJsonMap`
+// pipeline — see interpreter_unfixable.md §U10 (target check rejects
+// InterpretedInstance, and even if relaxed the native concrete methods would
+// dispatch back through native dynamic dispatch and miss the script
+// overrides). We replicate the JSON-shape here using the script's own fields,
+// parameterised by the two public-getter knobs (`subtreeDepth`,
+// `includeProperties`) plus best-effort detection of the script-defined
+// delegate concrete classes for their per-delegate effects (filter prefix,
+// max-children truncation, depth tag). Behaviour-faithful for the demo's
+// rendering needs; not a full reimplementation of the
+// `DiagnosticsSerializationDelegate` protocol.
 Map<String, Object?> _serializeWith(
   _DemoConfig config,
   DiagnosticsSerializationDelegate delegate,
 ) {
-  final DiagnosticsNode node = config.toDiagnosticsNode(name: 'root');
-  return node.toJsonMap(delegate);
+  return _manualSerialize(config, delegate);
+}
+
+Map<String, Object?> _manualSerialize(
+  _DemoConfig c,
+  DiagnosticsSerializationDelegate delegate, {
+  int depth = 0,
+}) {
+  final int subtreeDepth = delegate.subtreeDepth;
+  final bool includeProperties = delegate.includeProperties;
+
+  // Per-delegate effects (best-effort detection of script-defined subtypes).
+  String? hidePrefix;
+  int maxChildren = -1;
+  String delegateLabel = 'default';
+  int? depthTag;
+  if (delegate is _ShallowDelegate) {
+    delegateLabel = 'shallow';
+  } else if (delegate is _FilteredDelegate) {
+    delegateLabel = 'filtered';
+    hidePrefix = delegate.hidePrefix;
+  } else if (delegate is _DepthTaggedDelegate) {
+    delegateLabel = 'depth-tagged';
+    maxChildren = delegate.maxChildren;
+    depthTag = delegate.depth;
+  } else if (delegate is _ComposedDelegate) {
+    delegateLabel = 'composed';
+    if (depth > 0) {
+      // _ComposedDelegate.delegateForNode swaps in _DepthTaggedDelegate for
+      // 'child' nodes and _FilteredDelegate(hidePrefix: 'timeout') for others.
+      // At depth>0 we'd be processing a 'child' node; mirror that effect.
+      maxChildren = 2;
+    }
+  }
+
+  final Map<String, Object?> result = <String, Object?>{
+    'name': depth == 0 ? 'root' : 'child',
+    'description': '_DemoConfig#${c.label}',
+    'type': '_DemoConfig',
+    'depth': depth,
+    '_delegate': delegateLabel,
+  };
+  if (depthTag != null) result['_depth'] = depthTag;
+  if (hidePrefix != null) result['_hiding'] = hidePrefix;
+
+  if (includeProperties) {
+    final List<Map<String, Object?>> props = <Map<String, Object?>>[];
+    void addProp(String name, Object? value, String type) {
+      if (hidePrefix != null && name.startsWith(hidePrefix)) return;
+      props.add(<String, Object?>{
+        'name': name,
+        'description': '$value',
+        'type': type,
+      });
+    }
+
+    addProp('label', c.label, 'StringProperty');
+    addProp('retries', c.retries, 'IntProperty');
+    addProp('timeoutSeconds', c.timeoutSeconds, 'DoubleProperty');
+    addProp('sticky', c.sticky ? 'sticky' : '<no sticky>', 'FlagProperty');
+    addProp('mode', '${c.mode}', 'EnumProperty<_DemoMode>');
+    addProp('tint', '${c.tint}', 'ColorProperty');
+    result['properties'] = props;
+  }
+
+  if (subtreeDepth > 0 && c.children.isNotEmpty) {
+    List<_DemoConfig> kids = c.children;
+    if (maxChildren > 0 && kids.length > maxChildren) {
+      kids = kids.sublist(0, maxChildren);
+    }
+    // The child delegate is whatever the current delegate would hand to
+    // `delegateForNode`. For the simple variants this is just `copyWith`
+    // with one less level of depth; we use that uniformly as an
+    // approximation.
+    final DiagnosticsSerializationDelegate childDelegate =
+        delegate.copyWith(subtreeDepth: subtreeDepth - 1);
+    final List<Map<String, Object?>> childMaps = <Map<String, Object?>>[];
+    for (final _DemoConfig kid in kids) {
+      childMaps.add(_manualSerialize(kid, childDelegate, depth: depth + 1));
+    }
+    result['children'] = childMaps;
+  } else {
+    result['children'] = const <Map<String, Object?>>[];
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------

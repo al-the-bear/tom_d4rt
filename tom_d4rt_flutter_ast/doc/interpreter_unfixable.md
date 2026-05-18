@@ -51,7 +51,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames`](#u7--dart-internal-_constmap-runtime-class-of-const-k-v-is-not-in-the-map-bridges-nativenames-interpreter-limitation) | Interpreter limitation. The Map `BridgedClass` (`tom_d4rt/lib/src/stdlib/core/map.dart` and `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart`) lists `UnmodifiableMapView`, `_UnmodifiableMapView`, `_CompactLinkedHashMap`, `ListMapView`, `_MapView` in `nativeNames`, but not `_ConstMap` — the Dart-internal runtime type of `const <K, V>{}`. Any member access on a `_ConstMap` (`.entries`, `.keys`, `.length`, …) falls through the `SPrefixedIdentifier` lookup and throws `Cannot access property '<name>' on target of type _ConstMap<…>.`. The trigger comes both from script-side `const <K, V>{}` defaults and from Flutter APIs that return `const <…>{}` themselves — notably `SemanticsEvent.getDataMap()` for payload-free events (`LongPressSemanticsEvent`, `TapSemanticEvent`, `FocusSemanticEvent`). Workaround: drop `const` on script-side defaults and copy bridged map values through `Map<K, V>.from(value)` at the assignment site so the runtime type is a regular `LinkedHashMap`. | `semantics/semantics_events_test.dart` (C18 closed 2026-05-17 — `dataMap.entries.toList()` on the values of `probe.getDataMap()` for `LongPressSemanticsEvent` / `TapSemanticEvent` / `FocusSemanticEvent`) |
 | [U8 — Script-defined enum values are `InterpretedEnumValue`, not native `Enum`; plus `RestorableValue.value` asserts `isRegistered`](#u8--script-defined-enum-values-are-interpretedenumvalue-not-native-enum-plus-restorablevaluevalue-asserts-isregistered-interpreter-limitation--scripting-trap) | Interpreter limitation + scripting trap. (1) d4rt represents every script-defined `enum X { … }` value as `InterpretedEnumValue` (`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` line 1861), which implements `RuntimeValue` but **not** Dart's native `Enum`. Any bridged API parameter typed `Enum` (`RestorableEnum<E>(E defaultValue, …)`, `RestorableEnumN<E>`, generic enum-typed setters) rejects the script value at the bridge boundary via `D4.getRequiredArg<Enum>`. Same family as U3 / U5 — script-defined subtypes can't cross d4rt → native as the native abstract / built-in type. (2) Latent Flutter trap that often surfaces *after* the U8 enum workaround unmasks it: `RestorableValue<T>.value` asserts `isRegistered` at line 85 of `restoration_properties.dart`; in debug mode (which is how `flutter test` runs) accessing `.value` on an unregistered restorable throws. Workarounds: (a) replace any script-defined enum used at a native API boundary with a framework enum (`Brightness`, `TargetPlatform`, `TextDirection`, …); (b) when reading `RestorableValue.value` on a restorable that the script never registers via `RestorationMixin`, shadow each restorable with a plain Dart variable holding the construction-time default and read the shadow (the demo never mutates the stored value, so the shadow equals what the getter would return). | `widgets/restorable_values_test.dart` (C20 closed 2026-05-17 — `RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values)` plus 44 `restXxx.value` reads on never-registered restorables) |
 | [U9 — Script-defined `RouteAware` cannot be subscribed to a native `RouteObserver`](#u9--script-defined-routeaware-cannot-be-subscribed-to-a-native-routeobserver-interpreter-limitation) | Interpreter limitation. The bridged `RouteObserver.subscribe(RouteAware aware, R route)` validates `aware` with `D4.getRequiredArg<RouteAware>`, which rejects a d4rt `InterpretedInstance` even when the script class declares `with RouteAware` (or `implements RouteAware`). Same architectural family as U3 (`Curve`), U5 (`NotchedShape` / `FloatingActionButtonLocation`), and U8 (`Enum`): a script-defined subtype of a bridged native abstract / mixin type cannot cross the d4rt → native boundary as that native type. There is no framework-provided `RouteAware` concrete subclass to substitute, because `RouteAware` is intended to be mixed into application-side `State` objects. Mandatory script-side workaround: use a script-side stand-in observer that mirrors the native `subscribe` / `unsubscribe` / `didPush` / `didPop` / `didReplace` protocol over `Map<Route, List<_LoggingRouteAware>>`, so the demo's call-order timeline is produced without crossing the d4rt → native boundary. The native `RouteObserver` instance can still be constructed (the constructor itself is safe — no script-defined `RouteAware` argument is involved) to demonstrate the type exists. | `widgets/route_observer_test.dart` (C22 closed 2026-05-17 — `_LoggingRouteAware with RouteAware` × 4 subscribed via `routeObserver.subscribe(...)`) |
-| [U10 — Script-defined class `with DiagnosticableTreeMixin` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`)](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. The bridged `DiagnosticableTreeMixin` methods all validate the target via `D4.validateTarget<DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin`. The bridged-mixin method dispatch in `runtime_types.dart` falls through to `mixinTarget = nativeProxy ?? bridgedSuperObject ?? this`; for a purely-interpreted class with no native superclass, `mixinTarget` is the `InterpretedInstance`, which the adapter then rejects. Same architectural family as U3/U5/U8/U9 (script-defined subtype of a bridged native abstract/mixin type cannot cross d4rt → native), but with an additional twist: even if the target check were relaxed, the inherited concrete methods on the native side call back into `debugFillProperties` / `debugDescribeChildren` / `toStringShort` via Dart dynamic dispatch, and those dispatches would go to the native `Diagnosticable` defaults rather than to the script's overrides — so the dump would be wrong, not just rejected. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (analogous to `_InterpretedStatelessWidget` et al.) that holds the `InterpretedInstance` and routes each abstract callback back into the interpreter; this is feature-scale work and deferred. Mandatory script-side workaround: build the diagnostics dump directly via a small recursive helper that calls the overridden `debugFillProperties` and `debugDescribeChildren` and formats them analogously to `toStringDeep`. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()` at line 288) |
+| [U10 — Script-defined class `with DiagnosticableTreeMixin` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`)](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. The bridged `DiagnosticableTreeMixin` methods all validate the target via `D4.validateTarget<DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin`. The bridged-mixin method dispatch in `runtime_types.dart` falls through to `mixinTarget = nativeProxy ?? bridgedSuperObject ?? this`; for a purely-interpreted class with no native superclass, `mixinTarget` is the `InterpretedInstance`, which the adapter then rejects. Same architectural family as U3/U5/U8/U9 (script-defined subtype of a bridged native abstract/mixin type cannot cross d4rt → native), but with an additional twist: even if the target check were relaxed, the inherited concrete methods on the native side call back into `debugFillProperties` / `debugDescribeChildren` / `toStringShort` via Dart dynamic dispatch, and those dispatches would go to the native `Diagnosticable` defaults rather than to the script's overrides — so the dump would be wrong, not just rejected. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (analogous to `_InterpretedStatelessWidget` et al.) that holds the `InterpretedInstance` and routes each abstract callback back into the interpreter; this is feature-scale work and deferred. Mandatory script-side workaround: build the diagnostics dump directly via a small recursive helper that calls the overridden `debugFillProperties` and `debugDescribeChildren` and formats them analogously to `toStringDeep`, or — when the demo depends on the JSON-shape via `DiagnosticsNode.toJsonMap(delegate)` — a recursive `_manualSerialize(config, delegate, depth)` that reads `delegate.subtreeDepth` / `delegate.includeProperties` and emits a `Map<String, Object?>` mirroring `toJsonMap`'s output. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()` at line 288); `foundation/diagnostics_serialization_delegate_test.dart` (C37 closed 2026-05-18 — `_DemoConfig with DiagnosticableTreeMixin` `config.toDiagnosticsNode(...).toJsonMap(delegate)` in `_serializeWith`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -3862,10 +3862,130 @@ implementation lives on the native side but whose abstract
 callbacks are overridden on the script side; build the
 dispatch manually.
 
+**Second instance — `toDiagnosticsNode` + `toJsonMap` pipeline
+(C37, `foundation/diagnostics_serialization_delegate_test.dart`).**
+The same architectural limitation surfaces when a script's
+demo wants the *JSON shape* of the diagnostics tree, not the
+string dump:
+
+```dart
+class _DemoConfig with DiagnosticableTreeMixin {
+  // … overrides for debugFillProperties / debugDescribeChildren
+}
+
+Map<String, Object?> _serializeWith(
+  _DemoConfig config,
+  DiagnosticsSerializationDelegate delegate,
+) {
+  final DiagnosticsNode node = config.toDiagnosticsNode(name: 'root');
+  return node.toJsonMap(delegate); // throws — target rejected
+}
+```
+
+The bridged `toDiagnosticsNode` adapter strict-checks the target
+and rejects the `InterpretedInstance` of `_DemoConfig`, same as
+`toStringDeep`. Additionally, this demo defines four
+script-side `DiagnosticsSerializationDelegate` subclasses
+(`_ShallowDelegate`, `_FilteredDelegate`, `_DepthTaggedDelegate`,
+`_ComposedDelegate`) whose lifecycle hooks (`filterProperties`,
+`delegateForNode`, `truncateNodesList`) would in any case never
+be reached from the native side (same architectural family —
+script-defined subtype of a bridged interface; the native
+`toJsonMap` won't dispatch back into them).
+
+**Script-side workaround variant (mandatory).** Replace the
+`config.toDiagnosticsNode(...).toJsonMap(delegate)` call chain
+with a script-side recursive serializer that reads the
+delegate's two public getters and best-effort-detects each
+delegate concrete class for its per-delegate effects:
+
+```dart
+Map<String, Object?> _serializeWith(
+  _DemoConfig config,
+  DiagnosticsSerializationDelegate delegate,
+) {
+  return _manualSerialize(config, delegate);
+}
+
+Map<String, Object?> _manualSerialize(
+  _DemoConfig c,
+  DiagnosticsSerializationDelegate delegate, {
+  int depth = 0,
+}) {
+  final int subtreeDepth = delegate.subtreeDepth;
+  final bool includeProperties = delegate.includeProperties;
+
+  String? hidePrefix;
+  int maxChildren = -1;
+  String delegateLabel = 'default';
+  int? depthTag;
+  if (delegate is _FilteredDelegate) {
+    hidePrefix = delegate.hidePrefix;
+    delegateLabel = 'filtered';
+  } else if (delegate is _DepthTaggedDelegate) {
+    maxChildren = delegate.maxChildren;
+    depthTag = delegate.depth;
+    delegateLabel = 'depth-tagged';
+  }
+  // … _ShallowDelegate / _ComposedDelegate labels likewise
+
+  final Map<String, Object?> result = <String, Object?>{
+    'name': depth == 0 ? 'root' : 'child',
+    'description': '_DemoConfig#${c.label}',
+    'type': '_DemoConfig',
+    'depth': depth,
+    '_delegate': delegateLabel,
+  };
+  if (includeProperties) {
+    final props = <Map<String, Object?>>[];
+    void addProp(String name, Object? v, String type) {
+      if (hidePrefix != null && name.startsWith(hidePrefix)) return;
+      props.add({'name': name, 'description': '$v', 'type': type});
+    }
+    addProp('label', c.label, 'StringProperty');
+    // … other fields likewise
+    result['properties'] = props;
+  }
+  if (subtreeDepth > 0 && c.children.isNotEmpty) {
+    final kids = (maxChildren > 0 && c.children.length > maxChildren)
+        ? c.children.sublist(0, maxChildren)
+        : c.children;
+    final child = delegate.copyWith(subtreeDepth: subtreeDepth - 1);
+    result['children'] = [
+      for (final k in kids) _manualSerialize(k, child, depth: depth + 1),
+    ];
+  }
+  return result;
+}
+```
+
+`delegate.subtreeDepth` / `delegate.includeProperties` /
+`delegate.copyWith(...)` all work for both the const native base
+class (bridged getters / bridged method) and the script-defined
+subclasses (interpreter field access / interpreted method call).
+The produced map is structurally compatible with what
+`toJsonMap` would have emitted for the demo's rendering needs;
+it is not a faithful reimplementation of the
+`DiagnosticsSerializationDelegate` protocol (the `filterChildren`
+/ `truncateNodesList` / `delegateForNode` hooks on the
+script-defined subclasses are not invoked) — but the demo
+itself never observes that.
+
 ---
 
 ## Change Log
 
+- 2026-05-18: **Extend U10 with second instance —
+  `toDiagnosticsNode` + `toJsonMap` pipeline (C37,
+  `foundation/diagnostics_serialization_delegate_test.dart`).**
+  Same architectural family as the C36
+  `toStringDeep` instance. Mandatory script-side workaround:
+  recursive `_manualSerialize(config, delegate, depth)` that
+  emits a `Map<String, Object?>` mirroring `toJsonMap`'s output,
+  parameterised by `delegate.subtreeDepth` /
+  `delegate.includeProperties` and with best-effort `is`-checks
+  for each script-defined delegate concrete class. Script-only
+  change; no interpreter / generator modification.
 - 2026-05-18: **Add U10 — Script-defined class
   `with DiagnosticableTreeMixin` cannot call inherited concrete
   methods.** Documents the `testlog_20260517-0914` C36 cluster
