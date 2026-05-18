@@ -90,7 +90,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C54** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☑ fixed (script · U1-variant-2) |
 | **C55** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☑ fixed (script · U1-variant-2) |
 | **C56** | `generator_interpreter_retest_test.dart` | 1 | `A borderRadius can only be given on borders with uniform colors.` | ☑ fixed (script · script-bug) |
-| **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
+| **C57** | `generator_interpreter_retest_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☑ fixed (no-op · resolved by earlier U13 workaround) |
 
 ## Hard Failures — File by File
 
@@ -2958,7 +2958,11 @@ Representative error texts:
 
 #### C57 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (2026-05-18) — pairs with test-driver C59;
+  **no-op**: resolved by earlier C55/C53 §U13 workaround applied to
+  the same script (`retest/services/method_codec_test.dart`
+  Section 6). Both drivers now green on this row without further
+  edits. See test-driver C59 entry for the full description.
 
 | testID | Test name |
 |-------:|-----------|

@@ -4527,6 +4527,14 @@ original type.
 
 ## Change Log
 
+- 2026-05-18: **Close C59/C57
+  (`retest/services/method_codec_test.dart` decodeEnvelope
+  PlatformException not catchable) — no-op.** Same script and same
+  `Section 6` try/catch as C55/C53; the §U13 workaround applied in
+  that earlier commit already covers this row. Verified both drivers
+  green without further edits. Pairs as test-driver C59 ≡ AST-driver
+  C57.
+
 - 2026-05-18: **Close C58/C56
   (`retest/services/message_codec_test.dart`: "A borderRadius can
   only be given on borders with uniform colors").** Pure script bug,
