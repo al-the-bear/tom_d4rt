@@ -53,7 +53,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U9 — Script-defined `RouteAware` cannot be subscribed to a native `RouteObserver`](#u9--script-defined-routeaware-cannot-be-subscribed-to-a-native-routeobserver-interpreter-limitation) | Interpreter limitation. The bridged `RouteObserver.subscribe(RouteAware aware, R route)` validates `aware` with `D4.getRequiredArg<RouteAware>`, which rejects a d4rt `InterpretedInstance` even when the script class declares `with RouteAware` (or `implements RouteAware`). Same architectural family as U3 (`Curve`), U5 (`NotchedShape` / `FloatingActionButtonLocation`), and U8 (`Enum`): a script-defined subtype of a bridged native abstract / mixin type cannot cross the d4rt → native boundary as that native type. There is no framework-provided `RouteAware` concrete subclass to substitute, because `RouteAware` is intended to be mixed into application-side `State` objects. Mandatory script-side workaround: use a script-side stand-in observer that mirrors the native `subscribe` / `unsubscribe` / `didPush` / `didPop` / `didReplace` protocol over `Map<Route, List<_LoggingRouteAware>>`, so the demo's call-order timeline is produced without crossing the d4rt → native boundary. The native `RouteObserver` instance can still be constructed (the constructor itself is safe — no script-defined `RouteAware` argument is involved) to demonstrate the type exists. | `widgets/route_observer_test.dart` (C22 closed 2026-05-17 — `_LoggingRouteAware with RouteAware` × 4 subscribed via `routeObserver.subscribe(...)`) |
 | [U10 — Script-defined class `with DiagnosticableTreeMixin` / `Diagnosticable` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`); plus `super.debugFillProperties(...)` fails into bridged mixin](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. (a) The bridged `DiagnosticableTreeMixin` / `Diagnosticable` methods all validate the target via `D4.validateTarget<...>(target, '...')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin` or `with Diagnosticable`. Same architectural family as U3/U5/U8/U9. (b) Additionally, `super.debugFillProperties(properties)` from an interpreted class whose only super is the bridged mixin throws *`Class 'X' does not have a standard or bridged superclass, cannot use 'super'.`* — the interpreter does not resolve `super` calls into a bridged-mixin super-chain. Native `Diagnosticable.debugFillProperties` is a no-op anyway, so dropping the super call is safe. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (deferred, feature-scale). Mandatory script-side workaround: (1) build the diagnostics dump directly via `_dumpNode` (children) / `_diagnosticableDeepDump` (no children) helpers that walk `debugFillProperties` / `debugDescribeChildren`; (2) for JSON shape, recursive `_manualSerialize(config, delegate, depth)`; (3) drop any `super.debugFillProperties(...)` call from the script's override. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()`); `foundation/diagnostics_serialization_delegate_test.dart` (C37 closed 2026-05-18 — `_DemoConfig with DiagnosticableTreeMixin` `toDiagnosticsNode(...).toJsonMap(delegate)`); `foundation/object_flag_property_test.dart` (C38 closed 2026-05-18 — `_DemoConfig with Diagnosticable` `super.debugFillProperties(...)` + `toDiagnosticsNode().toStringDeep()`; also had unrelated framework-assert bug fixed by supplying empty-string text for `ifPresent`/`ifNull` slots) |
 | [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
-| [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Scripts whose premise is to document a deprecated symbol's shape must declare a local stand-in (enum/class) with the same value names / ordering and route typed lookups through it. | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — local `_KeyDataTransitMode` stand-in); pattern expected for C45/C49/C50 (`KeyboardSide`, `RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
+| [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4291,19 +4291,75 @@ demonstrating, or introduce a local stand-in (enum/class) as
 above when the demo's premise is specifically to document the
 deprecated symbol's shape.
 
-**Affected scripts (testlog_20260517-0914 corpus).** C44
-(`services/key_data_transit_mode_test.dart`, fixed
-2026-05-18 via local `_KeyDataTransitMode` stand-in).
-Structurally identical pattern is expected for the remaining
-"Undefined variable: <DeprecatedSymbol>" clusters: C45
-(`KeyboardSide`), C49 (`RawKeyEventDataWeb`), C50
-(`RawKeyEventDataLinux`) — each should be confirmed
-`@Deprecated` upstream before applying the same workaround.
+**Affected scripts (testlog_20260517-0914 corpus).**
+
+- **C44** (`services/key_data_transit_mode_test.dart`) — fixed
+  2026-05-18 via local `_KeyDataTransitMode` stand-in.
+- **C45** (`services/keyboard_side_test.dart`) — fixed
+  2026-05-18 via local `_KeyboardSide` + `_ModifierKey`
+  stand-ins (dual-enum scope; `KeyboardSide` and `ModifierKey`
+  are both `@Deprecated` at `raw_keyboard.dart:40-44` /
+  `raw_keyboard.dart:68-72`).
+- **C46 / test driver — typedef-rename sub-pattern** —
+  `services/mouse_tracker_annotation_test.dart`
+  uses `MaterialState` and `MaterialStateMouseCursor`, which
+  are `@Deprecated` *typedefs* (since Flutter 3.19.0-0.3.pre)
+  aliasing `WidgetState` / `WidgetStateMouseCursor`. Because
+  the typedef *targets* are themselves fully bridged and
+  functionally identical (a rename, not a signature change),
+  the workaround is simpler than the enum case: use the
+  modern names in code positions, preserve the alias in
+  in-string / in-comment mentions. No local stand-in needed.
+  Fixed 2026-05-18.
+
+Structurally identical "deprecated-name" pattern is still
+expected for the remaining clusters C49
+(`RawKeyEventDataWeb`) and C50 (`RawKeyEventDataLinux`) — each
+should be confirmed `@Deprecated` upstream before applying the
+appropriate workaround variant.
+
+**Workaround variants.**
+
+- **Variant A — Local stand-in (enum or class):** use when the
+  deprecated symbol has *no* non-deprecated equivalent that is
+  bridged, or when the script's premise is to document the
+  deprecated symbol's shape specifically. Declare a private
+  `_<Name>` with the same value names / ordering / signatures
+  and route every code-position reference through it. C44 +
+  C45 follow this pattern.
+- **Variant B — Modern-name swap:** use when the deprecated
+  symbol is a typedef-rename pointing at a still-bridged
+  modern symbol with identical surface. Replace each
+  code-position reference with the modern name (e.g.
+  `MaterialState` → `WidgetState`); no stand-in declaration
+  required. C46 follows this pattern.
+
+Both variants preserve in-string / in-comment mentions of the
+deprecated name so the demo still documents the historical
+alias verbatim.
 
 ---
 
 ## Change Log
 
+- 2026-05-18: **Extend U12 with the typedef-rename
+  sub-pattern.** Test-driver C46
+  (`services/mouse_tracker_annotation_test.dart`, AST driver
+  C45) closed via variant B: `MaterialState` and
+  `MaterialStateMouseCursor` are `@Deprecated` typedefs
+  (Flutter 3.19.0-0.3.pre) aliasing the still-bridged
+  `WidgetState` / `WidgetStateMouseCursor`. Because the
+  targets are functionally identical and fully bridged, the
+  workaround is to use the modern name in code positions
+  (no local stand-in needed) while preserving the alias in
+  strings/comments. U12 §Affected scripts now lists both
+  workaround variants (A: local stand-in for symbols with no
+  bridged equivalent; B: modern-name swap for typedef-renames).
+- 2026-05-18: **Close C45 (`KeyboardSide`) under U12.** Variant
+  A applied with dual-enum scope: declared local `_KeyboardSide`
+  (4 values) + `_ModifierKey` (9 values) stand-ins. Both
+  `KeyboardSide` and `ModifierKey` are `@Deprecated` at
+  `raw_keyboard.dart:40-44` and `raw_keyboard.dart:68-72`.
 - 2026-05-18: **Add U12 — `@Deprecated`-annotated SDK symbols
   are filtered out of the bridge surface by design.**
   Documents the `testlog_20260517-0914` C44 cluster

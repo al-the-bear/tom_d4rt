@@ -78,7 +78,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C42** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Cannot access property 'isEmpty' on target of type _ConstMap<String, dynamic>.` | ☑ fixed (interpreter) |
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☑ fixed (script) |
-| **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☐ |
+| **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
@@ -2481,11 +2481,65 @@ bridge surface by design (generator policy)** in
 
 #### C45 — `Runtime Error: Undefined variable: MaterialState (in Set literal)`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 165 | services/ mouse_tracker_annotation_test.dart |
+
+**Root cause.** AST driver C45 ≡ test driver C46. Same family
+as the previous deprecated-symbol clusters (see **U12** in
+`interpreter_unfixable.md`). In Flutter 3.19.0-0.3.pre the
+`MaterialState*` API was renamed to `WidgetState*`; the old
+names are `@Deprecated` typedefs in
+`flutter/lib/src/material/material_state.dart`:
+
+```dart
+@Deprecated(...)
+typedef MaterialState = WidgetState;
+
+@Deprecated(...)
+typedef MaterialStateMouseCursor = WidgetStateMouseCursor;
+```
+
+The bridge generator's `generateDeprecatedElements = false`
+policy filters them off the bridge surface. Because the
+typedef *targets* (`WidgetState`, `WidgetStateMouseCursor`) are
+themselves fully bridged and functionally identical, the
+bridge coverage of the underlying API is intact — only the
+alias names are unreachable.
+
+**Fix.** Script-side. Replaced every code-position
+`MaterialState` → `WidgetState` and `MaterialStateMouseCursor`
+→ `WidgetStateMouseCursor` in Section 8 of
+`services/mouse_tracker_annotation_test.dart` (~6 lines:
+local-variable RHS, type arguments on three Set literals,
+enum-value access). All in-string / in-comment mentions of
+`MaterialState*` remain unchanged so the demo still documents
+the historic alias. Added a `D4RT-LIMITATION (C46)` header
+block.
+
+**Verification.**
+
+- Pre-fix reproduction (AST driver): "Undefined variable:
+  MaterialState (in Set literal)" —
+  `ztmp/c46/ast_before.log`
+- AST driver: `00:15 +1: All tests passed!` —
+  `ztmp/c46/ast_after.log`
+- analyzer driver: `00:11 +1: All tests passed!` —
+  `ztmp/c46/test_after.log`
+
+Test-script-only change → rule (a) individual retest
+sufficient; no regression suite needed.
+
+**Interpreter catalogue.** Covered by **U12 —
+`@Deprecated`-annotated SDK symbols are filtered out of the
+bridge surface by design (generator policy)** in
+`interpreter_unfixable.md`. U12 now subsumes the
+typedef-rename sub-pattern: when the deprecated alias *targets*
+a still-bridged symbol, the workaround is to use the modern
+name in code positions (no local stand-in needed) while
+preserving the alias in strings/comments.
 
 #### C46 — `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio`
 

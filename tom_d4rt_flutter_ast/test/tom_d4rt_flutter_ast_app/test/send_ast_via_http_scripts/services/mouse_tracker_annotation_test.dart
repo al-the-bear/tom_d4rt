@@ -8,6 +8,19 @@
 // the lighthouse keeper's logbook entries (cursor sigils + enter/exit
 // callbacks); MouseRegion is the brass-rimmed observation window; the pointer
 // events are vessels passing through the light cone.
+//
+// D4RT-LIMITATION (C46): `MaterialState` and `MaterialStateMouseCursor`
+// are `@Deprecated` typedefs (since Flutter v3.19.0-0.3.pre) aliasing
+// `WidgetState` and `WidgetStateMouseCursor` respectively. The bridge
+// generator's `generateDeprecatedElements = false` policy filters all
+// `@Deprecated` symbols off the bridge surface — see U12 in
+// `interpreter_unfixable.md`. Because the typedef targets
+// (`WidgetState`, `WidgetStateMouseCursor`) are themselves fully
+// bridged and functionally identical (a typedef rename, not a
+// signature change), the script uses the live names in code
+// positions while keeping every in-string / in-comment mention of
+// `MaterialState*` intact so the demo still documents the historic
+// alias.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -813,18 +826,20 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 8: MaterialStateMouseCursor demonstration ===');
 
-  final stateCursorClickable = MaterialStateMouseCursor.clickable;
-  final stateCursorTextable = MaterialStateMouseCursor.textable;
+  // C46: use the live `WidgetState*` names — `MaterialState*` are
+  // deprecated typedefs filtered out of the bridge surface (U12).
+  final stateCursorClickable = WidgetStateMouseCursor.clickable;
+  final stateCursorTextable = WidgetStateMouseCursor.textable;
   print('clickable runtimeType: ${stateCursorClickable.runtimeType}');
   print('textable runtimeType: ${stateCursorTextable.runtimeType}');
 
-  final hoveredSet = <MaterialState>{MaterialState.hovered};
-  final pressedSet = <MaterialState>{
-    MaterialState.hovered,
-    MaterialState.pressed,
+  final hoveredSet = <WidgetState>{WidgetState.hovered};
+  final pressedSet = <WidgetState>{
+    WidgetState.hovered,
+    WidgetState.pressed,
   };
-  final disabledSet = <MaterialState>{MaterialState.disabled};
-  final emptySet = <MaterialState>{};
+  final disabledSet = <WidgetState>{WidgetState.disabled};
+  final emptySet = <WidgetState>{};
 
   final clickableHovered = stateCursorClickable.resolve(hoveredSet);
   final clickablePressed = stateCursorClickable.resolve(pressedSet);
