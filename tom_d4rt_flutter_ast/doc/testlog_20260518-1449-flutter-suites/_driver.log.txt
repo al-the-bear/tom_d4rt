@@ -1,0 +1,45 @@
+=== tom_d4rt_flutter_ast (cwd=/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast) ===
+start: 2026-05-18 14:51:25 CEST
+--- essential_classes_test ---
+  begin: 2026-05-18 14:51:25
+  rc=0 dur=285s
+--- important_classes_test ---
+  begin: 2026-05-18 14:56:10
+  rc=0 dur=402s
+--- secondary_classes_test ---
+  begin: 2026-05-18 15:02:52
+  rc=0 dur=1711s
+--- hardly_relevant_classes_1_test ---
+  begin: 2026-05-18 15:31:23
+  rc=1 dur=509s
+--- hardly_relevant_classes_2_test ---
+  begin: 2026-05-18 15:39:52
+  rc=0 dur=422s
+--- hardly_relevant_classes_3_test ---
+  begin: 2026-05-18 15:46:54
+  rc=0 dur=502s
+--- hardly_relevant_classes_4_test ---
+  begin: 2026-05-18 15:55:16
+  rc=0 dur=434s
+--- hardly_relevant_classes_5_test ---
+  begin: 2026-05-18 16:02:30
+  rc=0 dur=504s
+--- crashing_tests_test ---
+  begin: 2026-05-18 16:10:54
+  rc=0 dur=31s
+--- timeout_tests_test ---
+  begin: 2026-05-18 16:11:25
+  rc=0 dur=127s
+--- blocking_tests_test ---
+  begin: 2026-05-18 16:13:32
+  rc=0 dur=55s
+--- generator_interpreter_issues_test ---
+  begin: 2026-05-18 16:14:27
+  rc=0 dur=201s
+--- generator_interpreter_retest_test ---
+  begin: 2026-05-18 16:17:48
+  rc=0 dur=128s
+--- interactive_tests_test ---
+  begin: 2026-05-18 16:19:57
+  rc=0 dur=51s
+done: 2026-05-18 16:20:48 CEST
