@@ -87,7 +87,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed (no-op · resolved by earlier cluster work) |
 | **C52** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☑ fixed (script · U1-variant) |
 | **C53** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☑ fixed (no-op · resolved by earlier U9 workaround) |
-| **C54** | `timeout_tests_test.dart` | 1 | `Bad state: Transport failure while running "rendering/render_custom_paint_test.dart"` | ☐ |
+| **C54** | `timeout_tests_test.dart` | 1 | `Bad state: Transport failure while running "rendering/render_custom_paint_test.dart"` | ☑ fixed (no-op · resolved by earlier cluster work) |
 | **C55** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
 | **C56** | `generator_interpreter_issues_test.dart` | 1 | `BoxConstraints forces an infinite height.` | ☐ |
 | **C57** | `generator_interpreter_issues_test.dart` | 1 | `A RenderFlex overflowed by 7.0 pixels on the bottom.` | ☐ |
@@ -3004,11 +3004,26 @@ No script changes required for C53. Pairs with AST-driver C52.
 
 #### C54 — `Bad state: Transport failure while running "rendering/render_custom_paint_test.dart"`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (no-op · resolved by earlier cluster work, 2026-05-18)
 
 | testID | Test name |
 |-------:|-----------|
 | 15 | rendering/ render_custom_paint_test.dart |
+
+**Resolution.** Re-running the cluster on both drivers
+post-summary shows `+1 All tests passed!` with
+`status=success`, `outputLines=0`, `frameworkErrors=0`,
+`totalMs≈3637` on the test driver and `totalMs≈3759` on the AST
+driver (`ztmp/c54/{ast,test}_before.log`). The baseline
+testlog's 25-second `TimeoutException` no longer reproduces —
+the script now completes the full build round-trip in ~3.6
+seconds on both drivers. The recovery is consistent with the
+broader transport-overload remediation work elsewhere in this
+campaign (most likely the per-frame bridge-construction
+improvements landed alongside C47/C50). The script was not
+modified for this cluster pass. Pairs as a test-driver-only
+cluster (the AST driver's C53 baseline row is `decodeEnvelope`
+on `method_codec_test.dart`, a different failure shape).
 
 #### C55 — `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi`
 
