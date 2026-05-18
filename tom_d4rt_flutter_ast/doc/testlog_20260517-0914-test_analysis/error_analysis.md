@@ -83,7 +83,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☑ fixed (script) |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☑ fixed (script · U12-A) |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☑ fixed (script · U12-A) |
-| **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☐ |
+| **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu` | ☑ fixed (no-op · resolved by earlier cluster work) |
 | **C51** | `hardly_relevant_classes_3_test.dart` | 1 | `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"` | ☐ |
 | **C52** | `hardly_relevant_classes_5_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'subscribe' on RouteObserver: Argument Error: Invalid parameter "routeAware": expecte` | ☐ |
 | **C53** | `timeout_tests_test.dart` | 1 | `Runtime Error: Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(ERR_NOT_FOUND, Resource mi` | ☐ |
@@ -2700,11 +2700,42 @@ sufficient.
 
 #### C50 — `Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Nu`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified
 
 | testID | Test name |
 |-------:|-----------|
 | 194 | services/ text_capitalization_test.dart |
+
+**Status: ☑ fixed (no-op · resolved by earlier cluster work)** —
+paired with test-driver C51.
+
+**Root cause (baseline).** The deep-demo
+`services/text_capitalization_test.dart` constructs 43 `Text(…)`
+widgets driven by computed strings (capitalization transforms,
+derived labels, table cells). In the baseline test log
+(`testlog_20260517-0914`) one of those expressions resolved to
+`null`, tripping the bridged `Text` default constructor with
+`Argument Error: Invalid parameter "data": expected String, got
+Null`.
+
+**No-op closure.** Reproducing C50 against current HEAD on both
+drivers (rule (a), single-script retest) yields a clean run with
+no code changes:
+
+- AST driver: `+1 All tests passed!`, `status=success`,
+  `outputLines=32`, `frameworkErrors=0`
+  (`ztmp/c51/ast_before.log`).
+- Test driver: `+1 All tests passed!`, `status=success`,
+  `outputLines=32`, `frameworkErrors=0`
+  (`ztmp/c51/test_before.log`).
+
+The script has not been modified since its initial authoring
+(commit `2d53ba1a` — Batch 3), so the resolution is upstream:
+an earlier cluster fix in this campaign — most likely the C47
+generator fix for record-typed named parameters (commit
+`1038e02d`) and the subsequent bridge regeneration — closed the
+underlying constructor-argument issue. Marked fixed without code
+change.
 
 #### C51 — `Bad state: Transport failure while running "services/text_editing_delta_insertion_test.dart"`
 
