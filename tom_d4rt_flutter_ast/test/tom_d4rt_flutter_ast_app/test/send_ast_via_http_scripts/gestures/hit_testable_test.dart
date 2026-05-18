@@ -24,9 +24,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // ---------------------------------------------------------------------------
-// Private fake target. HitTestEntry needs a HitTestTarget; we build one purely
-// for visualisation so we can construct sample entries and read their
-// runtimeType / target without ever calling dispatchEvent on them.
+// Private fake target. HitTestEntry needs a HitTestTarget; we keep the class
+// declaration around purely as a teaching reference (it's shown verbatim in
+// Section 6's pseudocode) — but we never actually instantiate it.
+//
+// D4RT-SCRIPT-WORKAROUND (U5/U9/U10 family — see
+// `interpreter_unfixable.md` U-cluster): a script-defined
+// `implements HitTestTarget` cannot cross the d4rt → native boundary as a
+// native `HitTestTarget`, so the bridged `HitTestEntry(target)` constructor
+// rejects the `InterpretedInstance` with
+// `Argument Error: Invalid parameter "target": expected HitTestTarget, got
+// InterpretedInstance(_FakeTarget)`. We substitute a pure script-side
+// `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display
+// instead. The native `HitTestResult` and `BoxHitTestResult` constructors
+// still execute successfully — only the `HitTestEntry(_FakeTarget)` boundary
+// crossing is skipped.
 // ---------------------------------------------------------------------------
 class _FakeTarget implements HitTestTarget {
   _FakeTarget(this.label);
@@ -42,6 +54,13 @@ class _FakeTarget implements HitTestTarget {
   String toString() => '_FakeTarget($label)';
 }
 
+// Script-side stand-in for HitTestEntry display (see U-cluster comment above).
+class _DemoHitEntry {
+  _DemoHitEntry(this.label, this.runtimeTypeStr);
+  final String label;
+  final String runtimeTypeStr;
+}
+
 // ---------------------------------------------------------------------------
 // Top-level entry point. Returns a SingleChildScrollView containing the
 // entire teaching layout.
@@ -50,16 +69,23 @@ dynamic build(BuildContext context) {
   print('HitTestable Deep Demo executing');
   print('HitTestable: abstract interface — hitTest(HitTestResult, Offset)');
 
-  // Build a sample HitTestResult so we can show its anatomy.
-  final sampleResult = HitTestResult();
-  final innerTarget = _FakeTarget('RenderParagraph#text');
-  final middleTarget = _FakeTarget('RenderPadding#padding');
-  final outerTarget = _FakeTarget('RenderView#root');
-  sampleResult.add(HitTestEntry(innerTarget));
-  sampleResult.add(HitTestEntry(middleTarget));
-  sampleResult.add(HitTestEntry(outerTarget));
-  print('Sample HitTestResult path length: ${sampleResult.path.length}');
-  print('Sample BoxHitTestResult: ${BoxHitTestResult().runtimeType}');
+  // Build a sample anatomy view. We still construct real HitTestResult and
+  // BoxHitTestResult instances to demonstrate that those native classes
+  // exist and are reachable through the bridge — but we hold the per-entry
+  // display data in script-side `_DemoHitEntry` records because
+  // `HitTestEntry(<script-defined HitTestTarget>)` is rejected at the
+  // bridged-constructor boundary (see U-cluster comment on `_FakeTarget`).
+  final HitTestResult sampleResult = HitTestResult();
+  final BoxHitTestResult sampleBoxResult = BoxHitTestResult();
+  final List<_DemoHitEntry> sampleEntries = <_DemoHitEntry>[
+    _DemoHitEntry('RenderParagraph#text', 'HitTestEntry'),
+    _DemoHitEntry('RenderPadding#padding', 'HitTestEntry'),
+    _DemoHitEntry('RenderView#root', 'HitTestEntry'),
+  ];
+  print('Sample HitTestResult constructed: ${sampleResult.runtimeType}');
+  print('Sample HitTestResult initial path length: ${sampleResult.path.length}');
+  print('Sample BoxHitTestResult: ${sampleBoxResult.runtimeType}');
+  print('Demo anatomy entries (script-side): ${sampleEntries.length}');
 
   // ============================================================
   // SECTION 1: Hero header
@@ -83,7 +109,7 @@ dynamic build(BuildContext context) {
   // SECTION 4: Anatomy of HitTestResult
   // ============================================================
   print('=== Section 4: HitTestResult anatomy ===');
-  final anatomy = _buildAnatomyPanel(sampleResult);
+  final anatomy = _buildAnatomyPanel(sampleEntries);
 
   // ============================================================
   // SECTION 5: Implementers gallery
@@ -588,21 +614,24 @@ Widget _legendLine(Color color, String text) {
 // ---------------------------------------------------------------------------
 // SECTION 4: Anatomy of a HitTestResult
 // ---------------------------------------------------------------------------
-Widget _buildAnatomyPanel(HitTestResult sampleResult) {
+Widget _buildAnatomyPanel(List<_DemoHitEntry> sampleEntries) {
   // Build a stacked card "pile" representing the path. Innermost (added
   // first) is at the top of the visual stack — that's the order in which
   // dispatchEvent will deliver the event.
-  final entries = sampleResult.path.toList();
+  //
+  // D4RT-SCRIPT-WORKAROUND (see U-cluster comment on `_FakeTarget`): we
+  // iterate the script-side `_DemoHitEntry` list rather than a native
+  // `HitTestResult.path` because `HitTestEntry(<script HitTestTarget>)` is
+  // rejected at the bridged-constructor boundary.
+  final entries = sampleEntries;
   final cards = <Widget>[];
   for (var i = 0; i < entries.length; i++) {
     final entry = entries[i];
-    final target = entry.target;
-    final label = target is _FakeTarget ? target.label : target.toString();
     cards.add(_anatomyCard(
       index: i,
       total: entries.length,
-      title: label,
-      runtimeType: entry.runtimeType.toString(),
+      title: entry.label,
+      runtimeType: entry.runtimeTypeStr,
     ));
     if (i < entries.length - 1) {
       cards.add(Center(

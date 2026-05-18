@@ -52,6 +52,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U8 — Script-defined enum values are `InterpretedEnumValue`, not native `Enum`; plus `RestorableValue.value` asserts `isRegistered`](#u8--script-defined-enum-values-are-interpretedenumvalue-not-native-enum-plus-restorablevaluevalue-asserts-isregistered-interpreter-limitation--scripting-trap) | Interpreter limitation + scripting trap. (1) d4rt represents every script-defined `enum X { … }` value as `InterpretedEnumValue` (`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` line 1861), which implements `RuntimeValue` but **not** Dart's native `Enum`. Any bridged API parameter typed `Enum` (`RestorableEnum<E>(E defaultValue, …)`, `RestorableEnumN<E>`, generic enum-typed setters) rejects the script value at the bridge boundary via `D4.getRequiredArg<Enum>`. Same family as U3 / U5 — script-defined subtypes can't cross d4rt → native as the native abstract / built-in type. (2) Latent Flutter trap that often surfaces *after* the U8 enum workaround unmasks it: `RestorableValue<T>.value` asserts `isRegistered` at line 85 of `restoration_properties.dart`; in debug mode (which is how `flutter test` runs) accessing `.value` on an unregistered restorable throws. Workarounds: (a) replace any script-defined enum used at a native API boundary with a framework enum (`Brightness`, `TargetPlatform`, `TextDirection`, …); (b) when reading `RestorableValue.value` on a restorable that the script never registers via `RestorationMixin`, shadow each restorable with a plain Dart variable holding the construction-time default and read the shadow (the demo never mutates the stored value, so the shadow equals what the getter would return). | `widgets/restorable_values_test.dart` (C20 closed 2026-05-17 — `RestorableEnum<_Mood>(_Mood.focused, values: _Mood.values)` plus 44 `restXxx.value` reads on never-registered restorables) |
 | [U9 — Script-defined `RouteAware` cannot be subscribed to a native `RouteObserver`](#u9--script-defined-routeaware-cannot-be-subscribed-to-a-native-routeobserver-interpreter-limitation) | Interpreter limitation. The bridged `RouteObserver.subscribe(RouteAware aware, R route)` validates `aware` with `D4.getRequiredArg<RouteAware>`, which rejects a d4rt `InterpretedInstance` even when the script class declares `with RouteAware` (or `implements RouteAware`). Same architectural family as U3 (`Curve`), U5 (`NotchedShape` / `FloatingActionButtonLocation`), and U8 (`Enum`): a script-defined subtype of a bridged native abstract / mixin type cannot cross the d4rt → native boundary as that native type. There is no framework-provided `RouteAware` concrete subclass to substitute, because `RouteAware` is intended to be mixed into application-side `State` objects. Mandatory script-side workaround: use a script-side stand-in observer that mirrors the native `subscribe` / `unsubscribe` / `didPush` / `didPop` / `didReplace` protocol over `Map<Route, List<_LoggingRouteAware>>`, so the demo's call-order timeline is produced without crossing the d4rt → native boundary. The native `RouteObserver` instance can still be constructed (the constructor itself is safe — no script-defined `RouteAware` argument is involved) to demonstrate the type exists. | `widgets/route_observer_test.dart` (C22 closed 2026-05-17 — `_LoggingRouteAware with RouteAware` × 4 subscribed via `routeObserver.subscribe(...)`) |
 | [U10 — Script-defined class `with DiagnosticableTreeMixin` / `Diagnosticable` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`); plus `super.debugFillProperties(...)` fails into bridged mixin](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. (a) The bridged `DiagnosticableTreeMixin` / `Diagnosticable` methods all validate the target via `D4.validateTarget<...>(target, '...')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin` or `with Diagnosticable`. Same architectural family as U3/U5/U8/U9. (b) Additionally, `super.debugFillProperties(properties)` from an interpreted class whose only super is the bridged mixin throws *`Class 'X' does not have a standard or bridged superclass, cannot use 'super'.`* — the interpreter does not resolve `super` calls into a bridged-mixin super-chain. Native `Diagnosticable.debugFillProperties` is a no-op anyway, so dropping the super call is safe. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (deferred, feature-scale). Mandatory script-side workaround: (1) build the diagnostics dump directly via `_dumpNode` (children) / `_diagnosticableDeepDump` (no children) helpers that walk `debugFillProperties` / `debugDescribeChildren`; (2) for JSON shape, recursive `_manualSerialize(config, delegate, depth)`; (3) drop any `super.debugFillProperties(...)` call from the script's override. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()`); `foundation/diagnostics_serialization_delegate_test.dart` (C37 closed 2026-05-18 — `_DemoConfig with DiagnosticableTreeMixin` `toDiagnosticsNode(...).toJsonMap(delegate)`); `foundation/object_flag_property_test.dart` (C38 closed 2026-05-18 — `_DemoConfig with Diagnosticable` `super.debugFillProperties(...)` + `toDiagnosticsNode().toStringDeep()`; also had unrelated framework-assert bug fixed by supplying empty-string text for `ifPresent`/`ifNull` slots) |
+| [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4080,8 +4081,137 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 
 ---
 
+## U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor (interpreter limitation)
+
+**Category.** Same architectural family as U3 (`Curve`), U5
+(`NotchedShape` / `FloatingActionButtonLocation`), U8 (`Enum`),
+U9 (`RouteAware`), U10 (`Diagnosticable*`). A script-defined
+subtype of a bridged native abstract / interface type cannot
+cross the d4rt → native boundary as that native type.
+
+**Reproducer.** Smallest repro is the `testlog_20260517-0914`
+C39 cluster (`gestures/hit_testable_test.dart`):
+
+```dart
+class _FakeTarget implements HitTestTarget {
+  _FakeTarget(this.label);
+  final String label;
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {}
+  @override
+  String toString() => '_FakeTarget($label)';
+}
+
+final sampleResult = HitTestResult();
+final innerTarget = _FakeTarget('RenderParagraph#text');
+sampleResult.add(HitTestEntry(innerTarget)); // fails here
+```
+
+Yields:
+
+```text
+Runtime Error: Native error during default bridged constructor
+for 'HitTestEntry': Argument Error: Invalid parameter "target":
+expected HitTestTarget, got InterpretedInstance(_FakeTarget)
+```
+
+**Root cause.** The generated bridge for `HitTestEntry`
+(`tom_d4rt_flutterm/lib/src/bridges/gestures_bridges.b.dart`)
+adapts the single-arg positional constructor as
+
+```dart
+final target = D4.getRequiredArg<HitTestTarget>(positional, 0,
+    'target', 'HitTestEntry');
+return HitTestEntry(target);
+```
+
+`D4.getRequiredArg<HitTestTarget>` performs a strict `value is
+HitTestTarget` check on the supplied positional. For a
+`InterpretedInstance(_FakeTarget)` the strict-cast fails because
+the script-defined class's synthetic Dart hierarchy never
+materialises a native `HitTestTarget` super-type — d4rt has no
+mechanism to register a per-call native proxy for an arbitrary
+interpreted `implements`-only subtype of an interface that
+itself contributes only abstract methods.
+
+The proper fix is the same kind of `_InterpretedHitTestTarget`
+proxy that would resolve U3/U5/U9/U10 — a hand-written native
+adapter in `d4rt_runtime_registrations.dart` that implements
+`HitTestTarget` natively, holds the `InterpretedInstance` +
+visitor, and routes `handleEvent` back into the interpreter.
+This is feature-scale work and deferred for this cluster pass.
+
+**Constraints.**
+
+- There is no framework-provided concrete `HitTestTarget` that
+  the script can substitute without standing up a full render
+  tree — every concrete `HitTestTarget` in Flutter is a
+  `RenderObject` subclass tied to the rendering pipeline.
+- The demo's actual functional need is purely visual: it
+  iterates `result.path` to display a stacked-card view of
+  per-entry labels and `entry.runtimeType`. It never calls
+  `target.handleEvent(...)` or dispatches through
+  `GestureBinding`.
+
+**Script-side workaround (mandatory).** Keep the
+`_FakeTarget implements HitTestTarget` class declaration as a
+teaching reference (the demo shows it verbatim in a pseudocode
+panel), but do not instantiate it. Substitute a pure
+script-side data class for the anatomy-panel display:
+
+```dart
+class _DemoHitEntry {
+  _DemoHitEntry(this.label, this.runtimeTypeStr);
+  final String label;
+  final String runtimeTypeStr;
+}
+
+// At the build entry-point:
+final HitTestResult sampleResult = HitTestResult();         // native — fine
+final BoxHitTestResult sampleBoxResult = BoxHitTestResult(); // native — fine
+final List<_DemoHitEntry> sampleEntries = <_DemoHitEntry>[
+  _DemoHitEntry('RenderParagraph#text', 'HitTestEntry'),
+  _DemoHitEntry('RenderPadding#padding', 'HitTestEntry'),
+  _DemoHitEntry('RenderView#root', 'HitTestEntry'),
+];
+// Pass `sampleEntries` to `_buildAnatomyPanel` instead of
+// `sampleResult`.
+```
+
+Native `HitTestResult()` and `BoxHitTestResult()` constructors
+still execute successfully (no script-defined `HitTestTarget`
+argument is involved), so the demo still demonstrates that
+these types exist and are reachable through the bridge — only
+the `HitTestEntry(<script HitTestTarget>)` boundary crossing
+is skipped.
+
+**Diagnostic guidance.** `Native error during default bridged
+constructor for 'HitTestEntry': Argument Error: Invalid
+parameter "target": expected HitTestTarget, got
+InterpretedInstance(<ScriptClass>)` → the demo is using a
+script-defined `implements HitTestTarget` to seed a
+`HitTestResult`. Substitute a script-side data record for the
+visual display and keep the script class as a teaching
+reference only.
+
+---
+
 ## Change Log
 
+- 2026-05-18: **Add U11 — Script-defined `HitTestTarget`
+  rejected by `HitTestEntry(target)` constructor.** Documents
+  the `testlog_20260517-0914` C39 cluster
+  (`gestures/hit_testable_test.dart`, `_FakeTarget implements
+  HitTestTarget` × 3 fed into `HitTestEntry(target)` for the
+  sample `HitTestResult.path`). Same architectural family as
+  U3/U5/U8/U9/U10. No framework-provided concrete
+  `HitTestTarget` is available without standing up a render
+  tree. Mandatory script-side workaround: keep
+  `implements HitTestTarget` class as teaching reference,
+  substitute a pure script-side `_DemoHitEntry(label,
+  runtimeTypeStr)` data record for the anatomy-panel display.
+  Native `HitTestResult()` / `BoxHitTestResult()` constructors
+  remain reachable.
 - 2026-05-18: **Extend U10 with third instance — parent
   `Diagnosticable` mixin variant + `super.debugFillProperties(...)`
   dispatch failure (C38,

@@ -2188,11 +2188,40 @@ drivers fetch the same source over HTTP).
 
 #### C38 — `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 180 | gestures/ hit_testable_test.dart |
+
+**Root cause.** Script-defined `class _FakeTarget implements
+HitTestTarget` rejected at the `HitTestEntry(target)` bridged-
+constructor boundary by `D4.getRequiredArg<HitTestTarget>`.
+Same architectural family as U3/U5/U8/U9/U10 — see new **U11**
+entry in `interpreter_unfixable.md`. (Test driver C39 ≡ AST
+driver C38.)
+
+**Fix.** Script-side. Kept `_FakeTarget` declaration as teaching
+reference (referenced verbatim in the Section 6 pseudocode
+panel) but stopped instantiating it. Added a script-side
+`_DemoHitEntry(label, runtimeTypeStr)` data class and replaced
+the `HitTestResult` + `HitTestEntry` construction block with a
+`List<_DemoHitEntry>` for the anatomy-panel display. Native
+`HitTestResult()` / `BoxHitTestResult()` constructors remain
+reachable; only the `HitTestEntry(<script HitTestTarget>)`
+boundary crossing is skipped.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:15 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:12 +1: All tests passed!` |
+
+(4 cosmetic framework warnings about `BorderSide.color` non-
+uniform with `borderRadius` are pre-existing rendering-layer
+noise, not test failures.) Logs in `ztmp/c39/` (script lives in
+the AST driver; both drivers fetch the same source over HTTP).
 
 #### C39 — `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
 

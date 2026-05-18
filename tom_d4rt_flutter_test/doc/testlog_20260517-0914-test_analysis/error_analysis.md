@@ -2192,11 +2192,52 @@ with a third-instance subsection covering both the parent
 
 #### C39 — `Runtime Error: Native error during default bridged constructor for 'HitTestEntry': Argument Error: Invalid parameter "target": expected HitT`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified — closed 2026-05-18
 
 | testID | Test name |
 |-------:|-----------|
 | 180 | gestures/ hit_testable_test.dart |
+
+**Root cause.** Same architectural family as U3/U5/U8/U9/U10 —
+a script-defined subtype of a bridged native abstract/interface
+type cannot cross the d4rt → native boundary. The script
+declared `class _FakeTarget implements HitTestTarget` purely to
+seed a sample `HitTestResult` for an anatomy-panel display, and
+the bridged `HitTestEntry(HitTestTarget target)` constructor
+strict-rejected the `InterpretedInstance(_FakeTarget)`. New
+**U11** entry in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` documents
+this; no framework-provided concrete `HitTestTarget` is
+available without standing up a real render tree.
+
+**Fix (script-side, mandatory).** Kept the `_FakeTarget` class
+declaration verbatim as a teaching reference (the demo shows it
+in a Section 6 pseudocode panel) but stopped instantiating it.
+Added a small script-side `_DemoHitEntry(label, runtimeTypeStr)`
+data class and replaced the `HitTestResult` → `HitTestEntry`
+construction block with a `List<_DemoHitEntry>` for the
+anatomy-panel display. Native `HitTestResult()` and
+`BoxHitTestResult()` constructors still execute (the
+runtimeType prints continue to demonstrate those native classes
+exist and are reachable through the bridge) — only the
+`HitTestEntry(<script HitTestTarget>)` boundary crossing is
+skipped.
+
+The change lives entirely in the test script — no interpreter or
+bridge edits — so it is a rule-(a) change and individual retest
+is sufficient.
+
+**Verification (rule a — script-only change).**
+
+| Driver | Result |
+|---|---|
+| AST (`tom_d4rt_flutter_ast`) | `00:15 +1: All tests passed!` |
+| Analyzer (`tom_d4rt_flutter_test`) | `00:12 +1: All tests passed!` |
+
+(4 cosmetic framework warnings about `BorderSide.color` non-
+uniform with `borderRadius` are pre-existing rendering-layer
+noise in the rendered widget tree, not test failures.)
+Logs in `ztmp/c39/`.
 
 #### C40 — `TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts || Bad state: Transport f`
 
