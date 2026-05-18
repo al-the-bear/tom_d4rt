@@ -11107,6 +11107,112 @@ class BridgeGenerator {
       return true;
     }
 
+    // C47: Record types as named parameters need InterpretedRecord→native
+    // record conversion. The positional-param path already does this via
+    // _generateRecordParamExtraction (see line ~7069). Mirror that pattern
+    // here so constructors / methods with named record params don't fall
+    // through to the Standard extraction below — which emits a plain
+    // `D4.getOptionalNamedArg<(T1, T2)?>(named, '...')` that can't coerce
+    // an InterpretedRecord to a native Dart record.
+    {
+      final resolvedTypeForRecord = _getTypeArgument(
+        param.type,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      var baseResolved = resolvedTypeForRecord;
+      if (baseResolved.endsWith('?')) {
+        baseResolved = baseResolved.substring(0, baseResolved.length - 1);
+      }
+      if (_isRecordType(baseResolved)) {
+        final parsed = _parseRecordType(baseResolved);
+        // C47: Use D4.extractBridgedArg for each field — record fields may
+        // be wrapped in BridgedInstance / BridgedEnumValue, so a raw `as`
+        // cast fails. extractBridgedArg unwraps then casts.
+        final parts = <String>[];
+        for (var i = 0; i < parsed.positionalTypes.length; i++) {
+          parts.add(
+            "D4.extractBridgedArg<${parsed.positionalTypes[i]}>("
+            "${localName}Raw.positionalFields[$i], "
+            "'${param.name}.field$i')",
+          );
+        }
+        for (final entry in parsed.namedFields.entries) {
+          parts.add(
+            "${entry.key}: D4.extractBridgedArg<${entry.value}>("
+            "${localName}Raw.namedFields['${entry.key}'], "
+            "'${param.name}.${entry.key}')",
+          );
+        }
+        final recordLiteral = '(${parts.join(', ')})';
+
+        buffer.writeln(
+          "        final ${localName}Raw = named['${param.name}'];",
+        );
+        if (param.isRequired && !isNullable) {
+          buffer.writeln("        if (${localName}Raw == null) {");
+          buffer.writeln(
+            "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+          );
+          buffer.writeln("        }");
+          buffer.writeln(
+            "        final $localName = ${localName}Raw is InterpretedRecord",
+          );
+          buffer.writeln("            ? $recordLiteral");
+          buffer.writeln("            : ${localName}Raw as $resolvedTypeForRecord;");
+        } else if (param.defaultValue != null) {
+          final prefixedDefault = _prefixDefaultValue(
+            param.defaultValue!,
+            sourceUri,
+            typeToUri: param.typeToUri,
+            sourceFilePath: sourceFilePath,
+          );
+          if (prefixedDefault != null) {
+            buffer.writeln("        final $localName = ${localName}Raw == null");
+            buffer.writeln("            ? $prefixedDefault");
+            buffer.writeln("            : ${localName}Raw is InterpretedRecord");
+            buffer.writeln("                ? $recordLiteral");
+            buffer.writeln(
+              "                : ${localName}Raw as $resolvedTypeForRecord;",
+            );
+          } else {
+            _recordNonWrappableDefault(
+              contextName,
+              param.name,
+              param.defaultValue!,
+            );
+            buffer.writeln(
+              "        // TODO: Non-wrappable default: ${param.defaultValue}",
+            );
+            buffer.writeln("        if (${localName}Raw == null) {");
+            buffer.writeln(
+              "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            );
+            buffer.writeln("        }");
+            buffer.writeln(
+              "        final $localName = ${localName}Raw is InterpretedRecord",
+            );
+            buffer.writeln("            ? $recordLiteral");
+            buffer.writeln(
+              "            : ${localName}Raw as $resolvedTypeForRecord;",
+            );
+          }
+        } else {
+          // Optional, no default — nullable result (matches Standard extraction's
+          // getOptionalNamedArg semantics).
+          buffer.writeln("        final $localName = ${localName}Raw == null");
+          buffer.writeln("            ? null");
+          buffer.writeln("            : ${localName}Raw is InterpretedRecord");
+          buffer.writeln("                ? $recordLiteral");
+          buffer.writeln(
+            "                : ${localName}Raw as $resolvedTypeForRecord;",
+          );
+        }
+        return true;
+      }
+    }
+
     // Standard extraction for other types
     final helperMethod = param.isRequired
         ? 'D4.getRequiredNamedArg'
@@ -12405,20 +12511,27 @@ class BridgeGenerator {
 
     lines.add('$indent  final $rawName = positional[$positionalIndex];');
 
-    // Build the InterpretedRecord→native record conversion expression
+    // Build the InterpretedRecord→native record conversion expression.
+    // C47: Use D4.extractBridgedArg for each field — record fields may be
+    // wrapped in BridgedInstance / BridgedEnumValue, so a raw `as` cast
+    // fails. extractBridgedArg unwraps then casts.
     final parts = <String>[];
 
     // Positional fields
     for (var i = 0; i < parsed.positionalTypes.length; i++) {
       parts.add(
-        '$rawName.positionalFields[$i] as ${parsed.positionalTypes[i]}',
+        "D4.extractBridgedArg<${parsed.positionalTypes[i]}>("
+        "$rawName.positionalFields[$i], "
+        "'$paramName.field$i')",
       );
     }
 
     // Named fields
     for (final entry in parsed.namedFields.entries) {
       parts.add(
-        "${entry.key}: $rawName.namedFields['${entry.key}'] as ${entry.value}",
+        "${entry.key}: D4.extractBridgedArg<${entry.value}>("
+        "$rawName.namedFields['${entry.key}'], "
+        "'$paramName.${entry.key}')",
       );
     }
 

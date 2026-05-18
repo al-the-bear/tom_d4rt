@@ -80,7 +80,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☑ fixed (script) |
 | **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
-| **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
+| **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
 | **C50** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
@@ -2652,11 +2652,70 @@ while preserving the alias in strings/comments.
 
 #### C47 — `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (generator)
 
 | testID | Test name |
 |-------:|-----------|
 | 167 | services/ raw_floating_cursor_point_test.dart |
+
+**Root cause.** The bridge generator (`tom_d4rt_generator`) had a record-type
+extraction branch for *positional* parameters in `_generateRecordParamExtraction`
+(`bridge_generator.dart` line ~12394) but no equivalent branch in
+`_generateNamedParamExtraction` (line ~10635). Constructors with record-typed
+named parameters — such as
+`RawFloatingCursorPoint({ ..., (Offset, TextPosition)? startLocation, ... })` —
+fell through to the Standard extraction at line ~11110, which emits
+`D4.getOptionalNamedArg<(Offset, TextPosition)?>(named, 'startLocation')`.
+That call cannot coerce an `InterpretedRecord` to a native Dart record, so
+runtime invocation aborted with the error above.
+
+Two additional gaps were uncovered while fixing:
+
+1. The positional record path also emitted raw `as T` casts on each field,
+   which fail when the record field is wrapped as `BridgedInstance<T>`
+   (e.g. `Offset` flowing through D4rt is always wrapped).
+2. The generator emitted `'startLocation.$N'` as the diagnostic name for
+   each field — the `$N` is interpreted by Dart's string interpolation
+   parser and triggers a compile error.
+
+**Fix (generator).** In `tom_d4rt_generator/lib/src/bridge_generator.dart`:
+
+- Added a record-type detection branch in `_generateNamedParamExtraction`
+  just before the Standard-extraction fallback (line ~11110). The new
+  branch resolves the record type with `_getTypeArgument`, parses fields
+  with `_parseRecordType`, and emits a `is InterpretedRecord ? (...) :
+  raw as RecordType` conversion that handles all four
+  required/optional × nullable/non-nullable combinations.
+- Replaced the raw `as T` cast in both record paths (positional in
+  `_generateRecordParamExtraction` and the new named branch) with
+  `D4.extractBridgedArg<T>(raw.positionalFields[i], '<param>.fieldN')`
+  / `D4.extractBridgedArg<T>(raw.namedFields['k'], '<param>.k')` so
+  BridgedInstance / BridgedEnumValue wrappers unwrap before the cast.
+- Field diagnostic names switched from `$N` (string-interpolation hazard)
+  to `fieldN` (literal).
+
+**Verification.**
+
+- AST driver: `raw_floating_cursor_point_test.dart` → `+1 All tests passed!`
+  (was `+0 -1` with the `InterpretedRecord` error).
+- Test (analyzer) driver: same result.
+- Regression suites on both drivers (essential 108, important 164,
+  secondary 653): all green; no regressions introduced.
+
+Generated bridge output (services_bridges.b.dart, RawFloatingCursorPoint
+constructor) now reads:
+
+```dart
+final startLocationRaw = named['startLocation'];
+final startLocation = startLocationRaw == null
+    ? null
+    : startLocationRaw is InterpretedRecord
+        ? (D4.extractBridgedArg<Offset>(startLocationRaw.positionalFields[0],
+              'startLocation.field0'),
+           D4.extractBridgedArg<TextPosition>(startLocationRaw.positionalFields[1],
+              'startLocation.field1'))
+        : startLocationRaw as (Offset, TextPosition)?;
+```
 
 #### C48 — `Runtime Error: Undefined variable: build`
 

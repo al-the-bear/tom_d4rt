@@ -79,7 +79,7 @@ Numbered for tracking; tick the box once a cluster is fixed and re-verified. `C#
 | **C43** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyDataTransitMode` | ☑ fixed (script) |
 | **C44** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: KeyboardSide` | ☑ fixed (script) |
 | **C45** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: MaterialState (in Set literal)` | ☑ fixed (script) |
-| **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☐ |
+| **C46** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio` | ☑ fixed (generator) |
 | **C47** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: build` | ☐ |
 | **C48** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataWeb` | ☐ |
 | **C49** | `hardly_relevant_classes_3_test.dart` | 1 | `Runtime Error: Undefined variable: RawKeyEventDataLinux` | ☐ |
@@ -2543,11 +2543,36 @@ preserving the alias in strings/comments.
 
 #### C46 — `Runtime Error: Native error during default bridged constructor for 'RawFloatingCursorPoint': Argument Error: Invalid parameter "startLocatio`
 
-- [ ] fixed and re-verified
+- [x] fixed and re-verified (generator)
 
 | testID | Test name |
 |-------:|-----------|
 | 167 | services/ raw_floating_cursor_point_test.dart |
+
+**Root cause.** Same as the test driver's C47 — `tom_d4rt_generator` had
+no record-type extraction branch in `_generateNamedParamExtraction`, so
+`RawFloatingCursorPoint`'s `startLocation` named parameter (typed
+`(Offset, TextPosition)?`) fell through to `D4.getOptionalNamedArg`,
+which cannot coerce `InterpretedRecord` to a native Dart record.
+
+**Fix.** Generator-side, in `tom_d4rt_generator/lib/src/bridge_generator.dart`:
+
+- Added a record-type detection branch in `_generateNamedParamExtraction`
+  that emits a `is InterpretedRecord ? (...) : raw as RecordType`
+  conversion covering all required/optional × nullable/non-nullable
+  combinations.
+- Replaced raw `as T` casts on record fields with
+  `D4.extractBridgedArg<T>(...)` in both the new named branch and the
+  existing positional `_generateRecordParamExtraction`, so
+  `BridgedInstance` / `BridgedEnumValue` field wrappers unwrap before
+  the cast.
+- Diagnostic field names switched from `$N` to `fieldN` to avoid
+  Dart string-interpolation parsing of the emitted code.
+
+**Verification.** AST driver: `raw_floating_cursor_point_test.dart` →
+`+1 All tests passed!`. Regression suites green:
+essential 108 / important 164 / secondary 653.
+Same fix verified on the analyzer (test) driver (cluster C47 there).
 
 #### C47 — `Runtime Error: Undefined variable: build`
 

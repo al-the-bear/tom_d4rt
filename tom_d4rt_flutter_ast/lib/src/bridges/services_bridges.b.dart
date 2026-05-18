@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-05-18T02:36:58.411423
+// Generated: 2026-05-18T11:04:44.274933
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2077,7 +2077,12 @@ BridgedClass _createRawFloatingCursorPointBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
-        final startLocation = D4.getOptionalNamedArg<(Offset, $flutter_47.TextPosition)?>(named, 'startLocation');
+        final startLocationRaw = named['startLocation'];
+        final startLocation = startLocationRaw == null
+            ? null
+            : startLocationRaw is InterpretedRecord
+                ? (D4.extractBridgedArg<Offset>(startLocationRaw.positionalFields[0], 'startLocation.field0'), D4.extractBridgedArg<$flutter_47.TextPosition>(startLocationRaw.positionalFields[1], 'startLocation.field1'))
+                : startLocationRaw as (Offset, $flutter_47.TextPosition)?;
         final state = D4.getRequiredNamedArg<$flutter_50.FloatingCursorDragState>(named, 'state', 'RawFloatingCursorPoint');
         return $flutter_50.RawFloatingCursorPoint(offset: offset, startLocation: startLocation, state: state);
       },
