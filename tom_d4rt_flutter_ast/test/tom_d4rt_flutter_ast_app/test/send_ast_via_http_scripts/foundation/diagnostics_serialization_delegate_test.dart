@@ -59,7 +59,19 @@ enum _DemoMode { compact, normal, verbose }
 
 // The "thing being serialized": a configuration object that contributes a
 // handful of typed DiagnosticsProperty<T> entries.
-class _DemoConfig with DiagnosticableTreeMixin {
+//
+// D4RT-SCRIPT-WORKAROUND (U10, Step 10 follow-up): we cannot mix in
+// `DiagnosticableTreeMixin` on a script-defined class. With the mixin in
+// place the constructed instance's runtime type is reported as
+// `DiagnosticableTreeMixin` (the bridged mixin wins), which then trips the
+// interpreter's return-type narrowing — `_buildDemoTree()` would fail with
+// "A value of type 'DiagnosticableTreeMixin' can't be returned from the
+// function '_buildDemoTree' because it has a return type of '_DemoConfig'".
+// The mixin's methods are also unreachable from the script anyway (see U10:
+// the bridged target check rejects InterpretedInstance), so we drop the
+// mixin entirely and route every serialisation path through the manual
+// `_manualSerialize` function below. See interpreter_unfixable.md §U10.
+class _DemoConfig {
   final String label;
   final int retries;
   final double timeoutSeconds;
@@ -77,27 +89,6 @@ class _DemoConfig with DiagnosticableTreeMixin {
     this.tint = const Color(0xFF6750A4),
     this.children = const <_DemoConfig>[],
   });
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('label', label));
-    properties.add(IntProperty('retries', retries, defaultValue: 3));
-    properties.add(DoubleProperty('timeoutSeconds', timeoutSeconds));
-    properties.add(FlagProperty('sticky', value: sticky, ifTrue: 'sticky'));
-    properties.add(EnumProperty<_DemoMode>('mode', mode));
-    properties.add(ColorProperty('tint', tint));
-  }
-
-  @override
-  List<DiagnosticsNode> debugDescribeChildren() {
-    return children
-        .map<DiagnosticsNode>((_DemoConfig c) => c.toDiagnosticsNode(
-              name: 'child',
-              style: DiagnosticsTreeStyle.sparse,
-            ))
-        .toList();
-  }
 }
 
 // A delegate that exposes only the top level of children. This is what you
@@ -619,7 +610,10 @@ Map<String, Object?> _manualSerialize(
     addProp('retries', c.retries, 'IntProperty');
     addProp('timeoutSeconds', c.timeoutSeconds, 'DoubleProperty');
     addProp('sticky', c.sticky ? 'sticky' : '<no sticky>', 'FlagProperty');
-    addProp('mode', '${c.mode}', 'EnumProperty<_DemoMode>');
+    // See workaround note above debugFillProperties: rendered as
+    // StringProperty because the bridged EnumProperty constructor
+    // rejects interpreter-defined enum values.
+    addProp('mode', '${c.mode}', 'StringProperty');
     addProp('tint', '${c.tint}', 'ColorProperty');
     result['properties'] = props;
   }

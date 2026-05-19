@@ -750,6 +750,12 @@ class SendTestRunner {
     bool clearFirst = true,
     bool includeSource = false,
     Duration? waitBeforeClear,
+    // Step 9 follow-up: per-script override for the /build HTTP timeout
+    // (default 25 s). Slow scripts whose bundle build legitimately needs
+    // more than 25 s on a loaded host (e.g. gestures/least_squares_solver
+    // at ~2300 lines) can raise this; the host test must also raise its
+    // own dart-test wrapper timeout so the wrapper does not fire first.
+    Duration? httpBuildTimeout,
   }) async {
     final packageRoot = Directory.current.path;
     final fullPath = p.join(packageRoot, scriptsPath, scriptPath);
@@ -867,6 +873,7 @@ class SendTestRunner {
         bundleJson,
         host: host,
         port: port,
+        timeout: httpBuildTimeout ?? _httpBuildTimeout,
       );
       httpDuration = httpStopwatch.elapsed;
     } catch (error, stackTrace) {

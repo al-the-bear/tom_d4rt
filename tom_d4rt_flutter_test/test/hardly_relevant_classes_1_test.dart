@@ -1239,14 +1239,18 @@ void main() {
       () async {
         final result = await SendTestRunner.send(
           'gestures/least_squares_solver_test.dart',
+          // Step 9 follow-up: under full-suite contention the /build for
+          // this 2337-line script can exceed the default 25 s HTTP cap.
+          // 50 s leaves 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      // 2337-line script: build can stack against the 25s HTTP timeout +
-      // 30s default dart-test timeout. Bumping per-test timeout to 60s
-      // gives the in-flight HTTP request enough headroom to complete on
-      // slower hosts. See doc/testlog_20260518-1449-flutter-suites/
-      // error_analysis.md Step 9 (transport flake).
+      // 2337-line script: build can stack against the default HTTP +
+      // dart-test timeouts under contention. Wrapper bumped to 60 s so
+      // the 50 s HTTP cap above can fire first if a real hang occurs.
+      // See doc/testlog_20260518-1449-flutter-suites/error_analysis.md
+      // Step 9 (transport flake) + Step 10 verification follow-up.
       timeout: const Timeout(Duration(seconds: 60)),
     );
 

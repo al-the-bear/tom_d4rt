@@ -3561,6 +3561,63 @@ trigger the assertion.
 When both errors are likely, fix (1) first; (2) will surface
 afterwards if it applies.
 
+**Variant — `EnumProperty<T extends Enum?>` for diagnostic
+serialization (2026-05-19, Step 10 follow-up).** The same root
+cause surfaces a second way: a script declares a local enum
+(`enum _DemoMode { compact, normal, verbose }`) inside a class
+that mixes in `DiagnosticableTreeMixin`, then in
+`debugFillProperties` adds an `EnumProperty<_DemoMode>('mode',
+mode)`. The bridge constructor signature in
+`tom_d4rt_flutter_ast/lib/src/bridges/foundation_bridges.b.dart`
+extracts the value as `D4.getRequiredArg<Enum?>(positional, 1,
+'value', 'EnumProperty')`, which routes through
+`extractBridgedArg<Enum?>` — and `InterpretedEnumValue is Enum?`
+is false. Trigger:
+
+```text
+Runtime Error: Native error during default bridged constructor
+for 'EnumProperty': Argument Error: Invalid parameter "value":
+expected Enum?, got InterpretedEnumValue
+```
+
+In the baseline `testlog_20260518-1449` this defect was masked:
+mixin dispatch via `DiagnosticableTreeMixin` fell through earlier
+(see Step 3 of the 1449 fix-plan / `error_analysis.md`), so
+`debugFillProperties` never ran and `EnumProperty` was never
+reached. Once Step 3 fixed mixin dispatch the previously-dead
+code path executes and U8(1) re-surfaces at the EnumProperty
+boundary. This is **not** a Step 3 regression — Step 3 simply
+unmasks a long-standing interpreter limitation.
+
+The framework-enum substitution table above does not apply when
+the enum is a demo-specific name (`_DemoMode`) used only for
+serialization shape: there is no semantically-equivalent
+framework enum. The correct script-side workaround for the
+diagnostics use case is to render the enum value as a
+`StringProperty` instead:
+
+```dart
+// Before (rejected by EnumProperty bridge):
+properties.add(EnumProperty<_DemoMode>('mode', mode));
+
+// After (interpreter-friendly, same display string):
+properties.add(StringProperty('mode', mode.toString()));
+```
+
+Both forms emit `_DemoMode.<name>` as the property description
+because `toString()` on an `InterpretedEnumValue` returns
+`${parentEnum.name}.$name`. Downstream serialization-shape
+assertions must update their expected `type` field from
+`EnumProperty<_DemoMode>` to `StringProperty` to match the new
+shape — the description is byte-identical.
+
+Applied 2026-05-19 to
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/diagnostics_serialization_delegate_test.dart`
+(lines 88 + 622 region) to close the Step 10 verification
+failure on `hardly_relevant_classes_1_test`. The script is
+shared with `tom_d4rt_flutter_test` via `SendTestRunner.scriptsPath`
+— one edit covers both projects.
+
 ---
 
 ## U9 — Script-defined `RouteAware` cannot be subscribed to a native `RouteObserver` (interpreter limitation)
@@ -4064,7 +4121,7 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 }
 ```
 
-**Diagnostic guidance — three signatures of U10 to recognise.**
+**Diagnostic guidance — four signatures of U10 to recognise.**
 
 - *Argument Error: Invalid target: expected
   DiagnosticableTreeMixin, got InterpretedInstance* — the
@@ -4080,6 +4137,31 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   cannot use 'super'.* — the `super.debugFillProperties(...)`
   super-call variant (C38). Drop the super call; the native
   implementation is a no-op.
+- *A value of type 'DiagnosticableTreeMixin' can't be returned
+  from the function 'XYZ' because it has a return type of
+  '<ScriptClass>'.* — the **return-type narrowing variant**
+  (2026-05-19, Step 10 follow-up on
+  `foundation/diagnostics_serialization_delegate_test.dart`).
+  When a script-defined class declares
+  `class X with DiagnosticableTreeMixin { … }` and is then
+  constructed and returned from a function whose declared return
+  type is `X`, the interpreter narrows the constructed value's
+  runtime type to the bridged mixin (`DiagnosticableTreeMixin`)
+  rather than to `X`, then rejects the return as a type
+  mismatch. The trigger is the `with DiagnosticableTreeMixin`
+  clause itself — the mixin's methods are unreachable from the
+  script anyway (target-check variant above), so the mixin only
+  adds liability. **Mandatory script-side workaround:** drop
+  `with DiagnosticableTreeMixin` from the class declaration
+  entirely. Remove the `@override` annotations and the
+  `super.debugFillProperties(...)` call from any override
+  methods (or delete the override methods if they are never
+  invoked — manual serialisation does not need them). The
+  underlying root cause is the same family as U3/U5/U8/U9 — a
+  script-defined subtype of a bridged native mixin cannot cross
+  the d4rt → native boundary as that native type, and here the
+  manifestation is the *return path* rather than a target
+  check.
 
 ---
 
@@ -4527,6 +4609,24 @@ original type.
 
 ## Change Log
 
+- 2026-05-19: **Step 10 verification follow-up (`error_analysis.md`
+  of `testlog_20260518-1449-flutter-suites`).** Running the four
+  anchor suites serially (essential, important, secondary, and
+  the `hardly_relevant_classes_1` anchor for Step 9) surfaced two
+  errors. (1) `foundation/diagnostics_serialization_delegate_test.dart`
+  failed with `expected Enum?, got InterpretedEnumValue` from
+  `EnumProperty<_DemoMode>` — a fresh occurrence of U8(1) that
+  was previously masked by the pre-Step-3 mixin-dispatch failure.
+  Extended U8 with the diagnostic-property variant and applied
+  the `StringProperty` workaround to the script. (2)
+  `gestures/least_squares_solver_test.dart` re-failed under full
+  suite contention because Step 9's dart-test-wrapper timeout
+  bump (60 s) did not raise the underlying 25 s HTTP `/build`
+  cap. Added an optional `httpBuildTimeout` parameter to
+  `SendTestRunner.send` (both AST and test projects) — purely
+  additive, default unchanged — and pass 50 s for this script.
+  Both fixes were verified individually + via a fresh
+  `hardly_relevant_classes_1_test` sweep on both projects.
 - 2026-05-19: **Step 7 (Test contract bugs — 10 banners across
   10 scripts).** All 10 banners resolved with script-side fixes
   (disposition #2 — real script bugs); none of the 10 required a
