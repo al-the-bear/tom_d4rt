@@ -2315,10 +2315,12 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       backgroundColor: _PrivatePalette.canvas,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.zero,
-        child: _PrivatePage(),
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #18, P1):
+      // _PrivatePage already wraps its content in a SingleChildScrollView.
+      // Nesting it inside another vertical SingleChildScrollView left the
+      // inner one with unbounded height, collapsing the page to a zero-area
+      // surface and tripping the SemanticsNode(Rect 0,0,0,0) assertion.
+      body: _PrivatePage(),
     ),
   );
 }
