@@ -1518,64 +1518,87 @@ dynamic build(BuildContext context) {
   // SECTION 12 — CAVEATS.
   // ---------------------------------------------------------------------
   Widget caveatCard(String title, String body, IconData icon, Color tint) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #59, P5(a)):
+    // Original used an asymmetric Border (left: 4-dp tint accent, t/r/b: 1-dp
+    // grey hairline) combined with borderRadius: 12 — Flutter asserts uniform
+    // BorderSide.color when a radius is present. Refactored to uniform
+    // Border.all(grey hairline) + ClipRRect(12) + IntrinsicHeight > Row(stretch)
+    // with a 4-dp coloured accent Container as the left band. Considered P5(b)
+    // (capture-and-assert) but rejected: Section 12 (Caveats) describes other
+    // BorderRadius rules (directional vs absolute, RTL, max radius, clip,
+    // performance) — none of them is the uniform-colors rule, so the offending
+    // border pattern is incidental chrome, not a deliberate demonstration.
+    // Same rationale as item 58 (border_directional_test.dart).
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 6.0),
-      padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: cardSurface,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border(
-          left: BorderSide(color: tint, width: 4.0),
-          top: BorderSide(color: roseSoft.withValues(alpha: 0.6), width: 1.0),
-          right: BorderSide(color: roseSoft.withValues(alpha: 0.6), width: 1.0),
-          bottom: BorderSide(
-            color: roseSoft.withValues(alpha: 0.6),
-            width: 1.0,
-          ),
-        ),
         boxShadow: <BoxShadow>[shadowPeach],
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 36.0,
-            height: 36.0,
-            decoration: BoxDecoration(
-              color: tint.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Icon(icon, color: tint, size: 20.0),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w800,
-                    color: tint,
-                    letterSpacing: 0.3,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4.0, color: tint),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: cardSurface,
+                    border: Border.all(
+                      color: roseSoft.withValues(alpha: 0.6),
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 36.0,
+                        height: 36.0,
+                        decoration: BoxDecoration(
+                          color: tint.withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Icon(icon, color: tint, size: 20.0),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.w800,
+                                color: tint,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                            const SizedBox(height: 4.0),
+                            Text(
+                              body,
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                height: 1.5,
+                                color: Color(0xFF3A2A2A),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 4.0),
-                Text(
-                  body,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    height: 1.5,
-                    color: Color(0xFF3A2A2A),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
