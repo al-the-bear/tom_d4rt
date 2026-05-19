@@ -341,7 +341,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 12. ~~`foundation/caching_iterable_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** All three banners came from one `_detailBlock(...)` helper called three times, which combined `Border(left: width 4, top/right/bottom: alpha 0.18) + borderRadius` (the bridge's non-uniform-Border defect). Replaced the structure with a `ClipRRect > IntrinsicHeight > Row` where the left accent is a 4-px sibling `Container` and the content card now uses uniform `Border.all(alpha: 0.18)` — preserves the visual accent stripe and the rounded corners. Verified `frameworkErrors=3→0`.
 
-13. `foundation/diagnosticable_node_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+13. ~~`foundation/diagnosticable_node_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** All nine banners came from the `_LevelRow` helper instantiated nine times — same `Border(left: width 6, top/right/bottom: alpha 0.18) + borderRadius` pattern as item 12. Re-expressed the left-accent stripe as a sibling 6-px `Container` inside `ClipRRect > IntrinsicHeight > Row`; the content card uses uniform `Border.all`. Verified the other single-side `Border(left: ...)` in `_FooterRef` (line 2302) does NOT trip the bridge (defaulted `BorderSide.none` is treated as uniform). Verified `frameworkErrors=9→0`.
 
 14. `foundation/diagnosticable_tree_node_test.dart` *(hardly_relevant_classes_1_test, 1/1, I-unhandled — "Cannot invoke method 'getChildren' on null.")* — **P7**. Null-guard the recursive `getChildren()` call (the root has no parent in the test tree).
 

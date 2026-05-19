@@ -1213,22 +1213,35 @@ class _LevelRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #13, P5(a)):
+    // Original used `Border(left: width 6, top/right/bottom: alpha 0.18) +
+    // borderRadius`, which the bridge rejects ("A borderRadius can only be
+    // given on borders with uniform colors."). Re-express the left-accent
+    // stripe as a sibling 6-px Container in a Row inside a ClipRRect.
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.85),
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: color.withValues(alpha: 0.85), width: 6),
-          top: BorderSide(color: color.withValues(alpha: 0.18)),
-          right: BorderSide(color: color.withValues(alpha: 0.18)),
-          bottom: BorderSide(color: color.withValues(alpha: 0.18)),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                width: 6,
+                color: color.withValues(alpha: 0.85),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    border: Border.all(
+                      color: color.withValues(alpha: 0.18),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
           Container(
             width: 70,
             padding: const EdgeInsets.symmetric(vertical: 6),
@@ -1293,8 +1306,14 @@ class _LevelRow extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
+      ), // end inner Row
+                ), // end Expanded.child Container
+              ), // end Expanded
+            ], // end outer Row children
+          ), // end outer Row
+        ), // end IntrinsicHeight
+      ), // end ClipRRect
+    ); // end top Container
   }
 }
 
