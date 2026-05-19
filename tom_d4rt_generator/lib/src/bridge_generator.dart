@@ -8702,6 +8702,14 @@ class BridgeGenerator {
       args.add('${param.name}: $argValue');
     }
 
+    // Step 4: dart:ui Gradient constructors have a non-obvious assertion:
+    // when `colorStops` is null, `colors.length` must equal 2 (not just be
+    // >= 2). The native `ArgumentError` surfaces as a generic "Native error
+    // during bridged constructor" message that obscures the actual cause —
+    // callers think they passed valid input. Validate up front so the
+    // failure is reported with a clearer, actionable message.
+    _maybeEmitGradientStopsValidation(buffer, cls, ctor, positionalParams);
+
     if (useCombinatorial) {
       _generateCombinatorialDispatch(
         buffer,
@@ -8824,6 +8832,69 @@ class BridgeGenerator {
       }
     }
     return true;
+  }
+
+  /// Step 4: emit pre-validation for `dart:ui.Gradient` constructors.
+  ///
+  /// The native `ui.Gradient.linear`, `.radial`, and `.sweep` factories assert
+  /// `colors.length == 2` when `colorStops` is null (see `_validateColorStops`
+  /// in the engine). When the assertion fires the bridge surfaces it as a
+  /// generic "Native error during bridged constructor 'linear' for class
+  /// 'Gradient': Invalid argument(s): ..." which gives no hint that the
+  /// caller needs to pair an N-color list with an N-element `colorStops`
+  /// list.
+  ///
+  /// To keep the error actionable, emit an upfront `ArgumentError` with a
+  /// message that points the caller at the fix.
+  void _maybeEmitGradientStopsValidation(
+    StringBuffer buffer,
+    ClassInfo cls,
+    ConstructorInfo ctor,
+    List<ParameterInfo> positionalParams,
+  ) {
+    if (cls.name != 'Gradient') return;
+    // Restrict to dart:ui (sky_engine) Gradient — Flutter's painting
+    // `Gradient` is a separate abstract class with its own subclasses.
+    final source = cls.sourceFile;
+    if (!source.contains('sky_engine') && !source.contains('dart:ui')) {
+      return;
+    }
+    const ctorNames = {'linear', 'radial', 'sweep'};
+    final ctorName = ctor.name;
+    if (ctorName == null || !ctorNames.contains(ctorName)) return;
+
+    // Locate the `colors` and `colorStops` positional parameters by name.
+    String? colorsLocal;
+    String? colorStopsLocal;
+    for (final param in positionalParams) {
+      if (param.name == 'colors') {
+        colorsLocal = _getSafeLocalName(param.name);
+      } else if (param.name == 'colorStops') {
+        colorStopsLocal = _getSafeLocalName(param.name);
+      }
+    }
+    if (colorsLocal == null) return;
+
+    final stopsExpr = colorStopsLocal ?? 'null';
+    buffer.writeln('        // Step 4: pre-validate dart:ui Gradient stops/colors contract.');
+    buffer.writeln('        if ($stopsExpr == null && $colorsLocal.length != 2) {');
+    buffer.writeln(
+      "          throw ArgumentError('Gradient.$ctorName requires colors.length == 2 "
+      "when colorStops is null (got colors.length=\${$colorsLocal.length}). "
+      "Pass a colorStops list of equal length to use more than 2 colors.');",
+    );
+    buffer.writeln('        }');
+    if (colorStopsLocal != null) {
+      buffer.writeln(
+        '        if ($colorStopsLocal != null && $colorStopsLocal.length != $colorsLocal.length) {',
+      );
+      buffer.writeln(
+        "          throw ArgumentError('Gradient.$ctorName requires colors and colorStops "
+        "to have equal length (got colors.length=\${$colorsLocal.length}, "
+        "colorStops.length=\${$colorStopsLocal.length}).');",
+      );
+      buffer.writeln('        }');
+    }
   }
 
   /// GEN-075: Find a positional parameter whose type is a class type parameter.
