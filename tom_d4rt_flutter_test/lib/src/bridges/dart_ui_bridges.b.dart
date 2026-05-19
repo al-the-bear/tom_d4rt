@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-05-18T11:05:15.677900
+// Generated: 2026-05-19T03:00:56.696474
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -4262,6 +4262,13 @@ BridgedClass _createGradientBridge() {
             : null;
         final tileMode = D4.getOptionalArgWithDefault<$dart_ui.TileMode>(positional, 4, 'tileMode', $dart_ui.TileMode.clamp);
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 5, 'matrix4');
+        // Step 4: pre-validate dart:ui Gradient stops/colors contract.
+        if (colorStops == null && colors.length != 2) {
+          throw ArgumentError('Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=${colors.length}). Pass a colorStops list of equal length to use more than 2 colors.');
+        }
+        if (colorStops != null && colorStops.length != colors.length) {
+          throw ArgumentError('Gradient.linear requires colors and colorStops to have equal length (got colors.length=${colors.length}, colorStops.length=${colorStops.length}).');
+        }
         return $dart_ui.Gradient.linear(from, to, colors, colorStops, tileMode, matrix4);
       },
       'radial': (visitor, positional, named) {
@@ -4279,6 +4286,13 @@ BridgedClass _createGradientBridge() {
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 5, 'matrix4');
         final focal = D4.getOptionalArg<$dart_ui.Offset?>(positional, 6, 'focal');
         final focalRadius = D4.getOptionalArgWithDefault<double>(positional, 7, 'focalRadius', 0.0);
+        // Step 4: pre-validate dart:ui Gradient stops/colors contract.
+        if (colorStops == null && colors.length != 2) {
+          throw ArgumentError('Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=${colors.length}). Pass a colorStops list of equal length to use more than 2 colors.');
+        }
+        if (colorStops != null && colorStops.length != colors.length) {
+          throw ArgumentError('Gradient.radial requires colors and colorStops to have equal length (got colors.length=${colors.length}, colorStops.length=${colorStops.length}).');
+        }
         return $dart_ui.Gradient.radial(center, radius, colors, colorStops, tileMode, matrix4, focal, focalRadius);
       },
       'sweep': (visitor, positional, named) {
@@ -4296,6 +4310,13 @@ BridgedClass _createGradientBridge() {
         // TODO: Non-wrappable default: math.pi * 2
         final endAngle = D4.getRequiredArgTodoDefault<double>(positional, 5, 'endAngle', 'Gradient', 'math.pi * 2');
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 6, 'matrix4');
+        // Step 4: pre-validate dart:ui Gradient stops/colors contract.
+        if (colorStops == null && colors.length != 2) {
+          throw ArgumentError('Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=${colors.length}). Pass a colorStops list of equal length to use more than 2 colors.');
+        }
+        if (colorStops != null && colorStops.length != colors.length) {
+          throw ArgumentError('Gradient.sweep requires colors and colorStops to have equal length (got colors.length=${colors.length}, colorStops.length=${colorStops.length}).');
+        }
         return $dart_ui.Gradient.sweep(center, colors, colorStops, tileMode, startAngle, endAngle, matrix4);
       },
     },

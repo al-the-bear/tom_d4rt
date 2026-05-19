@@ -363,29 +363,52 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   removed; essential + important + secondary suites unchanged
   vs baseline in both projects; tom_d4rt ↔ tom_d4rt_ast in sync.
 
-- [ ] **Step 4 · Tighten `Gradient.linear` bridge constructor
-  validation.** [bug, low priority]
+- [x] **Step 4 · Tighten `Gradient.linear` bridge constructor
+  validation.** [bug, low priority] — **DONE (2026-05-19).**
   **Symptom:**
   `Native error during bridged constructor 'linear' for class
   'Gradient': "colors" must have length 2 if "colorStops" is
   omitted.`
   **Diagnosis:** the bridge passes the script's `colors:` arg
-  through to the native constructor, which asserts. Two choices:
-  (a) accept the script's pattern by synthesising a default
-  `colorStops`, or (b) reject earlier with a script-friendly
-  message.
-  **Default disposition:** reject earlier with a clear
-  `Gradient.linear requires colors.length >= 2 when colorStops is
-  null` message. Do **not** silently fill defaults — that would
-  hide intent.
-  **Fix path:** argument-coercion lambda in the generated `linear`
-  constructor wrapper in `bridge_generator.dart`. Implement once;
-  regenerate all `.b.dart`. Never edit `.b.dart` directly.
-  **Verification:** affected script reports the script-friendly
-  error string; no other failures introduced; serial suite run
-  matches Step 3's verification gate.
-  **DoD:** error shape replaced by the friendly message in the
-  next baseline's `error_analysis.md`.
+  through to the native constructor, which asserts. Native
+  contract is actually `colors.length == 2` when `colorStops`
+  is null (not `>= 2`); using more than 2 colors requires a
+  matching-length `colorStops` list.
+  **Disposition chosen:** reject earlier with a script-friendly
+  message that names the constructor (`linear`/`radial`/`sweep`)
+  and reports the actual lengths.
+  **Fix:** added `_maybeEmitGradientStopsValidation` helper to
+  `tom_d4rt_generator/lib/src/bridge_generator.dart` (~line 8705).
+  The helper detects `dart:ui Gradient.{linear,radial,sweep}`
+  constructors and emits two pre-checks after argument coercion
+  but before the native call:
+    1. `colorStops == null && colors.length != 2` → throws
+       `ArgumentError('Gradient.<name> requires colors.length ==
+       2 when colorStops is null (got colors.length=<n>). Pass a
+       colorStops list of equal length to use more than 2
+       colors.')`
+    2. `colorStops != null && colorStops.length != colors.length`
+       → throws `ArgumentError('Gradient.<name> requires colors
+       and colorStops to have equal length (got
+       colors.length=<n>, colorStops.length=<m>).')`
+  All `.b.dart` regenerated in `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test`. Bridge generator change only — no
+  interpreter changes needed; no tom_d4rt ↔ tom_d4rt_ast sync
+  required.
+  **Verification:**
+    - Re-ran `shader_mask_engine_layer_test.dart` via
+      `hardly_relevant_classes_1_test`: 36 banners now use the
+      new friendly message (e.g. "Gradient.linear requires
+      colors.length == 2 when colorStops is null (got
+      colors.length=7). …"). Old "must have length 2 if
+      colorStops is omitted" string no longer appears.
+    - Regression sweep, serial:
+      - `tom_d4rt_flutter_ast`: essential 108/0/0, important
+        164/0/0, secondary 653/0/0 (1 skip). No regressions.
+      - `tom_d4rt_flutter_test`: essential 108/0/0, important
+        164/0/0, secondary 653/0/0 (1 skip). No regressions.
+  **DoD met:** error shape replaced by the friendly message;
+  serial regression sweep clean in both projects.
 
 - [ ] **Step 5 · Investigate the 0.5 px `RenderFlex overflow`.**
   [bug, low priority]
