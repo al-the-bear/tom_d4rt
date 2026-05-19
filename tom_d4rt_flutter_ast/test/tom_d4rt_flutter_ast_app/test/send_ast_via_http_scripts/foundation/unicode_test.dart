@@ -1449,9 +1449,14 @@ Widget _beforeAfter({
   required String after,
   required String hint,
 }) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #20, P1):
+  // Row(crossAxisAlignment: stretch) inside the unbounded vertical
+  // SingleChildScrollView propagated infinite height. Wrap in
+  // IntrinsicHeight so the row sizes to its tallest intrinsic child.
+  return IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
       Expanded(
         child: Container(
           padding: EdgeInsets.all(10.0),
@@ -1554,6 +1559,7 @@ Widget _beforeAfter({
         ),
       ),
     ],
+    ),
   );
 }
 
@@ -1615,71 +1621,75 @@ Widget _scenarioRow({
           ],
         ),
         SizedBox(height: 8.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('before',
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #20, P1):
+        // Wrap stretch-Row in IntrinsicHeight to bound height.
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('before',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: Colors.grey.shade600,
+                          )),
+                      SizedBox(height: 4.0),
+                      Text(
+                        before,
+                        textDirection: baseDirection,
                         style: TextStyle(
-                          fontSize: 10.0,
-                          color: Colors.grey.shade600,
-                        )),
-                    SizedBox(height: 4.0),
-                    Text(
-                      before,
-                      textDirection: baseDirection,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        fontFamily: 'monospace',
-                        color: Colors.black87,
+                          fontSize: 13.0,
+                          fontFamily: 'monospace',
+                          color: Colors.black87,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 8.0),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: color.shade50,
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: color.shade300, width: 1.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('after',
+              SizedBox(width: 8.0),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: color.shade50,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: color.shade300, width: 1.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('after',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: color.shade700,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      SizedBox(height: 4.0),
+                      Text(
+                        after,
+                        textDirection: baseDirection,
                         style: TextStyle(
-                          fontSize: 10.0,
-                          color: color.shade700,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    SizedBox(height: 4.0),
-                    Text(
-                      after,
-                      textDirection: baseDirection,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        fontFamily: 'monospace',
-                        color: Colors.black87,
+                          fontSize: 13.0,
+                          fontFamily: 'monospace',
+                          color: Colors.black87,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 8.0),
         Row(
