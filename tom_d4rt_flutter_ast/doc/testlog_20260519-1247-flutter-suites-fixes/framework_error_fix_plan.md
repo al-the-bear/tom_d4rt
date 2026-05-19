@@ -315,7 +315,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 ### Cluster A — `animation/`, `cupertino/`, `dart_ui/` (items 1–10)
 
-1. `animation/cubic_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — "BoxConstraints forces an infinite height.")* — **P1**. Wrap the demo widget in a `SizedBox(width: 800, height: 600, child: …)` placed inside the existing `MaterialApp` body.
+1. ~~`animation/cubic_test.dart`~~ *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — "BoxConstraints forces an infinite height.")* — **deferred to U14** (2026-05-19). Four script-level workarounds attempted (P1 `SizedBox(800)`, `Center(heightFactor:1.0)`, `Row > Flexible > Column` sidestep, `Expanded → SizedBox(60)` inside the two `GridView.count` cells) — all reverted because the banner persists in every variant. The assertion fires on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own, so no script-level rewrite is possible. Banner is non-fatal (`status=success, frameworkErrors=1`; test passes throughout). See `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` § U14 for the full investigation. **No script change committed.**
 
 2. `cupertino/cupertino_nav_segmented_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 2.0 px right)* — **P3**. Wrap the segmented control's `Row` in a horizontal `SingleChildScrollView`, or set a wider parent (P1) so the 2.0 px overflow disappears.
 

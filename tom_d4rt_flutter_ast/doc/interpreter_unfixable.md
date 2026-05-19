@@ -54,6 +54,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U10 — Script-defined class `with DiagnosticableTreeMixin` / `Diagnosticable` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`); plus `super.debugFillProperties(...)` fails into bridged mixin](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. (a) The bridged `DiagnosticableTreeMixin` / `Diagnosticable` methods all validate the target via `D4.validateTarget<...>(target, '...')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin` or `with Diagnosticable`. Same architectural family as U3/U5/U8/U9. (b) Additionally, `super.debugFillProperties(properties)` from an interpreted class whose only super is the bridged mixin throws *`Class 'X' does not have a standard or bridged superclass, cannot use 'super'.`* — the interpreter does not resolve `super` calls into a bridged-mixin super-chain. Native `Diagnosticable.debugFillProperties` is a no-op anyway, so dropping the super call is safe. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (deferred, feature-scale). Mandatory script-side workaround: (1) build the diagnostics dump directly via `_dumpNode` (children) / `_diagnosticableDeepDump` (no children) helpers that walk `debugFillProperties` / `debugDescribeChildren`; (2) for JSON shape, recursive `_manualSerialize(config, delegate, depth)`; (3) drop any `super.debugFillProperties(...)` call from the script's override. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()`); `foundation/diagnostics_serialization_delegate_test.dart` (C37 closed 2026-05-18 — `_DemoConfig with DiagnosticableTreeMixin` `toDiagnosticsNode(...).toJsonMap(delegate)`); `foundation/object_flag_property_test.dart` (C38 closed 2026-05-18 — `_DemoConfig with Diagnosticable` `super.debugFillProperties(...)` + `toDiagnosticsNode().toStringDeep()`; also had unrelated framework-assert bug fixed by supplying empty-string text for `ifPresent`/`ifNull` slots) |
 | [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
 | [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
+| [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | Bridge/interpreter constraints-propagation gap (non-fatal). The bridged `Center`/`Align` does not implement `RenderPositionedBox`'s shrink-wrap-when-`maxHeight=∞` rule, and bridged `GridView.count` does not bound cell heights through `childAspectRatio`. Four script-level workarounds (`heightFactor:1.0`, `Row > Flexible > Column`, `SizedBox(width:800)`, `Expanded → SizedBox(height:60)` inside grid tiles) all failed to clear the banner because the assertion is firing on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own. Test passes throughout; banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4607,8 +4608,204 @@ original type.
 
 ---
 
+## U14 — `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` inside `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox` (bridge/interpreter constraints-propagation gap)
+
+**Category.** Bridge/interpreter constraints-propagation gap. In
+native Flutter, both `RenderPositionedBox` (the render object
+behind `Center` / `Align`) and `RenderFlex` inside a
+`GridView.count` cell apply small but load-bearing transforms to
+the incoming `BoxConstraints` before forwarding them to their
+child:
+
+- `RenderPositionedBox.performLayout` sets
+  `shrinkWrapHeight = _heightFactor != null ||
+   constraints.maxHeight == double.infinity` and, when true,
+  calls `child.layout(constraints.loosen())` — which produces
+  `(minW=0, maxW=maxW, minH=0, maxH=∞)`. A child with
+  `mainAxisSize.min` then sizes finite vertically and the
+  `RenderPositionedBox` shrink-wraps to match. **No infinite
+  vertical constraint ever reaches a descendant `ConstrainedBox`.**
+- `RenderSliverGrid` (behind `GridView.count` with
+  `childAspectRatio: r`) computes each cell's tight height as
+  `crossAxisExtent / r` from the grid's cross-axis extent, so an
+  `Expanded(child: …)` inside a cell's `Column(mainAxisSize.min)`
+  sees a finite `maxHeight` and lays out correctly.
+
+The bridge implements neither transform faithfully. The bridged
+`Center`/`Align` and `GridView.count` forward the unbounded
+`maxHeight` (or equivalent infinite-flex situation) straight
+down to descendants, and a `ConstrainedBox` somewhere in the
+chain trips
+`BoxConstraints.debugAssertIsValid(isAppliedConstraint: true)`:
+
+```text
+BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's
+layout() function by the following function, which probably
+computed the invalid constraints in question: …
+```
+
+The error is **non-fatal** — the script still completes and all
+host-side `expect()`s pass. It surfaces only via the test
+runner's framework-error banner
+(`frameworkErrors=1 status=success`).
+
+**Reproducer.** `animation/cubic_test.dart` (item 1 of the
+`testlog_20260519-1247-flutter-suites-fixes` fix plan). The
+script's `build` is shaped as:
+
+```dart
+home: Scaffold(
+  body: SingleChildScrollView(
+    child: Center(                         // ← parent with maxH=∞
+      child: ConstrainedBox(               // ← will assert
+        constraints: BoxConstraints(maxWidth: 1080.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            _PrivateGalleryCard(),         // GridView.count(childAspectRatio: 1.05)
+            _PrivateSiblingCurveCard(),    // GridView.count(childAspectRatio: 1.25)
+            …
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+```
+
+The two `GridView.count` cells (`_PrivateGalleryTile`,
+`_PrivateSiblingCurveTile`) each contain:
+
+```dart
+Column(
+  mainAxisSize: MainAxisSize.min,
+  children: <Widget>[
+    Text(...),
+    Expanded(child: CustomPaint(painter: _PrivateMiniCurvePainter(...))),
+    Text(...),
+  ],
+),
+```
+
+— a pattern that depends on the GridView cell providing a
+finite height for the `Expanded` to consume.
+
+**Investigated script-side workarounds that all FAILED to clear
+the banner:**
+
+1. `Center(heightFactor: 1.0, child: ConstrainedBox(...))` —
+   making the shrink-wrap explicit on `Center`. Banner persists;
+   the bridged `Center` does not honor `heightFactor`'s shrink-
+   wrap path.
+2. Sidestep `RenderPositionedBox` entirely with
+   `Row(mainAxisAlignment: MainAxisAlignment.center,
+   children: [Flexible(child: Column(...))])`. Banner persists.
+3. Replace `Center > ConstrainedBox(maxWidth: 1080)` with
+   `SizedBox(width: 800)` to bound horizontally without invoking
+   `RenderPositionedBox`. Banner persists.
+4. Combine (3) with replacing both `Expanded(child: CustomPaint)`
+   sites inside `_PrivateGalleryTile` and
+   `_PrivateSiblingCurveTile` with `SizedBox(height: 60)`. Banner
+   persists.
+
+The banner survives every script-level transformation we tried,
+which means the assertion is firing on a `RenderConstrainedBox`
+that is not present in the script source — it is being
+synthesised internally by one of the bridged Material widgets
+(`Scaffold` / `SingleChildScrollView` / `MaterialApp` /
+`Padding` / `Container.decoration` / etc.) when fed an
+infinite-height column of long demo content. We cannot identify
+or rewrite a widget we did not write.
+
+**Constraints.**
+
+- The fix belongs in the bridge: either (a) `Center`/`Align`
+  implementations need to honor `RenderPositionedBox`'s shrink-
+  wrap rule when `maxHeight == infinity`, or (b)
+  `GridView.count`'s `childAspectRatio` needs to bound cell
+  heights through the same path Flutter uses, or — most likely
+  — (c) the `RenderConstrainedBox` adapter needs to clamp its
+  incoming `maxHeight` to a finite value rather than asserting,
+  matching the native render-pipeline's "the parent's
+  constraints reach me already-bounded" assumption.
+- Fixing this would touch interpreter constraint-propagation
+  semantics in both `tom_d4rt` and `tom_d4rt_ast` and is out of
+  scope for a single script-rewrite pass.
+- The error is non-fatal — every assertion that runs on the
+  cubic_test page passes. Only the cosmetic banner remains.
+
+**Script-side workaround (chosen action).** None possible at the
+script level after four independent attempts. We **revert** all
+attempted script edits and accept the banner as a known cosmetic
+artefact. Functional behaviour of the test is preserved
+(`expect(result.success, isTrue)` passes; the page renders).
+
+**What "achieves the same functional result" would mean here.**
+Because the assertion is fired by an internal
+`RenderConstrainedBox` we cannot identify, the only way to
+"resolve achieving the same functional result" entirely from the
+script is to rewrite the page to use no widget that *might*
+internally synthesise a `ConstrainedBox` under an infinite-
+height parent — which excludes `Scaffold`, `SingleChildScrollView`,
+`GridView`, `Container(decoration: …)`, and effectively the
+entire Material card-based layout the demo is built around.
+That degree of rewrite would invalidate the test's *purpose*
+(showcasing `Cubic` + Material cards), so the workaround is
+**leave the script as-is and let the banner show**, on the
+understanding that the banner does not affect script success.
+
+**Diagnostic guidance.** A `BoxConstraints forces an infinite
+height. These invalid constraints were provided to
+RenderConstrainedBox's layout()` banner that
+(a) appears with `status=success` and `frameworkErrors=1`,
+(b) survives every script-level attempt to bound the body
+(`SizedBox(width:N)`, `Row > Flexible > Column`,
+`heightFactor: 1.0` on `Center`, `Expanded` → `SizedBox`), and
+(c) the script contains GridViews / Material cards under a
+`SingleChildScrollView` — points to U14. Accept the banner;
+the script is not fixable at the script level.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `animation/cubic_test.dart` | Section 3 (`_PrivateGalleryCard` — `GridView.count(childAspectRatio: 1.05)` with `_PrivateGalleryTile` containing `Expanded(CustomPaint)` inside `Column(mainAxisSize.min)`), and Section 6 (`_PrivateSiblingCurveCard` — `GridView.count(childAspectRatio: 1.25)` with `_PrivateSiblingCurveTile` using the same pattern). The top-level `Center > ConstrainedBox(maxWidth: 1080)` wrapping the body is a third contributor but not individually sufficient. | Item 1 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Four script-rewrite attempts (P1 `SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)` inside both gallery tiles) all reverted on 2026-05-19 — banner persists in every variant. Test passes throughout (`expect(result.success, isTrue)` succeeds, all 2 tests "All tests passed!", `frameworkErrors=1 status=success` only). Marked as U14 and deferred. |
+
+### What a real fix would look like
+
+The minimal interpreter-side fix is to make the bridged
+`RenderConstrainedBox.layout()` adapter clamp an incoming
+`maxHeight == double.infinity` to a finite fallback (e.g.
+`MediaQuery.of(context).size.height` or a sentinel like
+`9999.0`) instead of asserting. That matches the documented
+"parent passes finite constraints" invariant of native Flutter
+and unblocks every script that uses the Material card-on-scroll
+pattern. A more correct (but larger) fix is to faithfully
+implement `RenderPositionedBox.performLayout`'s shrink-wrap
+branch in the bridged `Center`/`Align` adapters, plus
+`RenderSliverGrid`'s cell-height computation in the bridged
+`GridView.count` adapter, so that no descendant ever sees an
+unbounded `maxHeight`.
+
+---
+
 ## Change Log
 
+- 2026-05-19: **Add U14** — `Center > ConstrainedBox(maxWidth)` in
+  `SingleChildScrollView`, or `Expanded` inside
+  `Column(mainAxisSize.min)` in a `GridView.count` cell, leaks
+  `maxHeight: infinity` down to `RenderConstrainedBox`. Identified
+  while working item 1 of `testlog_20260519-1247-flutter-suites-fixes`
+  fix plan (`animation/cubic_test.dart`). Four script-level
+  workarounds attempted (`heightFactor:1.0`, `Row > Flexible >
+  Column`, `SizedBox(width:800)` replacing the top-level
+  `Center>ConstrainedBox`, `Expanded → SizedBox(height:60)` inside
+  both `_PrivateGalleryTile` and `_PrivateSiblingCurveTile`) — all
+  failed to clear the framework-error banner; all reverted. Test
+  passes throughout. Marked deferred (not fixable at script level
+  for this widget tree). The real fix belongs in the bridge.
 - 2026-05-19: **Step 10 verification follow-up (`error_analysis.md`
   of `testlog_20260518-1449-flutter-suites`).** Running the four
   anchor suites serially (essential, important, secondary, and
