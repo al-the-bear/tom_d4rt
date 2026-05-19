@@ -1220,21 +1220,39 @@ dynamic build(BuildContext context) {
 // ----------------------------------------------------------------
 
 Widget _sectionTitle(String text, MaterialColor accent) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
-    decoration: BoxDecoration(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #47, P5(a)):
+  // Original used `Border(left: BorderSide(width:5))` (non-uniform
+  // colors/widths — only the left side is set) combined with
+  // `borderRadius: 10`. Flutter asserts "A borderRadius can only be
+  // given on borders with uniform colors." Refactored to a
+  // `ClipRRect` wrapping a `Row` containing a 5 px-wide accent
+  // Container as the left edge — preserves the visual (rounded
+  // accent.shade50 pill with a chunky accent.shade700 left bar) and
+  // satisfies the assertion.
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(10.0),
+    child: Container(
       color: accent.shade50,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: accent.shade700, width: 5.0),
-      ),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 21.0,
-        fontWeight: FontWeight.bold,
-        color: accent.shade900,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(width: 5.0, color: accent.shade700),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 14.0, vertical: 10.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 21.0,
+                  fontWeight: FontWeight.bold,
+                  color: accent.shade900,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ),
   );
@@ -1819,50 +1837,69 @@ Widget _buildElevationSample(MaterialType type, double elevation) {
 }
 
 Widget _buildPitfall(String headline, String body, MaterialColor accent) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #47, P5(a)):
+  // Original used a four-sided `Border()` with a thicker accent.shade400
+  // left side and red.shade100 on the other three sides — non-uniform —
+  // combined with `borderRadius: 10`. Flutter asserts "A borderRadius
+  // can only be given on borders with uniform colors." Refactored to a
+  // uniform `Border.all(red.shade100, width: 1)` for the rounded outer
+  // frame plus a `ClipRRect`-wrapped Row containing a 4 px-wide
+  // accent.shade400 Container as the visual left bar. Preserves the
+  // chunky accent left-bar look and the surrounding hairline frame.
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
-    padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: accent.shade400, width: 4.0),
-        top: BorderSide(color: Colors.red.shade100),
-        right: BorderSide(color: Colors.red.shade100),
-        bottom: BorderSide(color: Colors.red.shade100),
-      ),
+      border: Border.all(color: Colors.red.shade100, width: 1.0),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.bug_report_rounded,
-                color: accent.shade700, size: 16.0),
-            const SizedBox(width: 6.0),
-            Expanded(
-              child: Text(
-                headline,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                  color: accent.shade900,
-                ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(9.0),
+      child: IntrinsicHeight(
+        child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(width: 4.0, color: accent.shade400),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.bug_report_rounded,
+                          color: accent.shade700, size: 16.0),
+                      const SizedBox(width: 6.0),
+                      Expanded(
+                        child: Text(
+                          headline,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
+                            color: accent.shade900,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    body,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 4.0),
-        Text(
-          body,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade800,
-            height: 1.4,
           ),
-        ),
-      ],
+        ],
+      ),
+      ),
     ),
   );
 }
