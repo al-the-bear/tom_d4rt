@@ -1076,7 +1076,15 @@ dynamic build(BuildContext context) {
         child: cmpCell(cells[i], tones[i]),
       ));
     }
-    return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: kids);
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #22, P1):
+    // stretch-Row inside the unbounded SingleChildScrollView propagated
+    // infinite height to its Expanded children. Bound via IntrinsicHeight.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: kids,
+      ),
+    );
   }
 
   final Widget comparison = panel(
