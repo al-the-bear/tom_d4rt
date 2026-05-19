@@ -506,6 +506,12 @@ class _AnatomyArrowDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #4, P2):
+    // Icon(size: 14) reserves ~14 px and the Container previously took
+    // (height - 10) px, totalling (height + 4) px inside a SizedBox of
+    // `height` px — Flutter's RenderFlex asserts a 4.0 px bottom overflow.
+    // Reduce the connector line so the Column fits in `height` without
+    // overflow.
     return SizedBox(
       height: height,
       child: Center(
@@ -513,7 +519,7 @@ class _AnatomyArrowDown extends StatelessWidget {
           children: <Widget>[
             Container(
               width: 2,
-              height: height - 10,
+              height: height - 16,
               color: Colors.white.withValues(alpha: 0.4),
             ),
             Icon(
