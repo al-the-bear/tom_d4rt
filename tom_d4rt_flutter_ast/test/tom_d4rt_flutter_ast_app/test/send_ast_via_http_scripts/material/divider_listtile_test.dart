@@ -890,8 +890,15 @@ class _RulerStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #42, P2):
+    // The four "major" tick Columns (i=0, 5, 10, 15) stack
+    // SizedBox(4) + Container(height: 12) + SizedBox(2) + Text(fontSize:9)
+    // whose natural line height is ~14 px, totalling ~32 px — 4 px taller
+    // than the original strip height of 28, producing 4× "RenderFlex
+    // overflowed by 4.0 pixels on the bottom". Bumped the strip height
+    // to 34 so the major-tick Column fits with a small breathing margin.
     return Container(
-      height: 28,
+      height: 34,
       decoration: BoxDecoration(
         color: _Palette.paperSoft,
         borderRadius: BorderRadius.circular(6),
