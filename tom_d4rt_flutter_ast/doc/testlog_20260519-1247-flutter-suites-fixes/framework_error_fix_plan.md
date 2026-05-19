@@ -363,7 +363,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 22. ~~`gestures/horizontal_multi_drag_gesture_recognizer_test.dart` *(secondary_classes_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.~~ **FIXED.** P1 was misdiagnosed — root is already `Scaffold > SafeArea > SingleChildScrollView > Column(stretch)`. Actual cause: the `cmpRow` helper inside `_buildComparisonTable` returned `Row(crossAxisAlignment: stretch)` directly, propagating infinite height to its `Expanded` cell children inside the unbounded scrollable. Fix: wrapped that single Row in `IntrinsicHeight`. Verified `frameworkErrors=1→0`.
 
-23. `gestures/one_sequence_gesture_recognizer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+23. ~~`gestures/one_sequence_gesture_recognizer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** Canonical P5(a) pattern: the pitfall-cards loop (6 entries) built each card with `Border(left: 4 solid, top/right/bottom: 1 translucent) + borderRadius: 10`, which the bridged painter rejects on a rounded shape. Fix: render each card via `ClipRRect > IntrinsicHeight > Row` with left accent as a sibling `Container(width: 4)` and a uniform `Border.all(color: color.withValues(alpha: 0.3))` on the body. Verified `frameworkErrors=6→0`.
 
 24. `gestures/pointer_exit_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/RenderFlex — overflow 4707 px bottom)* — **P1+P2**.
 

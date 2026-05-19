@@ -1257,50 +1257,65 @@ dynamic build(BuildContext context) {
   for (final p in pitfalls) {
     final color = p['color'] as Color;
     pitfallCards.add(
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 6.0),
-        padding: EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.08),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #23, P5(a)):
+      // Border(left: 4 solid, top/right/bottom: 1 translucent) combined
+      // with borderRadius is rejected by the bridged painter
+      // (uniform-colors). Render with ClipRRect > IntrinsicHeight > Row
+      // — left accent is a sibling Container(width: 4), body uses
+      // uniform Border.all.
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 6.0),
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: color, width: 4.0),
-            top: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-            right: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-            bottom:
-                BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(p['icon'] as IconData, color: color, size: 22.0),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    p['title'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.0,
-                      color: color,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(width: 4.0, color: color),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.08),
+                      border: Border.all(
+                          color: color.withValues(alpha: 0.3), width: 1.0),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(p['icon'] as IconData, color: color, size: 22.0),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                p['title'] as String,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.0,
+                                  color: color,
+                                ),
+                              ),
+                              SizedBox(height: 4.0),
+                              Text(
+                                p['detail'] as String,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey.shade800,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    p['detail'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
