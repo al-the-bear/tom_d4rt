@@ -1497,46 +1497,55 @@ Widget _buildSectionEdgeCases() {
       _buildCard(
         child: Column(
           children: <Widget>[
-            // Edge 1: composite child (avatar + text)
+            // Edge 1: composite child (avatar + text).
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #45, P3):
+            // The original demo placed `Row(mainAxisSize.min,
+            // [SizedBox, CircleAvatar(r:12), SizedBox, Text('Profile'
+            // bold), SizedBox])` directly as the `child` of a regular
+            // `FloatingActionButton`. The inner Row has a natural width
+            // of ~100 px, but a regular `FloatingActionButton` hard-codes
+            // `BoxConstraints.tightFor(width: 56, height: 56)`, forcing
+            // the child into 56 px and producing a
+            // "RenderFlex overflowed by 41 pixels on the right"
+            // assertion every layout pass. The widget actually designed
+            // for "avatar + inline label" is
+            // `FloatingActionButton.extended`, which sizes its pill to
+            // the natural width of `icon + label`. Switched the demo to
+            // `FloatingActionButton.extended` so the visual intent
+            // (avatar inside a stadium-shaped FAB next to a bold label)
+            // is preserved without overflow; the surrounding caption
+            // already describes the composite-child idea.
             Row(
               children: <Widget>[
-                FloatingActionButton(
+                FloatingActionButton.extended(
                   onPressed: () {},
                   heroTag: 'edge-1',
                   backgroundColor: const Color(0xFF1565C0),
                   foregroundColor: Colors.white,
                   shape: const StadiumBorder(),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      SizedBox(width: 10.0),
-                      CircleAvatar(
-                        radius: 12.0,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xFF1565C0),
-                          size: 16.0,
-                        ),
-                      ),
-                      SizedBox(width: 8.0),
-                      Text(
-                        'Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 12.0),
-                    ],
+                  icon: const CircleAvatar(
+                    radius: 12.0,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.person,
+                      color: Color(0xFF1565C0),
+                      size: 16.0,
+                    ),
+                  ),
+                  label: const Text(
+                    'Profile',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 const Expanded(
                   child: Text(
-                    'Composite child: an avatar plus inline label, wrapped in a '
-                    'Row and forced to take only as much horizontal space as '
-                    'needed via mainAxisSize.min.',
+                    'Composite child: an avatar plus inline label, '
+                    'rendered via FloatingActionButton.extended so the pill '
+                    'naturally sizes to its icon + label content.',
                     style: TextStyle(fontSize: 11.5, color: Color(0xFF37474F)),
                   ),
                 ),
