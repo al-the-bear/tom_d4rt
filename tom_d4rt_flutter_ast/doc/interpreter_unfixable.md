@@ -57,6 +57,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | Bridge/interpreter constraints-propagation gap (non-fatal). The bridged `Center`/`Align` does not implement `RenderPositionedBox`'s shrink-wrap-when-`maxHeight=∞` rule, and bridged `GridView.count` does not bound cell heights through `childAspectRatio`. Four script-level workarounds (`heightFactor:1.0`, `Row > Flexible > Column`, `SizedBox(width:800)`, `Expanded → SizedBox(height:60)` inside grid tiles) all failed to clear the banner because the assertion is firing on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own. Test passes throughout; banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 | [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (item 2 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 | [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (item 5 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
+| [U17 — `ConstraintsTransformBox` teaching script is intrinsically incompatible with `frameworkErrors=0`](#u17--constraintstransformbox-teaching-script-render_constraints_transform_box_testdart-is-intrinsically-incompatible-with-frameworkerrors0-script-design) | Truly unfixable (script design). `render_constraints_transform_box_test.dart` is a deep-demo script whose purpose is to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug-mode assertions / overflow banners. The visible `frameworkErrors=1` (NOT NORMALIZED, from a user-defined `kHalveMaxWidth` transform on a tight-width input) is the *first* of a cascade — pre-normalising it immediately surfaces `RenderConstraintsTransformBox overflowed by 30/15/15/30` from section 7's intentional clipBehavior showcase, and behind that further banners from sections 4 and 8. Any workaround that suppresses one tile erases the teaching content of that tile. **No script-side fix possible — accept the banner and defer.** | `rendering/render_constraints_transform_box_test.dart` (item 71 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — kHalveMaxWidth normalize fix attempted and reverted 2026-05-20) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -5094,8 +5095,146 @@ fit) and clamp each to `0.0` defensively.
 
 ---
 
+## U17 — `ConstraintsTransformBox` teaching script (`render_constraints_transform_box_test.dart`) is intrinsically incompatible with `frameworkErrors=0` (script design)
+
+**Category.** Truly unfixable at both the script and the
+interpreter level — the script's *teaching purpose* is to
+demonstrate the exact pathological inputs that Flutter's
+debug-mode assertions fire on. Any "fix" either pre-normalizes /
+shrinks the inputs (erasing the demo) or pushes the failure to
+the next intentional demo in the same script.
+
+**Reproducer.**
+`rendering/render_constraints_transform_box_test.dart` (item 71
+of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+Reported once each in `secondary_classes_test` and
+`timeout_tests_test` (two host suites driving the same script,
+hence the plan-doc note "B-layout/BoxConstraints — infinite
+height" double-banner).
+
+**The cascade.**
+
+The script is a deep-dive demo of
+`ConstraintsTransformBox` / `RenderConstraintsTransformBox`. The
+baseline failure reported by the test runner is the *first*
+debug-mode assertion to fire during layout:
+
+```text
+BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized
+'package:flutter/src/rendering/shifted_box.dart':
+Failed assertion: line 943 pos 14: 'childConstraints.isNormalized'
+```
+
+This comes from the script's user-defined transform
+`kHalveMaxWidth(input)` (a teaching example showing what a
+caller might write):
+
+```dart
+BoxConstraints kHalveMaxWidth(BoxConstraints input) {
+  return BoxConstraints(
+    minWidth: input.minWidth,
+    maxWidth: input.hasBoundedWidth ? input.maxWidth / 2.0 : input.maxWidth,
+    minHeight: input.minHeight,
+    maxHeight: input.maxHeight,
+  );
+}
+```
+
+When the parent supplies tight width constraints
+(`minWidth == maxWidth == 699.6` from a
+`CrossAxisAlignment.stretch` Column), halving only the
+`maxWidth` produces `min=699.6, max=349.8` — `min > max`, not
+normalized. `RenderConstraintsTransformBox.performLayout()`
+asserts `childConstraints.isNormalized` and aborts the layout
+pass. The script is structured as a teaching log of "things you
+can do to constraints and what Flutter says about each one" —
+the assertion *is* the teaching point.
+
+**Why the P8 fix exposes a worse cascade.** The plan's P8
+suggestion is to pre-normalize the result (clamp `minWidth` to
+the new `maxWidth`). That makes layout proceed past
+`kHalveMaxWidth` — but the script has at least three other
+sections that *deliberately* paint oversized children inside
+smaller `ConstraintsTransformBox` slots specifically to
+demonstrate `clipBehavior` semantics:
+
+- **Section 4 (Live demos):** `SizedBox(200×80) > ClipRRect > CTB(<various transforms>) > _OverflowChild(SizedBox(320×140))`. Six tiles iterate the six pre-defined `ConstraintsTransformBox.<X>` transforms (`unmodified`, `unconstrained`, `widthUnconstrained`, `heightUnconstrained`, `maxWidthUnconstrained`, `maxHeightUnconstrained`). The four non-`unmodified` transforms unconstrain at least one axis, so the child sizes to 320×140 in a 200×80 slot — three distinct overflow signatures (60/30/30/60, 60/0/0/60, 0/30/30/0).
+- **Section 7 (clipBehavior showcase):** `SizedBox(160×80) > CTB.unconstrained > Container(220×110)` — three tiles iterate `Clip.none / Clip.hardEdge / Clip.antiAlias`. After my normalization fix the first reported follow-up banner is `A RenderConstraintsTransformBox overflowed by 30 pixels on the left, 15 pixels on the top, 15 pixels on the bottom, and 30 pixels on the right` — that arithmetic comes from this section ((220−160)/2 = 30 horiz, (110−80)/2 = 15 vert).
+- **Section 8 (Comparison panel):** `SizedBox(120×60) > CTB.unconstrained > Container(160×80)` (and an `UnconstrainedBox` sibling with the same overflow signature). 40/20 horiz/vert.
+
+`RenderConstraintsTransformBox` and its `DebugOverflowIndicatorMixin` always emit the overflow banner in debug mode when `child.size > size`, **regardless of `clipBehavior`** — `Clip.hardEdge` only suppresses the visual debug stripes, never the `FlutterError.reportError` call. So every one of those sites would surface a banner once the kHalveMaxWidth assertion stops aborting the layout.
+
+**Why every workaround erases the demo.**
+
+- Pre-normalize `kHalveMaxWidth` (e.g. clamp `minWidth` to the new `maxWidth`): removes the first banner, exposes the section-7 overflow banner.
+- Resize section 4 / 7 / 8 slots to match the children: removes all banners *but* there is no longer an oversized child for the transforms / `clipBehavior` parameter to act on. All three `clipBehavior` tiles render identically. The script's teaching intent is gone.
+- Resize section 4 / 7 / 8 children to fit the slots: same — no oversized child, no demo.
+- Wrap the inner `Container` in `OverflowBox` so the CTB's own size matches the child: `CTB.clipBehavior` becomes a no-op (the CTB no longer overflows) and the outer `OverflowBox` handles all clipping. The script visually behaves identically across the three `clipBehavior` tiles — the demo is dead.
+- `try/catch` around the layout pass (P5(b)): Flutter does not surface layout assertions through `try/catch` at the script level; they fire inside `performLayout` and are caught only by `FlutterError.onError`. Not actionable from the script.
+
+In short, **the script's purpose *is* to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug banners**. The 1 banner that survives to `frameworkErrors=1` is the first of a stack; any "fix" peels back one layer at the cost of exposing the next intentional one underneath.
+
+**Decision (2026-05-20).** Item 71 is marked
+**reverted/deferred** in
+`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`.
+The kHalveMaxWidth normalize fix was applied and verified (the
+first banner cleared), then reverted when the section-7 follow-up
+banner surfaced and inspection revealed the cascade.
+
+**What a real fix would look like.**
+
+Either:
+
+1. **Rewrite the teaching content.** Replace
+   `render_constraints_transform_box_test.dart` with a variant
+   that *describes* (in text) the pathological inputs but does
+   not render them through Flutter. Each "demo" tile shows a
+   diagram / annotated `BoxConstraints` rather than driving the
+   actual layout. The script becomes a documentation-style
+   render with no live `ConstraintsTransformBox` instances. Loses
+   the live-demo teaching value entirely.
+
+2. **Replace pathological demos with non-pathological
+   equivalents.** Use `OverflowBox` (which is documented to
+   suppress the overflow banner) for every overflow-demo tile;
+   keep `ConstraintsTransformBox` only for the
+   non-overflow-producing transforms (e.g. `unmodified`,
+   `widthUnconstrained` with a child that fits the resulting
+   constraints). Preserves the API mention but removes the
+   visual point of the demo.
+
+3. **Accept `frameworkErrors=1` as the steady state for this
+   script** and exclude it from the framework-error gate. The
+   test still reports `status=success`; the banner is purely
+   diagnostic. This is the lowest-cost option but punctures the
+   `frameworkErrors=0` invariant the test runner enforces.
+
+None of these belong in the per-item fix sweep — they are
+**design-level** changes to the teaching scope of the script.
+
+### Affected scripts
+
+| Script | Host suites | Sites | Notes |
+|--------|-------------|-------|-------|
+| `rendering/render_constraints_transform_box_test.dart` | `secondary_classes_test` (1/1), `timeout_tests_test` (1/1) | kHalveMaxWidth produces non-normalized; sections 4 / 7 / 8 deliberately overflow CTBs for `clipBehavior` and pre-defined-transform demos. | Item 71 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U17 root-cause analysis above. |
+
+---
+
 ## Change Log
 
+- 2026-05-20: **Add U17** — `render_constraints_transform_box_test.dart`
+  is a teaching script whose purpose is to feed pathological
+  inputs to `ConstraintsTransformBox` and observe Flutter's
+  debug-mode assertions / overflow banners. The visible
+  `frameworkErrors=1` banner is the first of a stack — any
+  workaround that suppresses it either erases the demo or
+  exposes the next intentional banner underneath (verified
+  experimentally: pre-normalizing `kHalveMaxWidth` cleared the
+  NOT NORMALIZED banner but immediately surfaced
+  `A RenderConstraintsTransformBox overflowed by 30/15/15/30`
+  from the section-7 `clipBehavior` showcase). Item 71 reverted
+  and deferred — a real fix requires redesigning the teaching
+  content, not a per-item layout tweak.
 - 2026-05-19: **Extend U16** — add `gestures/velocity_test.dart`
   to the affected-scripts table and document the variant banner
   shape that surfaces when an empty `Text('')` sits under an
