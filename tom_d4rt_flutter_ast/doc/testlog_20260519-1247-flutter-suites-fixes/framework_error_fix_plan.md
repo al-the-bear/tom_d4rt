@@ -347,7 +347,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 15. ~~`foundation/diagnosticable_tree_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.~~ **FIXED.** Same pattern as items 10/11/15: script root was already `Scaffold > SingleChildScrollView > Column(stretch)`, so P1 wasn't relevant. Two `Row(crossAxisAlignment: stretch)` sites inside the unbounded scrollable (DevTools tree+details panes at line 2044, pitfall Avoid/Prefer at line 3237) propagated infinite height to their Expanded children. Fix: wrapped both Rows in `IntrinsicHeight`. The third stretch alignment at the top-level Column is harmless (horizontal stretch). Verified `frameworkErrors=1→0`.
 
-16. `foundation/error_spacer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/infinite-size — Offset NaN)* — **P1**.
+16. ~~`foundation/error_spacer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/infinite-size — Offset NaN)* — **P1**.~~ **FIXED.** P1 was misdiagnosed — root layout is already `Scaffold > SingleChildScrollView > Column(stretch)`. Actual cause is U16 (empty-string Text triggers NaN-Offset in bridged painter): `_propertyChip('name', '${spacer.name}', ...)` renders `Text('')` because `ErrorSpacer.name == ''` by design. Fix: defensively substitute empty `name`/`value` strings with a single space inside `_propertyChip`. Verified `frameworkErrors=1→0`.
 
 17. `foundation/object_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
 

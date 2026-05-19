@@ -1159,6 +1159,14 @@ Widget _anatomySpacerRow() {
 }
 
 Widget _propertyChip(String name, String value, Color color) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #16, U16):
+  // Empty-string Text() arguments trip the bridged paragraph painter with
+  // "Offset argument contained a NaN value" (dart:ui/painting.dart:41).
+  // ErrorSpacer's `name` property is the empty string by design, so the
+  // chip for it renders Text('') unless we substitute. Replace empty
+  // strings with a single space so the painter sees a non-empty line.
+  final String safeName = name.isEmpty ? ' ' : name;
+  final String safeValue = value.isEmpty ? ' ' : value;
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
@@ -1176,7 +1184,7 @@ Widget _propertyChip(String name, String value, Color color) {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Text(
-            name,
+            safeName,
             style: TextStyle(
               color: Colors.white,
               fontSize: 10.0,
@@ -1186,7 +1194,7 @@ Widget _propertyChip(String name, String value, Color color) {
         ),
         SizedBox(width: 6.0),
         Text(
-          value,
+          safeValue,
           style: TextStyle(
             fontFamily: 'monospace',
             fontSize: 11.0,
