@@ -1660,46 +1660,65 @@ Widget buildPitfallsBlock() {
 }
 
 Widget _pitfallTile(Color tint, String title, String body) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #36, P5(a)):
+  // Original used `Border(left: 4px tint, right/top/bottom: tint.alpha 0.3)`
+  // combined with `borderRadius: 12`. Flutter throws "A borderRadius can
+  // only be given on borders with uniform colors." once per painted tile
+  // (6 invocations → 6 framework errors). Canonical P5(a) fix: outer
+  // Container uses uniform `Border.all(tint.alpha 0.3)` + `clipBehavior:
+  // Clip.antiAlias` so the rounded corners clip the children; the 4-px
+  // coloured accent is supplied as a sibling `Container(width: 4)` inside
+  // an `IntrinsicHeight > Row(crossAxisAlignment: stretch)` so it
+  // stretches to the tile's intrinsic height. Visually identical to the
+  // original.
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6),
-    padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+    clipBehavior: Clip.antiAlias,
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(12),
-      border: Border(
-        left: BorderSide(color: tint, width: 4),
-        right: BorderSide(color: tint.withValues(alpha: 0.3)),
-        top: BorderSide(color: tint.withValues(alpha: 0.3)),
-        bottom: BorderSide(color: tint.withValues(alpha: 0.3)),
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.3)),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Icon(Icons.error_outline, size: 16, color: tint),
-            const SizedBox(width: 6),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 13.5,
-                color: tint,
+    child: IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(width: 4, color: tint),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.error_outline, size: 16, color: tint),
+                      const SizedBox(width: 6),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13.5,
+                          color: tint,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    body,
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      height: 1.45,
+                      color: kInkSecondary,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Text(
-          body,
-          style: const TextStyle(
-            fontSize: 12.5,
-            height: 1.45,
-            color: kInkSecondary,
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

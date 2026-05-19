@@ -391,7 +391,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 ### Cluster D — `material/` (items 36–55)
 
-36. `material/animatedicon_test.dart` *(important_classes_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+36. ~~`material/animatedicon_test.dart`~~ *(important_classes_test, 1/1, B-bridge — uniform-colors)* — **FIXED** (2026-05-19, P5(a)). The 6 framework errors mapped 1:1 to the 6 calls of `_pitfallTile` in section 8 (`buildPitfallsSection`), where each tile combined a non-uniform `Border(left: 4px tint, right/top/bottom: tint.withValues(alpha: 0.3))` with `borderRadius: BorderRadius.circular(12)` — Flutter rejects the combination at paint time with "A borderRadius can only be given on borders with uniform colors." Canonical P5(a) fix applied at the `_pitfallTile` helper: outer Container keeps uniform `Border.all(tint.withValues(alpha: 0.3))` + rounded corners + `clipBehavior: Clip.antiAlias`; the 4-px coloured accent strip becomes a sibling `Container(width: 4)` inside `IntrinsicHeight > Row(crossAxisAlignment: stretch)`. Visually identical to original. Verified: `important_classes_test` with `--plain-name 'animatedicon_test.dart'` reports `frameworkErrors=0 status=success` (was 6). Rule (a) — script-only change, single-script retest sufficient. Log: `ztmp/item36_run1.log`.
 
 37. `material/bottom_navigation_bar_landscape_layout_test.dart` *(hardly_relevant_classes_2_test, 1/1, "B-bridge" tagged but emitted error is RenderFlex overflow 0.601 px right)* — **P3**. The 1449 audit tagged this row B-bridge, but the actual remaining banner is a sub-pixel overflow; widen the parent or wrap in horizontal scroll.
 
