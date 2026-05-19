@@ -349,7 +349,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 16. ~~`foundation/error_spacer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/infinite-size — Offset NaN)* — **P1**.~~ **FIXED.** P1 was misdiagnosed — root layout is already `Scaffold > SingleChildScrollView > Column(stretch)`. Actual cause is U16 (empty-string Text triggers NaN-Offset in bridged painter): `_propertyChip('name', '${spacer.name}', ...)` renders `Text('')` because `ErrorSpacer.name == ''` by design. Fix: defensively substitute empty `name`/`value` strings with a single space inside `_propertyChip`. Verified `frameworkErrors=1→0`.
 
-17. `foundation/object_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
+17. ~~`foundation/object_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.~~ **FIXED.** P1 was misdiagnosed — root is already `Scaffold > SingleChildScrollView > Column(stretch)`. Real cause: five `Row(crossAxisAlignment: stretch)` sites inside the unbounded scrollable propagated infinite height to their `Expanded` children — `_buildFieldAnatomy` (line 962), two inspector mapping cards (lines 1281, 1320), the recipe matrix pair-loop (line 1806), and the pitfall pair-loop (line 2143). Fix: wrapped each `Row` in `IntrinsicHeight` so the stretch resolves to the tallest intrinsic child. Verified `frameworkErrors=1→0`.
 
 18. `foundation/observer_list_test.dart` *(secondary_classes_test, 1/1, B-layout — `SemanticsNode#... invisible`)* — **P1**. Bound the rendered surface; the zero-rect semantics node is a side-effect of an empty viewport.
 

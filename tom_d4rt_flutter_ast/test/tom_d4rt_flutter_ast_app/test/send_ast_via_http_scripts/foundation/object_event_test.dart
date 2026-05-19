@@ -959,31 +959,37 @@ Widget _timelineNode(ObjectEvent ev, int index, bool last) {
 // 4. Field anatomy
 // =============================================================================
 Widget _buildFieldAnatomy() {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-      Expanded(child: _anatomyPanel(
-        'ObjectCreated',
-        _kCoral,
-        Icons.add_box_outlined,
-        <_FieldRow>[
-          _FieldRow('object', 'final Object', 'The instrumented instance reference', true),
-          _FieldRow('library', 'final String', 'A library Uri, e.g. package:flutter/widgets.dart', true),
-          _FieldRow('className', 'final String', 'Runtime type name of the instrumented class', true),
-        ],
-        <String>['toMap() -> { object: { libraryName, className, eventType: created } }'],
-      )),
-      SizedBox(width: 14.0),
-      Expanded(child: _anatomyPanel(
-        'ObjectDisposed',
-        _kAmber,
-        Icons.indeterminate_check_box_outlined,
-        <_FieldRow>[
-          _FieldRow('object', 'final Object', 'The instance about to be released', true),
-        ],
-        <String>['toMap() -> { object: { eventType: disposed } }'],
-      )),
-    ],
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #17):
+  // `Row(crossAxisAlignment: stretch)` inside the outer SingleChildScrollView
+  // (unbounded height) propagates infinite height to the Expanded children.
+  // Wrap in IntrinsicHeight so the Row sizes to its tallest intrinsic child.
+  return IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(child: _anatomyPanel(
+          'ObjectCreated',
+          _kCoral,
+          Icons.add_box_outlined,
+          <_FieldRow>[
+            _FieldRow('object', 'final Object', 'The instrumented instance reference', true),
+            _FieldRow('library', 'final String', 'A library Uri, e.g. package:flutter/widgets.dart', true),
+            _FieldRow('className', 'final String', 'Runtime type name of the instrumented class', true),
+          ],
+          <String>['toMap() -> { object: { libraryName, className, eventType: created } }'],
+        )),
+        SizedBox(width: 14.0),
+        Expanded(child: _anatomyPanel(
+          'ObjectDisposed',
+          _kAmber,
+          Icons.indeterminate_check_box_outlined,
+          <_FieldRow>[
+            _FieldRow('object', 'final Object', 'The instance about to be released', true),
+          ],
+          <String>['toMap() -> { object: { eventType: disposed } }'],
+        )),
+      ],
+    ),
   );
 }
 
@@ -1276,80 +1282,87 @@ Widget _buildToMapInspector(
   Map<Object, Map<String, Object>> mapDispImage,
   Map<Object, Map<String, Object>> mapDispTicker,
 ) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #17):
+  // Same as _buildFieldAnatomy — wrap stretch-Rows in IntrinsicHeight so
+  // they don't inherit infinite height from the outer SingleChildScrollView.
   return Column(
     children: <Widget>[
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: _inspectorCard(
-              'ObjectCreated -> dart:ui.Image',
-              _kTeal,
-              <String>[
-                '{',
-                '  <object>: {',
-                '    "libraryName": "${cImage.library}",',
-                '    "className": "${cImage.className}",',
-                '    "eventType": "created"',
-                '  }',
-                '}',
-              ],
-              'entries: ${mapImage.length}',
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: _inspectorCard(
+                'ObjectCreated -> dart:ui.Image',
+                _kTeal,
+                <String>[
+                  '{',
+                  '  <object>: {',
+                  '    "libraryName": "${cImage.library}",',
+                  '    "className": "${cImage.className}",',
+                  '    "eventType": "created"',
+                  '  }',
+                  '}',
+                ],
+                'entries: ${mapImage.length}',
+              ),
             ),
-          ),
-          SizedBox(width: 14.0),
-          Expanded(
-            child: _inspectorCard(
-              'ObjectCreated -> Ticker',
-              _kCoral,
-              <String>[
-                '{',
-                '  <object>: {',
-                '    "libraryName": "${cTicker.library}",',
-                '    "className": "${cTicker.className}",',
-                '    "eventType": "created"',
-                '  }',
-                '}',
-              ],
-              'entries: ${mapTicker.length}',
+            SizedBox(width: 14.0),
+            Expanded(
+              child: _inspectorCard(
+                'ObjectCreated -> Ticker',
+                _kCoral,
+                <String>[
+                  '{',
+                  '  <object>: {',
+                  '    "libraryName": "${cTicker.library}",',
+                  '    "className": "${cTicker.className}",',
+                  '    "eventType": "created"',
+                  '  }',
+                  '}',
+                ],
+                'entries: ${mapTicker.length}',
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       SizedBox(height: 14.0),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: _inspectorCard(
-              'ObjectDisposed -> dart:ui.Image',
-              _kAmber,
-              <String>[
-                '{',
-                '  <object>: {',
-                '    "eventType": "disposed"',
-                '  }',
-                '}',
-              ],
-              'entries: ${mapDispImage.length}',
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: _inspectorCard(
+                'ObjectDisposed -> dart:ui.Image',
+                _kAmber,
+                <String>[
+                  '{',
+                  '  <object>: {',
+                  '    "eventType": "disposed"',
+                  '  }',
+                  '}',
+                ],
+                'entries: ${mapDispImage.length}',
+              ),
             ),
-          ),
-          SizedBox(width: 14.0),
-          Expanded(
-            child: _inspectorCard(
-              'ObjectDisposed -> Ticker',
-              _kViolet,
-              <String>[
-                '{',
-                '  <object>: {',
-                '    "eventType": "disposed"',
-                '  }',
-                '}',
-              ],
-              'entries: ${mapDispTicker.length}',
+            SizedBox(width: 14.0),
+            Expanded(
+              child: _inspectorCard(
+                'ObjectDisposed -> Ticker',
+                _kViolet,
+                <String>[
+                  '{',
+                  '  <object>: {',
+                  '    "eventType": "disposed"',
+                  '  }',
+                  '}',
+                ],
+                'entries: ${mapDispTicker.length}',
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ],
   );
@@ -1790,16 +1803,20 @@ Widget _buildLifecycleRecipes() {
       for (int i = 0; i < recipes.length; i += 2)
         Padding(
           padding: EdgeInsets.only(bottom: 14.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _recipeCard(recipes[i])),
-              SizedBox(width: 14.0),
-              if (i + 1 < recipes.length)
-                Expanded(child: _recipeCard(recipes[i + 1]))
-              else
-                Expanded(child: SizedBox.shrink()),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #17, P1):
+          // Wrap stretch-Row in IntrinsicHeight to bound height.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: _recipeCard(recipes[i])),
+                SizedBox(width: 14.0),
+                if (i + 1 < recipes.length)
+                  Expanded(child: _recipeCard(recipes[i + 1]))
+                else
+                  Expanded(child: SizedBox.shrink()),
+              ],
+            ),
           ),
         ),
     ],
@@ -2123,16 +2140,20 @@ Widget _buildPitfalls() {
       for (int i = 0; i < pitfalls.length; i += 2)
         Padding(
           padding: EdgeInsets.only(bottom: 12.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _pitfallTile(pitfalls[i])),
-              SizedBox(width: 12.0),
-              if (i + 1 < pitfalls.length)
-                Expanded(child: _pitfallTile(pitfalls[i + 1]))
-              else
-                Expanded(child: SizedBox.shrink()),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #17, P1):
+          // Wrap stretch-Row in IntrinsicHeight to bound height.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: _pitfallTile(pitfalls[i])),
+                SizedBox(width: 12.0),
+                if (i + 1 < pitfalls.length)
+                  Expanded(child: _pitfallTile(pitfalls[i + 1]))
+                else
+                  Expanded(child: SizedBox.shrink()),
+              ],
+            ),
           ),
         ),
     ],
