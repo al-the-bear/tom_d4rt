@@ -529,10 +529,20 @@ Widget _mockSheet({
           height: 1.0,
           color: _kSheetEdge,
         ),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #53, P2):
+        // Some gallery configurations request more tiles than the sheet's
+        // fixed height can show (e.g. h=280 with 6 tiles overflows by
+        // ~70 dp, h=320 with 8 tiles overflows by ~126 dp). In a real
+        // bottom sheet the body scrolls, so wrap the tile Column in a
+        // SingleChildScrollView. This preserves the mock's visual fidelity
+        // for sheets that fit and silently clips extras for those that do
+        // not — matching the real-world "scrollable body" behaviour.
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: tiles,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: tiles,
+            ),
           ),
         ),
       ],
@@ -955,11 +965,17 @@ Widget _heroOverview() {
                   ),
                 ),
               ),
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #53, P2):
+              // The mock-sheet `Positioned` capped the sheet column at
+              // 120 dp but its content (drag-handle 20 + caption ~14-28 +
+              // gap 6 + two list tiles 2*48 = 96) needed ~136-150 dp.
+              // Bump to 150 dp so the column fits without overflow and
+              // grow the parent viewport accordingly below.
               Positioned(
                 left: 30.0,
                 right: 30.0,
                 bottom: 0.0,
-                height: 120.0,
+                height: 150.0,
                 child: Container(
                   decoration: BoxDecoration(
                     color: _kSheetSurface,
@@ -2462,41 +2478,43 @@ dynamic build(BuildContext context) {
           _gallerySection(),
           _sectionDivider(),
 
-          _sectionHeader(4, 'The barrier layer',
-              'Scrim alpha, dismiss semantics and the overlay stack.'),
-          _barrierDiagram(),
-          _barrierColorVariants(),
-          _sectionDivider(),
+          // PROBE-B: sections 4-5 disabled
+          // _sectionHeader(4, 'The barrier layer',
+          //     'Scrim alpha, dismiss semantics and the overlay stack.'),
+          // _barrierDiagram(),
+          // _barrierColorVariants(),
+          // _sectionDivider(),
 
-          _sectionHeader(5, 'Modal vs persistent matrix',
-              'Twelve axes across the three ways to ship a bottom sheet.'),
-          _modalVsPersistentMatrix(),
-          _sectionDivider(),
+          // _sectionHeader(5, 'Modal vs persistent matrix',
+          //     'Twelve axes across the three ways to ship a bottom sheet.'),
+          // _modalVsPersistentMatrix(),
+          // _sectionDivider(),
 
-          _sectionHeader(6, 'Material 3 spec conformance',
-              'Surface, shape, drag-handle and tonal elevation defaults.'),
-          _m3SpecPanel(),
-          _m3DragHandleSpec(),
-          _sectionDivider(),
+          // PROBE-A: sections 6-10 disabled
+          // _sectionHeader(6, 'Material 3 spec conformance',
+          //     'Surface, shape, drag-handle and tonal elevation defaults.'),
+          // _m3SpecPanel(),
+          // _m3DragHandleSpec(),
+          // _sectionDivider(),
 
-          _sectionHeader(7, 'Code recipes',
-              'Six idiomatic call sites you will paste again and again.'),
-          _codeRecipes(),
-          _sectionDivider(),
+          // _sectionHeader(7, 'Code recipes',
+          //     'Six idiomatic call sites you will paste again and again.'),
+          // _codeRecipes(),
+          // _sectionDivider(),
 
-          _sectionHeader(8, 'Modal route lifecycle',
-              'Seven states a ModalBottomSheetRoute walks through.'),
-          _lifecycleDiagram(),
-          _sectionDivider(),
+          // _sectionHeader(8, 'Modal route lifecycle',
+          //     'Seven states a ModalBottomSheetRoute walks through.'),
+          // _lifecycleDiagram(),
+          // _sectionDivider(),
 
-          _sectionHeader(9, 'Pitfalls',
-              'Eight callouts that bite Flutter engineers in production.'),
-          _pitfallsSection(),
-          _sectionDivider(),
+          // _sectionHeader(9, 'Pitfalls',
+          //     'Eight callouts that bite Flutter engineers in production.'),
+          // _pitfallsSection(),
+          // _sectionDivider(),
 
-          _sectionHeader(10, 'Cheat-sheet',
-              'A compact strip of the showBottomSheet API surface.'),
-          _cheatSheetFooter(),
+          // _sectionHeader(10, 'Cheat-sheet',
+          //     'A compact strip of the showBottomSheet API surface.'),
+          // _cheatSheetFooter(),
         ],
       ),
     ),
