@@ -1958,35 +1958,52 @@ Widget _swatch(String name, Color c) {
 }
 
 Widget _pitfallRow(String title, String detail, IconData icon, Color tint) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #54, P5(a)):
+  // The original BoxDecoration combined `borderRadius: 8` with an
+  // asymmetric `Border` (a 4-dp coloured left accent plus thin hairline
+  // top/right/bottom). Flutter rejects non-uniform borders with a radius.
+  // Replace with a uniform outer `Border.all(hairline)` + `ClipRRect`,
+  // and render the coloured 4-dp accent as a stretched Container inside
+  // an IntrinsicHeight Row sandwich.
   return Container(
     margin: EdgeInsets.only(bottom: 8.0),
-    padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       color: _ivory,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: tint, width: 4.0),
-        top: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5),
-        right: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5),
-        bottom: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5),
-      ),
+      border: Border.all(color: _hairline.withValues(alpha: 0.4), width: 0.5),
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Icon(icon, color: tint, size: 18.0),
-        SizedBox(width: 8.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(title, style: _serif(12.0, _midnight, weight: FontWeight.bold)),
-              SizedBox(height: 2.0),
-              Text(detail, style: _serif(11.0, _midnight)),
-            ],
-          ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4.0, color: tint),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(icon, color: tint, size: 18.0),
+                    SizedBox(width: 8.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(title, style: _serif(12.0, _midnight, weight: FontWeight.bold)),
+                          SizedBox(height: 2.0),
+                          Text(detail, style: _serif(11.0, _midnight)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     ),
   );
 }
