@@ -1777,7 +1777,13 @@ Widget _buildFragLine(int lineNumber, List<List<String>> spans) {
   // Map each token tag to a color from the neon palette.
   final List<Widget> tokens = <Widget>[];
   for (int i = 0; i < spans.length; i++) {
-    final String text = spans[i][0];
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #9, U16):
+    // Empty-string Text widgets trip a NaN Offset assertion in the
+    // bridged Flutter paragraph painter (dart:ui/painting.dart:41).
+    // Substitute empty span text with a single space — the visual
+    // result is identical for a blank line in a monospaced listing.
+    final String rawText = spans[i][0];
+    final String text = rawText.isEmpty ? ' ' : rawText;
     final String tag = spans[i][1];
     Color color;
     FontWeight weight;
