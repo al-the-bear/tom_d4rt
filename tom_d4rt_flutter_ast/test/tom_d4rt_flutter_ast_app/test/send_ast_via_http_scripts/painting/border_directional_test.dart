@@ -1117,26 +1117,20 @@ dynamic build(BuildContext context) {
   final footgunCards = <Widget>[];
   for (final data in footgunData) {
     final color = data['color'] as Color;
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #58, P5(a)): The
+     // original footgun card combined borderRadius:10 with an asymmetric
+     // Border(left: full-color, others: alpha-0.3) -> Flutter forbids non-
+     // uniform border colors with a borderRadius. Replaced with uniform
+     // Border.all + ClipRRect + IntrinsicHeight Row(stretch) where the
+     // coloured left accent is a 4-dp Container. Note: this card section is
+     // demonstrating footguns of BorderDirectional, so the test intent is
+     // preserved at the data level (titles/bodies still describe the
+     // restrictions); only the card chrome was refactored to render.
     footgunCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6.0),
-        padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.06),
-              color.withValues(alpha: 0.16),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: color, width: 4.0),
-            top: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-            right: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-            bottom: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
-          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.2),
@@ -1145,36 +1139,68 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(data['icon'] as IconData, color: color, size: 24.0),
-            SizedBox(width: 12.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  color.withValues(alpha: 0.06),
+                  color.withValues(alpha: 0.16),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              border: Border.all(
+                color: color.withValues(alpha: 0.3),
+                width: 1.0,
+              ),
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    data['title'] as String,
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    data['body'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade800,
-                      height: 1.35,
+                  Container(width: 4.0, color: color),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(14.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(data['icon'] as IconData, color: color, size: 24.0),
+                          SizedBox(width: 12.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  data['title'] as String,
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: color,
+                                  ),
+                                ),
+                                SizedBox(height: 4.0),
+                                Text(
+                                  data['body'] as String,
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    color: Colors.grey.shade800,
+                                    height: 1.35,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
