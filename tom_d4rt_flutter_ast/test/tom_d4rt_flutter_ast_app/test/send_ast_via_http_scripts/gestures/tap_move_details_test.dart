@@ -595,18 +595,23 @@ dynamic build(BuildContext context) {
     final inside = magnitude <= 18.0;
     final accent = inside ? teal : coral;
     slopRows.add(
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #33, P5(a)):
+      // The original card combined a non-uniform `Border(left: 4px accent,
+      // top/right/bottom: 1px slateSoft)` with `borderRadius`, which Flutter
+      // rejects at paint time ("A borderRadius can only be given on borders
+      // with uniform colors"). 6 cards in the simulatedMoves loop produced 6
+      // framework errors. Canonical P5(a) fix: outer Container holds the
+      // uniform `Border.all` + rounded corners + `clipBehavior: Clip.antiAlias`,
+      // and the left accent strip is a sibling `Container(width: 4)` inside an
+      // `IntrinsicHeight > Row` so it stretches the card's height. Visually
+      // identical to the original.
       Container(
         margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        padding: EdgeInsets.all(12.0),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: accent, width: 4.0),
-            top: BorderSide(color: slateSoft, width: 1.0),
-            right: BorderSide(color: slateSoft, width: 1.0),
-            bottom: BorderSide(color: slateSoft, width: 1.0),
-          ),
+          border: Border.all(color: slateSoft, width: 1.0),
           boxShadow: [
             BoxShadow(
               color: accent.withValues(alpha: 0.10),
@@ -615,66 +620,82 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 36.0,
-              height: 36.0,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                '#${i + 1}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
-                ),
-              ),
-            ),
-            SizedBox(width: 12.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(width: 4.0, color: accent),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
                     children: [
-                      _kvChip('global', '${m.globalPosition}', accent),
-                      SizedBox(width: 6.0),
-                      _kvChip('Δ', '${m.delta}', accent),
+                      Container(
+                        width: 36.0,
+                        height: 36.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: accent,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          '#${i + 1}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                _kvChip('global', '${m.globalPosition}', accent),
+                                SizedBox(width: 6.0),
+                                _kvChip('Δ', '${m.delta}', accent),
+                              ],
+                            ),
+                            SizedBox(height: 4.0),
+                            Text(
+                              'cumulative distance from down: '
+                              '${magnitude.toStringAsFixed(2)} px',
+                              style: TextStyle(
+                                fontSize: 11.0,
+                                color: slateMid,
+                                fontFamily: 'monospace',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 5.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: accent.withValues(alpha: 0.18),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        child: Text(
+                          inside ? 'within slop ✓' : 'escaped slop ✗',
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            fontWeight: FontWeight.bold,
+                            color: accent,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    'cumulative distance from down: '
-                    '${magnitude.toStringAsFixed(2)} px',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: slateMid,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              decoration: BoxDecoration(
-                color: accent.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              child: Text(
-                inside ? 'within slop ✓' : 'escaped slop ✗',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.bold,
-                  color: accent,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
