@@ -812,10 +812,15 @@ Widget _buildThreePierAnatomy() {
     _buildPierCard(
       title: 'linear',
       subtitle: 'Each item as icon-beside-label. Items distributed evenly.',
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P3):
+      // 5 horizontal tiles natural width slightly exceeds 240 (0.601 px
+      // sub-pixel overflow). Widen the mock bar to 252 to absorb the
+      // overflow without changing the visual intent.
       bar: _mockNavBar(
         layout: 'linear',
         items: kNavItemsFive,
         selectedIndex: 0,
+        width: 252,
       ),
       tint: cCoralAccent,
     ),
@@ -1165,7 +1170,11 @@ Widget _buildLayoutDeepDive({
             layout: layoutKey,
             items: itemSets[i],
             selectedIndex: 0,
-            width: 240,
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P3):
+            // Linear with 5 items has natural width slightly above 240
+            // (0.601 px sub-pixel overflow). Widen to 252 for linear,
+            // keep 240 for spread/centered.
+            width: layoutKey == 'linear' ? 252 : 240,
             height: 64,
           ),
         ],
@@ -1322,8 +1331,13 @@ Widget _buildItemCountGrid() {
         ? const BorderRadius.only(topRight: Radius.circular(8))
         : BorderRadius.zero;
     headerCells.add(
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P3):
+      // Cell width widened from 250 to 280 so linear-5 bar (natural
+      // ~241) fits in the cell inner space (280-16 = 264). The grid
+      // is in a horizontal SingleChildScrollView so total width is
+      // not bounded by viewport.
       Container(
-        width: 250,
+        width: 280,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -1377,8 +1391,10 @@ Widget _buildItemCountGrid() {
     );
     for (int col = 0; col < sets.length; col++) {
       cells.add(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P3):
+        // Cell width 280 (matches header).
         Container(
-          width: 250,
+          width: 280,
           height: 90,
           padding: const EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -1393,7 +1409,10 @@ Widget _buildItemCountGrid() {
             layout: layout,
             items: sets[col],
             selectedIndex: 0,
-            width: 230,
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P3):
+            // Bar widened from 230 to 250 (well above linear-5 natural
+            // ~241). Cells widened to 280 to keep the bar fully inside.
+            width: 250,
             height: 60,
           ),
         ),
@@ -2168,16 +2187,19 @@ Widget _buildGlossary() {
 
 Widget _buildClosingEssay() {
   print(' Building Section 13: closing essay.');
-  // A driftwood-coloured prose card with a cerulean gutter on the left.
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #37, P5(a)):
+  // Original combined `Border(left: 6px cerulean, right/top/bottom: 1px
+  // driftwoodDark)` with `borderRadius: 10`. Flutter rejects the non-
+  // uniform border + rounded corners with "A borderRadius can only be
+  // given on borders with uniform colors." Canonical P5(a) fix: outer
+  // Container uses uniform `Border.all(driftwoodDark, 1)` + rounded
+  // corners + `clipBehavior: Clip.antiAlias`; the 6-px cerulean accent
+  // strip is a sibling `Container(width: 6)` inside `IntrinsicHeight >
+  // Row(crossAxisAlignment: stretch)`. Visually identical.
   final BoxDecoration essayDeco = BoxDecoration(
     color: cSandPale,
     borderRadius: BorderRadius.circular(10),
-    border: const Border(
-      left: BorderSide(color: cOceanCerulean, width: 6),
-      right: BorderSide(color: cDriftwoodDark, width: 1),
-      top: BorderSide(color: cDriftwoodDark, width: 1),
-      bottom: BorderSide(color: cDriftwoodDark, width: 1),
-    ),
+    border: Border.all(color: cDriftwoodDark, width: 1),
     boxShadow: <BoxShadow>[
       BoxShadow(
         color: cBrineInk.withValues(alpha: 0.16),
@@ -2189,46 +2211,59 @@ Widget _buildClosingEssay() {
 
   return Container(
     decoration: essayDeco,
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text(
-          'PORTRAIT VS LANDSCAPE --- A QUIET DICHOTOMY',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
-            color: cOceanDeep,
-            letterSpacing: 1.0,
+    clipBehavior: Clip.antiAlias,
+    child: IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(width: 6, color: cOceanCerulean),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Text(
+                    'PORTRAIT VS LANDSCAPE --- A QUIET DICHOTOMY',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: cOceanDeep,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'A bottom navigation bar in portrait is a thumb-rest. The hand '
+                    'cradles the phone, the thumb arcs across the bottom edge, and '
+                    'every icon-above-label tile lands inside that arc. Five tiles, '
+                    'five thumb destinations, no calculus. Landscape is different. '
+                    'The phone is sideways, two hands are on it, the thumbs are '
+                    'closer to the bezels, and the bottom edge has stretched to '
+                    'twice its old length. Suddenly there is empty room in the '
+                    'middle of the bar, and the eye notices it. This is the '
+                    'question BottomNavigationBarLandscapeLayout answers. Spread '
+                    'says: keep the portrait shape, just stretch it; the user\'s '
+                    'muscle memory wins. Centered says: cluster the items where '
+                    'the eye expects a control surface; the tablet-dock metaphor '
+                    'wins. Linear says: take the landscape on its own terms, lay '
+                    'each item out as a horizontal pill, treat the bar as a '
+                    'flattened rail; the readability wins. Three answers, no '
+                    'wrong ones --- only fits and misfits. The job of the '
+                    'designer is to pick the answer that lets the bar disappear, '
+                    'so the body of the app can speak.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: cBrineInk,
+                      height: 1.55,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        SizedBox(height: 10),
-        Text(
-          'A bottom navigation bar in portrait is a thumb-rest. The hand '
-          'cradles the phone, the thumb arcs across the bottom edge, and '
-          'every icon-above-label tile lands inside that arc. Five tiles, '
-          'five thumb destinations, no calculus. Landscape is different. '
-          'The phone is sideways, two hands are on it, the thumbs are '
-          'closer to the bezels, and the bottom edge has stretched to '
-          'twice its old length. Suddenly there is empty room in the '
-          'middle of the bar, and the eye notices it. This is the '
-          'question BottomNavigationBarLandscapeLayout answers. Spread '
-          'says: keep the portrait shape, just stretch it; the user\'s '
-          'muscle memory wins. Centered says: cluster the items where '
-          'the eye expects a control surface; the tablet-dock metaphor '
-          'wins. Linear says: take the landscape on its own terms, lay '
-          'each item out as a horizontal pill, treat the bar as a '
-          'flattened rail; the readability wins. Three answers, no '
-          'wrong ones --- only fits and misfits. The job of the '
-          'designer is to pick the answer that lets the bar disappear, '
-          'so the body of the app can speak.',
-          style: TextStyle(
-            fontSize: 12,
-            color: cBrineInk,
-            height: 1.55,
-          ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
