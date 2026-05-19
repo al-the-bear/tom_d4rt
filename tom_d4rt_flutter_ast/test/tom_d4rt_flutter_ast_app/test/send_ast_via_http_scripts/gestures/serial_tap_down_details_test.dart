@@ -486,7 +486,18 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // Build the visual root.
   // ===================================================================
-  return Container(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #29, P1+P2):
+  // The original root was a bare `Container > Column(stretch)` with eight
+  // demo sections — no `Scaffold`, no `SingleChildScrollView`. Inside the
+  // test app's finite vertical container the unbounded Column overflowed
+  // the bottom by 3195 pixels (one RenderFlex bottom overflow per
+  // run). Wrap in `Scaffold > SafeArea > SingleChildScrollView` so the
+  // Column gets an unbounded viewport and lays out without overflowing.
+  return Scaffold(
+    backgroundColor: kCream,
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
     color: kCream,
     padding: const EdgeInsets.all(14),
     child: Column(
@@ -1582,6 +1593,9 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+    ),
+        ),
+      ),
     ),
   );
 }
