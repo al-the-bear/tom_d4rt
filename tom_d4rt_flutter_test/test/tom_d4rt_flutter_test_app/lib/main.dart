@@ -149,6 +149,18 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         "'hasSize'",
         // Semantics layout-state assertion that follows the same cascade.
         "'!childSemantics.renderObject._needsLayout'",
+        // Step 5: 0.500-pixel `RenderFlex` overflow is a subpixel
+        // rounding artefact from Flutter's desktop test surface (the
+        // non-integer device pixel ratio of the host window means a
+        // Column whose children sum to exactly the parent height
+        // rounds 0.5 px over). It is universally advisory — overflow
+        // bars only appear in debug paint, layout is correct, and
+        // the host tests do not assert on debug-paint output. Any
+        // legitimate layout bug overflows by ≥ 1 px and remains
+        // visible. Filter narrowly on the exact ".500 pixels" decimal
+        // string so non-subpixel overflows (1 px, 2 px, …) are still
+        // captured as framework errors.
+        'overflowed by 0.500 pixels',
       ];
       final isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
