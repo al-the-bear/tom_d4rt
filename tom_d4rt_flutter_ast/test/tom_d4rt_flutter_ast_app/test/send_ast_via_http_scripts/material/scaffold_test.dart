@@ -1482,6 +1482,13 @@ class DrawerScrimDiagram extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #52, P1):
+    // DrawerScrimDiagram lives inside a Column(stretch) that supplies
+    // unbounded vertical constraints. A Row(crossAxisAlignment.stretch)
+    // in unbounded vertical context throws "BoxConstraints forces an
+    // infinite height". Wrap the Row in IntrinsicHeight so the stretch
+    // resolves against the bounded 320-dp SizedBox child instead of
+    // infinity.
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1489,7 +1496,7 @@ class DrawerScrimDiagram extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: kBorder),
       ),
-      child: Row(
+      child: IntrinsicHeight(child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
@@ -1678,7 +1685,7 @@ class DrawerScrimDiagram extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }
