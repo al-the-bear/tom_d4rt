@@ -55,6 +55,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
 | [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
 | [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | Bridge/interpreter constraints-propagation gap (non-fatal). The bridged `Center`/`Align` does not implement `RenderPositionedBox`'s shrink-wrap-when-`maxHeight=∞` rule, and bridged `GridView.count` does not bound cell heights through `childAspectRatio`. Four script-level workarounds (`heightFactor:1.0`, `Row > Flexible > Column`, `SizedBox(width:800)`, `Expanded → SizedBox(height:60)` inside grid tiles) all failed to clear the banner because the assertion is firing on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own. Test passes throughout; banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
+| [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (item 2 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4791,8 +4792,158 @@ unbounded `maxHeight`.
 
 ---
 
+## U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify (bridge layout-rounding gap)
+
+**Category.** Bridge layout-rounding gap (non-fatal). On a
+Cupertino-flavoured deep-demo page rendered at the standard
+`flutter test` viewport (800 × 600 logical pixels), the bridged
+horizontal layout pipeline tallies 2.0 px past the available
+width inside *some* internal `RenderFlex` and the framework
+emits — twice per frame — the cosmetic banner:
+
+```text
+A RenderFlex overflowed by 2.0 pixels on the right.
+```
+
+The error is **non-fatal**. The page renders, every host-side
+assertion passes, and the test runner reports
+`frameworkErrors=2 status=success`. Native Flutter does not emit
+the same banner for an identical script on the same viewport,
+which points to a small (2 px) rounding discrepancy in how the
+bridge measures intrinsic widths of children of one of the
+Cupertino widgets inside the page.
+
+The two `RenderFlex` reports are identical in wording (no
+descriptor/owner info captured by the framework-error scraper) so
+we cannot, from the captured output alone, distinguish which
+`RenderFlex` is the offender. Likely candidates rejected below by
+trial.
+
+**Reproducer.** `cupertino/cupertino_nav_segmented_test.dart`
+(item 2 of the `testlog_20260519-1247-flutter-suites-fixes`
+fix plan). The script renders a long `SingleChildScrollView` of
+`_PrivateSection` cards demonstrating
+`CupertinoSegmentedControl<T>` and
+`CupertinoSlidingSegmentedControl<T>` side by side, plus a
+`CupertinoNavigationBar` usage card with a sliding segmented
+control as `middle:`.
+
+**Investigated script-side workarounds that all FAILED to clear
+the banner:**
+
+1. **Boxed-default label `Row → Wrap`.** The hero "groupValue /
+   children / style" chips Row in `_buildBoxedDefault`
+   (`_PrivateLabel × 3` with `SizedBox(width: 8.0)` spacers) was
+   converted to `Wrap(spacing: 8.0)`. Banner persists at 2.
+2. **Sliding-default label `Row → Wrap`.** Same conversion
+   applied to the analogous Row in `_buildSlidingDefault`.
+   Banner persists at 2.
+3. **Hero chips `Row → Wrap`.** `_buildHero`'s `_PrivateChip × 3`
+   row (variable-width chips with `SizedBox(width: 8.0)`
+   spacers) converted to `Wrap`. Banner persists at 2.
+4. **Shrink `CupertinoNavigationBar.middle`'s
+   `SizedBox(width: 220.0) → 180.0`.** Gives the navbar's
+   internal leading/middle/trailing `RenderFlex` 40 px more
+   breathing room. Banner persists at 2.
+
+The banner survives every script-level transformation we tried,
+in any combination, which means the offending `RenderFlex` is
+**not** any `Row` written in the script. It is being synthesised
+internally by one of the bridged Cupertino widgets the page
+embeds — most likely `CupertinoNavigationBar`'s internal Row
+layout, the `CupertinoSlidingSegmentedControl` thumb track / drag
+gesture detector, or the `CupertinoButton` icon-content row.
+None of those are widgets the script owns, and we cannot rewrite
+a widget we did not write.
+
+The constancy of the 2.0 px overflow value across every variant
+(it never changes magnitude, never disappears for one of the two
+sites, never moves to a different message) is consistent with a
+fixed-pixel rounding error in the bridge's intrinsic-width
+measurement of a Cupertino sub-widget, hit twice per frame by the
+same render object.
+
+**Constraints.**
+
+- The fix belongs in the bridge: the bridged Cupertino layout
+  needs to allocate its children's intrinsic widths with the same
+  2 px slack the native render pipeline does, or shrink-fit the
+  parent Row to whatever children measure to without asserting.
+- Identifying the exact offending RenderFlex requires either
+  (a) a debug-print pass through the bridge's RenderFlex.layout
+  adapter to surface the description of each overflowing flex, or
+  (b) deleting Cupertino subtree branches one by one until the
+  banner clears — both out of scope for a single script-rewrite
+  pass.
+- The error is non-fatal — every assertion passes and the test
+  succeeds. Only the cosmetic banner remains.
+
+**Script-side workaround (chosen action).** None possible at the
+script level after four independent attempts. We **revert** all
+attempted script edits and accept the banner as a known cosmetic
+artefact. Functional behaviour of the test is preserved (both
+tests "All tests passed!", `frameworkErrors=2 status=success`).
+
+**What "achieves the same functional result" would mean here.**
+Because the assertion is fired by an internal `RenderFlex` we
+cannot identify, the only way to "resolve achieving the same
+functional result" entirely from the script is to remove every
+widget that *might* synthesise the offending Row — which would
+exclude `CupertinoNavigationBar`, the surrounding card scaffold,
+and likely the sliding-segmented-control demo cells themselves.
+That would invalidate the test's *purpose* (visual comparison of
+boxed vs. sliding Cupertino segmented controls under a typical
+navbar), so the workaround is **leave the script as-is and let
+the banner show**, on the understanding that the banner does not
+affect script success.
+
+**Diagnostic guidance.** A `RenderFlex overflowed by N.0 pixels
+on the right` banner that
+(a) appears with `status=success` and `frameworkErrors=2`
+(identical messages, no descriptor info),
+(b) survives multiple independent `Row → Wrap` conversions and
+fixed-width slot shrinks (`SizedBox(width: N)`) at the obvious
+script-side candidates,
+(c) is rendered inside a page that embeds `CupertinoNavigationBar`,
+`CupertinoSegmentedControl`, or `CupertinoSlidingSegmentedControl` — points to U15.
+Accept the banner; the script is not fixable at the script level.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `cupertino/cupertino_nav_segmented_test.dart` | Two unidentifiable internal `RenderFlex`s in the Cupertino subtree (likely `CupertinoNavigationBar` middle/leading/trailing row, `CupertinoSlidingSegmentedControl` thumb track, or `CupertinoButton` content row). | Item 2 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Four script-rewrite attempts (P3: 3× `Row → Wrap` on boxed-default labels, sliding-default labels, and hero chips; plus P1: `SizedBox(width: 220) → 180` on the navbar middle slot) all reverted on 2026-05-19 — banner persists at 2 in every variant. Test passes throughout (`All tests passed!`, `frameworkErrors=2 status=success` only). Marked as U15 and deferred. |
+
+### What a real fix would look like
+
+The minimal interpreter-side fix is to make the bridged
+`RenderFlex.layout()` adapter tolerate a 1–2 px overflow caused
+by intrinsic-width rounding (silently clamp or log-only rather
+than asserting), matching the slack native `RenderFlex` allows
+in practice. A more correct (but larger) fix is to align the
+bridge's intrinsic-width measurement for Cupertino children with
+the native pipeline so the 2 px discrepancy never arises — most
+likely a font-metric / padding-rounding difference inside
+`CupertinoNavigationBar` or the sliding segmented control's
+thumb-positioning maths.
+
+---
+
 ## Change Log
 
+- 2026-05-19: **Add U15** — `RenderFlex overflowed by 2.0 pixels
+  on the right` inside a bridged Cupertino layout the script
+  cannot identify. Identified while working item 2 of
+  `testlog_20260519-1247-flutter-suites-fixes` fix plan
+  (`cupertino/cupertino_nav_segmented_test.dart`). Four script-
+  level workarounds attempted (`Row → Wrap` on three independent
+  candidate Rows in `_buildBoxedDefault`, `_buildSlidingDefault`,
+  and `_buildHero`; plus shrinking `CupertinoNavigationBar`'s
+  `middle: SizedBox(width: 220.0) → 180.0`) — all failed to clear
+  the framework-error banner; all reverted. Test passes
+  throughout (`frameworkErrors=2 status=success`). Marked
+  deferred (not fixable at script level for this widget tree).
+  The real fix belongs in the bridge.
 - 2026-05-19: **Add U14** — `Center > ConstrainedBox(maxWidth)` in
   `SingleChildScrollView`, or `Expanded` inside
   `Column(mainAxisSize.min)` in a `GridView.count` cell, leaks
