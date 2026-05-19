@@ -2147,25 +2147,32 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: _CodeBlock(
-                  label: 'WRONG',
-                  code: wrong,
-                  color: const Color(0xFFC62828),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #11):
+          // `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` inside the
+          // outer SingleChildScrollView (unbounded height) propagates infinite
+          // height to the Expanded children. Wrap in IntrinsicHeight so the
+          // Row sizes itself to its tallest intrinsic child instead.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: _CodeBlock(
+                    label: 'WRONG',
+                    code: wrong,
+                    color: const Color(0xFFC62828),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _CodeBlock(
-                  label: 'RIGHT',
-                  code: right,
-                  color: const Color(0xFF2E7D32),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _CodeBlock(
+                    label: 'RIGHT',
+                    code: right,
+                    color: const Color(0xFF2E7D32),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 10),
           Text(
