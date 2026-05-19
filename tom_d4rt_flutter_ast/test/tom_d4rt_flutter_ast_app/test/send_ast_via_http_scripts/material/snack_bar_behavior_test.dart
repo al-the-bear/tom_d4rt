@@ -1035,6 +1035,13 @@ Widget _buildMockPhoneFrame({
                   ),
                 ),
                 // Body content (just stripes)
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #55, P2):
+                // The fixed 280-dp phone frame leaves ~156 dp for the body
+                // (after 44-dp appbar, 56-dp bottombar, 24-dp padding) but the
+                // 4 stripe iterations need 208 dp -> 52-px overflow rounded as
+                // 56 px. Wrap the Column in SingleChildScrollView so the
+                // overflow becomes scroll content. Two phone frames are built,
+                // hence the original 2 errors.
                 Positioned(
                   top: 44.0,
                   left: 0.0,
@@ -1043,29 +1050,31 @@ Widget _buildMockPhoneFrame({
                   child: Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        for (var i = 0; i < 4; i++) ...[
-                          Container(
-                            height: 14.0,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              borderRadius: BorderRadius.circular(4.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          for (var i = 0; i < 4; i++) ...[
+                            Container(
+                              height: 14.0,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 8.0),
-                          Container(
-                            height: 14.0,
-                            width: 180.0,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(4.0),
+                            SizedBox(height: 8.0),
+                            Container(
+                              height: 14.0,
+                              width: 180.0,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 16.0),
+                            SizedBox(height: 16.0),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -1576,6 +1585,12 @@ Widget _buildRecipeBlock({
 }
 
 // Pitfall tile - icon + bold title + body.
+// D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #55, P5(a)): Flutter forbids
+// borderRadius on a Border whose sides have non-uniform colors. The original
+// design used an asymmetric Border(left: color, top/right/bottom: grey) with a
+// rounded rectangle. We now build the rounded shape with ClipRRect + uniform
+// Border.all(grey) and recreate the colored left accent as a 4-dp Container
+// inside an IntrinsicHeight Row(stretch).
 Widget _buildPitfallTile({
   required IconData icon,
   required String title,
@@ -1583,16 +1598,8 @@ Widget _buildPitfallTile({
   required Color color,
 }) {
   return Container(
-    padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-        top: BorderSide(color: Colors.grey.shade200, width: 1.0),
-        right: BorderSide(color: Colors.grey.shade200, width: 1.0),
-        bottom: BorderSide(color: Colors.grey.shade200, width: 1.0),
-      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.1),
@@ -1601,36 +1608,58 @@ Widget _buildPitfallTile({
         ),
       ],
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, color: color, size: 22.0),
-        SizedBox(width: 12.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey.shade200, width: 1.0),
+        ),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              SizedBox(height: 4.0),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade800,
-                  height: 1.45,
+              Container(width: 4.0, color: color),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(icon, color: color, size: 22.0),
+                      SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.bold,
+                                color: color,
+                              ),
+                            ),
+                            SizedBox(height: 4.0),
+                            Text(
+                              body,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey.shade800,
+                                height: 1.45,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ],
+      ),
     ),
   );
 }
