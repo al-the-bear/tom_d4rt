@@ -1538,10 +1538,18 @@ Widget _notchSection() {
             subtitle: 'A wide mock viewport showing how Scaffold sews the FAB '
                 'into the BottomAppBar.'),
         const SizedBox(height: 14.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #51, P2):
+        // The mock-viewport Stack was 220 dp tall, of which the body band
+        // (top: 56, bottom: 70) was only 94 dp. With 12-dp padding on each
+        // side the content area shrank to 70 dp, but the four 38-dp inbox
+        // rows (avatar 28 + outer 5 padding × 2) required 152 dp — leaving
+        // a deterministic 82-dp bottom overflow. Bumping the viewport
+        // height to 310 dp grows the body band to ~184 dp and fits the
+        // rows with room to spare.
         Center(
           child: SizedBox(
             width: 360.0,
-            height: 220.0,
+            height: 310.0,
             child: Stack(
               children: <Widget>[
                 // Phone shell
