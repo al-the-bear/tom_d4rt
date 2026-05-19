@@ -939,47 +939,75 @@ dynamic build(BuildContext context) {
   final footgunCards = <Widget>[];
   for (final f in footguns) {
     print('Footgun: ${f['title']}');
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #60, P5(a)):
+    // Original combined borderRadius:10 with asymmetric Border (left: 4-dp
+    // rose accent, t/r/b: 1-dp 0.3-alpha rose hairline) — Flutter forbids
+    // non-uniform colors with a radius. Refactored to uniform Border.all
+    // (0.3-alpha hairline) + ClipRRect(10) + IntrinsicHeight > Row(stretch,
+    // [Container(width:4, color: rose), Expanded(Padding(content))]).
+    // Considered P5(b): the 5 footgun titles are about Border rules but
+    // none is the uniform-colors-with-radius rule (closest is "Mixed colours
+    // need uniform width" which discusses width, not radius). The rule is
+    // mentioned in passing in Section 12's recap line, but the footgun
+    // chrome itself doesn't demonstrate it — the offending pattern is
+    // incidental chrome. Same rationale as items 58 and 59.
     footgunCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-        padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          color: rose500.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: rose500, width: 4.0),
-            top: BorderSide(color: rose500.withValues(alpha: 0.3), width: 1.0),
-            right: BorderSide(color: rose500.withValues(alpha: 0.3), width: 1.0),
-            bottom: BorderSide(color: rose500.withValues(alpha: 0.3), width: 1.0),
-          ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(children: [
-              Icon(Icons.warning_amber_rounded, color: rose500, size: 18.0),
-              SizedBox(width: 6.0),
-              Expanded(
-                child: Text(
-                  f['title'] as String,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: slate900,
-                    fontSize: 13.0,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(width: 4.0, color: rose500),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(14.0),
+                    decoration: BoxDecoration(
+                      color: rose500.withValues(alpha: 0.06),
+                      border: Border.all(
+                        color: rose500.withValues(alpha: 0.3),
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Icon(Icons.warning_amber_rounded,
+                              color: rose500, size: 18.0),
+                          SizedBox(width: 6.0),
+                          Expanded(
+                            child: Text(
+                              f['title'] as String,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: slate900,
+                                fontSize: 13.0,
+                              ),
+                            ),
+                          ),
+                        ]),
+                        SizedBox(height: 6.0),
+                        Text(
+                          f['body'] as String,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: slate700,
+                            height: 1.35,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ]),
-            SizedBox(height: 6.0),
-            Text(
-              f['body'] as String,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: slate700,
-                height: 1.35,
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
