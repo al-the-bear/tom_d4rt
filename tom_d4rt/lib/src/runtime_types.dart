@@ -2125,7 +2125,28 @@ class BridgedMixinMethodCallable implements Callable {
       // / bridgedSuperObject when a native mixin instance is required);
       // fall back to the InterpretedInstance for purely interpreted
       // bridged-mixin shapes.
-      final effectiveTarget = target ?? instance;
+      // Step 3 (testlog 20260518-1449): the dispatch site at the
+      // bridged-mixin lookup in `Instance.get` sets `target` to
+      // `nativeProxy ?? bridgedSuperObject ?? this`, so when the script
+      // class is a pure interpreted class with no native shadow (e.g.
+      // `class _Node with DiagnosticableTreeMixin`), `target` ends up as
+      // the InterpretedInstance itself and the adapter's
+      // `D4.validateTarget<T>` cast then fails. Consult the interface-
+      // proxy registry keyed by the bridged-mixin name to materialise a
+      // native shadow that forwards back into the interpreter (e.g.
+      // `_InterpretedDiagnosticableTreeMixin` overriding `toStringShort`,
+      // `debugFillProperties`, `debugDescribeChildren`). The lookup runs
+      // only when the explicit target is null *or* identical to the
+      // InterpretedInstance — preserving the existing nativeProxy /
+      // bridgedSuperObject precedence.
+      Object effectiveTarget;
+      if (target == null || identical(target, instance)) {
+        final proxy = D4.tryCreateInterfaceProxyByName(
+            bridgedMixinName, instance, visitor);
+        effectiveTarget = proxy ?? target ?? instance;
+      } else {
+        effectiveTarget = target!;
+      }
       // D4 (Cluster D4 fix): wrap adapter dispatch in
       // `D4.withActiveVisitor` so that visitor-less D4 helpers invoked by
       // the adapter (e.g. `D4.getRequiredArg<RestorableProperty<Object?>>`

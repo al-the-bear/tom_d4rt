@@ -7302,6 +7302,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     InterpretedClass? standardSuperclass = definingClass.superclass;
     BridgedClass? bridgedSuperclass = definingClass.bridgedSuperclass;
 
+    // Step 3 (testlog 20260518-1449): when the class has neither a standard
+    // nor a bridged superclass but DOES apply bridged mixins (e.g.
+    // `class _Node with DiagnosticableTreeMixin`), Dart's mixin desugaring
+    // produces an implicit super of `(Object with M1 with M2 ...)`. Treat
+    // the most-derived bridged mixin (last in the `with` clause) as the
+    // bridged superclass for super-call resolution so that scripts can
+    // invoke the mixin's default implementation via `super.foo(...)`.
+    if (standardSuperclass == null &&
+        bridgedSuperclass == null &&
+        definingClass.bridgedMixins.isNotEmpty) {
+      bridgedSuperclass = definingClass.bridgedMixins.last;
+    }
+
     if (standardSuperclass == null && bridgedSuperclass == null) {
       throw RuntimeD4rtException(
           "Class '${definingClass.name}' does not have a standard or bridged superclass, cannot use 'super'.");

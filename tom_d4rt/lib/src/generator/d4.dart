@@ -2084,6 +2084,27 @@ class D4 {
 
     return null;
   }
+
+  /// Try to create an interface proxy keyed by the bridged-type name.
+  ///
+  /// Step 3 (1449 plan): bridged-mixin dispatch needs a way to obtain a
+  /// native shadow for the *specific* mixin being dispatched, without
+  /// type-driven inference. The dispatcher knows `bridgedMixinName` as a
+  /// string (e.g. `'DiagnosticableTreeMixin'`) — this helper looks up the
+  /// factory registered with that exact name and invokes it. The caller is
+  /// responsible for any subsequent `is`/`as` check against the expected
+  /// native type.
+  ///
+  /// Returns the proxy if a factory is registered, otherwise `null`.
+  static Object? tryCreateInterfaceProxyByName(
+    String bridgedTypeName,
+    InterpretedInstance instance,
+    InterpreterVisitor visitor,
+  ) {
+    final factory = _interfaceProxies[bridgedTypeName];
+    if (factory == null) return null;
+    return factory(visitor, instance);
+  }
 }
 
 // =============================================================================
