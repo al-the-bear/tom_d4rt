@@ -1039,6 +1039,17 @@ Widget _shapeCard({
 }
 
 // A footgun card: warning icon, title, descriptive paragraph.
+//
+// D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #68, P5(a)): the
+// original decoration combined borderRadius (12) with an asymmetric
+// Border (left: width 4 full-alpha accent, top/right/bottom: width 1
+// at 0.2 alpha) — Flutter rejects asymmetric Border colours together
+// with borderRadius ("A borderRadius can only be given on borders with
+// uniform colors"). Refactor to uniform Border.all(0.2-alpha hairline)
+// inside a ClipRRect(12) round-rect, and render the accent as an actual
+// 4-dp Container on the left of an IntrinsicHeight > Row(stretch).
+// This preserves the original left-accent visual while restoring a
+// uniform-colour border that Flutter accepts.
 Widget _footgunCard({
   required String label,
   required String title,
@@ -1048,16 +1059,8 @@ Widget _footgunCard({
 }) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
-    padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
-      color: bg,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(
-        left: BorderSide(color: accent, width: 4.0),
-        top: BorderSide(color: accent.withValues(alpha: 0.2), width: 1.0),
-        right: BorderSide(color: accent.withValues(alpha: 0.2), width: 1.0),
-        bottom: BorderSide(color: accent.withValues(alpha: 0.2), width: 1.0),
-      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -1066,59 +1069,88 @@ Widget _footgunCard({
         ),
       ],
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 40.0,
-          height: 40.0,
-          alignment: Alignment.center,
-          decoration: ShapeDecoration(
-            shape: StarBorder(
-              points: 5,
-              innerRadiusRatio: 0.4,
-              pointRounding: 0.2,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: bg,
+            border: Border.all(
+              color: accent.withValues(alpha: 0.2),
+              width: 1.0,
             ),
-            color: accent,
           ),
-          child: Icon(Icons.warning_amber, color: Colors.white, size: 20.0),
-        ),
-        SizedBox(width: 12.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.0,
-                  color: accent,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 4.0),
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.0,
-                  color: Colors.black87,
-                ),
-              ),
-              SizedBox(height: 6.0),
-              Text(
-                detail,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: Colors.black54,
-                  height: 1.35,
+              Container(width: 4.0, color: accent),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(14.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 40.0,
+                        height: 40.0,
+                        alignment: Alignment.center,
+                        decoration: ShapeDecoration(
+                          shape: StarBorder(
+                            points: 5,
+                            innerRadiusRatio: 0.4,
+                            pointRounding: 0.2,
+                          ),
+                          color: accent,
+                        ),
+                        child: Icon(
+                          Icons.warning_amber,
+                          color: Colors.white,
+                          size: 20.0,
+                        ),
+                      ),
+                      SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              label,
+                              style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11.0,
+                                color: accent,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 4.0),
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13.0,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            SizedBox(height: 6.0),
+                            Text(
+                              detail,
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                color: Colors.black54,
+                                height: 1.35,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ],
+      ),
     ),
   );
 }
