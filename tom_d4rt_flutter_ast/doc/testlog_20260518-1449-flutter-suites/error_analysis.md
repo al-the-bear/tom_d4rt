@@ -904,7 +904,7 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   `least_squares_solver` flake is now stable. Banner-zero
   stretch goal not met (kept as partial; non-blocking).
 
-  **Closed 2026-05-19 by commit `pending` (this commit).**
+  **Closed 2026-05-19 by commit `35520f94`.**
 
 ### Scope note
 
