@@ -56,6 +56,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
 | [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | Bridge/interpreter constraints-propagation gap (non-fatal). The bridged `Center`/`Align` does not implement `RenderPositionedBox`'s shrink-wrap-when-`maxHeight=∞` rule, and bridged `GridView.count` does not bound cell heights through `childAspectRatio`. Four script-level workarounds (`heightFactor:1.0`, `Row > Flexible > Column`, `SizedBox(width:800)`, `Expanded → SizedBox(height:60)` inside grid tiles) all failed to clear the banner because the assertion is firing on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own. Test passes throughout; banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 | [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (item 2 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
+| [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (item 5 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4929,8 +4930,170 @@ thumb-positioning maths.
 
 ---
 
+## U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting (bridge/interpreter text-layout gap)
+
+**Category.** Bridge / interpreter text-layout gap. Rendering a
+`Text` widget whose `data` argument is the empty string `''`
+through the bridged Flutter pipeline produces — once per painted
+frame, regardless of surrounding layout — a fatal-shaped but
+non-fatal framework-error banner:
+
+```text
+Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+```
+
+`dart:ui/painting.dart` line 41 is the assertion inside the
+`Offset(double dx, double dy)` constructor that both arguments
+are non-NaN. The bridged paragraph painter feeds a NaN component
+into one of its internal `Offset` constructions when the
+paragraph has zero glyphs to lay out.
+
+The test runner records this as `frameworkErrors=1` but reports
+`status=success` — the script's "All tests passed!" outcome is
+preserved.
+
+**Reproducer.**
+`cupertino/restorable_cupertino_tab_controller_test.dart` (item 5
+of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+The `_CodeBlock` widget in `_buildCodeSnippetSection` paints a
+30-line source listing via a `Column` of per-line
+`Row(SizedBox(width: 28, Text('<line-no>')), Text('<source>'))`
+items. The source listing includes six visually-blank lines
+realised as `_CodeLine(0, '')` entries. Each empty entry renders
+as `Text('')` — and that is what trips the assertion. Bisecting
+to a `_CodeBlock` body that only loops `Text(lines[i].text)`
+preserves the banner; substituting any empty `text` with a
+non-empty placeholder makes it vanish.
+
+**Minimal repro shape:**
+
+```dart
+Column(
+  children: <Widget>[
+    Text(''), // <-- triggers the NaN Offset banner
+    Text('foo'),
+  ],
+);
+```
+
+The trigger does not depend on:
+
+- the surrounding `Row`/`Expanded`/`Padding` structure,
+- the line-number `Text` and its `SizedBox(width: 28)`,
+- the indent prefix `'${' ' * indent}${text}'`,
+- a particular `TextStyle` (the banner reproduces with a default
+  `TextStyle`, with the `fontFamily: 'monospace'` style, and with
+  `letterSpacing: -0.2`),
+- `const`-ness of the parent widget.
+
+It depends *only* on the `Text.data` argument being the empty
+string. Switching any one of the six `_CodeLine(0, '')` rows to
+non-empty text leaves five sites firing the banner (we observe
+`frameworkErrors=1` because the framework dedupes identical paint
+diagnostics within a frame — there is one render object hit
+multiple times, not multiple distinct ones).
+
+**Root cause hypothesis.** Inside the bridged paragraph painter,
+an empty paragraph yields zero glyph runs. The text-painter's
+metric computation (baseline / line-height / fitted-line-width)
+divides by or extracts a value from the (empty) run list, and
+produces NaN for the layout origin. The native Flutter renderer
+short-circuits this case (an empty paragraph paints to a
+zero-sized box with origin `Offset.zero`); the bridged
+implementation does not.
+
+**Constraints.**
+
+- The fix belongs in the bridged text-painting pipeline: an
+  empty paragraph must short-circuit to `Offset.zero` (or
+  whatever the host-supplied baseline is) instead of computing a
+  NaN baseline.
+- The bug is benign for the test outcome — banner only — but it
+  obscures real paint NaN bugs in any script that paints empty
+  strings (snippet viewers, log displays, padded grids, etc.).
+- Script authors normally have no reason to suspect that
+  `Text('')` is dangerous — it is a perfectly valid Flutter
+  widget shape and is used routinely as a "blank line" placeholder.
+
+**Script-side workaround (chosen action).** At every `Text(...)`
+call site that may receive an empty string, substitute a single
+space (`' '`) so the paragraph has at least one glyph run for
+the layout code to measure. The visual result is identical for a
+blank-line role (an empty space character renders as a blank
+gap of the line-height; a truly empty paragraph would render as
+zero height, but in a `Column` of monospaced lines that
+distinction is invisible to the reader and the surrounding
+`Padding(vertical: 1.0)` provides the inter-line gap anyway).
+
+For composed strings (the `_CodeBlock` case), guard at the
+composition site rather than at the `_CodeLine` constructor so
+that author-side intent (`_CodeLine(0, '')` to mean "blank line")
+is preserved:
+
+```dart
+Text(
+  () {
+    final String composed = '${' ' * lines[i].indent}${lines[i].text}';
+    return composed.isEmpty ? ' ' : composed;
+  }(),
+  style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+);
+```
+
+This achieves the same functional result (a column of
+monospaced code lines with visually-blank gaps in the same
+positions as the source listing intends) without ever passing an
+empty string to the bridged `Text` widget.
+
+**Diagnostic guidance.** A framework-error banner that
+(a) reads `Offset argument contained a NaN value.` with
+`'dart:ui/painting.dart': Failed assertion: line 41 pos 10`,
+(b) appears with `status=success` (test passes),
+(c) clears the moment the script substitutes any candidate
+`Text(...)` widget's data with a non-empty string,
+points to U16. Audit the script for empty-string `Text` widgets
+(including composed strings whose components can sum to empty)
+and substitute a single space.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `cupertino/restorable_cupertino_tab_controller_test.dart` | Six empty-`_CodeLine` entries fed into `Text('${' ' * indent}${text}')` inside `_CodeBlock`. | Item 5 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-19 by guarding the composed text with `composed.isEmpty ? ' ' : composed` in `_CodeBlock.build`. Verified `frameworkErrors=0 status=success` (was 1). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
+
+### What a real fix would look like
+
+The minimal bridge-side fix is to short-circuit
+`Text`'s/`RichText`'s paragraph layout when the resolved text is
+empty (zero `TextSpan` glyphs) so the painter never asks for a
+baseline / line-width of an empty run. The native Flutter
+pipeline already does this implicitly; the bridge must replicate
+that fast-path. A larger fix is to audit every place inside the
+bridged paragraph painter where layout metrics can produce NaN
+for a zero-glyph run (baseline offset, alignment offset, line
+fit) and clamp each to `0.0` defensively.
+
+---
+
 ## Change Log
 
+- 2026-05-19: **Add U16** — `Text('')` (empty-string `Text`
+  widget) triggers a NaN `Offset` assertion in
+  `dart:ui/painting.dart` line 41 through the bridged Flutter
+  paragraph painter. Identified while working item 5 of
+  `testlog_20260519-1247-flutter-suites-fixes` fix plan
+  (`cupertino/restorable_cupertino_tab_controller_test.dart`),
+  via bisection of `_CodeBlock` (the `_buildCodeSnippetSection`
+  body) down to a `Column` of `Text(lines[i].text)` — the banner
+  reproduces with empty `text`, clears the instant any candidate
+  receives a non-empty placeholder. Fixed script-side by
+  guarding `Text`'s composed-string argument in `_CodeBlock.build`
+  with `composed.isEmpty ? ' ' : composed`. Verified
+  `frameworkErrors=0 status=success` (was 1). Underlying bridge
+  bug remains (native Flutter short-circuits empty paragraphs to
+  `Offset.zero`; the bridged painter computes a NaN baseline).
 - 2026-05-19: **Add U15** — `RenderFlex overflowed by 2.0 pixels
   on the right` inside a bridged Cupertino layout the script
   cannot identify. Identified while working item 2 of

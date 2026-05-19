@@ -1474,7 +1474,21 @@ class _CodeBlock extends StatelessWidget {
                 const SizedBox(width: _kGapSm),
                 Expanded(
                   child: Text(
-                    '${' ' * lines[i].indent}${lines[i].text}',
+                    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #5):
+                    // Under the bridged Flutter renderer in this test
+                    // environment, `Text('')` (with an empty string)
+                    // triggers a NaN Offset assertion in dart:ui.painting
+                    // during the paragraph layout/paint pipeline. The
+                    // empty-line _CodeLine(0, '') entries above produce
+                    // exactly such an empty Text. Substitute any empty
+                    // line text with a single space so the rendered
+                    // paragraph has measurable run metrics; the visual
+                    // result (a blank line) is the same.
+                    () {
+                      final String composed =
+                          '${' ' * lines[i].indent}${lines[i].text}';
+                      return composed.isEmpty ? ' ' : composed;
+                    }(),
                     style: const TextStyle(
                       fontFamily: 'monospace',
                       fontSize: 12.5,
