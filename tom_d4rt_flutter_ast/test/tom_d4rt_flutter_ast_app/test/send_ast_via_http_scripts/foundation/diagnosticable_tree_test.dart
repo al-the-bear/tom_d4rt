@@ -2041,13 +2041,20 @@ class _DevToolsSection extends StatelessWidget {
               border: Border.all(color: _line),
             ),
             padding: EdgeInsets.all(16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(flex: 4, child: _DevToolsTreePane()),
-                SizedBox(width: 14),
-                Expanded(flex: 5, child: _DevToolsDetailsPane()),
-              ],
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #15):
+            // `Row(crossAxisAlignment: stretch)` inside the outer
+            // SingleChildScrollView propagates infinite height to the
+            // Expanded children. Wrap in IntrinsicHeight so the Row sizes
+            // to its tallest intrinsic child.
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(flex: 4, child: _DevToolsTreePane()),
+                  SizedBox(width: 14),
+                  Expanded(flex: 5, child: _DevToolsDetailsPane()),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 18),
@@ -3227,25 +3234,29 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: _PitfallSnippet(
-                  label: 'Avoid',
-                  body: entry.bad,
-                  tint: _rose,
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #15):
+          // Same stretch-Row pattern as above — wrap in IntrinsicHeight.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: _PitfallSnippet(
+                    label: 'Avoid',
+                    body: entry.bad,
+                    tint: _rose,
+                  ),
                 ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PitfallSnippet(
-                  label: 'Prefer',
-                  body: entry.good,
-                  tint: _mint,
+                SizedBox(width: 12),
+                Expanded(
+                  child: _PitfallSnippet(
+                    label: 'Prefer',
+                    body: entry.good,
+                    tint: _mint,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
