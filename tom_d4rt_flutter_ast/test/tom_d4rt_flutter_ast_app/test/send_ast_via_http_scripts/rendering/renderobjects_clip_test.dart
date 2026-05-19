@@ -2337,13 +2337,6 @@ class _CodeSpan {
 }
 
 class _CodeLine {
-  const _CodeLine._({
-    required this.kind,
-    this.text = '',
-    this.after = '',
-    this.extras = const <_CodeSpan>[],
-  });
-
   final int kind;
   final String text;
   final String after;
@@ -2354,12 +2347,27 @@ class _CodeLine {
   static const int _kindKeyword = 2;
   static const int _kindPlain = 3;
 
-  const _CodeLine.blank() : this._(kind: _kindBlank);
-  const _CodeLine.comment(String text) : this._(kind: _kindComment, text: text);
-  const _CodeLine.keyword(String text, {String after = ''})
-      : this._(kind: _kindKeyword, text: text, after: after);
-  const _CodeLine.plain(String text, {List<_CodeSpan> extras = const <_CodeSpan>[]})
-      : this._(kind: _kindPlain, text: text, extras: extras);
+  // d4rt's interpreter does not propagate args (explicit or default)
+  // through a redirecting `this._()` constructor — fields end up null
+  // and the for-in loop in `_CodeRow._buildLineText` raised
+  // "Value used in for-in loop must be an Iterable, but got null".
+  // Avoid redirection by initialising fields directly in each
+  // named constructor.
+  const _CodeLine.blank()
+      : kind = _kindBlank,
+        text = '',
+        after = '',
+        extras = const <_CodeSpan>[];
+  const _CodeLine.comment(this.text)
+      : kind = _kindComment,
+        after = '',
+        extras = const <_CodeSpan>[];
+  const _CodeLine.keyword(this.text, {this.after = ''})
+      : kind = _kindKeyword,
+        extras = const <_CodeSpan>[];
+  const _CodeLine.plain(this.text, {this.extras = const <_CodeSpan>[]})
+      : kind = _kindPlain,
+        after = '';
 }
 
 class _CodeBlock extends StatelessWidget {

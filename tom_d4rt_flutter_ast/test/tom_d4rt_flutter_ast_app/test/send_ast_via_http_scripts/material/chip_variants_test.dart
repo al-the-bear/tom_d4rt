@@ -690,9 +690,12 @@ Widget _section3Gallery() {
       label: const Text('Raw + delete'),
       onDeleted: () {},
     ),
+    // RawChip's chip.dart line 1027 asserts that
+    // `onSelected == null || onPressed == null`. Demo this variant
+    // with only onSelected wired (Filter/Choice/InputChip use this
+    // selection-callback path) so the assertion holds.
     RawChip(
       label: const Text('Raw all-in-one'),
-      onPressed: () {},
       onSelected: (_) {},
       onDeleted: () {},
       selected: false,

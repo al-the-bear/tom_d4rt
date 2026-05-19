@@ -4527,6 +4527,129 @@ original type.
 
 ## Change Log
 
+- 2026-05-19: **Step 7 (Test contract bugs — 10 banners across
+  10 scripts).** All 10 banners resolved with script-side fixes
+  (disposition #2 — real script bugs); none of the 10 required a
+  new interpreter or generator change, so no new U-section is
+  added. Each affected script was individually retested and
+  reports `frameworkErrors=0`. Patterns observed during the fix
+  campaign (some refined relative to earlier theories — the entries
+  below reflect the actual fixes that landed):
+  - **Built-in identifier or Flutter top-level function name as
+    field name resolves to the type/keyword/global, not the local
+    field.** Three instances surfaced in this cluster:
+    `_SizeRow.factory` (field named `factory` resolved to the Dart
+    keyword token) in `widgets/preferredsize_test.dart`;
+    `_FlowStage.num` (field named `num` resolved to the built-in
+    `num` type) in `services/android_pointer_coords_test.dart`;
+    and `_CompareRow.showMenu` / `_CompareRow.popupMenuButton`
+    (fields whose names collide with the Flutter top-level
+    `showMenu()` function and the `PopupMenuButton` widget
+    constructor) in `material/showmenu_test.dart`. The d4rt
+    interpreter's identifier resolver looks up
+    keyword/type/global-symbol tokens *before* walking the local
+    scope, so a bare reference to such a field inside the same
+    class evaluates to the global rather than the field. The
+    bridge then receives a `Type` / keyword sentinel / `Function`
+    instead of the expected value and fails. **This now covers a
+    third axis** beyond Dart keywords and built-in types: Flutter
+    top-level functions exported by the consumed bridge libraries
+    are equally shadowing. Workaround for all three:
+    rename the field with a distinguishing suffix
+    (`factory → factoryExpr`, `num → step`,
+    `showMenu → showMenuDoc`, `popupMenuButton → popupMenuButtonDoc`).
+  - **Redirecting generative constructor `this._()` does not
+    propagate args or primary-constructor defaults.** Earlier
+    theory was that the redirect *did* propagate explicit args
+    (only defaults dropped); fix testing in
+    `rendering/renderobjects_clip_test.dart` proved otherwise —
+    re-stating the explicit `extras: const <_CodeSpan>[]` default at
+    every redirecting call site produced **no** change in the
+    25-error count. Final fix: remove the `this._()` indirection
+    entirely. Each named constructor on `_CodeLine` now initialises
+    `kind`, `text`, `after`, `extras` directly from its own
+    initialiser list. This drove frameworkErrors from 25 → 0.
+    *Script-side workaround sufficient — but worth noting that for
+    d4rt, redirecting generative constructors should be rewritten
+    flat rather than relied upon.*
+  - **Redirecting factory shorthand `factory X.a() = Y;`.** Already
+    covered by R1 (redirecting factory `=` form not implemented).
+    Six instances of the shorthand in `material/showmenu_test.dart`
+    were initially lowered to factory-with-body form returning the
+    concrete subclass; **that alone did not close the banners** —
+    final fix was to remove the factory layer entirely and use
+    `const _GalleryPlain()` / `const _GalleryImage()` directly at
+    each call site, combined with the `showMenu`/`popupMenuButton`
+    field rename above.
+  - **Static methods on the same script-defined class can collapse
+    onto the bridged class table and be invoked through the
+    BridgedClass routing instead of as plain script statics.**
+    Observed on `services/android_pointer_coords_test.dart`
+    `_Cell.full / .partial / .none` — first attempted as factory
+    constructors, then converted to plain `static` methods on the
+    same class; **neither change cleared the 7 NativeFunction
+    errors**. Reliable fix is to lift such helpers out of the class
+    to top-level functions (`_cellFull(...) / _cellPartial(...) /
+    _cellNone()`). The 7 errors only cleared once both the
+    top-level helpers *and* the `num → step` field rename were in
+    place. *Same family as R1 (factory routing) but distinct: the
+    issue here is the static-method-on-script-class lookup form,
+    and the safest scripting rule is to avoid named static helpers
+    on the same class that the call sites also construct.*
+  - **`!` null-check postfix operator on a typed reference.** The
+    `SPostfixExpression` evaluator in `tom_d4rt_ast/lib/src/runtime/
+    interpreter_visitor.dart` handles `?.` and `++` correctly but
+    raises a spurious Runtime Error when used as a null-check on a
+    nullable static getter result (observed on
+    `foundation/bit_field_test.dart` `static BitField get bf =>
+    _bf!;`). Coupled with the related
+    **static-field-write-from-sibling-static-method does not
+    persist** issue (the prior attempted typed-null-local guard
+    failed because the static-field write from the lazy helper did
+    not survive across calls), the final fix moved the storage to a
+    top-level mutable variable plus a lazy top-level helper
+    function — `BitField<_Permission>? _permissionBitField` and
+    `_ensurePermissionBitField()`. *Two interpreter tickets worth
+    opening; the script-side workarounds are cheap so no U-entry
+    here.*
+  - **C-style `for (int i = 0; ...; i++) { ... }` reuses the `i`
+    slot across iterations — closures captured inside the body see
+    the post-loop value of `i`.** Observed on
+    `material/expansionpanel_test.dart` (`Index out of range: 3`
+    against a 3-panel list — the callback closures all captured
+    `i = 3`). Reliable fix: replace the C-style loop with
+    `List<T>.generate(length, (int i) { ... })` so each `i` is a
+    fresh parameter binding. The bridged
+    `ExpansionPanelList.expansionCallback` itself behaves correctly
+    once the closure captures the right index.
+  - **`Text` rejects ill-formed UTF-16 (lone surrogates).** Observed
+    on `services/textboundary_test.dart` walking surrogate-pair
+    code units with `text.substring(i, i+1)`. Earlier session's
+    spot-fix using `String.fromCharCode(unit)` covered only the
+    ruler site; the 5 boundary-probe functions
+    (`_probeCharacterBoundary`, `_probeParagraphBoundary`,
+    `_probeDocumentBoundary`, `_probeWordBoundaryViaPainter`,
+    `_probeLineBoundaryViaPainter`) needed the same protection.
+    Final fix: a `_safeSlice(text, start, end)` helper that
+    returns `'\uFFFD'` if any code unit in the slice lies in the
+    surrogate range, and routing all `substring` sites through it.
+  - **`picsum.photos?blur=N` requires `1 <= N <= 10`.** A
+    `NetworkImage('https://picsum.photos/...?blur=0')` request
+    yields HTTP 400, and the resulting error banner is misattributed
+    to the *next* script because the async image load resolves
+    after the originating script completes. Fix at the source
+    (`dart_ui/backdrop_filter_engine_layer_test.dart`): drop the
+    invalid query parameter.
+  - **`RawChip(onSelected, onPressed)` asserts both-or-neither.**
+    `chip.dart` line 1027 asserts `onSelected == null || onPressed
+    == null`; the cluster's
+    `material/chip_variants_test.dart` "Raw all-in-one" sample
+    supplied both. Fix: drop `onPressed: () {}` so only `onSelected`
+    is wired.
+  Net effect on banner inventory: Step 7's 10-banner I-unhandled
+  pocket reaches 0 — verified by individual per-script retests
+  (all 10 report `frameworkErrors=0`).
+
 - 2026-05-18: **Close C59/C57
   (`retest/services/method_codec_test.dart` decodeEnvelope
   PlatformException not catchable) — no-op.** Same script and same

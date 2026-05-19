@@ -1473,7 +1473,7 @@ class CodeBlockExplanation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ExplanationLine(
-            num: '①',
+            bullet: '①',
             text:
                 'Compute follower\'s root-relative transform by walking up the '
                 'parent chain. This is exactly the matrix that would put the '
@@ -1481,7 +1481,7 @@ class CodeBlockExplanation extends StatelessWidget {
           ),
           SizedBox(height: 6),
           ExplanationLine(
-            num: '②',
+            bullet: '②',
             text:
                 'Invert it and chain with the leader\'s recorded transform — '
                 'the resulting matrix maps from follower\'s natural position '
@@ -1489,7 +1489,7 @@ class CodeBlockExplanation extends StatelessWidget {
           ),
           SizedBox(height: 6),
           ExplanationLine(
-            num: '③',
+            bullet: '③',
             text:
                 'Translate by linkedOffset. This is the offset the user '
                 'configured between the leader anchor and the follower anchor.',
@@ -1501,10 +1501,15 @@ class CodeBlockExplanation extends StatelessWidget {
 }
 
 class ExplanationLine extends StatelessWidget {
-  final String num;
+  // Avoid `num` as a field name: it shadows the built-in `num`
+  // type, and d4rt resolves a bare `num` identifier to the type
+  // token before walking the local scope. The result is that
+  // `Text(num, ...)` receives a Type object instead of the
+  // intended String and raises a BridgedClass construction error.
+  final String bullet;
   final String text;
 
-  const ExplanationLine({super.key, required this.num, required this.text});
+  const ExplanationLine({super.key, required this.bullet, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -1512,7 +1517,7 @@ class ExplanationLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          num,
+          bullet,
           style: const TextStyle(
             color: cyan700,
             fontSize: 16,

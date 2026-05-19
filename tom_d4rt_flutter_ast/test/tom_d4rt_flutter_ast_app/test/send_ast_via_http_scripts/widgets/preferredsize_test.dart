@@ -1439,42 +1439,42 @@ class _SizeTable extends StatelessWidget {
       border: const Color(0xFFB7E4D2),
       child: Column(children: const <Widget>[
         _SizeRow(
-          factory: 'Size.fromHeight(56.0)',
+          factoryExpr: 'Size.fromHeight(56.0)',
           eq: 'Size(infinity, 56.0)',
           usecase: 'Standard AppBar height',
           color: Color(0xFF06D6A0),
         ),
         SizedBox(height: 8),
         _SizeRow(
-          factory: 'Size.fromHeight(80.0)',
+          factoryExpr: 'Size.fromHeight(80.0)',
           eq: 'Size(infinity, 80.0)',
           usecase: 'Roomier custom header',
           color: Color(0xFF118AB2),
         ),
         SizedBox(height: 8),
         _SizeRow(
-          factory: 'Size.fromWidth(120.0)',
+          factoryExpr: 'Size.fromWidth(120.0)',
           eq: 'Size(120.0, infinity)',
           usecase: 'Vertical side-rail header (rare)',
           color: Color(0xFFEE6C4D),
         ),
         SizedBox(height: 8),
         _SizeRow(
-          factory: 'Size(double.infinity, 56.0)',
+          factoryExpr: 'Size(double.infinity, 56.0)',
           eq: 'Manually built',
           usecase: 'Explicit fill-width header',
           color: Color(0xFF6A4C93),
         ),
         SizedBox(height: 8),
         _SizeRow(
-          factory: 'Size.zero',
+          factoryExpr: 'Size.zero',
           eq: 'Size(0, 0)',
           usecase: 'Hide a PreferredSizeWidget entirely',
           color: Color(0xFFEC4899),
         ),
         SizedBox(height: 8),
         _SizeRow(
-          factory: 'Size.square(48.0)',
+          factoryExpr: 'Size.square(48.0)',
           eq: 'Size(48.0, 48.0)',
           usecase: 'Square hint (compact icon-only bars)',
           color: Color(0xFF3D5A80),
@@ -1485,12 +1485,17 @@ class _SizeTable extends StatelessWidget {
 }
 
 class _SizeRow extends StatelessWidget {
-  final String factory;
+  // `factory` is a Dart built-in identifier — d4rt's interpreter
+  // resolves the bare identifier to the factory keyword token
+  // (`_Factory`) rather than `this.factory`, so `Text(factory, ...)`
+  // received the keyword instead of the field's String value. Rename
+  // to a plain identifier to make the lookup unambiguous.
+  final String factoryExpr;
   final String eq;
   final String usecase;
   final Color color;
   const _SizeRow({
-    required this.factory,
+    required this.factoryExpr,
     required this.eq,
     required this.usecase,
     required this.color,
@@ -1508,7 +1513,7 @@ class _SizeRow extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         Row(children: <Widget>[
           Text(
-            factory,
+            factoryExpr,
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 12,

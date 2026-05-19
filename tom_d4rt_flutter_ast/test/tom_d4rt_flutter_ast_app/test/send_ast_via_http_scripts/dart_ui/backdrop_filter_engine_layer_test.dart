@@ -81,7 +81,13 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
-                image: NetworkImage('https://picsum.photos/800/400?blur=0'),
+                // picsum.photos's `?blur` parameter must be in 1..10.
+                // `blur=0` returns HTTP 400 and the in-flight image
+                // load surfaces as a framework error on the *next*
+                // script's evaluation (originally attributed to
+                // blur_style_test.dart). Omit the parameter to keep
+                // the network load valid.
+                image: NetworkImage('https://picsum.photos/800/400'),
                 fit: BoxFit.cover,
                 onError: (_, _) {},
               ),

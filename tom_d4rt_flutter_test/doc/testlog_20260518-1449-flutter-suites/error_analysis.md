@@ -543,8 +543,31 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   workaround for a defect the interpreter or bridge layer is
   responsible for.
 
-- [ ] **Step 7 · Resolve `Runtime Error: Index out of range` and
-  null-target Runtime Errors.** [bug, test contract]
+- [x] **Step 7 · Resolve `Runtime Error: Index out of range` and
+  null-target Runtime Errors.** [bug, test contract] —
+  **STATUS: fixed (verified), 2026-05-19.**
+  All 10 I-unhandled banners across 10 scripts closed via
+  script-side fixes (disposition #2 — real script bugs). Each
+  affected script was individually retested and reports
+  `frameworkErrors=0`. The script corpus is shared between
+  `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`
+  (`SendTestRunner.scriptsPath` → `../tom_d4rt_flutter_ast/test/
+  tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts`), so the
+  same 10 script edits apply to both drivers. No interpreter /
+  generator / runner / non-script `tom_d4rt_flutter_ast`-or-
+  `tom_d4rt_flutter_test` change — per the regression rule (a)
+  individual retest of each affected script was sufficient.
+  See the AST-driver project's
+  `doc/testlog_20260518-1449-flutter-suites/error_analysis.md`
+  Step 7 entry for the full list of resolved scripts and per-script
+  fixes; the common patterns (redirecting `this._()` doesn't
+  propagate args/defaults, same-class static method collapse to
+  `BridgedClass`, Flutter top-level function name collisions like
+  `showMenu`) are catalogued in
+  `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
+  Change Log entry dated 2026-05-19.
+
+  **Original spec:**
   **Symptom:** 85 total Runtime Error banners across the suite.
   Sampled shapes:
   - `Runtime Error: Index out of range: 3`

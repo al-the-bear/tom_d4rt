@@ -1351,36 +1351,36 @@ class _MenuItemGallerySection extends StatelessWidget {
                 title: 'Plain item',
                 code:
                     'PopupMenuItem<String>(\n  value: \'a\',\n  child: Text(\'Plain entry\'),\n)',
-                preview: _GalleryPreview.plain(),
+                preview: const _GalleryPlain(),
               ),
               _GalleryCard(
                 title: 'With leading icon',
                 code:
                     'PopupMenuItem<String>(\n  value: \'b\',\n  child: Row(children: [\n    Icon(Icons.edit),\n    SizedBox(width: 8),\n    Text(\'Edit\'),\n  ]),\n)',
-                preview: _GalleryPreview.leadingIcon(),
+                preview: const _GalleryLeadingIcon(),
               ),
               _GalleryCard(
                 title: 'CheckedPopupMenuItem',
                 code:
                     'CheckedPopupMenuItem<int>(\n  value: 1,\n  checked: true,\n  child: Text(\'Show grid\'),\n)',
-                preview: _GalleryPreview.checked(),
+                preview: const _GalleryChecked(),
               ),
               _GalleryCard(
                 title: 'PopupMenuDivider',
                 code: 'const PopupMenuDivider(height: 16)',
-                preview: _GalleryPreview.divider(),
+                preview: const _GalleryDivider(),
               ),
               _GalleryCard(
                 title: 'Disabled item',
                 code:
                     'PopupMenuItem<String>(\n  value: \'x\',\n  enabled: false,\n  child: Text(\'Cannot tap\'),\n)',
-                preview: _GalleryPreview.disabled(),
+                preview: const _GalleryDisabled(),
               ),
               _GalleryCard(
                 title: 'With subtitle',
                 code:
                     'PopupMenuItem<String>(\n  value: \'y\',\n  child: Column(\n    crossAxisAlignment: CrossAxisAlignment.start,\n    children: [\n      Text(\'Main label\'),\n      Text(\'subtitle\',\n        style: TextStyle(fontSize: 11)),\n    ],\n  ),\n)',
-                preview: _GalleryPreview.subtitle(),
+                preview: const _GallerySubtitle(),
               ),
             ],
           ),
@@ -1483,12 +1483,13 @@ class _GalleryPreview extends StatelessWidget {
   final Widget child;
   const _GalleryPreview._(this.child);
 
-  const factory _GalleryPreview.plain() = _GalleryPlain;
-  const factory _GalleryPreview.leadingIcon() = _GalleryLeadingIcon;
-  const factory _GalleryPreview.checked() = _GalleryChecked;
-  const factory _GalleryPreview.divider() = _GalleryDivider;
-  const factory _GalleryPreview.disabled() = _GalleryDisabled;
-  const factory _GalleryPreview.subtitle() = _GallerySubtitle;
+  // d4rt does not currently support the redirecting-factory shorthand
+  // (`const factory X.foo() = Y;`) — the redirect target is never
+  // executed and `X.foo()` evaluates to the factory function itself.
+  // Even an explicit `factory _GalleryPreview.foo() => const _GalleryFoo()`
+  // returned NativeFunction in this interpreter. The call sites have
+  // been switched to construct the concrete subclasses directly so no
+  // factory layer is needed on `_GalleryPreview` itself.
 
   @override
   Widget build(BuildContext context) => child;
@@ -1979,52 +1980,52 @@ class _ShowMenuVsPopupMenuButtonSection extends StatelessWidget {
           _CompareHeaderRow(),
           _CompareRow(
             aspect: 'Trigger',
-            showMenu: 'You call it imperatively (any callback).',
-            popupMenuButton: 'Built-in tap on the wrapped child widget.',
+            showMenuDoc: 'You call it imperatively (any callback).',
+            popupMenuButtonDoc: 'Built-in tap on the wrapped child widget.',
             even: true,
           ),
           _CompareRow(
             aspect: 'Position control',
-            showMenu: 'Full — you supply RelativeRect.',
-            popupMenuButton:
+            showMenuDoc: 'Full — you supply RelativeRect.',
+            popupMenuButtonDoc:
                 'Auto — anchored to the button via internal RenderBox math.',
             even: false,
           ),
           _CompareRow(
             aspect: 'Result delivery',
-            showMenu: 'Future<T?> awaited at call site.',
-            popupMenuButton: 'onSelected callback (and onCanceled).',
+            showMenuDoc: 'Future<T?> awaited at call site.',
+            popupMenuButtonDoc: 'onSelected callback (and onCanceled).',
             even: true,
           ),
           _CompareRow(
             aspect: 'Items source',
-            showMenu: 'Eager: List<PopupMenuEntry<T>>.',
-            popupMenuButton: 'Lazy: itemBuilder rebuilt on each open.',
+            showMenuDoc: 'Eager: List<PopupMenuEntry<T>>.',
+            popupMenuButtonDoc: 'Lazy: itemBuilder rebuilt on each open.',
             even: false,
           ),
           _CompareRow(
             aspect: 'Animation override',
-            showMenu: 'popUpAnimationStyle parameter.',
-            popupMenuButton: 'popUpAnimationStyle parameter.',
+            showMenuDoc: 'popUpAnimationStyle parameter.',
+            popupMenuButtonDoc: 'popUpAnimationStyle parameter.',
             even: true,
           ),
           _CompareRow(
             aspect: 'Root navigator',
-            showMenu: 'useRootNavigator flag.',
-            popupMenuButton: 'useRootNavigator flag.',
+            showMenuDoc: 'useRootNavigator flag.',
+            popupMenuButtonDoc: 'useRootNavigator flag.',
             even: false,
           ),
           _CompareRow(
             aspect: 'Tooltip',
-            showMenu: 'Not provided — wrap your trigger manually.',
-            popupMenuButton: 'tooltip parameter for the button.',
+            showMenuDoc: 'Not provided — wrap your trigger manually.',
+            popupMenuButtonDoc: 'tooltip parameter for the button.',
             even: true,
           ),
           _CompareRow(
             aspect: 'Best for',
-            showMenu:
+            showMenuDoc:
                 'Context menus, right-click menus, programmatic show.',
-            popupMenuButton: 'Standard "kebab" / overflow buttons.',
+            popupMenuButtonDoc: 'Standard "kebab" / overflow buttons.',
             even: false,
           ),
         ],
@@ -2085,14 +2086,14 @@ class _CompareHeaderRow extends StatelessWidget {
 
 class _CompareRow extends StatelessWidget {
   final String aspect;
-  final String showMenu;
-  final String popupMenuButton;
+  final String showMenuDoc;
+  final String popupMenuButtonDoc;
   final bool even;
 
   const _CompareRow({
     required this.aspect,
-    required this.showMenu,
-    required this.popupMenuButton,
+    required this.showMenuDoc,
+    required this.popupMenuButtonDoc,
     required this.even,
   });
 
@@ -2127,7 +2128,7 @@ class _CompareRow extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              showMenu,
+              showMenuDoc,
               style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xFF334155),
@@ -2137,7 +2138,7 @@ class _CompareRow extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              popupMenuButton,
+              popupMenuButtonDoc,
               style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xFF334155),

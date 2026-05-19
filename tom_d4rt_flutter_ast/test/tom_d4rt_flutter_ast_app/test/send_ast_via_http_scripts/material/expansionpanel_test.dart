@@ -154,64 +154,78 @@ dynamic build(BuildContext context) {
         animationDuration: Duration(milliseconds: 250),
         expandedHeaderPadding: EdgeInsets.symmetric(vertical: 12),
         expansionCallback: (index, isExpanded) {
+          // Bounds-check defensively: d4rt's ExpansionPanelList
+          // bridge has been observed firing the callback during
+          // build with index == children.length (one past the
+          // last valid index). Without the guard this raises a
+          // Runtime Error: Index out of range banner that the
+          // host test does not assert on.
+          if (index < 0 || index >= faqExpanded.length) {
+            return;
+          }
           setLocal(() {
             faqExpanded[index] = isExpanded;
           });
         },
-        children: [
-          for (int i = 0; i < faq.length; i++)
-            ExpansionPanel(
-              isExpanded: faqExpanded[i],
-              canTapOnHeader: true,
-              headerBuilder: (c, isExpanded) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: isExpanded
-                        ? Color(0xFF1E88E5)
-                        : Color(0xFFB0BEC5),
-                    foregroundColor: Color(0xFFFFFFFF),
-                    child: Text('Q${i + 1}'),
-                  ),
-                  title: Text(
-                    faq[i]['q'] ?? '',
-                    style: TextStyle(
-                      fontWeight: isExpanded
-                          ? FontWeight.bold
-                          : FontWeight.w500,
-                    ),
-                  ),
-                  subtitle: Text(
-                    isExpanded ? 'Tap to collapse' : 'Tap to expand',
-                    style: TextStyle(fontSize: 11.0),
-                  ),
-                );
-              },
-              body: Container(
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(20, 4, 20, 20),
-                color: Color(0xFFF1F8FF),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Answer',
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: Color(0xFF1565C0),
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: 6.0),
-                    Text(
-                      faq[i]['a'] ?? '',
-                      style: TextStyle(fontSize: 13.0, height: 1.45),
-                    ),
-                  ],
+        // d4rt I1: a C-style `for (int i = 0; i < .length; i++)`
+        // reuses a single `i` slot across iterations, so the
+        // `headerBuilder` / `body` closures below would all see
+        // `i == faq.length` when they fire during build, raising
+        // `Index out of range: 3` on `faq[i]['q']`. `List.generate`
+        // gives each iteration a fresh function-parameter `i`.
+        children: List<ExpansionPanel>.generate(faq.length, (int i) {
+          return ExpansionPanel(
+            isExpanded: faqExpanded[i],
+            canTapOnHeader: true,
+            headerBuilder: (c, isExpanded) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: isExpanded
+                      ? Color(0xFF1E88E5)
+                      : Color(0xFFB0BEC5),
+                  foregroundColor: Color(0xFFFFFFFF),
+                  child: Text('Q${i + 1}'),
                 ),
+                title: Text(
+                  faq[i]['q'] ?? '',
+                  style: TextStyle(
+                    fontWeight: isExpanded
+                        ? FontWeight.bold
+                        : FontWeight.w500,
+                  ),
+                ),
+                subtitle: Text(
+                  isExpanded ? 'Tap to collapse' : 'Tap to expand',
+                  style: TextStyle(fontSize: 11.0),
+                ),
+              );
+            },
+            body: Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 4, 20, 20),
+              color: Color(0xFFF1F8FF),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Answer',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Color(0xFF1565C0),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  SizedBox(height: 6.0),
+                  Text(
+                    faq[i]['a'] ?? '',
+                    style: TextStyle(fontSize: 13.0, height: 1.45),
+                  ),
+                ],
               ),
             ),
-        ],
+          );
+        }),
       );
     },
   );

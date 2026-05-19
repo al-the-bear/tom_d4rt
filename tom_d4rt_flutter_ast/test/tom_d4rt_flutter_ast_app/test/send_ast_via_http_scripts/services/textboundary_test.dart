@@ -594,6 +594,26 @@ class _BoundaryProbe {
   final TextRange range;
 }
 
+// Returns a substring of `text` from [start, end) that is safe to render
+// in a Text widget. If the slice would contain only a lone surrogate
+// (the other half is outside the slice), substitute with U+FFFD. The
+// boundary-probe slices intentionally pick one code unit at a time so
+// they routinely land on a surrogate half — the d4rt-side `text.substring`
+// preserves those halves, which then trips Flutter's "string is not
+// well-formed UTF-16" assertion when Text() tries to shape them.
+String _safeSlice(String text, int start, int end) {
+  if (start >= end) return '';
+  final String slice = text.substring(start, end);
+  for (int j = 0; j < slice.length; j++) {
+    final int u = slice.codeUnitAt(j);
+    if (u >= 0xD800 && u <= 0xDFFF) {
+      // Lone surrogate — replace with replacement char.
+      return '\uFFFD';
+    }
+  }
+  return slice;
+}
+
 List<_BoundaryProbe> _probeCharacterBoundary(String text) {
   final CharacterBoundary boundary = CharacterBoundary(text);
   final List<_BoundaryProbe> out = <_BoundaryProbe>[];
@@ -601,8 +621,8 @@ List<_BoundaryProbe> _probeCharacterBoundary(String text) {
     final int? lead = boundary.getLeadingTextBoundaryAt(i);
     final int? trail = boundary.getTrailingTextBoundaryAt(i);
     final TextRange range = boundary.getTextBoundaryAt(i);
-    final String before = i == 0 ? '' : text.substring(math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : text.substring(i, math.min(text.length, i + 1));
+    final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
+    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
     out.add(_BoundaryProbe(
       offset: i,
       charBefore: before,
@@ -622,8 +642,8 @@ List<_BoundaryProbe> _probeParagraphBoundary(String text) {
     final int? lead = boundary.getLeadingTextBoundaryAt(i);
     final int? trail = boundary.getTrailingTextBoundaryAt(i);
     final TextRange range = boundary.getTextBoundaryAt(i);
-    final String before = i == 0 ? '' : text.substring(math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : text.substring(i, math.min(text.length, i + 1));
+    final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
+    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
     out.add(_BoundaryProbe(
       offset: i,
       charBefore: before,
@@ -653,8 +673,8 @@ List<_BoundaryProbe> _probeDocumentBoundary(String text) {
     final int? lead = boundary.getLeadingTextBoundaryAt(safe);
     final int? trail = boundary.getTrailingTextBoundaryAt(safe);
     final TextRange range = boundary.getTextBoundaryAt(safe);
-    final String before = safe == 0 ? '' : text.substring(math.max(0, safe - 1), safe);
-    final String after = safe >= text.length ? '' : text.substring(safe, math.min(text.length, safe + 1));
+    final String before = safe == 0 ? '' : _safeSlice(text, math.max(0, safe - 1), safe);
+    final String after = safe >= text.length ? '' : _safeSlice(text, safe, math.min(text.length, safe + 1));
     out.add(_BoundaryProbe(
       offset: safe,
       charBefore: before,
@@ -677,8 +697,8 @@ List<_BoundaryProbe> _probeWordBoundaryViaPainter(String text, TextStyle style, 
   final List<_BoundaryProbe> out = <_BoundaryProbe>[];
   for (int i = 0; i <= text.length; i++) {
     final TextRange range = painter.getWordBoundary(TextPosition(offset: math.min(i, text.length)));
-    final String before = i == 0 ? '' : text.substring(math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : text.substring(i, math.min(text.length, i + 1));
+    final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
+    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
     out.add(_BoundaryProbe(
       offset: i,
       charBefore: before,
@@ -707,8 +727,8 @@ List<_BoundaryProbe> _probeLineBoundaryViaPainter(String text, TextStyle style, 
     if (range.start != previousStart || range.end != previousEnd) {
       previousStart = range.start;
       previousEnd = range.end;
-      final String before = i == 0 ? '' : text.substring(math.max(0, i - 1), i);
-      final String after = i >= text.length ? '' : text.substring(i, math.min(text.length, i + 1));
+      final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
+      final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
       out.add(_BoundaryProbe(
         offset: i,
         charBefore: before,
@@ -807,9 +827,16 @@ Widget _stringRuler(String text, {required Color accent}) {
         : isLowSurrogate
             ? const Color(0xFFFEF3C7)
             : _kCardBg;
+    // For surrogate halves we render the hex value because a lone
+    // high/low surrogate isn't well-formed UTF-16 and Text rejects
+    // it. For BMP units (everything else) build the label from the
+    // raw code unit so we don't accidentally walk into a substring
+    // that straddles a surrogate pair (which would also be ill-
+    // formed). `String.fromCharCode` on a BMP code unit produces a
+    // single well-formed grapheme.
     final String label = (isHighSurrogate || isLowSurrogate)
         ? '0x${unit.toRadixString(16).toUpperCase().padLeft(4, "0")}'
-        : text.substring(i, i + 1);
+        : String.fromCharCode(unit);
     cells.add(Container(
       width: 28.0,
       margin: const EdgeInsets.symmetric(horizontal: 1.0),

@@ -1669,51 +1669,51 @@ class _ToolTypeMatrixSection extends StatelessWidget {
           _ToolMatrixHeader(),
           _ToolMatrixRow(
             toolType: kToolTypeFinger,
-            pressure: _Cell.full("0.1..1.0"),
-            ellipse: _Cell.full("large"),
-            tilt: _Cell.none(),
-            distance: _Cell.none(),
-            hover: _Cell.none(),
+            pressure: _cellFull("0.1..1.0"),
+            ellipse: _cellFull("large"),
+            tilt: _cellNone(),
+            distance: _cellNone(),
+            hover: _cellNone(),
           ),
           _ToolMatrixRow(
             toolType: kToolTypeStylus,
-            pressure: _Cell.full("0.0..1.0"),
-            ellipse: _Cell.full("small"),
-            tilt: _Cell.full("0..π/2"),
-            distance: _Cell.full("hover px"),
-            hover: _Cell.full("yes"),
+            pressure: _cellFull("0.0..1.0"),
+            ellipse: _cellFull("small"),
+            tilt: _cellFull("0..π/2"),
+            distance: _cellFull("hover px"),
+            hover: _cellFull("yes"),
           ),
           _ToolMatrixRow(
             toolType: kToolTypeEraser,
-            pressure: _Cell.full("0.0..1.0"),
-            ellipse: _Cell.full("small"),
-            tilt: _Cell.full("0..π/2"),
-            distance: _Cell.full("hover px"),
-            hover: _Cell.full("yes"),
+            pressure: _cellFull("0.0..1.0"),
+            ellipse: _cellFull("small"),
+            tilt: _cellFull("0..π/2"),
+            distance: _cellFull("hover px"),
+            hover: _cellFull("yes"),
           ),
           _ToolMatrixRow(
             toolType: kToolTypeMouse,
-            pressure: _Cell.partial("1.0 or 0"),
-            ellipse: _Cell.none(),
-            tilt: _Cell.none(),
-            distance: _Cell.none(),
-            hover: _Cell.partial("via move"),
+            pressure: _cellPartial("1.0 or 0"),
+            ellipse: _cellNone(),
+            tilt: _cellNone(),
+            distance: _cellNone(),
+            hover: _cellPartial("via move"),
           ),
           _ToolMatrixRow(
             toolType: kToolTypeInverted,
-            pressure: _Cell.full("0.0..1.0"),
-            ellipse: _Cell.full("medium"),
-            tilt: _Cell.full("0..π/2"),
-            distance: _Cell.full("hover px"),
-            hover: _Cell.full("yes"),
+            pressure: _cellFull("0.0..1.0"),
+            ellipse: _cellFull("medium"),
+            tilt: _cellFull("0..π/2"),
+            distance: _cellFull("hover px"),
+            hover: _cellFull("yes"),
           ),
           _ToolMatrixRow(
             toolType: kToolTypeUnknown,
-            pressure: _Cell.partial("often 1"),
-            ellipse: _Cell.none(),
-            tilt: _Cell.none(),
-            distance: _Cell.none(),
-            hover: _Cell.none(),
+            pressure: _cellPartial("often 1"),
+            ellipse: _cellNone(),
+            tilt: _cellNone(),
+            distance: _cellNone(),
+            hover: _cellNone(),
           ),
         ],
       ),
@@ -1726,29 +1726,31 @@ class _Cell {
   final IconData symbol;
   final String note;
   final Color color;
+}
 
-  factory _Cell.full(String note) {
-    return _Cell(
+// d4rt's interpreter mishandles both user-class factory constructors
+// and same-class static methods on `_Cell` that return `_Cell(...)` —
+// the call site evaluates to the class identifier rather than the
+// constructed instance, so the downstream `cell.note` property read
+// collapsed to a `BridgedClass` value and the Text constructor
+// reported "expected String, got BridgedClass". Top-level helper
+// functions sidestep the bug entirely — they go through the regular
+// function-call path and the constructor returns a proper instance.
+_Cell _cellFull(String note) => _Cell(
       symbol: Icons.check_circle_rounded,
       note: note,
       color: kAccentSuccess,
     );
-  }
-  factory _Cell.partial(String note) {
-    return _Cell(
+_Cell _cellPartial(String note) => _Cell(
       symbol: Icons.error_rounded,
       note: note,
       color: kAccentWarn,
     );
-  }
-  factory _Cell.none() {
-    return _Cell(
+_Cell _cellNone() => _Cell(
       symbol: Icons.remove_circle_outline_rounded,
       note: "—",
       color: kAccentDim,
     );
-  }
-}
 
 class _ToolMatrixHeader extends StatelessWidget {
   const _ToolMatrixHeader();
@@ -1897,7 +1899,7 @@ class _EventFlowSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _FlowStage(
-            num: "1",
+            step: "1",
             color: kAccentDanger,
             title: "Driver / HAL",
             blurb: "Touch IC fires interrupt. Linux input driver maps raw values to MotionEvent axes.",
@@ -1905,7 +1907,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "raw axes"),
           _FlowStage(
-            num: "2",
+            step: "2",
             color: kAccentEraser,
             title: "InputDispatcher",
             blurb: "Native dispatcher batches samples and routes them to the focused window.",
@@ -1913,7 +1915,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "MotionEvent"),
           _FlowStage(
-            num: "3",
+            step: "3",
             color: kAccentWarn,
             title: "FlutterView (JVM)",
             blurb: "Decodes MotionEvent into a PointerData buffer; bundles toolType, pressure, tilt, ellipse.",
@@ -1921,7 +1923,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "PointerData[]"),
           _FlowStage(
-            num: "4",
+            step: "4",
             color: kAccentSuccess,
             title: "Engine (C++)",
             blurb: "Forwards the packet to the Dart isolate via the platform message channel.",
@@ -1929,7 +1931,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "ui.PointerDataPacket"),
           _FlowStage(
-            num: "5",
+            step: "5",
             color: kAccentStylus,
             title: "PointerEventConverter",
             blurb: "Normalises units (px → logical px, radians stay), recognises device kind, emits PointerEvents.",
@@ -1937,7 +1939,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "PointerEvent"),
           _FlowStage(
-            num: "6",
+            step: "6",
             color: kAccentMouse,
             title: "GestureBinding / arena",
             blurb: "Hit-tests against the render tree; arena resolves which recognizer wins.",
@@ -1945,7 +1947,7 @@ class _EventFlowSection extends StatelessWidget {
           ),
           _FlowArrow(label: "callback"),
           _FlowStage(
-            num: "7",
+            step: "7",
             color: kAccentInverted,
             title: "Widget callback",
             blurb: "onTap / onPanUpdate / Listener.onPointerMove fires with sanitised Flutter units.",
@@ -1959,13 +1961,13 @@ class _EventFlowSection extends StatelessWidget {
 
 class _FlowStage extends StatelessWidget {
   const _FlowStage({
-    required this.num,
+    required this.step,
     required this.color,
     required this.title,
     required this.blurb,
     required this.icon,
   });
-  final String num;
+  final String step;
   final Color color;
   final String title;
   final String blurb;
@@ -1999,7 +2001,7 @@ class _FlowStage extends StatelessWidget {
               color: color,
             ),
             child: Text(
-              num,
+              step,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w800,

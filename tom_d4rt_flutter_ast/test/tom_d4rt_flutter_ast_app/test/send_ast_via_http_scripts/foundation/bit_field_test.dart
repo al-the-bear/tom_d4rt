@@ -790,8 +790,7 @@ Widget _buildInteractiveDemo() {
         // The cached `_permissions` instance is allocated once per build of
         // the parent; that is sufficient for a demo file.
         // Initialise the persistent demo state once.
-        _PermissionDemoState.ensureInitialised();
-        final BitField<_Permission> bf = _PermissionDemoState.bf;
+        final BitField<_Permission> bf = _ensurePermissionBitField();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1103,19 +1102,28 @@ String _renderBitsForUi(BitField<_Permission> bf) {
 // Module-level holder so the BitField survives StatefulBuilder rebuilds
 // without an `AnimationController` or a root-level State. Initialised lazily
 // the first time the demo card is built.
-class _PermissionDemoState {
-  static BitField<_Permission>? _bf;
-  static BitField<_Permission> get bf => _bf!;
-  static void ensureInitialised() {
-    if (_bf != null) {
-      return;
-    }
-    final BitField<_Permission> fresh =
-        BitField<_Permission>(_Permission.values.length);
-    fresh[_Permission.read] = true;
-    fresh[_Permission.write] = true;
-    _bf = fresh;
+//
+// Implementation note: originally a class with a static `_bf` and a `!`
+// null-check getter; the d4rt interpreter's `SPostfixExpression` evaluator
+// raises a spurious Runtime Error on the `!`, and the typed-null-local
+// rewrite (`final BitField? v = _bf; if (v == null) throw ...; return v;`)
+// reads back `null` even after a sibling static method has assigned to
+// `_bf`, suggesting the static-field write from within the static method
+// does not persist under this interpreter. Both pitfalls are avoided by
+// holding the BitField in a private top-level variable and exposing a
+// lazy factory that mutates it directly. Top-level mutable variables
+// round-trip writes reliably under d4rt.
+BitField<_Permission>? _permissionBitField;
+
+BitField<_Permission> _ensurePermissionBitField() {
+  var bf = _permissionBitField;
+  if (bf == null) {
+    bf = BitField<_Permission>(_Permission.values.length);
+    bf[_Permission.read] = true;
+    bf[_Permission.write] = true;
+    _permissionBitField = bf;
   }
+  return bf;
 }
 
 // ----------------------------- presets palette -----------------------------
