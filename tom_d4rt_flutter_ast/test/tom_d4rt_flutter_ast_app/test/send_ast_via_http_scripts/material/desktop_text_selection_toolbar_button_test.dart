@@ -817,6 +817,18 @@ Widget buildToolbarSurface({
   required List<Widget> children,
   Color? textColor,
 }) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #40, P1):
+  // DesktopTextSelectionToolbarButton internally wraps its TextButton in
+  // SizedBox(width: double.infinity) so it stretches to fill the parent
+  // toolbar. Inside this mock we lay them out via Row(mainAxisSize: min)
+  // whose first pass hands each child unbounded width, and the
+  // double.infinity child trips "BoxConstraints forces an infinite width".
+  // Wrap each child in IntrinsicWidth so the row queries the TextButton's
+  // intrinsic width (finite — driven by label text) before performing
+  // layout, giving the SizedBox a bounded constraint to clamp against.
+  final List<Widget> sized = <Widget>[
+    for (final Widget c in children) IntrinsicWidth(child: c),
+  ];
   return Material(
     color: Colors.transparent,
     child: Container(
@@ -846,7 +858,7 @@ Widget buildToolbarSurface({
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: children,
+            children: sized,
           ),
         ),
       ),
