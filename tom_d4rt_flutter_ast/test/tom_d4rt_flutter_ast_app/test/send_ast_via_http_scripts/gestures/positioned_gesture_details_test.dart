@@ -1275,9 +1275,15 @@ Widget buildGallery() {
       }
       if (c < 3) cells.add(SizedBox(width: 10.0));
     }
-    rows.add(Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: cells,
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P1):
+    // Stretch-Row in the 4x3 details-card gallery inside the unbounded
+    // SingleChildScrollView — wrap in IntrinsicHeight so Expanded cells
+    // share the tallest card's height with finite constraints.
+    rows.add(IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: cells,
+      ),
     ));
     if (r < 2) rows.add(SizedBox(height: 10.0));
   }
@@ -1424,17 +1430,25 @@ Widget kindChip(KindCardData k) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P3):
+        // The longest label here ('PointerDeviceKind.invertedStylus' — 32
+        // chars at 12pt monospace) plus the icon + gap exceeded the
+        // 200-px inner width of the 220-wide kindChip, causing a ~13-px
+        // RenderFlex overflow on the right. Wrap the Text in an Expanded
+        // so it soft-wraps to the available width instead.
         Row(
           children: <Widget>[
             Icon(k.icon, color: k.tint, size: 16.0),
             SizedBox(width: 6.0),
-            Text(
-              'PointerDeviceKind.${k.label}',
-              style: TextStyle(
-                color: kInk,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
+            Expanded(
+              child: Text(
+                'PointerDeviceKind.${k.label}',
+                style: TextStyle(
+                  color: kInk,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ],
@@ -1590,14 +1604,19 @@ Widget buildTrajectories() {
           style: TextStyle(color: kInkDim, fontSize: 12.5, height: 1.5),
         ),
         SizedBox(height: 12.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            for (int i = 0; i < kTrajectoryCards.length; i++) ...<Widget>[
-              Expanded(child: trajectoryCard(kTrajectoryCards[i])),
-              if (i < kTrajectoryCards.length - 1) SizedBox(width: 10.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P1):
+        // Stretch-Row in the trajectory-card grid inside the unbounded
+        // SingleChildScrollView — wrap in IntrinsicHeight.
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              for (int i = 0; i < kTrajectoryCards.length; i++) ...<Widget>[
+                Expanded(child: trajectoryCard(kTrajectoryCards[i])),
+                if (i < kTrajectoryCards.length - 1) SizedBox(width: 10.0),
+              ],
             ],
-          ],
+          ),
         ),
       ],
     ),
@@ -1717,16 +1736,33 @@ Widget buildVelocity() {
           style: TextStyle(color: kInkDim, fontSize: 12.5, height: 1.5),
         ),
         SizedBox(height: 12.0),
-        Row(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P1):
+        // Stretch-Row pairs a codeBlock with a velocity-card inside the
+        // unbounded vertical viewport — wrap in IntrinsicHeight so both
+        // Expanded columns receive a finite shared height.
+        IntrinsicHeight(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P3):
+              // The half-width Expanded slot only holds ~336 px of inner
+              // content; the original 50-char monospace lines exceeded
+              // that, and Text could not soft-wrap them because they
+              // contain no breakable whitespace. Reformat to split at
+              // natural language boundaries so every line fits.
               child: codeBlock(
                 'class Velocity {\n'
                 '  final Offset pixelsPerSecond;\n'
-                '  const Velocity({required this.pixelsPerSecond});\n'
-                '  Velocity clampMagnitude(double min, double max);\n'
-                '  static const Velocity zero = Velocity(\n'
+                '  const Velocity({\n'
+                '    required this.pixelsPerSecond,\n'
+                '  });\n'
+                '  Velocity clampMagnitude(\n'
+                '    double min,\n'
+                '    double max,\n'
+                '  );\n'
+                '  static const Velocity zero =\n'
+                '      Velocity(\n'
                 '    pixelsPerSecond: Offset.zero,\n'
                 '  );\n'
                 '}',
@@ -1776,6 +1812,7 @@ Widget buildVelocity() {
               ),
             ),
           ],
+        ),
         ),
       ],
     ),
@@ -1917,7 +1954,12 @@ Widget buildRecipe() {
           style: TextStyle(color: kInkDim, fontSize: 12.5, height: 1.5),
         ),
         SizedBox(height: 12.0),
-        Row(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P1):
+        // Stretch-Row pairs a GestureDetector sandbox with a code listing
+        // inside the unbounded vertical viewport — wrap in IntrinsicHeight
+        // so both Expanded columns get a finite shared height.
+        IntrinsicHeight(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
@@ -2001,6 +2043,7 @@ Widget buildRecipe() {
               ),
             ),
           ],
+        ),
         ),
       ],
     ),
