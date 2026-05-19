@@ -367,7 +367,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 24. ~~`gestures/pointer_exit_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/RenderFlex — overflow 4707 px bottom)* — **P1+P2**.~~ **FIXED.** The root was a bare `Container > Column` with 10 demo sections — no `Scaffold`, no `SingleChildScrollView` — so the column overflowed the viewport by 4707 px on the bottom. Fix: wrapped the root in `Scaffold > SafeArea > SingleChildScrollView` so the column scrolls in an unbounded vertical viewport. Verified `frameworkErrors=1→0`.
 
-25. `gestures/pointer_move_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
+25. ~~`gestures/pointer_move_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.~~ **FIXED.** Two cooperating causes: (1) root was a bare `Container > Column` of 13 demo sections — no `Scaffold`, no `SingleChildScrollView`; (2) the `_buildFieldGrid` helper built pair rows with `Row(crossAxisAlignment: stretch)` containing `Expanded(_fieldCard(...))`. Fix: wrapped the root in `Scaffold > SafeArea > SingleChildScrollView` and wrapped the field-grid pair-Row in `IntrinsicHeight`. Verified `frameworkErrors=1→0`.
 
 26. `gestures/pointer_pan_zoom_start_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
 

@@ -62,12 +62,26 @@ dynamic build(BuildContext context) {
   sections.add(const SizedBox(height: 18.0));
   sections.add(_buildFooter());
 
-  return Container(
-    color: _surfaceBg,
-    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: sections,
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #25, P1):
+  // Root was a bare Container > Column with a long list of demo
+  // sections — no Scaffold, no SingleChildScrollView. Inner sections
+  // contain stretch-Columns that need a bounded viewport, so the
+  // column raised "BoxConstraints forces an infinite height". Wrap in
+  // Scaffold + SafeArea + SingleChildScrollView so the column lives in
+  // a bounded scrollable viewport.
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          color: _surfaceBg,
+          padding:
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: sections,
+          ),
+        ),
+      ),
     ),
   );
 }
@@ -546,15 +560,21 @@ Widget _buildFieldGrid() {
     rows.add(
       Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(child: _fieldCard(a)),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: b == null ? const SizedBox.shrink() : _fieldCard(b),
-            ),
-          ],
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #25, P1):
+        // Wrap stretch-Row in IntrinsicHeight so the field-card pair
+        // sizes to the tallest intrinsic child instead of propagating
+        // infinite height to its Expanded children.
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(child: _fieldCard(a)),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: b == null ? const SizedBox.shrink() : _fieldCard(b),
+              ),
+            ],
+          ),
         ),
       ),
     );
