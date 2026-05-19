@@ -725,39 +725,46 @@ dynamic build(BuildContext context) {
   print('eqA == eqC: $eqAC');
   print('eqB == eqC: $eqBC');
 
-  final equalityCards = Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Expanded(
-        child: _buildEqCard(
-          'A == B',
-          eqAB,
-          'same source, same sizes',
-          'asset://logo.png',
-          'asset://logo.png',
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #64, P1): the
+  // equalityCards Row uses CrossAxisAlignment.stretch but lives inside a
+  // SingleChildScrollView, so the cross axis (vertical) is unbounded and
+  // stretch forces children to infinite height. Wrap in IntrinsicHeight so
+  // stretch resolves against the children's intrinsic heights.
+  final equalityCards = IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: _buildEqCard(
+            'A == B',
+            eqAB,
+            'same source, same sizes',
+            'asset://logo.png',
+            'asset://logo.png',
+          ),
         ),
-      ),
-      SizedBox(width: 8.0),
-      Expanded(
-        child: _buildEqCard(
-          'A == C',
-          eqAC,
-          'different source',
-          'asset://logo.png',
-          'asset://logo_v2.png',
+        SizedBox(width: 8.0),
+        Expanded(
+          child: _buildEqCard(
+            'A == C',
+            eqAC,
+            'different source',
+            'asset://logo.png',
+            'asset://logo_v2.png',
+          ),
         ),
-      ),
-      SizedBox(width: 8.0),
-      Expanded(
-        child: _buildEqCard(
-          'B == C',
-          eqBC,
-          'different source',
-          'asset://logo.png',
-          'asset://logo_v2.png',
+        SizedBox(width: 8.0),
+        Expanded(
+          child: _buildEqCard(
+            'B == C',
+            eqBC,
+            'different source',
+            'asset://logo.png',
+            'asset://logo_v2.png',
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   // ============================================================
