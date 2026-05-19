@@ -746,9 +746,17 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: Colors.grey.shade300),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: timelineSegments,
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #65, P1): the
+          // inner Row uses CrossAxisAlignment.stretch to equalise the three
+          // _buildTimelineSegment cards' heights, but the root return is
+          // SingleChildScrollView (unbounded vertical), so stretch would
+          // force the children to infinite height. Wrap in IntrinsicHeight
+          // so stretch resolves to the max intrinsic height of the cards.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: timelineSegments,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
