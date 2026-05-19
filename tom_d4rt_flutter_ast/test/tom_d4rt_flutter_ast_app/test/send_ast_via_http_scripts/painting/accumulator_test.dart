@@ -1209,7 +1209,12 @@ dynamic build(BuildContext context) {
     codeLine([plain('    walk(child, total);')]),
     codeLine([plain('  }')]),
     codeLine([plain('}')]),
-    codeLine([plain('')]),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #56, P1): Replaced an
+    // empty TextSpan (plain('')) with a non-breaking space so the RichText
+    // line has positive content; an empty TextSpan inside a Column of
+    // RichTexts triggers an "Offset argument contained a NaN value" assertion
+    // in dart:ui/painting.dart line 41 during paint.
+    codeLine([plain(' ')]),
     codeLine([
       kw('final '),
       plain('total = '),

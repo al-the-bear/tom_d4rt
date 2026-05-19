@@ -433,7 +433,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 ### Cluster E — `painting/` (items 56–67)
 
-56. `painting/accumulator_test.dart` *(hardly_relevant_classes_2_test, 1/1, B-layout/infinite-size — Offset NaN)* — **P1**.
+56. ~~`painting/accumulator_test.dart`~~ *(hardly_relevant_classes_2_test, 1/1, B-layout/infinite-size — Offset NaN)* — **FIXED** (2026-05-20, P1-variant). Not actually an infinite-size issue — section-bisect (probes A→E) localised the NaN to **Section 9 (Code snippets)** alone. Within section 9, `snippetThread` (one of the three `codeBlock` instances) contained a `codeLine([plain('')])` at line 1212 to render a "blank" code line. An empty `TextSpan(text: '')` in a `RichText` ancestor's children list trips `Offset argument contained a NaN value` at `dart:ui/painting.dart:41` during paint (the text layout engine produces a NaN baseline/offset when measuring a zero-length span surrounded by other spans). Replaced `plain('')` with `plain(' ')` (single space) so the line renders blank space rather than nothing. One localised D4RT-SCRIPT-WORKAROUND comment `#56, P1` on `snippetThread`. Rule (a) — script-only change, single-script retest sufficient. Verified `frameworkErrors=0 status=success` (was 1). Logs: `ztmp/item56_baseline.log`, `ztmp/item56_probeA.log` (sections 1-5 clean), `ztmp/item56_probeB.log` (1-8 clean), `ztmp/item56_probeC.log` (section 9 alone reproduces), `ztmp/item56_probeD.log` (section 10 alone clean), `ztmp/item56_probeE.log` (section 9 with fix clean), `ztmp/item56_verify.log` (full script, 0 errors).
 
 57. `painting/advanced_decorations_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 17 px right)* — **P3**.
 
