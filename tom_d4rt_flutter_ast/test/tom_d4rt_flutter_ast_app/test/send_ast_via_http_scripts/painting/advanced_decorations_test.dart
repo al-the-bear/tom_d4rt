@@ -384,6 +384,12 @@ Widget _paintingOrderRow() {
             borderRadius: BorderRadius.circular(8),
             border: Border(left: BorderSide(color: s.color, width: 4)),
           ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #57, P3): The
+          // 150-dp card has 12-dp horizontal padding (126 dp usable). The
+          // number "2" + 10-dp gap + "Color / Gradient" rendered with
+          // _kSubsection (16 sp, w700) exceeds 126 dp by ~17 px. Wrap the
+          // label in Flexible with softWrap so the text wraps inside the card
+          // instead of overflowing.
           child: Row(
             children: <Widget>[
               Text(s.number,
@@ -393,7 +399,9 @@ Widget _paintingOrderRow() {
                     color: s.color,
                   )),
               const SizedBox(width: 10),
-              Text(s.label, style: _kSubsection),
+              Flexible(
+                child: Text(s.label, style: _kSubsection, softWrap: true),
+              ),
             ],
           ),
         ),
