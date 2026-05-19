@@ -1258,14 +1258,27 @@ dynamic build(BuildContext context) {
   print('-- the page is a static snapshot, no state, no timers --');
   print('-- ready to be sent over HTTP to the D4rt-AST sandbox --');
 
-  return Container(
-    color: kPaperCream,
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        titleBanner,
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #67, P2): the
+  // composed page (title banner + 9 sections + closing badge) is
+  // ~2463 logical pixels tall and overflows the 800x600 test viewport
+  // by 1863 px on the bottom. Wrap root in Scaffold > SafeArea >
+  // SingleChildScrollView so the demo scrolls inside a bounded viewport.
+  // Both CrossAxisAlignment.stretch sites in this script are Columns
+  // (cheatBlock inner Column and the root Column) — their cross axis is
+  // horizontal, so the now-unbounded vertical context does not propagate
+  // to a stretch-Row. No P1 follow-up required.
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          color: kPaperCream,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              titleBanner,
         _vSpace(14),
         _sectionTitle('1', 'Title banner', kAccentMagenta),
         _divider(kFoldShadow),
@@ -1311,6 +1324,9 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+    ),
+        ),
+      ),
     ),
   );
 }
