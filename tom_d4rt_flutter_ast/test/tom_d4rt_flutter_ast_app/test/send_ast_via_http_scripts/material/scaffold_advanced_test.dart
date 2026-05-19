@@ -1947,34 +1947,49 @@ Widget _buildDoAvoidCallouts() {
     final kind = r['kind']!;
     final rule = r['rule']!;
     final isDo = kind == 'DO';
-    final BoxDecoration cardDeco = BoxDecoration(
-      color: cParchment,
-      borderRadius: BorderRadius.circular(8),
-      border: Border(
-        left: BorderSide(
-          color: isDo ? cMossGreen : cCinnabar,
-          width: 6,
-        ),
-        top: BorderSide(color: cBrassDeep.withValues(alpha: 0.4)),
-        right: BorderSide(color: cBrassDeep.withValues(alpha: 0.4)),
-        bottom: BorderSide(color: cBrassDeep.withValues(alpha: 0.4)),
-      ),
-    );
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #50, P5(a)):
+    // Asymmetric Border (coloured left side, brass top/right/bottom) +
+    // borderRadius is rejected by Flutter ("a borderRadius can only be given
+    // on borders with uniform colors"). Replace with uniform Border.all +
+    // ClipRRect, and render the coloured accent strip as a stretched
+    // Container inside an IntrinsicHeight Row sandwich.
     tiles.add(
       Container(
         width: 320,
-        decoration: cardDeco,
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              kind,
-              style: isDo ? kCalloutDoStyle : kCalloutAvoidStyle,
+        decoration: BoxDecoration(
+          color: cParchment,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: cBrassDeep.withValues(alpha: 0.4)),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  width: 6,
+                  color: isDo ? cMossGreen : cCinnabar,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          kind,
+                          style: isDo ? kCalloutDoStyle : kCalloutAvoidStyle,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(rule, style: kBodyStyle),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 4),
-            Text(rule, style: kBodyStyle),
-          ],
+          ),
         ),
       ),
     );
