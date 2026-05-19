@@ -1368,83 +1368,94 @@ class VUseCaseGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #10):
+    // `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` inside the
+    // SingleChildScrollView (unbounded height) causes each child to be
+    // stretched to infinite height → "BoxConstraints forces an infinite
+    // height" assertion. Wrap each stretch-Row in IntrinsicHeight so the
+    // row first resolves its tallest child, then stretches the rest to
+    // match — preserves the equal-height card layout.
     return const Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.cyan,
-                icon: Icons.palette_outlined,
-                title: 'as RGB colour',
-                example: 'vec3(0.96, 0.42, 0.13)',
-                prose: 'Tinting, sky colour, gradient stops. The fragment '
-                    'shader writes  fragColour = vec4(uTint, 1.0);  '
-                    'directly.',
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.cyan,
+                  icon: Icons.palette_outlined,
+                  title: 'as RGB colour',
+                  example: 'vec3(0.96, 0.42, 0.13)',
+                  prose: 'Tinting, sky colour, gradient stops. The fragment '
+                      'shader writes  fragColour = vec4(uTint, 1.0);  '
+                      'directly.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.indigo,
-                icon: Icons.threed_rotation_outlined,
-                title: 'as XYZ position',
-                example: 'vec3(2.5, 1.0, -3.4)',
-                prose: 'Camera position, light position, model anchor in '
-                    'world-space. Treat as a point, not a direction.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.indigo,
+                  icon: Icons.threed_rotation_outlined,
+                  title: 'as XYZ position',
+                  example: 'vec3(2.5, 1.0, -3.4)',
+                  prose: 'Camera position, light position, model anchor in '
+                      'world-space. Treat as a point, not a direction.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.purple,
-                icon: Icons.flash_on_outlined,
-                title: 'as light direction',
-                example: 'normalize(vec3(.4, .8, .4))',
-                prose: 'Often pre-normalised on the host. Treat as a unit '
-                    'vector pointing AT the light from the surface.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.purple,
+                  icon: Icons.flash_on_outlined,
+                  title: 'as light direction',
+                  example: 'normalize(vec3(.4, .8, .4))',
+                  prose: 'Often pre-normalised on the host. Treat as a unit '
+                      'vector pointing AT the light from the surface.',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.teal,
-                icon: Icons.aspect_ratio_outlined,
-                title: 'as scale factor',
-                example: 'vec3(1.0, 1.5, 1.0)',
-                prose: 'Anisotropic scaling on the three axes. A vec3(1,1,1) '
-                    'is identity scale.',
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.teal,
+                  icon: Icons.aspect_ratio_outlined,
+                  title: 'as scale factor',
+                  example: 'vec3(1.0, 1.5, 1.0)',
+                  prose: 'Anisotropic scaling on the three axes. A vec3(1,1,1) '
+                      'is identity scale.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.amber,
-                icon: Icons.tune_outlined,
-                title: 'as HSL',
-                example: 'vec3(0.55, 0.80, 0.50)',
-                prose: 'Some shaders pick HSL over RGB because hue tweaks are '
-                    'cheaper. Same three slots, different semantic.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.amber,
+                  icon: Icons.tune_outlined,
+                  title: 'as HSL',
+                  example: 'vec3(0.55, 0.80, 0.50)',
+                  prose: 'Some shaders pick HSL over RGB because hue tweaks are '
+                      'cheaper. Same three slots, different semantic.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VUseCaseCard(
-                accent: VPalette.rose,
-                icon: Icons.crop_free_outlined,
-                title: 'as bbox half-extent',
-                example: 'vec3(64, 32, 16)',
-                prose: 'Useful for AABB tests inside the shader. Three slots '
-                    'cover all three axes without a vec4 padding penalty.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VUseCaseCard(
+                  accent: VPalette.rose,
+                  icon: Icons.crop_free_outlined,
+                  title: 'as bbox half-extent',
+                  example: 'vec3(64, 32, 16)',
+                  prose: 'Useful for AABB tests inside the shader. Three slots '
+                      'cover all three axes without a vec4 padding penalty.',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
@@ -1982,60 +1993,67 @@ class VCaveatsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #10): same
+    // CrossAxisAlignment.stretch + unbounded-height issue as
+    // VUseCaseGrid. Wrap each stretch-Row in IntrinsicHeight.
     return const Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: VCaveatCard(
-                accent: VPalette.amber,
-                icon: Icons.warning_amber_outlined,
-                title: 'std140 padding',
-                body: 'In std140 layouts, a vec3 is *aligned* to 16 bytes. '
-                    'It still consumes 12 bytes of payload, but the next '
-                    'uniform may be pushed to the next 16-byte boundary.',
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: VCaveatCard(
+                  accent: VPalette.amber,
+                  icon: Icons.warning_amber_outlined,
+                  title: 'std140 padding',
+                  body: 'In std140 layouts, a vec3 is *aligned* to 16 bytes. '
+                      'It still consumes 12 bytes of payload, but the next '
+                      'uniform may be pushed to the next 16-byte boundary.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VCaveatCard(
-                accent: VPalette.rose,
-                icon: Icons.compress_outlined,
-                title: 'std430 packing',
-                body: 'In std430 layouts (storage buffers), a vec3 is packed '
-                    'tighter. Mixing std140 and std430 across host / device '
-                    'is the source of most "uniforms look corrupted" bugs.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VCaveatCard(
+                  accent: VPalette.rose,
+                  icon: Icons.compress_outlined,
+                  title: 'std430 packing',
+                  body: 'In std430 layouts (storage buffers), a vec3 is packed '
+                      'tighter. Mixing std140 and std430 across host / device '
+                      'is the source of most "uniforms look corrupted" bugs.',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: VCaveatCard(
-                accent: VPalette.teal,
-                icon: Icons.speed_outlined,
-                title: 'update cost',
-                body: 'Each setFloat / setVec3 call rewrites the host-side '
-                    'uniform image. The device upload happens at the next '
-                    'draw, not on every setter call.',
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: VCaveatCard(
+                  accent: VPalette.teal,
+                  icon: Icons.speed_outlined,
+                  title: 'update cost',
+                  body: 'Each setFloat / setVec3 call rewrites the host-side '
+                      'uniform image. The device upload happens at the next '
+                      'draw, not on every setter call.',
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: VCaveatCard(
-                accent: VPalette.purple,
-                icon: Icons.public_outlined,
-                title: 'GPU portability',
-                body: 'Some mobile GPUs reject vec3 in old driver paths and '
-                    'silently widen to vec4. If you see a black 4th channel, '
-                    'check for an implicit padding pass.',
+              SizedBox(width: 10),
+              Expanded(
+                child: VCaveatCard(
+                  accent: VPalette.purple,
+                  icon: Icons.public_outlined,
+                  title: 'GPU portability',
+                  body: 'Some mobile GPUs reject vec3 in old driver paths and '
+                      'silently widen to vec4. If you see a black 4th channel, '
+                      'check for an implicit padding pass.',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
