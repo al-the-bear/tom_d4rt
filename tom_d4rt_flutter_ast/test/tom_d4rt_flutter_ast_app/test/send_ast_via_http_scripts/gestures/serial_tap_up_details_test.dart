@@ -741,19 +741,24 @@ dynamic build(BuildContext context) {
   final editorMockRows = <Widget>[];
   for (final s in selectionRows) {
     final color = s['color'] as Color;
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #30, P5(a)):
+    // The original card combined a non-uniform Border (`left: color/4`,
+    // `top/right/bottom: slateSoft/1`) with `borderRadius`, which trips
+    // Flutter's "borderRadius can only be given on borders with uniform
+    // colors" assertion (5 cards = 5 framework errors). Canonical fix:
+    // wrap in a Container with uniform `Border.all(slateSoft, 1)` +
+    // `clipBehavior: Clip.antiAlias`, and supply the coloured left
+    // accent as a sibling `Container(width: 4)` inside an
+    // `IntrinsicHeight > Row`, so the rounded outer corners come from
+    // the uniform border + clipper rather than from a per-side border.
     editorMockRows.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 5.0),
-        padding: EdgeInsets.all(12.0),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(
-            left: BorderSide(color: color, width: 4.0),
-            top: BorderSide(color: slateSoft, width: 1.0),
-            right: BorderSide(color: slateSoft, width: 1.0),
-            bottom: BorderSide(color: slateSoft, width: 1.0),
-          ),
+          border: Border.all(color: slateSoft, width: 1.0),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.10),
@@ -762,7 +767,15 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
-        child: Row(
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(width: 4.0, color: color),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
           children: [
             Container(
               width: 36.0,
@@ -825,6 +838,11 @@ dynamic build(BuildContext context) {
               ),
             ),
           ],
+        ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

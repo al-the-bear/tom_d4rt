@@ -377,7 +377,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 29. ~~`gestures/serial_tap_down_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 3195 px bottom)* — **P1+P2**.~~ **FIXED.** Root was a bare `Container > Column(mainAxisSize: min, stretch)` of eight demo sections — no `Scaffold`, no `SingleChildScrollView`. Inside the test app's finite vertical container the unbounded Column overflowed the bottom by 3195 px. Wrapped the root in `Scaffold > SafeArea > SingleChildScrollView` (canonical P1 pattern). No stretch-Rows inside the scrollable, so no follow-up P1 inner wrap was needed. Verified `frameworkErrors=1→0`.
 
-30. `gestures/serial_tap_up_details_test.dart` *(secondary_classes_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+30. ~~`gestures/serial_tap_up_details_test.dart` *(secondary_classes_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** The `editorMockRows` loop (count=1..5 cards) built each card with a non-uniform `Border(left: color/4, top/right/bottom: slateSoft/1)` combined with `borderRadius: 8` — Flutter's "borderRadius can only be given on borders with uniform colors" assertion fired once per card for 5 framework errors. Refactored to canonical P5(a): uniform `Border.all(slateSoft, 1)` + `clipBehavior: Clip.antiAlias` on the outer Container, with the coloured left accent supplied as a sibling `Container(width: 4)` inside an `IntrinsicHeight > Row`. Verified `frameworkErrors=5→0`.
 
 31. `gestures/tap_drag_start_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 8.0 px bottom)* — **P2**.
 
