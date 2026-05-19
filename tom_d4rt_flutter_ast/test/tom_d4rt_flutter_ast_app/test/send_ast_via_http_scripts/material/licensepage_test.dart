@@ -1106,8 +1106,18 @@ Widget _fieldCard({
             ],
           ),
         ),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #46, P2):
+        // The original `SizedBox(height: 240)` was too tight for the
+        // tallest LicensePage configurations: each of the four
+        // `_fieldCard` calls passes a slightly different LicensePage
+        // (Name Only, Versioned, With Icon (FlutterLogo size 48 in 8 px
+        // padding), Legalese) whose internal master/body layout exceeds
+        // 240 px by 26 / 64 / 90 / 42 px respectively (4 distinct
+        // bottom-overflow assertions per build). Bumped the clamp to
+        // 340 px — the largest overflow + small breathing margin — so
+        // every variant lays out inside the card.
         SizedBox(
-          height: 240.0,
+          height: 340.0,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(13.0),
