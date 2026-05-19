@@ -1522,35 +1522,57 @@ Widget _buildDoAvoidCallouts() {
     final kind = r['kind']!;
     final rule = r['rule']!;
     final isDo = kind == 'DO';
-    // BoxDecoration for the callout card.
-    final cardDeco = BoxDecoration(
-      color: cChalkLight,
-      borderRadius: BorderRadius.circular(8),
-      border: Border(
-        left: BorderSide(
-          color: isDo ? cIncenseGreen : cRoseRed,
-          width: 6,
-        ),
-        top: BorderSide(color: cTracery.withValues(alpha: 0.3)),
-        right: BorderSide(color: cTracery.withValues(alpha: 0.3)),
-        bottom: BorderSide(color: cTracery.withValues(alpha: 0.3)),
-      ),
-    );
+    final Color accent = isDo ? cIncenseGreen : cRoseRed;
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #61, P5(a)):
+    // Original combined borderRadius:8 with asymmetric Border (left: 6-dp
+    // green/red accent, t/r/b: 1-dp 0.3-alpha tracery hairline) — Flutter
+    // forbids non-uniform colors with a radius. Refactored to uniform
+    // Border.all (0.3-alpha hairline) + ClipRRect(8) + IntrinsicHeight >
+    // Row(stretch, [Container(width:6, color: accent), Expanded(content)]).
+    // Considered P5(b): the 9 DO/AVOID rules cover other BoxDecoration
+    // pitfalls (Container.color conflict, shape:circle+radius, lerp,
+    // copyWith, image, shadow performance, build()-frequency,
+    // backgroundBlendMode) — none of them is the uniform-colors rule.
+    // Offending pattern is incidental chrome. Same rationale as items 58-60.
     tiles.add(
       Container(
         width: 320,
-        decoration: cardDeco,
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              kind,
-              style: isDo ? kCalloutDoStyle : kCalloutAvoidStyle,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(width: 6.0, color: accent),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: cChalkLight,
+                      border: Border.all(
+                        color: cTracery.withValues(alpha: 0.3),
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          kind,
+                          style: isDo ? kCalloutDoStyle : kCalloutAvoidStyle,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(rule, style: kBodyStyle),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 4),
-            Text(rule, style: kBodyStyle),
-          ],
+          ),
         ),
       ),
     );
