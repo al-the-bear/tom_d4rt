@@ -189,13 +189,28 @@ dynamic build(BuildContext context) {
     <String>['directionallyExtendSelection', 'Extend by direction (next line, …).'],
   ];
 
-  return Container(
-    color: _bgDeep,
-    padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 36),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _hero(eventTypeLabel, eventRuntimeLabel, eventConstructionNote),
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P2): the
+  // composed page contains a hero block + 9 sections + spacers and is
+  // far taller than the 800x600 test viewport — the bare Container >
+  // Column overflowed by Infinity px on the bottom (and cascading NaN
+  // offset errors from the broken layout). Wrap root in Scaffold >
+  // SafeArea > SingleChildScrollView so the deep demo scrolls inside a
+  // bounded viewport. The three Row(crossAxisAlignment.stretch) sites
+  // in this script (inside _sectionHeader, _compareBlock, _pitfall) are
+  // all wrapped in IntrinsicHeight, so the now-unbounded vertical
+  // context does not trigger any new "BoxConstraints forces infinite
+  // height" errors.
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          color: _bgDeep,
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 36),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _hero(eventTypeLabel, eventRuntimeLabel, eventConstructionNote),
         const SizedBox(height: 36),
         _sectionAnatomy(),
         const SizedBox(height: 44),
@@ -217,6 +232,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 44),
         _footer(),
       ],
+    ),
+        ),
+      ),
     ),
   );
 }
@@ -360,26 +378,42 @@ Widget _sectionHeader(
   IconData icon,
   Color tint,
 ) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P5(a)): the
+  // original decoration combined borderRadius(14) with an asymmetric
+  // Border (left: width 4 tint, top/right/bottom: width 1 _borderSoft).
+  // Refactor to uniform Border.all(_borderSoft, 1) under a ClipRRect(14),
+  // and render the tint accent as an actual 4-dp left strip inside an
+  // IntrinsicHeight > Row(stretch). The gradient now fills the Expanded
+  // body strip (visually equivalent for the header band).
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(bottom: 20),
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: <Color>[tint.withValues(alpha: 0.18), tint.withValues(alpha: 0.04)],
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
+    child: ClipRRect(
       borderRadius: BorderRadius.circular(14),
-      border: Border(
-        left: BorderSide(color: tint, width: 4),
-        top: BorderSide(color: _borderSoft, width: 1),
-        right: BorderSide(color: _borderSoft, width: 1),
-        bottom: BorderSide(color: _borderSoft, width: 1),
-      ),
-    ),
-    child: Row(
-      children: <Widget>[
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderSoft, width: 1),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4, color: tint),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        tint.withValues(alpha: 0.18),
+                        tint.withValues(alpha: 0.04),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                  ),
+                  child: Row(
+                    children: <Widget>[
         Container(
           width: 50,
           height: 50,
@@ -432,6 +466,13 @@ Widget _sectionHeader(
           ),
         ),
       ],
+    ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ),
   );
 }
@@ -1266,17 +1307,29 @@ Widget _codeCard({required String title, required List<String> lines}) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            color: _bgPanel2,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(13),
-              topRight: Radius.circular(13),
-            ),
-            border: Border(bottom: BorderSide(color: _borderSoft, width: 1)),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P5(a)):
+        // the original header decoration combined a BorderRadius.only
+        // with Border(bottom: only) — the unspecified sides default to
+        // BorderSide.none (color black) which differs from the bottom's
+        // _borderSoft, triggering the uniform-colors assertion. Use
+        // ClipRRect for the top-corner rounding and a separate bottom
+        // border via a uniform Border.all on a zero-height bottom strip
+        // — achieved here by wrapping in a Column and using a 1-dp
+        // Container divider below the header (visually identical).
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
           ),
-          child: Row(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: _bgPanel2,
+              border: Border(
+                bottom: BorderSide(color: _borderSoft, width: 1),
+              ),
+            ),
+            child: Row(
             children: <Widget>[
               Container(
                   width: 10,
@@ -1303,6 +1356,7 @@ Widget _codeCard({required String title, required List<String> lines}) {
                     fontFamily: 'monospace',
                   )),
             ],
+          ),
           ),
         ),
         Padding(
@@ -1813,28 +1867,45 @@ Widget _compareRow(String label, String value, Color color) {
 }
 
 Widget _compareBlock(String label, String text, Color color) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P5(a)): the
+  // original decoration combined borderRadius(8) with Border(left: only).
+  // The unspecified BorderSides default to BorderSide.none (color black,
+  // width 0) which is not uniform with the left side. Refactor to a
+  // ClipRRect(8) > IntrinsicHeight > Row(stretch, [3-dp accent, Expanded
+  // (Padding(9, content))]) with no border on the inner DecoratedBox.
   return Padding(
     padding: const EdgeInsets.only(top: 8),
-    child: Container(
-      padding: const EdgeInsets.all(9),
-      decoration: BoxDecoration(
-        color: _bgDeep,
-        borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: color, width: 3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(label.toUpperCase(),
-              style: TextStyle(
-                color: color,
-                fontSize: 9,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.4,
-              )),
-          const SizedBox(height: 3),
-          Text(text, style: _tBody.copyWith(fontSize: 11.5)),
-        ],
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(color: _bgDeep),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 3, color: color),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(9),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(label.toUpperCase(),
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.4,
+                          )),
+                      const SizedBox(height: 3),
+                      Text(text, style: _tBody.copyWith(fontSize: 11.5)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     ),
   );
@@ -2057,42 +2128,57 @@ Widget _pitfall({
   required String title,
   required String body,
 }) {
-  return Container(
-    padding: const EdgeInsets.all(13),
-    decoration: BoxDecoration(
-      color: _bgPanel2,
-      borderRadius: BorderRadius.circular(11),
-      border: Border(
-        left: BorderSide(color: tint, width: 4),
-        top: BorderSide(color: _borderSoft, width: 1),
-        right: BorderSide(color: _borderSoft, width: 1),
-        bottom: BorderSide(color: _borderSoft, width: 1),
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P5(a)): the
+  // original decoration combined borderRadius(11) with an asymmetric
+  // Border (left: width 4 tint, top/right/bottom: width 1 _borderSoft).
+  // Refactor to uniform Border.all(_borderSoft, 1) under a ClipRRect(11)
+  // with the tint accent rendered as a 4-dp left strip inside an
+  // IntrinsicHeight > Row(stretch).
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(11),
+    child: IntrinsicHeight(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: _bgPanel2,
+          border: Border.all(color: _borderSoft, width: 1),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4, color: tint),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(13),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 38,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        color: tint.withValues(alpha: 0.18),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(icon, color: tint, size: 22),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(title, style: _tBodyHi),
+                          const SizedBox(height: 4),
+                          Text(body, style: _tBody),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: 38,
-          height: 38,
-          decoration: BoxDecoration(
-            color: tint.withValues(alpha: 0.18),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, color: tint, size: 22),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(title, style: _tBodyHi),
-              const SizedBox(height: 4),
-              Text(body, style: _tBody),
-            ],
-          ),
-        ),
-      ],
     ),
   );
 }
