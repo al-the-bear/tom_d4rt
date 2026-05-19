@@ -2635,16 +2635,24 @@ Widget _buildRecipeCards() {
         for (int i = 0; i < recipes.length; i += 2)
           Padding(
             padding: EdgeInsets.only(bottom: 12.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(child: _recipeCard(i + 1, recipes[i])),
-                SizedBox(width: 12.0),
-                if (i + 1 < recipes.length)
-                  Expanded(child: _recipeCard(i + 2, recipes[i + 1]))
-                else
-                  Expanded(child: SizedBox.shrink()),
-              ],
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #70, P1):
+            // the Row uses CrossAxisAlignment.stretch to equalise the two
+            // _recipeCard heights, but the root is a SingleChildScrollView
+            // (unbounded vertical), so stretch would force the children
+            // to infinite height. Wrap in IntrinsicHeight so stretch
+            // resolves against the max intrinsic height of the cards.
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(child: _recipeCard(i + 1, recipes[i])),
+                  SizedBox(width: 12.0),
+                  if (i + 1 < recipes.length)
+                    Expanded(child: _recipeCard(i + 2, recipes[i + 1]))
+                  else
+                    Expanded(child: SizedBox.shrink()),
+                ],
+              ),
             ),
           ),
       ],
