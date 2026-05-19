@@ -1132,17 +1132,24 @@ class FieldGrid extends StatelessWidget {
       rows.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 14),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: FieldSquare(field: left)),
-              const SizedBox(width: 14),
-              Expanded(
-                child: right == null
-                    ? const SizedBox.shrink()
-                    : FieldSquare(field: right),
-              ),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P1):
+          // Row(crossAxisAlignment: stretch) inside the unbounded vertical
+          // viewport of SingleChildScrollView gets infinite height
+          // constraints. IntrinsicHeight scopes the row to its tallest
+          // child so the stretch siblings have a finite height to match.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: FieldSquare(field: left)),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: right == null
+                      ? const SizedBox.shrink()
+                      : FieldSquare(field: right),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -1548,17 +1555,22 @@ class ReadoutGrid extends StatelessWidget {
       rows.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: ReadoutCellView(cell: left)),
-              const SizedBox(width: 10),
-              Expanded(
-                child: right == null
-                    ? const SizedBox.shrink()
-                    : ReadoutCellView(cell: right),
-              ),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P1):
+          // Stretch-Row inside an unbounded SingleChildScrollView — wrap
+          // in IntrinsicHeight to give the row a finite cross-axis size.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: ReadoutCellView(cell: left)),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: right == null
+                      ? const SizedBox.shrink()
+                      : ReadoutCellView(cell: right),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -2042,14 +2054,21 @@ class CompareTable extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          for (int i = 0; i < columns.length; i++) ...<Widget>[
-            Expanded(child: CompareColumnView(column: columns[i])),
-            if (i != columns.length - 1) const SizedBox(width: 12),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P1):
+      // Stretch-Row inside an unbounded vertical viewport
+      // (SingleChildScrollView root) — wrap in IntrinsicHeight so the
+      // Expanded columns share the tallest column's height rather than
+      // receiving an infinite cross-axis constraint.
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            for (int i = 0; i < columns.length; i++) ...<Widget>[
+              Expanded(child: CompareColumnView(column: columns[i])),
+              if (i != columns.length - 1) const SizedBox(width: 12),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -2240,17 +2259,22 @@ class UseCaseGrid extends StatelessWidget {
       rows.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 14),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: UseCaseCard(entry: left)),
-              const SizedBox(width: 14),
-              Expanded(
-                child: right == null
-                    ? const SizedBox.shrink()
-                    : UseCaseCard(entry: right),
-              ),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P1):
+          // Stretch-Row inside an unbounded SingleChildScrollView — wrap
+          // in IntrinsicHeight to give the row a finite cross-axis size.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: UseCaseCard(entry: left)),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: right == null
+                      ? const SizedBox.shrink()
+                      : UseCaseCard(entry: right),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -2411,84 +2435,104 @@ class CaveatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
-      decoration: BoxDecoration(
-        color: kSurfaceCard,
-        borderRadius: const BorderRadius.all(Radius.circular(14)),
-        border: Border(
-          left: BorderSide(color: entry.tint, width: 4),
-          top: const BorderSide(color: kViolet100),
-          right: const BorderSide(color: kViolet100),
-          bottom: const BorderSide(color: kViolet100),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: entry.tint.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Icon(entry.icon, color: entry.tint, size: 20),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  entry.title,
-                  style: const TextStyle(
-                    color: kInkPrimary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P5(a)):
+    // Original used Border(left: 4 solid, top/right/bottom: 1 thin) with
+    // borderRadius — the bridged painter rejects non-uniform border colors
+    // on a rounded shape. Canonical fix: ClipRRect > IntrinsicHeight > Row
+    // with the left accent as a sibling Container(width: 4) and a uniform
+    // Border.all on the body.
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(14)),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4, color: entry.tint),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                decoration: BoxDecoration(
+                  color: kSurfaceCard,
+                  border: Border.all(color: kViolet100, width: 1),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  entry.body,
-                  style: const TextStyle(
-                    color: kInkBody,
-                    fontSize: 12.5,
-                    height: 1.45,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: entry.tint.withValues(alpha: 0.12),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(Icons.lightbulb_outline, size: 13, color: entry.tint),
-                      const SizedBox(width: 6),
-                      Flexible(
-                        child: Text(
-                          entry.hint,
-                          style: TextStyle(
-                            color: entry.tint,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 38,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        color: entry.tint.withValues(alpha: 0.15),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                       ),
-                    ],
-                  ),
+                      child: Icon(entry.icon, color: entry.tint, size: 20),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            entry.title,
+                            style: const TextStyle(
+                              color: kInkPrimary,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            entry.body,
+                            style: const TextStyle(
+                              color: kInkBody,
+                              fontSize: 12.5,
+                              height: 1.45,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: entry.tint.withValues(alpha: 0.12),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.lightbulb_outline,
+                                  size: 13,
+                                  color: entry.tint,
+                                ),
+                                const SizedBox(width: 6),
+                                Flexible(
+                                  child: Text(
+                                    entry.hint,
+                                    style: TextStyle(
+                                      color: entry.tint,
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -2505,14 +2549,20 @@ class TakeawayFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        const SidebarStripe(),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #26, P1):
+    // Stretch-Row pairs a fixed-width SidebarStripe with an Expanded card
+    // inside an unbounded vertical viewport (SingleChildScrollView root).
+    // IntrinsicHeight scopes the row to the card's natural height so the
+    // sidebar can match it instead of receiving infinite constraints.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const SidebarStripe(),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
             decoration: const BoxDecoration(
               color: kSurfaceCard,
               borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -2554,6 +2604,7 @@ class TakeawayFooter extends StatelessWidget {
           ),
         ),
       ],
+    ),
     );
   }
 }
