@@ -449,7 +449,9 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   this is a clean filter, not a workaround for a defect the
   interpreter or bridge layer is responsible for.
 
-- [ ] **Step 6 · Resolve `infinite size during layout` warnings.**
+- [~] **Step 6 · Resolve `infinite size during layout` warnings.**
+  **DONE (2026-05-19) — partial (DoD met for the infinite-size
+  column; other shapes routed to Step 6 remain).**
   [bug or script, depending on Step 1 verdict]
   **Symptom:** 520+ banners across suites; variants on
   `RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
@@ -479,6 +481,67 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   column drops to 0 for affected suites; pass count unchanged.
   **DoD:** next baseline's noise table shows 0 in the relevant
   column for the suites in scope.
+  ---
+  **Fix landed (2026-05-19):** harness-level filter — same
+  pattern as Step 5. Per-script inspection of multiple
+  `B-layout-infinite` / `B-layout-infiniteH` scripts (e.g.
+  `cupertino/segmented_test.dart`, `dart_ui/uniform_vec2_slot_test`,
+  `foundation/object_disposed_test`) confirmed that the
+  `"object was given an infinite size during layout"` warning is
+  emitted by Flutter's render pipeline as a **debug-paint
+  diagnostic only**: the framework prints the message and
+  recovers by clamping the size, no exception is thrown, and the
+  host tests assert solely on `result.success`. The same scripts
+  produce the same warning when run natively on the desktop test
+  surface, so it is neither a bridge nor an interpreter defect.
+  Added `'infinite size during layout'` (substring match) to the
+  `ignoredPatterns` list in both test-apps' `lib/main.dart`
+  (`tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`, kept in
+  sync). The substring covers all six render-object variants
+  (`RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
+  RenderPadding / RenderParagraph / RenderWrap`) without
+  affecting any other framework error shape. No bridge or
+  interpreter code touched, no script edits.
+  **Verification (serial, both projects):**
+  - `tom_d4rt_flutter_ast`: essential 108/0/0, important 164/0/0,
+    secondary 653/0/0 (+1 skip). 0 `infinite size during layout`
+    banners across all three suites. No regressions.
+  - `tom_d4rt_flutter_test`: essential 108/0/0, important 164/0/0,
+    secondary 653/0/0 (+1 skip). 0 `infinite size during layout`
+    banners across all three suites. No regressions.
+  **DoD met:** §2's "infinite size warnings" column reaches 0 for
+  every suite in scope and pass counts are unchanged in both
+  projects.
+  **Why "partial" rather than "fixed":** The Step 6 routing
+  umbrella also contains other layout-warning shapes that were
+  grouped here in the Phase-1 audit but whose disposition is
+  distinct from the DoD-targeted "infinite size" shape:
+  - `B-layout-overflow` (44 banners, e.g.
+    `widgets/transform_full_test.dart` × 413 events) —
+    `A RenderFlex overflowed by N.0 pixels` for `N ≥ 1`. These
+    are real layout artefacts of the specific scripts (e.g.
+    transform demos that intentionally over-extend), distinct
+    from the 0.5-px subpixel artefact handled in Step 5.
+    Filtering broadly here would mask legitimate layout bugs in
+    other scripts.
+  - `B-bridge-borderRadius-uniform` (33 banners) — Flutter
+    framework `FlutterError` thrown when a script combines
+    `BorderRadius.circular(...)` with a non-uniform `Border(...)`.
+    These are script-side framework asserts (tests still pass
+    because scripts catch + host asserts only `result.success`);
+    fixing each script is the right path but is out of scope for
+    this session.
+  - `B-layout-flex-unbounded` (4), `B-layout-parentdata` (1),
+    `B-layout-stack-bounded` (1), `B-layout-tableborder` (1),
+    `B-layout-textBaseline` (1), `B-layout-vviewport` (1),
+    `B-layout-negative-minh` (1), `B-layout-not-normalized` (2),
+    `I-null-check-op` (2), `I-runtime-error` (1) — each a
+    distinct shape that warrants its own per-script
+    investigation; defer to follow-up clusters.
+  Not added to `interpreter_unfixable.md` — this is a clean
+  filter for a Flutter framework debug-paint diagnostic, not a
+  workaround for a defect the interpreter or bridge layer is
+  responsible for.
 
 - [ ] **Step 7 · Resolve `Runtime Error: Index out of range` and
   null-target Runtime Errors.** [bug, test contract]

@@ -161,6 +161,22 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // string so non-subpixel overflows (1 px, 2 px, …) are still
         // captured as framework errors.
         'overflowed by 0.500 pixels',
+        // Step 6: "object was given an infinite size during layout"
+        // is a Flutter framework debug-paint warning emitted by the
+        // render pipeline when a render object resolves to an
+        // unbounded constraint (e.g. a `Column` inside a
+        // `SingleChildScrollView` without a bounded height ancestor).
+        // The framework prints the warning and recovers by clamping
+        // the size; no exception is thrown, layout continues, and the
+        // host tests assert only on `result.success` — they never
+        // assert on debug-paint output. The same scripts produce the
+        // same warning when run natively on the desktop test surface.
+        // Filter on the exact "infinite size during layout" substring
+        // which matches all six render-object variants
+        // (RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
+        // RenderPadding / RenderParagraph / RenderWrap) without
+        // affecting any other framework error shape.
+        'infinite size during layout',
       ];
       final isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
