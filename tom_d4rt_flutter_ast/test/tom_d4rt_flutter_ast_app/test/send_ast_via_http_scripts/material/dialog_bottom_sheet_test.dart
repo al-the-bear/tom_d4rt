@@ -693,8 +693,14 @@ Widget _galleryRow(List<Widget> kids) {
 }
 
 Widget _galleryDialog(Widget dialog, String tag) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #41, P2):
+  // The icon-bearing AlertDialogs in section 5 (destructive/info/error/
+  // success) and the SimpleDialogs with 4 options in section 6 are ~302
+  // px tall, overflowing the original 280-px stage by 22 px on the
+  // bottom. Bumped to 320 px so all gallery dialogs fit with a small
+  // breathing margin.
   return Container(
-    height: 280,
+    height: 320,
     decoration: BoxDecoration(
       color: _plumDeep,
       borderRadius: BorderRadius.circular(10),
@@ -894,8 +900,14 @@ Widget _section6SimpleDialogGallery() {
 }
 
 Widget _simpleLanguage() {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #41, P3):
+  // SimpleDialog with several SimpleDialogOption rows (avatar/icon +
+  // SizedBox + Text) exceeds the 240-px stage width by 11-20 px on the
+  // right when rendered inside the gallery card. Widened the static
+  // dialog stage to 280 px so the Row's natural width (chrome + label)
+  // fits without an overflow.
   return SizedBox(
-    width: 240,
+    width: 280,
     child: Material(
       color: Colors.transparent,
       child: SimpleDialog(
@@ -926,7 +938,7 @@ Widget _simpleLanguage() {
 
 Widget _simpleAccount() {
   return SizedBox(
-    width: 240,
+    width: 280,
     child: Material(
       color: Colors.transparent,
       child: SimpleDialog(
@@ -973,7 +985,7 @@ Widget _simpleAccount() {
 
 Widget _simpleTheme() {
   return SizedBox(
-    width: 240,
+    width: 280,
     child: Material(
       color: Colors.transparent,
       child: SimpleDialog(
@@ -1012,7 +1024,7 @@ Widget _simpleTheme() {
 
 Widget _simpleSort() {
   return SizedBox(
-    width: 240,
+    width: 280,
     child: Material(
       color: Colors.transparent,
       child: SimpleDialog(
