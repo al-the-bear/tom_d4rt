@@ -8,3 +8,4 @@ testlog_*/**
 !testlog_*/_revision.txt
 !testlog_*/_timestamp.txt
 !testlog_*/_driver.log.txt
+!testlog_*/framework_error_fix_plan.md
