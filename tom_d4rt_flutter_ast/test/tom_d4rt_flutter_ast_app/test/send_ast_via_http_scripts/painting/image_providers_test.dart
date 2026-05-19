@@ -1065,52 +1065,63 @@ dynamic build(BuildContext context) {
           style: TextStyle(color: kEmulsion, fontSize: 12.0),
         ),
         const SizedBox(height: 12.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #63, P12):
+        // The two inline Column children are wrapped in Expanded so the
+        // outer Row hands them a bounded width. Without Expanded, Row
+        // propagates an unbounded width constraint to its non-flex
+        // children, and the kKeyValue rows nested inside (Padding > Row >
+        // Expanded(Text)) then fail with "RenderFlex children have
+        // non-zero flex but incoming width constraints are unbounded".
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'policy: ResizeImagePolicy.fit',
-                  style: TextStyle(
-                    color: kCyanotype,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w800,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'policy: ResizeImagePolicy.fit',
+                    style: TextStyle(
+                      color: kCyanotype,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6.0),
-                resizeFitVisual,
-                const SizedBox(height: 6.0),
-                kKeyValue('width', '${resizeA.width}'),
-                kKeyValue('height', '${resizeA.height}'),
-                kKeyValue('upscaling', '${resizeA.allowUpscaling}'),
-                kKeyValue('wraps', '${resizeA.imageProvider.runtimeType}'),
-              ],
+                  const SizedBox(height: 6.0),
+                  resizeFitVisual,
+                  const SizedBox(height: 6.0),
+                  kKeyValue('width', '${resizeA.width}'),
+                  kKeyValue('height', '${resizeA.height}'),
+                  kKeyValue('upscaling', '${resizeA.allowUpscaling}'),
+                  kKeyValue('wraps', '${resizeA.imageProvider.runtimeType}'),
+                ],
+              ),
             ),
             const SizedBox(width: 16.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'policy: ResizeImagePolicy.exact',
-                  style: TextStyle(
-                    color: kSafelightRed,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w800,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'policy: ResizeImagePolicy.exact',
+                    style: TextStyle(
+                      color: kSafelightRed,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6.0),
-                resizeExactVisual,
-                const SizedBox(height: 6.0),
-                kKeyValue('width', '${resizeAExact.width}'),
-                kKeyValue('height', '${resizeAExact.height}'),
-                kKeyValue('upscaling', '${resizeAExact.allowUpscaling}'),
-                kKeyValue(
-                  'wraps',
-                  '${resizeAExact.imageProvider.runtimeType}',
-                ),
-              ],
+                  const SizedBox(height: 6.0),
+                  resizeExactVisual,
+                  const SizedBox(height: 6.0),
+                  kKeyValue('width', '${resizeAExact.width}'),
+                  kKeyValue('height', '${resizeAExact.height}'),
+                  kKeyValue('upscaling', '${resizeAExact.allowUpscaling}'),
+                  kKeyValue(
+                    'wraps',
+                    '${resizeAExact.imageProvider.runtimeType}',
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -1791,5 +1802,21 @@ dynamic build(BuildContext context) {
   );
 
   print('[image_providers_test] root composed; returning to renderer');
-  return root;
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #63, P2):
+  // The composed document is ~5200 logical pixels tall and overflowed the
+  // 800×600 test viewport by 4637 px on the bottom after the P12 fix above
+  // resolved the unbounded-width error and let the tree finally lay out.
+  // Wrap the root in Scaffold > SafeArea > SingleChildScrollView so the
+  // long demo scrolls inside a bounded viewport. None of the inner Rows
+  // use CrossAxisAlignment.stretch, so the now-unbounded vertical
+  // constraint does not propagate to a stretch-Row (which would have
+  // tripped a follow-up "BoxConstraints forces an infinite height").
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: root,
+      ),
+    ),
+  );
 }
