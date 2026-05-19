@@ -359,7 +359,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 ### Cluster C — `gestures/` (items 21–34)
 
-21. `gestures/hit_testable_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+21. ~~`gestures/hit_testable_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** Canonical P5(a) pattern: `_zStackEntry` (called 4× in the z-stack panel) used `Border(left: 4, top/right/bottom: 1) + borderRadius: 8`, which the bridged painter rejects as non-uniform with a rounded radius. Fix: render the card as `ClipRRect > IntrinsicHeight > Row` with the left accent as a sibling `Container(width: 4)` and a uniform `Border.all` on the body Container. Verified `frameworkErrors=4→0`.
 
 22. `gestures/horizontal_multi_drag_gesture_recognizer_test.dart` *(secondary_classes_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
 

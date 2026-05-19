@@ -1326,58 +1326,76 @@ Widget _buildZStackExample() {
 }
 
 Widget _zStackEntry(int order, Color color, String name, String note) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 6.0),
-    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #21, P5(a)):
+  // Border(left: 4, top/right/bottom: 1) with borderRadius is rejected
+  // by the bridged painter ("uniform-colors"). Render the rounded card
+  // via ClipRRect > IntrinsicHeight > Row with the left accent as a
+  // sibling Container (width: 4) and a uniform Border.all on the body.
+  return Padding(
+    padding: EdgeInsets.only(bottom: 6.0),
+    child: ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-        top: BorderSide(color: Colors.grey.shade200, width: 1.0),
-        right: BorderSide(color: Colors.grey.shade200, width: 1.0),
-        bottom: BorderSide(color: Colors.grey.shade200, width: 1.0),
-      ),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 24.0,
-          height: 24.0,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Text(
-            '$order',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11.0,
-            ),
-          ),
-        ),
-        SizedBox(width: 10.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: 13.0,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4.0, color: color),
+            Expanded(
+              child: Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey.shade200, width: 1.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 24.0,
+                      height: 24.0,
+                      alignment: Alignment.center,
+                      decoration:
+                          BoxDecoration(color: color, shape: BoxShape.circle),
+                      child: Text(
+                        '$order',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11.0,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: color,
+                              fontSize: 13.0,
+                            ),
+                          ),
+                          SizedBox(height: 2.0),
+                          Text(
+                            note,
+                            style: TextStyle(
+                                fontSize: 11.5,
+                                color: Colors.grey.shade700),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 2.0),
-              Text(
-                note,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     ),
   );
 }
