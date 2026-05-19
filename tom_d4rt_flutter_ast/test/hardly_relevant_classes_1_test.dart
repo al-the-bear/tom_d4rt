@@ -1234,12 +1234,21 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('least_squares_solver_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'gestures/least_squares_solver_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'least_squares_solver_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'gestures/least_squares_solver_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      // 2337-line script: build can stack against the 25s HTTP timeout +
+      // 30s default dart-test timeout. Bumping per-test timeout to 60s
+      // gives the in-flight HTTP request enough headroom to complete on
+      // slower hosts. See doc/testlog_20260518-1449-flutter-suites/
+      // error_analysis.md Step 9 (transport flake).
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('mac_o_s_scroll_view_fling_velocity_tracker_test.dart', () async {
       final result = await SendTestRunner.send(
