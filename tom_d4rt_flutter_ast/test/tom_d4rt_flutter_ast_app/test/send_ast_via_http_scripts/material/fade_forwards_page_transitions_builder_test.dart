@@ -581,9 +581,15 @@ Widget _sectionCard({
 
 Widget _pageLogin() {
   // A clean Material 3 login page mock: title, two text fields, and a CTA.
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // The inner Column overflowed the original height of 360 by 3.6 px; this
+  // overflow was previously masked by the now-fixed P12 abort in _frameCard.
+  // Bumped to 380 so the Spacer-based Column has room for the title row,
+  // two mock fields, two mock buttons, and the footer text. The freezer's
+  // SizedBox dimensions below are bumped to match.
   return Container(
     width: 220,
-    height: 360,
+    height: 380,
     decoration: BoxDecoration(
       color: kProgrammeIvory,
       borderRadius: BorderRadius.circular(8),
@@ -638,9 +644,13 @@ Widget _pageLogin() {
 
 Widget _pageDashboard() {
   // A miniature analytics dashboard.
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Inner Column overflowed the original height of 360 by 3.6 px (masked
+  // by the prior P12 abort). Bumped to 380 to give the stats + bar-row +
+  // cue-queue stack a small breathing margin.
   return Container(
     width: 220,
-    height: 360,
+    height: 380,
     decoration: BoxDecoration(
       color: kProgrammeIvory,
       borderRadius: BorderRadius.circular(8),
@@ -696,9 +706,13 @@ Widget _pageDashboard() {
 
 Widget _pageSettings() {
   // A short settings list page.
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Inner Column overflowed the original height of 360 by 3.6 px (masked
+  // by the prior P12 abort). Bumped to 380 so the six settings rows and
+  // the "Changes apply" callout fit with the Spacer in between.
   return Container(
     width: 220,
-    height: 360,
+    height: 380,
     decoration: BoxDecoration(
       color: kProgrammeIvory,
       borderRadius: BorderRadius.circular(8),
@@ -928,9 +942,14 @@ Widget _frozenFadeForwards(BuildContext context, double t, Widget child) {
   final Animation<double> secondary = AlwaysStoppedAnimation<double>(0.0);
   const FadeForwardsPageTransitionsBuilder builder =
       FadeForwardsPageTransitionsBuilder();
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Freezer outer dimensions bumped 360 → 380 to match the bumped page mock
+  // heights (see _pageLogin / _pageDashboard / _pageSettings). Without this,
+  // the freezer SizedBox would tightly clamp the 380-tall page back to 360
+  // and the inner Column would still overflow by 3.6 px.
   return SizedBox(
     width: 220,
-    height: 360,
+    height: 380,
     child: ClipRect(
       child: builder.buildTransitions<dynamic>(
         null, // PageRoute is unused by FadeForwardsPageTransitionsBuilder
@@ -948,9 +967,14 @@ Widget _frozenFadeUpwards(BuildContext context, double t, Widget child) {
   final Animation<double> secondary = AlwaysStoppedAnimation<double>(0.0);
   const FadeUpwardsPageTransitionsBuilder builder =
       FadeUpwardsPageTransitionsBuilder();
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Freezer outer dimensions bumped 360 → 380 to match the bumped page mock
+  // heights (see _pageLogin / _pageDashboard / _pageSettings). Without this,
+  // the freezer SizedBox would tightly clamp the 380-tall page back to 360
+  // and the inner Column would still overflow by 3.6 px.
   return SizedBox(
     width: 220,
-    height: 360,
+    height: 380,
     child: ClipRect(
       child: builder.buildTransitions<dynamic>(
         null,
@@ -971,9 +995,14 @@ Widget _frozenZoom(BuildContext context, double t, Widget child) {
   // the rough feel of the live transition.
   final double scale = 0.92 + 0.08 * t;
   final double alpha = t < 0.2 ? t * 5.0 : 1.0;
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Freezer outer dimensions bumped 360 → 380 to match the bumped page mock
+  // heights (see _pageLogin / _pageDashboard / _pageSettings). Without this,
+  // the freezer SizedBox would tightly clamp the 380-tall page back to 360
+  // and the inner Column would still overflow by 3.6 px.
   return SizedBox(
     width: 220,
-    height: 360,
+    height: 380,
     child: ClipRect(
       child: Opacity(
         opacity: alpha.clamp(0.0, 1.0).toDouble(),
@@ -991,9 +1020,14 @@ Widget _frozenOpenUpwards(BuildContext context, double t, Widget child) {
   final Animation<double> secondary = AlwaysStoppedAnimation<double>(0.0);
   const OpenUpwardsPageTransitionsBuilder builder =
       OpenUpwardsPageTransitionsBuilder();
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Freezer outer dimensions bumped 360 → 380 to match the bumped page mock
+  // heights (see _pageLogin / _pageDashboard / _pageSettings). Without this,
+  // the freezer SizedBox would tightly clamp the 380-tall page back to 360
+  // and the inner Column would still overflow by 3.6 px.
   return SizedBox(
     width: 220,
-    height: 360,
+    height: 380,
     child: ClipRect(
       child: builder.buildTransitions<dynamic>(
         null,
@@ -1013,9 +1047,14 @@ Widget _frozenCupertino(BuildContext context, double t, Widget child) {
   // at t=0 to 0 at t=1, with no fade. This matches the visual signature
   // of a Cupertino push.
   final double dx = 220.0 * (1.0 - t);
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P2 follow-up):
+  // Freezer outer dimensions bumped 360 → 380 to match the bumped page mock
+  // heights (see _pageLogin / _pageDashboard / _pageSettings). Without this,
+  // the freezer SizedBox would tightly clamp the 380-tall page back to 360
+  // and the inner Column would still overflow by 3.6 px.
   return SizedBox(
     width: 220,
-    height: 360,
+    height: 380,
     child: ClipRect(
       child: Transform.translate(
         offset: Offset(dx, 0.0),
@@ -1034,6 +1073,18 @@ Widget _frameCard({
   required String caption,
 }) {
   return Container(
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #44, P12, horizontal):
+    // This card lives inside a horizontal SingleChildScrollView (Act 4 strip
+    // at line ~1114 and Act 6 row at line ~1756). That horizontal scroll
+    // gives our outer Row child loose, *unbounded* width constraints; with
+    // no explicit width on this Container, the inner header Row's
+    // `Expanded(child: Text(caption))` then trips "RenderFlex children have
+    // non-zero flex but incoming width constraints are unbounded". The
+    // frozen page mocks (`_pageLogin`, `_pageDashboard`, `_pageSettings`)
+    // are all 220 px wide; matching that here (plus the 16 px combined
+    // padding) gives the header Row a finite width to flex against and lets
+    // the strips render at their intended snapshot proportions.
+    width: 236,
     margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
