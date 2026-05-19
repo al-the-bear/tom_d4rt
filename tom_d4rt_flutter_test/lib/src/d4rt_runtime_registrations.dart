@@ -16,6 +16,9 @@ import 'package:flutter/animation.dart' show Tween;
 import 'package:flutter/foundation.dart'
     show
         ChangeNotifier,
+        DiagnosticPropertiesBuilder,
+        DiagnosticableTreeMixin,
+        DiagnosticsNode,
         Key,
         Listenable,
         ValueKey,
@@ -550,6 +553,38 @@ void _registerInterfaceProxies() {
     final cached = instance.nativeProxy;
     if (cached is Listenable) return cached;
     final proxy = ChangeNotifier();
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // Step 3 (testlog 20260518-1449) — DiagnosticableTreeMixin proxy.
+  //
+  // Scripts shaped like `class _Node with DiagnosticableTreeMixin` (no
+  // bridged superclass, just the mixin) reach the bridged-mixin method
+  // dispatch in `runtime_types.dart` where `target` defaults to the
+  // InterpretedInstance itself. The generated adapter (foundation_bridges.b.dart
+  // `DiagnosticableTreeMixin.toStringDeep` / `debugFillProperties` /
+  // `debugDescribeChildren` / `toStringShort`) then fails its
+  // `D4.validateTarget<DiagnosticableTreeMixin>` cast.
+  //
+  // The proxy provides a native `DiagnosticableTreeMixin` shadow that
+  // forwards `toStringShort`, `debugFillProperties`, and
+  // `debugDescribeChildren` back to the interpreted instance via
+  // `_instance.klass.findInstanceMethod(...).bind(_instance).call(_visitor,
+  // ...)`. The native `toStringDeep` (inherited from the mixin) drives the
+  // traversal, calling our overrides — which lets script overrides run and
+  // produces a real `toStringDeep` output.
+  //
+  // Recursion guard: when the script's own `debugFillProperties` calls
+  // `super.debugFillProperties(properties)`, super-call dispatch
+  // (BridgedSuperMethodCallable) routes through `instance.nativeProxy` —
+  // which is THIS proxy. Without a guard, that re-enters the override and
+  // recurses. The `_in*` flags short-circuit re-entry to the native
+  // default impl on the mixin.
+  D4.registerInterfaceProxy('DiagnosticableTreeMixin', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is DiagnosticableTreeMixin) return cached;
+    final proxy = _InterpretedDiagnosticableTreeMixin(visitor, instance);
     instance.nativeProxy ??= proxy;
     return proxy;
   });
@@ -4302,5 +4337,86 @@ class _InterpretedRouterDelegate extends RouterDelegate<dynamic>
   void removeListener(VoidCallback listener) {
     final result = _maybeInvoke('removeListener', [listener]);
     if (identical(result, _kNotImplemented)) return;
+  }
+}
+
+/// Step 3 (testlog 20260518-1449): Native shadow for interpreted classes
+/// shaped like `class _Node with DiagnosticableTreeMixin`.
+///
+/// The native `DiagnosticableTreeMixin.toStringDeep` traversal calls
+/// `toStringShort`, `debugFillProperties`, and `debugDescribeChildren` —
+/// the three methods scripts override per the mixin contract. Each
+/// override below forwards to the interpreted instance when the script
+/// provides an override, otherwise falls through to the mixin's default.
+///
+/// Recursion guards: when the script's own `debugFillProperties` invokes
+/// `super.debugFillProperties(properties)`, super-call dispatch routes
+/// through `instance.nativeProxy` (which is this proxy). Without a guard,
+/// re-entering the same override would loop. The boolean flags
+/// short-circuit re-entry to the mixin's native default impl.
+class _InterpretedDiagnosticableTreeMixin
+    with DiagnosticableTreeMixin
+    implements D4InterpretedProxy {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+  bool _inToStringShort = false;
+  bool _inDebugFillProperties = false;
+  bool _inDebugDescribeChildren = false;
+
+  _InterpretedDiagnosticableTreeMixin(this._visitor, this._instance);
+
+  @override
+  InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  String toStringShort() {
+    if (_inToStringShort) return super.toStringShort();
+    final method = _instance.klass.findInstanceMethod('toStringShort');
+    if (method == null) return super.toStringShort();
+    _inToStringShort = true;
+    try {
+      final result = method.bind(_instance).call(_visitor, [], {});
+      if (result is String) return result;
+      return super.toStringShort();
+    } finally {
+      _inToStringShort = false;
+    }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    if (_inDebugFillProperties) {
+      super.debugFillProperties(properties);
+      return;
+    }
+    final method = _instance.klass.findInstanceMethod('debugFillProperties');
+    if (method == null) {
+      super.debugFillProperties(properties);
+      return;
+    }
+    _inDebugFillProperties = true;
+    try {
+      method.bind(_instance).call(_visitor, [properties], {});
+    } finally {
+      _inDebugFillProperties = false;
+    }
+  }
+
+  @override
+  List<DiagnosticsNode> debugDescribeChildren() {
+    if (_inDebugDescribeChildren) return super.debugDescribeChildren();
+    final method =
+        _instance.klass.findInstanceMethod('debugDescribeChildren');
+    if (method == null) return super.debugDescribeChildren();
+    _inDebugDescribeChildren = true;
+    try {
+      final result = method.bind(_instance).call(_visitor, [], {});
+      if (result is List) {
+        return result.whereType<DiagnosticsNode>().toList();
+      }
+      return super.debugDescribeChildren();
+    } finally {
+      _inDebugDescribeChildren = false;
+    }
   }
 }
