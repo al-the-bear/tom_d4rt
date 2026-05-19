@@ -370,50 +370,71 @@ Widget _calloutBox({
   required Color color,
   IconData icon = Icons.info_outline,
 }) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #62, P5(a)):
+  // Original combined borderRadius:10 with asymmetric Border (left: 4-dp
+  // tint accent, t/r/b: 1-dp 0.3-alpha tint hairline) — Flutter forbids
+  // non-uniform colors with a radius. Refactored to uniform Border.all
+  // (0.3-alpha hairline) + ClipRRect(10) + IntrinsicHeight > Row(stretch,
+  // [Container(width:4, color: tint), Expanded(Padding(content))]).
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8),
-    padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.10),
       borderRadius: BorderRadius.circular(10),
-      border: Border(
-        left: BorderSide(color: color, width: 4),
-        top: BorderSide(color: color.withOpacity(0.3)),
-        right: BorderSide(color: color.withOpacity(0.3)),
-        bottom: BorderSide(color: color.withOpacity(0.3)),
-      ),
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, size: 18, color: color),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.5,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(width: 4.0, color: color),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.10),
+                  border: Border.all(
+                    color: color.withOpacity(0.3),
+                    width: 1.0,
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(icon, size: 18, color: color),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                              color: color,
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            body,
+                            style: TextStyle(
+                              color: _ink.withOpacity(0.92),
+                              fontSize: 12.5,
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  color: _ink.withOpacity(0.92),
-                  fontSize: 12.5,
-                  height: 1.4,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     ),
   );
 }
