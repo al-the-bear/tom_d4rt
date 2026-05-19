@@ -1023,11 +1023,19 @@ Widget buildDropdownVariant({
                     ),
                   ),
                 ),
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #72,
+                // P11): the follower panel has 3 entries with intrinsic
+                // height ~100 px; the original `height: 40` forced a
+                // RenderFlex overflow of 64 px on the bottom. Dropping
+                // the height constraint lets the Positioned size itself
+                // to the child's intrinsic min-content (Column with
+                // mainAxisSize.min). Visually the panel still floats
+                // below the anchor at (left:0, top:80), now showing all
+                // three entries inside the surrounding `SizedBox(height:200)`.
                 Positioned(
                   left: 0,
                   top: 80,
                   width: 160,
-                  height: 40,
                   child: CompositedTransformFollower(
                     link: link,
                     showWhenUnlinked: false,
@@ -2127,11 +2135,15 @@ Widget buildAutocompletePatternCard() {
                 ),
               ),
             ),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #72, P11):
+            // 3-entry follower panel intrinsic height ~100 px, original
+            // `height: 90` forced a 14-px bottom overflow. Dropping the
+            // height lets the Positioned size to the panel's content;
+            // the panel still fits inside the surrounding SizedBox(height:150).
             Positioned(
               left: 0,
               top: 18,
               width: 280,
-              height: 90,
               child: CompositedTransformFollower(
                 link: kAutocompleteLink,
                 showWhenUnlinked: false,
@@ -2186,11 +2198,14 @@ Widget buildAnchoredPopoverPatternCard() {
                 ),
               ),
             ),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #72, P11):
+            // same 3-entry follower / 90-px-too-tight case as the
+            // autocomplete pattern above — drop `height: 90` so the
+            // panel sizes to its intrinsic ~100-px content.
             Positioned(
               left: 220,
               top: 30,
               width: 160,
-              height: 90,
               child: CompositedTransformFollower(
                 link: kPopoverLink,
                 showWhenUnlinked: false,
