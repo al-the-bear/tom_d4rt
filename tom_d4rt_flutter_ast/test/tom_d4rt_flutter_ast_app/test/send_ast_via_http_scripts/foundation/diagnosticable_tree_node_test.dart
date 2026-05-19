@@ -912,15 +912,30 @@ class _LiveWalkCard extends StatelessWidget {
 class _NodeCard extends StatelessWidget {
   const _NodeCard({required this.node, required this.depth});
 
-  final DiagnosticsNode node;
+  final DiagnosticsNode? node;
   final int depth;
 
   @override
   Widget build(BuildContext context) {
-    final List<DiagnosticsNode> kids = node.getChildren();
-    final List<DiagnosticsNode> props = node.getProperties();
-    final String label = node.name ?? '<unnamed>';
-    final String desc = node.toDescription();
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #14, P7):
+    // The bridged DiagnosticsNode root / getChildren() / getProperties()
+    // calls can return null values that the interpreter exposes even though
+    // the static type is non-nullable. Make `node` nullable and bail out
+    // early; defensively filter null list elements as well.
+    final DiagnosticsNode? n = node;
+    if (n == null) {
+      return const SizedBox.shrink();
+    }
+    final List<DiagnosticsNode> kids = <DiagnosticsNode>[
+      for (final DiagnosticsNode? c in n.getChildren())
+        if (c != null) c,
+    ];
+    final List<DiagnosticsNode> props = <DiagnosticsNode>[
+      for (final DiagnosticsNode? p in n.getProperties())
+        if (p != null) p,
+    ];
+    final String label = n.name ?? '<unnamed>';
+    final String desc = n.toDescription();
     return Padding(
       padding: EdgeInsets.only(left: depth * 16.0, top: 6, bottom: 6),
       child: Container(
@@ -991,12 +1006,19 @@ class _NodeCard extends StatelessWidget {
 
 class _PropPill extends StatelessWidget {
   const _PropPill({required this.node});
-  final DiagnosticsNode node;
+  final DiagnosticsNode? node;
 
   @override
   Widget build(BuildContext context) {
-    final String label = node.name ?? '?';
-    final String shown = node.toDescription();
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #14, P7):
+    // DiagnosticsNode entries may surface as null in the interpreter even
+    // when typed non-nullable. Bail out early on null.
+    final DiagnosticsNode? n = node;
+    if (n == null) {
+      return const SizedBox.shrink();
+    }
+    final String label = n.name ?? '?';
+    final String shown = n.toDescription();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -1188,26 +1210,41 @@ class _JsonViewerCard extends StatelessWidget {
     );
   }
 
-  static List<String> _flattenJson(DiagnosticsNode n, int depth) {
+  static List<String> _flattenJson(DiagnosticsNode? n, int depth) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #14, P7):
+    // The bridged DiagnosticableTreeNode.getChildren() / .getProperties()
+    // calls can return list entries that the interpreter exposes as null,
+    // and the root rootNode itself may arrive null. Bail out, filter nulls
+    // and null-guard member access on each entry.
     final String pad = '  ' * depth;
     final List<String> out = <String>[];
+    if (n == null) {
+      out.add('$pad{ "node": null }');
+      return out;
+    }
     out.add('$pad{');
     out.add('$pad  "name": "${n.name ?? ''}",');
     out.add('$pad  "description": "${n.toDescription()}",');
     out.add('$pad  "style": "${n.style?.toString().split('.').last ?? 'null'}",');
-    final List<DiagnosticsNode> props = n.getProperties();
+    final List<DiagnosticsNode> props = <DiagnosticsNode>[
+      for (final DiagnosticsNode? p in n.getProperties())
+        if (p != null) p,
+    ];
     if (props.isNotEmpty) {
       out.add('$pad  "properties": [');
       for (int i = 0; i < props.length; i++) {
         final DiagnosticsNode p = props[i];
         final String comma = i == props.length - 1 ? '' : ',';
         out.add(
-          '$pad    { "name": "${p.name}", "value": "${p.toDescription()}" }$comma',
+          '$pad    { "name": "${p.name ?? ''}", "value": "${p.toDescription()}" }$comma',
         );
       }
       out.add('$pad  ],');
     }
-    final List<DiagnosticsNode> kids = n.getChildren();
+    final List<DiagnosticsNode> kids = <DiagnosticsNode>[
+      for (final DiagnosticsNode? c in n.getChildren())
+        if (c != null) c,
+    ];
     if (kids.isNotEmpty && depth < 3) {
       out.add('$pad  "children": [');
       for (int i = 0; i < kids.length; i++) {
