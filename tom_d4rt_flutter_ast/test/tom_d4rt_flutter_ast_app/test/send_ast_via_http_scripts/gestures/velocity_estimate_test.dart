@@ -92,6 +92,17 @@ dynamic build(BuildContext context) {
               _NotesSection(),
               SizedBox(height: 16),
               _Footer(),
+              // _WhenItMattersSection(),
+              // SizedBox(height: 28),
+              // _ConstructionSection(),
+              // SizedBox(height: 28),
+              // _LimitationsSection(),
+              // SizedBox(height: 28),
+              // _UnitsSection(),
+              // SizedBox(height: 28),
+              // _NotesSection(),
+              // SizedBox(height: 16),
+              // _Footer(),
             ],
           ),
         ),
@@ -1221,13 +1232,26 @@ class _VelocityVsEstimateSection extends StatelessWidget {
             ],
           );
           if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(child: left),
-                const SizedBox(width: 14),
-                Expanded(child: right),
-              ],
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #34, P1):
+            // The two compare panels were rendered with a
+            // `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` inside
+            // `SingleChildScrollView > Column(stretch)`. The outer scroll
+            // view passes an infinite vertical max constraint, so the
+            // stretching Row gave each Expanded child infinite max height —
+            // their inner Container `RenderConstrainedBox.layout()` then
+            // threw "BoxConstraints forces an infinite height". Wrapping
+            // the Row in `IntrinsicHeight` bounds the height to the taller
+            // panel's intrinsic height; both panels then equalise to that
+            // height without unbounded propagation.
+            return IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(child: left),
+                  const SizedBox(width: 14),
+                  Expanded(child: right),
+                ],
+              ),
             );
           }
           return Column(
@@ -1829,17 +1853,26 @@ class _Callout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #34, P5(a) follow-up):
+    // The original `_Callout` combined a non-uniform `Border(left: 4px tone,
+    // top/right/bottom: tone.withValues(alpha: 0.25))` with
+    // `borderRadius: BorderRadius.circular(12)`, which Flutter rejects with
+    // "A borderRadius can only be given on borders with uniform colors" at
+    // paint time. The errors were initially masked by the P1 height-infinity
+    // failure in `_VelocityVsEstimateSection`; once that was fixed, the
+    // `_LimitationsSection` rendered its 5 callouts and the borderRadius
+    // errors surfaced (5 instances → 5 framework errors). Canonical P5(a)
+    // fix: outer Container holds the uniform tinted border + rounded corners
+    // + `clipBehavior: Clip.antiAlias`; the left accent strip becomes a
+    // sibling `Container(width: 4)` inside an
+    // `IntrinsicHeight > Row(crossAxisAlignment: stretch)`. Visually identical
+    // to the original.
     return Container(
-      padding: const EdgeInsets.all(14),
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: _surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: tone, width: 4),
-          top: BorderSide(color: tone.withValues(alpha: 0.25)),
-          right: BorderSide(color: tone.withValues(alpha: 0.25)),
-          bottom: BorderSide(color: tone.withValues(alpha: 0.25)),
-        ),
+        border: Border.all(color: tone.withValues(alpha: 0.25)),
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
@@ -1856,52 +1889,65 @@ class _Callout extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 28,
-            height: 28,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: tone.withValues(alpha: 0.20),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              '!',
-              style: TextStyle(
-                color: tone,
-                fontSize: 18,
-                fontWeight: FontWeight.w900,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4, color: tone),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 28,
+                      height: 28,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: tone.withValues(alpha: 0.20),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '!',
+                        style: TextStyle(
+                          color: tone,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            title,
+                            style: TextStyle(
+                              color: tone,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            copy,
+                            style: const TextStyle(
+                              color: _inkSoft,
+                              fontSize: 12.5,
+                              height: 1.45,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: tone,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  copy,
-                  style: const TextStyle(
-                    color: _inkSoft,
-                    fontSize: 12.5,
-                    height: 1.45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
