@@ -700,8 +700,41 @@ the quest's "tom_d4rt ↔ tom_d4rt_ast must stay in sync" rule.
   **DoD:** zero Runtime Error banners in the next baseline whose
   intent has not been explicitly asserted by the host test.
 
-- [ ] **Step 8 · Runner-side filter for handled + asserted
-  errors.** [runner]
+- [x] **Step 8 · Runner-side filter for handled + asserted
+  errors.** [runner] —
+  **STATUS: fixed (no-op), 2026-05-19.**
+  No work required at this baseline. The §6 Routing Summary
+  records **`I-handled = 0`** ("none found — no script wraps in
+  try/catch and no host test asserts on captured error content").
+  Confirmed by direct inspection of `test/interactive_tests_test.dart`:
+  the three `interactive_tests_test` cases that emit `Bad state`
+  events (`showmenu_test.dart`, `showbottomsheet_test.dart`,
+  `showtimepicker_test.dart`) each assert only
+  `expect(result.build.success, isTrue)` and `print(result.interact)`
+  — there is no `expect(result.interact!.errors, contains(...))`
+  or `throwsA(...)` matcher anywhere in the suite, so the host
+  test does not bind the captured exception into its success
+  criterion. Those three banners were therefore (correctly)
+  routed to Step 7 as I-unhandled in the original audit
+  (table rows #106-108 plus the §3 note about Bad-state probes
+  printed outside the FRAMEWORK ERROR banner stream).
+  **No runner-side filter implemented.** The implementation
+  design preserved below remains the right approach **if a
+  future baseline surfaces an I-handled row** (i.e. a script that
+  catches the exception **and** a host test that asserts on the
+  captured failure with `expect(...)` / `throwsA(...)`). The
+  three flags needed for the filter — the swallowed-by-script
+  marker, the host-test-passed signal, and the suppression site
+  in `SendTestRunner.send` — are all clearly localised and can
+  be added in a single pass when a banner actually needs them.
+  Per regression rule (a)/(b): zero source changes (only this
+  status block in `error_analysis.md` was edited), so no
+  regression suites required.
+  **DoD met:** the next baseline's noise inventory will show
+  0 banners for I-handled rows because **there are no I-handled
+  rows in the current baseline either** (0 → 0).
+
+  **Original spec (preserved for future use):**
   **Scope:** banners tagged **I-handled** in Step 1 — the script
   catches the exception **and** the host test asserts on the
   contained failure (e.g. the 3 `Bad state` events in
