@@ -339,7 +339,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 11. ~~`foundation/abstract_node_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.~~ **FIXED.** Same pattern as item 10: the script already had `Scaffold > SingleChildScrollView > Column(crossAxisAlignment: stretch)`, so P1 (bound viewport) was not the right fix. The actual trigger was a single `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` at the `_PitfallRow` builder (line 2150) inside the unbounded-height scrollable — `Expanded` + stretch propagated infinite height to the `_CodeBlock` children. Fix: wrapped that one Row in `IntrinsicHeight` so it sizes to its tallest intrinsic child. The eight other `CrossAxisAlignment.stretch` usages are all on `Column`s (horizontal stretch — harmless). Verified `frameworkErrors=1→0`.
 
-12. `foundation/caching_iterable_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+12. ~~`foundation/caching_iterable_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** All three banners came from one `_detailBlock(...)` helper called three times, which combined `Border(left: width 4, top/right/bottom: alpha 0.18) + borderRadius` (the bridge's non-uniform-Border defect). Replaced the structure with a `ClipRRect > IntrinsicHeight > Row` where the left accent is a 4-px sibling `Container` and the content card now uses uniform `Border.all(alpha: 0.18)` — preserves the visual accent stripe and the rounded corners. Verified `frameworkErrors=3→0`.
 
 13. `foundation/diagnosticable_node_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
 

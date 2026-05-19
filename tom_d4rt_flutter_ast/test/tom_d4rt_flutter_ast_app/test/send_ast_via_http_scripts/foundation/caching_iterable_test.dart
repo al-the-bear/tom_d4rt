@@ -628,39 +628,57 @@ class _CacheLifecycleSection extends StatelessWidget {
     required String detail,
     required Color color,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-          top: BorderSide(color: color.withValues(alpha: 0.18)),
-          right: BorderSide(color: color.withValues(alpha: 0.18)),
-          bottom: BorderSide(color: color.withValues(alpha: 0.18)),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #12, P5(a)):
+    // Original used `Border(left: width: 4 + others: alpha: 0.18) +
+    // borderRadius`, which the bridge rejects ("A borderRadius can only be
+    // given on borders with uniform colors."). Re-express the left-accent
+    // stripe as a sibling Container in a Row; the content card now uses a
+    // uniform Border.all so it remains compatible with borderRadius.
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: 4,
               color: color,
-              fontSize: 13,
-              fontWeight: FontWeight.w800,
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            detail,
-            style: const TextStyle(
-              color: Color(0xFF37474F),
-              fontSize: 12,
-              height: 1.5,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: color.withValues(alpha: 0.18),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      detail,
+                      style: const TextStyle(
+                        color: Color(0xFF37474F),
+                        fontSize: 12,
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
