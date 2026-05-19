@@ -381,7 +381,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 31. ~~`gestures/tap_drag_start_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 8.0 px bottom)* — **P2**.~~ **FIXED.** Section 10 (`_buildTapCountChart`) wrapped its bar Row in `SizedBox(height: 140)`, but each inner Column was: count text (~14) + spacing (2) + bar up to 104 + spacing (4) + 2-line label like `'tap=1\n(char)'` (~24 px at fontSize 9.5 × height 1.2) ≈ 148 px → 8 px bottom overflow. Bumped the slot to `height: 160` (the minimal fix). Script-only change; verified single-script retest with `frameworkErrors=0`.
 
-32. `gestures/tap_drag_update_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 16 px right)* — **P3**.
+32. ~~`gestures/tap_drag_update_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 16 px right)* — **P3**.~~ **FIXED.** Localised by section-binary-search (sections 7-12 disabled → still overflow; 4-6 alone → overflow; 4 alone → clean; 4+5 → clean; 4+5+6 → overflow) → `tapCountSection`. Root cause was `tapVignetteCard` width 290 (inner 258 after 16+16 padding) holding a Row of `dotRow` (24 px per dot × count) + 22-px arrow Icon + 4-px gap + a monospace pill `drag · update · update · …`. With count=3 the sum hit ~274 px → 16 px right overflow. Wrapped the trailing pill `Container` in `Flexible` so it shrinks (and the text wraps inside) when the dot row grows. Script-only change; verified single-script retest with `frameworkErrors=0`.
 
 33. `gestures/tap_move_details_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
 

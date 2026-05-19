@@ -1453,32 +1453,43 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 12),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #32, P3):
+          // The card is 290 wide (inner 258 after 16+16 padding). With
+          // count=3 or 4 the inner dot Row (24 px per dot incl. margin)
+          // plus the 22-px arrow Icon, the 4-px SizedBox and the
+          // monospace "drag · update · update · …" pill summed to
+          // ~268-292 px, overflowing the inner width by up to 16 px (the
+          // count=3 case). Wrapped the trailing pill Container in
+          // `Flexible` so it shrinks (and the text wraps within) when
+          // the dot row grows; ASCII content is unchanged.
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Row(children: dotRow),
               const Icon(Icons.arrow_right_alt, color: emerald, size: 22),
               const SizedBox(width: 4),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: v.tint.withValues(alpha: 0.18),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: v.tint.withValues(alpha: 0.5),
-                    width: 1,
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
                   ),
-                ),
-                child: Text(
-                  'drag · update · update · …',
-                  style: TextStyle(
-                    color: v.tint,
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
+                  decoration: BoxDecoration(
+                    color: v.tint.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: v.tint.withValues(alpha: 0.5),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(
+                    'drag · update · update · …',
+                    style: TextStyle(
+                      color: v.tint,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
