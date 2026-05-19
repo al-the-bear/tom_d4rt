@@ -182,6 +182,13 @@ dynamic build(BuildContext context) {
       '${sections.length}');
   print('==============================================================');
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #8):
+  // Nine deep-demo sections stack to ~3091 px on the 800x600 test
+  // viewport, overflowing by 2491 px. Wrap the section Column in a
+  // SingleChildScrollView so the full content lays out in a bounded,
+  // scrollable child (P1+P2). Visual result is unchanged for a
+  // hand-driven render; the static screenshot is just the top of the
+  // scrollable rather than a clipped/overflowing Column.
   return Container(
     decoration: const BoxDecoration(
       gradient: LinearGradient(
@@ -192,10 +199,12 @@ dynamic build(BuildContext context) {
       ),
     ),
     padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: sections,
+    child: SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: sections,
+      ),
     ),
   );
 }
