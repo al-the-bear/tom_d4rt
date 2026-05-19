@@ -1021,12 +1021,28 @@ class _StepperShowcaseSection extends StatelessWidget {
                           onSurface: Colors.white,
                         ),
                   ),
-                  child: Stepper(
-                    physics: const NeverScrollableScrollPhysics(),
-                    currentStep: 2,
-                    type: StepperType.horizontal,
-                    steps: _buildHorizontalSteps(),
-                    controlsBuilder: (ctx, details) => const SizedBox.shrink(),
+                  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #43, P12):
+                  // Flutter's Stepper(type: StepperType.horizontal) internally
+                  // lays out as `Column(children: [headerRow, Expanded(child: …
+                  // content)])`. When that Stepper is placed inside an outer
+                  // Column whose vertical extent is unbounded (we live inside a
+                  // SingleChildScrollView > Column), the inner Expanded sees
+                  // an unbounded incoming height constraint and trips
+                  // "RenderFlex children have non-zero flex but incoming height
+                  // constraints are unbounded". Wrap the horizontal Stepper in
+                  // a SizedBox with a finite height so the inner Expanded gets
+                  // a bounded constraint. 220 px is enough for the header row
+                  // (≈80 px) plus the shrunk-to-empty content area, with a
+                  // breathing margin.
+                  child: SizedBox(
+                    height: 220,
+                    child: Stepper(
+                      physics: const NeverScrollableScrollPhysics(),
+                      currentStep: 2,
+                      type: StepperType.horizontal,
+                      steps: _buildHorizontalSteps(),
+                      controlsBuilder: (ctx, details) => const SizedBox.shrink(),
+                    ),
                   ),
                 ),
               ],
