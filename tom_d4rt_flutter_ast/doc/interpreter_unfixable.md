@@ -5057,11 +5057,28 @@ points to U16. Audit the script for empty-string `Text` widgets
 (including composed strings whose components can sum to empty)
 and substitute a single space.
 
+**Variant banner under `IntrinsicHeight`.** When the empty
+`Text('')` descends from an `IntrinsicHeight` ancestor, the same
+bridge gap surfaces as a different banner:
+`BoxConstraints forces an infinite height.` thrown by
+`RenderFlex.layout()`. `IntrinsicHeight` walks the subtree
+asking each `RenderObject` for `computeMinIntrinsicHeight`; the
+bridged empty-paragraph metric path returns an unbounded intrinsic
+height instead of a NaN paint origin, and the surrounding
+`RenderFlex` then rejects the unbounded constraint. The trigger,
+the workaround (substitute a space, or — for blank-line
+separators — substitute `SizedBox(height: …)`), and the
+underlying root cause are the same. Bisect the same way: any
+empty-`Text` site whose intrinsic dimensions are queried (i.e.,
+under any `IntrinsicHeight`/`IntrinsicWidth` ancestor) can hit
+this variant.
+
 ### Affected scripts
 
 | Script | Sites | Notes |
 |--------|-------|-------|
 | `cupertino/restorable_cupertino_tab_controller_test.dart` | Six empty-`_CodeLine` entries fed into `Text('${' ' * indent}${text}')` inside `_CodeBlock`. | Item 5 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-19 by guarding the composed text with `composed.isEmpty ? ' ' : composed` in `_CodeBlock.build`. Verified `frameworkErrors=0 status=success` (was 1). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
+| `gestures/velocity_test.dart` | One blank `_CodeLine('')` separator inside the equality-section bordered code block, descendant of `_SectionCard`'s `IntrinsicHeight > Row(stretch)` chrome (chrome itself added as part of the item-35 P1 fix). | Item 35 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Same underlying bug shape as U16 but surfaces with a different banner — `BoxConstraints forces an infinite height` on `RenderFlex.layout()` rather than the NaN-Offset paint banner. Under an `IntrinsicHeight` ancestor the empty `Text` propagates an unbounded intrinsic height instead of a NaN paint origin; both stem from the bridge's empty-paragraph metric path. Fixed at the script level on 2026-05-19 by replacing the blank `_CodeLine('')` separator with `SizedBox(height: 14)` (idiomatic for a fixed vertical gap inside the code-listing Column). Verified `frameworkErrors=0 status=success` (was 1). |
 
 ### What a real fix would look like
 
@@ -5079,6 +5096,19 @@ fit) and clamp each to `0.0` defensively.
 
 ## Change Log
 
+- 2026-05-19: **Extend U16** — add `gestures/velocity_test.dart`
+  to the affected-scripts table and document the variant banner
+  shape that surfaces when an empty `Text('')` sits under an
+  `IntrinsicHeight` ancestor: `BoxConstraints forces an infinite
+  height` thrown by `RenderFlex.layout()` instead of the NaN
+  Offset paint banner. Same root cause (bridged empty-paragraph
+  metric path), different layout vs paint failure mode. Surfaced
+  while working item 35 of
+  `testlog_20260519-1247-flutter-suites-fixes` — the P1
+  `IntrinsicHeight` fix at `_SectionCard` exposed the previously
+  masked empty-`Text` intrinsic-height path. Fixed script-side by
+  replacing the blank `_CodeLine('')` separator in
+  `_EqualitySection` with `SizedBox(height: 14)`.
 - 2026-05-19: **Add U16** — `Text('')` (empty-string `Text`
   widget) triggers a NaN `Offset` assertion in
   `dart:ui/painting.dart` line 41 through the bridged Flutter

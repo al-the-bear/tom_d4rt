@@ -283,43 +283,54 @@ class _SectionCard extends StatelessWidget {
           ),
         ],
       ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #35, P1):
+      // The card chrome used `Row(crossAxisAlignment: CrossAxisAlignment.stretch,
+      // [Container(width:6 strip), Expanded(content)])` inside
+      // `SingleChildScrollView > Column(stretch)`. The scroll view passes
+      // infinite vertical max, so the stretching Row gave the strip Container
+      // infinite tight height — `RenderConstrainedBox.layout()` then threw
+      // "BoxConstraints forces an infinite height". Wrapping the Row in
+      // `IntrinsicHeight` bounds the Row's height to the content column's
+      // intrinsic height; the strip then stretches to that finite height.
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              width: 6,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    tint.withValues(alpha: 0.85),
-                    tint.withValues(alpha: 0.25),
-                  ],
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                width: 6,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      tint.withValues(alpha: 0.85),
+                      tint.withValues(alpha: 0.25),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _SectionHeader(
-                      tint: tint,
-                      eyebrow: eyebrow,
-                      title: title,
-                      subtitle: subtitle,
-                    ),
-                    const SizedBox(height: 18),
-                    child,
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _SectionHeader(
+                        tint: tint,
+                        eyebrow: eyebrow,
+                        title: title,
+                        subtitle: subtitle,
+                      ),
+                      const SizedBox(height: 18),
+                      child,
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -1067,13 +1078,21 @@ class _GalleryGrid extends StatelessWidget {
       rows.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _GalleryCard(sample: a)),
-              const SizedBox(width: 12),
-              Expanded(child: b == null ? const SizedBox.shrink() : _GalleryCard(sample: b)),
-            ],
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #35, P1):
+          // Same `Row(crossAxisAlignment: stretch)` inside unbounded-height
+          // parent pattern as `_SectionCard`. Wrapping the Row in
+          // `IntrinsicHeight` equalises the two gallery cards in the pair
+          // to the taller card's intrinsic height without unbounded
+          // propagation.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: _GalleryCard(sample: a)),
+                const SizedBox(width: 12),
+                Expanded(child: b == null ? const SizedBox.shrink() : _GalleryCard(sample: b)),
+              ],
+            ),
           ),
         ),
       );
@@ -2106,7 +2125,18 @@ class _EqualitySection extends StatelessWidget {
                 _CodeLine('@override'),
                 _CodeLine('bool operator ==(Object other) =>'),
                 _CodeLine('    other is Velocity && other.pixelsPerSecond == pixelsPerSecond;', indent: 1),
-                _CodeLine(''),
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #35, P-empty-text):
+                // Original source had a blank `_CodeLine('')` separator here.
+                // Under the d4rt interpreter, a `Text('')` inside this Column
+                // (descendant of `IntrinsicHeight > Row(stretch)` from
+                // `_SectionCard`) blows up a downstream `RenderFlex.layout()`
+                // with "BoxConstraints forces an infinite height" — the
+                // empty-Text intrinsic path computes an unbounded height
+                // under that constraint chain. Replace the empty separator
+                // with a fixed-height SizedBox to preserve the gap without
+                // exercising the Text intrinsic path. The underlying
+                // interpreter bug is tracked in interpreter_unfixable.md.
+                SizedBox(height: 14),
                 _CodeLine('@override'),
                 _CodeLine('int get hashCode => Object.hash(pixelsPerSecond.dx, pixelsPerSecond.dy);'),
               ],
