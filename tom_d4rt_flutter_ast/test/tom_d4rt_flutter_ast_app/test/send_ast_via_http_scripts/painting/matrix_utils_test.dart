@@ -1584,17 +1584,29 @@ dynamic build(BuildContext context) {
   print('          5 getAsTranslation/getAsScale, 6 matrixEquals,');
   print('          7 cylindricalProjection, 8 forceToPoint, 9 cheat sheet.');
 
-  return Container(
-    width: double.infinity,
-    color: kPaper,
-    padding: EdgeInsets.all(8),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        sectionFrame(
-          index: '1',
-          title: 'MatrixUtils',
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #66, P2): the
+  // composed document contains 10 sectionFrames and ends ~4811 logical
+  // pixels tall — overflows the 800x600 test viewport by 4211 px on the
+  // bottom. Wrap root in Scaffold > SafeArea > SingleChildScrollView so
+  // the deep demo scrolls inside a bounded viewport. The inner Column
+  // uses CrossAxisAlignment.stretch but its cross axis is horizontal
+  // (bounded by the scroll view's width), so the now-unbounded vertical
+  // context does not propagate to a stretch-Row.
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          width: double.infinity,
+          color: kPaper,
+          padding: EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              sectionFrame(
+                index: '1',
+                title: 'MatrixUtils',
           tagline: 'Static helpers for Matrix4 transformations.',
           body: buildSection1(),
           accent: kCobalt,
@@ -1686,5 +1698,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
       ],
     ),
-  );
+  ),
+        ),
+      ),
+    );
 }
