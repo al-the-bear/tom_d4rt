@@ -709,6 +709,18 @@ dynamic build(BuildContext context) {
     );
   }
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #49, P1):
+  // The boarding-pass Row uses `crossAxisAlignment: stretch` so the
+  // left brass strip and the right "SEAT 07A" box span the full pass
+  // height. That works inside a Row whose vertical extent is bounded,
+  // but this widget lives in `SingleChildScrollView > Column(stretch)`
+  // where vertical constraints are unbounded — Flutter throws
+  // "BoxConstraints forces an infinite height" because the stretch
+  // children are asked to fill an infinite axis. Wrapping the Row in
+  // `IntrinsicHeight` resolves the stretch against the Expanded
+  // middle column's intrinsic height (the tallest non-stretch child),
+  // so the strip and seat box stretch to a finite, content-derived
+  // height.
   final Widget boardingPass = Container(
     margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -716,7 +728,8 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: brass, width: 1.5),
     ),
-    child: Row(
+    child: IntrinsicHeight(
+      child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
@@ -808,6 +821,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+    ),
     ),
   );
 
