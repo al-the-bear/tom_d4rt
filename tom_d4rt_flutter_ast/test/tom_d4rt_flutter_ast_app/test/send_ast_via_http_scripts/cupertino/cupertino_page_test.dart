@@ -1286,16 +1286,27 @@ String _stackKindLabel(_StackKind kind) {
 
 Widget _anatomyDiagram(List<_AnatomyPart> parts) {
   // A stylised cross-section of a CupertinoPageScaffold.
-  return Container(
-    decoration: BoxDecoration(
-      color: const Color(0xFFFFFFFF),
-      border: Border.all(color: const Color(0xFFC7C7CC), width: 1),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    padding: const EdgeInsets.all(8),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #3, P1):
+  // The Row(crossAxisAlignment: CrossAxisAlignment.stretch) below
+  // forces vertical stretching of its children; combined with the
+  // inner Column's Expanded(child: _anatomyBox('B')), the bridged
+  // layout receives an unbounded maxHeight from the outer
+  // SingleChildScrollView and asserts "BoxConstraints forces an
+  // infinite height" on RenderConstrainedBox. Bound the diagram
+  // with a fixed-height SizedBox so the stretch row has finite
+  // constraints to distribute.
+  return SizedBox(
+    height: 200,
+    child: Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFFFFF),
+        border: Border.all(color: const Color(0xFFC7C7CC), width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
         SizedBox(
           width: 110,
           child: Column(
@@ -1331,6 +1342,7 @@ Widget _anatomyDiagram(List<_AnatomyPart> parts) {
           ),
         ),
       ],
+      ),
     ),
   );
 }
