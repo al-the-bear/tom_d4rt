@@ -987,7 +987,7 @@ Widget _buildTreeRow(DiagnosticsProperty node, {required bool isLast}) {
   return Padding(
     padding: EdgeInsets.only(left: 4.0, top: 2.0, bottom: 2.0),
     child: Text(
-      '$connector${_safeToString(node)}',
+      _nonEmpty('$connector${_safeToString(node)}'),
       style: TextStyle(
         fontFamily: 'monospace',
         fontSize: 11.5,
@@ -1045,7 +1045,7 @@ Widget _buildInspectorRow(_PropCase c, bool stripe) {
         SizedBox(
           width: 220.0,
           child: Text(
-            _escape(_safeToString(c.property)),
+            _nonEmpty(_escape(_safeToString(c.property))),
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 10.5,
@@ -1057,7 +1057,7 @@ Widget _buildInspectorRow(_PropCase c, bool stripe) {
         SizedBox(
           width: 140.0,
           child: Text(
-            _escape(_safeValueToString(c.property)),
+            _nonEmpty(_escape(_safeValueToString(c.property))),
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 10.5,
@@ -1261,6 +1261,15 @@ String _escape(String input) {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 }
+
+// D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #19, U16):
+// Empty `Text('')` triggers a NaN-Offset assertion in the bridged
+// painter. `_safeToString` / `_safeValueToString` can legitimately
+// return '' for properties whose value equals their defaultValue
+// (`level` collapses the printed form to empty in the d4rt bridge).
+// Substitute a single space for empty strings to keep the painter happy
+// while preserving layout.
+String _nonEmpty(String input) => input.isEmpty ? ' ' : input;
 
 // ----------------------------------------------------------------------
 // Helper: level -> color
