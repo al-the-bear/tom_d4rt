@@ -241,8 +241,13 @@ Widget _buildSwatch(Color color, String name) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: kCarnivalNight.withValues(alpha: 0.18)),
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #38, P3):
+    // Some longer palette names ("CarnivalNight", "CarnivalCream") render
+    // wider than the 100 px inner width of the 116-px swatch container,
+    // producing 0.487 / 2.2 px right overflows on the Row. Wrap the Text
+    // in Expanded and add ellipsis so the label adapts to the remaining
+    // space (~76 px) instead of demanding its intrinsic width.
     child: Row(
-      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
           width: 18,
@@ -254,12 +259,15 @@ Widget _buildSwatch(Color color, String name) {
           ),
         ),
         const SizedBox(width: 6),
-        Text(
-          name,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: kCarnivalNight,
+        Expanded(
+          child: Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: kCarnivalNight,
+            ),
           ),
         ),
       ],
