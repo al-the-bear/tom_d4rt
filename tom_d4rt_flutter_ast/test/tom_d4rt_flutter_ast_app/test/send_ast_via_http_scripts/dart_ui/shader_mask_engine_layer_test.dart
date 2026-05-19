@@ -343,11 +343,17 @@ dynamic build(BuildContext context) {
         color: Colors.deepPurple,
         child: ShaderMask(
           shaderCallback: (Rect bounds) {
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #7):
+            // ui.Gradient.linear requires explicit colorStops when
+            // colors.length != 2. Pass evenly-spaced stops.
             return ui.Gradient.linear(
               Offset(bounds.left, bounds.top),
               Offset(bounds.right, bounds.bottom),
               rainbow,
-              null,
+              List<double>.generate(
+                rainbow.length,
+                (i) => i / (rainbow.length - 1),
+              ),
               ui.TileMode.clamp,
             );
           },
@@ -390,11 +396,22 @@ dynamic build(BuildContext context) {
         color: Colors.teal,
         child: ShaderMask(
           shaderCallback: (Rect bounds) {
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #7):
+            // ui.Gradient.radial requires explicit colorStops when
+            // colors.length != 2. Pass evenly-spaced stops.
+            final List<Color> radialColors = [
+              Colors.white,
+              ...sunset,
+              Colors.black,
+            ];
             return ui.Gradient.radial(
               bounds.center,
               bounds.shortestSide / 1.4,
-              [Colors.white, ...sunset, Colors.black],
-              null,
+              radialColors,
+              List<double>.generate(
+                radialColors.length,
+                (i) => i / (radialColors.length - 1),
+              ),
               ui.TileMode.clamp,
             );
           },
@@ -437,10 +454,17 @@ dynamic build(BuildContext context) {
         color: Colors.amber,
         child: ShaderMask(
           shaderCallback: (Rect bounds) {
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #7):
+            // ui.Gradient.sweep requires explicit colorStops when
+            // colors.length != 2. Pass evenly-spaced stops.
+            final List<Color> sweepColors = [...rainbow, rainbow.first];
             return ui.Gradient.sweep(
               bounds.center,
-              [...rainbow, rainbow.first],
-              null,
+              sweepColors,
+              List<double>.generate(
+                sweepColors.length,
+                (i) => i / (sweepColors.length - 1),
+              ),
               ui.TileMode.clamp,
               0.0,
               6.28318,
@@ -994,11 +1018,17 @@ Widget _blendModeShowcase(
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: ShaderMask(
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #7):
+                // ui.Gradient.linear requires explicit colorStops when
+                // colors.length != 2. Pass evenly-spaced stops.
                 shaderCallback: (Rect bounds) => ui.Gradient.linear(
                   Offset(bounds.left, bounds.top),
                   Offset(bounds.right, bounds.bottom),
                   palette,
-                  null,
+                  List<double>.generate(
+                    palette.length,
+                    (i) => i / (palette.length - 1),
+                  ),
                   ui.TileMode.clamp,
                 ),
                 blendMode: spec.mode,
