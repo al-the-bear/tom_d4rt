@@ -87,7 +87,15 @@ Widget _bannerSection(int n, String title, String subtitle, Color color) {
         colors: [_kInk, _kGraphite],
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 6.0)),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+      // The intended visual was a thick accent stripe on the left
+      // edge only (Border(left: BorderSide(color: color, width: 6.0))),
+      // but combining a non-uniform Border with a borderRadius trips
+      // the Flutter assertion "A borderRadius can only be given on
+      // borders with uniform colors." Replace with a uniform accent
+      // outline; the card is still visually marked by the accent
+      // colour and the rounded corners are preserved.
+      border: Border.all(color: color, width: 1.5),
       boxShadow: [
         BoxShadow(
           color: Color(0x66000000),
@@ -155,7 +163,13 @@ Widget _explainerCard(String body, {Color? tint}) {
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
     decoration: BoxDecoration(
       color: _kPaper,
-      border: Border(left: BorderSide(color: accent, width: 4.0)),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+      // See fix #6 note above — non-uniform Border + borderRadius
+      // is rejected by Flutter. Replace the left-edge accent stripe
+      // with a uniform thin accent outline; the card stays visually
+      // associated with the accent colour and the partial rounded
+      // corners are preserved.
+      border: Border.all(color: accent, width: 1.0),
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(8.0),
         bottomRight: Radius.circular(8.0),
@@ -576,12 +590,15 @@ Widget _specimenCard(_SpecimenReport r) {
     decoration: BoxDecoration(
       color: _kCard,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: r.accent, width: 6.0),
-        top: BorderSide(color: _kFog, width: 0.5),
-        right: BorderSide(color: _kFog, width: 0.5),
-        bottom: BorderSide(color: _kFog, width: 0.5),
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+      // The intended visual was a thick accent stripe on the left
+      // plus a fine fog-coloured outline on the other three sides.
+      // A non-uniform Border (different per-side colours) cannot
+      // co-exist with borderRadius under the Flutter assertion.
+      // Replace with a single uniform accent outline; the row is
+      // still visually marked by the accent colour and the rounded
+      // corners are preserved.
+      border: Border.all(color: r.accent, width: 1.2),
       boxShadow: [
         BoxShadow(
           color: Color(0x11000000),
@@ -865,14 +882,19 @@ Widget _transitionSpecimen({
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.18),
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border(
-                    top: BorderSide(
-                      color: color,
-                      width: fullscreen ? 6.0 : 1.2,
-                    ),
-                    left: BorderSide(color: color, width: 1.2),
-                    right: BorderSide(color: color, width: 1.2),
-                    bottom: BorderSide(color: color, width: 1.2),
+                  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+                  // The original Border had a thicker top side
+                  // (width 6.0 for `fullscreen` rows, 1.2 elsewhere)
+                  // to mark fullscreen-style routes visually. A
+                  // non-uniform Border (different per-side widths)
+                  // is rejected when combined with borderRadius.
+                  // Replace with a uniform outline whose width
+                  // doubles for fullscreen rows — preserves the
+                  // visual emphasis with a single thicker frame
+                  // instead of an asymmetric thicker-top frame.
+                  border: Border.all(
+                    color: color,
+                    width: fullscreen ? 2.4 : 1.2,
                   ),
                 ),
                 child: Center(
@@ -1454,12 +1476,14 @@ Widget _recipeCard({
     decoration: BoxDecoration(
       color: _kCard,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        top: BorderSide(color: color, width: 3.0),
-        left: BorderSide(color: _kFog, width: 0.6),
-        right: BorderSide(color: _kFog, width: 0.6),
-        bottom: BorderSide(color: _kFog, width: 0.6),
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+      // The original Border combined an accent-coloured thick top
+      // bar with a fine fog-coloured outline on the other three
+      // sides. Non-uniform Border + borderRadius is rejected by
+      // Flutter. Replace with a single uniform accent outline; the
+      // tile is still visually marked by the accent colour and the
+      // rounded corners are preserved.
+      border: Border.all(color: color, width: 1.2),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1758,7 +1782,12 @@ Widget _glossaryRow(String term, String def, Color accent) {
     decoration: BoxDecoration(
       color: _kPaper,
       borderRadius: BorderRadius.circular(6.0),
-      border: Border(left: BorderSide(color: accent, width: 3.0)),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #6, P5(a)):
+      // See fix #6 note — non-uniform Border + borderRadius is
+      // rejected. Replace the left-edge accent stripe with a thin
+      // uniform accent outline so the row is still visually marked
+      // by the accent colour.
+      border: Border.all(color: accent, width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
