@@ -1753,8 +1753,12 @@ Widget _buildTapCountChart() {
           style: TextStyle(fontSize: 12.5, color: kNavy, height: 1.4),
         ),
         const SizedBox(height: 10),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #31, P2):
+        // 2-line labels ("tap=1\n(char)") + max bar height 104 + count
+        // text + spacing summed to ~148 px, overflowing the 140 px slot
+        // by 8 px. Bumped to 160 px so the bar column always fits.
         SizedBox(
-          height: 140,
+          height: 160,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[

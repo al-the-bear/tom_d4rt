@@ -379,7 +379,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 30. ~~`gestures/serial_tap_up_details_test.dart` *(secondary_classes_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** The `editorMockRows` loop (count=1..5 cards) built each card with a non-uniform `Border(left: color/4, top/right/bottom: slateSoft/1)` combined with `borderRadius: 8` — Flutter's "borderRadius can only be given on borders with uniform colors" assertion fired once per card for 5 framework errors. Refactored to canonical P5(a): uniform `Border.all(slateSoft, 1)` + `clipBehavior: Clip.antiAlias` on the outer Container, with the coloured left accent supplied as a sibling `Container(width: 4)` inside an `IntrinsicHeight > Row`. Verified `frameworkErrors=5→0`.
 
-31. `gestures/tap_drag_start_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 8.0 px bottom)* — **P2**.
+31. ~~`gestures/tap_drag_start_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 8.0 px bottom)* — **P2**.~~ **FIXED.** Section 10 (`_buildTapCountChart`) wrapped its bar Row in `SizedBox(height: 140)`, but each inner Column was: count text (~14) + spacing (2) + bar up to 104 + spacing (4) + 2-line label like `'tap=1\n(char)'` (~24 px at fontSize 9.5 × height 1.2) ≈ 148 px → 8 px bottom overflow. Bumped the slot to `height: 160` (the minimal fix). Script-only change; verified single-script retest with `frameworkErrors=0`.
 
 32. `gestures/tap_drag_update_details_test.dart` *(secondary_classes_test, 1/1, B-layout/RenderFlex — overflow 16 px right)* — **P3**.
 
