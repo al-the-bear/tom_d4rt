@@ -332,17 +332,23 @@ class _PageBody extends StatelessWidget {
     for (int i = 0; i < specs.length; i += 2) {
       final _FieldSpec a = specs[i];
       final _FieldSpec? b = (i + 1 < specs.length) ? specs[i + 1] : null;
-      rows.add(Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(child: _FieldCard(spec: a)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: b == null
-                ? const SizedBox.shrink()
-                : _FieldCard(spec: b),
-          ),
-        ],
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
+      // Stretch-Row in pair-card grid inside the unbounded vertical
+      // viewport — wrap in IntrinsicHeight so Expanded(_FieldCard) pairs
+      // share the tallest card's height with finite constraints.
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(child: _FieldCard(spec: a)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: b == null
+                  ? const SizedBox.shrink()
+                  : _FieldCard(spec: b),
+            ),
+          ],
+        ),
       ));
       if (i + 2 < specs.length) {
         rows.add(const SizedBox(height: 12));
@@ -540,7 +546,16 @@ class _PageBody extends StatelessWidget {
         cells.add(_MatrixCell(delta: grid[r][c]));
       }
       rows.add(const SizedBox(height: 1));
-      rows.add(Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: _flexEqual(cells)));
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
+      // Stretch-Row inside the unbounded SingleChildScrollView gets
+      // infinite cross-axis constraints. IntrinsicHeight gives the row
+      // a finite height matching its tallest cell.
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: _flexEqual(cells),
+        ),
+      ));
     }
 
     return _Section(
@@ -987,17 +1002,22 @@ class _PageBody extends StatelessWidget {
     for (int i = 0; i < cases.length; i += 2) {
       final _EdgeCase a = cases[i];
       final _EdgeCase? b = (i + 1 < cases.length) ? cases[i + 1] : null;
-      rows.add(Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(child: _EdgeCaseCard(data: a)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: b == null
-                ? const SizedBox.shrink()
-                : _EdgeCaseCard(data: b),
-          ),
-        ],
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
+      // Stretch-Row in edge-case pair grid inside the unbounded vertical
+      // viewport — wrap in IntrinsicHeight to scope the cross-axis size.
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(child: _EdgeCaseCard(data: a)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: b == null
+                  ? const SizedBox.shrink()
+                  : _EdgeCaseCard(data: b),
+            ),
+          ],
+        ),
       ));
       if (i + 2 < cases.length) {
         rows.add(const SizedBox(height: 12));
@@ -2037,7 +2057,16 @@ class _ComparisonTable extends StatelessWidget {
       }
       built.add(Container(
         color: isHeader ? _Palette.indigo.withValues(alpha: 0.5) : Colors.transparent,
-        child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: cells),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
+        // Stretch-Row inside an unbounded vertical viewport — wrap in
+        // IntrinsicHeight so the bottom-bordered cells share a finite
+        // common height instead of receiving infinite constraints.
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: cells,
+          ),
+        ),
       ));
     }
     return Container(
