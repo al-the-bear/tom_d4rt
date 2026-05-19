@@ -1202,23 +1202,30 @@ class _PrivateAttributeGallery extends StatelessWidget {
       ),
     ];
 
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #39, P1):
+    // Row(crossAxisAlignment: stretch) inside an infinite-height context
+    // (SingleChildScrollView > Column) throws "BoxConstraints forces an
+    // infinite height". Wrap each row in IntrinsicHeight so the stretch
+    // children get a bounded vertical extent to size to.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         for (int i = 0; i < cards.length; i += 2)
           Padding(
             padding: const EdgeInsets.only(bottom: 14),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(child: cards[i]),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: i + 1 < cards.length
-                      ? cards[i + 1]
-                      : const SizedBox.shrink(),
-                ),
-              ],
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(child: cards[i]),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: i + 1 < cards.length
+                        ? cards[i + 1]
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
           ),
       ],
@@ -1387,20 +1394,39 @@ class _PrivateSelectionMatrix extends StatelessWidget {
 //  SECTION 6 — Color (WidgetStateProperty) RESOLUTION CHAIN
 // =====================================================================
 
+// D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #39, P7):
+// Typed row container — replaces the original `<dynamic>` const list
+// where `s[1] as Color` casts came back null under the d4rt interpreter.
+class _StateRow {
+  const _StateRow(this.label, this.bg, this.fg, this.set);
+  final String label;
+  final Color bg;
+  final Color fg;
+  final String set;
+}
+
 class _PrivateStateColorChain extends StatelessWidget {
   const _PrivateStateColorChain();
 
-  static const List<List<dynamic>> _states = <List<dynamic>>[
-    <dynamic>['default', _kAccentSoft, _kAccent, '{}'],
-    <dynamic>['hovered', Color(0xFFE0DCFE), _kAccent, '{hovered}'],
-    <dynamic>['focused', Color(0xFFD6CDFF), _kViolet, '{focused}'],
-    <dynamic>['pressed', Color(0xFFC7BBFF), _kViolet, '{pressed}'],
-    <dynamic>['selected', _kAccent, Colors.white, '{selected}'],
-    <dynamic>['disabled', Color(0xFFEFEFF1), _kFaint, '{disabled}'],
-  ];
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #39, P7):
+  // The original used `static const List<List<dynamic>> _states` with
+  // `s[1] as Color`, `s[2] as Color` casts. Under the d4rt interpreter,
+  // colour references stored inside `<dynamic>` const lists came back as
+  // null at runtime — `fg.withValues(alpha: ...)` then threw "Cannot
+  // invoke method 'withValues' on null" 5 times (and cascaded into
+  // BoxConstraints follow-ups). Replaced with typed local lists and
+  // direct named-argument passing so no dynamic cast is needed.
 
   @override
   Widget build(BuildContext context) {
+    final List<_StateRow> rows = <_StateRow>[
+      _StateRow('default', _kAccentSoft, _kAccent, '{}'),
+      _StateRow('hovered', Color(0xFFE0DCFE), _kAccent, '{hovered}'),
+      _StateRow('focused', Color(0xFFD6CDFF), _kViolet, '{focused}'),
+      _StateRow('pressed', Color(0xFFC7BBFF), _kViolet, '{pressed}'),
+      _StateRow('selected', _kAccent, Colors.white, '{selected}'),
+      _StateRow('disabled', Color(0xFFEFEFF1), _kFaint, '{disabled}'),
+    ];
     return _PrivateCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1417,12 +1443,12 @@ class _PrivateStateColorChain extends StatelessWidget {
             spacing: 12,
             runSpacing: 12,
             children: <Widget>[
-              for (final List<dynamic> s in _states)
+              for (final _StateRow s in rows)
                 _PrivateStateBox(
-                  label: s[0] as String,
-                  bg: s[1] as Color,
-                  fg: s[2] as Color,
-                  set: s[3] as String,
+                  label: s.label,
+                  bg: s.bg,
+                  fg: s.fg,
+                  set: s.set,
                 ),
             ],
           ),
