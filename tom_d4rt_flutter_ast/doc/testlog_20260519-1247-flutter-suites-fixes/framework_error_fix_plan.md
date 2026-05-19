@@ -365,7 +365,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 23. ~~`gestures/one_sequence_gesture_recognizer_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.~~ **FIXED.** Canonical P5(a) pattern: the pitfall-cards loop (6 entries) built each card with `Border(left: 4 solid, top/right/bottom: 1 translucent) + borderRadius: 10`, which the bridged painter rejects on a rounded shape. Fix: render each card via `ClipRRect > IntrinsicHeight > Row` with left accent as a sibling `Container(width: 4)` and a uniform `Border.all(color: color.withValues(alpha: 0.3))` on the body. Verified `frameworkErrors=6→0`.
 
-24. `gestures/pointer_exit_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/RenderFlex — overflow 4707 px bottom)* — **P1+P2**.
+24. ~~`gestures/pointer_exit_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/RenderFlex — overflow 4707 px bottom)* — **P1+P2**.~~ **FIXED.** The root was a bare `Container > Column` with 10 demo sections — no `Scaffold`, no `SingleChildScrollView` — so the column overflowed the viewport by 4707 px on the bottom. Fix: wrapped the root in `Scaffold > SafeArea > SingleChildScrollView` so the column scrolls in an unbounded vertical viewport. Verified `frameworkErrors=1→0`.
 
 25. `gestures/pointer_move_event_test.dart` *(hardly_relevant_classes_1_test, 1/1, B-layout/BoxConstraints — infinite height)* — **P1**.
 

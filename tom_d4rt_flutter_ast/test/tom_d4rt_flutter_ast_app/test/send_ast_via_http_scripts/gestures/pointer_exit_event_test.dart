@@ -1780,24 +1780,35 @@ dynamic build(BuildContext context) {
   print('Composed ${sections.length} section widgets');
   print('Returning Container root with exit-theme background');
 
-  return Container(
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: <Color>[
-          kHighlightCream,
-          kPlacardWhite,
-          kBoardYellow,
-          kHighlightCream,
-        ],
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #24, P1+P2):
+  // Root was a bare Container > Column with 10 sections — vertical
+  // overflow by 4707 px on the bottom. Wrap in Scaffold + SafeArea +
+  // SingleChildScrollView so the column scrolls in an unbounded
+  // viewport.
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                kHighlightCream,
+                kPlacardWhite,
+                kBoardYellow,
+                kHighlightCream,
+              ],
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: sections,
+          ),
+        ),
       ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: sections,
     ),
   );
 }
