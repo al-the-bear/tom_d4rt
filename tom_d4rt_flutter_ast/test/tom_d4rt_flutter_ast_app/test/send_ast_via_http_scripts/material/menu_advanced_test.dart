@@ -1851,6 +1851,18 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 4),
                       Text('alignment: topRight, offset: (4, 0)', style: muted),
                       const SizedBox(height: 10),
+                      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #48, P3):
+                      // The horizontal Row [Trigger, gap, staticMenuSurface]
+                      // overflows its parent `Container(width: 380)` by 18 px.
+                      // The surface's BoxConstraints (minWidth: 200,
+                      // maxWidth: 320) lets it grow beyond its content's
+                      // intrinsic width when given non-tight horizontal
+                      // constraints by the Row, which combined with the
+                      // Trigger and gap pushes total content past 380 px.
+                      // Wrapping the surface in `Flexible` lets the Row
+                      // shrink it to the remaining space, eliminating the
+                      // overflow while keeping the visual intent
+                      // (trigger left, menu surface to its right).
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -1869,13 +1881,15 @@ dynamic build(BuildContext context) {
                                 )),
                           ),
                           const SizedBox(width: 6),
-                          staticMenuSurface(
-                            minWidth: 200,
-                            children: <Widget>[
-                              staticMenuItemRow(label: 'Item one'),
-                              staticMenuItemRow(label: 'Item two'),
-                              staticMenuItemRow(label: 'Item three'),
-                            ],
+                          Flexible(
+                            child: staticMenuSurface(
+                              minWidth: 200,
+                              children: <Widget>[
+                                staticMenuItemRow(label: 'Item one'),
+                                staticMenuItemRow(label: 'Item two'),
+                                staticMenuItemRow(label: 'Item three'),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -2159,22 +2173,46 @@ dynamic build(BuildContext context) {
   );
 
   // pitfall card helper used by section 14.
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #48, P5(a)):
+  // Original used an asymmetric `Border()` (left: thicker accent,
+  // top/right/bottom: uniform slate200) combined with
+  // `borderRadius: 8` — Flutter asserts "A borderRadius can only be
+  // given on borders with uniform colors." Refactored to a uniform
+  // outer `Border.all(slate200, width: 1)` plus a ClipRRect-wrapped
+  // Row containing a 4 px-wide accent Container as the visual left
+  // bar, IntrinsicHeight so the bar stretches to the card's natural
+  // height without an unbounded-height assertion.
   Widget pitfallCard(String title, String fix, Color accent) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: accent, width: 4), top: BorderSide(color: slate200), right: BorderSide(color: slate200), bottom: BorderSide(color: slate200)),
+        border: Border.all(color: slate200, width: 1),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title, style: hSmall),
-          const SizedBox(height: 6),
-          Text(fix, style: bodyText),
-        ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(7),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4, color: accent),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(title, style: hSmall),
+                      const SizedBox(height: 6),
+                      Text(fix, style: bodyText),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
