@@ -180,6 +180,27 @@ class Environment {
     _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
   }
 
+  /// Propagates every bridge registered in this environment's type lookup
+  /// to [target] for native-object resolution.
+  ///
+  /// Use case: stdlib modules (dart:math, dart:io, …) live in isolated
+  /// per-stdlib environments to avoid lexical name collisions, but their
+  /// native types (e.g. `_Random`) must still be discoverable from
+  /// `globalEnvironment.toBridgedInstance` when a script passes a native
+  /// instance through an interpreted function. Calling
+  /// `stdlibEnv.propagateBridgeTypesTo(globalEnvironment)` after
+  /// registration mirrors the type→bridge mapping without leaking the
+  /// lexical name `Random` into globalEnvironment.
+  ///
+  /// Mirror of `tom_d4rt_ast` `Environment.propagateBridgeTypesTo`.
+  void propagateBridgeTypesTo(Environment target) {
+    if (identical(target, this)) return;
+    for (final entry in _bridgedClassesLookupByType.entries) {
+      target._bridgedClassesLookupByType.putIfAbsent(
+          entry.key, () => entry.value);
+    }
+  }
+
   /// GEN-078: Registers a class alias that maps [aliasName] to an existing
   /// bridged class registered under [targetName].
   ///

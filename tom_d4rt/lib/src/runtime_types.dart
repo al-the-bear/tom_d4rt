@@ -1672,6 +1672,87 @@ class InterpretedInstance implements RuntimeValue {
   // Implémentation de RuntimeValue.valueType (précédemment runtimeType)
   @override
   RuntimeType get valueType => klass;
+
+  /// Recursion guard for the `==` and `hashCode` overrides below. Keyed by
+  /// `identityHashCode` so the guard's own Set does not re-enter our override.
+  ///
+  /// Why we need this: the interpreter's internal logging
+  /// (`Logger.debug("...instance $hashCode...")` in `Instance.get/set` and
+  /// the bound-method preparation in `callable.dart`) eagerly evaluates
+  /// string interpolations, which used to be safe because
+  /// `InterpretedInstance.hashCode` was Object identity. Now that we
+  /// dispatch to user-defined `hashCode`, reading any field of `this` from
+  /// inside the user's `hashCode` body triggers `Instance.get` → log string
+  /// interpolation → our `hashCode` again → infinite recursion. Same logic
+  /// applies if a user `==` body happens to need `hashCode` mid-flight.
+  /// When we detect a re-entry we fall back to identity hashing / native
+  /// equality for the inner call so the outer user computation can complete.
+  static final Set<int> _hashCodeInProgress = <int>{};
+  static final Set<int> _equalsInProgress = <int>{};
+
+  /// Honour user-defined `==` so that interpreted instances compare correctly
+  /// inside native Dart collections (e.g. `Set<Cell>`, `Map<Cell, …>`).
+  ///
+  /// Dispatches through the active interpreter visitor when the script has
+  /// declared an `==` operator on this class or any of its interpreted
+  /// ancestors. When no override exists, or no visitor is active (e.g. the
+  /// instance escaped d4rt's execution context), we fall back to native
+  /// identity equality — the same behaviour callers had before this hook
+  /// existed. Mirror of tom_d4rt_ast `InterpretedInstance.==`.
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final eq = klass.findOperator('==');
+    if (eq == null) return false;
+    final visitor = D4.activeVisitor;
+    if (visitor == null) return false;
+    final id = identityHashCode(this);
+    if (!_equalsInProgress.add(id)) {
+      // Re-entry while we are still evaluating == for this instance —
+      // fall back to identity to break the cycle.
+      return false;
+    }
+    Object? result;
+    try {
+      result = eq.bind(this).call(visitor, <Object?>[other], const {});
+    } on ReturnException catch (e) {
+      result = e.value;
+    } catch (_) {
+      return false;
+    } finally {
+      _equalsInProgress.remove(id);
+    }
+    return result == true;
+  }
+
+  /// Honour user-defined `hashCode` so that interpreted instances slot into
+  /// native Dart hash structures consistently with their `==`. Mirror of
+  /// tom_d4rt_ast `InterpretedInstance.hashCode`.
+  @override
+  int get hashCode {
+    final hc = klass.findInstanceGetter('hashCode');
+    if (hc == null) return super.hashCode;
+    final visitor = D4.activeVisitor;
+    if (visitor == null) return super.hashCode;
+    final id = identityHashCode(this);
+    if (!_hashCodeInProgress.add(id)) {
+      // Re-entry from inside the user's hashCode body — most commonly
+      // triggered by Logger.debug interpolations. Use identity hash so the
+      // outer evaluation can finish.
+      return id;
+    }
+    Object? result;
+    try {
+      result = hc.bind(this).call(visitor, const <Object?>[], const {});
+    } on ReturnException catch (e) {
+      result = e.value;
+    } catch (_) {
+      return super.hashCode;
+    } finally {
+      _hashCodeInProgress.remove(id);
+    }
+    return result is int ? result : super.hashCode;
+  }
 }
 
 // which pairs an InterpretedFunction with an InterpretedInstance ('this').

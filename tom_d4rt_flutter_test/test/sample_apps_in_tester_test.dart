@@ -1366,6 +1366,202 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'snake_game (example #7 — KeyboardListener + Timer.periodic + '
+      'CustomPainter)', () {
+    // Initial state for kFoodSeed=1337:
+    //   body = [(10,10), (9,10), (8,10)]  (head right of centre,
+    //                                       facing right)
+    //   first food pellet = (17, 12)
+    //   second food pellet = (14, 16)
+    // The game boots PAUSED; tests advance ticks deterministically
+    // via the `btn-step` button, never via the auto-play Timer.
+
+    testWidgets(
+        'boots paused with a length-3 snake and the seeded food pellet',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // The script prints the initial body length, food pos, and dir.
+        expect(
+          _printLog.where((l) => l.startsWith('snake.init')),
+          hasLength(1),
+          reason: 'Boot should emit exactly one init trail line.',
+        );
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('snake.init'),
+        );
+        expect(init, contains('body=3'));
+        expect(init, contains('food=(17,12)'));
+        expect(init, contains('dir=right'));
+
+        // Surface readouts.
+        expect(find.text('Score: 0'), findsOneWidget);
+        expect(find.text('PAUSED'), findsOneWidget);
+        expect(find.text('Best: 0'), findsOneWidget);
+        expect(find.byKey(const ValueKey<String>('snake-canvas')),
+            findsOneWidget);
+      });
+    });
+
+    testWidgets('Step button moves the head one cell right',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-step')));
+        await tester.pump(const Duration(milliseconds: 50));
+
+        final ticks = _printLog
+            .where((l) => l.startsWith('snake.tick'))
+            .toList();
+        expect(ticks, hasLength(1),
+            reason: 'A single step should produce one tick line.');
+        expect(ticks.single, contains('dir=right'));
+        expect(ticks.single, contains('head=(11,10)'));
+      });
+    });
+
+    testWidgets('tapping a direction queues it for the next step',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // Right→Down is a valid turn (not opposite).
+        await tester.tap(find.byKey(const ValueKey<String>('btn-down')));
+        await tester.pump(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const ValueKey<String>('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l == 'snake.dir queued=down'),
+          hasLength(1),
+          reason: 'Down should be accepted and queued.',
+        );
+        final tick = _printLog.firstWhere(
+          (l) => l.startsWith('snake.tick'),
+        );
+        expect(tick, contains('dir=down'));
+        expect(tick, contains('head=(10,11)'));
+      });
+    });
+
+    testWidgets('reverse direction is rejected as a 180° turn',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // Heading right → tapping left should be ignored.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-left')));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.contains('ignored=left')),
+          hasLength(1),
+          reason: 'Reverse-direction press should produce one '
+              'ignored-line and no queued-line.',
+        );
+        expect(
+          _printLog.where((l) => l == 'snake.dir queued=left'),
+          isEmpty,
+        );
+      });
+    });
+
+    testWidgets('eating food grows the snake and bumps the score',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // Head starts at (10,10). Food at (17,12). Walk right 7
+        // ticks to reach (17,10), then down twice to land on the
+        // pellet.
+        for (var i = 0; i < 7; i++) {
+          await tester
+              .tap(find.byKey(const ValueKey<String>('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+        // Turn down and step into (17,11) then (17,12).
+        await tester.tap(find.byKey(const ValueKey<String>('btn-down')));
+        await tester.pump(const Duration(milliseconds: 10));
+        await tester.tap(find.byKey(const ValueKey<String>('btn-step')));
+        await tester.pump(const Duration(milliseconds: 10));
+        await tester.tap(find.byKey(const ValueKey<String>('btn-step')));
+        await tester.pump(const Duration(milliseconds: 50));
+
+        final eats =
+            _printLog.where((l) => l.startsWith('snake.eat')).toList();
+        expect(eats, hasLength(1),
+            reason: 'Landing on the pellet should emit one eat line.');
+        expect(eats.single, contains('score=1'));
+        expect(eats.single, contains('body=4'));
+        // The next pellet should respawn at the second seeded cell.
+        expect(eats.single, contains('food=(14,16)'));
+        expect(find.text('Score: 1'), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'walking off the right edge ends the game with reason=wall',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // From (10,10) heading right, ten steps lands on (20,10)
+        // which is past the right edge — the food at (17,12) is
+        // off-axis so no eat happens.
+        for (var i = 0; i < 10; i++) {
+          await tester
+              .tap(find.byKey(const ValueKey<String>('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+
+        final over =
+            _printLog.where((l) => l.startsWith('snake.over')).toList();
+        expect(over, hasLength(1),
+            reason: 'Tenth step should run the head off-board and '
+                'emit one over line.');
+        expect(over.single, contains('reason=wall'));
+        expect(over.single, contains('score=0'));
+        expect(find.text('GAME OVER'), findsOneWidget);
+      });
+    });
+
+    testWidgets('Reset button restores the initial position',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'snake_game');
+
+        // Take a few steps then reset.
+        for (var i = 0; i < 3; i++) {
+          await tester
+              .tap(find.byKey(const ValueKey<String>('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+        await tester.tap(find.byKey(const ValueKey<String>('btn-reset')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Two reset prints total: the one at init and the one we
+        // just triggered (announce='reset').
+        final resetLines = _printLog
+            .where((l) => l.startsWith('snake.reset'))
+            .toList();
+        expect(resetLines, hasLength(1),
+            reason: 'Tapping Reset should emit exactly one reset line.');
+        expect(resetLines.single, contains('body=3'));
+        expect(resetLines.single, contains('food=(17,12)'));
+        expect(resetLines.single, contains('dir=right'));
+
+        // After reset the snake should be paused at length 3 again,
+        // with score zeroed.
+        expect(find.text('Score: 0'), findsOneWidget);
+        expect(find.text('PAUSED'), findsOneWidget);
+        expect(find.text('GAME OVER'), findsNothing);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

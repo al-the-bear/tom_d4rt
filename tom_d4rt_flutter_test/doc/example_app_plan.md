@@ -321,11 +321,14 @@ difficulty selector (`SegmentedButton` or `ToggleButtons`).
 
 ---
 
-### 7. [ ] `snake_game` — keyboard-driven arcade snake
+### 7. [x] `snake_game` — keyboard-driven arcade snake — SHIPPED
 
 A 20×20 grid; arrow keys / WASD steer; speed ramps up with score.
 Rendered via `CustomPainter` (snake body + food). Game over modal
-on collision; restart via Enter.
+on collision; restart via Enter / Reset button. Boots paused with a
+length-3 snake and the seeded food pellet at `(17,12)` (kFoodSeed=1337);
+tests advance ticks deterministically via a `btn-step` button rather
+than the auto-play `Timer.periodic`.
 
 **Exercises:** `Focus` + `KeyboardListener` (or
 `FocusableActionDetector` with `Shortcuts`/`Actions`),
@@ -334,6 +337,28 @@ animation, `RawKeyEvent` dispatch.
 
 **Files:** `main.dart`, `home.dart`, `game.dart` (board + tick),
 `snake.dart`, `board_painter.dart`, `keymap.dart`.
+
+**Tests:** 7/7 pass in `test/sample_apps_in_tester_test.dart`
+(boot, step, queued turn, 180° reject, eat + grow, wall game-over,
+reset).
+
+**Generic interpreter fixes landed while shipping #7:**
+
+- **GEN-100 (Random / stdlib bridge propagation):** isolated stdlib
+  environments (`dart:math`, `dart:io`, …) were unreachable from
+  `globalEnvironment.toBridgedInstance` once a value (e.g. a
+  `_Random` returned by `Random(seed)`) was passed through an
+  interpreted function. `Environment.propagateBridgeTypesTo` now
+  mirrors a stdlib's type→bridge mapping into `globalEnvironment`
+  without polluting the lexical name scope; wired from
+  `ModuleLoader._registerStdlib`. Mirrored in `tom_d4rt_ast`.
+- **InterpretedInstance `==` / `hashCode` dispatch + recursion
+  guard:** user-defined `==` and `hashCode` are now honoured so
+  interpreted instances slot into native Dart `Set`/`Map`. A
+  static identity-keyed re-entrancy guard breaks recursion caused
+  by eager `$hashCode` string interpolation inside the
+  interpreter's own `Logger.debug` calls. Mirrored in
+  `tom_d4rt_ast`.
 
 ---
 

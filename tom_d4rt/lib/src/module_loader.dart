@@ -177,6 +177,13 @@ class ModuleLoader {
       } else {
         stdlibEnv = Environment(enclosing: globalEnvironment);
         registrar(stdlibEnv);
+        // Mirror the per-stdlib bridges' native-type lookup into
+        // globalEnvironment so that `toBridgedInstance(rawNative)` can
+        // discover them when a script passes a native subtype (e.g.
+        // `_Random` from `math.Random()`) through an interpreted function.
+        // The lexical name (e.g. `Random`) stays isolated in stdlibEnv —
+        // only the type→bridge mapping is propagated.
+        stdlibEnv.propagateBridgeTypesTo(globalEnvironment);
         _stdlibEnvironments[libName] = stdlibEnv;
         Logger.debug(
             '[ModuleLoader] GEN-100: Registered isolated stdlib dart:$libName');

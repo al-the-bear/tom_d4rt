@@ -4582,6 +4582,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   String stringify(Object? value) {
     if (value == null) return 'null';
     if (value is bool) return value.toString();
+    if (value is InterpretedInstance) {
+      // Dispatch to the user-defined toString() method if present so string
+      // interpolation honours overrides like `class Foo { String toString() => ... }`.
+      final toStringMethod = value.klass.findInstanceMethod('toString');
+      if (toStringMethod != null) {
+        Object? result;
+        try {
+          result = toStringMethod
+              .bind(value)
+              .call(this, const <Object?>[], const <String, Object?>{});
+        } on ReturnException catch (e) {
+          result = e.value;
+        }
+        if (result is String) return result;
+        if (result == null) return 'null';
+        return result.toString();
+      }
+    }
     return value.toString();
   }
 
