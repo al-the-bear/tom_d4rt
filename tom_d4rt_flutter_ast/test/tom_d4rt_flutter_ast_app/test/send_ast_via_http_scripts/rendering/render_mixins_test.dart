@@ -1045,16 +1045,25 @@ dynamic build(BuildContext context) {
                     color: kParchmentMid,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #73, P3):
+                  // The treeNode helper renders Container(padding h:10, border 1.4) >
+                  // Row(Icon(14) + SizedBox(6) + Flexible(Text)). At width 36 the
+                  // content area is only 36 - 2*(10 + 1.4) = 13.2 px, but Row's
+                  // minimum non-shrinkable children (Icon + SizedBox) need >= 20 px,
+                  // producing a 6.8 px right-overflow once per node (4x total).
+                  // Width 56 yields a 33.2 px content area, fitting Icon+gap+1-char
+                  // Text comfortably. The helper itself stays unchanged so other
+                  // call sites (default width 200.0) are unaffected.
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      treeNode('A', kVioletMid, width: 36.0),
+                      treeNode('A', kVioletMid, width: 56.0),
                       Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
-                      treeNode('B', kVioletMid, width: 36.0),
+                      treeNode('B', kVioletMid, width: 56.0),
                       Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
-                      treeNode('C', kVioletMid, width: 36.0),
+                      treeNode('C', kVioletMid, width: 56.0),
                       Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
-                      treeNode('D', kVioletMid, width: 36.0),
+                      treeNode('D', kVioletMid, width: 56.0),
                     ],
                   ),
                 ),
