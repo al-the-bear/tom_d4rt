@@ -932,15 +932,29 @@ class _DevicePreview extends StatelessWidget {
                         ? Colors.transparent
                         : Colors.white,
                     padding: EdgeInsets.all(14),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _MockListTile(title: "Daily standup", subtitle: "9:30 AM · Eng team"),
-                        SizedBox(height: 8),
-                        _MockListTile(title: "Design sync", subtitle: "11:00 AM · Atelier"),
-                        SizedBox(height: 8),
-                        _MockListTile(title: "Lunch", subtitle: "12:30 PM · Cafe Verde"),
-                      ],
+                    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #103, P2):
+                    // The mock list (3 tiles + 2 spacers + 28 padding ≈ 150 px)
+                    // is taller than the body region (preview height minus the
+                    // appBar's toolbarHeight: 124, 124, 124, 132, 144, 116 px for
+                    // the 6 _DevicePreview invocations), causing 6 RenderFlex
+                    // bottom overflows of 33/33/33/25/13/41 px (frameworkErrors=6).
+                    // Wrapping the Column in SingleChildScrollView(physics: Never)
+                    // gives it unbounded vertical extent (no overflow assert) while
+                    // the surrounding ClipRRect/Stack visually clips the remainder
+                    // — preserving the device-frame look without raising layout
+                    // banners. Single-site fix covers all 6 previews.
+                    child: SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _MockListTile(title: "Daily standup", subtitle: "9:30 AM · Eng team"),
+                          SizedBox(height: 8),
+                          _MockListTile(title: "Design sync", subtitle: "11:00 AM · Atelier"),
+                          SizedBox(height: 8),
+                          _MockListTile(title: "Lunch", subtitle: "12:30 PM · Cafe Verde"),
+                        ],
+                      ),
                     ),
                   ),
                 ),
