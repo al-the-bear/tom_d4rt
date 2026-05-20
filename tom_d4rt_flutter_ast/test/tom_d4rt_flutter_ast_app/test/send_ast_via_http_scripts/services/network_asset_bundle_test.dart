@@ -37,11 +37,14 @@ dynamic build(BuildContext context) {
   final header = Container(
     padding: EdgeInsets.all(24.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF4E342E), Color(0xFF8D6E63), Color(0xFFD7CCC8)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+      // Replaced LinearGradient with solid mid-tone color. d4rt does not
+      // honor Column.mainAxisSize.min through the bridge (parallel to U14),
+      // so this top-level Container inside SCV > Column(stretch) sizes to
+      // (w, Infinity); LinearGradient.createShader then feeds NaN into
+      // Offset (painting.dart:41 _offsetIsValid). Solid color sidesteps
+      // the shader path entirely.
+      color: Color(0xFF8D6E63),
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: [
         BoxShadow(
@@ -56,7 +59,13 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+    // mainAxisSize.min on inner Columns of gradient-bearing top-level
+    // Containers prevents the Column from expanding to the SCV's unbounded
+    // height, which would size the DecoratedBox to (w, Infinity) and feed
+    // a NaN into LinearGradient.createShader (Offset NaN at painting.dart:41).
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(Icons.local_post_office, size: 64.0, color: Color(0xFFFFE0B2)),
         SizedBox(height: 8.0),
@@ -146,14 +155,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(vertical: 6.0),
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.10),
-              color.withValues(alpha: 0.25),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid colour in place of LinearGradient — see header note.
+          color: color.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: color, width: 1.5),
           boxShadow: [
@@ -242,11 +246,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.all(16.0),
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFFFF8E1), Color(0xFFFFE0B2)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+      // Solid mid-tone color in place of LinearGradient — see header.
+      color: Color(0xFFFFECC8),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: Color(0xFF8D6E63), width: 1.5),
       boxShadow: [
@@ -257,7 +259,10 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+    // mainAxisSize.min — gradient + unbounded h would otherwise NaN.
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
@@ -359,14 +364,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.08),
-              color.withValues(alpha: 0.22),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid colour in place of LinearGradient — see header note.
+          color: color.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: color, width: 1.5),
           boxShadow: [
@@ -544,14 +544,9 @@ dynamic build(BuildContext context) {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    color.withValues(alpha: 0.10),
-                    color.withValues(alpha: 0.20),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+                // Solid colour in place of LinearGradient — see header note.
+                color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(color: color, width: 1.0),
               ),
@@ -614,11 +609,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.all(16.0),
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFFFFDE7), Color(0xFFFFE0B2)],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+      // Solid mid-tone color in place of LinearGradient — see header.
+      color: Color(0xFFFFEEC8),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: Color(0xFF8D6E63), width: 1.5),
       boxShadow: [
@@ -629,7 +622,10 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+    // mainAxisSize.min — gradient + unbounded h would otherwise NaN.
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
@@ -706,14 +702,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.08),
-              color.withValues(alpha: 0.20),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid colour in place of LinearGradient — see header note.
+          color: color.withValues(alpha: 0.14),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: color, width: 1.2),
           boxShadow: [
@@ -824,11 +815,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(6.0),
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFFFF8E1), color.withValues(alpha: 0.18)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid colour in place of LinearGradient — see header note.
+          color: Color(0xFFFFEDC0),
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(color: color.withValues(alpha: 0.6), width: 1.2),
           boxShadow: [
@@ -977,9 +966,13 @@ dynamic build(BuildContext context) {
       Container(
         margin: EdgeInsets.symmetric(vertical: 4.0),
         padding: EdgeInsets.all(10.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P5(a)):
+        // BoxDecoration with a non-uniform Border (only `left`) plus a
+        // borderRadius drives the renderer's RRect path computation to NaN
+        // ("Offset argument contained a NaN value." — dart:ui/painting.dart:41).
+        // Drop the borderRadius; non-uniform borders cannot have rounded corners.
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(8.0),
           border: Border(left: BorderSide(color: color, width: 4.0)),
         ),
         child: Row(
@@ -1088,14 +1081,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.10),
-              color.withValues(alpha: 0.30),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid colour in place of LinearGradient — see header note.
+          color: color.withValues(alpha: 0.20),
           borderRadius: BorderRadius.circular(14.0),
           border: Border.all(color: color, width: 1.5),
           boxShadow: [
@@ -1145,11 +1133,12 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 10.0),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P5(a)):
+            // Non-uniform Border (only `left`) + borderRadius → NaN Offset.
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Color(0xFFE8F5E9),
-                borderRadius: BorderRadius.circular(6.0),
                 border: Border(
                   left: BorderSide(color: Color(0xFF388E3C), width: 3.0),
                 ),
@@ -1176,11 +1165,12 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(height: 6.0),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P5(a)):
+            // Non-uniform Border (only `left`) + borderRadius → NaN Offset.
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Color(0xFFFFEBEE),
-                borderRadius: BorderRadius.circular(6.0),
                 border: Border(
                   left: BorderSide(color: Color(0xFFC62828), width: 3.0),
                 ),
@@ -1282,15 +1272,16 @@ dynamic build(BuildContext context) {
   final recipeCards = <Widget>[];
   for (var i = 0; i < recipes.length; i++) {
     final r = recipes[i];
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+    // Inner Column uses mainAxisSize.min so the gradient Container sizes
+    // to its content height inside the SCV's unbounded-h Column(stretch).
     recipeCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFFFF8E1), Color(0xFFFFE0B2)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+          // Solid mid-tone color in place of LinearGradient — see header.
+          color: Color(0xFFFFECC8),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: Color(0xFF8D6E63), width: 1.2),
           boxShadow: [
@@ -1301,7 +1292,10 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+        // mainAxisSize.min — gradient + unbounded h would otherwise NaN.
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -1692,11 +1686,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.all(16.0),
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFEFEBE9), Color(0xFFD7CCC8)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+      // Solid mid-tone color in place of LinearGradient — see header.
+      color: Color(0xFFE3DFD8),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: Color(0xFF8D6E63), width: 1.2),
       boxShadow: [
@@ -1707,7 +1699,10 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+    // mainAxisSize.min — gradient + unbounded h would otherwise NaN.
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -1765,6 +1760,13 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P1):
+        // Each gradient-bearing top-level Container's inner Column is set
+        // to mainAxisSize.min so the Container sizes to its content height
+        // inside the SCV's unbounded-h Column(stretch). Without this, the
+        // Column defaults to mainAxisSize.max and absorbs the unbounded
+        // height, leading to LinearGradient.createShader producing a NaN
+        // Offset (assert at dart:ui/painting.dart:41).
         header,
         SizedBox(height: 24.0),
 
@@ -1785,15 +1787,17 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24.0),
 
         _sectionTitle('5.  Cache Key Namespace  —  the Pigeonhole Wall'),
+        // No IntrinsicHeight needed here: child is `Wrap` which already
+        // shrink-wraps on the cross axis, so the gradient Container sizes
+        // to a finite height naturally. (Wrap also does NOT support
+        // getMaxIntrinsicHeight, so wrapping it in IntrinsicHeight throws.)
         Container(
           margin: EdgeInsets.symmetric(horizontal: 12.0),
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFFFF8E1), Color(0xFFFFE0B2)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+            // Solid colour in place of LinearGradient — see header note.
+            color: Color(0xFFFFECC8),
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(color: Color(0xFF8D6E63), width: 1.0),
           ),
@@ -1856,11 +1860,9 @@ Widget _sectionTitle(String text) {
           width: 8.0,
           height: 28.0,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF5D4037), Color(0xFFEF6C00)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #91, P-NaN-gradient):
+            // Solid colour in place of LinearGradient — see header note.
+            color: Color(0xFF8B5828),
             borderRadius: BorderRadius.circular(2.0),
           ),
         ),
