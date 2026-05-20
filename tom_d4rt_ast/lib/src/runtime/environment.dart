@@ -277,20 +277,48 @@ class Environment {
     return BridgedInstance(bridgedClass, nativeObject);
   }
 
-  /// D2: From a list of `isAssignable` matches, drop bridges that are
-  /// supertypes of any other match (per [BridgedClass.transitiveSupertypeNames]).
-  /// The remaining bridges are the "most specific" candidates — typically a
-  /// single concrete type plus possibly unrelated mixins. Order is preserved
-  /// so the caller can apply LAST-wins for tie-breaking among the leaves.
+  /// From a list of `isAssignable` matches, return the "most specific"
+  /// candidates — typically a single concrete type plus possibly unrelated
+  /// mixins. Order is preserved so the caller can apply LAST-wins for
+  /// tie-breaking among the leaves.
+  ///
+  /// **GEN-115 (Phase 1)** — When the generator-emitted
+  /// [BridgedClass.hierarchyDepth] is populated for at least one match
+  /// (`depth > 0`), specificity is decided by an O(n) `argmax(depth)`
+  /// walk. This is exact-semantically equivalent to a Dart `is`-chain
+  /// walk picking the most-specific declared type, and replaces the
+  /// O(n²) name-based supertype-union walk that depended on the
+  /// hand-maintained `_supertypeRegistry`.
+  ///
+  /// When every match has `depth == 0` (the legacy default for
+  /// hand-written or not-yet-regenerated bridges) the resolver falls
+  /// back to the older D2 algorithm: build the union of supertype names
+  /// across all matches via [BridgedClass.transitiveSupertypeNames] and
+  /// drop any match whose name appears in that union (it is an ancestor
+  /// of another match).
   List<BridgedClass> _filterToMostSpecific(List<BridgedClass> matches) {
     if (matches.length <= 1) return matches;
-    // Build the union of supertypes of all matches by name.
+
+    // GEN-115 fast path: depth-driven argmax. Activated when any match
+    // carries a generator-emitted depth. We keep every match at the
+    // maximum depth (stable order preserved) so LAST-wins among
+    // unrelated-but-equally-specific leaves keeps working.
+    int maxDepth = 0;
+    for (final m in matches) {
+      if (m.hierarchyDepth > maxDepth) maxDepth = m.hierarchyDepth;
+    }
+    if (maxDepth > 0) {
+      return matches
+          .where((m) => m.hierarchyDepth == maxDepth)
+          .toList(growable: false);
+    }
+
+    // Legacy D2 path — name-based supertype elimination, kept for bridges
+    // that have not yet been regenerated with a populated hierarchyDepth.
     final supertypeUnion = <String>{};
     for (final m in matches) {
       supertypeUnion.addAll(BridgedClass.transitiveSupertypeNames(m.name));
     }
-    // Drop matches whose name appears in the supertype union (they are
-    // ancestors of another match).
     final leaves = matches.where((m) => !supertypeUnion.contains(m.name))
         .toList(growable: false);
     return leaves;
