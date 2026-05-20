@@ -1364,37 +1364,56 @@ class _PrivateSheetSurface extends StatelessWidget {
         ],
       ),
       padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            width: 36,
-            height: 4,
-            decoration: BoxDecoration(
-              color: _kInkMuted.withValues(alpha: 0.4),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 10,
-              color: _kInkMuted,
-              fontFamily: _kMono,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: _kBg,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _kRule),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #130, P-LayoutBuilder
+      // adaptive): the collapsed sheet variant (height: 36 → 20 px inner)
+      // cannot fit the fixed children (drag-handle 4 + sb 6 + label text ~14
+      // + sb 4 ≈ 28 px) plus the Expanded filler, firing "RenderFlex overflow
+      // ~9 px on the bottom". A LayoutBuilder selects between a *compact*
+      // layout (drag handle only — fits 20 px) when inner height < 28 px and
+      // the *full* layout (drag handle + label + filler) for the dragging /
+      // expanded variants (which have ~97 / ~205 px inner height). All
+      // visuals are preserved: the drag handle is always visible (the
+      // pedagogical "this is a sheet surface" cue); the label text appears
+      // only when there is room; the paper-coloured filler box appears only
+      // for the larger variants where it is visually meaningful.
+      child: LayoutBuilder(
+        builder: (BuildContext ctx, BoxConstraints cons) {
+          final bool compact = cons.maxHeight < 28;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: _kInkMuted.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
-          ),
-        ],
+              if (!compact) ...<Widget>[
+                const SizedBox(height: 6),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: _kInkMuted,
+                    fontFamily: _kMono,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _kBg,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: _kRule),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          );
+        },
       ),
     );
   }
@@ -1592,7 +1611,15 @@ class _PrivateMessengerDeprecationPanel extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #130, P1):
+              // Row(crossAxisAlignment.stretch) inside the page-root
+              // SCV > Column(stretch) chain receives unbounded vertical
+              // constraints; stretch then demands a tight height which would
+              // be infinite, firing "BoxConstraints forces an infinite height".
+              // IntrinsicHeight resolves the cross-axis height to the tallest
+              // child's intrinsic height before stretch fires — visual
+              // (two height-matched _PrivateBeforeAfterCard panels) preserved.
+              IntrinsicHeight(child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
@@ -1630,7 +1657,7 @@ Scaffold.of(context).showSnackBar(
                     ),
                   ),
                 ],
-              ),
+              )),
               const SizedBox(height: 18),
               _PrivateNoteBanner(
                 color: _kWarn,
@@ -1807,7 +1834,11 @@ _scaffoldKey.currentState?.openDrawer();''',
                 ),
               ];
               if (wide) {
-                return Row(
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #130, P1):
+                // Row(stretch)+Expanded inside SCV-descended Column chain;
+                // IntrinsicHeight bounds the cross-axis height to the tallest
+                // card before stretch demands an infinite tight height.
+                return IntrinsicHeight(child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     for (int i = 0; i < cards.length; i++) ...<Widget>[
@@ -1815,7 +1846,7 @@ _scaffoldKey.currentState?.openDrawer();''',
                       if (i != cards.length - 1) const SizedBox(width: 16),
                     ],
                   ],
-                );
+                ));
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2051,7 +2082,11 @@ class _PrivateFlowRow extends StatelessWidget {
             ],
           );
         }
-        return Row(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #130, P1):
+        // Row(stretch)+Expanded inside SCV-descended Column chain;
+        // IntrinsicHeight resolves the cross-axis height to the tallest
+        // flow chip before stretch demands an infinite tight height.
+        return IntrinsicHeight(child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             for (int i = 0; i < steps.length; i++) ...<Widget>[
@@ -2064,7 +2099,7 @@ class _PrivateFlowRow extends StatelessWidget {
                 ),
             ],
           ],
-        );
+        ));
       },
     );
   }
@@ -2493,14 +2528,18 @@ class _PrivatePitfallCard extends StatelessWidget {
                 icon: Icons.check,
               );
               if (wide) {
-                return Row(
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #130, P1):
+                // Row(stretch)+Expanded inside SCV-descended Column chain;
+                // IntrinsicHeight bounds cross-axis height to the taller of
+                // (badPanel, goodPanel) before stretch fires.
+                return IntrinsicHeight(child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Expanded(child: badPanel),
                     const SizedBox(width: 12),
                     Expanded(child: goodPanel),
                   ],
-                );
+                ));
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
