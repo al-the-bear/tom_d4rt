@@ -5220,8 +5220,173 @@ None of these belong in the per-item fix sweep — they are
 
 ---
 
+## U18 — `services/platform_test.dart` `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard): script-side P1 variants all destabilise the test-app transport (interpreter/bridge limitation)
+
+**Category.** Interpreter / bridge limitation manifesting as a
+*regression cliff*: the baseline script produces a recoverable
+`BoxConstraints forces an infinite height` framework banner
+(`status=success, frameworkErrors=1`), but **every reasonable
+P1-style script-side rewrite of the offending Row triggers a hard
+test-app crash** (`status=transport_error, httpStatus=-1,
+outputLines=0, frameworkErrors=0`, "Lost connection to device" in
+the flutter_test stderr and "HttpException: Connection closed
+before full header was received" on the POST `/build` call). The
+crash is worse than the baseline error.
+
+**Reproducer.** `services/platform_test.dart` (item 93 of
+`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+Surfaces in `important_classes_test` (1/1 in the
+`20260519-1247-flutter-suites-fixes` baseline). The banner shape:
+
+```text
+BoxConstraints forces an infinite height.
+The offending constraints were: BoxConstraints(0.0<=w<=Infinity, h=Infinity)
+debugCreator: Row ← Padding ← Container ← Column ← Padding ← ColoredBox ←
+  Container ← KeyedSubtree-[<2>] ← Padding ← DecoratedBox ← Padding ←
+  Container ← ⋯
+RenderFlex#fc69b:
+  direction: horizontal
+  crossAxisAlignment: stretch
+  mainAxisSize: max
+  constraints: BoxConstraints(w=1870.0, 0.0<=h<=Infinity)
+Stack: BoxConstraints.debugAssertIsValid → RenderObject.layout →
+  ChildLayoutHelper.layoutChild → RenderFlex._computeSizes →
+  RenderFlex.performLayout
+```
+
+The offender is `_defaultVsThemeCard()` (lines 541–582):
+
+```dart
+Widget _defaultVsThemeCard() {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(child: _twinCard(...)),  // nested Column with bullet rows
+        const SizedBox(width: 14.0),
+        Expanded(child: _twinCard(...)),
+      ],
+    ),
+  );
+}
+```
+
+The page root is `Container > Column(crossAxisAlignment.stretch)
+> [...sections..., _defaultVsThemeCard(), ...]` with **no
+`SingleChildScrollView` ancestor**, so the top-level Container's
+height is unbounded. `Column(stretch)` propagates that down to
+its children; the Row then sees `h=0..Infinity`, and with
+`crossAxisAlignment.stretch` it tightens its children's height
+constraint to `h=Infinity`. `RenderConstrainedBox.layout`'s
+`debugAssertIsValid` fires.
+
+**What was tried (all crash the test app).**
+
+| Attempt | Change | Result |
+|---|---|---|
+| A1 | Wrap the Row in `IntrinsicHeight` (canonical P1) | `transport_error httpStatus=-1 outputLines=0 frameworkErrors=0` |
+| A2 | Change `crossAxisAlignment.stretch` → `start` | `transport_error httpStatus=-1 outputLines=0 frameworkErrors=0` |
+| A3 | Replace `Row` with `Column(stretch)` (drop the two `Expanded`, replace `SizedBox(width: 14)` with `SizedBox(height: 14)`) | `transport_error httpStatus=-1 outputLines=0 frameworkErrors=0` |
+| A4 | Delete the offending `crossAxisAlignment: CrossAxisAlignment.stretch` line outright (default is `center`) — the minimal possible change | `transport_error httpStatus=-1 outputLines=0 frameworkErrors=0` — script prints completed, but the test-app's HTTP server died mid-build (Connection closed before full header) |
+
+A4 is the strongest evidence that this is not a "the layout
+substitute is *also* invalid" problem. Removing one widget
+parameter that purely controls cross-axis alignment should be a
+semantic no-op for the build phase (the children still lay out at
+their natural heights, the Row sizes to its tallest child). Yet
+every variant kills the test app rather than producing either a
+clean success or a new recoverable banner. The baseline (with
+`stretch`) survives because Flutter's `FlutterError.onError`
+catches the layout assertion as a recoverable framework error
+and continues painting; the no-stretch / IntrinsicHeight /
+Row-to-Column variants somehow take down the surrounding
+bridge / interpreter / HTTP server process instead.
+
+**Why this is not a pure layout bug.** A pure Flutter widget
+change should at worst produce a different recoverable banner —
+not a process-level crash that closes the HTTP server's response
+mid-header. The transport-error fingerprint (`httpStatus=-1`,
+"Lost connection to device", HttpException on the POST `/build`)
+indicates the test-app process died while constructing the
+widget tree from the AST bundle, not a recoverable layout
+assertion. The crash reproduces across four different P1
+variants (including the minimal "delete one keyword argument"
+edit), so the trigger is something about how the d4rt bridge
+materialises the Row / nested `_twinCard` Column when the cross-
+axis behaviour shifts, not the specific replacement widget.
+
+The exact failure path is opaque from the script side — the
+flutter_test driver only reports "Lost connection to device" and
+the server-side connection drop. No Dart-side stack trace
+reaches the log. A real fix needs interpreter / bridge
+instrumentation around `Row` / `Expanded` / `Column`
+construction when called from a script-defined helper function
+(`_defaultVsThemeCard` / `_twinCard`).
+
+**Workaround.** None at the script level. The four script-side
+patterns that would normally close a P1 error all destabilise the
+transport. Leaving the original `Row(crossAxisAlignment.stretch)`
+in place keeps `frameworkErrors=1` (recoverable banner) but
+preserves the rest of the script — `outputLines=15`, the test
+passes, and the rest of the suite is unaffected.
+
+A heavier alternative — wrapping every `Expanded(child:
+_twinCard(...))` call site in a `SizedBox(height: <fixed>)` to
+bound the Row's height — would in principle avoid the unbounded
+constraint, but (a) any picked height is wrong for one of the two
+cards (the bullet list lengths differ), (b) it requires editing
+two interleaved call sites without breaking the side-by-side
+visual layout, and (c) given that even removing one keyword
+argument crashed the test app, there is no reason to expect that
+wrapping the children in `SizedBox` will survive transport.
+Deferred until the underlying transport-cliff is understood.
+
+**Decision (2026-05-20).** Item 93 is marked **reverted/deferred**
+in
+`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`.
+The recoverable `frameworkErrors=1` baseline is the steady state
+for this script until the interpreter / bridge can be
+instrumented to surface the actual crash trigger.
+
+**What a real fix would look like.**
+
+1. **Interpreter / bridge instrumentation.** Wrap the
+   `RenderFlex` / `Expanded` materialisation path with diagnostic
+   prints that capture the exact constructor arguments and parent
+   chain when the test-app aborts. The four-attempt crash
+   reproducer is small enough to bisect (one keyword removed
+   crashes; the original keyword preserved survives) — useful for
+   isolating which bridge call returns an invalid value mid-
+   construction.
+2. **Bound the page height at the call site.** Once the
+   instrumentation finds the trigger, the eventual script-side fix
+   will likely be wrapping `_defaultVsThemeCard()` in a
+   `SizedBox(height: <fixed>)` (or equivalently, the entire page
+   in a `SingleChildScrollView`). Until then, the wrapper would
+   simply move the crash, not fix it.
+
+### Affected scripts
+
+| Script | Host suites | Sites | Notes |
+|--------|-------------|-------|-------|
+| `services/platform_test.dart` | `important_classes_test` (1/1) | `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard); page has no bounded-h ancestor. | Item 93 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U18 root-cause analysis above. |
+
+---
+
 ## Change Log
 
+- 2026-05-20: **Add U18** — `services/platform_test.dart`
+  `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard) cannot
+  be fixed at the script level. Four P1-style variants
+  (IntrinsicHeight wrap, stretch→start, Row→Column, minimal
+  delete-`stretch`-line) all crash the test-app HTTP server
+  (`transport_error httpStatus=-1`, "Lost connection to device"),
+  worse than the baseline's recoverable `frameworkErrors=1`
+  banner. Item 93 reverted and deferred — a real fix requires
+  interpreter / bridge instrumentation to identify why removing a
+  cross-axis-alignment keyword from a single Row destabilises the
+  bridge transport.
 - 2026-05-20: **Add U17** — `render_constraints_transform_box_test.dart`
   is a teaching script whose purpose is to feed pathological
   inputs to `ConstraintsTransformBox` and observe Flutter's
