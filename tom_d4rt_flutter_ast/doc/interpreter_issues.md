@@ -3232,6 +3232,128 @@ themselves pass in isolation.
 
 ---
 
+### [ ] Open (fixable) — classic `for (var i = ...; ...; ...)` loop variable shared across iterations; closures created in the body capture one slot
+
+**Discovered:** 2026-05-11, while bringing up the multi-file Sudoku
+sample under `tom_d4rt_flutter_test/example/sudoku_app/`. Same project
+repo, different sub-package — but the bug is in the analyzer-based
+interpreter (`tom_d4rt`) and its AST-driven mirror (`tom_d4rt_ast`),
+so it affects every Flutter demo / test script that builds a widget
+list with classic-for and per-element callbacks.
+
+**Symptom**
+
+A widget tree built with a collection-`for` that creates per-element
+callbacks captures the *same* loop variable across every iteration.
+At call time the variable holds its post-loop value, so every callback
+fires with that one value.
+
+Minimal reproducer:
+
+```dart
+Column(
+  children: [
+    for (var r = 0; r < 9; r++)
+      Row(children: [
+        for (var c = 0; c < 9; c++)
+          InkWell(
+            onTap: () => print('$r,$c'),  // always prints "9,9"
+            child: Text('$r,$c'),         // shows correct r,c
+          ),
+      ]),
+  ],
+)
+```
+
+The Sudoku sample symptom presented as:
+
+```
+Runtime Error: Index out of range: 9
+  at _enter → _given[r][c]   (r = c = 9 after the cell-tap loop ran)
+```
+
+Crucially, the rendered labels were correct (`_Cell(row: r, col: c,
+value: values[r][c], …)`) because constructor arguments are evaluated
+eagerly while `r`/`c` still hold the per-iteration value. Only the
+`onTap` closure misbehaved — it reads `r`/`c` later, by which point
+they have been incremented past the loop bound.
+
+**Root cause**
+
+Standard Dart specifies that `for (var i = ...; ...; ...)` allocates a
+*fresh* binding for `i` per iteration: every closure created in the
+loop body captures its own `i`. The interpreter currently keeps a
+single hoisted slot in the enclosing scope and just mutates it via
+`i++`, so all closures alias the same variable. Once the loop exits,
+`i` holds its post-condition value and every closure reads it.
+
+**Likely site to patch**
+
+- `tom_d4rt/lib/src/interpreter_visitor.dart`: the `ForStatement` /
+  `ForPartsWithDeclarations` (classic three-clause form) and the
+  collection-for branch invoked from `visitListLiteral` /
+  `visitSetOrMapLiteral`.
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`: the AST
+  mirror of the same code — must be patched in lockstep per the
+  "Keep tom_d4rt ↔ tom_d4rt_ast in sync" rule in the quest overview.
+
+Approach: before evaluating the body of each iteration, push a new
+`Environment` child frame and re-define the loop variable into that
+frame (copying the current numeric value). Closures that close over
+the body's scope chain then end up bound to that per-iteration frame
+instead of the enclosing one. The same treatment is what makes
+`List.generate(n, (i) => () => i)` work today — the function-call
+machinery already pushes a fresh environment per call, which is why
+that is the only working workaround.
+
+For-each (`for (var x in xs)`) needs the same audit; the bug pattern
+is identical (single hoisted slot, mutated per iteration). Most
+existing test scripts use eager bodies in for-each, which masks it,
+so this may already be correct in some paths — worth verifying as
+part of the fix.
+
+**Scope check (what's affected vs. not)**
+
+- **Affected:** loop bodies that *create a closure* — `onTap`,
+  `onPressed`, `onChanged`, `builder:` callbacks, anonymous
+  `() => …`, `Function` literals stored for later invocation.
+- **Unaffected:** eager bodies that read the loop variable and
+  produce a value immediately — e.g. `[for (final row in grid)
+  [...row]]`, `[for (var i = 0; i < 9; i++) i * 2]`, or
+  `_Cell(row: r, col: c, …)` constructor arguments. The shared
+  variable is read with its current value and produces the right
+  result.
+
+**Workaround (until fixed)**
+
+Replace closure-creating `for` loops in scripts with
+`List.generate(n, (i) { … return Widget(onTap: () => f(i)); })`.
+The function-parameter `i` is a fresh binding per call, so closures
+capture per-iteration values correctly. Equivalent: extract the
+closure into a helper function that takes the iteration variables
+as parameters. Applied to
+`tom_d4rt_flutter_test/example/sudoku_app/board.dart` (9×9 grid) and
+`keypad.dart` (1..9 digit buttons) — both files comment the reason
+inline.
+
+**Verification plan after fix**
+
+1. Add a regression test under `tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/`:
+   build three `ElevatedButton`s with
+   `for (var i = 0; i < 3; i++) ElevatedButton(onPressed: () => observed = i, …)`,
+   tap each programmatically, assert `observed == 0`, `1`, `2`.
+   Cover the for-each variant in a sibling test (closures over
+   `for (final x in xs)`).
+2. Re-run the Sudoku sample (`tom_d4rt_flutter_test`, "Run Sample"
+   button) after reverting the `List.generate` workaround — tapping
+   any cell should select that exact cell; tapping any digit should
+   enter that exact digit.
+3. Re-run essential + important + secondary suites in
+   `tom_d4rt_flutter_ast` serially to confirm no regression in
+   eager-loop scripts.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its
