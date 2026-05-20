@@ -2085,7 +2085,14 @@ dynamic build(BuildContext context) {
   // ─────────────────────────────────────────────────────────────────────
   // Page assembly
   // ─────────────────────────────────────────────────────────────────────
-  return Container(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #88, P2)
+  // The document assembles 11 sections plus banner — the laid-out
+  // Column is ~7661 px tall, far exceeding any host paint surface,
+  // and overflowed by exactly that delta on the bottom. Wrap the
+  // top-level Container(Column(...)) in SingleChildScrollView so
+  // the Column scrolls instead of overflowing.
+  return SingleChildScrollView(
+    child: Container(
     color: parchment,
     padding: const EdgeInsets.all(18),
     child: Column(
@@ -2106,5 +2113,6 @@ dynamic build(BuildContext context) {
         section11,
       ],
     ),
+  ),
   );
 }
