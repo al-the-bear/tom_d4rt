@@ -4956,4 +4956,63 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch33_short_tests2_demos_b3/', () {
+    test('material/bottomnavigationbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/bottomnavigationbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/transform_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/transform_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/primitives_test.dart', () async {
+      final result = await SendTestRunner.send('dart_ui/primitives_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/customscrollview_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/customscrollview_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/widgetstate_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/widgetstate_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/wrap_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/wrap_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/alwaysstoppedanimation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/alwaysstoppedanimation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dropdownform_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dropdownform_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/clip_r_rect_engine_layer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/clip_r_rect_engine_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

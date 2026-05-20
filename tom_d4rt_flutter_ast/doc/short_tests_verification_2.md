@@ -48,15 +48,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  16 | `material/picker_themes_test.dart` | 8,609 | 217 | (x) | (x) | (x) |
 |  17 | `rendering/debug_overflow_indicator_mixin_test.dart` | 8,610 | 251 | (x) | (x) | (x) |
 |  18 | `material/component_themes_test.dart` | 8,612 | 231 | (x) | (x) | (x) |
-|  19 | `material/bottomnavigationbar_test.dart` | 8,726 | 263 | ( ) | ( ) | ( ) |
-|  20 | `widgets/transform_test.dart` | 8,726 | 316 | ( ) | ( ) | ( ) |
-|  21 | `dart_ui/primitives_test.dart` | 8,744 | 245 | ( ) | ( ) | ( ) |
-|  22 | `widgets/customscrollview_test.dart` | 8,780 | 303 | ( ) | ( ) | ( ) |
-|  23 | `material/widgetstate_test.dart` | 8,813 | 207 | ( ) | ( ) | ( ) |
-|  24 | `widgets/wrap_test.dart` | 8,839 | 311 | ( ) | ( ) | ( ) |
-|  25 | `animation/alwaysstoppedanimation_test.dart` | 8,931 | 279 | ( ) | ( ) | ( ) |
-|  26 | `material/dropdownform_test.dart` | 8,937 | 282 | ( ) | ( ) | ( ) |
-|  27 | `dart_ui/clip_r_rect_engine_layer_test.dart` | 8,984 | 307 | ( ) | ( ) | ( ) |
+|  19 | `material/bottomnavigationbar_test.dart` | 8,726 | 263 | (x) | (x) | (x) |
+|  20 | `widgets/transform_test.dart` | 8,726 | 316 | (x) | (x) | (x) |
+|  21 | `dart_ui/primitives_test.dart` | 8,744 | 245 | (x) | (x) | (x) |
+|  22 | `widgets/customscrollview_test.dart` | 8,780 | 303 | (x) | (x) | (x) |
+|  23 | `material/widgetstate_test.dart` | 8,813 | 207 | (x) | (x) | (x) |
+|  24 | `widgets/wrap_test.dart` | 8,839 | 311 | (x) | (x) | (x) |
+|  25 | `animation/alwaysstoppedanimation_test.dart` | 8,931 | 279 | (x) | (x) | (x) |
+|  26 | `material/dropdownform_test.dart` | 8,937 | 282 | (x) | (x) | (x) |
+|  27 | `dart_ui/clip_r_rect_engine_layer_test.dart` | 8,984 | 307 | (x) | (x) | (x) |
 |  28 | `material/icontheme_test.dart` | 9,053 | 288 | ( ) | ( ) | ( ) |
 |  29 | `material/formcontrols_test.dart` | 9,119 | 349 | ( ) | ( ) | ( ) |
 |  30 | `cupertino/cupertino_themes_batch2_test.dart` | 9,219 | 265 | ( ) | ( ) | ( ) |
