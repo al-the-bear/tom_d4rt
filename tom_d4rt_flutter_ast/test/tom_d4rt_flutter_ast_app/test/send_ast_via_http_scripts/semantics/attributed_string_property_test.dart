@@ -1039,6 +1039,13 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.only(left: indent, top: 4, bottom: 4),
       child: Container(
         padding: EdgeInsets.all(10),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #83, P5(a)):
+        // Original combined `borderRadius: 6` with a non-uniform `Border`
+        // (left: color/3 vs top/right/bottom: color@0.25/0.6 — different
+        // colors and widths). Flutter asserts uniform-colors-or-no-radius.
+        // Drop borderRadius; the heavy-left accent bar look (the visual
+        // hallmark of the section box) is carried by the wider, saturated
+        // left BorderSide alone.
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.10),
           border: Border(
@@ -1048,7 +1055,6 @@ dynamic build(BuildContext context) {
             bottom:
                 BorderSide(color: color.withValues(alpha: 0.25), width: 0.6),
           ),
-          borderRadius: BorderRadius.circular(6),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
