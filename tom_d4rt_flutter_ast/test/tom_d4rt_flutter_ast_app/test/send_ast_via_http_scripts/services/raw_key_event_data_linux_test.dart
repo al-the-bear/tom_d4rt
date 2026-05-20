@@ -3110,11 +3110,18 @@ class _PitfallRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #95, P5(a))
+    // The Border below has a heavy 4-px crimson `left` side against
+    // 1-px crimson@0.3 sides on top/right/bottom — non-uniform widths
+    // (and arguably colours with the alpha shift) cannot coexist with
+    // `borderRadius: BorderRadius.circular(10)`. Drop the borderRadius;
+    // the heavy left accent bar carries the pitfall-row visual
+    // identity. The helper is invoked 5 times (5 _Pitfall entries in
+    // the pitfalls list) → 5 banners cleared.
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: _Pal.crimson.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(10),
         border: Border(
           left: BorderSide(color: _Pal.crimson, width: 4),
           top: BorderSide(color: _Pal.crimson.withValues(alpha: 0.3)),
