@@ -612,10 +612,29 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #108, P2):
+            // Outer `SizedBox(width: 220, height: 220)` → `Column > [header
+            // (h:38), Expanded(Container(padding:6, child: Column(6 rows))),
+            // footer(h:22)]`. The Expanded receives `220 − 38 − 22 = 160 px`;
+            // after the inner Container's 6-px symmetric padding the inner
+            // Column's max height is `160 − 12 = 148 px`. The six rows
+            // (`height: 22 + margin-bottom: 4 = 26 each`) sum to
+            // `6 × 26 = 156 px`, overflowing the bound by exactly
+            // `156 − 148 = 8 px` — the framework error reported in the
+            // baseline (`RenderFlex overflowed by 8.0 pixels on the bottom`).
+            // Wrap the inner Column in a `SingleChildScrollView(physics:
+            // NeverScrollableScrollPhysics())` so it receives unbounded
+            // vertical extent and the overflow assert never fires; the
+            // surrounding `Expanded(Container(padding:6))` still clips the
+            // painted output to the 148-px budget so the recipe's
+            // "header + scrollable + footer" visual intent is preserved.
             child: Container(
               padding: const EdgeInsets.all(6.0),
               color: surface,
-              child: Column(children: rows),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(children: rows),
+              ),
             ),
           ),
           Container(
