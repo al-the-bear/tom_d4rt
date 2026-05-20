@@ -443,29 +443,40 @@ dynamic build(BuildContext context) {
     icon: Icons.compare_arrows,
   );
 
-  final comparisonRow = Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Expanded(
-        child: _comparisonPanel(
-          color: accentEnabled,
-          title: 'enabled: true',
-          subtitle: 'will fly on transition',
-          icon: Icons.check_circle,
-          tag: 'cmp-enabled-hero',
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #114, P1):
+  // The comparison row uses CrossAxisAlignment.stretch so the two
+  // _comparisonPanel cards visually equalise their heights. The page root
+  // wraps everything in a SingleChildScrollView → the row's parent gives it
+  // unbounded vertical constraints, and Row(stretch) propagates that
+  // unbounded height down to each Expanded child's _comparisonPanel Container
+  // → "BoxConstraints forces an infinite height." Wrapping in IntrinsicHeight
+  // forces a finite tight height derived from the tallest child, preserving
+  // the visual intent (matched heights) without the unbounded-height assert.
+  final comparisonRow = IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: _comparisonPanel(
+            color: accentEnabled,
+            title: 'enabled: true',
+            subtitle: 'will fly on transition',
+            icon: Icons.check_circle,
+            tag: 'cmp-enabled-hero',
+          ),
         ),
-      ),
-      SizedBox(width: 12.0),
-      Expanded(
-        child: _comparisonPanel(
-          color: accentDisabled,
-          title: 'enabled: false',
-          subtitle: 'will NOT fly on transition',
-          icon: Icons.block,
-          tag: 'cmp-disabled-hero',
+        SizedBox(width: 12.0),
+        Expanded(
+          child: _comparisonPanel(
+            color: accentDisabled,
+            title: 'enabled: false',
+            subtitle: 'will NOT fly on transition',
+            icon: Icons.block,
+            tag: 'cmp-disabled-hero',
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   // ============================================================
