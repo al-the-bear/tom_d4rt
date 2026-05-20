@@ -1231,7 +1231,16 @@ Widget _buildGridCustomSection() {
         Text('6.1  Custom with SliverChildBuilderDelegate', style: _kCaptionStyle),
         const SizedBox(height: 8.0),
         _gridFrame(
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #112, P10):
+          // Add shrinkWrap/physics/primary to GridView.custom so it measures
+          // to its content inside the page-level SingleChildScrollView. Without
+          // these, the vertical viewport receives unbounded height and
+          // asserts (the same protective wrapping every neighbouring GridView
+          // in this file already applies).
           GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
             gridDelegate:
                 const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
