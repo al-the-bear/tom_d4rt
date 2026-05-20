@@ -6,6 +6,10 @@ class TimerAsync {
         nativeType: Timer,
         name: 'Timer',
         nativeNames: ['TimerImpl'],
+        // GEN-114 — recognise Timer subclasses (e.g. flutter_test's
+        // FakeTimer used by `WidgetTester.runAsync`). Mirror of
+        // `tom_d4rt`.
+        isAssignable: (v) => v is Timer,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 2 || namedArgs.isNotEmpty) {

@@ -6,6 +6,13 @@ class TimerAsync {
         nativeType: Timer,
         name: 'Timer',
         nativeNames: ['TimerImpl'],
+        // GEN-114 — without an `isAssignable` callback the
+        // `Environment.toBridgedInstance` isAssignable-iteration skips
+        // this bridge entirely, so subclasses of Timer (notably
+        // `FakeTimer` from `package:fake_async` used by `flutter_test`
+        // and `WidgetTester.runAsync`) fail every method lookup with
+        // "Undefined property or method 'cancel' on FakeTimer".
+        isAssignable: (v) => v is Timer,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 2 || namedArgs.isNotEmpty) {

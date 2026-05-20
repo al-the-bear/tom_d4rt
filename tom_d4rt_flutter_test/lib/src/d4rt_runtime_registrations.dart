@@ -997,7 +997,15 @@ void _registerGenericConstructors() {
     };
   });
 
-  // ValueKey<T> — when scripts use ValueKey<String>('key')
+  // ValueKey<T> — when scripts use ValueKey<String>('key') (explicit T).
+  //
+  // GEN-NNN — the wildcard case must return `null` (not `ValueKey(value)`),
+  // so when the script writes `ValueKey('foo')` *without* an explicit type
+  // argument the call falls through to the next factory in the chain
+  // (`_rc2ValueKey` → default bridge constructor in foundation_bridges.b.dart)
+  // which infers T from the runtime type of the value. Returning
+  // `ValueKey(value)` here unconditionally produced `ValueKey<dynamic>`
+  // and broke `find.byKey(ValueKey<String>(...))` from the host side.
   D4.registerGenericConstructor('ValueKey', '', (
     visitor,
     positional,
@@ -1015,7 +1023,7 @@ void _registerGenericConstructors() {
             : ValueKey<String?>(value as String?),
       'int' =>
         value is int ? ValueKey<int>(value) : ValueKey<int?>(value as int?),
-      _ => ValueKey(value),
+      _ => null, // Fall through to runtime-value-based inference.
     };
   });
 
