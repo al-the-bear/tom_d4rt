@@ -146,6 +146,26 @@ class BridgedClass implements RuntimeType {
   /// case where no proxy is registered.
   final bool isAbstract;
 
+  /// **GEN-115 (Phase 1)** — Distance from `Object` in the native Dart
+  /// inheritance hierarchy, i.e. the number of distinct supertypes
+  /// (`allSupertypes.length`, excluding `Object` itself).
+  ///
+  /// Used by [Environment._filterToMostSpecific] as the primary tiebreaker
+  /// when multiple `isAssignable`-positive bridges match a native instance —
+  /// the deepest bridge wins, which is exact-semantically equivalent to a
+  /// Dart `is`-chain walk picking the most-specific declared type.
+  ///
+  /// `0` is the legacy default for hand-written bridges that have not yet
+  /// been migrated to emit a depth. When all matches have depth `0` (or
+  /// equal depth) the resolver falls back to the older name-based
+  /// supertype-elimination walk via [transitiveSupertypeNames].
+  ///
+  /// Populated by the generator from
+  /// `ClassInfo.allSupertypeNames.length`. Hand-written bridges may pass
+  /// their own depth if they need to participate in tie-breaking; otherwise
+  /// leave it at `0` and the name-based walk continues to apply.
+  final int hierarchyDepth;
+
   // Adapters for constructors
   Map<String, BridgedConstructorCallable> constructors = {};
   // Adapters for instance methods
@@ -173,6 +193,7 @@ class BridgedClass implements RuntimeType {
       this.typeParameterCount = 0,
       this.canBeUsedAsMixin = false,
       this.isAbstract = false,
+      this.hierarchyDepth = 0,
       this.isAssignable,
       this.constructors = const {},
       this.staticMethods = const {},
