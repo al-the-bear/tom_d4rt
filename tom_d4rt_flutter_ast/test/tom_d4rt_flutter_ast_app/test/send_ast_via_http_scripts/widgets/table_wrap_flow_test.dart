@@ -925,8 +925,20 @@ Widget _tableVerticalAlignmentCard() {
                 'Each column shows the same tall row painted with a different '
                 'vertical alignment for the short cell.'),
         const SizedBox(height: 10.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #135, P9):
+        // The "baseline" column uses `TableCellVerticalAlignment.baseline`
+        // (line below), which requires the enclosing Table to declare an
+        // explicit `textBaseline`. Without it Flutter asserts at
+        // table.dart:1372 'textBaseline != null': "An explicit textBaseline
+        // is required when using baseline alignment.". Setting
+        // `textBaseline: TextBaseline.alphabetic` (the only Roman-script
+        // baseline; `ideographic` is for CJK glyphs and would visually be
+        // identical here) clears the assertion while preserving the baseline
+        // demonstration's visual intent (the short text in the baseline cell
+        // sits on the alphabetic baseline of the tall row's first text line).
         Table(
           border: TableBorder.all(color: _kGridLine, width: 1.0),
+          textBaseline: TextBaseline.alphabetic,
           columnWidths: const <int, TableColumnWidth>{
             0: FlexColumnWidth(1.0),
             1: FlexColumnWidth(1.0),
