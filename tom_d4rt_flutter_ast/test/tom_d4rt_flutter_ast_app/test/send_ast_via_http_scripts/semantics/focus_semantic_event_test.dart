@@ -250,13 +250,19 @@ dynamic build(BuildContext context) {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #84, P5(a)):
+          // Original combined `borderRadius: 8` with a non-uniform `Border`
+          // (left: hue/4 vs top/right/bottom: edgeRule/0.5 — different colors
+          // and widths). Flutter asserts uniform-colors-or-no-radius. The
+          // anatomyRows loop produces 8 tiles → 8 errors. Drop borderRadius;
+          // the heavy-left accent bar look is carried by the wider, saturated
+          // left BorderSide alone.
           border: Border(
             left: BorderSide(color: hue, width: 4.0),
             top: BorderSide(color: edgeRule, width: 0.5),
             right: BorderSide(color: edgeRule, width: 0.5),
             bottom: BorderSide(color: edgeRule, width: 0.5),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1285,6 +1291,11 @@ dynamic build(BuildContext context) {
       Container(
         margin: EdgeInsets.only(bottom: 6.0),
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #84, P5(a))
+        // ledgerRows loop emits 8 tiles. A non-uniform Border (different
+        // colors on the left edge vs. the other three sides) cannot be
+        // combined with borderRadius — Flutter asserts uniform colors.
+        // Drop borderRadius for this tile shape.
         decoration: BoxDecoration(
           color: slatePanelDeep,
           border: Border(
@@ -1293,7 +1304,6 @@ dynamic build(BuildContext context) {
             right: BorderSide(color: edgeRule, width: 0.5),
             bottom: BorderSide(color: edgeRule, width: 0.5),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
