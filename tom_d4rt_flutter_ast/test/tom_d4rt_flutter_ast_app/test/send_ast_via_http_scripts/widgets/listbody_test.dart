@@ -2271,9 +2271,21 @@ Widget _ringTile({required String label, required int rings, required bool big})
     );
   }
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #119, P12):
+  // The small-tile (big=false) path is rendered inside the horizontal
+  // `ListBody(mainAxis: Axis.horizontal)` of `_ringTilesHorizontal`,
+  // which sits inside a `SingleChildScrollView(scrollDirection: Axis.
+  // horizontal)`. That SCV grants its child unbounded width on the main
+  // axis. With `width: null` the tile Container also goes unbounded, so
+  // the inner `Row > Expanded(...)` asserts "RenderFlex children have
+  // non-zero flex but incoming width constraints are unbounded." Give
+  // the small tile an explicit finite width so the Row receives a
+  // bounded constraint. The big-tile (vertical-axis) path stays at
+  // `double.infinity` — its parent vertical ListBody bounds the
+  // cross-axis width to the container width.
   return Container(
     height: big ? 64.0 : 88.0,
-    width: big ? double.infinity : null,
+    width: big ? double.infinity : 140.0,
     padding: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       color: spruceSnow,
