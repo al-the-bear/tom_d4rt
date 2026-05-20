@@ -1486,12 +1486,17 @@ dynamic build(BuildContext context) {
         Container(
           padding: const EdgeInsets.symmetric(
               horizontal: 16.0, vertical: 10.0),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #98, P5(a))
+          // BoxDecoration combined `borderRadius.only(topLeft, topRight)`
+          // with `Border(bottom: BorderSide(_lime@0.5, width: 1.0))` —
+          // the unset top/left/right sides default to BorderSide.none
+          // whose colour is opaque black, so Border.isUniform returns
+          // false on color and Flutter throws "A borderRadius can only
+          // be given on borders with uniform colors." once per build.
+          // Dropping borderRadius leaves the terminal-banner header
+          // square at the top corners but preserves the bottom rule.
           decoration: BoxDecoration(
             color: _alpha(_lime, 0.18),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(17.0),
-              topRight: Radius.circular(17.0),
-            ),
             border: Border(
               bottom:
                   BorderSide(color: _alpha(_lime, 0.5), width: 1.0),
@@ -2133,13 +2138,22 @@ Widget _heroKeyboardGraphic() {
       width: 44.0,
       height: 44.0,
       margin: const EdgeInsets.symmetric(horizontal: 3.0),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #98, P5(a))
+      // BoxDecoration combined `borderRadius.circular(7)` with a
+      // four-side Border whose top side (cyan@0.6, width 1.5) differs
+      // from the left/right/bottom sides (violet@0.4, default width).
+      // Different colour AND width across sides => Border.isUniform
+      // returns false => "A borderRadius can only be given on borders
+      // with uniform colors." fires once per digit key. The loop builds
+      // 10 keys ('1'..'9','0') so this single helper accounts for ~10
+      // banners per build. Dropping borderRadius makes each digit cap
+      // square but preserves the gradient + dual-tone bezel.
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: <Color>[_indigo, _indigoDeep],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        borderRadius: BorderRadius.circular(7.0),
         border: Border(
           top: BorderSide(color: _alpha(_cyan, 0.6), width: 1.5),
           left: BorderSide(color: _alpha(_violet, 0.4)),
