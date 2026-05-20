@@ -1579,27 +1579,42 @@ dynamic build(BuildContext context) {
   // ───────────────────────────────────────────────────────────────────
   // Assemble final report
   // ───────────────────────────────────────────────────────────────────
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #105, P2):
+  // Page-root Column(stretch) packs 14 themed sections (title, dossier,
+  // anatomy, recipes, mergeSection, overflowPanel, softWrapComparison,
+  // maxLinesGrid, textWidthBasisSection, textHeightBehaviorSection,
+  // comparison, pitfalls, glossary, recap). Combined intrinsic height
+  // ≈ 7550 px exceeds the desktop test viewport, no scrolling ancestor
+  // (frameworkErrors=1: "A RenderFlex overflowed by 7550 pixels on the
+  // bottom."). The plan label was P1+P2 but no `Row(stretch)` exists in
+  // the script (multiline grep confirms); the existing Column(stretch)
+  // sites constrain *width* which is bounded by the outer Container, so
+  // P1 did not materialise. Fix (P2): wrap the Column in
+  // SingleChildScrollView; the ivory-background Container stays *outside*
+  // so the report backdrop fills the whole viewport.
   return Container(
     color: ivory,
     padding: const EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        title,
-        dossier,
-        anatomy,
-        recipes,
-        mergeSection,
-        overflowPanel,
-        softWrapComparison,
-        maxLinesGrid,
-        textWidthBasisSection,
-        textHeightBehaviorSection,
-        comparison,
-        pitfalls,
-        glossary,
-        recap,
-      ],
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          title,
+          dossier,
+          anatomy,
+          recipes,
+          mergeSection,
+          overflowPanel,
+          softWrapComparison,
+          maxLinesGrid,
+          textWidthBasisSection,
+          textHeightBehaviorSection,
+          comparison,
+          pitfalls,
+          glossary,
+          recap,
+        ],
+      ),
     ),
   );
 }
