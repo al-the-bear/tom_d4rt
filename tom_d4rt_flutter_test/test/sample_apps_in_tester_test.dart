@@ -778,6 +778,272 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo)',
+      () {
+    // The drawing pad exercises a script-defined CustomPainter
+    // subclass, GestureDetector.onPan(Start|Update|End) callbacks,
+    // and the canonical undo/redo state pair. Tests assert through
+    // (a) the captured print trail (the host emits one print per
+    // state change so we can see what the engine did) and (b) the
+    // toolbar's IconButton enabled state.
+    testWidgets('boots with empty canvas and disabled undo/redo/clear',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'drawing_pad');
+
+        expect(find.text('Drawing Pad'), findsOneWidget,
+            reason: 'AppBar title should read "Drawing Pad".');
+        expect(find.byKey(const ValueKey<String>('canvas-area')),
+            findsOneWidget,
+            reason: 'Gesture-detecting canvas area should mount.');
+        expect(find.byKey(const ValueKey<String>('canvas-paint')),
+            findsOneWidget,
+            reason: 'CustomPaint hosting the script CanvasPainter should '
+                'mount.');
+        expect(find.byKey(const ValueKey<String>('tool-bar')), findsOneWidget,
+            reason: 'Toolbar should mount.');
+
+        final undo = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-undo')));
+        final redo = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-redo')));
+        final clear = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-clear')));
+        expect(undo.onPressed, isNull,
+            reason: 'Undo should be disabled on a blank canvas.');
+        expect(redo.onPressed, isNull,
+            reason: 'Redo should be disabled on a blank canvas.');
+        expect(clear.onPressed, isNull,
+            reason: 'Clear should be disabled on a blank canvas.');
+      });
+    });
+
+    testWidgets('dragging on the canvas fires onPanStart/Update/End',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'drawing_pad');
+
+        final canvas = find.byKey(const ValueKey<String>('canvas-area'));
+        final start = tester.getCenter(canvas);
+
+        // timedDragFrom emits a pointer-down → multiple moves →
+        // pointer-up sequence that wins the pan recognizer.
+        await tester.timedDragFrom(
+          start,
+          const Offset(120, 60),
+          const Duration(milliseconds: 220),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final panStart = _printLog
+            .where((l) => l.startsWith('drawingpad.panStart'))
+            .toList();
+        expect(panStart, hasLength(1),
+            reason: 'Exactly one onPanStart should fire for a single drag. '
+                'If this is 0, the GestureDetector is not receiving '
+                'pointer events; if >1, the recognizer is mis-firing.');
+
+        final panEnd = _printLog
+            .where((l) => l.startsWith('drawingpad.panEnd'))
+            .toList();
+        expect(panEnd, hasLength(1),
+            reason: 'Exactly one onPanEnd should fire after the drag '
+                'releases. The line also reports the committed-stroke '
+                'point count so the engine path is visible.');
+
+        // After the drag commits, Undo and Clear should turn on.
+        final undo = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-undo')));
+        final clear = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-clear')));
+        expect(undo.onPressed, isNotNull,
+            reason: 'After committing a stroke, Undo should be enabled.');
+        expect(clear.onPressed, isNotNull,
+            reason: 'After committing a stroke, Clear should be enabled.');
+      });
+    });
+
+    testWidgets('undo / redo round-trip restores the stroke history',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'drawing_pad');
+
+        // Draw one stroke.
+        final canvas = find.byKey(const ValueKey<String>('canvas-area'));
+        await tester.timedDragFrom(
+          tester.getCenter(canvas),
+          const Offset(80, 0),
+          const Duration(milliseconds: 200),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Undo it.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-undo')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final undoLines = _printLog
+            .where((l) => l.startsWith('drawingpad.undo'))
+            .toList();
+        expect(undoLines, hasLength(1),
+            reason: 'Tapping Undo should emit exactly one undo trail line.');
+        expect(undoLines.single, contains('strokes=0'),
+            reason: 'After undoing a single stroke, the strokes list '
+                'should be empty.');
+        expect(undoLines.single, contains('redo=1'),
+            reason: 'The undone stroke should now sit on the redo stack.');
+
+        // After undo, redo should be enabled.
+        final redoBtn = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-redo')));
+        expect(redoBtn.onPressed, isNotNull,
+            reason: 'After Undo, Redo should be enabled.');
+
+        // Redo it.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-redo')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final redoLines = _printLog
+            .where((l) => l.startsWith('drawingpad.redo'))
+            .toList();
+        expect(redoLines, hasLength(1),
+            reason: 'Tapping Redo should emit exactly one redo trail line.');
+        expect(redoLines.single, contains('strokes=1'),
+            reason: 'After redo, the stroke should be back in history.');
+        expect(redoLines.single, contains('redo=0'),
+            reason: 'After redo, the redo stack should be drained.');
+
+        // Now drawing a new stroke must drop the redo stack
+        // (timeline branch).
+        await tester.timedDragFrom(
+          tester.getCenter(canvas) + const Offset(0, 40),
+          const Offset(40, 40),
+          const Duration(milliseconds: 200),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // After Undo the new stroke once more — the redo stack
+        // should now hold *only* the most recent stroke (the
+        // previously-redone stroke is not back on the redo stack
+        // since we committed a new stroke after redo).
+        await tester.tap(find.byKey(const ValueKey<String>('btn-undo')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final allUndo = _printLog
+            .where((l) => l.startsWith('drawingpad.undo'))
+            .toList();
+        expect(allUndo.last, contains('redo=1'),
+            reason: 'After undoing the second stroke, the redo stack '
+                'should hold exactly one stroke (the just-undone one). '
+                'If it holds 2, the panEnd handler is not clearing the '
+                'redo stack on commit.');
+      });
+    });
+
+    testWidgets('clear empties everything and disables undo/redo',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'drawing_pad');
+
+        // Draw two strokes.
+        final canvas = find.byKey(const ValueKey<String>('canvas-area'));
+        await tester.timedDragFrom(
+          tester.getCenter(canvas),
+          const Offset(60, 0),
+          const Duration(milliseconds: 200),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+        await tester.timedDragFrom(
+          tester.getCenter(canvas) + const Offset(0, 30),
+          const Offset(60, 30),
+          const Duration(milliseconds: 200),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Tap clear.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-clear')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final clearLines = _printLog
+            .where((l) => l == 'drawingpad.clear')
+            .toList();
+        expect(clearLines, hasLength(1),
+            reason: 'Clear should emit exactly one clear trail line.');
+
+        final undo = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-undo')));
+        final redo = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-redo')));
+        final clear = tester.widget<IconButton>(
+            find.byKey(const ValueKey<String>('btn-clear')));
+        expect(undo.onPressed, isNull,
+            reason: 'Clear should leave Undo disabled.');
+        expect(redo.onPressed, isNull,
+            reason: 'Clear should leave Redo disabled.');
+        expect(clear.onPressed, isNull,
+            reason: 'Clear should disable itself once the canvas is '
+                'empty.');
+      });
+    });
+
+    testWidgets('tapping a colour swatch records the colour change',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'drawing_pad');
+
+        // Swatch index 1 is the red palette entry.
+        await tester.tap(find.byKey(const ValueKey<String>('swatch-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final colorLines = _printLog
+            .where((l) => l.startsWith('drawingpad.color='))
+            .toList();
+        expect(colorLines, hasLength(1),
+            reason: 'Tapping a swatch should emit exactly one colour-'
+                'change trail line.');
+        // The script prints the Color's toString. Older Flutter
+        // versions formatted as `Color(0xffdc2626)`; current Flutter
+        // uses component form `Color(alpha: 1.0, red: 0.8627, green:
+        // 0.1490, blue: 0.1490, ...)`. Red palette entry is
+        // 0xFFDC2626 → red ≈ 0.8627, green/blue ≈ 0.1490. Accept
+        // either format.
+        final line = colorLines.single.toLowerCase();
+        final matchesHex = line.contains('dc2626');
+        final matchesComponents = line.contains('red: 0.8627') &&
+            line.contains('green: 0.149') &&
+            line.contains('blue: 0.149');
+        expect(matchesHex || matchesComponents, isTrue,
+            reason: 'The selected colour should be the red palette '
+                'entry (0xFFDC2626). Got: ${colorLines.single}');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

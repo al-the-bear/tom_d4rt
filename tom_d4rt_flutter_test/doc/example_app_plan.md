@@ -236,7 +236,7 @@ state machine.
 
 ---
 
-### 5. [ ] `drawing_pad` — single-stroke sketchpad
+### 5. [x] `drawing_pad` — single-stroke sketchpad
 
 A `CustomPainter` canvas that accumulates strokes from finger / mouse
 drags. Toolbar: colour swatch, brush size slider, undo, redo, clear.
@@ -248,6 +248,32 @@ ring-buffer state, `Slider` callback, colour-picker swatch grid.
 
 **Files:** `main.dart`, `home.dart`, `stroke.dart`,
 `canvas_painter.dart`, `tool_bar.dart`.
+
+**Shipped:** five tester cases in `sample_apps_in_tester_test.dart`
+exercise (a) boot rendering with the canvas-area / canvas-paint /
+tool-bar keys present and Undo/Redo/Clear all disabled, (b)
+`timedDragFrom` synthesising a pan that fires exactly one
+`onPanStart` + one `onPanEnd` and enables Undo + Clear, (c) full
+undo / redo round-trip where committing a *new* stroke correctly
+clears the redo history (the "branch the timeline" rule), (d) Clear
+emptying both strokes and redo stack and disabling all three
+buttons, (e) tapping a colour swatch emitting one trail line whose
+component values match the red palette entry (0xFFDC2626 → r≈0.8627,
+g≈b≈0.1490 — the test accepts both legacy `Color(0x...)` and the
+current Flutter component-form `toString`).
+
+The sample uses the canonical d4rt-friendly pattern: script-defined
+`StatefulWidget` + `State<DrawingPadHome>` + `setState` driving a
+`CustomPaint` whose `painter` is a script-defined `CanvasPainter`
+subclass (proven by tic_tac_toe's `WinLinePainter`). `GestureDetector`
+with `HitTestBehavior.opaque` catches pan events anywhere in the
+canvas Rect; `Path.moveTo` / `lineTo` + `Canvas.drawPath` /
+`Canvas.drawCircle` for stroke rendering. The swatch row uses
+`List.generate(palette.length, (i) => ...)` (not classic
+`for (var i = 0; ...)`) to dodge the d4rt loop-variable
+closure-capture issue. No new interpreter bugs surfaced — all
+existing fixes (GEN-110/112 setState dispatch, GEN-113 explicit
+`ValueKey<String>`, GEN-114 Timer.isAssignable) held.
 
 ---
 
