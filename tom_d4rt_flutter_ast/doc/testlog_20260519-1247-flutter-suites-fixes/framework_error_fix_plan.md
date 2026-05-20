@@ -487,7 +487,7 @@ Where two patterns apply, both are listed (e.g. `P1+P2`).
 
 ### Cluster G — `semantics/` (items 81–86)
 
-81. `semantics/accessibility_focus_block_type_test.dart` *(hardly_relevant_classes_3_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
+81. ~~`semantics/accessibility_focus_block_type_test.dart`~~ *(hardly_relevant_classes_3_test, 1/1, B-bridge — uniform-colors)* — **FIXED** (2026-05-20, P5(a) ×2 helpers). Plan undercounted: baseline ran 5 framework errors, all "A borderRadius can only be given on borders with uniform colors." Two helpers combined `borderRadius` with non-uniform `Border`: (a) `pitfallCards` loop (line 914) — `borderRadius: 12` + `Border(left: c/4.0, top/right/bottom: c@0.3/1.0)` → non-uniform colors and widths; 5 pitfallData entries. (b) `_sectionTitle` helper (line 1550) — `borderRadius: 8` + `Border(left: color/4.0)` with top/right/bottom defaulting to `BorderSide.none` → non-uniform; called multiple times throughout the script but Flutter's per-frame error throttling absorbs the repeats into the same 5-error report cap. Fix: drop `borderRadius` at both sites; the heavy-left accent bar look survives via the wider, colored left `BorderSide` alone. Each edit carries a D4RT-SCRIPT-WORKAROUND `#81, P5(a)` comment naming the helper and call shape. Rule (a) — script-only change, single-script retest sufficient. Verified `frameworkErrors=0 status=success` (was 5). Logs: `ztmp/item81_baseline.log` (5 errors), `ztmp/item81_verify.log` (0 errors).
 
 82. `semantics/announce_semantics_event_test.dart` *(hardly_relevant_classes_3_test, 1/1, B-bridge — uniform-colors)* — **P5(a)**.
 

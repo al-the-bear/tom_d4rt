@@ -927,7 +927,13 @@ dynamic build(BuildContext context) {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(12.0),
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #81, P5(a)):
+          // Original combined `borderRadius: 12` with a non-uniform `Border`
+          // (left: c/4.0 vs top/right/bottom: c@0.3/1.0). Flutter asserts
+          // uniform-colors-or-no-radius. The pitfallCards loop builds 5 cards
+          // → 5 errors. Drop borderRadius; the heavy-left accent bar (the
+          // visual hallmark of the pitfall card) is carried by the wider,
+          // saturated left BorderSide alone.
           border: Border(
             left: BorderSide(color: c, width: 4.0),
             top: BorderSide(color: c.withValues(alpha: 0.3), width: 1.0),
@@ -1560,7 +1566,14 @@ Widget _sectionTitle(String label, IconData icon, Color color) {
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
-      borderRadius: BorderRadius.circular(8.0),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #81, P5(a)):
+      // Original combined `borderRadius: 8` with `Border(left: color/4.0)` —
+      // top/right/bottom default to BorderSide.none → non-uniform. Flutter
+      // asserts uniform-colors-or-no-radius. `_sectionTitle` is invoked
+      // throughout the script; Flutter's per-frame throttling absorbs the
+      // repeats into the same 5-error count as the pitfallCards site. Drop
+      // borderRadius; the heavy-left accent bar look is preserved by the
+      // wider colored left BorderSide alone.
       border: Border(
         left: BorderSide(color: color, width: 4.0),
       ),
