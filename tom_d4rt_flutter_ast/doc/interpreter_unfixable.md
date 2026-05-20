@@ -5374,8 +5374,216 @@ instrumented to surface the actual crash trigger.
 
 ---
 
+## U19 — Per-character `TextSpan` stream of non-Latin glyphs triggers a NaN `Rect` assertion in `dart:ui` painting (bridge/interpreter text-layout gap)
+
+**Category.** Bridge / interpreter text-layout gap, sibling of
+U16. When a `RichText` is built from a sequence of per-character
+`TextSpan`s (one `TextSpan(text: ch, …)` per code unit) and the
+characters are outside the Latin / ASCII range, the bridged
+paragraph painter feeds a NaN coordinate into one of the
+internal `Rect.fromLTRB(…)` constructions invoked by the
+text-background / underline painters. The result is — once per
+painted frame, per `RichText` whose stream contains such
+glyphs — a fatal-shaped but non-fatal framework-error banner:
+
+```text
+Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+```
+
+`dart:ui/painting.dart` line 26 is the `_rectIsValid(Rect rect)`
+helper that all `Canvas` rect APIs (`drawRect`, `clipRect`,
+`drawImageRect`, gradient shader rects, text-background fill
+rects, dashed-underline dash-stop rects, etc.) call before
+forwarding to Skia. The bridged glyph-advance/baseline pipeline
+returns NaN for at least one component of the per-glyph paint
+rect when the glyph is rendered through a single-character
+`TextSpan` rather than as part of a longer Latin run.
+
+The test runner records this as one `frameworkErrors` increment
+per offending `RichText` paint with `status=success` — the
+script's "All tests passed!" outcome is preserved.
+
+**Reproducer.**
+`services/text_editing_delta_non_text_update_test.dart` (item 99
+of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+The `_frozenFrame` widget visualises a `TextEditingValue` snapshot
+by splitting the displayed text into per-character `TextSpan`s
+(loop `for (int i = 0; i < text.length; i++) spans.add(TextSpan(text: text[i], …))`)
+and interleaving a `WidgetSpan(_CaretBar())` at the caret offset.
+Each character carries an optional `backgroundColor` (for
+selection) and optional `TextDecoration.underline` (for
+composing). The script's `_buildWorkedExamples()` builds six
+example cards; cards `e)` and `f)` use the hiragana string
+`'こんにちは'` (5 BMP code units) as the display text and apply
+a non-empty composing range so the underline path is exercised.
+
+Each of the four `_frozenFrame` instances built from these two
+examples (`e-before`, `e-after`, `f-before`, `f-after`)
+produces exactly one banner per painted frame → `frameworkErrors=4`.
+The three `_frozenFrame` instances in `_heroSection` and the
+eight in examples `a)`–`d)` (all using the ASCII `poem =
+'The quick brown fox'`) produce zero banners.
+
+**Minimal repro shape:**
+
+```dart
+RichText(
+  text: TextSpan(
+    style: const TextStyle(fontFamily: 'monospace'),
+    children: <InlineSpan>[
+      for (int i = 0; i < 'こんにちは'.length; i++)
+        TextSpan(
+          text: 'こんにちは'[i],
+          style: const TextStyle(
+            decoration: TextDecoration.underline,
+            decorationStyle: TextDecorationStyle.dashed,
+          ),
+        ),
+    ],
+  ),
+)
+```
+
+The trigger does not depend on:
+
+- `TextDecorationStyle.dashed` vs `.solid` — both reproduce the
+  banner identically (empirically verified by swapping
+  `TextDecorationStyle.dashed` for `.solid` in the item-99
+  script: error count stays at 4).
+- the `WidgetSpan(PlaceholderAlignment.middle)` caret marker —
+  removing it does not clear the banner (the same Japanese run
+  without an interleaved `WidgetSpan` still triggers).
+- the surrounding `Container`'s `BoxDecoration` (gradient vs
+  solid colour both reproduce identically).
+- the host font (`fontFamily: 'monospace'` or `null` default
+  both reproduce).
+- `TextSpan.backgroundColor` being set or null.
+
+It depends on the combination of (a) **per-character `TextSpan`
+fragmentation** (the issue does not reproduce when the same
+Japanese text is rendered as a single `Text('こんにちは')`) and
+(b) **non-Latin glyphs**. Either dimension alone is safe.
+
+**Root cause hypothesis.** The native Flutter pipeline measures
+each `TextSpan` against the cumulative glyph cluster of the
+paragraph and resolves the per-span paint rect from the
+cluster's geometric extents. The bridged paragraph painter
+appears to take a per-`TextSpan` measurement path that, for
+single-character spans of non-Latin glyphs, returns NaN for one
+of the rect axes — most likely the horizontal advance (whose
+metric falls back to NaN when the glyph cluster boundary does
+not align with the span boundary). The downstream rect
+constructions used to draw the text background, the underline,
+and the dashed-underline dash stops all inherit the NaN.
+
+**Constraints.**
+
+- The fix belongs in the bridged paragraph painter: per-span
+  paint rects must compute advance widths from the underlying
+  cluster geometry, not from a per-span shortcut that fails on
+  non-Latin glyphs.
+- The bug is benign for the test outcome — banner only — but it
+  silently mis-renders any script that fragments non-Latin
+  display text into per-character `TextSpan`s (selection /
+  caret visualisers, character-by-character coloured listings,
+  IME composing-range demos, syllabary teaching widgets).
+- Script authors normally have no reason to suspect that a
+  per-character `TextSpan` fragmentation is dangerous — it is a
+  perfectly idiomatic Flutter pattern for rich text with
+  per-character styling.
+
+**Script-side workaround (chosen action).** Where the display
+text is *illustrative* rather than semantic (i.e. the
+demonstration is about the structure of the spans, not the
+specific glyphs), substitute an ASCII-only string of the same
+length so the per-character `TextSpan` stream stays inside the
+safe Latin path. Keep the non-Latin form in the surrounding
+prose (story / caption / paragraph `Text` widgets) so the
+educational intent is preserved:
+
+```dart
+// Before (triggers the banner):
+const String greet = 'こんにちは';                  // 5 BMP glyphs
+...
+_frozenFrame(text: greet, beforeComposing: TextRange(0, 5), ...);
+
+// After (banner cleared):
+const String greet = 'aiueo';                       // 5 ASCII glyphs
+...
+_frozenFrame(text: greet, beforeComposing: TextRange(0, 5), ...);
+
+// The story prose around the frame still references the
+// Japanese form so the IME-composing semantics are clear.
+```
+
+The visual result is identical for the *layout* the example
+illustrates (a 5-character composing range, offsets 0..5
+identifying five distinct glyphs); the only loss is the cosmetic
+look of hiragana inside the demo frames. The surrounding
+narrative text is unaffected (full Japanese strings render fine
+when passed as a single `Text(...)` argument — the trigger is
+per-character span fragmentation, not the glyphs themselves).
+
+**Diagnostic guidance.** A framework-error banner that
+(a) reads `Rect argument contained a NaN value.` with
+`'dart:ui/painting.dart': Failed assertion: line 26 pos 10`,
+(b) appears with `status=success` (test passes),
+(c) maps 1:1 to `RichText`/`Text.rich` widgets whose `children`
+are built by a `for (int i = 0; i < text.length; i++)` loop
+producing per-character `TextSpan`s,
+(d) clears the moment the loop's `text` source is substituted
+with an ASCII-only string of the same length,
+points to U19. Audit the script for per-character `TextSpan`
+construction over non-Latin text and substitute as described.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `services/text_editing_delta_non_text_update_test.dart` | `_frozenFrame` called from `_renderExampleCard` for worked examples `e)` and `f)` (`greet = 'こんにちは'`, beforeComposing/afterComposing both non-empty). 4 paint invocations → 4 banners. | Item 99 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-20 by changing `greet` from `'こんにちは'` to `'aiueo'`; the Japanese form is retained in the example `story` prose. Verified `frameworkErrors=0 status=success` (was 4). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
+
+### What a real fix would look like
+
+The minimal bridge-side fix is to route per-`TextSpan` paint
+rect computation through the same cluster-geometry path the
+native Flutter pipeline uses, so single-character spans of
+non-Latin glyphs receive valid advance widths rather than NaN.
+A larger fix is to audit every site inside the bridged
+paragraph painter where per-span metrics are derived from a
+shortcut path (rather than from the cumulative cluster
+geometry) and replace each with a cluster-aware computation.
+The same bridge gap that materialises here as `Rect argument
+contained a NaN value.` also explains why U16 surfaces with the
+sibling banner `Offset argument contained a NaN value.` —
+both stem from the bridged text-painter producing NaN
+coordinates for paragraphs whose glyph-cluster boundaries do
+not match the per-span boundaries the painter expects.
+
+---
+
 ## Change Log
 
+- 2026-05-20: **Add U19** — `services/text_editing_delta_non_text_update_test.dart`
+  per-character `TextSpan` stream of Japanese hiragana inside
+  `_frozenFrame` (the splits-text-by-character helper used to
+  paint a "frozen" before/after composing-region preview)
+  triggers a NaN `Rect` assertion at `dart:ui/painting.dart`
+  line 26 (`_rectIsValid` — `assert(!rect.hasNaN)`). Sibling
+  pattern to U16 (same bridge text-layout gap; U16 surfaces as
+  NaN `Offset` at line 41 from empty `Text('')`, U19 as NaN
+  `Rect` at line 26 from non-Latin glyph spans). Trigger is the
+  *combination* of (per-character `TextSpan` fragmentation) ×
+  (non-Latin glyphs); neither dashed-underline style, gradient
+  background, `WidgetSpan` interleave, font choice, nor
+  `backgroundColor` is individually load-bearing (each was
+  experimentally falsified). Item 99 fixed script-side
+  2026-05-20 by replacing `greet = 'こんにちは'` with
+  `greet = 'aiueo'` (5 ASCII glyphs matching the original
+  5-character pacing); the Japanese form is retained in the
+  example's `story:` prose so the educational intent is
+  preserved. Verified `frameworkErrors=4 → 0`.
 - 2026-05-20: **Add U18** — `services/platform_test.dart`
   `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard) cannot
   be fixed at the script level. Four P1-style variants

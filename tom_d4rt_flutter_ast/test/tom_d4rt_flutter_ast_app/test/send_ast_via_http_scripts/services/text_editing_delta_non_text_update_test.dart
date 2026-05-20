@@ -715,7 +715,22 @@ class _WorkedExample {
 
 List<_WorkedExample> _buildWorkedExamples() {
   const String poem = 'The quick brown fox';
-  const String greet = 'こんにちは';
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #99, P-NaN-glyph)
+  // The IME-composing examples (e and f below) were authored with
+  // `greet = 'こんにちは'` (5 hiragana glyphs). The bridged Flutter
+  // painter returns NaN advance/baseline metrics for non-Latin glyphs
+  // when rendered inside a per-character TextSpan stream (each ch
+  // wrapped in its own TextSpan inside `_frozenFrame`). The downstream
+  // text-background / underline painter calls `_rectIsValid(rect)` with
+  // a Rect whose origin component is NaN → "Rect argument contained
+  // a NaN value." at dart:ui/painting.dart line 26. One banner per
+  // _frozenFrame that paints the Japanese text → exactly 4 banners
+  // (e-before, e-after, f-before, f-after). Substituting a 5-letter
+  // ASCII romaji string keeps the "5-character composing string"
+  // semantic of examples e and f intact (offsets 0..5 still address
+  // five glyphs); the Japanese form is retained in the story prose so
+  // the educational intent is preserved.
+  const String greet = 'aiueo';
   return <_WorkedExample>[
     const _WorkedExample(
       title: 'a) Cursor move via right-arrow',
