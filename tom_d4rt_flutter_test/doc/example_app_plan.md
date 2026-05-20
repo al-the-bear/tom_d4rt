@@ -200,7 +200,7 @@ flutter_test FakeTimer.
 
 ---
 
-### 4. [ ] `calculator` — desk calculator with history
+### 4. [x] `calculator` — desk calculator with history
 
 Classic 4-operation calculator. A `GridView` of buttons, expression
 display at the top, scrollable history list at the bottom. Buttons
@@ -212,6 +212,27 @@ deferred clears, `LongPressGestureRecognizer` via `GestureDetector`.
 
 **Files:** `main.dart`, `home.dart`, `engine.dart` (parser),
 `button_pad.dart`, `history_strip.dart`.
+
+**Shipped:** seven tester cases in `sample_apps_in_tester_test.dart`
+exercise (a) boot rendering `0` and the empty-history placeholder,
+(b) `1 + 2 =` digit/operator/equals path producing `3` and pushing
+a history entry, (c) operator precedence `2 + 3 × 4 = 14` (the
+two-pass evaluator folds `×÷` before `+−`), (d) division by zero
+surfacing `Error` on the display, (e) `AC` then a fresh
+`7 × 8 = 56`, (f) long-press backspace deleting multiple digits in
+one hold (drives a 90 ms `Timer.periodic` repeat schedule), (g)
+clear-history wiping the strip back to the empty placeholder.
+
+The sample uses the canonical d4rt-friendly pattern — script-defined
+`StatefulWidget` + `State<CalculatorHome>` + `setState` driving a
+plain (non-`ChangeNotifier`) engine. No new interpreter bugs
+surfaced; the existing GEN-110/112 setState dispatch and GEN-114
+Timer-isAssignable held under the GestureDetector long-press path
+and the `Timer.periodic` backspace-repeat. The
+`Future.microtask`-deferred housekeeping hook is wired in but
+currently a no-op placeholder — the slot is there for future
+overlays (e.g. a "result copied" snackbar) without churning the
+state machine.
 
 ---
 

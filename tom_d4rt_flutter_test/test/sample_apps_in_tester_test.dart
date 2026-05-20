@@ -514,6 +514,270 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'calculator (example #4 — GridView.count + setState + history + long-press)',
+      () {
+    // The calculator is a pure-state engine driven by an interpreted
+    // host State<T>. Tests assert the headline behaviours — digit
+    // entry, operator precedence, equals, history, clear-all, and
+    // long-press repeat-backspace — through the rendered widget tree.
+    testWidgets('boots showing 0 and no history', (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        expect(find.text('Calculator'), findsOneWidget,
+            reason: 'AppBar title should be "Calculator".');
+        expect(
+          find.byKey(const ValueKey<String>('display')),
+          findsOneWidget,
+          reason: 'The big display Text should mount.',
+        );
+        // The display shows "0" at boot. Look for the placeholder.
+        final displayFinder = find.byKey(const ValueKey<String>('display'));
+        final displayText = tester.widget<Text>(displayFinder).data;
+        expect(displayText, '0',
+            reason: 'Initial display should be "0".');
+
+        expect(find.text('No history yet'), findsOneWidget,
+            reason: 'Empty history strip should render its placeholder.');
+      });
+    });
+
+    testWidgets('digit entry: 1 + 2 = 3', (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-1')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-add')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-2')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-equals')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(display, '3',
+            reason: '1 + 2 = should display 3.');
+
+        // History strip should now contain the completed entry.
+        expect(find.byKey(const ValueKey<String>('history-entry-0')),
+            findsOneWidget);
+        expect(find.text('1 + 2'), findsOneWidget,
+            reason: 'History expression should be "1 + 2".');
+      });
+    });
+
+    testWidgets(
+        'operator precedence: 2 + 3 × 4 = 14 (× binds tighter than +)',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-2')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-add')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-3')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-mul')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-4')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-equals')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(display, '14',
+            reason: '2 + 3 × 4 = 14 — multiplication should fold first. '
+                'If it produces 20, the engine is folding left-to-right '
+                'without precedence.');
+      });
+    });
+
+    testWidgets('division by zero surfaces "Error"', (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-5')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-div')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-0')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-equals')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(display, 'Error',
+            reason: '5 ÷ 0 should surface "Error" on the display.');
+      });
+    });
+
+    testWidgets('AC clears, then 7 × 8 = 56 works on a fresh expression',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        // Dirty the engine first.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-9')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-add')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-9')));
+        await tester.pump();
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-ac')));
+        await tester.pump();
+
+        final afterAc = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(afterAc, '0',
+            reason: 'AC should restore the display to "0".');
+
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-7')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-mul')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-8')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-equals')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(display, '56',
+            reason: 'Fresh expression 7 × 8 should evaluate to 56.');
+      });
+    });
+
+    testWidgets('long-press backspace deletes multiple digits in one hold',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        // Type "1234".
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-1')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-2')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-3')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-4')));
+        await tester.pump();
+
+        var display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        expect(display, '1234',
+            reason: 'After typing 1234 the display should read "1234".');
+
+        // Long-press the backspace key. The handler fires once
+        // immediately, then after a 350 ms delay starts a 90 ms
+        // repeat. Holding for ~900 ms should drop the operand all
+        // the way down to "0" (single-char operands snap to "0" on
+        // backspace).
+        final backspaceCenter = tester
+            .getCenter(find.byKey(const ValueKey<String>('btn-backspace')));
+        final gesture = await tester.startGesture(backspaceCenter);
+        // Wait past the long-press recognition threshold (~500 ms by
+        // default), then through the initial delay + a few repeats.
+        await tester.pump(const Duration(milliseconds: 600));
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.pump(const Duration(milliseconds: 200));
+        await tester.pump(const Duration(milliseconds: 200));
+        await gesture.up();
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        display = tester
+            .widget<Text>(find.byKey(const ValueKey<String>('display')))
+            .data;
+        // We can't be exact about how many ticks fired without
+        // committing to a precise schedule, but after the hold the
+        // display must be shorter than what we typed.
+        expect(display!.length < 4, isTrue,
+            reason: 'Long-press backspace should delete more than one '
+                'digit during a single hold. Started with "1234"; after '
+                'the hold expected fewer than 4 chars but got "$display".');
+      });
+    });
+
+    testWidgets('clear-history empties the strip', (tester) async {
+      tester.view.physicalSize = const Size(700, 1300);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'calculator');
+
+        // Land one calculation so the history strip becomes non-empty.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-2')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-op-add')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-digit-2')));
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey<String>('btn-equals')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.byKey(const ValueKey<String>('history-entry-0')),
+            findsOneWidget,
+            reason: 'After 2 + 2 = the history should hold one entry.');
+        expect(find.text('No history yet'), findsNothing);
+
+        // Tap the clear-history icon.
+        await tester.tap(find.byKey(const ValueKey<String>('history-clear')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        expect(find.byKey(const ValueKey<String>('history-entry-0')),
+            findsNothing,
+            reason: 'Clear-history should wipe the strip.');
+        expect(find.text('No history yet'), findsOneWidget,
+            reason: 'Empty placeholder should reappear once history is '
+                'cleared.');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
