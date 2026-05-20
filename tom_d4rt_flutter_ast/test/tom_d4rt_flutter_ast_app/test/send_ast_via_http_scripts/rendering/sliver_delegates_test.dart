@@ -504,6 +504,16 @@ Widget _gridCell(int index, Map<String, dynamic> palette) {
       borderRadius: BorderRadius.circular(8.0),
       border: Border.all(color: Color(palette['primary'] as int), width: 1.0),
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #80, P3/P11):
+    // Section 6 third grid uses SliverGridDelegateWithMaxCrossAxisExtent(
+    // maxCrossAxisExtent: 60, mainAxisExtent: 50). After Container margin (2)
+    // + border (1) on each side, the inner Column receives a 44 px height
+    // constraint. The cell content (circle 22 + SizedBox 4 + Text(fontSize 13,
+    // bold) ≈ 18 px line) totals ~44–45 px → 1.00 px bottom overflow ×24
+    // cells in that one grid. Shrinking the inter-element gap from 4 → 2 saves
+    // 2 px without changing the visual hierarchy of the cell (circle stays
+    // above the tag), and other grids using `_gridCell` (cell heights 60, 80,
+    // 85.7, 107, etc.) have ample headroom either way.
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -524,7 +534,7 @@ Widget _gridCell(int index, Map<String, dynamic> palette) {
             ),
           ),
         ),
-        const SizedBox(height: 4.0),
+        const SizedBox(height: 2.0),
         Text(
           entry['tag'] as String,
           style: TextStyle(
