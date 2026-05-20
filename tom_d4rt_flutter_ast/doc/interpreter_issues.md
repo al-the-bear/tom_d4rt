@@ -360,6 +360,15 @@ lookup with no native target:
   Widget super-ctor, but no `bridgedSuperObject` is realised for
   plain widgets so the passed value was dropped.
 
+**Follow-up — partial behaviour, see also the open entry below:**
+the RC-9 fallback runs the setState *callback* (so script-side
+field mutations land) but does not schedule a Flutter rebuild
+(Bug-45 narrowing intentionally suppresses that to avoid
+cascading rebuild loops). Scripts that rely on `setState` to
+actually repaint the UI are silently broken under this fix.
+Tracked as the "[Open] user-defined `State.setState` doesn't
+schedule rebuild" cluster further down.
+
 ---
 
 ### [X] Fixed — abstract delegate proxies missing at bridge boundaries
@@ -3229,6 +3238,174 @@ Until that lands, the retest suite is expected to show
 ~25 cascading timeouts after the skipped W1/W2/W3 tests.
 This is *not* an interpreter regression — the scripts
 themselves pass in isolation.
+
+---
+
+### [ ] Open (fixable) — user-defined `State.setState` runs the callback but does NOT schedule a Flutter rebuild
+
+**Discovered:** 2026-05-11, while smoke-testing the Sudoku sample
+under `tom_d4rt_flutter_test/example/sudoku_app/`. The same bug
+reproduced with a minimal two-file counter (`example/counter_app/`)
+where pressing the FAB visibly does nothing even though the
+`setState(() => _count++)` callback executes.
+
+**Symptom**
+
+A script that declares its own `StatefulWidget` + `State<T>`
+subclass and mutates fields inside `setState` sees no UI updates.
+Mouse-over / click ripples on InkWell render normally (proving
+Flutter is pumping frames), but the State's `build()` method is
+only ever called once — at initial mount — even after dozens of
+script-issued `setState` invocations. A debug HUD that prints
+`build#` + a tap counter from inside `build()` stays frozen on
+the initial values.
+
+Minimal reproducer (works in single-file too — multi-file is
+not required to trigger this):
+
+```dart
+import 'package:flutter/material.dart';
+
+Widget build(BuildContext context) {
+  return MaterialApp(home: const Counter());
+}
+
+class Counter extends StatefulWidget {
+  const Counter({super.key});
+  @override
+  State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int n = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Text('n = $n')),  // always "n = 0"
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => n++),  // callback runs, no rebuild
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+**Root cause — intentional Bug-45 narrowing**
+
+`tom_d4rt/lib/src/d4rt_runtime_registrations.dart` (and the
+mirror in `tom_d4rt_ast`) creates a native `_InterpretedState`
+proxy in `_InterpretedStatefulWidget.createState` (line ~1191)
+that delegates lifecycle methods (`initState`, `didChangeDeps`,
+`build`, `dispose`) to the interpreted State subclass. **It
+deliberately leaves the InterpretedInstance's `nativeProxy`
+null** ("C14: plain interpreted State subclasses get a State
+proxy but no `nativeProxy` (Bug-45 — would route setState etc.
+through Flutter and trigger cascading rebuild loops)") — see the
+comment block in `runtime_types.dart:1015-1023`.
+
+The script side then calls `setState(...)`. The bridged-super
+lookup in `Instance.get` at `runtime_types.dart:1359-1383`
+refuses to dispatch the `setState` method adapter because
+`nativeTarget = bridgedSuperObject ?? nativeProxy` is null —
+methods explicitly do *not* fall back to `nativeStateProxy`
+(comment: "Methods require the strict `nativeTarget` (no
+`nativeStateProxy` fallback) — see Bug-45"). Dispatch then
+hits the RC-9 last-chance fallback (`runtime_types.dart:1476+`),
+which returns a `NativeFunction` that **invokes any Callable
+argument** (so the script's `() => n++` closure runs and `n`
+really does become 1, 2, 3, …) **but never touches Flutter's
+element-dirty machinery**. The element is never marked dirty
+→ no frame is scheduled → `build()` is never called again →
+the screen stays on the initial value.
+
+The cluster log entry "[X] Fixed — setState / key access on
+plain interpreted Widget/State" (above) addresses *only* the
+"Undefined property `setState`" exception, not the missing
+rebuild. Calling it a fix is misleading — it's better
+described as: the script no longer crashes when calling
+setState, but the setState is a partial no-op (mutation yes,
+rebuild no).
+
+**Why Bug-45 narrowed the fix**
+
+When `_InterpretedState` was first wired up with `nativeProxy`
+set (and therefore real setState dispatch), every interpreted
+script that called setState during a build phase (very common
+— `addPostFrameCallback`-driven init, async state hydration,
+LayoutBuilder feedback loops) hit Flutter's "setState called
+during build" assertion. The bridge then re-rebuilt, which
+re-triggered the assertion — cascading rebuild loops. The
+quick fix was to disconnect setState entirely; the symptom
+disappeared at the cost of silently breaking interactivity.
+
+**Approach to a proper fix**
+
+The right behaviour is "schedule the rebuild, but defer it past
+the current frame if we are mid-frame". `StateUserBridge` in
+`tom_d4rt_flutter_test/lib/src/d4rt_user_bridges/state_user_bridge.dart`
+already implements exactly this scheduler-phase guard for the
+*bridged* State path (defers via `addPostFrameCallback` when
+`SchedulerPhase` is `transientCallbacks`,
+`midFrameMicrotasks`, or `persistentCallbacks`; otherwise calls
+synchronously). The cascading-loop concern that Bug-45 was
+guarding against is therefore already mitigated for bridged
+States. The remaining work is to:
+
+1. Re-wire user-defined `State` subclasses to a proxy that
+   *does* set `nativeProxy` (so the bridged-super `setState`
+   adapter dispatches normally), and
+2. Make sure the same scheduler-phase guard from
+   `StateUserBridge` runs on that path (either by routing
+   through the same override, or by replicating its phase
+   check in the `_InterpretedState` shim itself).
+
+Mirror the change between `tom_d4rt/lib/src/...` and
+`tom_d4rt_ast/lib/src/runtime/...` per the quest's sync rule.
+
+**Scope check (what's affected vs. not)**
+
+- **Affected:** Any script that declares `extends StatefulWidget`
+  + `extends State<T>` and uses `setState` to drive its own
+  rebuilds. UI appears frozen at the initial frame.
+- **Unaffected:** Scripts that use the bridged `StatefulBuilder`,
+  `ValueListenableBuilder`, `AnimatedBuilder`, etc. — their
+  setState/listenable hooks go through Flutter's regular
+  machinery and rebuild normally. Most existing demos in
+  `send_ast_via_http_scripts/` happen to be one-frame builds
+  (no post-tap interactivity verified), so the corpus has
+  not flagged this.
+
+**Workaround (until fixed)**
+
+Refactor the script to use `StatefulBuilder` for any
+interactive sub-tree. State lives on a plain Dart object held
+by an enclosing `StatelessWidget` (or a top-level `final` in
+the same library); the bridged `StatefulBuilder.setState`
+drives the rebuild. Applied to
+`tom_d4rt_flutter_test/example/counter_app/` and
+`tom_d4rt_flutter_test/example/sudoku_app/`; both files'
+header comments point at this entry.
+
+**Verification plan after fix**
+
+1. Run `tom_d4rt_flutter_test/example/counter_app/` (refactored
+   back to a user-defined `State` with `setState`) — count must
+   increment visibly on every FAB tap.
+2. Same for `sudoku_app/` (revert the StatefulBuilder, restore
+   the original `_SudokuHomeState`) — cell selection
+   highlights, digit entry updates the cell, "Next puzzle"
+   reloads the board.
+3. Add an automated retest under
+   `tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/`
+   that builds a user-State counter, calls setState
+   programmatically, and asserts the rendered text reflects
+   the new value (not just that the script doesn't throw).
+4. Confirm the original Bug-45 scenario does *not* re-cascade:
+   a script that mistakenly calls setState during build should
+   defer cleanly via the existing scheduler-phase guard.
+5. Re-run essential + important + secondary suites in
+   `tom_d4rt_flutter_ast` serially.
 
 ---
 
