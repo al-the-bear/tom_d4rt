@@ -357,11 +357,22 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            pipelineCard(
-              '1. ABSORB',
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #125, P1):
+        // The pipeline Row uses CrossAxisAlignment.stretch so the three
+        // pipelineCard tiles end up with matching heights. It lives inside
+        // a page-root `SingleChildScrollView > Column(stretch)` chain
+        // (line 1167) which propagates unbounded vertical constraints; a
+        // bare `Row(stretch)` then demands a tight height which would be
+        // infinite, firing "BoxConstraints forces an infinite height".
+        // `IntrinsicHeight` resolves the cross-axis height to the tallest
+        // child's intrinsic height before the stretch rule fires, while
+        // preserving the height-matched visual.
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              pipelineCard(
+                '1. ABSORB',
               'SliverOverlapAbsorber wraps the header, computes its overlap, '
                   'writes layoutExtent + scrollExtent into the handle.',
               rose,
@@ -384,6 +395,7 @@ dynamic build(BuildContext context) {
               Icons.expand,
             ),
           ],
+        ),
         ),
       ],
     ),
