@@ -7792,6 +7792,15 @@ class BridgeGenerator {
     // GEN-079 reverted: isAssignable enables supertype bridge lookup for private subclasses
     // e.g., Curves.linear returns _Linear which should use Curve bridge
     buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
+    // GEN-115 (Phase 1): emit hierarchy depth (number of supertypes,
+    // excluding Object) so Environment._filterToMostSpecific can pick the
+    // most-specific bridge by depth in O(n) instead of walking the
+    // hand-maintained _supertypeRegistry. See bridged_types.dart
+    // hierarchyDepth doc and environment.dart _filterToMostSpecific.
+    if (cls.allSupertypeNames.isNotEmpty) {
+      buffer.writeln(
+          '    hierarchyDepth: ${cls.allSupertypeNames.length},');
+    }
 
     // Mixins must set canBeUsedAsMixin so the interpreter allows them in
     // `with` clauses. This covers both pure `mixin Foo` declarations
