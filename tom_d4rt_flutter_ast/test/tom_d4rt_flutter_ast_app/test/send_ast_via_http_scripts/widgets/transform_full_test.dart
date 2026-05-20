@@ -261,8 +261,29 @@ Widget checkerBackdrop({
   int cols = 6,
   int rows = 6,
 }) {
-  final cellW = width / cols;
-  final cellH = height / rows;
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #137, P-math)
+  // -------------------------------------------------------------------------
+  // Baseline frameworkErrors=413: 354 × "A RenderFlex overflowed by 2.0
+  // pixels on the right" + 59 × "A RenderFlex overflowed by 2.0 pixels on
+  // the bottom" — exactly 7 asserts per checkerBackdrop call site × 59 call
+  // sites (6 Row-right + 1 Column-bottom each).
+  //
+  // The outer Container declares `border: Border.all(width: 1.0)` which
+  // consumes 2.0 px of inner content area (1 px on each side), but the
+  // cell sizing computed `cellW = width / cols` and `cellH = height / rows`
+  // — so the cumulative Row/Column dimensions equal the full outer width
+  // and height. The Container's `clipBehavior: Clip.hardEdge` clipped the
+  // painted pixels, but Flutter still asserted on the RenderFlex overflow
+  // before clipping.
+  //
+  // The plan recipe label was P3 (OverflowBox), but the structural bug
+  // here is a missed border-width subtraction in the math, not a
+  // deliberately-overflowing pedagogical Row. Subtracting the 2.0 px
+  // border (1 px per side) from both dimensions clears all 413 asserts
+  // at once and gives the cells exactly the interior area they were
+  // visually intended to fill.
+  final cellW = (width - 2.0) / cols;
+  final cellH = (height - 2.0) / rows;
   final List<Widget> rowsList = <Widget>[];
   for (int r = 0; r < rows; r = r + 1) {
     final List<Widget> cells = <Widget>[];
