@@ -90,8 +90,7 @@ class _IndexBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final (bg, fg) = switch (status) {
-      RunnerStatus.running => (scheme.primary, scheme.onPrimary),
-      RunnerStatus.paused => (scheme.tertiaryContainer, scheme.onTertiaryContainer),
+      RunnerStatus.executing => (scheme.primary, scheme.onPrimary),
       RunnerStatus.idle => (scheme.surfaceContainerHighest, scheme.onSurface),
     };
     return Container(

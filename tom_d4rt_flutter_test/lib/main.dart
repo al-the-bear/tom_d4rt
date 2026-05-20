@@ -6,14 +6,15 @@
 ///
 /// Layout:
 ///
-///     AppBar       — title + script-count badge
-///     PathBar      — root path, Browse button, "Path not found" affordance
+///     AppBar          — title + script-count badge
+///     PathBar         — root path, Browse button, "Path not found" affordance
+///     ScriptSearchBar — case-insensitive filter + 3-row match preview
 ///     ScriptInfoPanel — cluster / script name / index badge
 ///     ──── divider ────
 ///     D4rtScriptView  (Expanded flex 3) — rendered Flutter widget from script
 ///     ──── divider ────
 ///     ResultPanel     (flex 1) — pass/fail, output, stack trace
-///     ControlBar   (bottomNavigationBar) — back / play-pause / next
+///     ControlBar   (bottomNavigationBar) — Back / Next
 library;
 
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ import 'src/widgets/d4rt_script_view.dart';
 import 'src/widgets/path_bar.dart';
 import 'src/widgets/result_panel.dart';
 import 'src/widgets/script_info_panel.dart';
+import 'src/widgets/script_search_bar.dart';
 
 void main() {
   runApp(const D4rtTestApp());
@@ -91,6 +93,7 @@ class _AppShellState extends State<_AppShell> {
       body: Column(
         children: [
           PathBar(notifier: _rootNotifier),
+          ScriptSearchBar(runner: _runner),
           ScriptInfoPanel(runner: _runner),
           const Divider(height: 1),
           // Primary area: the Flutter widget produced by the D4rt script.

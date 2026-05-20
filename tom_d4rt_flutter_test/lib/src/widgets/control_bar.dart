@@ -1,8 +1,11 @@
-/// Bottom playback control strip — back / play-pause / next.
+/// Bottom playback control strip — Back / Next.
 ///
-/// All buttons disable themselves when the script list is empty or the
-/// chosen path doesn't resolve, so the runner never receives commands it
-/// can't service.
+/// Single-step only: there is no autoplay. The currently rendered script
+/// remains on screen indefinitely so Flutter's normal frame-pump drives any
+/// animations the script defines. Both buttons disable themselves while a
+/// script execution is in flight, when the script list is empty, or when
+/// the chosen path doesn't resolve, so the runner never receives commands
+/// it can't service.
 library;
 
 import 'package:flutter/material.dart';
@@ -27,8 +30,8 @@ class ControlBar extends StatelessWidget {
       builder: (context, _) {
         final hasScripts = runner.scripts.isNotEmpty;
         final pathOk = rootNotifier.exists;
-        final enabled = hasScripts && pathOk;
-        final isRunning = runner.status == RunnerStatus.running;
+        final executing = runner.status == RunnerStatus.executing;
+        final enabled = hasScripts && pathOk && !executing;
         final atStart = runner.currentIndex <= 0;
         final atEnd = runner.currentIndex >= runner.scripts.length - 1;
 
@@ -43,14 +46,12 @@ class ControlBar extends StatelessWidget {
                 _CtrlButton(
                   icon: Icons.skip_previous,
                   label: 'Back',
-                  onPressed:
-                      enabled && !isRunning && !atStart ? runner.back : null,
+                  onPressed: enabled && !atStart ? runner.back : null,
                 ),
-                _PlayPauseButton(runner: runner, enabled: enabled),
                 _CtrlButton(
                   icon: Icons.skip_next,
                   label: 'Next',
-                  onPressed: enabled && !isRunning && !atEnd ? runner.next : null,
+                  onPressed: enabled && !atEnd ? runner.next : null,
                 ),
               ],
             ),
@@ -74,29 +75,10 @@ class _CtrlButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
+    return FilledButton.tonalIcon(
       onPressed: onPressed,
       icon: Icon(icon),
       label: Text(label),
-    );
-  }
-}
-
-class _PlayPauseButton extends StatelessWidget {
-  final TestRunner runner;
-  final bool enabled;
-
-  const _PlayPauseButton({required this.runner, required this.enabled});
-
-  @override
-  Widget build(BuildContext context) {
-    final isRunning = runner.status == RunnerStatus.running;
-    return FilledButton.icon(
-      onPressed: !enabled
-          ? null
-          : (isRunning ? runner.pause : runner.play),
-      icon: Icon(isRunning ? Icons.pause : Icons.play_arrow),
-      label: Text(isRunning ? 'Pause' : 'Play'),
     );
   }
 }
