@@ -873,9 +873,19 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: band, width: 1.2),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #85, P1)
+      // The inner Row uses CrossAxisAlignment.stretch so its leading
+      // icon panel matches the expanded text column's height. In an
+      // unbounded-height ancestor (Column inside a SingleChildScrollView)
+      // that stretch resolves to BoxConstraints(h=infinity) on the
+      // 64 px icon Container and trips RenderConstrainedBox's
+      // "forces an infinite height" assert. IntrinsicHeight bounds the
+      // Row to its tallest child (the Expanded text Column), preserving
+      // the side-by-side icon/text layout without infinite constraints.
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           Container(
             width: 64,
             decoration: BoxDecoration(
@@ -918,6 +928,7 @@ dynamic build(BuildContext context) {
             ),
           ),
         ],
+        ),
       ),
     );
   }
