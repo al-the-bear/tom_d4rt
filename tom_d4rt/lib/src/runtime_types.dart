@@ -1484,6 +1484,23 @@ class InterpretedInstance implements RuntimeValue {
         if (bridgedSuper != null) {
           final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
           if (methodAdapter != null) {
+            // GEN-112 — when an interpreted `State<T>` subclass owns a
+            // native `_InterpretedState` proxy (stored on
+            // `nativeStateProxy`), dispatch the bridged-super method
+            // through that proxy so `setState`, `initState`, etc. fire
+            // on the real Flutter element. The original Bug-45
+            // narrowing left this slot a no-op to dodge cascading
+            // rebuild loops; the scheduler-phase guard in
+            // `StateUserBridge.overrideMethodSetState` (defers mid-
+            // frame setStates via `addPostFrameCallback`) plus the
+            // proxy's own `_lifecycleInProgress` re-entrancy guard
+            // already handle that hazard. Mirror in tom_d4rt_ast.
+            if (nativeStateProxy != null) {
+              Logger.debug(
+                  "[Instance.get] GEN-112: routing '${bridgedSuper.name}.$name' through nativeStateProxy ${nativeStateProxy.runtimeType}.");
+              return BridgedSuperMethodCallable(
+                  nativeStateProxy!, methodAdapter, name, bridgedSuper.name);
+            }
             Logger.debug(
                 "[Instance.get] No native target for '${bridgedSuper.name}.$name' — returning callback-invoking no-op fallback.");
             return NativeFunction(
