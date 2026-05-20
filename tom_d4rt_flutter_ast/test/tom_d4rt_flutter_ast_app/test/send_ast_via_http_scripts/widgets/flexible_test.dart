@@ -2059,16 +2059,30 @@ Widget _edgeCase2() {
           ),
         ),
         SizedBox(height: 6.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #109, P3):
+        // Row's natural width = 3 * 80 = 240 px in a SizedBox(width: 220) =>
+        // exact 20 px right overflow. ClipRect was intended to suppress the
+        // visual stripes but RenderFlex still asserts before paint-time.
+        // Wrapping the Row in OverflowBox(maxWidth: double.infinity) gives
+        // the Row unbounded horizontal constraints, so it lays out at its
+        // natural 240 px without firing the overflow assertion; the outer
+        // SizedBox + ClipRect still clip the painted bars to 220 px, so the
+        // pedagogical "content overflows the box, the box clips it" visual
+        // is preserved exactly.
         SizedBox(
           width: 220.0,
           height: 28.0,
           child: ClipRect(
-            child: Row(
-              children: [
-                Container(width: 80.0, color: twilightQuay2),
-                Container(width: 80.0, color: twilightQuay3),
-                Container(width: 80.0, color: twilightQuay4),
-              ],
+            child: OverflowBox(
+              alignment: Alignment.centerLeft,
+              maxWidth: double.infinity,
+              child: Row(
+                children: [
+                  Container(width: 80.0, color: twilightQuay2),
+                  Container(width: 80.0, color: twilightQuay3),
+                  Container(width: 80.0, color: twilightQuay4),
+                ],
+              ),
             ),
           ),
         ),
@@ -2462,47 +2476,60 @@ Widget _beforeAfter() {
                 ),
               ),
               SizedBox(height: 8.0),
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #109, P3):
+              // The BEFORE row's natural width = 24 + 6 + 220 + 6 + 32 = 288 px
+              // in a SizedBox(width: 240) => exact 48 px right overflow. Same
+              // pedagogical pattern as _edgeCase2: the ClipRect was meant to
+              // hide the stripes but the assert still fires. Wrapping in
+              // OverflowBox(maxWidth: double.infinity) keeps the Row's natural
+              // 288 px layout (no assert) while the outer SizedBox + ClipRect
+              // clip the painted output to 240 px. Visual is identical to the
+              // original "icon + clipped long text + badge" demonstration.
               SizedBox(
                 width: 240.0,
                 height: 32.0,
                 child: ClipRect(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 24.0,
-                        color: twilightQuay3,
-                        alignment: Alignment.center,
-                        child: Text(
-                          'i',
-                          style: TextStyle(
-                            color: twilightQuay1,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
+                  child: OverflowBox(
+                    alignment: Alignment.centerLeft,
+                    maxWidth: double.infinity,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 24.0,
+                          color: twilightQuay3,
+                          alignment: Alignment.center,
+                          child: Text(
+                            'i',
+                            style: TextStyle(
+                              color: twilightQuay1,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 6.0),
-                      Container(
-                        width: 220.0,
-                        color: twilightQuay2,
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'long descriptive text that wants 220px',
-                          style: TextStyle(
-                            color: twilightQuay5,
-                            fontSize: 11.0,
+                        SizedBox(width: 6.0),
+                        Container(
+                          width: 220.0,
+                          color: twilightQuay2,
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'long descriptive text that wants 220px',
+                            style: TextStyle(
+                              color: twilightQuay5,
+                              fontSize: 11.0,
+                            ),
+                            overflow: TextOverflow.clip,
+                            maxLines: 1,
                           ),
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
                         ),
-                      ),
-                      SizedBox(width: 6.0),
-                      Container(
-                        width: 32.0,
-                        color: twilightAccent,
-                      ),
-                    ],
+                        SizedBox(width: 6.0),
+                        Container(
+                          width: 32.0,
+                          color: twilightAccent,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
