@@ -712,9 +712,15 @@ dynamic build(BuildContext context) {
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 10),
         padding: EdgeInsets.all(12),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #86, P5(a))
+        // galleryCards loop emits 6 tiles. The Border combines a
+        // wider, saturated `accent` left BorderSide with three thin
+        // `rule` sides on top/right/bottom — non-uniform on both
+        // color and width. Flutter rejects borderRadius for any
+        // non-uniform Border; drop the borderRadius and keep the
+        // heavy-left accent bar as the visual hallmark of the card.
         decoration: BoxDecoration(
           color: cream,
-          borderRadius: BorderRadius.circular(10),
           border: Border(
             left: BorderSide(color: accent, width: 5),
             top: BorderSide(color: rule, width: 0.6),
@@ -1204,9 +1210,14 @@ dynamic build(BuildContext context) {
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 10),
         padding: EdgeInsets.all(12),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #86, P5(a))
+        // pitfallTiles loop emits 7 tiles. Same non-uniform Border
+        // shape as galleryCards — wider `plum` left BorderSide + three
+        // thin `rule` sides — incompatible with borderRadius. Drop
+        // borderRadius; the heavy-left warning bar carries the visual
+        // identity of the pitfall card.
         decoration: BoxDecoration(
           color: cream,
-          borderRadius: BorderRadius.circular(10),
           border: Border(
             left: BorderSide(color: plum, width: 5),
             top: BorderSide(color: rule, width: 0.6),
