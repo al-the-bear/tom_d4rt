@@ -3891,6 +3891,45 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else {
         nameForError = node.toString(); // Approximate representation
       }
+
+      // GEN-110 — Allow invoking native Dart Function values via
+      // `MethodInvocation` shape (`fn(args)` where `fn` is a local
+      // parameter of a bridged builder, e.g. the `setState` argument
+      // of `StatefulBuilder.builder` or `LayoutBuilder.builder`).
+      // The AST parses these as MethodInvocation (target == null);
+      // visitFunctionExpressionInvocation already handles the
+      // `(expr)(...)` form. Without this branch, calls like
+      // `setState(() { ... })` fell through to the
+      // `if (calleeValue != null) return calleeValue;` no-op below
+      // — the StateSetter was returned unchanged, the user callback
+      // was never invoked, and rebuilds never fired. Each positional
+      // Callable arg is wrapped via `D4.coerceCallableToFunction` so
+      // an interpreted `() => ...` literal satisfies the native
+      // `void Function()` / `ValueChanged<T>` / ... parameter type.
+      if (calleeValue is Function) {
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult;
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        final wrappedPositional = positionalArgs
+            .map((a) => D4.coerceCallableToFunction(this, a))
+            .toList();
+        final wrappedNamed = namedArgs.map(
+          (k, v) => MapEntry(k, D4.coerceCallableToFunction(this, v)),
+        );
+        final symbolNamed = wrappedNamed.isEmpty
+            ? const <Symbol, Object?>{}
+            : wrappedNamed
+                .map<Symbol, Object?>((k, v) => MapEntry(Symbol(k), v));
+        try {
+          return Function.apply(calleeValue, wrappedPositional, symbolNamed);
+        } on ReturnException catch (e) {
+          return e.value;
+        }
+      }
+
       if (calleeValue != null) {
         return calleeValue;
       }
@@ -4792,26 +4831,51 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return null; // For loops don't produce a value
   }
 
-  // Helper method to execute the logic of a classic for loop
+  // Helper method to execute the logic of a classic for loop.
+  //
+  // GEN-111 — per-iteration scope. Each iteration of a classic
+  // `for (var i = 0; …; …)` introduces a fresh binding of every loop
+  // variable (Dart spec). Closures created in the body must capture
+  // that per-iteration binding so calling them later returns the
+  // iteration's value rather than the post-loop one. See the matching
+  // fix in the collection-for branch in `_processCollectionElement`.
   void _executeClassicFor(AstNode? initialization, Expression? condition,
       List<Expression>? updaters, Statement body) {
-    // 1. Create loop environment
-    final loopEnvironment = Environment(enclosing: environment);
-    final previousEnvironment = environment;
-    environment = loopEnvironment;
+    final outerEnv = environment;
 
+    // Collect names of variables declared in `initialization` so we can
+    // re-seed each iteration's fresh env.
+    final loopVarNames = <String>[];
+    if (initialization is VariableDeclarationList) {
+      for (final v in initialization.variables) {
+        loopVarNames.add(v.name.lexeme);
+      }
+    }
+
+    // Resolve initial values once via a scratch env.
+    final scratchEnv = Environment(enclosing: outerEnv);
+    environment = scratchEnv;
     try {
-      // 2. Execute initialization (if it exists)
       if (initialization != null) {
-        // If initialization is a VariableDeclarationList, visit it directly.
-        // If it's an Expression (like in ForPartsWithExpression), visit it.
         initialization.accept<Object?>(this);
       }
+    } finally {
+      environment = outerEnv;
+    }
+    final currentValues = <String, Object?>{
+      for (final name in loopVarNames) name: scratchEnv.get(name),
+    };
 
-      // 3. Loop execution
+    try {
       while (true) {
-        // 3.a Evaluate condition
-        bool conditionResult = true; // Default to true if no condition
+        // Fresh env per iteration; closures in the body capture this.
+        final iterEnv = Environment(enclosing: outerEnv);
+        for (final name in loopVarNames) {
+          iterEnv.define(name, currentValues[name]);
+        }
+        environment = iterEnv;
+
+        bool conditionResult = true;
         if (condition != null) {
           final evalResult = condition.accept<Object?>(this);
           final bridgedInstance = toBridgedInstance(evalResult);
@@ -4825,10 +4889,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "The condition of a 'for' loop must be a boolean, but was ${evalResult?.runtimeType}.");
           }
         }
-
-        if (!conditionResult) {
-          break;
-        }
+        if (!conditionResult) break;
 
         // 3.b Execute body
         try {
@@ -4838,7 +4899,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[For] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
           if (e.label == null || _currentStatementLabels.contains(e.label)) {
             Logger.debug("[For] Breaking loop.");
-            break; // Exit the for loop entirely
+            break;
           } else {
             Logger.debug("[For] Rethrowing outer break...");
             rethrow;
@@ -4848,33 +4909,41 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[For] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels");
           if (e.label == null || _currentStatementLabels.contains(e.label)) {
             Logger.debug("[For] Continuing to updaters.");
-            // Skip directly to updaters for this iteration
-            // The `continue` below will handle jumping to the next iteration
+            // Fall through to the updater section below.
           } else {
             Logger.debug("[For] Rethrowing outer continue...");
             rethrow;
           }
         }
 
-        // 3.c Execute updaters (if they exist)
-        try {
-          if (updaters != null) {
+        // Snapshot the iterEnv values (so a body-side mutation like
+        // `i = 10` is respected by the updater).
+        for (final name in loopVarNames) {
+          currentValues[name] = iterEnv.get(name);
+        }
+
+        // 3.c Updaters run in a separate env so iterEnv stays intact
+        // for any closure that captured it.
+        if (updaters != null && updaters.isNotEmpty) {
+          final updateEnv = Environment(enclosing: outerEnv);
+          for (final name in loopVarNames) {
+            updateEnv.define(name, currentValues[name]);
+          }
+          environment = updateEnv;
+          try {
             for (final updater in updaters) {
               updater.accept<Object?>(this);
             }
+          } on BreakException {
+            break;
           }
-        } on BreakException {
-          // This should technically not happen if break is only thrown from the body,
-          // but handle defensively.
-          break;
+          for (final name in loopVarNames) {
+            currentValues[name] = updateEnv.get(name);
+          }
         }
-        // Continue exception in updaters should just proceed to the next iteration check
-
-        // `continue` effectively happens here by looping back
       }
     } finally {
-      // 4. Restore previous environment
-      environment = previousEnvironment;
+      environment = outerEnv;
     }
   }
 
@@ -6036,16 +6105,60 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           condition = loopParts.condition;
           updaters = loopParts.updaters;
         }
-        final loopEnvironment = Environment(enclosing: environment);
-        final previousEnvironment = environment;
-        environment = loopEnvironment;
+        // GEN-111 — per-iteration scope for classic for-loops in
+        // collection literals. Dart's spec requires each iteration to
+        // introduce a *fresh* binding of each loop variable; closures
+        // created in the body must capture that per-iteration binding.
+        // The previous implementation reused a single `loopEnvironment`
+        // across iterations and mutated it via the updater, so any
+        // closure captured in the body resolved the loop variable
+        // through the shared env and read the post-loop value (`i = N`
+        // for `for (var i = 0; i < N; i++)`).
+        //
+        // Strategy:
+        //   1. Resolve the initial value(s) of the loop variable(s)
+        //      once via a scratch env.
+        //   2. On each iteration, build a fresh `iterEnv` seeded with
+        //      the current loop-variable values. Closures created in
+        //      the body capture this iteration's env.
+        //   3. After the body, snapshot the loop-variable values from
+        //      `iterEnv` (so a body-side mutation like `i = 10` is
+        //      respected), then run the updater in a *separate*
+        //      `updateEnv`. The updater never touches `iterEnv`, so
+        //      the previous iteration's closures continue to see
+        //      their per-iteration value.
+        //
+        // Affects scripts that build widget lists like
+        //   `[for (var i = 0; i < n; i++) Button(onPressed: () => f(i))]`
+        // — every onPressed used to receive the same final `i = n`.
+        final outerEnv = environment;
+        final loopVarNames = <String>[];
+        if (initialization is VariableDeclarationList) {
+          for (final v in initialization.variables) {
+            loopVarNames.add(v.name.lexeme);
+          }
+        }
+        // Resolve initial values into a scratch env.
+        final scratchEnv = Environment(enclosing: outerEnv);
+        environment = scratchEnv;
         try {
-          // Initialisation
           if (initialization != null) {
             initialization.accept<Object?>(this);
           }
-          // Boucle
+        } finally {
+          environment = outerEnv;
+        }
+        final currentValues = <String, Object?>{
+          for (final name in loopVarNames) name: scratchEnv.get(name),
+        };
+        try {
           while (true) {
+            final iterEnv = Environment(enclosing: outerEnv);
+            for (final name in loopVarNames) {
+              iterEnv.define(name, currentValues[name]);
+            }
+            environment = iterEnv;
+
             bool conditionResult = true;
             if (condition != null) {
               final evalResult = condition.accept<Object?>(this);
@@ -6061,15 +6174,33 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
             if (!conditionResult) break;
+
             _processCollectionElement(element.body, collection, isMap: isMap);
-            if (updaters != null) {
+
+            // Snapshot the body's view of the loop vars (in case the body
+            // mutated them) — these are the inputs to the updater.
+            for (final name in loopVarNames) {
+              currentValues[name] = iterEnv.get(name);
+            }
+
+            // Run the updater in a fresh env so iterEnv stays untouched
+            // for any closure that captured it during the body.
+            if (updaters != null && updaters.isNotEmpty) {
+              final updateEnv = Environment(enclosing: outerEnv);
+              for (final name in loopVarNames) {
+                updateEnv.define(name, currentValues[name]);
+              }
+              environment = updateEnv;
               for (final updater in updaters) {
                 updater.accept<Object?>(this);
+              }
+              for (final name in loopVarNames) {
+                currentValues[name] = updateEnv.get(name);
               }
             }
           }
         } finally {
-          environment = previousEnvironment;
+          environment = outerEnv;
         }
       } else {
         throw UnimplementedD4rtException(
@@ -9724,13 +9855,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // GEN-083: Allow invoking native Dart Function values (e.g. callbacks
       // that were stored on a bridged target via a typed-wrapper setter and
       // then read back through the getter).
+      //
+      // GEN-110 extension: Callable positional/named args (interpreted
+      // closures) are wrapped via `D4.coerceCallableToFunction` so they
+      // satisfy the native function's typed parameters.
       if (calleeValue is Function) {
-        final symbolNamed = namedArgs.isEmpty
+        final wrappedPositional = positionalArgs
+            .map((a) => D4.coerceCallableToFunction(this, a))
+            .toList();
+        final wrappedNamed = namedArgs.map(
+          (k, v) => MapEntry(k, D4.coerceCallableToFunction(this, v)),
+        );
+        final symbolNamed = wrappedNamed.isEmpty
             ? const <Symbol, Object?>{}
-            : namedArgs
+            : wrappedNamed
                 .map<Symbol, Object?>((k, v) => MapEntry(Symbol(k), v));
         try {
-          return Function.apply(calleeValue, positionalArgs, symbolNamed);
+          return Function.apply(calleeValue, wrappedPositional, symbolNamed);
         } on ReturnException catch (e) {
           return e.value;
         }

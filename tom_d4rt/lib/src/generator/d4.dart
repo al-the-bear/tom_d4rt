@@ -1824,6 +1824,54 @@ class D4 {
   // Callback Invocation
   // ==========================================================================
 
+  /// GEN-110: Wrap a [Callable] (typically an [InterpretedFunction]) as a
+  /// native Dart function value, so it can be passed to native code that
+  /// expects a typed `Function` argument — e.g. `VoidCallback`,
+  /// `ValueChanged<T>`, `StateSetter`, `(BuildContext) => Widget`.
+  ///
+  /// Used by `visitMethodInvocation` / `visitFunctionExpressionInvocation`
+  /// at the `Function.apply(...)` fallback. Without this wrapping the
+  /// underlying Dart runtime throws
+  ///   `type 'InterpretedFunction' is not a subtype of type '() => void'`
+  /// because the interpreter's `Callable.call` signature
+  /// (`(visitor, positional, [named, typeArgs])`) doesn't match any
+  /// native function type. The arity of the wrapper matches the
+  /// Callable's declared required-positional count.
+  ///
+  /// Returns the value unchanged when it isn't a Callable, so callers can
+  /// pass every positional arg through this without case-checking.
+  static Object? coerceCallableToFunction(
+      InterpreterVisitor visitor, Object? value) {
+    if (value is! Callable) return value;
+    final n = value.arity;
+    switch (n) {
+      case 0:
+        return () => callInterpreterCallback(visitor, value, const []);
+      case 1:
+        return (a) => callInterpreterCallback(visitor, value, [a]);
+      case 2:
+        return (a, b) => callInterpreterCallback(visitor, value, [a, b]);
+      case 3:
+        return (a, b, c) =>
+            callInterpreterCallback(visitor, value, [a, b, c]);
+      case 4:
+        return (a, b, c, d) =>
+            callInterpreterCallback(visitor, value, [a, b, c, d]);
+      default:
+        // Best-effort variable-arity fallback. Most Flutter callbacks top
+        // out at 4 args; this branch keeps less common 5+-arg signatures
+        // working at the cost of nullable parameter types.
+        return ([p0, p1, p2, p3, p4, p5, p6, p7, p8, p9]) {
+          final args = <Object?>[];
+          for (final p in [p0, p1, p2, p3, p4, p5, p6, p7, p8, p9]) {
+            if (p == null) break;
+            args.add(p);
+          }
+          return callInterpreterCallback(visitor, value, args);
+        };
+    }
+  }
+
   /// Call an interpreter callback that may be either an InterpretedFunction
   /// or a NativeFunction.
   ///
