@@ -520,6 +520,15 @@ class _FieldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #96, P1)
+    // The Row uses `crossAxisAlignment: stretch` so the 6-px accent
+    // strip on the left matches the card's content height. Page root is
+    // `SingleChildScrollView > Column`, so the Row's parent height is
+    // unbounded; without an `IntrinsicHeight` wrapper the stretch
+    // propagates `h=Infinity` to the accent Container and trips
+    // `BoxConstraints.debugAssertIsValid`. _FieldAnatomy invokes
+    // _FieldCard 4 times — Flutter aborts layout after the first
+    // assertion fires, so only one banner surfaces.
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -527,7 +536,7 @@ class _FieldCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Row(
+      child: IntrinsicHeight(child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -601,7 +610,7 @@ class _FieldCard extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }
@@ -970,7 +979,12 @@ class _ScanVsKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #96, P1)
+    // Row(stretch) inside the unbounded-h page root (SCV>Column) —
+    // wrap in IntrinsicHeight so the two side-by-side _CompareCards
+    // size to the taller of the two, without h=Infinity propagating
+    // into them via stretch.
+    return IntrinsicHeight(child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: const <Widget>[
         _CompareCard(
@@ -1001,7 +1015,7 @@ class _ScanVsKey extends StatelessWidget {
               'Layout-dependent logical key. Matches the labelled character on the user\'s keyboard. Prefer this for text-aware shortcuts.',
         ),
       ],
-    );
+    ));
   }
 }
 
@@ -1864,8 +1878,13 @@ class _UseCases extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #96, P1)
+    // Each Row(crossAxisAlignment.stretch) sits in the unbounded-h
+    // page root (SCV>Column). Wrap both rows in IntrinsicHeight so
+    // the side-by-side _UseCaseCards in each pair size to the taller
+    // card, without h=Infinity propagating into them via stretch.
     return Column(children: <Widget>[
-      Row(
+      IntrinsicHeight(child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
           _UseCaseCard(
@@ -1884,9 +1903,9 @@ class _UseCases extends StatelessWidget {
                 'Inspect modifier combinations to provide alternate behaviour for sticky-keys and bounce-keys users.',
           ),
         ],
-      ),
+      )),
       const SizedBox(height: 10.0),
-      Row(
+      IntrinsicHeight(child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
           _UseCaseCard(
@@ -1905,7 +1924,7 @@ class _UseCases extends StatelessWidget {
                 'scanCode is layout-independent — perfect for movement keys that follow finger position, not labels.',
           ),
         ],
-      ),
+      )),
     ]);
   }
 }
