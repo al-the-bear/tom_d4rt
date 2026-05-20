@@ -5015,4 +5015,63 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch34_short_tests2_demos_b4/', () {
+    test('material/icontheme_test.dart', () async {
+      final result = await SendTestRunner.send('material/icontheme_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/formcontrols_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/formcontrols_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_themes_batch2_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_themes_batch2_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/stepper_test.dart', () async {
+      final result = await SendTestRunner.send('material/stepper_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/decoratedbox_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/decoratedbox_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/absorbpointer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/absorbpointer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/mergeable_test.dart', () async {
+      final result = await SendTestRunner.send('material/mergeable_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/material_widget_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/material_widget_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/togglebuttons_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/togglebuttons_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
