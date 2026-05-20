@@ -1983,13 +1983,22 @@ Widget _footgunCard(Map<String, Object?> entry) {
   return Container(
     margin: const EdgeInsets.only(bottom: 12.0),
     padding: const EdgeInsets.all(16.0),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #90, P5(a))
+    // _footgunCard is invoked once per footguns entry (5 entries) =
+    // 5 baseline errors, all "A borderRadius can only be given on
+    // borders with uniform colors." The Border combines a wider,
+    // fully-saturated `tone` left BorderSide with three thin tone@0.25
+    // sides on top/right/bottom — non-uniform on both color and width.
+    // Flutter rejects borderRadius for any non-uniform Border; drop
+    // borderRadius. The heavy-left accent bar + gradient fill carry the
+    // visual identity of the footgun card; the square corners are a
+    // minor cosmetic concession.
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: <Color>[Colors.white, tone.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(14.0),
       border: Border(
         left: BorderSide(color: tone, width: 5.0),
         top: BorderSide(color: tone.withValues(alpha: 0.25), width: 1.0),
