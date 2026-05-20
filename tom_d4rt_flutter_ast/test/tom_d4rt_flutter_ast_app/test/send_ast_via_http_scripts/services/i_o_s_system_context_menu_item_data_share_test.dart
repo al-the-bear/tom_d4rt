@@ -563,13 +563,24 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  final Widget section4Titles = Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Expanded(child: defaultTitleCard),
-      const SizedBox(width: 12.0),
-      Expanded(child: customTitleCard),
-    ],
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #89, P1)
+  // section4Titles is Row(crossAxisAlignment: stretch, [Expanded(card),
+  // SizedBox(12), Expanded(card)]) sitting inside the outer Column inside
+  // a SingleChildScrollView. The stretch wants each Expanded child to
+  // match the Row's height, but the Row's vertical extent is unbounded
+  // (SCV ancestor), so RenderConstrainedBox receives BoxConstraints
+  // (h=infinity) on the two cards and asserts. IntrinsicHeight bounds the
+  // Row's height to the taller of the two cards while preserving the
+  // side-by-side equal-height comparison layout.
+  final Widget section4Titles = IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(child: defaultTitleCard),
+        const SizedBox(width: 12.0),
+        Expanded(child: customTitleCard),
+      ],
+    ),
   );
 
   // ==========================================================================
