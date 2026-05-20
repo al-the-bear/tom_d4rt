@@ -1199,9 +1199,16 @@ class _ModifierBitsSection extends StatelessWidget {
   }
 
   Widget _bitCell(int bit, bool on) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #94, P2)
+    // The inner Column packs two Text lines (fontSize 12 + fontSize 8)
+    // whose natural height (~30 px) exceeds this Container's fixed
+    // `height: 28`, producing "A RenderFlex overflowed by 2.0 pixels on
+    // the bottom" once per bit cell. The grid iterates 32 bits → 32
+    // identical banners. Bumping the cell height from 28 → 32 absorbs
+    // the natural Column height without changing the visual grid metric.
     return Container(
       width: 22,
-      height: 28,
+      height: 32,
       decoration: BoxDecoration(
         color: on
             ? _Palette.green.withValues(alpha: 0.45)
@@ -2138,12 +2145,19 @@ class _Pitfall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #94, P5(a))
+    // The Border below has a heavy 4-px coloured `left` side against
+    // 1-px _Palette.border sides on top/right/bottom — non-uniform
+    // colours and widths cannot coexist with `borderRadius`. Drop
+    // `borderRadius`; the heavy left accent carries the visual identity
+    // of each pitfall card. The _Pitfall helper is invoked 8 times in
+    // the pitfalls section → 8 "borderRadius can only be given on
+    // borders with uniform colors" banners cleared.
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.all(13),
       decoration: BoxDecoration(
         color: _Palette.panelAlt,
-        borderRadius: BorderRadius.circular(10),
         border: Border(
           left: BorderSide(color: color, width: 4),
           top: BorderSide(color: _Palette.border, width: 1),
