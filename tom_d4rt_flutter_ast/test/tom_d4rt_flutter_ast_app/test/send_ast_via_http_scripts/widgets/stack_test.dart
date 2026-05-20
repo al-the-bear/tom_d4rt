@@ -840,18 +840,36 @@ dynamic build(BuildContext context) {
                     ),
                     color: Colors.red.shade50,
                   ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0.0,
-                        top: 0.0,
-                        child: Container(
-                          width: 30.0,
-                          height: 30.0,
-                          color: Colors.red.shade400,
+                  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #134, P4):
+                  // The "Only Positioned" pedagogical demo wraps a Stack whose
+                  // sole child is a Positioned(left:0, top:0, child: 30×30).
+                  // Stacks with only Positioned children get no size hints from
+                  // their children, and Flutter asserts "A Stack requires
+                  // bounded constraints from its parent" when the surrounding
+                  // chain (Row(spaceEvenly) > Column > Container(decoration))
+                  // delivers loose/unbounded constraints. Wrapping the Stack
+                  // in a SizedBox(30×30) gives the Stack tight bounded
+                  // constraints matching the only Positioned child's size,
+                  // so the assertion clears and the visual reduces to the
+                  // single 30×30 red square — a faithful realization of the
+                  // "→ collapses" narrative below (the Stack shrinks to fit
+                  // its only positioned child).
+                  child: SizedBox(
+                    width: 30.0,
+                    height: 30.0,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0.0,
+                          top: 0.0,
+                          child: Container(
+                            width: 30.0,
+                            height: 30.0,
+                            color: Colors.red.shade400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 4.0),
