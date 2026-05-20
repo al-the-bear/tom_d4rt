@@ -1084,8 +1084,13 @@ Widget _sectionHeader(String label, IconData icon, Color color) {
     margin: EdgeInsets.symmetric(vertical: 8.0),
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #92, P5(a)):
+      // Drop borderRadius — non-uniform Border (only `left` side coloured,
+      // other sides BorderSide.none) cannot coexist with borderRadius.
+      // Flutter asserts "A borderRadius can only be given on borders with
+      // uniform colors." The heavy left accent bar carries the visual
+      // identity of the section header; a square corner is acceptable.
       color: color.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(10.0),
       border: Border(
         left: BorderSide(color: color, width: 5.0),
       ),
@@ -1710,7 +1715,13 @@ Widget _buildFootgun(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(12.0),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #92, P5(a)):
+      // Drop borderRadius — `left` BorderSide differs from the other three
+      // sides (full-strength `color` vs `color@0.3`), making the Border
+      // non-uniform. Flutter asserts "A borderRadius can only be given on
+      // borders with uniform colors." The heavy left accent identifies the
+      // footgun card; the diagonal gradient and shadow remain, so a square
+      // corner is acceptable.
       border: Border(
         left: BorderSide(color: color, width: 5.0),
         top: BorderSide(color: color.withValues(alpha: 0.3), width: 1.0),
