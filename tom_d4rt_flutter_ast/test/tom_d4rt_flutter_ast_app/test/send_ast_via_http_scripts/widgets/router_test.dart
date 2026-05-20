@@ -1646,10 +1646,27 @@ class _PhoneBezel extends StatelessWidget {
                   ),
                 ),
                 // Body
+                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #127, P2):
+                // The phone body region is a bounded Container(height: 180,
+                // padding: 10) i.e. an inner 160 px box that hosts the body-
+                // builder Columns. The product/checkout mocks intrinsically
+                // size ~182 / ~165 px, producing two RenderFlex bottom
+                // overflows (22 px and 5.0 px). The page-root is already
+                // SCV(NeverScrollableScrollPhysics) so the canonical page-
+                // root P2 doesn't apply — this is the P2 nested-Column
+                // variant (cf. items 108, 113, 123). Wrap the body builder
+                // in a NeverScrollable SCV: the bounded Container still
+                // sizes the body to 180 px, the SCV viewport gives its
+                // inner Column unbounded vertical space (no assertion),
+                // and RenderViewport's default Clip.hardEdge keeps the
+                // visual phone-screen aesthetic intact.
                 Container(
                   height: 180,
                   padding: EdgeInsets.all(10),
-                  child: screen.bodyBuilder(screen.accent),
+                  child: SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: screen.bodyBuilder(screen.accent),
+                  ),
                 ),
                 // Bottom bar / indicator
                 Container(
