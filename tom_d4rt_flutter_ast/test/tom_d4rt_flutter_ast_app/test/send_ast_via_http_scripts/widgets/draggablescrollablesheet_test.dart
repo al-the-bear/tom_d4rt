@@ -2509,9 +2509,25 @@ Widget _argRow(List<Widget> children) {
       spaced.add(const SizedBox(width: 12));
     }
   }
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: spaced,
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #106, P1):
+  // `_argRow` is called five times (lines 322, 352, 382, 1498, 1527) to lay
+  // out side-by-side argument/recipe cards inside the page-root
+  // `SingleChildScrollView > Column(stretch)` chain. The SCV gives its
+  // descendants unbounded vertical extent, so `Row(crossAxisAlignment.stretch)`
+  // — which wants its children (each wrapped in `Expanded(_argCard(…))`) to
+  // share a common cross-axis height — receives an infinite-height
+  // constraint and raises "BoxConstraints forces an infinite height."
+  // (frameworkErrors=1, reported once because Flutter dedupes the same
+  // assertion under the diagnostic infrastructure). Wrapping the Row in
+  // `IntrinsicHeight` gives the side-by-side cards a finite cross-axis
+  // budget equal to the tallest sibling, preserving the equal-height
+  // comparison the helper is designed to teach. Single-site fix covers
+  // all five invocations.
+  return IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: spaced,
+    ),
   );
 }
 
