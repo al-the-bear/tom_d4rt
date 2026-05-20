@@ -1293,7 +1293,20 @@ dynamic build(BuildContext context) {
     flowchartTiles.add(
       Container(
         margin: const EdgeInsets.only(bottom: 4.0),
-        child: Row(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #122, P1):
+        // The flowchart tile's `Row(crossAxisAlignment.stretch)` sits
+        // inside the page-root `SingleChildScrollView > Column(stretch)`
+        // chain. The SCV propagates unbounded vertical constraints
+        // downward; a `Row(stretch)` then demands its children share a
+        // common height, which would require an infinite tight height.
+        // Flutter asserts "BoxConstraints forces an infinite height."
+        // Wrap the Row in `IntrinsicHeight` so the cross-axis height
+        // resolves to the tallest child's intrinsic height before the
+        // `stretch` rule is applied. The visual (the index-circle +
+        // dashed vertical line column matching the height of the body
+        // card to its right) is preserved.
+        child: IntrinsicHeight(
+          child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Column(
@@ -1367,6 +1380,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ],
+        ),
         ),
       ),
     );
