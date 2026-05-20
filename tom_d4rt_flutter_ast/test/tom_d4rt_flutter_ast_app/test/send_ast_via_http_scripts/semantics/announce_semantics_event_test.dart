@@ -948,9 +948,15 @@ dynamic build(BuildContext context) {
     messageCards.add(Container(
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.all(12),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+      // Original combined `borderRadius: 8` with a non-uniform `Border`
+      // (left: base/5 vs top/right/bottom: dividerTone/0.7 — different
+      // colors and widths). Flutter asserts uniform-colors-or-no-radius.
+      // The messageCards loop renders one tile per styleRows entry. Drop
+      // borderRadius; the heavy-left accent bar look survives via the
+      // wider, saturated left BorderSide alone.
       decoration: BoxDecoration(
         color: paperCream,
-        borderRadius: BorderRadius.circular(8),
         border: Border(
           left: BorderSide(color: base, width: 5),
           top: BorderSide(color: dividerTone, width: 0.7),
@@ -1342,9 +1348,14 @@ dynamic build(BuildContext context) {
     pitfallTiles.add(Container(
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(11),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+      // Original combined `borderRadius: 7` with `Border(left: crimsonAlert/4)` —
+      // top/right/bottom default to BorderSide.none → non-uniform. Flutter
+      // asserts uniform-colors-or-no-radius. The pitfallTiles loop produces
+      // one tile per pitfalls entry. Drop borderRadius; the heavy-left accent
+      // bar look survives via the colored left BorderSide alone.
       decoration: BoxDecoration(
         color: i.isEven ? paperCream : paperWarm,
-        borderRadius: BorderRadius.circular(7),
         border: Border(left: BorderSide(color: crimsonAlert, width: 4)),
       ),
       child: Row(
@@ -1460,12 +1471,17 @@ dynamic build(BuildContext context) {
           Container(
             width: 60,
             height: 60,
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+            // Original combined `BorderRadius.only(topLeft, bottomLeft)` with
+            // `Border(right: brassMid/1)` — the other three sides default to
+            // BorderSide.none → non-uniform. Flutter asserts uniform-colors-
+            // or-no-radius. Drop borderRadius; the swatch divider strip retains
+            // its right separator via the colored BorderSide alone (the corners
+            // of this inner color block were never visually critical anyway —
+            // the outer container at line 1450 still provides the rounded
+            // pill shape).
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(6),
-                bottomLeft: Radius.circular(6),
-              ),
               border: Border(
                 right: BorderSide(color: brassMid, width: 1),
               ),
@@ -1678,9 +1694,13 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------------------
   final Widget proseTalkBack = Container(
     padding: EdgeInsets.all(14),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+    // Original combined `borderRadius: 8` with `Border(left: brassDeep/5)` —
+    // top/right/bottom default to BorderSide.none → non-uniform. Drop
+    // borderRadius; the proseTalkBack prose card keeps its heavy-left
+    // accent bar via the colored left BorderSide alone.
     decoration: BoxDecoration(
       color: paperCream,
-      borderRadius: BorderRadius.circular(8),
       border: Border(left: BorderSide(color: brassDeep, width: 5)),
     ),
     child: Column(
@@ -1705,9 +1725,13 @@ dynamic build(BuildContext context) {
 
   final Widget proseDirection = Container(
     padding: EdgeInsets.all(14),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+    // Original combined `borderRadius: 8` with `Border(left: indigoMid/5)` —
+    // top/right/bottom default to BorderSide.none → non-uniform. Drop
+    // borderRadius; the proseDirection prose card keeps its heavy-left
+    // accent bar via the colored left BorderSide alone.
     decoration: BoxDecoration(
       color: paperWarm,
-      borderRadius: BorderRadius.circular(8),
       border: Border(left: BorderSide(color: indigoMid, width: 5)),
     ),
     child: Column(
@@ -1732,9 +1756,13 @@ dynamic build(BuildContext context) {
 
   final Widget proseViewId = Container(
     padding: EdgeInsets.all(14),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+    // Original combined `borderRadius: 8` with `Border(left: brassMid/5)` —
+    // top/right/bottom default to BorderSide.none → non-uniform. Drop
+    // borderRadius; the proseViewId prose card keeps its heavy-left accent
+    // bar via the colored left BorderSide alone.
     decoration: BoxDecoration(
       color: paperCream,
-      borderRadius: BorderRadius.circular(8),
       border: Border(left: BorderSide(color: brassMid, width: 5)),
     ),
     child: Column(
