@@ -39,15 +39,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |   7 | `widgets/interactiveviewer_test.dart` | 8,145 | 264 | (x) | (x) | (x) |
 |   8 | `gestures/recognizers_test.dart` | 8,210 | 232 | (x) | (x) | (x) |
 |   9 | `services/codecs_test.dart` | 8,229 | 225 | (x) | (x) | (x) |
-|  10 | `material/buttons_test.dart` | 8,248 | 295 | ( ) | ( ) | ( ) |
-|  11 | `material/materialapp_test.dart` | 8,281 | 238 | ( ) | ( ) | ( ) |
-|  12 | `cupertino/tab_test.dart` | 8,303 | 265 | ( ) | ( ) | ( ) |
-|  13 | `foundation/key_test.dart` | 8,315 | 246 | ( ) | ( ) | ( ) |
-|  14 | `cupertino/button_test.dart` | 8,353 | 272 | ( ) | ( ) | ( ) |
-|  15 | `widgets/navigator_test.dart` | 8,358 | 238 | ( ) | ( ) | ( ) |
-|  16 | `material/picker_themes_test.dart` | 8,609 | 217 | ( ) | ( ) | ( ) |
-|  17 | `rendering/debug_overflow_indicator_mixin_test.dart` | 8,610 | 251 | ( ) | ( ) | ( ) |
-|  18 | `material/component_themes_test.dart` | 8,612 | 231 | ( ) | ( ) | ( ) |
+|  10 | `material/buttons_test.dart` | 8,248 | 295 | (x) | (x) | (x) |
+|  11 | `material/materialapp_test.dart` | 8,281 | 238 | (x) | (x) | (x) |
+|  12 | `cupertino/tab_test.dart` | 8,303 | 265 | (x) | (x) | (x) |
+|  13 | `foundation/key_test.dart` | 8,315 | 246 | (x) | (x) | (x) |
+|  14 | `cupertino/button_test.dart` | 8,353 | 272 | (x) | (x) | (x) |
+|  15 | `widgets/navigator_test.dart` | 8,358 | 238 | (x) | (x) | (x) |
+|  16 | `material/picker_themes_test.dart` | 8,609 | 217 | (x) | (x) | (x) |
+|  17 | `rendering/debug_overflow_indicator_mixin_test.dart` | 8,610 | 251 | (x) | (x) | (x) |
+|  18 | `material/component_themes_test.dart` | 8,612 | 231 | (x) | (x) | (x) |
 |  19 | `material/bottomnavigationbar_test.dart` | 8,726 | 263 | ( ) | ( ) | ( ) |
 |  20 | `widgets/transform_test.dart` | 8,726 | 316 | ( ) | ( ) | ( ) |
 |  21 | `dart_ui/primitives_test.dart` | 8,744 | 245 | ( ) | ( ) | ( ) |

@@ -4901,4 +4901,59 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch32_short_tests2_demos_b2/', () {
+    test('material/buttons_test.dart', () async {
+      final result = await SendTestRunner.send('material/buttons_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/materialapp_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/materialapp_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/tab_test.dart', () async {
+      final result = await SendTestRunner.send('cupertino/tab_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/key_test.dart', () async {
+      final result = await SendTestRunner.send('foundation/key_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/button_test.dart', () async {
+      final result = await SendTestRunner.send('cupertino/button_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/navigator_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/navigator_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/picker_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/picker_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/debug_overflow_indicator_mixin_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/debug_overflow_indicator_mixin_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/component_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/component_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
