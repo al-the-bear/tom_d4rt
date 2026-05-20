@@ -1663,25 +1663,24 @@ Widget _footgun(
   IconData icon,
   Color color,
 ) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #121, P5(a)):
+  // Flutter forbids `borderRadius` on a `Border(...)` with non-uniform
+  // colors (thick colored `left` + thin `color.withValues(alpha: 0.3)`
+  // on `top/right/bottom`). Refactor to the canonical pattern:
+  // ClipRRect > IntrinsicHeight > Row(stretch, [accent strip Container,
+  // Expanded(Padding(content))]) with uniform `Border.all`. The outer
+  // Container keeps the margin + `boxShadow` (shadows can't be clipped
+  // inside ClipRRect) and carries the borderRadius so the shadow's
+  // corner shape matches the visual; the inner ClipRRect applies the
+  // same radius to clip the gradient + accent strip. Preserves the
+  // visual: colored left accent strip, light border on the other
+  // sides, uniform 12 px rounded corners, gradient fill, soft drop
+  // shadow. Five call sites all run through this helper, producing
+  // five identical framework errors at baseline.
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
-    padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.16),
-        ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-        top: BorderSide(color: color.withValues(alpha: 0.3)),
-        right: BorderSide(color: color.withValues(alpha: 0.3)),
-        bottom: BorderSide(color: color.withValues(alpha: 0.3)),
-      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.18),
@@ -1690,36 +1689,68 @@ Widget _footgun(
         ),
       ],
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, color: color, size: 22.0),
-        SizedBox(width: 12.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.0,
-                  color: color,
-                ),
-              ),
-              SizedBox(height: 6.0),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade800,
-                  height: 1.45,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      child: IntrinsicHeight(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                color.withValues(alpha: 0.08),
+                color.withValues(alpha: 0.16),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            border: Border.all(
+              color: color.withValues(alpha: 0.3),
+              width: 1.0,
+            ),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4.0, color: color),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(14.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(icon, color: color, size: 22.0),
+                      SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13.0,
+                                color: color,
+                              ),
+                            ),
+                            SizedBox(height: 6.0),
+                            Text(
+                              body,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey.shade800,
+                                height: 1.45,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ],
+      ),
     ),
   );
 }
