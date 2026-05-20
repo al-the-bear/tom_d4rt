@@ -1073,6 +1073,24 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(14.0),
       child: CustomScrollView(
         slivers: [
+          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #126, P7):
+          // The original used a SliverOverlapInjector with a standalone
+          // SliverOverlapAbsorberHandle that no absorber ever wrote to.
+          // At layout time Flutter asserts: "SliverOverlapInjector has
+          // found no absorbed extent to inject. The SliverOverlapAbsorber
+          // must be an earlier descendant of a common ancestor Viewport,
+          // so that it will always be laid out before the SliverOverlap-
+          // Injector." Three follow-on `Null check operator used on a
+          // null value` exceptions fire from the same broken handle. Pair
+          // the injector with a SliverOverlapAbsorber as the first sliver
+          // (sharing the same handle) so the handle is initialized to a
+          // valid 0-extent value before the injector reads it. The
+          // absorber's sliver is empty, so the injector still reserves 0
+          // pixels — identical functional result to the original demo.
+          SliverOverlapAbsorber(
+            handle: liveHandle,
+            sliver: const SliverToBoxAdapter(child: SizedBox.shrink()),
+          ),
           SliverOverlapInjector(handle: liveHandle),
           SliverToBoxAdapter(
             child: Container(
@@ -1080,9 +1098,11 @@ dynamic build(BuildContext context) {
               color: kIndigoSoft,
               child: const Text(
                 'This CustomScrollView has a real SliverOverlapInjector at '
-                'the top, fed by a standalone SliverOverlapAbsorberHandle. '
-                'No overlap is ever written, so the injector reserves 0 '
-                'pixels — the demo merely proves the widget mounts.',
+                'the top, paired with a SliverOverlapAbsorber that shares '
+                'the same SliverOverlapAbsorberHandle. The absorber wraps '
+                'an empty sliver so 0 pixels of overlap are written into '
+                'the handle — the demo proves the widget mounts and the '
+                'injector reserves the absorbed 0-pixel extent.',
                 style: TextStyle(fontSize: 13.0, color: kInkDark),
               ),
             ),
