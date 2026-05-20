@@ -1632,6 +1632,24 @@ dynamic build(BuildContext context) {
   print('Root background: film-noir gradient with vignette.');
   print('==========================================================');
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #101, P2):
+  // The page root packs ten themed sections vertically inside a single
+  // `Container > Column(crossAxisAlignment: stretch)` with no scrolling
+  // ancestor. Combined height of the sections (anchor snapshots, title
+  // banner, anatomy diagram, animation gallery, child-optimization demo,
+  // composed-tween cards, comparison table, builder-signature breakdown,
+  // 10-frame storyboard film strip, and cheat-sheet) is ≈ 2402 px greater
+  // than the desktop test viewport, surfacing as a single
+  // "A RenderFlex overflowed by 2402 pixels on the bottom." framework
+  // error (baseline frameworkErrors=1). Wrap the Column in
+  // `SingleChildScrollView` so the section stack resolves through
+  // scrolling rather than as an over-tall RenderFlex. The radial gradient
+  // Container stays on the OUTSIDE of the scroll view so the film-noir
+  // backdrop fills the whole viewport, not just the scroll content. The
+  // plan label included P1, but no `Row(crossAxisAlignment.stretch)` is
+  // present in the script (the only `stretch` site is this Column, whose
+  // cross axis is *width* and therefore bounded by the parent Container),
+  // so P1 did not materialise — P2 alone clears the overflow.
   final Widget root = Container(
     padding: const EdgeInsets.all(16),
     decoration: const BoxDecoration(
@@ -1641,30 +1659,32 @@ dynamic build(BuildContext context) {
         colors: [kFilmInk, kFilmBlack, Color(0xFF050507)],
       ),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        sectionHeader(0, 'Anchor snapshots'),
-        section0,
-        sectionHeader(1, 'Title banner'),
-        section1,
-        sectionHeader(2, 'Anatomy diagram'),
-        section2,
-        sectionHeader(3, 'Gallery of static-frame animations'),
-        section3,
-        sectionHeader(4, 'Child optimization'),
-        section4,
-        sectionHeader(5, 'Composed tweens'),
-        section5,
-        sectionHeader(6, 'Comparison table'),
-        section6,
-        sectionHeader(7, 'Builder signature'),
-        section7,
-        sectionHeader(8, 'Storyboard film strip'),
-        section8,
-        sectionHeader(9, 'Cheat-sheet'),
-        section9,
-      ],
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          sectionHeader(0, 'Anchor snapshots'),
+          section0,
+          sectionHeader(1, 'Title banner'),
+          section1,
+          sectionHeader(2, 'Anatomy diagram'),
+          section2,
+          sectionHeader(3, 'Gallery of static-frame animations'),
+          section3,
+          sectionHeader(4, 'Child optimization'),
+          section4,
+          sectionHeader(5, 'Composed tweens'),
+          section5,
+          sectionHeader(6, 'Comparison table'),
+          section6,
+          sectionHeader(7, 'Builder signature'),
+          section7,
+          sectionHeader(8, 'Storyboard film strip'),
+          section8,
+          sectionHeader(9, 'Cheat-sheet'),
+          section9,
+        ],
+      ),
     ),
   );
 
