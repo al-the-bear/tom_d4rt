@@ -327,9 +327,15 @@ dynamic build(BuildContext context) {
         child: cell(cells[i], head: head),
       ));
     }
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: kids,
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #131, P1):
+    // Row(crossAxisAlignment.stretch) + Expanded inside SCV-descended Column
+    // chain forces unbounded-height assertion. Wrap in IntrinsicHeight to
+    // bound the vertical extent.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: kids,
+      ),
     );
   }
 
@@ -480,9 +486,19 @@ dynamic build(BuildContext context) {
               border: Border.all(color: cBorder),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: rows,
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #131, P2):
+            // The 4 fixed-height row Containers (14 px each + 3 px vertical
+            // margin = ~20 px × 4 = 80 px) exceed the 90 - 16 = 74 px inner
+            // space of this Container, producing the 4 RenderFlex 8 px bottom
+            // overflows. Wrap the inner Column in a non-scrollable
+            // SingleChildScrollView so the fixed-height Container clips the
+            // overflow instead of asserting.
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: rows,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -846,7 +862,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final Widget compareTable = Row(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #131, P1):
+  // Row(crossAxisAlignment.stretch) + Expanded (compareCol returns Expanded)
+  // inside SCV-descended Column chain forces unbounded-height assertion.
+  // Wrap in IntrinsicHeight to bound the vertical extent.
+  final Widget compareTable = IntrinsicHeight(
+    child: Row(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
       compareCol('ScrollBehavior', cAmber, <String>[
@@ -868,6 +889,7 @@ dynamic build(BuildContext context) {
         'Read-only — observe, do not control',
       ]),
     ],
+    ),
   );
 
   // ====================================================================
@@ -1065,7 +1087,12 @@ dynamic build(BuildContext context) {
   final Widget kbBehavior = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Row(
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #131, P1):
+      // Row(crossAxisAlignment.stretch) + Expanded (kbCard returns Expanded)
+      // inside SCV-descended Column chain forces unbounded-height assertion.
+      // Wrap in IntrinsicHeight to bound the vertical extent.
+      IntrinsicHeight(
+        child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           kbCard(
@@ -1085,6 +1112,7 @@ dynamic build(BuildContext context) {
             Icons.swipe_down,
           ),
         ],
+      ),
       ),
       const SizedBox(height: 10),
       Container(
