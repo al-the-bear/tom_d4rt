@@ -2009,59 +2009,84 @@ class _PrivatePitfallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: palette.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: pitfall.color, width: 4),
-          top: BorderSide(color: palette.border, width: 1),
-          right: BorderSide(color: palette.border, width: 1),
-          bottom: BorderSide(color: palette.border, width: 1),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #116, P5(a)):
+    // Original decoration combined `borderRadius: 12` with a *non-uniform*
+    // `Border(left: pitfall.color/4, top/right/bottom: palette.border/1)`.
+    // Flutter requires uniform colors when a borderRadius is present, so the
+    // mismatched left vs. {top,right,bottom} colours triggered "A
+    // borderRadius can only be given on borders with uniform colors." The
+    // card is rendered six times (one per pitfall in section 9), which is
+    // why the baseline reports six identical framework errors.
+    //
+    // Refactor: paint the rounded rectangle once via `ClipRRect(12)` around
+    // an `IntrinsicHeight > Row(stretch)` whose first child is a 4 px-wide
+    // coloured "accent strip" Container and whose second child is an
+    // Expanded with the original padded content. The remaining frame uses a
+    // uniform `Border.all(color: palette.border, width: 1)`. Visually
+    // identical (left edge tinted by `pitfall.color`, rounded corners,
+    // single-px frame), but with only uniform-coloured borders.
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: IntrinsicHeight(
+        child: Container(
+          decoration: BoxDecoration(
+            color: palette.surface,
+            border: Border.all(color: palette.border, width: 1),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4, color: pitfall.color),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: pitfall.color.withValues(alpha: 0.13),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.report_gmailerrorred_rounded,
+                          size: 18,
+                          color: pitfall.color,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              pitfall.title,
+                              style: TextStyle(
+                                color: palette.ink,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              pitfall.body,
+                              style: TextStyle(
+                                color: palette.inkSoft,
+                                fontSize: 12,
+                                height: 1.55,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(7),
-            decoration: BoxDecoration(
-              color: pitfall.color.withValues(alpha: 0.13),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              Icons.report_gmailerrorred_rounded,
-              size: 18,
-              color: pitfall.color,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  pitfall.title,
-                  style: TextStyle(
-                    color: palette.ink,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  pitfall.body,
-                  style: TextStyle(
-                    color: palette.inkSoft,
-                    fontSize: 12,
-                    height: 1.55,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
