@@ -1160,11 +1160,21 @@ class Environment {
 
     sourceEnvToImportFrom._prefixedImports.forEach((name, env) {
       if (_prefixedImports.containsKey(name)) {
-        // Allow if it's the same prefixed environment
-        if (!identical(_prefixedImports[name], env)) {
-          throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' (prefixed import) is already defined with a different environment.");
+        // Same identity — nothing to do.
+        if (identical(_prefixedImports[name], env)) {
+          return;
         }
+        // Different env objects bound to the same prefix. This is legal in
+        // Dart: multiple files (or even a single file) may declare imports
+        // with the same prefix, and the prefix scope is additive over all of
+        // them (`import 'dart:math' as m;` and `import 'package:foo' as m;`
+        // both expose names via `m.`). In our module loader the per-file
+        // module environments each create their own `shallowCopyFiltered`
+        // copy of the imported env, so even imports of the *same library*
+        // under the same prefix produce non-identical env objects in two
+        // different files. Merge the contents instead of throwing.
+        _prefixedImports[name]!
+            .importEnvironment(env, errorOnConflict: false);
         return;
       }
       if (_values.containsKey(name) ||
