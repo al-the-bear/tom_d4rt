@@ -839,16 +839,24 @@ class _AnatomyDiagram extends StatelessWidget {
             width: 150,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  _LabelDot(color: _kAccent, label: 'thumb', detail: 'visible draggable bar'),
-                  _LabelDot(color: _kSlate, label: 'track', detail: 'background area'),
-                  _LabelDot(color: _kInkMuted, label: 'extent', detail: 'viewport vs content ratio'),
-                  _LabelDot(color: _kViolet, label: 'radius', detail: 'corner rounding'),
-                  _LabelDot(color: _kAmber, label: 'thickness', detail: 'width across axis'),
-                  _LabelDot(color: _kEmerald, label: 'orientation', detail: 'edge placement'),
-                ],
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #132, P2):
+              // Wrap the Labels Column in a non-scrolling SingleChildScrollView
+              // so the bounded 260 px parent Container clips overflow via
+              // RenderViewport.Clip.hardEdge instead of raising a 32 px
+              // RenderFlex overflow.
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    _LabelDot(color: _kAccent, label: 'thumb', detail: 'visible draggable bar'),
+                    _LabelDot(color: _kSlate, label: 'track', detail: 'background area'),
+                    _LabelDot(color: _kInkMuted, label: 'extent', detail: 'viewport vs content ratio'),
+                    _LabelDot(color: _kViolet, label: 'radius', detail: 'corner rounding'),
+                    _LabelDot(color: _kAmber, label: 'thickness', detail: 'width across axis'),
+                    _LabelDot(color: _kEmerald, label: 'orientation', detail: 'edge placement'),
+                  ],
+                ),
               ),
             ),
           ),
