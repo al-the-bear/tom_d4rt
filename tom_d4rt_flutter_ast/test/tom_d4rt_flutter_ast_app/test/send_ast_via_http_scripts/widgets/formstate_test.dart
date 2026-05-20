@@ -811,29 +811,48 @@ Widget _buildAnatomyCard({
     );
   }
 
-  return Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: cParchment,
-      borderRadius: BorderRadius.circular(8),
-      border: const Border(
-        left: BorderSide(color: cWaxRed, width: 4),
-        top: BorderSide(color: cParchmentEdge, width: 0.5),
-        right: BorderSide(color: cParchmentEdge, width: 0.5),
-        bottom: BorderSide(color: cParchmentEdge, width: 0.5),
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #111, P5(a)):
+  // Original used `Border(left: cWaxRed/4, top/right/bottom:
+  // cParchmentEdge/0.5)` + `borderRadius: 8`. Flutter forbids non-uniform
+  // Border sides with a borderRadius. Refactor to a uniform
+  // `Border.all(cParchmentEdge/0.5)` outer frame + a leading wax-red strip
+  // Container inside `ClipRRect > IntrinsicHeight > Row` so the chunky
+  // accent is preserved as the leftmost child instead of a Border side.
+  // Visual is equivalent: parchment card with a wax-red leading gutter and
+  // a thin gilt-coloured frame on the other sides.
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(8),
+    child: IntrinsicHeight(
+      child: Container(
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border.all(color: cParchmentEdge, width: 0.5),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(width: 4, color: cWaxRed),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(title, style: kDeedTitleStyle),
+                    Text(role, style: kDeedSubtitleStyle),
+                    const SizedBox(height: 6),
+                    Text(body, style: kBodyStyle),
+                    const SizedBox(height: 8),
+                    const Text('Principal members',
+                        style: kSmallLabelStyle),
+                    ...memberWidgets,
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(title, style: kDeedTitleStyle),
-        Text(role, style: kDeedSubtitleStyle),
-        const SizedBox(height: 6),
-        Text(body, style: kBodyStyle),
-        const SizedBox(height: 8),
-        const Text('Principal members', style: kSmallLabelStyle),
-        ...memberWidgets,
-      ],
     ),
   );
 }
@@ -1825,50 +1844,65 @@ Widget _buildLifecycleCard({
   required String sideEffects,
   required Color accent,
 }) {
-  return Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: cParchment,
-      borderRadius: BorderRadius.circular(8),
-      border: Border(
-        left: BorderSide(color: accent, width: 5),
-        top: const BorderSide(color: cParchmentEdge, width: 0.5),
-        right: const BorderSide(color: cParchmentEdge, width: 0.5),
-        bottom: const BorderSide(color: cParchmentEdge, width: 0.5),
-      ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #111, P5(a)):
+  // Original used `Border(left: accent/5, top/right/bottom:
+  // cParchmentEdge/0.5)` + `borderRadius: 8`. Same non-uniform-Border-
+  // with-borderRadius defect as _buildAnatomyCard. Refactor to a uniform
+  // outer `Border.all(cParchmentEdge/0.5)` + a leading per-card accent
+  // strip via `ClipRRect > IntrinsicHeight > Row`.
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(8),
+    child: IntrinsicHeight(
+      child: Container(
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border.all(color: cParchmentEdge, width: 0.5),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: 24,
-              height: 24,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accent,
-              ),
-              child: Text(
-                icon,
-                style: const TextStyle(
-                  color: cParchment,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900,
+            Container(width: 5, color: accent),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 24,
+                          height: 24,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: accent,
+                          ),
+                          child: Text(
+                            icon,
+                            style: const TextStyle(
+                              color: cParchment,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(title, style: kDeedTitleStyle),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(body, style: kBodyStyle),
+                    const SizedBox(height: 8),
+                    Text('Side effects', style: kSmallLabelStyle),
+                    Text(sideEffects, style: kBodyStyle),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(width: 8),
-            Text(title, style: kDeedTitleStyle),
           ],
         ),
-        const SizedBox(height: 8),
-        Text(body, style: kBodyStyle),
-        const SizedBox(height: 8),
-        Text('Side effects', style: kSmallLabelStyle),
-        Text(sideEffects, style: kBodyStyle),
-      ],
+      ),
     ),
   );
 }
