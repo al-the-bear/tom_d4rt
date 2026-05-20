@@ -1689,9 +1689,16 @@ Widget _pitfallTile(String title, String body, Color color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     padding: EdgeInsets.all(12.0),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #79, P5(a)):
+    // Original combined `borderRadius: 10` with a non-uniform `Border`
+    // (left: color/4.0 vs top/right/bottom: color@0.2 — different widths
+    // *and* alphas). Flutter asserts uniform-colors-or-no-radius. The
+    // `_pitfallTile` helper is invoked 5 times → 5 errors. Drop
+    // borderRadius; the heavy-left accent bar look (the visual hallmark
+    // of the pitfall card) is carried by the wider, more saturated left
+    // BorderSide alone.
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(10.0),
       border: Border(
         left: BorderSide(color: color, width: 4.0),
         top: BorderSide(color: color.withValues(alpha: 0.2)),
