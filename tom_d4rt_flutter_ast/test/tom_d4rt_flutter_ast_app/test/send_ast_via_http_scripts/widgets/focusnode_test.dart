@@ -1324,6 +1324,19 @@ class _DirectionalDemoPolicy extends WidgetOrderTraversalPolicy {
 }
 
 Widget _miniInput(String label, {Color colour = _kAccent}) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #110, P3):
+  // When _miniInput is placed inside `Expanded` (notably the
+  // ReadingOrderTraversalPolicy card in _traversalSection: a Row of two
+  // `Expanded(_miniInput(...))` siblings), each _miniInput receives a
+  // tightly bounded width. Inside, the Row holds `Container(6) +
+  // SizedBox(8) + Text(label)` with no flex child. With the longest
+  // labels ("LTR bottom-right" et al., 16 monospace chars at 12.5 sp)
+  // the Text's intrinsic width exceeds the budget by ~0.661 px,
+  // triggering a sub-pixel RenderFlex overflow.
+  // Fix (P3): wrap the Text in `Flexible(child: Text(..., overflow:
+  // TextOverflow.ellipsis))` so it absorbs the squeeze instead of
+  // pushing the Row past its bounds. In the other call sites
+  // (g1/g3/g4 with shorter labels) the label still renders in full.
   return IgnorePointer(
     child: Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -1344,12 +1357,16 @@ Widget _miniInput(String label, {Color colour = _kAccent}) {
             ),
           ),
           const SizedBox(width: 8.0),
-          Text(
-            label,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.5,
-              color: _kInk,
+          Flexible(
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.5,
+                color: _kInk,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
         ],
