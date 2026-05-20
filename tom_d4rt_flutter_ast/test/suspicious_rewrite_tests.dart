@@ -4839,4 +4839,66 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  // ============================================================
+  // Batch C — 2026-05-20 short_tests_verification_2 deep-demo
+  // rewrite, Batch 1 of 12 (9 files). All files freshly authored
+  // by per-file subagents, each ≥1274 lines, analyzer-clean.
+  // ============================================================
+  group('batch31_short_tests2_demos_b1/', () {
+    test('foundation/text_tree_configuration_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/text_tree_configuration_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animatedgrid_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animatedgrid_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animation_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/animation_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/bottomappbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/bottomappbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/pageview_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/pageview_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/cliprrect_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/cliprrect_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/interactiveviewer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/interactiveviewer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/recognizers_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/recognizers_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('services/codecs_test.dart', () async {
+      final result = await SendTestRunner.send('services/codecs_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

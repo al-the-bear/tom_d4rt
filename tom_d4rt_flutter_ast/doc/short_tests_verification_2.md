@@ -30,15 +30,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 
 | # | File | Bytes | Lines | Checked | Is ok | Fixed |
 |--:|------|------:|------:|:-------:|:-----:|:-----:|
-|   1 | `foundation/text_tree_configuration_test.dart` | 3,819 | 116 | ( ) | ( ) | ( ) |
-|   2 | `widgets/animatedgrid_test.dart` | 3,860 | 125 | ( ) | ( ) | ( ) |
-|   3 | `widgets/animation_test.dart` | 7,881 | 212 | ( ) | ( ) | ( ) |
-|   4 | `material/bottomappbar_test.dart` | 8,019 | 279 | ( ) | ( ) | ( ) |
-|   5 | `widgets/pageview_test.dart` | 8,052 | 294 | ( ) | ( ) | ( ) |
-|   6 | `widgets/cliprrect_test.dart` | 8,091 | 294 | ( ) | ( ) | ( ) |
-|   7 | `widgets/interactiveviewer_test.dart` | 8,145 | 264 | ( ) | ( ) | ( ) |
-|   8 | `gestures/recognizers_test.dart` | 8,210 | 232 | ( ) | ( ) | ( ) |
-|   9 | `services/codecs_test.dart` | 8,229 | 225 | ( ) | ( ) | ( ) |
+|   1 | `foundation/text_tree_configuration_test.dart` | 3,819 | 116 | (x) | (x) | (x) |
+|   2 | `widgets/animatedgrid_test.dart` | 3,860 | 125 | (x) | (x) | (x) |
+|   3 | `widgets/animation_test.dart` | 7,881 | 212 | (x) | (x) | (x) |
+|   4 | `material/bottomappbar_test.dart` | 8,019 | 279 | (x) | (x) | (x) |
+|   5 | `widgets/pageview_test.dart` | 8,052 | 294 | (x) | (x) | (x) |
+|   6 | `widgets/cliprrect_test.dart` | 8,091 | 294 | (x) | (x) | (x) |
+|   7 | `widgets/interactiveviewer_test.dart` | 8,145 | 264 | (x) | (x) | (x) |
+|   8 | `gestures/recognizers_test.dart` | 8,210 | 232 | (x) | (x) | (x) |
+|   9 | `services/codecs_test.dart` | 8,229 | 225 | (x) | (x) | (x) |
 |  10 | `material/buttons_test.dart` | 8,248 | 295 | ( ) | ( ) | ( ) |
 |  11 | `material/materialapp_test.dart` | 8,281 | 238 | ( ) | ( ) | ( ) |
 |  12 | `cupertino/tab_test.dart` | 8,303 | 265 | ( ) | ( ) | ( ) |
