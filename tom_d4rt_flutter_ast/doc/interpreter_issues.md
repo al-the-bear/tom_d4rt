@@ -21,6 +21,40 @@ cluster from the list once everything in it passes.
 
 ## Active clusters
 
+### [X] Fixed (Phase 1) — GEN-115 hierarchy-driven `BridgedClass` specificity
+
+**Resolution:** Phase 1 of the bridge-identification architectural fix.
+The generator now emits `hierarchyDepth: N` on every `BridgedClass`
+(where `N = ClassInfo.allSupertypeNames.length`, i.e. supertype count
+excluding `Object`). `Environment._filterToMostSpecific` in both
+`tom_d4rt/lib/src/environment.dart` and
+`tom_d4rt_ast/lib/src/runtime/environment.dart` now uses a depth-driven
+argmax fast path before falling back to the legacy D2 name-based
+elimination — turning O(matches²) string comparison into O(matches)
+integer max for every dispatch. Field added to `BridgedClass` in both
+`tom_d4rt/lib/src/bridge/bridged_types.dart` and
+`tom_d4rt_ast/lib/src/runtime/bridge/bridged_types.dart` (additive,
+default `0`, fully backward compatible).
+
+This replaces the cluster-fix patches (`HASHSET FIX`, `G-DCLI-05 FIX`)
+that grew on `toBridgedInstance` with a generic, generator-emitted
+specificity signal. Hand-maintained `_supertypeRegistry` in
+`tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart` is still
+the source of truth for name-based ancestor walks; Phase 2 will have
+the generator emit per-package `registerSupertypes({...})` so that
+registry can shrink. Phase 3 will rewrite the string-heuristic
+`toBridgedClass(Type)` to walk the supertype registry by name before
+falling back to legacy heuristics, and the cluster fixes become
+removable.
+
+After fix:
+- sample_apps: 14/14 pass (tom_d4rt_flutter_test).
+- generator_interpreter_issues: 80 / ~2 / -1 (codecs_test pre-existing).
+- essential: 105 / -3, important: 161 / -3, secondary: 651 / ~1 / -2 —
+  all identical to baseline. Zero regressions.
+
+---
+
 ### [X] Fixed — `ValueNotifier<double>` accepts `int` literals
 
 **Resolution:** Generator GEN-075c emits `(value as num).toDouble()`
@@ -3499,18 +3533,39 @@ inline.
 
 ---
 
-### [X] Fixed (GEN-114) — Timer bridge missing `isAssignable`, so `FakeTimer` (flutter_test's `WidgetTester.runAsync` clock) failed every method lookup
+### [X] Fixed (GEN-114) — stdlib bridges missing `isAssignable`; `FakeTimer` and every other Timer/Future/Stream/File/… subclass failed every method lookup
 
-**Resolution:** Added `isAssignable: (v) => v is Timer` to the
-`Timer` bridge in `tom_d4rt/lib/src/stdlib/async/timer.dart` (and
-mirrored in `tom_d4rt_ast/lib/src/runtime/stdlib/async/timer.dart`).
-Without that callback, `Environment.toBridgedInstance`'s
-isAssignable-iteration skips the Timer bridge entirely, so any
-Timer subclass (notably `FakeTimer` used by `WidgetTester`) goes
-unrouted. The direct-type lookup (`runtimeType ==`) doesn't match
-either because the FakeTimer's runtime type isn't `Timer`. The
-method dispatch then falls through to the "Undefined property or
-method" terminal at `visitMethodInvocation:3663`.
+**Resolution:** Two passes.
+
+1. **Found via `stopwatch_laps`:** added
+   `isAssignable: (v) => v is Timer` to the `Timer` bridge in
+   `tom_d4rt/lib/src/stdlib/async/timer.dart` (and the mirror in
+   `tom_d4rt_ast/lib/src/runtime/stdlib/async/timer.dart`). Without
+   that callback, `Environment.toBridgedInstance`'s
+   isAssignable-iteration skips the bridge entirely, so any Timer
+   subclass (notably `FakeTimer` used by `WidgetTester.runAsync`)
+   goes unrouted. The direct-type lookup (`runtimeType ==`) doesn't
+   match either because the FakeTimer's runtime type isn't `Timer`.
+   The method dispatch then falls through to the "Undefined
+   property or method" terminal at `visitMethodInvocation:3663`.
+
+2. **Followed up with a stdlib-wide sweep:** an audit of
+   `tom_d4rt/lib/src/stdlib/` and `tom_d4rt_ast/lib/src/runtime/stdlib/`
+   showed only 4 of ~85 hand-written bridges had an `isAssignable`
+   callback. The auto-generated Flutter bridges have it on
+   virtually every `BridgedClass` (the generator emits
+   `isAssignable: (v) => v is X` as a default). The hand-written
+   stdlib bridges predate that convention. Added the missing
+   callbacks to **all** stdlib `BridgedClass` declarations — 152 in
+   `tom_d4rt`, 155 in `tom_d4rt_ast`. Mechanical insert after the
+   `nativeType: X,` line.
+
+This covers Future / Stream / Completer / StreamController, File /
+Directory / HttpClient / Process / Socket, Random / RegExp / Zone,
+the entire typed_data family (Uint8List etc.), and the remainder
+of dart:core/io/async/convert/isolate. Every native subclass
+(`_Foo`, `*Impl`, `Fake*`) the runtime might substitute now
+resolves through the matching bridge.
 
 **Coverage:** the `stopwatch_laps` sample (example #2 in
 `tom_d4rt_flutter_test/doc/example_app_plan.md`) calls

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-05-19T03:00:18.186403
+// Generated: 2026-05-20T18:09:44.088152
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1286,6 +1286,7 @@ BridgedClass _createRenderAnimatedSizeBridge() {
     nativeType: $flutter_40.RenderAnimatedSize,
     name: 'RenderAnimatedSize',
     isAssignable: (v) => v is $flutter_40.RenderAnimatedSize,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final vsync = D4.getRequiredNamedArg<$flutter_90.TickerProvider>(named, 'vsync', 'RenderAnimatedSize');
@@ -2041,6 +2042,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
     nativeType: $flutter_41.RenderingFlutterBinding,
     name: 'RenderingFlutterBinding',
     isAssignable: (v) => v is $flutter_41.RenderingFlutterBinding,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_41.RenderingFlutterBinding();
@@ -2799,6 +2801,7 @@ BridgedClass _createRendererBindingBridge() {
     nativeType: $flutter_41.RendererBinding,
     name: 'RendererBinding',
     isAssignable: (v) => v is $flutter_41.RendererBinding,
+    hierarchyDepth: 8,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -3524,6 +3527,7 @@ BridgedClass _createBoxConstraintsBridge() {
     nativeType: $flutter_42.BoxConstraints,
     name: 'BoxConstraints',
     isAssignable: (v) => v is $flutter_42.BoxConstraints,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
@@ -3796,6 +3800,7 @@ BridgedClass _createBoxHitTestResultBridge() {
     nativeType: $flutter_42.BoxHitTestResult,
     name: 'BoxHitTestResult',
     isAssignable: (v) => v is $flutter_42.BoxHitTestResult,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_42.BoxHitTestResult();
@@ -3912,6 +3917,7 @@ BridgedClass _createBoxHitTestEntryBridge() {
     nativeType: $flutter_42.BoxHitTestEntry,
     name: 'BoxHitTestEntry',
     isAssignable: (v) => v is $flutter_42.BoxHitTestEntry,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BoxHitTestEntry');
@@ -3954,6 +3960,7 @@ BridgedClass _createBoxParentDataBridge() {
     nativeType: $flutter_42.BoxParentData,
     name: 'BoxParentData',
     isAssignable: (v) => v is $flutter_42.BoxParentData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_42.BoxParentData();
@@ -4002,6 +4009,7 @@ BridgedClass _createContainerBoxParentDataBridge() {
     nativeType: $flutter_42.ContainerBoxParentData,
     name: 'ContainerBoxParentData',
     isAssignable: (v) => v is $flutter_42.ContainerBoxParentData,
+    hierarchyDepth: 3,
     isAbstract: true,
     constructors: {
     },
@@ -4055,6 +4063,7 @@ BridgedClass _createRenderBoxBridge() {
     nativeType: $flutter_42.RenderBox,
     name: 'RenderBox',
     isAssignable: (v) => v is $flutter_42.RenderBox,
+    hierarchyDepth: 5,
     isAbstract: true,
     constructors: {
     },
@@ -4690,6 +4699,7 @@ BridgedClass _createRenderBoxContainerDefaultsMixinBridge() {
     nativeType: $flutter_42.RenderBoxContainerDefaultsMixin,
     name: 'RenderBoxContainerDefaultsMixin',
     isAssignable: (v) => v is $flutter_42.RenderBoxContainerDefaultsMixin,
+    hierarchyDepth: 6,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -5280,6 +5290,7 @@ BridgedClass _createMultiChildLayoutParentDataBridge() {
     nativeType: $flutter_43.MultiChildLayoutParentData,
     name: 'MultiChildLayoutParentData',
     isAssignable: (v) => v is $flutter_43.MultiChildLayoutParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_43.MultiChildLayoutParentData();
@@ -5413,6 +5424,7 @@ BridgedClass _createRenderCustomMultiChildLayoutBoxBridge() {
     nativeType: $flutter_43.RenderCustomMultiChildLayoutBox,
     name: 'RenderCustomMultiChildLayoutBox',
     isAssignable: (v) => v is $flutter_43.RenderCustomMultiChildLayoutBox,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -6202,6 +6214,7 @@ BridgedClass _createCustomPainterBridge() {
     nativeType: $flutter_44.CustomPainter,
     name: 'CustomPainter',
     isAssignable: (v) => v is $flutter_44.CustomPainter,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -6323,6 +6336,7 @@ BridgedClass _createRenderCustomPaintBridge() {
     nativeType: $flutter_44.RenderCustomPaint,
     name: 'RenderCustomPaint',
     isAssignable: (v) => v is $flutter_44.RenderCustomPaint,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final painter = D4.getOptionalNamedArg<$flutter_44.CustomPainter?>(named, 'painter');
@@ -7056,6 +7070,7 @@ BridgedClass _createDebugOverflowIndicatorMixinBridge() {
     nativeType: $flutter_46.DebugOverflowIndicatorMixin,
     name: 'DebugOverflowIndicatorMixin',
     isAssignable: (v) => v is $flutter_46.DebugOverflowIndicatorMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -7544,6 +7559,7 @@ BridgedClass _createRenderDecoratedSliverBridge() {
     nativeType: $flutter_47.RenderDecoratedSliver,
     name: 'RenderDecoratedSliver',
     isAssignable: (v) => v is $flutter_47.RenderDecoratedSliver,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final decoration = D4.getRequiredNamedArg<$flutter_29.Decoration>(named, 'decoration', 'RenderDecoratedSliver');
@@ -8186,6 +8202,7 @@ BridgedClass _createVerticalCaretMovementRunBridge() {
     nativeType: $flutter_48.VerticalCaretMovementRun,
     name: 'VerticalCaretMovementRun',
     isAssignable: (v) => v is $flutter_48.VerticalCaretMovementRun,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -8229,6 +8246,7 @@ BridgedClass _createRenderEditableBridge() {
     nativeType: $flutter_48.RenderEditable,
     name: 'RenderEditable',
     isAssignable: (v) => v is $flutter_48.RenderEditable,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<$flutter_35.InlineSpan?>(named, 'text');
@@ -9505,6 +9523,7 @@ BridgedClass _createRenderEditablePainterBridge() {
     nativeType: $flutter_48.RenderEditablePainter,
     name: 'RenderEditablePainter',
     isAssignable: (v) => v is $flutter_48.RenderEditablePainter,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -9581,6 +9600,7 @@ BridgedClass _createRenderErrorBoxBridge() {
     nativeType: $flutter_49.RenderErrorBox,
     name: 'RenderErrorBox',
     isAssignable: (v) => v is $flutter_49.RenderErrorBox,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getOptionalArgWithDefault<String>(positional, 0, 'message', '');
@@ -10278,6 +10298,7 @@ BridgedClass _createFlexParentDataBridge() {
     nativeType: $flutter_50.FlexParentData,
     name: 'FlexParentData',
     isAssignable: (v) => v is $flutter_50.FlexParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_50.FlexParentData();
@@ -10346,6 +10367,7 @@ BridgedClass _createRenderFlexBridge() {
     nativeType: $flutter_50.RenderFlex,
     name: 'RenderFlex',
     isAssignable: (v) => v is $flutter_50.RenderFlex,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -11322,6 +11344,7 @@ BridgedClass _createFlowParentDataBridge() {
     nativeType: $flutter_51.FlowParentData,
     name: 'FlowParentData',
     isAssignable: (v) => v is $flutter_51.FlowParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_51.FlowParentData();
@@ -11380,6 +11403,7 @@ BridgedClass _createRenderFlowBridge() {
     nativeType: $flutter_51.RenderFlow,
     name: 'RenderFlow',
     isAssignable: (v) => v is $flutter_51.RenderFlow,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -12192,6 +12216,7 @@ BridgedClass _createRenderImageBridge() {
     nativeType: $flutter_52.RenderImage,
     name: 'RenderImage',
     isAssignable: (v) => v is $flutter_52.RenderImage,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final image = D4.getOptionalNamedArg<Image?>(named, 'image');
@@ -13198,6 +13223,7 @@ BridgedClass _createLayerBridge() {
     nativeType: $flutter_54.Layer,
     name: 'Layer',
     isAssignable: (v) => v is $flutter_54.Layer,
+    hierarchyDepth: 3,
     isAbstract: true,
     constructors: {
     },
@@ -13448,6 +13474,7 @@ BridgedClass _createPictureLayerBridge() {
     nativeType: $flutter_54.PictureLayer,
     name: 'PictureLayer',
     isAssignable: (v) => v is $flutter_54.PictureLayer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PictureLayer');
@@ -13679,6 +13706,7 @@ BridgedClass _createTextureLayerBridge() {
     nativeType: $flutter_54.TextureLayer,
     name: 'TextureLayer',
     isAssignable: (v) => v is $flutter_54.TextureLayer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final rect = D4.getRequiredNamedArg<Rect>(named, 'rect', 'TextureLayer');
@@ -13909,6 +13937,7 @@ BridgedClass _createPlatformViewLayerBridge() {
     nativeType: $flutter_54.PlatformViewLayer,
     name: 'PlatformViewLayer',
     isAssignable: (v) => v is $flutter_54.PlatformViewLayer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final rect = D4.getRequiredNamedArg<Rect>(named, 'rect', 'PlatformViewLayer');
@@ -14127,6 +14156,7 @@ BridgedClass _createPerformanceOverlayLayerBridge() {
     nativeType: $flutter_54.PerformanceOverlayLayer,
     name: 'PerformanceOverlayLayer',
     isAssignable: (v) => v is $flutter_54.PerformanceOverlayLayer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final overlayRect = D4.getRequiredNamedArg<Rect>(named, 'overlayRect', 'PerformanceOverlayLayer');
@@ -14348,6 +14378,7 @@ BridgedClass _createContainerLayerBridge() {
     nativeType: $flutter_54.ContainerLayer,
     name: 'ContainerLayer',
     isAssignable: (v) => v is $flutter_54.ContainerLayer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_54.ContainerLayer();
@@ -14617,6 +14648,7 @@ BridgedClass _createOffsetLayerBridge() {
     nativeType: $flutter_54.OffsetLayer,
     name: 'OffsetLayer',
     isAssignable: (v) => v is $flutter_54.OffsetLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getNamedArgWithDefault<Offset>(named, 'offset', $dart_ui.Offset.zero);
@@ -14908,6 +14940,7 @@ BridgedClass _createClipRectLayerBridge() {
     nativeType: $flutter_54.ClipRectLayer,
     name: 'ClipRectLayer',
     isAssignable: (v) => v is $flutter_54.ClipRectLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final clipRect = D4.getOptionalNamedArg<Rect?>(named, 'clipRect');
@@ -15189,6 +15222,7 @@ BridgedClass _createClipRRectLayerBridge() {
     nativeType: $flutter_54.ClipRRectLayer,
     name: 'ClipRRectLayer',
     isAssignable: (v) => v is $flutter_54.ClipRRectLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final clipRRect = D4.getOptionalNamedArg<RRect?>(named, 'clipRRect');
@@ -15470,6 +15504,7 @@ BridgedClass _createClipRSuperellipseLayerBridge() {
     nativeType: $flutter_54.ClipRSuperellipseLayer,
     name: 'ClipRSuperellipseLayer',
     isAssignable: (v) => v is $flutter_54.ClipRSuperellipseLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final clipRSuperellipse = D4.getOptionalNamedArg<RSuperellipse?>(named, 'clipRSuperellipse');
@@ -15751,6 +15786,7 @@ BridgedClass _createClipPathLayerBridge() {
     nativeType: $flutter_54.ClipPathLayer,
     name: 'ClipPathLayer',
     isAssignable: (v) => v is $flutter_54.ClipPathLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final clipPath = D4.getOptionalNamedArg<Path?>(named, 'clipPath');
@@ -16032,6 +16068,7 @@ BridgedClass _createColorFilterLayerBridge() {
     nativeType: $flutter_54.ColorFilterLayer,
     name: 'ColorFilterLayer',
     isAssignable: (v) => v is $flutter_54.ColorFilterLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final colorFilter = D4.getOptionalNamedArg<ColorFilter?>(named, 'colorFilter');
@@ -16307,6 +16344,7 @@ BridgedClass _createImageFilterLayerBridge() {
     nativeType: $flutter_54.ImageFilterLayer,
     name: 'ImageFilterLayer',
     isAssignable: (v) => v is $flutter_54.ImageFilterLayer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final imageFilter = D4.getOptionalNamedArg<ImageFilter?>(named, 'imageFilter');
@@ -16604,6 +16642,7 @@ BridgedClass _createTransformLayerBridge() {
     nativeType: $flutter_54.TransformLayer,
     name: 'TransformLayer',
     isAssignable: (v) => v is $flutter_54.TransformLayer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final transform = D4.getOptionalNamedArg<$vector_math_1.Matrix4?>(named, 'transform');
@@ -16901,6 +16940,7 @@ BridgedClass _createOpacityLayerBridge() {
     nativeType: $flutter_54.OpacityLayer,
     name: 'OpacityLayer',
     isAssignable: (v) => v is $flutter_54.OpacityLayer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final alpha = D4.getOptionalNamedArg<int?>(named, 'alpha');
@@ -17198,6 +17238,7 @@ BridgedClass _createShaderMaskLayerBridge() {
     nativeType: $flutter_54.ShaderMaskLayer,
     name: 'ShaderMaskLayer',
     isAssignable: (v) => v is $flutter_54.ShaderMaskLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final shader = D4.getOptionalNamedArg<Shader?>(named, 'shader');
@@ -17505,6 +17546,7 @@ BridgedClass _createBackdropFilterLayerBridge() {
     nativeType: $flutter_54.BackdropFilterLayer,
     name: 'BackdropFilterLayer',
     isAssignable: (v) => v is $flutter_54.BackdropFilterLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final filter = D4.getOptionalNamedArg<ImageFilter?>(named, 'filter');
@@ -17836,6 +17878,7 @@ BridgedClass _createLeaderLayerBridge() {
     nativeType: $flutter_54.LeaderLayer,
     name: 'LeaderLayer',
     isAssignable: (v) => v is $flutter_54.LeaderLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final link = D4.getRequiredNamedArg<$flutter_54.LayerLink>(named, 'link', 'LeaderLayer');
@@ -18117,6 +18160,7 @@ BridgedClass _createFollowerLayerBridge() {
     nativeType: $flutter_54.FollowerLayer,
     name: 'FollowerLayer',
     isAssignable: (v) => v is $flutter_54.FollowerLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final link = D4.getRequiredNamedArg<$flutter_54.LayerLink>(named, 'link', 'FollowerLayer');
@@ -18415,6 +18459,7 @@ BridgedClass _createAnnotatedRegionLayerBridge() {
     nativeType: $flutter_54.AnnotatedRegionLayer,
     name: 'AnnotatedRegionLayer',
     isAssignable: (v) => v is $flutter_54.AnnotatedRegionLayer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AnnotatedRegionLayer');
@@ -18746,6 +18791,7 @@ BridgedClass _createListBodyParentDataBridge() {
     nativeType: $flutter_56.ListBodyParentData,
     name: 'ListBodyParentData',
     isAssignable: (v) => v is $flutter_56.ListBodyParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_56.ListBodyParentData();
@@ -18804,6 +18850,7 @@ BridgedClass _createRenderListBodyBridge() {
     nativeType: $flutter_56.RenderListBody,
     name: 'RenderListBody',
     isAssignable: (v) => v is $flutter_56.RenderListBody,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -19659,6 +19706,7 @@ BridgedClass _createListWheelParentDataBridge() {
     nativeType: $flutter_57.ListWheelParentData,
     name: 'ListWheelParentData',
     isAssignable: (v) => v is $flutter_57.ListWheelParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_57.ListWheelParentData();
@@ -19727,6 +19775,7 @@ BridgedClass _createRenderListWheelViewportBridge() {
     nativeType: $flutter_57.RenderListWheelViewport,
     name: 'RenderListWheelViewport',
     isAssignable: (v) => v is $flutter_57.RenderListWheelViewport,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_57.ListWheelChildManager>(named, 'childManager', 'RenderListWheelViewport');
@@ -20595,6 +20644,7 @@ BridgedClass _createMouseTrackerBridge() {
     nativeType: $flutter_58.MouseTracker,
     name: 'MouseTracker',
     isAssignable: (v) => v is $flutter_58.MouseTracker,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MouseTracker');
@@ -20723,6 +20773,7 @@ BridgedClass _createPaintingContextBridge() {
     nativeType: $flutter_59.PaintingContext,
     name: 'PaintingContext',
     isAssignable: (v) => v is $flutter_59.PaintingContext,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PaintingContext');
@@ -21058,6 +21109,7 @@ BridgedClass _createPipelineOwnerBridge() {
     nativeType: $flutter_59.PipelineOwner,
     name: 'PipelineOwner',
     isAssignable: (v) => v is $flutter_59.PipelineOwner,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final onNeedVisualUpdateRaw = named['onNeedVisualUpdate'];
@@ -21249,6 +21301,7 @@ BridgedClass _createPipelineManifoldBridge() {
     nativeType: $flutter_59.PipelineManifold,
     name: 'PipelineManifold',
     isAssignable: (v) => v is $flutter_59.PipelineManifold,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -21302,6 +21355,7 @@ BridgedClass _createRenderObjectBridge() {
     nativeType: $flutter_59.RenderObject,
     name: 'RenderObject',
     isAssignable: (v) => v is $flutter_59.RenderObject,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -21787,6 +21841,7 @@ BridgedClass _createDiagnosticsDebugCreatorBridge() {
     nativeType: $flutter_59.DiagnosticsDebugCreator,
     name: 'DiagnosticsDebugCreator',
     isAssignable: (v) => v is $flutter_59.DiagnosticsDebugCreator,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsDebugCreator');
@@ -21924,6 +21979,7 @@ BridgedClass _createRenderObjectWithChildMixinBridge() {
     nativeType: $flutter_59.RenderObjectWithChildMixin,
     name: 'RenderObjectWithChildMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithChildMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -22405,6 +22461,7 @@ BridgedClass _createRenderObjectWithLayoutCallbackMixinBridge() {
     nativeType: $flutter_59.RenderObjectWithLayoutCallbackMixin,
     name: 'RenderObjectWithLayoutCallbackMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithLayoutCallbackMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -22886,6 +22943,7 @@ BridgedClass _createContainerParentDataMixinBridge() {
     nativeType: $flutter_59.ContainerParentDataMixin,
     name: 'ContainerParentDataMixin',
     isAssignable: (v) => v is $flutter_59.ContainerParentDataMixin,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -22935,6 +22993,7 @@ BridgedClass _createContainerRenderObjectMixinBridge() {
     nativeType: $flutter_59.ContainerRenderObjectMixin,
     name: 'ContainerRenderObjectMixin',
     isAssignable: (v) => v is $flutter_59.ContainerRenderObjectMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -23482,6 +23541,7 @@ BridgedClass _createRelayoutWhenSystemFontsChangeMixinBridge() {
     nativeType: $flutter_59.RelayoutWhenSystemFontsChangeMixin,
     name: 'RelayoutWhenSystemFontsChangeMixin',
     isAssignable: (v) => v is $flutter_59.RelayoutWhenSystemFontsChangeMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -23957,6 +24017,7 @@ BridgedClass _createSemanticsAnnotationsMixinBridge() {
     nativeType: $flutter_59.SemanticsAnnotationsMixin,
     name: 'SemanticsAnnotationsMixin',
     isAssignable: (v) => v is $flutter_59.SemanticsAnnotationsMixin,
+    hierarchyDepth: 5,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24474,6 +24535,7 @@ BridgedClass _createPlaceholderSpanIndexSemanticsTagBridge() {
     nativeType: $flutter_60.PlaceholderSpanIndexSemanticsTag,
     name: 'PlaceholderSpanIndexSemanticsTag',
     isAssignable: (v) => v is $flutter_60.PlaceholderSpanIndexSemanticsTag,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PlaceholderSpanIndexSemanticsTag');
@@ -24522,6 +24584,7 @@ BridgedClass _createTextParentDataBridge() {
     nativeType: $flutter_60.TextParentData,
     name: 'TextParentData',
     isAssignable: (v) => v is $flutter_60.TextParentData,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_60.TextParentData();
@@ -24582,6 +24645,7 @@ BridgedClass _createRenderParagraphBridge() {
     nativeType: $flutter_60.RenderParagraph,
     name: 'RenderParagraph',
     isAssignable: (v) => v is $flutter_60.RenderParagraph,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RenderParagraph');
@@ -25562,6 +25626,7 @@ BridgedClass _createRenderInlineChildrenContainerDefaultsBridge() {
     nativeType: $flutter_60.RenderInlineChildrenContainerDefaults,
     name: 'RenderInlineChildrenContainerDefaults',
     isAssignable: (v) => v is $flutter_60.RenderInlineChildrenContainerDefaults,
+    hierarchyDepth: 7,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -26328,6 +26393,7 @@ BridgedClass _createRenderPerformanceOverlayBridge() {
     nativeType: $flutter_61.RenderPerformanceOverlay,
     name: 'RenderPerformanceOverlay',
     isAssignable: (v) => v is $flutter_61.RenderPerformanceOverlay,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final optionsMask = D4.getNamedArgWithDefault<int>(named, 'optionsMask', 0);
@@ -27002,6 +27068,7 @@ BridgedClass _createRenderAndroidViewBridge() {
     nativeType: $flutter_62.RenderAndroidView,
     name: 'RenderAndroidView',
     isAssignable: (v) => v is $flutter_62.RenderAndroidView,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final viewController = D4.getRequiredNamedArg<$flutter_99.AndroidViewController>(named, 'viewController', 'RenderAndroidView');
@@ -27688,6 +27755,7 @@ BridgedClass _createRenderDarwinPlatformViewBridge() {
     nativeType: $flutter_62.RenderDarwinPlatformView,
     name: 'RenderDarwinPlatformView',
     isAssignable: (v) => v is $flutter_62.RenderDarwinPlatformView,
+    hierarchyDepth: 6,
     isAbstract: true,
     constructors: {
     },
@@ -28351,6 +28419,7 @@ BridgedClass _createRenderUiKitViewBridge() {
     nativeType: $flutter_62.RenderUiKitView,
     name: 'RenderUiKitView',
     isAssignable: (v) => v is $flutter_62.RenderUiKitView,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final viewController = D4.getRequiredNamedArg<$flutter_99.UiKitViewController>(named, 'viewController', 'RenderUiKitView');
@@ -29025,6 +29094,7 @@ BridgedClass _createRenderAppKitViewBridge() {
     nativeType: $flutter_62.RenderAppKitView,
     name: 'RenderAppKitView',
     isAssignable: (v) => v is $flutter_62.RenderAppKitView,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final viewController = D4.getRequiredNamedArg<$flutter_99.AppKitViewController>(named, 'viewController', 'RenderAppKitView');
@@ -29699,6 +29769,7 @@ BridgedClass _createPlatformViewRenderBoxBridge() {
     nativeType: $flutter_62.PlatformViewRenderBox,
     name: 'PlatformViewRenderBox',
     isAssignable: (v) => v is $flutter_62.PlatformViewRenderBox,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_99.PlatformViewController>(named, 'controller', 'PlatformViewRenderBox');
@@ -30379,6 +30450,7 @@ BridgedClass _createRenderProxyBoxBridge() {
     nativeType: $flutter_63.RenderProxyBox,
     name: 'RenderProxyBox',
     isAssignable: (v) => v is $flutter_63.RenderProxyBox,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalArg<$flutter_42.RenderBox?>(positional, 0, 'child');
@@ -31075,6 +31147,7 @@ BridgedClass _createRenderProxyBoxWithHitTestBehaviorBridge() {
     nativeType: $flutter_63.RenderProxyBoxWithHitTestBehavior,
     name: 'RenderProxyBoxWithHitTestBehavior',
     isAssignable: (v) => v is $flutter_63.RenderProxyBoxWithHitTestBehavior,
+    hierarchyDepth: 9,
     isAbstract: true,
     constructors: {
     },
@@ -31770,6 +31843,7 @@ BridgedClass _createRenderConstrainedBoxBridge() {
     nativeType: $flutter_63.RenderConstrainedBox,
     name: 'RenderConstrainedBox',
     isAssignable: (v) => v is $flutter_63.RenderConstrainedBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -32472,6 +32546,7 @@ BridgedClass _createRenderLimitedBoxBridge() {
     nativeType: $flutter_63.RenderLimitedBox,
     name: 'RenderLimitedBox',
     isAssignable: (v) => v is $flutter_63.RenderLimitedBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -33194,6 +33269,7 @@ BridgedClass _createRenderAspectRatioBridge() {
     nativeType: $flutter_63.RenderAspectRatio,
     name: 'RenderAspectRatio',
     isAssignable: (v) => v is $flutter_63.RenderAspectRatio,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -33896,6 +33972,7 @@ BridgedClass _createRenderIntrinsicWidthBridge() {
     nativeType: $flutter_63.RenderIntrinsicWidth,
     name: 'RenderIntrinsicWidth',
     isAssignable: (v) => v is $flutter_63.RenderIntrinsicWidth,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final stepWidth = D4.getOptionalNamedArg<double?>(named, 'stepWidth');
@@ -34604,6 +34681,7 @@ BridgedClass _createRenderIntrinsicHeightBridge() {
     nativeType: $flutter_63.RenderIntrinsicHeight,
     name: 'RenderIntrinsicHeight',
     isAssignable: (v) => v is $flutter_63.RenderIntrinsicHeight,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -35300,6 +35378,7 @@ BridgedClass _createRenderIgnoreBaselineBridge() {
     nativeType: $flutter_63.RenderIgnoreBaseline,
     name: 'RenderIgnoreBaseline',
     isAssignable: (v) => v is $flutter_63.RenderIgnoreBaseline,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -35996,6 +36075,7 @@ BridgedClass _createRenderOpacityBridge() {
     nativeType: $flutter_63.RenderOpacity,
     name: 'RenderOpacity',
     isAssignable: (v) => v is $flutter_63.RenderOpacity,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final opacity = D4.getNamedArgWithDefault<double>(named, 'opacity', 1.0);
@@ -36704,6 +36784,7 @@ BridgedClass _createRenderAnimatedOpacityBridge() {
     nativeType: $flutter_63.RenderAnimatedOpacity,
     name: 'RenderAnimatedOpacity',
     isAssignable: (v) => v is $flutter_63.RenderAnimatedOpacity,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final opacity = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'opacity', 'RenderAnimatedOpacity');
@@ -37412,6 +37493,7 @@ BridgedClass _createRenderShaderMaskBridge() {
     nativeType: $flutter_63.RenderShaderMask,
     name: 'RenderShaderMask',
     isAssignable: (v) => v is $flutter_63.RenderShaderMask,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -38125,6 +38207,7 @@ BridgedClass _createRenderBackdropFilterBridge() {
     nativeType: $flutter_63.RenderBackdropFilter,
     name: 'RenderBackdropFilter',
     isAssignable: (v) => v is $flutter_63.RenderBackdropFilter,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -38851,6 +38934,7 @@ BridgedClass _createCustomClipperBridge() {
     nativeType: $flutter_63.CustomClipper,
     name: 'CustomClipper',
     isAssignable: (v) => v is $flutter_63.CustomClipper,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -38918,6 +39002,7 @@ BridgedClass _createShapeBorderClipperBridge() {
     nativeType: $flutter_63.ShapeBorderClipper,
     name: 'ShapeBorderClipper',
     isAssignable: (v) => v is $flutter_63.ShapeBorderClipper,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final shape = D4.getRequiredNamedArg<$flutter_25.ShapeBorder>(named, 'shape', 'ShapeBorderClipper');
@@ -39000,6 +39085,7 @@ BridgedClass _createRenderClipRectBridge() {
     nativeType: $flutter_63.RenderClipRect,
     name: 'RenderClipRect',
     isAssignable: (v) => v is $flutter_63.RenderClipRect,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -39708,6 +39794,7 @@ BridgedClass _createRenderClipRRectBridge() {
     nativeType: $flutter_63.RenderClipRRect,
     name: 'RenderClipRRect',
     isAssignable: (v) => v is $flutter_63.RenderClipRRect,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -40428,6 +40515,7 @@ BridgedClass _createRenderClipRSuperellipseBridge() {
     nativeType: $flutter_63.RenderClipRSuperellipse,
     name: 'RenderClipRSuperellipse',
     isAssignable: (v) => v is $flutter_63.RenderClipRSuperellipse,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -41148,6 +41236,7 @@ BridgedClass _createRenderClipOvalBridge() {
     nativeType: $flutter_63.RenderClipOval,
     name: 'RenderClipOval',
     isAssignable: (v) => v is $flutter_63.RenderClipOval,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -41856,6 +41945,7 @@ BridgedClass _createRenderClipPathBridge() {
     nativeType: $flutter_63.RenderClipPath,
     name: 'RenderClipPath',
     isAssignable: (v) => v is $flutter_63.RenderClipPath,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -42564,6 +42654,7 @@ BridgedClass _createRenderPhysicalModelBridge() {
     nativeType: $flutter_63.RenderPhysicalModel,
     name: 'RenderPhysicalModel',
     isAssignable: (v) => v is $flutter_63.RenderPhysicalModel,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -43301,6 +43392,7 @@ BridgedClass _createRenderPhysicalShapeBridge() {
     nativeType: $flutter_63.RenderPhysicalShape,
     name: 'RenderPhysicalShape',
     isAssignable: (v) => v is $flutter_63.RenderPhysicalShape,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -44027,6 +44119,7 @@ BridgedClass _createRenderDecoratedBoxBridge() {
     nativeType: $flutter_63.RenderDecoratedBox,
     name: 'RenderDecoratedBox',
     isAssignable: (v) => v is $flutter_63.RenderDecoratedBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final decoration = D4.getRequiredNamedArg<$flutter_29.Decoration>(named, 'decoration', 'RenderDecoratedBox');
@@ -44741,6 +44834,7 @@ BridgedClass _createRenderTransformBridge() {
     nativeType: $flutter_63.RenderTransform,
     name: 'RenderTransform',
     isAssignable: (v) => v is $flutter_63.RenderTransform,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final transform = D4.getRequiredNamedArg<$vector_math_1.Matrix4>(named, 'transform', 'RenderTransform');
@@ -45521,6 +45615,7 @@ BridgedClass _createRenderFittedBoxBridge() {
     nativeType: $flutter_63.RenderFittedBox,
     name: 'RenderFittedBox',
     isAssignable: (v) => v is $flutter_63.RenderFittedBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final fit = D4.getNamedArgWithDefault<$flutter_27.BoxFit>(named, 'fit', $flutter_27.BoxFit.contain);
@@ -46241,6 +46336,7 @@ BridgedClass _createRenderFractionalTranslationBridge() {
     nativeType: $flutter_63.RenderFractionalTranslation,
     name: 'RenderFractionalTranslation',
     isAssignable: (v) => v is $flutter_63.RenderFractionalTranslation,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final translation = D4.getRequiredNamedArg<Offset>(named, 'translation', 'RenderFractionalTranslation');
@@ -46949,6 +47045,7 @@ BridgedClass _createRenderPointerListenerBridge() {
     nativeType: $flutter_63.RenderPointerListener,
     name: 'RenderPointerListener',
     isAssignable: (v) => v is $flutter_63.RenderPointerListener,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final onPointerDownRaw = named['onPointerDown'];
@@ -47723,6 +47820,7 @@ BridgedClass _createRenderMouseRegionBridge() {
     nativeType: $flutter_63.RenderMouseRegion,
     name: 'RenderMouseRegion',
     isAssignable: (v) => v is $flutter_63.RenderMouseRegion,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final onEnterRaw = named['onEnter'];
@@ -48469,6 +48567,7 @@ BridgedClass _createRenderRepaintBoundaryBridge() {
     nativeType: $flutter_63.RenderRepaintBoundary,
     name: 'RenderRepaintBoundary',
     isAssignable: (v) => v is $flutter_63.RenderRepaintBoundary,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -49187,6 +49286,7 @@ BridgedClass _createRenderIgnorePointerBridge() {
     nativeType: $flutter_63.RenderIgnorePointer,
     name: 'RenderIgnorePointer',
     isAssignable: (v) => v is $flutter_63.RenderIgnorePointer,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -49895,6 +49995,7 @@ BridgedClass _createRenderOffstageBridge() {
     nativeType: $flutter_63.RenderOffstage,
     name: 'RenderOffstage',
     isAssignable: (v) => v is $flutter_63.RenderOffstage,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final offstage = D4.getNamedArgWithDefault<bool>(named, 'offstage', true);
@@ -50597,6 +50698,7 @@ BridgedClass _createRenderAbsorbPointerBridge() {
     nativeType: $flutter_63.RenderAbsorbPointer,
     name: 'RenderAbsorbPointer',
     isAssignable: (v) => v is $flutter_63.RenderAbsorbPointer,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -51305,6 +51407,7 @@ BridgedClass _createRenderMetaDataBridge() {
     nativeType: $flutter_63.RenderMetaData,
     name: 'RenderMetaData',
     isAssignable: (v) => v is $flutter_63.RenderMetaData,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final behavior = D4.getNamedArgWithDefault<$flutter_63.HitTestBehavior>(named, 'behavior', $flutter_63.HitTestBehavior.deferToChild);
@@ -52019,6 +52122,7 @@ BridgedClass _createRenderSemanticsGestureHandlerBridge() {
     nativeType: $flutter_63.RenderSemanticsGestureHandler,
     name: 'RenderSemanticsGestureHandler',
     isAssignable: (v) => v is $flutter_63.RenderSemanticsGestureHandler,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -52764,6 +52868,7 @@ BridgedClass _createRenderSemanticsAnnotationsBridge() {
     nativeType: $flutter_63.RenderSemanticsAnnotations,
     name: 'RenderSemanticsAnnotations',
     isAssignable: (v) => v is $flutter_63.RenderSemanticsAnnotations,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -53515,6 +53620,7 @@ BridgedClass _createRenderBlockSemanticsBridge() {
     nativeType: $flutter_63.RenderBlockSemantics,
     name: 'RenderBlockSemantics',
     isAssignable: (v) => v is $flutter_63.RenderBlockSemantics,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -54217,6 +54323,7 @@ BridgedClass _createRenderMergeSemanticsBridge() {
     nativeType: $flutter_63.RenderMergeSemantics,
     name: 'RenderMergeSemantics',
     isAssignable: (v) => v is $flutter_63.RenderMergeSemantics,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -54913,6 +55020,7 @@ BridgedClass _createRenderExcludeSemanticsBridge() {
     nativeType: $flutter_63.RenderExcludeSemantics,
     name: 'RenderExcludeSemantics',
     isAssignable: (v) => v is $flutter_63.RenderExcludeSemantics,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -55615,6 +55723,7 @@ BridgedClass _createRenderIndexedSemanticsBridge() {
     nativeType: $flutter_63.RenderIndexedSemantics,
     name: 'RenderIndexedSemantics',
     isAssignable: (v) => v is $flutter_63.RenderIndexedSemantics,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -56317,6 +56426,7 @@ BridgedClass _createRenderLeaderLayerBridge() {
     nativeType: $flutter_63.RenderLeaderLayer,
     name: 'RenderLeaderLayer',
     isAssignable: (v) => v is $flutter_63.RenderLeaderLayer,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final link = D4.getRequiredNamedArg<$flutter_54.LayerLink>(named, 'link', 'RenderLeaderLayer');
@@ -57019,6 +57129,7 @@ BridgedClass _createRenderFollowerLayerBridge() {
     nativeType: $flutter_63.RenderFollowerLayer,
     name: 'RenderFollowerLayer',
     isAssignable: (v) => v is $flutter_63.RenderFollowerLayer,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final link = D4.getRequiredNamedArg<$flutter_54.LayerLink>(named, 'link', 'RenderFollowerLayer');
@@ -57750,6 +57861,7 @@ BridgedClass _createRenderAnnotatedRegionBridge() {
     nativeType: $flutter_63.RenderAnnotatedRegion,
     name: 'RenderAnnotatedRegion',
     isAssignable: (v) => v is $flutter_63.RenderAnnotatedRegion,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getRequiredNamedArg<Object>(named, 'value', 'RenderAnnotatedRegion');
@@ -58458,6 +58570,7 @@ BridgedClass _createRenderProxyBoxMixinBridge() {
     nativeType: $flutter_63.RenderProxyBoxMixin,
     name: 'RenderProxyBoxMixin',
     isAssignable: (v) => v is $flutter_63.RenderProxyBoxMixin,
+    hierarchyDepth: 7,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -59149,6 +59262,7 @@ BridgedClass _createRenderAnimatedOpacityMixinBridge() {
     nativeType: $flutter_63.RenderAnimatedOpacityMixin,
     name: 'RenderAnimatedOpacityMixin',
     isAssignable: (v) => v is $flutter_63.RenderAnimatedOpacityMixin,
+    hierarchyDepth: 6,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -59640,6 +59754,7 @@ BridgedClass _createRenderProxySliverBridge() {
     nativeType: $flutter_64.RenderProxySliver,
     name: 'RenderProxySliver',
     isAssignable: (v) => v is $flutter_64.RenderProxySliver,
+    hierarchyDepth: 7,
     isAbstract: true,
     constructors: {
     },
@@ -60203,6 +60318,7 @@ BridgedClass _createRenderSliverOpacityBridge() {
     nativeType: $flutter_64.RenderSliverOpacity,
     name: 'RenderSliverOpacity',
     isAssignable: (v) => v is $flutter_64.RenderSliverOpacity,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final opacity = D4.getNamedArgWithDefault<double>(named, 'opacity', 1.0);
@@ -60784,6 +60900,7 @@ BridgedClass _createRenderSliverIgnorePointerBridge() {
     nativeType: $flutter_64.RenderSliverIgnorePointer,
     name: 'RenderSliverIgnorePointer',
     isAssignable: (v) => v is $flutter_64.RenderSliverIgnorePointer,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final sliver = D4.getOptionalNamedArg<$flutter_69.RenderSliver?>(named, 'sliver');
@@ -61365,6 +61482,7 @@ BridgedClass _createRenderSliverOffstageBridge() {
     nativeType: $flutter_64.RenderSliverOffstage,
     name: 'RenderSliverOffstage',
     isAssignable: (v) => v is $flutter_64.RenderSliverOffstage,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final offstage = D4.getNamedArgWithDefault<bool>(named, 'offstage', true);
@@ -61940,6 +62058,7 @@ BridgedClass _createRenderSliverAnimatedOpacityBridge() {
     nativeType: $flutter_64.RenderSliverAnimatedOpacity,
     name: 'RenderSliverAnimatedOpacity',
     isAssignable: (v) => v is $flutter_64.RenderSliverAnimatedOpacity,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final opacity = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'opacity', 'RenderSliverAnimatedOpacity');
@@ -62521,6 +62640,7 @@ BridgedClass _createRenderSliverConstrainedCrossAxisBridge() {
     nativeType: $flutter_64.RenderSliverConstrainedCrossAxis,
     name: 'RenderSliverConstrainedCrossAxis',
     isAssignable: (v) => v is $flutter_64.RenderSliverConstrainedCrossAxis,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final maxExtent = D4.getRequiredNamedArg<double>(named, 'maxExtent', 'RenderSliverConstrainedCrossAxis');
@@ -63095,6 +63215,7 @@ BridgedClass _createRenderSliverSemanticsAnnotationsBridge() {
     nativeType: $flutter_64.RenderSliverSemanticsAnnotations,
     name: 'RenderSliverSemanticsAnnotations',
     isAssignable: (v) => v is $flutter_64.RenderSliverSemanticsAnnotations,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_69.RenderSliver?>(named, 'child');
@@ -63719,6 +63840,7 @@ BridgedClass _createRenderRotatedBoxBridge() {
     nativeType: $flutter_65.RenderRotatedBox,
     name: 'RenderRotatedBox',
     isAssignable: (v) => v is $flutter_65.RenderRotatedBox,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final quarterTurns = D4.getRequiredNamedArg<int>(named, 'quarterTurns', 'RenderRotatedBox');
@@ -64406,6 +64528,7 @@ BridgedClass _createSelectionHandlerBridge() {
     nativeType: $flutter_66.SelectionHandler,
     name: 'SelectionHandler',
     isAssignable: (v) => v is $flutter_66.SelectionHandler,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -64481,6 +64604,7 @@ BridgedClass _createSelectedContentRangeBridge() {
     nativeType: $flutter_66.SelectedContentRange,
     name: 'SelectedContentRange',
     isAssignable: (v) => v is $flutter_66.SelectedContentRange,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final startOffset = D4.getRequiredNamedArg<int>(named, 'startOffset', 'SelectedContentRange');
@@ -64550,6 +64674,7 @@ BridgedClass _createSelectedContentBridge() {
     nativeType: $flutter_66.SelectedContent,
     name: 'SelectedContent',
     isAssignable: (v) => v is $flutter_66.SelectedContent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final plainText = D4.getRequiredNamedArg<String>(named, 'plainText', 'SelectedContent');
@@ -64662,6 +64787,7 @@ BridgedClass _createSelectAllSelectionEventBridge() {
     nativeType: $flutter_66.SelectAllSelectionEvent,
     name: 'SelectAllSelectionEvent',
     isAssignable: (v) => v is $flutter_66.SelectAllSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_66.SelectAllSelectionEvent();
@@ -64688,6 +64814,7 @@ BridgedClass _createClearSelectionEventBridge() {
     nativeType: $flutter_66.ClearSelectionEvent,
     name: 'ClearSelectionEvent',
     isAssignable: (v) => v is $flutter_66.ClearSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_66.ClearSelectionEvent();
@@ -64714,6 +64841,7 @@ BridgedClass _createSelectWordSelectionEventBridge() {
     nativeType: $flutter_66.SelectWordSelectionEvent,
     name: 'SelectWordSelectionEvent',
     isAssignable: (v) => v is $flutter_66.SelectWordSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'SelectWordSelectionEvent');
@@ -64743,6 +64871,7 @@ BridgedClass _createSelectParagraphSelectionEventBridge() {
     nativeType: $flutter_66.SelectParagraphSelectionEvent,
     name: 'SelectParagraphSelectionEvent',
     isAssignable: (v) => v is $flutter_66.SelectParagraphSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'SelectParagraphSelectionEvent');
@@ -64775,6 +64904,7 @@ BridgedClass _createSelectionEdgeUpdateEventBridge() {
     nativeType: $flutter_66.SelectionEdgeUpdateEvent,
     name: 'SelectionEdgeUpdateEvent',
     isAssignable: (v) => v is $flutter_66.SelectionEdgeUpdateEvent,
+    hierarchyDepth: 1,
     constructors: {
       'forStart': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'SelectionEdgeUpdateEvent');
@@ -64813,6 +64943,7 @@ BridgedClass _createGranularlyExtendSelectionEventBridge() {
     nativeType: $flutter_66.GranularlyExtendSelectionEvent,
     name: 'GranularlyExtendSelectionEvent',
     isAssignable: (v) => v is $flutter_66.GranularlyExtendSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final forward = D4.getRequiredNamedArg<bool>(named, 'forward', 'GranularlyExtendSelectionEvent');
@@ -64848,6 +64979,7 @@ BridgedClass _createDirectionallyExtendSelectionEventBridge() {
     nativeType: $flutter_66.DirectionallyExtendSelectionEvent,
     name: 'DirectionallyExtendSelectionEvent',
     isAssignable: (v) => v is $flutter_66.DirectionallyExtendSelectionEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final dx = D4.getRequiredNamedArg<double>(named, 'dx', 'DirectionallyExtendSelectionEvent');
@@ -64930,6 +65062,7 @@ BridgedClass _createSelectionGeometryBridge() {
     nativeType: $flutter_66.SelectionGeometry,
     name: 'SelectionGeometry',
     isAssignable: (v) => v is $flutter_66.SelectionGeometry,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final startSelectionPoint = D4.getOptionalNamedArg<$flutter_66.SelectionPoint?>(named, 'startSelectionPoint');
@@ -65022,6 +65155,7 @@ BridgedClass _createSelectionPointBridge() {
     nativeType: $flutter_66.SelectionPoint,
     name: 'SelectionPoint',
     isAssignable: (v) => v is $flutter_66.SelectionPoint,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final localPosition = D4.getRequiredNamedArg<Offset>(named, 'localPosition', 'SelectionPoint');
@@ -65094,6 +65228,7 @@ BridgedClass _createSelectableBridge() {
     nativeType: $flutter_66.Selectable,
     name: 'Selectable',
     isAssignable: (v) => v is $flutter_66.Selectable,
+    hierarchyDepth: 3,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -65187,6 +65322,7 @@ BridgedClass _createSelectionRegistrantBridge() {
     nativeType: $flutter_66.SelectionRegistrant,
     name: 'SelectionRegistrant',
     isAssignable: (v) => v is $flutter_66.SelectionRegistrant,
+    hierarchyDepth: 4,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -65289,6 +65425,7 @@ BridgedClass _createRenderShiftedBoxBridge() {
     nativeType: $flutter_68.RenderShiftedBox,
     name: 'RenderShiftedBox',
     isAssignable: (v) => v is $flutter_68.RenderShiftedBox,
+    hierarchyDepth: 7,
     isAbstract: true,
     constructors: {
     },
@@ -65972,6 +66109,7 @@ BridgedClass _createRenderPaddingBridge() {
     nativeType: $flutter_68.RenderPadding,
     name: 'RenderPadding',
     isAssignable: (v) => v is $flutter_68.RenderPadding,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final padding = D4.getRequiredNamedArg<$flutter_31.EdgeInsetsGeometry>(named, 'padding', 'RenderPadding');
@@ -66680,6 +66818,7 @@ BridgedClass _createRenderAligningShiftedBoxBridge() {
     nativeType: $flutter_68.RenderAligningShiftedBox,
     name: 'RenderAligningShiftedBox',
     isAssignable: (v) => v is $flutter_68.RenderAligningShiftedBox,
+    hierarchyDepth: 8,
     isAbstract: true,
     constructors: {
     },
@@ -67381,6 +67520,7 @@ BridgedClass _createRenderPositionedBoxBridge() {
     nativeType: $flutter_68.RenderPositionedBox,
     name: 'RenderPositionedBox',
     isAssignable: (v) => v is $flutter_68.RenderPositionedBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -68109,6 +68249,7 @@ BridgedClass _createRenderConstrainedOverflowBoxBridge() {
     nativeType: $flutter_68.RenderConstrainedOverflowBox,
     name: 'RenderConstrainedOverflowBox',
     isAssignable: (v) => v is $flutter_68.RenderConstrainedOverflowBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -68855,6 +68996,7 @@ BridgedClass _createRenderConstraintsTransformBoxBridge() {
     nativeType: $flutter_68.RenderConstraintsTransformBox,
     name: 'RenderConstraintsTransformBox',
     isAssignable: (v) => v is $flutter_68.RenderConstraintsTransformBox,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final alignment = D4.getRequiredNamedArg<$flutter_22.AlignmentGeometry>(named, 'alignment', 'RenderConstraintsTransformBox');
@@ -69600,6 +69742,7 @@ BridgedClass _createRenderSizedOverflowBoxBridge() {
     nativeType: $flutter_68.RenderSizedOverflowBox,
     name: 'RenderSizedOverflowBox',
     isAssignable: (v) => v is $flutter_68.RenderSizedOverflowBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -70322,6 +70465,7 @@ BridgedClass _createRenderFractionallySizedOverflowBoxBridge() {
     nativeType: $flutter_68.RenderFractionallySizedOverflowBox,
     name: 'RenderFractionallySizedOverflowBox',
     isAssignable: (v) => v is $flutter_68.RenderFractionallySizedOverflowBox,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -71098,6 +71242,7 @@ BridgedClass _createRenderCustomSingleChildLayoutBoxBridge() {
     nativeType: $flutter_68.RenderCustomSingleChildLayoutBox,
     name: 'RenderCustomSingleChildLayoutBox',
     isAssignable: (v) => v is $flutter_68.RenderCustomSingleChildLayoutBox,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -71800,6 +71945,7 @@ BridgedClass _createRenderBaselineBridge() {
     nativeType: $flutter_68.RenderBaseline,
     name: 'RenderBaseline',
     isAssignable: (v) => v is $flutter_68.RenderBaseline,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -72562,6 +72708,7 @@ BridgedClass _createSliverConstraintsBridge() {
     nativeType: $flutter_69.SliverConstraints,
     name: 'SliverConstraints',
     isAssignable: (v) => v is $flutter_69.SliverConstraints,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final axisDirection = D4.getRequiredNamedArg<$flutter_23.AxisDirection>(named, 'axisDirection', 'SliverConstraints');
@@ -72686,6 +72833,7 @@ BridgedClass _createSliverGeometryBridge() {
     nativeType: $flutter_69.SliverGeometry,
     name: 'SliverGeometry',
     isAssignable: (v) => v is $flutter_69.SliverGeometry,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final scrollExtent = D4.getNamedArgWithDefault<double>(named, 'scrollExtent', 0.0);
@@ -72804,6 +72952,7 @@ BridgedClass _createSliverHitTestResultBridge() {
     nativeType: $flutter_69.SliverHitTestResult,
     name: 'SliverHitTestResult',
     isAssignable: (v) => v is $flutter_69.SliverHitTestResult,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_69.SliverHitTestResult();
@@ -72889,6 +73038,7 @@ BridgedClass _createSliverHitTestEntryBridge() {
     nativeType: $flutter_69.SliverHitTestEntry,
     name: 'SliverHitTestEntry',
     isAssignable: (v) => v is $flutter_69.SliverHitTestEntry,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SliverHitTestEntry');
@@ -72934,6 +73084,7 @@ BridgedClass _createSliverLogicalParentDataBridge() {
     nativeType: $flutter_69.SliverLogicalParentData,
     name: 'SliverLogicalParentData',
     isAssignable: (v) => v is $flutter_69.SliverLogicalParentData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_69.SliverLogicalParentData();
@@ -72982,6 +73133,7 @@ BridgedClass _createSliverLogicalContainerParentDataBridge() {
     nativeType: $flutter_69.SliverLogicalContainerParentData,
     name: 'SliverLogicalContainerParentData',
     isAssignable: (v) => v is $flutter_69.SliverLogicalContainerParentData,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_69.SliverLogicalContainerParentData();
@@ -73040,6 +73192,7 @@ BridgedClass _createSliverPhysicalParentDataBridge() {
     nativeType: $flutter_69.SliverPhysicalParentData,
     name: 'SliverPhysicalParentData',
     isAssignable: (v) => v is $flutter_69.SliverPhysicalParentData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_69.SliverPhysicalParentData();
@@ -73101,6 +73254,7 @@ BridgedClass _createSliverPhysicalContainerParentDataBridge() {
     nativeType: $flutter_69.SliverPhysicalContainerParentData,
     name: 'SliverPhysicalContainerParentData',
     isAssignable: (v) => v is $flutter_69.SliverPhysicalContainerParentData,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_69.SliverPhysicalContainerParentData();
@@ -73172,6 +73326,7 @@ BridgedClass _createRenderSliverBridge() {
     nativeType: $flutter_69.RenderSliver,
     name: 'RenderSliver',
     isAssignable: (v) => v is $flutter_69.RenderSliver,
+    hierarchyDepth: 5,
     isAbstract: true,
     constructors: {
     },
@@ -73730,6 +73885,7 @@ BridgedClass _createRenderSliverSingleBoxAdapterBridge() {
     nativeType: $flutter_69.RenderSliverSingleBoxAdapter,
     name: 'RenderSliverSingleBoxAdapter',
     isAssignable: (v) => v is $flutter_69.RenderSliverSingleBoxAdapter,
+    hierarchyDepth: 8,
     isAbstract: true,
     constructors: {
     },
@@ -74329,6 +74485,7 @@ BridgedClass _createRenderSliverToBoxAdapterBridge() {
     nativeType: $flutter_69.RenderSliverToBoxAdapter,
     name: 'RenderSliverToBoxAdapter',
     isAssignable: (v) => v is $flutter_69.RenderSliverToBoxAdapter,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -74934,6 +75091,7 @@ BridgedClass _createRenderSliverHelpersBridge() {
     nativeType: $flutter_69.RenderSliverHelpers,
     name: 'RenderSliverHelpers',
     isAssignable: (v) => v is $flutter_69.RenderSliverHelpers,
+    hierarchyDepth: 6,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -75512,6 +75670,7 @@ BridgedClass _createRenderSliverFillViewportBridge() {
     nativeType: $flutter_70.RenderSliverFillViewport,
     name: 'RenderSliverFillViewport',
     isAssignable: (v) => v is $flutter_70.RenderSliverFillViewport,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverFillViewport');
@@ -76297,6 +76456,7 @@ BridgedClass _createRenderSliverFillRemainingWithScrollableBridge() {
     nativeType: $flutter_70.RenderSliverFillRemainingWithScrollable,
     name: 'RenderSliverFillRemainingWithScrollable',
     isAssignable: (v) => v is $flutter_70.RenderSliverFillRemainingWithScrollable,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -76902,6 +77062,7 @@ BridgedClass _createRenderSliverFillRemainingBridge() {
     nativeType: $flutter_70.RenderSliverFillRemaining,
     name: 'RenderSliverFillRemaining',
     isAssignable: (v) => v is $flutter_70.RenderSliverFillRemaining,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -77507,6 +77668,7 @@ BridgedClass _createRenderSliverFillRemainingAndOverscrollBridge() {
     nativeType: $flutter_70.RenderSliverFillRemainingAndOverscroll,
     name: 'RenderSliverFillRemainingAndOverscroll',
     isAssignable: (v) => v is $flutter_70.RenderSliverFillRemainingAndOverscroll,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -78112,6 +78274,7 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
     nativeType: $flutter_71.RenderSliverFixedExtentBoxAdaptor,
     name: 'RenderSliverFixedExtentBoxAdaptor',
     isAssignable: (v) => v is $flutter_71.RenderSliverFixedExtentBoxAdaptor,
+    hierarchyDepth: 10,
     isAbstract: true,
     constructors: {
     },
@@ -78885,6 +79048,7 @@ BridgedClass _createRenderSliverFixedExtentListBridge() {
     nativeType: $flutter_71.RenderSliverFixedExtentList,
     name: 'RenderSliverFixedExtentList',
     isAssignable: (v) => v is $flutter_71.RenderSliverFixedExtentList,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverFixedExtentList');
@@ -79668,6 +79832,7 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
     nativeType: $flutter_71.RenderSliverVariedExtentList,
     name: 'RenderSliverVariedExtentList',
     isAssignable: (v) => v is $flutter_71.RenderSliverVariedExtentList,
+    hierarchyDepth: 11,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverVariedExtentList');
@@ -80557,6 +80722,7 @@ BridgedClass _createSliverGridRegularTileLayoutBridge() {
     nativeType: $flutter_72.SliverGridRegularTileLayout,
     name: 'SliverGridRegularTileLayout',
     isAssignable: (v) => v is $flutter_72.SliverGridRegularTileLayout,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final crossAxisCount = D4.getRequiredNamedArg<int>(named, 'crossAxisCount', 'SliverGridRegularTileLayout');
@@ -80664,6 +80830,7 @@ BridgedClass _createSliverGridDelegateWithFixedCrossAxisCountBridge() {
     nativeType: $flutter_72.SliverGridDelegateWithFixedCrossAxisCount,
     name: 'SliverGridDelegateWithFixedCrossAxisCount',
     isAssignable: (v) => v is $flutter_72.SliverGridDelegateWithFixedCrossAxisCount,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final crossAxisCount = D4.getRequiredNamedArg<int>(named, 'crossAxisCount', 'SliverGridDelegateWithFixedCrossAxisCount');
@@ -80721,6 +80888,7 @@ BridgedClass _createSliverGridDelegateWithMaxCrossAxisExtentBridge() {
     nativeType: $flutter_72.SliverGridDelegateWithMaxCrossAxisExtent,
     name: 'SliverGridDelegateWithMaxCrossAxisExtent',
     isAssignable: (v) => v is $flutter_72.SliverGridDelegateWithMaxCrossAxisExtent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final maxCrossAxisExtent = D4.getRequiredNamedArg<double>(named, 'maxCrossAxisExtent', 'SliverGridDelegateWithMaxCrossAxisExtent');
@@ -80778,6 +80946,7 @@ BridgedClass _createSliverGridParentDataBridge() {
     nativeType: $flutter_72.SliverGridParentData,
     name: 'SliverGridParentData',
     isAssignable: (v) => v is $flutter_72.SliverGridParentData,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_72.SliverGridParentData();
@@ -80853,6 +81022,7 @@ BridgedClass _createRenderSliverGridBridge() {
     nativeType: $flutter_72.RenderSliverGrid,
     name: 'RenderSliverGrid',
     isAssignable: (v) => v is $flutter_72.RenderSliverGrid,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverGrid');
@@ -81591,6 +81761,7 @@ BridgedClass _createRenderSliverCrossAxisGroupBridge() {
     nativeType: $flutter_73.RenderSliverCrossAxisGroup,
     name: 'RenderSliverCrossAxisGroup',
     isAssignable: (v) => v is $flutter_73.RenderSliverCrossAxisGroup,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_73.RenderSliverCrossAxisGroup();
@@ -82232,6 +82403,7 @@ BridgedClass _createRenderSliverMainAxisGroupBridge() {
     nativeType: $flutter_73.RenderSliverMainAxisGroup,
     name: 'RenderSliverMainAxisGroup',
     isAssignable: (v) => v is $flutter_73.RenderSliverMainAxisGroup,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_73.RenderSliverMainAxisGroup();
@@ -82873,6 +83045,7 @@ BridgedClass _createRenderSliverListBridge() {
     nativeType: $flutter_74.RenderSliverList,
     name: 'RenderSliverList',
     isAssignable: (v) => v is $flutter_74.RenderSliverList,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverList');
@@ -83693,6 +83866,7 @@ BridgedClass _createSliverMultiBoxAdaptorParentDataBridge() {
     nativeType: $flutter_75.SliverMultiBoxAdaptorParentData,
     name: 'SliverMultiBoxAdaptorParentData',
     isAssignable: (v) => v is $flutter_75.SliverMultiBoxAdaptorParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_75.SliverMultiBoxAdaptorParentData();
@@ -83763,6 +83937,7 @@ BridgedClass _createRenderSliverMultiBoxAdaptorBridge() {
     nativeType: $flutter_75.RenderSliverMultiBoxAdaptor,
     name: 'RenderSliverMultiBoxAdaptor',
     isAssignable: (v) => v is $flutter_75.RenderSliverMultiBoxAdaptor,
+    hierarchyDepth: 9,
     isAbstract: true,
     constructors: {
     },
@@ -84489,6 +84664,7 @@ BridgedClass _createKeepAliveParentDataMixinBridge() {
     nativeType: $flutter_75.KeepAliveParentDataMixin,
     name: 'KeepAliveParentDataMixin',
     isAssignable: (v) => v is $flutter_75.KeepAliveParentDataMixin,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -84535,6 +84711,7 @@ BridgedClass _createRenderSliverWithKeepAliveMixinBridge() {
     nativeType: $flutter_75.RenderSliverWithKeepAliveMixin,
     name: 'RenderSliverWithKeepAliveMixin',
     isAssignable: (v) => v is $flutter_75.RenderSliverWithKeepAliveMixin,
+    hierarchyDepth: 6,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -85094,6 +85271,7 @@ BridgedClass _createRenderSliverEdgeInsetsPaddingBridge() {
     nativeType: $flutter_76.RenderSliverEdgeInsetsPadding,
     name: 'RenderSliverEdgeInsetsPadding',
     isAssignable: (v) => v is $flutter_76.RenderSliverEdgeInsetsPadding,
+    hierarchyDepth: 7,
     isAbstract: true,
     constructors: {
     },
@@ -85674,6 +85852,7 @@ BridgedClass _createRenderSliverPaddingBridge() {
     nativeType: $flutter_76.RenderSliverPadding,
     name: 'RenderSliverPadding',
     isAssignable: (v) => v is $flutter_76.RenderSliverPadding,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final padding = D4.getRequiredNamedArg<$flutter_31.EdgeInsetsGeometry>(named, 'padding', 'RenderSliverPadding');
@@ -86346,6 +86525,7 @@ BridgedClass _createRenderSliverPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverPersistentHeader,
     name: 'RenderSliverPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverPersistentHeader,
+    hierarchyDepth: 8,
     isAbstract: true,
     constructors: {
     },
@@ -86962,6 +87142,7 @@ BridgedClass _createRenderSliverScrollingPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverScrollingPersistentHeader,
     name: 'RenderSliverScrollingPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverScrollingPersistentHeader,
+    hierarchyDepth: 9,
     isAbstract: true,
     constructors: {
     },
@@ -87583,6 +87764,7 @@ BridgedClass _createRenderSliverPinnedPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverPinnedPersistentHeader,
     name: 'RenderSliverPinnedPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverPinnedPersistentHeader,
+    hierarchyDepth: 9,
     isAbstract: true,
     constructors: {
     },
@@ -88234,6 +88416,7 @@ BridgedClass _createRenderSliverFloatingPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverFloatingPersistentHeader,
     name: 'RenderSliverFloatingPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverFloatingPersistentHeader,
+    hierarchyDepth: 9,
     isAbstract: true,
     constructors: {
     },
@@ -88894,6 +89077,7 @@ BridgedClass _createRenderSliverFloatingPinnedPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverFloatingPinnedPersistentHeader,
     name: 'RenderSliverFloatingPinnedPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverFloatingPinnedPersistentHeader,
+    hierarchyDepth: 10,
     isAbstract: true,
     constructors: {
     },
@@ -89554,6 +89738,7 @@ BridgedClass _createTreeSliverNodeParentDataBridge() {
     nativeType: $flutter_78.TreeSliverNodeParentData,
     name: 'TreeSliverNodeParentData',
     isAssignable: (v) => v is $flutter_78.TreeSliverNodeParentData,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_78.TreeSliverNodeParentData();
@@ -89667,6 +89852,7 @@ BridgedClass _createRenderTreeSliverBridge() {
     nativeType: $flutter_78.RenderTreeSliver,
     name: 'RenderTreeSliver',
     isAssignable: (v) => v is $flutter_78.RenderTreeSliver,
+    hierarchyDepth: 12,
     constructors: {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderTreeSliver');
@@ -90608,6 +90794,7 @@ BridgedClass _createStackParentDataBridge() {
     nativeType: $flutter_79.StackParentData,
     name: 'StackParentData',
     isAssignable: (v) => v is $flutter_79.StackParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_79.StackParentData();
@@ -90710,6 +90897,7 @@ BridgedClass _createRenderStackBridge() {
     nativeType: $flutter_79.RenderStack,
     name: 'RenderStack',
     isAssignable: (v) => v is $flutter_79.RenderStack,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -91565,6 +91753,7 @@ BridgedClass _createRenderIndexedStackBridge() {
     nativeType: $flutter_79.RenderIndexedStack,
     name: 'RenderIndexedStack',
     isAssignable: (v) => v is $flutter_79.RenderIndexedStack,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
@@ -92402,6 +92591,7 @@ BridgedClass _createTableCellParentDataBridge() {
     nativeType: $flutter_80.TableCellParentData,
     name: 'TableCellParentData',
     isAssignable: (v) => v is $flutter_80.TableCellParentData,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_80.TableCellParentData();
@@ -92521,6 +92711,7 @@ BridgedClass _createIntrinsicColumnWidthBridge() {
     nativeType: $flutter_80.IntrinsicColumnWidth,
     name: 'IntrinsicColumnWidth',
     isAssignable: (v) => v is $flutter_80.IntrinsicColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final flex = D4.getOptionalNamedArg<double?>(named, 'flex');
@@ -92583,6 +92774,7 @@ BridgedClass _createFixedColumnWidthBridge() {
     nativeType: $flutter_80.FixedColumnWidth,
     name: 'FixedColumnWidth',
     isAssignable: (v) => v is $flutter_80.FixedColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FixedColumnWidth');
@@ -92652,6 +92844,7 @@ BridgedClass _createFractionColumnWidthBridge() {
     nativeType: $flutter_80.FractionColumnWidth,
     name: 'FractionColumnWidth',
     isAssignable: (v) => v is $flutter_80.FractionColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FractionColumnWidth');
@@ -92721,6 +92914,7 @@ BridgedClass _createFlexColumnWidthBridge() {
     nativeType: $flutter_80.FlexColumnWidth,
     name: 'FlexColumnWidth',
     isAssignable: (v) => v is $flutter_80.FlexColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalArgWithDefault<double>(positional, 0, 'value', 1.0);
@@ -92789,6 +92983,7 @@ BridgedClass _createMaxColumnWidthBridge() {
     nativeType: $flutter_80.MaxColumnWidth,
     name: 'MaxColumnWidth',
     isAssignable: (v) => v is $flutter_80.MaxColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MaxColumnWidth');
@@ -92861,6 +93056,7 @@ BridgedClass _createMinColumnWidthBridge() {
     nativeType: $flutter_80.MinColumnWidth,
     name: 'MinColumnWidth',
     isAssignable: (v) => v is $flutter_80.MinColumnWidth,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MinColumnWidth');
@@ -92933,6 +93129,7 @@ BridgedClass _createRenderTableBridge() {
     nativeType: $flutter_80.RenderTable,
     name: 'RenderTable',
     isAssignable: (v) => v is $flutter_80.RenderTable,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final columns = D4.getOptionalNamedArg<int?>(named, 'columns');
@@ -93873,6 +94070,7 @@ BridgedClass _createTextureBoxBridge() {
     nativeType: $flutter_82.TextureBox,
     name: 'TextureBox',
     isAssignable: (v) => v is $flutter_82.TextureBox,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final textureId = D4.getRequiredNamedArg<int>(named, 'textureId', 'TextureBox');
@@ -94538,6 +94736,7 @@ BridgedClass _createFractionalOffsetTweenBridge() {
     nativeType: $flutter_83.FractionalOffsetTween,
     name: 'FractionalOffsetTween',
     isAssignable: (v) => v is $flutter_83.FractionalOffsetTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<$flutter_32.FractionalOffset?>(named, 'begin');
@@ -94622,6 +94821,7 @@ BridgedClass _createAlignmentTweenBridge() {
     nativeType: $flutter_83.AlignmentTween,
     name: 'AlignmentTween',
     isAssignable: (v) => v is $flutter_83.AlignmentTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<$flutter_22.Alignment?>(named, 'begin');
@@ -94706,6 +94906,7 @@ BridgedClass _createAlignmentGeometryTweenBridge() {
     nativeType: $flutter_83.AlignmentGeometryTween,
     name: 'AlignmentGeometryTween',
     isAssignable: (v) => v is $flutter_83.AlignmentGeometryTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<$flutter_22.AlignmentGeometry?>(named, 'begin');
@@ -94866,6 +95067,7 @@ BridgedClass _createRenderViewBridge() {
     nativeType: $flutter_84.RenderView,
     name: 'RenderView',
     isAssignable: (v) => v is $flutter_84.RenderView,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
@@ -95429,6 +95631,7 @@ BridgedClass _createRenderAbstractViewportBridge() {
     nativeType: $flutter_85.RenderAbstractViewport,
     name: 'RenderAbstractViewport',
     isAssignable: (v) => v is $flutter_85.RenderAbstractViewport,
+    hierarchyDepth: 5,
     isAbstract: true,
     constructors: {
     },
@@ -95979,6 +96182,7 @@ BridgedClass _createRenderViewportBaseBridge() {
     nativeType: $flutter_85.RenderViewportBase,
     name: 'RenderViewportBase',
     isAssignable: (v) => v is $flutter_85.RenderViewportBase,
+    hierarchyDepth: 8,
     isAbstract: true,
     constructors: {
     },
@@ -96864,6 +97068,7 @@ BridgedClass _createRenderViewportBridge() {
     nativeType: $flutter_85.RenderViewport,
     name: 'RenderViewport',
     isAssignable: (v) => v is $flutter_85.RenderViewport,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final axisDirection = D4.getNamedArgWithDefault<$flutter_23.AxisDirection>(named, 'axisDirection', $flutter_23.AxisDirection.down);
@@ -97775,6 +97980,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
     nativeType: $flutter_85.RenderShrinkWrappingViewport,
     name: 'RenderShrinkWrappingViewport',
     isAssignable: (v) => v is $flutter_85.RenderShrinkWrappingViewport,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final axisDirection = D4.getNamedArgWithDefault<$flutter_23.AxisDirection>(named, 'axisDirection', $flutter_23.AxisDirection.down);
@@ -98657,6 +98863,7 @@ BridgedClass _createViewportOffsetBridge() {
     nativeType: $flutter_86.ViewportOffset,
     name: 'ViewportOffset',
     isAssignable: (v) => v is $flutter_86.ViewportOffset,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
       'fixed': (visitor, positional, named) {
@@ -98802,6 +99009,7 @@ BridgedClass _createWrapParentDataBridge() {
     nativeType: $flutter_87.WrapParentData,
     name: 'WrapParentData',
     isAssignable: (v) => v is $flutter_87.WrapParentData,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_87.WrapParentData();
@@ -98860,6 +99068,7 @@ BridgedClass _createRenderWrapBridge() {
     nativeType: $flutter_87.RenderWrap,
     name: 'RenderWrap',
     isAssignable: (v) => v is $flutter_87.RenderWrap,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final children = D4.coerceListOrNull<$flutter_42.RenderBox>(named['children'], 'children');

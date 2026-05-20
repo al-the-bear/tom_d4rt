@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-05-19T03:00:15.383037
+// Generated: 2026-05-20T18:09:41.231274
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -623,6 +623,7 @@ BridgedClass _createSemanticsBindingBridge() {
     nativeType: $flutter_5.SemanticsBinding,
     name: 'SemanticsBinding',
     isAssignable: (v) => v is $flutter_5.SemanticsBinding,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -905,6 +906,7 @@ BridgedClass _createAnnounceSemanticsEventBridge() {
     nativeType: $flutter_8.AnnounceSemanticsEvent,
     name: 'AnnounceSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.AnnounceSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'AnnounceSemanticsEvent');
@@ -964,6 +966,7 @@ BridgedClass _createTooltipSemanticsEventBridge() {
     nativeType: $flutter_8.TooltipSemanticsEvent,
     name: 'TooltipSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.TooltipSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TooltipSemanticsEvent');
@@ -1014,6 +1017,7 @@ BridgedClass _createLongPressSemanticsEventBridge() {
     nativeType: $flutter_8.LongPressSemanticsEvent,
     name: 'LongPressSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.LongPressSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.LongPressSemanticsEvent();
@@ -1060,6 +1064,7 @@ BridgedClass _createTapSemanticEventBridge() {
     nativeType: $flutter_8.TapSemanticEvent,
     name: 'TapSemanticEvent',
     isAssignable: (v) => v is $flutter_8.TapSemanticEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.TapSemanticEvent();
@@ -1106,6 +1111,7 @@ BridgedClass _createFocusSemanticEventBridge() {
     nativeType: $flutter_8.FocusSemanticEvent,
     name: 'FocusSemanticEvent',
     isAssignable: (v) => v is $flutter_8.FocusSemanticEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.FocusSemanticEvent();
@@ -1390,6 +1396,7 @@ BridgedClass _createAttributedStringPropertyBridge() {
     nativeType: $flutter_7.AttributedStringProperty,
     name: 'AttributedStringProperty',
     isAssignable: (v) => v is $flutter_7.AttributedStringProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AttributedStringProperty');
@@ -1599,6 +1606,7 @@ BridgedClass _createSemanticsDataBridge() {
     nativeType: $flutter_7.SemanticsData,
     name: 'SemanticsData',
     isAssignable: (v) => v is $flutter_7.SemanticsData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final flagsCollection = D4.getRequiredNamedArg<SemanticsFlags>(named, 'flagsCollection', 'SemanticsData');
@@ -1796,6 +1804,7 @@ BridgedClass _createSemanticsHintOverridesBridge() {
     nativeType: $flutter_7.SemanticsHintOverrides,
     name: 'SemanticsHintOverrides',
     isAssignable: (v) => v is $flutter_7.SemanticsHintOverrides,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final onTapHint = D4.getOptionalNamedArg<String?>(named, 'onTapHint');
@@ -1888,6 +1897,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
     nativeType: $flutter_7.SemanticsProperties,
     name: 'SemanticsProperties',
     isAssignable: (v) => v is $flutter_7.SemanticsProperties,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
@@ -2218,6 +2228,7 @@ BridgedClass _createSemanticsNodeBridge() {
     nativeType: $flutter_7.SemanticsNode,
     name: 'SemanticsNode',
     isAssignable: (v) => v is $flutter_7.SemanticsNode,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_4.Key?>(named, 'key');
@@ -2521,6 +2532,7 @@ BridgedClass _createSemanticsOwnerBridge() {
     nativeType: $flutter_7.SemanticsOwner,
     name: 'SemanticsOwner',
     isAssignable: (v) => v is $flutter_7.SemanticsOwner,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('onSemanticsUpdate') || named['onSemanticsUpdate'] == null) {
@@ -3254,6 +3266,7 @@ BridgedClass _createSemanticsSortKeyBridge() {
     nativeType: $flutter_7.SemanticsSortKey,
     name: 'SemanticsSortKey',
     isAssignable: (v) => v is $flutter_7.SemanticsSortKey,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -3319,6 +3332,7 @@ BridgedClass _createOrdinalSortKeyBridge() {
     nativeType: $flutter_7.OrdinalSortKey,
     name: 'OrdinalSortKey',
     isAssignable: (v) => v is $flutter_7.OrdinalSortKey,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OrdinalSortKey');
