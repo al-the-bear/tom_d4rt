@@ -197,6 +197,89 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group('tic_tac_toe (example #1 — AnimationController + AnimatedSwitcher + CustomPainter)',
+      () {
+    testWidgets('X plays a top-row win → headline + scoreboard update',
+        (tester) async {
+      // Board + scoreboard + reset button comfortably fit a 700x900 window.
+      tester.view.physicalSize = const Size(700, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'tic_tac_toe');
+
+        expect(find.text("X's turn"), findsOneWidget,
+            reason: 'Initial banner should show X to move.');
+
+        // Play out X-win on the top row: X@0, O@3, X@1, O@4, X@2.
+        Future<void> tapCell(int n) async {
+          await tester.tap(find.byKey(ValueKey('cell-$n')));
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+
+        await tapCell(0); // X
+        expect(find.text("O's turn"), findsOneWidget);
+
+        await tapCell(3); // O
+        expect(find.text("X's turn"), findsOneWidget);
+
+        await tapCell(1); // X
+        await tapCell(4); // O
+        await tapCell(2); // X — completes the top row
+
+        // Settle the win-line AnimationController + AnimatedSwitcher.
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        expect(find.text('X wins!'), findsOneWidget,
+            reason: 'Top-row XXX should be detected and announced.');
+
+        // Score chip for X should read 1; O and Draws stay at 0.
+        // Each chip is `Label N` — find the X-chip via the parent Row.
+        expect(find.text('1'), findsOneWidget,
+            reason: 'X wins should advance to 1.');
+        expect(find.text('0'), findsNWidgets(2),
+            reason: 'O wins and Draws should both still read 0.');
+
+        // "New round" should be enabled now. Tap it → board cleared.
+        await tester.tap(find.text('New round'));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text("X's turn"), findsOneWidget,
+            reason: 'After New round the banner returns to X to move.');
+      });
+    });
+
+    testWidgets('Filling all 9 cells without a winner records a draw',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'tic_tac_toe');
+
+        // A sequence that produces no winner — classic draw pattern:
+        //   X O X
+        //   X O O
+        //   O X X
+        // Tap order (X, O, X, O, X, O, X, O, X):
+        //   X@0, O@1, X@2, O@4, X@3, O@5, X@7, O@6, X@8
+        final taps = [0, 1, 2, 4, 3, 5, 7, 6, 8];
+        for (final n in taps) {
+          await tester.tap(find.byKey(ValueKey('cell-$n')));
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        expect(find.text('Draw'), findsOneWidget,
+            reason: 'All 9 cells filled with no 3-in-a-row should '
+                'land on Draw.');
+      });
+    });
+  });
+
   group('closure capture in for-loops', () {
     testWidgets('three-button reproducer prints captured i', (tester) async {
       // Simpler variant: just verify the print log captured the right index.

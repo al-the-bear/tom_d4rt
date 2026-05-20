@@ -3499,6 +3499,173 @@ inline.
 
 ---
 
+### [ ] Open (fixable) — generic-constructor type inference doesn't propagate argument's static type; `ValueKey(value)` resolves to `ValueKey<dynamic>`
+
+**Discovered:** 2026-05-20, while wiring `WidgetTester` finders for
+the `tic_tac_toe` sample app. The same-shape symptom recurs for any
+`Foo<T>(...)` invocation written without an explicit type argument
+where Dart-the-language would infer T from the static type of the
+argument.
+
+**Symptom**
+
+A script call like
+
+```dart
+key: ValueKey('cell-$id'),
+```
+
+is expected (per Dart's standard generic-type inference) to produce
+`ValueKey<String>` — Dart sees the argument's static type and pins
+the type parameter. The interpreter produces `ValueKey<dynamic>`
+instead. Two observable consequences:
+
+1. **`find.byKey` mismatch** — `find.byKey(const
+   ValueKey<String>('cell-0'))` returns `findsNothing` even though
+   the InkWell in the tree carries a `cell-0`-valued key, because
+   `ValueKey.operator==` rejects different runtime type parameters
+   (`ValueKey<dynamic>` ≠ `ValueKey<String>`). Workaround:
+   write `ValueKey<String>('cell-$id')` explicitly in the script.
+
+2. **Identity-equality surprises in cross-language widget trees**,
+   e.g. an `AnimatedSwitcher` whose `child.key` is
+   `ValueKey<dynamic>('X\'s turn')` — see the second open entry
+   below; the two symptoms together are why the
+   `tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`
+   sample renders headlines as a plain `Text` instead of via
+   AnimatedSwitcher.
+
+**Root cause (hypothesis)**
+
+`tom_d4rt/lib/src/bridges/flutter_relaxers.b.dart:_rc2ValueKey`
+dispatches on `typeArgs!.first.name`:
+
+```dart
+final typeName = typeArgs?.isNotEmpty == true
+    ? typeArgs!.first.name as String?
+    : null;
+if (typeName == null) return null;  // falls through to default bridge
+return switch (typeName) {
+  'dynamic' || 'Object' || 'Object?' => ValueKey<dynamic>(value!),
+  'String' => ValueKey<String>(value as String),
+  // …
+};
+```
+
+For `ValueKey('cell-$id')` (no explicit type argument), the analyzer
+infers `ValueKey<String>` and exposes that type on the
+`InstanceCreationExpression`. Either:
+
+- the interpreter passes `typeArgs == null` here (so the
+  relaxer falls through to the default bridge constructor, which
+  *does* dispatch on the runtime value's type and returns
+  `ValueKey<String>(value)`), and the default bridge's `String _`
+  case is somehow not matching — possible if the value reaches the
+  bridge wrapped in a `BridgedInstance<String>` that fails the
+  `case String _` pattern; or
+- the interpreter passes `typeArgs == [RuntimeType(dynamic)]` and
+  the relaxer returns `ValueKey<dynamic>`.
+
+Either way, the analyzer's inferred argument-type isn't reaching
+the constructor factory. Investigation TBD.
+
+**Approach**
+
+When `visitInstanceCreationExpression` builds its `typeArgs` list,
+fall back to the argument's static type (from the analyzer's
+`ConstructorElement` / `InstanceCreationExpression.staticType`)
+when the script supplied no explicit type arguments. Mirror in
+`tom_d4rt_ast`.
+
+**Workaround (until fixed)**
+
+Write the type argument explicitly: `ValueKey<String>('foo')`,
+`Set<int>{}`, `Map<String, int>{}`. The interpreter's relaxers
+honour explicit type arguments correctly.
+
+---
+
+### [ ] Open (fixable) — `AnimatedSwitcher`'s inner `Stack` accumulates duplicate-keyed children across user-State `setState` rebuilds
+
+**Discovered:** 2026-05-20, while attempting an AnimatedSwitcher
+fade between "X's turn" / "O's turn" headlines in
+`tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`.
+
+**Symptom**
+
+A bridged `AnimatedSwitcher` whose `child` carries a key (here a
+`ValueKey<String>(headline)`) ends up with multiple stale outgoing
+children in its default inner `Stack` after a few user-State
+`setState`-driven rebuilds, then trips Flutter's
+`debugChildrenHaveDuplicateKeys` assertion:
+
+```
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞════════════════════════════
+The following assertion was thrown building AnimatedSwitcher
+  (duration: 250ms,
+   state: _AnimatedSwitcherState#…(tickers: tracking 4 tickers)):
+Duplicate keys found.
+…Stack(alignment: Alignment.center, fit: loose) has multiple
+  children with key [<[<[<'X's turn'>]>]>].
+```
+
+"4 tickers" indicates four outgoing transitions are still in
+flight — the AnimatedSwitcher never finished cleaning up earlier
+children, then a new transition with the same wrapped key collided.
+The triple-nested `[<…>]` is the AnimatedSwitcher's auto-generated
+KeyedSubtree-of-KeyedSubtree wrap around the user-provided key.
+
+Reproduced both with `ValueKey(headline)` (i.e.
+`ValueKey<dynamic>` — see the previous entry) and with explicit
+`ValueKey<String>(headline)`, so this is *not* the same root cause
+as the type-inference bug above. The cell's AnimatedSwitcher in the
+same sample works correctly because each cell's switcher has its
+own independent State and a stable identifier per cell.
+
+**Likely area**
+
+The lifecycle of the bridged `AnimatedSwitcher` element when its
+host script `State<T>` rebuilds repeatedly via GEN-112 setState
+routing. Suspects:
+
+- The interpreter's `_InterpretedState.build` (or the
+  bridged-super build adapter) returns a *new* AnimatedSwitcher
+  widget instance each rebuild but Flutter still pairs it with the
+  same Element (correct), while the AnimatedSwitcher's internal
+  cleanup logic (`didUpdateWidget` → mark outgoing children for
+  removal) somehow misses entries — possibly because the bridged
+  `transitionBuilder` returns interpreter wrappers that compare
+  not-equal to the previously-stored wrapper.
+- Alternatively, AnimatedSwitcher's
+  `_AnimatedSwitcherState._newEntry` reuses the supplied child key
+  as the KeyedSubtree key; if two consecutive rebuilds pass
+  semantically-distinct children that nonetheless share an
+  identity-equal key (a `const` ValueKey reused across rebuilds),
+  the assertion fires. Worth checking whether the bridge
+  constructor caches the child argument across calls.
+
+**Workaround (until fixed)**
+
+Drop the AnimatedSwitcher for headlines / single-text crossfade
+sites. Cell-grid use of AnimatedSwitcher — where each
+AnimatedSwitcher lives inside its own widget and transitions on
+its own per-cell key — is unaffected. See the comment block in
+`tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`.
+
+**Verification plan after fix**
+
+1. Restore the AnimatedSwitcher wrapping around the headline
+   `Text` in `result_banner.dart` and re-run the
+   `tic_tac_toe` tester tests — both should pass.
+2. Add a focused script test under
+   `tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/widgets/`
+   that toggles an AnimatedSwitcher's child between two values
+   via setState in a user-defined `State<T>` and asserts the
+   tree contains exactly one keyed Text after each settle.
+3. Re-run essential + important + secondary suites serially.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

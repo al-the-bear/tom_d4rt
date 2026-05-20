@@ -87,7 +87,7 @@ primitive; "incidental" appearances are not listed here.
 
 ## The 25 sample apps
 
-### 1. [ ] `tic_tac_toe` — classic turn-based grid
+### 1. [x] `tic_tac_toe` — classic turn-based grid
 
 A 3×3 board where two local players take turns. Each placed mark
 fades+scales in via `AnimatedSwitcher`. On win, the connecting line
@@ -99,6 +99,21 @@ the line draw, `setState` after every tap. Reset button rebuilds.
 
 **Files:** `main.dart`, `app.dart`, `home.dart` (state + board),
 `cell.dart`, `win_line_painter.dart`, `result_banner.dart`.
+
+**Shipped:** [commit pending] — two tester cases in
+`sample_apps_in_tester_test.dart` (top-row X win + 9-cell draw)
+play out scripted sequences and assert headline + score updates.
+Found two open interpreter clusters along the way and logged them
+in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`:
+
+- generic-constructor type inference doesn't reach `ValueKey(x)`
+  → resolves to `ValueKey<dynamic>` instead of `ValueKey<String>`.
+  Workaround: write the type explicitly,
+  e.g. `ValueKey<String>('cell-$id')`.
+- AnimatedSwitcher's inner Stack accumulates duplicate-keyed
+  children across user-State `setState` rebuilds. Workaround:
+  use plain `Text` in headline-style swap sites; per-cell
+  AnimatedSwitchers (independent State per cell) still work.
 
 ---
 
