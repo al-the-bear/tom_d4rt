@@ -1613,7 +1613,17 @@ Widget _matrixCell(
 }
 
 Widget _matrixRow(List<Widget> cells) {
-  return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: cells);
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #76, P1):
+  // The 11 `_matrixRow` calls inside `_matrixSection` live in a vertical
+  // `SingleChildScrollView` (root body). A bare `Row(crossAxisAlignment:
+  // stretch)` therefore receives `h=Infinity` and `stretch` tries to
+  // stretch each cell to that infinite height → "BoxConstraints forces an
+  // infinite height" on the inner `DecoratedBox`. Wrapping the Row in
+  // `IntrinsicHeight` bounds the cross-axis to the tallest cell first, so
+  // stretch only equalises that finite height across siblings.
+  return IntrinsicHeight(
+    child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: cells),
+  );
 }
 
 Widget _matrixSection() {
