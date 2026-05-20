@@ -2073,8 +2073,25 @@ dynamic build(BuildContext context) {
   // gives the diary a uniform width.
   // -------------------------------------------------------------------------
   print('[bell-lavender] final assembly: \${sections.length} sections');
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #138, P2)
+  // ---------------------------------------------------------------------------
+  // Baseline frameworkErrors=1: "A RenderFlex overflowed by 10044 pixels on
+  // the bottom." The page root packs all dossier sections (anchor, banner,
+  // anatomy, gallery, recipes, …) into a Container > Column with no scroll
+  // ancestor. Combined intrinsic height ≈ 10044 px, vastly exceeding any
+  // desktop viewport — exact match to the baseline overflow delta.
+  //
+  // Plan label was P1+P2, but grep across the file confirms no
+  // `CrossAxisAlignment.stretch` site exists anywhere — the page-root Column
+  // uses CrossAxisAlignment.start. P1 (IntrinsicHeight wrap) therefore does
+  // not materialise; the fix reduces to a P2-only page-root SCV wrap (same
+  // pattern as items 104, 105, 120, 133, 136).
+  //
+  // The gradient `Container(decoration: …)` stays *outside* the SCV so the
+  // cloister-wall backdrop fills the whole viewport rather than just the
+  // scrolled content. The 12 px symmetric vertical padding moves onto the
+  // SCV so the top/bottom inset is preserved.
   final Widget body = Container(
-    padding: const EdgeInsets.symmetric(vertical: 12),
     decoration: BoxDecoration(
       gradient: LinearGradient(
         begin: Alignment.topCenter,
@@ -2082,10 +2099,13 @@ dynamic build(BuildContext context) {
         colors: <Color>[cIvoryFrame, cLavenderPale],
       ),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: sections,
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: sections,
+      ),
     ),
   );
 
