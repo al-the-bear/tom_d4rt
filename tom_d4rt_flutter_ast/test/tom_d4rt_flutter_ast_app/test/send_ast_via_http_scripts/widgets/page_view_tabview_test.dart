@@ -908,10 +908,16 @@ Widget _scrollableTabBarDemo() {
 // SECTION 10 DEMO: Tab Variations
 // ============================================================================
 Widget _tabVariationsDemo() {
-  return Column(
-    children: <Widget>[
-      _tabVariationRow(
-        title: 'Tab(text:)',
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #123, P2): wrap inner
+  // Column in SingleChildScrollView so the 4 variant rows cannot overflow
+  // the bounded SizedBox(height: demoHeight) constraint from _sectionPanel.
+  // The Tab(child: Row(...)) variant grows ~14 px above the nominal demo
+  // height and triggers the RenderFlex overflow assertion in fixed mode.
+  return SingleChildScrollView(
+    child: Column(
+      children: <Widget>[
+        _tabVariationRow(
+          title: 'Tab(text:)',
         bar: const TabBar(
           tabs: <Widget>[
             Tab(text: 'One'),
@@ -993,6 +999,7 @@ Widget _tabVariationsDemo() {
         ),
       ),
     ],
+    ),
   );
 }
 
