@@ -231,24 +231,36 @@ Widget _glyph({
         BoxShadow(color: Colors.black45, blurRadius: 4.0, offset: Offset(0.0, 2.0)),
       ],
     ),
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #113, P3):
+    // When `label` is empty (the small `_flightFrame` glyphs at sizes 18 and
+    // 28 in section 6, plus the two 32×32 glyphs in section 12) the empty
+    // Text widget still reserves a line-box of fontSize × default-line-height
+    // (~10 px for fontSize 8.5). Combined with the Icon (height * 0.35) and
+    // the 4 px spacer, the inner Column exceeds the parent Container's
+    // square height bound — frame 0 (18 px) overflowed by 7.3 px and frame 1
+    // (28 px) by 0.800 px. Skipping the spacer + Text entirely when there is
+    // no label avoids the overflow and keeps the visual unchanged (an empty
+    // label paints nothing).
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(icon, color: Colors.white, size: height * 0.35),
-        const SizedBox(height: 4.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: width < 70 ? 8.5 : 10.0,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 0.4,
+        if (label.isNotEmpty) ...<Widget>[
+          const SizedBox(height: 4.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: width < 70 ? 8.5 : 10.0,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 0.4,
+              ),
             ),
           ),
-        ),
+        ],
       ],
     ),
   );
