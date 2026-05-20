@@ -318,25 +318,36 @@ Widget _recipeCard(
   String label,
   List<List<String>> bullets,
 ) {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #117, P5(a)):
+  // Flutter forbids `borderRadius` on a `Border(...)` with non-uniform colors
+  // (here: thick colored `left` + thin neutral `top/right/bottom`). Refactor
+  // to canonical pattern: ClipRRect > IntrinsicHeight > Row(stretch, [accent
+  // strip Container, Expanded(Padding(content))]) with a uniform
+  // `Border.all`. Preserves the visual: colored left accent strip, light
+  // border on the other sides, rounded right-side corners only.
   return Container(
     margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-    padding: EdgeInsets.all(16.0),
-    decoration: BoxDecoration(
-      color: color.withOpacity(0.06),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-        top: BorderSide(color: color.withOpacity(0.2), width: 1.0),
-        right: BorderSide(color: color.withOpacity(0.2), width: 1.0),
-        bottom: BorderSide(color: color.withOpacity(0.2), width: 1.0),
-      ),
+    child: ClipRRect(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(8.0),
         bottomRight: Radius.circular(8.0),
       ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      child: IntrinsicHeight(
+        child: Container(
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.06),
+            border: Border.all(color: color.withOpacity(0.2), width: 1.0),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(width: 4.0, color: color),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
         Row(
           children: [
             Container(
@@ -411,6 +422,13 @@ Widget _recipeCard(
           }).toList(),
         ),
       ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ),
   );
 }
