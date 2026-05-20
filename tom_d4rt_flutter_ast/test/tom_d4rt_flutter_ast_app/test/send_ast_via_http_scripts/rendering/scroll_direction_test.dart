@@ -626,8 +626,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: List.generate(5, (i) {
+                    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #77, P3):
+                    // Inner Container content area is 200 - 2*1 (border) = 198 px.
+                    // Original cells were width 36 + margin 3*2 = 42 each; 5*42 = 210 px → 15 px right overflow.
+                    // Reducing width 36 → 33 yields 5*(33+6) = 195 px, fitting within 198 px without changing visual cell count or layout intent.
                     return Container(
-                      width: 36.0,
+                      width: 33.0,
                       margin: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
@@ -1100,7 +1104,13 @@ dynamic build(BuildContext context) {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        borderRadius: BorderRadius.circular(10.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #77, P5(a)):
+        // Original combined `borderRadius: BorderRadius.circular(10.0)` with a non-uniform
+        // `Border` (left side stronger than top/right/bottom). Flutter asserts
+        // "A borderRadius can only be given on borders with uniform colors." Dropping
+        // borderRadius preserves the accent-bar look (left BorderSide width 4.0)
+        // while satisfying the uniform-colors-or-no-radius constraint. Triggered
+        // 5 times by Section 9 (5 pitfall cards).
         border: Border(
           left: BorderSide(color: color, width: 4.0),
           top: BorderSide(color: color.withValues(alpha: 0.4)),
