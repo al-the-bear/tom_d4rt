@@ -165,7 +165,7 @@ documented in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`):
 
 ---
 
-### 3. [ ] `pomodoro_timer` — work / break cycle with theme transitions
+### 3. [x] `pomodoro_timer` — work / break cycle with theme transitions
 
 A 25-min work session followed by a 5-min break, cycling. Theme
 seed colour swaps between red (work) and green (break) and the
@@ -179,6 +179,24 @@ colours, phase-end UI nudge.
 
 **Files:** `main.dart`, `app.dart`, `session.dart` (notifier),
 `home.dart`, `phase_chip.dart`.
+
+**Shipped:** four tester cases in `sample_apps_in_tester_test.dart`
+exercise (a) boot into the 25:00 focus phase, (b) Start → 1-second
+FakeTimer pump → `24:59`, then Pause freezes the countdown, (c)
+Skip flips phase to BREAK (`05:00`), surfaces the phase-end chip,
+counts the cycle, auto-dismisses after the notice window, and a
+second Skip returns to FOCUS with a "Back to work" notice, (d)
+Reset returns to the initial state.
+
+The sample is the first one in this suite to script-define a
+`ChangeNotifier` subclass driving a `ListenableBuilder` — both
+ran cleanly under d4rt without any new interpreter fixes (the
+existing GEN-112 setState-via-`nativeStateProxy` routing and the
+GEN-114 Timer.isAssignable for FakeTimer were the only ones
+exercised, and both held). The notifier holds a 1 Hz
+`Timer.periodic` for the countdown plus a one-shot `Timer` for
+the chip auto-dismiss; both fire correctly under the
+flutter_test FakeTimer.
 
 ---
 

@@ -374,6 +374,146 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'pomodoro_timer (example #3 — Timer.periodic + ChangeNotifier + ListenableBuilder + AnimatedTheme)',
+      () {
+    // The sample boots with 25 / 5-minute defaults — way too long to
+    // step through with FakeTimer.pump. We verify boot, manual phase
+    // flip via the Skip button (no time-stepping), the notification
+    // chip lifecycle, and pause/resume / reset state transitions.
+    testWidgets('boots into the focus phase with the work countdown',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1100);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'pomodoro_timer');
+
+        expect(find.text('Pomodoro'), findsOneWidget,
+            reason: 'AppBar title should be "Pomodoro".');
+        expect(find.text('FOCUS'), findsOneWidget,
+            reason: 'Phase badge should start on FOCUS.');
+        expect(find.text('25:00'), findsOneWidget,
+            reason: 'Countdown should start at the default work length '
+                '(25 min).');
+        expect(find.text('Start'), findsOneWidget,
+            reason: 'Toggle button should read "Start" while paused.');
+        expect(find.text('Cycles completed: 0'), findsOneWidget,
+            reason: 'No cycles have completed at boot.');
+      });
+    });
+
+    testWidgets('Start flips toggle label and one tick advances countdown',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1100);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'pomodoro_timer');
+
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pump();
+        expect(find.text('Pause'), findsOneWidget,
+            reason: 'After Start the toggle label should read "Pause".');
+
+        // Single Timer.periodic tick should decrement the countdown.
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.text('24:59'), findsOneWidget,
+            reason: 'One second of fake-clock pumping should advance the '
+                'countdown from 25:00 to 24:59.');
+
+        // Pause stops the ticker; subsequent pump should NOT advance.
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.text('24:59'), findsOneWidget,
+            reason: 'After Pause, the countdown should freeze at the '
+                'last value.');
+        expect(find.text('Start'), findsOneWidget,
+            reason: 'Paused state should expose the Start label again.');
+      });
+    });
+
+    testWidgets(
+        'Skip flips phase to Break, surfaces phase-end chip, auto-dismisses',
+        (tester) async {
+      tester.view.physicalSize = const Size(700, 1100);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'pomodoro_timer');
+
+        // Skip while still paused — flips phase but does not start the
+        // ticker. The chip's auto-dismiss timer is a one-shot, so we
+        // can advance the fake clock past it without spinning the
+        // 1 Hz Timer.periodic.
+        await tester.tap(find.byKey(const ValueKey<String>('skip')));
+        await tester.pump();
+
+        expect(find.text('BREAK'), findsOneWidget,
+            reason: 'Phase badge should swap to BREAK after one Skip.');
+        expect(find.text('05:00'), findsOneWidget,
+            reason: 'Countdown should reset to the default break length '
+                '(5 min).');
+        expect(find.text('Break time'), findsOneWidget,
+            reason: 'Phase-end chip should announce the new phase.');
+        expect(find.text('Cycles completed: 1'), findsOneWidget,
+            reason: 'Skipping out of the focus phase should count as a '
+                'completed cycle.');
+
+        // Wait past the auto-dismiss window.
+        await tester
+            .pump(const Duration(seconds: 4)); // 3 s auto-dismiss + slack
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        expect(find.text('Break time'), findsNothing,
+            reason: 'The chip should auto-dismiss after the notice '
+                'window elapses.');
+
+        // Skip again — back to focus.
+        await tester.tap(find.byKey(const ValueKey<String>('skip')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        expect(find.text('FOCUS'), findsOneWidget);
+        expect(find.text('25:00'), findsOneWidget);
+        expect(find.text('Back to work'), findsOneWidget,
+            reason: 'Returning from break should surface the work-resume '
+                'notice.');
+      });
+    });
+
+    testWidgets('Reset returns to the initial state', (tester) async {
+      tester.view.physicalSize = const Size(700, 1100);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'pomodoro_timer');
+
+        // Step the clock forward a touch, then reset.
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 5));
+        expect(find.text('24:55'), findsOneWidget);
+
+        await tester.tap(find.byKey(const ValueKey<String>('reset')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.text('25:00'), findsOneWidget,
+            reason: 'Reset should restore the work countdown to 25:00.');
+        expect(find.text('FOCUS'), findsOneWidget);
+        expect(find.text('Start'), findsOneWidget,
+            reason: 'Reset should leave the toggle in the Start state.');
+        expect(find.text('Cycles completed: 0'), findsOneWidget);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
