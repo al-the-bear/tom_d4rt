@@ -390,9 +390,19 @@ dynamic build(BuildContext context) {
     physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (BuildContext c, int i, Animation<double> a) {
       final Map<String, dynamic> p = _performers[i % _performers.length];
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #102, P1):
+      // Row(crossAxisAlignment.stretch) inside an AnimatedList itemBuilder
+      // (shrinkWrap:true + NeverScrollableScrollPhysics) drives the Row into
+      // an unbounded-height constraint via AnimatedList's intrinsic sizing
+      // path, which propagates into the timeline column's `Expanded` and
+      // tripped the original `BoxConstraints forces an infinite height` +
+      // `sliver_multi_box_adaptor … child.hasSize` + 3× null-check chain
+      // (frameworkErrors=5). Wrapping the Row in IntrinsicHeight gives the
+      // sliver child a finite cross-axis budget and clears all five errors.
       return FadeTransition(
         opacity: a,
-        child: Row(
+        child: IntrinsicHeight(
+          child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
@@ -459,6 +469,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ],
+        ),
         ),
       );
     },
