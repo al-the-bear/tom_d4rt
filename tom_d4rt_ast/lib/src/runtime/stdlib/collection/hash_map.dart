@@ -6,6 +6,7 @@ class HashMapCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: HashMap,
         name: 'HashMap',
+        isAssignable: (v) => v is HashMap,
         typeParameterCount: 2,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

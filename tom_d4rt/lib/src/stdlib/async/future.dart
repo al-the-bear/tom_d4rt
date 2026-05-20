@@ -238,6 +238,7 @@ class TimeoutExceptionAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: TimeoutException,
         name: 'TimeoutException',
+        isAssignable: (v) => v is TimeoutException,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final message = positionalArgs.get<String?>(0);

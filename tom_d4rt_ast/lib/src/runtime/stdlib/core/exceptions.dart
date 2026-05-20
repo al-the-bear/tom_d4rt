@@ -28,6 +28,7 @@ class FormatExceptionCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: FormatException,
         name: 'FormatException',
+        isAssignable: (v) => v is FormatException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

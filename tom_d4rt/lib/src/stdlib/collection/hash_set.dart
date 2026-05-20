@@ -6,6 +6,7 @@ class HashSetCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: HashSet,
         name: 'HashSet',
+        isAssignable: (v) => v is HashSet,
         typeParameterCount: 1,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

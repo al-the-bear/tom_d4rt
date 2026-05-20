@@ -5,6 +5,7 @@ class RandomMath {
   static BridgedClass get definition => BridgedClass(
         nativeType: Random,
         name: 'Random',
+        isAssignable: (v) => v is Random,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

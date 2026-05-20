@@ -5,6 +5,7 @@ class Uint8ClampedListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Uint8ClampedList',
         nativeType: Uint8ClampedList,
+        isAssignable: (v) => v is Uint8ClampedList,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

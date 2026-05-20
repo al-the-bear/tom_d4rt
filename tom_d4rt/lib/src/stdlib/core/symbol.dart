@@ -4,6 +4,7 @@ class SymbolCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Symbol,
         name: 'Symbol',
+        isAssignable: (v) => v is Symbol,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

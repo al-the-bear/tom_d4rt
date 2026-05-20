@@ -5,6 +5,7 @@ class Utf8CodecConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Utf8Codec,
         name: 'Utf8Codec',
+        isAssignable: (v) => v is Utf8Codec,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -51,6 +52,7 @@ class Utf8EncoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Utf8Encoder,
         name: 'Utf8Encoder',
+        isAssignable: (v) => v is Utf8Encoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -107,6 +109,7 @@ class Utf8DecoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Utf8Decoder,
         name: 'Utf8Decoder',
+        isAssignable: (v) => v is Utf8Decoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

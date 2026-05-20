@@ -5,6 +5,7 @@ class Float32ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Float32List',
         nativeType: Float32List,
+        isAssignable: (v) => v is Float32List,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

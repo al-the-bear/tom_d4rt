@@ -5,6 +5,7 @@ class Latin1CodecConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Latin1Codec,
         name: 'Latin1Codec',
+        isAssignable: (v) => v is Latin1Codec,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -45,6 +46,7 @@ class Latin1EncoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Latin1Encoder,
         name: 'Latin1Encoder',
+        isAssignable: (v) => v is Latin1Encoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -99,6 +101,7 @@ class Latin1DecoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Latin1Decoder,
         name: 'Latin1Decoder',
+        isAssignable: (v) => v is Latin1Decoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

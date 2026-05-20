@@ -5,6 +5,7 @@ class Int32ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Int32List',
         nativeType: Int32List,
+        isAssignable: (v) => v is Int32List,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

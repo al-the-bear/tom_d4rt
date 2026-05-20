@@ -490,6 +490,7 @@ class StreamSubscriptionAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: StreamSubscription,
         name: 'StreamSubscription',
+        isAssignable: (v) => v is StreamSubscription,
         typeParameterCount: 1,
         nativeNames: [
           '_ControllerSubscription',
@@ -661,6 +662,7 @@ class StreamIteratorAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: StreamIterator,
         name: 'StreamIterator',
+        isAssignable: (v) => v is StreamIterator,
         typeParameterCount: 1,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -687,6 +689,7 @@ class MultiStreamControllerAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: MultiStreamController,
         name: 'MultiStreamController',
+        isAssignable: (v) => v is MultiStreamController,
         typeParameterCount: 1,
         constructors: {},
         methods: {

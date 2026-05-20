@@ -7,6 +7,7 @@ class IOSinkIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: IOSink,
         name: 'IOSink',
+        isAssignable: (v) => v is IOSink,
         typeParameterCount: 0,
         nativeNames: ['_StdSink'],
         methods: {

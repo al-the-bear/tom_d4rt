@@ -4,6 +4,7 @@ class StringCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: String,
         name: 'String',
+        isAssignable: (v) => v is String,
         typeParameterCount: 0,
         staticMethods: {
           'fromCharCode': (visitor, positionalArgs, namedArgs, _) {

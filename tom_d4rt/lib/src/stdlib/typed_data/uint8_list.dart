@@ -17,6 +17,7 @@ class Uint8ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Uint8List',
         nativeType: Uint8List,
+        isAssignable: (v) => v is Uint8List,
         nativeNames: ['_Uint8ArrayView'],
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

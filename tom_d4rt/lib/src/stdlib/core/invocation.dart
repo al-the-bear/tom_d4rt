@@ -5,6 +5,7 @@ class InvocationCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Invocation,
         name: 'Invocation',
+        isAssignable: (v) => v is Invocation,
         typeParameterCount: 0,
         constructors: {
           // Invocation has factory constructors, no public default constructor

@@ -4,6 +4,7 @@ class StringBufferCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: StringBuffer,
         name: 'StringBuffer',
+        isAssignable: (v) => v is StringBuffer,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

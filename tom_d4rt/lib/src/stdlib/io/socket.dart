@@ -19,6 +19,7 @@ class SocketIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Socket,
         name: 'Socket',
+        isAssignable: (v) => v is Socket,
         typeParameterCount: 0,
         staticMethods: {
           'connect': (visitor, positionalArgs, namedArgs, _) =>
@@ -433,6 +434,7 @@ class SocketOptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: SocketOption,
         name: 'SocketOption',
+        isAssignable: (v) => v is SocketOption,
         typeParameterCount: 0,
         staticGetters: {
           'tcpNoDelay': (visitor) => SocketOption.tcpNoDelay,
@@ -445,6 +447,7 @@ class InternetAddressIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: InternetAddress,
         name: 'InternetAddress',
+        isAssignable: (v) => v is InternetAddress,
         typeParameterCount: 0,
         staticMethods: {
           'lookup': (visitor, positionalArgs, namedArgs, _) {
@@ -533,6 +536,7 @@ class InternetAddressTypeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: InternetAddressType,
         name: 'InternetAddressType',
+        isAssignable: (v) => v is InternetAddressType,
         typeParameterCount: 0,
         methods: {
           'lookup': (visitor, target, positionalArgs, namedArgs, _) {
@@ -560,6 +564,7 @@ class ServerSocketIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ServerSocket,
         name: 'ServerSocket',
+        isAssignable: (v) => v is ServerSocket,
         typeParameterCount: 0,
         methods: {
           'close': (visitor, target, positionalArgs, namedArgs, _) {
@@ -737,6 +742,7 @@ class RawSocketIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawSocket,
         name: 'RawSocket',
+        isAssignable: (v) => v is RawSocket,
         typeParameterCount: 0,
         methods: {
           'available': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -835,6 +841,7 @@ class RawServerSocketIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawServerSocket,
         name: 'RawServerSocket',
+        isAssignable: (v) => v is RawServerSocket,
         typeParameterCount: 0,
         methods: {
           'listen': (visitor, target, positionalArgs, namedArgs, _) {
@@ -886,6 +893,7 @@ class SocketDirectionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: SocketDirection,
         name: 'SocketDirection',
+        isAssignable: (v) => v is SocketDirection,
         typeParameterCount: 0,
         staticGetters: {
           'receive': (visitor) => SocketDirection.receive,
@@ -900,6 +908,7 @@ class RawSocketOptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawSocketOption,
         name: 'RawSocketOption',
+        isAssignable: (v) => v is RawSocketOption,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -939,6 +948,7 @@ class RawSocketEventIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawSocketEvent,
         name: 'RawSocketEvent',
+        isAssignable: (v) => v is RawSocketEvent,
         typeParameterCount: 0,
         staticGetters: {
           'read': (visitor) => RawSocketEvent.read,
@@ -954,6 +964,7 @@ class SocketExceptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: SocketException,
         name: 'SocketException',
+        isAssignable: (v) => v is SocketException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -986,6 +997,7 @@ class ConnectionTaskIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ConnectionTask,
         name: 'ConnectionTask',
+        isAssignable: (v) => v is ConnectionTask,
         typeParameterCount: 1,
         methods: {
           'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -1002,6 +1014,7 @@ class DatagramIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Datagram,
         name: 'Datagram',
+        isAssignable: (v) => v is Datagram,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -1024,6 +1037,7 @@ class RawDatagramSocketIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawDatagramSocket,
         name: 'RawDatagramSocket',
+        isAssignable: (v) => v is RawDatagramSocket,
         typeParameterCount: 0,
         methods: {
           'receive': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -1121,6 +1135,7 @@ class NetworkInterfaceIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: NetworkInterface,
         name: 'NetworkInterface',
+        isAssignable: (v) => v is NetworkInterface,
         typeParameterCount: 0,
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) =>

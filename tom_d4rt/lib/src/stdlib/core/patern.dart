@@ -31,6 +31,7 @@ class MatchCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Match,
         name: 'Match',
+        isAssignable: (v) => v is Match,
         typeParameterCount: 0,
         constructors: {},
         methods: {

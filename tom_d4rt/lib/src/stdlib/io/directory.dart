@@ -6,6 +6,7 @@ class DirectoryIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Directory,
         name: 'Directory',
+        isAssignable: (v) => v is Directory,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

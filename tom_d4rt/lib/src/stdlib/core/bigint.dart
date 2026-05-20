@@ -4,6 +4,7 @@ class BigIntCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: BigInt,
         name: 'BigInt',
+        isAssignable: (v) => v is BigInt,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {

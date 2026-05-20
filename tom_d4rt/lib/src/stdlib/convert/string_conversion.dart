@@ -5,6 +5,7 @@ class StringConversionConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: StringConversionSink,
         name: 'StringConversionSink',
+        isAssignable: (v) => v is StringConversionSink,
         typeParameterCount: 0,
         staticMethods: {
           'withCallback': (visitor, positionalArgs, namedArgs, _) {

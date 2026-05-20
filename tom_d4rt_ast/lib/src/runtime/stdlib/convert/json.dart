@@ -5,6 +5,7 @@ class JsonCodecConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: JsonCodec,
         name: 'JsonCodec',
+        isAssignable: (v) => v is JsonCodec,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -61,6 +62,7 @@ class JsonEncoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: JsonEncoder,
         name: 'JsonEncoder',
+        isAssignable: (v) => v is JsonEncoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -117,6 +119,7 @@ class JsonDecoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: JsonDecoder,
         name: 'JsonDecoder',
+        isAssignable: (v) => v is JsonDecoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

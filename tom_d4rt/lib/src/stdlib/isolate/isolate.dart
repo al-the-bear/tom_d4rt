@@ -8,6 +8,7 @@ class IsolateSpawnExceptionIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: IsolateSpawnException,
         name: 'IsolateSpawnException',
+        isAssignable: (v) => v is IsolateSpawnException,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final message = positionalArgs[0] as String;
@@ -37,6 +38,7 @@ class IsolateIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: Isolate,
         name: 'Isolate',
+        isAssignable: (v) => v is Isolate,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final controlPort = positionalArgs[0] as SendPort;
@@ -212,6 +214,7 @@ class SendPortIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: SendPort,
         name: 'SendPort',
+        isAssignable: (v) => v is SendPort,
         methods: {
           'send': (visitor, target, positionalArgs, namedArgs, _) {
             final message = positionalArgs[0];
@@ -231,6 +234,7 @@ class ReceivePortIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: ReceivePort,
         name: 'ReceivePort',
+        isAssignable: (v) => v is ReceivePort,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final debugName = positionalArgs.get<String>(0) ?? '';
@@ -310,6 +314,7 @@ class RawReceivePortIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: RawReceivePort,
         name: 'RawReceivePort',
+        isAssignable: (v) => v is RawReceivePort,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final handler = positionalArgs.get<InterpretedFunction?>(0);
@@ -359,6 +364,7 @@ class RemoteErrorIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: RemoteError,
         name: 'RemoteError',
+        isAssignable: (v) => v is RemoteError,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             final description = positionalArgs[0] as String;
@@ -386,6 +392,7 @@ class TransferableTypedDataIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: TransferableTypedData,
         name: 'TransferableTypedData',
+        isAssignable: (v) => v is TransferableTypedData,
         constructors: {
           'fromList': (visitor, positionalArgs, namedArgs) {
             final list = positionalArgs[0];

@@ -5,6 +5,7 @@ class UriCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Uri,
         name: 'Uri',
+        isAssignable: (v) => v is Uri,
         typeParameterCount: 0,
         nativeNames: ['_SimpleUri'],
         constructors: {

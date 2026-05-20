@@ -4,6 +4,7 @@ class IntCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: int,
         name: 'int',
+        isAssignable: (v) => v is int,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {

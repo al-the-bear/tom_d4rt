@@ -4,6 +4,7 @@ class DoubleCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: double,
         name: 'double',
+        isAssignable: (v) => v is double,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {

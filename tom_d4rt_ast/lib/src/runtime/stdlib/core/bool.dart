@@ -4,6 +4,7 @@ class BoolCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: bool,
         name: 'bool',
+        isAssignable: (v) => v is bool,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {

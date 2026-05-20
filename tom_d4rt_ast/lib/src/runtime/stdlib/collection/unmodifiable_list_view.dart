@@ -5,6 +5,7 @@ class UnmodifiableListViewCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: UnmodifiableListView,
         name: 'UnmodifiableListView',
+        isAssignable: (v) => v is UnmodifiableListView,
         typeParameterCount: 1,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

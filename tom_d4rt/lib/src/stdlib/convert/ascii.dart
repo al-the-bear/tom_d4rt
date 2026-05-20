@@ -5,6 +5,7 @@ class AsciiCodecConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: AsciiCodec,
         name: 'AsciiCodec',
+        isAssignable: (v) => v is AsciiCodec,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -55,6 +56,7 @@ class AsciiEncoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: AsciiEncoder,
         name: 'AsciiEncoder',
+        isAssignable: (v) => v is AsciiEncoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -117,6 +119,7 @@ class AsciiDecoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: AsciiDecoder,
         name: 'AsciiDecoder',
+        isAssignable: (v) => v is AsciiDecoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

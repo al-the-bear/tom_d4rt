@@ -4,6 +4,7 @@ class DurationCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Duration,
         name: 'Duration',
+        isAssignable: (v) => v is Duration,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

@@ -5,6 +5,7 @@ class FileSystemEntityIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileSystemEntity,
         name: 'FileSystemEntity',
+        isAssignable: (v) => v is FileSystemEntity,
         typeParameterCount: 0,
         staticMethods: {
           'identical': (visitor, positionalArgs, namedArgs, _) {
@@ -165,6 +166,7 @@ class FileStatIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileStat,
         name: 'FileStat',
+        isAssignable: (v) => v is FileStat,
         typeParameterCount: 0,
         constructors: {
           // FileStat is typically obtained from stat() operations
@@ -207,6 +209,7 @@ class FileSystemEntityTypeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileSystemEntityType,
         name: 'FileSystemEntityType',
+        isAssignable: (v) => v is FileSystemEntityType,
         typeParameterCount: 0,
         constructors: {},
         methods: {
@@ -229,6 +232,7 @@ class FileSystemEventIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileSystemEvent,
         name: 'FileSystemEvent',
+        isAssignable: (v) => v is FileSystemEvent,
         typeParameterCount: 0,
         constructors: {},
         staticGetters: {

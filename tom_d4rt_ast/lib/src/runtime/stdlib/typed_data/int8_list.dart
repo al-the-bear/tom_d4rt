@@ -5,6 +5,7 @@ class Int8ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Int8List',
         nativeType: Int8List,
+        isAssignable: (v) => v is Int8List,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

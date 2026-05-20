@@ -5,6 +5,7 @@ class PointMath {
   static BridgedClass get definition => BridgedClass(
         nativeType: Point,
         name: 'Point',
+        isAssignable: (v) => v is Point,
         typeParameterCount: 1, // Point<T extends num>
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

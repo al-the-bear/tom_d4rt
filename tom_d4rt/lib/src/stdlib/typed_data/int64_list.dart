@@ -5,6 +5,7 @@ class Int64ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Int64List',
         nativeType: Int64List,
+        isAssignable: (v) => v is Int64List,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

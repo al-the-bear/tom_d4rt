@@ -5,6 +5,7 @@ class LineSplitterConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: LineSplitter,
         name: 'LineSplitter',
+        isAssignable: (v) => v is LineSplitter,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

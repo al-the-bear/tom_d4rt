@@ -5,6 +5,7 @@ class LinkedHashMapCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: LinkedHashMap,
         name: 'LinkedHashMap',
+        isAssignable: (v) => v is LinkedHashMap,
         typeParameterCount: 2,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

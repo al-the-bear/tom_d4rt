@@ -5,6 +5,7 @@ class RectangleMath {
   static BridgedClass get definition => BridgedClass(
         nativeType: Rectangle,
         name: 'Rectangle',
+        isAssignable: (v) => v is Rectangle,
         typeParameterCount: 1, // Rectangle<T extends num>
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

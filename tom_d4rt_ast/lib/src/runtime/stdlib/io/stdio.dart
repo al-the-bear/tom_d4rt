@@ -6,6 +6,7 @@ class StdinIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Stdin,
         name: 'Stdin',
+        isAssignable: (v) => v is Stdin,
         typeParameterCount: 0,
         methods: {
           'readLineSync': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -52,6 +53,7 @@ class StdoutIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Stdout,
         name: 'Stdout',
+        isAssignable: (v) => v is Stdout,
         typeParameterCount: 0,
         constructors: {},
         methods: {
@@ -143,6 +145,7 @@ class StdioTypeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: StdioType,
         name: 'StdioType',
+        isAssignable: (v) => v is StdioType,
         typeParameterCount: 0,
         getters: {
           'terminal': (visitor, target) => StdioType.terminal,

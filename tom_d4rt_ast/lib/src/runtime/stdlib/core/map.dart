@@ -4,6 +4,7 @@ class MapCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Map,
     name: 'Map',
+    isAssignable: (v) => v is Map,
     typeParameterCount: 2,
     nativeNames: [
       'UnmodifiableMapView',
@@ -219,6 +220,7 @@ class MapEntryCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: MapEntry,
     name: 'MapEntry',
+    isAssignable: (v) => v is MapEntry,
     typeParameterCount: 2,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {

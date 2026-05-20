@@ -6,6 +6,7 @@ class PlatformIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Platform,
         name: 'Platform',
+        isAssignable: (v) => v is Platform,
         typeParameterCount: 0,
         staticGetters: {
           'numberOfProcessors': (visitor) {

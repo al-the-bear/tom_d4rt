@@ -5,6 +5,7 @@ class EndianTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Endian',
         nativeType: Endian,
+        isAssignable: (v) => v is Endian,
         typeParameterCount: 0,
         constructors: {},
         staticGetters: {

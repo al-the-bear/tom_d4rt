@@ -4,6 +4,7 @@ class DateTimeCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: DateTime,
         name: 'DateTime',
+        isAssignable: (v) => v is DateTime,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

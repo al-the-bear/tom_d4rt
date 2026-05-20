@@ -5,6 +5,7 @@ class SplayTreeMapCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: SplayTreeMap,
         name: 'SplayTreeMap',
+        isAssignable: (v) => v is SplayTreeMap,
         typeParameterCount: 2,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

@@ -5,6 +5,7 @@ class QueueCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: Queue,
         name: 'Queue',
+        isAssignable: (v) => v is Queue,
         typeParameterCount: 1,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

@@ -9,6 +9,7 @@ class FileModeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileMode,
         name: 'FileMode',
+        isAssignable: (v) => v is FileMode,
         typeParameterCount: 0,
         staticGetters: {
           'read': (visitor) => FileMode.read,
@@ -25,6 +26,7 @@ class FileLockIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileLock,
         name: 'FileLock',
+        isAssignable: (v) => v is FileLock,
         typeParameterCount: 0,
         staticGetters: {
           'shared': (visitor) => FileLock.shared,
@@ -40,6 +42,7 @@ class RandomAccessFileIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: RandomAccessFile,
         name: 'RandomAccessFile',
+        isAssignable: (v) => v is RandomAccessFile,
         typeParameterCount: 0,
         methods: {
           'close': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -238,6 +241,7 @@ class FileSystemExceptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileSystemException,
         name: 'FileSystemException',
+        isAssignable: (v) => v is FileSystemException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -272,6 +276,7 @@ class PathAccessExceptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: PathAccessException,
         name: 'PathAccessException',
+        isAssignable: (v) => v is PathAccessException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -306,6 +311,7 @@ class PathExistsExceptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: PathExistsException,
         name: 'PathExistsException',
+        isAssignable: (v) => v is PathExistsException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -340,6 +346,7 @@ class PathNotFoundExceptionIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: PathNotFoundException,
         name: 'PathNotFoundException',
+        isAssignable: (v) => v is PathNotFoundException,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -374,6 +381,7 @@ class PipeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Pipe,
         name: 'Pipe',
+        isAssignable: (v) => v is Pipe,
         typeParameterCount: 0,
         staticMethods: {
           'create': (visitor, positionalArgs, namedArgs, _) => Pipe.create(),
@@ -391,6 +399,7 @@ class FileIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: File,
         name: 'File',
+        isAssignable: (v) => v is File,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

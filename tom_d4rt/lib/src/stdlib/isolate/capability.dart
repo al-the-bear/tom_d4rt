@@ -5,6 +5,7 @@ class CapabilityIsolate {
   static BridgedClass get definition => BridgedClass(
         nativeType: Capability,
         name: 'Capability',
+        isAssignable: (v) => v is Capability,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             return Capability();

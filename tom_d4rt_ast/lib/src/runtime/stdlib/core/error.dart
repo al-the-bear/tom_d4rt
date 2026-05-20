@@ -32,6 +32,7 @@ class StateErrorCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: StateError,
         name: 'StateError',
+        isAssignable: (v) => v is StateError,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -57,6 +58,7 @@ class ArgumentErrorCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: ArgumentError,
         name: 'ArgumentError',
+        isAssignable: (v) => v is ArgumentError,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -94,6 +96,7 @@ class RangeErrorCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: RangeError,
         name: 'RangeError',
+        isAssignable: (v) => v is RangeError,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -137,6 +140,7 @@ class UnsupportedErrorCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: UnsupportedError,
         name: 'UnsupportedError',
+        isAssignable: (v) => v is UnsupportedError,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -162,6 +166,7 @@ class UnimplementedErrorCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: UnimplementedError,
         name: 'UnimplementedError',
+        isAssignable: (v) => v is UnimplementedError,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

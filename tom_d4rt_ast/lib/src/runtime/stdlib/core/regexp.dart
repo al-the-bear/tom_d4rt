@@ -4,6 +4,7 @@ class RegExpCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: RegExp,
         name: 'RegExp',
+        isAssignable: (v) => v is RegExp,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -74,6 +75,7 @@ class RegExpMatchCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: RegExpMatch,
         name: 'RegExpMatch',
+        isAssignable: (v) => v is RegExpMatch,
         typeParameterCount: 0,
         constructors: {},
         methods: {

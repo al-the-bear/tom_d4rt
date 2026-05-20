@@ -5,6 +5,7 @@ class Base64CodecConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Base64Codec,
         name: 'Base64Codec',
+        isAssignable: (v) => v is Base64Codec,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -72,6 +73,7 @@ class Base64EncoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Base64Encoder,
         name: 'Base64Encoder',
+        isAssignable: (v) => v is Base64Encoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -141,6 +143,7 @@ class Base64DecoderConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: Base64Decoder,
         name: 'Base64Decoder',
+        isAssignable: (v) => v is Base64Decoder,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

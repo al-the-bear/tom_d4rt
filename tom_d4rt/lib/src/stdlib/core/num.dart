@@ -4,6 +4,7 @@ class NumCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: num,
         name: 'num',
+        isAssignable: (v) => v is num,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {

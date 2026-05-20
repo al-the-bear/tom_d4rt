@@ -15,6 +15,7 @@ class StreamControllerAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: StreamController,
         name: 'StreamController',
+        isAssignable: (v) => v is StreamController,
         typeParameterCount: 1,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

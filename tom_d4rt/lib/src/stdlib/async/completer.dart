@@ -5,6 +5,7 @@ class CompleterAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Completer,
         name: 'Completer',
+        isAssignable: (v) => v is Completer,
         typeParameterCount: 1, // Completer<T>
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

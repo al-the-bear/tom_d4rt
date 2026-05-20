@@ -8,6 +8,7 @@ class ProcessIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Process,
         name: 'Process',
+        isAssignable: (v) => v is Process,
         typeParameterCount: 0,
         staticMethods: {
           'start': (visitor, positionalArgs, namedArgs, _) {
@@ -183,6 +184,7 @@ class ProcessResultIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ProcessResult,
         name: 'ProcessResult',
+        isAssignable: (v) => v is ProcessResult,
         typeParameterCount: 0,
         getters: {
           'exitCode': (visitor, target) => (target as ProcessResult).exitCode,
@@ -198,6 +200,7 @@ class ProcessSignalIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ProcessSignal,
         name: 'ProcessSignal',
+        isAssignable: (v) => v is ProcessSignal,
         typeParameterCount: 0,
         staticGetters: {
           'sighup': (visitor) => ProcessSignal.sighup,
@@ -250,6 +253,7 @@ class ProcessStartModeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ProcessStartMode,
         name: 'ProcessStartMode',
+        isAssignable: (v) => v is ProcessStartMode,
         typeParameterCount: 0,
         staticGetters: {
           'normal': (visitor) => ProcessStartMode.normal,

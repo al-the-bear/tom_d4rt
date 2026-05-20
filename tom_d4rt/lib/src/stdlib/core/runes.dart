@@ -4,6 +4,7 @@ class RunesCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Runes,
         name: 'Runes',
+        isAssignable: (v) => v is Runes,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

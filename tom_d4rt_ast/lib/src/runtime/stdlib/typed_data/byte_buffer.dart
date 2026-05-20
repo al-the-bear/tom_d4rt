@@ -5,6 +5,7 @@ class ByteBufferTypedData {
   static BridgedClass get definition => BridgedClass(
     name: 'ByteBuffer',
     nativeType: ByteBuffer,
+    isAssignable: (v) => v is ByteBuffer,
     typeParameterCount: 0,
     constructors: {},
     methods: {

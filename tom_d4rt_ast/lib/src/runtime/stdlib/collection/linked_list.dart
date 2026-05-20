@@ -5,6 +5,7 @@ class LinkedListCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: LinkedList,
         name: 'LinkedList',
+        isAssignable: (v) => v is LinkedList,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -120,6 +121,7 @@ class LinkedListEntryCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: BridgedLinkedListEntry,
         name: 'LinkedListEntry',
+        isAssignable: (v) => v is BridgedLinkedListEntry,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

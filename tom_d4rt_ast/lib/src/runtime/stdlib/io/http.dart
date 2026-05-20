@@ -7,6 +7,7 @@ class HttpClientIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpClient,
         name: 'HttpClient',
+        isAssignable: (v) => v is HttpClient,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -332,6 +333,7 @@ class HttpServerIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpServer,
         name: 'HttpServer',
+        isAssignable: (v) => v is HttpServer,
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
@@ -440,6 +442,7 @@ class HttpClientRequestIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpClientRequest,
         name: 'HttpClientRequest',
+        isAssignable: (v) => v is HttpClientRequest,
         typeParameterCount: 0,
         constructors: {},
         methods: {
@@ -561,6 +564,7 @@ class HttpClientResponseIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpClientResponse,
         name: 'HttpClientResponse',
+        isAssignable: (v) => v is HttpClientResponse,
         typeParameterCount: 0,
         constructors: {},
         methods: {
@@ -632,6 +636,7 @@ class HttpHeadersIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpHeaders,
         name: 'HttpHeaders',
+        isAssignable: (v) => v is HttpHeaders,
         typeParameterCount: 0,
         constructors: {},
         staticGetters: {
@@ -788,6 +793,7 @@ class ContentTypeIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: ContentType,
         name: 'ContentType',
+        isAssignable: (v) => v is ContentType,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -841,6 +847,7 @@ class CookieIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Cookie,
         name: 'Cookie',
+        isAssignable: (v) => v is Cookie,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -923,6 +930,7 @@ class HeaderValueIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HeaderValue,
         name: 'HeaderValue',
+        isAssignable: (v) => v is HeaderValue,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

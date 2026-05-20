@@ -5,6 +5,7 @@ class HtmlEscapeConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: HtmlEscape,
         name: 'HtmlEscape',
+        isAssignable: (v) => v is HtmlEscape,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
@@ -63,6 +64,7 @@ class HtmlEscapeConvert {
   static BridgedClass get modeDefinition => BridgedClass(
         nativeType: HtmlEscapeMode,
         name: 'HtmlEscapeMode',
+        isAssignable: (v) => v is HtmlEscapeMode,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

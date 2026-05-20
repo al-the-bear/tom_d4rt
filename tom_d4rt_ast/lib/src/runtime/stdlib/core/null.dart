@@ -4,6 +4,8 @@ class NullCore {
   static BridgedClass get definition => BridgedClass(
         nativeType: Null,
         name: 'Null',
+        // ignore: type_check_with_null
+        isAssignable: (v) => v == null,
         typeParameterCount: 0,
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
