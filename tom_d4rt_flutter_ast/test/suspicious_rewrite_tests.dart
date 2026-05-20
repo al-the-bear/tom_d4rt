@@ -5074,4 +5074,65 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch35_short_tests2_demos_b5/', () {
+    test('cupertino/datepicker_modes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/datepicker_modes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/table_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/table_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_themes_batch3_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_themes_batch3_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/callback_handle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/callback_handle_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/input_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/input_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/statefulwidget_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/statefulwidget_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/widgets/render_nested_scroll_view_viewport_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/render_nested_scroll_view_viewport_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/border_test.dart', () async {
+      final result = await SendTestRunner.send('painting/border_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/animatable_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/animatable_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

@@ -66,15 +66,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  34 | `material/mergeable_test.dart` | 9,365 | 320 | (x) | (x) | (x) |
 |  35 | `material/togglebuttons_test.dart` | 9,421 | 300 | (x) | (x) | (x) |
 |  36 | `material/material_widget_test.dart` | 9,468 | 360 | (x) | (x) | (x) |
-|  37 | `cupertino/datepicker_modes_test.dart` | 9,471 | 259 | ( ) | ( ) | ( ) |
-|  38 | `widgets/table_test.dart` | 9,515 | 290 | ( ) | ( ) | ( ) |
-|  39 | `cupertino/cupertino_themes_batch3_test.dart` | 9,516 | 261 | ( ) | ( ) | ( ) |
-|  40 | `dart_ui/callback_handle_test.dart` | 9,650 | 339 | ( ) | ( ) | ( ) |
-|  41 | `material/input_themes_test.dart` | 9,671 | 249 | ( ) | ( ) | ( ) |
-|  42 | `widgets/statefulwidget_test.dart` | 9,762 | 318 | ( ) | ( ) | ( ) |
-|  43 | `retest/widgets/render_nested_scroll_view_viewport_test.dart` | 10,006 | 238 | ( ) | ( ) | ( ) |
-|  44 | `painting/border_test.dart` | 10,103 | 314 | ( ) | ( ) | ( ) |
-|  45 | `animation/animatable_test.dart` | 10,116 | 321 | ( ) | ( ) | ( ) |
+|  37 | `cupertino/datepicker_modes_test.dart` | 9,471 | 259 | (x) | (x) | (x) |
+|  38 | `widgets/table_test.dart` | 9,515 | 290 | (x) | (x) | (x) |
+|  39 | `cupertino/cupertino_themes_batch3_test.dart` | 9,516 | 261 | (x) | (x) | (x) |
+|  40 | `dart_ui/callback_handle_test.dart` | 9,650 | 339 | (x) | (x) | (x) |
+|  41 | `material/input_themes_test.dart` | 9,671 | 249 | (x) | (x) | (x) |
+|  42 | `widgets/statefulwidget_test.dart` | 9,762 | 318 | (x) | (x) | (x) |
+|  43 | `retest/widgets/render_nested_scroll_view_viewport_test.dart` | 10,006 | 238 | (x) | (x) | (x) |
+|  44 | `painting/border_test.dart` | 10,103 | 314 | (x) | (x) | (x) |
+|  45 | `animation/animatable_test.dart` | 10,116 | 321 | (x) | (x) | (x) |
 |  46 | `widgets/constrainedbox_test.dart` | 10,145 | 312 | ( ) | ( ) | ( ) |
 |  47 | `painting/edgeinsets_test.dart` | 10,437 | 315 | ( ) | ( ) | ( ) |
 |  48 | `material/divider_test.dart` | 10,668 | 346 | ( ) | ( ) | ( ) |
