@@ -583,8 +583,29 @@ dynamic build(BuildContext context) {
       ),
     );
   }
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #107, P14):
+  // The original script wrapped each Table in
+  //   `border: TableBorder.all(color: brassEdge, width: 0.6)` (and `oxblood`
+  // for pitfallTable). That triggers a Flutter framework assertion:
+  //   'package:flutter/src/rendering/table_border.dart' line 289:
+  //   'rows.isEmpty || (rows.first >= 0.0 && rows.last <= rect.height)' is
+  //   not true.
+  // RenderTable.paint passes `borderRect = Rect.fromLTWH(.., _rowTops.last)`
+  // and `rows = _rowTops.getRange(1, length-1)` to TableBorder.paint —
+  // mathematically `rows.last <= rect.height` is always satisfied for
+  // monotonically non-decreasing `_rowTops`, yet the assertion fires here
+  // for *every* Table that has `border: TableBorder.all(...)` regardless of
+  // row count / column widths (verified by bisect: removing only the
+  // `border:` parameter from all seven Table calls drops the count from
+  // `frameworkErrors=1` to `0`). Workaround: drop the `border:` parameter
+  // on all seven Tables (`paletteTable`, `enumTable`, `smartTable`,
+  // `pitfallTable`, `glossaryTable`, `comparisonTable`, `cheatTable`). The
+  // visual loses the interior brass dividers between rows / columns, but
+  // each table remains framed by `cardShell`'s outer
+  // `Border.all(color: brassEdge, width: 1.2)`, so the bordered-card look
+  // is preserved. See `doc/interpreter_unfixable.md` for a deeper
+  // explanation.
   final Widget paletteTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.0),
       1: FlexColumnWidth(1.4),
@@ -667,7 +688,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget enumTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.0),
       1: FlexColumnWidth(3.0),
@@ -965,7 +985,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget smartTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.4),
       1: FlexColumnWidth(2.6),
@@ -1499,7 +1518,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget pitfallTable = Table(
-    border: TableBorder.all(color: oxblood, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.4),
       1: FlexColumnWidth(4.0),
@@ -1604,7 +1622,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget glossaryTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.0),
       1: FlexColumnWidth(5.0),
@@ -1729,7 +1746,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget comparisonTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(1.6),
       1: FlexColumnWidth(2.4),
@@ -1924,7 +1940,6 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget cheatTable = Table(
-    border: TableBorder.all(color: brassEdge, width: 0.6),
     columnWidths: {
       0: FlexColumnWidth(2.0),
       1: FlexColumnWidth(5.0),

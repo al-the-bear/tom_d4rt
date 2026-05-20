@@ -5563,8 +5563,150 @@ not match the per-span boundaries the painter expects.
 
 ---
 
+## U20 — `Table(border: TableBorder.all(...))` triggers a Flutter framework assertion in `table_border.dart` line 289 regardless of row count / column widths (bridge/framework interaction gap)
+
+### What triggers it
+
+Any `Table` widget that is given a `TableBorder.all(...)` (or
+any non-`null` `TableBorder` whose `horizontalInside` and
+`verticalInside` sides have non-`BorderStyle.none`) reaches
+`TableBorder.paint(canvas, rect, rows: …, columns: …)` via
+`RenderTable.paint` (see
+`/srv/flutter/flutter/packages/flutter/lib/src/rendering/table.dart`
+line 1515) and the very first assertion at line 289 of
+`table_border.dart` fires:
+
+```
+'package:flutter/src/rendering/table_border.dart':
+Failed assertion: line 289 pos 12:
+'rows.isEmpty || (rows.first >= 0.0 && rows.last <= rect.height)':
+is not true.
+```
+
+`RenderTable.paint` constructs `borderRect = Rect.fromLTWH(dx,
+dy, _tableWidth, _rowTops.last)` and passes
+`rows = _rowTops.getRange(1, _rowTops.length - 1)` — so
+`rect.height == _rowTops.last` and
+`rows.last == _rowTops[length-2]`. Because `_rowTops` is built
+by `rowTop += rowHeight` where every `rowHeight` is computed
+via `math.max(rowHeight, child.size.height)` (always ≥ 0),
+`_rowTops` is mathematically non-decreasing and the assertion's
+right-hand inequality `rows.last <= rect.height` is provably
+satisfied. The left-hand inequality `rows.first >= 0.0` is also
+provably satisfied: `_rowTops[0] = 0` and `_rowTops[1] = first
+row height ≥ 0`. So the assertion should never fire — yet it
+*does* fire here, for *every* Table that carries a non-empty
+`TableBorder`, regardless of column widths
+(`FlexColumnWidth`, `IntrinsicColumnWidth`, fixed widths all
+behave the same), row decoration, or cell content.
+
+Bisect (item 107 of
+`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`):
+removing only the `border: TableBorder.all(...)` parameter
+from all seven Tables in
+`widgets/editable_text_misc_test.dart` drops `frameworkErrors`
+from `1` to `0`. Reintroducing it (even on a single Table)
+brings the assertion back. The seven Tables are independent
+(different column counts, different row counts, different
+column widths, different decorations) and *all* trigger the
+same assertion — confirming the trigger is the
+`TableBorder`-attached paint path itself, not any single
+table's geometry.
+
+The underlying cause is not yet pinned down. Possibilities:
+
+1. **A Flutter 3.41.6 framework issue** — the assertion could
+   fire under some FP / iteration ordering subtlety that the
+   monotonic-invariant proof above misses. The assertion is
+   short and the invariant looks airtight, so this is the
+   least likely explanation.
+
+2. **A bridge-side mismatch in how `_rowTops` is populated** —
+   the most plausible explanation. The `Table` and
+   `TableBorder` constructors are bridged through `D4` (see
+   `lib/src/bridges/widgets_bridges.b.dart` line 87898 ff. and
+   `lib/src/bridges/rendering_bridges.b.dart` line 93745 ff.)
+   and the bridge code itself looks correct. But the
+   *layout* path runs against the native `RenderTable`, and if
+   `RenderTable` (or one of the cells) is invoked with
+   constraints that produce a row with `size.height` infected
+   by a stray non-finite value (NaN, infinity, slightly
+   negative due to a child widget bridged through a relaxer),
+   `_rowTops` could become non-monotonic in a way the
+   monotonic-invariant proof does not catch. The script does
+   not feed obvious infinity / NaN values to any cell — every
+   cell is `Padding(EdgeInsets.all(6.0), child: Text(...))` —
+   so if this is the explanation the offending value is being
+   produced inside a bridged code path, not by the script.
+
+3. **A subtle widget-shape issue in d4rt-bridged `TableRow`s**
+   — if the `children:` list reaching `RenderTable` somehow
+   becomes a 1-D flat view rather than a 2-D shape with rows
+   and columns, the cell-to-row binding could be off-by-one
+   and a phantom zero-height row could appear at the end.
+   Again, the bridge code at `_createTableRowBridge` /
+   `_createTableBridge` looks correct, but the layout-time
+   behaviour is what matters.
+
+### Affected scripts
+
+| Script | Sites | Notes |
+|--------|-------|-------|
+| `widgets/editable_text_misc_test.dart` | Seven `Table(border: TableBorder.all(...))` calls (`paletteTable`, `enumTable`, `smartTable`, `pitfallTable`, `glossaryTable`, `comparisonTable`, `cheatTable`). Six use `brassEdge` at width `0.6`, one (`pitfallTable`) uses `oxblood` at width `0.6`. | Item 107 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-20 by dropping the `border:` parameter from all seven Tables; each Table remains framed by `cardShell`'s outer `Border.all(color: brassEdge, width: 1.2)`, so the bordered-card look is preserved at the cost of the interior brass grid lines. Verified `frameworkErrors=0 status=success` (was 1; Flutter dedupes the seven assertion banners to one). |
+
+### What a real fix would look like
+
+A real fix requires diagnosing why `RenderTable._rowTops`
+violates `rows.last <= rect.height` in the d4rt-bridged
+context when the same invariant holds by construction in
+native Flutter. Likely starting points:
+
+1. Instrument `RenderTable.performLayout` at the
+   `rowTop += rowHeight` line to log every `rowHeight` value
+   when laid out from a d4rt-bridged `Table` build, and
+   compare against the native equivalent. Look for stray
+   non-finite values entering `_rowTops`.
+
+2. Audit the `Table` / `TableRow` bridges in
+   `lib/src/bridges/widgets_bridges.b.dart` for any
+   `List<TableRow>` / `Map<int, TableColumnWidth>` coercion
+   that could produce a list with an off-by-one shape or a
+   mutable shared instance.
+
+3. Compare the `Table` widget output from a bridged
+   constructor call vs. a hand-built native `Table` with the
+   same children — diff `_rowTops`, `_columnLefts`, and
+   `size` at paint time.
+
+Until the underlying cause is identified, the script-side
+workaround (drop `border:`, rely on the parent
+`Container(decoration: BoxDecoration(border: Border.all(...)))`
+for the outer frame) is the safe path.
+
+---
+
 ## Change Log
 
+- 2026-05-20: **Add U20** — `Table(border: TableBorder.all(...))`
+  triggers a Flutter framework assertion in
+  `table_border.dart` line 289 (`'rows.isEmpty || (rows.first
+  >= 0.0 && rows.last <= rect.height)'`) regardless of row
+  count, column widths, or row decoration. Mathematically the
+  assertion's invariant is satisfied by construction of
+  `RenderTable._rowTops` (monotonically non-decreasing because
+  every `rowHeight` is `math.max(0, child.size.height)`), yet
+  the assertion *does* fire for every `Table` in
+  `widgets/editable_text_misc_test.dart` (item 107) that
+  carries a non-empty `TableBorder` — bisect confirmed by
+  removing only the `border:` parameter from all seven Tables
+  (drops `frameworkErrors` from 1 to 0). Underlying cause not
+  yet pinned down; most plausible explanation is a
+  bridge-side issue that infects `_rowTops` with a stray
+  non-finite or out-of-order value during `RenderTable`
+  layout. Item 107 fixed script-side 2026-05-20 by dropping
+  the `border:` parameter from all seven Tables; outer frame
+  preserved by the enclosing `cardShell`'s
+  `Border.all(color: brassEdge, width: 1.2)`.
 - 2026-05-20: **Add U19** — `services/text_editing_delta_non_text_update_test.dart`
   per-character `TextSpan` stream of Japanese hiragana inside
   `_frozenFrame` (the splits-text-by-character helper used to
