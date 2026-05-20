@@ -18,7 +18,7 @@ class SudokuApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
         ),
       ),
-      home: const SudokuHome(),
+      home: SudokuHome(),
     );
   }
 }
