@@ -960,8 +960,15 @@ class _DebugPaintPainter extends CustomPainter {
 
 // 3.3 baselines visualization
 Widget _baselinesVisual() {
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #74, P11):
+  // The original `height: 110.0` left only 110 − 2*8 (Container padding)
+  // − 2*18 (inner Padding) = 58 px for the inner Column. The two Text
+  // children (fontSize 22 + SizedBox 12 + fontSize 18, with leading)
+  // measure ~69 px → 11 px bottom overflow. Drop the explicit height so
+  // Container self-sizes to its Stack content; CustomPaint via
+  // Positioned.fill still paints over the actual area, and the baseline
+  // guides at y=38/78 remain inside the resulting ~120-px Stack.
   return Container(
-    height: 110.0,
     padding: EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       color: Colors.deepOrange.shade50,
