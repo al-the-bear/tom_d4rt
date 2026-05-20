@@ -1895,26 +1895,47 @@ dynamic build(BuildContext context) {
   print('Sextant Indigo -- TextSelectionToolbarLayoutDelegate done.');
   print('=========================================================');
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #136, P2)
+  // ---------------------------------------------------------------------------
+  // Baseline frameworkErrors=1: a RenderFlex overflowed by 8799 pixels on the
+  // bottom. The composite page is a 12-section anatomy of
+  // TextSelectionToolbarLayoutDelegate stacked vertically (s1..s12 + a 24 px
+  // tail spacer). The intrinsic height of that stack vastly exceeds any
+  // realistic viewport, so the un-scrolled root Column overflowed by ~8.8 k px.
+  //
+  // The plan listed this as P1+P2, but grep across the file confirms that no
+  // `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` site exists — the
+  // only `CrossAxisAlignment.stretch` match is on the page-root Column itself,
+  // whose cross axis is width and is bounded by the outer indigo Container.
+  // P1 (IntrinsicHeight wrap) therefore does not materialise; the fix reduces
+  // to a P2-only page-root SingleChildScrollView wrap (same pattern as items
+  // 104, 105, 120, 133).
+  //
+  // The indigo `Container(color: kSextantIndigo)` stays outside the SCV so the
+  // indigo backdrop continues to fill the entire viewport rather than just the
+  // scrolled content region. No outer padding to relocate.
   return Container(
     color: kSextantIndigo,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        s1,
-        s2,
-        s3,
-        s4,
-        s5,
-        s6,
-        s7,
-        s8,
-        s9,
-        s10,
-        s11,
-        s12,
-        const SizedBox(height: 24),
-      ],
+    child: SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          s1,
+          s2,
+          s3,
+          s4,
+          s5,
+          s6,
+          s7,
+          s8,
+          s9,
+          s10,
+          s11,
+          s12,
+          const SizedBox(height: 24),
+        ],
+      ),
     ),
   );
 }
