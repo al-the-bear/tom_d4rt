@@ -14,15 +14,19 @@ class SudokuKeypad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // List.generate isolates each `n` in its own callback parameter scope so
+    // the onTap closure captures a distinct value per button — see board.dart
+    // for the same workaround applied to the cell grid.
+    final children = List<Widget>.generate(9, (i) {
+      final n = i + 1;
+      return _KeyButton(label: '$n', onTap: () => onNumber(n));
+    });
+    children.add(_KeyButton(label: '×', onTap: onErase, isErase: true));
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 6,
       runSpacing: 6,
-      children: [
-        for (var n = 1; n <= 9; n++)
-          _KeyButton(label: '$n', onTap: () => onNumber(n)),
-        _KeyButton(label: '×', onTap: onErase, isErase: true),
-      ],
+      children: children,
     );
   }
 }

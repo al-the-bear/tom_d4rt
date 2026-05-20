@@ -31,29 +31,32 @@ class SudokuBoard extends StatelessWidget {
           border: Border.all(width: 2, color: Colors.black),
           color: Colors.white,
         ),
+        // List.generate gives each callback its own row/col parameter scope,
+        // so per-cell closures capture distinct r/c values. A plain
+        // `for (var r = 0; ...)` inside a collection literal would share one
+        // r across all closures under the d4rt interpreter, making every
+        // cell tap fire with the post-loop value of r (9 — out of range).
         child: Column(
-          children: [
-            for (var r = 0; r < 9; r++)
-              Expanded(
-                child: Row(
-                  children: [
-                    for (var c = 0; c < 9; c++)
-                      Expanded(
-                        child: _Cell(
-                          row: r,
-                          col: c,
-                          value: values[r][c],
-                          given: given[r][c],
-                          selected: selRow == r && selCol == c,
-                          highlighted: _isHighlighted(r, c),
-                          conflict: hasConflict(values, r, c),
-                          onTap: () => onSelect(r, c),
-                        ),
-                      ),
-                  ],
-                ),
+          children: List.generate(9, (r) {
+            return Expanded(
+              child: Row(
+                children: List.generate(9, (c) {
+                  return Expanded(
+                    child: _Cell(
+                      row: r,
+                      col: c,
+                      value: values[r][c],
+                      given: given[r][c],
+                      selected: selRow == r && selCol == c,
+                      highlighted: _isHighlighted(r, c),
+                      conflict: hasConflict(values, r, c),
+                      onTap: () => onSelect(r, c),
+                    ),
+                  );
+                }),
               ),
-          ],
+            );
+          }),
         ),
       ),
     );
