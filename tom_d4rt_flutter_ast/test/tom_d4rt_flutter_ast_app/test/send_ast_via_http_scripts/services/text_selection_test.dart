@@ -713,10 +713,23 @@ Widget buildAffinitySection() {
           style: kCardBodyStyle,
         ),
         const SizedBox(height: 14),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            affinitySideCard(
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #100, P1):
+        // Page root is `Scaffold > SafeArea > SingleChildScrollView > Center >
+        // ConstrainedBox(maxWidth: 880) > Column(stretch) > sections`, so the
+        // Row below sits in an unbounded-height ancestor chain. Its
+        // `crossAxisAlignment: CrossAxisAlignment.stretch` + the two
+        // `affinitySideCard(...)` children (each `Expanded(panelContainer(...))`)
+        // would propagate `BoxConstraints(h=Infinity)` down to the
+        // `RenderConstrainedBox` inside `panelContainer`, tripping
+        // "BoxConstraints forces an infinite height." (baseline frameworkErrors=1).
+        // Wrap the Row in `IntrinsicHeight` so the cross axis bounds to the
+        // taller of the two affinity cards — preserves the side-by-side
+        // equal-height comparison the section is designed to teach.
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              affinitySideCard(
                 'upstream',
                 'The caret sticks to the END of the preceding visual line. '
                     'Useful for "I just typed the last character of the '
@@ -739,7 +752,8 @@ Widget buildAffinitySection() {
                     ")",
                 kAccentAmber,
                 TextAffinity.downstream),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: 14),
         const Text(
