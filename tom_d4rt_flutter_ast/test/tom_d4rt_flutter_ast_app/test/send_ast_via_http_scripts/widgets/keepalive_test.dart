@@ -8,6 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+// D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #118, P11):
+// `KeepAlive` is a ParentDataWidget. Flutter asserts "Incorrect use of
+// ParentDataWidget." unless it is placed *directly* under a sliver that
+// supports `RenderSliverWithKeepAliveMixin` (e.g. `SliverList`/
+// `SliverGrid`). The illustrative call sites in this demo render
+// `KeepAlive(...)` inside ordinary box widgets to *show* the API shape
+// — the script itself acknowledges (Section "Practical sandboxes")
+// that these snippets are pedagogical and have no runtime effect
+// outside a sliver. The assertion still fires at build time though.
+// Route each illustrative usage through `_illustrativeKeepAlive` so
+// the call shape (`keepAlive: true|false, child: ...`) stays
+// identical to a real `KeepAlive(...)` invocation, while skipping
+// the ParentDataWidget machinery. Real KeepAlive usage inside slivers
+// would *not* go through this stub.
+Widget _illustrativeKeepAlive({required bool keepAlive, required Widget child}) =>
+    child;
+
 dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────────────────
   //  Palette — "Living Embers" theme
@@ -879,7 +896,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: SizedBox(
                     height: 96,
-                    child: KeepAlive(
+                    child: _illustrativeKeepAlive(
                       keepAlive: true,
                       child: Container(
                         decoration: BoxDecoration(
@@ -919,7 +936,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: SizedBox(
                     height: 96,
-                    child: KeepAlive(
+                    child: _illustrativeKeepAlive(
                       keepAlive: false,
                       child: Container(
                         decoration: BoxDecoration(
@@ -1868,7 +1885,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: SizedBox(
               height: 110,
-              child: KeepAlive(
+              child: _illustrativeKeepAlive(
                 keepAlive: true,
                 child: Container(
                   decoration: BoxDecoration(
@@ -1912,7 +1929,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: SizedBox(
               height: 110,
-              child: KeepAlive(
+              child: _illustrativeKeepAlive(
                 keepAlive: false,
                 child: Container(
                   decoration: BoxDecoration(
@@ -1957,7 +1974,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: SizedBox(
               height: 90,
-              child: KeepAlive(
+              child: _illustrativeKeepAlive(
                 keepAlive: true,
                 child: Container(
                   padding: const EdgeInsets.all(8),
@@ -1996,7 +2013,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: SizedBox(
               height: 90,
-              child: KeepAlive(
+              child: _illustrativeKeepAlive(
                 keepAlive: true,
                 child: Container(
                   padding: const EdgeInsets.all(8),
@@ -2035,7 +2052,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: SizedBox(
               height: 90,
-              child: KeepAlive(
+              child: _illustrativeKeepAlive(
                 keepAlive: false,
                 child: Container(
                   padding: const EdgeInsets.all(8),
