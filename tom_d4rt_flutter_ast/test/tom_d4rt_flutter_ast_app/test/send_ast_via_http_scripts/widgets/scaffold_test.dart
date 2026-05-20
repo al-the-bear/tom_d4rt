@@ -845,9 +845,25 @@ class _LoginBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #129, P2 nested-Column
+    // variant): _Section3LoginRecipe wraps this body in a bounded
+    // Container(height: 460) > Scaffold(appBar: 48, body: _LoginBody,
+    // persistentFooterButtons: [...]). The Scaffold reserves vertical room
+    // for the appBar (48) and footer buttons (~50), leaving ~360 px for
+    // the body. _LoginBody intrinsically sizes logo(64) + sb22 + field(48)
+    // + sb12 + field(48) + sb22 + button(42) + sb12 + button(40) + sb18 +
+    // termsText ≈ 410 px — 50 px above budget. Page-root is already
+    // SCV(NeverScrollable), so the canonical page-root P2 doesn't apply.
+    // Wrap the inner Column in SingleChildScrollView(NeverScrollable) so
+    // the Column sees unbounded vertical space; the bounded Scaffold body
+    // region still sizes to ~360 px, RenderViewport's default
+    // Clip.hardEdge keeps any sub-pixel overflow inside the mock phone
+    // frame visual.
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-      child: Column(
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
           _LoginLogo(),
@@ -867,6 +883,7 @@ class _LoginBody extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }
@@ -1673,10 +1690,24 @@ class _SettingsList extends StatelessWidget {
   const _SettingsList();
   @override
   Widget build(BuildContext context) {
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #129, P2 nested-Column
+    // variant): Section 6 wraps this list in a bounded Container(height:
+    // 520) > Column(min) > [_MockAppBar (~56), Expanded(_SettingsList)].
+    // Expanded gives _SettingsList ~464 px, but the inner Column packs 3
+    // SectionLabels + 7 SettingsRows ≈ 576 px (~112 px above budget).
+    // Page-root is already SCV(NeverScrollable), so the canonical page-
+    // root P2 doesn't apply. Wrap the inner Column in
+    // SingleChildScrollView(NeverScrollable) so the Column sees
+    // unbounded vertical space; the bounded Expanded still sizes the
+    // list to ~464 px, RenderViewport's default Clip.hardEdge clips any
+    // overflow at the bottom of the mock phone frame — matching the
+    // intent ("appBar + ListView body" — a ListView clips naturally too).
     return Container(
       color: _kPaper,
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
         children: const <Widget>[
           _SectionLabel(text: "ACCOUNT"),
           _SettingsRow(
@@ -1717,6 +1748,7 @@ class _SettingsList extends StatelessWidget {
               subtitle: "Version 4.2.0",
               tone: _kInkMuted),
         ],
+      ),
       ),
     );
   }
