@@ -13,6 +13,17 @@ class ResultBanner extends StatelessWidget {
   final int oWins;
   final int draws;
 
+  /// Monotonic per-game-state counter used to give the AnimatedSwitcher
+  /// child a unique key per setState — without this, alternating
+  /// "X's turn" / "O's turn" headlines re-use the same key while the
+  /// previous 250 ms reverse-transition is still in flight, which
+  /// makes the AnimatedSwitcher's internal Stack hold two entries
+  /// with the same key and trip
+  /// `debugChildrenHaveDuplicateKeys`. Including the turn number in
+  /// the key ensures every entry the switcher tracks is uniquely
+  /// identified.
+  final int turn;
+
   const ResultBanner({
     super.key,
     required this.currentPlayer,
@@ -21,6 +32,7 @@ class ResultBanner extends StatelessWidget {
     required this.xWins,
     required this.oWins,
     required this.draws,
+    required this.turn,
   });
 
   @override
@@ -43,22 +55,17 @@ class ResultBanner extends StatelessWidget {
 
     return Column(
       children: [
-        // Plain `Text` rather than wrapping in `AnimatedSwitcher`:
-        // when the banner's child is repeatedly swapped via a
-        // user-State `setState` rebuild, tom_d4rt's bridged
-        // `AnimatedSwitcher` accumulates outgoing children in its
-        // inner Stack and trips a "Duplicate keys" assertion (4+
-        // tickers, same-keyed wrapped Text instances). The cell's
-        // AnimatedSwitcher works fine because it transitions on
-        // each cell *independently*, not via a shared headline
-        // key. Logged in
-        // `tom_d4rt_flutter_ast/doc/interpreter_issues.md` for the
-        // interpreter fix; the sample uses plain Text for now.
-        Text(
-          headline,
-          style: theme.textTheme.headlineMedium?.copyWith(
-            color: headlineColor,
-            fontWeight: FontWeight.w800,
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          child: Text(
+            headline,
+            // turn-scoped key so each setState transition gets a unique
+            // identifier (see field doc above).
+            key: ValueKey('$turn:$headline'),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: headlineColor,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         const SizedBox(height: 12),

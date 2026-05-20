@@ -117,20 +117,51 @@ in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`:
 
 ---
 
-### 2. [ ] `stopwatch_laps` — running-clock with lap history
+### 2. [x] `stopwatch_laps` — running-clock with lap history
 
-A digital stopwatch counting at 10 ms resolution, Start / Stop /
+A digital stopwatch counting at 50 ms resolution, Start / Stop /
 Reset buttons, plus a Lap button that appends to a scrolling
-`ListView`. The current elapsed time pulses (`AnimationController`)
-while running.
+`ListView` with FAST / SLOW chips on the best / worst split.
+The running indicator dot animates in/out via `AnimatedContainer`
+(implicit animation — no continuous-frame `AnimationController`
+because the d4rt interpreter can't keep up with a `repeat()` at
+60 fps).
 
 **Exercises:** `Timer.periodic` keeping millisecond state,
-`AnimationController` for the pulse, `ListView.builder` for laps,
-formatted `Duration.toString`. Buttons disable/enable based on
-running state.
+`DateTime.now()` deltas across pauses, `ListView.builder` for
+laps, `AnimatedContainer` for the indicator pulse, formatted
+elapsed/split times, buttons enabled by state.
 
-**Files:** `main.dart`, `home.dart`, `stopwatch_engine.dart`,
-`time_display.dart`, `lap_list.dart`.
+**Files:** `main.dart`, `app.dart`, `home.dart` (state + Scaffold),
+`time_display.dart`, `format.dart`, `lap.dart`, `lap_list.dart`.
+
+**Shipped:** two tester cases in `sample_apps_in_tester_test.dart`
+— "Start → wait → Stop accumulates elapsed time" pumps simulated
+time via repeated `tester.pump(60ms)` so the FakeTimer fires and
+the elapsed display advances; "Lap button appends entries" +
+Reset clears them.
+
+Found and fixed three d4rt interpreter bugs along the way (all
+documented in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`):
+
+- **GEN-113** — `ValueKey('foo')` resolved to `ValueKey<dynamic>`
+  instead of inferring `T` from the argument's runtime type. The
+  custom factory in `d4rt_runtime_registrations.dart`'s `_`
+  wildcard returned `ValueKey(value)` unconditionally, masking
+  the runtime-value-aware factories underneath. Wildcard now
+  returns `null` to fall through.
+- **GEN-114** — Timer bridge had no `isAssignable` callback, so
+  `FakeTimer` (flutter_test's `runAsync` clock) failed every
+  method lookup. Added `isAssignable: (v) => v is Timer` to the
+  Timer bridge in d4rt's stdlib.
+- (Performance note, not a bug.) A `AnimationController.repeat()`
+  whose listener calls `setState(() {})` at 60 fps creates more
+  work than the script interpreter can do in real time, locking
+  the test runner. Use `AnimatedContainer` /
+  `AnimatedSwitcher` for implicit animations in script samples
+  instead of `addListener`-driven explicit ticks; the framework
+  amortises those across one transition rather than per-frame
+  interpretation.
 
 ---
 

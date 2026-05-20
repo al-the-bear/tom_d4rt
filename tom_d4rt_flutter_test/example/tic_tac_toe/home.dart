@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-//
 // Game state + screen layout.
 //
 // Pattern check: this is the canonical "script-defined StatefulWidget +
@@ -31,12 +29,17 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
   int _xWins = 0;
   int _oWins = 0;
   int _draws = 0;
+  // Monotonic counter incremented on every state change. Used as part
+  // of the ResultBanner's AnimatedSwitcher child key so that two
+  // consecutive "X's turn" headlines (separated by an "O's turn"
+  // mid-animation) don't collide on the same key inside the
+  // switcher's outgoing-entries Stack.
+  int _turn = 0;
   late final AnimationController _lineController;
 
   @override
   void initState() {
     super.initState();
-    print('[tictactoe] initState');
     _lineController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 520),
@@ -52,11 +55,10 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
   // ── Game logic ────────────────────────────────────────────────────
 
   void _handleTap(int index) {
-    print('[tictactoe] tap cell=$index player=$_currentPlayer '
-        'cellWas=${_cells[index]} winLine=$_winLine');
     if (_winLine != null) return; // Round already decided.
     if (_cells[index] != null) return; // Cell already taken.
     setState(() {
+      _turn = _turn + 1;
       _cells[index] = _currentPlayer;
       final detected = _findWinner();
       if (detected != null) {
@@ -66,12 +68,9 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
         } else {
           _oWins = _oWins + 1;
         }
-        print('[tictactoe] WINNER ${detected.winner} '
-            'kind=${detected.kind} idx=${detected.index}');
         _lineController.forward(from: 0.0);
       } else if (_isFull()) {
         _draws = _draws + 1;
-        print('[tictactoe] DRAW');
       } else {
         _currentPlayer = _currentPlayer == 'X' ? 'O' : 'X';
       }
@@ -120,8 +119,8 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
   }
 
   void _newRound() {
-    print('[tictactoe] new round (X=$_xWins O=$_oWins D=$_draws)');
     setState(() {
+      _turn = _turn + 1;
       _cells = List<String?>.filled(9, null);
       _currentPlayer = 'X';
       _winLine = null;
@@ -130,8 +129,8 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
   }
 
   void _resetScores() {
-    print('[tictactoe] reset scores');
     setState(() {
+      _turn = _turn + 1;
       _cells = List<String?>.filled(9, null);
       _currentPlayer = 'X';
       _winLine = null;
@@ -146,8 +145,6 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
 
   @override
   Widget build(BuildContext context) {
-    print('[tictactoe] home.build current=$_currentPlayer '
-        'winLine=$_winLine');
     final gameOver = _winLine != null || _isFull();
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
@@ -177,6 +174,7 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
                     xWins: _xWins,
                     oWins: _oWins,
                     draws: _draws,
+                    turn: _turn,
                   ),
                   const SizedBox(height: 20),
                   AspectRatio(

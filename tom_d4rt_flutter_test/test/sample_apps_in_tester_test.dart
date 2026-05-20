@@ -197,6 +197,94 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group('stopwatch_laps (example #2 — Timer.periodic + AnimationController + ListView)',
+      () {
+    testWidgets('Start → wait → Stop accumulates elapsed time',
+        (tester) async {
+      tester.view.physicalSize = const Size(800, 1200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'stopwatch_laps');
+
+        // Initial state — paused, 00:00.00, no laps.
+        expect(find.text('00:00.00'), findsOneWidget);
+        expect(find.text('paused'), findsOneWidget);
+        expect(find.text('No laps yet — tap "Lap" while running.'),
+            findsOneWidget);
+
+        // Start.
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pump();
+        expect(find.text('running'), findsOneWidget,
+            reason: 'After Start, the status should read "running".');
+
+        // Advance simulated time by ~500 ms via repeated pumps. The
+        // Timer.periodic that the stopwatch installs is a FakeTimer
+        // under `flutter_test`'s simulated clock — `runAsync` would
+        // not fire it; we have to pump frames to advance the fake
+        // clock. 10 × 60 ms covers a few centiseconds in the
+        // displayed format and is plenty for `findsNothing` on the
+        // zeroed display.
+        for (var i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 60));
+        }
+
+        // Stop.
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        expect(find.text('paused'), findsOneWidget);
+        expect(find.text('00:00.00'), findsNothing,
+            reason: 'Elapsed should have advanced past zero.');
+      });
+    });
+
+    testWidgets('Lap button appends entries to the history',
+        (tester) async {
+      tester.view.physicalSize = const Size(800, 1200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'stopwatch_laps');
+
+        // Start running.
+        await tester.tap(find.byKey(const ValueKey<String>('toggle')));
+        await tester.pump();
+
+        // Capture three laps separated by simulated 120 ms intervals.
+        // Each tap also pumps so the Lap entry mounts cleanly.
+        for (var i = 0; i < 3; i++) {
+          for (var j = 0; j < 2; j++) {
+            await tester.pump(const Duration(milliseconds: 60));
+          }
+          await tester.tap(find.text('Lap'));
+          await tester.pump();
+        }
+
+        // Three lap-index pills (1, 2, 3) should now be in the list.
+        expect(find.text('1'), findsOneWidget,
+            reason: 'Lap #1 should appear in the history.');
+        expect(find.text('2'), findsOneWidget);
+        expect(find.text('3'), findsOneWidget);
+
+        // The "no laps yet" hint must be gone.
+        expect(find.text('No laps yet — tap "Lap" while running.'),
+            findsNothing);
+
+        // Reset clears everything.
+        await tester.tap(find.byIcon(Icons.restart_alt));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+        expect(find.text('00:00.00'), findsOneWidget);
+        expect(find.text('No laps yet — tap "Lap" while running.'),
+            findsOneWidget);
+      });
+    });
+  });
+
   group('tic_tac_toe (example #1 — AnimationController + AnimatedSwitcher + CustomPainter)',
       () {
     testWidgets('X plays a top-row win → headline + scoreboard update',
@@ -214,9 +302,15 @@ class _CounterState extends State<Counter> {
             reason: 'Initial banner should show X to move.');
 
         // Play out X-win on the top row: X@0, O@3, X@1, O@4, X@2.
+        //
+        // `pumpAndSettle` between taps so the AnimatedSwitcher's 250ms
+        // headline transition completes before the next assertion —
+        // mid-transition the tree briefly contains both the outgoing
+        // ("X's turn") and incoming ("O's turn") Text, so a naked
+        // `find.text(...)` would otherwise return two widgets.
         Future<void> tapCell(int n) async {
           await tester.tap(find.byKey(ValueKey('cell-$n')));
-          await tester.pump(const Duration(milliseconds: 50));
+          await tester.pumpAndSettle(const Duration(milliseconds: 600));
         }
 
         await tapCell(0); // X
@@ -269,13 +363,108 @@ class _CounterState extends State<Counter> {
         final taps = [0, 1, 2, 4, 3, 5, 7, 6, 8];
         for (final n in taps) {
           await tester.tap(find.byKey(ValueKey('cell-$n')));
-          await tester.pump(const Duration(milliseconds: 50));
+          await tester.pumpAndSettle(const Duration(milliseconds: 600));
         }
         await tester.pumpAndSettle(const Duration(seconds: 1));
 
         expect(find.text('Draw'), findsOneWidget,
             reason: 'All 9 cells filled with no 3-in-a-row should '
                 'land on Draw.');
+      });
+    });
+  });
+
+  group('diagnostics — AnimatedSwitcher across user-State setState', () {
+    testWidgets('headline swap does NOT trip duplicate-keys',
+        (tester) async {
+      // Minimal reproducer: a script-defined StatefulWidget whose
+      // build returns a Scaffold with an AnimatedSwitcher whose child
+      // is a Text keyed by the current value. Two FAB taps should
+      // swap the headline twice — Flutter should *not* assert
+      // "Duplicate keys found".
+      await _runInZone(() async {
+        const source = '''
+import 'package:flutter/material.dart';
+
+Widget build(BuildContext context) {
+  return MaterialApp(home: const Demo());
+}
+
+class Demo extends StatefulWidget {
+  const Demo({super.key});
+  @override
+  State<Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<Demo> {
+  int n = 0;
+  String get label => n.isEven ? 'even' : 'odd';
+  @override
+  Widget build(BuildContext context) {
+    print('demo.build n=\$n label=\$label');
+    return Scaffold(
+      body: Center(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 80),
+          child: Text(label, key: ValueKey<String>(label)),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() { n = n + 1; }),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+''';
+        await tester.pumpWidget(
+            _InlineSourceHost(d4rt: _d4rt, source: source));
+
+        expect(find.text('even'), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text('odd'), findsOneWidget,
+            reason: 'After 1 tap the headline should be "odd".');
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text('even'), findsOneWidget,
+            reason: 'After 2 taps the headline should be "even" again.');
+      });
+    });
+  });
+
+  group('diagnostics — type inference for generic constructors', () {
+    testWidgets('ValueKey("foo") should produce ValueKey<String>',
+        (tester) async {
+      await _runInZone(() async {
+        const source = '''
+import 'package:flutter/material.dart';
+
+Widget build(BuildContext context) {
+  final implicit = ValueKey('foo');
+  final explicit = ValueKey<String>('foo');
+  print('implicit ValueKey rt=\${implicit.runtimeType}');
+  print('explicit ValueKey rt=\${explicit.runtimeType}');
+  print('implicit == explicit ? \${implicit == explicit}');
+  return MaterialApp(home: Container());
+}
+''';
+        await tester.pumpWidget(
+            _InlineSourceHost(d4rt: _d4rt, source: source));
+
+        final implicitLine = _printLog.firstWhere(
+            (l) => l.startsWith('implicit ValueKey rt='),
+            orElse: () => '');
+        final explicitLine = _printLog.firstWhere(
+            (l) => l.startsWith('explicit ValueKey rt='),
+            orElse: () => '');
+        // ignore: avoid_print
+        print('TEST observed: $implicitLine / $explicitLine');
+        expect(implicitLine, contains('ValueKey<String>'),
+            reason: 'd4rt should infer the type argument from the '
+                "String literal so `ValueKey('foo') is ValueKey<String>`. "
+                'If it reports `ValueKey<Object?>` or `<dynamic>`, the '
+                'generic-constructor type inference is broken.');
       });
     });
   });

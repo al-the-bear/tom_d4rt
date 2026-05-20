@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-//
 // Tappable cell that renders the current mark (X / O) with a
 // fade + scale entrance via `AnimatedSwitcher`. Empty cells render as
 // SizedBox.shrink and accept taps; filled cells suppress taps.
@@ -31,23 +29,13 @@ class TicTacToeCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('[tictactoe.cell] build id=$id value=$value enabled=$enabled');
     final scheme = Theme.of(context).colorScheme;
     return InkWell(
       // Key lives on the native InkWell (a bridged widget) so that
       // host-side `find.byKey` can locate it. A `super.key` on the
       // script-defined StatelessWidget would only be visible on the
       // d4rt proxy element, not on a native finder.
-      //
-      // Explicit `<String>`: the tom_d4rt analyzer pass currently does
-      // not propagate the argument's static type into the generic
-      // constructor invocation, so `ValueKey('cell-$id')` (no type
-      // arg) would resolve to `ValueKey<dynamic>` and fail to match
-      // `find.byKey(const ValueKey<String>('cell-0'))` on the host
-      // side (Dart's `ValueKey.==` rejects different runtime types).
-      // Tracked as a future interpreter cluster — until then, always
-      // type ValueKey explicitly when the host needs to find by key.
-      key: ValueKey<String>('cell-$id'),
+      key: ValueKey('cell-$id'),
       onTap: enabled ? onTap : null,
       child: Padding(
         padding: const EdgeInsets.all(14),

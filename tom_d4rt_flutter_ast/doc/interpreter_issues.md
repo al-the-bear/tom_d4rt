@@ -3499,7 +3499,109 @@ inline.
 
 ---
 
-### [ ] Open (fixable) — generic-constructor type inference doesn't propagate argument's static type; `ValueKey(value)` resolves to `ValueKey<dynamic>`
+### [X] Fixed (GEN-114) — Timer bridge missing `isAssignable`, so `FakeTimer` (flutter_test's `WidgetTester.runAsync` clock) failed every method lookup
+
+**Resolution:** Added `isAssignable: (v) => v is Timer` to the
+`Timer` bridge in `tom_d4rt/lib/src/stdlib/async/timer.dart` (and
+mirrored in `tom_d4rt_ast/lib/src/runtime/stdlib/async/timer.dart`).
+Without that callback, `Environment.toBridgedInstance`'s
+isAssignable-iteration skips the Timer bridge entirely, so any
+Timer subclass (notably `FakeTimer` used by `WidgetTester`) goes
+unrouted. The direct-type lookup (`runtimeType ==`) doesn't match
+either because the FakeTimer's runtime type isn't `Timer`. The
+method dispatch then falls through to the "Undefined property or
+method" terminal at `visitMethodInvocation:3663`.
+
+**Coverage:** the `stopwatch_laps` sample (example #2 in
+`tom_d4rt_flutter_test/doc/example_app_plan.md`) calls
+`Timer.periodic(...)` on Start and `_ticker?.cancel()` on Stop;
+the tester case advances the FakeTimer via repeated
+`tester.pump(d)` and verifies the displayed elapsed time
+accumulates. Before the fix, the Stop tap threw
+`Undefined property or method 'cancel' on FakeTimer`.
+
+**Symptom (was)**
+
+```
+══╡ EXCEPTION CAUGHT BY GESTURE ╞════════════════════════════════
+The following RuntimeD4rtException was thrown while handling a gesture:
+Runtime Error: Undefined property or method 'cancel' on FakeTimer.
+#0   InterpreterVisitor.visitMethodInvocation (.../interpreter_visitor.dart:3663)
+…
+```
+
+Same shape would have appeared for any other `Timer` method
+(`isActive`, `tick`, …) called from a script when the underlying
+instance came out of `flutter_test`'s fake-async machinery.
+
+**Lesson — bridge audit needed**
+
+A bridge without `isAssignable` only matches when the value's
+`runtimeType` *exactly* equals `nativeType`. Any time the runtime
+substitutes a private/proxy subclass (test fakes, generated
+delegates, `*Impl` types) the bridge becomes invisible and every
+method call on the value fails. Worth a pass through the rest
+of the stdlib + Flutter bridges to add
+`isAssignable: (v) => v is X` wherever a bridge wraps a class
+that has known subclasses (any class with `_Foo`, `Fake*`, or
+`*Impl` siblings).
+
+---
+
+### [X] Fixed (GEN-113) — generic-constructor type inference: `ValueKey(value)` resolved to `ValueKey<dynamic>` instead of inferring T from the argument's runtime type
+
+**Resolution:** The custom `ValueKey<T>` generic-constructor factory
+in `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`
+(and its mirror in `tom_d4rt_flutter_ast/`) was chained ahead of
+the runtime-value-aware factories (`_rc2ValueKey` → default bridge
+ctor in `foundation_bridges.b.dart`'s `_createValueKeyBridge`). Its
+`switch (typeName)` had two explicit cases (`'String'`, `'int'`)
+followed by a wildcard that returned `ValueKey(value)` —
+unconditionally producing `ValueKey<dynamic>` whenever the script
+omitted an explicit `<T>`. Because the factory chain stops at the
+first non-null return, the runtime-value-aware factories were
+never consulted.
+
+Changed the wildcard from `_ => ValueKey(value)` to `_ => null`,
+so a no-explicit-type call now falls through to `_rc2ValueKey`
+(which also returns null on null `typeArgs`) and ultimately to
+the default bridge constructor's switch on `value.runtimeType`,
+which correctly returns `ValueKey<String>(value)` for a String
+input. Mirrored into `tom_d4rt_flutter_ast`.
+
+**Coverage:** New `sample_apps_in_tester_test.dart` group
+"diagnostics — type inference for generic constructors" exercises
+`ValueKey('foo')` vs `ValueKey<String>('foo')` and asserts both
+produce the same runtimeType (`ValueKey<String>`) and compare
+`==`. Also indirectly verified by tic_tac_toe's
+`find.byKey(ValueKey('cell-0'))` (host side, no explicit `<T>`)
+finding the in-tree InkWell whose key the script set as
+`ValueKey('cell-$id')`.
+
+**Symptom (was)**
+
+A script call like `ValueKey('cell-$id')` produced
+`ValueKey<dynamic>` (printed as `ValueKey<Object?>`), so
+`find.byKey(ValueKey<String>('cell-0'))` on the host side
+returned `findsNothing` even though the InkWell carried a
+cell-0-valued key — `ValueKey.operator==` rejects different
+runtime type parameters.
+
+Additionally, this masked itself as a secondary
+"AnimatedSwitcher duplicate-keyed children" symptom: two
+consecutive script-built `Text(key: ValueKey(...))` widgets
+ended up with `ValueKey<dynamic>` keys that compared unequal in
+ways AnimatedSwitcher's child-swap machinery didn't anticipate,
+piling up outgoing-entries in its inner Stack. With GEN-113 the
+keys are uniformly typed and that secondary symptom is gone.
+
+(The *real* "duplicate keys in AnimatedSwitcher" hazard remains
+when scripts re-use the same logical key across rebuilds faster
+than the transition completes — that is normal Flutter
+behaviour and is documented in the
+`tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`
+header: include a turn counter in the key when the headline can
+cycle through the same value within one animation duration.)
 
 **Discovered:** 2026-05-20, while wiring `WidgetTester` finders for
 the `tic_tac_toe` sample app. The same-shape symptom recurs for any
@@ -3582,87 +3684,6 @@ when the script supplied no explicit type arguments. Mirror in
 Write the type argument explicitly: `ValueKey<String>('foo')`,
 `Set<int>{}`, `Map<String, int>{}`. The interpreter's relaxers
 honour explicit type arguments correctly.
-
----
-
-### [ ] Open (fixable) — `AnimatedSwitcher`'s inner `Stack` accumulates duplicate-keyed children across user-State `setState` rebuilds
-
-**Discovered:** 2026-05-20, while attempting an AnimatedSwitcher
-fade between "X's turn" / "O's turn" headlines in
-`tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`.
-
-**Symptom**
-
-A bridged `AnimatedSwitcher` whose `child` carries a key (here a
-`ValueKey<String>(headline)`) ends up with multiple stale outgoing
-children in its default inner `Stack` after a few user-State
-`setState`-driven rebuilds, then trips Flutter's
-`debugChildrenHaveDuplicateKeys` assertion:
-
-```
-══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞════════════════════════════
-The following assertion was thrown building AnimatedSwitcher
-  (duration: 250ms,
-   state: _AnimatedSwitcherState#…(tickers: tracking 4 tickers)):
-Duplicate keys found.
-…Stack(alignment: Alignment.center, fit: loose) has multiple
-  children with key [<[<[<'X's turn'>]>]>].
-```
-
-"4 tickers" indicates four outgoing transitions are still in
-flight — the AnimatedSwitcher never finished cleaning up earlier
-children, then a new transition with the same wrapped key collided.
-The triple-nested `[<…>]` is the AnimatedSwitcher's auto-generated
-KeyedSubtree-of-KeyedSubtree wrap around the user-provided key.
-
-Reproduced both with `ValueKey(headline)` (i.e.
-`ValueKey<dynamic>` — see the previous entry) and with explicit
-`ValueKey<String>(headline)`, so this is *not* the same root cause
-as the type-inference bug above. The cell's AnimatedSwitcher in the
-same sample works correctly because each cell's switcher has its
-own independent State and a stable identifier per cell.
-
-**Likely area**
-
-The lifecycle of the bridged `AnimatedSwitcher` element when its
-host script `State<T>` rebuilds repeatedly via GEN-112 setState
-routing. Suspects:
-
-- The interpreter's `_InterpretedState.build` (or the
-  bridged-super build adapter) returns a *new* AnimatedSwitcher
-  widget instance each rebuild but Flutter still pairs it with the
-  same Element (correct), while the AnimatedSwitcher's internal
-  cleanup logic (`didUpdateWidget` → mark outgoing children for
-  removal) somehow misses entries — possibly because the bridged
-  `transitionBuilder` returns interpreter wrappers that compare
-  not-equal to the previously-stored wrapper.
-- Alternatively, AnimatedSwitcher's
-  `_AnimatedSwitcherState._newEntry` reuses the supplied child key
-  as the KeyedSubtree key; if two consecutive rebuilds pass
-  semantically-distinct children that nonetheless share an
-  identity-equal key (a `const` ValueKey reused across rebuilds),
-  the assertion fires. Worth checking whether the bridge
-  constructor caches the child argument across calls.
-
-**Workaround (until fixed)**
-
-Drop the AnimatedSwitcher for headlines / single-text crossfade
-sites. Cell-grid use of AnimatedSwitcher — where each
-AnimatedSwitcher lives inside its own widget and transitions on
-its own per-cell key — is unaffected. See the comment block in
-`tom_d4rt_flutter_test/example/tic_tac_toe/result_banner.dart`.
-
-**Verification plan after fix**
-
-1. Restore the AnimatedSwitcher wrapping around the headline
-   `Text` in `result_banner.dart` and re-run the
-   `tic_tac_toe` tester tests — both should pass.
-2. Add a focused script test under
-   `tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/widgets/`
-   that toggles an AnimatedSwitcher's child between two values
-   via setState in a user-defined `State<T>` and asserts the
-   tree contains exactly one keyed Text after each settle.
-3. Re-run essential + important + secondary suites serially.
 
 ---
 
