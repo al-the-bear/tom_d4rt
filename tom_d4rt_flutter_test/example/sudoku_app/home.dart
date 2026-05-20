@@ -16,6 +16,8 @@ class SudokuHome extends StatefulWidget {
 
 class _SudokuHomeState extends State<SudokuHome> {
   int _puzzleIndex = 0;
+  int _buildCount = 0;
+  int _tapCount = 0;
   late List<List<int>> _values;
   late List<List<bool>> _given;
   int? _selRow;
@@ -41,6 +43,7 @@ class _SudokuHomeState extends State<SudokuHome> {
   }
 
   void _select(int row, int col) {
+    _tapCount++;
     setState(() {
       _selRow = row;
       _selCol = col;
@@ -48,6 +51,7 @@ class _SudokuHomeState extends State<SudokuHome> {
   }
 
   void _enter(int value) {
+    _tapCount++;
     final r = _selRow;
     final c = _selCol;
     if (r == null || c == null) return;
@@ -56,6 +60,7 @@ class _SudokuHomeState extends State<SudokuHome> {
   }
 
   void _erase() {
+    _tapCount++;
     final r = _selRow;
     final c = _selCol;
     if (r == null || c == null) return;
@@ -64,15 +69,18 @@ class _SudokuHomeState extends State<SudokuHome> {
   }
 
   void _nextPuzzle() {
+    _tapCount++;
     setState(() => _loadPuzzle((_puzzleIndex + 1) % puzzles.length));
   }
 
   void _resetPuzzle() {
+    _tapCount++;
     setState(() => _loadPuzzle(_puzzleIndex));
   }
 
   @override
   Widget build(BuildContext context) {
+    _buildCount++;
     final solved = isSolved(_values);
     final theme = Theme.of(context);
     return Scaffold(
@@ -100,6 +108,31 @@ class _SudokuHomeState extends State<SudokuHome> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Debug HUD — TEMP. If `taps` increments on every cell/key
+                  // press but `build#` does not, the d4rt bridge for State
+                  // is not marking the interpreted element dirty. If both
+                  // increment but the board doesn't change visually, the
+                  // mutation is going to a different state instance than
+                  // the one read during build().
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    color: Colors.amber.shade100,
+                    child: Text(
+                      '[DEBUG] puzzle=$_puzzleIndex '
+                      'sel=($_selRow,$_selCol) '
+                      'taps=$_tapCount '
+                      'build#$_buildCount',
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
                   SudokuBoard(
                     values: _values,
                     given: _given,
