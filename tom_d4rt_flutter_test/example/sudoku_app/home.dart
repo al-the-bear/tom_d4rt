@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'board.dart';
 import 'keypad.dart';
 import 'puzzles.dart';
+import 'rules.dart';
 
 class SudokuHome extends StatefulWidget {
   const SudokuHome({super.key});
@@ -98,13 +99,12 @@ class _SudokuHomeState extends State<SudokuHome> {
         ],
       ),
       body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 560),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final playArea = ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 560),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SudokuBoard(
                     values: _values,
@@ -128,8 +128,47 @@ class _SudokuHomeState extends State<SudokuHome> {
                   SudokuKeypad(onNumber: _enter, onErase: _erase),
                 ],
               ),
-            ),
-          ),
+            );
+            const rules = SudokuRulesPanel();
+
+            // Wide screens (≥ 880 px): board on the left, rules panel
+            // on the right. Below that, stack them vertically so the
+            // app remains usable in narrow windows.
+            if (constraints.maxWidth >= 880) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(child: playArea),
+                    const SizedBox(width: 24),
+                    Flexible(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 420),
+                        child: rules,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Center(
+                child: Column(
+                  children: [
+                    playArea,
+                    const SizedBox(height: 24),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 560),
+                      child: rules,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

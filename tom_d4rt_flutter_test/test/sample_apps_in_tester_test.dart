@@ -107,23 +107,30 @@ void main() {
       await _runInZone(() async {
         await _mountSample(tester, 'sudoku_app');
 
-        // The first puzzle's row-1 col-3 cell is empty (value 0). Tap
-        // its position by grabbing the GestureDetector. Easier proxy:
-        // tap the digit "5" button after selecting a cell, then look
-        // for the entered "5" via Text. Initial render contains many
-        // "5"s already (the puzzle); use the puzzle-title to verify
-        // mount succeeded and the keypad to verify wiring.
+        // Sample mounted and rules panel rendered alongside the board.
         expect(find.text('Sudoku — puzzle 1'), findsOneWidget);
+        expect(find.text('How to play'), findsOneWidget,
+            reason: 'Rules panel should be rendered to the right of the board.');
+        expect(
+          find.text('Every row contains the digits 1–9 exactly once.'),
+          findsOneWidget,
+        );
 
-        // Verify "Next puzzle" rebuilds the title.
-        await tester.tap(find.byIcon(Icons.skip_next));
+        // Verify "Next puzzle" rebuilds the title. Scope the icon
+        // finder to the AppBar — the rules panel also uses skip_next
+        // in its toolbar bullet.
+        final appBarNext = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.skip_next),
+        );
+        await tester.tap(appBarNext);
         await tester.pumpAndSettle(const Duration(seconds: 1));
         expect(find.text('Sudoku — puzzle 2'), findsOneWidget,
             reason: 'Next-puzzle button should drive a setState '
                 'rebuild updating the AppBar title.');
 
         // And cycling round again.
-        await tester.tap(find.byIcon(Icons.skip_next));
+        await tester.tap(appBarNext);
         await tester.pumpAndSettle(const Duration(seconds: 1));
         expect(find.text('Sudoku — puzzle 1'), findsOneWidget);
       });
