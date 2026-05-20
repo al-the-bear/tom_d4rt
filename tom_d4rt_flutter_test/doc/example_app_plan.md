@@ -277,7 +277,7 @@ existing fixes (GEN-110/112 setState dispatch, GEN-113 explicit
 
 ---
 
-### 6. [ ] `memory_match` — flip-card pair-matching game
+### 6. [x] `memory_match` — flip-card pair-matching game
 
 4×4 / 6×6 grid of face-down cards. Tap reveals; second tap matches
 or hides. Match flow uses `Future.delayed` + `setState`. Each card
@@ -290,6 +290,34 @@ difficulty selector (`SegmentedButton` or `ToggleButtons`).
 
 **Files:** `main.dart`, `home.dart`, `game.dart` (state machine),
 `card_widget.dart`, `score_panel.dart`, `difficulty.dart`.
+
+**Shipped notes (2026-05-20):**
+
+- 6 example files under `example/memory_match/` driven by a 7-case
+  `testWidgets` group in `test/sample_apps_in_tester_test.dart`
+  (boot easy/hard, single flip, mismatch resolve, match resolve,
+  reset mid-game, solve-all-pairs records best).
+- Deterministic seed (`_kShuffleSeed = 4242`) lets tests address
+  matching pairs by pre-computed slot indices.
+- Difficulty selector implemented as an `OutlinedButton` toggle
+  pair (kept off `SegmentedButton` to stay within the existing
+  bridge surface).
+- **Interpreter fix:** generalised the `_prefixedImports` merge in
+  `Environment.importEnvironment` (both `tom_d4rt` and
+  `tom_d4rt_ast` in sync). When two file-level envs each bind the
+  same prefix (e.g. `home.dart` and `card_widget.dart` both doing
+  `import 'dart:math' as math;`), the module loader hands each one
+  a fresh `shallowCopyFiltered` of the imported env. Previously
+  the merge threw `Name conflict in environment: Symbol 'math'
+  (prefixed import) is already defined with a different
+  environment.` Now non-identical collisions are merged
+  (`importEnvironment(env, errorOnConflict: false)`), matching
+  Dart's additive prefix-scope semantics. Not specific to
+  `dart:math` or to Flutter — any multi-file script with same-
+  prefix imports across files benefits.
+- All 33 sample-apps tests pass, `tom_d4rt` suite passes (1751
+  PASS, only the pre-existing `I-BUG-14a` Won't-Fix failure),
+  `tom_d4rt_ast` 117/117 PASS.
 
 ---
 

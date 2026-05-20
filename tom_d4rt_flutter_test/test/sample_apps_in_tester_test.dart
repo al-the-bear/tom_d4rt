@@ -1044,6 +1044,328 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'memory_match (example #6 — TweenAnimationBuilder flip + pair matching)',
+      () {
+    // The memory-match game exercises a script-defined StatefulWidget
+    // whose per-card flip is driven by `TweenAnimationBuilder<double>`,
+    // a one-shot `Timer` resolve window, an enum-keyed difficulty
+    // selector, and a per-difficulty highscore map. The script
+    // deterministically deals the deck with a fixed RNG seed (4242)
+    // so tests can address matching pairs by slot index. For seed
+    // 4242, the 4×4 layout pairs are:
+    //   face=6 at slots [0, 2]      face=5 at slots [1, 14]
+    //   face=1 at slots [3, 6]      face=4 at slots [4, 5]
+    //   face=2 at slots [7, 12]     face=7 at slots [8, 15]
+    //   face=3 at slots [9, 10]     face=0 at slots [11, 13]
+
+    Duration resolvePad = const Duration(milliseconds: 700);
+
+    testWidgets(
+        'boots on Easy with 16 face-down cards and an empty score panel',
+        (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        expect(find.text('Memory Match'), findsOneWidget,
+            reason: 'AppBar title should read "Memory Match".');
+        expect(find.byKey(const ValueKey<String>('difficulty-bar')),
+            findsOneWidget,
+            reason: 'Difficulty selector row should mount.');
+        expect(find.byKey(const ValueKey<String>('score-panel')),
+            findsOneWidget,
+            reason: 'Score panel should mount.');
+        expect(find.byKey(const ValueKey<String>('card-grid')),
+            findsOneWidget,
+            reason: 'Card grid should mount.');
+
+        // 16 cards for the 4×4 easy layout.
+        for (var i = 0; i < 16; i++) {
+          expect(find.byKey(ValueKey<String>('card-$i')), findsOneWidget,
+              reason: 'card-$i should mount in easy mode (16 slots).');
+        }
+        expect(find.byKey(const ValueKey<String>('card-16')), findsNothing,
+            reason: 'card-16 should NOT exist in easy mode '
+                '(only 16 slots, indices 0..15).');
+
+        // Score panel starts at moves=0, pairs=0/8, best=—.
+        expect(find.text('0 / 8'), findsOneWidget,
+            reason: 'Pairs readout should be "0 / 8" before any matches.');
+        expect(find.text('—'), findsOneWidget,
+            reason: 'Best column should be "—" before the player has '
+                'solved any board.');
+
+        final dealLines = _printLog
+            .where((l) => l.startsWith('memmatch.deal'))
+            .toList();
+        expect(dealLines, hasLength(1),
+            reason: 'Boot should deal the deck exactly once.');
+        expect(dealLines.single, contains('difficulty=easy'),
+            reason: 'Initial difficulty is easy.');
+        expect(dealLines.single, contains('cards=16'),
+            reason: 'Easy mode deals 16 cards.');
+      });
+    });
+
+    testWidgets('switching to Hard re-deals the deck at 36 cards',
+        (tester) async {
+      tester.view.physicalSize = const Size(900, 1500);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        await tester
+            .tap(find.byKey(const ValueKey<String>('difficulty-hard')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        for (var i = 0; i < 36; i++) {
+          expect(find.byKey(ValueKey<String>('card-$i')), findsOneWidget,
+              reason: 'card-$i should mount in hard mode (36 slots).');
+        }
+
+        expect(find.text('0 / 18'), findsOneWidget,
+            reason: 'Hard mode has 18 pairs.');
+
+        final dealLines = _printLog
+            .where((l) => l.startsWith('memmatch.deal'))
+            .toList();
+        expect(dealLines, hasLength(2),
+            reason: 'One deal at boot, one after the difficulty swap.');
+        expect(dealLines.last, contains('difficulty=hard'),
+            reason: 'Second deal should be for hard difficulty.');
+        expect(dealLines.last, contains('cards=36'),
+            reason: 'Hard mode deals 36 cards.');
+      });
+    });
+
+    testWidgets(
+        'tapping a single card reveals it without changing the move count',
+        (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        await tester.tap(find.byKey(const ValueKey<String>('card-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 350));
+
+        final flipFirst = _printLog
+            .where((l) => l.startsWith('memmatch.flipFirst'))
+            .toList();
+        expect(flipFirst, hasLength(1),
+            reason: 'Tapping a face-down card should emit one flipFirst.');
+        expect(flipFirst.single, contains('slot=0'),
+            reason: 'The first flip targeted slot 0.');
+
+        final flipSecond = _printLog
+            .where((l) => l.startsWith('memmatch.flipSecond'))
+            .toList();
+        expect(flipSecond, isEmpty,
+            reason: 'A single tap should NOT emit a flipSecond — the '
+                'second-card path only runs after the player picks a '
+                'second card.');
+      });
+    });
+
+    testWidgets(
+        'mismatched pair increments moves then hides both cards after '
+        'the resolve delay', (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        // Slot 0 has face=6, slot 1 has face=5 → mismatch.
+        await tester.tap(find.byKey(const ValueKey<String>('card-0')));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const ValueKey<String>('card-1')));
+        await tester.pump(const Duration(milliseconds: 50));
+
+        final flipSecond = _printLog
+            .where((l) => l.startsWith('memmatch.flipSecond'))
+            .toList();
+        expect(flipSecond, hasLength(1),
+            reason: 'Tapping the second card should emit flipSecond.');
+        expect(flipSecond.single, contains('match=false'),
+            reason: 'Slots 0 and 1 (faces 6 and 5) are not a match.');
+        expect(flipSecond.single, contains('moves=1'),
+            reason: 'The move counter should advance on the second tap.');
+
+        // Wait past the resolve window.
+        await tester.pumpAndSettle(resolvePad);
+
+        final resolve = _printLog
+            .where((l) => l.startsWith('memmatch.resolve'))
+            .toList();
+        expect(resolve, hasLength(1),
+            reason: 'The resolve Timer should have fired exactly once.');
+        expect(resolve.single, contains('match=false'),
+            reason: 'The resolve should report match=false.');
+        expect(resolve.single, contains('matches=0'),
+            reason: 'A miss should NOT advance the matches counter.');
+
+        // Moves display should now read 1.
+        expect(find.text('1'), findsOneWidget,
+            reason: 'Moves readout should be "1" after one full attempt.');
+      });
+    });
+
+    testWidgets(
+        'matched pair stays face-up, advances matches, and emits one '
+        'resolve line', (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        // Slots 4 and 5 both have face=4 → guaranteed match.
+        await tester.tap(find.byKey(const ValueKey<String>('card-4')));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const ValueKey<String>('card-5')));
+        await tester.pumpAndSettle(resolvePad);
+
+        final resolve = _printLog
+            .where((l) => l.startsWith('memmatch.resolve'))
+            .toList();
+        expect(resolve, hasLength(1),
+            reason: 'One pair attempt = one resolve line.');
+        expect(resolve.single, contains('match=true'),
+            reason: 'Slots 4 and 5 (both face 4) are a match.');
+        expect(resolve.single, contains('matches=1'),
+            reason: 'Matches counter should advance to 1.');
+
+        expect(find.text('1 / 8'), findsOneWidget,
+            reason: 'Pairs readout should be "1 / 8" after the first '
+                'successful match.');
+
+        // The game is not yet solved — newBest/solved lines should
+        // not have fired.
+        final solvedLines = _printLog
+            .where((l) => l.startsWith('memmatch.solved'))
+            .toList();
+        expect(solvedLines, isEmpty,
+            reason: 'A single match should not trigger the solved path.');
+      });
+    });
+
+    testWidgets(
+        'reset button mid-game returns to zero moves without dropping '
+        'the deck size', (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        // One mismatched attempt to dirty the state.
+        await tester.tap(find.byKey(const ValueKey<String>('card-0')));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const ValueKey<String>('card-1')));
+        await tester.pumpAndSettle(resolvePad);
+
+        // Now reset.
+        await tester.tap(find.byKey(const ValueKey<String>('btn-reset')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        final reset = _printLog
+            .where((l) => l.startsWith('memmatch.reset'))
+            .toList();
+        expect(reset, hasLength(1),
+            reason: 'Tapping reset should emit one reset trail line.');
+
+        final dealLines = _printLog
+            .where((l) => l.startsWith('memmatch.deal'))
+            .toList();
+        expect(dealLines, hasLength(2),
+            reason: 'Reset should trigger a second deal '
+                '(boot deal + reset deal).');
+
+        // After reset, the score panel should be moves=0 again,
+        // pairs=0/8, best=— (we never solved the board).
+        expect(find.text('0 / 8'), findsOneWidget,
+            reason: 'After reset, pairs readout should be "0 / 8".');
+        expect(find.text('—'), findsOneWidget,
+            reason: 'No completed run = best column stays "—".');
+      });
+    });
+
+    testWidgets(
+        'solving every pair on easy records the move count as the new best',
+        (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      // For seed 4242, the 4×4 layout matching pairs (face → slots):
+      //   6 → [0, 2]   5 → [1, 14]   1 → [3, 6]   4 → [4, 5]
+      //   2 → [7, 12]  7 → [8, 15]   3 → [9, 10]  0 → [11, 13]
+      // Solving in this order takes exactly 8 moves (perfect run).
+      const List<List<int>> pairOrder = <List<int>>[
+        <int>[0, 2],
+        <int>[1, 14],
+        <int>[3, 6],
+        <int>[4, 5],
+        <int>[7, 12],
+        <int>[8, 15],
+        <int>[9, 10],
+        <int>[11, 13],
+      ];
+
+      await _runInZone(() async {
+        await _mountSample(tester, 'memory_match');
+
+        for (final pair in pairOrder) {
+          await tester
+              .tap(find.byKey(ValueKey<String>('card-${pair[0]}')));
+          await tester.pump(const Duration(milliseconds: 50));
+          await tester
+              .tap(find.byKey(ValueKey<String>('card-${pair[1]}')));
+          await tester.pumpAndSettle(resolvePad);
+        }
+
+        final solved = _printLog
+            .where((l) => l.startsWith('memmatch.solved'))
+            .toList();
+        expect(solved, hasLength(1),
+            reason: 'Solving the board should emit exactly one solved '
+                'trail line.');
+        expect(solved.single, contains('moves=8'),
+            reason: 'A perfect run is 8 moves (one per pair).');
+
+        final newBest = _printLog
+            .where((l) => l.startsWith('memmatch.newBest'))
+            .toList();
+        expect(newBest, hasLength(1),
+            reason: 'A first-ever solve should record a new best.');
+        expect(newBest.single, contains('moves=8'),
+            reason: 'New best should be 8 moves on a perfect run.');
+
+        expect(find.text('8 / 8'), findsOneWidget,
+            reason: 'Pairs readout should reach 8 / 8.');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
