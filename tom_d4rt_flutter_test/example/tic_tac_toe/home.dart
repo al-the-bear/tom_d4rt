@@ -187,7 +187,14 @@ class _TicTacToeHomeState extends State<TicTacToeHome>
                         ),
                         color: scheme.surface,
                       ),
+                      // StackFit.expand forces the grid (and the optional
+                      // win-line overlay) to fill the full square allotted
+                      // by AspectRatio. Without it the Stack defaults to
+                      // loose fit, leaving its children sized to their
+                      // intrinsic dimensions — which collapsed the grid
+                      // into a thin strip in interactive runs.
                       child: Stack(
+                        fit: StackFit.expand,
                         children: [
                           _buildGrid(scheme),
                           if (_winLine != null) _buildLineOverlay(scheme),

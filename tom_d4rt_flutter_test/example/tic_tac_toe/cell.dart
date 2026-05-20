@@ -30,35 +30,41 @@ class TicTacToeCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      // Key lives on the native InkWell (a bridged widget) so that
-      // host-side `find.byKey` can locate it. A `super.key` on the
-      // script-defined StatelessWidget would only be visible on the
-      // d4rt proxy element, not on a native finder.
-      key: ValueKey('cell-$id'),
-      onTap: enabled ? onTap : null,
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 260),
-          switchInCurve: Curves.easeOutBack,
-          switchOutCurve: Curves.easeIn,
-          transitionBuilder: (child, animation) {
-            return ScaleTransition(
-              scale: animation,
-              child: FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
-            );
-          },
-          child: value == null
-              ? const SizedBox.shrink(key: ValueKey('empty'))
-              : _Mark(
-                  key: ValueKey(value),
-                  symbol: value!,
-                  color: value == 'X' ? scheme.primary : scheme.tertiary,
+    // SizedBox.expand wraps the InkWell so the tap region covers the entire
+    // grid cell — without it the InkWell shrinks to fit the AnimatedSwitcher
+    // child (SizedBox.shrink while the cell is empty), leaving only a
+    // ~28×28 hit-target in one corner.
+    return SizedBox.expand(
+      child: InkWell(
+        // Key lives on the native InkWell (a bridged widget) so that
+        // host-side `find.byKey` can locate it. A `super.key` on the
+        // script-defined StatelessWidget would only be visible on the
+        // d4rt proxy element, not on a native finder.
+        key: ValueKey('cell-$id'),
+        onTap: enabled ? onTap : null,
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 260),
+            switchInCurve: Curves.easeOutBack,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(
+                scale: animation,
+                child: FadeTransition(
+                  opacity: animation,
+                  child: child,
                 ),
+              );
+            },
+            child: value == null
+                ? const SizedBox.shrink(key: ValueKey('empty'))
+                : _Mark(
+                    key: ValueKey(value),
+                    symbol: value!,
+                    color: value == 'X' ? scheme.primary : scheme.tertiary,
+                  ),
+          ),
         ),
       ),
     );
