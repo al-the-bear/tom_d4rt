@@ -1261,7 +1261,20 @@ dynamic build(BuildContext context) {
   // FINAL: assemble the whole document
   // ==========================================================================
 
-  return Padding(
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #87, P12)
+  // The top-level return was Padding(Column(...)) with no scrolling
+  // ancestor. The galleryWidget contains Material Cards whose inner
+  // Columns (lib/src/widgets/text_field.dart's TextField + AutofillGroup
+  // shape) report intrinsic height back to the outer Column, but in
+  // an unbounded-height ambient (the host paints with a tall window)
+  // the outer flex Column overflows by Infinity on the bottom, which
+  // then poisons the SemanticsNode rect (assert at semantics.dart:2830).
+  // Wrap the whole document in a SingleChildScrollView so the Column
+  // is given unbounded vertical extent intentionally and the overflow
+  // is resolved by scrolling rather than by an infinite-overflow
+  // RenderFlex.
+  return SingleChildScrollView(
+    child: Padding(
     padding: const EdgeInsets.all(12),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1352,5 +1365,6 @@ dynamic build(BuildContext context) {
         summaryWidget,
       ],
     ),
+  ),
   );
 }
