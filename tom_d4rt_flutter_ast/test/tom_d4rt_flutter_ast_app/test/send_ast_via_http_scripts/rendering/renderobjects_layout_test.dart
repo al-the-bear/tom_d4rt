@@ -1804,9 +1804,18 @@ Widget buildSizingClasses() {
           'who gets to decide the final Size — parent, child, or both',
           kAccentOlive,
         ),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #75, P1):
+        // The script lives inside a vertical `SingleChildScrollView`, so any
+        // `Row(crossAxisAlignment: stretch)` receives an unbounded
+        // (height = Infinity) constraint, and `stretch` tries to stretch each
+        // child to that infinite height — yielding "BoxConstraints forces an
+        // infinite height" on the inner `Padding` of every `classCard`.
+        // Wrap the Row in `IntrinsicHeight` so the Row's cross-axis is first
+        // bounded to its tallest natural child before stretch kicks in.
         Padding(
           padding: EdgeInsets.all(10),
-          child: Row(
+          child: IntrinsicHeight(
+            child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               classCard(
@@ -1828,6 +1837,7 @@ Widget buildSizingClasses() {
                 kAccentRust,
               ),
             ],
+            ),
           ),
         ),
       ],
@@ -1850,20 +1860,44 @@ Widget buildRecipeCards() {
           padding: EdgeInsets.all(12),
           child: Column(
             children: [
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #75, P1):
+              // Same root cause as the Row in `buildSizingClasses` above —
+              // `Row(crossAxisAlignment: stretch)` inside a vertical
+              // `SingleChildScrollView` receives `h=Infinity`. Wrap in
+              // `IntrinsicHeight` to bound the cross-axis to the tallest
+              // recipe card before stretch is applied to the Expanded
+              // siblings.
               for (int i = 0; i < kRecipes.length; i += 2)
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
-                  child: Row(
+                  child: IntrinsicHeight(
+                    child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       for (int j = i; j < math.min(i + 2, kRecipes.length); j++)
                         Expanded(
+                          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan
+                          // #75 follow-up, P5(a) uniform-colors): the original
+                          // recipe-card decoration combined `Border(left: accent,
+                          // top/right/bottom: kBlueprintLine)` (non-uniform
+                          // colors) with `borderRadius: 10` — Flutter throws
+                          // "borderRadius can only be given on borders with
+                          // uniform colors" (6× per build, once per recipe).
+                          // Preserve the accent-left visual by dropping the
+                          // mixed-color Border entirely and re-creating the
+                          // accent stripe via a uniform `Border.all` plus an
+                          // explicit accent slab on the left side using
+                          // padding-only — i.e. paint the accent with a thicker
+                          // left padding filled by a sibling. Simplest variant
+                          // that survives the assertion: drop the borderRadius
+                          // (mixed colors are then legal). The card is still
+                          // visually distinct via background, accent left
+                          // border, and the inner content.
                           child: Container(
                             margin: EdgeInsets.symmetric(horizontal: 4),
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: kChalkSoft,
-                              borderRadius: BorderRadius.circular(10),
                               border: Border(
                                 left: BorderSide(
                                   color: kRecipes[j].accent,
@@ -1924,6 +1958,7 @@ Widget buildRecipeCards() {
                           ),
                         ),
                     ],
+                    ),
                   ),
                 ),
             ],
