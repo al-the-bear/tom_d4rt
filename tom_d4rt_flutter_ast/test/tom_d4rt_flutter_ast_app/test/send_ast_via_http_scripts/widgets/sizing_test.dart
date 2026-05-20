@@ -73,35 +73,49 @@ dynamic build(BuildContext context) {
   print('expand  = $anchorExpand');
   print('tightFF = $anchorTightForFinite');
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #133, P2):
+  // Page root packs 10 themed sections (anchors + banner + anatomy +
+  // 7 galleries + cheat-sheet) into a Container > Column(stretch, min)
+  // with combined intrinsic height ≈ 3525 px > desktop test viewport,
+  // firing "A RenderFlex overflowed by 3525 pixels on the bottom."
+  // Fix: wrap the Column in SingleChildScrollView; the cream-paper
+  // Container stays *outside* so the architectural backdrop fills the
+  // whole viewport, not just the scrolled content; the inner padding
+  // moves onto the SCV so the page-edge inset is preserved.
+  // (The plan label included P1, but the only Row(crossAxisAlignment
+  // .stretch) site at line 737 is already wrapped in IntrinsicHeight,
+  // so P1 doesn't materialise. P2 alone clears the assertion.)
   return Container(
     color: _kPaperCream,
-    padding: const EdgeInsets.all(24),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        _section0Anchors(anchorTight, anchorLoose, anchorExpand,
-            anchorTightForFinite),
-        const SizedBox(height: 28),
-        _section1Banner(),
-        const SizedBox(height: 28),
-        _section2Anatomy(anchorTight),
-        const SizedBox(height: 28),
-        _section3ConstrainedBoxGallery(),
-        const SizedBox(height: 28),
-        _section4IntrinsicComparison(),
-        const SizedBox(height: 28),
-        _section5FittedBoxGallery(),
-        const SizedBox(height: 28),
-        _section6AspectRatioGallery(),
-        const SizedBox(height: 28),
-        _section7FractionallySized(),
-        const SizedBox(height: 28),
-        _section8OverflowAndUnconstrained(),
-        const SizedBox(height: 28),
-        _section9CheatSheet(),
-        const SizedBox(height: 16),
-      ],
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _section0Anchors(anchorTight, anchorLoose, anchorExpand,
+              anchorTightForFinite),
+          const SizedBox(height: 28),
+          _section1Banner(),
+          const SizedBox(height: 28),
+          _section2Anatomy(anchorTight),
+          const SizedBox(height: 28),
+          _section3ConstrainedBoxGallery(),
+          const SizedBox(height: 28),
+          _section4IntrinsicComparison(),
+          const SizedBox(height: 28),
+          _section5FittedBoxGallery(),
+          const SizedBox(height: 28),
+          _section6AspectRatioGallery(),
+          const SizedBox(height: 28),
+          _section7FractionallySized(),
+          const SizedBox(height: 28),
+          _section8OverflowAndUnconstrained(),
+          const SizedBox(height: 28),
+          _section9CheatSheet(),
+          const SizedBox(height: 16),
+        ],
+      ),
     ),
   );
 }
