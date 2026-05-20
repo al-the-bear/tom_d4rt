@@ -101,32 +101,47 @@ dynamic build(BuildContext context) {
   print('  * Clip.antiAliasWithSaveLayer.');
   print('----------------------------------------------------------');
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #104, P2):
+  // The page-root Column(stretch, min) packs nine themed sections
+  // (banner, enum anatomy, ClipRect/ClipRRect/ClipOval/ClipPath galleries,
+  // custom clipper panel, performance notes, recap) plus ~9×28 = 252 px of
+  // inter-section spacers. Combined intrinsic height ≈ 8431 px over the
+  // desktop test viewport (frameworkErrors=1: "A RenderFlex overflowed by
+  // 8431 pixels on the bottom."). The plan label was P1+P2 but no
+  // `Row(crossAxisAlignment.stretch)` exists in the script — the
+  // Column(stretch) sites all constrain *width* which is bounded by the
+  // outer Container, so the P1 component did not materialise. Fix (P2):
+  // wrap the Column in `SingleChildScrollView`; the cream-background
+  // Container stays *outside* the scroll view so the specimen-book backdrop
+  // fills the whole viewport, not just the scrolled content.
   return Container(
     color: _kCream,
     padding: const EdgeInsets.all(24),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        _section1Banner(),
-        const SizedBox(height: 28),
-        _section2ClipEnumAnatomy(),
-        const SizedBox(height: 28),
-        _section3ClipRectGallery(),
-        const SizedBox(height: 28),
-        _section4ClipRRectGallery(),
-        const SizedBox(height: 28),
-        _section5ClipOvalGallery(),
-        const SizedBox(height: 28),
-        _section6ClipPathGallery(),
-        const SizedBox(height: 28),
-        _section7CustomClipperPanel(),
-        const SizedBox(height: 28),
-        _section8PerformanceNotes(),
-        const SizedBox(height: 28),
-        _section9Recap(),
-        const SizedBox(height: 16),
-      ],
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _section1Banner(),
+          const SizedBox(height: 28),
+          _section2ClipEnumAnatomy(),
+          const SizedBox(height: 28),
+          _section3ClipRectGallery(),
+          const SizedBox(height: 28),
+          _section4ClipRRectGallery(),
+          const SizedBox(height: 28),
+          _section5ClipOvalGallery(),
+          const SizedBox(height: 28),
+          _section6ClipPathGallery(),
+          const SizedBox(height: 28),
+          _section7CustomClipperPanel(),
+          const SizedBox(height: 28),
+          _section8PerformanceNotes(),
+          const SizedBox(height: 28),
+          _section9Recap(),
+          const SizedBox(height: 16),
+        ],
+      ),
     ),
   );
 }
