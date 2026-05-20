@@ -2045,10 +2045,23 @@ dynamic build(BuildContext context) {
   // ====================  ASSEMBLY  ===========================
   // ===========================================================
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #120, P2):
+  // The page root packs a Banner + seven dossier sections (anatomy,
+  // recipes ×5, hit-test demo, kind matrix, comparison, glossary, recap)
+  // into a `Column(stretch, mainAxisSize.min)` with no scroll ancestor;
+  // combined height ≈ 8331 px greater than the desktop test viewport →
+  // "A RenderFlex overflowed by 8331 pixels on the bottom." Wrap the
+  // Column in `SingleChildScrollView`. The parchment-coloured outer
+  // Container stays *outside* the SCV so the `0xFFEFEAD8` backdrop fills
+  // the whole viewport, not just the scrolled content; the 14 px padding
+  // moves onto the SCV so the inner Column still gets the same gutter.
+  // Plan listed P1+P2, but the file has no `Row(crossAxisAlignment.
+  // stretch)` site, so P2 alone is sufficient.
   return Container(
     color: const Color(0xFFEFEAD8),
-    padding: const EdgeInsets.all(14.0),
-    child: Column(
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(14.0),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -2145,6 +2158,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+    ),
     ),
   );
 }
