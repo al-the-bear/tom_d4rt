@@ -1450,11 +1450,29 @@ Widget _privateStripes({required double width}) {
       ),
     );
   }
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #128, P3 OverflowBox
+  // variant): _privateStripes deliberately fills *past* its requested
+  // `width` by ceiling the stripe count (`(18/8).ceil() == 3 → 24 px`)
+  // and clipping the trailing partial stripe via the surrounding ClipRect.
+  // The intent is a hand-drawn yellow-and-black overflow ribbon flush to
+  // the right edge of Section B's demo Container. In the bridged d4rt
+  // context the bounded `SizedBox(width: 18)` Row(content: 24) layout
+  // fires "A RenderFlex overflowed by 6.0 pixels on the right" before
+  // the ClipRect can prune the paint. Wrap the inner Row in
+  // `OverflowBox(maxWidth: infinity, alignment: centerLeft)` (cf. item
+  // 109) so the Row sees unbounded horizontal constraints — the
+  // assertion never fires, while the parent `SizedBox(width: 18)` +
+  // `ClipRect` still clip the painted ribbon to exactly the requested
+  // 18 px. The hand-drawn stripes visual is identical.
   return ClipRect(
     child: SizedBox(
       width: width,
       height: 14.0,
-      child: Row(children: bars),
+      child: OverflowBox(
+        alignment: Alignment.centerLeft,
+        maxWidth: double.infinity,
+        child: Row(children: bars),
+      ),
     ),
   );
 }
