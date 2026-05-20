@@ -820,6 +820,12 @@ dynamic build(BuildContext context) {
   //  UI — single root widget.
   // ===================================================================
 
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #97, P2)
+  // The page-root Column packs the SECTION 0–9 cards top-to-bottom and
+  // exceeds the available viewport height by ~2378 px, producing
+  // "A RenderFlex overflowed by 2378 pixels on the bottom". Wrapping
+  // the Column in a SingleChildScrollView absorbs the overflow without
+  // changing the visual composition — the page becomes scrollable.
   return Container(
     padding: const EdgeInsets.all(16),
     decoration: const BoxDecoration(
@@ -829,7 +835,8 @@ dynamic build(BuildContext context) {
         colors: [kPlaten, kInkBlack, kTypebar],
       ),
     ),
-    child: Column(
+    child: SingleChildScrollView(
+      child: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1583,6 +1590,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+    ),
     ),
   );
 }
