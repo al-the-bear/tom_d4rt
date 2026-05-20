@@ -1,24 +1,29 @@
 /// Entry point for the D4rt test playback app.
 ///
 /// Composition root — owns the long-lived objects ([ScriptRootNotifier],
-/// [SourceFlutterD4rt], [TestRunner]) and wires them into the widget tree.
-/// All UI lives in `lib/src/widgets/`.
+/// [SourceFlutterD4rt], [TestRunner], [SampleAppsNotifier]) and wires them
+/// into the widget tree. All UI lives in `lib/src/widgets/`.
 ///
-/// Layout:
+/// Start-screen layout:
 ///
 ///     AppBar          — title + script-count badge
 ///     PathBar         — root path, Browse button, "Path not found" affordance
 ///     ScriptSearchBar — case-insensitive filter + 3-row match preview
+///     SamplesBar      — pick a multi-file sample app + Run
 ///     ScriptInfoPanel — cluster / script name / index badge
 ///     ──── divider ────
 ///     D4rtScriptView  (Expanded flex 3) — rendered Flutter widget from script
 ///     ──── divider ────
 ///     ResultPanel     (flex 1) — pass/fail, output, stack trace
 ///     ControlBar   (bottomNavigationBar) — Back / Next
+///
+/// Sample-app screen (pushed via Navigator on "Run Sample"): full-window
+/// host with a thin top bar carrying a back arrow back to the start screen.
 library;
 
 import 'package:flutter/material.dart';
 
+import 'src/sample_apps_notifier.dart';
 import 'src/script_root_notifier.dart';
 import 'src/source_flutter_d4rt.dart';
 import 'src/test_runner.dart';
@@ -26,6 +31,8 @@ import 'src/widgets/control_bar.dart';
 import 'src/widgets/d4rt_script_view.dart';
 import 'src/widgets/path_bar.dart';
 import 'src/widgets/result_panel.dart';
+import 'src/widgets/sample_app_page.dart';
+import 'src/widgets/samples_bar.dart';
 import 'src/widgets/script_info_panel.dart';
 import 'src/widgets/script_search_bar.dart';
 
@@ -49,7 +56,7 @@ class D4rtTestApp extends StatelessWidget {
   }
 }
 
-/// Creates the three long-lived state objects and disposes them on teardown.
+/// Creates the four long-lived state objects and disposes them on teardown.
 ///
 /// [SourceFlutterD4rt] is constructed here (not inside [TestRunner]) so it is
 /// created exactly once across the app lifetime and can be passed to
@@ -65,6 +72,7 @@ class _AppShell extends StatefulWidget {
 
 class _AppShellState extends State<_AppShell> {
   late final ScriptRootNotifier _rootNotifier;
+  late final SampleAppsNotifier _samplesNotifier;
   late final SourceFlutterD4rt _d4rt;
   late final TestRunner _runner;
 
@@ -72,6 +80,7 @@ class _AppShellState extends State<_AppShell> {
   void initState() {
     super.initState();
     _rootNotifier = ScriptRootNotifier();
+    _samplesNotifier = SampleAppsNotifier();
     _d4rt = SourceFlutterD4rt(); // registers all Flutter bridges once
     _runner = TestRunner(_rootNotifier);
   }
@@ -80,7 +89,16 @@ class _AppShellState extends State<_AppShell> {
   void dispose() {
     _runner.dispose();
     _rootNotifier.dispose();
+    _samplesNotifier.dispose();
     super.dispose();
+  }
+
+  void _runSample(SampleAppEntry sample) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SampleAppPage(sample: sample, d4rt: _d4rt),
+      ),
+    );
   }
 
   @override
@@ -94,6 +112,7 @@ class _AppShellState extends State<_AppShell> {
         children: [
           PathBar(notifier: _rootNotifier),
           ScriptSearchBar(runner: _runner),
+          SamplesBar(notifier: _samplesNotifier, onRun: _runSample),
           ScriptInfoPanel(runner: _runner),
           const Divider(height: 1),
           // Primary area: the Flutter widget produced by the D4rt script.

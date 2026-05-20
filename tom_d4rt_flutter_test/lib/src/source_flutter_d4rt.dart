@@ -7,6 +7,8 @@
 /// step.
 library;
 
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
@@ -71,6 +73,50 @@ class SourceFlutterD4rt {
         // Pass the visitor so that InterpretedInstance proxy resolution
         // works when unwrapping is called after execute() returns (mirrors
         // D4rtRunner.executeBundleAs which always passes visitor: _visitor).
+        return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
+      });
+
+  /// Execute a multi-file Dart program rooted at [mainFilePath] and return
+  /// the result of its `build` function as [T].
+  ///
+  /// Recursively resolves every relative `import 'xxx.dart';` directive
+  /// inside [mainFilePath] and its transitive imports into the interpreter's
+  /// in-memory sources map, then calls
+  /// `D4rt.execute(library: <main>, sources: ..., name: 'build', ...)` with
+  /// the supplied [buildContext]. `package:` and `dart:` imports are left
+  /// to the bridge layer to resolve.
+  ///
+  /// This is the entry point for sample apps in `example/<name>/` whose
+  /// gameplay logic spans more than one file.
+  T buildMultiFile<T>(
+    String mainFilePath, {
+    BuildContext? buildContext,
+  }) =>
+      _wrapUnwrap(() {
+        final mainFile = File(mainFilePath);
+        if (!mainFile.existsSync()) {
+          throw SourceFlutterD4rtException(
+            'Sample entry point not found: $mainFilePath',
+          );
+        }
+        final fullPath = mainFile.resolveSymbolicLinksSync();
+        final libraryUri = 'file://$fullPath';
+        final basePath = mainFile.parent.path;
+        final sources = <String, String>{};
+        resolveImportsRecursively(
+          mainFile.readAsStringSync(),
+          libraryUri,
+          sources,
+          null,
+        );
+        final raw = _interpreter.execute(
+          library: libraryUri,
+          sources: sources,
+          basePath: basePath,
+          allowFileSystemImports: true,
+          name: 'build',
+          positionalArgs: buildContext != null ? [buildContext] : null,
+        );
         return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
       });
 
