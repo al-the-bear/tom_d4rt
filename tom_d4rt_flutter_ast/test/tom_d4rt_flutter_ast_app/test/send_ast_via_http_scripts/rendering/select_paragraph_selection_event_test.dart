@@ -815,9 +815,13 @@ SelectionResult handle(SelectionEvent event) {
       rows.add(Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(10),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #78, P5(a)):
+        // Original combined borderRadius with `Border(left: ...)` (top/right/bottom
+        // default to BorderSide.none → non-uniform). Flutter asserts uniform-colors-or-no-radius.
+        // Helper invoked once per edgeCases entry (5 entries). Drop borderRadius;
+        // the heavy-left accent bar look is preserved by the BorderSide alone.
         decoration: BoxDecoration(
           color: cParchment,
-          borderRadius: BorderRadius.circular(8),
           border: Border(left: BorderSide(color: cRose, width: 4)),
         ),
         child: Column(
@@ -1324,9 +1328,13 @@ SelectionResult handle(SelectionEvent event) {
       tiles.add(Container(
         width: 280,
         padding: const EdgeInsets.all(11),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #78, P5(a)):
+        // Original combined borderRadius with non-uniform `Border` (left side
+        // colored/heavier than top/right/bottom). Flutter asserts uniform-colors-or-no-radius.
+        // Helper invoked once per inspectorRows entry (7 entries). Drop borderRadius;
+        // the inspector-tile look survives via the heavy left BorderSide accent.
         decoration: BoxDecoration(
           color: cParchment,
-          borderRadius: BorderRadius.circular(10),
           border: Border(left: BorderSide(color: hue, width: 4), top: BorderSide(color: cDivider, width: 1), right: BorderSide(color: cDivider, width: 1), bottom: BorderSide(color: cDivider, width: 1)),
         ),
         child: Column(
@@ -1432,9 +1440,13 @@ SelectionResult handle(SelectionEvent event) {
       rows.add(Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(10),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #78, P5(a)):
+        // Original combined borderRadius with non-uniform `Border` (left side
+        // colored/heavier than top/right/bottom). Flutter asserts uniform-colors-or-no-radius.
+        // Helper invoked once per antiPatterns entry (5 entries). Drop borderRadius;
+        // the anti-pattern card retains its heavy-left accent via the BorderSide.
         decoration: BoxDecoration(
           color: cParchment,
-          borderRadius: BorderRadius.circular(8),
           border: Border(left: BorderSide(color: cRose, width: 4), top: BorderSide(color: cDivider, width: 1), right: BorderSide(color: cDivider, width: 1), bottom: BorderSide(color: cDivider, width: 1)),
         ),
         child: Row(
