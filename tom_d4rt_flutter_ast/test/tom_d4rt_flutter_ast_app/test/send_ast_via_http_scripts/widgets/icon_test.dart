@@ -1670,10 +1670,24 @@ dynamic build(BuildContext context) {
   }
 
   Widget compareRow(List<Widget> cells) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: cells,
+    // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #115, P1):
+    // Each `compareRow` is a Row with `CrossAxisAlignment.stretch` so that
+    // all four `compareCell` Containers in the comparison matrix paint with
+    // the same height as the tallest cell in the row. The row lives inside a
+    // page-level scrollable (the test host wraps `build()`'s root Container
+    // in a SingleChildScrollView), so the row's parent grants it unbounded
+    // vertical constraints; `Row(stretch)` then propagates that unbounded
+    // height down to each cell Container, which asserts via
+    // `BoxConstraints.checkValid` ("BoxConstraints forces an infinite
+    // height."). Wrapping the Row in `IntrinsicHeight` resolves a finite
+    // tight height from the tallest cell while preserving the height-matched
+    // visual.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: cells,
+      ),
     );
   }
 
@@ -1879,10 +1893,19 @@ dynamic build(BuildContext context) {
   // ASSEMBLE THE CODEX
   // ===========================================================================
   print('Assembling all fifteen sections into the codex tree.');
+  // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #115, P2):
+  // After fixing the comparison-matrix Row(stretch) infinite-height (see #115
+  // P1 above) the codex's combined section heights revealed a second
+  // framework error: "A RenderFlex overflowed by 5040 pixels on the bottom."
+  // The page root was a plain Container > Column with no scroll ancestor.
+  // Wrap the Column in a SingleChildScrollView — the parchment-coloured
+  // Container stays *outside* the scroll view so the lapis-parchment
+  // backdrop fills the whole viewport, not just the scrolled content.
   final Widget codex = Container(
-    padding: const EdgeInsets.all(16),
     color: lapisParchment,
-    child: Column(
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -1916,6 +1939,7 @@ dynamic build(BuildContext context) {
         _verticalGap(16),
         section12,
       ],
+      ),
     ),
   );
 
