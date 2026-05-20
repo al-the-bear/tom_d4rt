@@ -1543,23 +1543,36 @@ Widget buildFormMockupSection() {
                 height: 110,
                 child: Placeholder(color: kForm, strokeWidth: 2.5),
               ),
-              const SizedBox(height: -42),
-              Padding(
-                padding: const EdgeInsets.only(left: 14, top: 12),
-                child: Container(
-                  width: 86,
-                  height: 86,
-                  decoration: BoxDecoration(
-                    color: kPaper,
-                    borderRadius: BorderRadius.circular(43),
-                    border: Border.all(
-                      color: kForm.withValues(alpha: 0.6),
-                      width: 1.4,
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #124, P8):
+              // original used `SizedBox(height: -42)` to pull the avatar up
+              // and overlap the banner. A negative-height SizedBox triggers
+              // "BoxConstraints has a negative minimum height" because
+              // `RenderConstrainedBox` rejects non-normalised constraints
+              // (`h=-42.0; NOT NORMALIZED`). Clamp the spacer to 0 (the
+              // canonical >= 0 fix) and recreate the visual overlap with
+              // `Transform.translate(offset: Offset(0, -42))` on the avatar —
+              // transforms shift only the paint phase and do not feed any
+              // negative value into the layout pipeline.
+              const SizedBox.shrink(),
+              Transform.translate(
+                offset: const Offset(0, -42),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 14, top: 12),
+                  child: Container(
+                    width: 86,
+                    height: 86,
+                    decoration: BoxDecoration(
+                      color: kPaper,
+                      borderRadius: BorderRadius.circular(43),
+                      border: Border.all(
+                        color: kForm.withValues(alpha: 0.6),
+                        width: 1.4,
+                      ),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(4),
-                  child: ClipOval(
-                    child: Placeholder(color: kForm, strokeWidth: 2),
+                    padding: const EdgeInsets.all(4),
+                    child: ClipOval(
+                      child: Placeholder(color: kForm, strokeWidth: 2),
+                    ),
                   ),
                 ),
               ),
