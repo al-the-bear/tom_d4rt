@@ -14,6 +14,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'src/generator/generator_notifier.dart';
 import 'src/generator/prefs_store.dart';
@@ -35,6 +36,23 @@ import 'src/widgets/script_info_panel.dart';
 import 'src/widgets/script_search_bar.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Host-side diagnostic for the "snake.poll keys=0 mid-gameplay" bug.
+  // This handler is plain Dart — NOT interpreted by d4rt. If
+  // `[host-key] ...` lines fire while a d4rt-interpreted sample's
+  // periodic ticker is running, the framework is delivering input
+  // events but the script's KeyboardListener / HardwareKeyboard
+  // polling is being starved by the d4rt scheduler. If these lines
+  // are ALSO silent during gameplay, the starvation is below the
+  // host (platform message queue blocked).
+  //
+  // Returning false propagates the event so the focused widget
+  // (incl. an interpreted KeyboardListener) still receives it.
+  HardwareKeyboard.instance.addHandler((event) {
+    debugPrint('[host-key] ${event.runtimeType} '
+        '${event.logicalKey.debugName}');
+    return false;
+  });
   runApp(const D4rtTestApp());
 }
 
