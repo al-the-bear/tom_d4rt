@@ -650,7 +650,7 @@ for the simulated submit.
 
 ---
 
-### 16. [ ] `photo_gallery_hero` — Hero transitions + pan-zoom
+### 16. [x] SHIPPED `photo_gallery_hero` — Hero transitions + pan-zoom
 
 Grid of placeholder "photos" (gradients + emoji labels). Tap a
 thumbnail to fly into a fullscreen viewer with `Hero`; in the

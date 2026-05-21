@@ -3313,6 +3313,191 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'photo_gallery_hero (example #16 — Hero + PageRouteBuilder + '
+      'InteractiveViewer + PageView + gradient CustomPaint)',
+      () {
+    // Trail prefixes:
+    //   gallery.init n=N        — home rebuilt; N photos in catalogue
+    //   gallery.tap id=N        — user tapped tile for photo N
+    //   gallery.open id=N idx=I — home is opening viewer for photo N
+    //   viewer.open id=N        — viewer page mounted with initial id
+    //   viewer.page id=N        — PageView swiped to photo N
+    //   viewer.scale=X.XX       — InteractiveViewer transform changed
+    //   viewer.close id=N       — user dismissed viewer from photo N
+
+    testWidgets('boots with a 2-column grid of Hero-wrapped tiles',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(find.byKey(const Key('gallery-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('gallery-grid')), findsOneWidget);
+
+        // GridView.builder only mounts visible cells in the 800x600
+        // test viewport, so we only assert the top-row tiles are on
+        // screen and check `itemCount` for the full catalogue size.
+        for (var id = 0; id < 2; id++) {
+          expect(find.byKey(Key('gallery-tile-$id')), findsOneWidget,
+              reason: 'tile for photo $id should be on the grid');
+        }
+        final GridView grid =
+            tester.widget<GridView>(find.byKey(const Key('gallery-grid')));
+        final SliverChildBuilderDelegate delegate =
+            grid.childrenDelegate as SliverChildBuilderDelegate;
+        expect(delegate.childCount, 6,
+            reason: 'gallery should expose all 6 photos to the grid');
+
+        final inits = _printLog
+            .where((l) => l.startsWith('gallery.init '))
+            .toList();
+        expect(inits, isNotEmpty);
+        expect(inits.first, contains('n=6'));
+      });
+    });
+
+    testWidgets('every grid tile is wrapped in a Hero with matched tag',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // The grid Heroes own the canonical tag `photo-<id>`.
+        // We check the first three to keep the assertion compact.
+        for (var id = 0; id < 3; id++) {
+          final heroes = find.descendant(
+            of: find.byKey(Key('gallery-tile-$id')),
+            matching: find.byType(Hero),
+          );
+          expect(heroes, findsOneWidget,
+              reason: 'tile $id must contain exactly one Hero');
+          final Hero hero = tester.widget<Hero>(heroes);
+          expect(hero.tag, 'photo-$id',
+              reason: 'tile $id must use the canonical hero tag');
+        }
+      });
+    });
+
+    testWidgets('tapping a tile pushes the viewer route', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Tile 1 sits in the first row of the 2-column grid, so it
+        // is always visible regardless of the test viewport size.
+        await tester.tap(find.byKey(const Key('gallery-tile-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        final taps = _printLog
+            .where((l) => l.startsWith('gallery.tap '))
+            .toList();
+        expect(taps, isNotEmpty);
+        expect(taps.last, contains('id=1'));
+
+        final opens = _printLog
+            .where((l) => l.startsWith('gallery.open '))
+            .toList();
+        expect(opens, isNotEmpty);
+        expect(opens.last, contains('id=1'));
+
+        // Viewer scaffold + appbar must now be on screen.
+        expect(find.byKey(const Key('viewer-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('viewer-pageview')), findsOneWidget);
+
+        final viewerOpens = _printLog
+            .where((l) => l.startsWith('viewer.open '))
+            .toList();
+        expect(viewerOpens, hasLength(1));
+        expect(viewerOpens.first, contains('id=1'));
+      });
+    });
+
+    testWidgets('viewer mounts an InteractiveViewer for the tapped photo',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Tile 1 is in the first row — guaranteed visible.
+        await tester.tap(find.byKey(const Key('gallery-tile-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        expect(find.byKey(const Key('viewer-iv-1')), findsOneWidget);
+        expect(find.byType(InteractiveViewer), findsWidgets);
+      });
+    });
+
+    testWidgets('swiping the PageView advances to the next photo',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('gallery-tile-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Fling left to advance the page view.
+        await tester.fling(
+            find.byKey(const Key('viewer-pageview')),
+            const Offset(-400, 0),
+            1200);
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        final pages = _printLog
+            .where((l) => l.startsWith('viewer.page '))
+            .toList();
+        expect(pages, isNotEmpty,
+            reason: 'PageView swipe should emit a viewer.page line');
+        expect(pages.last, contains('id=2'),
+            reason: 'After a left swipe from photo 1 the next photo (id=2) '
+                'should be on screen.');
+      });
+    });
+
+    testWidgets('closing the viewer pops back to the grid', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('gallery-tile-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        expect(find.byKey(const Key('viewer-appbar')), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('viewer-close')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Viewer is gone, grid is back.
+        expect(find.byKey(const Key('viewer-appbar')), findsNothing);
+        expect(find.byKey(const Key('gallery-grid')), findsOneWidget);
+
+        final closes = _printLog
+            .where((l) => l.startsWith('viewer.close '))
+            .toList();
+        expect(closes, isNotEmpty);
+        expect(closes.last, contains('id=0'));
+      });
+    });
+
+    testWidgets('Photo tile paints a gradient via CustomPaint',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'photo_gallery_hero');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Every grid tile contains at least one CustomPaint (the
+        // gradient painter). We sample tile 0.
+        final paints = find.descendant(
+          of: find.byKey(const Key('gallery-tile-0')),
+          matching: find.byType(CustomPaint),
+        );
+        expect(paints, findsWidgets,
+            reason: 'GradientTile should mount a CustomPaint');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
