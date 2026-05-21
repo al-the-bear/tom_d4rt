@@ -1,35 +1,32 @@
 /// Entry point for the D4rt test playback app.
 ///
 /// Composition root — owns the long-lived objects ([ScriptRootNotifier],
-/// [SourceFlutterD4rt], [TestRunner], [SampleAppsNotifier]) and wires them
-/// into the widget tree. All UI lives in `lib/src/widgets/`.
+/// [SourceFlutterD4rt], [TestRunner], [SampleAppsNotifier],
+/// [GeneratorNotifier]) and wires them into the widget tree. All UI
+/// lives in `lib/src/widgets/`.
 ///
-/// Start-screen layout:
+/// Shell layout: a top-level `TabBar` with three tabs —
+///   • Examples — the original test runner / sample picker.
+///   • Generate — multi-line description + Send prompt button (new).
+///   • Log      — streamed thinking/text + Run button (new).
 ///
-///     AppBar          — title + script-count badge
-///     PathBar         — root path, Browse button, "Path not found" affordance
-///     ScriptSearchBar — case-insensitive filter + 3-row match preview
-///     SamplesBar      — pick a multi-file sample app + Run
-///     ScriptInfoPanel — cluster / script name / index badge
-///     ──── divider ────
-///     D4rtScriptView  (Expanded flex 3) — rendered Flutter widget from script
-///     ──── divider ────
-///     ResultPanel     (flex 1) — pass/fail, output, stack trace
-///     ControlBar   (bottomNavigationBar) — Back / Next
-///
-/// Sample-app screen (pushed via Navigator on "Run Sample"): full-window
-/// host with a thin top bar carrying a back arrow back to the start screen.
+/// Clicking "Send prompt" programmatically switches to the Log tab.
 library;
 
 import 'package:flutter/material.dart';
 
+import 'src/generator/generator_notifier.dart';
+import 'src/generator/prefs_store.dart';
 import 'src/sample_apps_notifier.dart';
 import 'src/script_root_notifier.dart';
 import 'src/source_flutter_d4rt.dart';
 import 'src/test_runner.dart';
 import 'src/widgets/control_bar.dart';
 import 'src/widgets/d4rt_script_view.dart';
+import 'src/widgets/generate_panel.dart';
+import 'src/widgets/log_panel.dart';
 import 'src/widgets/path_bar.dart';
+import 'src/widgets/preferences_screen.dart';
 import 'src/widgets/result_panel.dart';
 import 'src/widgets/sample_app_page.dart';
 import 'src/widgets/samples_bar.dart';
@@ -56,13 +53,6 @@ class D4rtTestApp extends StatelessWidget {
   }
 }
 
-/// Creates the four long-lived state objects and disposes them on teardown.
-///
-/// [SourceFlutterD4rt] is constructed here (not inside [TestRunner]) so it is
-/// created exactly once across the app lifetime and can be passed to
-/// [D4rtScriptView] without [TestRunner] needing to know about interpreter
-/// lifecycles. Bridge registration happens synchronously during construction
-/// and is effectively a one-time fixed cost.
 class _AppShell extends StatefulWidget {
   const _AppShell();
 
@@ -70,19 +60,37 @@ class _AppShell extends StatefulWidget {
   State<_AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<_AppShell> {
+class _AppShellState extends State<_AppShell>
+    with TickerProviderStateMixin {
   late final ScriptRootNotifier _rootNotifier;
   late final SampleAppsNotifier _samplesNotifier;
   late final SourceFlutterD4rt _d4rt;
   late final TestRunner _runner;
+  late final GeneratorNotifier _generator;
+  late final TabController _tabs;
+
+  GeneratorPrefs _prefs = GeneratorPrefs();
+  bool _prefsLoaded = false;
 
   @override
   void initState() {
     super.initState();
     _rootNotifier = ScriptRootNotifier();
     _samplesNotifier = SampleAppsNotifier();
-    _d4rt = SourceFlutterD4rt(); // registers all Flutter bridges once
+    _d4rt = SourceFlutterD4rt();
     _runner = TestRunner(_rootNotifier);
+    _generator = GeneratorNotifier(samplesNotifier: _samplesNotifier);
+    _tabs = TabController(length: 3, vsync: this);
+    _loadPrefs();
+  }
+
+  Future<void> _loadPrefs() async {
+    final loaded = await GeneratorPrefs.load();
+    if (!mounted) return;
+    setState(() {
+      _prefs = loaded;
+      _prefsLoaded = true;
+    });
   }
 
   @override
@@ -90,6 +98,8 @@ class _AppShellState extends State<_AppShell> {
     _runner.dispose();
     _rootNotifier.dispose();
     _samplesNotifier.dispose();
+    _generator.dispose();
+    _tabs.dispose();
     super.dispose();
   }
 
@@ -101,45 +111,118 @@ class _AppShellState extends State<_AppShell> {
     );
   }
 
+  Future<void> _openSettings() async {
+    final updated =
+        await PreferencesScreen.pushAndAwait(context, _prefs);
+    if (!mounted) return;
+    setState(() => _prefs = updated);
+  }
+
+  void _switchToLog() {
+    _tabs.animateTo(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('D4rt Test Runner'),
-        actions: [_ScriptCountBadge(runner: _runner)],
-      ),
-      body: Column(
-        children: [
-          PathBar(notifier: _rootNotifier),
-          ScriptSearchBar(runner: _runner),
-          SamplesBar(notifier: _samplesNotifier, onRun: _runSample),
-          ScriptInfoPanel(runner: _runner),
-          const Divider(height: 1),
-          // Primary area: the Flutter widget produced by the D4rt script.
-          // Takes ¾ of the remaining vertical space so the rendered result
-          // has room to breathe.
-          Expanded(
-            flex: 3,
-            child: D4rtScriptView(runner: _runner, d4rt: _d4rt),
-          ),
-          const Divider(height: 1),
-          // Secondary area: pass/fail summary, captured output, stack trace.
-          Expanded(
-            flex: 1,
-            child: ResultPanel(runner: _runner),
+        bottom: TabBar(
+          controller: _tabs,
+          tabs: const [
+            Tab(icon: Icon(Icons.folder_open), text: 'Examples'),
+            Tab(icon: Icon(Icons.auto_awesome), text: 'Generate'),
+            Tab(icon: Icon(Icons.terminal), text: 'Log'),
+          ],
+        ),
+        actions: [
+          _ScriptCountBadge(runner: _runner),
+          IconButton(
+            tooltip: 'Generator settings',
+            icon: const Icon(Icons.settings),
+            onPressed: _prefsLoaded ? _openSettings : null,
           ),
         ],
       ),
-      bottomNavigationBar: ControlBar(
-        runner: _runner,
-        rootNotifier: _rootNotifier,
+      body: TabBarView(
+        controller: _tabs,
+        children: [
+          _ExamplesTab(
+            rootNotifier: _rootNotifier,
+            samplesNotifier: _samplesNotifier,
+            d4rt: _d4rt,
+            runner: _runner,
+            onRunSample: _runSample,
+          ),
+          GeneratePanel(
+            notifier: _generator,
+            prefs: _prefs,
+            onSent: _switchToLog,
+            onOpenSettings: _openSettings,
+          ),
+          LogPanel(
+            notifier: _generator,
+            samples: _samplesNotifier,
+            onRun: _runSample,
+          ),
+        ],
+      ),
+      bottomNavigationBar: AnimatedBuilder(
+        animation: _tabs,
+        builder: (context, _) {
+          // Bottom control bar only makes sense on the Examples tab —
+          // hide it on Generate/Log to avoid stealing space.
+          if (_tabs.index != 0) return const SizedBox.shrink();
+          return ControlBar(
+            runner: _runner,
+            rootNotifier: _rootNotifier,
+          );
+        },
       ),
     );
   }
 }
 
-/// AppBar trailing badge showing how many scripts are loaded. Reactive so
-/// it updates when the user picks a new folder.
+/// The original test-runner UI, lifted out of [_AppShell] into a tab.
+class _ExamplesTab extends StatelessWidget {
+  final ScriptRootNotifier rootNotifier;
+  final SampleAppsNotifier samplesNotifier;
+  final SourceFlutterD4rt d4rt;
+  final TestRunner runner;
+  final void Function(SampleAppEntry) onRunSample;
+
+  const _ExamplesTab({
+    required this.rootNotifier,
+    required this.samplesNotifier,
+    required this.d4rt,
+    required this.runner,
+    required this.onRunSample,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        PathBar(notifier: rootNotifier),
+        ScriptSearchBar(runner: runner),
+        SamplesBar(notifier: samplesNotifier, onRun: onRunSample),
+        ScriptInfoPanel(runner: runner),
+        const Divider(height: 1),
+        Expanded(
+          flex: 3,
+          child: D4rtScriptView(runner: runner, d4rt: d4rt),
+        ),
+        const Divider(height: 1),
+        Expanded(
+          flex: 1,
+          child: ResultPanel(runner: runner),
+        ),
+      ],
+    );
+  }
+}
+
+/// AppBar trailing badge showing how many scripts are loaded.
 class _ScriptCountBadge extends StatelessWidget {
   final TestRunner runner;
   const _ScriptCountBadge({required this.runner});
@@ -152,7 +235,7 @@ class _ScriptCountBadge extends StatelessWidget {
         final count = runner.scripts.length;
         final scheme = Theme.of(context).colorScheme;
         return Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: const EdgeInsets.only(right: 4),
           child: Center(
             child: Container(
               padding:
