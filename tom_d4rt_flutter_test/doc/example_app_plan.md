@@ -435,18 +435,49 @@ with examples #7 and #8 respectively.
 
 ---
 
-### 10. [ ] `particle_field` — interactive particle attractor
+### 10. [x] `particle_field` — interactive particle attractor — SHIPPED
 
-A swarm of particles drifting on a `CustomPainter`. Cursor / finger
-position acts as an attractor; toggle between attract / repel / orbit
-modes. Trails fade via paint with semi-transparent overlay.
+A swarm of 20 particles drifting in a fixed 600×400 world,
+seeded by `Random(kParticleSeed)` so boots are reproducible.
+Cursor / finger position acts as an attractor; a Material 3
+`SegmentedButton<FieldMode>` toggles between Attract / Repel /
+Orbit. The sim is driven by a raw `Ticker` (created via
+`createTicker` on `SingleTickerProviderStateMixin`, NOT via an
+`AnimationController`, per the spec). Boots paused with a
+`btn-step` button so `testWidgets` can advance the field
+deterministically (one fixed `kStepDt=0.05` per tap).
 
-**Exercises:** `Ticker` raw (not via AnimationController) for the
-sim, `CustomPainter`, `MouseRegion` for cursor tracking,
-`GestureDetector` for touch, mode toggles via `SegmentedButton`.
+True multi-frame trail rendering (semi-transparent canvas
+overlay) was simplified out — `CustomPainter` doesn't persist
+between frames in our setup, so the spec's "trails fade via
+paint with semi-transparent overlay" is approximated by colour
+choice + a dark background. A real trail would need
+`Picture`/`ui.Image` plumbing that isn't bridged today; the
+fix-the-bridge path is tracked separately.
 
-**Files:** `main.dart`, `home.dart`, `field.dart`,
+**Exercises:** raw `Ticker` (not `AnimationController`),
+`CustomPainter`, `MouseRegion` for cursor hover,
+`GestureDetector.onTapDown` for taps, `SegmentedButton<FieldMode>`
+for mode toggles, immutable `Particle.copyWith` and id-based
+equality.
+
+**Files:** `main.dart`, `home.dart`, `field.dart` (Particle,
+FieldMode, Field, seedField, stepField, centroid, meanRadius),
 `particle_painter.dart`, `mode_selector.dart`.
+
+**Tests:** 7/7 pass in `test/sample_apps_in_tester_test.dart`
+(boot defaults at world centre, Attract mode contracts meanR
+over 20 steps, mode → Repel emits trail and chip updates,
+mode → Orbit ditto, reset re-seeds and restores Attract, canvas
+tap repositions attractor inside world bounds, raw Ticker
+play/pause emits one play+pause pair).
+
+**Generic interpreter fixes landed while shipping #10:** none.
+Builds clean on the existing GEN-100 stdlib propagation,
+`D4.withActiveVisitor` call wrap, and bridged
+`SingleTickerProviderStateMixin.createTicker` /
+`SegmentedButton<T>` / `MouseRegion` already shipping in
+`tom_d4rt_flutter_ast`.
 
 ---
 

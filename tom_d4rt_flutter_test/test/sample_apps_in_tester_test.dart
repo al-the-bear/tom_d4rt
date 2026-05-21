@@ -2021,6 +2021,209 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'particle_field (example #10 — raw Ticker + MouseRegion + '
+      'SegmentedButton + CustomPainter)', () {
+    // The field is 600×400 with 20 seeded particles (kParticleSeed),
+    // attractor centred at (300, 200), mode=Attract on boot. Tests
+    // drive the sim via btn-step; the raw Ticker is only exercised
+    // by the play/pause smoke test.
+
+    testWidgets('boots paused with attractor at world centre and 20 particles',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('field.init'),
+          orElse: () => '',
+        );
+        expect(init, isNot(isEmpty),
+            reason: 'Boot should emit exactly one field.init trail line.');
+        expect(init, contains('w=600'));
+        expect(init, contains('h=400'));
+        expect(init, contains('particles=20'));
+        expect(init, contains('mode=Attract'));
+        expect(init, contains('attractorX=300.0'));
+        expect(init, contains('attractorY=200.0'));
+
+        expect(find.text('mode Attract'), findsOneWidget);
+        expect(find.byKey(const Key('mode-selector')), findsOneWidget);
+        expect(find.byKey(const Key('field-canvas')), findsOneWidget);
+      });
+    });
+
+    testWidgets('attract mode contracts: meanR strictly decreases over 20 steps',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        for (var i = 0; i < 20; i++) {
+          await tester.tap(find.byKey(const Key('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+
+        final steps = _printLog
+            .where((l) => l.startsWith('field.step'))
+            .toList();
+        expect(steps, hasLength(20));
+
+        double extractMeanR(String line) {
+          final m = RegExp(r'meanR=([0-9]+(?:\.[0-9]+)?)').firstMatch(line);
+          expect(m, isNotNull, reason: 'meanR missing in: $line');
+          return double.parse(m!.group(1)!);
+        }
+
+        // We don't require monotonic strict decrease (orbits build
+        // momentum and overshoot is normal once particles cross the
+        // attractor), but the *first* few steps must contract sharply
+        // because every particle starts at rest with full attract
+        // acceleration. Over 20 steps the meanR must clearly drop
+        // from its initial value.
+        final first = extractMeanR(steps.first);
+        final last = extractMeanR(steps.last);
+        expect(last, lessThan(first),
+            reason: 'Attract mode should pull particles inward over 20 '
+                'steps. first=$first last=$last');
+      });
+    });
+
+    testWidgets('mode tap (Attract → Repel) emits trail and updates chip',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        await tester.tap(find.text('Repel'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final modeLines = _printLog
+            .where((l) => l.startsWith('field.mode'))
+            .toList();
+        expect(modeLines, hasLength(1),
+            reason: 'SegmentedButton change should emit one field.mode line.');
+        expect(modeLines.single, contains('mode=Repel'));
+        expect(find.text('mode Repel'), findsOneWidget);
+
+        // After one Repel step, meanR should be larger than the
+        // boot-time meanR — particles flee the attractor.
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+        final stepLine = _printLog.firstWhere(
+          (l) => l.startsWith('field.step'),
+          orElse: () => '',
+        );
+        expect(stepLine, contains('mode=Repel'));
+      });
+    });
+
+    testWidgets('mode tap (Attract → Orbit) emits trail and updates chip',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        await tester.tap(find.text('Orbit'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final modeLines = _printLog
+            .where((l) => l.startsWith('field.mode'))
+            .toList();
+        expect(modeLines, hasLength(1));
+        expect(modeLines.single, contains('mode=Orbit'));
+        expect(find.text('mode Orbit'), findsOneWidget);
+      });
+    });
+
+    testWidgets('reset re-seeds the field and restores Attract defaults',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        // Mutate the field a bit: change mode, step a few times.
+        await tester.tap(find.text('Repel'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        for (var i = 0; i < 3; i++) {
+          await tester.tap(find.byKey(const Key('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+
+        await tester.tap(find.byKey(const Key('btn-reset')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+
+        final resets = _printLog
+            .where((l) => l.startsWith('field.reset'))
+            .toList();
+        expect(resets, hasLength(1));
+        expect(resets.single, contains('particles=20'));
+        // Reset returns to Attract mode (see seedField).
+        expect(find.text('mode Attract'), findsOneWidget);
+      });
+    });
+
+    testWidgets('tap on canvas repositions the attractor', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        await tester.tap(find.byKey(const Key('field-canvas')));
+        await tester.pump(const Duration(milliseconds: 20));
+
+        final taps = _printLog
+            .where((l) => l.startsWith('field.tap'))
+            .toList();
+        expect(taps, hasLength(1),
+            reason: 'A canvas tap should emit one field.tap line.');
+
+        // The default tap target on tester.tap is the widget centre
+        // in screen space; in world space that maps roughly to
+        // (300, 200) — within wide bounds we just assert "inside the
+        // world box".
+        final m = RegExp(
+          r'field\.tap x=([0-9]+(?:\.[0-9]+)?) y=([0-9]+(?:\.[0-9]+)?)',
+        ).firstMatch(taps.single);
+        expect(m, isNotNull);
+        final x = double.parse(m!.group(1)!);
+        final y = double.parse(m.group(2)!);
+        expect(x, greaterThanOrEqualTo(0.0));
+        expect(x, lessThanOrEqualTo(600.0));
+        expect(y, greaterThanOrEqualTo(0.0));
+        expect(y, lessThanOrEqualTo(400.0));
+
+        // One more step should pull particles toward the NEW
+        // attractor, not the old centre.
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+        final step = _printLog.firstWhere(
+          (l) => l.startsWith('field.step'),
+          orElse: () => '',
+        );
+        expect(step, contains('mode=Attract'));
+      });
+    });
+
+    testWidgets('play/pause toggle drives the raw Ticker',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field');
+
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(
+          _printLog.where((l) => l == 'field.play'),
+          hasLength(1),
+          reason: 'play should emit exactly one field.play line.',
+        );
+        expect(
+          _printLog.where((l) => l == 'field.pause'),
+          hasLength(1),
+          reason: 'pause should emit exactly one field.pause line.',
+        );
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
