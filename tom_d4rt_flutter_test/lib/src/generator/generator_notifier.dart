@@ -373,8 +373,20 @@ class GeneratorNotifier extends ChangeNotifier {
     if (_sessionAppName == null) return;
     if (_fs.fileCount == 0) {
       if (_state != GenerationState.error) {
-        _appendBlock(LogBlockKind.status,
-            'No files in the project yet — nothing flushed.');
+        // Distinguish "model answered a question with text" from
+        // "model produced nothing at all". The former is a success
+        // path — the user gets their answer in the TEXT blocks above.
+        final hasTextResponse =
+            _blocks.any((b) => b.kind == LogBlockKind.text);
+        if (hasTextResponse) {
+          _appendBlock(LogBlockKind.status,
+              'Text-only reply — see TEXT block(s) above. No files '
+              'to flush.');
+          _state = GenerationState.done;
+        } else {
+          _appendBlock(LogBlockKind.status,
+              'No files in the project yet — nothing flushed.');
+        }
       }
       _generatedMainPath = null;
       notifyListeners();
