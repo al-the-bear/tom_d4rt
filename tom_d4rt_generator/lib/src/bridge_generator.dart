@@ -13998,6 +13998,48 @@ class BridgeGenerator {
                 castType.substring('List<'.length, castType.length - 1);
             wrapperBody =
                 "{ return D4.coerceList<$inner>($callExpr, 'callback'); }";
+          } else if (castType.startsWith('Future<') &&
+              (castType.endsWith('>') || castType.endsWith('>?'))) {
+            // GEN-???: For `Future<X>` callback returns from interpreted
+            // async functions, the interpreter produces a `Future<Object?>`
+            // (the completer-backed future in `callable.dart` uses
+            // `Completer<Object?>()`). A synchronous `as Future<X>` cast
+            // on that value fails reified-generics checks at runtime,
+            // which Flutter then silently catches inside the dismiss /
+            // navigation pipelines — so the async callback never
+            // "completes" from Flutter's perspective even though the
+            // script ran to completion.
+            //
+            // Fix: route the result through `Future.value(...)` and
+            // `.then((v) => v as $inner)` so the cast happens at value
+            // resolution time on the unboxed result, producing a
+            // properly-typed `Future<X>` chain that Flutter can await.
+            //
+            // Applies to both nullable (`Future<X>?`) and non-nullable
+            // (`Future<X>`) outer types. For nullable, a null callback
+            // result short-circuits to `null` instead of materialising a
+            // dummy Future — semantically matches "no future, don't wait".
+            final isOuterNullable = castType.endsWith('?');
+            final stripped = isOuterNullable
+                ? castType.substring(0, castType.length - 1)
+                : castType;
+            final inner = stripped.substring(
+                'Future<'.length, stripped.length - 1);
+            // `Future<void>` is special — `v as void` is not valid Dart.
+            // The result of the callback is intentionally discarded; we
+            // only need a Future that resolves once the script-side
+            // async work completes. `Future.value(...)` of an Object?
+            // is directly assignable to `Future<void>`.
+            final isVoidInner = inner.trim() == 'void';
+            if (isOuterNullable) {
+              wrapperBody = isVoidInner
+                  ? "{ final r = $callExpr; return r == null ? null : Future.value(r); }"
+                  : "{ final r = $callExpr; return r == null ? null : Future.value(r).then((v) => v as $inner); }";
+            } else {
+              wrapperBody = isVoidInner
+                  ? "{ return Future.value($callExpr); }"
+                  : "{ return Future.value($callExpr).then((v) => v as $inner); }";
+            }
           } else if (_isPrimitiveCastType(castType)) {
             // Cluster CB: Primitive return types (bool, int, double, num,
             // String, plus nullable variants) cannot be InterpretedInstance
