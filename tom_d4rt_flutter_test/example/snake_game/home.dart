@@ -54,6 +54,10 @@ class SnakeGameHome extends StatefulWidget {
 
 class _SnakeGameHomeState extends State<SnakeGameHome> {
   final FocusNode _focusNode = FocusNode(debugLabel: 'snake-board');
+  // Mirrors the focus-tracking that tron uses: lets us tell from the
+  // log whether the KeyboardListener actually has focus during
+  // gameplay (lines like `snake.focus -> true/false`).
+  bool _hasFocus = false;
   late math.Random _rng;
   List<Cell> _body = <Cell>[];
   Cell? _food;
@@ -68,14 +72,24 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(_onFocusChange);
     _resetGame(announce: 'init');
   }
 
   @override
   void dispose() {
     _ticker?.cancel();
+    _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
     super.dispose();
+  }
+
+  void _onFocusChange() {
+    final has = _focusNode.hasFocus;
+    if (has != _hasFocus) {
+      _hasFocus = has;
+      print('snake.focus -> $has');
+    }
   }
 
   // ── Game lifecycle ──────────────────────────────────────────────
@@ -183,6 +197,14 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
   // ── Keyboard handling ───────────────────────────────────────────
 
   void _onKeyEvent(KeyEvent event) {
+    // Log EVERY event that reaches the handler — type, key, focus —
+    // before the down/up filter. If the user's interactive trail
+    // shows no `snake.key.in` lines during gameplay, the events
+    // aren't reaching the handler (focus stolen or interpreter
+    // backlog). If they're there but `snake.dir queued` lines are
+    // missing, the down/up type filter is dropping them.
+    print('snake.key.in type=${event.runtimeType} '
+        'key=${event.logicalKey.debugName} focus=$_hasFocus');
     // We only react to *down* events. Holding a key doesn't
     // repeat-fire — the player gets one direction change per
     // press, which matches every other snake.
