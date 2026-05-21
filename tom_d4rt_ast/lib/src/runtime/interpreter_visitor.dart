@@ -3693,6 +3693,54 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Getter returned a non-callable — fall through to the
             // "not a method" error path below for a clear message.
           }
+          // D2 sync: If the bridged target wraps a [D4InterpretedProxy]
+          // (a native proxy that holds a back-reference to the
+          // originating [InterpretedInstance]), retry the method lookup
+          // on the wrapped instance. Mirrors the analyzer-side fix in
+          // tom_d4rt for the MethodInvocation bridged-instance path.
+          // Used when a script-defined State subclass is reached via
+          // `GlobalKey.currentState` (which returns the native
+          // `_InterpretedState` proxy) and the call-site invokes a
+          // user-defined method like `flyOff(dir)` — without this
+          // unwrap, the interpreter only sees the bridged State
+          // methods and throws "no instance method named X". Generic:
+          // applies to every D4InterpretedProxy (CustomPainter, State,
+          // SingleTickerProviderState, …).
+          final nativeTarget = bridgedInstance.nativeObject;
+          if (nativeTarget is D4InterpretedProxy) {
+            final inner = nativeTarget.d4rtInstance;
+            if (inner is InterpretedInstance) {
+              try {
+                final bound = inner.get(methodName);
+                if (bound is Callable) {
+                  final evaluationResult = _evaluateArgumentsAsync(
+                    node.argumentList,
+                  );
+                  if (evaluationResult is AsyncSuspensionRequest) {
+                    return evaluationResult;
+                  }
+                  final (positionalArgs, namedArgs) = evaluationResult
+                      as (List<Object?>, Map<String, Object?>);
+                  List<RuntimeType>? evaluatedTypeArguments;
+                  final typeArgsNode = node.typeArguments;
+                  if (typeArgsNode != null) {
+                    evaluatedTypeArguments = typeArgsNode.arguments
+                        .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                        .toList();
+                  }
+                  return bound.call(
+                    this,
+                    positionalArgs,
+                    namedArgs,
+                    evaluatedTypeArguments,
+                  );
+                }
+              } on RuntimeD4rtException {
+                // Method not found on the inner interpreted instance —
+                // fall through to extension lookup / not-found error.
+              }
+            }
+          }
           // No adapter found for this method name, try extension methods
           Logger.debug(
             "[visitMethodInvocation] Bridged method '$methodName' not found directly for ${bridgedClass.name}. Trying extensions.",
