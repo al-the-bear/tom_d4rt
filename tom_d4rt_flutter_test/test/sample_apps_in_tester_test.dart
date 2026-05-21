@@ -5968,6 +5968,237 @@ Widget build(BuildContext context) {
       });
     });
   });
+
+  group(
+      'clock_face (example #25 — AnalogClock CustomPainter + '
+      'AnimationController seconds sweep + rotary timezone dial)', () {
+    // Trail emitted by the interpreted script (example/clock_face/):
+    //   clock.boot base=<iso> offsetMin=0
+    //   clock.play / clock.pause
+    //   clock.tick second=<n>
+    //   dial.rotate offsetMin=<m>
+
+    testWidgets('boots paused at 12:00:00 with both clocks + dial',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Chrome.
+        expect(find.byKey(const Key('clock-scaffold')), findsOneWidget);
+        expect(find.byKey(const Key('main-clock')), findsOneWidget);
+        expect(find.byKey(const Key('world-clock')), findsOneWidget);
+        expect(find.byKey(const Key('date-pill')), findsOneWidget);
+        expect(find.byKey(const Key('timezone-dial')), findsOneWidget);
+        expect(find.byKey(const Key('dial-rotation')), findsOneWidget);
+        expect(find.byKey(const Key('play-button')), findsOneWidget);
+
+        // Boot trail line is emitted post-frame with the deterministic
+        // base time.
+        expect(
+          _printLog
+              .where((l) => l ==
+                  'clock.boot base=2026-05-21T12:00:00.000 offsetMin=0')
+              .toList(),
+          hasLength(1),
+        );
+
+        // Paused start ⇒ displayed time is exactly the base.
+        expect(find.text('12:00:00'), findsOneWidget);
+        expect(find.text('2026-05-21'), findsOneWidget);
+        expect(find.text('UTC'), findsOneWidget);
+
+        // Before play, no clock.tick lines should have fired.
+        expect(_printLog.where((l) => l.startsWith('clock.tick ')), isEmpty);
+      });
+    });
+
+    testWidgets('play button starts the controller + emits ticks',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('play-button')));
+        // Controller.repeat() owns a Ticker — pumpAndSettle would spin
+        // forever, so step in plain pumps.
+        await tester.pump(const Duration(milliseconds: 100));
+
+        expect(
+          _printLog.where((l) => l == 'clock.play').toList(),
+          hasLength(1),
+        );
+
+        // Advance past one whole second — controller.value = 1.1/60 ≈
+        // 0.0183 ⇒ elapsed.inSeconds = 1.
+        await tester.pump(const Duration(milliseconds: 1100));
+        expect(
+          _printLog.where((l) => l == 'clock.tick second=1').toList(),
+          hasLength(1),
+        );
+        expect(find.text('12:00:01'), findsOneWidget);
+
+        // Stop the controller so the test can settle without a leaked
+        // Ticker.
+        await tester.tap(find.byKey(const Key('play-button')));
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(
+          _printLog.where((l) => l == 'clock.pause').toList(),
+          hasLength(1),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+      });
+    });
+
+    testWidgets('pausing freezes the second hand at the last whole second',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('play-button')));
+        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump(const Duration(milliseconds: 2200));
+        await tester.tap(find.byKey(const Key('play-button')));
+        await tester.pump(const Duration(milliseconds: 100));
+
+        final String frozenLabel =
+            (find.byKey(const Key('time-label')).evaluate().first.widget
+                    as Text)
+                .data ??
+                '';
+        expect(frozenLabel.startsWith('12:00:0'), isTrue);
+
+        // Wait without pumping more time-real-progress — the label
+        // should remain stable now.
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        final String afterIdle =
+            (find.byKey(const Key('time-label')).evaluate().first.widget
+                    as Text)
+                .data ??
+                '';
+        expect(afterIdle, frozenLabel);
+      });
+    });
+
+    testWidgets('dial-plus button advances the offset by +60 minutes',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('dial-plus')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        expect(
+          _printLog
+              .where((l) => l == 'dial.rotate offsetMin=60')
+              .toList(),
+          hasLength(1),
+        );
+        expect(find.text('UTC+1:00'), findsOneWidget);
+        // Time label rolls forward by one hour from the base.
+        expect(find.text('13:00:00'), findsOneWidget);
+      });
+    });
+
+    testWidgets('dial-minus button rolls the offset negative',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('dial-minus')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        expect(
+          _printLog
+              .where((l) => l == 'dial.rotate offsetMin=-60')
+              .toList(),
+          hasLength(1),
+        );
+        expect(find.text('UTC-1:00'), findsOneWidget);
+        expect(find.text('11:00:00'), findsOneWidget);
+      });
+    });
+
+    testWidgets('repeated dial-plus stacks the offset (quantised snap)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        for (int i = 0; i < 3; i = i + 1) {
+          await tester.tap(find.byKey(const Key('dial-plus')));
+          await tester.pumpAndSettle(const Duration(milliseconds: 200));
+        }
+
+        final List<String> rotates = _printLog
+            .where((l) => l.startsWith('dial.rotate '))
+            .toList();
+        expect(rotates, <String>[
+          'dial.rotate offsetMin=60',
+          'dial.rotate offsetMin=120',
+          'dial.rotate offsetMin=180',
+        ]);
+        expect(find.text('UTC+3:00'), findsOneWidget);
+        expect(find.text('15:00:00'), findsOneWidget);
+      });
+    });
+
+    testWidgets('offset clamps at +14h (no further dial.rotate beyond that)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // 14 plus-taps gets us to +14h; the 15th must be a no-op.
+        for (int i = 0; i < 14; i = i + 1) {
+          await tester.tap(find.byKey(const Key('dial-plus')));
+          await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        }
+        expect(find.text('UTC+14:00'), findsOneWidget);
+        final int beforeClamp = _printLog
+            .where((l) => l.startsWith('dial.rotate '))
+            .length;
+
+        // Extra plus-taps at the clamp must not produce additional
+        // dial.rotate lines.
+        await tester.tap(find.byKey(const Key('dial-plus')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('dial-plus')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final int afterClamp = _printLog
+            .where((l) => l.startsWith('dial.rotate '))
+            .length;
+        expect(afterClamp, beforeClamp);
+      });
+    });
+
+    testWidgets('AnimatedRotation receives turns matching the offset',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'clock_face');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        AnimatedRotation rotation = tester.widget<AnimatedRotation>(
+          find.byKey(const Key('dial-rotation')),
+        );
+        expect(rotation.turns, 0.0);
+
+        // +6h ⇒ 360 minutes ⇒ turns = 360/720 = 0.5.
+        for (int i = 0; i < 6; i = i + 1) {
+          await tester.tap(find.byKey(const Key('dial-plus')));
+          await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        }
+        rotation = tester.widget<AnimatedRotation>(
+          find.byKey(const Key('dial-rotation')),
+        );
+        expect(rotation.turns, 0.5);
+      });
+    });
+  });
 }
 
 /// Pump a `MaterialApp` whose body is the widget produced by interpreting

@@ -808,7 +808,7 @@ particle burst via `CustomPainter` + `Ticker`.
 
 ---
 
-### 25. [ ] `clock_face` — live analog clock + world-clock dial
+### 25. [x] `clock_face` — live analog clock + world-clock dial — SHIPPED
 
 An analog clock face rendered via `CustomPainter`: hour / minute /
 second hands, tick marks, date pill at the bottom. The second hand
