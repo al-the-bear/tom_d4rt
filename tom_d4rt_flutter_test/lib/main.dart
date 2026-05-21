@@ -23,6 +23,7 @@ import 'src/source_flutter_d4rt.dart';
 import 'src/test_runner.dart';
 import 'src/widgets/control_bar.dart';
 import 'src/widgets/d4rt_script_view.dart';
+import 'src/widgets/file_inspector_panel.dart';
 import 'src/widgets/generate_panel.dart';
 import 'src/widgets/log_panel.dart';
 import 'src/widgets/path_bar.dart';
@@ -80,7 +81,7 @@ class _AppShellState extends State<_AppShell>
     _d4rt = SourceFlutterD4rt();
     _runner = TestRunner(_rootNotifier);
     _generator = GeneratorNotifier(samplesNotifier: _samplesNotifier);
-    _tabs = TabController(length: 3, vsync: this);
+    _tabs = TabController(length: 4, vsync: this);
     _loadPrefs();
   }
 
@@ -133,6 +134,7 @@ class _AppShellState extends State<_AppShell>
             Tab(icon: Icon(Icons.folder_open), text: 'Examples'),
             Tab(icon: Icon(Icons.auto_awesome), text: 'Generate'),
             Tab(icon: Icon(Icons.terminal), text: 'Log'),
+            Tab(icon: Icon(Icons.description_outlined), text: 'Files'),
           ],
         ),
         actions: [
@@ -165,6 +167,7 @@ class _AppShellState extends State<_AppShell>
             samples: _samplesNotifier,
             onRun: _runSample,
           ),
+          FileInspectorPanel(notifier: _generator),
         ],
       ),
       bottomNavigationBar: AnimatedBuilder(

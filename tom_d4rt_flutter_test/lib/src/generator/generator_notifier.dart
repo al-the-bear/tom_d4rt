@@ -80,6 +80,11 @@ class GeneratorNotifier extends ChangeNotifier {
   bool get hasSession => _sessionAppName != null;
   int get sessionFileCount => _fs.fileCount;
   List<String> get sessionFiles => _fs.listFiles();
+
+  /// Read the current in-memory content of [path] from the session
+  /// virtual FS. Returns null if no such file exists. Used by the
+  /// File Inspector tab to render the right-hand viewer pane.
+  String? readSessionFile(String path) => _fs.read(path);
   bool get isBusy =>
       _state == GenerationState.sending ||
       _state == GenerationState.streaming ||
