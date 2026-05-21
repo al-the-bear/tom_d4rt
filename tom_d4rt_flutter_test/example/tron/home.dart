@@ -100,20 +100,8 @@ class _TronHomeState extends State<TronHome> {
   }
 
   /// Key handler for the [KeyboardListener] wrapping the arena.
-  ///
-  /// IMPORTANT: we don't use `event is KeyDownEvent` here — that
-  /// `is`-check is currently unreliable for some bridged event subtypes
-  /// under the d4rt interpreter (an event arrives as a real
-  /// `KeyDownEvent` native instance but the script-side `is` resolves
-  /// to false, swallowing the press). We instead inspect
-  /// `event.runtimeType.toString()`, which always returns the native
-  /// type name ('KeyDownEvent' / 'KeyUpEvent' / 'KeyRepeatEvent')
-  /// regardless of how the type-system bridges it.
   void _handleKey(KeyEvent event) {
-    final typeName = event.runtimeType.toString();
-    final isDown = typeName == 'KeyDownEvent' ||
-        typeName == 'KeyRepeatEvent';
-    if (!isDown) return;
+    if (event is! KeyDownEvent && event is! KeyRepeatEvent) return;
     final k = event.logicalKey;
     print('[tron] key=${k.debugName}');
     if (_engine.status != GameStatus.playing) {
