@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-05-19T03:01:03.567219
+// Generated: 2026-05-21T12:35:48.015584
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1050,6 +1050,7 @@ BridgedClass _createPointerAddedEventBridge() {
     nativeType: $flutter_13.PointerAddedEvent,
     name: 'PointerAddedEvent',
     isAssignable: (v) => v is $flutter_13.PointerAddedEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -1220,6 +1221,7 @@ BridgedClass _createPointerRemovedEventBridge() {
     nativeType: $flutter_13.PointerRemovedEvent,
     name: 'PointerRemovedEvent',
     isAssignable: (v) => v is $flutter_13.PointerRemovedEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -1388,6 +1390,7 @@ BridgedClass _createPointerHoverEventBridge() {
     nativeType: $flutter_13.PointerHoverEvent,
     name: 'PointerHoverEvent',
     isAssignable: (v) => v is $flutter_13.PointerHoverEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -1564,6 +1567,7 @@ BridgedClass _createPointerEnterEventBridge() {
     nativeType: $flutter_13.PointerEnterEvent,
     name: 'PointerEnterEvent',
     isAssignable: (v) => v is $flutter_13.PointerEnterEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -1747,6 +1751,7 @@ BridgedClass _createPointerExitEventBridge() {
     nativeType: $flutter_13.PointerExitEvent,
     name: 'PointerExitEvent',
     isAssignable: (v) => v is $flutter_13.PointerExitEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -1930,6 +1935,7 @@ BridgedClass _createPointerDownEventBridge() {
     nativeType: $flutter_13.PointerDownEvent,
     name: 'PointerDownEvent',
     isAssignable: (v) => v is $flutter_13.PointerDownEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -2110,6 +2116,7 @@ BridgedClass _createPointerMoveEventBridge() {
     nativeType: $flutter_13.PointerMoveEvent,
     name: 'PointerMoveEvent',
     isAssignable: (v) => v is $flutter_13.PointerMoveEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -2293,6 +2300,7 @@ BridgedClass _createPointerUpEventBridge() {
     nativeType: $flutter_13.PointerUpEvent,
     name: 'PointerUpEvent',
     isAssignable: (v) => v is $flutter_13.PointerUpEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -2469,6 +2477,7 @@ BridgedClass _createPointerSignalEventBridge() {
     nativeType: $flutter_13.PointerSignalEvent,
     name: 'PointerSignalEvent',
     isAssignable: (v) => v is $flutter_13.PointerSignalEvent,
+    hierarchyDepth: 3,
     isAbstract: true,
     constructors: {
     },
@@ -2620,6 +2629,7 @@ BridgedClass _createPointerScrollEventBridge() {
     nativeType: $flutter_13.PointerScrollEvent,
     name: 'PointerScrollEvent',
     isAssignable: (v) => v is $flutter_13.PointerScrollEvent,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -2792,6 +2802,7 @@ BridgedClass _createPointerScrollInertiaCancelEventBridge() {
     nativeType: $flutter_13.PointerScrollInertiaCancelEvent,
     name: 'PointerScrollInertiaCancelEvent',
     isAssignable: (v) => v is $flutter_13.PointerScrollInertiaCancelEvent,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -2959,6 +2970,7 @@ BridgedClass _createPointerScaleEventBridge() {
     nativeType: $flutter_13.PointerScaleEvent,
     name: 'PointerScaleEvent',
     isAssignable: (v) => v is $flutter_13.PointerScaleEvent,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -3130,6 +3142,7 @@ BridgedClass _createPointerPanZoomStartEventBridge() {
     nativeType: $flutter_13.PointerPanZoomStartEvent,
     name: 'PointerPanZoomStartEvent',
     isAssignable: (v) => v is $flutter_13.PointerPanZoomStartEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -3291,6 +3304,7 @@ BridgedClass _createPointerPanZoomUpdateEventBridge() {
     nativeType: $flutter_13.PointerPanZoomUpdateEvent,
     name: 'PointerPanZoomUpdateEvent',
     isAssignable: (v) => v is $flutter_13.PointerPanZoomUpdateEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -3474,6 +3488,7 @@ BridgedClass _createPointerPanZoomEndEventBridge() {
     nativeType: $flutter_13.PointerPanZoomEndEvent,
     name: 'PointerPanZoomEndEvent',
     isAssignable: (v) => v is $flutter_13.PointerPanZoomEndEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -3635,6 +3650,7 @@ BridgedClass _createPointerCancelEventBridge() {
     nativeType: $flutter_13.PointerCancelEvent,
     name: 'PointerCancelEvent',
     isAssignable: (v) => v is $flutter_13.PointerCancelEvent,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
@@ -4177,6 +4193,7 @@ BridgedClass _createFlutterErrorDetailsForPointerEventDispatcherBridge() {
     nativeType: $flutter_6.FlutterErrorDetailsForPointerEventDispatcher,
     name: 'FlutterErrorDetailsForPointerEventDispatcher',
     isAssignable: (v) => v is $flutter_6.FlutterErrorDetailsForPointerEventDispatcher,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'FlutterErrorDetailsForPointerEventDispatcher');
@@ -4276,6 +4293,7 @@ BridgedClass _createGestureBindingBridge() {
     nativeType: $flutter_6.GestureBinding,
     name: 'GestureBinding',
     isAssignable: (v) => v is $flutter_6.GestureBinding,
+    hierarchyDepth: 4,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -4379,7 +4397,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'reassembleApplication': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.GestureBinding>(target, 'GestureBinding');
@@ -4396,7 +4414,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4410,7 +4428,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4424,7 +4442,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -4449,7 +4467,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4459,7 +4477,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -4728,6 +4746,7 @@ BridgedClass _createIOSScrollViewFlingVelocityTrackerBridge() {
     nativeType: $flutter_31.IOSScrollViewFlingVelocityTracker,
     name: 'IOSScrollViewFlingVelocityTracker',
     isAssignable: (v) => v is $flutter_31.IOSScrollViewFlingVelocityTracker,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'IOSScrollViewFlingVelocityTracker');
@@ -4779,6 +4798,7 @@ BridgedClass _createMacOSScrollViewFlingVelocityTrackerBridge() {
     nativeType: $flutter_31.MacOSScrollViewFlingVelocityTracker,
     name: 'MacOSScrollViewFlingVelocityTracker',
     isAssignable: (v) => v is $flutter_31.MacOSScrollViewFlingVelocityTracker,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MacOSScrollViewFlingVelocityTracker');
@@ -4830,6 +4850,7 @@ BridgedClass _createDragDownDetailsBridge() {
     nativeType: $flutter_11.DragDownDetails,
     name: 'DragDownDetails',
     isAssignable: (v) => v is $flutter_11.DragDownDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -4890,6 +4911,7 @@ BridgedClass _createDragStartDetailsBridge() {
     nativeType: $flutter_11.DragStartDetails,
     name: 'DragStartDetails',
     isAssignable: (v) => v is $flutter_11.DragStartDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -4956,6 +4978,7 @@ BridgedClass _createDragUpdateDetailsBridge() {
     nativeType: $flutter_11.DragUpdateDetails,
     name: 'DragUpdateDetails',
     isAssignable: (v) => v is $flutter_11.DragUpdateDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'DragUpdateDetails');
@@ -5028,6 +5051,7 @@ BridgedClass _createDragEndDetailsBridge() {
     nativeType: $flutter_11.DragEndDetails,
     name: 'DragEndDetails',
     isAssignable: (v) => v is $flutter_11.DragEndDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -5135,6 +5159,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
     nativeType: $flutter_12.EagerGestureRecognizer,
     name: 'EagerGestureRecognizer',
     isAssignable: (v) => v is $flutter_12.EagerGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final supportedDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['supportedDevices'], 'supportedDevices');
@@ -5405,6 +5430,7 @@ BridgedClass _createForcePressDetailsBridge() {
     nativeType: $flutter_14.ForcePressDetails,
     name: 'ForcePressDetails',
     isAssignable: (v) => v is $flutter_14.ForcePressDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'ForcePressDetails');
@@ -5468,6 +5494,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
     nativeType: $flutter_14.ForcePressGestureRecognizer,
     name: 'ForcePressGestureRecognizer',
     isAssignable: (v) => v is $flutter_14.ForcePressGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final startPressure = D4.getNamedArgWithDefault<double>(named, 'startPressure', 0.4);
@@ -5810,6 +5837,7 @@ BridgedClass _createLongPressDownDetailsBridge() {
     nativeType: $flutter_18.LongPressDownDetails,
     name: 'LongPressDownDetails',
     isAssignable: (v) => v is $flutter_18.LongPressDownDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -5873,6 +5901,7 @@ BridgedClass _createLongPressStartDetailsBridge() {
     nativeType: $flutter_18.LongPressStartDetails,
     name: 'LongPressStartDetails',
     isAssignable: (v) => v is $flutter_18.LongPressStartDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -5933,6 +5962,7 @@ BridgedClass _createLongPressMoveUpdateDetailsBridge() {
     nativeType: $flutter_18.LongPressMoveUpdateDetails,
     name: 'LongPressMoveUpdateDetails',
     isAssignable: (v) => v is $flutter_18.LongPressMoveUpdateDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -5999,6 +6029,7 @@ BridgedClass _createLongPressEndDetailsBridge() {
     nativeType: $flutter_18.LongPressEndDetails,
     name: 'LongPressEndDetails',
     isAssignable: (v) => v is $flutter_18.LongPressEndDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -6062,6 +6093,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
     nativeType: $flutter_18.LongPressGestureRecognizer,
     name: 'LongPressGestureRecognizer',
     isAssignable: (v) => v is $flutter_18.LongPressGestureRecognizer,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
@@ -6654,6 +6686,7 @@ BridgedClass _createGestureRecognizerBridge() {
     nativeType: $flutter_25.GestureRecognizer,
     name: 'GestureRecognizer',
     isAssignable: (v) => v is $flutter_25.GestureRecognizer,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -6847,6 +6880,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
     nativeType: $flutter_25.OneSequenceGestureRecognizer,
     name: 'OneSequenceGestureRecognizer',
     isAssignable: (v) => v is $flutter_25.OneSequenceGestureRecognizer,
+    hierarchyDepth: 5,
     isAbstract: true,
     constructors: {
     },
@@ -7103,6 +7137,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
     nativeType: $flutter_25.PrimaryPointerGestureRecognizer,
     name: 'PrimaryPointerGestureRecognizer',
     isAssignable: (v) => v is $flutter_25.PrimaryPointerGestureRecognizer,
+    hierarchyDepth: 6,
     isAbstract: true,
     constructors: {
     },
@@ -7460,6 +7495,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
     nativeType: $flutter_20.DragGestureRecognizer,
     name: 'DragGestureRecognizer',
     isAssignable: (v) => v is $flutter_20.DragGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
     },
     getters: {
@@ -7817,6 +7853,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
     nativeType: $flutter_20.VerticalDragGestureRecognizer,
     name: 'VerticalDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_20.VerticalDragGestureRecognizer,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -8190,6 +8227,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
     nativeType: $flutter_20.HorizontalDragGestureRecognizer,
     name: 'HorizontalDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_20.HorizontalDragGestureRecognizer,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -8563,6 +8601,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
     nativeType: $flutter_20.PanGestureRecognizer,
     name: 'PanGestureRecognizer',
     isAssignable: (v) => v is $flutter_20.PanGestureRecognizer,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -9004,6 +9043,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.MultiDragGestureRecognizer,
     name: 'MultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.MultiDragGestureRecognizer,
+    hierarchyDepth: 5,
     isAbstract: true,
     constructors: {
     },
@@ -9211,6 +9251,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.ImmediateMultiDragGestureRecognizer,
     name: 'ImmediateMultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.ImmediateMultiDragGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -9426,6 +9467,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.HorizontalMultiDragGestureRecognizer,
     name: 'HorizontalMultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.HorizontalMultiDragGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -9641,6 +9683,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.VerticalMultiDragGestureRecognizer,
     name: 'VerticalMultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.VerticalMultiDragGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -9856,6 +9899,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.DelayedMultiDragGestureRecognizer,
     name: 'DelayedMultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.DelayedMultiDragGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -10080,6 +10124,7 @@ BridgedClass _createTapDownDetailsBridge() {
     nativeType: $flutter_28.TapDownDetails,
     name: 'TapDownDetails',
     isAssignable: (v) => v is $flutter_28.TapDownDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -10143,6 +10188,7 @@ BridgedClass _createTapUpDetailsBridge() {
     nativeType: $flutter_28.TapUpDetails,
     name: 'TapUpDetails',
     isAssignable: (v) => v is $flutter_28.TapUpDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -10242,6 +10288,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
     nativeType: $flutter_28.BaseTapGestureRecognizer,
     name: 'BaseTapGestureRecognizer',
     isAssignable: (v) => v is $flutter_28.BaseTapGestureRecognizer,
+    hierarchyDepth: 7,
     isAbstract: true,
     constructors: {
     },
@@ -10563,6 +10610,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
     nativeType: $flutter_28.TapGestureRecognizer,
     name: 'TapGestureRecognizer',
     isAssignable: (v) => v is $flutter_28.TapGestureRecognizer,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -11015,6 +11063,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
     nativeType: $flutter_22.DoubleTapGestureRecognizer,
     name: 'DoubleTapGestureRecognizer',
     isAssignable: (v) => v is $flutter_22.DoubleTapGestureRecognizer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -11244,6 +11293,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
     nativeType: $flutter_22.MultiTapGestureRecognizer,
     name: 'MultiTapGestureRecognizer',
     isAssignable: (v) => v is $flutter_22.MultiTapGestureRecognizer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final longTapDelay = D4.getNamedArgWithDefault<Duration>(named, 'longTapDelay', Duration.zero);
@@ -11493,6 +11543,7 @@ BridgedClass _createSerialTapDownDetailsBridge() {
     nativeType: $flutter_22.SerialTapDownDetails,
     name: 'SerialTapDownDetails',
     isAssignable: (v) => v is $flutter_22.SerialTapDownDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -11562,6 +11613,7 @@ BridgedClass _createSerialTapCancelDetailsBridge() {
     nativeType: $flutter_22.SerialTapCancelDetails,
     name: 'SerialTapCancelDetails',
     isAssignable: (v) => v is $flutter_22.SerialTapCancelDetails,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final count = D4.getNamedArgWithDefault<int>(named, 'count', 1);
@@ -11619,6 +11671,7 @@ BridgedClass _createSerialTapUpDetailsBridge() {
     nativeType: $flutter_22.SerialTapUpDetails,
     name: 'SerialTapUpDetails',
     isAssignable: (v) => v is $flutter_22.SerialTapUpDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -11685,6 +11738,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
     nativeType: $flutter_22.SerialTapGestureRecognizer,
     name: 'SerialTapGestureRecognizer',
     isAssignable: (v) => v is $flutter_22.SerialTapGestureRecognizer,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -11982,6 +12036,7 @@ BridgedClass _createScaleStartDetailsBridge() {
     nativeType: $flutter_27.ScaleStartDetails,
     name: 'ScaleStartDetails',
     isAssignable: (v) => v is $flutter_27.ScaleStartDetails,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final focalPoint = D4.getNamedArgWithDefault<Offset>(named, 'focalPoint', $dart_ui.Offset.zero);
@@ -12051,6 +12106,7 @@ BridgedClass _createScaleUpdateDetailsBridge() {
     nativeType: $flutter_27.ScaleUpdateDetails,
     name: 'ScaleUpdateDetails',
     isAssignable: (v) => v is $flutter_27.ScaleUpdateDetails,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final focalPoint = D4.getNamedArgWithDefault<Offset>(named, 'focalPoint', $dart_ui.Offset.zero);
@@ -12132,6 +12188,7 @@ BridgedClass _createScaleEndDetailsBridge() {
     nativeType: $flutter_27.ScaleEndDetails,
     name: 'ScaleEndDetails',
     isAssignable: (v) => v is $flutter_27.ScaleEndDetails,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final velocity = D4.getNamedArgWithDefault<$flutter_31.Velocity>(named, 'velocity', $flutter_31.Velocity.zero);
@@ -12195,6 +12252,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
     nativeType: $flutter_27.ScaleGestureRecognizer,
     name: 'ScaleGestureRecognizer',
     isAssignable: (v) => v is $flutter_27.ScaleGestureRecognizer,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -12516,6 +12574,7 @@ BridgedClass _createTapDragDownDetailsBridge() {
     nativeType: $flutter_29.TapDragDownDetails,
     name: 'TapDragDownDetails',
     isAssignable: (v) => v is $flutter_29.TapDragDownDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'TapDragDownDetails');
@@ -12582,6 +12641,7 @@ BridgedClass _createTapDragUpDetailsBridge() {
     nativeType: $flutter_29.TapDragUpDetails,
     name: 'TapDragUpDetails',
     isAssignable: (v) => v is $flutter_29.TapDragUpDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'TapDragUpDetails');
@@ -12648,6 +12708,7 @@ BridgedClass _createTapDragStartDetailsBridge() {
     nativeType: $flutter_29.TapDragStartDetails,
     name: 'TapDragStartDetails',
     isAssignable: (v) => v is $flutter_29.TapDragStartDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'TapDragStartDetails');
@@ -12717,6 +12778,7 @@ BridgedClass _createTapDragUpdateDetailsBridge() {
     nativeType: $flutter_29.TapDragUpdateDetails,
     name: 'TapDragUpdateDetails',
     isAssignable: (v) => v is $flutter_29.TapDragUpdateDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getRequiredNamedArg<Offset>(named, 'globalPosition', 'TapDragUpdateDetails');
@@ -12798,6 +12860,7 @@ BridgedClass _createTapDragEndDetailsBridge() {
     nativeType: $flutter_29.TapDragEndDetails,
     name: 'TapDragEndDetails',
     isAssignable: (v) => v is $flutter_29.TapDragEndDetails,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
@@ -12867,6 +12930,7 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
     nativeType: $flutter_29.BaseTapAndDragGestureRecognizer,
     name: 'BaseTapAndDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_29.BaseTapAndDragGestureRecognizer,
+    hierarchyDepth: 7,
     constructors: {
     },
     getters: {
@@ -13204,6 +13268,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
     nativeType: $flutter_29.TapAndHorizontalDragGestureRecognizer,
     name: 'TapAndHorizontalDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_29.TapAndHorizontalDragGestureRecognizer,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
@@ -13549,6 +13614,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
     nativeType: $flutter_29.TapAndPanGestureRecognizer,
     name: 'TapAndPanGestureRecognizer',
     isAssignable: (v) => v is $flutter_29.TapAndPanGestureRecognizer,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');

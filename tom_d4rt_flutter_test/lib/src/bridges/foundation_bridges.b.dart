@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-05-19T03:01:00.021967
+// Generated: 2026-05-21T12:35:44.385458
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -681,7 +681,7 @@ class FlutterFoundationBridge {
           throw ArgumentError('debugInstrumentAction: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = (() { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function();
+        final action = (() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])).then((v) => v as dynamic); }) as Future<dynamic> Function();
         return $flutter_11.debugInstrumentAction<dynamic>(description, action);
       },
       'debugFormatDouble': (visitor, positional, named, typeArgs) {
@@ -943,6 +943,7 @@ BridgedClass _createCachingIterableBridge() {
     nativeType: $flutter_3.CachingIterable,
     name: 'CachingIterable',
     isAssignable: (v) => v is $flutter_3.CachingIterable,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CachingIterable');
@@ -1505,6 +1506,7 @@ BridgedClass _createMessagePropertyBridge() {
     nativeType: $flutter_12.MessageProperty,
     name: 'MessageProperty',
     isAssignable: (v) => v is $flutter_12.MessageProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MessageProperty');
@@ -1645,6 +1647,7 @@ BridgedClass _createStringPropertyBridge() {
     nativeType: $flutter_12.StringProperty,
     name: 'StringProperty',
     isAssignable: (v) => v is $flutter_12.StringProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'StringProperty');
@@ -1799,6 +1802,7 @@ BridgedClass _createDoublePropertyBridge() {
     nativeType: $flutter_12.DoubleProperty,
     name: 'DoubleProperty',
     isAssignable: (v) => v is $flutter_12.DoubleProperty,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DoubleProperty');
@@ -1979,6 +1983,7 @@ BridgedClass _createIntPropertyBridge() {
     nativeType: $flutter_12.IntProperty,
     name: 'IntProperty',
     isAssignable: (v) => v is $flutter_12.IntProperty,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'IntProperty');
@@ -2136,6 +2141,7 @@ BridgedClass _createPercentPropertyBridge() {
     nativeType: $flutter_12.PercentProperty,
     name: 'PercentProperty',
     isAssignable: (v) => v is $flutter_12.PercentProperty,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PercentProperty');
@@ -2286,6 +2292,7 @@ BridgedClass _createFlagPropertyBridge() {
     nativeType: $flutter_12.FlagProperty,
     name: 'FlagProperty',
     isAssignable: (v) => v is $flutter_12.FlagProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlagProperty');
@@ -2433,6 +2440,7 @@ BridgedClass _createIterablePropertyBridge() {
     nativeType: $flutter_12.IterableProperty,
     name: 'IterableProperty',
     isAssignable: (v) => v is $flutter_12.IterableProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'IterableProperty');
@@ -2587,6 +2595,7 @@ BridgedClass _createEnumPropertyBridge() {
     nativeType: $flutter_12.EnumProperty,
     name: 'EnumProperty',
     isAssignable: (v) => v is $flutter_12.EnumProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EnumProperty');
@@ -2733,6 +2742,7 @@ BridgedClass _createObjectFlagPropertyBridge() {
     nativeType: $flutter_12.ObjectFlagProperty,
     name: 'ObjectFlagProperty',
     isAssignable: (v) => v is $flutter_12.ObjectFlagProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ObjectFlagProperty');
@@ -3033,6 +3043,7 @@ BridgedClass _createFlagsSummaryBridge() {
     nativeType: $flutter_12.FlagsSummary,
     name: 'FlagsSummary',
     isAssignable: (v) => v is $flutter_12.FlagsSummary,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FlagsSummary');
@@ -3178,6 +3189,7 @@ BridgedClass _createDiagnosticsPropertyBridge() {
     nativeType: $flutter_12.DiagnosticsProperty,
     name: 'DiagnosticsProperty',
     isAssignable: (v) => v is $flutter_12.DiagnosticsProperty,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DiagnosticsProperty');
@@ -3365,6 +3377,7 @@ BridgedClass _createDiagnosticableNodeBridge() {
     nativeType: $flutter_12.DiagnosticableNode,
     name: 'DiagnosticableNode',
     isAssignable: (v) => v is $flutter_12.DiagnosticableNode,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3481,6 +3494,7 @@ BridgedClass _createDiagnosticableTreeNodeBridge() {
     nativeType: $flutter_12.DiagnosticableTreeNode,
     name: 'DiagnosticableTreeNode',
     isAssignable: (v) => v is $flutter_12.DiagnosticableTreeNode,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -3658,6 +3672,7 @@ BridgedClass _createDiagnosticableTreeBridge() {
     nativeType: $flutter_12.DiagnosticableTree,
     name: 'DiagnosticableTree',
     isAssignable: (v) => v is $flutter_12.DiagnosticableTree,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -3724,6 +3739,7 @@ BridgedClass _createDiagnosticsBlockBridge() {
     nativeType: $flutter_12.DiagnosticsBlock,
     name: 'DiagnosticsBlock',
     isAssignable: (v) => v is $flutter_12.DiagnosticsBlock,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -4016,6 +4032,7 @@ BridgedClass _createDiagnosticableTreeMixinBridge() {
     nativeType: $flutter_12.DiagnosticableTreeMixin,
     name: 'DiagnosticableTreeMixin',
     isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -4269,6 +4286,7 @@ BridgedClass _createRepetitiveStackFrameFilterBridge() {
     nativeType: $flutter_2.RepetitiveStackFrameFilter,
     name: 'RepetitiveStackFrameFilter',
     isAssignable: (v) => v is $flutter_2.RepetitiveStackFrameFilter,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('frames') || named['frames'] == null) {
@@ -4323,6 +4341,7 @@ BridgedClass _createErrorDescriptionBridge() {
     nativeType: $flutter_2.ErrorDescription,
     name: 'ErrorDescription',
     isAssignable: (v) => v is $flutter_2.ErrorDescription,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorDescription');
@@ -4460,6 +4479,7 @@ BridgedClass _createErrorSummaryBridge() {
     nativeType: $flutter_2.ErrorSummary,
     name: 'ErrorSummary',
     isAssignable: (v) => v is $flutter_2.ErrorSummary,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorSummary');
@@ -4597,6 +4617,7 @@ BridgedClass _createErrorHintBridge() {
     nativeType: $flutter_2.ErrorHint,
     name: 'ErrorHint',
     isAssignable: (v) => v is $flutter_2.ErrorHint,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ErrorHint');
@@ -4734,6 +4755,7 @@ BridgedClass _createErrorSpacerBridge() {
     nativeType: $flutter_2.ErrorSpacer,
     name: 'ErrorSpacer',
     isAssignable: (v) => v is $flutter_2.ErrorSpacer,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_2.ErrorSpacer();
@@ -4869,6 +4891,7 @@ BridgedClass _createFlutterErrorDetailsBridge() {
     nativeType: $flutter_2.FlutterErrorDetails,
     name: 'FlutterErrorDetails',
     isAssignable: (v) => v is $flutter_2.FlutterErrorDetails,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'FlutterErrorDetails');
@@ -4969,6 +4992,7 @@ BridgedClass _createFlutterErrorBridge() {
     nativeType: $flutter_2.FlutterError,
     name: 'FlutterError',
     isAssignable: (v) => v is $flutter_2.FlutterError,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlutterError');
@@ -5128,6 +5152,7 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
     nativeType: $flutter_2.DiagnosticsStackTrace,
     name: 'DiagnosticsStackTrace',
     isAssignable: (v) => v is $flutter_2.DiagnosticsStackTrace,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DiagnosticsStackTrace');
@@ -5284,7 +5309,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.BindingBase>(target, 'BindingBase');
@@ -5306,7 +5331,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -5320,7 +5345,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -5334,7 +5359,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -5359,7 +5384,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -5369,7 +5394,7 @@ BridgedClass _createBindingBaseBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5542,6 +5567,7 @@ BridgedClass _createValueListenableBridge() {
     nativeType: $flutter_7.ValueListenable,
     name: 'ValueListenable',
     isAssignable: (v) => v is $flutter_7.ValueListenable,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -5589,6 +5615,7 @@ BridgedClass _createChangeNotifierBridge() {
     nativeType: $flutter_7.ChangeNotifier,
     name: 'ChangeNotifier',
     isAssignable: (v) => v is $flutter_7.ChangeNotifier,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     constructors: {
       '': (visitor, positional, named) {
@@ -5670,6 +5697,7 @@ BridgedClass _createValueNotifierBridge() {
     nativeType: $flutter_7.ValueNotifier,
     name: 'ValueNotifier',
     isAssignable: (v) => v is $flutter_7.ValueNotifier,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ValueNotifier');
@@ -5847,6 +5875,7 @@ BridgedClass _createLocalKeyBridge() {
     nativeType: $flutter_14.LocalKey,
     name: 'LocalKey',
     isAssignable: (v) => v is $flutter_14.LocalKey,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -5862,6 +5891,7 @@ BridgedClass _createUniqueKeyBridge() {
     nativeType: $flutter_14.UniqueKey,
     name: 'UniqueKey',
     isAssignable: (v) => v is $flutter_14.UniqueKey,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_14.UniqueKey();
@@ -5891,6 +5921,7 @@ BridgedClass _createValueKeyBridge() {
     nativeType: $flutter_14.ValueKey,
     name: 'ValueKey',
     isAssignable: (v) => v is $flutter_14.ValueKey,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ValueKey');
@@ -6071,6 +6102,7 @@ BridgedClass _createLicenseEntryWithLineBreaksBridge() {
     nativeType: $flutter_15.LicenseEntryWithLineBreaks,
     name: 'LicenseEntryWithLineBreaks',
     isAssignable: (v) => v is $flutter_15.LicenseEntryWithLineBreaks,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'LicenseEntryWithLineBreaks');
@@ -6176,6 +6208,7 @@ BridgedClass _createObjectCreatedBridge() {
     nativeType: $flutter_16.ObjectCreated,
     name: 'ObjectCreated',
     isAssignable: (v) => v is $flutter_16.ObjectCreated,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final library = D4.getRequiredNamedArg<String>(named, 'library', 'ObjectCreated');
@@ -6218,6 +6251,7 @@ BridgedClass _createObjectDisposedBridge() {
     nativeType: $flutter_16.ObjectDisposed,
     name: 'ObjectDisposed',
     isAssignable: (v) => v is $flutter_16.ObjectDisposed,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'ObjectDisposed');
@@ -6330,6 +6364,7 @@ BridgedClass _createObserverListBridge() {
     nativeType: $flutter_18.ObserverList,
     name: 'ObserverList',
     isAssignable: (v) => v is $flutter_18.ObserverList,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_18.ObserverList();
@@ -6598,6 +6633,7 @@ BridgedClass _createHashedObserverListBridge() {
     nativeType: $flutter_18.HashedObserverList,
     name: 'HashedObserverList',
     isAssignable: (v) => v is $flutter_18.HashedObserverList,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_18.HashedObserverList();
@@ -7130,6 +7166,7 @@ BridgedClass _createSynchronousFutureBridge() {
     nativeType: $flutter_25.SynchronousFuture,
     name: 'SynchronousFuture',
     isAssignable: (v) => v is $flutter_25.SynchronousFuture,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SynchronousFuture');

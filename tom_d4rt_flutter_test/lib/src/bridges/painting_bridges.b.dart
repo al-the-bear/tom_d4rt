@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-05-19T03:00:59.339490
+// Generated: 2026-05-21T12:35:43.658920
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1310,6 +1310,7 @@ BridgedClass _createAlignmentBridge() {
     nativeType: $flutter_10.Alignment,
     name: 'Alignment',
     isAssignable: (v) => v is $flutter_10.Alignment,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Alignment');
@@ -1472,6 +1473,7 @@ BridgedClass _createAlignmentDirectionalBridge() {
     nativeType: $flutter_10.AlignmentDirectional,
     name: 'AlignmentDirectional',
     isAssignable: (v) => v is $flutter_10.AlignmentDirectional,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentDirectional');
@@ -1651,6 +1653,7 @@ BridgedClass _createBeveledRectangleBorderBridge() {
     nativeType: $flutter_12.BeveledRectangleBorder,
     name: 'BeveledRectangleBorder',
     isAssignable: (v) => v is $flutter_12.BeveledRectangleBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -1783,6 +1786,7 @@ BridgedClass _createPaintingBindingBridge() {
     nativeType: $flutter_13.PaintingBinding,
     name: 'PaintingBinding',
     isAssignable: (v) => v is $flutter_13.PaintingBinding,
+    hierarchyDepth: 3,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -1877,7 +1881,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding');
@@ -1899,7 +1903,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1913,7 +1917,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1927,7 +1931,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -1952,7 +1956,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1962,7 +1966,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2012,7 +2016,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -2593,6 +2597,7 @@ BridgedClass _createBorderRadiusBridge() {
     nativeType: $flutter_14.BorderRadius,
     name: 'BorderRadius',
     isAssignable: (v) => v is $flutter_14.BorderRadius,
+    hierarchyDepth: 1,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadius');
@@ -2769,6 +2774,7 @@ BridgedClass _createBorderRadiusDirectionalBridge() {
     nativeType: $flutter_14.BorderRadiusDirectional,
     name: 'BorderRadiusDirectional',
     isAssignable: (v) => v is $flutter_14.BorderRadiusDirectional,
+    hierarchyDepth: 1,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusDirectional');
@@ -2922,6 +2928,7 @@ BridgedClass _createBorderSideBridge() {
     nativeType: $flutter_15.BorderSide,
     name: 'BorderSide',
     isAssignable: (v) => v is $flutter_15.BorderSide,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getNamedArgWithDefault<Color>(named, 'color', const $dart_ui.Color(0xFF000000));
@@ -3185,6 +3192,7 @@ BridgedClass _createOutlinedBorderBridge() {
     nativeType: $flutter_15.OutlinedBorder,
     name: 'OutlinedBorder',
     isAssignable: (v) => v is $flutter_15.OutlinedBorder,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -3310,6 +3318,7 @@ BridgedClass _createBoxBorderBridge() {
     nativeType: $flutter_16.BoxBorder,
     name: 'BoxBorder',
     isAssignable: (v) => v is $flutter_16.BoxBorder,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
@@ -3578,6 +3587,7 @@ BridgedClass _createBorderBridge() {
     nativeType: $flutter_16.Border,
     name: 'Border',
     isAssignable: (v) => v is $flutter_16.Border,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'top', $flutter_15.BorderSide.none);
@@ -3752,6 +3762,7 @@ BridgedClass _createBorderDirectionalBridge() {
     nativeType: $flutter_16.BorderDirectional,
     name: 'BorderDirectional',
     isAssignable: (v) => v is $flutter_16.BorderDirectional,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'top', $flutter_15.BorderSide.none);
@@ -3906,6 +3917,7 @@ BridgedClass _createBoxDecorationBridge() {
     nativeType: $flutter_17.BoxDecoration,
     name: 'BoxDecoration',
     isAssignable: (v) => v is $flutter_17.BoxDecoration,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -4104,6 +4116,7 @@ BridgedClass _createBoxShadowBridge() {
     nativeType: $flutter_19.BoxShadow,
     name: 'BoxShadow',
     isAssignable: (v) => v is $flutter_19.BoxShadow,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getNamedArgWithDefault<Offset>(named, 'offset', $dart_ui.Offset.zero);
@@ -4217,6 +4230,7 @@ BridgedClass _createCircleBorderBridge() {
     nativeType: $flutter_20.CircleBorder,
     name: 'CircleBorder',
     isAssignable: (v) => v is $flutter_20.CircleBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -4642,6 +4656,7 @@ BridgedClass _createColorSwatchBridge() {
     nativeType: $flutter_22.ColorSwatch,
     name: 'ColorSwatch',
     isAssignable: (v) => v is $flutter_22.ColorSwatch,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorSwatch');
@@ -4786,6 +4801,7 @@ BridgedClass _createColorPropertyBridge() {
     nativeType: $flutter_22.ColorProperty,
     name: 'ColorProperty',
     isAssignable: (v) => v is $flutter_22.ColorProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorProperty');
@@ -4934,6 +4950,7 @@ BridgedClass _createContinuousRectangleBorderBridge() {
     nativeType: $flutter_23.ContinuousRectangleBorder,
     name: 'ContinuousRectangleBorder',
     isAssignable: (v) => v is $flutter_23.ContinuousRectangleBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -5126,6 +5143,7 @@ BridgedClass _createDecorationBridge() {
     nativeType: $flutter_25.Decoration,
     name: 'Decoration',
     isAssignable: (v) => v is $flutter_25.Decoration,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -5779,6 +5797,7 @@ BridgedClass _createEdgeInsetsBridge() {
     nativeType: $flutter_27.EdgeInsets,
     name: 'EdgeInsets',
     isAssignable: (v) => v is $flutter_27.EdgeInsets,
+    hierarchyDepth: 1,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsets');
@@ -6027,6 +6046,7 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
     nativeType: $flutter_27.EdgeInsetsDirectional,
     name: 'EdgeInsetsDirectional',
     isAssignable: (v) => v is $flutter_27.EdgeInsetsDirectional,
+    hierarchyDepth: 1,
     constructors: {
       'fromSTEB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsetsDirectional');
@@ -6225,6 +6245,7 @@ BridgedClass _createFlutterLogoDecorationBridge() {
     nativeType: $flutter_28.FlutterLogoDecoration,
     name: 'FlutterLogoDecoration',
     isAssignable: (v) => v is $flutter_28.FlutterLogoDecoration,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final textColor = D4.getNamedArgWithDefault<Color>(named, 'textColor', const $dart_ui.Color(0xFF757575));
@@ -6357,6 +6378,7 @@ BridgedClass _createFractionalOffsetBridge() {
     nativeType: $flutter_29.FractionalOffset,
     name: 'FractionalOffset',
     isAssignable: (v) => v is $flutter_29.FractionalOffset,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FractionalOffset');
@@ -6564,6 +6586,7 @@ BridgedClass _createGradientRotationBridge() {
     nativeType: $flutter_31.GradientRotation,
     name: 'GradientRotation',
     isAssignable: (v) => v is $flutter_31.GradientRotation,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'GradientRotation');
@@ -6697,6 +6720,7 @@ BridgedClass _createLinearGradientBridge() {
     nativeType: $flutter_31.LinearGradient,
     name: 'LinearGradient',
     isAssignable: (v) => v is $flutter_31.LinearGradient,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getNamedArgWithDefault<$flutter_10.AlignmentGeometry>(named, 'begin', $flutter_10.Alignment.centerLeft);
@@ -6810,6 +6834,7 @@ BridgedClass _createRadialGradientBridge() {
     nativeType: $flutter_31.RadialGradient,
     name: 'RadialGradient',
     isAssignable: (v) => v is $flutter_31.RadialGradient,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final center = D4.getNamedArgWithDefault<$flutter_10.AlignmentGeometry>(named, 'center', $flutter_10.Alignment.center);
@@ -6929,6 +6954,7 @@ BridgedClass _createSweepGradientBridge() {
     nativeType: $flutter_31.SweepGradient,
     name: 'SweepGradient',
     isAssignable: (v) => v is $flutter_31.SweepGradient,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final center = D4.getNamedArgWithDefault<$flutter_10.AlignmentGeometry>(named, 'center', $flutter_10.Alignment.center);
@@ -7325,7 +7351,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
@@ -7335,7 +7361,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
@@ -7416,6 +7442,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
     nativeType: $flutter_34.AssetBundleImageProvider,
     name: 'AssetBundleImageProvider',
     isAssignable: (v) => v is $flutter_34.AssetBundleImageProvider,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -7471,7 +7498,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
@@ -7481,7 +7508,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
@@ -7540,6 +7567,7 @@ BridgedClass _createResizeImageBridge() {
     nativeType: $flutter_34.ResizeImage,
     name: 'ResizeImage',
     isAssignable: (v) => v is $flutter_34.ResizeImage,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ResizeImage');
@@ -7611,7 +7639,7 @@ BridgedClass _createResizeImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ResizeImage>(target, 'ResizeImage');
@@ -7621,7 +7649,7 @@ BridgedClass _createResizeImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ResizeImage>(target, 'ResizeImage');
@@ -7681,6 +7709,7 @@ BridgedClass _createNetworkImageBridge() {
     nativeType: $flutter_34.NetworkImage,
     name: 'NetworkImage',
     isAssignable: (v) => v is $flutter_34.NetworkImage,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
@@ -7764,7 +7793,7 @@ BridgedClass _createNetworkImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.NetworkImage>(target, 'NetworkImage');
@@ -7774,7 +7803,7 @@ BridgedClass _createNetworkImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.NetworkImage>(target, 'NetworkImage');
@@ -7813,6 +7842,7 @@ BridgedClass _createFileImageBridge() {
     nativeType: $flutter_34.FileImage,
     name: 'FileImage',
     isAssignable: (v) => v is $flutter_34.FileImage,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileImage');
@@ -7878,7 +7908,7 @@ BridgedClass _createFileImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
@@ -7888,7 +7918,7 @@ BridgedClass _createFileImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
@@ -7933,6 +7963,7 @@ BridgedClass _createMemoryImageBridge() {
     nativeType: $flutter_34.MemoryImage,
     name: 'MemoryImage',
     isAssignable: (v) => v is $flutter_34.MemoryImage,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MemoryImage');
@@ -7998,7 +8029,7 @@ BridgedClass _createMemoryImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.MemoryImage>(target, 'MemoryImage');
@@ -8008,7 +8039,7 @@ BridgedClass _createMemoryImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.MemoryImage>(target, 'MemoryImage');
@@ -8053,6 +8084,7 @@ BridgedClass _createExactAssetImageBridge() {
     nativeType: $flutter_34.ExactAssetImage,
     name: 'ExactAssetImage',
     isAssignable: (v) => v is $flutter_34.ExactAssetImage,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExactAssetImage');
@@ -8123,7 +8155,7 @@ BridgedClass _createExactAssetImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage');
@@ -8133,7 +8165,7 @@ BridgedClass _createExactAssetImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage');
@@ -8181,6 +8213,7 @@ BridgedClass _createNetworkImageLoadExceptionBridge() {
     nativeType: $flutter_34.NetworkImageLoadException,
     name: 'NetworkImageLoadException',
     isAssignable: (v) => v is $flutter_34.NetworkImageLoadException,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final statusCode = D4.getRequiredNamedArg<int>(named, 'statusCode', 'NetworkImageLoadException');
@@ -8220,6 +8253,7 @@ BridgedClass _createAssetImageBridge() {
     nativeType: $flutter_35.AssetImage,
     name: 'AssetImage',
     isAssignable: (v) => v is $flutter_35.AssetImage,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AssetImage');
@@ -8288,7 +8322,7 @@ BridgedClass _createAssetImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage');
@@ -8298,7 +8332,7 @@ BridgedClass _createAssetImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage');
@@ -8464,6 +8498,7 @@ BridgedClass _createImageChunkEventBridge() {
     nativeType: $flutter_36.ImageChunkEvent,
     name: 'ImageChunkEvent',
     isAssignable: (v) => v is $flutter_36.ImageChunkEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final cumulativeBytesLoaded = D4.getRequiredNamedArg<int>(named, 'cumulativeBytesLoaded', 'ImageChunkEvent');
@@ -8524,6 +8559,7 @@ BridgedClass _createImageStreamBridge() {
     nativeType: $flutter_36.ImageStream,
     name: 'ImageStream',
     isAssignable: (v) => v is $flutter_36.ImageStream,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_36.ImageStream();
@@ -8630,6 +8666,7 @@ BridgedClass _createImageStreamCompleterBridge() {
     nativeType: $flutter_36.ImageStreamCompleter,
     name: 'ImageStreamCompleter',
     isAssignable: (v) => v is $flutter_36.ImageStreamCompleter,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -8783,6 +8820,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
     nativeType: $flutter_36.OneFrameImageStreamCompleter,
     name: 'OneFrameImageStreamCompleter',
     isAssignable: (v) => v is $flutter_36.OneFrameImageStreamCompleter,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OneFrameImageStreamCompleter');
@@ -8944,6 +8982,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
     nativeType: $flutter_36.MultiFrameImageStreamCompleter,
     name: 'MultiFrameImageStreamCompleter',
     isAssignable: (v) => v is $flutter_36.MultiFrameImageStreamCompleter,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final codec = D4.getRequiredNamedArg<Future<Codec>>(named, 'codec', 'MultiFrameImageStreamCompleter');
@@ -9217,6 +9256,7 @@ BridgedClass _createInlineSpanBridge() {
     nativeType: $flutter_37.InlineSpan,
     name: 'InlineSpan',
     isAssignable: (v) => v is $flutter_37.InlineSpan,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -9463,6 +9503,7 @@ BridgedClass _createLinearBorderBridge() {
     nativeType: $flutter_38.LinearBorder,
     name: 'LinearBorder',
     isAssignable: (v) => v is $flutter_38.LinearBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -9727,6 +9768,7 @@ BridgedClass _createTransformPropertyBridge() {
     nativeType: $flutter_39.TransformProperty,
     name: 'TransformProperty',
     isAssignable: (v) => v is $flutter_39.TransformProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TransformProperty');
@@ -9901,6 +9943,7 @@ BridgedClass _createCircularNotchedRectangleBridge() {
     nativeType: $flutter_40.CircularNotchedRectangle,
     name: 'CircularNotchedRectangle',
     isAssignable: (v) => v is $flutter_40.CircularNotchedRectangle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final inverted = D4.getNamedArgWithDefault<bool>(named, 'inverted', false);
@@ -9940,6 +9983,7 @@ BridgedClass _createAutomaticNotchedShapeBridge() {
     nativeType: $flutter_40.AutomaticNotchedShape,
     name: 'AutomaticNotchedShape',
     isAssignable: (v) => v is $flutter_40.AutomaticNotchedShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AutomaticNotchedShape');
@@ -9983,6 +10027,7 @@ BridgedClass _createOvalBorderBridge() {
     nativeType: $flutter_41.OvalBorder,
     name: 'OvalBorder',
     isAssignable: (v) => v is $flutter_41.OvalBorder,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -10115,6 +10160,7 @@ BridgedClass _createPlaceholderSpanBridge() {
     nativeType: $flutter_43.PlaceholderSpan,
     name: 'PlaceholderSpan',
     isAssignable: (v) => v is $flutter_43.PlaceholderSpan,
+    hierarchyDepth: 3,
     isAbstract: true,
     constructors: {
     },
@@ -10311,6 +10357,7 @@ BridgedClass _createRoundedRectangleBorderBridge() {
     nativeType: $flutter_44.RoundedRectangleBorder,
     name: 'RoundedRectangleBorder',
     isAssignable: (v) => v is $flutter_44.RoundedRectangleBorder,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -10443,6 +10490,7 @@ BridgedClass _createRoundedSuperellipseBorderBridge() {
     nativeType: $flutter_44.RoundedSuperellipseBorder,
     name: 'RoundedSuperellipseBorder',
     isAssignable: (v) => v is $flutter_44.RoundedSuperellipseBorder,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -10612,6 +10660,7 @@ BridgedClass _createShapeDecorationBridge() {
     nativeType: $flutter_46.ShapeDecoration,
     name: 'ShapeDecoration',
     isAssignable: (v) => v is $flutter_46.ShapeDecoration,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -10756,6 +10805,7 @@ BridgedClass _createStadiumBorderBridge() {
     nativeType: $flutter_47.StadiumBorder,
     name: 'StadiumBorder',
     isAssignable: (v) => v is $flutter_47.StadiumBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -10884,6 +10934,7 @@ BridgedClass _createStarBorderBridge() {
     nativeType: $flutter_48.StarBorder,
     name: 'StarBorder',
     isAssignable: (v) => v is $flutter_48.StarBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'side', $flutter_15.BorderSide.none);
@@ -11045,6 +11096,7 @@ BridgedClass _createStrutStyleBridge() {
     nativeType: $flutter_49.StrutStyle,
     name: 'StrutStyle',
     isAssignable: (v) => v is $flutter_49.StrutStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
@@ -11184,6 +11236,7 @@ BridgedClass _createTextSelectionBridge() {
     nativeType: $flutter_64.TextSelection,
     name: 'TextSelection',
     isAssignable: (v) => v is $flutter_64.TextSelection,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
@@ -11369,6 +11422,7 @@ BridgedClass _createWordBoundaryBridge() {
     nativeType: $flutter_50.WordBoundary,
     name: 'WordBoundary',
     isAssignable: (v) => v is $flutter_50.WordBoundary,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -11806,6 +11860,7 @@ BridgedClass _createTextSpanBridge() {
     nativeType: $flutter_52.TextSpan,
     name: 'TextSpan',
     isAssignable: (v) => v is $flutter_52.TextSpan,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
@@ -12043,6 +12098,7 @@ BridgedClass _createTextStyleBridge() {
     nativeType: $flutter_53.TextStyle,
     name: 'TextStyle',
     isAssignable: (v) => v is $flutter_53.TextStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final inherit = D4.getNamedArgWithDefault<bool>(named, 'inherit', true);

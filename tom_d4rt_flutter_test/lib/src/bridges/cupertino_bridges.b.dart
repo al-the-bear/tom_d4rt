@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 110 files
-// Generated: 2026-05-19T03:01:17.211777
+// Generated: 2026-05-21T12:36:01.537242
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2119,6 +2119,7 @@ BridgedClass _createCupertinoActivityIndicatorBridge() {
     nativeType: $flutter_4.CupertinoActivityIndicator,
     name: 'CupertinoActivityIndicator',
     isAssignable: (v) => v is $flutter_4.CupertinoActivityIndicator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -2247,6 +2248,7 @@ BridgedClass _createCupertinoLinearActivityIndicatorBridge() {
     nativeType: $flutter_4.CupertinoLinearActivityIndicator,
     name: 'CupertinoLinearActivityIndicator',
     isAssignable: (v) => v is $flutter_4.CupertinoLinearActivityIndicator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -2355,6 +2357,7 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
     nativeType: $flutter_5.CupertinoAdaptiveTextSelectionToolbar,
     name: 'CupertinoAdaptiveTextSelectionToolbar',
     isAssignable: (v) => v is $flutter_5.CupertinoAdaptiveTextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -2549,6 +2552,7 @@ BridgedClass _createCupertinoAppBridge() {
     nativeType: $flutter_6.CupertinoApp,
     name: 'CupertinoApp',
     isAssignable: (v) => v is $flutter_6.CupertinoApp,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -2816,6 +2820,7 @@ BridgedClass _createCupertinoScrollBehaviorBridge() {
     nativeType: $flutter_6.CupertinoScrollBehavior,
     name: 'CupertinoScrollBehavior',
     isAssignable: (v) => v is $flutter_6.CupertinoScrollBehavior,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_6.CupertinoScrollBehavior();
@@ -2926,6 +2931,7 @@ BridgedClass _createCupertinoTabBarBridge() {
     nativeType: $flutter_7.CupertinoTabBar,
     name: 'CupertinoTabBar',
     isAssignable: (v) => v is $flutter_7.CupertinoTabBar,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -3112,6 +3118,7 @@ BridgedClass _createCupertinoButtonBridge() {
     nativeType: $flutter_8.CupertinoButton,
     name: 'CupertinoButton',
     isAssignable: (v) => v is $flutter_8.CupertinoButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -3328,6 +3335,7 @@ BridgedClass _createCupertinoCheckboxBridge() {
     nativeType: $flutter_9.CupertinoCheckbox,
     name: 'CupertinoCheckbox',
     isAssignable: (v) => v is $flutter_9.CupertinoCheckbox,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -3592,6 +3600,7 @@ BridgedClass _createCupertinoDynamicColorBridge() {
     nativeType: $flutter_10.CupertinoDynamicColor,
     name: 'CupertinoDynamicColor',
     isAssignable: (v) => v is $flutter_10.CupertinoDynamicColor,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
@@ -3798,6 +3807,7 @@ BridgedClass _createCupertinoContextMenuBridge() {
     nativeType: $flutter_12.CupertinoContextMenu,
     name: 'CupertinoContextMenu',
     isAssignable: (v) => v is $flutter_12.CupertinoContextMenu,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -3935,6 +3945,7 @@ BridgedClass _createCupertinoContextMenuActionBridge() {
     nativeType: $flutter_13.CupertinoContextMenuAction,
     name: 'CupertinoContextMenuAction',
     isAssignable: (v) => v is $flutter_13.CupertinoContextMenuAction,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4047,6 +4058,7 @@ BridgedClass _createCupertinoFocusHaloBridge() {
     nativeType: $flutter_14.CupertinoFocusHalo,
     name: 'CupertinoFocusHalo',
     isAssignable: (v) => v is $flutter_14.CupertinoFocusHalo,
+    hierarchyDepth: 4,
     constructors: {
       'withRect': (visitor, positional, named) {
         final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoFocusHalo');
@@ -4154,6 +4166,7 @@ BridgedClass _createCupertinoDatePickerBridge() {
     nativeType: $flutter_15.CupertinoDatePicker,
     name: 'CupertinoDatePicker',
     isAssignable: (v) => v is $flutter_15.CupertinoDatePicker,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4325,6 +4338,7 @@ BridgedClass _createCupertinoTimerPickerBridge() {
     nativeType: $flutter_15.CupertinoTimerPicker,
     name: 'CupertinoTimerPicker',
     isAssignable: (v) => v is $flutter_15.CupertinoTimerPicker,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4461,6 +4475,7 @@ BridgedClass _createCupertinoDesktopTextSelectionControlsBridge() {
     nativeType: $flutter_17.CupertinoDesktopTextSelectionControls,
     name: 'CupertinoDesktopTextSelectionControls',
     isAssignable: (v) => v is $flutter_17.CupertinoDesktopTextSelectionControls,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_17.CupertinoDesktopTextSelectionControls();
@@ -4586,6 +4601,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarBridge() {
     nativeType: $flutter_18.CupertinoDesktopTextSelectionToolbar,
     name: 'CupertinoDesktopTextSelectionToolbar',
     isAssignable: (v) => v is $flutter_18.CupertinoDesktopTextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4694,6 +4710,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarButtonBridge() {
     nativeType: $flutter_19.CupertinoDesktopTextSelectionToolbarButton,
     name: 'CupertinoDesktopTextSelectionToolbarButton',
     isAssignable: (v) => v is $flutter_19.CupertinoDesktopTextSelectionToolbarButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4820,6 +4837,7 @@ BridgedClass _createCupertinoAlertDialogBridge() {
     nativeType: $flutter_20.CupertinoAlertDialog,
     name: 'CupertinoAlertDialog',
     isAssignable: (v) => v is $flutter_20.CupertinoAlertDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -4940,6 +4958,7 @@ BridgedClass _createCupertinoPopupSurfaceBridge() {
     nativeType: $flutter_20.CupertinoPopupSurface,
     name: 'CupertinoPopupSurface',
     isAssignable: (v) => v is $flutter_20.CupertinoPopupSurface,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5069,6 +5088,7 @@ BridgedClass _createCupertinoActionSheetBridge() {
     nativeType: $flutter_20.CupertinoActionSheet,
     name: 'CupertinoActionSheet',
     isAssignable: (v) => v is $flutter_20.CupertinoActionSheet,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5184,6 +5204,7 @@ BridgedClass _createCupertinoActionSheetActionBridge() {
     nativeType: $flutter_20.CupertinoActionSheetAction,
     name: 'CupertinoActionSheetAction',
     isAssignable: (v) => v is $flutter_20.CupertinoActionSheetAction,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5305,6 +5326,7 @@ BridgedClass _createCupertinoDialogActionBridge() {
     nativeType: $flutter_20.CupertinoDialogAction,
     name: 'CupertinoDialogAction',
     isAssignable: (v) => v is $flutter_20.CupertinoDialogAction,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5420,6 +5442,7 @@ BridgedClass _createCupertinoExpansionTileBridge() {
     nativeType: $flutter_21.CupertinoExpansionTile,
     name: 'CupertinoExpansionTile',
     isAssignable: (v) => v is $flutter_21.CupertinoExpansionTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5529,6 +5552,7 @@ BridgedClass _createCupertinoFormRowBridge() {
     nativeType: $flutter_22.CupertinoFormRow,
     name: 'CupertinoFormRow',
     isAssignable: (v) => v is $flutter_22.CupertinoFormRow,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5643,6 +5667,7 @@ BridgedClass _createCupertinoFormSectionBridge() {
     nativeType: $flutter_23.CupertinoFormSection,
     name: 'CupertinoFormSection',
     isAssignable: (v) => v is $flutter_23.CupertinoFormSection,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -5787,6 +5812,7 @@ BridgedClass _createCupertinoIconThemeDataBridge() {
     nativeType: $flutter_24.CupertinoIconThemeData,
     name: 'CupertinoIconThemeData',
     isAssignable: (v) => v is $flutter_24.CupertinoIconThemeData,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final size = D4.getOptionalNamedArg<double?>(named, 'size');
@@ -8574,6 +8600,7 @@ BridgedClass _createCupertinoUserInterfaceLevelBridge() {
     nativeType: $flutter_26.CupertinoUserInterfaceLevel,
     name: 'CupertinoUserInterfaceLevel',
     isAssignable: (v) => v is $flutter_26.CupertinoUserInterfaceLevel,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -8693,6 +8720,7 @@ BridgedClass _createCupertinoListSectionBridge() {
     nativeType: $flutter_27.CupertinoListSection,
     name: 'CupertinoListSection',
     isAssignable: (v) => v is $flutter_27.CupertinoListSection,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -8884,6 +8912,7 @@ BridgedClass _createCupertinoListTileBridge() {
     nativeType: $flutter_28.CupertinoListTile,
     name: 'CupertinoListTile',
     isAssignable: (v) => v is $flutter_28.CupertinoListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -9058,6 +9087,7 @@ BridgedClass _createCupertinoListTileChevronBridge() {
     nativeType: $flutter_28.CupertinoListTileChevron,
     name: 'CupertinoListTileChevron',
     isAssignable: (v) => v is $flutter_28.CupertinoListTileChevron,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -9361,6 +9391,7 @@ BridgedClass _createDefaultCupertinoLocalizationsBridge() {
     nativeType: $flutter_29.DefaultCupertinoLocalizations,
     name: 'DefaultCupertinoLocalizations',
     isAssignable: (v) => v is $flutter_29.DefaultCupertinoLocalizations,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_29.DefaultCupertinoLocalizations();
@@ -9576,6 +9607,7 @@ BridgedClass _createCupertinoTextMagnifierBridge() {
     nativeType: $flutter_30.CupertinoTextMagnifier,
     name: 'CupertinoTextMagnifier',
     isAssignable: (v) => v is $flutter_30.CupertinoTextMagnifier,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -9691,6 +9723,7 @@ BridgedClass _createCupertinoMagnifierBridge() {
     nativeType: $flutter_30.CupertinoMagnifier,
     name: 'CupertinoMagnifier',
     isAssignable: (v) => v is $flutter_30.CupertinoMagnifier,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -9836,6 +9869,7 @@ BridgedClass _createCupertinoNavigationBarBridge() {
     nativeType: $flutter_31.CupertinoNavigationBar,
     name: 'CupertinoNavigationBar',
     isAssignable: (v) => v is $flutter_31.CupertinoNavigationBar,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -10037,6 +10071,7 @@ BridgedClass _createCupertinoSliverNavigationBarBridge() {
     nativeType: $flutter_31.CupertinoSliverNavigationBar,
     name: 'CupertinoSliverNavigationBar',
     isAssignable: (v) => v is $flutter_31.CupertinoSliverNavigationBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -10250,6 +10285,7 @@ BridgedClass _createCupertinoNavigationBarBackButtonBridge() {
     nativeType: $flutter_31.CupertinoNavigationBarBackButton,
     name: 'CupertinoNavigationBarBackButton',
     isAssignable: (v) => v is $flutter_31.CupertinoNavigationBarBackButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -10358,6 +10394,7 @@ BridgedClass _createCupertinoPageScaffoldBridge() {
     nativeType: $flutter_32.CupertinoPageScaffold,
     name: 'CupertinoPageScaffold',
     isAssignable: (v) => v is $flutter_32.CupertinoPageScaffold,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -10467,6 +10504,7 @@ BridgedClass _createCupertinoPageScaffoldBackgroundColorBridge() {
     nativeType: $flutter_32.CupertinoPageScaffoldBackgroundColor,
     name: 'CupertinoPageScaffoldBackgroundColor',
     isAssignable: (v) => v is $flutter_32.CupertinoPageScaffoldBackgroundColor,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPageScaffoldBackgroundColor');
@@ -10582,6 +10620,7 @@ BridgedClass _createObstructingPreferredSizeWidgetBridge() {
     nativeType: $flutter_32.ObstructingPreferredSizeWidget,
     name: 'ObstructingPreferredSizeWidget',
     isAssignable: (v) => v is $flutter_32.ObstructingPreferredSizeWidget,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -10677,6 +10716,7 @@ BridgedClass _createCupertinoPickerBridge() {
     nativeType: $flutter_33.CupertinoPicker,
     name: 'CupertinoPicker',
     isAssignable: (v) => v is $flutter_33.CupertinoPicker,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -10907,6 +10947,7 @@ BridgedClass _createCupertinoPickerDefaultSelectionOverlayBridge() {
     nativeType: $flutter_33.CupertinoPickerDefaultSelectionOverlay,
     name: 'CupertinoPickerDefaultSelectionOverlay',
     isAssignable: (v) => v is $flutter_33.CupertinoPickerDefaultSelectionOverlay,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -11015,6 +11056,7 @@ BridgedClass _createCupertinoRadioBridge() {
     nativeType: $flutter_34.CupertinoRadio,
     name: 'CupertinoRadio',
     isAssignable: (v) => v is $flutter_34.CupertinoRadio,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -11154,49 +11196,50 @@ BridgedClass _createCupertinoSliverRefreshControlBridge() {
     nativeType: $flutter_35.CupertinoSliverRefreshControl,
     name: 'CupertinoSliverRefreshControl',
     isAssignable: (v) => v is $flutter_35.CupertinoSliverRefreshControl,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final onRefreshRaw = named['onRefresh'];
         if (!named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function());
         }
         if (named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent);
         }
         if (named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, builder: builder);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -11320,6 +11363,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
     nativeType: $flutter_36.CupertinoPageRoute,
     name: 'CupertinoPageRoute',
     isAssignable: (v) => v is $flutter_36.CupertinoPageRoute,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builder') || named['builder'] == null) {
@@ -11575,7 +11619,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -11585,7 +11629,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -11735,6 +11779,7 @@ BridgedClass _createCupertinoPageBridge() {
     nativeType: $flutter_36.CupertinoPage,
     name: 'CupertinoPage',
     isAssignable: (v) => v is $flutter_36.CupertinoPage,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPage');
@@ -11822,6 +11867,7 @@ BridgedClass _createCupertinoPageTransitionBridge() {
     nativeType: $flutter_36.CupertinoPageTransition,
     name: 'CupertinoPageTransition',
     isAssignable: (v) => v is $flutter_36.CupertinoPageTransition,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -11945,6 +11991,7 @@ BridgedClass _createCupertinoFullscreenDialogTransitionBridge() {
     nativeType: $flutter_36.CupertinoFullscreenDialogTransition,
     name: 'CupertinoFullscreenDialogTransition',
     isAssignable: (v) => v is $flutter_36.CupertinoFullscreenDialogTransition,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -12054,6 +12101,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
     nativeType: $flutter_36.CupertinoModalPopupRoute,
     name: 'CupertinoModalPopupRoute',
     isAssignable: (v) => v is $flutter_36.CupertinoModalPopupRoute,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builder') || named['builder'] == null) {
@@ -12315,7 +12363,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12325,7 +12373,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -12467,6 +12515,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
     nativeType: $flutter_36.CupertinoDialogRoute,
     name: 'CupertinoDialogRoute',
     isAssignable: (v) => v is $flutter_36.CupertinoDialogRoute,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builder') || named['builder'] == null) {
@@ -12727,7 +12776,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12737,7 +12786,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -12880,6 +12929,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
     nativeType: $flutter_36.CupertinoRouteTransitionMixin,
     name: 'CupertinoRouteTransitionMixin',
     isAssignable: (v) => v is $flutter_36.CupertinoRouteTransitionMixin,
+    hierarchyDepth: 8,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -13122,7 +13172,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -13132,7 +13182,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -13298,6 +13348,7 @@ BridgedClass _createCupertinoScrollbarBridge() {
     nativeType: $flutter_37.CupertinoScrollbar,
     name: 'CupertinoScrollbar',
     isAssignable: (v) => v is $flutter_37.CupertinoScrollbar,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -13636,6 +13687,7 @@ BridgedClass _createCupertinoSearchTextFieldBridge() {
     nativeType: $flutter_38.CupertinoSearchTextField,
     name: 'CupertinoSearchTextField',
     isAssignable: (v) => v is $flutter_38.CupertinoSearchTextField,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -13832,6 +13884,7 @@ BridgedClass _createCupertinoSegmentedControlBridge() {
     nativeType: $flutter_39.CupertinoSegmentedControl,
     name: 'CupertinoSegmentedControl',
     isAssignable: (v) => v is $flutter_39.CupertinoSegmentedControl,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -13970,6 +14023,7 @@ BridgedClass _createCupertinoSheetTransitionBridge() {
     nativeType: $flutter_40.CupertinoSheetTransition,
     name: 'CupertinoSheetTransition',
     isAssignable: (v) => v is $flutter_40.CupertinoSheetTransition,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -14102,6 +14156,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
     nativeType: $flutter_40.CupertinoSheetRoute,
     name: 'CupertinoSheetRoute',
     isAssignable: (v) => v is $flutter_40.CupertinoSheetRoute,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final settings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'settings');
@@ -14355,7 +14410,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -14365,7 +14420,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -14532,6 +14587,7 @@ BridgedClass _createCupertinoSliderBridge() {
     nativeType: $flutter_41.CupertinoSlider,
     name: 'CupertinoSlider',
     isAssignable: (v) => v is $flutter_41.CupertinoSlider,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -14659,6 +14715,7 @@ BridgedClass _createCupertinoSlidingSegmentedControlBridge() {
     nativeType: $flutter_42.CupertinoSlidingSegmentedControl,
     name: 'CupertinoSlidingSegmentedControl',
     isAssignable: (v) => v is $flutter_42.CupertinoSlidingSegmentedControl,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -14805,6 +14862,7 @@ BridgedClass _createCupertinoSpellCheckSuggestionsToolbarBridge() {
     nativeType: $flutter_43.CupertinoSpellCheckSuggestionsToolbar,
     name: 'CupertinoSpellCheckSuggestionsToolbar',
     isAssignable: (v) => v is $flutter_43.CupertinoSpellCheckSuggestionsToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -14929,6 +14987,7 @@ BridgedClass _createCupertinoSwitchBridge() {
     nativeType: $flutter_44.CupertinoSwitch,
     name: 'CupertinoSwitch',
     isAssignable: (v) => v is $flutter_44.CupertinoSwitch,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -15101,6 +15160,7 @@ BridgedClass _createCupertinoTabControllerBridge() {
     nativeType: $flutter_45.CupertinoTabController,
     name: 'CupertinoTabController',
     isAssignable: (v) => v is $flutter_45.CupertinoTabController,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final initialIndex = D4.getNamedArgWithDefault<int>(named, 'initialIndex', 0);
@@ -15175,6 +15235,7 @@ BridgedClass _createCupertinoTabScaffoldBridge() {
     nativeType: $flutter_45.CupertinoTabScaffold,
     name: 'CupertinoTabScaffold',
     isAssignable: (v) => v is $flutter_45.CupertinoTabScaffold,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -15293,6 +15354,7 @@ BridgedClass _createRestorableCupertinoTabControllerBridge() {
     nativeType: $flutter_45.RestorableCupertinoTabController,
     name: 'RestorableCupertinoTabController',
     isAssignable: (v) => v is $flutter_45.RestorableCupertinoTabController,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final initialIndex = D4.getNamedArgWithDefault<int>(named, 'initialIndex', 0);
@@ -15391,6 +15453,7 @@ BridgedClass _createCupertinoTabViewBridge() {
     nativeType: $flutter_46.CupertinoTabView,
     name: 'CupertinoTabView',
     isAssignable: (v) => v is $flutter_46.CupertinoTabView,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -15535,6 +15598,7 @@ BridgedClass _createCupertinoTextFieldBridge() {
     nativeType: $flutter_47.CupertinoTextField,
     name: 'CupertinoTextField',
     isAssignable: (v) => v is $flutter_47.CupertinoTextField,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16026,6 +16090,7 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
     nativeType: $flutter_48.CupertinoTextFormFieldRow,
     name: 'CupertinoTextFormFieldRow',
     isAssignable: (v) => v is $flutter_48.CupertinoTextFormFieldRow,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16211,6 +16276,7 @@ BridgedClass _createCupertinoTextSelectionControlsBridge() {
     nativeType: $flutter_49.CupertinoTextSelectionControls,
     name: 'CupertinoTextSelectionControls',
     isAssignable: (v) => v is $flutter_49.CupertinoTextSelectionControls,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_49.CupertinoTextSelectionControls();
@@ -16336,6 +16402,7 @@ BridgedClass _createCupertinoTextSelectionToolbarBridge() {
     nativeType: $flutter_50.CupertinoTextSelectionToolbar,
     name: 'CupertinoTextSelectionToolbar',
     isAssignable: (v) => v is $flutter_50.CupertinoTextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16463,6 +16530,7 @@ BridgedClass _createCupertinoTextSelectionToolbarButtonBridge() {
     nativeType: $flutter_51.CupertinoTextSelectionToolbarButton,
     name: 'CupertinoTextSelectionToolbarButton',
     isAssignable: (v) => v is $flutter_51.CupertinoTextSelectionToolbarButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16594,6 +16662,7 @@ BridgedClass _createCupertinoTextThemeDataBridge() {
     nativeType: $flutter_52.CupertinoTextThemeData,
     name: 'CupertinoTextThemeData',
     isAssignable: (v) => v is $flutter_52.CupertinoTextThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final primaryColor = D4.getNamedArgWithDefault<Color>(named, 'primaryColor', $flutter_10.CupertinoColors.systemBlue);
@@ -16707,6 +16776,7 @@ BridgedClass _createCupertinoThemeBridge() {
     nativeType: $flutter_53.CupertinoTheme,
     name: 'CupertinoTheme',
     isAssignable: (v) => v is $flutter_53.CupertinoTheme,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16834,6 +16904,7 @@ BridgedClass _createInheritedCupertinoThemeBridge() {
     nativeType: $flutter_53.InheritedCupertinoTheme,
     name: 'InheritedCupertinoTheme',
     isAssignable: (v) => v is $flutter_53.InheritedCupertinoTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
@@ -16947,6 +17018,7 @@ BridgedClass _createCupertinoThemeDataBridge() {
     nativeType: $flutter_53.CupertinoThemeData,
     name: 'CupertinoThemeData',
     isAssignable: (v) => v is $flutter_53.CupertinoThemeData,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final brightness = D4.getOptionalNamedArg<Brightness?>(named, 'brightness');
@@ -17227,6 +17299,7 @@ BridgedClass _createDiagnosticsPropertyBridge() {
     nativeType: $flutter_57.DiagnosticsProperty,
     name: 'DiagnosticsProperty',
     isAssignable: (v) => v is $flutter_57.DiagnosticsProperty,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DiagnosticsProperty');
@@ -17546,7 +17619,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.ImageProvider>(target, 'ImageProvider');
@@ -17556,7 +17629,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.ImageProvider>(target, 'ImageProvider');
@@ -17586,6 +17659,7 @@ BridgedClass _createTextSpanBridge() {
     nativeType: $flutter_81.TextSpan,
     name: 'TextSpan',
     isAssignable: (v) => v is $flutter_81.TextSpan,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
@@ -17912,6 +17986,7 @@ BridgedClass _createTextStyleBridge() {
     nativeType: $flutter_82.TextStyle,
     name: 'TextStyle',
     isAssignable: (v) => v is $flutter_82.TextStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final inherit = D4.getNamedArgWithDefault<bool>(named, 'inherit', true);

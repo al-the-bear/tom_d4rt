@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-05-19T03:01:13.275249
+// Generated: 2026-05-21T12:35:57.568090
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -3682,6 +3682,7 @@ BridgedClass _createAboutListTileBridge() {
     nativeType: $flutter_22.AboutListTile,
     name: 'AboutListTile',
     isAssignable: (v) => v is $flutter_22.AboutListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -3805,6 +3806,7 @@ BridgedClass _createAboutDialogBridge() {
     nativeType: $flutter_22.AboutDialog,
     name: 'AboutDialog',
     isAssignable: (v) => v is $flutter_22.AboutDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -3929,6 +3931,7 @@ BridgedClass _createLicensePageBridge() {
     nativeType: $flutter_22.LicensePage,
     name: 'LicensePage',
     isAssignable: (v) => v is $flutter_22.LicensePage,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4038,6 +4041,7 @@ BridgedClass _createBackButtonIconBridge() {
     nativeType: $flutter_23.BackButtonIcon,
     name: 'BackButtonIcon',
     isAssignable: (v) => v is $flutter_23.BackButtonIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4137,6 +4141,7 @@ BridgedClass _createBackButtonBridge() {
     nativeType: $flutter_23.BackButton,
     name: 'BackButton',
     isAssignable: (v) => v is $flutter_23.BackButton,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4291,6 +4296,7 @@ BridgedClass _createCloseButtonIconBridge() {
     nativeType: $flutter_23.CloseButtonIcon,
     name: 'CloseButtonIcon',
     isAssignable: (v) => v is $flutter_23.CloseButtonIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4390,6 +4396,7 @@ BridgedClass _createCloseButtonBridge() {
     nativeType: $flutter_23.CloseButton,
     name: 'CloseButton',
     isAssignable: (v) => v is $flutter_23.CloseButton,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4544,6 +4551,7 @@ BridgedClass _createDrawerButtonIconBridge() {
     nativeType: $flutter_23.DrawerButtonIcon,
     name: 'DrawerButtonIcon',
     isAssignable: (v) => v is $flutter_23.DrawerButtonIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4643,6 +4651,7 @@ BridgedClass _createDrawerButtonBridge() {
     nativeType: $flutter_23.DrawerButton,
     name: 'DrawerButton',
     isAssignable: (v) => v is $flutter_23.DrawerButton,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4797,6 +4806,7 @@ BridgedClass _createEndDrawerButtonIconBridge() {
     nativeType: $flutter_23.EndDrawerButtonIcon,
     name: 'EndDrawerButtonIcon',
     isAssignable: (v) => v is $flutter_23.EndDrawerButtonIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -4896,6 +4906,7 @@ BridgedClass _createEndDrawerButtonBridge() {
     nativeType: $flutter_23.EndDrawerButton,
     name: 'EndDrawerButton',
     isAssignable: (v) => v is $flutter_23.EndDrawerButton,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -5050,6 +5061,7 @@ BridgedClass _createActionChipBridge() {
     nativeType: $flutter_24.ActionChip,
     name: 'ActionChip',
     isAssignable: (v) => v is $flutter_24.ActionChip,
+    hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -5256,6 +5268,7 @@ BridgedClass _createActionIconThemeDataBridge() {
     nativeType: $flutter_25.ActionIconThemeData,
     name: 'ActionIconThemeData',
     isAssignable: (v) => v is $flutter_25.ActionIconThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backButtonIconBuilderRaw = named['backButtonIconBuilder'];
@@ -5352,6 +5365,7 @@ BridgedClass _createActionIconThemeBridge() {
     nativeType: $flutter_25.ActionIconTheme,
     name: 'ActionIconTheme',
     isAssignable: (v) => v is $flutter_25.ActionIconTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -5475,6 +5489,7 @@ BridgedClass _createAdaptiveTextSelectionToolbarBridge() {
     nativeType: $flutter_26.AdaptiveTextSelectionToolbar,
     name: 'AdaptiveTextSelectionToolbar',
     isAssignable: (v) => v is $flutter_26.AdaptiveTextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -5686,6 +5701,7 @@ BridgedClass _createAnimatedIconBridge() {
     nativeType: $flutter_27.AnimatedIcon,
     name: 'AnimatedIcon',
     isAssignable: (v) => v is $flutter_27.AnimatedIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -5871,6 +5887,7 @@ BridgedClass _createMaterialAppBridge() {
     nativeType: $flutter_28.MaterialApp,
     name: 'MaterialApp',
     isAssignable: (v) => v is $flutter_28.MaterialApp,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -6190,6 +6207,7 @@ BridgedClass _createMaterialScrollBehaviorBridge() {
     nativeType: $flutter_28.MaterialScrollBehavior,
     name: 'MaterialScrollBehavior',
     isAssignable: (v) => v is $flutter_28.MaterialScrollBehavior,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_28.MaterialScrollBehavior();
@@ -6300,6 +6318,7 @@ BridgedClass _createAppBarBridge() {
     nativeType: $flutter_29.AppBar,
     name: 'AppBar',
     isAssignable: (v) => v is $flutter_29.AppBar,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -6516,6 +6535,7 @@ BridgedClass _createSliverAppBarBridge() {
     nativeType: $flutter_29.SliverAppBar,
     name: 'SliverAppBar',
     isAssignable: (v) => v is $flutter_29.SliverAppBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -6557,11 +6577,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -6605,11 +6625,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -6653,11 +6673,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -6831,6 +6851,7 @@ BridgedClass _createAppBarThemeBridge() {
     nativeType: $flutter_30.AppBarTheme,
     name: 'AppBarTheme',
     isAssignable: (v) => v is $flutter_30.AppBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -7037,6 +7058,7 @@ BridgedClass _createAppBarThemeDataBridge() {
     nativeType: $flutter_30.AppBarThemeData,
     name: 'AppBarThemeData',
     isAssignable: (v) => v is $flutter_30.AppBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -7187,6 +7209,7 @@ BridgedClass _createMaterialPointArcTweenBridge() {
     nativeType: $flutter_31.MaterialPointArcTween,
     name: 'MaterialPointArcTween',
     isAssignable: (v) => v is $flutter_31.MaterialPointArcTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Offset?>(named, 'begin');
@@ -7279,6 +7302,7 @@ BridgedClass _createMaterialRectArcTweenBridge() {
     nativeType: $flutter_31.MaterialRectArcTween,
     name: 'MaterialRectArcTween',
     isAssignable: (v) => v is $flutter_31.MaterialRectArcTween,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Rect?>(named, 'begin');
@@ -7367,6 +7391,7 @@ BridgedClass _createMaterialRectCenterArcTweenBridge() {
     nativeType: $flutter_31.MaterialRectCenterArcTween,
     name: 'MaterialRectCenterArcTween',
     isAssignable: (v) => v is $flutter_31.MaterialRectCenterArcTween,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Rect?>(named, 'begin');
@@ -7453,6 +7478,7 @@ BridgedClass _createAutocompleteBridge() {
     nativeType: $flutter_32.Autocomplete,
     name: 'Autocomplete',
     isAssignable: (v) => v is $flutter_32.Autocomplete,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -7603,6 +7629,7 @@ BridgedClass _createBadgeBridge() {
     nativeType: $flutter_33.Badge,
     name: 'Badge',
     isAssignable: (v) => v is $flutter_33.Badge,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -7752,6 +7779,7 @@ BridgedClass _createBadgeThemeDataBridge() {
     nativeType: $flutter_34.BadgeThemeData,
     name: 'BadgeThemeData',
     isAssignable: (v) => v is $flutter_34.BadgeThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -7864,6 +7892,7 @@ BridgedClass _createBadgeThemeBridge() {
     nativeType: $flutter_34.BadgeTheme,
     name: 'BadgeTheme',
     isAssignable: (v) => v is $flutter_34.BadgeTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -7987,6 +8016,7 @@ BridgedClass _createMaterialBannerBridge() {
     nativeType: $flutter_35.MaterialBanner,
     name: 'MaterialBanner',
     isAssignable: (v) => v is $flutter_35.MaterialBanner,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -8155,6 +8185,7 @@ BridgedClass _createMaterialBannerThemeDataBridge() {
     nativeType: $flutter_36.MaterialBannerThemeData,
     name: 'MaterialBannerThemeData',
     isAssignable: (v) => v is $flutter_36.MaterialBannerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -8267,6 +8298,7 @@ BridgedClass _createMaterialBannerThemeBridge() {
     nativeType: $flutter_36.MaterialBannerTheme,
     name: 'MaterialBannerTheme',
     isAssignable: (v) => v is $flutter_36.MaterialBannerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -8390,6 +8422,7 @@ BridgedClass _createBottomAppBarBridge() {
     nativeType: $flutter_37.BottomAppBar,
     name: 'BottomAppBar',
     isAssignable: (v) => v is $flutter_37.BottomAppBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -8517,6 +8550,7 @@ BridgedClass _createBottomAppBarThemeBridge() {
     nativeType: $flutter_38.BottomAppBarTheme,
     name: 'BottomAppBarTheme',
     isAssignable: (v) => v is $flutter_38.BottomAppBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -8681,6 +8715,7 @@ BridgedClass _createBottomAppBarThemeDataBridge() {
     nativeType: $flutter_38.BottomAppBarThemeData,
     name: 'BottomAppBarThemeData',
     isAssignable: (v) => v is $flutter_38.BottomAppBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -8789,6 +8824,7 @@ BridgedClass _createBottomNavigationBarBridge() {
     nativeType: $flutter_39.BottomNavigationBar,
     name: 'BottomNavigationBar',
     isAssignable: (v) => v is $flutter_39.BottomNavigationBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -8955,6 +8991,7 @@ BridgedClass _createBottomNavigationBarThemeDataBridge() {
     nativeType: $flutter_40.BottomNavigationBarThemeData,
     name: 'BottomNavigationBarThemeData',
     isAssignable: (v) => v is $flutter_40.BottomNavigationBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -9091,6 +9128,7 @@ BridgedClass _createBottomNavigationBarThemeBridge() {
     nativeType: $flutter_40.BottomNavigationBarTheme,
     name: 'BottomNavigationBarTheme',
     isAssignable: (v) => v is $flutter_40.BottomNavigationBarTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -9206,6 +9244,7 @@ BridgedClass _createBottomSheetBridge() {
     nativeType: $flutter_41.BottomSheet,
     name: 'BottomSheet',
     isAssignable: (v) => v is $flutter_41.BottomSheet,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -9365,6 +9404,7 @@ BridgedClass _createModalBottomSheetRouteBridge() {
     nativeType: $flutter_41.ModalBottomSheetRoute,
     name: 'ModalBottomSheetRoute',
     isAssignable: (v) => v is $flutter_41.ModalBottomSheetRoute,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builder') || named['builder'] == null) {
@@ -9654,7 +9694,7 @@ BridgedClass _createModalBottomSheetRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -9664,7 +9704,7 @@ BridgedClass _createModalBottomSheetRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -9822,6 +9862,7 @@ BridgedClass _createBottomSheetThemeDataBridge() {
     nativeType: $flutter_42.BottomSheetThemeData,
     name: 'BottomSheetThemeData',
     isAssignable: (v) => v is $flutter_42.BottomSheetThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -9954,6 +9995,7 @@ BridgedClass _createRawMaterialButtonBridge() {
     nativeType: $flutter_43.RawMaterialButton,
     name: 'RawMaterialButton',
     isAssignable: (v) => v is $flutter_43.RawMaterialButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -10140,6 +10182,7 @@ BridgedClass _createButtonBarThemeBridge() {
     nativeType: $flutter_44.ButtonBarTheme,
     name: 'ButtonBarTheme',
     isAssignable: (v) => v is $flutter_44.ButtonBarTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -10255,6 +10298,7 @@ BridgedClass _createButtonStyleBridge() {
     nativeType: $flutter_45.ButtonStyle,
     name: 'ButtonStyle',
     isAssignable: (v) => v is $flutter_45.ButtonStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
@@ -10442,6 +10486,7 @@ BridgedClass _createButtonStyleButtonBridge() {
     nativeType: $flutter_46.ButtonStyleButton,
     name: 'ButtonStyleButton',
     isAssignable: (v) => v is $flutter_46.ButtonStyleButton,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -10601,6 +10646,7 @@ BridgedClass _createButtonThemeBridge() {
     nativeType: $flutter_47.ButtonTheme,
     name: 'ButtonTheme',
     isAssignable: (v) => v is $flutter_47.ButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -10745,6 +10791,7 @@ BridgedClass _createButtonThemeDataBridge() {
     nativeType: $flutter_47.ButtonThemeData,
     name: 'ButtonThemeData',
     isAssignable: (v) => v is $flutter_47.ButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final textTheme = D4.getNamedArgWithDefault<$flutter_47.ButtonTextTheme>(named, 'textTheme', $flutter_47.ButtonTextTheme.normal);
@@ -11001,6 +11048,7 @@ BridgedClass _createCalendarDatePickerBridge() {
     nativeType: $flutter_48.CalendarDatePicker,
     name: 'CalendarDatePicker',
     isAssignable: (v) => v is $flutter_48.CalendarDatePicker,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -11128,6 +11176,7 @@ BridgedClass _createYearPickerBridge() {
     nativeType: $flutter_48.YearPicker,
     name: 'YearPicker',
     isAssignable: (v) => v is $flutter_48.YearPicker,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -11250,6 +11299,7 @@ BridgedClass _createCardBridge() {
     nativeType: $flutter_49.Card,
     name: 'Card',
     isAssignable: (v) => v is $flutter_49.Card,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -11409,6 +11459,7 @@ BridgedClass _createCardThemeBridge() {
     nativeType: $flutter_50.CardTheme,
     name: 'CardTheme',
     isAssignable: (v) => v is $flutter_50.CardTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -11565,6 +11616,7 @@ BridgedClass _createCardThemeDataBridge() {
     nativeType: $flutter_50.CardThemeData,
     name: 'CardThemeData',
     isAssignable: (v) => v is $flutter_50.CardThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
@@ -11673,6 +11725,7 @@ BridgedClass _createCarouselViewBridge() {
     nativeType: $flutter_51.CarouselView,
     name: 'CarouselView',
     isAssignable: (v) => v is $flutter_51.CarouselView,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -11905,6 +11958,7 @@ BridgedClass _createCarouselScrollPhysicsBridge() {
     nativeType: $flutter_51.CarouselScrollPhysics,
     name: 'CarouselScrollPhysics',
     isAssignable: (v) => v is $flutter_51.CarouselScrollPhysics,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final parent = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'parent');
@@ -12034,6 +12088,7 @@ BridgedClass _createCarouselControllerBridge() {
     nativeType: $flutter_51.CarouselController,
     name: 'CarouselController',
     isAssignable: (v) => v is $flutter_51.CarouselController,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final initialItem = D4.getNamedArgWithDefault<int>(named, 'initialItem', 0);
@@ -12186,6 +12241,7 @@ BridgedClass _createCarouselViewThemeDataBridge() {
     nativeType: $flutter_52.CarouselViewThemeData,
     name: 'CarouselViewThemeData',
     isAssignable: (v) => v is $flutter_52.CarouselViewThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
@@ -12290,6 +12346,7 @@ BridgedClass _createCarouselViewThemeBridge() {
     nativeType: $flutter_52.CarouselViewTheme,
     name: 'CarouselViewTheme',
     isAssignable: (v) => v is $flutter_52.CarouselViewTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -12413,6 +12470,7 @@ BridgedClass _createCheckboxBridge() {
     nativeType: $flutter_53.Checkbox,
     name: 'Checkbox',
     isAssignable: (v) => v is $flutter_53.Checkbox,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -12603,6 +12661,7 @@ BridgedClass _createCheckboxListTileBridge() {
     nativeType: $flutter_54.CheckboxListTile,
     name: 'CheckboxListTile',
     isAssignable: (v) => v is $flutter_54.CheckboxListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -12869,6 +12928,7 @@ BridgedClass _createCheckboxThemeDataBridge() {
     nativeType: $flutter_55.CheckboxThemeData,
     name: 'CheckboxThemeData',
     isAssignable: (v) => v is $flutter_55.CheckboxThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
@@ -12985,6 +13045,7 @@ BridgedClass _createCheckboxThemeBridge() {
     nativeType: $flutter_55.CheckboxTheme,
     name: 'CheckboxTheme',
     isAssignable: (v) => v is $flutter_55.CheckboxTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -13330,6 +13391,7 @@ BridgedClass _createChipBridge() {
     nativeType: $flutter_56.Chip,
     name: 'Chip',
     isAssignable: (v) => v is $flutter_56.Chip,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -13507,6 +13569,7 @@ BridgedClass _createRawChipBridge() {
     nativeType: $flutter_56.RawChip,
     name: 'RawChip',
     isAssignable: (v) => v is $flutter_56.RawChip,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -13724,6 +13787,7 @@ BridgedClass _createChipThemeBridge() {
     nativeType: $flutter_57.ChipTheme,
     name: 'ChipTheme',
     isAssignable: (v) => v is $flutter_57.ChipTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -13847,6 +13911,7 @@ BridgedClass _createChipThemeDataBridge() {
     nativeType: $flutter_57.ChipThemeData,
     name: 'ChipThemeData',
     isAssignable: (v) => v is $flutter_57.ChipThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
@@ -14027,6 +14092,7 @@ BridgedClass _createChoiceChipBridge() {
     nativeType: $flutter_58.ChoiceChip,
     name: 'ChoiceChip',
     isAssignable: (v) => v is $flutter_58.ChoiceChip,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -14257,6 +14323,7 @@ BridgedClass _createCircleAvatarBridge() {
     nativeType: $flutter_59.CircleAvatar,
     name: 'CircleAvatar',
     isAssignable: (v) => v is $flutter_59.CircleAvatar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -14386,6 +14453,7 @@ BridgedClass _createColorSchemeBridge() {
     nativeType: $flutter_60.ColorScheme,
     name: 'ColorScheme',
     isAssignable: (v) => v is $flutter_60.ColorScheme,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final brightness = D4.getRequiredNamedArg<Brightness>(named, 'brightness', 'ColorScheme');
@@ -15012,6 +15080,7 @@ BridgedClass _createMaterialColorBridge() {
     nativeType: $flutter_61.MaterialColor,
     name: 'MaterialColor',
     isAssignable: (v) => v is $flutter_61.MaterialColor,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MaterialColor');
@@ -15164,6 +15233,7 @@ BridgedClass _createMaterialAccentColorBridge() {
     nativeType: $flutter_61.MaterialAccentColor,
     name: 'MaterialAccentColor',
     isAssignable: (v) => v is $flutter_61.MaterialAccentColor,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MaterialAccentColor');
@@ -15597,6 +15667,7 @@ BridgedClass _createDataTableBridge() {
     nativeType: $flutter_63.DataTable,
     name: 'DataTable',
     isAssignable: (v) => v is $flutter_63.DataTable,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -15768,6 +15839,7 @@ BridgedClass _createTableRowInkWellBridge() {
     nativeType: $flutter_63.TableRowInkWell,
     name: 'TableRowInkWell',
     isAssignable: (v) => v is $flutter_63.TableRowInkWell,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -15959,6 +16031,7 @@ BridgedClass _createDataTableSourceBridge() {
     nativeType: $flutter_64.DataTableSource,
     name: 'DataTableSource',
     isAssignable: (v) => v is $flutter_64.DataTableSource,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -16031,6 +16104,7 @@ BridgedClass _createDataTableThemeDataBridge() {
     nativeType: $flutter_65.DataTableThemeData,
     name: 'DataTableThemeData',
     isAssignable: (v) => v is $flutter_65.DataTableThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final decoration = D4.getOptionalNamedArg<$flutter_209.Decoration?>(named, 'decoration');
@@ -16175,6 +16249,7 @@ BridgedClass _createDataTableThemeBridge() {
     nativeType: $flutter_65.DataTableTheme,
     name: 'DataTableTheme',
     isAssignable: (v) => v is $flutter_65.DataTableTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -16473,6 +16548,7 @@ BridgedClass _createGregorianCalendarDelegateBridge() {
     nativeType: $flutter_66.GregorianCalendarDelegate,
     name: 'GregorianCalendarDelegate',
     isAssignable: (v) => v is $flutter_66.GregorianCalendarDelegate,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_66.GregorianCalendarDelegate();
@@ -16792,6 +16868,7 @@ BridgedClass _createDatePickerDialogBridge() {
     nativeType: $flutter_67.DatePickerDialog,
     name: 'DatePickerDialog',
     isAssignable: (v) => v is $flutter_67.DatePickerDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -16952,6 +17029,7 @@ BridgedClass _createDateRangePickerDialogBridge() {
     nativeType: $flutter_67.DateRangePickerDialog,
     name: 'DateRangePickerDialog',
     isAssignable: (v) => v is $flutter_67.DateRangePickerDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -17115,6 +17193,7 @@ BridgedClass _createDatePickerThemeDataBridge() {
     nativeType: $flutter_68.DatePickerThemeData,
     name: 'DatePickerThemeData',
     isAssignable: (v) => v is $flutter_68.DatePickerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -17359,6 +17438,7 @@ BridgedClass _createDatePickerThemeBridge() {
     nativeType: $flutter_68.DatePickerTheme,
     name: 'DatePickerTheme',
     isAssignable: (v) => v is $flutter_68.DatePickerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -17494,6 +17574,7 @@ BridgedClass _createDesktopTextSelectionControlsBridge() {
     nativeType: $flutter_70.DesktopTextSelectionControls,
     name: 'DesktopTextSelectionControls',
     isAssignable: (v) => v is $flutter_70.DesktopTextSelectionControls,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_70.DesktopTextSelectionControls();
@@ -17619,6 +17700,7 @@ BridgedClass _createDesktopTextSelectionToolbarBridge() {
     nativeType: $flutter_71.DesktopTextSelectionToolbar,
     name: 'DesktopTextSelectionToolbar',
     isAssignable: (v) => v is $flutter_71.DesktopTextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -17727,6 +17809,7 @@ BridgedClass _createDesktopTextSelectionToolbarButtonBridge() {
     nativeType: $flutter_72.DesktopTextSelectionToolbarButton,
     name: 'DesktopTextSelectionToolbarButton',
     isAssignable: (v) => v is $flutter_72.DesktopTextSelectionToolbarButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -17846,6 +17929,7 @@ BridgedClass _createDialogBridge() {
     nativeType: $flutter_73.Dialog,
     name: 'Dialog',
     isAssignable: (v) => v is $flutter_73.Dialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -17994,6 +18078,7 @@ BridgedClass _createAlertDialogBridge() {
     nativeType: $flutter_73.AlertDialog,
     name: 'AlertDialog',
     isAssignable: (v) => v is $flutter_73.AlertDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -18286,6 +18371,7 @@ BridgedClass _createSimpleDialogOptionBridge() {
     nativeType: $flutter_73.SimpleDialogOption,
     name: 'SimpleDialogOption',
     isAssignable: (v) => v is $flutter_73.SimpleDialogOption,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -18394,6 +18480,7 @@ BridgedClass _createSimpleDialogBridge() {
     nativeType: $flutter_73.SimpleDialog,
     name: 'SimpleDialog',
     isAssignable: (v) => v is $flutter_73.SimpleDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -18538,6 +18625,7 @@ BridgedClass _createDialogRouteBridge() {
     nativeType: $flutter_73.DialogRoute,
     name: 'DialogRoute',
     isAssignable: (v) => v is $flutter_73.DialogRoute,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getRequiredNamedArg<$flutter_273.BuildContext>(named, 'context', 'DialogRoute');
@@ -18796,7 +18884,7 @@ BridgedClass _createDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -18806,7 +18894,7 @@ BridgedClass _createDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -18947,6 +19035,7 @@ BridgedClass _createDialogThemeBridge() {
     nativeType: $flutter_74.DialogTheme,
     name: 'DialogTheme',
     isAssignable: (v) => v is $flutter_74.DialogTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -19135,6 +19224,7 @@ BridgedClass _createDialogThemeDataBridge() {
     nativeType: $flutter_74.DialogThemeData,
     name: 'DialogThemeData',
     isAssignable: (v) => v is $flutter_74.DialogThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -19271,6 +19361,7 @@ BridgedClass _createDividerBridge() {
     nativeType: $flutter_75.Divider,
     name: 'Divider',
     isAssignable: (v) => v is $flutter_75.Divider,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -19400,6 +19491,7 @@ BridgedClass _createVerticalDividerBridge() {
     nativeType: $flutter_75.VerticalDivider,
     name: 'VerticalDivider',
     isAssignable: (v) => v is $flutter_75.VerticalDivider,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -19517,6 +19609,7 @@ BridgedClass _createDividerThemeDataBridge() {
     nativeType: $flutter_76.DividerThemeData,
     name: 'DividerThemeData',
     isAssignable: (v) => v is $flutter_76.DividerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -19621,6 +19714,7 @@ BridgedClass _createDividerThemeBridge() {
     nativeType: $flutter_76.DividerTheme,
     name: 'DividerTheme',
     isAssignable: (v) => v is $flutter_76.DividerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -19744,6 +19838,7 @@ BridgedClass _createDrawerBridge() {
     nativeType: $flutter_77.Drawer,
     name: 'Drawer',
     isAssignable: (v) => v is $flutter_77.Drawer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -19870,6 +19965,7 @@ BridgedClass _createDrawerControllerBridge() {
     nativeType: $flutter_77.DrawerController,
     name: 'DrawerController',
     isAssignable: (v) => v is $flutter_77.DrawerController,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_273.GlobalKey<$flutter_273.State<$flutter_273.StatefulWidget>>?>(named, 'key');
@@ -20010,6 +20106,7 @@ BridgedClass _createDrawerControllerStateBridge() {
     nativeType: $flutter_77.DrawerControllerState,
     name: 'DrawerControllerState',
     isAssignable: (v) => v is $flutter_77.DrawerControllerState,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_77.DrawerControllerState();
@@ -20154,6 +20251,7 @@ BridgedClass _createDrawerHeaderBridge() {
     nativeType: $flutter_78.DrawerHeader,
     name: 'DrawerHeader',
     isAssignable: (v) => v is $flutter_78.DrawerHeader,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -20271,6 +20369,7 @@ BridgedClass _createDrawerThemeDataBridge() {
     nativeType: $flutter_79.DrawerThemeData,
     name: 'DrawerThemeData',
     isAssignable: (v) => v is $flutter_79.DrawerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -20387,6 +20486,7 @@ BridgedClass _createDrawerThemeBridge() {
     nativeType: $flutter_79.DrawerTheme,
     name: 'DrawerTheme',
     isAssignable: (v) => v is $flutter_79.DrawerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -20510,6 +20610,7 @@ BridgedClass _createDropdownMenuItemBridge() {
     nativeType: $flutter_80.DropdownMenuItem,
     name: 'DropdownMenuItem',
     isAssignable: (v) => v is $flutter_80.DropdownMenuItem,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -20624,6 +20725,7 @@ BridgedClass _createDropdownButtonHideUnderlineBridge() {
     nativeType: $flutter_80.DropdownButtonHideUnderline,
     name: 'DropdownButtonHideUnderline',
     isAssignable: (v) => v is $flutter_80.DropdownButtonHideUnderline,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -20736,6 +20838,7 @@ BridgedClass _createDropdownButtonBridge() {
     nativeType: $flutter_80.DropdownButton,
     name: 'DropdownButton',
     isAssignable: (v) => v is $flutter_80.DropdownButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -20935,6 +21038,7 @@ BridgedClass _createDropdownButtonFormFieldBridge() {
     nativeType: $flutter_80.DropdownButtonFormField,
     name: 'DropdownButtonFormField',
     isAssignable: (v) => v is $flutter_80.DropdownButtonFormField,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -21148,6 +21252,7 @@ BridgedClass _createDropdownMenuBridge() {
     nativeType: $flutter_81.DropdownMenu,
     name: 'DropdownMenu',
     isAssignable: (v) => v is $flutter_81.DropdownMenu,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -21362,6 +21467,7 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
     nativeType: $flutter_82.DropdownMenuFormField,
     name: 'DropdownMenuFormField',
     isAssignable: (v) => v is $flutter_82.DropdownMenuFormField,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -21525,6 +21631,7 @@ BridgedClass _createDropdownMenuThemeDataBridge() {
     nativeType: $flutter_83.DropdownMenuThemeData,
     name: 'DropdownMenuThemeData',
     isAssignable: (v) => v is $flutter_83.DropdownMenuThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final textStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'textStyle');
@@ -21621,6 +21728,7 @@ BridgedClass _createDropdownMenuThemeBridge() {
     nativeType: $flutter_83.DropdownMenuTheme,
     name: 'DropdownMenuTheme',
     isAssignable: (v) => v is $flutter_83.DropdownMenuTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -21750,6 +21858,7 @@ BridgedClass _createElevatedButtonBridge() {
     nativeType: $flutter_84.ElevatedButton,
     name: 'ElevatedButton',
     isAssignable: (v) => v is $flutter_84.ElevatedButton,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -21961,6 +22070,7 @@ BridgedClass _createElevatedButtonThemeDataBridge() {
     nativeType: $flutter_85.ElevatedButtonThemeData,
     name: 'ElevatedButtonThemeData',
     isAssignable: (v) => v is $flutter_85.ElevatedButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -22039,6 +22149,7 @@ BridgedClass _createElevatedButtonThemeBridge() {
     nativeType: $flutter_85.ElevatedButtonTheme,
     name: 'ElevatedButtonTheme',
     isAssignable: (v) => v is $flutter_85.ElevatedButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -22212,6 +22323,7 @@ BridgedClass _createExpandIconBridge() {
     nativeType: $flutter_87.ExpandIcon,
     name: 'ExpandIcon',
     isAssignable: (v) => v is $flutter_87.ExpandIcon,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -22387,6 +22499,7 @@ BridgedClass _createExpansionPanelRadioBridge() {
     nativeType: $flutter_88.ExpansionPanelRadio,
     name: 'ExpansionPanelRadio',
     isAssignable: (v) => v is $flutter_88.ExpansionPanelRadio,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getRequiredNamedArg<Object>(named, 'value', 'ExpansionPanelRadio');
@@ -22437,6 +22550,7 @@ BridgedClass _createExpansionPanelListBridge() {
     nativeType: $flutter_88.ExpansionPanelList,
     name: 'ExpansionPanelList',
     isAssignable: (v) => v is $flutter_88.ExpansionPanelList,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -22606,6 +22720,7 @@ BridgedClass _createExpansionTileBridge() {
     nativeType: $flutter_89.ExpansionTile,
     name: 'ExpansionTile',
     isAssignable: (v) => v is $flutter_89.ExpansionTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -22801,6 +22916,7 @@ BridgedClass _createExpansionTileThemeDataBridge() {
     nativeType: $flutter_90.ExpansionTileThemeData,
     name: 'ExpansionTileThemeData',
     isAssignable: (v) => v is $flutter_90.ExpansionTileThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -22933,6 +23049,7 @@ BridgedClass _createExpansionTileThemeBridge() {
     nativeType: $flutter_90.ExpansionTileTheme,
     name: 'ExpansionTileTheme',
     isAssignable: (v) => v is $flutter_90.ExpansionTileTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -23056,6 +23173,7 @@ BridgedClass _createFilledButtonBridge() {
     nativeType: $flutter_91.FilledButton,
     name: 'FilledButton',
     isAssignable: (v) => v is $flutter_91.FilledButton,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -23305,6 +23423,7 @@ BridgedClass _createFilledButtonThemeDataBridge() {
     nativeType: $flutter_92.FilledButtonThemeData,
     name: 'FilledButtonThemeData',
     isAssignable: (v) => v is $flutter_92.FilledButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -23383,6 +23502,7 @@ BridgedClass _createFilledButtonThemeBridge() {
     nativeType: $flutter_92.FilledButtonTheme,
     name: 'FilledButtonTheme',
     isAssignable: (v) => v is $flutter_92.FilledButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -23506,6 +23626,7 @@ BridgedClass _createFilterChipBridge() {
     nativeType: $flutter_93.FilterChip,
     name: 'FilterChip',
     isAssignable: (v) => v is $flutter_93.FilterChip,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -23762,6 +23883,7 @@ BridgedClass _createFlexibleSpaceBarBridge() {
     nativeType: $flutter_94.FlexibleSpaceBar,
     name: 'FlexibleSpaceBar',
     isAssignable: (v) => v is $flutter_94.FlexibleSpaceBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -23901,6 +24023,7 @@ BridgedClass _createFlexibleSpaceBarSettingsBridge() {
     nativeType: $flutter_94.FlexibleSpaceBarSettings,
     name: 'FlexibleSpaceBarSettings',
     isAssignable: (v) => v is $flutter_94.FlexibleSpaceBarSettings,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -24021,6 +24144,7 @@ BridgedClass _createFloatingActionButtonBridge() {
     nativeType: $flutter_95.FloatingActionButton,
     name: 'FloatingActionButton',
     isAssignable: (v) => v is $flutter_95.FloatingActionButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -24387,6 +24511,7 @@ BridgedClass _createStandardFabLocationBridge() {
     nativeType: $flutter_96.StandardFabLocation,
     name: 'StandardFabLocation',
     isAssignable: (v) => v is $flutter_96.StandardFabLocation,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -24498,6 +24623,7 @@ BridgedClass _createFabTopOffsetYBridge() {
     nativeType: $flutter_96.FabTopOffsetY,
     name: 'FabTopOffsetY',
     isAssignable: (v) => v is $flutter_96.FabTopOffsetY,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24551,6 +24677,7 @@ BridgedClass _createFabFloatOffsetYBridge() {
     nativeType: $flutter_96.FabFloatOffsetY,
     name: 'FabFloatOffsetY',
     isAssignable: (v) => v is $flutter_96.FabFloatOffsetY,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24604,6 +24731,7 @@ BridgedClass _createFabDockedOffsetYBridge() {
     nativeType: $flutter_96.FabDockedOffsetY,
     name: 'FabDockedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabDockedOffsetY,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24657,6 +24785,7 @@ BridgedClass _createFabContainedOffsetYBridge() {
     nativeType: $flutter_96.FabContainedOffsetY,
     name: 'FabContainedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabContainedOffsetY,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24710,6 +24839,7 @@ BridgedClass _createFabStartOffsetXBridge() {
     nativeType: $flutter_96.FabStartOffsetX,
     name: 'FabStartOffsetX',
     isAssignable: (v) => v is $flutter_96.FabStartOffsetX,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24763,6 +24893,7 @@ BridgedClass _createFabCenterOffsetXBridge() {
     nativeType: $flutter_96.FabCenterOffsetX,
     name: 'FabCenterOffsetX',
     isAssignable: (v) => v is $flutter_96.FabCenterOffsetX,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24816,6 +24947,7 @@ BridgedClass _createFabEndOffsetXBridge() {
     nativeType: $flutter_96.FabEndOffsetX,
     name: 'FabEndOffsetX',
     isAssignable: (v) => v is $flutter_96.FabEndOffsetX,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24869,6 +25001,7 @@ BridgedClass _createFabMiniOffsetAdjustmentBridge() {
     nativeType: $flutter_96.FabMiniOffsetAdjustment,
     name: 'FabMiniOffsetAdjustment',
     isAssignable: (v) => v is $flutter_96.FabMiniOffsetAdjustment,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -24922,6 +25055,7 @@ BridgedClass _createFloatingActionButtonThemeDataBridge() {
     nativeType: $flutter_97.FloatingActionButtonThemeData,
     name: 'FloatingActionButtonThemeData',
     isAssignable: (v) => v is $flutter_97.FloatingActionButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final foregroundColor = D4.getOptionalNamedArg<Color?>(named, 'foregroundColor');
@@ -25086,6 +25220,7 @@ BridgedClass _createFloatingActionButtonThemeBridge() {
     nativeType: $flutter_97.FloatingActionButtonTheme,
     name: 'FloatingActionButtonTheme',
     isAssignable: (v) => v is $flutter_97.FloatingActionButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -25209,6 +25344,7 @@ BridgedClass _createGridTileBridge() {
     nativeType: $flutter_98.GridTile,
     name: 'GridTile',
     isAssignable: (v) => v is $flutter_98.GridTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -25317,6 +25453,7 @@ BridgedClass _createGridTileBarBridge() {
     nativeType: $flutter_99.GridTileBar,
     name: 'GridTileBar',
     isAssignable: (v) => v is $flutter_99.GridTileBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -25431,6 +25568,7 @@ BridgedClass _createIconButtonBridge() {
     nativeType: $flutter_100.IconButton,
     name: 'IconButton',
     isAssignable: (v) => v is $flutter_100.IconButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -25741,6 +25879,7 @@ BridgedClass _createIconButtonThemeDataBridge() {
     nativeType: $flutter_101.IconButtonThemeData,
     name: 'IconButtonThemeData',
     isAssignable: (v) => v is $flutter_101.IconButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -25819,6 +25958,7 @@ BridgedClass _createIconButtonThemeBridge() {
     nativeType: $flutter_101.IconButtonTheme,
     name: 'IconButtonTheme',
     isAssignable: (v) => v is $flutter_101.IconButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -25942,6 +26082,7 @@ BridgedClass _createPlatformAdaptiveIconsBridge() {
     nativeType: $flutter_102.PlatformAdaptiveIcons,
     name: 'PlatformAdaptiveIcons',
     isAssignable: (v) => v is $flutter_102.PlatformAdaptiveIcons,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -43671,6 +43812,7 @@ BridgedClass _createInkBridge() {
     nativeType: $flutter_103.Ink,
     name: 'Ink',
     isAssignable: (v) => v is $flutter_103.Ink,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -43801,6 +43943,7 @@ BridgedClass _createInkDecorationBridge() {
     nativeType: $flutter_103.InkDecoration,
     name: 'InkDecoration',
     isAssignable: (v) => v is $flutter_103.InkDecoration,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final decoration = D4.getRequiredNamedArg<$flutter_209.Decoration?>(named, 'decoration', 'InkDecoration');
@@ -43880,6 +44023,7 @@ BridgedClass _createInkHighlightBridge() {
     nativeType: $flutter_104.InkHighlight,
     name: 'InkHighlight',
     isAssignable: (v) => v is $flutter_104.InkHighlight,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_116.MaterialInkController>(named, 'controller', 'InkHighlight');
@@ -44006,6 +44150,7 @@ BridgedClass _createInkRippleBridge() {
     nativeType: $flutter_105.InkRipple,
     name: 'InkRipple',
     isAssignable: (v) => v is $flutter_105.InkRipple,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_116.MaterialInkController>(named, 'controller', 'InkRipple');
@@ -44118,6 +44263,7 @@ BridgedClass _createInkSparkleBridge() {
     nativeType: $flutter_106.InkSparkle,
     name: 'InkSparkle',
     isAssignable: (v) => v is $flutter_106.InkSparkle,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_116.MaterialInkController>(named, 'controller', 'InkSparkle');
@@ -44233,6 +44379,7 @@ BridgedClass _createInkSplashBridge() {
     nativeType: $flutter_107.InkSplash,
     name: 'InkSplash',
     isAssignable: (v) => v is $flutter_107.InkSplash,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_116.MaterialInkController>(named, 'controller', 'InkSplash');
@@ -44345,6 +44492,7 @@ BridgedClass _createInteractiveInkFeatureBridge() {
     nativeType: $flutter_108.InteractiveInkFeature,
     name: 'InteractiveInkFeature',
     isAssignable: (v) => v is $flutter_108.InteractiveInkFeature,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -44470,6 +44618,7 @@ BridgedClass _createInkResponseBridge() {
     nativeType: $flutter_108.InkResponse,
     name: 'InkResponse',
     isAssignable: (v) => v is $flutter_108.InkResponse,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -44685,6 +44834,7 @@ BridgedClass _createInkWellBridge() {
     nativeType: $flutter_108.InkWell,
     name: 'InkWell',
     isAssignable: (v) => v is $flutter_108.InkWell,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -44898,6 +45048,7 @@ BridgedClass _createInputBorderBridge() {
     nativeType: $flutter_109.InputBorder,
     name: 'InputBorder',
     isAssignable: (v) => v is $flutter_109.InputBorder,
+    hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
@@ -45022,6 +45173,7 @@ BridgedClass _createUnderlineInputBorderBridge() {
     nativeType: $flutter_109.UnderlineInputBorder,
     name: 'UnderlineInputBorder',
     isAssignable: (v) => v is $flutter_109.UnderlineInputBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final borderSide = D4.getNamedArgWithDefault<$flutter_204.BorderSide>(named, 'borderSide', const $flutter_204.BorderSide());
@@ -45159,6 +45311,7 @@ BridgedClass _createOutlineInputBorderBridge() {
     nativeType: $flutter_109.OutlineInputBorder,
     name: 'OutlineInputBorder',
     isAssignable: (v) => v is $flutter_109.OutlineInputBorder,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final borderSide = D4.getNamedArgWithDefault<$flutter_204.BorderSide>(named, 'borderSide', const $flutter_204.BorderSide());
@@ -45300,6 +45453,7 @@ BridgedClass _createInputChipBridge() {
     nativeType: $flutter_110.InputChip,
     name: 'InputChip',
     isAssignable: (v) => v is $flutter_110.InputChip,
+    hierarchyDepth: 10,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -45513,6 +45667,7 @@ BridgedClass _createInputDatePickerFormFieldBridge() {
     nativeType: $flutter_111.InputDatePickerFormField,
     name: 'InputDatePickerFormField',
     isAssignable: (v) => v is $flutter_111.InputDatePickerFormField,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -45699,6 +45854,7 @@ BridgedClass _createInputDecoratorBridge() {
     nativeType: $flutter_112.InputDecorator,
     name: 'InputDecorator',
     isAssignable: (v) => v is $flutter_112.InputDecorator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -46142,6 +46298,7 @@ BridgedClass _createInputDecorationThemeBridge() {
     nativeType: $flutter_112.InputDecorationTheme,
     name: 'InputDecorationTheme',
     isAssignable: (v) => v is $flutter_112.InputDecorationTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -46425,6 +46582,7 @@ BridgedClass _createInputDecorationThemeDataBridge() {
     nativeType: $flutter_112.InputDecorationThemeData,
     name: 'InputDecorationThemeData',
     isAssignable: (v) => v is $flutter_112.InputDecorationThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final labelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'labelStyle');
@@ -46648,6 +46806,7 @@ BridgedClass _createListTileBridge() {
     nativeType: $flutter_113.ListTile,
     name: 'ListTile',
     isAssignable: (v) => v is $flutter_113.ListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -46872,6 +47031,7 @@ BridgedClass _createListTileThemeDataBridge() {
     nativeType: $flutter_114.ListTileThemeData,
     name: 'ListTileThemeData',
     isAssignable: (v) => v is $flutter_114.ListTileThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final dense = D4.getOptionalNamedArg<bool?>(named, 'dense');
@@ -47040,6 +47200,7 @@ BridgedClass _createListTileThemeBridge() {
     nativeType: $flutter_114.ListTileTheme,
     name: 'ListTileTheme',
     isAssignable: (v) => v is $flutter_114.ListTileTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -47234,6 +47395,7 @@ BridgedClass _createTextMagnifierBridge() {
     nativeType: $flutter_115.TextMagnifier,
     name: 'TextMagnifier',
     isAssignable: (v) => v is $flutter_115.TextMagnifier,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -47349,6 +47511,7 @@ BridgedClass _createMagnifierBridge() {
     nativeType: $flutter_115.Magnifier,
     name: 'Magnifier',
     isAssignable: (v) => v is $flutter_115.Magnifier,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -47548,6 +47711,7 @@ BridgedClass _createMaterialBridge() {
     nativeType: $flutter_116.Material,
     name: 'Material',
     isAssignable: (v) => v is $flutter_116.Material,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -47761,6 +47925,7 @@ BridgedClass _createShapeBorderTweenBridge() {
     nativeType: $flutter_116.ShapeBorderTween,
     name: 'ShapeBorderTween',
     isAssignable: (v) => v is $flutter_116.ShapeBorderTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'begin');
@@ -47845,6 +48010,7 @@ BridgedClass _createMaterialButtonBridge() {
     nativeType: $flutter_117.MaterialButton,
     name: 'MaterialButton',
     isAssignable: (v) => v is $flutter_117.MaterialButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -48503,6 +48669,7 @@ BridgedClass _createDefaultMaterialLocalizationsBridge() {
     nativeType: $flutter_118.DefaultMaterialLocalizations,
     name: 'DefaultMaterialLocalizations',
     isAssignable: (v) => v is $flutter_118.DefaultMaterialLocalizations,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_118.DefaultMaterialLocalizations();
@@ -48975,6 +49142,7 @@ BridgedClass _createWidgetStateInputBorderBridge() {
     nativeType: $flutter_119.WidgetStateInputBorder,
     name: 'WidgetStateInputBorder',
     isAssignable: (v) => v is $flutter_119.WidgetStateInputBorder,
+    hierarchyDepth: 3,
     isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
@@ -49123,6 +49291,7 @@ BridgedClass _createMaterialStateMixinBridge() {
     nativeType: $flutter_120.MaterialStateMixin,
     name: 'MaterialStateMixin',
     isAssignable: (v) => v is $flutter_120.MaterialStateMixin,
+    hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -49299,6 +49468,7 @@ BridgedClass _createMenuAnchorBridge() {
     nativeType: $flutter_121.MenuAnchor,
     name: 'MenuAnchor',
     isAssignable: (v) => v is $flutter_121.MenuAnchor,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -49447,6 +49617,7 @@ BridgedClass _createMenuBarBridge() {
     nativeType: $flutter_121.MenuBar,
     name: 'MenuBar',
     isAssignable: (v) => v is $flutter_121.MenuBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -49561,6 +49732,7 @@ BridgedClass _createMenuItemButtonBridge() {
     nativeType: $flutter_121.MenuItemButton,
     name: 'MenuItemButton',
     isAssignable: (v) => v is $flutter_121.MenuItemButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -49756,6 +49928,7 @@ BridgedClass _createCheckboxMenuButtonBridge() {
     nativeType: $flutter_121.CheckboxMenuButton,
     name: 'CheckboxMenuButton',
     isAssignable: (v) => v is $flutter_121.CheckboxMenuButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -49902,6 +50075,7 @@ BridgedClass _createRadioMenuButtonBridge() {
     nativeType: $flutter_121.RadioMenuButton,
     name: 'RadioMenuButton',
     isAssignable: (v) => v is $flutter_121.RadioMenuButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -50048,6 +50222,7 @@ BridgedClass _createSubmenuButtonBridge() {
     nativeType: $flutter_121.SubmenuButton,
     name: 'SubmenuButton',
     isAssignable: (v) => v is $flutter_121.SubmenuButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -50247,6 +50422,7 @@ BridgedClass _createMenuAcceleratorCallbackBindingBridge() {
     nativeType: $flutter_121.MenuAcceleratorCallbackBinding,
     name: 'MenuAcceleratorCallbackBinding',
     isAssignable: (v) => v is $flutter_121.MenuAcceleratorCallbackBinding,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -50371,6 +50547,7 @@ BridgedClass _createMenuAcceleratorLabelBridge() {
     nativeType: $flutter_121.MenuAcceleratorLabel,
     name: 'MenuAcceleratorLabel',
     isAssignable: (v) => v is $flutter_121.MenuAcceleratorLabel,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MenuAcceleratorLabel');
@@ -50506,6 +50683,7 @@ BridgedClass _createMenuBarThemeDataBridge() {
     nativeType: $flutter_122.MenuBarThemeData,
     name: 'MenuBarThemeData',
     isAssignable: (v) => v is $flutter_122.MenuBarThemeData,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'style');
@@ -50586,6 +50764,7 @@ BridgedClass _createMenuBarThemeBridge() {
     nativeType: $flutter_122.MenuBarTheme,
     name: 'MenuBarTheme',
     isAssignable: (v) => v is $flutter_122.MenuBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -50709,6 +50888,7 @@ BridgedClass _createMenuButtonThemeDataBridge() {
     nativeType: $flutter_123.MenuButtonThemeData,
     name: 'MenuButtonThemeData',
     isAssignable: (v) => v is $flutter_123.MenuButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -50787,6 +50967,7 @@ BridgedClass _createMenuButtonThemeBridge() {
     nativeType: $flutter_123.MenuButtonTheme,
     name: 'MenuButtonTheme',
     isAssignable: (v) => v is $flutter_123.MenuButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -50910,6 +51091,7 @@ BridgedClass _createMenuStyleBridge() {
     nativeType: $flutter_124.MenuStyle,
     name: 'MenuStyle',
     isAssignable: (v) => v is $flutter_124.MenuStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
@@ -51049,6 +51231,7 @@ BridgedClass _createMenuThemeDataBridge() {
     nativeType: $flutter_125.MenuThemeData,
     name: 'MenuThemeData',
     isAssignable: (v) => v is $flutter_125.MenuThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'style');
@@ -51130,6 +51313,7 @@ BridgedClass _createMenuThemeBridge() {
     nativeType: $flutter_125.MenuTheme,
     name: 'MenuTheme',
     isAssignable: (v) => v is $flutter_125.MenuTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -51274,6 +51458,7 @@ BridgedClass _createMaterialSliceBridge() {
     nativeType: $flutter_126.MaterialSlice,
     name: 'MaterialSlice',
     isAssignable: (v) => v is $flutter_126.MaterialSlice,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getRequiredNamedArg<$flutter_12.LocalKey>(named, 'key', 'MaterialSlice');
@@ -51316,6 +51501,7 @@ BridgedClass _createMaterialGapBridge() {
     nativeType: $flutter_126.MaterialGap,
     name: 'MaterialGap',
     isAssignable: (v) => v is $flutter_126.MaterialGap,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getRequiredNamedArg<$flutter_12.LocalKey>(named, 'key', 'MaterialGap');
@@ -51355,6 +51541,7 @@ BridgedClass _createMergeableMaterialBridge() {
     nativeType: $flutter_126.MergeableMaterial,
     name: 'MergeableMaterial',
     isAssignable: (v) => v is $flutter_126.MergeableMaterial,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -51557,6 +51744,7 @@ BridgedClass _createNavigationBarBridge() {
     nativeType: $flutter_128.NavigationBar,
     name: 'NavigationBar',
     isAssignable: (v) => v is $flutter_128.NavigationBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -51707,6 +51895,7 @@ BridgedClass _createNavigationDestinationBridge() {
     nativeType: $flutter_128.NavigationDestination,
     name: 'NavigationDestination',
     isAssignable: (v) => v is $flutter_128.NavigationDestination,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -51821,6 +52010,7 @@ BridgedClass _createNavigationIndicatorBridge() {
     nativeType: $flutter_128.NavigationIndicator,
     name: 'NavigationIndicator',
     isAssignable: (v) => v is $flutter_128.NavigationIndicator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -51952,6 +52142,7 @@ BridgedClass _createNavigationBarThemeDataBridge() {
     nativeType: $flutter_129.NavigationBarThemeData,
     name: 'NavigationBarThemeData',
     isAssignable: (v) => v is $flutter_129.NavigationBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
@@ -52080,6 +52271,7 @@ BridgedClass _createNavigationBarThemeBridge() {
     nativeType: $flutter_129.NavigationBarTheme,
     name: 'NavigationBarTheme',
     isAssignable: (v) => v is $flutter_129.NavigationBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -52203,6 +52395,7 @@ BridgedClass _createNavigationDrawerBridge() {
     nativeType: $flutter_130.NavigationDrawer,
     name: 'NavigationDrawer',
     isAssignable: (v) => v is $flutter_130.NavigationDrawer,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -52341,6 +52534,7 @@ BridgedClass _createNavigationDrawerDestinationBridge() {
     nativeType: $flutter_130.NavigationDrawerDestination,
     name: 'NavigationDrawerDestination',
     isAssignable: (v) => v is $flutter_130.NavigationDrawerDestination,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -52455,6 +52649,7 @@ BridgedClass _createNavigationDrawerThemeDataBridge() {
     nativeType: $flutter_131.NavigationDrawerThemeData,
     name: 'NavigationDrawerThemeData',
     isAssignable: (v) => v is $flutter_131.NavigationDrawerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final tileHeight = D4.getOptionalNamedArg<double?>(named, 'tileHeight');
@@ -52575,6 +52770,7 @@ BridgedClass _createNavigationDrawerThemeBridge() {
     nativeType: $flutter_131.NavigationDrawerTheme,
     name: 'NavigationDrawerTheme',
     isAssignable: (v) => v is $flutter_131.NavigationDrawerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -52698,6 +52894,7 @@ BridgedClass _createNavigationRailBridge() {
     nativeType: $flutter_132.NavigationRail,
     name: 'NavigationRail',
     isAssignable: (v) => v is $flutter_132.NavigationRail,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -52919,6 +53116,7 @@ BridgedClass _createNavigationRailThemeDataBridge() {
     nativeType: $flutter_133.NavigationRailThemeData,
     name: 'NavigationRailThemeData',
     isAssignable: (v) => v is $flutter_133.NavigationRailThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -53051,6 +53249,7 @@ BridgedClass _createNavigationRailThemeBridge() {
     nativeType: $flutter_133.NavigationRailTheme,
     name: 'NavigationRailTheme',
     isAssignable: (v) => v is $flutter_133.NavigationRailTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -53174,6 +53373,7 @@ BridgedClass _createNoSplashBridge() {
     nativeType: $flutter_134.NoSplash,
     name: 'NoSplash',
     isAssignable: (v) => v is $flutter_134.NoSplash,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final controller = D4.getRequiredNamedArg<$flutter_116.MaterialInkController>(named, 'controller', 'NoSplash');
@@ -53279,6 +53479,7 @@ BridgedClass _createOutlinedButtonBridge() {
     nativeType: $flutter_135.OutlinedButton,
     name: 'OutlinedButton',
     isAssignable: (v) => v is $flutter_135.OutlinedButton,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -53490,6 +53691,7 @@ BridgedClass _createOutlinedButtonThemeDataBridge() {
     nativeType: $flutter_136.OutlinedButtonThemeData,
     name: 'OutlinedButtonThemeData',
     isAssignable: (v) => v is $flutter_136.OutlinedButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -53568,6 +53770,7 @@ BridgedClass _createOutlinedButtonThemeBridge() {
     nativeType: $flutter_136.OutlinedButtonTheme,
     name: 'OutlinedButtonTheme',
     isAssignable: (v) => v is $flutter_136.OutlinedButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -53691,6 +53894,7 @@ BridgedClass _createMaterialPageRouteBridge() {
     nativeType: $flutter_137.MaterialPageRoute,
     name: 'MaterialPageRoute',
     isAssignable: (v) => v is $flutter_137.MaterialPageRoute,
+    hierarchyDepth: 9,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builder') || named['builder'] == null) {
@@ -53945,7 +54149,7 @@ BridgedClass _createMaterialPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -53955,7 +54159,7 @@ BridgedClass _createMaterialPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -54103,6 +54307,7 @@ BridgedClass _createMaterialPageBridge() {
     nativeType: $flutter_137.MaterialPage,
     name: 'MaterialPage',
     isAssignable: (v) => v is $flutter_137.MaterialPage,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'MaterialPage');
@@ -54187,6 +54392,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
     nativeType: $flutter_137.MaterialRouteTransitionMixin,
     name: 'MaterialRouteTransitionMixin',
     isAssignable: (v) => v is $flutter_137.MaterialRouteTransitionMixin,
+    hierarchyDepth: 8,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -54427,7 +54633,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -54437,7 +54643,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -54581,6 +54787,7 @@ BridgedClass _createFadeForwardsPageTransitionsBuilderBridge() {
     nativeType: $flutter_138.FadeForwardsPageTransitionsBuilder,
     name: 'FadeForwardsPageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_138.FadeForwardsPageTransitionsBuilder,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -54635,6 +54842,7 @@ BridgedClass _createZoomPageTransitionsBuilderBridge() {
     nativeType: $flutter_138.ZoomPageTransitionsBuilder,
     name: 'ZoomPageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_138.ZoomPageTransitionsBuilder,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final allowSnapshotting = D4.getNamedArgWithDefault<bool>(named, 'allowSnapshotting', true);
@@ -54689,6 +54897,7 @@ BridgedClass _createCupertinoPageTransitionsBuilderBridge() {
     nativeType: $flutter_138.CupertinoPageTransitionsBuilder,
     name: 'CupertinoPageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_138.CupertinoPageTransitionsBuilder,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_138.CupertinoPageTransitionsBuilder();
@@ -54734,6 +54943,7 @@ BridgedClass _createPageTransitionsThemeBridge() {
     nativeType: $flutter_138.PageTransitionsTheme,
     name: 'PageTransitionsTheme',
     isAssignable: (v) => v is $flutter_138.PageTransitionsTheme,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('builders')) {
@@ -54824,6 +55034,7 @@ BridgedClass _createPaginatedDataTableBridge() {
     nativeType: $flutter_139.PaginatedDataTable,
     name: 'PaginatedDataTable',
     isAssignable: (v) => v is $flutter_139.PaginatedDataTable,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55028,6 +55239,7 @@ BridgedClass _createPaginatedDataTableStateBridge() {
     nativeType: $flutter_139.PaginatedDataTableState,
     name: 'PaginatedDataTableState',
     isAssignable: (v) => v is $flutter_139.PaginatedDataTableState,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_139.PaginatedDataTableState();
@@ -55158,6 +55370,7 @@ BridgedClass _createPopupMenuEntryBridge() {
     nativeType: $flutter_140.PopupMenuEntry,
     name: 'PopupMenuEntry',
     isAssignable: (v) => v is $flutter_140.PopupMenuEntry,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -55258,6 +55471,7 @@ BridgedClass _createPopupMenuDividerBridge() {
     nativeType: $flutter_140.PopupMenuDivider,
     name: 'PopupMenuDivider',
     isAssignable: (v) => v is $flutter_140.PopupMenuDivider,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55386,6 +55600,7 @@ BridgedClass _createPopupMenuItemBridge() {
     nativeType: $flutter_140.PopupMenuItem,
     name: 'PopupMenuItem',
     isAssignable: (v) => v is $flutter_140.PopupMenuItem,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55523,6 +55738,7 @@ BridgedClass _createPopupMenuItemStateBridge() {
     nativeType: $flutter_140.PopupMenuItemState,
     name: 'PopupMenuItemState',
     isAssignable: (v) => v is $flutter_140.PopupMenuItemState,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_140.PopupMenuItemState();
@@ -55662,6 +55878,7 @@ BridgedClass _createCheckedPopupMenuItemBridge() {
     nativeType: $flutter_140.CheckedPopupMenuItem,
     name: 'CheckedPopupMenuItem',
     isAssignable: (v) => v is $flutter_140.CheckedPopupMenuItem,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55801,6 +56018,7 @@ BridgedClass _createPopupMenuButtonBridge() {
     nativeType: $flutter_140.PopupMenuButton,
     name: 'PopupMenuButton',
     isAssignable: (v) => v is $flutter_140.PopupMenuButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55991,6 +56209,7 @@ BridgedClass _createPopupMenuButtonStateBridge() {
     nativeType: $flutter_140.PopupMenuButtonState,
     name: 'PopupMenuButtonState',
     isAssignable: (v) => v is $flutter_140.PopupMenuButtonState,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_140.PopupMenuButtonState();
@@ -56119,6 +56338,7 @@ BridgedClass _createPopupMenuThemeDataBridge() {
     nativeType: $flutter_141.PopupMenuThemeData,
     name: 'PopupMenuThemeData',
     isAssignable: (v) => v is $flutter_141.PopupMenuThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -56251,6 +56471,7 @@ BridgedClass _createPopupMenuThemeBridge() {
     nativeType: $flutter_141.PopupMenuTheme,
     name: 'PopupMenuTheme',
     isAssignable: (v) => v is $flutter_141.PopupMenuTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -56374,6 +56595,7 @@ BridgedClass _createPredictiveBackPageTransitionsBuilderBridge() {
     nativeType: $flutter_142.PredictiveBackPageTransitionsBuilder,
     name: 'PredictiveBackPageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_142.PredictiveBackPageTransitionsBuilder,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_142.PredictiveBackPageTransitionsBuilder();
@@ -56419,6 +56641,7 @@ BridgedClass _createPredictiveBackFullscreenPageTransitionsBuilderBridge() {
     nativeType: $flutter_142.PredictiveBackFullscreenPageTransitionsBuilder,
     name: 'PredictiveBackFullscreenPageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_142.PredictiveBackFullscreenPageTransitionsBuilder,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_142.PredictiveBackFullscreenPageTransitionsBuilder();
@@ -56464,6 +56687,7 @@ BridgedClass _createProgressIndicatorBridge() {
     nativeType: $flutter_143.ProgressIndicator,
     name: 'ProgressIndicator',
     isAssignable: (v) => v is $flutter_143.ProgressIndicator,
+    hierarchyDepth: 4,
     isAbstract: true,
     constructors: {
     },
@@ -56567,6 +56791,7 @@ BridgedClass _createLinearProgressIndicatorBridge() {
     nativeType: $flutter_143.LinearProgressIndicator,
     name: 'LinearProgressIndicator',
     isAssignable: (v) => v is $flutter_143.LinearProgressIndicator,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -56709,6 +56934,7 @@ BridgedClass _createCircularProgressIndicatorBridge() {
     nativeType: $flutter_143.CircularProgressIndicator,
     name: 'CircularProgressIndicator',
     isAssignable: (v) => v is $flutter_143.CircularProgressIndicator,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -56878,6 +57104,7 @@ BridgedClass _createRefreshProgressIndicatorBridge() {
     nativeType: $flutter_143.RefreshProgressIndicator,
     name: 'RefreshProgressIndicator',
     isAssignable: (v) => v is $flutter_143.RefreshProgressIndicator,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -57033,6 +57260,7 @@ BridgedClass _createProgressIndicatorThemeDataBridge() {
     nativeType: $flutter_144.ProgressIndicatorThemeData,
     name: 'ProgressIndicatorThemeData',
     isAssignable: (v) => v is $flutter_144.ProgressIndicatorThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -57177,6 +57405,7 @@ BridgedClass _createProgressIndicatorThemeBridge() {
     nativeType: $flutter_144.ProgressIndicatorTheme,
     name: 'ProgressIndicatorTheme',
     isAssignable: (v) => v is $flutter_144.ProgressIndicatorTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -57300,6 +57529,7 @@ BridgedClass _createRadioBridge() {
     nativeType: $flutter_145.Radio,
     name: 'Radio',
     isAssignable: (v) => v is $flutter_145.Radio,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -57485,6 +57715,7 @@ BridgedClass _createRadioListTileBridge() {
     nativeType: $flutter_146.RadioListTile,
     name: 'RadioListTile',
     isAssignable: (v) => v is $flutter_146.RadioListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -57744,6 +57975,7 @@ BridgedClass _createRadioThemeDataBridge() {
     nativeType: $flutter_147.RadioThemeData,
     name: 'RadioThemeData',
     isAssignable: (v) => v is $flutter_147.RadioThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
@@ -57860,6 +58092,7 @@ BridgedClass _createRadioThemeBridge() {
     nativeType: $flutter_147.RadioTheme,
     name: 'RadioTheme',
     isAssignable: (v) => v is $flutter_147.RadioTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -57975,6 +58208,7 @@ BridgedClass _createRangeSliderBridge() {
     nativeType: $flutter_148.RangeSlider,
     name: 'RangeSlider',
     isAssignable: (v) => v is $flutter_148.RangeSlider,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -58788,6 +59022,7 @@ BridgedClass _createRectangularRangeSliderTrackShapeBridge() {
     nativeType: $flutter_149.RectangularRangeSliderTrackShape,
     name: 'RectangularRangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.RectangularRangeSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.RectangularRangeSliderTrackShape();
@@ -58845,6 +59080,7 @@ BridgedClass _createRoundedRectRangeSliderTrackShapeBridge() {
     nativeType: $flutter_149.RoundedRectRangeSliderTrackShape,
     name: 'RoundedRectRangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.RoundedRectRangeSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.RoundedRectRangeSliderTrackShape();
@@ -58903,6 +59139,7 @@ BridgedClass _createRoundRangeSliderTickMarkShapeBridge() {
     nativeType: $flutter_149.RoundRangeSliderTickMarkShape,
     name: 'RoundRangeSliderTickMarkShape',
     isAssignable: (v) => v is $flutter_149.RoundRangeSliderTickMarkShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final tickMarkRadius = D4.getOptionalNamedArg<double?>(named, 'tickMarkRadius');
@@ -58957,6 +59194,7 @@ BridgedClass _createRoundRangeSliderThumbShapeBridge() {
     nativeType: $flutter_149.RoundRangeSliderThumbShape,
     name: 'RoundRangeSliderThumbShape',
     isAssignable: (v) => v is $flutter_149.RoundRangeSliderThumbShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final enabledThumbRadius = D4.getNamedArgWithDefault<double>(named, 'enabledThumbRadius', 10.0);
@@ -59121,6 +59359,7 @@ BridgedClass _createGappedRangeSliderTrackShapeBridge() {
     nativeType: $flutter_149.GappedRangeSliderTrackShape,
     name: 'GappedRangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.GappedRangeSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.GappedRangeSliderTrackShape();
@@ -59179,6 +59418,7 @@ BridgedClass _createHandleRangeSliderThumbShapeBridge() {
     nativeType: $flutter_149.HandleRangeSliderThumbShape,
     name: 'HandleRangeSliderThumbShape',
     isAssignable: (v) => v is $flutter_149.HandleRangeSliderThumbShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.HandleRangeSliderThumbShape();
@@ -59229,6 +59469,7 @@ BridgedClass _createRoundedRectRangeSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_149.RoundedRectRangeSliderValueIndicatorShape,
     name: 'RoundedRectRangeSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_149.RoundedRectRangeSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.RoundedRectRangeSliderValueIndicatorShape();
@@ -59295,6 +59536,7 @@ BridgedClass _createDropRangeSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_149.DropRangeSliderValueIndicatorShape,
     name: 'DropRangeSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_149.DropRangeSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_149.DropRangeSliderValueIndicatorShape();
@@ -59391,6 +59633,7 @@ BridgedClass _createRefreshIndicatorBridge() {
     nativeType: $flutter_150.RefreshIndicator,
     name: 'RefreshIndicator',
     isAssignable: (v) => v is $flutter_150.RefreshIndicator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -59409,12 +59652,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -59435,12 +59678,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -59457,12 +59700,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -59586,6 +59829,7 @@ BridgedClass _createRefreshIndicatorStateBridge() {
     nativeType: $flutter_150.RefreshIndicatorState,
     name: 'RefreshIndicatorState',
     isAssignable: (v) => v is $flutter_150.RefreshIndicatorState,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_150.RefreshIndicatorState();
@@ -59724,6 +59968,7 @@ BridgedClass _createReorderableListViewBridge() {
     nativeType: $flutter_151.ReorderableListView,
     name: 'ReorderableListView',
     isAssignable: (v) => v is $flutter_151.ReorderableListView,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -59949,6 +60194,7 @@ BridgedClass _createScaffoldMessengerBridge() {
     nativeType: $flutter_152.ScaffoldMessenger,
     name: 'ScaffoldMessenger',
     isAssignable: (v) => v is $flutter_152.ScaffoldMessenger,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -60065,6 +60311,7 @@ BridgedClass _createScaffoldMessengerStateBridge() {
     nativeType: $flutter_152.ScaffoldMessengerState,
     name: 'ScaffoldMessengerState',
     isAssignable: (v) => v is $flutter_152.ScaffoldMessengerState,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_152.ScaffoldMessengerState();
@@ -60347,6 +60594,7 @@ BridgedClass _createScaffoldBridge() {
     nativeType: $flutter_152.Scaffold,
     name: 'Scaffold',
     isAssignable: (v) => v is $flutter_152.Scaffold,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -60561,6 +60809,7 @@ BridgedClass _createScaffoldStateBridge() {
     nativeType: $flutter_152.ScaffoldState,
     name: 'ScaffoldState',
     isAssignable: (v) => v is $flutter_152.ScaffoldState,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_152.ScaffoldState();
@@ -60945,6 +61194,7 @@ BridgedClass _createPersistentBottomSheetControllerBridge() {
     nativeType: $flutter_152.PersistentBottomSheetController,
     name: 'PersistentBottomSheetController',
     isAssignable: (v) => v is $flutter_152.PersistentBottomSheetController,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -60969,6 +61219,7 @@ BridgedClass _createScrollbarBridge() {
     nativeType: $flutter_153.Scrollbar,
     name: 'Scrollbar',
     isAssignable: (v) => v is $flutter_153.Scrollbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -61095,6 +61346,7 @@ BridgedClass _createScrollbarThemeDataBridge() {
     nativeType: $flutter_154.ScrollbarThemeData,
     name: 'ScrollbarThemeData',
     isAssignable: (v) => v is $flutter_154.ScrollbarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final thumbVisibility = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<bool?>?>(named, 'thumbVisibility');
@@ -61219,6 +61471,7 @@ BridgedClass _createScrollbarThemeBridge() {
     nativeType: $flutter_154.ScrollbarTheme,
     name: 'ScrollbarTheme',
     isAssignable: (v) => v is $flutter_154.ScrollbarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -61480,6 +61733,7 @@ BridgedClass _createSearchAnchorBridge() {
     nativeType: $flutter_156.SearchAnchor,
     name: 'SearchAnchor',
     isAssignable: (v) => v is $flutter_156.SearchAnchor,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -61914,6 +62168,7 @@ BridgedClass _createSearchControllerBridge() {
     nativeType: $flutter_156.SearchController,
     name: 'SearchController',
     isAssignable: (v) => v is $flutter_156.SearchController,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_156.SearchController();
@@ -62040,6 +62295,7 @@ BridgedClass _createSearchBarBridge() {
     nativeType: $flutter_156.SearchBar,
     name: 'SearchBar',
     isAssignable: (v) => v is $flutter_156.SearchBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -62234,6 +62490,7 @@ BridgedClass _createSearchBarThemeDataBridge() {
     nativeType: $flutter_157.SearchBarThemeData,
     name: 'SearchBarThemeData',
     isAssignable: (v) => v is $flutter_157.SearchBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
@@ -62362,6 +62619,7 @@ BridgedClass _createSearchBarThemeBridge() {
     nativeType: $flutter_157.SearchBarTheme,
     name: 'SearchBarTheme',
     isAssignable: (v) => v is $flutter_157.SearchBarTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -62477,6 +62735,7 @@ BridgedClass _createSearchViewThemeDataBridge() {
     nativeType: $flutter_158.SearchViewThemeData,
     name: 'SearchViewThemeData',
     isAssignable: (v) => v is $flutter_158.SearchViewThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -62609,6 +62868,7 @@ BridgedClass _createSearchViewThemeBridge() {
     nativeType: $flutter_158.SearchViewTheme,
     name: 'SearchViewTheme',
     isAssignable: (v) => v is $flutter_158.SearchViewTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -62771,6 +63031,7 @@ BridgedClass _createSegmentedButtonBridge() {
     nativeType: $flutter_159.SegmentedButton,
     name: 'SegmentedButton',
     isAssignable: (v) => v is $flutter_159.SegmentedButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -62940,6 +63201,7 @@ BridgedClass _createSegmentedButtonStateBridge() {
     nativeType: $flutter_159.SegmentedButtonState,
     name: 'SegmentedButtonState',
     isAssignable: (v) => v is $flutter_159.SegmentedButtonState,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_159.SegmentedButtonState();
@@ -63064,6 +63326,7 @@ BridgedClass _createSegmentedButtonThemeDataBridge() {
     nativeType: $flutter_160.SegmentedButtonThemeData,
     name: 'SegmentedButtonThemeData',
     isAssignable: (v) => v is $flutter_160.SegmentedButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -63152,6 +63415,7 @@ BridgedClass _createSegmentedButtonThemeBridge() {
     nativeType: $flutter_160.SegmentedButtonTheme,
     name: 'SegmentedButtonTheme',
     isAssignable: (v) => v is $flutter_160.SegmentedButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -63281,6 +63545,7 @@ BridgedClass _createSelectableTextBridge() {
     nativeType: $flutter_161.SelectableText,
     name: 'SelectableText',
     isAssignable: (v) => v is $flutter_161.SelectableText,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SelectableText');
@@ -63531,6 +63796,7 @@ BridgedClass _createSelectionAreaBridge() {
     nativeType: $flutter_162.SelectionArea,
     name: 'SelectionArea',
     isAssignable: (v) => v is $flutter_162.SelectionArea,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -63653,6 +63919,7 @@ BridgedClass _createSelectionAreaStateBridge() {
     nativeType: $flutter_162.SelectionAreaState,
     name: 'SelectionAreaState',
     isAssignable: (v) => v is $flutter_162.SelectionAreaState,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_162.SelectionAreaState();
@@ -63777,6 +64044,7 @@ BridgedClass _createSliderBridge() {
     nativeType: $flutter_164.Slider,
     name: 'Slider',
     isAssignable: (v) => v is $flutter_164.Slider,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -64102,6 +64370,7 @@ BridgedClass _createRectangularSliderTrackShapeBridge() {
     nativeType: $flutter_165.RectangularSliderTrackShape,
     name: 'RectangularSliderTrackShape',
     isAssignable: (v) => v is $flutter_165.RectangularSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.RectangularSliderTrackShape();
@@ -64159,6 +64428,7 @@ BridgedClass _createRoundedRectSliderTrackShapeBridge() {
     nativeType: $flutter_165.RoundedRectSliderTrackShape,
     name: 'RoundedRectSliderTrackShape',
     isAssignable: (v) => v is $flutter_165.RoundedRectSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.RoundedRectSliderTrackShape();
@@ -64217,6 +64487,7 @@ BridgedClass _createRoundSliderTickMarkShapeBridge() {
     nativeType: $flutter_165.RoundSliderTickMarkShape,
     name: 'RoundSliderTickMarkShape',
     isAssignable: (v) => v is $flutter_165.RoundSliderTickMarkShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final tickMarkRadius = D4.getOptionalNamedArg<double?>(named, 'tickMarkRadius');
@@ -64270,6 +64541,7 @@ BridgedClass _createRoundSliderThumbShapeBridge() {
     nativeType: $flutter_165.RoundSliderThumbShape,
     name: 'RoundSliderThumbShape',
     isAssignable: (v) => v is $flutter_165.RoundSliderThumbShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final enabledThumbRadius = D4.getNamedArgWithDefault<double>(named, 'enabledThumbRadius', 10.0);
@@ -64337,6 +64609,7 @@ BridgedClass _createDropSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_165.DropSliderValueIndicatorShape,
     name: 'DropSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_165.DropSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.DropSliderValueIndicatorShape();
@@ -64390,6 +64663,7 @@ BridgedClass _createHandleThumbShapeBridge() {
     nativeType: $flutter_165.HandleThumbShape,
     name: 'HandleThumbShape',
     isAssignable: (v) => v is $flutter_165.HandleThumbShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.HandleThumbShape();
@@ -64441,6 +64715,7 @@ BridgedClass _createGappedSliderTrackShapeBridge() {
     nativeType: $flutter_165.GappedSliderTrackShape,
     name: 'GappedSliderTrackShape',
     isAssignable: (v) => v is $flutter_165.GappedSliderTrackShape,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.GappedSliderTrackShape();
@@ -64499,6 +64774,7 @@ BridgedClass _createRoundedRectSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_165.RoundedRectSliderValueIndicatorShape,
     name: 'RoundedRectSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_165.RoundedRectSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_165.RoundedRectSliderValueIndicatorShape();
@@ -64588,6 +64864,7 @@ BridgedClass _createSliderThemeBridge() {
     nativeType: $flutter_166.SliderTheme,
     name: 'SliderTheme',
     isAssignable: (v) => v is $flutter_166.SliderTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -64711,6 +64988,7 @@ BridgedClass _createSliderThemeDataBridge() {
     nativeType: $flutter_166.SliderThemeData,
     name: 'SliderThemeData',
     isAssignable: (v) => v is $flutter_166.SliderThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final trackHeight = D4.getOptionalNamedArg<double?>(named, 'trackHeight');
@@ -64997,6 +65275,7 @@ BridgedClass _createRoundSliderOverlayShapeBridge() {
     nativeType: $flutter_167.RoundSliderOverlayShape,
     name: 'RoundSliderOverlayShape',
     isAssignable: (v) => v is $flutter_167.RoundSliderOverlayShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final overlayRadius = D4.getNamedArgWithDefault<double>(named, 'overlayRadius', 24.0);
@@ -65055,6 +65334,7 @@ BridgedClass _createRectangularSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_167.RectangularSliderValueIndicatorShape,
     name: 'RectangularSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_167.RectangularSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_167.RectangularSliderValueIndicatorShape();
@@ -65108,6 +65388,7 @@ BridgedClass _createRectangularRangeSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_167.RectangularRangeSliderValueIndicatorShape,
     name: 'RectangularRangeSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_167.RectangularRangeSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_167.RectangularRangeSliderValueIndicatorShape();
@@ -65174,6 +65455,7 @@ BridgedClass _createPaddleSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_167.PaddleSliderValueIndicatorShape,
     name: 'PaddleSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_167.PaddleSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_167.PaddleSliderValueIndicatorShape();
@@ -65227,6 +65509,7 @@ BridgedClass _createPaddleRangeSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_167.PaddleRangeSliderValueIndicatorShape,
     name: 'PaddleRangeSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_167.PaddleRangeSliderValueIndicatorShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_167.PaddleRangeSliderValueIndicatorShape();
@@ -65293,6 +65576,7 @@ BridgedClass _createSnackBarActionBridge() {
     nativeType: $flutter_168.SnackBarAction,
     name: 'SnackBarAction',
     isAssignable: (v) => v is $flutter_168.SnackBarAction,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -65411,6 +65695,7 @@ BridgedClass _createSnackBarBridge() {
     nativeType: $flutter_168.SnackBar,
     name: 'SnackBar',
     isAssignable: (v) => v is $flutter_168.SnackBar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -65590,6 +65875,7 @@ BridgedClass _createSnackBarThemeDataBridge() {
     nativeType: $flutter_169.SnackBarThemeData,
     name: 'SnackBarThemeData',
     isAssignable: (v) => v is $flutter_169.SnackBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -65730,6 +66016,7 @@ BridgedClass _createSnackBarThemeBridge() {
     nativeType: $flutter_169.SnackBarTheme,
     name: 'SnackBarTheme',
     isAssignable: (v) => v is $flutter_169.SnackBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -65853,6 +66140,7 @@ BridgedClass _createSpellCheckSuggestionsToolbarBridge() {
     nativeType: $flutter_170.SpellCheckSuggestionsToolbar,
     name: 'SpellCheckSuggestionsToolbar',
     isAssignable: (v) => v is $flutter_170.SpellCheckSuggestionsToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -65983,6 +66271,7 @@ BridgedClass _createSpellCheckSuggestionsToolbarLayoutDelegateBridge() {
     nativeType: $flutter_171.SpellCheckSuggestionsToolbarLayoutDelegate,
     name: 'SpellCheckSuggestionsToolbarLayoutDelegate',
     isAssignable: (v) => v is $flutter_171.SpellCheckSuggestionsToolbarLayoutDelegate,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final anchor = D4.getRequiredNamedArg<Offset>(named, 'anchor', 'SpellCheckSuggestionsToolbarLayoutDelegate');
@@ -66126,6 +66415,7 @@ BridgedClass _createStepperBridge() {
     nativeType: $flutter_172.Stepper,
     name: 'Stepper',
     isAssignable: (v) => v is $flutter_172.Stepper,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -66280,6 +66570,7 @@ BridgedClass _createStepStyleBridge() {
     nativeType: $flutter_172.StepStyle,
     name: 'StepStyle',
     isAssignable: (v) => v is $flutter_172.StepStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -66387,6 +66678,7 @@ BridgedClass _createSwitchBridge() {
     nativeType: $flutter_173.Switch,
     name: 'Switch',
     isAssignable: (v) => v is $flutter_173.Switch,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -66608,6 +66900,7 @@ BridgedClass _createSwitchListTileBridge() {
     nativeType: $flutter_174.SwitchListTile,
     name: 'SwitchListTile',
     isAssignable: (v) => v is $flutter_174.SwitchListTile,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -66889,6 +67182,7 @@ BridgedClass _createSwitchThemeDataBridge() {
     nativeType: $flutter_175.SwitchThemeData,
     name: 'SwitchThemeData',
     isAssignable: (v) => v is $flutter_175.SwitchThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
@@ -67009,6 +67303,7 @@ BridgedClass _createSwitchThemeBridge() {
     nativeType: $flutter_175.SwitchTheme,
     name: 'SwitchTheme',
     isAssignable: (v) => v is $flutter_175.SwitchTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -67124,6 +67419,7 @@ BridgedClass _createTabBarThemeBridge() {
     nativeType: $flutter_176.TabBarTheme,
     name: 'TabBarTheme',
     isAssignable: (v) => v is $flutter_176.TabBarTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -67324,6 +67620,7 @@ BridgedClass _createTabBarThemeDataBridge() {
     nativeType: $flutter_176.TabBarThemeData,
     name: 'TabBarThemeData',
     isAssignable: (v) => v is $flutter_176.TabBarThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final indicator = D4.getOptionalNamedArg<$flutter_209.Decoration?>(named, 'indicator');
@@ -67472,6 +67769,7 @@ BridgedClass _createTabControllerBridge() {
     nativeType: $flutter_177.TabController,
     name: 'TabController',
     isAssignable: (v) => v is $flutter_177.TabController,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final initialIndex = D4.getNamedArgWithDefault<int>(named, 'initialIndex', 0);
@@ -67574,6 +67872,7 @@ BridgedClass _createDefaultTabControllerBridge() {
     nativeType: $flutter_177.DefaultTabController,
     name: 'DefaultTabController',
     isAssignable: (v) => v is $flutter_177.DefaultTabController,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -67699,6 +67998,7 @@ BridgedClass _createUnderlineTabIndicatorBridge() {
     nativeType: $flutter_178.UnderlineTabIndicator,
     name: 'UnderlineTabIndicator',
     isAssignable: (v) => v is $flutter_178.UnderlineTabIndicator,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final borderRadius = D4.getOptionalNamedArg<$flutter_203.BorderRadius?>(named, 'borderRadius');
@@ -67810,6 +68110,7 @@ BridgedClass _createTabBridge() {
     nativeType: $flutter_179.Tab,
     name: 'Tab',
     isAssignable: (v) => v is $flutter_179.Tab,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -67926,6 +68227,7 @@ BridgedClass _createTabBarBridge() {
     nativeType: $flutter_179.TabBar,
     name: 'TabBar',
     isAssignable: (v) => v is $flutter_179.TabBar,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68158,6 +68460,7 @@ BridgedClass _createTabBarViewBridge() {
     nativeType: $flutter_179.TabBarView,
     name: 'TabBarView',
     isAssignable: (v) => v is $flutter_179.TabBarView,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68276,6 +68579,7 @@ BridgedClass _createTabPageSelectorIndicatorBridge() {
     nativeType: $flutter_179.TabPageSelectorIndicator,
     name: 'TabPageSelectorIndicator',
     isAssignable: (v) => v is $flutter_179.TabPageSelectorIndicator,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68387,6 +68691,7 @@ BridgedClass _createTabPageSelectorBridge() {
     nativeType: $flutter_179.TabPageSelector,
     name: 'TabPageSelector',
     isAssignable: (v) => v is $flutter_179.TabPageSelector,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68499,6 +68804,7 @@ BridgedClass _createTextButtonBridge() {
     nativeType: $flutter_180.TextButton,
     name: 'TextButton',
     isAssignable: (v) => v is $flutter_180.TextButton,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68711,6 +69017,7 @@ BridgedClass _createTextButtonThemeDataBridge() {
     nativeType: $flutter_181.TextButtonThemeData,
     name: 'TextButtonThemeData',
     isAssignable: (v) => v is $flutter_181.TextButtonThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
@@ -68789,6 +69096,7 @@ BridgedClass _createTextButtonThemeBridge() {
     nativeType: $flutter_181.TextButtonTheme,
     name: 'TextButtonTheme',
     isAssignable: (v) => v is $flutter_181.TextButtonTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -68912,6 +69220,7 @@ BridgedClass _createTextFieldBridge() {
     nativeType: $flutter_182.TextField,
     name: 'TextField',
     isAssignable: (v) => v is $flutter_182.TextField,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -69264,6 +69573,7 @@ BridgedClass _createTextFormFieldBridge() {
     nativeType: $flutter_183.TextFormField,
     name: 'TextFormField',
     isAssignable: (v) => v is $flutter_183.TextFormField,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -69479,6 +69789,7 @@ BridgedClass _createMaterialTextSelectionControlsBridge() {
     nativeType: $flutter_184.MaterialTextSelectionControls,
     name: 'MaterialTextSelectionControls',
     isAssignable: (v) => v is $flutter_184.MaterialTextSelectionControls,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_184.MaterialTextSelectionControls();
@@ -69604,6 +69915,7 @@ BridgedClass _createTextSelectionThemeDataBridge() {
     nativeType: $flutter_185.TextSelectionThemeData,
     name: 'TextSelectionThemeData',
     isAssignable: (v) => v is $flutter_185.TextSelectionThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final cursorColor = D4.getOptionalNamedArg<Color?>(named, 'cursorColor');
@@ -69696,6 +70008,7 @@ BridgedClass _createTextSelectionThemeBridge() {
     nativeType: $flutter_185.TextSelectionTheme,
     name: 'TextSelectionTheme',
     isAssignable: (v) => v is $flutter_185.TextSelectionTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -69819,6 +70132,7 @@ BridgedClass _createTextSelectionToolbarBridge() {
     nativeType: $flutter_186.TextSelectionToolbar,
     name: 'TextSelectionToolbar',
     isAssignable: (v) => v is $flutter_186.TextSelectionToolbar,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -69948,6 +70262,7 @@ BridgedClass _createTextSelectionToolbarTextButtonBridge() {
     nativeType: $flutter_187.TextSelectionToolbarTextButton,
     name: 'TextSelectionToolbarTextButton',
     isAssignable: (v) => v is $flutter_187.TextSelectionToolbarTextButton,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -70079,6 +70394,7 @@ BridgedClass _createTextThemeBridge() {
     nativeType: $flutter_188.TextTheme,
     name: 'TextTheme',
     isAssignable: (v) => v is $flutter_188.TextTheme,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final displayLarge = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'displayLarge');
@@ -70335,6 +70651,7 @@ BridgedClass _createThemeDataBridge() {
     nativeType: $flutter_190.ThemeData,
     name: 'ThemeData',
     isAssignable: (v) => v is $flutter_190.ThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final adaptations = D4.coerceListOrNull<$flutter_190.Adaptation<Object>>(named['adaptations'], 'adaptations');
@@ -70899,6 +71216,7 @@ BridgedClass _createMaterialBasedCupertinoThemeDataBridge() {
     nativeType: $flutter_190.MaterialBasedCupertinoThemeData,
     name: 'MaterialBasedCupertinoThemeData',
     isAssignable: (v) => v is $flutter_190.MaterialBasedCupertinoThemeData,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final materialTheme = D4.getRequiredNamedArg<$flutter_190.ThemeData>(named, 'materialTheme', 'MaterialBasedCupertinoThemeData');
@@ -71031,6 +71349,7 @@ BridgedClass _createVisualDensityBridge() {
     nativeType: $flutter_190.VisualDensity,
     name: 'VisualDensity',
     isAssignable: (v) => v is $flutter_190.VisualDensity,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final horizontal = D4.getNamedArgWithDefault<double>(named, 'horizontal', 0.0);
@@ -71150,6 +71469,7 @@ BridgedClass _createThemeBridge() {
     nativeType: $flutter_189.Theme,
     name: 'Theme',
     isAssignable: (v) => v is $flutter_189.Theme,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -71277,6 +71597,7 @@ BridgedClass _createThemeDataTweenBridge() {
     nativeType: $flutter_189.ThemeDataTween,
     name: 'ThemeDataTween',
     isAssignable: (v) => v is $flutter_189.ThemeDataTween,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<$flutter_190.ThemeData?>(named, 'begin');
@@ -71361,6 +71682,7 @@ BridgedClass _createAnimatedThemeBridge() {
     nativeType: $flutter_189.AnimatedTheme,
     name: 'AnimatedTheme',
     isAssignable: (v) => v is $flutter_189.AnimatedTheme,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -71479,6 +71801,7 @@ BridgedClass _createTimeOfDayBridge() {
     nativeType: $flutter_191.TimeOfDay,
     name: 'TimeOfDay',
     isAssignable: (v) => v is $flutter_191.TimeOfDay,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final hour = D4.getRequiredNamedArg<int>(named, 'hour', 'TimeOfDay');
@@ -71595,6 +71918,7 @@ BridgedClass _createRestorableTimeOfDayBridge() {
     nativeType: $flutter_191.RestorableTimeOfDay,
     name: 'RestorableTimeOfDay',
     isAssignable: (v) => v is $flutter_191.RestorableTimeOfDay,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RestorableTimeOfDay');
@@ -71709,6 +72033,7 @@ BridgedClass _createTimePickerDialogBridge() {
     nativeType: $flutter_192.TimePickerDialog,
     name: 'TimePickerDialog',
     isAssignable: (v) => v is $flutter_192.TimePickerDialog,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -71848,6 +72173,7 @@ BridgedClass _createTimePickerThemeDataBridge() {
     nativeType: $flutter_193.TimePickerThemeData,
     name: 'TimePickerThemeData',
     isAssignable: (v) => v is $flutter_193.TimePickerThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -72025,6 +72351,7 @@ BridgedClass _createTimePickerThemeBridge() {
     nativeType: $flutter_193.TimePickerTheme,
     name: 'TimePickerTheme',
     isAssignable: (v) => v is $flutter_193.TimePickerTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -72148,6 +72475,7 @@ BridgedClass _createToggleButtonsBridge() {
     nativeType: $flutter_194.ToggleButtons,
     name: 'ToggleButtons',
     isAssignable: (v) => v is $flutter_194.ToggleButtons,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -72325,6 +72653,7 @@ BridgedClass _createToggleButtonsThemeDataBridge() {
     nativeType: $flutter_195.ToggleButtonsThemeData,
     name: 'ToggleButtonsThemeData',
     isAssignable: (v) => v is $flutter_195.ToggleButtonsThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final textStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'textStyle');
@@ -72465,6 +72794,7 @@ BridgedClass _createToggleButtonsThemeBridge() {
     nativeType: $flutter_195.ToggleButtonsTheme,
     name: 'ToggleButtonsTheme',
     isAssignable: (v) => v is $flutter_195.ToggleButtonsTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -72588,6 +72918,7 @@ BridgedClass _createTooltipBridge() {
     nativeType: $flutter_196.Tooltip,
     name: 'Tooltip',
     isAssignable: (v) => v is $flutter_196.Tooltip,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -72762,6 +73093,7 @@ BridgedClass _createTooltipStateBridge() {
     nativeType: $flutter_196.TooltipState,
     name: 'TooltipState',
     isAssignable: (v) => v is $flutter_196.TooltipState,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_196.TooltipState();
@@ -72899,6 +73231,7 @@ BridgedClass _createTooltipThemeDataBridge() {
     nativeType: $flutter_197.TooltipThemeData,
     name: 'TooltipThemeData',
     isAssignable: (v) => v is $flutter_197.TooltipThemeData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
@@ -73039,6 +73372,7 @@ BridgedClass _createTooltipThemeBridge() {
     nativeType: $flutter_197.TooltipTheme,
     name: 'TooltipTheme',
     isAssignable: (v) => v is $flutter_197.TooltipTheme,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -73162,6 +73496,7 @@ BridgedClass _createTooltipVisibilityBridge() {
     nativeType: $flutter_198.TooltipVisibility,
     name: 'TooltipVisibility',
     isAssignable: (v) => v is $flutter_198.TooltipVisibility,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -73277,6 +73612,7 @@ BridgedClass _createTypographyBridge() {
     nativeType: $flutter_199.Typography,
     name: 'Typography',
     isAssignable: (v) => v is $flutter_199.Typography,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final platform = D4.getOptionalNamedArg<$flutter_13.TargetPlatform?>(named, 'platform');
@@ -73458,6 +73794,7 @@ BridgedClass _createUserAccountsDrawerHeaderBridge() {
     nativeType: $flutter_200.UserAccountsDrawerHeader,
     name: 'UserAccountsDrawerHeader',
     isAssignable: (v) => v is $flutter_200.UserAccountsDrawerHeader,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -73702,6 +74039,7 @@ BridgedClass _createBoxConstraintsBridge() {
     nativeType: $flutter_226.BoxConstraints,
     name: 'BoxConstraints',
     isAssignable: (v) => v is $flutter_226.BoxConstraints,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
@@ -73974,6 +74312,7 @@ BridgedClass _createAnimationControllerBridge() {
     nativeType: $flutter_2.AnimationController,
     name: 'AnimationController',
     isAssignable: (v) => v is $flutter_2.AnimationController,
+    hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalNamedArg<double?>(named, 'value');
@@ -74257,6 +74596,7 @@ BridgedClass _createAnimationStyleBridge() {
     nativeType: $flutter_3.AnimationStyle,
     name: 'AnimationStyle',
     isAssignable: (v) => v is $flutter_3.AnimationStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final curve = D4.getOptionalNamedArg<$flutter_4.Curve?>(named, 'curve');
@@ -75080,7 +75420,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_214.ImageProvider>(target, 'ImageProvider');
@@ -75090,7 +75430,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_214.ImageProvider>(target, 'ImageProvider');
@@ -75120,6 +75460,7 @@ BridgedClass _createTextSpanBridge() {
     nativeType: $flutter_221.TextSpan,
     name: 'TextSpan',
     isAssignable: (v) => v is $flutter_221.TextSpan,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
@@ -75446,6 +75787,7 @@ BridgedClass _createTextStyleBridge() {
     nativeType: $flutter_222.TextStyle,
     name: 'TextStyle',
     isAssignable: (v) => v is $flutter_222.TextStyle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final inherit = D4.getNamedArgWithDefault<bool>(named, 'inherit', true);
@@ -75752,6 +76094,7 @@ BridgedClass _createEdgeInsetsBridge() {
     nativeType: $flutter_211.EdgeInsets,
     name: 'EdgeInsets',
     isAssignable: (v) => v is $flutter_211.EdgeInsets,
+    hierarchyDepth: 1,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsets');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-05-19T03:01:02.022755
+// Generated: 2026-05-21T12:35:46.393350
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -623,6 +623,7 @@ BridgedClass _createSemanticsBindingBridge() {
     nativeType: $flutter_5.SemanticsBinding,
     name: 'SemanticsBinding',
     isAssignable: (v) => v is $flutter_5.SemanticsBinding,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
@@ -720,7 +721,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.SemanticsBinding>(target, 'SemanticsBinding');
@@ -742,7 +743,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -756,7 +757,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -770,7 +771,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -795,7 +796,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -805,7 +806,7 @@ BridgedClass _createSemanticsBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -905,6 +906,7 @@ BridgedClass _createAnnounceSemanticsEventBridge() {
     nativeType: $flutter_8.AnnounceSemanticsEvent,
     name: 'AnnounceSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.AnnounceSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'AnnounceSemanticsEvent');
@@ -964,6 +966,7 @@ BridgedClass _createTooltipSemanticsEventBridge() {
     nativeType: $flutter_8.TooltipSemanticsEvent,
     name: 'TooltipSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.TooltipSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TooltipSemanticsEvent');
@@ -1014,6 +1017,7 @@ BridgedClass _createLongPressSemanticsEventBridge() {
     nativeType: $flutter_8.LongPressSemanticsEvent,
     name: 'LongPressSemanticsEvent',
     isAssignable: (v) => v is $flutter_8.LongPressSemanticsEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.LongPressSemanticsEvent();
@@ -1060,6 +1064,7 @@ BridgedClass _createTapSemanticEventBridge() {
     nativeType: $flutter_8.TapSemanticEvent,
     name: 'TapSemanticEvent',
     isAssignable: (v) => v is $flutter_8.TapSemanticEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.TapSemanticEvent();
@@ -1106,6 +1111,7 @@ BridgedClass _createFocusSemanticEventBridge() {
     nativeType: $flutter_8.FocusSemanticEvent,
     name: 'FocusSemanticEvent',
     isAssignable: (v) => v is $flutter_8.FocusSemanticEvent,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.FocusSemanticEvent();
@@ -1390,6 +1396,7 @@ BridgedClass _createAttributedStringPropertyBridge() {
     nativeType: $flutter_7.AttributedStringProperty,
     name: 'AttributedStringProperty',
     isAssignable: (v) => v is $flutter_7.AttributedStringProperty,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AttributedStringProperty');
@@ -1599,6 +1606,7 @@ BridgedClass _createSemanticsDataBridge() {
     nativeType: $flutter_7.SemanticsData,
     name: 'SemanticsData',
     isAssignable: (v) => v is $flutter_7.SemanticsData,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final flagsCollection = D4.getRequiredNamedArg<SemanticsFlags>(named, 'flagsCollection', 'SemanticsData');
@@ -1796,6 +1804,7 @@ BridgedClass _createSemanticsHintOverridesBridge() {
     nativeType: $flutter_7.SemanticsHintOverrides,
     name: 'SemanticsHintOverrides',
     isAssignable: (v) => v is $flutter_7.SemanticsHintOverrides,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final onTapHint = D4.getOptionalNamedArg<String?>(named, 'onTapHint');
@@ -1888,6 +1897,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
     nativeType: $flutter_7.SemanticsProperties,
     name: 'SemanticsProperties',
     isAssignable: (v) => v is $flutter_7.SemanticsProperties,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
@@ -2218,6 +2228,7 @@ BridgedClass _createSemanticsNodeBridge() {
     nativeType: $flutter_7.SemanticsNode,
     name: 'SemanticsNode',
     isAssignable: (v) => v is $flutter_7.SemanticsNode,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_4.Key?>(named, 'key');
@@ -2521,6 +2532,7 @@ BridgedClass _createSemanticsOwnerBridge() {
     nativeType: $flutter_7.SemanticsOwner,
     name: 'SemanticsOwner',
     isAssignable: (v) => v is $flutter_7.SemanticsOwner,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('onSemanticsUpdate') || named['onSemanticsUpdate'] == null) {
@@ -3254,6 +3266,7 @@ BridgedClass _createSemanticsSortKeyBridge() {
     nativeType: $flutter_7.SemanticsSortKey,
     name: 'SemanticsSortKey',
     isAssignable: (v) => v is $flutter_7.SemanticsSortKey,
+    hierarchyDepth: 2,
     isAbstract: true,
     constructors: {
     },
@@ -3319,6 +3332,7 @@ BridgedClass _createOrdinalSortKeyBridge() {
     nativeType: $flutter_7.OrdinalSortKey,
     name: 'OrdinalSortKey',
     isAssignable: (v) => v is $flutter_7.OrdinalSortKey,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OrdinalSortKey');

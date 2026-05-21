@@ -2572,6 +2572,232 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'todo_list (example #13 — ChangeNotifier + ListenableBuilder + '
+      'ReorderableListView + Dismissible + SegmentedButton)', () {
+    // Trail prefix: `todo.*`. The store emits one line per mutation
+    // so the assertion shape mirrors tip_calculator — derive from
+    // the log rather than scraping widgets.
+
+    testWidgets('boots empty with init trail and empty-state placeholder',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        final initLines = _printLog
+            .where((l) => l.startsWith('todo.init'))
+            .toList();
+        expect(initLines, hasLength(1));
+        expect(initLines.single, contains('n=0'));
+
+        // Composer and empty-state are both present, no tiles yet.
+        expect(find.byKey(const Key('composer-input')), findsOneWidget);
+        expect(find.byKey(const Key('empty-state')), findsOneWidget);
+        expect(find.byKey(const Key('todo-list')), findsNothing,
+            reason: 'List should be omitted while there are no tasks.');
+
+        // Count line shows 0/0.
+        final count = tester.widget<Text>(find.byKey(const Key('count-line')));
+        expect(count.data, '0 active · 0 done');
+      });
+    });
+
+    testWidgets('adding a task via the composer appends a tile',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        await tester.enterText(
+            find.byKey(const Key('composer-input')), 'buy milk');
+        await tester.tap(find.byKey(const Key('composer-add')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        final adds = _printLog
+            .where((l) => l.startsWith('todo.add '))
+            .toList();
+        expect(adds, hasLength(1),
+            reason: 'One submit should emit one todo.add line.');
+        expect(adds.single, contains('id=1'));
+        expect(adds.single, contains('text="buy milk"'));
+
+        // Tile rendered + count updated.
+        expect(find.byKey(const Key('task-tile-1')), findsOneWidget);
+        expect(find.text('buy milk'), findsOneWidget);
+        final count = tester.widget<Text>(find.byKey(const Key('count-line')));
+        expect(count.data, '1 active · 0 done');
+
+        // Composer cleared after submit.
+        final input = tester.widget<TextField>(
+            find.byKey(const Key('composer-input')));
+        expect(input.controller!.text, isEmpty);
+      });
+    });
+
+    testWidgets('toggling done strikes through the text and updates count',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        await tester.enterText(
+            find.byKey(const Key('composer-input')), 'write report');
+        await tester.tap(find.byKey(const Key('composer-add')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.tap(find.byKey(const Key('task-check-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 250));
+
+        final toggles = _printLog
+            .where((l) => l.startsWith('todo.toggle '))
+            .toList();
+        expect(toggles, hasLength(1));
+        expect(toggles.single, contains('id=1'));
+        expect(toggles.single, contains('done=true'));
+
+        // Strikethrough text style is applied.
+        final textWidget = tester.widget<Text>(find.text('write report'));
+        expect(textWidget.style?.decoration, TextDecoration.lineThrough,
+            reason: 'Done tile should render with lineThrough decoration.');
+
+        // Count line moves the task to the done column.
+        final count = tester.widget<Text>(find.byKey(const Key('count-line')));
+        expect(count.data, '0 active · 1 done');
+      });
+    });
+
+    testWidgets('swipe-to-delete + bottom-sheet confirm removes the task',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        await tester.enterText(
+            find.byKey(const Key('composer-input')), 'delete me');
+        await tester.tap(find.byKey(const Key('composer-add')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        // Drive a swipe from right to left across the tile.
+        await tester.drag(
+          find.byKey(const Key('task-tile-1')),
+          const Offset(-600.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Bottom sheet should be open with the prompt + buttons.
+        expect(find.text('Delete "delete me"?'), findsOneWidget);
+        expect(find.byKey(const Key('dismiss-cancel')), findsOneWidget);
+        expect(find.byKey(const Key('dismiss-confirm')), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('dismiss-confirm')));
+        // Let the bottom-sheet pop animation finish, the
+        // confirmDismiss future resolve, and the Dismissible
+        // resize animation (default 300ms) run to completion before
+        // expecting onDismissed to have fired.
+        await tester.pumpAndSettle();
+
+        final removes = _printLog
+            .where((l) => l.startsWith('todo.remove '))
+            .toList();
+        expect(removes, hasLength(1));
+        expect(removes.single, contains('id=1'));
+
+        // Tile is gone, empty-state is back.
+        expect(find.byKey(const Key('task-tile-1')), findsNothing);
+        expect(find.byKey(const Key('empty-state')), findsOneWidget);
+      });
+    });
+
+    testWidgets('filter bar restricts the visible list', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        // Add two tasks, mark the second done.
+        await tester.enterText(
+            find.byKey(const Key('composer-input')), 'task A');
+        await tester.tap(find.byKey(const Key('composer-add')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.enterText(
+            find.byKey(const Key('composer-input')), 'task B');
+        await tester.tap(find.byKey(const Key('composer-add')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('task-check-2')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Active filter -> only task A.
+        await tester.tap(find.text('Active'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final filterLines = _printLog
+            .where((l) => l.startsWith('todo.filter '))
+            .toList();
+        expect(filterLines, isNotEmpty);
+        expect(filterLines.last, contains('value=active'));
+
+        expect(find.byKey(const Key('task-tile-1')), findsOneWidget);
+        expect(find.byKey(const Key('task-tile-2')), findsNothing);
+
+        // Completed filter -> only task B.
+        await tester.tap(find.text('Completed'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        expect(find.byKey(const Key('task-tile-1')), findsNothing);
+        expect(find.byKey(const Key('task-tile-2')), findsOneWidget);
+
+        // Back to All -> both visible.
+        await tester.tap(find.text('All'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        expect(find.byKey(const Key('task-tile-1')), findsOneWidget);
+        expect(find.byKey(const Key('task-tile-2')), findsOneWidget);
+      });
+    });
+
+    testWidgets('reorder via drag handle moves the tile', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'todo_list');
+
+        for (final text in <String>['alpha', 'beta', 'gamma']) {
+          await tester.enterText(
+              find.byKey(const Key('composer-input')), text);
+          await tester.tap(find.byKey(const Key('composer-add')));
+          await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        }
+
+        // Sanity: 3 tiles in the right order.
+        final initialTitles = tester
+            .widgetList<ListTile>(find.byType(ListTile))
+            .map((t) => (t.title as AnimatedContainer).child as Text)
+            .map((t) => t.data)
+            .toList();
+        expect(initialTitles, <String>['alpha', 'beta', 'gamma']);
+
+        // Drag the first drag-handle down past the second tile.
+        // ReorderableDragStartListener picks up pointer-down without a
+        // long press, so a normal `tester.drag` triggers the reorder.
+        await tester.drag(
+          find.byKey(const Key('drag-handle-1')),
+          const Offset(0.0, 140.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final reorders = _printLog
+            .where((l) => l.startsWith('todo.reorder '))
+            .toList();
+        expect(reorders, isNotEmpty,
+            reason: 'Drag should emit at least one todo.reorder line.');
+        expect(reorders.last, contains('id=1'));
+
+        // alpha is no longer first.
+        final afterTitles = tester
+            .widgetList<ListTile>(find.byType(ListTile))
+            .map((t) => (t.title as AnimatedContainer).child as Text)
+            .map((t) => t.data)
+            .toList();
+        expect(afterTitles.first, isNot('alpha'),
+            reason: 'After dragging alpha down it should not be first. '
+                'Order after: $afterTitles');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

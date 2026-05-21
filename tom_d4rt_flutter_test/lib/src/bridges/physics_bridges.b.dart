@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-05-19T03:01:00.821502
+// Generated: 2026-05-21T12:35:45.274565
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -325,6 +325,7 @@ BridgedClass _createClampedSimulationBridge() {
     nativeType: $flutter_1.ClampedSimulation,
     name: 'ClampedSimulation',
     isAssignable: (v) => v is $flutter_1.ClampedSimulation,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ClampedSimulation');
@@ -480,6 +481,7 @@ BridgedClass _createFrictionSimulationBridge() {
     nativeType: $flutter_2.FrictionSimulation,
     name: 'FrictionSimulation',
     isAssignable: (v) => v is $flutter_2.FrictionSimulation,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FrictionSimulation');
@@ -567,6 +569,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
     nativeType: $flutter_2.BoundedFrictionSimulation,
     name: 'BoundedFrictionSimulation',
     isAssignable: (v) => v is $flutter_2.BoundedFrictionSimulation,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'BoundedFrictionSimulation');
@@ -645,6 +648,7 @@ BridgedClass _createGravitySimulationBridge() {
     nativeType: $flutter_3.GravitySimulation,
     name: 'GravitySimulation',
     isAssignable: (v) => v is $flutter_3.GravitySimulation,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'GravitySimulation');
@@ -713,6 +717,7 @@ BridgedClass _createSpringSimulationBridge() {
     nativeType: $flutter_5.SpringSimulation,
     name: 'SpringSimulation',
     isAssignable: (v) => v is $flutter_5.SpringSimulation,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'SpringSimulation');
@@ -785,6 +790,7 @@ BridgedClass _createScrollSpringSimulationBridge() {
     nativeType: $flutter_5.ScrollSpringSimulation,
     name: 'ScrollSpringSimulation',
     isAssignable: (v) => v is $flutter_5.ScrollSpringSimulation,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ScrollSpringSimulation');
