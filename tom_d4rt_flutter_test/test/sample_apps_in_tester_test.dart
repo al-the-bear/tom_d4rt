@@ -3759,6 +3759,243 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'kanban_board (example #18 — multi-column ChangeNotifier + '
+      'ReorderableListView + LongPressDraggable/DragTarget + showDialog)',
+      () {
+    // Trail prefixes:
+    //   kanban.init cols=N cards=M
+    //   kanban.add col=C id=I title=T
+    //   kanban.remove col=C id=I
+    //   kanban.rename id=I new=T
+    //   kanban.move id=I from=A to=B
+    //   kanban.reorder col=C from=A to=B
+
+    testWidgets('boots with three columns and the seed cards visible',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // AppBar + the three column titles must all render.
+        expect(find.byKey(const Key('kanban-appbar')), findsOneWidget);
+        expect(find.text('To do'), findsOneWidget);
+        expect(find.text('Doing'), findsOneWidget);
+        expect(find.text('Done'), findsOneWidget);
+
+        // Seed cards: 2 in To do, 1 in Doing, 1 in Done.
+        expect(find.text('Write proposal'), findsOneWidget);
+        expect(find.text('Review PR'), findsOneWidget);
+        expect(find.text('Refactor API'), findsOneWidget);
+        expect(find.text('Ship release'), findsOneWidget);
+
+        // Column count badges.
+        final c0 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-0')),
+          matching: find.byType(Text),
+        ));
+        expect(c0.data, '2');
+        final c1 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-1')),
+          matching: find.byType(Text),
+        ));
+        expect(c1.data, '1');
+        final c2 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-2')),
+          matching: find.byType(Text),
+        ));
+        expect(c2.data, '1');
+
+        final inits =
+            _printLog.where((l) => l.startsWith('kanban.init ')).toList();
+        expect(inits, hasLength(1));
+        expect(inits.first, contains('cols=3'));
+        expect(inits.first, contains('cards=4'));
+      });
+    });
+
+    testWidgets('composer adds a new card to the To do column',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.enterText(
+            find.byKey(const Key('composer-input-0')), 'Plan sprint');
+        await tester.tap(find.byKey(const Key('composer-add-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.text('Plan sprint'), findsOneWidget);
+
+        final adds =
+            _printLog.where((l) => l.startsWith('kanban.add ')).toList();
+        expect(adds, hasLength(1));
+        expect(adds.first, contains('col=0'));
+        expect(adds.first, contains('title=Plan sprint'));
+
+        // Count badge on To do must now read 3.
+        final c0 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-0')),
+          matching: find.byType(Text),
+        ));
+        expect(c0.data, '3');
+      });
+    });
+
+    testWidgets('tapping a card opens the edit dialog pre-filled',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Tap on the first card (Write proposal, id=0).
+        await tester.tap(find.byKey(const Key('card-title-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('card-dialog')), findsOneWidget);
+        final field = tester.widget<TextField>(
+            find.byKey(const Key('card-dialog-input')));
+        expect(field.controller?.text, 'Write proposal');
+      });
+    });
+
+    testWidgets('Save in the dialog renames the card and dismisses',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('card-title-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.enterText(
+            find.byKey(const Key('card-dialog-input')), 'Write spec');
+        await tester.tap(find.byKey(const Key('card-dialog-save')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('card-dialog')), findsNothing);
+        expect(find.text('Write spec'), findsOneWidget);
+        expect(find.text('Write proposal'), findsNothing);
+
+        final renames = _printLog
+            .where((l) => l.startsWith('kanban.rename '))
+            .toList();
+        expect(renames, hasLength(1));
+        expect(renames.first, contains('id=0'));
+        expect(renames.first, contains('new=Write spec'));
+      });
+    });
+
+    testWidgets('Cancel in the dialog preserves the card title',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('card-title-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.enterText(
+            find.byKey(const Key('card-dialog-input')), 'GARBAGE');
+        await tester.tap(find.byKey(const Key('card-dialog-cancel')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('card-dialog')), findsNothing);
+        // Title unchanged.
+        expect(find.text('Write proposal'), findsOneWidget);
+        expect(find.text('GARBAGE'), findsNothing);
+
+        final renames = _printLog
+            .where((l) => l.startsWith('kanban.rename '))
+            .toList();
+        expect(renames, isEmpty,
+            reason: 'Cancel must not produce a rename trail entry.');
+      });
+    });
+
+    testWidgets('Delete in the dialog removes the card from its column',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('card-title-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('card-dialog-delete')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('card-dialog')), findsNothing);
+        // Card id=1 (Review PR) is gone.
+        expect(find.text('Review PR'), findsNothing);
+
+        final removes = _printLog
+            .where((l) => l.startsWith('kanban.remove '))
+            .toList();
+        expect(removes, hasLength(1));
+        expect(removes.first, contains('id=1'));
+        expect(removes.first, contains('col=0'));
+      });
+    });
+
+    testWidgets('right-arrow button moves a card to the next column',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Move card 0 (Write proposal) from To do → Doing.
+        await tester.tap(find.byKey(const Key('card-right-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Doing now has 2 cards, To do has 1.
+        final c0 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-0')),
+          matching: find.byType(Text),
+        ));
+        expect(c0.data, '1');
+        final c1 = tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('column-count-1')),
+          matching: find.byType(Text),
+        ));
+        expect(c1.data, '2');
+
+        final moves =
+            _printLog.where((l) => l.startsWith('kanban.move ')).toList();
+        expect(moves, hasLength(1));
+        expect(moves.first, contains('id=0'));
+        expect(moves.first, contains('from=0'));
+        expect(moves.first, contains('to=1'));
+      });
+    });
+
+    testWidgets('down-arrow reorders a card within its column',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'kanban_board');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Initially To do is [Write proposal (id=0), Review PR (id=1)].
+        // Tapping ↓ on id=0 should swap them.
+        await tester.tap(find.byKey(const Key('card-down-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final reorders = _printLog
+            .where((l) => l.startsWith('kanban.reorder '))
+            .toList();
+        expect(reorders, hasLength(1));
+        expect(reorders.first, contains('col=0'));
+        expect(reorders.first, contains('from=0'));
+        // After the +2/-1 correction the new index is 1.
+        expect(reorders.first, contains('to=1'));
+
+        // Both cards still present in column 0.
+        expect(find.text('Write proposal'), findsOneWidget);
+        expect(find.text('Review PR'), findsOneWidget);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

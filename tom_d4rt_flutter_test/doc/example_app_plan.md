@@ -686,7 +686,7 @@ linear), `Transform.rotate` proportional to drag distance,
 
 ---
 
-### 18. [ ] `kanban_board` — multi-column drag-and-drop
+### 18. [x] `kanban_board` — multi-column drag-and-drop — **SHIPPED**
 
 3 columns (To do / Doing / Done). Each holds a
 `ReorderableListView` of cards. Cards can also be dragged between
