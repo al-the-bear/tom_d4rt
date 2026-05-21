@@ -737,7 +737,7 @@ state preservation across tab switches via `AutomaticKeepAliveClientMixin`,
 
 ---
 
-### 21. [ ] `bottom_nav_shell` — persistent-tab navigation shell
+### 21. [x] `bottom_nav_shell` — persistent-tab navigation shell — SHIPPED
 
 3 bottom-nav destinations (Home / Search / Profile). Each tab
 owns its own `Navigator` so back navigation is per-tab. Tabs are
