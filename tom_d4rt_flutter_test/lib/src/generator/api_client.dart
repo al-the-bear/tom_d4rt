@@ -207,9 +207,22 @@ class AnthropicClient {
             assistantText.write(t);
             yield TextDelta(t);
           }
+        } else if (deltaType == 'signature_delta') {
+          // Every thinking block ends with a base64-encoded signature
+          // used by Anthropic to verify the block. It's not human-
+          // readable and not useful to show — suppress entirely so it
+          // doesn't pollute the log or the console.
+          break;
+        } else if (deltaType == 'input_json_delta') {
+          // Tool-use streaming partial JSON. We don't make tool calls
+          // here, but if it ever shows up, skip silently.
+          break;
         } else {
+          // Unknown delta. Log a SHORT status (no raw payload — that
+          // can be megabytes of base64) and dump the structure key set
+          // to the console for diagnosis without flooding stdout.
           debugPrint('[anthropic] unhandled delta type=$deltaType '
-              'payload=$delta');
+              'keys=${delta.keys.toList()}');
           yield StatusEvent('Skipping unhandled delta type: $deltaType');
         }
         break;
@@ -220,7 +233,21 @@ class AnthropicClient {
         final block = payload['content_block'] as Map<String, dynamic>?;
         final blockType = block?['type']?.toString() ?? '?';
         debugPrint('[anthropic] content_block_start type=$blockType');
-        yield StatusEvent('Receiving $blockType block…');
+        if (blockType == 'redacted_thinking') {
+          // Anthropic occasionally encrypts a thinking block (e.g. when
+          // the model touches restricted topics). The `data` field is
+          // base64-encoded ciphertext — DO NOT display. Just note that
+          // a block was redacted so the user knows why thinking output
+          // suddenly thinned out.
+          yield const StatusEvent(
+              'Redacted thinking block (encrypted by Anthropic, not '
+              'shown).');
+        } else if (blockType == 'thinking' || blockType == 'text') {
+          // Normal blocks — wait for the deltas to flow.
+          yield StatusEvent('Receiving $blockType block…');
+        } else {
+          yield StatusEvent('Receiving $blockType block…');
+        }
         break;
       case 'content_block_stop':
         debugPrint('[anthropic] content_block_stop');
@@ -245,7 +272,10 @@ class AnthropicClient {
         yield ErrorEvent('API error: $msg');
         break;
       default:
-        debugPrint('[anthropic] unknown event type=$type payload=$payload');
+        // Same defensive logging as the unknown-delta case — print
+        // keys, not values, to avoid base64 payloads in the console.
+        debugPrint('[anthropic] unknown event type=$type '
+            'keys=${payload.keys.toList()}');
         yield StatusEvent('Unknown SSE event: $type');
     }
   }
