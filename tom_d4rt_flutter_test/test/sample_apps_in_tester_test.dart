@@ -5462,6 +5462,263 @@ Widget build(BuildContext context) {
       });
     });
   });
+
+  group(
+      'carousel_pager (example #23 — PageView.builder + parallax + '
+      'autoplay + AnimatedSwitcher to detail)', () {
+    // Trail emitted by the interpreted script (example/carousel_pager/):
+    //   pager.boot pages=<n> page=0
+    //   page.change from=<n> to=<n>
+    //   parallax bg=<n.nn>
+    //   autoplay on / autoplay off
+    //   autoplay.tick to=<n>
+    //   detail.open page=<title> index=<n>
+    //   detail.close index=<n>
+
+    testWidgets('boots on page 0 with all carousel chrome',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Shell renders.
+        expect(find.byKey(const Key('carousel-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('pager')), findsOneWidget);
+        expect(find.byKey(const Key('autoplay-switch')), findsOneWidget);
+        expect(find.byKey(const Key('page-counter')), findsOneWidget);
+        expect(find.byKey(const Key('parallax-bg')), findsOneWidget);
+
+        // First card is visible.
+        expect(find.byKey(const Key('page-title-0')), findsOneWidget);
+        expect(find.text('Aurora'), findsWidgets);
+        expect(find.text('Page 1 of 8'), findsOneWidget);
+
+        // 8 indicator dots in the tree.
+        for (int i = 0; i < 8; i = i + 1) {
+          expect(find.byKey(Key('indicator-dot-$i')), findsOneWidget);
+        }
+
+        // Boot trail line is emitted (post-frame, hence the pump).
+        expect(
+          _printLog.where((l) => l == 'pager.boot pages=8 page=0').toList(),
+          hasLength(1),
+        );
+        // No page.change should fire until the user navigates.
+        expect(
+          _printLog.where((l) => l.startsWith('page.change ')),
+          isEmpty,
+        );
+      });
+    });
+
+    testWidgets('next button advances to the following page',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('next-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        // Now on page 1 (Sunset).
+        expect(find.text('Page 2 of 8'), findsOneWidget);
+
+        final changes = _printLog
+            .where((l) => l.startsWith('page.change '))
+            .toList();
+        expect(changes, contains('page.change from=0 to=1'));
+        // Parallax line is emitted at least once during the scroll.
+        expect(
+          _printLog.where((l) => l.startsWith('parallax bg=')).length,
+          greaterThanOrEqualTo(1),
+        );
+      });
+    });
+
+    testWidgets('prev button on page 0 is a no-op (clamped)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('prev-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.text('Page 1 of 8'), findsOneWidget);
+        expect(
+          _printLog.where((l) => l.startsWith('page.change ')),
+          isEmpty,
+          reason: 'Prev on page 0 must clamp; no page.change should fire.',
+        );
+      });
+    });
+
+    testWidgets('autoplay switch toggles trail lines + advances pages',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Flip the switch on. Use plain pump after this — the
+        // periodic timer never quiesces, so pumpAndSettle would
+        // spin forever.
+        await tester.tap(find.byKey(const Key('autoplay-switch')));
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(
+          _printLog.where((l) => l == 'autoplay on').toList(),
+          hasLength(1),
+        );
+
+        // Pump past one full autoplay period (1500ms) — the timer
+        // should have fired at least once.
+        await tester.pump(const Duration(milliseconds: 1600));
+
+        expect(
+          _printLog.where((l) => l.startsWith('autoplay.tick to=')).length,
+          greaterThanOrEqualTo(1),
+          reason: 'Periodic timer must fire at least once within 1600ms.',
+        );
+
+        // Flip the switch off — still plain pump until we've
+        // confirmed the timer was cancelled.
+        await tester.tap(find.byKey(const Key('autoplay-switch')));
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(
+          _printLog.where((l) => l == 'autoplay off').toList(),
+          hasLength(1),
+        );
+
+        // Let any in-flight animateToPage finish so the test can
+        // settle without leaking a Ticker. Capturing the tick count
+        // BEFORE the long pump gives us the baseline; capturing
+        // AFTER lets us verify the timer really stopped.
+        final int ticksBefore = _printLog
+            .where((l) => l.startsWith('autoplay.tick to='))
+            .length;
+        await tester.pump(const Duration(milliseconds: 1600));
+        final int ticksAfter = _printLog
+            .where((l) => l.startsWith('autoplay.tick to='))
+            .length;
+        expect(
+          ticksAfter,
+          ticksBefore,
+          reason: 'No new ticks after autoplay is switched off.',
+        );
+        // Allow any final animation to wrap up.
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+      });
+    });
+
+    testWidgets('tapping a page card opens the detail view',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Page 0 card is in the carousel; tap it.
+        await tester.tap(find.byKey(const Key('page-card-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        // Detail chrome is mounted; carousel chrome is gone.
+        expect(find.byKey(const Key('detail-scaffold-0')), findsOneWidget);
+        expect(find.byKey(const Key('detail-title-0')), findsOneWidget);
+        expect(find.byKey(const Key('detail-back')), findsOneWidget);
+        expect(find.byKey(const Key('carousel-appbar')), findsNothing);
+
+        expect(
+          _printLog
+              .where((l) => l == 'detail.open page=Aurora index=0')
+              .toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('detail view back button returns to the carousel',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('page-card-0')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        await tester.tap(find.byKey(const Key('detail-back')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.byKey(const Key('carousel-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('detail-scaffold-0')), findsNothing);
+
+        expect(
+          _printLog
+              .where((l) => l == 'detail.close index=0')
+              .toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('navigating then tapping opens detail for the new page',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Advance twice → page 2 (Ocean).
+        await tester.tap(find.byKey(const Key('next-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        await tester.tap(find.byKey(const Key('next-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.text('Page 3 of 8'), findsOneWidget);
+
+        // Tap the Ocean card.
+        await tester.tap(find.byKey(const Key('page-card-2')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        expect(find.byKey(const Key('detail-title-2')), findsOneWidget);
+        expect(
+          _printLog
+              .where((l) => l == 'detail.open page=Ocean index=2')
+              .toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('parallax bg lines accompany every page change',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'carousel_pager');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('next-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+        await tester.tap(find.byKey(const Key('next-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        final int changes = _printLog
+            .where((l) => l.startsWith('page.change '))
+            .length;
+        final int parallaxLines = _printLog
+            .where((l) => l.startsWith('parallax bg='))
+            .length;
+        expect(changes, 2);
+        expect(
+          parallaxLines,
+          greaterThanOrEqualTo(changes),
+          reason:
+              'Every page.change is preceded by at least one parallax line.',
+        );
+        // The last parallax value should match page 2's bg offset
+        // (= 2 * 0.5 = 1.00).
+        expect(
+          _printLog
+              .where((l) => l.startsWith('parallax bg=')).last,
+          'parallax bg=1.00',
+        );
+      });
+    });
+  });
 }
 
 /// Pump a `MaterialApp` whose body is the widget produced by interpreting

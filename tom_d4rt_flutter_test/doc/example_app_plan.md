@@ -773,7 +773,7 @@ auto-scroll, `Stream.fromFuture` for the bot reply,
 
 ---
 
-### 23. [ ] `carousel_pager` — parallax page carousel
+### 23. [x] `carousel_pager` — parallax page carousel — SHIPPED
 
 Horizontal `PageView.builder` of 8 vivid pages (each a generated
 gradient with a centred title). Background image scrolls at half
