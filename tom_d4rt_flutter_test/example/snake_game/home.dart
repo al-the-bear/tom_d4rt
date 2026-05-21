@@ -134,17 +134,21 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     print('snake.dir queued=${directionLabel(next)}');
   }
 
-  /// Convert the currently-pressed logical keys into a desired
-  /// [Direction], if any. Used by [_pollKeyboardForDirection] as a
-  /// fallback when the event-driven `_onKeyEvent` callback is
-  /// starved by the d4rt scheduler — the test trail showed every
-  /// KeyEvent arriving in one batch *after* `_ticker.cancel()` at
-  /// game-over, with no events delivered while the periodic Timer
-  /// was firing. Polling sidesteps the problem entirely: at each
-  /// tick we ASK the input layer "what's currently held" instead
-  /// of waiting for it to push events.
   Direction? _directionFromPressedKeys() {
     final pressed = HardwareKeyboard.instance.logicalKeysPressed;
+    // Diagnostic: dump the set's size + a preview of the first few
+    // keys on every tick. If `snake.poll keys=0` shows up during
+    // gameplay while the user is holding arrow keys, HardwareKeyboard
+    // itself isn't being kept in sync — confirming that the d4rt
+    // scheduler is starving the entire platform-message pipeline,
+    // not just our onKeyEvent callback. If the set IS populated but
+    // the snake still doesn't turn, the bug is in this polling
+    // function (likely a Set.contains identity-vs-equality issue
+    // through the bridge).
+    final preview = pressed.isEmpty
+        ? '∅'
+        : pressed.map((k) => k.debugName ?? k.toString()).take(3).join(',');
+    print('snake.poll keys=${pressed.length} [$preview]');
     if (pressed.contains(LogicalKeyboardKey.arrowUp) ||
         pressed.contains(LogicalKeyboardKey.keyW)) {
       return Direction.up;
