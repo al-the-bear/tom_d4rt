@@ -631,7 +631,7 @@ on narrow), `Navigator.push` for "open in new window", `AlertDialog`,
 
 ---
 
-### 15. [ ] `form_wizard` — multi-step form with validators
+### 15. [x] SHIPPED — `form_wizard` — multi-step form with validators
 
 Account-sign-up style wizard: 4 steps (account, profile, preferences,
 review). Each step is a `Form` with its own `GlobalKey<FormState>`.

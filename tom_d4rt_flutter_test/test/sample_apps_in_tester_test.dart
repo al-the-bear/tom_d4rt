@@ -3026,6 +3026,293 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'form_wizard (example #15 — multi-step Form + validators + '
+      'AnimatedSwitcher + AnimationController + Future.delayed submit)',
+      () {
+    // Trail prefix: `wizard.*`. Each public mutation on the
+    // controller emits one line (init / next / prev / goto / update /
+    // validate.ok / validate.fail / submit.start / submit.done). The
+    // progress bar also emits `progress.animate ...` when the step
+    // changes — useful for asserting the AnimationController fires.
+
+    testWidgets('boots on step 0 with the account form visible',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        final inits = _printLog
+            .where((l) => l.startsWith('wizard.init'))
+            .toList();
+        expect(inits, hasLength(1));
+
+        expect(find.byKey(const Key('account-heading')), findsOneWidget);
+        expect(find.byKey(const Key('email-field')), findsOneWidget);
+        expect(find.byKey(const Key('password-field')), findsOneWidget);
+        expect(find.byKey(const Key('progress-bar')), findsOneWidget);
+
+        // Back is disabled on step 0, Next is enabled, Submit is
+        // hidden (only shows on the last step).
+        final TextButton prev = tester.widget<TextButton>(
+            find.byKey(const Key('prev-btn')));
+        expect(prev.onPressed, isNull);
+        final FilledButton next = tester.widget<FilledButton>(
+            find.byKey(const Key('next-btn')));
+        expect(next.onPressed, isNotNull);
+        expect(find.byKey(const Key('submit-btn')), findsNothing);
+      });
+    });
+
+    testWidgets('Next on an empty form blocks advance with validators',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        // First Next press: both fields empty → validation must fail
+        // and the wizard must stay on step 0.
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 60));
+
+        final fails = _printLog
+            .where((l) => l.startsWith('wizard.validate.fail'))
+            .toList();
+        expect(fails, isNotEmpty);
+        expect(fails.last, contains('step=0'));
+
+        // Validator error texts should be visible on screen.
+        expect(find.text('Email is required'), findsOneWidget);
+        expect(
+            find.text('Password must be at least 6 characters'),
+            findsOneWidget);
+
+        // No `wizard.next` line yet — we should still be on step 0.
+        expect(
+            _printLog.where((l) => l.startsWith('wizard.next ')),
+            isEmpty);
+        expect(find.byKey(const Key('account-heading')), findsOneWidget);
+      });
+    });
+
+    testWidgets('valid account input advances to the profile step',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'jane@example.com');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Trail must show a successful validate + the step advance.
+        expect(
+            _printLog.where((l) => l.startsWith('wizard.validate.ok')),
+            isNotEmpty);
+        final advances = _printLog
+            .where((l) => l.startsWith('wizard.next '))
+            .toList();
+        expect(advances, hasLength(1));
+        expect(advances.single, contains('step=1'));
+
+        // Profile step is mounted; account step is gone.
+        expect(find.byKey(const Key('profile-heading')), findsOneWidget);
+        expect(find.byKey(const Key('account-heading')), findsNothing);
+
+        // onSaved should have written the field values to the wizard.
+        final updates = _printLog
+            .where((l) => l.startsWith('wizard.update key="email"'))
+            .toList();
+        expect(updates, isNotEmpty);
+      });
+    });
+
+    testWidgets('Back button restores the previous step without losing data',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'jane@example.com');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        expect(find.byKey(const Key('profile-heading')), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('prev-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // We're back on step 0, the email field should retain its
+        // initialValue from the wizard's data map.
+        expect(find.byKey(const Key('account-heading')), findsOneWidget);
+        final TextFormField emailField = tester.widget<TextFormField>(
+            find.byKey(const Key('email-field')));
+        expect(emailField.initialValue, equals('jane@example.com'));
+
+        final prevs = _printLog
+            .where((l) => l.startsWith('wizard.prev '))
+            .toList();
+        expect(prevs.last, contains('step=0'));
+      });
+    });
+
+    testWidgets('progress bar animates whenever the step changes',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'jane@example.com');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // The progress AnimationController fires its `from→to` line
+        // each time the goal value changes.
+        final animLines = _printLog
+            .where((l) => l.startsWith('progress.animate '))
+            .toList();
+        expect(animLines, isNotEmpty);
+        expect(animLines.last, contains('to=0.375'));
+      });
+    });
+
+    testWidgets('reaching the review step shows collected entries',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        // Step 0 → 1
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'jane@example.com');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Step 1 → 2
+        await tester.enterText(
+            find.byKey(const Key('name-field')), 'Jane Doe');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Step 2 → 3
+        await tester.enterText(
+            find.byKey(const Key('color-field')), 'teal');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Review step is visible, summary lists every captured key.
+        expect(find.byKey(const Key('review-heading')), findsOneWidget);
+        expect(find.byKey(const Key('review-row-email')), findsOneWidget);
+        expect(find.byKey(const Key('review-row-name')), findsOneWidget);
+        expect(find.byKey(const Key('review-row-color')), findsOneWidget);
+        expect(
+            find.byKey(const Key('review-value-email')), findsOneWidget);
+        expect(
+            tester
+                .widget<Text>(
+                    find.byKey(const Key('review-value-email')))
+                .data,
+            equals('jane@example.com'));
+
+        // Next button is replaced by the Submit button on the last step.
+        expect(find.byKey(const Key('next-btn')), findsNothing);
+        expect(find.byKey(const Key('submit-btn')), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'Submit shows the overlay, awaits Future.delayed, then the done banner',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        // Run through the wizard.
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'jane@example.com');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        await tester.enterText(
+            find.byKey(const Key('name-field')), 'Jane Doe');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        await tester.enterText(
+            find.byKey(const Key('color-field')), 'teal');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Tap submit — overlay should appear, banner not yet.
+        await tester.tap(find.byKey(const Key('submit-btn')));
+        await tester.pump(const Duration(milliseconds: 50));
+
+        expect(
+            find.byKey(const Key('submitting-overlay')), findsOneWidget);
+        expect(find.byKey(const Key('submit-done-banner')), findsNothing);
+        expect(
+            _printLog.where((l) => l == 'wizard.submit.start'),
+            hasLength(1));
+
+        // Drain the Future.delayed (600ms default).
+        await tester.pumpAndSettle(const Duration(milliseconds: 800));
+
+        expect(
+            find.byKey(const Key('submitting-overlay')), findsNothing);
+        expect(
+            find.byKey(const Key('submit-done-banner')), findsOneWidget);
+        expect(
+            _printLog.where((l) => l == 'wizard.submit.done'),
+            hasLength(1));
+
+        // Submit button is disabled after completion.
+        final FilledButton submit = tester.widget<FilledButton>(
+            find.byKey(const Key('submit-btn')));
+        expect(submit.onPressed, isNull);
+      });
+    });
+
+    testWidgets('bad email format keeps the user on step 0',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'form_wizard');
+
+        // Missing domain — should fail the format check.
+        await tester.enterText(
+            find.byKey(const Key('email-field')), 'notanemail');
+        await tester.enterText(
+            find.byKey(const Key('password-field')), 'sup3rsecret');
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+
+        await tester.tap(find.byKey(const Key('next-btn')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // autovalidateMode.onUserInteraction has now flipped on and
+        // the validator error is visible.
+        expect(find.text('Email must contain "@"'), findsOneWidget);
+        expect(
+            _printLog.where((l) => l.startsWith('wizard.next ')),
+            isEmpty);
+        expect(find.byKey(const Key('account-heading')), findsOneWidget);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
