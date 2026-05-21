@@ -36,17 +36,10 @@ class BoardPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final cell = size.shortestSide / kBoardSize;
 
-    final gridPaint = Paint()
-      ..color = const Color(0xFFE5E7EB)
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-    for (var i = 0; i <= kBoardSize; i++) {
-      final off = i * cell;
-      canvas.drawLine(Offset(off, 0), Offset(off, kBoardSize * cell),
-          gridPaint);
-      canvas.drawLine(Offset(0, off), Offset(kBoardSize * cell, off),
-          gridPaint);
-    }
+    // Grid intentionally removed. Under d4rt every Canvas op crosses
+    // the bridge; drawing 42 grid lines per paint (~21 per axis)
+    // dominated the painter's per-tick cost and contributed to input
+    // dispatch starvation. A plain background reads fine.
 
     if (food != null) {
       final foodPaint = Paint()
@@ -65,19 +58,20 @@ class BoardPainter extends CustomPainter {
     final headPaint = Paint()
       ..color = const Color(0xFF065F46)
       ..style = PaintingStyle.fill;
+    // Plain drawRect (not drawRRect) — cuts one bridge call per cell
+    // and the rounded-corner radius doesn't read at the small cell
+    // size anyway.
     for (var i = 0; i < body.length; i++) {
       final c = body[i];
-      final rect = Rect.fromLTWH(
-        c.x * cell + 1,
-        c.y * cell + 1,
-        cell - 2,
-        cell - 2,
+      canvas.drawRect(
+        Rect.fromLTWH(
+          c.x * cell + 1,
+          c.y * cell + 1,
+          cell - 2,
+          cell - 2,
+        ),
+        i == 0 ? headPaint : bodyPaint,
       );
-      final rrect = RRect.fromRectAndRadius(
-        rect,
-        Radius.circular(cell * 0.18),
-      );
-      canvas.drawRRect(rrect, i == 0 ? headPaint : bodyPaint);
     }
 
     if (over) {

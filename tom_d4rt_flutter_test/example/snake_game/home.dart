@@ -208,7 +208,17 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     _ticker?.cancel();
     _ticker = Timer.periodic(tickIntervalForScore(_score), (_) {
       if (!mounted) return;
-      _tick();
+      // Defer the tick onto a fresh event-loop slot via `Future(...)`.
+      // The Timer callback fires synchronously on the framework
+      // thread; under d4rt the interpreted `_tick` runs to completion
+      // without yielding, so any KeyEvents queued by the platform
+      // wait until the tick + the rebuild it schedules are done.
+      // Punting through Future() forces a queue boundary between
+      // the Timer firing and the interpreted `_tick` body, giving
+      // pending input events a chance to dispatch first.
+      Future<void>(() {
+        if (mounted) _tick();
+      });
     });
   }
 
