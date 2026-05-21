@@ -345,10 +345,14 @@ class GeneratorNotifier extends ChangeNotifier {
           _appendBlock(LogBlockKind.status,
               'Receiving tool call → ${event.toolName}');
         case ToolUseReady():
-          // Host executes after the turn ends.
+          // Host executes the tool after the turn ends — no log
+          // mutation here. An explicit statement is required so this
+          // case does NOT fall through to TurnComplete and trigger
+          // an invalid downcast.
+          break;
         case TurnComplete():
           if (!completer.isCompleted) {
-            completer.complete(event as TurnComplete);
+            completer.complete(event);
           }
         case ErrorEvent():
           _state = GenerationState.error;
