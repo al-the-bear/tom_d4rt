@@ -2224,6 +2224,167 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'color_picker_studio (example #11 — ValueNotifier<Color> + '
+      'ValueListenableBuilder + TextField + Slider)', () {
+    // The studio boots on kInitialColor = #5599FF, hex round-trips
+    // cleanly, and HSV math lands on round numbers (h≈216, s≈66, v=100).
+    // Tests drive the picker via the hex field (enterText) and the
+    // swatch strip (tap by stable Key) — sliders are exercised
+    // indirectly through the trail.
+
+    testWidgets('boots with kInitialColor and seeded recents', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'color_picker_studio');
+
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('picker.init'),
+          orElse: () => '',
+        );
+        expect(init, isNot(isEmpty),
+            reason: 'Boot should emit exactly one picker.init line.');
+        expect(init, contains('hex=#5599FF'));
+        expect(init, contains('r=85'));
+        expect(init, contains('g=153'));
+        expect(init, contains('b=255'));
+        expect(init, contains('recents=8'));
+
+        expect(find.byKey(const Key('preview-swatch')), findsOneWidget);
+        final previewLabel = tester.widget<Text>(
+            find.byKey(const Key('preview-hex-label')));
+        expect(previewLabel.data, '#5599FF',
+            reason: 'Preview label should display the current hex.');
+
+        // All 8 seeded swatches should be present.
+        for (var i = 0; i < 8; i++) {
+          expect(find.byKey(Key('swatch-$i')), findsOneWidget,
+              reason: 'Expected seed swatch index $i to be present.');
+        }
+      });
+    });
+
+    testWidgets('hex field accepts a new colour and pushes onto recents',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'color_picker_studio');
+
+        await tester.enterText(find.byKey(const Key('hex-field')), '#FF0080');
+        await tester.tap(find.byKey(const Key('hex-submit')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final hexLines = _printLog
+            .where((l) => l.startsWith('picker.hex hex='))
+            .toList();
+        expect(hexLines, hasLength(1),
+            reason: 'A valid hex submit should emit one picker.hex line.');
+        expect(hexLines.single, contains('hex=#FF0080'));
+        expect(hexLines.single, contains('r=255'));
+        expect(hexLines.single, contains('g=0'));
+        expect(hexLines.single, contains('b=128'));
+
+        final recentLines = _printLog
+            .where((l) => l.startsWith('picker.recent'))
+            .toList();
+        expect(recentLines, hasLength(1),
+            reason: 'Committing a new colour should push exactly one '
+                'picker.recent line.');
+        expect(recentLines.single, contains('hex=#FF0080'));
+        expect(recentLines.single, contains('source=hex'));
+
+        // Preview label should reflect the new value (the hex field
+        // text would also contain '#FF0080', so target the label by
+        // Key rather than by find.text).
+        final previewLabel = tester.widget<Text>(
+            find.byKey(const Key('preview-hex-label')));
+        expect(previewLabel.data, '#FF0080');
+      });
+    });
+
+    testWidgets('invalid hex is rejected and does not mutate state',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'color_picker_studio');
+
+        await tester.enterText(find.byKey(const Key('hex-field')), 'NOTHEX');
+        await tester.tap(find.byKey(const Key('hex-submit')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final invalid = _printLog
+            .where((l) => l.startsWith('picker.hex.invalid'))
+            .toList();
+        expect(invalid, hasLength(1),
+            reason: 'A non-hex submission should emit one '
+                'picker.hex.invalid line.');
+
+        // No picker.hex / picker.recent should have fired.
+        expect(
+          _printLog.where((l) => l.startsWith('picker.hex hex=')),
+          isEmpty,
+          reason: 'Invalid hex must not commit a colour.',
+        );
+        expect(
+          _printLog.where((l) => l.startsWith('picker.recent')),
+          isEmpty,
+        );
+
+        // Preview label should still show the boot colour.
+        final previewLabel = tester.widget<Text>(
+            find.byKey(const Key('preview-hex-label')));
+        expect(previewLabel.data, '#5599FF');
+      });
+    });
+
+    testWidgets('tapping a seeded swatch swaps the active colour',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'color_picker_studio');
+
+        // Swatch index 5 in kDefaultPalette is #1E88E5 (blue). The
+        // strip lives at the bottom of a scroll view, so make sure
+        // it's in the viewport before tapping.
+        await tester.ensureVisible(find.byKey(const Key('swatch-5')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('swatch-5')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        final swatchLines = _printLog
+            .where((l) => l.startsWith('picker.swatch hex='))
+            .toList();
+        expect(swatchLines, hasLength(1),
+            reason: 'Tapping a swatch should emit one picker.swatch line.');
+        expect(swatchLines.single, contains('hex=#1E88E5'));
+
+        // The tap also commits to recents (source=swatch).
+        final recentLines = _printLog
+            .where((l) => l.startsWith('picker.recent'))
+            .toList();
+        expect(recentLines, hasLength(1));
+        expect(recentLines.single, contains('source=swatch'));
+        expect(recentLines.single, contains('hex=#1E88E5'));
+      });
+    });
+
+    testWidgets('same-colour hex submit is a no-op (no trail churn)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'color_picker_studio');
+
+        // Submit the SAME initial hex — should not emit picker.hex
+        // because _apply short-circuits when value.value matches.
+        await tester.enterText(find.byKey(const Key('hex-field')), '#5599FF');
+        await tester.tap(find.byKey(const Key('hex-submit')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('picker.hex hex=')),
+          isEmpty,
+          reason: 'Submitting the current colour should be a no-op '
+              'on the picker.hex trail.',
+        );
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

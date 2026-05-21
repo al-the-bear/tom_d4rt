@@ -481,20 +481,57 @@ Builds clean on the existing GEN-100 stdlib propagation,
 
 ---
 
-### 11. [ ] `color_picker_studio` — HSV / RGB / HEX picker
+### 11. [x] `color_picker_studio` — HSV / RGB / HEX picker — SHIPPED
 
-Three coordinated panels: HSV sliders, RGB sliders, hex input.
-Editing one updates the others. Live preview square, plus a swatch
-strip of recent colours.
+Three coordinated panels: HSV sliders, RGB sliders, hex input,
+all driven by a single shared `ValueNotifier<Color>` rebuilt
+through `ValueListenableBuilder`. The live-preview square at the
+top displays the active hex; below it a `TextField` accepts hex
+input (`#RRGGBB` or `RRGGBB`, case-insensitive) and an `Apply`
+button commits on submit. The RGB panel shows three integer
+`Slider`s (0–255) with stable keys (`slider-r/g/b`); the HSV panel
+shows H (0–360), S (0–100), V (0–100), with the math implemented
+in pure Dart (`rgbToHsv` / `hsvToRgb`) so it doesn't depend on
+`HSVColor` bridge coverage. A bottom swatch strip holds the eight
+most recent colours; tapping a swatch makes it the active colour
+and pushes it back to the front. Invalid hex submissions surface
+an `errorText` on the field and do not mutate state.
+
+The body is wrapped in a `SingleChildScrollView` because the
+800×600 test viewport isn't tall enough for preview + hex row +
+RGB + HSV + swatch strip simultaneously. The `picker.recent` /
+`picker.hex` / `picker.swatch` / `picker.hex.invalid` trail prints
+are stable-prefix ASCII so the test harness can scan them with a
+single matcher.
 
 **Exercises:** `ValueNotifier<Color>` shared across panels,
-`ValueListenableBuilder`, `Slider`/`TextField` two-way binding,
-input parsing + clamping, copy-to-clipboard via `Clipboard.setData`
-(if bridged; otherwise omit). Pure layout exercise.
+`ValueListenableBuilder` (twice — for colour and for recents),
+`TextField` + `TextEditingController` with `onSubmitted` and
+`didUpdateWidget` sync, `Slider` callbacks (two-way binding via
+`Color.fromARGB`), pure-Dart RGB↔HSV math, integer hex parsing
+via `int.parse(s, radix: 16)`, deduplicating recents-list helper,
+`GestureDetector` swatches (not `InkWell`, to avoid needing a
+`Material` ancestor inside the scroll view).
 
-**Files:** `main.dart`, `home.dart`, `color_model.dart`,
+**Files:** `main.dart`, `home.dart`, `color_model.dart`
+(rgbToHsv / hsvToRgb / colorToHex / hexToColor / recentsAdd),
 `hsv_panel.dart`, `rgb_panel.dart`, `hex_field.dart`,
 `swatch_strip.dart`.
+
+**Tests:** 5/5 pass in `test/sample_apps_in_tester_test.dart`
+(boots with `kInitialColor=#5599FF` and 8 seeded swatches, hex
+field accepts a valid colour and pushes onto recents, invalid
+hex is rejected without mutating state, tapping a seeded swatch
+swaps the active colour and commits to recents, same-colour
+submit is a no-op on the trail). Preview text is targeted via
+`Key('preview-hex-label')` since `find.text('#RRGGBB')` would
+match both the preview `Text` and the `EditableText` of the hex
+field.
+
+**Generic interpreter fixes landed while shipping #11:** none.
+Pure layout exercise built on the existing `ValueNotifier<T>`,
+`ValueListenableBuilder<T>`, `TextEditingController`, and
+`Slider` bridges already shipping in `tom_d4rt_flutter_ast`.
 
 ---
 
