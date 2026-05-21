@@ -5209,6 +5209,259 @@ Widget build(BuildContext context) {
       });
     });
   });
+
+  group(
+      'chat_ui (example #22 — AnimatedList + slide/fade bubbles + '
+      'multiline composer + Stream.fromFuture bot reply)', () {
+    // Trail emitted by the interpreted script (see example/chat_ui/):
+    //   chat.send rejected=empty
+    //   chat.user.append id=<n> text="<s>"
+    //   chat.typing on
+    //   chat.typing off
+    //   chat.bot.append id=<n> text="<s>"
+    //   chat.scroll target=bottom messages=<n>
+
+    Future<void> sendViaComposer(WidgetTester tester, String text) async {
+      await tester.enterText(
+        find.byKey(const Key('composer-field')),
+        text,
+      );
+      await tester.pumpAndSettle(const Duration(milliseconds: 50));
+      await tester.tap(find.byKey(const Key('composer-send')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
+    }
+
+    testWidgets('boots with empty list and an idle composer',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Shell renders.
+        expect(find.byKey(const Key('chat-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('composer-field')), findsOneWidget);
+        expect(find.byKey(const Key('composer-send')), findsOneWidget);
+
+        // No bubbles, no typing indicator yet.
+        expect(find.byKey(const Key('typing-indicator')), findsNothing);
+        expect(find.byKey(const Key('bubble-1')), findsNothing);
+
+        // No chat trail lines emitted at boot.
+        expect(
+          _printLog.where((l) => l.startsWith('chat.')).toList(),
+          isEmpty,
+        );
+      });
+    });
+
+    testWidgets('disabled send button before any text is typed',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Tapping send while the field is empty must not enqueue a
+        // message. The button's onPressed is null, so the tap is a
+        // no-op — `chat.user.append` must NOT appear in the trail.
+        await tester.tap(find.byKey(const Key('composer-send')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(
+          _printLog.where((l) => l.startsWith('chat.user.append ')),
+          isEmpty,
+          reason: 'Empty-text send must not enqueue a user message.',
+        );
+      });
+    });
+
+    testWidgets('tapping send appends a user bubble + starts typing',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.enterText(
+          find.byKey(const Key('composer-field')),
+          'hello bot',
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('composer-send')));
+        // Don't settle yet — the bot reply is delayed; we just want
+        // the synchronous user-append + typing-on lines.
+        await tester.pump(const Duration(milliseconds: 50));
+
+        // User bubble is on screen.
+        expect(find.byKey(const Key('bubble-1')), findsOneWidget);
+        expect(find.text('hello bot'), findsOneWidget);
+
+        // Typing indicator is showing.
+        expect(find.byKey(const Key('typing-indicator')), findsOneWidget);
+
+        // The composer was cleared.
+        final TextField field = tester.widget<TextField>(
+          find.byKey(const Key('composer-field')),
+        );
+        expect(field.controller?.text, isEmpty);
+
+        // Trail proves the synchronous half of `send()` ran.
+        expect(
+          _printLog
+              .where((l) => l == 'chat.user.append id=1 text="hello bot"')
+              .toList(),
+          hasLength(1),
+        );
+        expect(
+          _printLog.where((l) => l == 'chat.typing on').toList(),
+          hasLength(1),
+        );
+        // Drain the pending bot future so this test doesn't leave a
+        // dangling timer for the next test to inherit.
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+      });
+    });
+
+    testWidgets('bot reply arrives, typing flips off, bubble appears',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await sendViaComposer(tester, 'ping');
+        // Drain the bot delay (250ms in chat_store.dart, plus the
+        // insert animation).
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Bot bubble is on screen with the echo text.
+        expect(find.byKey(const Key('bubble-2')), findsOneWidget);
+        expect(find.text('echo: ping'), findsOneWidget);
+
+        // Typing indicator is gone.
+        expect(find.byKey(const Key('typing-indicator')), findsNothing);
+
+        expect(
+          _printLog.where((l) => l == 'chat.typing off').toList(),
+          hasLength(1),
+        );
+        expect(
+          _printLog
+              .where((l) => l == 'chat.bot.append id=2 text="echo: ping"')
+              .toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('send via Enter (onSubmitted) — composer keyboard path',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Type, then submit via the TextField's `onSubmitted` hook
+        // (the test framework equivalent of pressing Enter).
+        await tester.enterText(
+          find.byKey(const Key('composer-field')),
+          'from enter',
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.testTextInput.receiveAction(TextInputAction.send);
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        expect(find.text('from enter'), findsOneWidget);
+        expect(find.text('echo: from enter'), findsOneWidget);
+        expect(
+          _printLog
+              .where((l) => l == 'chat.user.append id=1 text="from enter"'),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('whitespace-only text is rejected even via Enter',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.enterText(
+          find.byKey(const Key('composer-field')),
+          '   ',
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.testTextInput.receiveAction(TextInputAction.send);
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // No bubble, no trail.
+        expect(find.byKey(const Key('bubble-1')), findsNothing);
+        expect(
+          _printLog.where((l) => l.startsWith('chat.user.append ')),
+          isEmpty,
+        );
+      });
+    });
+
+    testWidgets('multi-turn conversation grows in order',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await sendViaComposer(tester, 'hi');
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        await sendViaComposer(tester, 'how are you');
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Four bubbles total: user(1), bot(2), user(3), bot(4).
+        expect(find.byKey(const Key('bubble-1')), findsOneWidget);
+        expect(find.byKey(const Key('bubble-2')), findsOneWidget);
+        expect(find.byKey(const Key('bubble-3')), findsOneWidget);
+        expect(find.byKey(const Key('bubble-4')), findsOneWidget);
+
+        expect(find.text('hi'), findsOneWidget);
+        expect(find.text('echo: hi'), findsOneWidget);
+        expect(find.text('how are you'), findsOneWidget);
+        expect(find.text('echo: how are you'), findsOneWidget);
+
+        // The trail is ordered (user → bot → user → bot).
+        final ordered = _printLog
+            .where((l) =>
+                l.startsWith('chat.user.append ') ||
+                l.startsWith('chat.bot.append '))
+            .toList();
+        expect(ordered, hasLength(4));
+        expect(ordered[0], startsWith('chat.user.append id=1'));
+        expect(ordered[1], startsWith('chat.bot.append id=2'));
+        expect(ordered[2], startsWith('chat.user.append id=3'));
+        expect(ordered[3], startsWith('chat.bot.append id=4'));
+      });
+    });
+
+    testWidgets('auto-scroll fires after each message append',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'chat_ui');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await sendViaComposer(tester, 'one');
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        await sendViaComposer(tester, 'two');
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Every user OR bot append should produce one scroll line.
+        final scrolls = _printLog
+            .where((l) => l.startsWith('chat.scroll target=bottom '))
+            .toList();
+        expect(
+          scrolls.length,
+          greaterThanOrEqualTo(4),
+          reason: 'Each of 2 user + 2 bot appends should auto-scroll.',
+        );
+        // The last scroll reports messages=4 — confirms it ran AFTER
+        // the data list grew, not before.
+        expect(scrolls.last, 'chat.scroll target=bottom messages=4');
+      });
+    });
+  });
 }
 
 /// Pump a `MaterialApp` whose body is the widget produced by interpreting

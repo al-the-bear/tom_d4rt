@@ -755,7 +755,7 @@ intercept (or the modern `PopScope`).
 
 ---
 
-### 22. [ ] `chat_ui` — animated message bubbles + composer
+### 22. [x] `chat_ui` — animated message bubbles + composer — SHIPPED
 
 A chat room with one local "user" and a scripted "bot" that
 echoes after a short delay. Bubbles slide-in from left/right via
