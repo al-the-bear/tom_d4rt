@@ -267,6 +267,11 @@ class _BlockTile extends StatelessWidget {
                         block.kind == LogBlockKind.thinking
                     ? null
                     : 'monospace',
+                // Italicise THINKING so it reads visibly as
+                // reasoning rather than the model's final answer.
+                fontStyle: block.kind == LogBlockKind.thinking
+                    ? FontStyle.italic
+                    : FontStyle.normal,
                 fontSize: 13,
                 height: 1.4,
                 color: foreground,

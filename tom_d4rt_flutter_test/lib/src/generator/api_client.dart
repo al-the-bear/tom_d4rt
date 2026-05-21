@@ -320,9 +320,11 @@ class AnthropicClient {
           yield const StatusEvent(
               'Redacted thinking block (encrypted by Anthropic, not '
               'shown).');
-        } else {
-          yield StatusEvent('Receiving $blockType block…');
         }
+        // For thinking + text blocks we no longer emit a status placeholder
+        // — the actual streamed content fills its own log block. If the
+        // model produces no content for the block, we surface that
+        // explicitly at content_block_stop.
         break;
 
       case 'content_block_delta':
@@ -374,7 +376,17 @@ class AnthropicClient {
         final builder = blocks[idx];
         if (builder == null) break;
         debugPrint('[anthropic] content_block_stop idx=$idx '
-            'type=${builder.type}');
+            'type=${builder.type} '
+            'thinkingChars=${builder.thinkingText.length} '
+            'textChars=${builder.responseText.length}');
+        if (builder.type == 'thinking' && builder.thinkingText.isEmpty) {
+          // Adaptive thinking + low-effort sometimes opens a thinking
+          // block without streaming any visible content. Make that
+          // explicit so the log doesn't look broken.
+          yield const StatusEvent(
+              '(Model opened a thinking block but produced no streamable '
+              'content — it thought silently this turn.)');
+        }
         if (builder.type == 'tool_use') {
           // Finalise input JSON and emit a ready event for the caller.
           Map<String, dynamic> input;
