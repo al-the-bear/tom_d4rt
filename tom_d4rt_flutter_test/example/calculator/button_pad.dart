@@ -199,16 +199,28 @@ class CalculatorButtonPad extends StatelessWidget {
       ),
     ];
 
-    return GridView.count(
-      key: const ValueKey<String>('button-pad'),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 4,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      childAspectRatio: 1.1,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-      children: cells,
+    // Cap the pad to a phone-portrait-ish footprint and center it
+    // horizontally so wide desktop windows don't make the pad balloon
+    // vertically and overflow the parent column. The prior unbounded
+    // shrinkWrap layout grew the pad to 5 × (width/4 / 1.1) px tall,
+    // which hit ~1250 px on wide windows.
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 420, maxHeight: 480),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+          child: GridView.count(
+            key: const ValueKey<String>('button-pad'),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            childAspectRatio: 1.1,
+            children: cells,
+          ),
+        ),
+      ),
     );
   }
 }

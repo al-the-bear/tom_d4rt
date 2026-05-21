@@ -296,19 +296,31 @@ class _Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      key: const ValueKey<String>('card-grid'),
-      crossAxisCount: gridSize,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      children: List.generate(deck.length, (i) {
-        final card = deck[i];
-        return MemoryCardTile(
-          card: card,
-          slot: i,
-          onTap: () => onCardTap(i),
-        );
-      }),
+    // Easy and Hard are both square (4×4 and 6×6) so the natural grid
+    // aspect is 1:1. Wrapping in Center > AspectRatio(1.0) makes the
+    // grid the largest square that fits the available area — on wide
+    // desktop windows the prior `Expanded > GridView.count` laid out
+    // square cells at width/cols, which made total grid height equal
+    // to grid width and forced the grid to scroll vertically.
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 1.0,
+        child: GridView.count(
+          key: const ValueKey<String>('card-grid'),
+          crossAxisCount: gridSize,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          physics: const NeverScrollableScrollPhysics(),
+          children: List.generate(deck.length, (i) {
+            final card = deck[i];
+            return MemoryCardTile(
+              card: card,
+              slot: i,
+              onTap: () => onCardTap(i),
+            );
+          }),
+        ),
+      ),
     );
   }
 }
