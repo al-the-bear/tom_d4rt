@@ -1,28 +1,34 @@
 /// Owns the generation pipeline state.
 ///
-/// Responsibilities:
-///   - Drive the state machine (idle → sending → streaming → done|error).
-///   - Accumulate streamed log entries (thinking, text, status, error).
-///   - On stream completion: extract the first ```dart code block and
-///     write it to `example/<appName>/main.dart`.
-///   - Expose enough to drive the Log tab UI (text panes, run-button
-///     enablement, error banners).
+/// Drives a multi-turn agentic loop:
+///   1. Send the user's description + the current conversation history.
+///   2. Stream assistant content (thinking / text / tool_use blocks).
+///   3. If the turn ends with `stop_reason == tool_use`, execute each
+///      tool call against the in-memory [VirtualFs], build a
+///      `tool_result` user message, and continue.
+///   4. Otherwise: flush the virtual FS to `example/<appName>/` on
+///      disk, notify [SampleAppsNotifier] to pick up the new entry,
+///      and expose the run-ready path.
+///
+/// Hard-caps total tool calls per generation at [_maxToolCalls] so a
+/// runaway loop can't burn the user's quota.
 library;
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 
 import '../sample_apps_notifier.dart';
 import 'api_client.dart';
+import 'generator_tools.dart';
 import 'prefs_store.dart';
 import 'system_prompt.dart';
+import 'virtual_fs.dart';
 
-enum GenerationState { idle, sending, streaming, done, error }
+enum GenerationState { idle, sending, streaming, executingTools, done, error }
 
-enum LogBlockKind { status, thinking, text, error }
+enum LogBlockKind { status, thinking, text, toolCall, toolResult, error }
 
 class LogBlock {
   final LogBlockKind kind;
@@ -31,17 +37,21 @@ class LogBlock {
 }
 
 class GeneratorNotifier extends ChangeNotifier {
+  static const _maxToolCalls = 60;
+  static const _maxTurns = 30;
+
   final AnthropicClient _client;
   final SampleAppsNotifier _samplesNotifier;
   final String _exampleRoot;
 
   GenerationState _state = GenerationState.idle;
   final List<LogBlock> _blocks = <LogBlock>[];
-  String _assistantText = '';
   String? _generatedMainPath;
   String? _generatedAppName;
   String? _errorMessage;
   StreamSubscription<GeneratorEvent>? _sub;
+  Completer<TurnComplete?>? _turnCompleter;
+  bool _aborted = false;
 
   GeneratorNotifier({
     required SampleAppsNotifier samplesNotifier,
@@ -58,7 +68,9 @@ class GeneratorNotifier extends ChangeNotifier {
   bool get canRun =>
       _state == GenerationState.done && _generatedMainPath != null;
   bool get isBusy =>
-      _state == GenerationState.sending || _state == GenerationState.streaming;
+      _state == GenerationState.sending ||
+      _state == GenerationState.streaming ||
+      _state == GenerationState.executingTools;
 
   /// Kick off a generation. Returns immediately; UI listens to
   /// notifications. If a previous generation is in flight it is aborted.
@@ -72,43 +84,143 @@ class GeneratorNotifier extends ChangeNotifier {
     }
     final sanitizedName = _sanitizeAppName(appName);
     if (sanitizedName.isEmpty) {
-      _state = GenerationState.error;
-      _errorMessage = 'App name is empty.';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
-      notifyListeners();
+      _failPrecondition('App name is empty.');
       return;
     }
     if (description.trim().isEmpty) {
-      _state = GenerationState.error;
-      _errorMessage = 'Description is empty.';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
-      notifyListeners();
+      _failPrecondition('Description is empty.');
       return;
     }
     if (prefs.apiKey.trim().isEmpty) {
-      _state = GenerationState.error;
-      _errorMessage =
-          'Anthropic API key is not set — open Settings to enter one.';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
-      notifyListeners();
+      _failPrecondition(
+          'Anthropic API key is not set — open Settings to enter one.');
       return;
     }
 
     _blocks.clear();
-    _assistantText = '';
     _generatedMainPath = null;
     _generatedAppName = sanitizedName;
     _errorMessage = null;
+    _aborted = false;
     _state = GenerationState.sending;
     _appendBlock(LogBlockKind.status,
         'Generating "$sanitizedName" with ${prefs.model.label}…');
     notifyListeners();
 
-    final stream = _client.streamMessage(
+    final fs = VirtualFs();
+    final messages = <Map<String, dynamic>>[
+      {
+        'role': 'user',
+        'content': [
+          {'type': 'text', 'text': description},
+        ],
+      },
+    ];
+
+    var totalToolCalls = 0;
+    var turn = 0;
+    try {
+      while (turn < _maxTurns) {
+        turn++;
+        if (_aborted) break;
+        _state = GenerationState.sending;
+        notifyListeners();
+
+        final turnResult = await _runOneTurn(prefs: prefs, messages: messages);
+        if (_aborted) break;
+        if (turnResult == null) {
+          // Error path — _runOneTurn already set the state.
+          return;
+        }
+
+        // Append the assistant turn verbatim so the next call can
+        // continue the conversation correctly (incl. thinking sigs).
+        messages.add({
+          'role': 'assistant',
+          'content': turnResult.assistantContent,
+        });
+
+        if (turnResult.stopReason != 'tool_use' ||
+            turnResult.toolUses.isEmpty) {
+          break;
+        }
+
+        _state = GenerationState.executingTools;
+        notifyListeners();
+
+        final results = <Map<String, dynamic>>[];
+        for (final call in turnResult.toolUses) {
+          totalToolCalls++;
+          if (totalToolCalls > _maxToolCalls) {
+            _appendBlock(LogBlockKind.error,
+                'Exceeded $_maxToolCalls tool calls — aborting to '
+                'protect your quota.');
+            results.add({
+              'type': 'tool_result',
+              'tool_use_id': call.id,
+              'is_error': true,
+              'content': 'Aborted: tool-call budget exhausted.',
+            });
+            _state = GenerationState.error;
+            _errorMessage = 'Tool-call budget exhausted.';
+            notifyListeners();
+            return;
+          }
+          final exec = executeGeneratorTool(fs, call.name, call.input);
+          _appendBlock(LogBlockKind.toolCall,
+              '${call.name}(${_summariseInput(call.input)})');
+          _appendBlock(LogBlockKind.toolResult, exec.summary);
+          results.add({
+            'type': 'tool_result',
+            'tool_use_id': call.id,
+            'is_error': exec.isError,
+            'content': exec.content,
+          });
+          notifyListeners();
+        }
+
+        messages.add({
+          'role': 'user',
+          'content': results,
+        });
+      }
+
+      if (_aborted) {
+        return;
+      }
+      if (turn >= _maxTurns) {
+        _state = GenerationState.error;
+        _errorMessage =
+            'Reached the $_maxTurns-turn cap before the model finished.';
+        _appendBlock(LogBlockKind.error, _errorMessage!);
+        notifyListeners();
+        return;
+      }
+
+      await _finalize(fs, sanitizedName);
+    } catch (e, st) {
+      _state = GenerationState.error;
+      _errorMessage = 'Generator crashed: $e';
+      _appendBlock(LogBlockKind.error, '$e\n$st');
+      notifyListeners();
+    }
+  }
+
+  /// Runs one streamed turn. Returns the `TurnComplete` on success, or
+  /// `null` if the stream errored (in which case state was already set).
+  Future<TurnComplete?> _runOneTurn({
+    required GeneratorPrefs prefs,
+    required List<Map<String, dynamic>> messages,
+  }) async {
+    final completer = Completer<TurnComplete?>();
+    _turnCompleter = completer;
+
+    final stream = _client.streamTurn(
       apiKey: prefs.apiKey,
       model: prefs.model.apiId,
       systemPrompt: buildSystemPrompt(),
-      userMessage: description,
+      messages: messages,
+      tools: generatorToolSchemas,
       extendedThinking: prefs.extendedThinking,
       maxTokens: prefs.maxTokens,
     );
@@ -124,29 +236,88 @@ class GeneratorNotifier extends ChangeNotifier {
         case TextDelta():
           _state = GenerationState.streaming;
           _appendOrExtend(LogBlockKind.text, event.text);
-        case CompletionEvent():
-          _assistantText = event.fullText;
-          _finalize(sanitizedName);
+        case ToolUseStarted():
+          _state = GenerationState.streaming;
+          _appendBlock(LogBlockKind.status,
+              'Receiving tool call → ${event.toolName}');
+        case ToolUseReady():
+          // The host will execute this call after the turn ends.
+        case TurnComplete():
+          if (!completer.isCompleted) {
+            completer.complete(event as TurnComplete);
+          }
         case ErrorEvent():
           _state = GenerationState.error;
           _errorMessage = event.message;
           _appendBlock(LogBlockKind.error, event.message);
+          if (!completer.isCompleted) completer.complete(null);
       }
       notifyListeners();
     }, onError: (Object e) {
-      _state = GenerationState.error;
-      _errorMessage = '$e';
-      _appendBlock(LogBlockKind.error, '$e');
-      notifyListeners();
+      if (!completer.isCompleted) {
+        _state = GenerationState.error;
+        _errorMessage = '$e';
+        _appendBlock(LogBlockKind.error, '$e');
+        notifyListeners();
+        completer.complete(null);
+      }
     });
+
+    return completer.future;
+  }
+
+  Future<void> _finalize(VirtualFs fs, String appName) async {
+    if (fs.fileCount == 0) {
+      _state = GenerationState.error;
+      _errorMessage =
+          'Model finished without writing any files — nothing to run.';
+      _appendBlock(LogBlockKind.error, _errorMessage!);
+      notifyListeners();
+      return;
+    }
+    if (fs.read('main.dart') == null) {
+      _state = GenerationState.error;
+      _errorMessage =
+          'Model finished but never wrote `main.dart`. Files present: '
+          '${fs.listFiles().join(", ")}';
+      _appendBlock(LogBlockKind.error, _errorMessage!);
+      notifyListeners();
+      return;
+    }
+
+    // Flush every file to disk under example/<appName>/.
+    try {
+      final targetDir = p.join(_exampleRoot, appName);
+      final mainPath = fs.flushTo(targetDir);
+      _generatedMainPath = mainPath ?? p.join(targetDir, 'main.dart');
+      _samplesNotifier.reload();
+      _state = GenerationState.done;
+      final files = fs.listFiles();
+      _appendBlock(LogBlockKind.status,
+          'Wrote ${files.length} file(s) to example/$appName/: '
+          '${files.join(", ")} — ready to run.');
+      notifyListeners();
+    } catch (e) {
+      _state = GenerationState.error;
+      _errorMessage = 'Failed to write generated files: $e';
+      _appendBlock(LogBlockKind.error, _errorMessage!);
+      notifyListeners();
+    }
   }
 
   Future<void> cancel() async {
+    _aborted = true;
     _client.abort();
     await _sub?.cancel();
     _sub = null;
+    final pending = _turnCompleter;
+    _turnCompleter = null;
+    if (pending != null && !pending.isCompleted) {
+      pending.complete(null);
+    }
     if (_state == GenerationState.sending ||
-        _state == GenerationState.streaming) {
+        _state == GenerationState.streaming ||
+        _state == GenerationState.executingTools) {
       _state = GenerationState.error;
       _errorMessage = 'Generation cancelled.';
       _appendBlock(LogBlockKind.status, 'Cancelled by user.');
@@ -154,11 +325,8 @@ class GeneratorNotifier extends ChangeNotifier {
     }
   }
 
-  /// Resets the log/state so the user can start over without leaving
-  /// the previous run on screen.
   void clear() {
     _blocks.clear();
-    _assistantText = '';
     _generatedMainPath = null;
     _generatedAppName = null;
     _errorMessage = null;
@@ -168,12 +336,17 @@ class GeneratorNotifier extends ChangeNotifier {
 
   // ── Internals ────────────────────────────────────────────────────────
 
+  void _failPrecondition(String message) {
+    _state = GenerationState.error;
+    _errorMessage = message;
+    _appendBlock(LogBlockKind.error, message);
+    notifyListeners();
+  }
+
   void _appendBlock(LogBlockKind kind, String text) {
     _blocks.add(LogBlock(kind, text));
   }
 
-  /// Coalesces adjacent same-kind text/thinking deltas into one block so
-  /// the log doesn't fragment into thousands of single-character entries.
   void _appendOrExtend(LogBlockKind kind, String text) {
     if (_blocks.isNotEmpty && _blocks.last.kind == kind) {
       final prev = _blocks.removeLast();
@@ -183,90 +356,26 @@ class GeneratorNotifier extends ChangeNotifier {
     }
   }
 
-  void _finalize(String appName) {
-    // Always log how much text we got and dump the full response to
-    // stdout — the user asked for both visibility in the log screen
-    // and a console copy they can grep.
-    final fullLen = _assistantText.length;
-    _appendBlock(LogBlockKind.status,
-        'Stream complete — received $fullLen chars of assistant text.');
-    debugPrint('═════════ FULL ASSISTANT RESPONSE ($fullLen chars) ═════════');
-    for (final chunk in _chunked(_assistantText, 800)) {
-      debugPrint(chunk);
-    }
-    debugPrint('═════════ END FULL ASSISTANT RESPONSE ═════════');
-
-    final code = _extractDartBlock(_assistantText);
-    if (code == null) {
-      // Surface the raw response in the log too so the user can see
-      // what came back without leaving the app. If there was zero
-      // assistant text (sometimes happens with all-thinking-no-output
-      // responses), say so explicitly.
-      if (fullLen == 0) {
-        _appendBlock(LogBlockKind.error,
-            'Model produced 0 chars of assistant text. The thinking '
-            'blocks above are everything that came back. Check the '
-            'Stop reason status line and/or rerun with extended '
-            'thinking disabled.');
-      } else {
-        _appendBlock(LogBlockKind.text,
-            '── RAW ASSISTANT RESPONSE ──\n$_assistantText');
-        _appendBlock(LogBlockKind.error,
-            'No fenced ```dart block found in the response. Raw text '
-            'shown above; full copy printed to console. Cannot run.');
-      }
-      _state = GenerationState.error;
-      _errorMessage = 'No fenced ```dart block found in the response.';
-      return;
-    }
-    try {
-      final dir = Directory(p.join(_exampleRoot, appName));
-      dir.createSync(recursive: true);
-      final mainFile = File(p.join(dir.path, 'main.dart'));
-      mainFile.writeAsStringSync(code);
-      _generatedMainPath = mainFile.path;
-      _samplesNotifier.reload();
-      _state = GenerationState.done;
-      _appendBlock(LogBlockKind.status,
-          'Wrote ${code.split('\n').length} lines to '
-          'example/$appName/main.dart — ready to run.');
-    } catch (e) {
-      _state = GenerationState.error;
-      _errorMessage = 'Failed to write generated file: $e';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
-    }
-  }
-
-  /// Splits a string into ≤[size]-character chunks at line boundaries
-  /// where possible so debugPrint doesn't truncate long output (Dart's
-  /// platform `print` truncates around 1 KB on Android; debugPrint
-  /// chunks for us but only if we feed it reasonable sizes).
-  static Iterable<String> _chunked(String s, int size) sync* {
-    if (s.isEmpty) return;
-    var start = 0;
-    while (start < s.length) {
-      final end = (start + size).clamp(0, s.length);
-      yield s.substring(start, end);
-      start = end;
-    }
-  }
-
   String _sanitizeAppName(String name) {
     final trimmed = name.trim().toLowerCase();
     final sanitized = trimmed.replaceAll(RegExp(r'[^a-z0-9_]+'), '_');
     return sanitized.replaceAll(RegExp(r'^_+|_+$'), '');
   }
 
-  /// Pulls the first ```dart fenced block out of [body]. Returns null
-  /// if no such block is found.
-  String? _extractDartBlock(String body) {
-    final fence = RegExp(r'```dart\s*\n', multiLine: true);
-    final start = fence.firstMatch(body);
-    if (start == null) return null;
-    final after = body.substring(start.end);
-    final endIdx = after.indexOf('```');
-    if (endIdx < 0) return null;
-    return after.substring(0, endIdx).trimRight();
+  String _summariseInput(Map<String, dynamic> input) {
+    if (input.isEmpty) return '';
+    final parts = <String>[];
+    for (final entry in input.entries) {
+      final v = entry.value;
+      if (v is String) {
+        final flat = v.replaceAll('\n', ' ');
+        final preview = flat.length <= 60 ? flat : '${flat.substring(0, 60)}…';
+        parts.add('${entry.key}: "$preview"');
+      } else {
+        parts.add('${entry.key}: $v');
+      }
+    }
+    return parts.join(', ');
   }
 
   @override

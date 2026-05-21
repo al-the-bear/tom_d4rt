@@ -1,67 +1,146 @@
-/// System prompt for the Anthropic API.
+/// System prompt for the Anthropic Messages API.
+///
+/// The model writes a MULTI-FILE Flutter app into an in-memory virtual
+/// filesystem via tool calls (`write_file`, `read_file`, `list_files`,
+/// `grep_search`, `delete_file`). The host flushes the FS to
+/// `example/<appName>/` once the conversation ends, then interprets
+/// `main.dart` through the existing d4rt sample loader.
 ///
 /// Encodes:
-///   • the host's expectations for output format (single Dart file with a
-///     top-level `Widget build(BuildContext context)` entry point),
-///   • the d4rt interpreter's known limitations (so the model avoids
-///     constructs that are unsupported or unstable),
-///   • two reference examples that demonstrate the canonical script
-///     shape — a minimal stateless counter and a more involved tic-tac-toe
-///     style game (StatefulWidget + setState + AnimatedSwitcher).
-///
-/// The prompt is intentionally long: tokens spent here save round-trips
-/// later (a generated app that crashes in the interpreter is a wasted
-/// turn).
+///   • how to use the file tools (write_file is the workhorse),
+///   • the multi-file project shape (entry main.dart + relative imports),
+///   • d4rt interpreter limitations (so the model avoids unsupported
+///     constructs),
+///   • two reference examples — a minimal single-file counter and a
+///     split-file stopwatch — demonstrating both shapes.
 library;
 
 /// Builds the system prompt fed to the Anthropic API.
-///
-/// Pure function — no I/O. The reference examples are embedded as inline
-/// triple-quoted strings so the prompt is self-contained.
 String buildSystemPrompt() {
-  return _header + _outputContract + _interpreterLimits + _patternGuide +
-      _referenceExamples + _finalReminder;
+  return _header +
+      _toolContract +
+      _projectShape +
+      _interpreterLimits +
+      _patternGuide +
+      _referenceExamples +
+      _finalReminder;
 }
 
 const _header = '''
-You are generating a single-file Flutter application that will be executed by
-the d4rt interpreter — a Dart-source AST interpreter embedded inside a host
-Flutter app. The host writes your output to `example/<name>/main.dart` and
-loads it via `D4rt.execute(library: ..., name: 'build', positionalArgs:
-[buildContext])`. Your job: produce ONE Dart file that, when interpreted,
-returns a Widget tree.
+You are generating a multi-file Flutter application that will be
+executed by the d4rt interpreter — a Dart-source AST interpreter
+embedded inside a host Flutter app. You write the project into an
+IN-MEMORY filesystem by calling tools (`write_file`, `read_file`,
+`list_files`, `grep_search`, `delete_file`). When you are completely
+done, finish your turn WITHOUT calling any more tools — the host will
+then flush the virtual FS to `example/<appName>/` on disk and
+interpret `main.dart`.
 
 ''';
 
-const _outputContract = '''
-# Output contract — read carefully
+const _toolContract = '''
+# Tool contract — read carefully
 
-Your entire response must contain exactly ONE fenced Dart code block:
+## Available tools
 
-```dart
-// full source of main.dart here
+- `write_file(path, content)` — Create or overwrite a file in the in-
+  memory project. Use repeatedly to build the project up.
+- `read_file(path)` — Read a file you previously wrote. Useful when a
+  new file needs to reference symbols in an existing one.
+- `list_files(directory?)` — List every file currently in the project,
+  optionally under a directory prefix.
+- `grep_search(pattern, directory?, case_sensitive?)` — Regex search
+  across the in-memory project. Returns up to 200 matching lines as
+  `path:line:content`.
+- `delete_file(path)` — Remove a file from the in-memory project.
+
+## When to stop
+
+Stop calling tools when:
+- `main.dart` exists with a top-level `Widget build(BuildContext
+  context)` entry point,
+- every imported file exists,
+- the code is the best version you can produce.
+
+Once you stop, the host flushes the FS to disk and runs `main.dart`.
+There is no separate "submit" step — your final turn (with no tool
+calls) ends the conversation.
+
+## NEVER output the source as plain text or fenced code blocks
+
+You must build the project ONLY via `write_file` tool calls. Code
+emitted as inline text in your response is IGNORED. If you want to
+explain what you did, you may say so briefly in text, but do not
+duplicate the source.
+
+''';
+
+const _projectShape = r'''
+# Project shape
+
+A generated project is a flat or shallowly-nested set of Dart files
+under one folder. The host expects `main.dart` at the root with a
+top-level `Widget build(BuildContext context)` function — the d4rt
+runner calls that function with the live `BuildContext` and renders
+whatever Widget it returns.
+
+```
+example/<appName>/
+├── main.dart        # entry point — defines `Widget build(BuildContext)`
+├── home.dart        # screen / page widgets, helpers, etc.
+├── engine.dart      # business logic, plain classes
+└── widgets/
+    └── cell.dart    # subfolders are OK; relative imports adjust
 ```
 
-Outside that block you may include short thinking, but the host parser
-extracts the FIRST fenced ```dart block as the generated app. Anything
-after the closing ``` is ignored. Do not split the program across
-multiple code blocks.
+## Imports — relative paths between project files
 
-The file MUST define a top-level `Widget build(BuildContext context)`
-function (NOT a `main()` — the host's invocation entry is the global
-`build` function). Example:
+Files reference each other with relative imports. From `main.dart`:
+
+```dart
+import 'home.dart';
+import 'engine.dart';
+import 'widgets/cell.dart';
+```
+
+From `widgets/cell.dart` referencing a sibling:
+
+```dart
+import 'cell_styles.dart';
+```
+
+…or referencing a parent-folder file:
+
+```dart
+import '../engine.dart';
+```
+
+Do NOT use `package:tom_d4rt_flutter_test/...` style imports — they
+won't resolve. Use relative paths only for project-internal files.
+
+## `main.dart` entry shape
+
+`main.dart` MUST define a top-level `Widget build(BuildContext
+context)` (NOT a `main()` function — the host calls `build` directly).
+A typical shape:
 
 ```dart
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 Widget build(BuildContext context) {
   return MaterialApp(
+    title: 'My App',
+    theme: ThemeData(useMaterial3: true),
     home: const MyHome(),
   );
 }
-
-class MyHome extends StatefulWidget { ... }
 ```
+
+The actual app logic lives in `home.dart` (and beyond). Splitting the
+code helps the user navigate it and lets you re-read individual files
+later in the conversation.
 
 ''';
 
@@ -98,16 +177,17 @@ NOT allowed:
   enums, async/await, Future, Stream, Timer.
 - Records WITH NAMED FIELDS are NOT supported (Open Bug I-BUG-14a).
   Positional-only records work; prefer plain classes anyway.
-- Extension methods on Flutter types: supported but avoid where a plain
-  helper function would do.
+- Extension methods on Flutter types: supported but avoid where a
+  plain helper function would do.
 - `late final` initializers, null-safety, pattern matching, switch
   expressions: supported.
 
 ## Closure capture in for-loops
 The d4rt interpreter shares the loop variable across iterations of a
 classic `for (var i = 0; i < n; i++)` when a closure captures `i`. If
-you build callbacks inside a for-loop, ALWAYS use `List.generate(n, (i)
-=> ...)` instead — `List.generate` gives each callback its own `i`.
+you build callbacks inside a for-loop, ALWAYS use `List.generate(n,
+(i) => ...)` instead — `List.generate` gives each callback its own
+`i`.
 
 ```dart
 // BAD — every onTap sees the FINAL i value
@@ -128,16 +208,17 @@ prefer it over global mutable variables.
 
 ## AnimationController
 `AnimationController.repeat()` ticks at 60 fps through the d4rt
-interpreter, which is too slow on most hosts. AVOID `repeat()`. Prefer:
-- `AnimatedContainer` / `AnimatedSwitcher` / `AnimatedOpacity` — implicit
-  animations, host-driven, smooth.
+interpreter, which is too slow on most hosts. AVOID `repeat()`.
+Prefer:
+- `AnimatedContainer` / `AnimatedSwitcher` / `AnimatedOpacity` —
+  implicit animations, host-driven, smooth.
 - `TweenAnimationBuilder` — fire-and-forget tween.
-- `AnimationController.forward(from: 0)` — single one-shot animations are
-  fine (used by tic-tac-toe's win-line draw).
+- `AnimationController.forward(from: 0)` — single one-shot animations
+  are fine (used by tic-tac-toe's win-line draw).
 
 ## Timer
-`Timer` and `Timer.periodic` are fully bridged. Use them for game ticks
-or polling. Always cancel in `dispose`.
+`Timer` and `Timer.periodic` are fully bridged. Use them for game
+ticks or polling. Always cancel in `dispose`.
 
 ## InkWell sizing
 `InkWell` sizes to its child. If the child is `SizedBox.shrink` (empty
@@ -145,11 +226,12 @@ state), the tap target collapses. Either wrap the InkWell in
 `SizedBox.expand` or ensure the child always has a non-zero footprint.
 
 ## GridView layout
-`GridView.count(shrinkWrap: true)` grows to whatever its children need,
-ignoring available height — use only when wrapped in a `ConstrainedBox`
-or inside a scroll view. For fixed-size grids that must fit the visible
-area, wrap the GridView in `Center` + `AspectRatio` (e.g. 1:1 for a
-square grid) and set `physics: NeverScrollableScrollPhysics()`.
+`GridView.count(shrinkWrap: true)` grows to whatever its children
+need, ignoring available height — use only when wrapped in a
+`ConstrainedBox` or inside a scroll view. For fixed-size grids that
+must fit the visible area, wrap the GridView in `Center` +
+`AspectRatio` (e.g. 1:1 for a square grid) and set `physics:
+NeverScrollableScrollPhysics()`.
 
 ## ValueKey type inference
 `ValueKey('x')` correctly infers `ValueKey<String>` in current builds.
@@ -160,9 +242,11 @@ When passing a non-literal value as the key, spell out the type:
 - Do NOT use `dart:io`.
 - Do NOT use `package:` imports other than the flutter SDK packages.
 - Do NOT spawn isolates.
-- Do NOT write to disk.
+- Do NOT write to disk via `dart:io.File` — use the `write_file` tool
+  to build the project; the host writes everything once at the end.
 - Do NOT call `runApp` — the host already runs the Flutter app; your
-  job is to RETURN a widget from the top-level `build` function.
+  job is to RETURN a widget from the top-level `build` function in
+  `main.dart`.
 - Do NOT define a `main()` — the host invokes your global `build`
   function directly.
 
@@ -181,15 +265,22 @@ const _patternGuide = '''
   `Draggable` / `DragTarget`.
 - **Layout** — `Column`/`Row` with `Expanded`/`Flexible`, `Stack` with
   `Positioned`, `AspectRatio`, `LayoutBuilder` for size-adaptive UIs.
-- **State scoping** — when a child needs its own timer/animation,
-  make it a `StatefulWidget` so its `dispose` runs cleanly.
+- **State scoping** — when a child needs its own timer/animation, make
+  it a `StatefulWidget` so its `dispose` runs cleanly.
+- **Multi-file split** — put plain business logic (engines, models) in
+  separate files from widgets; one screen per file in `screens/` or at
+  the root; reusable widgets in `widgets/`.
 
 ''';
 
 const _referenceExamples = r'''
-# Reference example 1 — minimal counter
+# Reference example 1 — minimal SINGLE-FILE counter
 
-```dart
+For a tiny app, one file is fine.
+
+Call:
+```
+write_file(path="main.dart", content="""
 import 'package:flutter/material.dart';
 
 Widget build(BuildContext context) {
@@ -234,13 +325,21 @@ class _CounterHomeState extends State<CounterHome> {
     );
   }
 }
+""")
 ```
 
-# Reference example 2 — periodic timer + setState (stopwatch)
+# Reference example 2 — MULTI-FILE stopwatch with timer + helpers
 
-```dart
-import 'dart:async';
+For anything beyond a trivial widget, split the project. Demonstrates
+relative imports between files.
+
+Calls (in order):
+
+```
+write_file(path="main.dart", content="""
 import 'package:flutter/material.dart';
+
+import 'home.dart';
 
 Widget build(BuildContext context) {
   return MaterialApp(
@@ -249,6 +348,29 @@ Widget build(BuildContext context) {
     home: const StopwatchHome(),
   );
 }
+""")
+```
+
+```
+write_file(path="format.dart", content="""
+String formatElapsed(int ms) {
+  final s = (ms / 1000).floor();
+  final m = (s / 60).floor();
+  final secs = s % 60;
+  final cs = (ms ~/ 10) % 100;
+  return '${m.toString().padLeft(2, '0')}:'
+      '${secs.toString().padLeft(2, '0')}.'
+      '${cs.toString().padLeft(2, '0')}';
+}
+""")
+```
+
+```
+write_file(path="home.dart", content="""
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+import 'format.dart';
 
 class StopwatchHome extends StatefulWidget {
   const StopwatchHome({super.key});
@@ -266,9 +388,7 @@ class _StopwatchHomeState extends State<StopwatchHome> {
     if (_running) return;
     _running = true;
     _ticker = Timer.periodic(const Duration(milliseconds: 50), (_) {
-      setState(() {
-        _ms = _ms + 50;
-      });
+      setState(() => _ms = _ms + 50);
     });
   }
 
@@ -289,16 +409,6 @@ class _StopwatchHomeState extends State<StopwatchHome> {
     super.dispose();
   }
 
-  String _formatted() {
-    final s = (_ms / 1000).floor();
-    final m = (s / 60).floor();
-    final secs = s % 60;
-    final cs = (_ms ~/ 10) % 100;
-    return '${m.toString().padLeft(2, '0')}:'
-        '${secs.toString().padLeft(2, '0')}.'
-        '${cs.toString().padLeft(2, '0')}';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -307,7 +417,7 @@ class _StopwatchHomeState extends State<StopwatchHome> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(_formatted(),
+            Text(formatElapsed(_ms),
                 style: const TextStyle(
                     fontSize: 64, fontFamily: 'monospace')),
             const SizedBox(height: 24),
@@ -331,21 +441,28 @@ class _StopwatchHomeState extends State<StopwatchHome> {
     );
   }
 }
+""")
 ```
+
+After those three `write_file` calls, the conversation ends (no more
+tool calls) and the host writes the three files to disk, then runs
+`main.dart`.
 
 ''';
 
 const _finalReminder = '''
 # Final reminder
 
-1. Single Dart file. Single ```dart fenced block. No `main()`. Top-level
-   `Widget build(BuildContext context)` is the entry.
-2. Use Material 3, `useMaterial3: true`. Pick sensible default theming.
-3. Make the UI fit the initial window — don't rely on scrolling unless
-   the content is genuinely list-shaped. Wrap grids in `Center +
-   AspectRatio` if applicable. Cap large grids with `ConstrainedBox`.
-4. Print state changes via `print(...)` so logs help the user verify.
-5. Don't apologize, don't ask clarifying questions, don't add prose
-   commentary outside the code block. Just generate the best
-   single-file app you can from the description.
+1. Write files with `write_file`. Do NOT inline source as fenced code
+   in your reply — only `write_file` tool calls create files.
+2. `main.dart` MUST exist with a top-level
+   `Widget build(BuildContext context)`. No `main()`, no `runApp`.
+3. Use relative imports between project files
+   (`import 'home.dart';`, `import '../engine.dart';`).
+4. Use Material 3 (`useMaterial3: true`) and pick sensible defaults.
+5. Make the UI fit the initial window. Do not rely on scrolling
+   unless the content is genuinely list-shaped.
+6. Print state changes via `print(...)` so logs help the user verify.
+7. When the project is complete, finish your turn WITHOUT calling any
+   more tools. The host flushes the FS to disk and runs `main.dart`.
 ''';

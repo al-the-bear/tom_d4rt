@@ -137,6 +137,10 @@ class _Header extends StatelessWidget {
         color = scheme.primary;
         label = 'Streaming…';
         icon = Icons.bolt_outlined;
+      case GenerationState.executingTools:
+        color = scheme.primary;
+        label = 'Executing tool calls…';
+        icon = Icons.build_outlined;
       case GenerationState.done:
         color = scheme.tertiary;
         label = 'Done — ready to run';
@@ -206,6 +210,16 @@ class _BlockTile extends StatelessWidget {
         foreground = scheme.onSurface;
         tag = 'TEXT';
         icon = Icons.chat_bubble_outline;
+      case LogBlockKind.toolCall:
+        background = scheme.tertiaryContainer;
+        foreground = scheme.onTertiaryContainer;
+        tag = 'TOOL CALL';
+        icon = Icons.build_outlined;
+      case LogBlockKind.toolResult:
+        background = scheme.surfaceContainerHigh;
+        foreground = scheme.onSurfaceVariant;
+        tag = 'TOOL RESULT';
+        icon = Icons.check_outlined;
       case LogBlockKind.error:
         background = scheme.errorContainer;
         foreground = scheme.onErrorContainer;
