@@ -186,7 +186,14 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     // We only react to *down* events. Holding a key doesn't
     // repeat-fire — the player gets one direction change per
     // press, which matches every other snake.
-    if (event is! KeyDownEvent) return;
+    //
+    // We compare on `runtimeType.toString()` rather than
+    // `event is KeyDownEvent`. The latter is unreliable under the
+    // d4rt interpreter for some bridged event subtypes — the event
+    // arrives as a real native `KeyDownEvent` but the script-side
+    // `is` resolves false, dropping every key. `runtimeType` always
+    // returns the native Type and stringifies to the class name.
+    if (event.runtimeType.toString() != 'KeyDownEvent') return;
     final key = event.logicalKey;
     final dir = directionFromKey(key);
     if (dir != null) {

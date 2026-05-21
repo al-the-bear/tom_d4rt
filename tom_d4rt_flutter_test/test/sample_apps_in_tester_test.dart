@@ -23,6 +23,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'
+    show LogicalKeyboardKey; // for tester.sendKey*Event in tron tests
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart';
@@ -4262,6 +4264,291 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'tabbed_dashboard (example #20 — DefaultTabController + '
+      'AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic)',
+      () {
+    // Trail prefixes:
+    //   tab.init labels=[Chart,Settings,Log]
+    //   tab.switch from=I to=J
+    //   chart.add value=V
+    //   chart.points n=N
+    //   chart.cleared
+    //   settings.threshold=V
+    //   settings.label=S
+    //   log.tick i=I msg=S
+    //   log.pause=true|false
+    //   log.cleared
+
+    testWidgets('boots on the Chart tab with all three tabs present',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('tabbed-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('tabbed-tabbar')), findsOneWidget);
+        expect(find.byKey(const Key('tabbed-tabview')), findsOneWidget);
+        expect(find.byKey(const Key('tabbed-tab-chart')), findsOneWidget);
+        expect(find.byKey(const Key('tabbed-tab-settings')), findsOneWidget);
+        expect(find.byKey(const Key('tabbed-tab-log')), findsOneWidget);
+
+        // Chart tab is the initial selection — its controls must be
+        // mounted.
+        expect(find.byKey(const Key('chart-add-button')), findsOneWidget);
+        expect(find.byKey(const Key('chart-paint')), findsOneWidget);
+
+        // Init line in the trail.
+        final inits =
+            _printLog.where((l) => l.startsWith('tab.init ')).toList();
+        expect(inits, hasLength(1));
+        expect(inits.first, contains('Chart'));
+        expect(inits.first, contains('Settings'));
+        expect(inits.first, contains('Log'));
+      });
+    });
+
+    testWidgets('Add button grows the chart point list',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('chart-add-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('chart-add-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final adds =
+            _printLog.where((l) => l.startsWith('chart.add ')).toList();
+        expect(adds, hasLength(2));
+
+        final counts = _printLog
+            .where((l) => l.startsWith('chart.points '))
+            .toList();
+        expect(counts, isNotEmpty);
+        // Seed list has 5; +2 adds => 7.
+        expect(counts.last, contains('n=7'));
+
+        final label = tester.widget<Text>(
+          find.byKey(const Key('chart-count-label')),
+        );
+        expect(label.data, 'Points: 7');
+      });
+    });
+
+    testWidgets('Clear button resets the chart to zero points',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('chart-add-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('chart-clear-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final cleared =
+            _printLog.where((l) => l == 'chart.cleared').toList();
+        expect(cleared, hasLength(1));
+
+        final counts = _printLog
+            .where((l) => l.startsWith('chart.points '))
+            .toList();
+        expect(counts.last, contains('n=0'));
+
+        final label = tester.widget<Text>(
+          find.byKey(const Key('chart-count-label')),
+        );
+        expect(label.data, 'Points: 0');
+      });
+    });
+
+    testWidgets('switching tabs emits a single tab.switch line per move',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Chart (0) -> Settings (1) -> Log (2) -> Chart (0).
+        // Note: the Log tab subscribes to a `Stream.periodic` in
+        // initState that never completes — once we've visited the
+        // Log tab we must use repeated `pump(...)` calls rather than
+        // `pumpAndSettle(...)`, which would otherwise spin forever
+        // waiting for the never-ending stream's timer.
+        await tester.tap(find.byKey(const Key('tabbed-tab-settings')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('tabbed-tab-log')));
+        for (int i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+        await tester.tap(find.byKey(const Key('tabbed-tab-chart')));
+        for (int i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+
+        final switches = _printLog
+            .where((l) => l.startsWith('tab.switch '))
+            .toList();
+        expect(switches, hasLength(3),
+            reason:
+                'Each tab move should emit exactly one tab.switch line.');
+        expect(switches[0], 'tab.switch from=0 to=1');
+        expect(switches[1], 'tab.switch from=1 to=2');
+        expect(switches[2], 'tab.switch from=2 to=0');
+      });
+    });
+
+    testWidgets('threshold slider on the Settings tab updates the label',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('tabbed-tab-settings')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // Initial value is 0.50.
+        Text label = tester.widget<Text>(
+          find.byKey(const Key('settings-threshold-label')),
+        );
+        expect(label.data, 'Threshold: 0.50');
+
+        await tester.drag(
+          find.byKey(const Key('settings-threshold-slider')),
+          const Offset(-200.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final updates = _printLog
+            .where((l) => l.startsWith('settings.threshold='))
+            .toList();
+        expect(updates, isNotEmpty);
+
+        label = tester.widget<Text>(
+          find.byKey(const Key('settings-threshold-label')),
+        );
+        // After a 200-pixel leftward drag the value must be below
+        // the initial 0.50.
+        final String s = label.data!.split(' ').last;
+        expect(double.parse(s), lessThan(0.5));
+      });
+    });
+
+    testWidgets(
+        'AutomaticKeepAliveClientMixin preserves Settings state across '
+        'tab switches', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Settings tab: drag slider far left.
+        await tester.tap(find.byKey(const Key('tabbed-tab-settings')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        await tester.drag(
+          find.byKey(const Key('settings-threshold-slider')),
+          const Offset(-200.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final Text afterEdit = tester.widget<Text>(
+          find.byKey(const Key('settings-threshold-label')),
+        );
+        final String editedValue = afterEdit.data!;
+        expect(editedValue, isNot('Threshold: 0.50'),
+            reason: 'The drag must have changed the threshold.');
+
+        // Bounce to Chart and back.
+        await tester.tap(find.byKey(const Key('tabbed-tab-chart')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('tabbed-tab-settings')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        final Text afterReturn = tester.widget<Text>(
+          find.byKey(const Key('settings-threshold-label')),
+        );
+        expect(afterReturn.data, editedValue,
+            reason: 'Keep-alive mixin must have preserved the value.');
+      });
+    });
+
+    testWidgets('Log tab streams entries via Stream.periodic',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('tabbed-tab-log')));
+        // Bare `pump` advances tab animation by one frame and then
+        // releases — pumpAndSettle would never return because the
+        // tab subscribes to a periodic stream in initState.
+        for (int i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+
+        // Let the periodic stream fire a few times. The ticker
+        // period is 300ms — pump 1.5s in 100ms frames so the
+        // subscription has time to receive several values.
+        for (int i = 0; i < 15; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+
+        final ticks =
+            _printLog.where((l) => l.startsWith('log.tick ')).toList();
+        expect(ticks.length, greaterThanOrEqualTo(2),
+            reason: 'Stream.periodic should have emitted >= 2 entries.');
+        expect(ticks.first, contains('i=0'));
+      });
+    });
+
+    testWidgets('Pause toggle freezes the log stream',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tabbed_dashboard');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('tabbed-tab-log')));
+        // pumpAndSettle would spin forever — Stream.periodic in the
+        // log tab's initState never completes.
+        for (int i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+
+        // Let a couple of ticks land first.
+        for (int i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+        final int beforePause = _printLog
+            .where((l) => l.startsWith('log.tick '))
+            .length;
+        expect(beforePause, greaterThanOrEqualTo(1));
+
+        // Pause and wait.
+        await tester.tap(find.byKey(const Key('log-pause-button')));
+        for (int i = 0; i < 15; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+
+        final int afterPause = _printLog
+            .where((l) => l.startsWith('log.tick '))
+            .length;
+        // The stream subscription stays alive while paused — the
+        // pause flag short-circuits inside _onTick. New raw ticks
+        // can still arrive on the host side, but no new `log.tick`
+        // lines must be emitted by the script. The count of script
+        // tick lines must therefore not grow.
+        expect(afterPause, beforePause,
+            reason: 'No new log.tick lines should appear while paused.');
+
+        final pauses = _printLog
+            .where((l) => l.startsWith('log.pause='))
+            .toList();
+        expect(pauses, hasLength(1));
+        expect(pauses.first, 'log.pause=true');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
@@ -4399,6 +4686,207 @@ Widget build(BuildContext context) {
                 '"TAP i=3", the d4rt classic-for loop variable is shared '
                 'across iterations — see interpreter_issues.md "[Open] '
                 'classic for-loop closure capture".');
+      });
+    });
+  });
+
+  group('tron (KeyboardListener + CustomPainter)', () {
+    // tron uses `KeyboardListener(autofocus: true)` and discriminates
+    // KeyDownEvent vs other KeyEvent subtypes via
+    // `event.runtimeType.toString()` (a workaround for the d4rt
+    // interpreter's unreliable `event is KeyDownEvent` resolution
+    // for some bridged event subtypes).
+    //
+    // These tests fire real key events through `tester.sendKeyDownEvent`
+    // — if a key gets dropped (focus missed, type check broken, etc.)
+    // the script's print log won't include the `[tron] key=...` line
+    // and the test fails with a clear log.
+
+    // The top bar is laid out for a real-window 1400×900 desktop; the
+    // 768-px default tester surface overflows it. Each tron test
+    // resizes the test viewport before mounting so RenderFlex
+    // assertions don't mask the real test signal. We use `tester.view`
+    // because `setSurfaceSize` doesn't propagate to the MediaQuery
+    // size used by the interpreted MaterialApp before the first
+    // pumpWidget.
+    Future<void> mountTron(WidgetTester tester) async {
+      tester.view.physicalSize = const Size(1400, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await _mountSample(tester, 'tron');
+      // Pump enough to let MediaQuery propagate the new view size to
+      // the interpreted MaterialApp and lay everything out.
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 30));
+      // Drain RenderFlex overflow assertions raised by the top bar
+      // — the bar is hand-laid for desktop sizes and not the focus
+      // of these keyboard tests. Multiple overflows can be queued
+      // (one per laid-out Row), so loop until the framework's
+      // exception queue is empty. Anything NOT an overflow is
+      // re-raised so interpreter crashes still surface.
+      while (true) {
+        final caught = tester.takeException();
+        if (caught == null) break;
+        if (!caught.toString().contains('A RenderFlex overflowed')) {
+          throw caught;
+        }
+      }
+    }
+
+    testWidgets('boots with the arena focused and KEYS ACTIVE shown',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tron');
+        // Let `autofocus: true` settle.
+        await tester.pump(const Duration(milliseconds: 30));
+
+        final init = _printLog.where((l) => l == '[tron] init').toList();
+        expect(init, hasLength(1),
+            reason: 'Boot should emit exactly one [tron] init line.');
+
+        // KeyboardListener autofocuses, so the focus-change handler
+        // should have flipped to true and the focus badge should show
+        // "KEYS ACTIVE".
+        expect(find.text('KEYS ACTIVE'), findsOneWidget,
+            reason:
+                'autofocus: true on KeyboardListener should claim focus '
+                'on first build.');
+      });
+    });
+
+    testWidgets('arrow-left key queues a LEFT turn', (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] key=')).toList(),
+          isNotEmpty,
+          reason:
+              'Pressing arrowLeft should reach the script handler. If '
+              'this is empty, KeyEvent type discrimination is broken — '
+              'see the runtimeType.toString() workaround in home.dart.',
+        );
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
+          hasLength(1),
+          reason: 'arrowLeft should fire exactly one LEFT turn.',
+        );
+      });
+    });
+
+    testWidgets('letter A also turns LEFT (alternate binding)',
+        (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.keyA);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('arrow-right key queues a RIGHT turn', (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowRight);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('letter D also turns RIGHT (alternate binding)',
+        (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('space key toggles pause', (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        // Each press is a full down+up cycle — the test framework's
+        // HardwareKeyboard asserts that a key isn't already pressed
+        // when sendKeyDownEvent fires, so we have to release in
+        // between.
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l == '[tron] paused=true').toList(),
+          hasLength(1),
+          reason: 'First space press should pause.',
+        );
+
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l == '[tron] paused=false').toList(),
+          hasLength(1),
+          reason: 'Second space press should resume.',
+        );
+      });
+    });
+
+    testWidgets('KeyUpEvent is ignored — only down/repeat queues a turn',
+        (tester) async {
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        // A press is down + up; the up half must NOT queue another turn.
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowLeft);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
+          hasLength(1),
+          reason: 'One press = one LEFT. If the count is 2, the script '
+              'is processing KeyUpEvent as a turn-trigger.',
+        );
+      });
+    });
+
+    testWidgets('LEFT button (UI fallback) also queues a turn',
+        (tester) async {
+      // Independent of keyboard plumbing — exercises the on-screen
+      // _SteerButton path. Useful as a regression baseline: if this
+      // passes but the keyboard tests fail, the engine + setState are
+      // fine and the bug is in the key pipeline.
+      await _runInZone(() async {
+        await mountTron(tester);
+
+        await tester.tap(find.text('LEFT  (A / ←)'));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
+          hasLength(1),
+        );
       });
     });
   });
