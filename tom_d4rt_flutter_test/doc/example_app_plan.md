@@ -791,7 +791,7 @@ animation.
 
 ---
 
-### 24. [ ] `slide_puzzle` — 4×4 sliding-tile puzzle
+### 24. [x] `slide_puzzle` — 4×4 sliding-tile puzzle — SHIPPED
 
 A 15-puzzle. Tap a tile adjacent to the gap to slide it
 (`AnimatedPositioned` transition). Shuffle button scrambles

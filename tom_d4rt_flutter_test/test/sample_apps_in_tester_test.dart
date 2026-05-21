@@ -5719,6 +5719,255 @@ Widget build(BuildContext context) {
       });
     });
   });
+
+  group(
+      'slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + '
+      'BFS solver + confetti CustomPainter)', () {
+    // Trail emitted by the interpreted script (example/slide_puzzle/):
+    //   puzzle.boot tiles=16 gap=15
+    //   tile.tap cell=<c> value=<v>
+    //   tile.reject cell=<c>
+    //   move.count=<n>
+    //   puzzle.shuffle moves=<n> seed=<s>
+    //   timer.start / timer.stop elapsed=<n>
+    //   puzzle.solver moves=<n>
+    //   puzzle.solver.step cell=<c>
+    //   puzzle.solve moves=<n> elapsed=<n>
+    //   confetti.start particles=<n> / confetti.end
+
+    testWidgets('boots in solved state with 15 numbered tiles + chrome',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        expect(find.byKey(const Key('puzzle-scaffold')), findsOneWidget);
+        expect(find.byKey(const Key('puzzle-board')), findsOneWidget);
+        expect(find.byKey(const Key('shuffle-button')), findsOneWidget);
+        expect(find.byKey(const Key('solver-button')), findsOneWidget);
+        expect(find.byKey(const Key('move-counter')), findsOneWidget);
+        expect(find.byKey(const Key('timer-text')), findsOneWidget);
+
+        // 15 numbered tiles in the tree.
+        for (int v = 1; v <= 15; v = v + 1) {
+          expect(find.byKey(Key('tile-$v')), findsOneWidget);
+        }
+
+        // Solved state starts with the celebrate label visible.
+        expect(find.text('Moves: 0'), findsOneWidget);
+        expect(find.text('Time: 0s'), findsOneWidget);
+
+        // Boot line is emitted post-frame.
+        expect(
+          _printLog
+              .where((l) => l == 'puzzle.boot tiles=16 gap=15')
+              .toList(),
+          hasLength(1),
+        );
+      });
+    });
+
+    testWidgets('shuffle button scrambles the board + resets the counter',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('shuffle-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        // Shuffle line is emitted with the deterministic seed.
+        expect(
+          _printLog
+              .where((l) => l == 'puzzle.shuffle moves=4 seed=42')
+              .toList(),
+          hasLength(1),
+        );
+        // Counter sits at zero after the shuffle.
+        expect(find.text('Moves: 0'), findsOneWidget);
+        // The "Solved!" badge should be gone now.
+        expect(find.byKey(const Key('solved-label')), findsNothing);
+      });
+    });
+
+    testWidgets(
+        'tapping a tile adjacent to the gap accepts the move + bumps the '
+        'counter', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // In the solved board, gap is at cell 15. Tile value 15 sits at
+        // cell 14, and tile value 12 sits at cell 11 — both adjacent
+        // to the gap. Tap tile 15.
+        await tester.tap(find.byKey(const Key('tile-15')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        // Trail: a single tile.tap + a single move.count=1 line.
+        expect(
+          _printLog
+              .where((l) => l == 'tile.tap cell=14 value=15')
+              .toList(),
+          hasLength(1),
+        );
+        expect(
+          _printLog.where((l) => l == 'move.count=1').toList(),
+          hasLength(1),
+        );
+        expect(find.text('Moves: 1'), findsOneWidget);
+      });
+    });
+
+    testWidgets('tapping a tile not adjacent to the gap is rejected',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Tile value 1 sits at cell 0; the gap is at cell 15 — not
+        // adjacent. The tap must be rejected.
+        await tester.tap(find.byKey(const Key('tile-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        expect(
+          _printLog
+              .where((l) => l == 'tile.reject cell=0')
+              .toList(),
+          hasLength(1),
+        );
+        // No move.count increment.
+        expect(_printLog.where((l) => l.startsWith('move.count=')), isEmpty);
+        expect(find.text('Moves: 0'), findsOneWidget);
+      });
+    });
+
+    testWidgets('first valid tap starts the elapsed-time timer',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Before any tap, no timer.start line should have fired.
+        expect(_printLog.where((l) => l == 'timer.start'), isEmpty);
+
+        await tester.tap(find.byKey(const Key('tile-15')));
+        // Timer.periodic is alive after this, so use plain pump.
+        await tester.pump(const Duration(milliseconds: 100));
+
+        expect(
+          _printLog.where((l) => l == 'timer.start').toList(),
+          hasLength(1),
+        );
+
+        // Pump past one second so the timer fires at least once.
+        await tester.pump(const Duration(milliseconds: 1100));
+        expect(find.text('Time: 1s'), findsOneWidget);
+
+        // Undo the move so the board returns to solved — that fires
+        // timer.stop and lets the test settle without a leaked timer.
+        await tester.tap(find.byKey(const Key('tile-15')));
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(
+          _printLog.where((l) => l.startsWith('timer.stop ')).length,
+          greaterThanOrEqualTo(1),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+      });
+    });
+
+    testWidgets('undoing the single-move scramble triggers puzzle.solve',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Move tile 15 into the gap. Board now has the gap at cell 14
+        // and tile 15 at cell 15.
+        await tester.tap(find.byKey(const Key('tile-15')));
+        await tester.pump(const Duration(milliseconds: 100));
+        // Tap tile 15 again — its current cell (15) is adjacent to the
+        // new gap (14). The swap restores the solved state.
+        await tester.tap(find.byKey(const Key('tile-15')));
+        // Step in 50ms ticks so the confetti burst (whose ticker
+        // clamps dt to 50ms by design — sane behaviour on resume from
+        // pause) actually drains.
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(
+          _printLog.where((l) => l.startsWith('puzzle.solve ')).length,
+          greaterThanOrEqualTo(1),
+        );
+        // After the burst finishes, the celebrate flag flips off and
+        // the "Solved!" badge appears.
+        expect(find.byKey(const Key('solved-label')), findsOneWidget);
+      });
+    });
+
+    testWidgets('solve emits a confetti.start trail line + paints overlay',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('tile-15')));
+        await tester.pump(const Duration(milliseconds: 100));
+        await tester.tap(find.byKey(const Key('tile-15')));
+        await tester.pump(const Duration(milliseconds: 100));
+
+        expect(
+          _printLog
+              .where((l) => l.startsWith('confetti.start particles=')).length,
+          greaterThanOrEqualTo(1),
+        );
+        expect(find.byKey(const Key('confetti')), findsOneWidget);
+
+        // Drain the burst in 50ms steps so the ticker's per-frame dt
+        // (clamped to 50ms — sane resume-after-pause behaviour) advances
+        // each frame instead of being collapsed by a single big pump.
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        expect(
+          _printLog.where((l) => l == 'confetti.end').length,
+          greaterThanOrEqualTo(1),
+        );
+      });
+    });
+
+    testWidgets('solver button auto-solves a shuffled board',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'slide_puzzle');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.tap(find.byKey(const Key('shuffle-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+
+        await tester.tap(find.byKey(const Key('solver-button')));
+        // The solver chains moves via Future.delayed(260ms) — pump
+        // generously past kShuffleMoves * step so every step has time
+        // to fire. Use plain pump for the timer-active phase.
+        for (int i = 0; i < 12; i = i + 1) {
+          await tester.pump(const Duration(milliseconds: 300));
+        }
+
+        final List<String> solverLines = _printLog
+            .where((l) => l.startsWith('puzzle.solver '))
+            .toList();
+        expect(solverLines, hasLength(1));
+        expect(
+          _printLog
+              .where((l) => l.startsWith('puzzle.solver.step cell=')).length,
+          greaterThanOrEqualTo(1),
+        );
+        expect(
+          _printLog.where((l) => l.startsWith('puzzle.solve ')).length,
+          greaterThanOrEqualTo(1),
+        );
+        // Drain the confetti ticker.
+        await tester.pump(const Duration(milliseconds: 1800));
+        await tester.pumpAndSettle(const Duration(milliseconds: 400));
+      });
+    });
+  });
 }
 
 /// Pump a `MaterialApp` whose body is the widget produced by interpreting
