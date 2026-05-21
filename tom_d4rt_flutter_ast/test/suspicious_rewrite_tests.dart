@@ -5135,4 +5135,126 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch36_short_tests2_demos_b6/', () {
+    test('widgets/constrainedbox_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/constrainedbox_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/edgeinsets_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/edgeinsets_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/divider_test.dart', () async {
+      final result = await SendTestRunner.send('material/divider_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/render_object_to_widget_element_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/render_object_to_widget_element_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_themes_batch1_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_themes_batch1_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/compoundanimation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/compoundanimation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/draggable_test.dart', () async {
+      final result = await SendTestRunner.send('widgets/draggable_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/tweensequence_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/tweensequence_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/nav_destinations_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/nav_destinations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
+
+  group('batch37_short_tests2_demos_b7/', () {
+    test('rendering/textpainter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/textpainter_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('foundation/notifier_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'foundation/notifier_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/render_tree_root_element_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/render_tree_root_element_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dropdown_test.dart', () async {
+      final result = await SendTestRunner.send('material/dropdown_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/sliverappbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/sliverappbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/misc_themes_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/misc_themes_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/progress_test.dart', () async {
+      final result = await SendTestRunner.send('material/progress_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/cupertino_themes_batch4_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_themes_batch4_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/buttonstyle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/buttonstyle_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
