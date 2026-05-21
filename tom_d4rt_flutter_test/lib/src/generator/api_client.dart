@@ -73,7 +73,7 @@ class AnthropicClient {
     required String userMessage,
     int maxTokens = 16000,
     bool extendedThinking = true,
-    int thinkingBudgetTokens = 8000,
+    String thinkingEffort = 'high',
   }) async* {
     if (apiKey.trim().isEmpty) {
       yield const ErrorEvent('Anthropic API key is empty.');
@@ -95,12 +95,14 @@ class AnthropicClient {
       'stream': true,
     };
     if (extendedThinking) {
-      body['thinking'] = {
-        'type': 'enabled',
-        'budget_tokens': thinkingBudgetTokens,
-      };
-      // When extended thinking is enabled, temperature must default
-      // (the API rejects custom temperature values).
+      // Opus 4.7+ requires the `adaptive` thinking type — the older
+      // `{type: enabled, budget_tokens: N}` shape is rejected with
+      // "thinking.type.enabled is not supported for this model".
+      // Thinking depth is now controlled via `output_config.effort`
+      // (low | medium | high). When extended thinking is enabled,
+      // temperature must default — the API rejects custom values.
+      body['thinking'] = {'type': 'adaptive'};
+      body['output_config'] = {'effort': thinkingEffort};
     }
 
     final request = http.Request('POST', Uri.parse(_endpoint));
