@@ -1453,6 +1453,30 @@ class InterpretedInstance implements RuntimeValue {
       // Try method next
       final methodAdapter = bridgedMixin.findInstanceMethodAdapter(name);
       if (methodAdapter != null) {
+        // GEN-128 (generic mixin-inherited-method fix): when the bridged
+        // mixin's adapter would receive the InterpretedInstance itself
+        // (because no native proxy / bridged-super object is available)
+        // AND no interface proxy can be materialised for this bridged
+        // mixin, the adapter cannot validate the target — it would
+        // throw `ArgumentD4rtException` at call time. Skip the bridged
+        // mixin so the post-loop bridged-super walk + RC-9 fallback
+        // handles the lookup instead. Typical case: an interpreted
+        // `State<T>` subclass mixing in `AutomaticKeepAliveClientMixin`
+        // calls `setState(...)` — `setState` is inherited from `State`,
+        // not defined by the mixin, so the call must route through the
+        // State's `nativeStateProxy` (RC-9 → BridgedSuperMethodCallable)
+        // rather than the mixin adapter. Mirror in tom_d4rt_ast.
+        if (identical(mixinTarget, this) &&
+            (visitor == null ||
+                D4.tryCreateInterfaceProxyByName(
+                        bridgedMixin.name, this, visitor) ==
+                    null)) {
+          Logger.debug(
+              "[Instance.get] Skipping bridged mixin '${bridgedMixin.name}' "
+              "method '$name' — no native target and no interface proxy "
+              "available; falling through to bridged-super walk.");
+          continue;
+        }
         Logger.debug(
             "[Instance.get] Found method '$name' in bridged mixin '${bridgedMixin.name}'. Creating bound callable.");
         // Return a callable that binds the method to the appropriate target

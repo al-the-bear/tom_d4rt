@@ -9137,12 +9137,37 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final targetType = environment.get(typeName);
 
             if (targetType is BridgedClass) {
+              // Resolve `is BridgedX` for any operand shape:
+              //   • BridgedInstance     — try the registered supertype walk,
+              //                            fall through to the native `is`
+              //                            predicate as a last resort.
+              //   • Raw native object   — common when a Flutter callback
+              //                            passes its native argument
+              //                            unwrapped (e.g. KeyEvent on
+              //                            KeyboardListener.onKeyEvent).
+              //                            Defer directly to the bridge's
+              //                            `isAssignable` predicate.
+              //   • null / interpreted  — `is BridgedX` is false.
+              result = false;
+              Object? nativeValue;
               if (expressionValue is BridgedInstance) {
-                // Use the new helper method
-                result = expressionValue.bridgedClass.isSubtypeOf(targetType);
-              } else {
-                // A non-instance value cannot be a subtype of a user-defined class
-                result = false;
+                if (expressionValue.bridgedClass.isSubtypeOf(targetType)) {
+                  result = true;
+                } else {
+                  nativeValue = expressionValue.nativeObject;
+                }
+              } else if (expressionValue != null &&
+                  expressionValue is! InterpretedInstance) {
+                nativeValue = expressionValue;
+              }
+              // `isAssignable` closes over the host's native `v is X`
+              // operator — authoritative when the bridge-name supertype
+              // walk misses (incomplete registry) or the operand was
+              // never wrapped in the first place.
+              if (!result &&
+                  nativeValue != null &&
+                  targetType.isAssignable != null) {
+                result = targetType.isAssignable!(nativeValue);
               }
             } else if (targetType is InterpretedClass) {
               if (expressionValue is InterpretedInstance) {
@@ -9631,6 +9656,43 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           bridgedClass.findConstructorAdapter(constructorLookupName);
 
       if (constructorAdapter == null) {
+        // GEN-129 (generic factory-as-static fix): some stdlib/Flutter
+        // bridges register factory constructors as `staticMethods` (e.g.
+        // Stream.periodic, Stream.value, Future.value). When the source
+        // adds type arguments — `Stream<int>.periodic(...)` — the
+        // analyzer parses the call as an InstanceCreationExpression and
+        // routes us here; without type args it would be a
+        // MethodInvocation routed through static-method lookup. To make
+        // both forms behave identically we fall back to staticMethods
+        // before giving up. This is fully generic — no Stream- or
+        // Flutter-specific special-casing.
+        if (constructorLookupName.isNotEmpty) {
+          final staticAdapter =
+              bridgedClass.findStaticMethodAdapter(constructorLookupName);
+          if (staticAdapter != null) {
+            try {
+              final nativeObject = D4.withActiveVisitor(
+                this,
+                () => staticAdapter(this, positionalArgs, namedArgs,
+                    evaluatedTypeArguments),
+              );
+              if (nativeObject == null) {
+                throw RuntimeD4rtException(
+                    "Bridged static-as-constructor adapter for '$constructorName.$constructorLookupName' returned null unexpectedly.");
+              }
+              if (nativeObject is Future || nativeObject is Stream) {
+                return nativeObject;
+              }
+              return BridgedInstance(bridgedClass, nativeObject,
+                  typeArguments: evaluatedTypeArguments ?? const []);
+            } on RuntimeD4rtException {
+              rethrow;
+            } catch (e) {
+              throw RuntimeD4rtException(
+                  "Error during bridged static-as-constructor '$constructorLookupName' for class '$constructorName': $e");
+            }
+          }
+        }
         throw RuntimeD4rtException(
             "Bridged class '$constructorName' does not have a registered constructor named '$constructorLookupName'. Check bridge definition.");
       }
