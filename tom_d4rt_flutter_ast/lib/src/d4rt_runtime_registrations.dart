@@ -1003,7 +1003,12 @@ void _registerGenericConstructors() {
     };
   });
 
-  // ValueKey<T> — when scripts use ValueKey<String>('key')
+  // ValueKey<T> — when scripts use ValueKey<String>('key') (explicit T).
+  //
+  // GEN-NNN — wildcard returns `null` so `ValueKey('foo')` without an
+  // explicit type falls through to the next factory in the chain
+  // (`_rc2ValueKey` → default bridge ctor) which infers T from the
+  // value's runtime type. Mirror of tom_d4rt_flutter_test.
   D4.registerGenericConstructor('ValueKey', '', (
     visitor,
     positional,
@@ -1021,7 +1026,7 @@ void _registerGenericConstructors() {
             : ValueKey<String?>(value as String?),
       'int' =>
         value is int ? ValueKey<int>(value) : ValueKey<int?>(value as int?),
-      _ => ValueKey(value),
+      _ => null,
     };
   });
 
@@ -1363,6 +1368,13 @@ class _InterpretedState extends State<_InterpretedStatefulWidget>
     _lifecycleInProgress.add('didUpdateWidget');
     try {
       super.didUpdateWidget(oldWidget);
+      // Refresh the `interpretedStatefulWidget` shortcut so script-side
+      // `widget` access on the State subclass returns the freshly-built
+      // InterpretedInstance after the parent rebuilt with new constructor
+      // args. Without this, `runtime_types.dart`'s short-circuit at the
+      // `widget` lookup would keep returning the original (createState-time)
+      // InterpretedInstance and every reactive prop drift would go silent.
+      _stateInstance.interpretedStatefulWidget = widget._instance;
       _callVoidMethod('didUpdateWidget');
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
@@ -1482,6 +1494,13 @@ class _InterpretedSingleTickerProviderState
     _lifecycleInProgress.add('didUpdateWidget');
     try {
       super.didUpdateWidget(oldWidget);
+      // Refresh the `interpretedStatefulWidget` shortcut so script-side
+      // `widget` access on the State subclass returns the freshly-built
+      // InterpretedInstance after the parent rebuilt with new constructor
+      // args. Without this, `runtime_types.dart`'s short-circuit at the
+      // `widget` lookup would keep returning the original (createState-time)
+      // InterpretedInstance and every reactive prop drift would go silent.
+      _stateInstance.interpretedStatefulWidget = widget._instance;
       _callVoidMethod('didUpdateWidget');
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
@@ -1591,6 +1610,13 @@ class _InterpretedMultiTickerProviderState
     _lifecycleInProgress.add('didUpdateWidget');
     try {
       super.didUpdateWidget(oldWidget);
+      // Refresh the `interpretedStatefulWidget` shortcut so script-side
+      // `widget` access on the State subclass returns the freshly-built
+      // InterpretedInstance after the parent rebuilt with new constructor
+      // args. Without this, `runtime_types.dart`'s short-circuit at the
+      // `widget` lookup would keep returning the original (createState-time)
+      // InterpretedInstance and every reactive prop drift would go silent.
+      _stateInstance.interpretedStatefulWidget = widget._instance;
       _callVoidMethod('didUpdateWidget');
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
@@ -1766,6 +1792,13 @@ class _InterpretedRestorationMixinState
     _lifecycleInProgress.add('didUpdateWidget');
     try {
       super.didUpdateWidget(oldWidget);
+      // Refresh the `interpretedStatefulWidget` shortcut so script-side
+      // `widget` access on the State subclass returns the freshly-built
+      // InterpretedInstance after the parent rebuilt with new constructor
+      // args. Without this, `runtime_types.dart`'s short-circuit at the
+      // `widget` lookup would keep returning the original (createState-time)
+      // InterpretedInstance and every reactive prop drift would go silent.
+      _stateInstance.interpretedStatefulWidget = widget._instance;
       _callVoidMethod('didUpdateWidget');
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
