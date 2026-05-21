@@ -69,6 +69,16 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
   bool _paused = true;
   Timer? _ticker;
 
+  /// Bumped on every tick. The board's CustomPaint is wrapped in an
+  /// AnimatedBuilder that watches this notifier, so per-tick redraws
+  /// don't rebuild the whole interpreted widget tree (Scaffold,
+  /// AppBar, score row, controls). Under d4rt, full-tree rebuilds
+  /// every 250 ms starve the Flutter input dispatcher — keys queue
+  /// up and only deliver after `_ticker` stops at game-over. Scoping
+  /// the rebuild via a ValueNotifier keeps each frame cheap enough
+  /// for input events to interleave properly.
+  final ValueNotifier<int> _tickNotifier = ValueNotifier<int>(0);
+
   @override
   void initState() {
     super.initState();
@@ -81,6 +91,7 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     _ticker?.cancel();
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
+    _tickNotifier.dispose();
     super.dispose();
   }
 
@@ -128,6 +139,7 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     final dir = _queuedDir;
     final result = step(body: _body, dir: dir, food: _food ?? const Cell(-1, -1));
     if (result.over) {
+      // Game-end is a rare event — full setState is fine here.
       setState(() {
         _direction = dir;
         _over = true;
@@ -144,19 +156,25 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
       return;
     }
     final ate = result.ateFood;
-    setState(() {
-      _direction = dir;
-      _body = result.body;
-      if (ate) {
+    if (ate) {
+      // Score change → score readout rebuild needed.
+      setState(() {
+        _direction = dir;
+        _body = result.body;
         _score++;
         _food = spawnFood(_rng, _body);
-      }
-    });
-    if (ate) {
+      });
       print('snake.eat score=$_score body=${_body.length} food=$_food');
-      // Speed up: restart the timer with the new interval.
       _restartTickerIfRunning();
     } else {
+      // Plain step: update the body in-place and bump the tick
+      // notifier. AnimatedBuilder around the CustomPaint picks up
+      // the change without rebuilding the rest of the tree — that
+      // keeps each frame cheap enough that Flutter's input
+      // dispatcher can interleave key events with ticks.
+      _direction = dir;
+      _body = result.body;
+      _tickNotifier.value = _tickNotifier.value + 1;
       print('snake.tick dir=${directionLabel(dir)} head=${_body.first} '
           'body=${_body.length}');
     }
@@ -315,13 +333,23 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: CustomPaint(
-                            key: const ValueKey<String>('snake-canvas'),
-                            size: Size.infinite,
-                            painter: BoardPainter(
-                              body: _body,
-                              food: _food,
-                              over: _over,
+                          // RepaintBoundary + AnimatedBuilder scopes
+                          // the per-tick rebuild to just the
+                          // CustomPaint. See the comment on
+                          // `_tickNotifier` for why this matters
+                          // under d4rt.
+                          child: RepaintBoundary(
+                            child: AnimatedBuilder(
+                              animation: _tickNotifier,
+                              builder: (context, _) => CustomPaint(
+                                key: const ValueKey<String>('snake-canvas'),
+                                size: Size.infinite,
+                                painter: BoardPainter(
+                                  body: _body,
+                                  food: _food,
+                                  over: _over,
+                                ),
+                              ),
                             ),
                           ),
                         ),
