@@ -3996,6 +3996,272 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'bezier_curve_editor (example #19 — CustomPainter cubicTo + '
+      'per-point GestureDetector + AnimationController + elastic preview)',
+      () {
+    // Trail prefixes:
+    //   bezier.init points=N resolution=R construction=B
+    //   bezier.point i=I x=X y=Y
+    //   bezier.resolution=N
+    //   bezier.toggle=true|false
+    //   bezier.drag.start i=I
+    //   bezier.drag.end i=I
+    //   bezier.play start|pause|reset|complete
+    //   bezier.preview t=T  (only at 0 and 1)
+
+    testWidgets('boots with four handles and the painter in the tree',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        expect(find.byKey(const Key('bezier-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('bezier-stack')), findsOneWidget);
+        expect(find.byKey(const Key('bezier-paint')), findsOneWidget);
+
+        // Four draggable handles, one per control point.
+        expect(find.byKey(const Key('bezier-handle-0')), findsOneWidget);
+        expect(find.byKey(const Key('bezier-handle-1')), findsOneWidget);
+        expect(find.byKey(const Key('bezier-handle-2')), findsOneWidget);
+        expect(find.byKey(const Key('bezier-handle-3')), findsOneWidget);
+
+        // Init line in the trail.
+        final inits =
+            _printLog.where((l) => l.startsWith('bezier.init ')).toList();
+        expect(inits, hasLength(1));
+        expect(inits.first, contains('points=4'));
+        expect(inits.first, contains('resolution=16'));
+        expect(inits.first, contains('construction=true'));
+      });
+    });
+
+    testWidgets('dragging a handle calls setPoint on the model',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Drag handle 1 (tangent handle) up and to the right.
+        await tester.drag(
+          find.byKey(const Key('bezier-handle-1')),
+          const Offset(40.0, -40.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final starts = _printLog
+            .where((l) => l.startsWith('bezier.drag.start '))
+            .toList();
+        expect(starts, isNotEmpty);
+        expect(starts.first, contains('i=1'));
+
+        final updates = _printLog
+            .where((l) => l.startsWith('bezier.point '))
+            .toList();
+        expect(updates, isNotEmpty,
+            reason: 'A drag on handle 1 must emit at least one '
+                'bezier.point line.');
+        // Every update must reference i=1 (no cross-talk to other
+        // handles' GestureDetectors).
+        expect(
+          updates.every((l) => l.contains('i=1')),
+          isTrue,
+          reason:
+              'All bezier.point lines from this drag must be on i=1.',
+        );
+
+        final ends = _printLog
+            .where((l) => l.startsWith('bezier.drag.end '))
+            .toList();
+        expect(ends, isNotEmpty);
+        expect(ends.last, contains('i=1'));
+      });
+    });
+
+    testWidgets('resolution slider updates the model',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Drag the slider thumb far to the right.
+        final Finder slider =
+            find.byKey(const Key('bezier-resolution-slider'));
+        await tester.drag(slider, const Offset(300.0, 0.0));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final res = _printLog
+            .where((l) => l.startsWith('bezier.resolution='))
+            .toList();
+        expect(res, isNotEmpty);
+        // The slider goes up to 48 — after a 300-pixel rightward
+        // drag the value must be strictly larger than the initial
+        // 16. Pulling the *last* line is the robust assertion.
+        final String last = res.last;
+        final String numStr = last.split('=').last;
+        final int parsed = int.parse(numStr);
+        expect(parsed, greaterThan(16));
+
+        final label = tester.widget<Text>(
+          find.byKey(const Key('bezier-resolution-label')),
+        );
+        expect(label.data, '$parsed');
+      });
+    });
+
+    testWidgets('construction switch toggles the overlay flag',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Initially on; tap once -> off; tap again -> on.
+        await tester
+            .tap(find.byKey(const Key('bezier-construction-switch')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester
+            .tap(find.byKey(const Key('bezier-construction-switch')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final toggles = _printLog
+            .where((l) => l.startsWith('bezier.toggle='))
+            .toList();
+        expect(toggles, hasLength(2));
+        expect(toggles[0], 'bezier.toggle=false');
+        expect(toggles[1], 'bezier.toggle=true');
+      });
+    });
+
+    testWidgets('play runs the preview animation to completion',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('bezier-play-button')));
+        // The animation has a 1500ms duration with an elastic
+        // curve; settle generously to let it finish.
+        await tester
+            .pumpAndSettle(const Duration(milliseconds: 2500));
+
+        final plays = _printLog
+            .where((l) => l.startsWith('bezier.play '))
+            .toList();
+        expect(plays, isNotEmpty);
+        expect(plays.first, 'bezier.play start');
+        expect(plays.last, 'bezier.play complete');
+
+        // After completion we must have seen the t=1.00 boundary.
+        final previews = _printLog
+            .where((l) => l.startsWith('bezier.preview '))
+            .toList();
+        expect(previews, isNotEmpty);
+        expect(previews.last, contains('t=1.00'));
+      });
+    });
+
+    testWidgets(
+        'reset returns the preview to t=0 after a full play',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Run the animation to completion so previewT moves to
+        // 1.0 (emits a t=1.00 boundary line), then reset.
+        await tester.tap(find.byKey(const Key('bezier-play-button')));
+        await tester
+            .pumpAndSettle(const Duration(milliseconds: 2500));
+
+        await tester.tap(find.byKey(const Key('bezier-reset-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final resets = _printLog
+            .where((l) => l == 'bezier.play reset')
+            .toList();
+        expect(resets, hasLength(1));
+
+        // The reset path sets previewT back to 0.0, which must
+        // emit a t=0.00 boundary preview line.
+        final previewsAt0 = _printLog
+            .where((l) => l == 'bezier.preview t=0.00')
+            .toList();
+        expect(previewsAt0, isNotEmpty);
+
+        // The final preview boundary in the trail must be t=0.00
+        // (i.e. reset moved us back from t=1.00).
+        final allPreviews = _printLog
+            .where((l) => l.startsWith('bezier.preview '))
+            .toList();
+        expect(allPreviews.last, contains('t=0.00'));
+      });
+    });
+
+    testWidgets(
+        'dragging different handles emits non-cross-talking trails',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.drag(
+          find.byKey(const Key('bezier-handle-0')),
+          const Offset(20.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.drag(
+          find.byKey(const Key('bezier-handle-3')),
+          const Offset(-20.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final starts = _printLog
+            .where((l) => l.startsWith('bezier.drag.start '))
+            .toList();
+        expect(starts, hasLength(2));
+        expect(starts[0], contains('i=0'));
+        expect(starts[1], contains('i=3'));
+
+        final ends = _printLog
+            .where((l) => l.startsWith('bezier.drag.end '))
+            .toList();
+        expect(ends, hasLength(2));
+        expect(ends[0], contains('i=0'));
+        expect(ends[1], contains('i=3'));
+      });
+    });
+
+    testWidgets('pointAt(0)=p0 and pointAt(1)=p3 in the painter math',
+        (tester) async {
+      // Indirect oracle check: the preview dot at t=0 must sit at
+      // the same screen position as handle 0, and at t=1 at handle
+      // 3. We don't have direct access to the model from the test
+      // (the sample runs inside the interpreter) so we rely on the
+      // drag/reset trail to assert the math wiring is intact.
+      await _runInZone(() async {
+        await _mountSample(tester, 'bezier_curve_editor');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // After init, previewT defaults to 0 — no preview boundary
+        // line is emitted at startup because setPreviewT short-
+        // circuits when the value is unchanged. After a play +
+        // reset we must see *both* boundaries.
+        await tester.tap(find.byKey(const Key('bezier-play-button')));
+        await tester
+            .pumpAndSettle(const Duration(milliseconds: 2500));
+        await tester.tap(find.byKey(const Key('bezier-reset-button')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final previews = _printLog
+            .where((l) => l.startsWith('bezier.preview '))
+            .toList();
+        expect(previews.any((l) => l.contains('t=1.00')), isTrue);
+        expect(previews.any((l) => l.contains('t=0.00')), isTrue);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {

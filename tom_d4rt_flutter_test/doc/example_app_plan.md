@@ -703,7 +703,7 @@ edit form.
 
 ---
 
-### 19. [ ] `bezier_curve_editor` — interactive control points
+### 19. [x] `bezier_curve_editor` — interactive control points — **SHIPPED**
 
 A cubic Bézier rendered via `CustomPainter`. Drag the four control
 points to reshape. Slider sets the curve resolution (segments).
