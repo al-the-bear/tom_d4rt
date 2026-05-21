@@ -400,18 +400,38 @@ clear-resets-state, play→pause trail).
 
 ---
 
-### 9. [ ] `bouncing_balls_physics` — multi-ball elastic collisions
+### 9. [x] `bouncing_balls_physics` — multi-ball elastic collisions — SHIPPED
 
-N coloured balls bounce inside a `RenderBox`. Position updated each
-animation tick via gravity + velocity. Sliders adjust ball count,
-gravity strength, elasticity. Click to add a ball at the cursor.
+N coloured balls bounce inside a fixed-size physics world
+(400×300 px). Position updated each animation tick via
+gravity + velocity. Sliders adjust gravity (0–2000 px/s²) and
+elasticity (0–1). Spawn button adds a ball at a seeded
+location; tap on the canvas adds one at the cursor. Boots
+paused with a `btn-step` button so `testWidgets` can drive the
+simulation deterministically (one fixed `kStepDt=0.05` per tap)
+without racing the auto-play `AnimationController`.
 
-**Exercises:** `AnimationController` driving the sim, `Ticker`-style
-update loop, `CustomPainter` for the balls, `Slider` callbacks,
-`GestureDetector.onTapDown` to spawn balls.
+**Exercises:** `AnimationController` driving the sim,
+`SingleTickerProviderStateMixin`, `CustomPainter` for the
+balls, `Slider` callbacks, `GestureDetector.onTapDown` to spawn
+balls, immutable `Ball.copyWith` and id-based equality so the
+roster lives cleanly across `setState`.
 
-**Files:** `main.dart`, `home.dart`, `world.dart` (ball list + step),
-`ball_painter.dart`, `physics_controls.dart`.
+**Files:** `main.dart`, `home.dart`, `world.dart` (Ball, World,
+`stepWorld`, `spawnBall`), `ball_painter.dart`,
+`physics_controls.dart`.
+
+**Tests:** 7/7 pass in `test/sample_apps_in_tester_test.dart`
+(boot defaults, spawn id=0 inside world, step makes ball fall
+with topY matching Euler math 26→30→…, ball stays in-bounds and
+bounces by step 30, spawn-N + clear resets RNG, play/pause
+emits a single play+pause pair, canvas tap spawns at cursor).
+
+**Generic interpreter fixes landed while shipping #9:** none.
+Everything worked on top of the GEN-100 stdlib propagation fix
+(`Random(seed)` from `dart:math`) and the `D4.withActiveVisitor`
+call wrap (`Ball` equality through `Set<Ball>`) that shipped
+with examples #7 and #8 respectively.
 
 ---
 

@@ -1774,6 +1774,253 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'bouncing_balls_physics (example #9 — AnimationController-driven '
+      'sim + Ball.copyWith + CustomPainter + Slider)', () {
+    // The world is a fixed 400×300 box with gravity=800px/s² and
+    // elasticity=0.85 by default. The script boots paused and tests
+    // drive the physics deterministically through `btn-step` (one
+    // fixed dt per tap = 0.05s). The auto-play AnimationController
+    // is only touched by the play/pause smoke test.
+    //
+    // Math sanity-check (g=800, dt=0.05, ball spawn y=24, vy=0):
+    //   step 1 → vy=40,  y=26.0
+    //   step 2 → vy=80,  y=30.0
+    //   step 5 → vy=200, y=54.0
+    //   step 16 → vy=640, y=296 → clamps to 288 (floor), vy=-544
+    //   so by step 16 the ball has bounced at least once.
+
+    testWidgets(
+        'boots paused, empty, with default gravity / elasticity / dims',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('physics.init'),
+          orElse: () => '',
+        );
+        expect(init, isNot(isEmpty),
+            reason: 'Boot should emit exactly one physics.init trail line.');
+        expect(init, contains('w=400'));
+        expect(init, contains('h=300'));
+        expect(init, contains('balls=0'));
+        expect(init, contains('gravity=800'));
+        expect(init, contains('elasticity=0.85'));
+
+        expect(find.text('balls 0'), findsOneWidget);
+        expect(find.text('800 px/s²'), findsOneWidget);
+        expect(find.text('0.85'), findsOneWidget);
+        expect(find.byKey(const Key('balls-canvas')), findsOneWidget);
+        expect(find.byKey(const Key('btn-play-pause')), findsOneWidget);
+      });
+    });
+
+    testWidgets('spawn button adds a ball with id=0 inside the world',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        await tester.tap(find.byKey(const Key('btn-spawn')));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        final spawn = _printLog.firstWhere(
+          (l) => l.startsWith('physics.spawn'),
+          orElse: () => '',
+        );
+        expect(spawn, isNot(isEmpty),
+            reason: 'Spawn tap should emit one physics.spawn trail line.');
+        expect(spawn, contains('id=0'));
+        expect(spawn, contains('balls=1'));
+        expect(find.text('balls 1'), findsOneWidget);
+
+        // Spawn anchor is 25–75 % of world width and y = 2 * radius = 24.
+        // We don't pin RNG output but the spawn rectangle is fixed.
+        final xMatch =
+            RegExp(r'x=([0-9]+(?:\.[0-9]+)?)').firstMatch(spawn);
+        final yMatch =
+            RegExp(r'y=([0-9]+(?:\.[0-9]+)?)').firstMatch(spawn);
+        expect(xMatch, isNotNull);
+        expect(yMatch, isNotNull);
+        final x = double.parse(xMatch!.group(1)!);
+        final y = double.parse(yMatch!.group(1)!);
+        expect(x, greaterThanOrEqualTo(100.0));
+        expect(x, lessThanOrEqualTo(300.0));
+        expect(y, closeTo(24.0, 0.01),
+            reason: 'Initial spawn y must equal 2 * kBallRadius.');
+      });
+    });
+
+    testWidgets('step makes the ball fall (topY strictly increases)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        await tester.tap(find.byKey(const Key('btn-spawn')));
+        await tester.pump(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        final steps = _printLog
+            .where((l) => l.startsWith('physics.step'))
+            .toList();
+        expect(steps, hasLength(2),
+            reason: 'Two step taps should produce exactly two trail lines.');
+
+        double extractTopY(String line) {
+          final m = RegExp(r'topY=([0-9]+(?:\.[0-9]+)?)').firstMatch(line);
+          expect(m, isNotNull, reason: 'topY missing in: $line');
+          return double.parse(m!.group(1)!);
+        }
+
+        final topY1 = extractTopY(steps[0]);
+        final topY2 = extractTopY(steps[1]);
+        // Euler with g=800,dt=0.05: y₁=26.0, y₂=30.0
+        expect(topY1, closeTo(26.0, 0.01));
+        expect(topY2, closeTo(30.0, 0.01));
+        expect(topY2, greaterThan(topY1),
+            reason: 'Gravity should pull the ball down between steps.');
+      });
+    });
+
+    testWidgets('ball stays inside the world after many steps (bounces)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        await tester.tap(find.byKey(const Key('btn-spawn')));
+        await tester.pump(const Duration(milliseconds: 30));
+
+        // 30 steps is well past the first floor bounce (~step 16).
+        for (var i = 0; i < 30; i++) {
+          await tester.tap(find.byKey(const Key('btn-step')));
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+
+        final steps = _printLog
+            .where((l) => l.startsWith('physics.step'))
+            .toList();
+        expect(steps, hasLength(30));
+
+        // After every step the ball is still inside the world.
+        // World height = 300, ball radius = 12 → topY must always be
+        // in [12, 288] (centre y, since topY is the centre coordinate).
+        for (final s in steps) {
+          final m =
+              RegExp(r'topY=([0-9]+(?:\.[0-9]+)?)').firstMatch(s);
+          expect(m, isNotNull, reason: 'topY missing in $s');
+          final topY = double.parse(m!.group(1)!);
+          expect(topY, greaterThanOrEqualTo(12.0),
+              reason: 'Ball should never escape the ceiling: $s');
+          expect(topY, lessThanOrEqualTo(288.0),
+              reason: 'Ball should never escape the floor: $s');
+        }
+
+        // By step 30 the ball has bounced — its topY must have ticked
+        // back upward at least once.
+        var bounced = false;
+        for (var i = 1; i < steps.length; i++) {
+          final prev = double.parse(
+              RegExp(r'topY=([0-9]+(?:\.[0-9]+)?)').firstMatch(steps[i - 1])!.group(1)!);
+          final cur = double.parse(
+              RegExp(r'topY=([0-9]+(?:\.[0-9]+)?)').firstMatch(steps[i])!.group(1)!);
+          if (cur < prev) {
+            bounced = true;
+            break;
+          }
+        }
+        expect(bounced, isTrue,
+            reason: 'Ball should bounce off the floor before step 30.');
+      });
+    });
+
+    testWidgets('spawn multiple balls then clear', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        for (var i = 0; i < 3; i++) {
+          await tester.tap(find.byKey(const Key('btn-spawn')));
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+        expect(find.text('balls 3'), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('btn-clear')));
+        await tester.pump(const Duration(milliseconds: 20));
+
+        final clears = _printLog
+            .where((l) => l.startsWith('physics.clear'))
+            .toList();
+        expect(clears, hasLength(1));
+        expect(clears.single, contains('balls=0'));
+        expect(find.text('balls 0'), findsOneWidget);
+
+        // After clear, spawning again should restart at id=0 (rng is
+        // re-seeded so trajectories are reproducible after clear).
+        await tester.tap(find.byKey(const Key('btn-spawn')));
+        await tester.pump(const Duration(milliseconds: 20));
+        final post = _printLog
+            .where((l) => l.startsWith('physics.spawn'))
+            .toList();
+        expect(post, hasLength(4),
+            reason: 'Three pre-clear spawns + one post-clear spawn.');
+        expect(post.last, contains('id=0'),
+            reason: 'Clear should reset _nextId back to 0.');
+      });
+    });
+
+    testWidgets('play/pause toggle starts and stops the auto-play ticker',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        await tester.tap(find.byKey(const Key('btn-spawn')));
+        await tester.pump(const Duration(milliseconds: 20));
+
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        // Let the AnimationController tick a few frames.
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.pump(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(
+          _printLog.where((l) => l == 'physics.play'),
+          hasLength(1),
+          reason: 'play should emit exactly one physics.play line.',
+        );
+        expect(
+          _printLog.where((l) => l == 'physics.pause'),
+          hasLength(1),
+          reason: 'pause should emit exactly one physics.pause line.',
+        );
+      });
+    });
+
+    testWidgets('tap on the canvas spawns a ball at the tap location',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bouncing_balls_physics');
+
+        // Tap roughly the centre of the canvas.
+        final canvas = find.byKey(const Key('balls-canvas'));
+        await tester.tap(canvas);
+        await tester.pump(const Duration(milliseconds: 30));
+
+        final tap = _printLog.firstWhere(
+          (l) => l.startsWith('physics.tap'),
+          orElse: () => '',
+        );
+        expect(tap, isNot(isEmpty),
+            reason: 'Canvas tap should emit one physics.tap trail line.');
+        expect(tap, contains('id=0'));
+        expect(tap, contains('balls=1'));
+        expect(find.text('balls 1'), findsOneWidget);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
