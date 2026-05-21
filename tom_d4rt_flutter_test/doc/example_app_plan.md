@@ -720,7 +720,7 @@ markers. Export `Curves.elastic`-style preview on a moving dot.
 
 ---
 
-### 20. [ ] `tabbed_dashboard` — mixed-content tab shell
+### 20. [x] `tabbed_dashboard` — mixed-content tab shell — SHIPPED
 
 3 tabs: a chart (`CustomPaint` line chart), a settings form, a
 log viewer (`AnimatedList` streaming entries). Tab transitions

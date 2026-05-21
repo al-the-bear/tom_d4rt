@@ -61,6 +61,7 @@ import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
         Action,
+        AutomaticKeepAliveClientMixin,
         Axis,
         BoxScrollView,
         BuildContext,
@@ -1248,6 +1249,20 @@ class _InterpretedStatefulWidget extends StatefulWidget {
           result.nativeProxy = state;
           return state;
         }
+        // Scripts that mix `AutomaticKeepAliveClientMixin` need a State
+        // proxy that *actually* mixes it in. The mixin's `build` method
+        // dispatches `KeepAliveNotification` — without a proxy that
+        // includes it, that notification is never fired and any
+        // surrounding `TabBarView` / `PageView` happily disposes the
+        // child on swap-away. Like the plain `_InterpretedState`, we
+        // store the proxy on `nativeStateProxy` (not `nativeProxy`) so
+        // `setState` from the script still routes through the bridged
+        // mixin → `nativeStateProxy` path landed via GEN-128.
+        if (_usesAutomaticKeepAliveClientMixin(result.klass)) {
+          final state = _InterpretedKeepAliveState(_visitor, result);
+          result.nativeStateProxy = state;
+          return state;
+        }
         // C14: plain interpreted State subclasses get a State proxy but no
         // `nativeProxy` (Bug-45 — would route setState etc. through Flutter
         // and trigger cascading rebuild loops). Store the proxy on
@@ -1292,6 +1307,28 @@ class _InterpretedStatefulWidget extends StatefulWidget {
       if (c == null) return false;
       if (!visited.add(c)) return false;
       if (c.bridgedMixins.any((m) => m.name == 'RestorationMixin')) {
+        return true;
+      }
+      if (walk(c.superclass)) return true;
+      for (final m in c.mixins) {
+        if (walk(m)) return true;
+      }
+      return false;
+    }
+
+    return walk(klass);
+  }
+
+  /// Check if an interpreted class mixes in `AutomaticKeepAliveClientMixin`.
+  ///
+  /// Same hierarchy walk pattern as `_usesRestorationMixin`.
+  static bool _usesAutomaticKeepAliveClientMixin(InterpretedClass klass) {
+    final visited = <InterpretedClass>{};
+    bool walk(InterpretedClass? c) {
+      if (c == null) return false;
+      if (!visited.add(c)) return false;
+      if (c.bridgedMixins
+          .any((m) => m.name == 'AutomaticKeepAliveClientMixin')) {
         return true;
       }
       if (walk(c.superclass)) return true;
@@ -1916,6 +1953,159 @@ class _InterpretedRestorationMixinState
   // Re-entrancy guard mirroring _InterpretedState — `super.initState()` in
   // a script body re-routes through this proxy, so without this set the
   // override would recurse indefinitely.
+  final Set<String> _lifecycleInProgress = <String>{};
+}
+
+/// A native [State] with [AutomaticKeepAliveClientMixin] that delegates
+/// lifecycle methods to an interpreted D4rt State subclass.
+///
+/// Without this proxy variant, `AutomaticKeepAliveClientMixin` simply
+/// "compiles" in the script but is structurally absent at runtime — the
+/// proxy that the framework actually mounts is a plain `State`, so
+/// `KeepAliveNotification` is never dispatched and any keep-alive
+/// container (e.g. `TabBarView`, `PageView`, `KeepAlive`) treats the
+/// child as disposable. This mirrors the TickerProvider / Restoration
+/// variants: when the interpreted class declares the bridged mixin we
+/// mount a proxy that actually *mixes it in*, so the framework's
+/// keep-alive machinery sees a real implementation.
+///
+/// `wantKeepAlive` is resolved by calling the interpreted getter (the
+/// script's `bool get wantKeepAlive => true;`); the proxy's
+/// `build(context)` calls `super.build(context)` first so the mixin can
+/// dispatch its `KeepAliveNotification` before the script's `build`
+/// runs.
+class _InterpretedKeepAliveState extends State<_InterpretedStatefulWidget>
+    with AutomaticKeepAliveClientMixin
+    implements D4InterpretedProxy {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _stateInstance;
+
+  _InterpretedKeepAliveState(this._visitor, this._stateInstance);
+
+  @override
+  Object get d4rtInstance => _stateInstance;
+
+  // `AutomaticKeepAliveClientMixin` declares `wantKeepAlive` as an
+  // abstract getter — the analyzer does not consider implementing it
+  // as an "override" (no inherited implementation), so we omit
+  // `@override` to keep the analyzer quiet.
+  bool get wantKeepAlive {
+    final getter = _stateInstance.klass.findInstanceGetter('wantKeepAlive');
+    if (getter != null) {
+      try {
+        final result = getter.bind(_stateInstance).call(_visitor, [], {});
+        if (result is bool) return result;
+      } catch (_) {
+        // Fall through to default.
+      }
+    }
+    // The script declared the mixin but did not override the getter —
+    // default to true so the kept-alive container honours the intent.
+    return true;
+  }
+
+  @override
+  void initState() {
+    if (_lifecycleInProgress.contains('initState')) return;
+    _lifecycleInProgress.add('initState');
+    try {
+      super.initState();
+      _callVoidMethod('initState');
+    } finally {
+      _lifecycleInProgress.remove('initState');
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_lifecycleInProgress.contains('didChangeDependencies')) return;
+    _lifecycleInProgress.add('didChangeDependencies');
+    try {
+      super.didChangeDependencies();
+      _callVoidMethod('didChangeDependencies');
+    } finally {
+      _lifecycleInProgress.remove('didChangeDependencies');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // `super.build(context)` here is `AutomaticKeepAliveClientMixin.build`
+    // — it dispatches `KeepAliveNotification` so the surrounding
+    // keep-alive container preserves this subtree across rebuilds.
+    // Must run before the script's build, otherwise the first frame
+    // mounts without any notification and the container disposes the
+    // subtree on the next swap.
+    super.build(context);
+    final method = _stateInstance.klass.findInstanceMethod('build');
+    if (method != null) {
+      final bound = method.bind(_stateInstance);
+      final result = bound.call(_visitor, [context], {});
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
+    }
+    throw StateError(
+      'Interpreted State ${_stateInstance.klass.name} does not implement build()',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
+    if (_lifecycleInProgress.contains('didUpdateWidget')) return;
+    _lifecycleInProgress.add('didUpdateWidget');
+    try {
+      super.didUpdateWidget(oldWidget);
+      _stateInstance.interpretedStatefulWidget = widget._instance;
+      final didUpdateMethod =
+          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      if (didUpdateMethod != null) {
+        try {
+          didUpdateMethod
+              .bind(_stateInstance)
+              .call(_visitor, <Object?>[oldWidget._instance], {});
+        } catch (_) {
+          // Lifecycle methods may call super which isn't available in proxy.
+        }
+      }
+    } finally {
+      _lifecycleInProgress.remove('didUpdateWidget');
+    }
+  }
+
+  @override
+  void deactivate() {
+    if (_lifecycleInProgress.contains('deactivate')) return;
+    _lifecycleInProgress.add('deactivate');
+    try {
+      _callVoidMethod('deactivate');
+      super.deactivate();
+    } finally {
+      _lifecycleInProgress.remove('deactivate');
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_lifecycleInProgress.contains('dispose')) return;
+    _lifecycleInProgress.add('dispose');
+    try {
+      _callVoidMethod('dispose');
+      super.dispose();
+    } finally {
+      _lifecycleInProgress.remove('dispose');
+    }
+  }
+
+  void _callVoidMethod(String name) {
+    final method = _stateInstance.klass.findInstanceMethod(name);
+    if (method != null) {
+      try {
+        method.bind(_stateInstance).call(_visitor, [], {});
+      } catch (_) {
+        // Lifecycle methods may call super which isn't available in proxy.
+      }
+    }
+  }
+
   final Set<String> _lifecycleInProgress = <String>{};
 }
 
