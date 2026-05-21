@@ -1,12 +1,14 @@
 /// Settings page for the generator feature.
 ///
 /// Single-form layout with: API key, model picker, extended-thinking
-/// toggle. Loads and saves via [GeneratorPrefs.load] / `.save()`. The
-/// page exposes a static `pushAndAwait` helper so the rest of the app
-/// can route to it and receive the (possibly mutated) prefs back.
+/// toggle, max-tokens cap. Loads and saves via [GeneratorPrefs.load] /
+/// `.save()`. The page exposes a static `pushAndAwait` helper so the
+/// rest of the app can route to it and receive the (possibly mutated)
+/// prefs back.
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../generator/prefs_store.dart';
 
@@ -30,14 +32,18 @@ class PreferencesScreen extends StatefulWidget {
 
 class _PreferencesScreenState extends State<PreferencesScreen> {
   late final TextEditingController _apiKey;
+  late final TextEditingController _maxTokens;
   late GeneratorModel _model;
   late bool _thinking;
   bool _obscure = true;
+  String? _maxTokensError;
 
   @override
   void initState() {
     super.initState();
     _apiKey = TextEditingController(text: widget.initial.apiKey);
+    _maxTokens =
+        TextEditingController(text: widget.initial.maxTokens.toString());
     _model = widget.initial.model;
     _thinking = widget.initial.extendedThinking;
   }
@@ -45,10 +51,35 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
   @override
   void dispose() {
     _apiKey.dispose();
+    _maxTokens.dispose();
     super.dispose();
   }
 
+  /// Validates and parses [_maxTokens]. Sets [_maxTokensError] on
+  /// failure; returns null in that case so the save flow can short-
+  /// circuit and ask the user to fix the value.
+  int? _parsedMaxTokens() {
+    final raw = _maxTokens.text.trim();
+    final n = int.tryParse(raw);
+    if (n == null) {
+      setState(() => _maxTokensError = 'Enter an integer.');
+      return null;
+    }
+    if (n < GeneratorPrefs.minMaxTokens || n > GeneratorPrefs.maxMaxTokens) {
+      setState(() => _maxTokensError =
+          'Must be between ${GeneratorPrefs.minMaxTokens} and '
+          '${GeneratorPrefs.maxMaxTokens}.');
+      return null;
+    }
+    if (_maxTokensError != null) {
+      setState(() => _maxTokensError = null);
+    }
+    return n;
+  }
+
   Future<void> _save() async {
+    final parsedTokens = _parsedMaxTokens();
+    if (parsedTokens == null) return;
     // Mutate the incoming prefs object so any non-settings fields
     // (lastAppName, lastDescription) survive — those are owned by
     // the Generate tab and shouldn't be reset every time the user
@@ -56,7 +87,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
     final prefs = widget.initial
       ..apiKey = _apiKey.text.trim()
       ..model = _model
-      ..extendedThinking = _thinking;
+      ..extendedThinking = _thinking
+      ..maxTokens = parsedTokens;
     await prefs.save();
     if (!mounted) return;
     Navigator.of(context).pop(prefs);
@@ -131,6 +163,32 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
               'before the assistant text. Increases token cost.',
             ),
             contentPadding: EdgeInsets.zero,
+          ),
+          const SizedBox(height: 28),
+          Text('Max output tokens',
+              style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _maxTokens,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: '${GeneratorPrefs.defaultMaxTokens}',
+              errorText: _maxTokensError,
+              suffixText: 'tokens',
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Upper bound on the assistant response (sent as the '
+            '`max_tokens` field). Higher values let the model produce '
+            'longer apps but cost more. Allowed range: '
+            '${GeneratorPrefs.minMaxTokens}–'
+            '${GeneratorPrefs.maxMaxTokens}.',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: scheme.outline,
+                ),
           ),
         ],
       ),

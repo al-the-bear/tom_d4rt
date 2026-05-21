@@ -30,12 +30,18 @@ class GeneratorPrefs {
   static const _kApiKey = 'generator.anthropicApiKey';
   static const _kModel = 'generator.model';
   static const _kThinking = 'generator.extendedThinking';
+  static const _kMaxTokens = 'generator.maxTokens';
   static const _kLastAppName = 'generator.lastAppName';
   static const _kLastDescription = 'generator.lastDescription';
+
+  static const defaultMaxTokens = 16000;
+  static const minMaxTokens = 1024;
+  static const maxMaxTokens = 200000;
 
   String apiKey;
   GeneratorModel model;
   bool extendedThinking;
+  int maxTokens;
   String lastAppName;
   String lastDescription;
 
@@ -43,6 +49,7 @@ class GeneratorPrefs {
     this.apiKey = '',
     this.model = GeneratorModel.opus47,
     this.extendedThinking = true,
+    this.maxTokens = defaultMaxTokens,
     this.lastAppName = '',
     this.lastDescription = '',
   });
@@ -54,6 +61,7 @@ class GeneratorPrefs {
       model: GeneratorModel.fromApiId(
           p.getString(_kModel) ?? GeneratorModel.opus47.apiId),
       extendedThinking: p.getBool(_kThinking) ?? true,
+      maxTokens: p.getInt(_kMaxTokens) ?? defaultMaxTokens,
       lastAppName: p.getString(_kLastAppName) ?? '',
       lastDescription: p.getString(_kLastDescription) ?? '',
     );
@@ -64,6 +72,7 @@ class GeneratorPrefs {
     await p.setString(_kApiKey, apiKey);
     await p.setString(_kModel, model.apiId);
     await p.setBool(_kThinking, extendedThinking);
+    await p.setInt(_kMaxTokens, maxTokens);
     await p.setString(_kLastAppName, lastAppName);
     await p.setString(_kLastDescription, lastDescription);
   }

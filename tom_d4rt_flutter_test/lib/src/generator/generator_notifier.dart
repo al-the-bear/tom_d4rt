@@ -110,6 +110,7 @@ class GeneratorNotifier extends ChangeNotifier {
       systemPrompt: buildSystemPrompt(),
       userMessage: description,
       extendedThinking: prefs.extendedThinking,
+      maxTokens: prefs.maxTokens,
     );
 
     _sub = stream.listen((event) {
