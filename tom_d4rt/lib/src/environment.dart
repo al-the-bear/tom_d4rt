@@ -76,6 +76,13 @@ class Environment {
   final Map<String, Object?> _values = {};
   final Map<String, BridgedClass> _bridgedClasses = {};
   final Map<Type, BridgedClass> _bridgedClassesLookupByType = {};
+  // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
+  // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
+  // repeat lookups of the same private impl type (e.g. _BodyBoxConstraints,
+  // _BigIntImpl, FakeTimer) skip the O(N) iteration over every registered
+  // bridge. Invalidated on every mutation of [_bridgedClassesLookupByType]
+  // via [_invalidateResolutionCache].
+  final Map<Type, BridgedClass> _resolvedTypeCache = {};
   final Map<String, BridgedEnum> _bridgedEnums = {}; // Store bridged enums
   final List<InterpretedExtension> _unnamedExtensions =
       []; // Store unnamed extensions
@@ -139,7 +146,15 @@ class Environment {
     }
     _bridgedClasses[name] = bridgedClass;
     _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+    _invalidateResolutionCache();
     Logger.debug("[Environment] Defined bridge for class: $name");
+  }
+
+  /// Clears the [_resolvedTypeCache]. Called from every site that mutates
+  /// [_bridgedClassesLookupByType], because a newly-registered bridge can
+  /// change the most-specific resolution for previously-cached runtimeTypes.
+  void _invalidateResolutionCache() {
+    if (_resolvedTypeCache.isNotEmpty) _resolvedTypeCache.clear();
   }
 
   /// Looks up a bridged class by name, walking the enclosing scope chain.
@@ -178,6 +193,7 @@ class Environment {
   /// Mirrors the type-population step of [D4rtRunner._registerBridgedDefinitions].
   void registerBridgeType(BridgedClass bridgedClass) {
     _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+    _invalidateResolutionCache();
   }
 
   /// Propagates every bridge registered in this environment's type lookup
@@ -195,10 +211,14 @@ class Environment {
   /// Mirror of `tom_d4rt_ast` `Environment.propagateBridgeTypesTo`.
   void propagateBridgeTypesTo(Environment target) {
     if (identical(target, this)) return;
+    var added = false;
     for (final entry in _bridgedClassesLookupByType.entries) {
-      target._bridgedClassesLookupByType.putIfAbsent(
-          entry.key, () => entry.value);
+      target._bridgedClassesLookupByType.putIfAbsent(entry.key, () {
+        added = true;
+        return entry.value;
+      });
     }
+    if (added) target._invalidateResolutionCache();
   }
 
   /// GEN-078: Registers a class alias that maps [aliasName] to an existing
@@ -263,6 +283,18 @@ class Environment {
       current = current._enclosing;
     }
 
+    // 1b) Resolution cache. GEN-115 Phase 2: a previous call already paid
+    //     the full step-2 / step-3 cost for this runtimeType; reuse it.
+    //     Walks the env chain so a hit in any enclosing scope short-circuits.
+    current = this;
+    while (current != null) {
+      final cached = current._resolvedTypeCache[runtimeType];
+      if (cached != null) {
+        return BridgedInstance(cached, nativeObject);
+      }
+      current = current._enclosing;
+    }
+
     // 2) isAssignable iteration. Bridges may register in any order, so we
     //    collect ALL matches and then drop those that are supertypes of
     //    another match using [BridgedClass.transitiveSupertypeNames]. The
@@ -290,12 +322,14 @@ class Environment {
     if (allMatches.isNotEmpty) {
       final filtered = _filterToMostSpecific(allMatches);
       final picked = filtered.isNotEmpty ? filtered.last : allMatches.last;
+      _resolvedTypeCache[runtimeType] = picked;
       return BridgedInstance(picked, nativeObject);
     }
 
     // 3) Name-based fallbacks (private impl, generic suffix, *Impl prefix).
     //    [toBridgedClass] will throw if no bridge matches — propagate.
     final bridgedClass = toBridgedClass(runtimeType);
+    _resolvedTypeCache[runtimeType] = bridgedClass;
     return BridgedInstance(bridgedClass, nativeObject);
   }
 
@@ -1121,6 +1155,7 @@ class Environment {
             "bridged class '$name' with imported version");
         _bridgedClasses[name] = bridgedClass;
         _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+        _invalidateResolutionCache();
         return;
       }
       if (_values.containsKey(name) ||
@@ -1143,6 +1178,7 @@ class Environment {
       }
       _bridgedClasses[name] = bridgedClass;
       _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+      _invalidateResolutionCache();
     });
 
     sourceEnvToImportFrom._bridgedEnums.forEach((name, bridgedEnum) {
