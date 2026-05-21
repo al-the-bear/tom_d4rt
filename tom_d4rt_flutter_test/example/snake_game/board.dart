@@ -30,12 +30,21 @@ const int kFoodSeed = 1337;
 
 /// Initial tick interval. Real auto-play would shrink this as the
 /// score climbs (see `tickIntervalForScore`).
-const Duration kInitialTickInterval = Duration(milliseconds: 250);
+///
+/// The 250 ms value used to feel right at native speed, but under
+/// d4rt the interpreter's per-tick activity (callback dispatch +
+/// notifier rebuild + interpreted painter) holds the framework
+/// thread long enough that Flutter's platform-message queue gets
+/// starved between firings — even pure-Dart host handlers don't
+/// receive key events mid-gameplay. Going to 600 ms gives the
+/// event loop a much bigger drain window between ticks; the snake
+/// still plays well and keyboard inputs land.
+const Duration kInitialTickInterval = Duration(milliseconds: 600);
 
-/// Floor on the auto-play tick interval. With a 20×20 board the
-/// snake can't move faster than ~12 cells/s before the game stops
-/// being playable.
-const Duration kMinTickInterval = Duration(milliseconds: 80);
+/// Floor on the auto-play tick interval. Anything below ~250 ms
+/// resurrects the input-starvation problem under d4rt (see the
+/// note on [kInitialTickInterval]).
+const Duration kMinTickInterval = Duration(milliseconds: 250);
 
 /// How much the tick interval shrinks per pellet eaten, in ms.
 const int kTickShrinkPerScore = 12;
