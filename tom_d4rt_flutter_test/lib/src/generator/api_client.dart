@@ -11,6 +11,7 @@ library;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 /// A single streamed delta from the Anthropic API.
@@ -183,6 +184,7 @@ class AnthropicClient {
     try {
       payload = jsonDecode(dataLine) as Map<String, dynamic>;
     } catch (_) {
+      debugPrint('[anthropic] non-JSON SSE data: $dataLine');
       return; // Ignore non-JSON keepalives.
     }
     final type = payload['type'] as String?;
@@ -193,28 +195,64 @@ class AnthropicClient {
         final deltaType = delta['type'] as String?;
         if (deltaType == 'thinking_delta') {
           final t = delta['thinking'] as String? ?? '';
-          if (t.isNotEmpty) yield ThinkingDelta(t);
+          if (t.isNotEmpty) {
+            debugPrint('[anthropic] thinking_delta (${t.length}c)');
+            yield ThinkingDelta(t);
+          }
         } else if (deltaType == 'text_delta') {
           final t = delta['text'] as String? ?? '';
           if (t.isNotEmpty) {
+            debugPrint('[anthropic] text_delta (${t.length}c): '
+                '${_preview(t, 80)}');
             assistantText.write(t);
             yield TextDelta(t);
           }
+        } else {
+          debugPrint('[anthropic] unhandled delta type=$deltaType '
+              'payload=$delta');
+          yield StatusEvent('Skipping unhandled delta type: $deltaType');
         }
         break;
       case 'message_start':
+        debugPrint('[anthropic] message_start');
+        break;
       case 'content_block_start':
+        final block = payload['content_block'] as Map<String, dynamic>?;
+        final blockType = block?['type']?.toString() ?? '?';
+        debugPrint('[anthropic] content_block_start type=$blockType');
+        yield StatusEvent('Receiving $blockType block…');
+        break;
       case 'content_block_stop':
+        debugPrint('[anthropic] content_block_stop');
+        break;
       case 'message_delta':
+        final stopReason =
+            (payload['delta'] as Map?)?['stop_reason']?.toString();
+        if (stopReason != null) {
+          debugPrint('[anthropic] message_delta stop_reason=$stopReason');
+          yield StatusEvent('Stop reason: $stopReason');
+        }
+        break;
       case 'message_stop':
+        debugPrint('[anthropic] message_stop');
+        break;
       case 'ping':
-        // No-op: these are bookkeeping events.
+        // No-op: keepalive.
         break;
       case 'error':
         final msg = (payload['error'] as Map?)?['message'] ?? 'Unknown error';
+        debugPrint('[anthropic] error: $msg');
         yield ErrorEvent('API error: $msg');
         break;
+      default:
+        debugPrint('[anthropic] unknown event type=$type payload=$payload');
+        yield StatusEvent('Unknown SSE event: $type');
     }
+  }
+
+  static String _preview(String s, int n) {
+    final flat = s.replaceAll('\n', ' ');
+    return flat.length <= n ? flat : '${flat.substring(0, n)}…';
   }
 
   String _extractApiError(String body) {

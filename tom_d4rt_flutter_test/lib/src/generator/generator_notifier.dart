@@ -183,12 +183,39 @@ class GeneratorNotifier extends ChangeNotifier {
   }
 
   void _finalize(String appName) {
+    // Always log how much text we got and dump the full response to
+    // stdout — the user asked for both visibility in the log screen
+    // and a console copy they can grep.
+    final fullLen = _assistantText.length;
+    _appendBlock(LogBlockKind.status,
+        'Stream complete — received $fullLen chars of assistant text.');
+    debugPrint('═════════ FULL ASSISTANT RESPONSE ($fullLen chars) ═════════');
+    for (final chunk in _chunked(_assistantText, 800)) {
+      debugPrint(chunk);
+    }
+    debugPrint('═════════ END FULL ASSISTANT RESPONSE ═════════');
+
     final code = _extractDartBlock(_assistantText);
     if (code == null) {
+      // Surface the raw response in the log too so the user can see
+      // what came back without leaving the app. If there was zero
+      // assistant text (sometimes happens with all-thinking-no-output
+      // responses), say so explicitly.
+      if (fullLen == 0) {
+        _appendBlock(LogBlockKind.error,
+            'Model produced 0 chars of assistant text. The thinking '
+            'blocks above are everything that came back. Check the '
+            'Stop reason status line and/or rerun with extended '
+            'thinking disabled.');
+      } else {
+        _appendBlock(LogBlockKind.text,
+            '── RAW ASSISTANT RESPONSE ──\n$_assistantText');
+        _appendBlock(LogBlockKind.error,
+            'No fenced ```dart block found in the response. Raw text '
+            'shown above; full copy printed to console. Cannot run.');
+      }
       _state = GenerationState.error;
-      _errorMessage =
-          'No fenced ```dart block found in the response. Cannot run.';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
+      _errorMessage = 'No fenced ```dart block found in the response.';
       return;
     }
     try {
@@ -206,6 +233,20 @@ class GeneratorNotifier extends ChangeNotifier {
       _state = GenerationState.error;
       _errorMessage = 'Failed to write generated file: $e';
       _appendBlock(LogBlockKind.error, _errorMessage!);
+    }
+  }
+
+  /// Splits a string into ≤[size]-character chunks at line boundaries
+  /// where possible so debugPrint doesn't truncate long output (Dart's
+  /// platform `print` truncates around 1 KB on Android; debugPrint
+  /// chunks for us but only if we feed it reasonable sizes).
+  static Iterable<String> _chunked(String s, int size) sync* {
+    if (s.isEmpty) return;
+    var start = 0;
+    while (start < s.length) {
+      final end = (start + size).clamp(0, s.length);
+      yield s.substring(start, end);
+      start = end;
     }
   }
 
