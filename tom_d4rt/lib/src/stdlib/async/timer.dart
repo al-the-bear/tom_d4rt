@@ -20,8 +20,12 @@ class TimerAsync {
             }
             final duration = positionalArgs[0] as Duration;
             final callback = positionalArgs[1] as InterpretedFunction;
-            return Timer(duration, () {
+            return Timer(duration, () async {
               callback.call(visitor, []);
+              // Yield so the embedder can pump platform input
+              // between interpreted ticks — see
+              // _ai/quests/d4rt/interpreter_yielding.md.
+              await Future<void>.delayed(Duration.zero);
             });
           },
         },
@@ -29,14 +33,22 @@ class TimerAsync {
           'periodic': (visitor, positionalArgs, namedArgs, _) {
             final duration = positionalArgs[0] as Duration;
             final callback = positionalArgs[1] as InterpretedFunction;
-            return Timer.periodic(duration, (timer) {
+            return Timer.periodic(duration, (timer) async {
               callback.call(visitor, [timer]);
+              // Same yield rationale as the one-shot Timer
+              // above. Without this, the synchronous interpreted
+              // callback holds the framework thread for every
+              // 250 ms tick and Flutter's platform-message queue
+              // (key events, gesture events) backs up until the
+              // ticker is cancelled.
+              await Future<void>.delayed(Duration.zero);
             });
           },
           'run': (visitor, positionalArgs, namedArgs, _) {
             final callback = positionalArgs[1] as InterpretedFunction;
-            return Timer.run(() {
+            return Timer.run(() async {
               callback.call(visitor, []);
+              await Future<void>.delayed(Duration.zero);
             });
           },
         },
