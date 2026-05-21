@@ -30,15 +30,21 @@ class GeneratorPrefs {
   static const _kApiKey = 'generator.anthropicApiKey';
   static const _kModel = 'generator.model';
   static const _kThinking = 'generator.extendedThinking';
+  static const _kLastAppName = 'generator.lastAppName';
+  static const _kLastDescription = 'generator.lastDescription';
 
   String apiKey;
   GeneratorModel model;
   bool extendedThinking;
+  String lastAppName;
+  String lastDescription;
 
   GeneratorPrefs({
     this.apiKey = '',
     this.model = GeneratorModel.opus47,
     this.extendedThinking = true,
+    this.lastAppName = '',
+    this.lastDescription = '',
   });
 
   static Future<GeneratorPrefs> load() async {
@@ -48,6 +54,8 @@ class GeneratorPrefs {
       model: GeneratorModel.fromApiId(
           p.getString(_kModel) ?? GeneratorModel.opus47.apiId),
       extendedThinking: p.getBool(_kThinking) ?? true,
+      lastAppName: p.getString(_kLastAppName) ?? '',
+      lastDescription: p.getString(_kLastDescription) ?? '',
     );
   }
 
@@ -56,5 +64,7 @@ class GeneratorPrefs {
     await p.setString(_kApiKey, apiKey);
     await p.setString(_kModel, model.apiId);
     await p.setBool(_kThinking, extendedThinking);
+    await p.setString(_kLastAppName, lastAppName);
+    await p.setString(_kLastDescription, lastDescription);
   }
 }

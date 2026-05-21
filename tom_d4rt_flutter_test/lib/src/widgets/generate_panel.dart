@@ -6,6 +6,8 @@
 /// widget calls `generate(...)` and lets the notifier drive the rest.
 library;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../generator/generator_notifier.dart';
@@ -30,18 +32,33 @@ class GeneratePanel extends StatefulWidget {
 }
 
 class _GeneratePanelState extends State<GeneratePanel> {
-  final _nameCtrl = TextEditingController();
-  final _descCtrl = TextEditingController();
+  late final TextEditingController _nameCtrl;
+  late final TextEditingController _descCtrl;
+  Timer? _persistDebounce;
 
   @override
   void initState() {
     super.initState();
+    // Pre-fill from the last persisted session so the user doesn't
+    // have to re-type the name and description on every restart.
+    _nameCtrl = TextEditingController(text: widget.prefs.lastAppName);
+    _descCtrl = TextEditingController(text: widget.prefs.lastDescription);
+    _nameCtrl.addListener(_onTextChanged);
+    _descCtrl.addListener(_onTextChanged);
     widget.notifier.addListener(_onNotifierChanged);
   }
 
   @override
   void dispose() {
+    _persistDebounce?.cancel();
+    // Flush any pending change synchronously on the in-memory prefs
+    // (the async write may not complete before dispose, but the
+    // in-memory copy is already up to date for next save).
+    widget.prefs.lastAppName = _nameCtrl.text;
+    widget.prefs.lastDescription = _descCtrl.text;
     widget.notifier.removeListener(_onNotifierChanged);
+    _nameCtrl.removeListener(_onTextChanged);
+    _descCtrl.removeListener(_onTextChanged);
     _nameCtrl.dispose();
     _descCtrl.dispose();
     super.dispose();
@@ -49,7 +66,25 @@ class _GeneratePanelState extends State<GeneratePanel> {
 
   void _onNotifierChanged() => setState(() {});
 
+  /// Persist name+description ~500 ms after the user stops typing.
+  /// Debounce avoids hammering shared_preferences on every keystroke.
+  void _onTextChanged() {
+    widget.prefs.lastAppName = _nameCtrl.text;
+    widget.prefs.lastDescription = _descCtrl.text;
+    _persistDebounce?.cancel();
+    _persistDebounce = Timer(const Duration(milliseconds: 500), () {
+      widget.prefs.save();
+    });
+  }
+
   void _send() {
+    // Flush the pending debounce so the in-flight prompt is the one
+    // that ends up persisted (covers the "type, immediately hit send"
+    // path where the 500 ms timer hasn't fired yet).
+    _persistDebounce?.cancel();
+    widget.prefs.lastAppName = _nameCtrl.text;
+    widget.prefs.lastDescription = _descCtrl.text;
+    widget.prefs.save();
     widget.notifier.generate(
       prefs: widget.prefs,
       appName: _nameCtrl.text,

@@ -49,11 +49,14 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
   }
 
   Future<void> _save() async {
-    final prefs = GeneratorPrefs(
-      apiKey: _apiKey.text.trim(),
-      model: _model,
-      extendedThinking: _thinking,
-    );
+    // Mutate the incoming prefs object so any non-settings fields
+    // (lastAppName, lastDescription) survive — those are owned by
+    // the Generate tab and shouldn't be reset every time the user
+    // saves API key / model.
+    final prefs = widget.initial
+      ..apiKey = _apiKey.text.trim()
+      ..model = _model
+      ..extendedThinking = _thinking;
     await prefs.save();
     if (!mounted) return;
     Navigator.of(context).pop(prefs);
