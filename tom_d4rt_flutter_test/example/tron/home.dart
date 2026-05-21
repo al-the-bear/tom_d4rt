@@ -38,7 +38,13 @@ class _TronHomeState extends State<TronHome> {
   /// game in this "armed but not ticking" state.
   bool _started = false;
 
-  static const Duration _tickRate = Duration(milliseconds: 110);
+  // Slowed from 110 ms → 180 ms after the "AI wins before I can
+  // react" feedback. A 180 ms tick means a round lasts ~5.5 s
+  // instead of ~3 s before the bikes meet head-on, which is enough
+  // time to land 2-3 turns and actually steer your bike. The d4rt
+  // interpreter also has more headroom between ticks to process
+  // queued key events promptly.
+  static const Duration _tickRate = Duration(milliseconds: 180);
 
   @override
   void initState() {
