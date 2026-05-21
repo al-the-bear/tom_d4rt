@@ -362,12 +362,14 @@ reset).
 
 ---
 
-### 8. [ ] `conway_life` — Conway's Game of Life with patterns
+### 8. [x] `conway_life` — Conway's Game of Life with patterns — SHIPPED
 
 A 60×40 cell grid. Click to toggle cells; play / pause /
 step / clear; speed slider; preset patterns menu (glider, blinker,
-LWSS, R-pentomino, Gosper glider gun). Generations counted in a
-`Chip` above the grid.
+LWSS, R-pentomino). Generations counted in a `Chip` in the control
+bar. Boots paused so `testWidgets` can drive a deterministic
+stamp-and-step sequence via the visible `btn-step` / `btn-clear`
+buttons rather than the auto-play `Timer.periodic`.
 
 **Exercises:** `Timer.periodic`, `CustomPainter` for fast
 rendering, `GestureDetector.onPanUpdate` for paint-cells-by-dragging,
@@ -375,6 +377,26 @@ preset menu via `PopupMenuButton`, `Slider` for tick rate.
 
 **Files:** `main.dart`, `home.dart`, `board.dart` (state +
 neighbours), `patterns.dart`, `grid_painter.dart`, `control_bar.dart`.
+
+**Tests:** 6/6 pass in `test/sample_apps_in_tester_test.dart`
+(boot, blinker period-2, block static, glider 4-gen translation,
+clear-resets-state, play→pause trail).
+
+**Generic interpreter fix landed while shipping #8:**
+
+- **`D4.activeVisitor` propagation across interpreted calls.** Native
+  Dart container ops (e.g. `Map<Cell,int>` lookups, `Set<Cell>` adds)
+  dispatch through `InterpretedInstance.hashCode` / `==`, which need
+  `D4.activeVisitor` to invoke the user-defined override. Before this
+  fix `activeVisitor` was only set inside the bridged
+  `instance.hashCode` adapter, so a Map/Set lookup happening *outside*
+  that adapter fell back to identity hashing — user `==` returned
+  `true` while `hashCode` returned identity, silently breaking every
+  hash-based container holding interpreted values. Fix: wrap
+  `InterpretedFunction.call` (in both `tom_d4rt` and `tom_d4rt_ast`)
+  in `D4.withActiveVisitor`, so the active visitor is alive for the
+  entire body of every interpreted call. Generic — benefits every
+  user class with custom `==`/`hashCode`, not just Conway's `Cell`.
 
 ---
 

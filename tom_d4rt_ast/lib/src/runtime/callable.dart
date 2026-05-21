@@ -1329,6 +1329,26 @@ class InterpretedFunction implements Callable {
   Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
       [Map<String, Object?> namedArguments = const {},
       List<RuntimeType>? typeArguments]) {
+    // Establish `D4.activeVisitor` for the duration of every interpreted
+    // function call. This makes the visitor available to any native code
+    // path that the user function triggers — most importantly the
+    // `InterpretedInstance.==` / `.hashCode` overrides, which dispatch
+    // through the active visitor when native Dart collections
+    // (`Map<UserCell, …>`, `Set<UserCell>`, …) look up keys. Without this
+    // wrap, native container operations downstream of a `targetValue[key]`
+    // (visitIndexExpression) read `D4.activeVisitor == null` and silently
+    // fall back to identity hashing, breaking content-equality lookups.
+    return D4.withActiveVisitor<Object?>(visitor, () {
+      return _callImpl(visitor, positionalArguments, namedArguments,
+          typeArguments);
+    });
+  }
+
+  Object? _callImpl(
+      InterpreterVisitor visitor,
+      List<Object?> positionalArguments,
+      Map<String, Object?> namedArguments,
+      List<RuntimeType>? typeArguments) {
     // Build parent map for AST navigation (SAstNode has no .parent)
     _buildParentMap(_body);
     Logger.debug(

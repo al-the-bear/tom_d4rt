@@ -1562,6 +1562,218 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      "conway_life (example #8 — Set<Cell> equality + Timer.periodic + "
+      'CustomPainter + PopupMenuButton)', () {
+    // The Life board is 60×40 and boots paused & empty. Every test
+    // drives the board deterministically through `btn-step` so the
+    // auto-play Timer is never relied upon.
+    //
+    // Coordinate cheatsheet (centre cell = (30, 20)):
+    //   Blinker        : (29,20) (30,20) (31,20) — period-2
+    //   Block          : (30,20) (31,20) (30,21) (31,21) — static
+    //   Glider offsets : (0,-1) (1,0) (-1,1) (0,1) (1,1) → at centre
+    //                    that's (30,19) (31,20) (29,21) (30,21) (31,21).
+    //                    After 4 generations the same shape sits at
+    //                    (+1,+1) relative to where it started.
+
+    testWidgets('boots paused, empty, with gen=0 and the slider readout',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('life.init'),
+          orElse: () => '',
+        );
+        expect(init, isNot(isEmpty),
+            reason: 'Boot should emit exactly one life.init trail line.');
+        expect(init, contains('w=60'));
+        expect(init, contains('h=40'));
+        expect(init, contains('gen=0'));
+        expect(init, contains('alive=0'));
+
+        expect(find.text('gen 0 / alive 0'), findsOneWidget);
+        expect(find.text('200 ms'), findsOneWidget,
+            reason: 'Default slider should read 200 ms on boot.');
+        expect(find.byKey(const Key('life-board')), findsOneWidget);
+        expect(find.byKey(const Key('btn-play-pause')), findsOneWidget);
+      });
+    });
+
+    testWidgets('blinker preset rotates between horizontal and vertical',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        await tester.tap(find.byKey(const Key('preset-menu')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.text('Blinker'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final preset = _printLog.firstWhere(
+          (l) => l.startsWith('life.preset name=Blinker'),
+          orElse: () => '',
+        );
+        expect(preset, isNot(isEmpty),
+            reason: 'Blinker should emit one preset trail line.');
+        expect(preset, contains('alive=3'));
+        expect(find.text('gen 0 / alive 3'), findsOneWidget);
+
+        // One step → still 3 cells (period-2 oscillator).
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+        final firstStep = _printLog.firstWhere(
+          (l) => l.startsWith('life.step gen=1'),
+          orElse: () => '',
+        );
+        expect(firstStep, contains('alive=3'),
+            reason: 'Blinker after one step should still have 3 cells. '
+                'If alive!=3 the Set<Cell>/Map<Cell,int> equality is '
+                'broken — see GEN equality fix.');
+
+        // Two more steps: original shape returns on even generations.
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 30));
+        final secondStep = _printLog.firstWhere(
+          (l) => l.startsWith('life.step gen=2'),
+          orElse: () => '',
+        );
+        expect(secondStep, contains('alive=3'),
+            reason: 'Blinker after two steps should rotate back to 3.');
+      });
+    });
+
+    testWidgets('block preset is a still life — alive count never changes',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        await tester.tap(find.byKey(const Key('preset-menu')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.text('Block'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final preset = _printLog.firstWhere(
+          (l) => l.startsWith('life.preset name=Block'),
+          orElse: () => '',
+        );
+        expect(preset, contains('alive=4'));
+
+        for (var i = 0; i < 3; i++) {
+          await tester.tap(find.byKey(const Key('btn-step')));
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+
+        final steps = _printLog
+            .where((l) => l.startsWith('life.step'))
+            .toList();
+        expect(steps, hasLength(3),
+            reason: 'Three step taps should produce three life.step lines.');
+        for (final s in steps) {
+          expect(s, contains('alive=4'),
+              reason: 'Block is a still life — alive count must remain 4.');
+        }
+      });
+    });
+
+    testWidgets('glider returns to same shape shifted by (+1,+1) after 4 gens',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        await tester.tap(find.byKey(const Key('preset-menu')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.text('Glider'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final preset = _printLog.firstWhere(
+          (l) => l.startsWith('life.preset name=Glider'),
+          orElse: () => '',
+        );
+        expect(preset, contains('alive=5'),
+            reason: 'Glider has 5 live cells.');
+
+        // Advance four generations.
+        for (var i = 0; i < 4; i++) {
+          await tester.tap(find.byKey(const Key('btn-step')));
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+
+        final steps = _printLog
+            .where((l) => l.startsWith('life.step'))
+            .toList();
+        expect(steps, hasLength(4));
+        // Glider stays at 5 alive cells across its 4-cycle.
+        for (final s in steps) {
+          expect(s, contains('alive=5'),
+              reason: 'Glider is a 5-cell pattern; alive must stay 5. '
+                  'If it drifts, Set<Cell> equality is mis-counting.');
+        }
+        expect(find.text('gen 4 / alive 5'), findsOneWidget);
+      });
+    });
+
+    testWidgets('clear button resets gen and live count',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        await tester.tap(find.byKey(const Key('preset-menu')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.text('Glider'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pump(const Duration(milliseconds: 20));
+        await tester.tap(find.byKey(const Key('btn-clear')));
+        await tester.pump(const Duration(milliseconds: 20));
+
+        final clears = _printLog
+            .where((l) => l.startsWith('life.clear'))
+            .toList();
+        expect(clears, hasLength(1));
+        expect(clears.single, contains('gen=0'));
+        expect(clears.single, contains('alive=0'));
+        expect(find.text('gen 0 / alive 0'), findsOneWidget);
+      });
+    });
+
+    testWidgets('play/pause toggle starts and stops the ticker',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life');
+
+        await tester.tap(find.byKey(const Key('preset-menu')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+        await tester.tap(find.text('Blinker'));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Press play, let it tick once or twice, then pause.
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        await tester.pump(const Duration(milliseconds: 250));
+        await tester.tap(find.byKey(const Key('btn-play-pause')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(
+          _printLog.where((l) => l.startsWith('life.play interval=')),
+          hasLength(1),
+          reason: 'play should emit exactly one life.play line.',
+        );
+        expect(
+          _printLog.where((l) => l == 'life.pause'),
+          hasLength(1),
+          reason: 'pause should emit exactly one life.pause line.',
+        );
+        // The blinker oscillates, so we should observe at least one step.
+        expect(
+          _printLog.where((l) => l.startsWith('life.step')).length,
+          greaterThanOrEqualTo(1),
+          reason: 'Auto-play should produce at least one step before pause.',
+        );
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
