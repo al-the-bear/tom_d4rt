@@ -1,17 +1,21 @@
 /// Owns the generation pipeline state.
 ///
-/// Drives a multi-turn agentic loop:
-///   1. Send the user's description + the current conversation history.
-///   2. Stream assistant content (thinking / text / tool_use blocks).
-///   3. If the turn ends with `stop_reason == tool_use`, execute each
-///      tool call against the in-memory [VirtualFs], build a
-///      `tool_result` user message, and continue.
-///   4. Otherwise: flush the virtual FS to `example/<appName>/` on
-///      disk, notify [SampleAppsNotifier] to pick up the new entry,
-///      and expose the run-ready path.
+/// Drives a multi-turn agentic loop *and* a multi-prompt session:
+///   1. `generate(prefs, name, description)` resets every per-session
+///      field and runs the loop for the initial prompt.
+///   2. Each tool call mutates the in-memory [VirtualFs]; once the
+///      conversation reaches `stop_reason != tool_use` the FS is
+///      flushed to `example/<appName>/`.
+///   3. `sendFollowUp(prefs, prompt)` re-uses the existing
+///      conversation history (including all `tool_use` / `tool_result`
+///      blocks) and the same [VirtualFs], so the model continues
+///      editing the same project. A short "[Current project files:
+///      …]" header is prepended to every follow-up user message.
+///   4. `resetSession()` wipes everything (UI calls it when the user
+///      starts a new app or types a new name and clicks Send prompt).
 ///
-/// Hard-caps total tool calls per generation at [_maxToolCalls] so a
-/// runaway loop can't burn the user's quota.
+/// Hard caps: [_maxTurns] turns per prompt and [_maxToolCalls] tool
+/// calls per session to bound runaway loops.
 library;
 
 import 'dart:async';
@@ -37,7 +41,7 @@ class LogBlock {
 }
 
 class GeneratorNotifier extends ChangeNotifier {
-  static const _maxToolCalls = 60;
+  static const _maxToolCalls = 120;
   static const _maxTurns = 30;
 
   final AnthropicClient _client;
@@ -53,6 +57,13 @@ class GeneratorNotifier extends ChangeNotifier {
   Completer<TurnComplete?>? _turnCompleter;
   bool _aborted = false;
 
+  /// Per-session state. Survives across multiple agentic loops
+  /// (initial prompt + follow-ups) and is wiped by [resetSession].
+  VirtualFs _fs = VirtualFs();
+  final List<Map<String, dynamic>> _messages = <Map<String, dynamic>>[];
+  String? _sessionAppName;
+  int _sessionToolCallCount = 0;
+
   GeneratorNotifier({
     required SampleAppsNotifier samplesNotifier,
     AnthropicClient? client,
@@ -64,16 +75,23 @@ class GeneratorNotifier extends ChangeNotifier {
   List<LogBlock> get blocks => List.unmodifiable(_blocks);
   String? get generatedMainPath => _generatedMainPath;
   String? get generatedAppName => _generatedAppName;
+  String? get sessionAppName => _sessionAppName;
   String? get errorMessage => _errorMessage;
-  bool get canRun =>
-      _state == GenerationState.done && _generatedMainPath != null;
+  bool get hasSession => _sessionAppName != null;
+  int get sessionFileCount => _fs.fileCount;
+  List<String> get sessionFiles => _fs.listFiles();
   bool get isBusy =>
       _state == GenerationState.sending ||
       _state == GenerationState.streaming ||
       _state == GenerationState.executingTools;
 
-  /// Kick off a generation. Returns immediately; UI listens to
-  /// notifications. If a previous generation is in flight it is aborted.
+  /// Run button visibility: as long as we have a flushed `main.dart`
+  /// on disk and aren't mid-stream. Persists across follow-ups; only
+  /// clears when [resetSession] runs or a follow-up deletes main.dart.
+  bool get canRun => _generatedMainPath != null && !isBusy;
+
+  /// Kick off a fresh generation. Always resets the session — call
+  /// [sendFollowUp] to continue an existing session instead.
   Future<void> generate({
     required GeneratorPrefs prefs,
     required String appName,
@@ -97,7 +115,12 @@ class GeneratorNotifier extends ChangeNotifier {
       return;
     }
 
+    // Fresh session — wipe FS, history, blocks, run path.
+    _fs = VirtualFs();
+    _messages.clear();
     _blocks.clear();
+    _sessionAppName = sanitizedName;
+    _sessionToolCallCount = 0;
     _generatedMainPath = null;
     _generatedAppName = sanitizedName;
     _errorMessage = null;
@@ -107,17 +130,82 @@ class GeneratorNotifier extends ChangeNotifier {
         'Generating "$sanitizedName" with ${prefs.model.label}…');
     notifyListeners();
 
-    final fs = VirtualFs();
-    final messages = <Map<String, dynamic>>[
-      {
-        'role': 'user',
-        'content': [
-          {'type': 'text', 'text': description},
-        ],
-      },
-    ];
+    _messages.add({
+      'role': 'user',
+      'content': [
+        {'type': 'text', 'text': description},
+      ],
+    });
 
-    var totalToolCalls = 0;
+    await _runConversation(prefs);
+  }
+
+  /// Continue the current session with a new user message. Re-uses
+  /// [_fs], [_messages], and the session's app name. Prepends a short
+  /// `[Current project files: …]` header so the model has fresh
+  /// awareness of FS state even without calling `list_files`.
+  Future<void> sendFollowUp({
+    required GeneratorPrefs prefs,
+    required String prompt,
+  }) async {
+    if (isBusy) {
+      await cancel();
+    }
+    if (_sessionAppName == null) {
+      _failPrecondition('No active session — send an initial prompt first.');
+      return;
+    }
+    if (prompt.trim().isEmpty) {
+      _failPrecondition('Follow-up prompt is empty.');
+      return;
+    }
+    if (prefs.apiKey.trim().isEmpty) {
+      _failPrecondition('Anthropic API key is not set.');
+      return;
+    }
+    _aborted = false;
+    _state = GenerationState.sending;
+    final preview = prompt.replaceAll('\n', ' ');
+    _appendBlock(LogBlockKind.status,
+        'Follow-up: ${preview.length <= 80 ? preview : "${preview.substring(0, 80)}…"}');
+    notifyListeners();
+
+    final files = _fs.listFiles();
+    final header = files.isEmpty
+        ? '[Current project files: (none yet)]\n\n'
+        : '[Current project files: ${files.join(", ")}]\n\n';
+    _messages.add({
+      'role': 'user',
+      'content': [
+        {'type': 'text', 'text': '$header$prompt'},
+      ],
+    });
+
+    await _runConversation(prefs);
+  }
+
+  /// Wipe every per-session field — FS, conversation history, log
+  /// blocks, generated path. Called by the UI when the user clicks
+  /// "Reset session" or types a new app name on the Generate tab.
+  void resetSession() {
+    _fs = VirtualFs();
+    _messages.clear();
+    _blocks.clear();
+    _sessionAppName = null;
+    _sessionToolCallCount = 0;
+    _generatedMainPath = null;
+    _generatedAppName = null;
+    _errorMessage = null;
+    _state = GenerationState.idle;
+    notifyListeners();
+  }
+
+  // ── Conversation loop ────────────────────────────────────────────────
+
+  /// Runs the agentic loop until `stop_reason != tool_use`. Flushes
+  /// the FS at the end (success or error). Caller is responsible for
+  /// having appended the current user message to [_messages].
+  Future<void> _runConversation(GeneratorPrefs prefs) async {
     var turn = 0;
     try {
       while (turn < _maxTurns) {
@@ -126,16 +214,15 @@ class GeneratorNotifier extends ChangeNotifier {
         _state = GenerationState.sending;
         notifyListeners();
 
-        final turnResult = await _runOneTurn(prefs: prefs, messages: messages);
+        final turnResult =
+            await _runOneTurn(prefs: prefs, messages: _messages);
         if (_aborted) break;
         if (turnResult == null) {
-          // Error path — _runOneTurn already set the state.
+          // Error path — state already set.
           return;
         }
 
-        // Append the assistant turn verbatim so the next call can
-        // continue the conversation correctly (incl. thinking sigs).
-        messages.add({
+        _messages.add({
           'role': 'assistant',
           'content': turnResult.assistantContent,
         });
@@ -149,24 +236,26 @@ class GeneratorNotifier extends ChangeNotifier {
         notifyListeners();
 
         final results = <Map<String, dynamic>>[];
+        var bailed = false;
         for (final call in turnResult.toolUses) {
-          totalToolCalls++;
-          if (totalToolCalls > _maxToolCalls) {
+          _sessionToolCallCount++;
+          if (_sessionToolCallCount > _maxToolCalls) {
             _appendBlock(LogBlockKind.error,
-                'Exceeded $_maxToolCalls tool calls — aborting to '
-                'protect your quota.');
+                'Exceeded $_maxToolCalls tool calls this session — '
+                'aborting to protect your quota.');
             results.add({
               'type': 'tool_result',
               'tool_use_id': call.id,
               'is_error': true,
-              'content': 'Aborted: tool-call budget exhausted.',
+              'content': 'Aborted: session tool-call budget exhausted.',
             });
             _state = GenerationState.error;
-            _errorMessage = 'Tool-call budget exhausted.';
+            _errorMessage = 'Session tool-call budget exhausted.';
+            bailed = true;
             notifyListeners();
-            return;
+            break;
           }
-          final exec = executeGeneratorTool(fs, call.name, call.input);
+          final exec = executeGeneratorTool(_fs, call.name, call.input);
           _appendBlock(LogBlockKind.toolCall,
               '${call.name}(${_summariseInput(call.input)})');
           _appendBlock(LogBlockKind.toolResult, exec.summary);
@@ -179,7 +268,14 @@ class GeneratorNotifier extends ChangeNotifier {
           notifyListeners();
         }
 
-        messages.add({
+        if (bailed) {
+          // Flush whatever we have before bailing — keeps a runnable
+          // app on disk if the budget ran out late in the session.
+          await _flushFs();
+          return;
+        }
+
+        _messages.add({
           'role': 'user',
           'content': results,
         });
@@ -194,20 +290,23 @@ class GeneratorNotifier extends ChangeNotifier {
             'Reached the $_maxTurns-turn cap before the model finished.';
         _appendBlock(LogBlockKind.error, _errorMessage!);
         notifyListeners();
+        await _flushFs();
         return;
       }
 
-      await _finalize(fs, sanitizedName);
+      await _flushFs();
     } catch (e, st) {
       _state = GenerationState.error;
       _errorMessage = 'Generator crashed: $e';
       _appendBlock(LogBlockKind.error, '$e\n$st');
       notifyListeners();
+      // Try to flush whatever we have so partial progress isn't lost.
+      try {
+        await _flushFs();
+      } catch (_) {}
     }
   }
 
-  /// Runs one streamed turn. Returns the `TurnComplete` on success, or
-  /// `null` if the stream errored (in which case state was already set).
   Future<TurnComplete?> _runOneTurn({
     required GeneratorPrefs prefs,
     required List<Map<String, dynamic>> messages,
@@ -241,7 +340,7 @@ class GeneratorNotifier extends ChangeNotifier {
           _appendBlock(LogBlockKind.status,
               'Receiving tool call → ${event.toolName}');
         case ToolUseReady():
-          // The host will execute this call after the turn ends.
+          // Host executes after the turn ends.
         case TurnComplete():
           if (!completer.isCompleted) {
             completer.complete(event as TurnComplete);
@@ -266,36 +365,44 @@ class GeneratorNotifier extends ChangeNotifier {
     return completer.future;
   }
 
-  Future<void> _finalize(VirtualFs fs, String appName) async {
-    if (fs.fileCount == 0) {
-      _state = GenerationState.error;
-      _errorMessage =
-          'Model finished without writing any files — nothing to run.';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
+  /// Persist every file in [_fs] under `example/<sessionAppName>/`.
+  /// Updates [_generatedMainPath] based on whether main.dart is
+  /// currently in the FS (a follow-up that deletes main.dart should
+  /// disable the Run button).
+  Future<void> _flushFs() async {
+    if (_sessionAppName == null) return;
+    if (_fs.fileCount == 0) {
+      if (_state != GenerationState.error) {
+        _appendBlock(LogBlockKind.status,
+            'No files in the project yet — nothing flushed.');
+      }
+      _generatedMainPath = null;
       notifyListeners();
       return;
     }
-    if (fs.read('main.dart') == null) {
-      _state = GenerationState.error;
-      _errorMessage =
-          'Model finished but never wrote `main.dart`. Files present: '
-          '${fs.listFiles().join(", ")}';
-      _appendBlock(LogBlockKind.error, _errorMessage!);
-      notifyListeners();
-      return;
-    }
-
-    // Flush every file to disk under example/<appName>/.
     try {
-      final targetDir = p.join(_exampleRoot, appName);
-      final mainPath = fs.flushTo(targetDir);
-      _generatedMainPath = mainPath ?? p.join(targetDir, 'main.dart');
+      final targetDir = p.join(_exampleRoot, _sessionAppName!);
+      _fs.flushTo(targetDir);
+      if (_fs.read('main.dart') != null) {
+        _generatedMainPath = p.join(targetDir, 'main.dart');
+        _generatedAppName = _sessionAppName;
+      } else {
+        _generatedMainPath = null;
+      }
       _samplesNotifier.reload();
-      _state = GenerationState.done;
-      final files = fs.listFiles();
+      // Don't downgrade an error state — only flip to done if the
+      // conversation actually ended cleanly.
+      if (_state != GenerationState.error) {
+        _state = GenerationState.done;
+      }
+      final files = _fs.listFiles();
       _appendBlock(LogBlockKind.status,
-          'Wrote ${files.length} file(s) to example/$appName/: '
-          '${files.join(", ")} — ready to run.');
+          'Synced ${files.length} file(s) to example/$_sessionAppName/: '
+          '${files.join(", ")}.');
+      if (_fs.read('main.dart') == null) {
+        _appendBlock(LogBlockKind.status,
+            'No main.dart yet — keep iterating or write one to enable Run.');
+      }
       notifyListeners();
     } catch (e) {
       _state = GenerationState.error;
@@ -323,15 +430,6 @@ class GeneratorNotifier extends ChangeNotifier {
       _appendBlock(LogBlockKind.status, 'Cancelled by user.');
       notifyListeners();
     }
-  }
-
-  void clear() {
-    _blocks.clear();
-    _generatedMainPath = null;
-    _generatedAppName = null;
-    _errorMessage = null;
-    _state = GenerationState.idle;
-    notifyListeners();
   }
 
   // ── Internals ────────────────────────────────────────────────────────

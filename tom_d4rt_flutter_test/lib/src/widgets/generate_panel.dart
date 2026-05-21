@@ -1,9 +1,14 @@
 /// "Generate" tab — user enters an app name + multi-line description
-/// and clicks Send. The owning shell switches to the Log tab on send.
+/// and clicks "Send prompt" to start a fresh session. Once a session
+/// exists (the notifier holds an in-memory FS and conversation
+/// history), a "Follow-up" form appears below for continuing the
+/// conversation without resetting state.
 ///
-/// State (controllers, last-used name/description) lives in this widget.
-/// The actual generation pipeline is owned by [GeneratorNotifier]; this
-/// widget calls `generate(...)` and lets the notifier drive the rest.
+/// State persistence:
+///   • Name + initial description: persisted via [GeneratorPrefs]
+///     (last value pre-filled on next launch).
+///   • Follow-up prompts: NOT persisted — local widget state only,
+///     cleared after each send.
 library;
 
 import 'dart:async';
@@ -34,13 +39,12 @@ class GeneratePanel extends StatefulWidget {
 class _GeneratePanelState extends State<GeneratePanel> {
   late final TextEditingController _nameCtrl;
   late final TextEditingController _descCtrl;
+  final TextEditingController _followUpCtrl = TextEditingController();
   Timer? _persistDebounce;
 
   @override
   void initState() {
     super.initState();
-    // Pre-fill from the last persisted session so the user doesn't
-    // have to re-type the name and description on every restart.
     _nameCtrl = TextEditingController(text: widget.prefs.lastAppName);
     _descCtrl = TextEditingController(text: widget.prefs.lastDescription);
     _nameCtrl.addListener(_onTextChanged);
@@ -51,9 +55,6 @@ class _GeneratePanelState extends State<GeneratePanel> {
   @override
   void dispose() {
     _persistDebounce?.cancel();
-    // Flush any pending change synchronously on the in-memory prefs
-    // (the async write may not complete before dispose, but the
-    // in-memory copy is already up to date for next save).
     widget.prefs.lastAppName = _nameCtrl.text;
     widget.prefs.lastDescription = _descCtrl.text;
     widget.notifier.removeListener(_onNotifierChanged);
@@ -61,13 +62,12 @@ class _GeneratePanelState extends State<GeneratePanel> {
     _descCtrl.removeListener(_onTextChanged);
     _nameCtrl.dispose();
     _descCtrl.dispose();
+    _followUpCtrl.dispose();
     super.dispose();
   }
 
   void _onNotifierChanged() => setState(() {});
 
-  /// Persist name+description ~500 ms after the user stops typing.
-  /// Debounce avoids hammering shared_preferences on every keystroke.
   void _onTextChanged() {
     widget.prefs.lastAppName = _nameCtrl.text;
     widget.prefs.lastDescription = _descCtrl.text;
@@ -77,10 +77,10 @@ class _GeneratePanelState extends State<GeneratePanel> {
     });
   }
 
-  void _send() {
-    // Flush the pending debounce so the in-flight prompt is the one
-    // that ends up persisted (covers the "type, immediately hit send"
-    // path where the 500 ms timer hasn't fired yet).
+  /// Send the initial prompt — always resets the session, even if the
+  /// app name is unchanged. Matches the user's mental model: "Send
+  /// prompt" = start fresh; "Send follow-up" = continue.
+  void _sendInitial() {
     _persistDebounce?.cancel();
     widget.prefs.lastAppName = _nameCtrl.text;
     widget.prefs.lastDescription = _descCtrl.text;
@@ -93,13 +93,29 @@ class _GeneratePanelState extends State<GeneratePanel> {
     widget.onSent();
   }
 
+  void _sendFollowUp() {
+    final text = _followUpCtrl.text;
+    if (text.trim().isEmpty) return;
+    widget.notifier.sendFollowUp(
+      prefs: widget.prefs,
+      prompt: text,
+    );
+    _followUpCtrl.clear();
+    widget.onSent();
+  }
+
+  void _resetSession() {
+    widget.notifier.resetSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final keyMissing = widget.prefs.apiKey.trim().isEmpty;
     final busy = widget.notifier.isBusy;
+    final hasSession = widget.notifier.hasSession;
 
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,10 +123,15 @@ class _GeneratePanelState extends State<GeneratePanel> {
           if (keyMissing)
             _MissingKeyBanner(onTap: widget.onOpenSettings, scheme: scheme),
           if (keyMissing) const SizedBox(height: 12),
-          Text(
-            'App name',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          if (hasSession) ...[
+            _SessionBanner(
+              notifier: widget.notifier,
+              onReset: _resetSession,
+              busy: busy,
+            ),
+            const SizedBox(height: 16),
+          ],
+          Text('App name', style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 6),
           TextField(
             controller: _nameCtrl,
@@ -123,13 +144,10 @@ class _GeneratePanelState extends State<GeneratePanel> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Description',
+            hasSession ? 'Initial prompt' : 'Description',
             style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(height: 6),
-          // Ten-line tall input. We use a fixed-height TextField with
-          // maxLines=10 so the field is the requested 10 visible rows
-          // regardless of incoming text length.
           TextField(
             controller: _descCtrl,
             enabled: !busy,
@@ -139,43 +157,149 @@ class _GeneratePanelState extends State<GeneratePanel> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText:
-                  'Describe the single-file Flutter app you want the '
-                  'model to generate. The system prompt covers '
-                  'interpreter limitations and output format — just '
-                  'state what you want.',
+                  'Describe the Flutter app you want the model to generate. '
+                  'The system prompt covers interpreter limitations and the '
+                  'tool-use protocol — just state what you want.',
             ),
           ),
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(Icons.smart_toy_outlined,
-                  size: 18, color: scheme.outline),
+              Icon(Icons.smart_toy_outlined, size: 18, color: scheme.outline),
               const SizedBox(width: 6),
-              Text('Model: ${widget.prefs.model.label}',
-                  style: TextStyle(color: scheme.outline)),
-              const SizedBox(width: 16),
-              if (widget.prefs.extendedThinking)
-                Icon(Icons.psychology_outlined,
-                    size: 18, color: scheme.outline),
-              if (widget.prefs.extendedThinking) const SizedBox(width: 4),
-              if (widget.prefs.extendedThinking)
-                Text('Extended thinking on',
-                    style: TextStyle(color: scheme.outline)),
-              const Spacer(),
+              Expanded(
+                child: Text(
+                  'Model: ${widget.prefs.model.label}'
+                  '${widget.prefs.extendedThinking ? "  · thinking on" : ""}',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: scheme.outline),
+                ),
+              ),
               FilledButton.icon(
-                onPressed: (busy || keyMissing) ? null : _send,
-                icon: busy
+                onPressed: (busy || keyMissing) ? null : _sendInitial,
+                icon: busy && !hasSession
                     ? const SizedBox(
                         width: 14,
                         height: 14,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Icon(Icons.send),
-                label: Text(busy ? 'Sending…' : 'Send prompt'),
+                    : Icon(hasSession ? Icons.restart_alt : Icons.send),
+                label: Text(busy && !hasSession
+                    ? 'Sending…'
+                    : (hasSession ? 'Reset & send' : 'Send prompt')),
               ),
             ],
           ),
+          if (hasSession) ...[
+            const SizedBox(height: 28),
+            const Divider(height: 1),
+            const SizedBox(height: 20),
+            Text('Follow-up',
+                style: Theme.of(context).textTheme.titleSmall),
+            const SizedBox(height: 6),
+            Text(
+              'Continues the current session — same in-memory FS, same '
+              'conversation history. Cleared on send; not persisted '
+              'across app restarts.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: scheme.outline,
+                  ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _followUpCtrl,
+              enabled: !busy && !keyMissing,
+              maxLines: 10,
+              minLines: 10,
+              keyboardType: TextInputType.multiline,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText:
+                    'e.g. "add a settings screen with a dark-mode toggle" '
+                    'or "fix the overflow on the score panel".',
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Spacer(),
+                FilledButton.icon(
+                  onPressed: (busy || keyMissing) ? null : _sendFollowUp,
+                  icon: busy
+                      ? const SizedBox(
+                          width: 14,
+                          height: 14,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.subdirectory_arrow_right),
+                  label: Text(busy ? 'Sending…' : 'Send follow-up'),
+                ),
+              ],
+            ),
+          ],
         ],
+      ),
+    );
+  }
+}
+
+class _SessionBanner extends StatelessWidget {
+  final GeneratorNotifier notifier;
+  final VoidCallback onReset;
+  final bool busy;
+  const _SessionBanner({
+    required this.notifier,
+    required this.onReset,
+    required this.busy,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final files = notifier.sessionFiles;
+    return Material(
+      color: scheme.secondaryContainer,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 10, 10, 10),
+        child: Row(
+          children: [
+            Icon(Icons.history_edu_outlined,
+                color: scheme.onSecondaryContainer),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Active session: ${notifier.sessionAppName}',
+                    style: TextStyle(
+                      color: scheme.onSecondaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    files.isEmpty
+                        ? '(no files yet)'
+                        : '${files.length} file(s): ${files.join(", ")}',
+                    style: TextStyle(
+                      color: scheme.onSecondaryContainer,
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            TextButton.icon(
+              onPressed: busy ? null : onReset,
+              icon: const Icon(Icons.delete_outline, size: 16),
+              label: const Text('Reset'),
+            ),
+          ],
+        ),
       ),
     );
   }

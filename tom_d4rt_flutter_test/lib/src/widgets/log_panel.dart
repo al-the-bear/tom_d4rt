@@ -173,9 +173,13 @@ class _Header extends StatelessWidget {
             )
           else if (notifier.blocks.isNotEmpty)
             TextButton.icon(
-              onPressed: notifier.clear,
-              icon: const Icon(Icons.clear_all, size: 16),
-              label: const Text('Clear'),
+              // "Clear" wipes the whole session (FS + history + log)
+              // — the only honest interpretation now that we keep
+              // state across follow-up prompts. The button label
+              // matches that semantics.
+              onPressed: notifier.resetSession,
+              icon: const Icon(Icons.delete_outline, size: 16),
+              label: const Text('Reset session'),
             ),
         ],
       ),
