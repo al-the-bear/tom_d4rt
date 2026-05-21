@@ -535,7 +535,7 @@ Pure layout exercise built on the existing `ValueNotifier<T>`,
 
 ---
 
-### 12. [ ] `tip_calculator` — split-the-bill tool
+### 12. [x] `tip_calculator` — split-the-bill tool — SHIPPED
 
 Bill amount text field, tip % slider (0–30), party size stepper.
 Live shows tip total, grand total, per-person amount. Currency
@@ -543,11 +543,30 @@ locale picker. Tab/Shift-Tab navigates between fields cleanly via
 explicit `FocusNode`s.
 
 **Exercises:** `TextEditingController` + `FocusNode`,
-`NumberFormat` parsing/formatting, `Slider`, `Stepper`-ish UI built
-from `IconButton`s, focus traversal via `FocusTraversalGroup`.
+hand-rolled localised parsing/formatting (`.`/`,` decimal
+separators, JPY 0-decimals, EUR `€ ` prefix), `Slider`, `Stepper`-ish
+UI built from `IconButton`s, focus traversal via
+`FocusTraversalGroup`, `DropdownButton<Currency>`.
 
-**Files:** `main.dart`, `home.dart`, `inputs.dart`, `summary.dart`,
-`locale_dropdown.dart`.
+**Files:** `main.dart`, `home.dart`, `currency.dart`, `inputs.dart`,
+`summary.dart`, `locale_dropdown.dart`.
+
+**Interpreter fix shipped with #12 — generic `State.widget`
+staleness:** when a parent rebuilt with new constructor args for a
+child `StatefulWidget`, the child's script-side `widget.foo` kept
+returning the original `InterpretedInstance` from `createState`
+time, because the `interpretedStatefulWidget` shortcut cached on
+the State instance was only set once (in
+`_InterpretedStatefulWidget.createState`) and never refreshed.
+Flutter's framework `super.didUpdateWidget` updated the native
+`State.widget` field correctly, but the runtime_types.dart
+short-circuit at the `widget` property lookup bypassed it. Fixed by
+refreshing `_stateInstance.interpretedStatefulWidget =
+widget._instance` in `didUpdateWidget` on all four interpreted
+State proxies (plain, single-ticker, multi-ticker, restoration).
+Applied in BOTH `tom_d4rt_flutter_test` (analyzer pipeline) and
+`tom_d4rt_flutter_ast` (AST pipeline). Generic — not specific to
+the tip_calculator or any class.
 
 ---
 

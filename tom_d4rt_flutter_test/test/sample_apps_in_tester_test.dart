@@ -2385,6 +2385,193 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'tip_calculator (example #12 — TextField + FocusNode + Slider + '
+      'IconButton stepper + DropdownButton)', () {
+    // Defaults: bill=0, tip=15%, party=1, USD. The trail emits
+    // tip.compute after every state mutation so tests can assert
+    // the derived totals from a single line.
+
+    testWidgets('boots with USD defaults and an initial tip.compute',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tip_calculator');
+
+        final init = _printLog.firstWhere(
+          (l) => l.startsWith('tip.init'),
+          orElse: () => '',
+        );
+        expect(init, contains('bill=0.00'));
+        expect(init, contains('tip=15'));
+        expect(init, contains('party=1'));
+        expect(init, contains('currency=USD'));
+
+        final computes = _printLog
+            .where((l) => l.startsWith('tip.compute'))
+            .toList();
+        expect(computes, hasLength(1),
+            reason: 'Boot should emit one tip.compute baseline.');
+        expect(computes.single, contains('bill=0.00'));
+        expect(computes.single, contains('tip=0.00'));
+        expect(computes.single, contains('grand=0.00'));
+        expect(computes.single, contains('each=0.00'));
+        expect(computes.single, contains('currency=USD'));
+
+        // The summary should render the USD baseline.
+        final tipText = tester.widget<Text>(find.byKey(const Key('row-tip')));
+        expect(tipText.data, r'$0.00');
+        final grandText = tester.widget<Text>(find.byKey(const Key('row-grand')));
+        expect(grandText.data, r'$0.00');
+      });
+    });
+
+    testWidgets('submitting a bill emits tip.bill + tip.compute and '
+        'updates summary', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tip_calculator');
+
+        await tester.enterText(find.byKey(const Key('bill-field')), '100');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        final bills = _printLog
+            .where((l) => l.startsWith('tip.bill'))
+            .where((l) => !l.startsWith('tip.bill.invalid'))
+            .toList();
+        expect(bills, hasLength(1),
+            reason: 'A valid bill submit should emit one tip.bill line.');
+        expect(bills.single, contains('raw=100'));
+        expect(bills.single, contains('parsed=100.00'));
+
+        // The most recent compute line drives the assertions.
+        final computes = _printLog
+            .where((l) => l.startsWith('tip.compute'))
+            .toList();
+        expect(computes.length, greaterThanOrEqualTo(2));
+        final last = computes.last;
+        expect(last, contains('bill=100.00'));
+        // 15% tip on 100.00 = 15.00; grand = 115.00; party=1 -> each=115.00.
+        expect(last, contains('tip=15.00'));
+        expect(last, contains('grand=115.00'));
+        expect(last, contains('each=115.00'));
+
+        // Summary text should reflect the same numbers.
+        final tipText = tester.widget<Text>(find.byKey(const Key('row-tip')));
+        expect(tipText.data, r'$15.00');
+        final grandText = tester.widget<Text>(find.byKey(const Key('row-grand')));
+        expect(grandText.data, r'$115.00');
+      });
+    });
+
+    testWidgets('invalid bill is rejected without mutating state',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tip_calculator');
+
+        await tester.enterText(find.byKey(const Key('bill-field')), 'oops');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final invalid = _printLog
+            .where((l) => l.startsWith('tip.bill.invalid'))
+            .toList();
+        expect(invalid, hasLength(1));
+        expect(invalid.single, contains('raw=oops'));
+
+        // No new tip.compute should have fired (boot still emits one).
+        final computes = _printLog
+            .where((l) => l.startsWith('tip.compute'))
+            .toList();
+        expect(computes, hasLength(1),
+            reason: 'Invalid input must not trigger a new compute line.');
+
+        // Summary stays on USD baseline.
+        final tipText = tester.widget<Text>(find.byKey(const Key('row-tip')));
+        expect(tipText.data, r'$0.00');
+      });
+    });
+
+    testWidgets('party stepper: + grows the party and clamps - at 1',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tip_calculator');
+
+        // Press the minus once while party=1 — onPressed is null
+        // (button is disabled), so no tip.party line fires.
+        await tester.tap(
+          find.byKey(const Key('party-minus')),
+          warnIfMissed: false,
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 30));
+        expect(
+          _printLog.where((l) => l.startsWith('tip.party')),
+          isEmpty,
+          reason: 'Pressing - at party=1 should be a no-op (button disabled).',
+        );
+
+        // Press plus three times -> party=4. Use short pumps rather
+        // than pumpAndSettle so we don't wait through the InkResponse
+        // splash before the next tap can be dispatched.
+        for (var i = 0; i < 3; i++) {
+          await tester.tap(find.byKey(const Key('party-plus')));
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+        final partyLines = _printLog
+            .where((l) => l.startsWith('tip.party'))
+            .toList();
+        expect(partyLines, hasLength(3),
+            reason: 'Three + taps should emit three tip.party lines.');
+        expect(partyLines.last, contains('value=4'));
+
+        // The count label should show "4" now.
+        final count = tester.widget<Text>(find.byKey(const Key('party-count')));
+        expect(count.data, '4');
+
+        // Now press minus once -> party=3.
+        await tester.tap(find.byKey(const Key('party-minus')));
+        await tester.pump(const Duration(milliseconds: 50));
+        final newest = _printLog
+            .where((l) => l.startsWith('tip.party'))
+            .last;
+        expect(newest, contains('value=3'));
+      });
+    });
+
+    testWidgets('changing currency updates the summary symbol',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'tip_calculator');
+
+        // Seed a bill so the symbol swap is visible.
+        await tester.enterText(find.byKey(const Key('bill-field')), '50');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Open the dropdown and tap the EUR entry.
+        await tester.tap(find.byKey(const Key('currency-dropdown')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+        // After opening, two DropdownMenuItem widgets for EUR exist
+        // (one in the closed button, one in the open menu). `.last`
+        // selects the menu entry.
+        await tester.tap(find.byKey(const Key('currency-EUR')).last);
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final currencyLines = _printLog
+            .where((l) => l.startsWith('tip.currency'))
+            .toList();
+        expect(currencyLines, hasLength(1));
+        expect(currencyLines.single, contains('value=EUR'));
+
+        // EUR formats as "€ 57,50" (symbol + space, comma decimal).
+        // 50 bill + 15% tip = 57.50.
+        final grandText = tester.widget<Text>(find.byKey(const Key('row-grand')));
+        expect(grandText.data, '\u20AC 57,50',
+            reason: 'EUR grand total should use € + comma decimal. '
+                'Got: ${grandText.data}');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
