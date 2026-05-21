@@ -667,7 +667,7 @@ animation.
 
 ---
 
-### 17. [ ] `card_swiper` — Tinder-style swipeable card stack
+### 17. [x] `card_swiper` — Tinder-style swipeable card stack — **SHIPPED**
 
 A deck of cards stacked at slight offsets. Drag the top card; on
 release past a threshold it flies away (`AnimationController` +

@@ -3498,6 +3498,267 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'card_swiper (example #17 — drag/fly stack + AnimationController + '
+      'Transform.rotate + AnimatedPositioned)',
+      () {
+    // Trail prefixes:
+    //   swipe.init n=N
+    //   swipe.drag dx=DX
+    //   swipe.release dir=left|right|none
+    //   swipe.button dir=left|right
+    //   swipe.fly id=N dir=left|right
+    //   swipe.done id=N dir=left|right liked=L passed=P
+
+    testWidgets('boots with the top card visible and counter at 0/0',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        expect(find.byKey(const Key('swiper-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('deck-stack')), findsOneWidget);
+        // Top card has id=0 (Alex).
+        expect(find.byKey(const Key('card-name-0')), findsOneWidget);
+        expect(find.text('Alex'), findsOneWidget);
+
+        final counter = tester.widget<Text>(
+            find.byKey(const Key('swiper-counter')));
+        expect(counter.data, contains('Liked 0'));
+        expect(counter.data, contains('Passed 0'));
+
+        final inits =
+            _printLog.where((l) => l.startsWith('swipe.init ')).toList();
+        expect(inits, hasLength(1));
+        expect(inits.first, contains('n=6'));
+      });
+    });
+
+    testWidgets(
+        'like button flies the top card right and bumps the liked counter',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('btn-like')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+
+        // Trail: button → fly → done.
+        final buttons = _printLog
+            .where((l) => l.startsWith('swipe.button '))
+            .toList();
+        expect(buttons, isNotEmpty);
+        expect(buttons.last, contains('dir=right'));
+
+        final flies = _printLog
+            .where((l) => l.startsWith('swipe.fly '))
+            .toList();
+        expect(flies, hasLength(1));
+        expect(flies.single, contains('id=0'));
+        expect(flies.single, contains('dir=right'));
+
+        final dones = _printLog
+            .where((l) => l.startsWith('swipe.done '))
+            .toList();
+        expect(dones, hasLength(1));
+        expect(dones.single, contains('id=0'));
+        expect(dones.single, contains('liked=1'));
+        expect(dones.single, contains('passed=0'));
+
+        // Counter must reflect the new totals.
+        final counter = tester.widget<Text>(
+            find.byKey(const Key('swiper-counter')));
+        expect(counter.data, contains('Liked 1'));
+        expect(counter.data, contains('Passed 0'));
+
+        // Card 0 is gone; card 1 (Bree) is now the top.
+        expect(find.byKey(const Key('card-name-0')), findsNothing);
+        expect(find.byKey(const Key('card-name-1')), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'pass button flies the top card left and bumps the passed counter',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('btn-pass')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+
+        final dones = _printLog
+            .where((l) => l.startsWith('swipe.done '))
+            .toList();
+        expect(dones, hasLength(1));
+        expect(dones.single, contains('id=0'));
+        expect(dones.single, contains('dir=left'));
+        expect(dones.single, contains('liked=0'));
+        expect(dones.single, contains('passed=1'));
+      });
+    });
+
+    testWidgets('dragging the top card past the threshold commits a swipe',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Drag the top card to the right past the 80px threshold.
+        await tester.drag(
+          find.byKey(const Key('deck-top-0')),
+          const Offset(200.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+
+        final releases = _printLog
+            .where((l) => l.startsWith('swipe.release '))
+            .toList();
+        expect(releases, isNotEmpty);
+        expect(releases.last, contains('dir=right'),
+            reason: 'A 200px right drag should commit a right release');
+
+        final dones = _printLog
+            .where((l) => l.startsWith('swipe.done '))
+            .toList();
+        expect(dones, hasLength(1));
+        expect(dones.single, contains('liked=1'));
+      });
+    });
+
+    testWidgets(
+        'short drag is cancelled and the original card stays on top',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Drag only 30px — well under the 80px threshold.
+        await tester.drag(
+          find.byKey(const Key('deck-top-0')),
+          const Offset(30.0, 0.0),
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        final releases = _printLog
+            .where((l) => l.startsWith('swipe.release '))
+            .toList();
+        expect(releases, isNotEmpty);
+        expect(releases.last, contains('dir=none'),
+            reason: 'A 30px drag is below threshold and should snap back');
+
+        // No fly / done events fired.
+        expect(_printLog.where((l) => l.startsWith('swipe.fly ')), isEmpty);
+        expect(_printLog.where((l) => l.startsWith('swipe.done ')), isEmpty);
+
+        // Card 0 is still the top.
+        expect(find.byKey(const Key('card-name-0')), findsOneWidget);
+      });
+    });
+
+    testWidgets('three button taps advance through three cards',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // like → pass → like
+        await tester.tap(find.byKey(const Key('btn-like')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+        await tester.tap(find.byKey(const Key('btn-pass')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+        await tester.tap(find.byKey(const Key('btn-like')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 600));
+
+        final dones = _printLog
+            .where((l) => l.startsWith('swipe.done '))
+            .toList();
+        expect(dones, hasLength(3));
+        expect(dones[0], contains('id=0'));
+        expect(dones[1], contains('id=1'));
+        expect(dones[2], contains('id=2'));
+
+        final counter = tester.widget<Text>(
+            find.byKey(const Key('swiper-counter')));
+        expect(counter.data, contains('Liked 2'));
+        expect(counter.data, contains('Passed 1'));
+
+        // Card 3 (Dana) is now the top.
+        expect(find.byKey(const Key('card-name-3')), findsOneWidget);
+      });
+    });
+
+    testWidgets('deck shows the empty placeholder after all cards swiped',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Burn through the entire 6-card deck.
+        for (var i = 0; i < 6; i++) {
+          await tester.tap(find.byKey(const Key('btn-like')));
+          await tester.pumpAndSettle(const Duration(milliseconds: 600));
+        }
+
+        expect(find.byKey(const Key('deck-empty')), findsOneWidget);
+        expect(find.text('No more cards.'), findsOneWidget);
+
+        // Both buttons must now be disabled.
+        final pass = tester.widget<FloatingActionButton>(
+            find.byKey(const Key('btn-pass')));
+        final like = tester.widget<FloatingActionButton>(
+            find.byKey(const Key('btn-like')));
+        expect(pass.onPressed, isNull);
+        expect(like.onPressed, isNull);
+
+        final counter = tester.widget<Text>(
+            find.byKey(const Key('swiper-counter')));
+        expect(counter.data, contains('Liked 6'));
+      });
+    });
+
+    testWidgets('top card has a Transform.rotate driven by drag offset',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'card_swiper');
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Start a pan but do NOT release — we want to inspect the
+        // intermediate Transform.rotate angle while the drag is live.
+        final gesture = await tester.startGesture(
+          tester.getCenter(find.byKey(const Key('deck-top-0'))),
+        );
+        await gesture.moveBy(const Offset(120.0, 0.0));
+        await tester.pump(const Duration(milliseconds: 16));
+
+        // Find the Transform widgets inside the top card subtree.
+        // We expect at least one with a non-identity rotation matrix.
+        final transforms = tester.widgetList<Transform>(find.descendant(
+          of: find.byKey(const Key('deck-top-0')),
+          matching: find.byType(Transform),
+        ));
+        final hasRotation = transforms.any((t) {
+          // Pull off the (0,0) and (0,1) entries — a pure rotation
+          // matrix has m[0][0] = cos(angle) and m[0][1] = -sin(angle).
+          // For our 120px drag the angle should be small but non-zero.
+          final m = t.transform;
+          final m00 = m.entry(0, 0);
+          final m01 = m.entry(0, 1);
+          return (m00 - 1.0).abs() > 1e-6 || m01.abs() > 1e-6;
+        });
+        expect(hasRotation, isTrue,
+            reason: 'A live drag should rotate the top card via '
+                'Transform.rotate (m[0][0] != 1 or m[0][1] != 0).');
+
+        // Release without committing so we don't leak a fly animation
+        // into subsequent tests.
+        await gesture.up();
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
