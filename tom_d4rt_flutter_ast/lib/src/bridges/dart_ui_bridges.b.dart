@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-05-20T18:09:35.840509
+// Generated: 2026-05-21T12:36:18.770465
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -937,7 +937,7 @@ BridgedClass _createChannelBuffersBridge() {
           throw ArgumentError('drain: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        return t.drain(name, ((ByteData? p0, void Function(ByteData?) p1) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1]), 'callback', visitor) as Future<void>; }) as Future<void> Function(ByteData?, void Function(ByteData?)));
+        return t.drain(name, ((ByteData? p0, void Function(ByteData?) p1) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1])); }) as Future<void> Function(ByteData?, void Function(ByteData?)));
       },
       'handleMessage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ChannelBuffers>(target, 'ChannelBuffers');

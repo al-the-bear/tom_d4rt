@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-05-20T18:09:47.866475
+// Generated: 2026-05-21T12:36:30.587749
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -8923,7 +8923,7 @@ BridgedClass _createAppLifecycleListenerBridge() {
         final onDetachRaw = named['onDetach'];
         final onExitRequestedRaw = named['onExitRequested'];
         final onStateChangeRaw = named['onStateChange'];
-        return $flutter_130.AppLifecycleListener(binding: binding, onResume: onResumeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResumeRaw, []); }, onInactive: onInactiveRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onInactiveRaw, []); }, onHide: onHideRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onHideRaw, []); }, onShow: onShowRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShowRaw, []); }, onPause: onPauseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPauseRaw, []); }, onRestart: onRestartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onRestartRaw, []); }, onDetach: onDetachRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDetachRaw, []); }, onExitRequested: onExitRequestedRaw == null ? null : (() { return D4.extractBridgedArg<Future<AppExitResponse>>(D4.callInterpreterCallback(visitor!, onExitRequestedRaw, []), 'callback', visitor) as Future<AppExitResponse>; }) as Future<AppExitResponse> Function(), onStateChange: onStateChangeRaw == null ? null : (AppLifecycleState p0) { D4.callInterpreterCallback(visitor!, onStateChangeRaw, [p0]); });
+        return $flutter_130.AppLifecycleListener(binding: binding, onResume: onResumeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResumeRaw, []); }, onInactive: onInactiveRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onInactiveRaw, []); }, onHide: onHideRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onHideRaw, []); }, onShow: onShowRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShowRaw, []); }, onPause: onPauseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPauseRaw, []); }, onRestart: onRestartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onRestartRaw, []); }, onDetach: onDetachRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDetachRaw, []); }, onExitRequested: onExitRequestedRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onExitRequestedRaw, [])).then((v) => v as AppExitResponse); }) as Future<AppExitResponse> Function(), onStateChange: onStateChangeRaw == null ? null : (AppLifecycleState p0) { D4.callInterpreterCallback(visitor!, onStateChangeRaw, [p0]); });
       },
     },
     getters: {
@@ -22589,7 +22589,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding');
@@ -22611,7 +22611,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -22625,7 +22625,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -22639,7 +22639,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -22664,7 +22664,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -22674,7 +22674,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -22951,7 +22951,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -23612,7 +23612,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding');
@@ -23630,7 +23630,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23644,7 +23644,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23658,7 +23658,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -23683,7 +23683,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23693,7 +23693,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -23745,7 +23745,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -25251,7 +25251,7 @@ BridgedClass _createDismissibleBridge() {
         final crossAxisEndOffset = D4.getNamedArgWithDefault<double>(named, 'crossAxisEndOffset', 0.0);
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_27.DragStartBehavior>(named, 'dragStartBehavior', $flutter_27.DragStartBehavior.start);
         final behavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'behavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_148.Dismissible(key: key, child: child, background: background, secondaryBackground: secondaryBackground, confirmDismiss: confirmDismissRaw == null ? null : (($flutter_148.DismissDirection p0) { return D4.extractBridgedArg<Future<bool?>>(D4.callInterpreterCallback(visitor!, confirmDismissRaw, [p0]), 'callback', visitor) as Future<bool?>; }) as Future<bool?> Function($flutter_148.DismissDirection), onResize: onResizeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResizeRaw, []); }, onUpdate: onUpdateRaw == null ? null : ($flutter_148.DismissUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); }, onDismissed: onDismissedRaw == null ? null : ($flutter_148.DismissDirection p0) { D4.callInterpreterCallback(visitor!, onDismissedRaw, [p0]); }, direction: direction, resizeDuration: resizeDuration, dismissThresholds: dismissThresholds, movementDuration: movementDuration, crossAxisEndOffset: crossAxisEndOffset, dragStartBehavior: dragStartBehavior, behavior: behavior);
+        return $flutter_148.Dismissible(key: key, child: child, background: background, secondaryBackground: secondaryBackground, confirmDismiss: confirmDismissRaw == null ? null : (($flutter_148.DismissDirection p0) { return Future.value(D4.callInterpreterCallback(visitor!, confirmDismissRaw, [p0])).then((v) => v as bool?); }) as Future<bool?> Function($flutter_148.DismissDirection), onResize: onResizeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResizeRaw, []); }, onUpdate: onUpdateRaw == null ? null : ($flutter_148.DismissUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); }, onDismissed: onDismissedRaw == null ? null : ($flutter_148.DismissDirection p0) { D4.callInterpreterCallback(visitor!, onDismissedRaw, [p0]); }, direction: direction, resizeDuration: resizeDuration, dismissThresholds: dismissThresholds, movementDuration: movementDuration, crossAxisEndOffset: crossAxisEndOffset, dragStartBehavior: dragStartBehavior, behavior: behavior);
       },
     },
     getters: {
@@ -31756,7 +31756,7 @@ BridgedClass _createFormBridge() {
         final onWillPopRaw = named['onWillPop'];
         final onChangedRaw = named['onChanged'];
         final autovalidateMode = D4.getOptionalNamedArg<$flutter_163.AutovalidateMode?>(named, 'autovalidateMode');
-        return $flutter_163.Form(key: key, child: child, canPop: canPop, onPopInvoked: onPopInvokedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onPopInvokedRaw, [p0]); }, onPopInvokedWithResult: onPopInvokedWithResultRaw == null ? null : (bool p0, Object? p1) { D4.callInterpreterCallback(visitor!, onPopInvokedWithResultRaw, [p0, p1]); }, onWillPop: onWillPopRaw == null ? null : (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, onWillPopRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), onChanged: onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onChangedRaw, []); }, autovalidateMode: autovalidateMode);
+        return $flutter_163.Form(key: key, child: child, canPop: canPop, onPopInvoked: onPopInvokedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onPopInvokedRaw, [p0]); }, onPopInvokedWithResult: onPopInvokedWithResultRaw == null ? null : (bool p0, Object? p1) { D4.callInterpreterCallback(visitor!, onPopInvokedWithResultRaw, [p0, p1]); }, onWillPop: onWillPopRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onWillPopRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), onChanged: onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onChangedRaw, []); }, autovalidateMode: autovalidateMode);
       },
     },
     getters: {
@@ -59265,7 +59265,7 @@ BridgedClass _createPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -59275,7 +59275,7 @@ BridgedClass _createPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -59679,7 +59679,7 @@ BridgedClass _createPageRouteBuilderBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -59689,7 +59689,7 @@ BridgedClass _createPageRouteBuilderBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -67321,7 +67321,7 @@ BridgedClass _createBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -67331,7 +67331,7 @@ BridgedClass _createBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
     },
@@ -67405,7 +67405,7 @@ BridgedClass _createRootBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -67415,7 +67415,7 @@ BridgedClass _createRootBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'didPopRoute': (visitor, target, positional, named, typeArgs) {
@@ -67609,7 +67609,7 @@ BridgedClass _createChildBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -67619,7 +67619,7 @@ BridgedClass _createChildBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'notifiedByParent': (visitor, target, positional, named, typeArgs) {
@@ -67667,7 +67667,7 @@ BridgedClass _createBackButtonListenerBridge() {
           throw ArgumentError('BackButtonListener: Missing required named argument "onBackButtonPressed"');
         }
         final onBackButtonPressedRaw = named['onBackButtonPressed'];
-        return $flutter_217.BackButtonListener(key: key, child: child, onBackButtonPressed: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, onBackButtonPressedRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        return $flutter_217.BackButtonListener(key: key, child: child, onBackButtonPressed: (() { return Future.value(D4.callInterpreterCallback(visitor!, onBackButtonPressedRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
       },
     },
     getters: {
@@ -68969,7 +68969,7 @@ BridgedClass _createModalRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -68979,7 +68979,7 @@ BridgedClass _createModalRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -69414,7 +69414,7 @@ BridgedClass _createPopupRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -69424,7 +69424,7 @@ BridgedClass _createPopupRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -69977,7 +69977,7 @@ BridgedClass _createRawDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -69987,7 +69987,7 @@ BridgedClass _createRawDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -71505,7 +71505,7 @@ BridgedClass _createScrollAwareImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_221.ScrollAwareImageProvider>(target, 'ScrollAwareImageProvider');
@@ -71515,7 +71515,7 @@ BridgedClass _createScrollAwareImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_221.ScrollAwareImageProvider>(target, 'ScrollAwareImageProvider');
@@ -101392,7 +101392,7 @@ BridgedClass _createWidgetInspectorServiceBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "registerExtension"');
         }
         final registerExtensionRaw = named['registerExtension'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>), registerExtension: ({required Future<Map<String, dynamic>> Function(Map<String, String>) callback, required String name}) { D4.callInterpreterCallback(visitor!, registerExtensionRaw, [], {'callback': callback, 'name': name}); });
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>), registerExtension: ({required Future<Map<String, dynamic>> Function(Map<String, String>) callback, required String name}) { D4.callInterpreterCallback(visitor!, registerExtensionRaw, [], {'callback': callback, 'name': name}); });
         return null;
       },
       'forceRebuild': (visitor, target, positional, named, typeArgs) {
@@ -103926,7 +103926,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_44.ImageProvider>(target, 'ImageProvider');
@@ -103936,7 +103936,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_44.ImageProvider>(target, 'ImageProvider');

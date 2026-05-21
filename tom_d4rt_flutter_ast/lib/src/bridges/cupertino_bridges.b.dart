@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 110 files
-// Generated: 2026-05-20T18:09:56.284857
+// Generated: 2026-05-21T12:36:39.091030
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -11202,44 +11202,44 @@ BridgedClass _createCupertinoSliverRefreshControlBridge() {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final onRefreshRaw = named['onRefresh'];
         if (!named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function());
         }
         if (named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent);
         }
         if (named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && !named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, builder: builder);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
           final builder = (($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor) as $flutter_118.Widget; }) as $flutter_118.Widget Function($flutter_118.BuildContext, $flutter_35.RefreshIndicatorMode, double, double, double);
-          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
+          return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -11619,7 +11619,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -11629,7 +11629,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -12363,7 +12363,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12373,7 +12373,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -12776,7 +12776,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12786,7 +12786,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -13172,7 +13172,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -13182,7 +13182,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -14410,7 +14410,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -14420,7 +14420,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -17619,7 +17619,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.ImageProvider>(target, 'ImageProvider');
@@ -17629,7 +17629,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.ImageProvider>(target, 'ImageProvider');

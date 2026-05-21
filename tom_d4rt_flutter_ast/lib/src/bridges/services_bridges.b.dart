@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-05-20T18:09:42.138436
+// Generated: 2026-05-21T12:36:24.955953
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1139,7 +1139,7 @@ BridgedClass _createAssetBundleBridge() {
           throw ArgumentError('loadStructuredData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredData(key, ((String p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function(String));
+        return t.loadStructuredData(key, ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, parserRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(String));
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.AssetBundle>(target, 'AssetBundle');
@@ -1226,7 +1226,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
           throw ArgumentError('loadStructuredData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredData(key, ((String p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function(String));
+        return t.loadStructuredData(key, ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, parserRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(String));
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(target, 'NetworkAssetBundle');
@@ -1312,7 +1312,7 @@ BridgedClass _createCachingAssetBundleBridge() {
           throw ArgumentError('loadStructuredData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredData(key, ((String p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function(String));
+        return t.loadStructuredData(key, ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, parserRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(String));
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(target, 'CachingAssetBundle');
@@ -1397,7 +1397,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
           throw ArgumentError('loadStructuredData: Missing required argument "parser" at position 1');
         }
         final parserRaw = positional[1];
-        return t.loadStructuredData(key, ((String p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, parserRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function(String));
+        return t.loadStructuredData(key, ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, parserRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(String));
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(target, 'PlatformAssetBundle');
@@ -3990,7 +3990,7 @@ BridgedClass _createBinaryMessengerBridge() {
           throw ArgumentError('setMessageHandler: Missing required argument "handler" at position 1');
         }
         final handlerRaw = positional[1];
-        t.setMessageHandler(channel, handlerRaw == null ? null : ((ByteData? p0) { return D4.extractBridgedArg<Future<ByteData?>?>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor) as Future<ByteData?>?; }) as Future<ByteData?>? Function(ByteData?));
+        t.setMessageHandler(channel, handlerRaw == null ? null : ((ByteData? p0) { final r = D4.callInterpreterCallback(visitor!, handlerRaw, [p0]); return r == null ? null : Future.value(r).then((v) => v as ByteData?); }) as Future<ByteData?>? Function(ByteData?));
         return null;
       },
     },
@@ -6457,7 +6457,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -6477,7 +6477,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ServicesBinding>(target, 'ServicesBinding');
@@ -6499,7 +6499,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -6513,7 +6513,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -6527,7 +6527,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -6552,7 +6552,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -6562,7 +6562,7 @@ BridgedClass _createServicesBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -8401,7 +8401,7 @@ BridgedClass _createMethodChannelBridge() {
           throw ArgumentError('setMethodCallHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.setMethodCallHandler(handlerRaw == null ? null : (($flutter_28.MethodCall p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function($flutter_28.MethodCall));
+        t.setMethodCallHandler(handlerRaw == null ? null : (($flutter_28.MethodCall p0) { return Future.value(D4.callInterpreterCallback(visitor!, handlerRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function($flutter_28.MethodCall));
         return null;
       },
     },
@@ -8475,7 +8475,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
           throw ArgumentError('setMethodCallHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.setMethodCallHandler(handlerRaw == null ? null : (($flutter_28.MethodCall p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function($flutter_28.MethodCall));
+        t.setMethodCallHandler(handlerRaw == null ? null : (($flutter_28.MethodCall p0) { return Future.value(D4.callInterpreterCallback(visitor!, handlerRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function($flutter_28.MethodCall));
         return null;
       },
     },
@@ -10394,7 +10394,7 @@ BridgedClass _createSystemChromeBridge() {
           throw ArgumentError('setSystemUIChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool);
+        final callback = callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool);
         return $flutter_43.SystemChrome.setSystemUIChangeCallback(callback);
       },
       'restoreSystemUIOverlays': (visitor, positional, named, typeArgs) {

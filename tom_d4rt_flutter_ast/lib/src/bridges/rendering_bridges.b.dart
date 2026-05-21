@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-05-20T18:09:44.088152
+// Generated: 2026-05-21T12:36:26.852700
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2121,7 +2121,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding');
@@ -2143,7 +2143,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2157,7 +2157,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2171,7 +2171,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -2196,7 +2196,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2206,7 +2206,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2483,7 +2483,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -2984,7 +2984,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding');
@@ -3002,7 +3002,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3016,7 +3016,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3030,7 +3030,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -3055,7 +3055,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3065,7 +3065,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3133,7 +3133,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -86455,7 +86455,7 @@ BridgedClass _createOverScrollHeaderStretchConfigurationBridge() {
       '': (visitor, positional, named) {
         final stretchTriggerOffset = D4.getNamedArgWithDefault<double>(named, 'stretchTriggerOffset', 100.0);
         final onStretchTriggerRaw = named['onStretchTrigger'];
-        return $flutter_77.OverScrollHeaderStretchConfiguration(stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return $flutter_77.OverScrollHeaderStretchConfiguration(stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function());
       },
     },
     getters: {

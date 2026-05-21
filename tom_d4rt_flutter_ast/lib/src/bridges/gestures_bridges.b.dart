@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-05-20T18:09:42.845214
+// Generated: 2026-05-21T12:36:25.675870
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -4397,7 +4397,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents((() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        return t.lockEvents((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
       },
       'reassembleApplication': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.GestureBinding>(target, 'GestureBinding');
@@ -4414,7 +4414,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function());
+        t.registerSignalServiceExtension(name: name, callback: (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])); }) as Future<void> Function());
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4428,7 +4428,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function(), setter: ((bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(bool));
+        t.registerBoolServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as bool); }) as Future<bool> Function(), setter: ((bool p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(bool));
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4442,7 +4442,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<double>; }) as Future<double> Function(), setter: ((double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(double));
+        t.registerNumericServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as double); }) as Future<double> Function(), setter: ((double p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(double));
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -4467,7 +4467,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: (() { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor) as Future<String>; }) as Future<String> Function(), setter: ((String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor) as Future<void>; }) as Future<void> Function(String));
+        t.registerStringServiceExtension(name: name, getter: (() { return Future.value(D4.callInterpreterCallback(visitor!, getterRaw, [])).then((v) => v as String); }) as Future<String> Function(), setter: ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, setterRaw, [p0])); }) as Future<void> Function(String));
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -4477,7 +4477,7 @@ BridgedClass _createGestureBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as Future<Map<String, dynamic>>; }) as Future<Map<String, dynamic>> Function(Map<String, String>));
+        t.registerServiceExtension(name: name, callback: ((Map<String, String> p0) { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])).then((v) => v as Map<String, dynamic>); }) as Future<Map<String, dynamic>> Function(Map<String, String>));
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {

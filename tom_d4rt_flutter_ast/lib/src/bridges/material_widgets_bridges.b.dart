@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-05-20T18:09:52.506983
+// Generated: 2026-05-21T12:36:35.223946
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -6577,11 +6577,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -6625,11 +6625,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar.medium(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -6673,11 +6673,11 @@ BridgedClass _createSliverAppBarBridge() {
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
         final actionsPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'actionsPadding');
         if (!named.containsKey('toolbarHeight')) {
-          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
+          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding);
         }
         if (named.containsKey('toolbarHeight')) {
           final toolbarHeight = D4.getRequiredNamedArg<double>(named, 'toolbarHeight', 'SliverAppBar');
-          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
+          return $flutter_29.SliverAppBar.large(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, forceElevated: forceElevated, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, collapsedHeight: collapsedHeight, expandedHeight: expandedHeight, floating: floating, pinned: pinned, snap: snap, stretch: stretch, stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : (() { return Future.value(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, [])); }) as Future<void> Function(), shape: shape, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, toolbarHeight: toolbarHeight);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -9694,7 +9694,7 @@ BridgedClass _createModalBottomSheetRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -9704,7 +9704,7 @@ BridgedClass _createModalBottomSheetRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -18884,7 +18884,7 @@ BridgedClass _createDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -18894,7 +18894,7 @@ BridgedClass _createDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -54149,7 +54149,7 @@ BridgedClass _createMaterialPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -54159,7 +54159,7 @@ BridgedClass _createMaterialPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -54633,7 +54633,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.addScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -54643,7 +54643,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback((() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor) as Future<bool>; }) as Future<bool> Function());
+        t.removeScopedWillPopCallback((() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as bool); }) as Future<bool> Function());
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -59652,12 +59652,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -59678,12 +59678,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -59700,12 +59700,12 @@ BridgedClass _createRefreshIndicatorBridge() {
         final elevation = D4.getNamedArgWithDefault<double>(named, 'elevation', 2.0);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'RefreshIndicator');
         if (!named.containsKey('notificationPredicate')) {
-          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child);
+          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child);
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
           final notificationPredicate = (($flutter_306.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; }) as bool Function($flutter_306.ScrollNotification);
-          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor) as Future<void>; }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
+          return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: (() { return Future.value(D4.callInterpreterCallback(visitor!, onRefreshRaw, [])); }) as Future<void> Function(), onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -75420,7 +75420,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_214.ImageProvider>(target, 'ImageProvider');
@@ -75430,7 +75430,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_214.ImageProvider>(target, 'ImageProvider');
