@@ -614,7 +614,7 @@ specific to todo_list or Dismissible.
 
 ---
 
-### 14. [ ] `note_app` — master/detail with dialogs and sheets
+### 14. [x] SHIPPED — `note_app` — master/detail with dialogs and sheets
 
 Left pane: list of notes (title + first line). Right pane: editor
 for the selected note. New note from FAB; delete via `AlertDialog`

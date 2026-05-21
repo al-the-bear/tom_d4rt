@@ -2798,6 +2798,234 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'note_app (example #14 — master/detail + dialogs + sheets + '
+      'debounced SnackBar)', () {
+    // Trail prefix: `note.*`. The store emits one line per mutation
+    // (add/select/update/save/delete) and the editor emits
+    // `editor.swap` when the user picks a different note. Tests
+    // mostly drive the wide layout (1200x1200 default) — the
+    // narrow-layout Navigator.push path gets its own case below.
+
+    testWidgets('boots empty with init trail and empty-pane placeholder',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        final initLines = _printLog
+            .where((l) => l.startsWith('note.init'))
+            .toList();
+        expect(initLines, hasLength(1));
+        expect(initLines.single, contains('n=0'));
+
+        // Empty placeholders are visible in both panes.
+        expect(find.byKey(const Key('list-empty-state')), findsOneWidget);
+        expect(find.byKey(const Key('editor-empty-state')), findsOneWidget);
+        // FAB is mounted and reachable.
+        expect(find.byKey(const Key('fab-new-note')), findsOneWidget);
+      });
+    });
+
+    testWidgets('FAB creates a blank note and selects it (wide)',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        final adds = _printLog
+            .where((l) => l.startsWith('note.add '))
+            .toList();
+        expect(adds, hasLength(1));
+        expect(adds.single, contains('id=1'));
+
+        // The note shows in the list and the editor is now active.
+        expect(find.byKey(const Key('note-row-1')), findsOneWidget);
+        expect(find.byKey(const Key('editor-empty-state')), findsNothing);
+        expect(find.byKey(const Key('editor-title')), findsOneWidget);
+        expect(find.byKey(const Key('editor-body')), findsOneWidget);
+      });
+    });
+
+    testWidgets('typing in title updates the list preview row',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.enterText(
+            find.byKey(const Key('editor-title')), 'Groceries');
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        // Update fired with the new title.
+        final updates = _printLog
+            .where((l) => l.startsWith('note.update '))
+            .toList();
+        expect(updates, isNotEmpty);
+        expect(updates.last, contains('title="Groceries"'));
+
+        // List row reflects the new title.
+        final row = tester.widget<ListTile>(
+            find.byKey(const Key('note-row-1')));
+        final rowTitle = row.title as Text;
+        expect(rowTitle.data, 'Groceries');
+      });
+    });
+
+    testWidgets('debounced save emits a "Saved" SnackBar',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.enterText(
+            find.byKey(const Key('editor-body')), 'remember to call');
+        // Pump just past the editor's 250ms debounce so the
+        // Future.delayed fires and the SnackBar mounts.
+        await tester.pump(const Duration(milliseconds: 280));
+        await tester.pump(const Duration(milliseconds: 50));
+
+        final saves = _printLog
+            .where((l) => l.startsWith('note.save '))
+            .toList();
+        expect(saves, isNotEmpty,
+            reason: 'Debounced editor.onSaved should have flushed '
+                'one note.save line after the delay.');
+        expect(find.byKey(const Key('snackbar-saved')), findsOneWidget);
+        expect(find.text('Saved'), findsOneWidget);
+      });
+    });
+
+    testWidgets('delete via AlertDialog confirm removes the note',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+        await tester.enterText(
+            find.byKey(const Key('editor-title')), 'doomed');
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.tap(find.byKey(const Key('appbar-delete')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // AlertDialog is up.
+        expect(find.byKey(const Key('delete-dialog')), findsOneWidget);
+        expect(find.byKey(const Key('delete-cancel')), findsOneWidget);
+        expect(find.byKey(const Key('delete-confirm')), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('delete-confirm')));
+        await tester.pumpAndSettle();
+
+        final deletes = _printLog
+            .where((l) => l.startsWith('note.delete id='))
+            .toList();
+        expect(deletes, hasLength(1));
+        expect(deletes.single, contains('id=1'));
+
+        // Note row is gone; deleted SnackBar fired.
+        expect(find.byKey(const Key('note-row-1')), findsNothing);
+        expect(find.byKey(const Key('snackbar-deleted')), findsOneWidget);
+      });
+    });
+
+    testWidgets('share via bottom-sheet pops "Shared" SnackBar',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+        await tester.enterText(
+            find.byKey(const Key('editor-title')), 'shareable');
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.tap(find.byKey(const Key('appbar-share')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Bottom sheet is up with all three options.
+        expect(find.byKey(const Key('share-sheet')), findsOneWidget);
+        expect(find.byKey(const Key('share-copy')), findsOneWidget);
+        expect(find.byKey(const Key('share-email')), findsOneWidget);
+        expect(find.byKey(const Key('share-link')), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('share-email')));
+        await tester.pumpAndSettle();
+
+        // Shared SnackBar fired with the title baked in.
+        expect(find.byKey(const Key('snackbar-shared')), findsOneWidget);
+        expect(find.text('Shared "shareable"'), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'selecting a different note swaps the editor controllers',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        // Two distinct notes.
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+        await tester.enterText(
+            find.byKey(const Key('editor-title')), 'note one');
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+        await tester.enterText(
+            find.byKey(const Key('editor-title')), 'note two');
+        await tester.pumpAndSettle(const Duration(milliseconds: 80));
+
+        // Tap the first note in the list — editor must swap to it.
+        await tester.tap(find.byKey(const Key('note-row-1')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        final swaps = _printLog
+            .where((l) => l.startsWith('editor.swap '))
+            .toList();
+        expect(swaps, isNotEmpty,
+            reason: 'didUpdateWidget should have detected the note id '
+                'change and emitted editor.swap.');
+        expect(swaps.last, contains('note=1'));
+
+        // Title field now reflects note 1's text.
+        final title = tester.widget<TextField>(
+            find.byKey(const Key('editor-title')));
+        expect(title.controller!.text, 'note one');
+      });
+    });
+
+    testWidgets(
+        'narrow layout pushes editor via Navigator.push',
+        (tester) async {
+      // Force a narrow window so LayoutBuilder picks the stacked
+      // navigation path.
+      tester.view.physicalSize = const Size(500, 1000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await _runInZone(() async {
+        await _mountSample(tester, 'note_app');
+
+        // FAB on narrow layout: creates + pushes editor.
+        await tester.tap(find.byKey(const Key('fab-new-note')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        // Editor route should be on top (AppBar carries the new
+        // route's title), and the list page should NOT be hit-testable.
+        expect(find.byKey(const Key('editor-appbar-1')), findsOneWidget);
+        expect(find.byKey(const Key('editor-title')), findsOneWidget);
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
