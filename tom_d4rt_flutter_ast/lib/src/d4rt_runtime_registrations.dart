@@ -1375,7 +1375,26 @@ class _InterpretedState extends State<_InterpretedStatefulWidget>
       // `widget` lookup would keep returning the original (createState-time)
       // InterpretedInstance and every reactive prop drift would go silent.
       _stateInstance.interpretedStatefulWidget = widget._instance;
-      _callVoidMethod('didUpdateWidget');
+      // Pass the previous widget's interpreted instance so the script's
+      // `didUpdateWidget(MyWidget oldWidget)` actually receives `oldWidget`.
+      // Without this, `_callVoidMethod` dispatches with zero arguments and
+      // the missing-required-positional error is silently swallowed by the
+      // lifecycle try/catch — the script override never runs, breaking any
+      // logic that compares old vs new widget state (controller resets,
+      // selection swaps, debounce poisoning, …). This must be done on every
+      // State proxy variant (plain / Single+Multi Ticker / Restoration).
+      final didUpdateMethod =
+          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      if (didUpdateMethod != null) {
+        try {
+          didUpdateMethod
+              .bind(_stateInstance)
+              .call(_visitor, <Object?>[oldWidget._instance], {});
+        } catch (_) {
+          // Match `_callVoidMethod` posture: lifecycle methods that call
+          // `super.didUpdateWidget(...)` may fault on the proxy boundary.
+        }
+      }
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
     }
@@ -1501,7 +1520,26 @@ class _InterpretedSingleTickerProviderState
       // `widget` lookup would keep returning the original (createState-time)
       // InterpretedInstance and every reactive prop drift would go silent.
       _stateInstance.interpretedStatefulWidget = widget._instance;
-      _callVoidMethod('didUpdateWidget');
+      // Pass the previous widget's interpreted instance so the script's
+      // `didUpdateWidget(MyWidget oldWidget)` actually receives `oldWidget`.
+      // Without this, `_callVoidMethod` dispatches with zero arguments and
+      // the missing-required-positional error is silently swallowed by the
+      // lifecycle try/catch — the script override never runs, breaking any
+      // logic that compares old vs new widget state (controller resets,
+      // selection swaps, debounce poisoning, …). This must be done on every
+      // State proxy variant (plain / Single+Multi Ticker / Restoration).
+      final didUpdateMethod =
+          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      if (didUpdateMethod != null) {
+        try {
+          didUpdateMethod
+              .bind(_stateInstance)
+              .call(_visitor, <Object?>[oldWidget._instance], {});
+        } catch (_) {
+          // Match `_callVoidMethod` posture: lifecycle methods that call
+          // `super.didUpdateWidget(...)` may fault on the proxy boundary.
+        }
+      }
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
     }
@@ -1617,7 +1655,26 @@ class _InterpretedMultiTickerProviderState
       // `widget` lookup would keep returning the original (createState-time)
       // InterpretedInstance and every reactive prop drift would go silent.
       _stateInstance.interpretedStatefulWidget = widget._instance;
-      _callVoidMethod('didUpdateWidget');
+      // Pass the previous widget's interpreted instance so the script's
+      // `didUpdateWidget(MyWidget oldWidget)` actually receives `oldWidget`.
+      // Without this, `_callVoidMethod` dispatches with zero arguments and
+      // the missing-required-positional error is silently swallowed by the
+      // lifecycle try/catch — the script override never runs, breaking any
+      // logic that compares old vs new widget state (controller resets,
+      // selection swaps, debounce poisoning, …). This must be done on every
+      // State proxy variant (plain / Single+Multi Ticker / Restoration).
+      final didUpdateMethod =
+          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      if (didUpdateMethod != null) {
+        try {
+          didUpdateMethod
+              .bind(_stateInstance)
+              .call(_visitor, <Object?>[oldWidget._instance], {});
+        } catch (_) {
+          // Match `_callVoidMethod` posture: lifecycle methods that call
+          // `super.didUpdateWidget(...)` may fault on the proxy boundary.
+        }
+      }
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
     }
@@ -1799,7 +1856,26 @@ class _InterpretedRestorationMixinState
       // `widget` lookup would keep returning the original (createState-time)
       // InterpretedInstance and every reactive prop drift would go silent.
       _stateInstance.interpretedStatefulWidget = widget._instance;
-      _callVoidMethod('didUpdateWidget');
+      // Pass the previous widget's interpreted instance so the script's
+      // `didUpdateWidget(MyWidget oldWidget)` actually receives `oldWidget`.
+      // Without this, `_callVoidMethod` dispatches with zero arguments and
+      // the missing-required-positional error is silently swallowed by the
+      // lifecycle try/catch — the script override never runs, breaking any
+      // logic that compares old vs new widget state (controller resets,
+      // selection swaps, debounce poisoning, …). This must be done on every
+      // State proxy variant (plain / Single+Multi Ticker / Restoration).
+      final didUpdateMethod =
+          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      if (didUpdateMethod != null) {
+        try {
+          didUpdateMethod
+              .bind(_stateInstance)
+              .call(_visitor, <Object?>[oldWidget._instance], {});
+        } catch (_) {
+          // Match `_callVoidMethod` posture: lifecycle methods that call
+          // `super.didUpdateWidget(...)` may fault on the proxy boundary.
+        }
+      }
     } finally {
       _lifecycleInProgress.remove('didUpdateWidget');
     }
