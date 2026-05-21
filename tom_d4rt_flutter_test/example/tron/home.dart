@@ -31,6 +31,13 @@ class _TronHomeState extends State<TronHome> {
   int _draws = 0;
   bool _paused = false;
 
+  /// The first round starts paused — we wait until the user presses a
+  /// key (any key) before the ticker takes its first step. Without this
+  /// the AI would win in ~3 seconds before the user realises they're
+  /// expected to steer. After a round ends, restart also leaves the
+  /// game in this "armed but not ticking" state.
+  bool _started = false;
+
   static const Duration _tickRate = Duration(milliseconds: 110);
 
   @override
@@ -56,6 +63,7 @@ class _TronHomeState extends State<TronHome> {
   }
 
   void _onTick(Timer _) {
+    if (!_started) return;
     if (_paused) return;
     if (_engine.status != GameStatus.playing) return;
     final prev = _engine.status;
@@ -76,6 +84,10 @@ class _TronHomeState extends State<TronHome> {
     setState(() {
       _engine.reset();
       _paused = false;
+      // Re-arm — the ticker will sit idle again until the user
+      // presses a key. Prevents the "AI wins before you blink"
+      // surprise after every restart.
+      _started = false;
     });
     _tickNotifier.value = _engine.tick;
     _focusNode.requestFocus();
@@ -84,12 +96,23 @@ class _TronHomeState extends State<TronHome> {
   void _turnLeft() {
     if (_engine.status != GameStatus.playing) return;
     _engine.player.queueTurnLeft();
+    // Steering also arms the ticker — covers the on-screen LEFT
+    // button path so clicking it starts the game just like pressing
+    // an arrow key.
+    if (!_started) {
+      setState(() => _started = true);
+      print('[tron] started');
+    }
     print('[tron] LEFT  -> pending=${_engine.player.pendingDir}');
   }
 
   void _turnRight() {
     if (_engine.status != GameStatus.playing) return;
     _engine.player.queueTurnRight();
+    if (!_started) {
+      setState(() => _started = true);
+      print('[tron] started');
+    }
     print('[tron] RIGHT -> pending=${_engine.player.pendingDir}');
   }
 
@@ -100,25 +123,55 @@ class _TronHomeState extends State<TronHome> {
   }
 
   /// Key handler for the [KeyboardListener] wrapping the arena.
+  ///
+  /// Three states + how each key behaves:
+  ///   • Not started yet — any key arms the ticker. A directional key
+  ///     ALSO queues a first turn so the user sees their press take
+  ///     effect immediately on the very first tick.
+  ///   • Playing — arrows / A / D steer; space pauses.
+  ///   • Game over — any key restarts. A directional restart queues the
+  ///     turn for the new round (so the user can keep pressing arrows
+  ///     to restart-and-go without thinking about "press space first").
   void _handleKey(KeyEvent event) {
     if (event is! KeyDownEvent && event is! KeyRepeatEvent) return;
     final k = event.logicalKey;
     print('[tron] key=${k.debugName}');
+
+    final isLeft =
+        k == LogicalKeyboardKey.arrowLeft || k == LogicalKeyboardKey.keyA;
+    final isRight =
+        k == LogicalKeyboardKey.arrowRight || k == LogicalKeyboardKey.keyD;
+
+    // Game-over: any key restarts. If it's a direction, carry the
+    // turn into the new round.
     if (_engine.status != GameStatus.playing) {
-      if (k == LogicalKeyboardKey.space ||
-          k == LogicalKeyboardKey.enter ||
-          k == LogicalKeyboardKey.numpadEnter) {
-        _restart();
+      _restart();
+      if (isLeft) {
+        _turnLeft();
+        _started = true;
+      } else if (isRight) {
+        _turnRight();
+        _started = true;
       }
       return;
     }
-    if (k == LogicalKeyboardKey.arrowLeft ||
-        k == LogicalKeyboardKey.keyA) {
+
+    // Not started yet: any key starts. Directional keys also queue the
+    // first turn so steering feels instant.
+    if (!_started) {
+      setState(() => _started = true);
+      print('[tron] started');
+      if (isLeft) _turnLeft();
+      if (isRight) _turnRight();
+      return;
+    }
+
+    // Playing.
+    if (isLeft) {
       _turnLeft();
       return;
     }
-    if (k == LogicalKeyboardKey.arrowRight ||
-        k == LogicalKeyboardKey.keyD) {
+    if (isRight) {
       _turnRight();
       return;
     }
@@ -193,7 +246,9 @@ class _TronHomeState extends State<TronHome> {
                               _GameOverOverlay(
                                 status: _engine.status,
                                 onRestart: _restart,
-                              ),
+                              )
+                            else if (!_started)
+                              const _StartOverlay(),
                           ],
                         ),
                       ),
@@ -526,6 +581,55 @@ class _Key extends StatelessWidget {
           color: Color(0xFF9DC3FF),
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+}
+
+/// Overlay shown before the first move of a round. Disappears when the
+/// user presses any key (or taps a steering button).
+class _StartOverlay extends StatelessWidget {
+  const _StartOverlay();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black.withOpacity(0.45),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'READY',
+            style: TextStyle(
+              color: Color(0xFF00E5FF),
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 12,
+              shadows: [
+                Shadow(color: Color(0x9900E5FF), blurRadius: 14),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            'Press any key to start',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.92),
+              fontSize: 16,
+              letterSpacing: 2,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'A / ←  turn left   ·   D / →  turn right',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.62),
+              fontSize: 13,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ],
       ),
     );
   }

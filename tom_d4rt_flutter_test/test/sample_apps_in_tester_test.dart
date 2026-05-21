@@ -4549,6 +4549,269 @@ class _CounterState extends State<Counter> {
     });
   });
 
+  group(
+      'bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + '
+      'per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope)',
+      () {
+    // Trail prefixes used by this sample:
+    //   route.gen tab=<id> name=<route>
+    //   nav.switch from=<id> to=<id>
+    //   nav.innerpop tab=<id>
+    //   nav.rootpop tab=<id>
+    //   nav.poproot tab=<id>
+    //   home.tap item=<n>
+    //   detail.back tab=<id> title=<s>
+    //   search.run q="<text>" total=<n>
+    //   theme.toggle source=<Home|Profile> dark=<bool>
+
+    testWidgets('boots on Home with all three nav destinations',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Bottom-nav scaffolding.
+        expect(find.byKey(const Key('bn-bar')), findsOneWidget);
+        expect(find.byKey(const Key('bn-stack')), findsOneWidget);
+        // The inactive TabNavigators are offstage inside the
+        // IndexedStack — pass `skipOffstage: false` to assert they
+        // are mounted in the tree.
+        expect(
+            find.byKey(const Key('bn-nav-home'), skipOffstage: false),
+            findsOneWidget);
+        expect(
+            find.byKey(const Key('bn-nav-search'), skipOffstage: false),
+            findsOneWidget);
+        expect(
+            find.byKey(const Key('bn-nav-profile'), skipOffstage: false),
+            findsOneWidget);
+
+        // Home tab is the initial selection.
+        expect(find.byKey(const Key('home-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('home-list')), findsOneWidget);
+        expect(find.byKey(const Key('home-item-1')), findsOneWidget);
+
+        // Three labels — also confirms all destinations rendered.
+        expect(find.text('Home'), findsWidgets);
+        expect(find.text('Search'), findsWidgets);
+        expect(find.text('Profile'), findsWidgets);
+      });
+    });
+
+    testWidgets('bottom-nav tap switches the active tab',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Tap Search via the icon — there's only one search icon in
+        // the bar, so this is unambiguous.
+        await tester.tap(find.byIcon(Icons.search_outlined));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        expect(find.byKey(const Key('search-appbar')), findsOneWidget);
+        expect(find.byKey(const Key('search-field')), findsOneWidget);
+
+        final switches = _printLog
+            .where((l) => l.startsWith('nav.switch '))
+            .toList();
+        expect(switches, hasLength(1));
+        expect(switches.first, 'nav.switch from=home to=search');
+      });
+    });
+
+    testWidgets(
+        'IndexedStack preserves search field text across tab switches',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Visit Search tab.
+        await tester.tap(find.byIcon(Icons.search_outlined));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.enterText(
+          find.byKey(const Key('search-field')),
+          'preserved',
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Bounce: Search → Home → Search.
+        await tester.tap(find.byIcon(Icons.home_outlined));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+        await tester.tap(find.byIcon(Icons.search_outlined));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final TextField field = tester.widget<TextField>(
+          find.byKey(const Key('search-field')),
+        );
+        expect(field.controller?.text, 'preserved',
+            reason:
+                'IndexedStack keeps inactive tab Elements alive, so the '
+                'TextEditingController must still hold the typed text.');
+      });
+    });
+
+    testWidgets('search counter increments and renders results',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byIcon(Icons.search_outlined));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        await tester.enterText(
+          find.byKey(const Key('search-field')),
+          'flutter',
+        );
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        await tester.tap(find.byKey(const Key('search-go')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+        await tester.tap(find.byKey(const Key('search-go')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        final Text count = tester.widget<Text>(
+          find.byKey(const Key('search-count')),
+        );
+        expect(count.data, 'Searches run: 2');
+
+        // Three result tiles.
+        expect(find.byKey(const Key('search-result-0')), findsOneWidget);
+        expect(find.byKey(const Key('search-result-1')), findsOneWidget);
+        expect(find.byKey(const Key('search-result-2')), findsOneWidget);
+
+        final runs = _printLog
+            .where((l) => l.startsWith('search.run '))
+            .toList();
+        expect(runs, hasLength(2));
+      });
+    });
+
+    testWidgets('Home theme toggle propagates to Profile via ThemeScope',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Toggle from Home.
+        await tester.tap(find.byKey(const Key('home-theme-toggle')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 50));
+
+        // Switch to Profile and confirm the SwitchListTile reflects
+        // the new value.
+        await tester.tap(find.byIcon(Icons.person_outline));
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        final SwitchListTile sw = tester.widget<SwitchListTile>(
+          find.byKey(const Key('profile-dark-switch')),
+        );
+        expect(sw.value, isTrue,
+            reason:
+                'Toggling the theme from Home must flip the Profile '
+                'switch — the ThemeScope ancestor is shared.');
+
+        // The toggle line must come from Home, not Profile.
+        final toggles = _printLog
+            .where((l) => l.startsWith('theme.toggle '))
+            .toList();
+        expect(toggles, hasLength(1));
+        expect(toggles.first, 'theme.toggle source=Home dark=true');
+      });
+    });
+
+    testWidgets('tapping a Home list item pushes a detail page on the '
+        'tab\'s own Navigator', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        await tester.tap(find.byKey(const Key('home-item-3')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Detail page mounted on the home tab.
+        expect(find.byKey(const Key('detail-appbar-home')), findsOneWidget);
+        expect(find.byKey(const Key('detail-body-home')), findsOneWidget);
+        final Text body = tester.widget<Text>(
+          find.byKey(const Key('detail-body-home')),
+        );
+        expect(body.data, 'Detail page: Item 3');
+
+        // The bottom-nav bar must still be visible — the inner
+        // Navigator only replaced the home tab's body, not the
+        // whole app.
+        expect(find.byKey(const Key('bn-bar')), findsOneWidget);
+
+        final taps = _printLog
+            .where((l) => l.startsWith('home.tap '))
+            .toList();
+        expect(taps, hasLength(1));
+        expect(taps.first, 'home.tap item=3');
+      });
+    });
+
+    testWidgets(
+        'PopScope routes system back to the active tab\'s nested '
+        'Navigator', (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Push a detail page on Home.
+        await tester.tap(find.byKey(const Key('home-item-2')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        expect(find.byKey(const Key('detail-body-home')), findsOneWidget);
+
+        // Simulate the system back gesture — the framework invokes
+        // the active PopScope's `onPopInvoked(false)` because the
+        // shell sets `canPop: false`. Our handler pops the inner
+        // navigator.
+        final NavigatorState root =
+            tester.state<NavigatorState>(find.byType(Navigator).first);
+        await root.maybePop();
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        // Back to the home list.
+        expect(find.byKey(const Key('detail-body-home')), findsNothing);
+        expect(find.byKey(const Key('home-list')), findsOneWidget);
+
+        final innerPops = _printLog
+            .where((l) => l.startsWith('nav.innerpop '))
+            .toList();
+        expect(innerPops, hasLength(1));
+        expect(innerPops.first, 'nav.innerpop tab=home');
+      });
+    });
+
+    testWidgets('tapping the active tab pops its Navigator to root',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'bottom_nav_shell');
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+        // Push detail.
+        await tester.tap(find.byKey(const Key('home-item-4')));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+        expect(find.byKey(const Key('detail-body-home')), findsOneWidget);
+
+        // Tap the already-active Home destination → pops to root.
+        await tester.tap(find.byIcon(Icons.home));
+        await tester.pumpAndSettle(const Duration(milliseconds: 300));
+
+        expect(find.byKey(const Key('detail-body-home')), findsNothing);
+        expect(find.byKey(const Key('home-list')), findsOneWidget);
+
+        final popRoots = _printLog
+            .where((l) => l.startsWith('nav.poproot '))
+            .toList();
+        expect(popRoots, hasLength(1));
+        expect(popRoots.first, 'nav.poproot tab=home');
+      });
+    });
+  });
+
   group('diagnostics — AnimatedSwitcher across user-State setState', () {
     testWidgets('headline swap does NOT trip duplicate-keys',
         (tester) async {
@@ -4822,14 +5085,20 @@ Widget build(BuildContext context) {
       });
     });
 
-    testWidgets('space key toggles pause', (tester) async {
+    testWidgets('space key toggles pause once the game has started',
+        (tester) async {
       await _runInZone(() async {
         await mountTron(tester);
 
-        // Each press is a full down+up cycle — the test framework's
-        // HardwareKeyboard asserts that a key isn't already pressed
-        // when sendKeyDownEvent fires, so we have to release in
-        // between.
+        // The game boots in the "armed but idle" state; arrow keys
+        // start it. We need to start first because the very first
+        // space press arms the game rather than toggling pause.
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowLeft);
+        await tester.pump(const Duration(milliseconds: 30));
+        expect(_printLog, contains('[tron] started'),
+            reason: 'arrowLeft on an idle game should print "started".');
+
         await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
         await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
         await tester.pump(const Duration(milliseconds: 30));
@@ -4837,7 +5106,7 @@ Widget build(BuildContext context) {
         expect(
           _printLog.where((l) => l == '[tron] paused=true').toList(),
           hasLength(1),
-          reason: 'First space press should pause.',
+          reason: 'First space press after start should pause.',
         );
 
         await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
@@ -4849,6 +5118,56 @@ Widget build(BuildContext context) {
           hasLength(1),
           reason: 'Second space press should resume.',
         );
+      });
+    });
+
+    testWidgets('boots armed-but-idle until the first key arms the ticker',
+        (tester) async {
+      // Regression for the "AI wins before I can react" bug. The
+      // game must NOT tick before the user presses something; the
+      // ticker only starts after the first key (or steering button)
+      // and the script prints `[tron] started` at that moment.
+      await _runInZone(() async {
+        await mountTron(tester);
+        // Pump well past the natural 110ms tick rate. If the ticker
+        // is wired to auto-start, we'd see `[tron] round ended` in
+        // the trail by now.
+        await tester.pump(const Duration(milliseconds: 600));
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] round ended')),
+          isEmpty,
+          reason: 'The ticker must stay idle before the first key '
+              'arms the game.',
+        );
+        // The READY overlay should be visible.
+        expect(find.text('READY'), findsOneWidget,
+            reason: 'A "READY" overlay should appear in the armed-but-'
+                'idle state.');
+
+        // Arming via any key starts the game.
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowRight);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowRight);
+        await tester.pump(const Duration(milliseconds: 30));
+        expect(
+          _printLog.where((l) => l == '[tron] started').toList(),
+          hasLength(1),
+          reason: 'First key press should print "[tron] started".',
+        );
+        // The directional key that armed the game must also queue
+        // its turn — otherwise the user wouldn't see their press
+        // take effect.
+        expect(
+          _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
+          hasLength(1),
+          reason: 'arrowRight on an idle game should both arm the '
+              'ticker AND queue a RIGHT turn.',
+        );
+        // Pump past 110ms — the ticker should now actually advance.
+        await tester.pump(const Duration(milliseconds: 250));
+        // (No specific assertion on the trail here — we already
+        // proved the ticker is armed via the "started" line. Real
+        // gameplay timings are non-deterministic against the test
+        // clock.)
       });
     });
 
