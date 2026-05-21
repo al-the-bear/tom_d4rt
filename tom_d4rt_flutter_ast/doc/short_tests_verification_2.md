@@ -93,15 +93,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  61 | `material/progress_test.dart` | 12,661 | 375 | (x) | (x) | (x) |
 |  62 | `cupertino/cupertino_themes_batch4_test.dart` | 12,695 | 317 | (x) | (x) | (x) |
 |  63 | `material/buttonstyle_test.dart` | 12,934 | 399 | (x) | (x) | (x) |
-|  64 | `physics/simulations_test.dart` | 12,997 | 386 | ( ) | ( ) | ( ) |
-|  65 | `rendering/boxconstraints_test.dart` | 13,319 | 399 | ( ) | ( ) | ( ) |
-|  66 | `material/inputdecoration_test.dart` | 13,381 | 408 | ( ) | ( ) | ( ) |
-|  67 | `material/dialog_test.dart` | 13,458 | 449 | ( ) | ( ) | ( ) |
-|  68 | `material/materialcolor_test.dart` | 13,729 | 386 | ( ) | ( ) | ( ) |
-|  69 | `scheduler/ticker_test.dart` | 13,816 | 396 | ( ) | ( ) | ( ) |
-|  70 | `material/tooltip_badge_test.dart` | 13,826 | 500 | ( ) | ( ) | ( ) |
-|  71 | `dart_ui/app_exit_type_test.dart` | 13,867 | 447 | ( ) | ( ) | ( ) |
-|  72 | `material/search_test.dart` | 13,895 | 477 | ( ) | ( ) | ( ) |
+|  64 | `physics/simulations_test.dart` | 12,997 | 386 | (x) | (x) | (x) |
+|  65 | `rendering/boxconstraints_test.dart` | 13,319 | 399 | (x) | (x) | (x) |
+|  66 | `material/inputdecoration_test.dart` | 13,381 | 408 | (x) | (x) | (x) |
+|  67 | `material/dialog_test.dart` | 13,458 | 449 | (x) | (x) | (x) |
+|  68 | `material/materialcolor_test.dart` | 13,729 | 386 | (x) | (x) | (x) |
+|  69 | `scheduler/ticker_test.dart` | 13,816 | 396 | (x) | (x) | (x) |
+|  70 | `material/tooltip_badge_test.dart` | 13,826 | 500 | (x) | (x) | (x) |
+|  71 | `dart_ui/app_exit_type_test.dart` | 13,867 | 447 | (x) | (x) | (x) |
+|  72 | `material/search_test.dart` | 13,895 | 477 | (x) | (x) | (x) |
 |  73 | `cupertino/dialog_test.dart` | 13,922 | 387 | ( ) | ( ) | ( ) |
 |  74 | `material/scrollbar_test.dart` | 13,959 | 467 | ( ) | ( ) | ( ) |
 |  75 | `rendering/render_fractional_translation_test.dart` | 13,969 | 411 | ( ) | ( ) | ( ) |

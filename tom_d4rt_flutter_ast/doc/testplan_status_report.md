@@ -289,7 +289,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [accessibility_features_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/accessibility_features_test.dart) | AccessibilityFeatures | No | Yes | No | Created on 2026-03-17 at 17:38 |
 | [app_exit_response_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/app_exit_response_test.dart) | AppExitResponse | No | Yes | No | Created on 2026-03-17 at 17:45 |
-| [app_exit_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/app_exit_type_test.dart) | AppExitType | No | Yes | No | Created on 2026-03-17 at 18:02 |
+| [app_exit_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/app_exit_type_test.dart) | AppExitType | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1652 lines). |
 | [app_lifecycle_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/app_lifecycle_state_test.dart) | AppLifecycleState | No | Yes | No | Created on 2026-03-17 at 18:08 |
 | [backdrop_filter_engine_layer_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/backdrop_filter_engine_layer_test.dart) | BackdropFilterEngineLayer | No | Yes | No | Created on 2026-03-17 at 18:15 |
 | [blend_mode_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/blend_mode_test.dart) | BlendMode | No | Yes | No | Created on 2026-03-17 at 18:22 |
@@ -656,7 +656,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [dialog_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_advanced_test.dart) | SimpleDialog | No | Yes | No | Checked. Recreated on 2026-05-10 at 23:07. Hand-authored visual deep demo (batch 13). |
 | [dialog_bottom_sheet_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_bottom_sheet_test.dart) | Dialog | No | Yes | No | Recreated on 2026-05-16 at 18:50. Hand-authored visual deep demo (~2221 lines, batch B). |
 | [dialog_route_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_route_test.dart) | DialogRoute | No | Yes | No | Created on 20.03.2026 at 19:11 |
-| [dialog_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_test.dart) | Dialog | No | Yes | No |
+| [dialog_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_test.dart) | Dialog | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1518 lines). |
 | [dialog_theme_data_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_theme_data_test.dart) | DialogThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [dialog_themes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/dialog_themes_test.dart) | DialogTheme | No | Yes | No | Recreated on 2026-05-16 at 18:50. Hand-authored visual deep demo (~1970 lines, batch B). |
 | [disabled_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/disabled_chip_attributes_test.dart) | DisabledChipAttributes | No | Yes | No | Created on 20.03.2026 at 19:11 |
@@ -731,7 +731,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [input_decoration_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/input_decoration_theme_test.dart) | InputDecorationTheme | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [input_decorator_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/input_decorator_test.dart) | InputDecorator | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [input_themes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/input_themes_test.dart) | InputDecorationTheme | Yes | Yes | 2026-05-20 | Recreated on 2026-05-20 at Batch 5 deep-demo rewrite (2468 lines). |
-| [inputdecoration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/inputdecoration_test.dart) | InputDecoration | No | Yes | No |
+| [inputdecoration_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/inputdecoration_test.dart) | InputDecoration | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1658 lines). |
 | [interactive_ink_feature_factory_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/interactive_ink_feature_factory_test.dart) | InteractiveInkFeatureFactory | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [licensepage_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/licensepage_test.dart) | LicensePage | No | Yes | No | Recreated on 2026-05-05 at 10:30 |
 | [list_tile_control_affinity_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/list_tile_control_affinity_test.dart) | ListTileControlAffinity | No | Yes | No | Deep demo created 2025-03-28 |
@@ -757,7 +757,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [material_widget_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/material_widget_test.dart) | Material | Yes | Yes | 2026-05-20 | Created on 2026-05-20 at Batch 4 deep-demo rewrite (2537 lines). |
 | [materialapp_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/materialapp_test.dart) | MaterialApp | No | Yes | No | Created on 2026-05-20 at Batch 2 deep-demo rewrite (1726 lines). |
 | [materialbanner_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/materialbanner_test.dart) | MaterialBanner | No | Yes | No | Recreated on 2026-05-16 at 18:45. Hand-authored visual deep demo (~1784 lines, batch A). |
-| [materialcolor_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/materialcolor_test.dart) | MaterialColor | No | Yes | No |
+| [materialcolor_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/materialcolor_test.dart) | MaterialColor | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1335 lines). |
 | [menu_accelerator_callback_binding_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/menu_accelerator_callback_binding_test.dart) | MenuAcceleratorCallbackBinding | No | Yes | No | Recreated on 2026-05-02 at 11:07 |
 | [menu_accelerator_label_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/menu_accelerator_label_test.dart) | MenuAcceleratorLabel | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [menu_advanced_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/menu_advanced_test.dart) | MenuStyle | No | Yes | No Recreated on 2026-05-10 at 23:07. Hand-authored visual deep demo (batch 13). |
@@ -850,7 +850,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [search_controller_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/search_controller_test.dart) | SearchController | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [search_delegate_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/search_delegate_test.dart) | SearchDelegate | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [search_filled_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/search_filled_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [search_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/search_test.dart) | SearchBar | No | Yes | No |
+| [search_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/search_test.dart) | SearchBar | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1553 lines). |
 | [segmented_button_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/segmented_button_state_test.dart) | SegmentedButtonState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [segmentedbutton_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/segmentedbutton_test.dart) | SegmentedButton | No | Yes | No | Recreated on 2026-05-12 at 16:00 |
 | [selectable_chip_attributes_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/selectable_chip_attributes_test.dart) | SelectableChipAttributes | Yes | Yes | No | Created on 2026-05-05 at 20:54 |
@@ -917,7 +917,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [toggle_buttons_theme_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart) | ToggleButtonsTheme | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
 | [toggle_segmented_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No | Recreated on 2026-05-03 at 13:30 |
 | [togglebuttons_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/togglebuttons_test.dart) | ToggleButtons | Yes | Yes | 2026-05-20 | Created on 2026-05-20 at Batch 4 deep-demo rewrite (2617 lines). |
-| [tooltip_badge_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No |
+| [tooltip_badge_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1511 lines). |
 | [toggle_buttons_box_constraints_eq_regression_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/toggle_buttons_box_constraints_eq_regression_test.dart) | ToggleButtonsBoxConstraintsEqRegression | No | No | No | Needs to be created (Batch-10 failure pattern: bridged `BoxConstraints` operator `==` receives null `other` in toggle buttons theme flows). |
 | [tooltip_feedback_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_feedback_test.dart) | Tooltip | No | Yes | No | Checked. Recreated on 2026-05-10 at 14:25. Hand-authored visual deep demo (committed in batch). |
 | [tooltip_state_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | Yes | No | Recreated on 2026-05-02 at 11:19 |
@@ -1021,7 +1021,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [clamped_simulation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/clamped_simulation_test.dart) | ClampedSimulation | No | Yes | No | Created on 2026-05-05 at 20:54 |
 | [class_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/class_test.dart) | Class | No | Yes | No | B65 deep demo — Ocean/Reef theme, prefix ph, 1396 lines. |
 | [gravity_simulation_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/gravity_simulation_test.dart) | GravitySimulation | No | Yes | No | Created on 2026-05-08 at 17:19. |
-| [simulations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/simulations_test.dart) | SpringSimulation | No | Yes | No | Checked. |
+| [simulations_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/simulations_test.dart) | SpringSimulation | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1734 lines). |
 | [spring_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/spring_test.dart) | SpringDescription | No | Yes | No | Checked. |
 | [spring_type_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/spring_type_test.dart) | SpringType | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [springdescription_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/physics/springdescription_test.dart) | SpringDescription | No | Yes | No | Recreated on 2026-05-11 at 14:30. Hand-authored visual deep demo (2576 lines, batch 19). |
@@ -1038,7 +1038,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [box_hit_test_entry_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/box_hit_test_entry_test.dart) | BoxHitTestEntry | No | Yes | No | Checked. |
 | [box_hit_test_result_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/box_hit_test_result_test.dart) | BoxHitTestResult | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | box_hit_test_result_widget_coercion_regression_test.dart | BoxHitTestResult (regression) | No | No | No | Needs to be created. Regression test for `BRIDGE-WIDGET-COERCION`: `Expected Widget but got InterpretedInstance` in `box_hit_test_result_test` (Batch-61 Index 309). |
-| [boxconstraints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/boxconstraints_test.dart) | BoxConstraints | No | Yes | No |
+| [boxconstraints_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/boxconstraints_test.dart) | BoxConstraints | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1583 lines). |
 | [cache_extent_style_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/cache_extent_style_test.dart) | CacheExtentStyle | No | Yes | No | Checked. |
 | [canvas_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/canvas_test.dart) | Canvas | No | Yes | No | Checked. |
 | [child_layout_helper_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/rendering/child_layout_helper_test.dart) | ChildLayoutHelper | No | Yes | No | Checked. |
@@ -1279,7 +1279,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [scheduler_misc_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/scheduler_misc_test.dart) | Priority | No | Yes | No | Checked. Recreated on 2026-05-10 at 13:37. Hand-authored visual deep demo (committed in batch). |
 | [scheduler_phase_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/scheduler_phase_test.dart) | SchedulerPhase | No | Yes | No | Recreated on 2026-05-04 at 17:42 |
 | [scheduler_service_extensions_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/scheduler_service_extensions_test.dart) | SchedulerServiceExtensions | No | Yes | No | Recreated on 2026-05-04 at 19:05 |
-| [ticker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/ticker_test.dart) | Ticker | No | Yes | No | Checked. |
+| [ticker_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/ticker_test.dart) | Ticker | No | Yes | No | Created on 2026-05-21 at Batch 38 deep-demo rewrite (1474 lines). |
 | [tickerfuture_test.dart](../test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/scheduler/tickerfuture_test.dart) | TickerFuture | No | Yes | No | Recreated on 2026-05-12 at 17:30. Hand-authored visual deep demo (~1926 lines, batch 22). |
 ## semantics/ (21 files)
 

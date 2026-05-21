@@ -5257,4 +5257,63 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch38_short_tests2_demos_b8/', () {
+    test('physics/simulations_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'physics/simulations_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/boxconstraints_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/boxconstraints_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/inputdecoration_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/inputdecoration_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dialog_test.dart', () async {
+      final result = await SendTestRunner.send('material/dialog_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/materialcolor_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/materialcolor_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('scheduler/ticker_test.dart', () async {
+      final result = await SendTestRunner.send('scheduler/ticker_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/tooltip_badge_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/tooltip_badge_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/app_exit_type_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/app_exit_type_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/search_test.dart', () async {
+      final result = await SendTestRunner.send('material/search_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
