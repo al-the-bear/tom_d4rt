@@ -134,8 +134,49 @@ class _SnakeGameHomeState extends State<SnakeGameHome> {
     print('snake.dir queued=${directionLabel(next)}');
   }
 
+  /// Convert the currently-pressed logical keys into a desired
+  /// [Direction], if any. Used by [_pollKeyboardForDirection] as a
+  /// fallback when the event-driven `_onKeyEvent` callback is
+  /// starved by the d4rt scheduler — the test trail showed every
+  /// KeyEvent arriving in one batch *after* `_ticker.cancel()` at
+  /// game-over, with no events delivered while the periodic Timer
+  /// was firing. Polling sidesteps the problem entirely: at each
+  /// tick we ASK the input layer "what's currently held" instead
+  /// of waiting for it to push events.
+  Direction? _directionFromPressedKeys() {
+    final pressed = HardwareKeyboard.instance.logicalKeysPressed;
+    if (pressed.contains(LogicalKeyboardKey.arrowUp) ||
+        pressed.contains(LogicalKeyboardKey.keyW)) {
+      return Direction.up;
+    }
+    if (pressed.contains(LogicalKeyboardKey.arrowDown) ||
+        pressed.contains(LogicalKeyboardKey.keyS)) {
+      return Direction.down;
+    }
+    if (pressed.contains(LogicalKeyboardKey.arrowLeft) ||
+        pressed.contains(LogicalKeyboardKey.keyA)) {
+      return Direction.left;
+    }
+    if (pressed.contains(LogicalKeyboardKey.arrowRight) ||
+        pressed.contains(LogicalKeyboardKey.keyD)) {
+      return Direction.right;
+    }
+    return null;
+  }
+
+  /// Run once per tick before the step is applied. If a direction
+  /// key is currently held, apply it via the same `_setDirection`
+  /// path the event handler uses (so 180°-rejection and queueing
+  /// rules still apply).
+  void _pollKeyboardForDirection() {
+    final dir = _directionFromPressedKeys();
+    if (dir != null) _setDirection(dir);
+  }
+
   void _tick() {
     if (_over) return;
+    // Poll keyboard state — see [_directionFromPressedKeys].
+    _pollKeyboardForDirection();
     final dir = _queuedDir;
     final result = step(body: _body, dir: dir, food: _food ?? const Cell(-1, -1));
     if (result.over) {
