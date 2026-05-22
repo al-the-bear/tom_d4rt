@@ -4524,12 +4524,17 @@ class _InterpretedTextSelectionGestureDetectorBuilderDelegate
 // expose `ChangeNotifier`); the proxy delegates listener registration to that
 // shim via the interpreted instance.
 //
-// The generic type parameter is bound to `dynamic` because Dart cannot
-// specialise generic type arguments at runtime; this is the same trick used
-// for `_InterpretedParentDataWidget` and `_InterpretedAction`. Scripts that
-// declare `RouterDelegate<Foo>` work at the interpreter level; only the
-// proxy boundary erases to `dynamic`.
-class _InterpretedRouterDelegate extends RouterDelegate<dynamic>
+// The generic type parameter is bound to `Object` (not `dynamic`) because
+// `WidgetsApp.router(routerDelegate: ...)` declares the parameter as
+// `RouterDelegate<Object>?`. Dart's runtime `is` check for invariant
+// generics treats `RouterDelegate<dynamic>` as distinct from
+// `RouterDelegate<Object>` (see GEN-118b), so a `<dynamic>` proxy would
+// fail `extractBridgedArg<RouterDelegate<Object>?>` even when correctly
+// registered. `<Object>` is the universal top-non-nullable type that
+// satisfies the bridge boundary. Scripts that declare
+// `RouterDelegate<Foo>` work at the interpreter level; only the proxy
+// boundary erases to `Object`.
+class _InterpretedRouterDelegate extends RouterDelegate<Object>
     implements D4InterpretedProxy {
   _InterpretedRouterDelegate(this._visitor, this._instance);
 

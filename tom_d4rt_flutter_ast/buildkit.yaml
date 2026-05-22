@@ -75,6 +75,21 @@ d4rtgen:
     # → return InterpretedInstance(_BoxPainterSubclass)) can coerce the
     # returned instance back to the native BoxPainter contract.
     - BoxPainter
+    # Cluster B (testlog_20260522-1328-issue-analysis) item #6:
+    # RouteInformationParser<T> is the abstract router parser scripts
+    # subclass to drive `MaterialApp.router(routeInformationParser: ...)`.
+    # Single non-bounded type param; one effective abstract method
+    # (`parseRouteInformation`), the rest concrete with sensible defaults
+    # (`parseRouteInformationWithDependencies`, `restoreRouteInformation`).
+    # Without a proxy, `MaterialApp.router(routeInformationParser:)`
+    # rejects the InterpretedInstance.
+    - RouteInformationParser
+    # Cluster B (testlog_20260522-1328-issue-analysis) item #6:
+    # RouterDelegate<T> extends Listenable. Scripts subclass it (often
+    # with ChangeNotifier and PopNavigatorRouterDelegateMixin) to drive
+    # `MaterialApp.router(routerDelegate: ...)`. Required so the
+    # routerDelegate parameter coercion picks the same proxy path.
+    - RouterDelegate
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

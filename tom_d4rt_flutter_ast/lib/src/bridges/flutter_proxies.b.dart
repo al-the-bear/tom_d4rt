@@ -639,6 +639,117 @@ class D4rtBoxPainter extends BoxPainter {
 
 }
 
+/// D4rt proxy for [RouteInformationParser].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [RouteInformationParser] via named
+/// function parameters.
+class D4rtRouteInformationParser<T> extends RouteInformationParser<T> {
+  /// Callback for [RouteInformationParser.parseRouteInformation].
+  final Future<T> Function(RouteInformation)? onParseRouteInformation;
+
+  /// Callback for [RouteInformationParser.parseRouteInformationWithDependencies].
+  final Future<T> Function(RouteInformation, BuildContext)? onParseRouteInformationWithDependencies;
+
+  /// Callback for [RouteInformationParser.restoreRouteInformation].
+  final RouteInformation? Function(T)? onRestoreRouteInformation;
+
+  /// Creates a [D4rtRouteInformationParser] with callback implementations.
+  D4rtRouteInformationParser({
+    this.onParseRouteInformation,
+    this.onParseRouteInformationWithDependencies,
+    this.onRestoreRouteInformation,
+  });
+
+  @override
+  Future<T> parseRouteInformation(RouteInformation routeInformation) =>
+      onParseRouteInformation != null ? onParseRouteInformation!(routeInformation) : super.parseRouteInformation(routeInformation);
+
+  @override
+  Future<T> parseRouteInformationWithDependencies(RouteInformation routeInformation, BuildContext context) =>
+      onParseRouteInformationWithDependencies != null ? onParseRouteInformationWithDependencies!(routeInformation, context) : super.parseRouteInformationWithDependencies(routeInformation, context);
+
+  @override
+  RouteInformation? restoreRouteInformation(T configuration) =>
+      onRestoreRouteInformation != null ? onRestoreRouteInformation!(configuration) : super.restoreRouteInformation(configuration);
+
+}
+
+/// D4rt proxy for [RouterDelegate].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [RouterDelegate] via named
+/// function parameters.
+class D4rtRouterDelegate<T> extends RouterDelegate<T> {
+  /// Callback for [RouterDelegate.setNewRoutePath].
+  final Future<void> Function(T) onSetNewRoutePath;
+
+  /// Callback for [RouterDelegate.popRoute].
+  final Future<bool> Function() onPopRoute;
+
+  /// Callback for [RouterDelegate.build].
+  final Widget Function(BuildContext) onBuild;
+
+  /// Callback for [RouterDelegate.addListener].
+  final void Function(VoidCallback) onAddListener;
+
+  /// Callback for [RouterDelegate.removeListener].
+  final void Function(VoidCallback) onRemoveListener;
+
+  /// Callback for [RouterDelegate.setInitialRoutePath].
+  final Future<void> Function(T)? onSetInitialRoutePath;
+
+  /// Callback for [RouterDelegate.setRestoredRoutePath].
+  final Future<void> Function(T)? onSetRestoredRoutePath;
+
+  /// Callback for [RouterDelegate.currentConfiguration].
+  final T? Function()? onCurrentConfiguration;
+
+  /// Creates a [D4rtRouterDelegate] with callback implementations.
+  D4rtRouterDelegate({
+    required this.onSetNewRoutePath,
+    required this.onPopRoute,
+    required this.onBuild,
+    required this.onAddListener,
+    required this.onRemoveListener,
+    this.onSetInitialRoutePath,
+    this.onSetRestoredRoutePath,
+    this.onCurrentConfiguration,
+  });
+
+  @override
+  Future<void> setNewRoutePath(T configuration) =>
+      onSetNewRoutePath(configuration);
+
+  @override
+  Future<bool> popRoute() =>
+      onPopRoute();
+
+  @override
+  Widget build(BuildContext context) =>
+      onBuild(context);
+
+  @override
+  void addListener(VoidCallback listener) =>
+      onAddListener(listener);
+
+  @override
+  void removeListener(VoidCallback listener) =>
+      onRemoveListener(listener);
+
+  @override
+  Future<void> setInitialRoutePath(T configuration) =>
+      onSetInitialRoutePath != null ? onSetInitialRoutePath!(configuration) : super.setInitialRoutePath(configuration);
+
+  @override
+  Future<void> setRestoredRoutePath(T configuration) =>
+      onSetRestoredRoutePath != null ? onSetRestoredRoutePath!(configuration) : super.setRestoredRoutePath(configuration);
+
+  @override
+  T? get currentConfiguration => onCurrentConfiguration != null ? onCurrentConfiguration!() : super.currentConfiguration;
+
+}
+
 // =========================================================================
 // Proxy Factory Registration (GEN-092)
 // =========================================================================
@@ -750,16 +861,16 @@ void registerProxyFactories() {
 
   // Register factory for CustomClipper
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
-    return D4rtCustomClipper<dynamic>(
+    return D4rtCustomClipper<Object>(
       onGetClip: (Size size) {
         final method = instance.klass.findInstanceMethod('getClip');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [size], {});
-           return D4.extractBridgedArg<dynamic>(result, 'getClip', visitor);
+           return D4.extractBridgedArg<Object>(result, 'getClip', visitor);
         }
         throw StateError('Interpreted class ${instance.klass.name} does not implement getClip');
       },
-      onShouldReclip: (CustomClipper<dynamic> oldClipper) {
+      onShouldReclip: (CustomClipper<Object> oldClipper) {
         final method = instance.klass.findInstanceMethod('shouldReclip');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [oldClipper], {});
@@ -1166,7 +1277,7 @@ void registerProxyFactories() {
 
   // Register factory for TransitionDelegate
   D4.registerInterfaceProxy('TransitionDelegate', (visitor, instance) {
-    return D4rtTransitionDelegate<dynamic>(
+    return D4rtTransitionDelegate<Object>(
       onResolve: ({required List<RouteTransitionRecord> newPageRouteHistory, required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute, required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes}) {
         final method = instance.klass.findInstanceMethod('resolve');
         if (method != null) {
@@ -1349,6 +1460,122 @@ void registerProxyFactories() {
           return;
         }
         throw StateError('Interpreted class ${instance.klass.name} does not implement dispose');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for RouteInformationParser
+  D4.registerInterfaceProxy('RouteInformationParser', (visitor, instance) {
+    return D4rtRouteInformationParser<Object>(
+      onParseRouteInformation: instance.klass.findInstanceMethod('parseRouteInformation') != null
+          ? (RouteInformation routeInformation) {
+        final method = instance.klass.findInstanceMethod('parseRouteInformation');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [routeInformation], {});
+           return D4.extractBridgedArg<Future<Object>>(result, 'parseRouteInformation', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement parseRouteInformation');
+          }
+          : null,
+      onParseRouteInformationWithDependencies: instance.klass.findInstanceMethod('parseRouteInformationWithDependencies') != null
+          ? (RouteInformation routeInformation, BuildContext context) {
+        final method = instance.klass.findInstanceMethod('parseRouteInformationWithDependencies');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [routeInformation, context], {});
+           return D4.extractBridgedArg<Future<Object>>(result, 'parseRouteInformationWithDependencies', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement parseRouteInformationWithDependencies');
+          }
+          : null,
+      onRestoreRouteInformation: instance.klass.findInstanceMethod('restoreRouteInformation') != null
+          ? (Object configuration) {
+        final method = instance.klass.findInstanceMethod('restoreRouteInformation');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [configuration], {});
+           return D4.extractBridgedArg<RouteInformation?>(result, 'restoreRouteInformation', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement restoreRouteInformation');
+          }
+          : null,
+    );
+  });
+
+  // Register factory for RouterDelegate
+  D4.registerInterfaceProxy('RouterDelegate', (visitor, instance) {
+    return D4rtRouterDelegate<Object>(
+      onSetNewRoutePath: (Object configuration) {
+        final method = instance.klass.findInstanceMethod('setNewRoutePath');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [configuration], {});
+           return D4.extractBridgedArg<Future<void>>(result, 'setNewRoutePath', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement setNewRoutePath');
+      },
+      onPopRoute: () {
+        final method = instance.klass.findInstanceMethod('popRoute');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [], {});
+           return D4.extractBridgedArg<Future<bool>>(result, 'popRoute', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement popRoute');
+      },
+      onBuild: (BuildContext context) {
+        final method = instance.klass.findInstanceMethod('build');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [context], {});
+           return D4.extractBridgedArg<Widget>(result, 'build', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement build');
+      },
+      onAddListener: (VoidCallback listener) {
+        final method = instance.klass.findInstanceMethod('addListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
+      },
+      onRemoveListener: (VoidCallback listener) {
+        final method = instance.klass.findInstanceMethod('removeListener');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [listener], {});
+          return;
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
+      },
+      onSetInitialRoutePath: instance.klass.findInstanceMethod('setInitialRoutePath') != null
+          ? (Object configuration) {
+        final method = instance.klass.findInstanceMethod('setInitialRoutePath');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [configuration], {});
+           return D4.extractBridgedArg<Future<void>>(result, 'setInitialRoutePath', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement setInitialRoutePath');
+          }
+          : null,
+      onSetRestoredRoutePath: instance.klass.findInstanceMethod('setRestoredRoutePath') != null
+          ? (Object configuration) {
+        final method = instance.klass.findInstanceMethod('setRestoredRoutePath');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [configuration], {});
+           return D4.extractBridgedArg<Future<void>>(result, 'setRestoredRoutePath', visitor);
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement setRestoredRoutePath');
+          }
+          : null,
+      onCurrentConfiguration: instance.klass.findInstanceGetter('currentConfiguration') != null
+          ? () {
+        final getter = instance.klass.findInstanceGetter('currentConfiguration');
+        if (getter != null) {
+          final result = getter.bind(instance).call(visitor, [], {});
+           return D4.extractBridgedArg<Object?>(result, 'currentConfiguration', visitor);
+        }
+        try {
+          final field = instance.getField('currentConfiguration');
+           return D4.extractBridgedArg<Object?>(field, 'currentConfiguration', visitor);
+        } catch (_) {}
+        throw StateError('Interpreted class ${instance.klass.name} does not implement currentConfiguration');
           }
           : null,
     );

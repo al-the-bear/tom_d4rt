@@ -405,7 +405,7 @@ These are real but pre-existing problems that were merely hidden by the earlier 
 
 - [x] **fixed** 4. Reproduce `widgets/decoratedbox_test.dart` (DiagonalStripesDecoration) and trace the `D4.unwrapAs<Decoration>` path; confirm the missing hierarchy walk. Likely lives in `tom_d4rt_generator/lib/src/{relaxer_generator,bridge_generator}.dart`. (covers #9, #37)
 - [x] **fixed** 5. Fix generator so user-defined `class X extends Decoration` is accepted via `D4.unwrapAs<Decoration>`. Regenerate `tom_d4rt_flutterm/lib/src/bridges/*.b.dart` via `tool/regenerate_bridges.dart`.
-- [ ] **fixed** 6. Apply the same fix to `RouteInformationParser` and `Set<Factory<OneSequenceGestureRecognizer>>` coercion. (covers #6, #37)
+- [x] **fixed** 6. Apply the same fix to `RouteInformationParser` and `Set<Factory<OneSequenceGestureRecognizer>>` coercion. (covers #6, #37)
 
 **Cluster B status (item #4): TRACE COMPLETE — diagnosis refines the original hint.** The "missing hierarchy walk" theory was wrong: the hierarchy walk in `D4.tryCreateInterfaceProxyWithVisitor<T>` (`tom_d4rt_ast/lib/src/runtime/generator/d4.dart:2108-2182`) already collects `bridgedSuperclass.name` + `BridgedClass.transitiveSupertypeNames(...)` from every step of the interpreted class chain, including mixins and interfaces. For `DiagonalStripesDecoration`, the candidate list correctly contains `'Decoration'` (the supertype map at `d4rt_runtime_registrations.dart:238` records `'Decoration': []`). The walk is fine — what is **missing** is the entry in the proxy-factory registry itself.
 
@@ -449,6 +449,50 @@ These are real but pre-existing problems that were merely hidden by the earlier 
   - important: 162/0/2 — two pre-existing failures unchanged (`interactiveviewer_test` vector_math — Cluster C #7, `codecs_test` PlatformException — Cluster E #10).
   - secondary: 651/~1/-2 — two pre-existing failures unchanged (`foundation/buffers_misc_test.dart` and `foundation/read_buffer_test.dart`, both `Bridged class '<Typed>List' has no instance method named 'toList'` — Cluster D #8).
 - No new regressions in any suite; no new framework errors introduced by the fix.
+
+**Cluster B status (item #6): FIXED.** Two independent legs, both confirmed GREEN in `tom_d4rt_flutter_ast/test/cluster_b6_repro_test.dart` (status=success, frameworkErrors=0 on both scripts).
+
+**Leg 1 — `RouteInformationParser` / `RouterDelegate` proxy gap (GEN-118 / GEN-118b):**
+
+1. *Declarative opt-in*: appended `RouteInformationParser` and `RouterDelegate` to `tom_d4rt_flutter_ast/buildkit.yaml::d4rtgen.proxyClasses`, parallel to the GEN-117 `Decoration`/`BoxPainter` additions.
+2. *GEN-118 — proxy must include inherited abstract methods*: `tom_d4rt_generator/lib/src/proxy_generator.dart::_getAbstractMethods` now walks `element.allSupertypes` and shadows them against a `concreteInHierarchy` set so each abstract supertype member that no level overrides is forwarded. Without this, `D4rtRouterDelegate` would miss `Listenable.addListener`/`removeListener` (inherited via `ChangeNotifier` mixin). The shadowing set covers the whole supertype chain to prevent the duplicate-emission failure mode observed when `_getOverridableMethods` also surfaces the concrete override.
+3. *GEN-118b — invariant generics in proxy factories*: Dart's `is` check on invariant generic types is strict — `Foo<dynamic> is Foo<Object>` is `false`, while `Foo<Object> is Foo<Object>?` is `true`. The proxy-factory emitter was instantiating with `<dynamic>` for every type parameter, so factories failed `extractBridgedArg<Foo<Object>?>` runtime checks. `ProxyGenerationInfo.typeParameterIsFBounded` (new) flags F-bounded params (`T extends ThemeExtension<T>`), which must remain `<dynamic>` to satisfy the recursive bound. Non-F-bounded params now instantiate with `<Object>`. The plumbing extends `_eraseTypeParams` with an optional `replacements` list so callback bodies use the same replacement as the factory signature (fixes a follow-on `Future<dynamic> not returnable as Future<Object>` once factories switched to `<Object>`).
+4. *Hand-written proxy carve-out*: `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart::_InterpretedRouterDelegate` (registered *after* the auto-generated factory so it wins) extended `RouterDelegate<dynamic>`. Bumped to `RouterDelegate<Object>` to match the new GEN-118b semantics — required because the hand-written variant carries the silent-fallback `addListener`/`removeListener` semantics for scripts that mix `ChangeNotifier` + `PopNavigatorRouterDelegateMixin`, which the auto-generated factory cannot replicate without throwing.
+
+**Leg 2 — `Set<Factory<OneSequenceGestureRecognizer>>` relaxer cast (GEN-118c):**
+
+Root cause: `tom_d4rt_generator/lib/src/relaxer_generator.dart` emitted `_inner.constructor as ValueGetter<V>` in `$RelaxedFactory<V>(...)` super-constructor forwarding. Dart's function-type casts are strict — `() => dynamic as () => OneSequenceGestureRecognizer` throws at runtime even though every closure invocation produces a legal `OneSequenceGestureRecognizer`.
+
+Fix in `tom_d4rt_generator/lib/src/relaxer_generator.dart`:
+
+1. *Constructor-arg forwarding* (`_writeConstructor` loop) — when the T-involving param is function-typed (`param.functionTypeInfo != null` or its rendered type contains `Function(`), emit a forwarding closure of the same arity that casts the **result** instead of the function reference: `() => _inner.constructor() as V`. Plumbed through new helpers `_ctorArgForwardingExpr`, `_isFunctionTypedParam`, `_buildForwardingClosure`. The closure builder handles positional + named params and emits a void-flavoured `{ ... }` body for void-returning typedefs.
+2. *Getter override* (`_writeExtendsDelegation` `tGetters` loop) — same broken cast pattern was emitted as `_inner.constructor as ValueGetter<V>`. Now detects zero-arg-returning-T typedef aliases (`ValueGetter`, `AsyncValueGetter`) via `_isFunctionTypedMember` / `_looksLikeZeroArgGetterTypedef` and emits the same `() => _inner.foo() as V` closure. Wider function typedef shapes (`ValueChanged<T>`, etc.) are intentionally **not** claimed here — they need arity + arg-direction info that the rendered string doesn't carry; the unsafe cast path remains for them until a corpus case actually appears.
+
+After regeneration, `$RelaxedFactory<V>` now reads:
+
+```dart
+$RelaxedFactory(this._inner) : super(() => _inner.constructor() as V);
+
+@override
+ValueGetter<V> get constructor => () => _inner.constructor() as V;
+```
+
+**Mirror status:** changes live entirely in the **generator** (`tom_d4rt_generator`) and the flutter-ast hand-written carve-out (`tom_d4rt_flutter_ast`). No `tom_d4rt` ↔ `tom_d4rt_ast` interpreter-side mirroring required for this cluster.
+
+**Regeneration:** `cd tom_d4rt_flutter_ast && dart run tool/regenerate_bridges.dart` — clean. `dart analyze` on `tom_d4rt_flutter_ast/lib/src/bridges/flutter_relaxers.b.dart` reports zero errors (existing info/warnings unchanged).
+
+**Reproducer:** `tom_d4rt_flutter_ast/test/cluster_b6_repro_test.dart` — both legs now `status=success, frameworkErrors=0`. (Pre-fix: leg 1 threw `expected RouteInformationParser<Object>?, got InterpretedInstance(_SimpleRouteParser)`; leg 2 threw `'() => dynamic' is not a subtype of '() => OneSequenceGestureRecognizer' in type cast`.)
+
+**Rule (b) regression** (generator changed) — gii → essential → important → secondary run serially, never in parallel (per `_copilot_guidelines/d4rt/` rule). All four suites compared against the 2026-05-22 baseline captured in `doc/testlog_20260522-1328-issue-analysis/*_test.log.txt`:
+
+| Suite | Baseline (pre-fix) | Post-fix | Delta |
+|-------|-------------------|----------|-------|
+| gii | `+80 ~2 -1` | `+80 ~2 -1` | identical |
+| essential | `+100 -8` | `+107 -1` | +7 pass, −7 fail |
+| important | `+161 -3` | `+162 -2` | +1 pass, −1 fail |
+| secondary | `+648 ~1 -5` | `+651 ~1 -2` | +3 pass, −3 fail |
+
+Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions**. The reductions roll up the cluster-B fixes that landed since the baseline was captured (item #5 — Decoration/BoxPainter via `Cluster B #5` — and item #6, this one). Both reproducer scripts (`material/materialapp_test.dart`, `retest/widgets/app_kit_view_test.dart`) drop from failing to `status=success, frameworkErrors=0`. Raw logs: `tom_d4rt_flutter_ast/ztmp/cluster_b6_regression/{gii,essential,important,secondary}.log`.
 
 ### Cluster C — Missing `vector_math_64` bridge
 

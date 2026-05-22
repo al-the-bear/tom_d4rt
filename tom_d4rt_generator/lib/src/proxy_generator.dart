@@ -139,6 +139,16 @@ class ProxyGenerationInfo {
   /// parameter is not in scope.
   final List<String> typeParameterNames;
 
+  /// Whether each type parameter is F-bounded (references its own enclosing
+  /// class in its bound, e.g. `T extends ThemeExtension<T>`). F-bounded
+  /// params require `dynamic` in the proxy factory registration so the
+  /// recursive bound check doesn't fail. Other params can use a concrete
+  /// top-of-hierarchy (`Object`) so that the registered proxy survives an
+  /// `is RouteInformationParser<Object>?` check at the bridge boundary
+  /// (Dart's `is` is strict for invariant generics — see GEN-118b).
+  /// Parallel to [typeParameterNames].
+  final List<bool> typeParameterIsFBounded;
+
   const ProxyGenerationInfo({
     required this.className,
     required this.proxyName,
@@ -147,6 +157,7 @@ class ProxyGenerationInfo {
     this.abstractMethods = const [],
     this.overridableMethods = const [],
     this.typeParameterNames = const [],
+    this.typeParameterIsFBounded = const [],
   });
 }
 
@@ -473,6 +484,20 @@ Future<ProxyGenerationResult> generateProxies({
             .map((tp) => tp.name)
             .whereType<String>()
             .toList(),
+        // GEN-118b: detect F-bounded type params so the factory emitter
+        // can pick between `<Object>` (sound, accepted by `is Foo<Object>?`
+        // checks at bridge call sites) and `<dynamic>` (required when the
+        // bound references the enclosing class recursively).
+        typeParameterIsFBounded: typeParams.map((tp) {
+          final bound = tp.bound;
+          if (bound == null) return false;
+          final boundStr = renderDartType(bound);
+          // Heuristic: F-bounded if the bound mentions the enclosing
+          // class name. Matches `T extends ThemeExtension<T>` or any
+          // variant. Avoids false positives by requiring the class name
+          // followed by `<` to skip unrelated identifiers.
+          return boundStr.contains('$className<');
+        }).toList(),
       ),
     );
 
@@ -552,12 +577,54 @@ Future<ClassElement?> _findClassInBarrel(
 }
 
 /// Gets the abstract methods of a class (including inherited abstract methods).
+///
+/// GEN-118 (Cluster B #6): walks the supertype chain so that proxies for
+/// classes like `RouterDelegate<T> extends Listenable` also include the
+/// inherited abstract methods (`addListener` / `removeListener`). Without
+/// this walk, the generated concrete proxy class would fail to compile
+/// (missing concrete implementations of `Listenable.addListener` and
+/// `Listenable.removeListener`).
 List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
   final methods = <_AbstractMethodInfo>[];
   final processedNames = <String>{};
 
-  // Get all abstract methods from the class and its supertypes
-  // We want methods that are truly abstract in the target class
+  // Concrete members anywhere in the supertype chain (including the
+  // target class itself) shadow any inherited abstract with the same
+  // name. For example, `DataTableSource extends ChangeNotifier extends
+  // Listenable` inherits a concrete `addListener` from `ChangeNotifier`
+  // even though `Listenable.addListener` is abstract — so the target
+  // class is NOT abstract for that member and the proxy should not
+  // require an `onAddListener` callback.
+  final concreteInHierarchy = <String>{};
+  void collectConcrete(ClassElement cls) {
+    for (final method in cls.methods) {
+      final methodName = method.name;
+      if (methodName != null &&
+          !method.isAbstract &&
+          !method.isPrivate &&
+          !method.isStatic) {
+        concreteInHierarchy.add(methodName);
+      }
+    }
+    for (final getter in cls.getters) {
+      if (!getter.isAbstract &&
+          !getter.isPrivate &&
+          !getter.isStatic &&
+          !getter.isSynthetic) {
+        concreteInHierarchy.add(getter.displayName);
+      }
+    }
+  }
+
+  collectConcrete(element);
+  for (final superType in element.allSupertypes) {
+    final superElement = superType.element;
+    if (superElement is ClassElement && superElement.name != 'Object') {
+      collectConcrete(superElement);
+    }
+  }
+
+  // Step 1: abstract methods declared directly on the target class.
   for (final method in element.methods) {
     final methodName = method.name;
     if (methodName != null &&
@@ -568,8 +635,6 @@ List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
       methods.add(_methodElementToInfo(method));
     }
   }
-
-  // Also check abstract getters
   for (final getter in element.getters) {
     if (getter.isAbstract && !getter.isPrivate && !getter.isStatic) {
       final getterName = getter.displayName;
@@ -577,6 +642,43 @@ List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
         processedNames.add(getterName);
         methods.add(_accessorElementToInfo(getter));
       }
+    }
+  }
+
+  // Step 2 (GEN-118): inherited abstract methods from supertypes that the
+  // target does not provide a concrete override for. Skip Object since
+  // its members never need a proxy callback.
+  for (final superType in element.allSupertypes) {
+    final superElement = superType.element;
+    if (superElement is! ClassElement || superElement.name == 'Object') {
+      continue;
+    }
+    for (final method in superElement.methods) {
+      final methodName = method.name;
+      if (methodName == null ||
+          !method.isAbstract ||
+          method.isPrivate ||
+          method.isStatic) {
+        continue;
+      }
+      if (processedNames.contains(methodName) ||
+          concreteInHierarchy.contains(methodName)) {
+        continue;
+      }
+      processedNames.add(methodName);
+      methods.add(_methodElementToInfo(method));
+    }
+    for (final getter in superElement.getters) {
+      if (!getter.isAbstract || getter.isPrivate || getter.isStatic) {
+        continue;
+      }
+      final getterName = getter.displayName;
+      if (processedNames.contains(getterName) ||
+          concreteInHierarchy.contains(getterName)) {
+        continue;
+      }
+      processedNames.add(getterName);
+      methods.add(_accessorElementToInfo(getter));
     }
   }
 
@@ -859,9 +961,29 @@ void _generateProxyFactoryRegistration(
     // F-bounded type parameters (e.g. `ThemeExtension<T extends
     // ThemeExtension<T>>`) compile. Without this Dart's type inference picks
     // `Object?` which then fails the recursive bound check.
+    //
+    // GEN-118b: for non-F-bounded params we use `Object` (not `dynamic`)
+    // because at the bridge call site the consumer type is typically
+    // `Foo<Object>?` (e.g., `MaterialApp.router(routeInformationParser:
+    // RouteInformationParser<Object>?)`). Dart's `is` for invariant
+    // generics treats `Foo<dynamic>` as distinct from `Foo<Object>`, so
+    // `<dynamic>` would fail the runtime check and the proxy would be
+    // rejected even when registered. `<Object>` is the universal
+    // top-non-nullable concrete type that satisfies both the bridge's
+    // declared parameter and any unbounded T. F-bounded params still
+    // need `<dynamic>` so the recursive bound check doesn't trip.
+    final typeParameterReplacements = List<String>.generate(
+      proxy.typeParameterNames.length,
+      (i) {
+        final fBounded = i < proxy.typeParameterIsFBounded.length
+            ? proxy.typeParameterIsFBounded[i]
+            : false;
+        return fBounded ? 'dynamic' : 'Object';
+      },
+    );
     final typeArgList = proxy.typeParameterNames.isEmpty
         ? ''
-        : '<${proxy.typeParameterNames.map((_) => 'dynamic').join(', ')}>';
+        : '<${typeParameterReplacements.join(', ')}>';
     buffer.writeln('    return ${proxy.proxyName}$typeArgList(');
 
     // Abstract methods — always provide a callback
@@ -871,6 +993,7 @@ void _generateProxyFactoryRegistration(
         method,
         isRequired: true,
         typeParameterNames: proxy.typeParameterNames,
+        typeParameterReplacements: typeParameterReplacements,
       );
     }
 
@@ -881,6 +1004,7 @@ void _generateProxyFactoryRegistration(
         method,
         isRequired: false,
         typeParameterNames: proxy.typeParameterNames,
+        typeParameterReplacements: typeParameterReplacements,
       );
     }
 
@@ -904,13 +1028,16 @@ void _generateFactoryCallback(
   _AbstractMethodInfo method, {
   required bool isRequired,
   List<String> typeParameterNames = const [],
+  List<String> typeParameterReplacements = const [],
 }) {
   final callbackName = method.callbackName;
   final methodName = method.name;
   final isVoid = method.returnType == 'void';
 
-  // Erase class type parameters (e.g. T → dynamic) since the factory
-  // closure is not inside the generic class scope.
+  // Erase class type parameters (e.g. T → dynamic/Object) since the factory
+  // closure is not inside the generic class scope. GEN-118b: erase to the
+  // same concrete type used in the factory's proxy instantiation so the
+  // callback's runtime signature matches the proxy class field type.
   //
   // C17: erase on the typedef-expanded return type so the
   // `extractBridgedArg<T>` call inside the delegation body sees the
@@ -920,6 +1047,7 @@ void _generateFactoryCallback(
   final erasedExtractionReturnType = _eraseTypeParams(
     method.extractionReturnType,
     typeParameterNames,
+    typeParameterReplacements,
   );
 
   if (method.isGetter) {
@@ -944,7 +1072,11 @@ void _generateFactoryCallback(
     }
   } else {
     // Regular method callback
-    final paramDecl = _buildFactoryParamDecl(method.params, typeParameterNames);
+    final paramDecl = _buildFactoryParamDecl(
+      method.params,
+      typeParameterNames,
+      typeParameterReplacements,
+    );
     final argList = _buildFactoryArgList(method.params);
     final namedArgMap = _buildFactoryNamedArgMap(method.params);
 
@@ -1251,6 +1383,7 @@ void _generateMethodDelegation(
 String _buildFactoryParamDecl(
   List<_MethodParam> params, [
   List<String> typeParameterNames = const [],
+  List<String> typeParameterReplacements = const [],
 ]) {
   if (params.isEmpty) return '';
 
@@ -1260,18 +1393,18 @@ String _buildFactoryParamDecl(
   final named = params.where((p) => p.isNamed);
 
   for (final p in positional) {
-    parts.add('${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}');
+    parts.add('${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}');
   }
   if (optionalPositional.isNotEmpty) {
     final optParts = optionalPositional.map(
-      (p) => '${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}',
+      (p) => '${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}',
     );
     parts.add('[${optParts.join(', ')}]');
   }
   if (named.isNotEmpty) {
     final namedParts = named.map((p) {
       final req = p.isRequired ? 'required ' : '';
-      return '$req${_eraseTypeParams(p.type, typeParameterNames)} ${p.name}';
+      return '$req${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}';
     });
     parts.add('{${namedParts.join(', ')}}');
   }
@@ -1302,17 +1435,24 @@ String _buildFactoryNamedArgMap(List<_MethodParam> params) {
 ///   `CustomClipper&lt;T&gt;` → `CustomClipper&lt;dynamic&gt;`
 ///   `Map&lt;String, T&gt;` → `Map&lt;String, dynamic&gt;`
 ///   `Path` → `Path` (unchanged)
-String _eraseTypeParams(String type, List<String> typeParamNames) {
+String _eraseTypeParams(
+  String type,
+  List<String> typeParamNames, [
+  List<String>? replacements,
+]) {
   if (typeParamNames.isEmpty) return type;
 
   var result = type;
-  for (final tp in typeParamNames) {
+  for (var i = 0; i < typeParamNames.length; i++) {
+    final tp = typeParamNames[i];
+    final repl =
+        (replacements != null && i < replacements.length) ? replacements[i] : 'dynamic';
     // Use word-boundary matching to only replace standalone type param names,
     // not substrings of other identifiers (e.g., 'Type' should not become
     // 'dynamicype').
     result = result.replaceAllMapped(
       RegExp('\\b${RegExp.escape(tp)}\\b'),
-      (_) => 'dynamic',
+      (_) => repl,
     );
   }
   return result;

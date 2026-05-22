@@ -1048,13 +1048,11 @@ void _writeConstructor(
     final args = <String>[];
     for (final param in defaultCtor.parameters.where((p) => p.isRequired)) {
       final involvesT = tPattern.hasMatch(param.type);
-      final castExpr = involvesT
-          ? ' as ${_replaceTypeParam(param.type, typeParamName, 'V')}'
-          : '';
+      final value = _ctorArgForwardingExpr(param, typeParamName, involvesT);
       if (param.isNamed) {
-        args.add('${param.name}: _inner.${param.name}$castExpr');
+        args.add('${param.name}: $value');
       } else {
-        args.add('_inner.${param.name}$castExpr');
+        args.add(value);
       }
     }
     buf.writeln(
@@ -1065,6 +1063,87 @@ void _writeConstructor(
       buf.writeln('  }');
     }
   }
+}
+
+/// GEN-118c: builds the forwarding expression for a single constructor
+/// argument when forwarding `_inner.${name}` into `super(...)`.
+///
+/// The naive form — `_inner.${name} as <V-replaced-type>` — is unsafe for
+/// **function-typed** parameters that involve the type parameter `T`
+/// (e.g. `ValueGetter<T> constructor` on `Factory<T>`). Dart's function-
+/// type casts are strict: `() => dynamic as () => OneSequenceGestureRecognizer`
+/// throws at runtime even though every value the inner closure produces
+/// could legally satisfy the target type.
+///
+/// For function-typed params we emit a closure of the same arity that
+/// invokes `_inner.${name}(...)` and casts the **result** (not the
+/// function) to the V-replaced return type. Non-function params keep the
+/// existing direct cast.
+String _ctorArgForwardingExpr(
+  ParameterInfo param,
+  String typeParamName,
+  bool involvesT,
+) {
+  if (!involvesT) {
+    return '_inner.${param.name}';
+  }
+  if (_isFunctionTypedParam(param)) {
+    return _buildForwardingClosure(param, typeParamName);
+  }
+  final castType = _replaceTypeParam(param.type, typeParamName, 'V');
+  return '_inner.${param.name} as $castType';
+}
+
+/// Returns true when [param] carries a function-shape value — either a
+/// function typedef alias (`ValueGetter<T>`, `ValueChanged<T>`, …) or an
+/// inline `... Function(...)` form.
+bool _isFunctionTypedParam(ParameterInfo param) {
+  if (param.functionTypeInfo != null) return true;
+  // Fallback string-shape detection if the extractor didn't populate
+  // functionTypeInfo (defensive — should not be needed in practice).
+  return param.type.contains(' Function(');
+}
+
+/// Builds a closure that forwards a function-typed constructor argument
+/// from `_inner.${param.name}` to the super-constructor, casting the
+/// result to the V-replaced return type instead of casting the function
+/// reference itself.
+///
+/// Without [ParameterInfo.functionTypeInfo] we cannot reconstruct the
+/// arity reliably, so we fall back to a zero-arg getter shape (which
+/// matches the only function-typed T-involving constructor params we
+/// have observed in the flutter corpus — `ValueGetter<T>`).
+String _buildForwardingClosure(ParameterInfo param, String typeParamName) {
+  final ft = param.functionTypeInfo;
+  if (ft == null) {
+    // No detailed info — assume zero-arg getter shape.
+    return '() => _inner.${param.name}() as V';
+  }
+  final posDecls = <String>[];
+  final posArgs = <String>[];
+  for (var i = 0; i < ft.positionalParamTypes.length; i++) {
+    final t = _replaceTypeParam(ft.positionalParamTypes[i], typeParamName, 'V');
+    final n = 'p$i';
+    posDecls.add('$t $n');
+    posArgs.add(n);
+  }
+  final namedDecls = <String>[];
+  final namedArgs = <String>[];
+  ft.namedParamTypes.forEach((name, type) {
+    final t = _replaceTypeParam(type, typeParamName, 'V');
+    final required = ft.namedParamRequired[name] == true ? 'required ' : '';
+    namedDecls.add('$required$t $name');
+    namedArgs.add('$name: $name');
+  });
+  final paramList = [...posDecls];
+  if (namedDecls.isNotEmpty) paramList.add('{${namedDecls.join(', ')}}');
+  final paramSig = paramList.join(', ');
+  final callArgs = [...posArgs, ...namedArgs].join(', ');
+  final returnTypeV = _replaceTypeParam(ft.returnType, typeParamName, 'V');
+  if (ft.returnType == 'void') {
+    return '($paramSig) { _inner.${param.name}($callArgs); }';
+  }
+  return '($paramSig) => _inner.${param.name}($callArgs) as $returnTypeV';
 }
 
 /// Writes member overrides for `extends` wrappers (only T-involving members).
@@ -1080,10 +1159,14 @@ void _writeExtendsDelegation(
     final castReturn = _replaceTypeParam(getter.returnType, typeParamName, 'V');
     buf.writeln();
     buf.writeln('  @override');
-    // Use _coerceToV for bare-V returns to handle d4rt int→double literals.
+    // GEN-118c: if the getter's value is a function type involving T,
+    // emit a forwarding closure (`() => _inner.foo() as V`) rather than
+    // an unsafe function-type cast (`_inner.foo as ValueGetter<V>`).
     final getterExpr = castReturn == 'V'
         ? '_coerceToV<V>(_inner.${getter.name})'
-        : '_inner.${getter.name} as $castReturn';
+        : _isFunctionTypedMember(getter)
+            ? _buildForwardingClosureFromMember(getter, typeParamName)
+            : '_inner.${getter.name} as $castReturn';
     buf.writeln('  $castReturn get ${getter.name} => $getterExpr;');
   }
 
@@ -1146,6 +1229,41 @@ void _writeExtendsDelegation(
       );
     }
   }
+}
+
+/// GEN-118c: detects whether a member's return type is a **zero-arg
+/// function-returning-T** shape that we know how to forward via a simple
+/// closure (`() => _inner.foo() as V`). Only those shapes are claimed
+/// here — wider function-typedef patterns (e.g. `ValueChanged<T>`) are
+/// left to the unsafe cast path until they actually appear in a relaxer
+/// target, since their forwarding closures need arity and arg-direction
+/// information that the rendered string does not carry.
+bool _isFunctionTypedMember(MemberInfo member) {
+  return _looksLikeZeroArgGetterTypedef(member.returnType);
+}
+
+/// Heuristic match for zero-arg-returning-T function typedef aliases.
+bool _looksLikeZeroArgGetterTypedef(String type) {
+  const zeroArgGetterTypedefs = {
+    'ValueGetter',
+    'AsyncValueGetter',
+  };
+  for (final td in zeroArgGetterTypedefs) {
+    if (type.startsWith('$td<')) return true;
+  }
+  return false;
+}
+
+/// Builds a forwarding closure for a function-typed member getter when
+/// only the rendered return type string is available (no detailed
+/// FunctionTypeInfo). Assumes zero-arg getter shape — sufficient for the
+/// `ValueGetter<T>`-style cases observed in the flutter corpus. If new
+/// shapes appear, extend this with parsed-arity emission.
+String _buildForwardingClosureFromMember(
+  MemberInfo getter,
+  String typeParamName,
+) {
+  return '() => _inner.${getter.name}() as V';
 }
 
 /// Writes member overrides for `implements` wrappers.
