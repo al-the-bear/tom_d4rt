@@ -254,18 +254,24 @@ class _PrivatePill extends StatelessWidget {
             ),
           ),
           Row(
+            // Use Expanded children so the Row distributes exactly the
+            // parent width across segments without floating-point overflow
+            // (e.g. width=280, segments=3 → 280/3=93.333… × 3 can exceed
+            // 280 by a sub-pixel and trigger a "RenderFlex overflowed by
+            // 2.0 px on the right" assertion).
             children: List<Widget>.generate(segments, (int i) {
-              return SizedBox(
-                width: segWidth,
-                height: height,
-                child: Center(
-                  child: _PrivateText(
-                    String.fromCharCode(65 + i),
-                    size: 12.0,
-                    weight: FontWeight.w600,
-                    color: i == selectedIndex
-                        ? _kHeadingColor
-                        : CupertinoColors.white.withValues(alpha: 0.85),
+              return Expanded(
+                child: SizedBox(
+                  height: height,
+                  child: Center(
+                    child: _PrivateText(
+                      String.fromCharCode(65 + i),
+                      size: 12.0,
+                      weight: FontWeight.w600,
+                      color: i == selectedIndex
+                          ? _kHeadingColor
+                          : CupertinoColors.white.withValues(alpha: 0.85),
+                    ),
                   ),
                 ),
               );
