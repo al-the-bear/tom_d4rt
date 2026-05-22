@@ -138,4 +138,4 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 | 106 | `retest/material/material_banner_closed_reason_test.dart` | 22,177 | 444 | (x) | (x) | (x) |
 | 107 | `retest/material/navigation_destination_label_behavior_test.dart` | 23,039 | 455 | (x) | (x) | (x) |
 | 108 | `material/drawer_button_test.dart` | 23,527 | 485 | (x) | (x) | (x) |
-| 109 | `material/script_category_test.dart` | 23,711 | 499 | ( ) | ( ) | ( ) |
+| 109 | `material/script_category_test.dart` | 23,711 | 499 | (x) | (x) | (x) |

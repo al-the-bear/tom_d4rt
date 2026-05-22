@@ -5574,4 +5574,13 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch43_short_tests2_demos_b13/', () {
+    test('material/script_category_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/script_category_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
