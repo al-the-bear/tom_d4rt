@@ -27,7 +27,7 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(const DrawerButtonDemoApp());
+dynamic build(BuildContext context) => const DrawerButtonDemoApp();
 
 // ---------------------------------------------------------------------------
 // Root widget

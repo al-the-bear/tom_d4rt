@@ -2010,4 +2010,4 @@ Widget _sectionShell({
 // Entry point.
 // =============================================================================
 
-void main() => runApp(const DropdownMenuCloseBehaviorDemoApp());
+dynamic build(BuildContext context) => const DropdownMenuCloseBehaviorDemoApp();

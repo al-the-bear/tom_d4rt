@@ -50,7 +50,7 @@ void _noop() {}
 // Entry point. Required by HARD CONSTRAINT 7.
 // ===========================================================================
 
-void main() => runApp(const MaterialTapTargetSizeDemoApp());
+dynamic build(BuildContext context) => const MaterialTapTargetSizeDemoApp();
 
 // ===========================================================================
 // Root application widget. Stateless. Returns MaterialApp -> Scaffold ->

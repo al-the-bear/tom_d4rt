@@ -2005,4 +2005,4 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
 // Application entry point.
 // =====================================================================
 
-void main() => runApp(const ExcludeSemanticsDeepDemoApp());
+dynamic build(BuildContext context) => const ExcludeSemanticsDeepDemoApp();

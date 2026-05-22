@@ -1591,4 +1591,4 @@ class BlurStyleDemoApp extends StatelessWidget {
   }
 }
 
-void main() => runApp(const BlurStyleDemoApp());
+dynamic build(BuildContext context) => const BlurStyleDemoApp();

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 /// previews and a no-op closure for interactive previews so the AST
 /// interpreter can render every variant without state. Plain ASCII only.
 
-void main() => runApp(const CheckboxListTileDeepDemoApp());
+dynamic build(BuildContext context) => const CheckboxListTileDeepDemoApp();
 
 class CheckboxListTileDeepDemoApp extends StatelessWidget {
   const CheckboxListTileDeepDemoApp({super.key});

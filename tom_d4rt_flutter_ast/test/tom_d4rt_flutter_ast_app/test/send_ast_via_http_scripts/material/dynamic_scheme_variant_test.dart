@@ -1694,4 +1694,4 @@ class _GlossaryEntry {
 // Entry point
 // =========================================================================
 
-void main() => runApp(const DynamicSchemeVariantDemoApp());
+dynamic build(BuildContext context) => const DynamicSchemeVariantDemoApp();

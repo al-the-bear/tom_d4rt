@@ -28,7 +28,7 @@
 // scrollable static atlas. Material 3 ColorScheme idioms are used throughout.
 import 'package:flutter/material.dart';
 
-void main() => runApp(const DartUiClassAtlasApp());
+dynamic build(BuildContext context) => const DartUiClassAtlasApp();
 
 class DartUiClassAtlasApp extends StatelessWidget {
   const DartUiClassAtlasApp({super.key});

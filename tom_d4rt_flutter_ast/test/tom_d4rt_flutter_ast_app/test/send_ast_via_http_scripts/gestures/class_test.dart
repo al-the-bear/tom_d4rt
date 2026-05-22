@@ -28,7 +28,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-void main() => runApp(const GestureClassDemoApp());
+dynamic build(BuildContext context) => const GestureClassDemoApp();
 
 // ---------------------------------------------------------------------------
 // Root application

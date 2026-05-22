@@ -25,7 +25,7 @@
 // can serialize the build.
 import 'package:flutter/material.dart';
 
-void main() => runApp(const AccessibilityFeaturesDemoApp());
+dynamic build(BuildContext context) => const AccessibilityFeaturesDemoApp();
 
 // ---------------------------------------------------------------------------
 // Data records

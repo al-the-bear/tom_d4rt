@@ -2109,4 +2109,4 @@ class _ArrowPainter extends CustomPainter {
 // Entry point
 // ===========================================================================
 
-void main() => runApp(const GestureDetailsDemoApp());
+dynamic build(BuildContext context) => const GestureDetailsDemoApp();

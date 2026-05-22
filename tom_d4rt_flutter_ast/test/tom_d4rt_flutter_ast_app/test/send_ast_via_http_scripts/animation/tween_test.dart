@@ -26,7 +26,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-void main() => runApp(const TweenDemoApp());
+dynamic build(BuildContext context) => const TweenDemoApp();
 
 // ---------------------------------------------------------------------------
 // Root widget

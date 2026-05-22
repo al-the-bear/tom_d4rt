@@ -41,7 +41,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const CupertinoThemeDemoApp());
+dynamic build(BuildContext context) => const CupertinoThemeDemoApp();
 
 // ---------------------------------------------------------------------------
 // Root widget

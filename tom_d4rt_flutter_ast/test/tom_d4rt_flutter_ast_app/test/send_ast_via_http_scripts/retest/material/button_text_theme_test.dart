@@ -24,7 +24,7 @@
 // /// Hand-authored. No templates. Plain ASCII narrative comments only.
 import 'package:flutter/material.dart';
 
-void main() => runApp(const ButtonTextThemeDemoApp());
+dynamic build(BuildContext context) => const ButtonTextThemeDemoApp();
 
 // ============================================================================
 // Top-level model: each ButtonTextTheme value with extra metadata that we use

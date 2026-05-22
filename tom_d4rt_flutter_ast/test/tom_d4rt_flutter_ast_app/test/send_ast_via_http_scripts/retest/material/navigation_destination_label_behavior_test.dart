@@ -23,7 +23,7 @@
 //   No emojis are used anywhere in the file.
 import 'package:flutter/material.dart';
 
-void main() => runApp(const NavigationDestinationLabelBehaviorDemoApp());
+dynamic build(BuildContext context) => const NavigationDestinationLabelBehaviorDemoApp();
 
 // ============================================================================
 // Root widget. Stateless. Hosts MaterialApp + Scaffold + SingleChildScrollView.

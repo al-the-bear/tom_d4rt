@@ -368,9 +368,31 @@ Each item references the cluster (A–M) and the failure numbers from §§1–4.
 
 ### Cluster A — Undefined variable: `build`
 
-- [ ] **fixed** 1. Reproduce `animation/tween_test.dart` with `SendTestRunner` in isolation (`bisect_test.dart`); capture the exact line that triggers `Undefined variable: build`. Decide: script-side authoring bug vs d4rt interpreter regression. (covers #1, #2, #3, #5, #7, #8, #13, #15, #16, #17–23, #25, #26, #28–30, #32–36 — 24 scripts)
-- [ ] **fixed** 2. If script-side: bulk-rewrite the affected scripts (replace bare `build(...)` calls with the actual identifier, or move helpers inline). Mirror to flutter_test if their script-sets diverge.
-- [ ] **fixed** 3. If interpreter-side: fix top-level function resolution from closures in `tom_d4rt/lib/src/interpreter_visitor.dart` AND mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Add a unit test in `tom_d4rt/test/` reproducing the closure capture failure.
+- [x] **fixed** 1. Reproduce `animation/tween_test.dart` with `SendTestRunner` in isolation (`bisect_test.dart`); capture the exact line that triggers `Undefined variable: build`. Decide: script-side authoring bug vs d4rt interpreter regression. (covers #1, #2, #3, #5, #7, #8, #13, #15, #16, #17–23, #25, #26, #28–30, #32–36 — 24 scripts)
+- [x] **fixed** 2. If script-side: bulk-rewrite the affected scripts (replace bare `build(...)` calls with the actual identifier, or move helpers inline). Mirror to flutter_test if their script-sets diverge.
+- [x] **N/A** 3. If interpreter-side: fix top-level function resolution from closures in `tom_d4rt/lib/src/interpreter_visitor.dart` AND mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Add a unit test in `tom_d4rt/test/` reproducing the closure capture failure. *(Not needed — root cause turned out to be script-side authoring bug, see entry #2.)*
+
+**Cluster A status (items #1 + #2): FIXED.** Root cause is script-side authoring: all 24 affected scripts used `void main() => runApp(const SomeApp());` as the entry point, but `SendTestRunner` calls a top-level `dynamic build(BuildContext context)` function on the script (see `send_test_runner.dart:7`). Because no `build` identifier existed at top level, the d4rt interpreter correctly reported `Undefined variable: build`. **Not** a d4rt interpreter regression. Verified by inspecting passing scripts in the same folder (e.g. `animation/animation_status_test.dart:7` — `dynamic build(BuildContext context) { ... }`).
+
+**Fix applied:** mechanical rewrite via a one-line regex across all 24 scripts (preserved `const`):
+
+```dart
+// before
+void main() => runApp(const SomeApp());
+// after
+dynamic build(BuildContext context) => const SomeApp();
+```
+
+**Verification:** added `tom_d4rt_flutter_ast/test/cluster_a_repro_test.dart` which loads each of the 24 scripts via `SendTestRunner` and asserts `result.success == true`. All 26 expectations green (24 scripts + setUp + tearDown). Per rule (a) — only test scripts were touched — no broader suite regression run was required.
+
+**Follow-up surface (not Cluster A — tracked separately):** with `build` now resolving, several scripts surface previously-masked errors:
+- `cupertino/theme_test.dart` — 5× RenderFlex overflow 56 px bottom (Cluster H1)
+- `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` — 3× RenderFlex overflow 2.0 px bottom (Cluster H1)
+- `rendering/render_exclude_semantics_test.dart` — `BoxConstraints forces an infinite height` (layout authoring bug — new Cluster H sub-issue)
+- `painting/textstyle_test.dart` — `Native error during bridged method call 'withOpacity' on MaterialColor` (Flutter assertion — script-side, `withOpacity` arg out of range)
+- `retest/material/button_bar_layout_behavior_test.dart` — `Undefined variable: ButtonBar` (Material 3 API drift — `ButtonBar` removed; script must use `OverflowBar`)
+
+These are real but pre-existing problems that were merely hidden by the earlier `build` resolution failure. They do **not** fail the SendTestRunner script assertions (`success: true`), and they belong to the H1 layout-overflow campaign and a new authoring-fix bucket. Tracked in the per-script H1 backlog rather than re-opening Cluster A.
 
 ### Cluster B — `InterpretedInstance` not accepted by Flutter constructor
 

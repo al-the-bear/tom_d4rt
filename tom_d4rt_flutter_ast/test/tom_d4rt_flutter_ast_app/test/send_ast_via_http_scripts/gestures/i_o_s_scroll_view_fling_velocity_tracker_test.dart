@@ -1993,4 +1993,4 @@ class FlingVelocityDemoApp extends StatelessWidget {
 // =====================================================================
 // Entry point.
 // =====================================================================
-void main() => runApp(const FlingVelocityDemoApp());
+dynamic build(BuildContext context) => const FlingVelocityDemoApp();

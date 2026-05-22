@@ -30,7 +30,7 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MaterialBannerClosedReasonDemoApp());
+dynamic build(BuildContext context) => const MaterialBannerClosedReasonDemoApp();
 
 class MaterialBannerClosedReasonDemoApp extends StatelessWidget {
   const MaterialBannerClosedReasonDemoApp({super.key});

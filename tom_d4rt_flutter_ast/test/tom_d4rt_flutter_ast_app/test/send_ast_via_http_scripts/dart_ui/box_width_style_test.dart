@@ -1800,4 +1800,4 @@ class _FooterCard extends StatelessWidget {
 // Entry point
 // ---------------------------------------------------------------------------
 
-void main() => runApp(const BoxWidthStyleDemoApp());
+dynamic build(BuildContext context) => const BoxWidthStyleDemoApp();

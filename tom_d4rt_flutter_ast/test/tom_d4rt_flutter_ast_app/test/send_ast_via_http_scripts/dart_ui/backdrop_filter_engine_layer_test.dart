@@ -42,7 +42,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-void main() => runApp(const BackdropFilterDemoApp());
+dynamic build(BuildContext context) => const BackdropFilterDemoApp();
 
 // =====================================================================
 // Root application widget

@@ -1930,4 +1930,4 @@ class _FooterStripe extends StatelessWidget {
 // ENTRYPOINT
 // =============================================================================
 
-void main() => runApp(const GradientShadowDemoApp());
+dynamic build(BuildContext context) => const GradientShadowDemoApp();

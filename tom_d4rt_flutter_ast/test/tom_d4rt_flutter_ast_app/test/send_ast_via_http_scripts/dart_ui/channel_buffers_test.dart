@@ -24,7 +24,7 @@
 // the AST runner can serialize the build without any side effects.
 import 'package:flutter/material.dart';
 
-void main() => runApp(const ChannelBuffersDemoApp());
+dynamic build(BuildContext context) => const ChannelBuffersDemoApp();
 
 // ---------------------------------------------------------------------------
 // Data records

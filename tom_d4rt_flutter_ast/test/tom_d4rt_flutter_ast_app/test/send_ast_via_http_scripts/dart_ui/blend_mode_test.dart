@@ -34,7 +34,7 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(const BlendModeDemoApp());
+dynamic build(BuildContext context) => const BlendModeDemoApp();
 
 // ---------------------------------------------------------------------------
 // Data model: a single comparable swatch for one BlendMode value.

@@ -24,7 +24,7 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(const AppLifecycleStateDemoApp());
+dynamic build(BuildContext context) => const AppLifecycleStateDemoApp();
 
 class AppLifecycleStateDemoApp extends StatelessWidget {
   const AppLifecycleStateDemoApp({super.key});

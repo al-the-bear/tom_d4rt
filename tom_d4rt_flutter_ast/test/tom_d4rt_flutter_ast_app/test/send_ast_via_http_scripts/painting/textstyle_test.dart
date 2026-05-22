@@ -29,7 +29,7 @@ import 'dart:ui' as ui;
 /// No async work, no Timers, no Navigator pushes, no showDialog. Everything is
 /// rendered inline so the AST runner can take a single static snapshot.
 
-void main() => runApp(const TextStyleDemoApp());
+dynamic build(BuildContext context) => const TextStyleDemoApp();
 
 class TextStyleDemoApp extends StatelessWidget {
   const TextStyleDemoApp({super.key});

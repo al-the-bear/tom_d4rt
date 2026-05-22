@@ -25,7 +25,7 @@
 // -----------------------------------------------------------------------------
 import 'package:flutter/material.dart';
 
-void main() => runApp(const ButtonBarLayoutBehaviorDemoApp());
+dynamic build(BuildContext context) => const ButtonBarLayoutBehaviorDemoApp();
 
 /// Root application widget. Stateless because every section renders statically.
 class ButtonBarLayoutBehaviorDemoApp extends StatelessWidget {
