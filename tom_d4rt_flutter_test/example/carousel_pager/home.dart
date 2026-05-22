@@ -64,8 +64,24 @@ class CarouselHome extends StatefulWidget {
 class _CarouselHomeState extends State<CarouselHome> {
   final PageController _controller =
       PageController(initialPage: 0, viewportFraction: 0.85);
-  double _page = 0.0;
-  int _currentIndex = 0;
+
+  /// Fractional page offset (e.g. 0.42 mid-swipe). Updated on every
+  /// PageController scroll callback. Lives in a ValueNotifier (not
+  /// a setState-driven field) so the per-scroll-frame rebuild is
+  /// scoped to just the parallax + indicator + counter via
+  /// AnimatedBuilder, instead of rebuilding the whole carousel
+  /// subtree through the d4rt interpreter on every animation frame
+  /// (~60 Hz). Without this scoping the listener can't keep up with
+  /// the native PageView animation, the animation stalls, and
+  /// button taps / mouse swipes appear to do nothing.
+  final ValueNotifier<double> _pageNotifier =
+      ValueNotifier<double>(0.0);
+
+  /// Integer page index, derived from [_pageNotifier]. Separate
+  /// notifier so the page-counter Text only rebuilds when the
+  /// integer changes (not on every fractional update).
+  final ValueNotifier<int> _indexNotifier = ValueNotifier<int>(0);
+
   bool _autoplay = false;
   Timer? _autoplayTimer;
   int? _detailIndex;
@@ -88,19 +104,21 @@ class _CarouselHomeState extends State<CarouselHome> {
     _autoplayTimer?.cancel();
     _controller.removeListener(_onScroll);
     _controller.dispose();
+    _pageNotifier.dispose();
+    _indexNotifier.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     if (!_controller.hasClients) return;
     final double next = _controller.page ?? 0.0;
-    if ((next - _page).abs() < 0.001) return;
+    if ((next - _pageNotifier.value).abs() < 0.001) return;
     final int nextIndex = next.round().clamp(0, kPages.length - 1);
-    final int oldIndex = _currentIndex;
-    setState(() {
-      _page = next;
-      _currentIndex = nextIndex;
-    });
+    final int oldIndex = _indexNotifier.value;
+    _pageNotifier.value = next;
+    if (nextIndex != oldIndex) {
+      _indexNotifier.value = nextIndex;
+    }
     // Round the parallax offset to two decimals so the assertion
     // can match an exact string regardless of float jitter.
     final double parallax = next * 0.5;
@@ -130,7 +148,7 @@ class _CarouselHomeState extends State<CarouselHome> {
 
   void _autoplayAdvance() {
     if (!_controller.hasClients) return;
-    final int next = (_currentIndex + 1) % kPages.length;
+    final int next = (_indexNotifier.value + 1) % kPages.length;
     print('autoplay.tick to=$next');
     _controller.animateToPage(
       next,
@@ -141,8 +159,9 @@ class _CarouselHomeState extends State<CarouselHome> {
 
   void _jump(int delta) {
     if (!_controller.hasClients) return;
-    final int next = (_currentIndex + delta).clamp(0, kPages.length - 1);
-    if (next == _currentIndex) return;
+    final int current = _indexNotifier.value;
+    final int next = (current + delta).clamp(0, kPages.length - 1);
+    if (next == current) return;
     _controller.animateToPage(
       next,
       duration: const Duration(milliseconds: 250),
@@ -201,11 +220,16 @@ class _CarouselHomeState extends State<CarouselHome> {
         fit: StackFit.expand,
         children: <Widget>[
           // Parallax background — translated half the speed of the
-          // foreground page so it reads as a "deep" backdrop.
+          // foreground page so it reads as a "deep" backdrop. Wrapped
+          // in an AnimatedBuilder so the per-scroll-frame rebuild is
+          // scoped to just this subtree (see _pageNotifier doc).
           Positioned.fill(
-            child: _ParallaxBackground(
-              page: _page,
+            child: AnimatedBuilder(
               key: const Key('parallax-bg'),
+              animation: _pageNotifier,
+              builder: (BuildContext _, Widget? _) {
+                return _ParallaxBackground(page: _pageNotifier.value);
+              },
             ),
           ),
           Column(
@@ -224,15 +248,25 @@ class _CarouselHomeState extends State<CarouselHome> {
                   },
                 ),
               ),
-              PageIndicator(
-                page: _page,
-                count: kPages.length,
+              AnimatedBuilder(
+                animation: _pageNotifier,
+                builder: (BuildContext _, Widget? _) {
+                  return PageIndicator(
+                    page: _pageNotifier.value,
+                    count: kPages.length,
+                  );
+                },
               ),
               const SizedBox(height: 12.0),
-              Text(
-                'Page ${_currentIndex + 1} of ${kPages.length}',
-                key: const Key('page-counter'),
-                style: const TextStyle(fontSize: 14.0),
+              AnimatedBuilder(
+                animation: _indexNotifier,
+                builder: (BuildContext _, Widget? _) {
+                  return Text(
+                    'Page ${_indexNotifier.value + 1} of ${kPages.length}',
+                    key: const Key('page-counter'),
+                    style: const TextStyle(fontSize: 14.0),
+                  );
+                },
               ),
               const SizedBox(height: 12.0),
             ],
@@ -269,7 +303,7 @@ class _CarouselHomeState extends State<CarouselHome> {
 class _ParallaxBackground extends StatelessWidget {
   final double page;
 
-  const _ParallaxBackground({super.key, required this.page});
+  const _ParallaxBackground({required this.page});
 
   @override
   Widget build(BuildContext context) {
