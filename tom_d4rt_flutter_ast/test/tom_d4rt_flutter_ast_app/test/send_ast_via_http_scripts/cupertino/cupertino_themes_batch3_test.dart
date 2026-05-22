@@ -1556,6 +1556,13 @@ dynamic build(BuildContext context) {
         ),
       );
     });
+    // 7 picker rows with the large Cupertino pickerTextStyle (fontSize 22,
+    // bold) need ~205 px and dateTimePickerTextStyle (fontSize 21) needs
+    // ~198 px. The wheel slot was sized at 180 px, leaving 25 / 18 px of
+    // bottom RenderFlex overflow. Wrap the children Column in a
+    // SingleChildScrollView so the constrained 180-px wheel viewport
+    // silently absorbs the overflow without losing the visual look (the
+    // outer-most rows clip exactly like a real Cupertino picker wheel).
     return SizedBox(
       height: 180.0,
       child: Stack(
@@ -1573,9 +1580,12 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: rows,
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: rows,
+            ),
           ),
         ],
       ),
