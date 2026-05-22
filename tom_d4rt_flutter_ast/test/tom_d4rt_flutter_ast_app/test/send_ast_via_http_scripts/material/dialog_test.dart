@@ -602,7 +602,13 @@ dynamic build(BuildContext context) {
   final rawVariants = <_DialogPreview>[
     _DialogPreview('Raw Dialog', rawDialog, 280.0, Colors.pink),
     _DialogPreview('Styled raw', styledRawDialog, 260.0, Colors.deepPurple),
-    _DialogPreview('Fullscreen', fullscreenDialog, 320.0, Colors.lightBlue),
+    _DialogPreview(
+      'Fullscreen',
+      fullscreenDialog,
+      320.0,
+      Colors.lightBlue,
+      isFullscreen: true,
+    ),
     _DialogPreview('DialogTheme', themedDialog, 240.0, Colors.teal),
   ];
 
@@ -1322,7 +1328,17 @@ class _DialogPreview {
   final Widget dialog;
   final double height;
   final Color accent;
-  _DialogPreview(this.label, this.dialog, this.height, this.accent);
+  // True for dialogs that contain Expanded children (e.g. Dialog.fullscreen).
+  // Such dialogs require a bounded-height parent and must not be wrapped in
+  // a vertical SingleChildScrollView (which would pass unbounded height).
+  final bool isFullscreen;
+  _DialogPreview(
+    this.label,
+    this.dialog,
+    this.height,
+    this.accent, {
+    this.isFullscreen = false,
+  });
 }
 
 // Helper: build a framed preview around a real dialog widget.
@@ -1374,7 +1390,14 @@ Widget _buildDialogPreview(_DialogPreview preview) {
             ],
           ),
         ),
-        // Faded backdrop with the dialog floating in the middle
+        // Faded backdrop with the dialog floating in the middle.
+        // Keep a fixed height so dialogs containing Expanded children
+        // (e.g. Dialog.fullscreen with its app-bar + Expanded center body)
+        // have a bounded height to lay out against. To prevent natural
+        // dialog sizes that exceed the preview frame from triggering
+        // RenderFlex overflows, wrap the dialog in nested
+        // SingleChildScrollViews: vertical absorbs bottom overflow, the
+        // inner horizontal absorbs long title/action rows.
         Container(
           height: preview.height,
           decoration: BoxDecoration(
@@ -1385,7 +1408,18 @@ Widget _buildDialogPreview(_DialogPreview preview) {
             ),
           ),
           padding: EdgeInsets.all(12.0),
-          child: Center(child: preview.dialog),
+          // Dialog.fullscreen contains Expanded children and requires a
+          // bounded-height parent. Other dialogs may have natural sizes that
+          // exceed the preview frame, so we wrap them in nested
+          // SingleChildScrollViews (vertical + horizontal) to absorb overflow.
+          child: preview.isFullscreen
+              ? Center(child: preview.dialog)
+              : SingleChildScrollView(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Center(child: preview.dialog),
+                  ),
+                ),
         ),
       ],
     ),
