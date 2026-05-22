@@ -5438,4 +5438,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch41_short_tests2_demos_b11/', () {
+    test('rendering/render_exclude_semantics_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_exclude_semantics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/channel_buffers_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/channel_buffers_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/blend_mode_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/blend_mode_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/box_width_style_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/box_width_style_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/dynamic_scheme_variant_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/dynamic_scheme_variant_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/theme_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/theme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/class_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/class_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/icons_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/icons_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/class_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/class_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

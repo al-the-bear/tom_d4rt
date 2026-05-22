@@ -120,15 +120,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  88 | `dart_ui/app_lifecycle_state_test.dart` | 17,400 | 490 | (x) | (x) | (x) |
 |  89 | `gestures/details_test.dart` | 17,409 | 490 | (x) | (x) | (x) |
 |  90 | `dart_ui/blur_style_test.dart` | 17,414 | 497 | (x) | (x) | (x) |
-|  91 | `rendering/render_exclude_semantics_test.dart` | 17,555 | 472 | ( ) | ( ) | ( ) |
-|  92 | `dart_ui/channel_buffers_test.dart` | 17,810 | 409 | ( ) | ( ) | ( ) |
-|  93 | `dart_ui/blend_mode_test.dart` | 17,962 | 439 | ( ) | ( ) | ( ) |
-|  94 | `dart_ui/box_width_style_test.dart` | 18,873 | 423 | ( ) | ( ) | ( ) |
-|  95 | `material/dynamic_scheme_variant_test.dart` | 18,923 | 363 | ( ) | ( ) | ( ) |
-|  96 | `cupertino/theme_test.dart` | 19,140 | 478 | ( ) | ( ) | ( ) |
-|  97 | `dart_ui/class_test.dart` | 19,285 | 472 | ( ) | ( ) | ( ) |
-|  98 | `cupertino/icons_test.dart` | 19,796 | 378 | ( ) | ( ) | ( ) |
-|  99 | `gestures/class_test.dart` | 20,014 | 448 | ( ) | ( ) | ( ) |
+|  91 | `rendering/render_exclude_semantics_test.dart` | 17,555 | 472 | (x) | (x) | (x) |
+|  92 | `dart_ui/channel_buffers_test.dart` | 17,810 | 409 | (x) | (x) | (x) |
+|  93 | `dart_ui/blend_mode_test.dart` | 17,962 | 439 | (x) | (x) | (x) |
+|  94 | `dart_ui/box_width_style_test.dart` | 18,873 | 423 | (x) | (x) | (x) |
+|  95 | `material/dynamic_scheme_variant_test.dart` | 18,923 | 363 | (x) | (x) | (x) |
+|  96 | `cupertino/theme_test.dart` | 19,140 | 478 | (x) | (x) | (x) |
+|  97 | `dart_ui/class_test.dart` | 19,285 | 472 | (x) | (x) | (x) |
+|  98 | `cupertino/icons_test.dart` | 19,796 | 378 | (x) | (x) | (x) |
+|  99 | `gestures/class_test.dart` | 20,014 | 448 | (x) | (x) | (x) |
 | 100 | `material/material_tap_target_size_test.dart` | 20,036 | 399 | ( ) | ( ) | ( ) |
 | 101 | `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` | 20,156 | 430 | ( ) | ( ) | ( ) |
 | 102 | `retest/material/button_bar_layout_behavior_test.dart` | 21,530 | 468 | ( ) | ( ) | ( ) |
