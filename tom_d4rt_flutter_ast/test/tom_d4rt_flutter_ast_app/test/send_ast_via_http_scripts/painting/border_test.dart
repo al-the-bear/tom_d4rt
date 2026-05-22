@@ -126,7 +126,8 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(14.0),
       decoration: BoxDecoration(
         color: (color ?? paletteSurfaceAlt).withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(12.0),
+        // No borderRadius: the Border below is non-uniform (left-side only),
+        // and BoxDecoration asserts uniform colors when borderRadius is set.
         border: const Border(
           left: BorderSide(color: paletteAccent, width: 4.0),
         ),
@@ -666,7 +667,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: fill,
         border: border,
-        borderRadius: BorderRadius.circular(4.0),
+        // No borderRadius: most callers pass Border.symmetric variants that
+        // leave one axis as BorderSide.none, producing non-uniform colors.
+        // BoxDecoration would then assert.
       ),
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
@@ -2135,7 +2138,7 @@ dynamic build(BuildContext context) {
         title: 'top+bottom only',
         fill: paletteTealSoft,
         color: paletteTeal,
-        radius: BorderRadius.circular(8.0),
+        // No radius: Border has non-uniform colors (teal/emerald).
       ),
       boxBorderTile(
         border: const BorderDirectional(
@@ -2160,7 +2163,9 @@ dynamic build(BuildContext context) {
         title: 'sym vertical 5',
         fill: paletteIndigoSoft,
         color: paletteIndigo,
-        radius: BorderRadius.circular(6.0),
+        // No radius: Border.symmetric(vertical:) leaves top/bottom as
+        // BorderSide.none, which produces non-uniform colors vs. the
+        // colored verticals — borderRadius would trip the assertion.
       ),
     ],
   );
