@@ -1,6 +1,32 @@
 import 'dart:async';
 import 'package:tom_d4rt/d4rt.dart';
 
+/// Cooperative yield used after every interpreted Timer-bridged
+/// callback. See `_ai/quests/d4rt/interpreter_yielding.md` §§5-6.
+///
+/// `Duration.zero` schedules the await as a tail-of-queue task; on
+/// Linux GTK that's apparently NOT enough to let the embedder pump
+/// native input between firings (phase 1 in commit `7011045a`
+/// shipped exactly that and didn't help). Three changes versus
+/// phase 1:
+///   1. Non-zero delay (`Duration(milliseconds: 1)`) — gives the
+///      embedder a real timeslice, not just a queue-tail slot.
+///   2. Multiple awaits chained back-to-back — each one is a
+///      separate yield point.
+///   3. `Future.delayed(Duration.zero)` between the millisecond
+///      delays so we don't add a literal millisecond every tick.
+Future<void> _yieldEventLoop() async {
+  // First yield: 1 ms real delay — gives the embedder a slice it
+  // can actually use to pump native input.
+  await Future<void>.delayed(const Duration(milliseconds: 1));
+  // Second yield: drain whatever microtasks the framework
+  // scheduled while the embedder was pumping.
+  await Future<void>.delayed(Duration.zero);
+  // Third yield: belt-and-braces — give the platform-message
+  // dispatcher one more slot before the next tick logic queues.
+  await Future<void>.delayed(Duration.zero);
+}
+
 class TimerAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Timer,
@@ -22,10 +48,7 @@ class TimerAsync {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer(duration, () async {
               callback.call(visitor, []);
-              // Yield so the embedder can pump platform input
-              // between interpreted ticks — see
-              // _ai/quests/d4rt/interpreter_yielding.md.
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
         },
@@ -35,20 +58,14 @@ class TimerAsync {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.periodic(duration, (timer) async {
               callback.call(visitor, [timer]);
-              // Same yield rationale as the one-shot Timer
-              // above. Without this, the synchronous interpreted
-              // callback holds the framework thread for every
-              // 250 ms tick and Flutter's platform-message queue
-              // (key events, gesture events) backs up until the
-              // ticker is cancelled.
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
           'run': (visitor, positionalArgs, namedArgs, _) {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.run(() async {
               callback.call(visitor, []);
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
         },

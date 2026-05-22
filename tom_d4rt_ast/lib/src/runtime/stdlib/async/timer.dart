@@ -1,6 +1,22 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// Cooperative yield used after every interpreted Timer-bridged
+/// callback. Mirror of `tom_d4rt`'s helper — see
+/// `_ai/quests/d4rt/interpreter_yielding.md` §6.1 for the rationale.
+///
+/// Phase 1 (`await Future.delayed(Duration.zero)`) shipped in
+/// `7011045a` and didn't help. This phase tries:
+///   1. A non-zero (1 ms) delay so the embedder gets a real
+///      timeslice rather than a queue-tail slot.
+///   2. Multiple chained yields so the platform-message dispatcher
+///      has several slots to drain into.
+Future<void> _yieldEventLoop() async {
+  await Future<void>.delayed(const Duration(milliseconds: 1));
+  await Future<void>.delayed(Duration.zero);
+  await Future<void>.delayed(Duration.zero);
+}
+
 class TimerAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Timer,
@@ -19,10 +35,7 @@ class TimerAsync {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer(duration, () async {
               callback.call(visitor, []);
-              // Yield so the embedder can pump platform input
-              // between interpreted ticks — see
-              // _ai/quests/d4rt/interpreter_yielding.md.
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
         },
@@ -32,20 +45,14 @@ class TimerAsync {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.periodic(duration, (timer) async {
               callback.call(visitor, [timer]);
-              // Same yield rationale as the one-shot Timer
-              // above. Without this, the synchronous interpreted
-              // callback holds the framework thread for every
-              // tick and Flutter's platform-message queue (key
-              // events, gesture events) backs up until the ticker
-              // is cancelled.
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
           'run': (visitor, positionalArgs, namedArgs, _) {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.run(() async {
               callback.call(visitor, []);
-              await Future<void>.delayed(Duration.zero);
+              await _yieldEventLoop();
             });
           },
         },
