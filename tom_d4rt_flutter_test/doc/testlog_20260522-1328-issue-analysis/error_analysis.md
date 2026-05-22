@@ -253,16 +253,52 @@ These are `Iterable<num>` extension methods that Dart's typed_data lists inherit
 - `foundation/notifier_test.dart` — passes in `flutter_ast`, fails in `flutter_test` with `BridgedInstance<Object>` not `Color`. Indicates the older `flutter_test` runner sends an unwrapped `Object` where the AST runner correctly unwraps to `Color`. **Decide whether to lift `flutter_test` to the AST-runner equivalent or back-port the unwrap.**
 - `painting/flutter_logo_style_test.dart` — Transport timeout in `flutter_test` (25 s POST /build). Test app didn't die but couldn't service this script. Single occurrence — re-run to confirm reproducibility before classifying as a wedge.
 
-### Cluster H — RenderFlex overflows in passing tests
+### Cluster H — Framework errors in passing tests (layout overflows + assertions)
 
-Visible flutter overflows that don't fail their tests:
+The `SendTestRunner` METRIC line records `frameworkErrors=N` per script — this is the number of Flutter framework error events the runner intercepted while the script was rendering. The four blocks captured by `aggregate_results.py` in §1 only surface the **first** trigger in each test file; the full catalogue across all log files comes from the METRIC lines themselves.
 
-- `material/buttons_test.dart` — 3× `34 px bottom`
-- `material/{circleavatar,scrollbar,segmentedbutton,selectabletext,sliverappbar,togglebuttons}_test.dart` (around the block) — `23/23/23/39/15 px bottom`
-- `cupertino/cupertino_form_scroll_test.dart` — `2.0 px right`
-- `material/dialog_test.dart` (flutter_test only) — `64 px overflow`
+**Total scripts with frameworkErrors > 0: 22** (identical list in both flutter_ast and flutter_test, with a total of ~84 individual error events). All these scripts **pass their test assertions** — the framework errors are pure flutter stdout pollution and visual layout bugs, not test failures. They still must be fixed so that future regressions don't hide behind the noise.
 
-These are layout authoring issues in deep-demo scripts. Fix is per-script: constrain SizedBox heights, switch to `Expanded`/`Flexible`, or drop redundant rows. Track as a single cluster.
+Two distinct error kinds:
+
+**H1 — RenderFlex overflow (21 scripts):** Layout authoring bugs in hand-authored deep-demo scripts. Each is a per-script fix: wrap fixed-height children in `Flexible`/`Expanded`, increase parent constraints, or drop redundant rows.
+
+| script | fw_err count | observed overflow magnitudes |
+|---|---:|---|
+| `painting/border_test.dart` | 34 | **not RenderFlex** — see H2 below |
+| `material/dialog_test.dart` | 8 | up to 64 px bottom |
+| `cupertino/cupertino_themes_batch2_test.dart` | 8 | various, mixed direction |
+| `dart_ui/callback_handle_test.dart` | 6 | various |
+| `material/bottomappbar_test.dart` | 5 | various bottom |
+| `material/bottomnavigationbar_test.dart` | 3 | various bottom |
+| `cupertino/cupertino_nav_segmented_test.dart` | 2 | various |
+| `cupertino/cupertino_themes_batch3_test.dart` | 2 | various |
+| `widgets/cliprrect_test.dart` | 2 | various |
+| `animation/cubic_test.dart` | 1 | bottom |
+| `foundation/diagnosticable_tree_mixin_test.dart` | 1 | bottom |
+| `material/dropdownform_test.dart` | 1 | bottom |
+| `material/dropdown_test.dart` | 1 | bottom |
+| `material/mergeable_test.dart` | 1 | bottom |
+| `material/progress_test.dart` | 1 | bottom |
+| `rendering/debug_overflow_indicator_mixin_test.dart` | 1 | intentional? — verify (the overflow indicator demo *may* render an overflow on purpose) |
+| `rendering/render_constraints_transform_box_test.dart` | 1 | bottom |
+| `retest/widgets/app_kit_view_test.dart` | 1 | bottom (this script *also* fails — Cluster B; H1 is a secondary issue) |
+| `scheduler/ticker_test.dart` | 1 | various |
+| `services/platform_test.dart` | 1 | bottom |
+| `widgets/animation_test.dart` | 1 | bottom |
+| `widgets/slotted_multi_child_render_object_widget_test.dart` | 1 | bottom |
+
+Plus the four blocks already captured in §§1.1–1.3:
+
+- `material/buttons_test.dart` — 3× 34 px bottom (essential_classes_test block)
+- `material/{circleavatar,scrollbar,segmentedbutton,selectabletext,sliverappbar,togglebuttons}_test.dart` — 23/23/23/39/15 px bottom (important_classes_test block)
+- `cupertino/cupertino_form_scroll_test.dart` — 2.0 px right (secondary_classes_test block)
+
+> Note: `material/buttons_test.dart`, the `circleavatar→togglebuttons` cluster, and `cupertino_form_scroll_test.dart` do **not** show frameworkErrors>0 in their own METRIC lines — the overflow events were emitted **between** scripts (during `WidgetsBinding` teardown of the previous test). They are still real bugs in the listed scripts and must be fixed alongside the 21 scripts above. Effective Cluster H surface: **~27 distinct scripts**.
+
+**H2 — `painting/border_test.dart` (1 script, 34 fires):** Not an overflow. Every fire is the Flutter assertion `A borderRadius can only be given on borders with uniform colors.` — the deep-demo composes `Border` instances with non-uniform side colors and then passes them to a `BoxDecoration(border: ..., borderRadius: ...)`. Either drop the `borderRadius` for the non-uniform examples or switch them to a `BorderRadius.zero` showcase row. Single script, isolated fix.
+
+**Effect on tests:** zero. But: framework errors hide later regressions and pollute the run output; fixing them keeps the signal clean.
 
 ### Cluster I — Interactive tests soft-fail on tap-by-text
 
@@ -362,31 +398,59 @@ Each item references the cluster (A–M) and the failure numbers from §§1–4.
 - [ ] **fixed** 12. `foundation/notifier_test.dart` — investigate the `BridgedInstance<Object>` not `Color` mismatch in `flutter_test`. Compare the test-app build of `flutter_test` vs `flutter_ast` (different runners) and either back-port the unwrap or migrate `flutter_test` to the AST runner. (covers #38)
 - [ ] **fixed** 13. `painting/flutter_logo_style_test.dart` — re-run in isolation in `flutter_test` to confirm reproducibility of the 25 s transport timeout. If reproducible, classify as a wedge (Wn) and add to `interpreter_issues.md`. (covers #39)
 
-### Cluster H — RenderFlex overflows in passing tests
+### Cluster H — Framework errors (RenderFlex overflows + border assertions)
 
-- [ ] **fixed** 14. Fix layout overflows in `material/buttons_test.dart`, `circleavatar_test.dart`, `scrollbar_test.dart`, `segmentedbutton_test.dart`, `selectabletext_test.dart`, `sliverappbar_test.dart`, `togglebuttons_test.dart`, `cupertino/cupertino_form_scroll_test.dart`, and `material/dialog_test.dart` — wrap fixed-height children in `Flexible`/`Expanded`, increase parent height, or drop redundant rows.
+**H1 — high fw_err counts (fix first, biggest log-noise reduction):**
+
+- [ ] **fixed** 14. `painting/border_test.dart` (34 events) — **H2 root cause:** "A borderRadius can only be given on borders with uniform colors." Audit the script's `Border` + `BoxDecoration(borderRadius:)` combinations; drop `borderRadius` on non-uniform-color borders or use `BorderRadius.zero` examples for that row.
+- [ ] **fixed** 15. `material/dialog_test.dart` (8 events) — overflows up to 64 px bottom. Constrain dialog content height (`SingleChildScrollView` or explicit `SizedBox(height:)`).
+- [ ] **fixed** 16. `cupertino/cupertino_themes_batch2_test.dart` (8 events) — wrap theme demo rows in `Flexible`/`Wrap` or increase parent height.
+- [ ] **fixed** 17. `dart_ui/callback_handle_test.dart` (6 events) — same layout audit; demo cards need responsive sizing.
+- [ ] **fixed** 18. `material/bottomappbar_test.dart` (5 events) — BottomAppBar inside fixed-height demo cards overflows; raise card height or shrink content.
+
+**H1 — medium fw_err counts (2–3 events each):**
+
+- [ ] **fixed** 19. `material/bottomnavigationbar_test.dart` (3 events) — layout audit.
+- [ ] **fixed** 20. `cupertino/cupertino_nav_segmented_test.dart` (2 events) — layout audit.
+- [ ] **fixed** 21. `cupertino/cupertino_themes_batch3_test.dart` (2 events) — layout audit.
+- [ ] **fixed** 22. `widgets/cliprrect_test.dart` (2 events) — layout audit.
+
+**H1 — single-event scripts (one bullet covers all, but verify per-script):**
+
+- [ ] **fixed** 23. Fix one-event overflows in the remaining 12 scripts: `animation/cubic_test.dart`, `foundation/diagnosticable_tree_mixin_test.dart`, `material/dropdownform_test.dart`, `material/dropdown_test.dart`, `material/mergeable_test.dart`, `material/progress_test.dart`, `rendering/render_constraints_transform_box_test.dart`, `retest/widgets/app_kit_view_test.dart` (also fixed by Cluster B item 4), `scheduler/ticker_test.dart`, `services/platform_test.dart`, `widgets/animation_test.dart`, `widgets/slotted_multi_child_render_object_widget_test.dart`. Per-script `Flexible`/`Expanded`/`SizedBox` adjustments.
+- [ ] **fixed** 24. `rendering/debug_overflow_indicator_mixin_test.dart` (1 event) — **verify whether the overflow is intentional** (the demo's whole purpose is to render an `OverflowIndicator`). If intentional, suppress via `FlutterError.onError` for that one paint pass; if accidental, fix layout.
+
+**H1 — overflows recorded between scripts (in adjacent-script captures, not METRIC):**
+
+- [ ] **fixed** 25. `material/buttons_test.dart` (34 px bottom × 3) — overflow surfaced in essential_classes_test block; fix the demo's Wrap/Row that exceeds 600 px.
+- [ ] **fixed** 26. `material/{circleavatar,scrollbar,segmentedbutton,selectabletext,sliverappbar,togglebuttons}_test.dart` (23/23/23/39/15 px bottom) — important_classes_test block; one or more of these six scripts is leaving a teardown overflow. Bisect by running them individually.
+- [ ] **fixed** 27. `cupertino/cupertino_form_scroll_test.dart` (2.0 px right) — secondary_classes_test block; nudge horizontal padding by 2 px or wrap right child in `Flexible`.
 
 ### Cluster I — Interactive tap-by-text mismatches
 
-- [ ] **fixed** 15. Update `interactive_tests_test.dart` script entries for `showdialog_test.dart`, `showdatepicker_test.dart`, `showtimepicker_test.dart` — replace `tapText("Option A"/"Cancel")` with `tapByKey(...)` or correct localised labels. Verify against the current Material 3 button labels.
+- [ ] **fixed** 28. Update `interactive_tests_test.dart` script entries for `showdialog_test.dart`, `showdatepicker_test.dart`, `showtimepicker_test.dart` — replace `tapText("Option A"/"Cancel")` with `tapByKey(...)` or correct localised labels. Verify against the current Material 3 button labels.
 
 ### Cluster J — Bridged-mixin resolution (tom_d4rt + tom_d4rt_exec, shared fixture)
 
-- [ ] **fixed** 16. Diagnose I-BRIDGE-1 (`Calculator.calculate`) — verify the bridged-mixin's method table is registered. Likely in `tom_d4rt/lib/src/runtime_types.dart` / `tom_d4rt_ast/lib/src/runtime/runtime_types.dart` — `InterpretedClass` mixin resolution. Add a unit test that exercises the failing dispatch.
-- [ ] **fixed** 17. Mirror the fix between `tom_d4rt` and `tom_d4rt_ast`. Re-run the shared fixture under both; covers #40–46 in one pass.
-- [ ] **fixed** 18. Confirm I-BUG-14a (records with named fields) remains marked `SHOULD FAIL` — no fix required; this is by-design. (covers #47)
+- [ ] **fixed** 29. Diagnose I-BRIDGE-1 (`Calculator.calculate`) — verify the bridged-mixin's method table is registered. Likely in `tom_d4rt/lib/src/runtime_types.dart` / `tom_d4rt_ast/lib/src/runtime/runtime_types.dart` — `InterpretedClass` mixin resolution. Add a unit test that exercises the failing dispatch.
+- [ ] **fixed** 30. Mirror the fix between `tom_d4rt` and `tom_d4rt_ast`. Re-run the shared fixture under both; covers #40–46 in one pass.
+- [ ] **fixed** 31. Confirm I-BUG-14a (records with named fields) remains marked `SHOULD FAIL` — no fix required; this is by-design. (covers #47)
 
 ### Cluster K — d4 binary "Text file busy" (tom_d4rt_exec)
 
-- [ ] **fixed** 19. G-TST-9: rebuild the `d4` binary into a fresh path before running D4rtTester e2e, OR serialise the test against the build step. Investigate parallel test runners holding an fd on the binary. (covers #48)
+- [ ] **fixed** 32. G-TST-9: rebuild the `d4` binary into a fresh path before running D4rtTester e2e, OR serialise the test against the build step. Investigate parallel test runners holding an fd on the binary. (covers #48)
 
 ### Cluster L — VS Code Scripting API (tom_d4rt_dcli)
 
-- [ ] **fixed** 20. Gate `VSCodeWindow.getActiveTextEditor` tests on an environment variable (`TOM_LIVE_VSCODE=1`) so headless CI skips them; OR provide a `MockVSCodeWindow` returning a stub editor. (covers #49, #50)
+- [ ] **fixed** 33. Gate `VSCodeWindow.getActiveTextEditor` tests on an environment variable (`TOM_LIVE_VSCODE=1`) so headless CI skips them; OR provide a `MockVSCodeWindow` returning a stub editor. (covers #49, #50)
 
 ### Cluster M — generator dart_overview coverage
 
-- [ ] **fixed** 21. tom_d4rt_generator `dart_overview` setUpAll failure — re-run with verbose output, capture the diagnostic, fix the missing bridge or coverage entry. (covers #51)
+- [ ] **fixed** 34. tom_d4rt_generator `dart_overview` setUpAll failure — re-run with verbose output, capture the diagnostic, fix the missing bridge or coverage entry. (covers #51)
+
+### Verification step for Cluster H
+
+- [ ] **fixed** 35. After H1+H2 fixes, re-run the four-suite serial protocol (gii + essential + important + secondary) and confirm `aggregate_results.py framework_errors` count drops from 4→0 in flutter_ast and 5→0 in flutter_test (the transport-timeout block in flutter_test goes away with item 13).
 
 ---
 
@@ -419,3 +483,5 @@ Per `_copilot_guidelines/d4rt/` and the quest overview ("Cluster-fix verificatio
 6. Only commit + push after the four suites pass; one cluster per commit.
 
 The Cluster A pattern (`Undefined variable: build` × 24) deserves a single-bullet investigation before any other work — if it turns out to be a script-side typo, the failure count drops from 36→12 in `flutter_ast` and 38→13 in `flutter_test`, which would refocus the rest of the campaign.
+
+Cluster H (framework errors) covers **22 scripts with ~84 events** and contributes zero test failures but heavy log noise. Address it after Clusters A–G since fixing it doesn't change pass/fail counts — but do address it: every overflow that lives is one more place a real regression can hide.
