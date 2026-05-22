@@ -147,16 +147,35 @@ class TronEngine {
   // === AI ===
 
   void _decideAi() {
-    // Original tuning. An earlier "friendlier" pass (flood-fill horizon
-    // 8, jitter 0..3, bias 1) was meant to compensate for the AI
-    // winning before the player could react, but the responsiveness
-    // problem was actually input starvation — once that was fixed
-    // via the 250 ms tick + edge-detected polling, the AI was just
-    // visibly dumb (encircling itself because 8 cells of lookahead
-    // wasn't enough to see most self-traps). Restored: 20-cell
-    // flood-fill horizon, straight-bias +2 so it doesn't dither, and
-    // a small 0..1 jitter so it still occasionally takes the less-
-    // optimal turn the player can exploit.
+    // Two-tier strategy.
+    //
+    // Fast path: if going straight is safe AND the cell one beyond
+    // that is ALSO safe, just keep going. This is the common case
+    // (most ticks the AI is in open space) and skips the full
+    // flood-fill entirely. Without this, the 20-cell flood-fill ran
+    // 3× per tick (~2400 interpreted ops) and exceeded the per-tick
+    // budget under d4rt, causing the visible repaint to lag by
+    // several ticks. With the fast path, most ticks pay only a few
+    // bounds + grid-lookup ops.
+    //
+    // Slow path: when an obstacle is within 2 cells of the AI head,
+    // run the original 20-cell flood-fill on all 3 candidates so
+    // the AI navigates around walls and trails intelligently
+    // (which is what the user wants — "much better" strategy).
+    final straightStep = stepOf(ai.dir);
+    final straightNx = ai.x + straightStep[0];
+    final straightNy = ai.y + straightStep[1];
+    if (_isFree(straightNx, straightNy)) {
+      final lookaheadNx = straightNx + straightStep[0];
+      final lookaheadNy = straightNy + straightStep[1];
+      if (_isFree(lookaheadNx, lookaheadNy)) {
+        return; // no obstacle within 2 cells — just go straight
+      }
+    }
+
+    // Slow path: obstacle near — evaluate all three candidates
+    // with a 20-cell flood-fill and pick the most open. Same tuning
+    // as before (straight-bias +2, jitter 0..1).
     final candidates = <int>[ai.dir, turnLeft(ai.dir), turnRight(ai.dir)];
     int best = ai.dir;
     int bestScore = -1;
