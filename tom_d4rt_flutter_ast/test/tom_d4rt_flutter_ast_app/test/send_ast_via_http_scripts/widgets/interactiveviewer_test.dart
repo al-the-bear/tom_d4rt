@@ -19,7 +19,13 @@
 // where every tool is laid out on a workbench so the reader can see what each
 // parameter does in isolation.
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart' show Quad, Vector3;
+
+// Note: this script intentionally avoids `package:vector_math/vector_math_64.dart`
+// because `Quad` and `Vector3` are not re-exported by `package:flutter/material.dart`
+// (Flutter only re-exports `Matrix4`). The `InteractiveViewer.builder` constructor —
+// which would require `Quad` in its callback signature — is therefore demonstrated
+// via the standard `InteractiveViewer` with `constrained: false` instead. See
+// interpreter_unfixable.md for the underlying root cause.
 
 // ---------------------------------------------------------------------------
 // Shared visual helpers
@@ -271,8 +277,10 @@ class _DefaultViewerState extends State<_DefaultViewer> {
     final Matrix4 m = _controller.value;
     setState(() {
       _scale = m.getMaxScaleOnAxis();
-      _tx = m.getTranslation().x;
-      _ty = m.getTranslation().y;
+      // Read translation directly from the column-major storage instead of
+      // m.getTranslation().x/.y — Vector3 is not bridged in this interpreter.
+      _tx = m[12];
+      _ty = m[13];
     });
   }
 
@@ -672,8 +680,10 @@ class _ControlledViewerState extends State<_ControlledViewer>
       builder: (BuildContext context, Widget? _) {
         final Matrix4 m = _controller.value;
         final double scale = m.getMaxScaleOnAxis();
-        final double tx = m.getTranslation().x;
-        final double ty = m.getTranslation().y;
+        // Read translation directly from the column-major storage instead of
+        // m.getTranslation().x/.y — Vector3 is not bridged in this interpreter.
+        final double tx = m[12];
+        final double ty = m[13];
         return Column(
           children: <Widget>[
             Container(
@@ -744,20 +754,29 @@ class _ControlledViewerState extends State<_ControlledViewer>
 }
 
 // ---------------------------------------------------------------------------
-// SECTION 9: InteractiveViewer.builder for huge tiled content
+// SECTION 9: InteractiveViewer with a large pre-built tiled canvas
 // ---------------------------------------------------------------------------
+//
+// The `.builder` constructor would let us build tiles lazily based on the
+// visible viewport `Quad`, but `Quad` lives in `package:vector_math/vector_math_64.dart`
+// which is not re-exported by `package:flutter/material.dart`. We use the
+// standard constructor with `constrained: false` and pre-build a moderate
+// tile grid instead — the demo still covers the "large content" use case.
 
-class _HugeTiledViewer extends StatefulWidget {
-  const _HugeTiledViewer();
+class _LargeTiledViewer extends StatefulWidget {
+  const _LargeTiledViewer();
 
   @override
-  State<_HugeTiledViewer> createState() => _HugeTiledViewerState();
+  State<_LargeTiledViewer> createState() => _LargeTiledViewerState();
 }
 
-class _HugeTiledViewerState extends State<_HugeTiledViewer> {
+class _LargeTiledViewerState extends State<_LargeTiledViewer> {
   final TransformationController _controller = TransformationController();
   static const double _tileSize = 80.0;
-  static const double _canvasSize = 5000.0;
+  static const int _gridCols = 12;
+  static const int _gridRows = 12;
+  static const double _canvasWidth = _tileSize * _gridCols;
+  static const double _canvasHeight = _tileSize * _gridRows;
 
   @override
   void dispose() {
@@ -793,6 +812,18 @@ class _HugeTiledViewerState extends State<_HugeTiledViewer> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> tiles = <Widget>[];
+    for (int row = 0; row < _gridRows; row++) {
+      for (int col = 0; col < _gridCols; col++) {
+        tiles.add(
+          Positioned(
+            left: col * _tileSize,
+            top: row * _tileSize,
+            child: _tileAt(col, row),
+          ),
+        );
+      }
+    }
     return Container(
       height: 340.0,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -802,58 +833,17 @@ class _HugeTiledViewerState extends State<_HugeTiledViewer> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: InteractiveViewer.builder(
+        child: InteractiveViewer(
           transformationController: _controller,
+          constrained: false,
           minScale: 0.1,
           maxScale: 4.0,
           boundaryMargin: const EdgeInsets.all(200.0),
-          builder: (BuildContext context, Quad viewport) {
-            // Compute the viewport rectangle from the Quad.
-            double minX = viewport.point0.x;
-            double minY = viewport.point0.y;
-            double maxX = viewport.point0.x;
-            double maxY = viewport.point0.y;
-            final List<Vector3> pts = <Vector3>[
-              viewport.point0,
-              viewport.point1,
-              viewport.point2,
-              viewport.point3,
-            ];
-            for (final Vector3 p in pts) {
-              if (p.x < minX) minX = p.x;
-              if (p.y < minY) minY = p.y;
-              if (p.x > maxX) maxX = p.x;
-              if (p.y > maxY) maxY = p.y;
-            }
-            // Clamp to canvas.
-            if (minX < 0) minX = 0;
-            if (minY < 0) minY = 0;
-            if (maxX > _canvasSize) maxX = _canvasSize;
-            if (maxY > _canvasSize) maxY = _canvasSize;
-
-            final int firstCol = (minX / _tileSize).floor();
-            final int firstRow = (minY / _tileSize).floor();
-            final int lastCol = (maxX / _tileSize).ceil();
-            final int lastRow = (maxY / _tileSize).ceil();
-
-            final List<Widget> tiles = <Widget>[];
-            for (int row = firstRow; row < lastRow; row++) {
-              for (int col = firstCol; col < lastCol; col++) {
-                tiles.add(
-                  Positioned(
-                    left: col * _tileSize,
-                    top: row * _tileSize,
-                    child: _tileAt(col, row),
-                  ),
-                );
-              }
-            }
-            return SizedBox(
-              width: _canvasSize,
-              height: _canvasSize,
-              child: Stack(children: tiles),
-            );
-          },
+          child: SizedBox(
+            width: _canvasWidth,
+            height: _canvasHeight,
+            child: Stack(children: tiles),
+          ),
         ),
       ),
     );
@@ -1564,8 +1554,8 @@ dynamic build(BuildContext context) {
   // SECTION 8: controller-driven
   const Widget controlled = _ControlledViewer();
 
-  // SECTION 9: huge content via builder
-  const Widget huge = _HugeTiledViewer();
+  // SECTION 9: large pre-built tiled content
+  const Widget huge = _LargeTiledViewer();
 
   // SECTION 10: faux map
   const Widget mapView = _FauxMapView();
@@ -1687,18 +1677,19 @@ dynamic build(BuildContext context) {
           ),
           controlled,
 
-          // SECTION 9: InteractiveViewer.builder
+          // SECTION 9: large pre-built tiled content
           _sectionHeader(
             '9',
-            'InteractiveViewer.builder — only build the visible window',
-            '5000x5000 tile canvas. Tiles outside the viewport are never built.',
+            'Large tiled content with constrained: false',
+            '12x12 tile grid at 80px each — pan and zoom around the canvas.',
           ),
           _narrativeCard(
-            'For very large content the builder constructor passes you a Quad '
-            'describing the visible viewport in child coordinates. Compute the '
-            'axis-aligned bounds and build only the tiles that intersect that '
-            'rect — this keeps memory and frame time bounded regardless of '
-            'canvas size.',
+            'For large content, set constrained: false and feed the viewer a '
+            'child sized to the full canvas. (The InteractiveViewer.builder '
+            'constructor offers lazy per-viewport tile construction but its '
+            'callback receives a Quad from package:vector_math/vector_math_64.dart '
+            'which is not re-exported by package:flutter/material.dart, so this '
+            'demo uses the pre-built form instead.)',
           ),
           huge,
 

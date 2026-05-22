@@ -226,10 +226,31 @@ retest/material/navigation_destination_label_behavior_test.dart
 
 ### Cluster C — Missing bridge: `package:vector_math/vector_math_64.dart`
 
+**Status:** fixed (script rewrite — Option B).
+
 `widgets/interactiveviewer_test.dart` imports `vector_math_64`, which is not present in `tom_d4rt_flutterm`'s `bridgedLibraries`. Either:
 
 - Add the bridge to `tom_d4rt_flutterm` (generator + buildkit.yaml), OR
 - Rewrite the demo to use only the Matrix4-style helpers exported by `package:flutter/widgets.dart` (which re-exports a subset).
+
+**Resolution (2026-05-22):**
+
+Took Option B — rewrote `widgets/interactiveviewer_test.dart` to drop the direct dependency on `package:vector_math/vector_math_64.dart`. Verified that Flutter only re-exports `Matrix4` from vector_math (via `flutter/rendering.dart` line 36 and `flutter/widgets.dart` line 16) — `Quad` and `Vector3` are NOT re-exported, so they cannot be reached via `package:flutter/material.dart`.
+
+Two changes to the script:
+
+1. **SECTION 9** (`InteractiveViewer.builder` demo) used `Quad` and `Vector3` directly in the builder callback signature. Replaced `InteractiveViewer.builder(builder: (BuildContext, Quad viewport) {...})` with the standard `InteractiveViewer(constrained: false, child: SizedBox(Stack(tiles)))` form using a pre-built 12×12 tile grid. The demo still shows large-content pan/zoom, just without the lazy per-viewport tile construction.
+2. **`_DefaultViewer._onMatrix()`** and **`_ControlledViewer.build()`** read translation via `m.getTranslation().x` / `.y`, which returns a `Vector3`. Since `Vector3` is not bridged, accessing `.x`/`.y` raised the runtime framework error `Undefined property or method 'x' on Vector3`. Replaced with direct column-major storage reads: `m[12]` (tx) and `m[13]` (ty). Matrix4's `operator []` is bridged and returns a `double` directly (see `painting_bridges.b.dart` line 12351, `_createMatrix4Bridge()`).
+
+**Verification (rule a — single test retest):**
+
+```
+[METRIC] script=widgets/interactiveviewer_test.dart status=success
+        httpStatus=200 frameworkErrors=0 totalMs=2790
+00:15 +1: All tests passed!
+```
+
+Before the fix: `status=success frameworkErrors=1` (Vector3 error). After: `frameworkErrors=0`. Test-script-only change, so per rule (a) no broader regression sweep needed. The underlying root cause (`Quad`/`Vector3` not bridged; not re-exported from `flutter/material.dart`) is documented in `interpreter_unfixable.md`.
 
 ### Cluster D — Bridged-typed-data extension methods missing
 
@@ -496,7 +517,7 @@ Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions*
 
 ### Cluster C — Missing `vector_math_64` bridge
 
-- [ ] **fixed** 7. Add `package:vector_math/vector_math_64.dart` to `tom_d4rt_flutterm/buildkit.yaml` and regenerate bridges. Alternatively rewrite `widgets/interactiveviewer_test.dart` to use only `Matrix4` constructors re-exported from `flutter/widgets`. (covers #10)
+- [x] **fixed** 7. Add `package:vector_math/vector_math_64.dart` to `tom_d4rt_flutterm/buildkit.yaml` and regenerate bridges. Alternatively rewrite `widgets/interactiveviewer_test.dart` to use only `Matrix4` constructors re-exported from `flutter/widgets`. (covers #10) — **Resolution:** Option B (script rewrite). Dropped the `InteractiveViewer.builder`/`Quad` section (rebuilt as standard `InteractiveViewer(constrained: false, ...)` with pre-built tile grid) and replaced `m.getTranslation().x/.y` with direct `m[12]/m[13]` column-major reads. After fix: `status=success, frameworkErrors=0`. See Cluster C summary above and `interpreter_unfixable.md` entry "vector_math_64 not re-exported from flutter/material.dart".
 
 ### Cluster D — Bridged-typed-data missing list methods
 

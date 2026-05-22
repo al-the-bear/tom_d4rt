@@ -5685,8 +5685,111 @@ for the outer frame) is the safe path.
 
 ---
 
+## U21 — `Quad` / `Vector3` from `package:vector_math/vector_math_64.dart` are not reachable from interpreted scripts (bridge surface gap)
+
+### What triggers it
+
+Scripts that need geometry helpers from `package:vector_math/vector_math_64.dart` — most commonly the `Quad viewport` parameter of `InteractiveViewer.builder`'s callback, or anything that touches `Matrix4.getTranslation()` (which returns a `Vector3`) — cannot import them directly:
+
+```text
+Bad state: Cannot resolve import package:vector_math/vector_math_64.dart from main.dart:
+Package import is not bridged and not in the same package.
+```
+
+…and even when the type is *received* through a bridged callback (e.g. the `Quad` passed into the `InteractiveViewer.builder` builder), accessing its properties raises a runtime framework error:
+
+```text
+Runtime Error: Undefined property or method 'x' on Vector3.
+```
+
+### Dart / Flutter root cause
+
+Flutter's barrel libraries only re-export a *single* class from `vector_math_64`:
+
+```dart
+// packages/flutter/lib/widgets.dart   line 16
+export 'package:vector_math/vector_math_64.dart' show Matrix4;
+
+// packages/flutter/lib/rendering.dart line 36
+export 'package:vector_math/vector_math_64.dart' show Matrix4;
+```
+
+`Quad`, `Vector3`, `Vector4`, etc. are deliberately *not* re-exported. They are part of `package:vector_math` and Flutter uses them in its API surface (`InteractiveViewer.builder` callback, `Matrix4.getTranslation()` return value, transform helpers), but consumers are expected to import `package:vector_math/vector_math_64.dart` directly to reach them.
+
+`tom_d4rt_flutterm`'s `buildkit.yaml` only lists Flutter packages in `bridgedLibraries`, so the analyzer-free interpreter has no `BridgedClass` registration for `Quad` or `Vector3`. The bridge for `Matrix4` exists (see `painting_bridges.b.dart::_createMatrix4Bridge()`) because it is reachable through Flutter's re-export, but `Matrix4.getTranslation()` still returns a native `Vector3` instance which the interpreter has no metadata for — so any subsequent `.x` / `.y` access fails.
+
+### What a real fix would look like
+
+Either:
+
+- Add `package:vector_math/vector_math_64.dart` to `tom_d4rt_flutterm/buildkit.yaml`'s `bridgedLibraries` and regenerate. This would create bridges for `Quad`, `Vector3`, `Vector4`, the math operators and constructors. Trade-off: noticeable increase in the generated bridge surface for a small number of interpreted scripts, plus a rule-(b) full regression sweep to confirm no collateral.
+- Or, leave the bridge surface narrow and instruct scripts to use the *bridged* indexable accessors on `Matrix4` (column-major storage via `operator []`) and avoid `InteractiveViewer.builder`. This is what the workaround below does.
+
+### Workaround
+
+Two patterns cover all known sites:
+
+1. **Replace `m.getTranslation().x` / `.y`** (which returns an unbridged `Vector3`) with direct column-major storage reads on the bridged `Matrix4`:
+
+   ```dart
+   // BEFORE — fails with "Undefined property or method 'x' on Vector3"
+   final double tx = matrix.getTranslation().x;
+   final double ty = matrix.getTranslation().y;
+
+   // AFTER — Matrix4.operator [] is bridged and returns double
+   final double tx = matrix[12]; // column-major: column 3, row 0
+   final double ty = matrix[13]; // column-major: column 3, row 1
+   ```
+
+2. **Replace `InteractiveViewer.builder(builder: (BuildContext, Quad viewport) { ... })`** — whose callback signature *requires* the unbridged `Quad` type — with the standard constructor and a pre-built child sized to the full canvas:
+
+   ```dart
+   // BEFORE — import fails on vector_math_64; even if imported, Quad has no bridge
+   InteractiveViewer.builder(
+     transformationController: c,
+     builder: (BuildContext context, Quad viewport) {
+       // compute visible tiles from viewport.point0..point3 (Vector3 each)
+       return Stack(children: lazyTiles(...));
+     },
+   );
+
+   // AFTER — pre-build the full grid and let constrained:false + the
+   // boundary margin drive pan/zoom over the whole canvas
+   InteractiveViewer(
+     transformationController: c,
+     constrained: false,
+     boundaryMargin: const EdgeInsets.all(200.0),
+     child: SizedBox(
+       width: canvasWidth,
+       height: canvasHeight,
+       child: Stack(children: allTiles), // not lazy
+     ),
+   );
+   ```
+
+   Trade-off: loses the "only build visible tiles" optimisation. For demo / teaching scripts a moderate grid size (≤ 144 tiles in our case) keeps memory and frame time comfortably bounded; production code that genuinely needs lazy tile construction would have to take the bridge-extension path above.
+
+### Affected scripts
+
+- `widgets/interactiveviewer_test.dart` — used both patterns: `m.getTranslation().x/.y` in `_DefaultViewer` and `_ControlledViewer`, plus the `InteractiveViewer.builder` callback receiving `Quad`. Rewritten under Option B on 2026-05-22 (Cluster C in `testlog_20260522-1328-issue-analysis/error_analysis.md`).
+
+---
+
 ## Change Log
 
+- 2026-05-22: **Add U21** — `Quad` / `Vector3` from
+  `package:vector_math/vector_math_64.dart` are not reachable
+  from interpreted scripts because Flutter's barrel libraries
+  only re-export `Matrix4`. Documents both manifestation modes
+  (the import-resolution `Bad state` and the runtime
+  `Undefined property or method 'x' on Vector3` after
+  `Matrix4.getTranslation()`) plus the script-side workaround
+  patterns (`m[12]` / `m[13]` instead of
+  `m.getTranslation().x/.y`; `InteractiveViewer(constrained:
+  false, child: SizedBox(Stack(allTiles)))` instead of
+  `InteractiveViewer.builder(builder: (ctx, Quad q) {...})`).
+  Closes Cluster C #7 of
+  `testlog_20260522-1328-issue-analysis/error_analysis.md`.
 - 2026-05-20: **Add U20** — `Table(border: TableBorder.all(...))`
   triggers a Flutter framework assertion in
   `table_border.dart` line 289 (`'rows.isEmpty || (rows.first
