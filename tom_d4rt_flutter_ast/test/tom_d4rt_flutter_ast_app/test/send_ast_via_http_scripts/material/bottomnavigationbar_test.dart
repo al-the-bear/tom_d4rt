@@ -444,13 +444,22 @@ Widget _miniBody({
   required String body,
   required Color tint,
 }) {
-  return Container(
-    color: kPaperBase,
-    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+  // Wrapped in SingleChildScrollView so the inner Column (~186 px tall
+  // with the 40-px top padding) can exceed the available area inside
+  // narrower PhoneFrames (e.g. landscapeRow at height: 240, where the
+  // Scaffold body slot is ~156 px after the status bar + bottom nav).
+  // Without the scroll viewport the inner Column triggers a 34-px
+  // RenderFlex bottom overflow assertion. Visually identical — the
+  // body Column was already centered-with-min-size in the available
+  // space.
+  return SingleChildScrollView(
+    child: Container(
+      color: kPaperBase,
+      padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
         Container(
           width: 78.0,
           height: 78.0,
@@ -479,7 +488,8 @@ Widget _miniBody({
             color: kInkMuted,
           ),
         ),
-      ],
+        ],
+      ),
     ),
   );
 }

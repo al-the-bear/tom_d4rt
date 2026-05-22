@@ -412,7 +412,7 @@ Each item references the cluster (A–M) and the failure numbers from §§1–4.
 
 **H1 — medium fw_err counts (2–3 events each):**
 
-- [ ] **fixed** 19. `material/bottomnavigationbar_test.dart` (3 events) — layout audit.
+- [x] **fixed** 19. `material/bottomnavigationbar_test.dart` (3 events) — layout audit. **Done — root cause was the `_miniBody` helper.** Natural Column height ~186 px (40 top padding + 78 icon + 14 + 16 headline + 6 + 12 body) placed in landscapeRow `PhoneFrame` Scaffold body slot (~156 px after status bar + bottom nav in 240-px frame). 3 landscapeSpec entries × 34 px each = 3 bottom RenderFlex overflows. Fix: wrap the outer `Container > Padding > Column` in `_miniBody` in a `SingleChildScrollView`. Test-script-only change, so per rule (a) only individual retest. Verified `frameworkErrors=0` on `material/bottomnavigationbar_test.dart`.
 - [ ] **fixed** 20. `cupertino/cupertino_nav_segmented_test.dart` (2 events) — layout audit.
 - [ ] **fixed** 21. `cupertino/cupertino_themes_batch3_test.dart` (2 events) — layout audit.
 - [ ] **fixed** 22. `widgets/cliprrect_test.dart` (2 events) — layout audit.
