@@ -5373,4 +5373,69 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch40_short_tests2_demos_b10/', () {
+    test('painting/gradient_shadow_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/gradient_shadow_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('painting/textstyle_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'painting/textstyle_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/backdrop_filter_engine_layer_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/backdrop_filter_engine_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/accessibility_features_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/accessibility_features_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/tween_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'animation/tween_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/scaffold_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'cupertino/scaffold_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/app_lifecycle_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/app_lifecycle_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('gestures/details_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'gestures/details_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/blur_style_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/blur_style_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
