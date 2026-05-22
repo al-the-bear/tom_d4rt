@@ -403,9 +403,31 @@ These are real but pre-existing problems that were merely hidden by the earlier 
 
 ### Cluster B — `InterpretedInstance` not accepted by Flutter constructor
 
-- [ ] **fixed** 4. Reproduce `widgets/decoratedbox_test.dart` (DiagonalStripesDecoration) and trace the `D4.unwrapAs<Decoration>` path; confirm the missing hierarchy walk. Likely lives in `tom_d4rt_generator/lib/src/{relaxer_generator,bridge_generator}.dart`. (covers #9, #37)
+- [x] **fixed** 4. Reproduce `widgets/decoratedbox_test.dart` (DiagonalStripesDecoration) and trace the `D4.unwrapAs<Decoration>` path; confirm the missing hierarchy walk. Likely lives in `tom_d4rt_generator/lib/src/{relaxer_generator,bridge_generator}.dart`. (covers #9, #37)
 - [ ] **fixed** 5. Fix generator so user-defined `class X extends Decoration` is accepted via `D4.unwrapAs<Decoration>`. Regenerate `tom_d4rt_flutterm/lib/src/bridges/*.b.dart` via `tool/regenerate_bridges.dart`.
 - [ ] **fixed** 6. Apply the same fix to `RouteInformationParser` and `Set<Factory<OneSequenceGestureRecognizer>>` coercion. (covers #6, #37)
+
+**Cluster B status (item #4): TRACE COMPLETE — diagnosis refines the original hint.** The "missing hierarchy walk" theory was wrong: the hierarchy walk in `D4.tryCreateInterfaceProxyWithVisitor<T>` (`tom_d4rt_ast/lib/src/runtime/generator/d4.dart:2108-2182`) already collects `bridgedSuperclass.name` + `BridgedClass.transitiveSupertypeNames(...)` from every step of the interpreted class chain, including mixins and interfaces. For `DiagonalStripesDecoration`, the candidate list correctly contains `'Decoration'` (the supertype map at `d4rt_runtime_registrations.dart:238` records `'Decoration': []`). The walk is fine — what is **missing** is the entry in the proxy-factory registry itself.
+
+**Reproduction**: `tom_d4rt_flutter_ast/test/cluster_b_repro_test.dart` runs `widgets/decoratedbox_test.dart` via `SendTestRunner` (with `D4RT_SKIP_BRIDGE_REGEN=1` to avoid wiping the bridges during the trace). Captured error verbatim:
+
+> `Runtime Error: Native error during default bridged constructor for 'DecoratedBox': Argument Error: Invalid parameter "decoration": expected Decoration, got InterpretedInstance(DiagonalStripesDecoration)`
+
+**Trace through `D4.extractBridgedArg<Decoration>` (`d4.dart:1231` → throw at `d4.dart:1622-1624`):**
+
+1. `arg` is `InterpretedInstance(DiagonalStripesDecoration)` → enter the `InterpretedInstance` branch at `d4.dart:1564`.
+2. **RC-5** (`arg.nativeProxy is T`, line 1569-1572) — no cached proxy, fails.
+3. **RC-7** (`superObj is T`, line 1574-1580) — `bridgedSuperObject` is `null` because `Decoration` is abstract and the interpreter never materialised a native instance; fails.
+4. **RC-6b** generic-wrapper resolution (line 1585-1588) — skipped, `superObj` is null.
+5. **RC-1** `tryCreateInterfaceProxyWithVisitor<Decoration>` (line 1593-1600 → `d4.dart:2108`): the helper walks the interpreted class graph, collects `{DiagonalStripesDecoration, Decoration}` (Bug-102c walk), and looks up `_interfaceProxies['Decoration']`. **No factory is registered** under that key, so the helper returns `null`.
+6. Cross-package coercion (RC-3, line 1607-1615) doesn't apply.
+7. Falls through to the throw at line 1622-1624 → the observed message.
+
+**Why no factory exists:** the auto-generated `flutter_proxies.b.dart::registerProxyFactories()` (`tom_d4rt_flutter_ast/lib/src/bridges/flutter_proxies.b.dart:542`) only registers proxies for classes listed in `buildkit.yaml::d4rtgen.proxyClasses` (`tom_d4rt_flutter_ast/buildkit.yaml:19`). The current opt-in list contains `CustomPainter`, `CustomClipper`, `FlowDelegate`, `MultiChildLayoutDelegate`, `SingleChildLayoutDelegate`, `SliverPersistentHeaderDelegate`, `DataTableSource`, `TransitionDelegate`, `GradientTransform`, `SliderComponentShape`, `SpellCheckService` — **no `Decoration`, no `BoxPainter`, no `RouteInformationParser`**. The hand-written `_registerInterfaceProxies()` (`d4rt_runtime_registrations.dart:275-…`) doesn't register them either. The proxy generator at `tom_d4rt_generator/lib/src/proxy_generator.dart:199` is gated on `config.proxyClasses` (declarative opt-in), so until those names are added to `buildkit.yaml`, no proxy is emitted.
+
+**Refined fix target for #5 / #6** (replacing the hint in this section's intro): the gap is **declarative**, not generator code. Append `Decoration` (plus `BoxPainter` since `Decoration.createBoxPainter([VoidCallback? onChanged]) → BoxPainter` is the single abstract method scripts override, and the proxy generator emits a corresponding `D4rtBoxPainter` callback adapter), and the Cluster B counterparts `RouteInformationParser`, `RouterDelegate<T>` to `buildkit.yaml::proxyClasses`, then run `tom_d4rt_flutter_ast/tool/regenerate_bridges.dart`. The existing template in `proxy_generator.dart` handles single-abstract-method classes uniformly (see the generated `D4rtCustomPainter` at `flutter_proxies.b.dart:544-…`), so no generator code changes should be needed for #5. For `Set<Factory<…>>` (#6 second leg) the fix path is collection coercion, which is a separate trace and unrelated to the proxy-factory question.
+
+**Verification artefacts:** `tom_d4rt_flutter_ast/test/cluster_b_repro_test.dart` (added), which logs `STATUS / FE / ERROR` and reproduces the exact failure for #5 to consume. Per rule (a) — only a new test file was added and a doc updated — no broader regression run is required for #4.
 
 ### Cluster C — Missing `vector_math_64` bridge
 
