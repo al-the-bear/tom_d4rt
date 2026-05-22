@@ -5503,4 +5503,75 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch42_short_tests2_demos_b12/', () {
+    test('material/material_tap_target_size_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/material_tap_target_size_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('retest/material/button_bar_layout_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/material/button_bar_layout_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/checkbox_list_tile_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/checkbox_list_tile_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/material/dropdown_menu_close_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/material/dropdown_menu_close_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/material/button_text_theme_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/material/button_text_theme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/material/material_banner_closed_reason_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/material/material_banner_closed_reason_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'retest/material/navigation_destination_label_behavior_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/material/navigation_destination_label_behavior_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('material/drawer_button_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/drawer_button_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }

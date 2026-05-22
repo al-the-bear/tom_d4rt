@@ -129,13 +129,13 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  97 | `dart_ui/class_test.dart` | 19,285 | 472 | (x) | (x) | (x) |
 |  98 | `cupertino/icons_test.dart` | 19,796 | 378 | (x) | (x) | (x) |
 |  99 | `gestures/class_test.dart` | 20,014 | 448 | (x) | (x) | (x) |
-| 100 | `material/material_tap_target_size_test.dart` | 20,036 | 399 | ( ) | ( ) | ( ) |
-| 101 | `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` | 20,156 | 430 | ( ) | ( ) | ( ) |
-| 102 | `retest/material/button_bar_layout_behavior_test.dart` | 21,530 | 468 | ( ) | ( ) | ( ) |
-| 103 | `material/checkbox_list_tile_test.dart` | 21,583 | 438 | ( ) | ( ) | ( ) |
-| 104 | `retest/material/dropdown_menu_close_behavior_test.dart` | 21,738 | 457 | ( ) | ( ) | ( ) |
-| 105 | `retest/material/button_text_theme_test.dart` | 21,835 | 496 | ( ) | ( ) | ( ) |
-| 106 | `retest/material/material_banner_closed_reason_test.dart` | 22,177 | 444 | ( ) | ( ) | ( ) |
-| 107 | `retest/material/navigation_destination_label_behavior_test.dart` | 23,039 | 455 | ( ) | ( ) | ( ) |
-| 108 | `material/drawer_button_test.dart` | 23,527 | 485 | ( ) | ( ) | ( ) |
+| 100 | `material/material_tap_target_size_test.dart` | 20,036 | 399 | (x) | (x) | (x) |
+| 101 | `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` | 20,156 | 430 | (x) | (x) | (x) |
+| 102 | `retest/material/button_bar_layout_behavior_test.dart` | 21,530 | 468 | (x) | (x) | (x) |
+| 103 | `material/checkbox_list_tile_test.dart` | 21,583 | 438 | (x) | (x) | (x) |
+| 104 | `retest/material/dropdown_menu_close_behavior_test.dart` | 21,738 | 457 | (x) | (x) | (x) |
+| 105 | `retest/material/button_text_theme_test.dart` | 21,835 | 496 | (x) | (x) | (x) |
+| 106 | `retest/material/material_banner_closed_reason_test.dart` | 22,177 | 444 | (x) | (x) | (x) |
+| 107 | `retest/material/navigation_destination_label_behavior_test.dart` | 23,039 | 455 | (x) | (x) | (x) |
+| 108 | `material/drawer_button_test.dart` | 23,527 | 485 | (x) | (x) | (x) |
 | 109 | `material/script_category_test.dart` | 23,711 | 499 | ( ) | ( ) | ( ) |

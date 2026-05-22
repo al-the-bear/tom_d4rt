@@ -1,485 +1,1963 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests DrawerButton concepts from package:flutter/material.dart
+//
+// Deep visual demo for the DrawerButton family of Material widgets:
+//   DrawerButton, EndDrawerButton, BackButton, CloseButton
+// and their *Icon variants:
+//   DrawerButtonIcon, EndDrawerButtonIcon, BackButtonIcon, CloseButtonIcon
+//
+// All four are thin IconButton wrappers wired to common navigation/scaffold
+// affordances. They exist so that an AppBar leading/actions slot reads at a
+// glance instead of writing IconButton(icon: Icon(Icons.menu), onPressed: ...).
+//
+// Design plan for this file:
+//   Section 1: Header banner + family roster (gradient hero card).
+//   Section 2: Default appearance card per widget with Material 3 colors.
+//   Section 3: AppBar specimens showing each button in leading or actions.
+//   Section 4: Theming axis -- ButtonStyle, color, iconSize variations.
+//   Section 5: Routing semantics -- which Scaffold/Navigator hook each fires.
+//   Section 6: *Icon sub-widgets (just the Icon, no IconButton wrapper).
+//   Section 7: Comparison table -- DrawerButton vs raw IconButton(Icons.menu)
+//              and BackButton vs raw IconButton(Icons.arrow_back).
+//   Section 8: Decision matrix -- when to reach for which member.
+//   Section 9: Recipes (snippet cards) for common AppBar patterns.
+//   Section 10: Glossary + key takeaways panel.
+//
+// All buttons are rendered with onPressed: null because this script runs in
+// the static AST harness; pressing them is not the point, looking at them is.
+
 import 'package:flutter/material.dart';
 
-dynamic build(BuildContext context) {
-  debugPrint('=== DrawerButton Visual Demo ===');
-  debugPrint('Demonstrating drawer buttons in AppBars, standalone, styling, and scaffold integration');
+void main() => runApp(const DrawerButtonDemoApp());
 
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text('DrawerButton Demo'),
-        backgroundColor: Color(0xFF00695C),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionHeader('Standard DrawerButton'),
-            SizedBox(height: 8),
-            _buildStandardDrawerButton(),
-            SizedBox(height: 24),
-            _buildSectionHeader('DrawerButton in AppBar Context'),
-            SizedBox(height: 8),
-            _buildDrawerButtonInAppBar(),
-            SizedBox(height: 24),
-            _buildSectionHeader('DrawerButton vs EndDrawerButton'),
-            SizedBox(height: 8),
-            _buildDrawerVsEndDrawer(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Button Style Variations'),
-            SizedBox(height: 8),
-            _buildButtonStyleVariations(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Tap Area Sizes'),
-            SizedBox(height: 8),
-            _buildTapAreaSizes(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Tooltip Configurations'),
-            SizedBox(height: 8),
-            _buildTooltipConfigurations(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Themed DrawerButtons'),
-            SizedBox(height: 8),
-            _buildThemedDrawerButtons(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Scaffold Integration Layout'),
-            SizedBox(height: 8),
-            _buildScaffoldIntegration(),
-            SizedBox(height: 24),
-            _buildSectionHeader('Button State Visualization'),
-            SizedBox(height: 8),
-            _buildButtonStateVisualization(),
-            SizedBox(height: 24),
-            _buildSectionHeader('DrawerButton Properties'),
-            SizedBox(height: 8),
-            _buildPropertiesTable(),
-            SizedBox(height: 32),
-          ],
+// ---------------------------------------------------------------------------
+// Root widget
+// ---------------------------------------------------------------------------
+
+class DrawerButtonDemoApp extends StatelessWidget {
+  const DrawerButtonDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    print('DrawerButton family deep demo executing');
+    final scheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF4A6FFF),
+      brightness: Brightness.light,
+    );
+    final theme = ThemeData(useMaterial3: true, colorScheme: scheme);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'DrawerButton Family Demo',
+      theme: theme,
+      home: Scaffold(
+        backgroundColor: scheme.surfaceContainerLowest,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _HeaderBanner(scheme: scheme),
+              const SizedBox(height: 24.0),
+              _Section1FamilyRoster(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section2DefaultAppearance(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section3AppBarSpecimens(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section4ThemingAxis(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section5RoutingSemantics(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section6IconVariants(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section7ComparisonTable(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section8DecisionMatrix(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section9Recipes(scheme: scheme),
+              const SizedBox(height: 28.0),
+              _Section10Glossary(scheme: scheme),
+              const SizedBox(height: 36.0),
+              _FooterStamp(scheme: scheme),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
-Widget _buildSectionHeader(String title) {
-  debugPrint('Building section: $title');
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-    decoration: BoxDecoration(color: Color(0xFF00695C), borderRadius: BorderRadius.circular(8)),
-    child: Text(title, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18, fontWeight: FontWeight.bold)),
-  );
-}
+// ---------------------------------------------------------------------------
+// Header banner with gradient
+// ---------------------------------------------------------------------------
 
-Widget _buildStandardDrawerButton() {
-  debugPrint('Building standard drawer button');
-  return Container(
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(12)),
-    child: Row(children: [
-      Container(
-        width: 80, height: 80,
-        decoration: BoxDecoration(color: Color(0xFFFFFFFF), shape: BoxShape.circle, boxShadow: [BoxShadow(color: Color(0x22000000), blurRadius: 8, offset: Offset(0, 2))]),
-        child: Center(child: Icon(Icons.menu, size: 32, color: Color(0xFF00695C))),
-      ),
-      SizedBox(width: 20),
-      Expanded(child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('DrawerButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF00695C))),
-          SizedBox(height: 6),
-          Text('An IconButton that opens the Scaffold drawer. Automatically added by Scaffold when a Drawer is present.', style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
-          SizedBox(height: 8),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(color: Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(6)),
-            child: Text('Scaffold.of(context).openDrawer()', style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF00695C))),
+class _HeaderBanner extends StatelessWidget {
+  const _HeaderBanner({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('Building header banner');
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 24.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+            scheme.secondary,
+          ],
+          stops: const <double>[0.0, 0.55, 1.0],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.32),
+            blurRadius: 18.0,
+            offset: const Offset(0, 8),
           ),
         ],
-      )),
-    ]),
-  );
-}
-
-Widget _buildDrawerButtonInAppBar() {
-  debugPrint('Building drawer button in app bar context');
-  List<Map<String, dynamic>> appBarStyles = [
-    {'label': 'Default AppBar', 'bg': Color(0xFF00695C), 'fg': Color(0xFFFFFFFF), 'elev': 4.0},
-    {'label': 'SliverAppBar', 'bg': Color(0xFF004D40), 'fg': Color(0xFFFFFFFF), 'elev': 0.0},
-    {'label': 'Transparent', 'bg': Color(0x00000000), 'fg': Color(0xFF263238), 'elev': 0.0},
-    {'label': 'Surface Color', 'bg': Color(0xFFFAFAFA), 'fg': Color(0xFF263238), 'elev': 2.0},
-  ];
-  return Column(
-    children: appBarStyles.map((style) {
-      return Container(
-        margin: EdgeInsets.only(bottom: 8),
-        height: 56,
-        decoration: BoxDecoration(
-          color: style['bg'] as Color,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [(style['elev'] as double) > 0 ? BoxShadow(color: Color(0x33000000), blurRadius: style['elev'] as double, offset: Offset(0, 1)) : BoxShadow(color: Color(0x00000000))],
-          border: (style['bg'] as Color) == Color(0x00000000) ? Border.all(color: Color(0xFFE0E0E0)) : null,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Row(children: [
-          Icon(Icons.menu, color: style['fg'] as Color, size: 24),
-          SizedBox(width: 16),
-          Expanded(child: Text(style['label'] as String, style: TextStyle(color: style['fg'] as Color, fontSize: 16, fontWeight: FontWeight.w500))),
-          Icon(Icons.more_vert, color: style['fg'] as Color, size: 24),
-        ]),
-      );
-    }).toList(),
-  );
-}
-
-Widget _buildDrawerVsEndDrawer() {
-  debugPrint('Building drawer vs end drawer comparison');
-  return Row(children: [
-    Expanded(child: Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(12), border: Border.all(color: Color(0xFF00695C), width: 2)),
-      child: Column(children: [
-        Icon(Icons.menu, size: 36, color: Color(0xFF00695C)),
-        SizedBox(height: 8),
-        Text('DrawerButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF00695C))),
-        SizedBox(height: 4),
-        Text('Opens leading drawer\n(left on LTR)', style: TextStyle(fontSize: 11, color: Color(0xFF616161)), textAlign: TextAlign.center),
-        SizedBox(height: 8),
-        Container(
-          height: 60, width: double.infinity,
-          decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(6)),
-          child: Row(children: [
-            Container(width: 30, decoration: BoxDecoration(color: Color(0xFF00695C).withValues(alpha: 0.3), borderRadius: BorderRadius.only(topLeft: Radius.circular(6), bottomLeft: Radius.circular(6)))),
-            Expanded(child: Center(child: Text('Content', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))))),
-          ]),
-        ),
-        SizedBox(height: 6),
-        Row(children: [
-          Icon(Icons.arrow_back, size: 14, color: Color(0xFF00695C)),
-          SizedBox(width: 4),
-          Text('Left side', style: TextStyle(fontSize: 10, color: Color(0xFF00695C), fontWeight: FontWeight.bold)),
-        ]),
-      ]),
-    )),
-    SizedBox(width: 12),
-    Expanded(child: Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Color(0xFFF3E5F5), borderRadius: BorderRadius.circular(12), border: Border.all(color: Color(0xFF7B1FA2), width: 2)),
-      child: Column(children: [
-        Icon(Icons.menu_open, size: 36, color: Color(0xFF7B1FA2)),
-        SizedBox(height: 8),
-        Text('EndDrawerButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF7B1FA2))),
-        SizedBox(height: 4),
-        Text('Opens trailing drawer\n(right on LTR)', style: TextStyle(fontSize: 11, color: Color(0xFF616161)), textAlign: TextAlign.center),
-        SizedBox(height: 8),
-        Container(
-          height: 60, width: double.infinity,
-          decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(6)),
-          child: Row(children: [
-            Expanded(child: Center(child: Text('Content', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))))),
-            Container(width: 30, decoration: BoxDecoration(color: Color(0xFF7B1FA2).withValues(alpha: 0.3), borderRadius: BorderRadius.only(topRight: Radius.circular(6), bottomRight: Radius.circular(6)))),
-          ]),
-        ),
-        SizedBox(height: 6),
-        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          Text('Right side', style: TextStyle(fontSize: 10, color: Color(0xFF7B1FA2), fontWeight: FontWeight.bold)),
-          SizedBox(width: 4),
-          Icon(Icons.arrow_forward, size: 14, color: Color(0xFF7B1FA2)),
-        ]),
-      ]),
-    )),
-  ]);
-}
-
-Widget _buildButtonStyleVariations() {
-  debugPrint('Building button style variations');
-  List<Map<String, dynamic>> styles = [
-    {'label': 'Default', 'bg': Color(0x00000000), 'fg': Color(0xFF455A64), 'border': false, 'shape': BoxShape.rectangle, 'radius': 20.0},
-    {'label': 'Filled', 'bg': Color(0xFF00695C), 'fg': Color(0xFFFFFFFF), 'border': false, 'shape': BoxShape.circle, 'radius': 0.0},
-    {'label': 'Filled Tonal', 'bg': Color(0xFFB2DFDB), 'fg': Color(0xFF00695C), 'border': false, 'shape': BoxShape.circle, 'radius': 0.0},
-    {'label': 'Outlined', 'bg': Color(0x00000000), 'fg': Color(0xFF00695C), 'border': true, 'shape': BoxShape.circle, 'radius': 0.0},
-    {'label': 'Elevated', 'bg': Color(0xFFFFFFFF), 'fg': Color(0xFF455A64), 'border': false, 'shape': BoxShape.circle, 'radius': 0.0},
-    {'label': 'Text', 'bg': Color(0x00000000), 'fg': Color(0xFF00695C), 'border': false, 'shape': BoxShape.rectangle, 'radius': 8.0},
-  ];
-  return Wrap(
-    spacing: 12, runSpacing: 12,
-    children: styles.map((s) {
-      bool isCircle = s['shape'] == BoxShape.circle;
-      return Column(children: [
-        Container(
-          width: 48, height: 48,
-          decoration: BoxDecoration(
-            color: s['bg'] as Color,
-            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-            borderRadius: isCircle ? null : BorderRadius.circular(s['radius'] as double),
-            border: (s['border'] as bool) ? Border.all(color: s['fg'] as Color, width: 1.5) : null,
-            boxShadow: s['label'] == 'Elevated' ? [BoxShadow(color: Color(0x33000000), blurRadius: 4, offset: Offset(0, 2))] : [],
-          ),
-          child: Center(child: Icon(Icons.menu, color: s['fg'] as Color, size: 22)),
-        ),
-        SizedBox(height: 6),
-        Text(s['label'] as String, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-      ]);
-    }).toList(),
-  );
-}
-
-Widget _buildTapAreaSizes() {
-  debugPrint('Building tap area sizes');
-  List<Map<String, dynamic>> sizes = [
-    {'tapSize': 36.0, 'iconSize': 20.0, 'label': '36dp', 'compliant': false},
-    {'tapSize': 40.0, 'iconSize': 22.0, 'label': '40dp', 'compliant': false},
-    {'tapSize': 48.0, 'iconSize': 24.0, 'label': '48dp (min)', 'compliant': true},
-    {'tapSize': 56.0, 'iconSize': 28.0, 'label': '56dp', 'compliant': true},
-    {'tapSize': 64.0, 'iconSize': 32.0, 'label': '64dp', 'compliant': true},
-  ];
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    crossAxisAlignment: CrossAxisAlignment.end,
-    children: sizes.map((s) {
-      double tapSize = s['tapSize'] as double;
-      bool compliant = s['compliant'] as bool;
-      return Column(children: [
-        Container(
-          width: tapSize, height: tapSize,
-          decoration: BoxDecoration(
-            color: compliant ? Color(0xFFE8F5E9) : Color(0xFFFFEBEE),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: compliant ? Color(0xFF4CAF50) : Color(0xFFF44336), width: 2),
-          ),
-          child: Center(child: Icon(Icons.menu, size: s['iconSize'] as double, color: compliant ? Color(0xFF2E7D32) : Color(0xFFC62828))),
-        ),
-        SizedBox(height: 6),
-        Text(s['label'] as String, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: compliant ? Color(0xFF2E7D32) : Color(0xFFC62828))),
-        Icon(compliant ? Icons.check_circle : Icons.cancel, size: 14, color: compliant ? Color(0xFF4CAF50) : Color(0xFFF44336)),
-      ]);
-    }).toList(),
-  );
-}
-
-Widget _buildTooltipConfigurations() {
-  debugPrint('Building tooltip configurations');
-  List<Map<String, dynamic>> tooltips = [
-    {'text': 'Open navigation menu', 'pos': 'Below', 'delay': '500ms', 'icon': Icons.menu},
-    {'text': 'Open end drawer', 'pos': 'Below', 'delay': '500ms', 'icon': Icons.menu_open},
-    {'text': 'Custom tooltip text', 'pos': 'Above', 'delay': '300ms', 'icon': Icons.menu},
-    {'text': 'No tooltip (empty)', 'pos': 'None', 'delay': '-', 'icon': Icons.menu},
-  ];
-  return Column(
-    children: tooltips.map((t) {
-      return Container(
-        margin: EdgeInsets.only(bottom: 8),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xFFE0E0E0))),
-        child: Row(children: [
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
           Container(
-            width: 42, height: 42,
-            decoration: BoxDecoration(color: Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(8)),
-            child: Center(child: Icon(t['icon'] as IconData, color: Color(0xFF00695C), size: 22)),
-          ),
-          SizedBox(width: 12),
-          Expanded(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(color: Color(0xFF37474F), borderRadius: BorderRadius.circular(4)),
-                child: Text(t['text'] as String, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11)),
+            width: 72.0,
+            height: 72.0,
+            decoration: BoxDecoration(
+              color: scheme.onPrimary.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(18.0),
+              border: Border.all(
+                color: scheme.onPrimary.withValues(alpha: 0.5),
+                width: 1.5,
               ),
-              SizedBox(height: 4),
-              Row(children: [
-                _buildChip('Position: ${t['pos']}', Color(0xFF00695C)),
-                SizedBox(width: 6),
-                _buildChip('Delay: ${t['delay']}', Color(0xFF455A64)),
-              ]),
-            ],
-          )),
-        ]),
-      );
-    }).toList(),
-  );
-}
-
-Widget _buildChip(String label, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-    decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(12)),
-    child: Text(label, style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.bold)),
-  );
-}
-
-Widget _buildThemedDrawerButtons() {
-  debugPrint('Building themed drawer buttons');
-  List<Map<String, dynamic>> themes = [
-    {'name': 'Material Default', 'primary': Color(0xFF6200EA), 'surface': Color(0xFFF5F5F5), 'onSurface': Color(0xFF212121)},
-    {'name': 'Ocean', 'primary': Color(0xFF006064), 'surface': Color(0xFFE0F7FA), 'onSurface': Color(0xFF004D40)},
-    {'name': 'Sunset', 'primary': Color(0xFFBF360C), 'surface': Color(0xFFFBE9E7), 'onSurface': Color(0xFF870000)},
-    {'name': 'Forest', 'primary': Color(0xFF1B5E20), 'surface': Color(0xFFE8F5E9), 'onSurface': Color(0xFF003300)},
-    {'name': 'Dark', 'primary': Color(0xFFBB86FC), 'surface': Color(0xFF1E1E1E), 'onSurface': Color(0xFFE0E0E0)},
-    {'name': 'High Contrast', 'primary': Color(0xFF000000), 'surface': Color(0xFFFFFFFF), 'onSurface': Color(0xFF000000)},
-  ];
-  return Wrap(
-    spacing: 8, runSpacing: 8,
-    children: themes.map((t) {
-      return Container(
-        width: 110,
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(color: t['surface'] as Color, borderRadius: BorderRadius.circular(10), border: Border.all(color: (t['primary'] as Color).withValues(alpha: 0.4))),
-        child: Column(children: [
-          Container(
-            width: 42, height: 42,
-            decoration: BoxDecoration(color: (t['primary'] as Color).withValues(alpha: 0.12), shape: BoxShape.circle),
-            child: Center(child: Icon(Icons.menu, color: t['onSurface'] as Color, size: 22)),
+            ),
+            child: Icon(Icons.menu_open, size: 40.0, color: scheme.onPrimary),
           ),
-          SizedBox(height: 8),
-          Text(t['name'] as String, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: t['onSurface'] as Color), textAlign: TextAlign.center),
-        ]),
-      );
-    }).toList(),
-  );
-}
-
-Widget _buildScaffoldIntegration() {
-  debugPrint('Building scaffold integration layout');
-  return Container(
-    height: 240,
-    decoration: BoxDecoration(color: Color(0xFFECEFF1), borderRadius: BorderRadius.circular(12), border: Border.all(color: Color(0xFFB0BEC5), width: 2)),
-    child: Column(children: [
-      Container(
-        height: 40,
-        decoration: BoxDecoration(color: Color(0xFF00695C), borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Row(children: [
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(color: Color(0xFFFFFFFF).withValues(alpha: 0.2), borderRadius: BorderRadius.circular(6)),
-            child: Icon(Icons.menu, color: Color(0xFFFFFFFF), size: 18),
+          const SizedBox(width: 20.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'DrawerButton Family',
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.bold,
+                    color: scheme.onPrimary,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                Text(
+                  'DrawerButton  /  EndDrawerButton  /  BackButton  /  CloseButton',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w500,
+                    color: scheme.onPrimary.withValues(alpha: 0.92),
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'Convenience IconButton wrappers wired to Scaffold and Navigator hooks.',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: scheme.onPrimary.withValues(alpha: 0.85),
+                  ),
+                ),
+              ],
+            ),
           ),
-          SizedBox(width: 12),
-          Text('AppBar (with DrawerButton)', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold)),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(color: Color(0xFFFFFFFF).withValues(alpha: 0.2), borderRadius: BorderRadius.circular(6)),
-            child: Icon(Icons.menu_open, color: Color(0xFFFFFFFF), size: 18),
-          ),
-        ]),
+        ],
       ),
-      Expanded(child: Row(children: [
-        Container(
-          width: 70,
-          decoration: BoxDecoration(color: Color(0xFFFFFFFF), border: Border(right: BorderSide(color: Color(0xFFE0E0E0)))),
-          child: Column(children: [
-            SizedBox(height: 8),
-            Text('Drawer', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
-            SizedBox(height: 8),
-            _buildDrawerItem(Icons.home, 'Home'),
-            _buildDrawerItem(Icons.settings, 'Settings'),
-            _buildDrawerItem(Icons.info, 'About'),
-          ]),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Section 1: Family roster
+// ---------------------------------------------------------------------------
+
+class _Section1FamilyRoster extends StatelessWidget {
+  const _Section1FamilyRoster({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 1: Family Roster ===');
+    final members = <_RosterEntry>[
+      _RosterEntry(
+        name: 'DrawerButton',
+        iconData: Icons.menu,
+        accent: scheme.primary,
+        purpose: 'Opens the Scaffold drawer (leading slot).',
+        hook: 'Scaffold.of(context).openDrawer()',
+      ),
+      _RosterEntry(
+        name: 'EndDrawerButton',
+        iconData: Icons.menu_open,
+        accent: scheme.tertiary,
+        purpose: 'Opens the Scaffold end-drawer (actions slot).',
+        hook: 'Scaffold.of(context).openEndDrawer()',
+      ),
+      _RosterEntry(
+        name: 'BackButton',
+        iconData: Icons.arrow_back,
+        accent: scheme.secondary,
+        purpose: 'Pops the route, platform-correct glyph.',
+        hook: 'Navigator.maybePop(context)',
+      ),
+      _RosterEntry(
+        name: 'CloseButton',
+        iconData: Icons.close,
+        accent: scheme.error,
+        purpose: 'Closes a dialog or modal route.',
+        hook: 'Navigator.maybePop(context)',
+      ),
+    ];
+    final cards = <Widget>[];
+    for (var i = 0; i < members.length; i++) {
+      cards.add(_buildRosterCard(members[i], i + 1));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 1: Family Roster', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+      ],
+    );
+  }
+
+  Widget _buildRosterCard(_RosterEntry entry, int index) {
+    return Container(
+      width: 260.0,
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(14.0),
+        border: Border.all(color: entry.accent.withValues(alpha: 0.4), width: 1.5),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: entry.accent.withValues(alpha: 0.12),
+            blurRadius: 10.0,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 32.0,
+                height: 32.0,
+                decoration: BoxDecoration(
+                  color: entry.accent.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: entry.accent,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: Text(
+                  entry.name,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                    color: entry.accent,
+                  ),
+                ),
+              ),
+              Icon(entry.iconData, color: entry.accent, size: 22.0),
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          Text(
+            entry.purpose,
+            style: TextStyle(
+              fontSize: 12.0,
+              color: scheme.onSurface.withValues(alpha: 0.78),
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainerHigh,
+              borderRadius: BorderRadius.circular(6.0),
+            ),
+            child: Text(
+              entry.hook,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RosterEntry {
+  const _RosterEntry({
+    required this.name,
+    required this.iconData,
+    required this.accent,
+    required this.purpose,
+    required this.hook,
+  });
+  final String name;
+  final IconData iconData;
+  final Color accent;
+  final String purpose;
+  final String hook;
+}
+
+// ---------------------------------------------------------------------------
+// Section 2: Default appearance cards
+// ---------------------------------------------------------------------------
+
+class _Section2DefaultAppearance extends StatelessWidget {
+  const _Section2DefaultAppearance({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 2: Default Appearance ===');
+    final entries = <_DefaultEntry>[
+      _DefaultEntry(
+        title: 'DrawerButton',
+        accent: scheme.primary,
+        button: const DrawerButton(onPressed: null),
+        note: 'Default icon: Icons.menu',
+      ),
+      _DefaultEntry(
+        title: 'EndDrawerButton',
+        accent: scheme.tertiary,
+        button: const EndDrawerButton(onPressed: null),
+        note: 'Default icon: Icons.menu (rendered in actions slot)',
+      ),
+      _DefaultEntry(
+        title: 'BackButton',
+        accent: scheme.secondary,
+        button: const BackButton(onPressed: null),
+        note: 'Picks Icons.arrow_back on Android / Icons.arrow_back_ios_new on iOS',
+      ),
+      _DefaultEntry(
+        title: 'CloseButton',
+        accent: scheme.error,
+        button: const CloseButton(onPressed: null),
+        note: 'Default icon: Icons.close',
+      ),
+    ];
+    final cards = <Widget>[];
+    for (final e in entries) {
+      cards.add(_buildCard(e));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 2: Default Appearance', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Wrap(spacing: 14.0, runSpacing: 14.0, children: cards),
+      ],
+    );
+  }
+
+  Widget _buildCard(_DefaultEntry e) {
+    return Container(
+      width: 220.0,
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(
+          color: e.accent.withValues(alpha: 0.35),
+          width: 1.2,
         ),
-        Expanded(child: Container(
-          padding: EdgeInsets.all(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            e.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+              color: e.accent,
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          Container(
+            height: 56.0,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: e.accent.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: e.button,
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            e.note,
+            style: TextStyle(
+              fontSize: 11.0,
+              color: scheme.onSurface.withValues(alpha: 0.72),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DefaultEntry {
+  const _DefaultEntry({
+    required this.title,
+    required this.accent,
+    required this.button,
+    required this.note,
+  });
+  final String title;
+  final Color accent;
+  final Widget button;
+  final String note;
+}
+
+// ---------------------------------------------------------------------------
+// Section 3: AppBar specimens
+// ---------------------------------------------------------------------------
+
+class _Section3AppBarSpecimens extends StatelessWidget {
+  const _Section3AppBarSpecimens({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 3: AppBar Specimens ===');
+    final specimens = <_AppBarSpec>[
+      _AppBarSpec(
+        label: 'DrawerButton in leading slot',
+        bar: AppBar(
+          leading: const DrawerButton(onPressed: null),
+          title: const Text('Inbox'),
+          backgroundColor: scheme.primaryContainer,
+          foregroundColor: scheme.onPrimaryContainer,
+        ),
+      ),
+      _AppBarSpec(
+        label: 'EndDrawerButton in actions slot',
+        bar: AppBar(
+          title: const Text('Filters'),
+          actions: const <Widget>[EndDrawerButton(onPressed: null)],
+          backgroundColor: scheme.tertiaryContainer,
+          foregroundColor: scheme.onTertiaryContainer,
+        ),
+      ),
+      _AppBarSpec(
+        label: 'BackButton in leading slot',
+        bar: AppBar(
+          leading: const BackButton(onPressed: null),
+          title: const Text('Message detail'),
+          backgroundColor: scheme.secondaryContainer,
+          foregroundColor: scheme.onSecondaryContainer,
+        ),
+      ),
+      _AppBarSpec(
+        label: 'CloseButton in leading slot (modal AppBar)',
+        bar: AppBar(
+          leading: const CloseButton(onPressed: null),
+          title: const Text('Compose'),
+          backgroundColor: scheme.errorContainer,
+          foregroundColor: scheme.onErrorContainer,
+        ),
+      ),
+      _AppBarSpec(
+        label: 'DrawerButton leading + EndDrawerButton trailing',
+        bar: AppBar(
+          leading: const DrawerButton(onPressed: null),
+          title: const Text('Dashboard'),
+          actions: const <Widget>[EndDrawerButton(onPressed: null)],
+          backgroundColor: scheme.surfaceContainerHighest,
+          foregroundColor: scheme.onSurface,
+        ),
+      ),
+      _AppBarSpec(
+        label: 'BackButton leading + CloseButton trailing',
+        bar: AppBar(
+          leading: const BackButton(onPressed: null),
+          title: const Text('Step 2 of 3'),
+          actions: const <Widget>[CloseButton(onPressed: null)],
+          backgroundColor: scheme.inverseSurface,
+          foregroundColor: scheme.onInverseSurface,
+        ),
+      ),
+    ];
+    final rows = <Widget>[];
+    for (var i = 0; i < specimens.length; i++) {
+      rows.add(_buildSpec(specimens[i], i + 1));
+      rows.add(const SizedBox(height: 12.0));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 3: AppBar Specimens', scheme: scheme),
+        const SizedBox(height: 12.0),
+        ...rows,
+      ],
+    );
+  }
+
+  Widget _buildSpec(_AppBarSpec spec, int n) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(
+          color: scheme.outlineVariant,
+          width: 1.0,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 26.0,
+                height: 26.0,
+                decoration: BoxDecoration(
+                  color: scheme.primary.withValues(alpha: 0.18),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    '$n',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: scheme.primary,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  spec.label,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: spec.bar,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AppBarSpec {
+  const _AppBarSpec({required this.label, required this.bar});
+  final String label;
+  final AppBar bar;
+}
+
+// ---------------------------------------------------------------------------
+// Section 4: Theming axis -- style, color, iconSize
+// ---------------------------------------------------------------------------
+
+class _Section4ThemingAxis extends StatelessWidget {
+  const _Section4ThemingAxis({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 4: Theming Axis ===');
+    final colorVariants = <_ThemedButton>[
+      _ThemedButton(
+        label: 'default',
+        button: const DrawerButton(onPressed: null),
+      ),
+      _ThemedButton(
+        label: 'color: primary',
+        button: DrawerButton(onPressed: null, color: scheme.primary),
+      ),
+      _ThemedButton(
+        label: 'color: tertiary',
+        button: DrawerButton(onPressed: null, color: scheme.tertiary),
+      ),
+      _ThemedButton(
+        label: 'color: error',
+        button: DrawerButton(onPressed: null, color: scheme.error),
+      ),
+    ];
+
+    final sizeVariants = <_ThemedButton>[
+      _ThemedButton(
+        label: 'iconSize: default',
+        button: const BackButton(onPressed: null),
+      ),
+      _ThemedButton(
+        label: 'iconSize: 20',
+        button: IconButton(
+          iconSize: 20.0,
+          icon: const BackButtonIcon(),
+          onPressed: null,
+        ),
+      ),
+      _ThemedButton(
+        label: 'iconSize: 32',
+        button: IconButton(
+          iconSize: 32.0,
+          icon: const BackButtonIcon(),
+          onPressed: null,
+        ),
+      ),
+      _ThemedButton(
+        label: 'iconSize: 44',
+        button: IconButton(
+          iconSize: 44.0,
+          icon: const BackButtonIcon(),
+          onPressed: null,
+        ),
+      ),
+    ];
+
+    final styleVariants = <_ThemedButton>[
+      _ThemedButton(
+        label: 'style: filled tonal',
+        button: CloseButton(
+          onPressed: null,
+          style: IconButton.styleFrom(
+            backgroundColor: scheme.secondaryContainer,
+            foregroundColor: scheme.onSecondaryContainer,
+          ),
+        ),
+      ),
+      _ThemedButton(
+        label: 'style: filled error',
+        button: CloseButton(
+          onPressed: null,
+          style: IconButton.styleFrom(
+            backgroundColor: scheme.errorContainer,
+            foregroundColor: scheme.onErrorContainer,
+          ),
+        ),
+      ),
+      _ThemedButton(
+        label: 'style: outlined',
+        button: CloseButton(
+          onPressed: null,
+          style: IconButton.styleFrom(
+            side: BorderSide(color: scheme.outline, width: 1.4),
+            foregroundColor: scheme.onSurface,
+          ),
+        ),
+      ),
+      _ThemedButton(
+        label: 'style: rounded rect',
+        button: CloseButton(
+          onPressed: null,
+          style: IconButton.styleFrom(
+            backgroundColor: scheme.primary,
+            foregroundColor: scheme.onPrimary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6.0),
+            ),
+          ),
+        ),
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 4: Theming Axis', scheme: scheme),
+        const SizedBox(height: 12.0),
+        _buildLane('color (DrawerButton)', colorVariants),
+        const SizedBox(height: 14.0),
+        _buildLane('iconSize (BackButton)', sizeVariants),
+        const SizedBox(height: 14.0),
+        _buildLane('style (CloseButton)', styleVariants),
+      ],
+    );
+  }
+
+  Widget _buildLane(String laneLabel, List<_ThemedButton> variants) {
+    final cells = <Widget>[];
+    for (final v in variants) {
+      cells.add(
+        Container(
+          width: 140.0,
+          padding: const EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: scheme.surfaceContainerLow,
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.touch_app, size: 28, color: Color(0xFFB0BEC5)),
-              SizedBox(height: 8),
-              Text('Body Content', style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E))),
-              SizedBox(height: 4),
-              Text('Tap hamburger icon to open drawer', style: TextStyle(fontSize: 10, color: Color(0xFFB0BEC5))),
+            children: <Widget>[
+              SizedBox(height: 56.0, child: Center(child: v.button)),
+              const SizedBox(height: 6.0),
+              Text(
+                v.label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: scheme.onSurface.withValues(alpha: 0.78),
+                ),
+              ),
             ],
           ),
-        )),
-      ])),
-    ]),
-  );
-}
-
-Widget _buildDrawerItem(IconData icon, String label) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-    child: Row(children: [
-      Icon(icon, size: 14, color: Color(0xFF616161)),
-      SizedBox(width: 4),
-      Text(label, style: TextStyle(fontSize: 9, color: Color(0xFF616161))),
-    ]),
-  );
-}
-
-Widget _buildButtonStateVisualization() {
-  debugPrint('Building button state visualization');
-  List<Map<String, dynamic>> states = [
-    {'state': 'Normal', 'color': Color(0xFF455A64), 'bg': Color(0x00000000), 'overlay': Color(0x00000000)},
-    {'state': 'Hovered', 'color': Color(0xFF455A64), 'bg': Color(0x14455A64), 'overlay': Color(0x0A000000)},
-    {'state': 'Focused', 'color': Color(0xFF00695C), 'bg': Color(0x1400695C), 'overlay': Color(0x1400695C)},
-    {'state': 'Pressed', 'color': Color(0xFF00695C), 'bg': Color(0x2800695C), 'overlay': Color(0x2800695C)},
-    {'state': 'Disabled', 'color': Color(0xFFBDBDBD), 'bg': Color(0x00000000), 'overlay': Color(0x00000000)},
-  ];
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: states.map((s) {
-      return Column(children: [
-        Container(
-          width: 52, height: 52,
-          decoration: BoxDecoration(
-            color: s['bg'] as Color,
-            shape: BoxShape.circle,
-            border: s['state'] == 'Focused' ? Border.all(color: Color(0xFF00695C), width: 2) : null,
-          ),
-          child: Center(child: Icon(Icons.menu, color: s['color'] as Color, size: 22)),
         ),
-        SizedBox(height: 6),
-        Text(s['state'] as String, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-      ]);
-    }).toList(),
-  );
+      );
+    }
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: scheme.outlineVariant, width: 1.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            laneLabel,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: scheme.primary,
+              letterSpacing: 0.4,
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Wrap(spacing: 10.0, runSpacing: 10.0, children: cells),
+        ],
+      ),
+    );
+  }
 }
 
-Widget _buildPropertiesTable() {
-  debugPrint('Building properties table');
-  List<Map<String, String>> props = [
-    {'prop': 'style', 'type': 'ButtonStyle?', 'desc': 'Custom button styling'},
-    {'prop': 'onPressed', 'type': 'VoidCallback?', 'desc': 'Override default open drawer action'},
-    {'prop': 'icon', 'type': 'Widget?', 'desc': 'Custom icon widget (default Icons.menu)'},
-    {'prop': 'tooltip', 'type': 'String?', 'desc': 'Accessibility tooltip text'},
-    {'prop': 'iconSize', 'type': 'double?', 'desc': 'Size of the icon'},
-    {'prop': 'padding', 'type': 'EdgeInsetsGeometry?', 'desc': 'Padding around the icon'},
-    {'prop': 'constraints', 'type': 'BoxConstraints?', 'desc': 'Size constraints for button'},
-    {'prop': 'splashRadius', 'type': 'double?', 'desc': 'Ripple splash radius (M2)'},
-  ];
-  return Container(
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xFFE0E0E0))),
-    child: Column(children: [
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(color: Color(0xFF00695C), borderRadius: BorderRadius.only(topLeft: Radius.circular(9), topRight: Radius.circular(9))),
-        child: Row(children: [
-          Expanded(flex: 2, child: Text('Property', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11, fontWeight: FontWeight.bold))),
-          Expanded(flex: 2, child: Text('Type', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11, fontWeight: FontWeight.bold))),
-          Expanded(flex: 3, child: Text('Description', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11, fontWeight: FontWeight.bold))),
-        ]),
+class _ThemedButton {
+  const _ThemedButton({required this.label, required this.button});
+  final String label;
+  final Widget button;
+}
+
+// ---------------------------------------------------------------------------
+// Section 5: Routing semantics
+// ---------------------------------------------------------------------------
+
+class _Section5RoutingSemantics extends StatelessWidget {
+  const _Section5RoutingSemantics({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 5: Routing Semantics ===');
+    final rows = <_RouteRow>[
+      _RouteRow(
+        name: 'DrawerButton',
+        icon: Icons.menu,
+        accent: scheme.primary,
+        defaultAction: 'Scaffold.of(context).openDrawer()',
+        requires: 'Ancestor Scaffold with drawer: ... provided.',
+        override: 'Pass onPressed to override the default action.',
       ),
-      ...props.asMap().entries.map((entry) {
-        int idx = entry.key;
-        Map<String, String> p = entry.value;
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: idx.isEven ? Color(0xFFFAFAFA) : Color(0xFFFFFFFF),
-            border: Border(top: BorderSide(color: Color(0xFFE0E0E0), width: 0.5)),
+      _RouteRow(
+        name: 'EndDrawerButton',
+        icon: Icons.menu_open,
+        accent: scheme.tertiary,
+        defaultAction: 'Scaffold.of(context).openEndDrawer()',
+        requires: 'Ancestor Scaffold with endDrawer: ... provided.',
+        override: 'Pass onPressed to override the default action.',
+      ),
+      _RouteRow(
+        name: 'BackButton',
+        icon: Icons.arrow_back,
+        accent: scheme.secondary,
+        defaultAction: 'Navigator.maybePop(context)',
+        requires: 'A pop-able route on the Navigator stack.',
+        override: 'Provide onPressed to intercept (e.g. confirm dialog).',
+      ),
+      _RouteRow(
+        name: 'CloseButton',
+        icon: Icons.close,
+        accent: scheme.error,
+        defaultAction: 'Navigator.maybePop(context)',
+        requires: 'Typically used on modal / full-screen dialog routes.',
+        override: 'Provide onPressed to dismiss with a custom result.',
+      ),
+    ];
+    final tiles = <Widget>[];
+    for (var i = 0; i < rows.length; i++) {
+      tiles.add(_buildTile(rows[i], i + 1));
+      tiles.add(const SizedBox(height: 10.0));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 5: Routing Semantics', scheme: scheme),
+        const SizedBox(height: 12.0),
+        ...tiles,
+      ],
+    );
+  }
+
+  Widget _buildTile(_RouteRow r, int n) {
+    return Container(
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: r.accent.withValues(alpha: 0.4), width: 1.2),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 44.0,
+            height: 44.0,
+            decoration: BoxDecoration(
+              color: r.accent.withValues(alpha: 0.14),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(r.icon, color: r.accent, size: 22.0),
           ),
-          child: Row(children: [
-            Expanded(flex: 2, child: Text(p['prop']!, style: TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF00695C)))),
-            Expanded(flex: 2, child: Text(p['type']!, style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF7B1FA2)))),
-            Expanded(flex: 3, child: Text(p['desc']!, style: TextStyle(fontSize: 11, color: Color(0xFF616161)))),
-          ]),
-        );
-      }),
-    ]),
-  );
+          const SizedBox(width: 14.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      r.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                        color: r.accent,
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: r.accent.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Text(
+                        '#$n',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: r.accent,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6.0),
+                _miniRow('default', r.defaultAction, mono: true),
+                _miniRow('requires', r.requires),
+                _miniRow('override', r.override),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _miniRow(String label, String value, {bool mono = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 70.0,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+                color: scheme.onSurface.withValues(alpha: 0.62),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 11.5,
+                fontFamily: mono ? 'monospace' : null,
+                color: scheme.onSurface.withValues(alpha: 0.86),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RouteRow {
+  const _RouteRow({
+    required this.name,
+    required this.icon,
+    required this.accent,
+    required this.defaultAction,
+    required this.requires,
+    required this.override,
+  });
+  final String name;
+  final IconData icon;
+  final Color accent;
+  final String defaultAction;
+  final String requires;
+  final String override;
+}
+
+// ---------------------------------------------------------------------------
+// Section 6: Icon-only variants
+// ---------------------------------------------------------------------------
+
+class _Section6IconVariants extends StatelessWidget {
+  const _Section6IconVariants({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 6: Icon Variants ===');
+    final entries = <_IconVariantEntry>[
+      _IconVariantEntry(
+        title: 'DrawerButtonIcon',
+        icon: const DrawerButtonIcon(),
+        accent: scheme.primary,
+        note: 'Just the glyph used by DrawerButton.',
+      ),
+      _IconVariantEntry(
+        title: 'EndDrawerButtonIcon',
+        icon: const EndDrawerButtonIcon(),
+        accent: scheme.tertiary,
+        note: 'Just the glyph used by EndDrawerButton.',
+      ),
+      _IconVariantEntry(
+        title: 'BackButtonIcon',
+        icon: const BackButtonIcon(),
+        accent: scheme.secondary,
+        note: 'Platform-aware back glyph; respects TargetPlatform.',
+      ),
+      _IconVariantEntry(
+        title: 'CloseButtonIcon',
+        icon: const CloseButtonIcon(),
+        accent: scheme.error,
+        note: 'Just the glyph used by CloseButton.',
+      ),
+    ];
+    final cards = <Widget>[];
+    for (final e in entries) {
+      cards.add(_buildCard(e));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 6: Icon-Only Variants', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
+          ),
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Use these inside custom IconButton or ListTile widgets when '
+                'you want the official glyph but not the wrapper button.',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: scheme.onSurface.withValues(alpha: 0.74),
+                ),
+              ),
+              const SizedBox(height: 12.0),
+              Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCard(_IconVariantEntry e) {
+    return Container(
+      width: 180.0,
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: e.accent.withValues(alpha: 0.45), width: 1.2),
+      ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: 60.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: e.accent.withValues(alpha: 0.12),
+              shape: BoxShape.circle,
+            ),
+            child: IconTheme(
+              data: IconThemeData(color: e.accent, size: 28.0),
+              child: Center(child: e.icon),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            e.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: e.accent,
+              fontSize: 12.5,
+            ),
+          ),
+          const SizedBox(height: 6.0),
+          Text(
+            e.note,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 10.5,
+              color: scheme.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IconVariantEntry {
+  const _IconVariantEntry({
+    required this.title,
+    required this.icon,
+    required this.accent,
+    required this.note,
+  });
+  final String title;
+  final Widget icon;
+  final Color accent;
+  final String note;
+}
+
+// ---------------------------------------------------------------------------
+// Section 7: Comparison table vs raw IconButton
+// ---------------------------------------------------------------------------
+
+class _Section7ComparisonTable extends StatelessWidget {
+  const _Section7ComparisonTable({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 7: Comparison Table ===');
+    final pairs = <_ComparisonPair>[
+      _ComparisonPair(
+        leftLabel: 'DrawerButton',
+        leftWidget: const DrawerButton(onPressed: null),
+        rightLabel: 'IconButton(Icons.menu)',
+        rightWidget: const IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: null,
+        ),
+        verdict:
+            'DrawerButton wires the default to openDrawer() and reads as intent.',
+        accent: scheme.primary,
+      ),
+      _ComparisonPair(
+        leftLabel: 'EndDrawerButton',
+        leftWidget: const EndDrawerButton(onPressed: null),
+        rightLabel: 'IconButton(Icons.menu)',
+        rightWidget: const IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: null,
+        ),
+        verdict:
+            'EndDrawerButton routes to openEndDrawer() automatically.',
+        accent: scheme.tertiary,
+      ),
+      _ComparisonPair(
+        leftLabel: 'BackButton',
+        leftWidget: const BackButton(onPressed: null),
+        rightLabel: 'IconButton(Icons.arrow_back)',
+        rightWidget: const IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: null,
+        ),
+        verdict:
+            'BackButton picks the platform-correct glyph and uses maybePop.',
+        accent: scheme.secondary,
+      ),
+      _ComparisonPair(
+        leftLabel: 'CloseButton',
+        leftWidget: const CloseButton(onPressed: null),
+        rightLabel: 'IconButton(Icons.close)',
+        rightWidget: const IconButton(
+          icon: Icon(Icons.close),
+          onPressed: null,
+        ),
+        verdict:
+            'CloseButton expresses dismiss intent; semantics labelled by Material.',
+        accent: scheme.error,
+      ),
+    ];
+    final rows = <Widget>[
+      _buildHeader(),
+      ...List<Widget>.generate(pairs.length, (i) => _buildPairRow(pairs[i], i + 1)),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 7: Comparison vs Raw IconButton', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Container(
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            borderRadius: BorderRadius.circular(14.0),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
+          ),
+          child: Column(children: rows),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        color: scheme.primaryContainer,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(14.0),
+          topRight: Radius.circular(14.0),
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 28.0,
+            child: Text(
+              '#',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: scheme.onPrimaryContainer,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              'family member',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: scheme.onPrimaryContainer,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              'raw equivalent',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: scheme.onPrimaryContainer,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'verdict',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: scheme.onPrimaryContainer,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPairRow(_ComparisonPair p, int n) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: scheme.outlineVariant, width: 0.6),
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 28.0,
+            child: Text(
+              '$n',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: p.accent,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                p.leftWidget,
+                const SizedBox(height: 4.0),
+                Text(
+                  p.leftLabel,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: p.accent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                p.rightWidget,
+                const SizedBox(height: 4.0),
+                Text(
+                  p.rightLabel,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: scheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              p.verdict,
+              style: TextStyle(
+                fontSize: 11.5,
+                color: scheme.onSurface.withValues(alpha: 0.84),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ComparisonPair {
+  const _ComparisonPair({
+    required this.leftLabel,
+    required this.leftWidget,
+    required this.rightLabel,
+    required this.rightWidget,
+    required this.verdict,
+    required this.accent,
+  });
+  final String leftLabel;
+  final Widget leftWidget;
+  final String rightLabel;
+  final Widget rightWidget;
+  final String verdict;
+  final Color accent;
+}
+
+// ---------------------------------------------------------------------------
+// Section 8: Decision matrix
+// ---------------------------------------------------------------------------
+
+class _Section8DecisionMatrix extends StatelessWidget {
+  const _Section8DecisionMatrix({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 8: Decision Matrix ===');
+    final cells = <_DecisionCell>[
+      _DecisionCell(
+        question: 'You have a Drawer and want a leading button',
+        answer: 'DrawerButton',
+        icon: Icons.menu,
+        color: scheme.primary,
+      ),
+      _DecisionCell(
+        question: 'You have an EndDrawer and want a trailing button',
+        answer: 'EndDrawerButton',
+        icon: Icons.menu_open,
+        color: scheme.tertiary,
+      ),
+      _DecisionCell(
+        question: 'You are on a sub-route and want to go back',
+        answer: 'BackButton',
+        icon: Icons.arrow_back,
+        color: scheme.secondary,
+      ),
+      _DecisionCell(
+        question: 'You opened a full-screen dialog and need to dismiss it',
+        answer: 'CloseButton',
+        icon: Icons.close,
+        color: scheme.error,
+      ),
+      _DecisionCell(
+        question: 'You want the glyph only (no IconButton)',
+        answer: 'XxxButtonIcon variants',
+        icon: Icons.image_outlined,
+        color: scheme.primary,
+      ),
+      _DecisionCell(
+        question: 'You want platform-aware back arrow',
+        answer: 'BackButton / BackButtonIcon',
+        icon: Icons.swap_horiz,
+        color: scheme.secondary,
+      ),
+      _DecisionCell(
+        question: 'You need a totally custom icon + onPressed',
+        answer: 'Plain IconButton',
+        icon: Icons.build_outlined,
+        color: scheme.outline,
+      ),
+      _DecisionCell(
+        question: 'You want to override the default action (e.g. confirm)',
+        answer: 'Pass onPressed to the family member',
+        icon: Icons.handyman,
+        color: scheme.primary,
+      ),
+    ];
+    final tiles = <Widget>[];
+    for (var i = 0; i < cells.length; i++) {
+      tiles.add(_buildCell(cells[i]));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 8: Decision Matrix', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: tiles),
+      ],
+    );
+  }
+
+  Widget _buildCell(_DecisionCell c) {
+    return Container(
+      width: 250.0,
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: c.color.withValues(alpha: 0.38), width: 1.1),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 32.0,
+            height: 32.0,
+            decoration: BoxDecoration(
+              color: c.color.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Icon(c.icon, size: 18.0, color: c.color),
+          ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  c.question,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: scheme.onSurface.withValues(alpha: 0.75),
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                Text(
+                  c.answer,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.bold,
+                    color: c.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DecisionCell {
+  const _DecisionCell({
+    required this.question,
+    required this.answer,
+    required this.icon,
+    required this.color,
+  });
+  final String question;
+  final String answer;
+  final IconData icon;
+  final Color color;
+}
+
+// ---------------------------------------------------------------------------
+// Section 9: Recipes
+// ---------------------------------------------------------------------------
+
+class _Section9Recipes extends StatelessWidget {
+  const _Section9Recipes({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 9: Recipes ===');
+    final recipes = <_RecipeCard>[
+      _RecipeCard(
+        title: 'AppBar with drawer + endDrawer',
+        accent: scheme.primary,
+        snippet:
+            'Scaffold(\n'
+            '  appBar: AppBar(\n'
+            '    leading: const DrawerButton(),\n'
+            '    title: const Text("Inbox"),\n'
+            '    actions: const [EndDrawerButton()],\n'
+            '  ),\n'
+            '  drawer: const NavDrawer(),\n'
+            '  endDrawer: const FilterDrawer(),\n'
+            '  body: ...\n'
+            ')',
+      ),
+      _RecipeCard(
+        title: 'BackButton with confirmation',
+        accent: scheme.secondary,
+        snippet:
+            'AppBar(\n'
+            '  leading: BackButton(\n'
+            '    onPressed: () async {\n'
+            '      final ok = await _confirmDiscard(context);\n'
+            '      if (ok) Navigator.maybePop(context);\n'
+            '    },\n'
+            '  ),\n'
+            '  title: const Text("Edit profile"),\n'
+            ')',
+      ),
+      _RecipeCard(
+        title: 'Full-screen dialog with CloseButton',
+        accent: scheme.error,
+        snippet:
+            'Scaffold(\n'
+            '  appBar: AppBar(\n'
+            '    leading: const CloseButton(),\n'
+            '    title: const Text("Compose"),\n'
+            '    actions: [\n'
+            '      TextButton(onPressed: _send, child: Text("Send")),\n'
+            '    ],\n'
+            '  ),\n'
+            '  body: ComposeForm(),\n'
+            ')',
+      ),
+      _RecipeCard(
+        title: 'Themed DrawerButton (filled tonal)',
+        accent: scheme.tertiary,
+        snippet:
+            'DrawerButton(\n'
+            '  style: IconButton.styleFrom(\n'
+            '    backgroundColor: colorScheme.secondaryContainer,\n'
+            '    foregroundColor: colorScheme.onSecondaryContainer,\n'
+            '  ),\n'
+            ')',
+      ),
+      _RecipeCard(
+        title: 'Custom IconButton with BackButtonIcon',
+        accent: scheme.primary,
+        snippet:
+            'IconButton(\n'
+            '  iconSize: 32.0,\n'
+            '  icon: const BackButtonIcon(),\n'
+            '  tooltip: "Back to inbox",\n'
+            '  onPressed: () => Navigator.maybePop(context),\n'
+            ')',
+      ),
+    ];
+    final widgets = <Widget>[];
+    for (var i = 0; i < recipes.length; i++) {
+      widgets.add(_buildRecipe(recipes[i], i + 1));
+      widgets.add(const SizedBox(height: 12.0));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 9: Recipes', scheme: scheme),
+        const SizedBox(height: 12.0),
+        ...widgets,
+      ],
+    );
+  }
+
+  Widget _buildRecipe(_RecipeCard r, int n) {
+    return Container(
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: r.accent.withValues(alpha: 0.4), width: 1.2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
+                decoration: BoxDecoration(
+                  color: r.accent.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
+                child: Text(
+                  'recipe $n',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                    color: r.accent,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  r.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                    color: r.accent,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFF111418),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              r.snippet,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+                height: 1.4,
+                color: Color(0xFFB7E1B0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecipeCard {
+  const _RecipeCard({
+    required this.title,
+    required this.accent,
+    required this.snippet,
+  });
+  final String title;
+  final Color accent;
+  final String snippet;
+}
+
+// ---------------------------------------------------------------------------
+// Section 10: Glossary + takeaways
+// ---------------------------------------------------------------------------
+
+class _Section10Glossary extends StatelessWidget {
+  const _Section10Glossary({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('=== Section 10: Glossary ===');
+    final terms = <_GlossaryTerm>[
+      _GlossaryTerm(
+        term: 'DrawerButton',
+        definition:
+            'A Material IconButton wired to Scaffold.of(context).openDrawer() '
+            'as its default onPressed.',
+      ),
+      _GlossaryTerm(
+        term: 'EndDrawerButton',
+        definition:
+            'The mirror of DrawerButton, defaulting to openEndDrawer(). '
+            'Typically rendered in AppBar.actions.',
+      ),
+      _GlossaryTerm(
+        term: 'BackButton',
+        definition:
+            'A back-affordance IconButton whose icon adapts to TargetPlatform '
+            'and whose default action is Navigator.maybePop(context).',
+      ),
+      _GlossaryTerm(
+        term: 'CloseButton',
+        definition:
+            'An IconButton with the close glyph, also defaulting to '
+            'Navigator.maybePop. Conveys dismiss rather than go-back.',
+      ),
+      _GlossaryTerm(
+        term: 'DrawerButtonIcon / EndDrawerButtonIcon',
+        definition:
+            'The icon-only widgets used internally by the buttons. Useful when '
+            'you want to build a custom IconButton but keep the official glyph.',
+      ),
+      _GlossaryTerm(
+        term: 'BackButtonIcon',
+        definition:
+            'Selects the platform-correct back arrow glyph (e.g. arrow_back on '
+            'Android, arrow_back_ios_new on iOS).',
+      ),
+      _GlossaryTerm(
+        term: 'CloseButtonIcon',
+        definition: 'The Icons.close glyph used by CloseButton.',
+      ),
+      _GlossaryTerm(
+        term: 'ButtonStyle (style:)',
+        definition:
+            'IconButton.styleFrom(...) builds a ButtonStyle. All family members '
+            'forward it to the underlying IconButton.',
+      ),
+    ];
+    final takeaways = <_Takeaway>[
+      _Takeaway(
+        icon: Icons.read_more,
+        label: 'Express intent',
+        body:
+            'Reach for DrawerButton / BackButton instead of IconButton + icon -- '
+            'reviewers and screen readers both benefit.',
+        color: scheme.primary,
+      ),
+      _Takeaway(
+        icon: Icons.settings_input_component,
+        label: 'Defaults are sensible',
+        body:
+            'Each member ships with the correct Scaffold/Navigator hook. You '
+            'only pass onPressed when you need to override it.',
+        color: scheme.secondary,
+      ),
+      _Takeaway(
+        icon: Icons.style,
+        label: 'Fully themable',
+        body:
+            'style, color, and iconSize all flow through to the underlying '
+            'IconButton, so Material 3 theming applies cleanly.',
+        color: scheme.tertiary,
+      ),
+      _Takeaway(
+        icon: Icons.devices,
+        label: 'Platform aware',
+        body:
+            'BackButton automatically picks the right glyph per platform. No '
+            'manual Platform.isIOS branching needed.',
+        color: scheme.error,
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _SectionTitle(text: 'Section 10: Glossary and Takeaways', scheme: scheme),
+        const SizedBox(height: 12.0),
+        Container(
+          padding: const EdgeInsets.all(14.0),
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Glossary',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: scheme.primary,
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              ...List<Widget>.generate(terms.length, (i) {
+                final t = terms[i];
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: scheme.surfaceContainerLow,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        t.term,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: scheme.primary,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text(
+                        t.definition,
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          color: scheme.onSurface.withValues(alpha: 0.82),
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14.0),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                scheme.primaryContainer,
+                scheme.tertiaryContainer,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(14.0),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Key takeaways',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: scheme.onPrimaryContainer,
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              ...List<Widget>.generate(takeaways.length, (i) {
+                final t = takeaways[i];
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: scheme.surface.withValues(alpha: 0.7),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: t.color.withValues(alpha: 0.35),
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 32.0,
+                        height: 32.0,
+                        decoration: BoxDecoration(
+                          color: t.color.withValues(alpha: 0.18),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(t.icon, size: 18.0, color: t.color),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              t.label,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.5,
+                                color: t.color,
+                              ),
+                            ),
+                            const SizedBox(height: 2.0),
+                            Text(
+                              t.body,
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                color: scheme.onSurface.withValues(alpha: 0.85),
+                                height: 1.35,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GlossaryTerm {
+  const _GlossaryTerm({required this.term, required this.definition});
+  final String term;
+  final String definition;
+}
+
+class _Takeaway {
+  const _Takeaway({
+    required this.icon,
+    required this.label,
+    required this.body,
+    required this.color,
+  });
+  final IconData icon;
+  final String label;
+  final String body;
+  final Color color;
+}
+
+// ---------------------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------------------
+
+class _FooterStamp extends StatelessWidget {
+  const _FooterStamp({required this.scheme});
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    print('Building footer stamp');
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 20.0),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: scheme.outlineVariant, width: 1.0),
+      ),
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.check_circle, color: scheme.primary, size: 22.0),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: Text(
+              'Demo built: DrawerButton, EndDrawerButton, BackButton, '
+              'CloseButton and their *Icon variants.',
+              style: TextStyle(
+                fontSize: 12.0,
+                color: scheme.onSurface.withValues(alpha: 0.8),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shared section title widget
+// ---------------------------------------------------------------------------
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle({required this.text, required this.scheme});
+  final String text;
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            scheme.primary.withValues(alpha: 0.18),
+            scheme.tertiary.withValues(alpha: 0.10),
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border(
+          left: BorderSide(color: scheme.primary, width: 3.5),
+        ),
+      ),
+      child: Text(
+        '=== $text ===',
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+          color: scheme.onSurface,
+          letterSpacing: 0.4,
+        ),
+      ),
+    );
+  }
 }
