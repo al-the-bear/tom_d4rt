@@ -102,15 +102,15 @@ Columns: **idx** | **file** | **bytes** | **lines** | **checked** | **is ok** | 
 |  70 | `material/tooltip_badge_test.dart` | 13,826 | 500 | (x) | (x) | (x) |
 |  71 | `dart_ui/app_exit_type_test.dart` | 13,867 | 447 | (x) | (x) | (x) |
 |  72 | `material/search_test.dart` | 13,895 | 477 | (x) | (x) | (x) |
-|  73 | `cupertino/dialog_test.dart` | 13,922 | 387 | ( ) | ( ) | ( ) |
-|  74 | `material/scrollbar_test.dart` | 13,959 | 467 | ( ) | ( ) | ( ) |
-|  75 | `rendering/render_fractional_translation_test.dart` | 13,969 | 411 | ( ) | ( ) | ( ) |
-|  76 | `cupertino/picker_test.dart` | 14,197 | 415 | ( ) | ( ) | ( ) |
-|  77 | `material/theme_test.dart` | 14,548 | 466 | ( ) | ( ) | ( ) |
-|  78 | `animation/curve_test.dart` | 14,586 | 399 | ( ) | ( ) | ( ) |
-|  79 | `widgets/traversal_edge_behavior_test.dart` | 14,755 | 484 | ( ) | ( ) | ( ) |
-|  80 | `rendering/render_fractionally_sized_overflow_box_test.dart` | 14,849 | 421 | ( ) | ( ) | ( ) |
-|  81 | `dart_ui/app_exit_response_test.dart` | 15,441 | 403 | ( ) | ( ) | ( ) |
+|  73 | `cupertino/dialog_test.dart` | 13,922 | 387 | (x) | (x) | (x) |
+|  74 | `material/scrollbar_test.dart` | 13,959 | 467 | (x) | (x) | (x) |
+|  75 | `rendering/render_fractional_translation_test.dart` | 13,969 | 411 | (x) | (x) | (x) |
+|  76 | `cupertino/picker_test.dart` | 14,197 | 415 | (x) | (x) | (x) |
+|  77 | `material/theme_test.dart` | 14,548 | 466 | (x) | (x) | (x) |
+|  78 | `animation/curve_test.dart` | 14,586 | 399 | (x) | (x) | (x) |
+|  79 | `widgets/traversal_edge_behavior_test.dart` | 14,755 | 484 | (x) | (x) | (x) |
+|  80 | `rendering/render_fractionally_sized_overflow_box_test.dart` | 14,849 | 421 | (x) | (x) | (x) |
+|  81 | `dart_ui/app_exit_response_test.dart` | 15,441 | 403 | (x) | (x) | (x) |
 |  82 | `painting/gradient_shadow_test.dart` | 15,469 | 493 | ( ) | ( ) | ( ) |
 |  83 | `painting/textstyle_test.dart` | 15,636 | 481 | ( ) | ( ) | ( ) |
 |  84 | `dart_ui/backdrop_filter_engine_layer_test.dart` | 15,867 | 471 | ( ) | ( ) | ( ) |

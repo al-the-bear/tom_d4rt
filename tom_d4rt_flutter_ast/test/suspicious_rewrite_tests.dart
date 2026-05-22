@@ -5316,4 +5316,61 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
   });
+
+  group('batch39_short_tests2_demos_b9/', () {
+    test('cupertino/dialog_test.dart', () async {
+      final result = await SendTestRunner.send('cupertino/dialog_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/scrollbar_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'material/scrollbar_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/render_fractional_translation_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_fractional_translation_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('cupertino/picker_test.dart', () async {
+      final result = await SendTestRunner.send('cupertino/picker_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('material/theme_test.dart', () async {
+      final result = await SendTestRunner.send('material/theme_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('animation/curve_test.dart', () async {
+      final result = await SendTestRunner.send('animation/curve_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/traversal_edge_behavior_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/traversal_edge_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('rendering/render_fractionally_sized_overflow_box_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_fractionally_sized_overflow_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('dart_ui/app_exit_response_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/app_exit_response_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
 }
