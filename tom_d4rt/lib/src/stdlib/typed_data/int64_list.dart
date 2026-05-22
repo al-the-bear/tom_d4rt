@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'inherited_list_methods.dart';
+
 class Int64ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Int64List',
@@ -136,6 +138,12 @@ class Int64ListTypedData {
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Int64List) == positionalArgs[0];
           },
+
+          // Inherited Iterable<int> / List<int> read-only methods.
+          // See inherited_list_methods.dart — the interpreter resolves
+          // bridged methods without walking the supertype chain, so each
+          // typed-data variant must declare these directly.
+          ...inheritedListMethods<int>((t) => t as Int64List),
         },
         getters: {
           'length': (visitor, target) {
@@ -191,6 +199,9 @@ class Int64ListTypedData {
             throw RuntimeD4rtException(
                 "Target is not an Int64List for getter 'runtimeType'");
           },
+
+          // Inherited getters (single, iterator, reversed).
+          ...inheritedListGetters<int>((t) => t as Int64List),
         },
       );
 }

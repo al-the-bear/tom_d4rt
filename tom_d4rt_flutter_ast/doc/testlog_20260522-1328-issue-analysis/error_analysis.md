@@ -69,9 +69,9 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 
 | # | script | inner error |
 |---|---|---|
-| 12 | `foundation/buffers_misc_test.dart` | Runtime Error: Bridged class `Float64List` has no instance method named `toList` (in Map literal) |
+| 12 | `foundation/buffers_misc_test.dart` | ~~Runtime Error: Bridged class `Float64List` has no instance method named `toList` (in Map literal)~~ **FIXED — Cluster D #8.** |
 | 13 | `dart_ui/accessibility_features_test.dart` | Runtime Error: Undefined variable: `build` |
-| 14 | `foundation/read_buffer_test.dart` | Runtime Error: Bridged class `Int32List` has no instance method named `toList` |
+| 14 | `foundation/read_buffer_test.dart` | ~~Runtime Error: Bridged class `Int32List` has no instance method named `toList`~~ **FIXED — Cluster D #8.** |
 | 15 | `material/checkbox_list_tile_test.dart` | Runtime Error: Undefined variable: `build` |
 | 16 | `rendering/render_exclude_semantics_test.dart` | Runtime Error: Undefined variable: `build` |
 
@@ -92,7 +92,7 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 | 24 | `foundation/text_tree_configuration_test.dart` | Runtime Error: Cannot invoke method `toStringDeep` on null. Use `?.` for null-aware method invocation. |
 | 25 | `gestures/class_test.dart` | Undefined variable: `build` |
 | 26 | `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` | Undefined variable: `build` |
-| 27 | `gestures/polynomial_fit_test.dart` | Runtime Error: Bridged class `Float64List` has no instance method named `map` |
+| 27 | `gestures/polynomial_fit_test.dart` | ~~Runtime Error: Bridged class `Float64List` has no instance method named `map`~~ **FIXED — Cluster D #8.** |
 
 **Skipped:**
 - `dart_ui/image_sampler_slot_test.dart` — `D1: destabilises the test app for subsequent dart_ui/gestures scripts on Linux. Run via bisect_test.dart instead.` (known interpreter-related instability)
@@ -521,7 +521,7 @@ Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions*
 
 ### Cluster D — Bridged-typed-data missing list methods
 
-- [ ] **fixed** 8. Expose `toList()`, `map()`, and other inherited `List<num>`/`Iterable<num>` methods on `Float64List`, `Float32List`, `Int32List`, `Int64List`, `Uint8List`, `Uint16List`, `Uint32List` in the typed_data stdlib bridge. Fix in `tom_d4rt_ast/lib/src/stdlib/typed_data.dart` AND mirror to `tom_d4rt/lib/src/stdlib/typed_data.dart`. Add unit tests for each method. (covers #12, #14, #27)
+- [x] **fixed** 8. Expose `toList()`, `map()`, and other inherited `List<num>`/`Iterable<num>` methods on `Float64List`, `Float32List`, `Int32List`, `Int64List`, `Uint8List`, `Uint16List`, `Uint32List` in the typed_data stdlib bridge. Fix in `tom_d4rt_ast/lib/src/stdlib/typed_data.dart` AND mirror to `tom_d4rt/lib/src/stdlib/typed_data.dart`. Add unit tests for each method. (covers #12, #14, #27) — **Resolution:** root cause is that the interpreter's bridged-method resolver does no supertype walk, so each typed-data variant must declare its inherited `Iterable<E>` / `List<E>` methods directly. Centralised the 28 method adapters + 3 getter adapters in a new helper `lib/src/stdlib/typed_data/inherited_list_methods.dart` (mirrored in `tom_d4rt_ast/lib/src/runtime/stdlib/typed_data/` and `tom_d4rt/lib/src/stdlib/typed_data/`). Plugged the helper into 10 typed-data variants in each project (`float64`/`float32`/`int8`/`int16`/`int32`/`int64`/`uint8_clamped`/`uint16`/`uint32`/`uint64`); `uint8_list.dart` was already comprehensive and left untouched. Added an 18-test unit suite (`test/stdlib/typed_data/inherited_list_methods_test.dart`) in both `tom_d4rt` and `tom_d4rt_exec` — 18/18 pass; broader stdlib suite (703 tests) unchanged. **Single-script verification (rule b reproducer):** all three Cluster D scripts now pass with `frameworkErrors=0 status=success`: `foundation/buffers_misc_test.dart` (Float64List.toList), `foundation/read_buffer_test.dart` (Int32/Int64/Float64/Uint8 .toList & .map), `gestures/polynomial_fit_test.dart` (Float64List.map). **Rule (b) regression sweep:** gii (80 pass / 1 fail = pre-existing `services/codecs_test.dart` camera-unavailable PlatformException, Cluster E #10), essential (107 pass / 1 fail = pre-existing `foundation/key_test.dart` `Timer.run` arity mismatch, Cluster E #9), important (163 pass / 1 fail = same pre-existing codecs failure), secondary (643 pass / 10 fail — note: all 10 are `status=transport_error httpStatus=-1 totalMs≈25000` HTTP timeouts, not method-resolution errors; reproducing the most prominent one (`foundation/write_buffer_test.dart`) in a fresh test-app session via `flutter test test/secondary_classes_test.dart --plain-name "write_buffer_test.dart"` returns `status=success frameworkErrors=0 totalMs=5043` with my changes intact. Conclusion: the suite-level timeouts are test-app degradation after ~95 minutes of consecutive scripts, not a regression from this fix — same behaviour as the host-load flakiness called out in `interpreter_unfixable.md`).
 
 ### Cluster E — Bridged constructor native exceptions
 

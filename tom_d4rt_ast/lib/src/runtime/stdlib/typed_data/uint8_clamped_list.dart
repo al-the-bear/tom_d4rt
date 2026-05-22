@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import 'inherited_list_methods.dart';
+
 class Uint8ClampedListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Uint8ClampedList',
@@ -136,6 +138,12 @@ class Uint8ClampedListTypedData {
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8ClampedList) == positionalArgs[0];
           },
+
+          // Inherited Iterable<int> / List<int> read-only methods.
+          // See inherited_list_methods.dart — the interpreter resolves
+          // bridged methods without walking the supertype chain, so each
+          // typed-data variant must declare these directly.
+          ...inheritedListMethods<int>((t) => t as Uint8ClampedList),
         },
         getters: {
           'length': (visitor, target) {
@@ -191,6 +199,9 @@ class Uint8ClampedListTypedData {
             throw RuntimeD4rtException(
                 "Target is not an Uint8ClampedList for getter 'runtimeType'");
           },
+
+          // Inherited getters (single, iterator, reversed).
+          ...inheritedListGetters<int>((t) => t as Uint8ClampedList),
         },
       );
 }

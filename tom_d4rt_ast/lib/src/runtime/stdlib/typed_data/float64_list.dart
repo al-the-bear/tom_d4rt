@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import 'inherited_list_methods.dart';
+
 class Float64ListTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'Float64List',
@@ -137,6 +139,12 @@ class Float64ListTypedData {
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Float64List) == positionalArgs[0];
           },
+
+          // Inherited Iterable<double> / List<double> read-only methods.
+          // See inherited_list_methods.dart — the interpreter resolves
+          // bridged methods without walking the supertype chain, so each
+          // typed-data variant must declare these directly.
+          ...inheritedListMethods<double>((t) => t as Float64List),
         },
         getters: {
           'length': (visitor, target) {
@@ -193,6 +201,9 @@ class Float64ListTypedData {
             throw RuntimeD4rtException(
                 "Target is not a Float64List for getter 'runtimeType'");
           },
+
+          // Inherited getters (single, iterator, reversed).
+          ...inheritedListGetters<double>((t) => t as Float64List),
         },
       );
 }
