@@ -370,9 +370,9 @@ Each item references the cluster (A–M) and the failure numbers from §§1–4.
 
 - [x] **fixed** 1. Reproduce `animation/tween_test.dart` with `SendTestRunner` in isolation (`bisect_test.dart`); capture the exact line that triggers `Undefined variable: build`. Decide: script-side authoring bug vs d4rt interpreter regression. (covers #1, #2, #3, #5, #7, #8, #13, #15, #16, #17–23, #25, #26, #28–30, #32–36 — 24 scripts)
 - [x] **fixed** 2. If script-side: bulk-rewrite the affected scripts (replace bare `build(...)` calls with the actual identifier, or move helpers inline). Mirror to flutter_test if their script-sets diverge.
-- [x] **N/A** 3. If interpreter-side: fix top-level function resolution from closures in `tom_d4rt/lib/src/interpreter_visitor.dart` AND mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Add a unit test in `tom_d4rt/test/` reproducing the closure capture failure. *(Not needed — root cause turned out to be script-side authoring bug, see entry #2.)*
+- [x] **fixed** 3. If interpreter-side: fix top-level function resolution from closures in `tom_d4rt/lib/src/interpreter_visitor.dart` AND mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Add a unit test in `tom_d4rt/test/` reproducing the closure capture failure. *(Interpreter fix not needed — root cause was script-side, see #2. Added positive regression tests instead to lock the working contract in.)*
 
-**Cluster A status (items #1 + #2): FIXED.** Root cause is script-side authoring: all 24 affected scripts used `void main() => runApp(const SomeApp());` as the entry point, but `SendTestRunner` calls a top-level `dynamic build(BuildContext context)` function on the script (see `send_test_runner.dart:7`). Because no `build` identifier existed at top level, the d4rt interpreter correctly reported `Undefined variable: build`. **Not** a d4rt interpreter regression. Verified by inspecting passing scripts in the same folder (e.g. `animation/animation_status_test.dart:7` — `dynamic build(BuildContext context) { ... }`).
+**Cluster A status (items #1 + #2 + #3): FIXED.** Root cause is script-side authoring: all 24 affected scripts used `void main() => runApp(const SomeApp());` as the entry point, but `SendTestRunner` calls a top-level `dynamic build(BuildContext context)` function on the script (see `send_test_runner.dart:7`). Because no `build` identifier existed at top level, the d4rt interpreter correctly reported `Undefined variable: build`. **Not** a d4rt interpreter regression. Verified by inspecting passing scripts in the same folder (e.g. `animation/animation_status_test.dart:7` — `dynamic build(BuildContext context) { ... }`).
 
 **Fix applied:** mechanical rewrite via a one-line regex across all 24 scripts (preserved `const`):
 
@@ -384,6 +384,13 @@ dynamic build(BuildContext context) => const SomeApp();
 ```
 
 **Verification:** added `tom_d4rt_flutter_ast/test/cluster_a_repro_test.dart` which loads each of the 24 scripts via `SendTestRunner` and asserts `result.success == true`. All 26 expectations green (24 scripts + setUp + tearDown). Per rule (a) — only test scripts were touched — no broader suite regression run was required.
+
+**Entry #3 (interpreter-side regression test):** Added two positive regression tests that lock the working interpreter contract in, so any future regression to top-level function resolution from closures or the runApp-style harness shape would reproduce the original Cluster A symptom in a pure-Dart fixture:
+
+- `tom_d4rt/test/cluster_a_top_level_build_resolution_test.dart` (5/5 passing)
+- `tom_d4rt_exec/test/cluster_a_top_level_build_resolution_test.dart` (5/5 passing) — mirror for the analyzer-free runner
+
+Each suite covers five invocation sites: direct call from `main`, call from a closure passed to another fn, call from a default-callback closure argument, the exact SendTestRunner runApp-style entry-point shape, and a shadowing sanity check (a local `build` inside one closure must not leak into sibling closures). All ten green — confirms there is no d4rt interpreter regression in any of these paths and entry #3's conditional ("if interpreter-side") is provably unnecessary.
 
 **Follow-up surface (not Cluster A — tracked separately):** with `build` now resolving, several scripts surface previously-masked errors:
 - `cupertino/theme_test.dart` — 5× RenderFlex overflow 56 px bottom (Cluster H1)
