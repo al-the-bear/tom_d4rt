@@ -90,10 +90,10 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: titleColor.withValues(alpha: 0.10),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(17.0),
-                topRight: Radius.circular(17.0),
-              ),
+              // No borderRadius: the Border below has only `bottom` set, so
+              // the other sides default to BorderSide.none and the colors
+              // are non-uniform. BoxDecoration asserts uniform colors when
+              // borderRadius is combined with a non-uniform Border.
               border: Border(
                 bottom: BorderSide(
                   color: titleColor.withValues(alpha: 0.25),
@@ -170,7 +170,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: paletteInk,
-        borderRadius: BorderRadius.circular(10.0),
+        // No borderRadius: only `left` is set on the Border, so the other
+        // sides default to BorderSide.none with non-uniform colors. A
+        // BoxDecoration with borderRadius + non-uniform Border asserts.
         border: Border(
           left: BorderSide(color: a, width: 4.0),
         ),
@@ -1399,7 +1401,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12.0),
+        // No borderRadius: the Border has a full-alpha `left` accent (width
+        // 5) plus three other sides at alpha 0.25 — the colors are
+        // non-uniform, so BoxDecoration asserts if borderRadius is set.
         border: Border(
           left: BorderSide(color: color, width: 5.0),
           top: BorderSide(color: color.withValues(alpha: 0.25)),
@@ -2394,7 +2398,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: c.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12.0),
+        // No borderRadius: only `left` is set on the Border, so the other
+        // sides default to BorderSide.none with non-uniform colors. A
+        // BoxDecoration with borderRadius + non-uniform Border asserts.
         border: Border(
           left: BorderSide(color: c, width: 5.0),
         ),
