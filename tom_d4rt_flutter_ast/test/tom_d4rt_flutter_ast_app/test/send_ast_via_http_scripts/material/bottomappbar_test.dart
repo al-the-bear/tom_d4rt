@@ -154,12 +154,18 @@ Widget _sectionCard({
 }
 
 // Builds a fake placeholder content area for the phone frames.
+// Wrapped in SingleChildScrollView so the inner Column's natural height
+// (~122 px: text block + image row + paddings) can exceed the available
+// ~102 px area inside the 200-px phone frame without triggering a
+// RenderFlex overflow assertion. The overflow is silently absorbed by
+// the scroll viewport — visually identical, but framework-clean.
 Widget _placeholderContent({Color tint = const Color(0xFFE3E6F0)}) {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
+  return SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
         Container(
           height: 14.0,
           decoration: BoxDecoration(
@@ -215,7 +221,8 @@ Widget _placeholderContent({Color tint = const Color(0xFFE3E6F0)}) {
             ),
           ],
         ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -866,11 +873,16 @@ dynamic build(BuildContext context) {
   // ============================================================
   debugPrint('=== Section 9: Compose Mail micro-app ===');
 
-  final Widget composeInbox = Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
+  // Wrapped in SingleChildScrollView for the same reason as
+  // _placeholderContent: the natural height of the inner Column exceeds
+  // the available area inside the 220-px composeFrame phone (≈122 px),
+  // which would otherwise trigger a RenderFlex overflow assertion.
+  final Widget composeInbox = SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
         Row(
           children: const <Widget>[
             Icon(Icons.inbox, color: Color(0xFF1D4ED8), size: 18.0),
@@ -903,7 +915,8 @@ dynamic build(BuildContext context) {
           subject: 'Flutter weekly digest',
           color: Color(0xFFFDE68A),
         ),
-      ],
+        ],
+      ),
     ),
   );
 
