@@ -330,8 +330,13 @@ Widget _iosFrame({
                 ),
               ),
               // Content
+              // Height bumped from 200 -> 250 to fully contain the inner
+              // Column (subtitle + 3-row settings list + Spacer + button
+              // row). The previous 200 px overflowed by up to 36 px in
+              // some themes (longer accent strings); 250 leaves margin
+              // for all 8 themes without triggering RenderFlex assertions.
               SizedBox(
-                height: 200.0,
+                height: 250.0,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
