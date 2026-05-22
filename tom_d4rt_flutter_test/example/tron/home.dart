@@ -38,13 +38,24 @@ class _TronHomeState extends State<TronHome> {
   /// game in this "armed but not ticking" state.
   bool _started = false;
 
-  // Slowed from 110 ms → 180 ms after the "AI wins before I can
-  // react" feedback. A 180 ms tick means a round lasts ~5.5 s
-  // instead of ~3 s before the bikes meet head-on, which is enough
-  // time to land 2-3 turns and actually steer your bike. The d4rt
-  // interpreter also has more headroom between ticks to process
-  // queued key events promptly.
-  static const Duration _tickRate = Duration(milliseconds: 180);
+  /// Snapshot of the keys held at the previous tick poll. Used for
+  /// edge detection — a key in [_pollKeyboardForTurn]'s current
+  /// snapshot but NOT in this set is a fresh press and triggers
+  /// exactly one turn. Holding a key down doesn't compound into a
+  /// spiral the way it would with snake-style "is currently held"
+  /// polling (snake uses absolute directions; tron uses 90° relative
+  /// turns, so each press must be one-shot).
+  Set<LogicalKeyboardKey> _previouslyHeld =
+      const <LogicalKeyboardKey>{};
+
+  // Aligned with snake_game (250 ms). Snake plays fine at this rate
+  // after the Timer-bridge multi-yield (commit 13528d0a). Tron at
+  // 180 ms had visible problems: input felt sluggish (events queued
+  // behind heavier per-tick AI flood-fill), and post-game-over
+  // keypress flushes carried into the new round with the wrong
+  // direction queued. Slower tick + edge-detected polling fixes
+  // both.
+  static const Duration _tickRate = Duration(milliseconds: 250);
 
   @override
   void initState() {
@@ -69,6 +80,11 @@ class _TronHomeState extends State<TronHome> {
   }
 
   void _onTick(Timer _) {
+    // Poll keyboard FIRST — this both detects the first key press
+    // (arming the game) and responds to in-game turns. It runs
+    // unconditionally so even the "not started" state still picks
+    // up the very-first key.
+    _pollKeyboardForTurn();
     if (!_started) return;
     if (_paused) return;
     if (_engine.status != GameStatus.playing) return;
@@ -85,6 +101,64 @@ class _TronHomeState extends State<TronHome> {
     }
   }
 
+  /// Tick-aligned keyboard polling. Looks at the CURRENT set of held
+  /// logical keys (via `HardwareKeyboard.instance.logicalKeysPressed`),
+  /// finds keys that are pressed now but weren't on the previous
+  /// poll (edge detection — a "fresh press"), and acts on the first
+  /// fresh control key.
+  ///
+  /// Why edge detection instead of snake-style "is held":
+  /// - Snake controls are absolute (Arrow Down = "face down"), so
+  ///   continuously asserting the held direction is idempotent.
+  /// - Tron controls are relative — `_turnLeft()` adds 90° CCW to
+  ///   the current heading. Continuously applying it while the user
+  ///   holds Arrow Left would spiral the bike. Only the transition
+  ///   from "not held" → "held" should turn.
+  ///
+  /// Also handles the game-over → any-key-restarts contract via the
+  /// same polling path, so post-game-over key bursts can't leak into
+  /// the next round with the wrong direction queued.
+  void _pollKeyboardForTurn() {
+    final held = HardwareKeyboard.instance.logicalKeysPressed;
+    final fresh = held.difference(_previouslyHeld);
+    _previouslyHeld = held.toSet();
+
+    if (fresh.isEmpty) return;
+
+    // Game over: any fresh press restarts. We do NOT queue a turn
+    // here — the next tick's poll will see the held key (after the
+    // restart resets `_previouslyHeld`), and apply the turn then.
+    if (_engine.status != GameStatus.playing) {
+      _restart();
+      return;
+    }
+
+    // Find the first relevant control key in the fresh set and act
+    // on it. One control per tick keeps the bike's direction from
+    // flipping on simultaneous arrow presses.
+    for (final k in fresh) {
+      if (k == LogicalKeyboardKey.arrowLeft ||
+          k == LogicalKeyboardKey.keyA) {
+        _turnLeft();
+        return;
+      }
+      if (k == LogicalKeyboardKey.arrowRight ||
+          k == LogicalKeyboardKey.keyD) {
+        _turnRight();
+        return;
+      }
+      if (k == LogicalKeyboardKey.space) {
+        if (!_started) {
+          setState(() => _started = true);
+          print('[tron] started');
+        } else {
+          _togglePause();
+        }
+        return;
+      }
+    }
+  }
+
   void _restart() {
     print('[tron] restart');
     setState(() {
@@ -96,6 +170,12 @@ class _TronHomeState extends State<TronHome> {
       _started = false;
     });
     _tickNotifier.value = _engine.tick;
+    // Reset the polling snapshot so a key the user is STILL HOLDING
+    // through the game-over → restart transition counts as a fresh
+    // press on the next tick (and steers / arms the game). Without
+    // this clear, the held key would compare equal to the previous
+    // snapshot and be ignored as "not fresh".
+    _previouslyHeld = <LogicalKeyboardKey>{};
     _focusNode.requestFocus();
   }
 
@@ -130,61 +210,30 @@ class _TronHomeState extends State<TronHome> {
 
   /// Key handler for the [KeyboardListener] wrapping the arena.
   ///
-  /// Three states + how each key behaves:
-  ///   • Not started yet — any key arms the ticker. A directional key
-  ///     ALSO queues a first turn so the user sees their press take
-  ///     effect immediately on the very first tick.
-  ///   • Playing — arrows / A / D steer; space pauses.
-  ///   • Game over — any key restarts. A directional restart queues the
-  ///     turn for the new round (so the user can keep pressing arrows
-  ///     to restart-and-go without thinking about "press space first").
+  /// Actual steering lives in [_pollKeyboardForTurn] driven from
+  /// `_onTick`, NOT here — see that method for the reasoning. This
+  /// handler does two things:
+  ///   1. Diagnostic print for every key event.
+  ///   2. Maintain `_previouslyHeld` so a fast tap+release between
+  ///      ticks is still treated as a fresh press when it arrives.
+  ///      Without this, a release between two ticks would leave the
+  ///      key in the snapshot, and the next press would be ignored
+  ///      as "not fresh".
   void _handleKey(KeyEvent event) {
-    if (event is! KeyDownEvent && event is! KeyRepeatEvent) return;
-    final k = event.logicalKey;
-    print('[tron] key=${k.debugName}');
-
-    final isLeft =
-        k == LogicalKeyboardKey.arrowLeft || k == LogicalKeyboardKey.keyA;
-    final isRight =
-        k == LogicalKeyboardKey.arrowRight || k == LogicalKeyboardKey.keyD;
-
-    // Game-over: any key restarts. If it's a direction, carry the
-    // turn into the new round.
-    if (_engine.status != GameStatus.playing) {
-      _restart();
-      if (isLeft) {
-        _turnLeft();
-        _started = true;
-      } else if (isRight) {
-        _turnRight();
-        _started = true;
-      }
+    final typeName = event.runtimeType.toString();
+    if (typeName == 'KeyUpEvent') {
+      // Drop the released key from the polling baseline so the next
+      // press (potentially within the same tick window) registers
+      // as fresh.
+      _previouslyHeld = Set<LogicalKeyboardKey>.of(_previouslyHeld)
+        ..remove(event.logicalKey);
+      print('[tron] key=${event.logicalKey.debugName} (up)');
       return;
     }
-
-    // Not started yet: any key starts. Directional keys also queue the
-    // first turn so steering feels instant.
-    if (!_started) {
-      setState(() => _started = true);
-      print('[tron] started');
-      if (isLeft) _turnLeft();
-      if (isRight) _turnRight();
+    if (typeName != 'KeyDownEvent' && typeName != 'KeyRepeatEvent') {
       return;
     }
-
-    // Playing.
-    if (isLeft) {
-      _turnLeft();
-      return;
-    }
-    if (isRight) {
-      _turnRight();
-      return;
-    }
-    if (k == LogicalKeyboardKey.space) {
-      _togglePause();
-      return;
-    }
+    print('[tron] key=${event.logicalKey.debugName}');
   }
 
   @override

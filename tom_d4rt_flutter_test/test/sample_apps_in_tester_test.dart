@@ -5018,25 +5018,44 @@ Widget build(BuildContext context) {
       });
     });
 
+    // Steering is now driven by `_pollKeyboardForTurn()` inside the
+    // 250 ms tick, not by the KeyboardListener callback. So tests
+    // must HOLD the key across a tick boundary (send key down →
+    // pump > tick rate → assert → send key up) rather than tap +
+    // pump-tiny. Helper keeps the pattern terse.
+    Future<void> holdKeyAcrossTick(
+      WidgetTester tester,
+      LogicalKeyboardKey key, {
+      int extraTicks = 0,
+    }) async {
+      await tester.sendKeyDownEvent(key);
+      // 270 ms = one tick + a small margin. Each extra tick the
+      // caller asks for adds another tick interval.
+      final ms = 270 + 250 * extraTicks;
+      await tester.pump(Duration(milliseconds: ms));
+      await tester.sendKeyUpEvent(key);
+      await tester.pump(const Duration(milliseconds: 30));
+    }
+
     testWidgets('arrow-left key queues a LEFT turn', (tester) async {
       await _runInZone(() async {
         await mountTron(tester);
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.arrowLeft);
 
         expect(
           _printLog.where((l) => l.startsWith('[tron] key=')).toList(),
           isNotEmpty,
           reason:
-              'Pressing arrowLeft should reach the script handler. If '
-              'this is empty, KeyEvent type discrimination is broken — '
-              'see the runtimeType.toString() workaround in home.dart.',
+              'Pressing arrowLeft should reach the script\'s diagnostic '
+              'handler. If this is empty, KeyEvent dispatch to the '
+              'KeyboardListener is broken.',
         );
         expect(
           _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
           hasLength(1),
-          reason: 'arrowLeft should fire exactly one LEFT turn.',
+          reason: 'arrowLeft held across one tick should fire exactly '
+              'one LEFT turn via polling.',
         );
       });
     });
@@ -5046,8 +5065,7 @@ Widget build(BuildContext context) {
       await _runInZone(() async {
         await mountTron(tester);
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.keyA);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.keyA);
 
         expect(
           _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
@@ -5060,8 +5078,7 @@ Widget build(BuildContext context) {
       await _runInZone(() async {
         await mountTron(tester);
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowRight);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.arrowRight);
 
         expect(
           _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
@@ -5075,8 +5092,7 @@ Widget build(BuildContext context) {
       await _runInZone(() async {
         await mountTron(tester);
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.keyD);
 
         expect(
           _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
@@ -5090,18 +5106,14 @@ Widget build(BuildContext context) {
       await _runInZone(() async {
         await mountTron(tester);
 
-        // The game boots in the "armed but idle" state; arrow keys
-        // start it. We need to start first because the very first
-        // space press arms the game rather than toggling pause.
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
-        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowLeft);
-        await tester.pump(const Duration(milliseconds: 30));
+        // The game boots in the "armed but idle" state. We arm it
+        // by holding arrowLeft across a tick — the same pattern
+        // every other test uses.
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.arrowLeft);
         expect(_printLog, contains('[tron] started'),
             reason: 'arrowLeft on an idle game should print "started".');
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
-        await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.space);
 
         expect(
           _printLog.where((l) => l == '[tron] paused=true').toList(),
@@ -5109,9 +5121,7 @@ Widget build(BuildContext context) {
           reason: 'First space press after start should pause.',
         );
 
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
-        await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.space);
 
         expect(
           _printLog.where((l) => l == '[tron] paused=false').toList(),
@@ -5145,47 +5155,45 @@ Widget build(BuildContext context) {
                 'idle state.');
 
         // Arming via any key starts the game.
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowRight);
-        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowRight);
-        await tester.pump(const Duration(milliseconds: 30));
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.arrowRight);
         expect(
           _printLog.where((l) => l == '[tron] started').toList(),
           hasLength(1),
           reason: 'First key press should print "[tron] started".',
         );
         // The directional key that armed the game must also queue
-        // its turn — otherwise the user wouldn't see their press
-        // take effect.
+        // its turn — polling sees the fresh press on the same tick
+        // and applies it.
         expect(
           _printLog.where((l) => l.startsWith('[tron] RIGHT')).toList(),
           hasLength(1),
           reason: 'arrowRight on an idle game should both arm the '
               'ticker AND queue a RIGHT turn.',
         );
-        // Pump past 110ms — the ticker should now actually advance.
-        await tester.pump(const Duration(milliseconds: 250));
-        // (No specific assertion on the trail here — we already
-        // proved the ticker is armed via the "started" line. Real
-        // gameplay timings are non-deterministic against the test
-        // clock.)
       });
     });
 
-    testWidgets('KeyUpEvent is ignored — only down/repeat queues a turn',
+    testWidgets('holding a key across multiple ticks fires exactly once',
         (tester) async {
+      // Regression for the "advances 3 grid units per tick" report:
+      // each held key must produce one turn (the fresh press at the
+      // first tick). Holding through subsequent ticks must NOT keep
+      // calling _turnLeft on every poll — that compounds into a
+      // spiral with tron's 90°-relative-turn model.
       await _runInZone(() async {
         await mountTron(tester);
 
-        // A press is down + up; the up half must NOT queue another turn.
-        await tester.sendKeyDownEvent(LogicalKeyboardKey.arrowLeft);
-        await tester.sendKeyUpEvent(LogicalKeyboardKey.arrowLeft);
-        await tester.pump(const Duration(milliseconds: 30));
+        // Hold arrowLeft for ~3 tick boundaries.
+        await holdKeyAcrossTick(tester, LogicalKeyboardKey.arrowLeft,
+            extraTicks: 2);
 
         expect(
           _printLog.where((l) => l.startsWith('[tron] LEFT')).toList(),
           hasLength(1),
-          reason: 'One press = one LEFT. If the count is 2, the script '
-              'is processing KeyUpEvent as a turn-trigger.',
+          reason: 'Holding arrowLeft across 3 ticks must produce '
+              'exactly one LEFT. If this is 3, edge detection in '
+              '_pollKeyboardForTurn is broken (it\'s firing on '
+              '"is held" instead of "freshly pressed").',
         );
       });
     });
