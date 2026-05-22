@@ -147,12 +147,16 @@ class TronEngine {
   // === AI ===
 
   void _decideAi() {
-    // Tuned for a friendlier first impression — too smart an AI wins
-    // before the player has time to react. Lower flood-fill limit
-    // (8 cells instead of 20) makes the AI think a couple of moves
-    // ahead rather than half-the-arena ahead, and a higher random
-    // jitter (0-3 instead of 0-1) makes it sometimes pick a
-    // suboptimal turn that the player can exploit.
+    // Original tuning. An earlier "friendlier" pass (flood-fill horizon
+    // 8, jitter 0..3, bias 1) was meant to compensate for the AI
+    // winning before the player could react, but the responsiveness
+    // problem was actually input starvation — once that was fixed
+    // via the 250 ms tick + edge-detected polling, the AI was just
+    // visibly dumb (encircling itself because 8 cells of lookahead
+    // wasn't enough to see most self-traps). Restored: 20-cell
+    // flood-fill horizon, straight-bias +2 so it doesn't dither, and
+    // a small 0..1 jitter so it still occasionally takes the less-
+    // optimal turn the player can exploit.
     final candidates = <int>[ai.dir, turnLeft(ai.dir), turnRight(ai.dir)];
     int best = ai.dir;
     int bestScore = -1;
@@ -161,12 +165,9 @@ class TronEngine {
       final nx = ai.x + s[0];
       final ny = ai.y + s[1];
       if (!_isFree(nx, ny)) continue;
-      var score = _floodScore(nx, ny, 8);
-      // Mild straight-bias so the AI doesn't dither, but small
-      // enough that it's still willing to turn when the open space
-      // ahead is comparable to the alternatives.
-      if (d == ai.dir) score += 1;
-      score += _rng.nextInt(4);
+      var score = _floodScore(nx, ny, 20);
+      if (d == ai.dir) score += 2; // prefer straight
+      score += _rng.nextInt(2);
       if (score > bestScore) {
         bestScore = score;
         best = d;
