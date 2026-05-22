@@ -2,11 +2,65 @@ import 'package:flutter/material.dart';
 
 import 'engine.dart';
 
+/// Cached, append-only Paths representing the player + AI trails in
+/// UNIT-CELL coordinates (each cell is a 1×1 square at integer
+/// `(x, y)`). The home widget owns one of these and re-uses it across
+/// paints; the painter just calls `drawPath` on the already-built
+/// Path after `canvas.scale(cellW, cellH)`.
+///
+/// Why this matters: rebuilding the Path from scratch every paint
+/// loops through every trail cell (and each iteration crosses the
+/// d4rt bridge 4-5 times to compute the Rect and addRect to the
+/// Path). By turn 30 that's ~150 bridge calls per paint × 2 sides ≈
+/// 300+ calls per frame, which exceeds one frame's budget and stalls
+/// the visible framerate. Append-only keeps it to O(1) per tick.
+class TrailPathCache {
+  final Path playerPath = Path();
+  final Path aiPath = Path();
+  int _playerLen = 0;
+  int _aiLen = 0;
+
+  /// Extend the cached paths by appending unit-cell rects for any
+  /// trail entries past the previously-known length. Call from the
+  /// home's tick handler (after `engine.step()`) so the per-tick
+  /// cost is constant — typically one addRect per side.
+  void syncFrom(TronEngine engine) {
+    final pt = engine.playerTrail;
+    while (_playerLen < pt.length) {
+      final e = pt[_playerLen];
+      playerPath.addRect(Rect.fromLTWH(
+          engine.xOf(e) + 0.05, engine.yOf(e) + 0.05, 0.9, 0.9));
+      _playerLen++;
+    }
+    final at = engine.aiTrail;
+    while (_aiLen < at.length) {
+      final e = at[_aiLen];
+      aiPath.addRect(Rect.fromLTWH(
+          engine.xOf(e) + 0.05, engine.yOf(e) + 0.05, 0.9, 0.9));
+      _aiLen++;
+    }
+  }
+
+  /// Drop the accumulated state — call from the host on engine
+  /// reset (a new round) so the next sync starts fresh.
+  void reset() {
+    playerPath.reset();
+    aiPath.reset();
+    _playerLen = 0;
+    _aiLen = 0;
+  }
+}
+
 class ArenaPainter extends CustomPainter {
   final TronEngine engine;
+  final TrailPathCache cache;
   final int tick;
 
-  ArenaPainter({required this.engine, required this.tick});
+  ArenaPainter({
+    required this.engine,
+    required this.cache,
+    required this.tick,
+  });
 
   static const Color bgColor = Color(0xFF05060A);
   static const Color playerColor = Color(0xFF00E5FF); // cyan
@@ -28,14 +82,15 @@ class ArenaPainter extends CustomPainter {
 
     canvas.drawRect(Offset.zero & size, _bg);
 
-    // Trails — batch every trail cell into ONE Path per side and
-    // draw with a single `canvas.drawPath`. The previous code issued
-    // N `drawRect` calls per side per frame, which goes through the
-    // d4rt-bridged Canvas N times — by ~60 ticks the engine was
-    // making 100+ bridge round-trips per frame and the UI dropped
-    // to a crawl. Path-based batched rendering needs just 2.
-    _paintTrailPath(canvas, engine.playerTrail, cellW, cellH, _playerPaint);
-    _paintTrailPath(canvas, engine.aiTrail, cellW, cellH, _aiPaint);
+    // Trails — paths are pre-built in unit-cell space by the host
+    // via `TrailPathCache.syncFrom(engine)`. We draw them at the
+    // current canvas scale; per-paint cost is two `drawPath` calls
+    // regardless of trail length.
+    canvas.save();
+    canvas.scale(cellW, cellH);
+    canvas.drawPath(cache.playerPath, _playerPaint);
+    canvas.drawPath(cache.aiPath, _aiPaint);
+    canvas.restore();
 
     _drawHead(canvas, engine.player.x, engine.player.y, cellW, cellH,
         _playerPaint);
@@ -44,28 +99,8 @@ class ArenaPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, _border);
   }
 
-  void _paintTrailPath(Canvas canvas, List<int> trail, double cellW,
-      double cellH, Paint paint) {
-    if (trail.isEmpty) return;
-    final path = Path();
-    for (int i = 0; i < trail.length; i++) {
-      final e = trail[i];
-      final x = engine.xOf(e);
-      final y = engine.yOf(e);
-      path.addRect(Rect.fromLTWH(
-          x * cellW + 0.6, y * cellH + 0.6, cellW - 1.2, cellH - 1.2));
-    }
-    canvas.drawPath(path, paint);
-  }
-
   void _drawHead(
       Canvas canvas, int x, int y, double cellW, double cellH, Paint paint) {
-    // Heads used to draw a blurred glow via MaskFilter.blur — every
-    // such call ran the gaussian-blur shader per frame, which is
-    // catastrophically expensive when CustomPaint runs through the
-    // d4rt interpreter. We render the head as a single filled rect
-    // instead. Visual fidelity is slightly lower but the game stays
-    // playable at the engine's 110 ms tick rate.
     canvas.drawRect(
         Rect.fromLTWH(x * cellW, y * cellH, cellW, cellH), paint);
   }

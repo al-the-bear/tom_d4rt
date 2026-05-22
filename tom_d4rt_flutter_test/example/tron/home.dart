@@ -17,6 +17,14 @@ class _TronHomeState extends State<TronHome> {
   late TronEngine _engine;
   Timer? _ticker;
 
+  /// Append-only cache of the player + AI trail Paths in unit-cell
+  /// space. We extend it here in [_onTick] right after `engine.step()`
+  /// (one rect per side per tick) and the painter just draws the
+  /// pre-built Path. Avoids rebuilding the entire Path from scratch
+  /// inside every paint, which under d4rt was so slow that the
+  /// visible framerate dropped to a frame every 6 ticks.
+  final TrailPathCache _trailCache = TrailPathCache();
+
   /// Bumped on every tick. AnimatedBuilder watches this and
   /// rebuilds ONLY the CustomPaint subtree.
   final ValueNotifier<int> _tickNotifier = ValueNotifier<int>(0);
@@ -61,6 +69,7 @@ class _TronHomeState extends State<TronHome> {
   void initState() {
     super.initState();
     _engine = TronEngine();
+    _trailCache.syncFrom(_engine);
     _focusNode.addListener(_onFocusChange);
     _start();
     print('[tron] init');
@@ -90,6 +99,9 @@ class _TronHomeState extends State<TronHome> {
     if (_engine.status != GameStatus.playing) return;
     final prev = _engine.status;
     final next = _engine.step();
+    // Extend the cached trail paths by the single cell each bike
+    // moved this tick. O(1) here vs O(trail.length) inside paint.
+    _trailCache.syncFrom(_engine);
     _tickNotifier.value = _engine.tick;
     if (next != prev && next != GameStatus.playing) {
       if (next == GameStatus.playerWin) _playerWins++;
@@ -169,6 +181,10 @@ class _TronHomeState extends State<TronHome> {
       // surprise after every restart.
       _started = false;
     });
+    // Drop the accumulated trail paths and seed with the new
+    // starting positions.
+    _trailCache.reset();
+    _trailCache.syncFrom(_engine);
     _tickNotifier.value = _engine.tick;
     // Reset the polling snapshot so a key the user is STILL HOLDING
     // through the game-over → restart transition counts as a fresh
@@ -291,6 +307,7 @@ class _TronHomeState extends State<TronHome> {
                                   return CustomPaint(
                                     painter: ArenaPainter(
                                       engine: _engine,
+                                      cache: _trailCache,
                                       tick: _tickNotifier.value,
                                     ),
                                   );
