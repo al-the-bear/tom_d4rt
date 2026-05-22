@@ -46,6 +46,21 @@ class InterpretedClass implements Callable, RuntimeType {
   // Add field for bridged superclass
   BridgedClass? bridgedSuperclass;
 
+  /// Names of the type arguments supplied to [bridgedSuperclass] in the
+  /// script's `extends` clause (e.g. `['RRect']` for
+  /// `class W extends CustomClipper<RRect>`).
+  ///
+  /// Stored because reified bridged-super generics matter at proxy-binding
+  /// time — a `CustomClipper<Path>` proxy returned from a script that
+  /// declared `extends CustomClipper<RRect>` will satisfy the static check
+  /// at the bridge boundary but fail Flutter's downstream cast (e.g.
+  /// `_RenderCustomClip<RRect>._clip = clipper.getClip(size)`). The proxy
+  /// factory uses these names to pick the right typed proxy variant.
+  ///
+  /// `null` when no extends clause exists or the bridged super has no type
+  /// arguments. Empty list when the type arguments couldn't be resolved.
+  List<String>? bridgedSuperTypeArgNames;
+
   // Helper methods to extract type parameter information from AST (similar to InterpretedFunction)
   static List<String> extractTypeParameterNames(
       STypeParameterList? typeParameters) {

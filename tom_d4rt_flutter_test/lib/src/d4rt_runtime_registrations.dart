@@ -110,7 +110,8 @@ import 'package:flutter/widgets.dart'
         WidgetState,
         WidgetStatesConstraint;
 import 'dart:ui' show Clip;
-import 'dart:ui' show Canvas, Offset, Path, Size;
+import 'dart:ui'
+    show Canvas, Offset, Path, RRect, RSuperellipse, Radius, Rect, Size;
 import 'package:tom_d4rt/d4rt.dart';
 
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
@@ -616,8 +617,35 @@ void registerD4rtInterfaceProxyOverrides() {
     instance.nativeProxy ??= proxy;
     return proxy;
   });
+  // Pick the typed CustomClipper proxy variant that matches the script's
+  // reified bridged-super type argument. Without this, a script that
+  // declares `extends CustomClipper<RRect>` would still get back a
+  // `CustomClipper<Path>` proxy — the static check at the bridge boundary
+  // accepts it, but Flutter's downstream cast in
+  // `_RenderCustomClip<RRect>._clip = clipper.getClip(size)` fails with
+  // `_NativePath is not a subtype of RRect`. See Cluster H item #22.
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
-    final proxy = _InterpretedCustomClipperPath(visitor, instance);
+    final typeArgNames = instance.klass.bridgedSuperTypeArgNames;
+    final firstArg = (typeArgNames != null && typeArgNames.isNotEmpty)
+        ? typeArgNames[0]
+        : '';
+    final Object proxy;
+    switch (firstArg) {
+      case 'RRect':
+        proxy = _InterpretedCustomClipperRRect(visitor, instance);
+        break;
+      case 'Rect':
+        proxy = _InterpretedCustomClipperRect(visitor, instance);
+        break;
+      case 'RSuperellipse':
+        proxy = _InterpretedCustomClipperRSuperellipse(visitor, instance);
+        break;
+      case 'Path':
+      case '':
+      default:
+        proxy = _InterpretedCustomClipperPath(visitor, instance);
+        break;
+    }
     instance.nativeProxy ??= proxy;
     return proxy;
   });
@@ -2976,6 +3004,102 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    final method = _instance.klass.findInstanceMethod('shouldReclip');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldClipper], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+}
+
+/// Native [CustomClipper<Rect>] backing an interpreted subclass declared
+/// as `extends CustomClipper<Rect>`. Used by `ClipRect(clipper: ...)`.
+class _InterpretedCustomClipperRect extends CustomClipper<Rect> {
+  _InterpretedCustomClipperRect(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Rect getClip(Size size) {
+    final method = _instance.klass.findInstanceMethod('getClip');
+    if (method == null) return Offset.zero & size;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [size], {});
+      if (raw is Rect) return raw;
+    } catch (_) {}
+    return Offset.zero & size;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper) {
+    final method = _instance.klass.findInstanceMethod('shouldReclip');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldClipper], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+}
+
+/// Native [CustomClipper<RRect>] backing an interpreted subclass declared
+/// as `extends CustomClipper<RRect>`. Used by `ClipRRect(clipper: ...)`.
+class _InterpretedCustomClipperRRect extends CustomClipper<RRect> {
+  _InterpretedCustomClipperRRect(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RRect getClip(Size size) {
+    final method = _instance.klass.findInstanceMethod('getClip');
+    if (method == null) return RRect.fromRectAndCorners(Offset.zero & size);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [size], {});
+      if (raw is RRect) return raw;
+    } catch (_) {}
+    return RRect.fromRectAndCorners(Offset.zero & size);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<RRect> oldClipper) {
+    final method = _instance.klass.findInstanceMethod('shouldReclip');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldClipper], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+}
+
+/// Native [CustomClipper<RSuperellipse>] backing an interpreted subclass
+/// declared as `extends CustomClipper<RSuperellipse>`.
+class _InterpretedCustomClipperRSuperellipse
+    extends CustomClipper<RSuperellipse> {
+  _InterpretedCustomClipperRSuperellipse(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RSuperellipse getClip(Size size) {
+    final method = _instance.klass.findInstanceMethod('getClip');
+    if (method == null) {
+      return RSuperellipse.fromRectAndRadius(Offset.zero & size, Radius.zero);
+    }
+    try {
+      final raw = method.bind(_instance).call(_visitor, [size], {});
+      if (raw is RSuperellipse) return raw;
+    } catch (_) {}
+    return RSuperellipse.fromRectAndRadius(Offset.zero & size, Radius.zero);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<RSuperellipse> oldClipper) {
     final method = _instance.klass.findInstanceMethod('shouldReclip');
     if (method == null) return false;
     try {

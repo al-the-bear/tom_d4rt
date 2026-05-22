@@ -8548,8 +8548,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Set the bridged superclass and clear standard superclass
         klass.bridgedSuperclass = bridgedSuperclass;
         klass.superclass = null;
+
+        // Capture the reified type arguments from the extends clause so
+        // proxy factories can pick the right typed variant (e.g.
+        // `extends CustomClipper<RRect>` → pick the RRect proxy, not the
+        // default Path one). See [InterpretedClass.bridgedSuperTypeArgNames].
+        final superTypeArgs =
+            node.extendsClause!.superclass!.typeArguments?.arguments;
+        if (superTypeArgs != null && superTypeArgs.isNotEmpty) {
+          klass.bridgedSuperTypeArgNames = superTypeArgs
+              .map((arg) => arg is SNamedType ? (arg.name?.name ?? '') : '')
+              .toList();
+        }
+
         Logger.debug(
-          "[Visitor.visitClassDeclaration] Set BRIDGED superclass '$superclassName' for '$className'",
+          "[Visitor.visitClassDeclaration] Set BRIDGED superclass '$superclassName' for '$className' (typeArgs=${klass.bridgedSuperTypeArgNames})",
         );
       } else {
         throw RuntimeD4rtException(
