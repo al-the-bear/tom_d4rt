@@ -687,9 +687,24 @@ _AbstractMethodInfo _accessorElementToInfo(
 }
 
 _MethodParam _paramElementToInfo(FormalParameterElement param) {
+  var renderedType = renderDartType(param.type);
+  // GEN-117 (Cluster B #5): When an abstract method declares an optional
+  // positional parameter with a non-nullable type and no default value
+  // (e.g. `BoxPainter createBoxPainter([VoidCallback onChanged])` on
+  // `Decoration`), the declaration is only legal on abstract methods.
+  // A concrete override (which the generated proxy emits) requires the
+  // parameter to be nullable or to carry an explicit default. Function
+  // types have no canonical zero default, so the proxy lifts the type
+  // to nullable. This matches what concrete Flutter subclasses do (e.g.
+  // `BoxDecoration.createBoxPainter([VoidCallback? onChanged])`).
+  if (param.isOptionalPositional &&
+      param.defaultValueCode == null &&
+      !renderedType.endsWith('?')) {
+    renderedType = '$renderedType?';
+  }
   return _MethodParam(
     name: param.name ?? '',
-    type: renderDartType(param.type),
+    type: renderedType,
     isNamed: param.isNamed,
     isRequired: param.isRequired,
     isOptionalPositional: param.isOptionalPositional,
@@ -1133,8 +1148,13 @@ void _emitTypedReturn(
 }) {
   final fn = _parseFunctionType(returnType);
   if (fn == null) {
+    // GEN-117 (Cluster B #5): forward the proxy-factory `visitor` so the
+    // InterpretedInstance branch of `extractBridgedArg` can resolve nested
+    // proxies (e.g. `Decoration.createBoxPainter` returning a script-side
+    // `BoxPainter` subclass needs the visitor to materialise a
+    // `D4rtBoxPainter`).
     buffer.writeln(
-      "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName');",
+      "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName', visitor);",
     );
     return;
   }
@@ -1176,12 +1196,12 @@ void _emitTypedReturn(
       }
       buffer.writeln('$indent     if (_out is List) {');
       buffer.writeln(
-        "$indent       return _out.map((e) => D4.extractBridgedArg<$elementType>(e, '$memberName')).toList();",
+        "$indent       return _out.map((e) => D4.extractBridgedArg<$elementType>(e, '$memberName', visitor)).toList();",
       );
       buffer.writeln('$indent     }');
     }
     buffer.writeln(
-      "$indent     return D4.extractBridgedArg<${fn.returnType}>(_out, '$memberName');",
+      "$indent     return D4.extractBridgedArg<${fn.returnType}>(_out, '$memberName', visitor);",
     );
     buffer.writeln('$indent   };');
   }
@@ -1190,7 +1210,7 @@ void _emitTypedReturn(
   // type (e.g. returned from another bridge call). Let extractBridgedArg
   // attempt the cast.
   buffer.writeln(
-    "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName');",
+    "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName', visitor);",
   );
 }
 

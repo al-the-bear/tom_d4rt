@@ -404,7 +404,7 @@ These are real but pre-existing problems that were merely hidden by the earlier 
 ### Cluster B — `InterpretedInstance` not accepted by Flutter constructor
 
 - [x] **fixed** 4. Reproduce `widgets/decoratedbox_test.dart` (DiagonalStripesDecoration) and trace the `D4.unwrapAs<Decoration>` path; confirm the missing hierarchy walk. Likely lives in `tom_d4rt_generator/lib/src/{relaxer_generator,bridge_generator}.dart`. (covers #9, #37)
-- [ ] **fixed** 5. Fix generator so user-defined `class X extends Decoration` is accepted via `D4.unwrapAs<Decoration>`. Regenerate `tom_d4rt_flutterm/lib/src/bridges/*.b.dart` via `tool/regenerate_bridges.dart`.
+- [x] **fixed** 5. Fix generator so user-defined `class X extends Decoration` is accepted via `D4.unwrapAs<Decoration>`. Regenerate `tom_d4rt_flutterm/lib/src/bridges/*.b.dart` via `tool/regenerate_bridges.dart`.
 - [ ] **fixed** 6. Apply the same fix to `RouteInformationParser` and `Set<Factory<OneSequenceGestureRecognizer>>` coercion. (covers #6, #37)
 
 **Cluster B status (item #4): TRACE COMPLETE — diagnosis refines the original hint.** The "missing hierarchy walk" theory was wrong: the hierarchy walk in `D4.tryCreateInterfaceProxyWithVisitor<T>` (`tom_d4rt_ast/lib/src/runtime/generator/d4.dart:2108-2182`) already collects `bridgedSuperclass.name` + `BridgedClass.transitiveSupertypeNames(...)` from every step of the interpreted class chain, including mixins and interfaces. For `DiagonalStripesDecoration`, the candidate list correctly contains `'Decoration'` (the supertype map at `d4rt_runtime_registrations.dart:238` records `'Decoration': []`). The walk is fine — what is **missing** is the entry in the proxy-factory registry itself.
@@ -428,6 +428,27 @@ These are real but pre-existing problems that were merely hidden by the earlier 
 **Refined fix target for #5 / #6** (replacing the hint in this section's intro): the gap is **declarative**, not generator code. Append `Decoration` (plus `BoxPainter` since `Decoration.createBoxPainter([VoidCallback? onChanged]) → BoxPainter` is the single abstract method scripts override, and the proxy generator emits a corresponding `D4rtBoxPainter` callback adapter), and the Cluster B counterparts `RouteInformationParser`, `RouterDelegate<T>` to `buildkit.yaml::proxyClasses`, then run `tom_d4rt_flutter_ast/tool/regenerate_bridges.dart`. The existing template in `proxy_generator.dart` handles single-abstract-method classes uniformly (see the generated `D4rtCustomPainter` at `flutter_proxies.b.dart:544-…`), so no generator code changes should be needed for #5. For `Set<Factory<…>>` (#6 second leg) the fix path is collection coercion, which is a separate trace and unrelated to the proxy-factory question.
 
 **Verification artefacts:** `tom_d4rt_flutter_ast/test/cluster_b_repro_test.dart` (added), which logs `STATUS / FE / ERROR` and reproduces the exact failure for #5 to consume. Per rule (a) — only a new test file was added and a doc updated — no broader regression run is required for #4.
+
+**Cluster B status (item #5): FIXED.** Followed the refined fix target from #4: the gap was declarative (no `Decoration`/`BoxPainter` entries in `buildkit.yaml::proxyClasses`), so adding them lets the existing proxy-template generator emit `D4rtDecoration` + `D4rtBoxPainter`. Two small generator patches were required to make the template handle this particular class pair cleanly.
+
+**Patches (labelled GEN-117):**
+
+1. `tom_d4rt_flutter_ast/buildkit.yaml::d4rtgen.proxyClasses` — appended `Decoration` and `BoxPainter` with explanatory comments referencing this cluster.
+2. `tom_d4rt_generator/lib/src/proxy_generator.dart::_paramElementToInfo` — when an abstract method declares an optional positional parameter with a non-nullable type and no default-value code (e.g. `BoxPainter createBoxPainter([VoidCallback onChanged])` on `Decoration`), lift the rendered type to nullable. The declaration is only legal on abstract methods; a concrete override (which the generated proxy emits) requires the parameter to be nullable or to carry an explicit default. Function types have no canonical zero default, so lifting to nullable is the correct desugaring.
+3. `tom_d4rt_generator/lib/src/proxy_generator.dart::_emitTypedReturn` — forward the captured `visitor` from the outer `D4.registerInterfaceProxy(name, (visitor, instance) {...})` factory closure to every nested `D4.extractBridgedArg<...>` call inside the proxy method body. Without the visitor passthrough, `D4.extractBridgedArg` enters its `InterpretedInstance` branch with no visitor and no `_activeVisitor`, skips RC-1 interface-proxy resolution, and throws even though the script returned a valid interpreted subclass. This is the path that `Decoration.createBoxPainter` (script returns a script-side `BoxPainter` subclass) needs in order to materialise a `D4rtBoxPainter`.
+
+**Regeneration & mirror:**
+- `cd tom_d4rt_flutter_ast && dart run tool/regenerate_bridges.dart` — produced the new `D4rtDecoration` (line ~537) and `D4rtBoxPainter` (line ~619) entries in `lib/src/bridges/flutter_proxies.b.dart` with their factory registrations.
+- `dart analyze` on `tom_d4rt_flutter_ast` and `tom_d4rt_generator` — both clean.
+- Interpreter mirror: no `interpreter_visitor.dart` / `d4.dart` changes needed for this item — fix is generator-side only. `tom_d4rt` ↔ `tom_d4rt_ast` stay in sync at the runtime level.
+
+**Verification:**
+- `tom_d4rt_flutter_ast/test/cluster_b_repro_test.dart` (the reproducer from item #4): framework-error delta on `widgets/decoratedbox_test.dart` is **4 → 1**. The four originals were three `createBoxPainter` "expected BoxPainter, got InterpretedInstance(_DiagonalStripesPainter)" errors plus one trailing `borderRadius`-on-non-uniform-color Flutter assertion. After the fix the three `createBoxPainter` errors are gone; the remaining 1 FE is the pre-existing `borderRadius` Flutter assertion — script-side authoring bug in the `_DiagonalStripesDecoration` demo, Cluster H2 territory (see #14), unrelated to Cluster B.
+- Rule (b) regression sweep (bridge generator changed):
+  - essential + gii: 186/0/3 — three pre-existing failures unchanged (`codecs_test` PlatformException — Cluster E #10, `key_test` Timer.run RangeError — Cluster E #9, `materialapp_test` RouteInformationParser — Cluster B #6).
+  - important: 162/0/2 — two pre-existing failures unchanged (`interactiveviewer_test` vector_math — Cluster C #7, `codecs_test` PlatformException — Cluster E #10).
+  - secondary: 651/~1/-2 — two pre-existing failures unchanged (`foundation/buffers_misc_test.dart` and `foundation/read_buffer_test.dart`, both `Bridged class '<Typed>List' has no instance method named 'toList'` — Cluster D #8).
+- No new regressions in any suite; no new framework errors introduced by the fix.
 
 ### Cluster C — Missing `vector_math_64` bridge
 

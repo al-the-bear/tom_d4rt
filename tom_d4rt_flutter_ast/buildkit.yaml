@@ -54,6 +54,27 @@ d4rtgen:
     # One abstract method:
     #   fetchSpellCheckSuggestions(Locale, String) -> Future<List<SuggestionSpan>?>
     - SpellCheckService
+    # Cluster B (testlog_20260522-1328-issue-analysis) item #5:
+    # Decoration is the abstract painting base class. Scripts subclass it
+    # to build custom decorations and pass instances to
+    # `DecoratedBox(decoration: ...)`, `Container(decoration: ...)`, etc.
+    # Single abstract method:
+    #   createBoxPainter([VoidCallback? onChanged]) -> BoxPainter
+    # All other members (`padding`, `isComplex`, `lerpFrom`, `lerpTo`,
+    # `hitTest`, `getClipPath`, `debugAssertIsValid`) are concrete and
+    # become overridable callbacks.
+    - Decoration
+    # Cluster B (testlog_20260522-1328-issue-analysis) item #5:
+    # BoxPainter is the abstract painter returned by
+    # `Decoration.createBoxPainter`. Scripts subclass it (typically as a
+    # companion to a `Decoration` subclass) to paint into the canvas.
+    # Single abstract method:
+    #   paint(Canvas, Offset, ImageConfiguration) -> void
+    # `dispose()` is the only concrete overridable. Required alongside
+    # `Decoration` so the proxy chain (`D4rtDecoration.createBoxPainter`
+    # → return InterpretedInstance(_BoxPainterSubclass)) can coerce the
+    # returned instance back to the native BoxPainter contract.
+    - BoxPainter
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui
