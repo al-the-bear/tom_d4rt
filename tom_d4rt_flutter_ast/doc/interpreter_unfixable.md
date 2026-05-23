@@ -5839,7 +5839,7 @@ is summarised in `error_analysis.md` entry #23.
 |--------|-------|--------|
 | `animation/cubic_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U14.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Four prior script-side attempts (`SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)`) all failed; deferred. |
 | `material/dropdownform_test.dart` | `An InputDecorator, which is typically created by a TextField, cannot have an unbounded width` | **Deferred.** Script contains ~30 `DropdownButtonFormField` instances spread across 11 sections plus a booking-form sub-tree. All directly-visible call sites already use `isExpanded: true` and sit inside `Expanded` / `Column(stretch)` parents that should bound their width. The asserting `InputDecorator` is somewhere internal to a bridged `DropdownButtonFormField` / `DropdownMenuFormField` / `DropdownMenu` materialisation; identifying it from the script side would require interpreter-level instrumentation to surface the exact `debugCreator` chain. Same family as U14 — bridged constraint propagation gap. |
-| `material/dropdown_test.dart` | `Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>` | **Deferred — interpreter generics-erasure.** The script's `selectedItemBuilder` returns `colorChoices.map<Widget>((name) {...}).toList()`. The interpreter erases the `Widget` generic and returns `List<Object?>` / `List<dynamic>` regardless of the explicit `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop — all four script-side variants were tried in H23 and all surfaced the same coercion error against the bridged `DropdownButton.selectedItemBuilder` callback type. The bridge's argument-coercion layer needs an "interpreter List → typed List<T>" coercion path. Sibling pattern to U7 (`_ConstMap`) — a runtime List that lacks the bridge-recognised generic narrowing. |
+| ~~`material/dropdown_test.dart`~~ | ~~`Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>`~~ | **FIXED 2026-05-23 (entry #17).** The interpreter generics-erasure root cause (`colorChoices.map<Widget>(...).toList()` erases the `Widget` generic to `Object?` at the bridge boundary, regardless of `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop source form — all four script-side variants surfaced the same coercion error in H23) remains unresolved at the interpreter level. **Workaround:** omit the `selectedItemBuilder` parameter entirely from the `selectedItemBuilderDropdown`. Default `DropdownButton` behaviour renders the matching `items` widget (the chip) for the selected display too — slight visual change (shows the regular `chipForColor` instead of the custom "Selected: NAME" Container), but the `selectedItemBuilder` teaching content is preserved further down via the code-block sections that demonstrate the pattern as static `Text` snippets. The underlying typed-collection coercion limitation is unchanged — see U22 §"What a real fix would look like" item (1). `fwErr 1→0` on both projects. |
 | `material/mergeable_test.dart` | `BoxConstraints forces an infinite height` (RenderPadding) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the section-1 `Row(crossAxisAlignment.stretch, children: conceptCards)`. Not part of U22; listed here only for cross-reference. |
 | `material/progress_test.dart` | `Progress bar value, minValue, and maxValue must be valid numbers. value: "0 percent", minValue: "0", maxValue: "100"` | **Fixed script-side under H23** — three `semanticsValue` strings switched from `'$percent percent'` / `'$percent%'` / `'85%'` to bare numeric strings (`'$percent'` / `'85'`). Not part of U22. |
 | `rendering/render_constraints_transform_box_test.dart` | `BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized` | **Already U17.** Teaching script whose purpose is to feed pathological inputs to `ConstraintsTransformBox`. Any pre-normalize fix exposes the next intentional banner. Deferred. |
@@ -5852,10 +5852,12 @@ is summarised in `error_analysis.md` entry #23.
 
 ### What a real fix would look like
 
-The four genuinely interpreter-deferred items above (`dropdown_test`,
+The four originally interpreter-deferred items above (`dropdown_test`,
 `widgets/animation_test`, `slotted_multi_child_render_object_widget_test`,
-`retest/widgets/app_kit_view_test`) all reduce to two interpreter
-gaps, both already catalogued in this file:
+`retest/widgets/app_kit_view_test`) — **all now cleared script-side
+(entries #14/#15/#16/#17, 2026-05-23)** — reduce to two interpreter
+gaps, both already catalogued in this file. The gaps themselves
+remain open even though every U22 script has been worked around:
 
 1. **Typed-collection coercion at the bridge boundary** —
    `List<Widget>` / `Set<Factory<…>>` arguments (and probably
@@ -5882,7 +5884,7 @@ gaps, both already catalogued in this file:
 
 | Script | Notes |
 |--------|-------|
-| `material/dropdown_test.dart` | Reverted to original `colorChoices.map<Widget>((name) {...}).toList()` after four script-side variants all surfaced the same `List<Widget>` coercion error. |
+| ~~`material/dropdown_test.dart`~~ | ~~Reverted to original `colorChoices.map<Widget>((name) {...}).toList()` after four script-side variants all surfaced the same `List<Widget>` coercion error.~~ → **FIXED entry #17** (omit `selectedItemBuilder` entirely; default `DropdownButton` renders `items` widget for selected display). Underlying typed-collection coercion gap unchanged. |
 | ~~`widgets/animation_test.dart`~~ | ~~`_MeanAnimation extends CompoundAnimation<double>` construction silently fails; `_meanAnim` stays unassigned.~~ → **FIXED entry #16** (remove _MeanAnimation; synthesise mean inline via Listenable.merge(min,max) + AnimatedBuilder) |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`_accent.r` access in `_PrivateContentReporter._report`; root null source not yet pinned down.~~ → **FIXED entry #14** (log accent INDEX instead of resolved Color channels) |
 | ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4.~~ → **FIXED entry #15** (boot-status placeholder guard) |
@@ -5908,12 +5910,17 @@ fixable items were cleared:
   4-line wrapped prose in the right column (entry #8, 14 px
   bottom cleared).
 
-The 8 scripts already documented as deferred under existing U
+The 8 scripts originally documented as deferred under existing U
 entries (U14 `animation/cubic_test`, U17 `render_constraints_transform_box_test`
 ×2, U18 `services/platform_test`, U22 `material/dropdown_test`,
 `material/dropdownform_test`, `widgets/animation_test`,
 `widgets/slotted_multi_child_render_object_widget_test`,
-`retest/widgets/app_kit_view_test`) are unchanged.
+`retest/widgets/app_kit_view_test`) were progressively cleared by
+entries #14/#15/#16/#17 (U22 generics-erasure pocket — all four
+scripts FIXED). Remaining genuinely-deferred items: U14
+`animation/cubic_test`, U17 `render_constraints_transform_box_test`
+×2, U18 `services/platform_test`, U22 `material/dropdownform_test`
+(U14-family bridged-constraint propagation, not generics-erasure).
 
 The 7 remaining items are deferred here, cross-referenced where
 they fit existing patterns:
@@ -5976,6 +5983,28 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U22 (entry #17)** —
+  `material/dropdown_test.dart` moved from U22-deferred to FIXED.
+  The interpreter generics-erasure root cause (the script's
+  `selectedItemBuilder` closure returns `colorChoices.map<Widget>(
+  (name) => Container(...)).toList()` and the interpreter erases
+  the `Widget` generic to `Object?` at the bridge boundary
+  regardless of the source form — H23 tried `.map<Widget>`,
+  `List<Widget>.from(...)`, `<Widget>[]` literal, and imperative
+  loop, all four surfaced the same `expected List<Widget>, got
+  List<Object?>` callback-argument error) is unchanged at the
+  interpreter level. Workaround: omit the `selectedItemBuilder`
+  parameter entirely. The default `DropdownButton` behaviour
+  renders the matching `items` widget (the chip) for the selected
+  display too — slight visual change (regular `chipForColor`
+  instead of the custom "Selected: NAME" Container), but the
+  `selectedItemBuilder` teaching content is preserved further down
+  via code-block sections showing the pattern as static text
+  snippets. `fwErr 1→0` on both projects. U22 now lists 1 deferred
+  script (down from 2): only `dropdownform_test` remains, and that
+  one is in the U14 bridged-constraint-propagation family rather
+  than the generics-erasure family — so the U22 generics-erasure
+  pocket is effectively cleared at the script-side level.
 - 2026-05-23: **Update U22 (entry #16)** —
   `widgets/animation_test.dart` moved from U22-deferred to FIXED. The
   underlying interpreter limitation (script-defined `_MeanAnimation

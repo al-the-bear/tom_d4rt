@@ -575,25 +575,26 @@ dynamic build(BuildContext context) {
         ],
       );
 
+  // U22 workaround (entry #17): the original `selectedItemBuilder`
+  // returned `colorChoices.map<Widget>((name) => Container(...)).toList()`.
+  // Under d4rt the interpreter erases the `Widget` generic and the
+  // bridge rejects the resulting `List<Object?>` with
+  // `Argument Error: Invalid parameter "callback": expected
+  // List<Widget>, got List<Object?>`. Four prior script-side
+  // variants (`map<Widget>`, `List<Widget>.from(...)`, `<Widget>[]`
+  // literal, imperative loop) all surfaced the same error per U22
+  // because the erasure happens at the bridge boundary regardless
+  // of the source form. Workaround: omit `selectedItemBuilder`
+  // entirely and use a `selectedItemBuilder`-free DropdownButton.
+  // Default behaviour renders the matching `items` widget for the
+  // selected value — slight visual change (shows the regular
+  // `chipForColor` instead of the "Selected: NAME" custom render),
+  // but the `selectedItemBuilder` teaching is preserved further
+  // down via the section-7 code-block that displays its usage
+  // pattern as a static Text snippet.
   final selectedItemBuilderDropdown = DropdownButton<String>(
     value: 'blue',
     isExpanded: true,
-    selectedItemBuilder: (BuildContext context) {
-      return colorChoices.map<Widget>((name) {
-        return Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            'Selected: ${name.toUpperCase()}',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorSwatch[name],
-              fontSize: 16.0,
-            ),
-          ),
-        );
-      }).toList();
-    },
     items: colorChoices
         .map<DropdownMenuItem<String>>(
           (name) => DropdownMenuItem<String>(

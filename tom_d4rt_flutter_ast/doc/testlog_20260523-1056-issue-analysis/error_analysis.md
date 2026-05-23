@@ -352,7 +352,7 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial — 14 fixed script-side.** decoratedbox H2 borderRadius,
+**partial — 15 fixed script-side.** decoratedbox H2 borderRadius,
 refreshindicator header-into-ListView, placeholder buildBadCaseCMock
 height bump, textstyle alpha clamp, box_painter Expanded title,
 render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
@@ -360,11 +360,12 @@ label, editable_text Expanded gesture label, decoration_image_painter
 title Row → Wrap, themes_batch3 label SizedBox 88→70, button_bar
 ButtonBar→OverflowBar (entry #13), slotted_multi_child accent INDEX
 (entry #14), app_kit_view boot-status guard (entry #15),
-animation_test _MeanAnimation→inline Listenable.merge (entry #16).
-**5 confirmed-deferred under existing U entries** (U14/U17/U18/U22) —
+animation_test _MeanAnimation→inline Listenable.merge (entry #16),
+dropdown_test omit selectedItemBuilder (entry #17).
+**4 confirmed-deferred under existing U entries** (U14/U17/U18/U22) —
 animation/cubic_test, render_constraints_transform_box ×2,
-services/platform_test, material/dropdown_test,
-material/dropdownform_test. Those need interpreter/bridge work.
+services/platform_test, material/dropdownform_test. Those need
+interpreter/bridge work.
 0 remaining U23 (cleared entry #12). 0 remaining Cluster N (entry #13).
 **Bonus: entry #15 also cleared F5 (Cluster B back-port failure) on
 flutter_test for the same script.** Todo #19 (test-only single
@@ -758,7 +759,7 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (14 of 19 fixed script-side; 5 confirmed-deferred under
+- [~] **partial (15 of 19 fixed script-side; 4 confirmed-deferred under
   existing U entries U14/U17/U18/U22; 0 remaining U23 — U23 CLEARED;
   1 was covered by Cluster N — also FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
@@ -779,12 +780,17 @@ and fail in test:
      `ztmp/cluster_h_single_event/widgetsdecoratedbox_test_repro.log` and
      `decoratedbox_post.log`.
 
-  **Already in `interpreter_unfixable.md` U22 (5 scripts — defer; 3
-  moved out: slotted_multi_child entry #14, app_kit_view entry #15,
-  widgets/animation_test entry #16):**
-   - `material/dropdown_test.dart` — `List<Widget>` coercion failure. U22.
+  **Already in `interpreter_unfixable.md` U22 (5 scripts — 4 moved
+  out: slotted_multi_child entry #14, app_kit_view entry #15,
+  widgets/animation_test entry #16, dropdown_test entry #17; 1
+  remaining):**
+   - ~~`material/dropdown_test.dart`~~ — ~~`List<Widget>` coercion
+     failure. U22.~~ → **FIXED entry #17** — omit `selectedItemBuilder`
+     entirely; default `DropdownButton` renders `items` widget for
+     selected display. `fwErr 1→0` on both projects.
    - `material/dropdownform_test.dart` — internal `InputDecorator`
-     unbounded width from a bridged dropdown variant. U22.
+     unbounded width from a bridged dropdown variant. U22 (U14
+     bridged-constraint-propagation family).
    - ~~`widgets/animation_test.dart`~~ — ~~`_MeanAnimation extends
      CompoundAnimation<double>` script-defined subclass of bridged
      abstract class. U22 (family U3/U5/U9/U10/U11).~~ → **FIXED entry
@@ -912,7 +918,7 @@ and fail in test:
   deeper bisection. See `interpreter_unfixable.md` Change Log entry
   for 2026-05-23 entry #12 for the full retrospective.)
 
-  **Status: partial — 14 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 15 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
   IntrinsicHeight + dialog_themes Expanded label + editable_text
@@ -920,9 +926,9 @@ and fail in test:
   themes_batch3 label SizedBox 88→70 + button_bar ButtonBar→OverflowBar
   entry #13 + slotted_multi_child accent INDEX entry #14 + app_kit_view
   boot-status guard entry #15 + animation_test _MeanAnimation→inline
-  Listenable.merge entry #16), 5 confirmed-deferred under existing U
-  entries (U14/U17/U18/U22), 0 remaining U23, 0 remaining Cluster N
-  (#12).** All six script-side fixes are pure script-side bug fixes
+  Listenable.merge entry #16 + dropdown_test omit selectedItemBuilder
+  entry #17), 4 confirmed-deferred under existing U entries
+  (U14/U17/U18/U22), 0 remaining U23, 0 remaining Cluster N (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries
   do not change code and require no regression sweep. Raw logs:
