@@ -1246,6 +1246,19 @@ class InterpretedInstance implements RuntimeValue {
     Logger.debug(
         "[Instance.get] Looking for '$name' on instance $hashCode of '${klass.name}'. Fields: ${_fields.keys}");
 
+    // Cluster J #29: returns true when `klass` itself or any of its
+    // ancestors via `superclass` registers a `bridgedSuperclass`. Used by
+    // the GEN-128 bridged-mixin skip below to decide whether falling
+    // through to the bridged-super walk can resolve the call.
+    bool hasBridgedSuperInChain(InterpretedClass? k) {
+      InterpretedClass? walk = k;
+      while (walk != null) {
+        if (walk.bridgedSuperclass != null) return true;
+        walk = walk.superclass;
+      }
+      return false;
+    }
+
     // Handle Object properties that all objects have
     switch (name) {
       case 'runtimeType':
@@ -1505,11 +1518,22 @@ class InterpretedInstance implements RuntimeValue {
         // not defined by the mixin, so the call must route through the
         // State's `nativeStateProxy` (RC-9 → BridgedSuperMethodCallable)
         // rather than the mixin adapter. Mirrors tom_d4rt.
+        //
+        // Cluster J #29: the skip used to fire unconditionally when no
+        // proxy was available. For purely script-side bridged mixins
+        // (e.g. `class Calculator with TestMixin` where TestMixin is
+        // registered as a `BridgedClass` with `canBeUsedAsMixin: true`)
+        // there IS no bridged-super walk to fall through to — the mixin
+        // adapter is the only resolution. Only skip when there's
+        // actually a downstream bridged-super path; otherwise call the
+        // adapter and let it succeed (TestMixin-style adapters that
+        // don't validate the target) or surface a `Native error`.
         if (identical(mixinTarget, this) &&
             (visitor == null ||
                 D4.tryCreateInterfaceProxyByName(
                         bridgedMixin.name, this, visitor) ==
-                    null)) {
+                    null) &&
+            hasBridgedSuperInChain(klass)) {
           Logger.debug(
               "[Instance.get] Skipping bridged mixin '${bridgedMixin.name}' "
               "method '$name' — no native target and no interface proxy "
