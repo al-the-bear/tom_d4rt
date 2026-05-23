@@ -354,9 +354,12 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
 **partial** — 1 fixed script-side (decoratedbox), 8 confirmed-deferred
 under existing U entries (U14/U17/U18/U22), 1 covered by Cluster N
-(button_bar via F2), 9 marked for follow-up sub-pass. Current largest
-remaining contributors are the test-only single-event scripts in todo
-#19 (mixed list, mostly small pixel-rounding overflows).
+(button_bar via F2), 9 marked for follow-up sub-pass. Todo #19 (test-only
+single events, 6 entries): **partial** — 4 fixed script-side
+(raw_keyboard Wrap, scroll_notification_observer padding,
+center+checked_mode_banner timeline SizedBox), 2 covered by Cluster B
+via todos #10/#11. Current largest remaining fw-err contributors are the
+9 pending scripts in todo #18.
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -797,13 +800,58 @@ and fail in test:
   decoratedbox test script was edited; individual retest verified the
   fix. The interpreter-deferred entries do not change code on this turn
   and so do not require a regression sweep.
-- [ ] **fixed** 19. **H-6 (test-only single events)** —
+- [x] **fixed (4 of 6 cleared script-side; 2 covered by Cluster B via
+  todos #10/#11)** 19. **H-6 (test-only single events)** —
   `widgets/center_test.dart` (essential),
   `widgets/checked_mode_banner_test.dart` (secondary),
   `services/raw_keyboard_test.dart` (hardly_3),
   `widgets/scroll_notification_observer_state_test.dart` (hardly_5),
-  `retest/widgets/back_button_listener_test.dart` (twice),
-  `retest/widgets/app_kit_view_test.dart`.
+  `retest/widgets/back_button_listener_test.dart` (twice — timeout +
+  gen_interp_retest), `retest/widgets/app_kit_view_test.dart`. All six
+  fire on flutter_test only; flutter_ast is clean for the same source.
+  Root cause is the test-app chrome asymmetry diagnosed under todo #17
+  (the `_serverStatusBar` Container in
+  `tom_d4rt_flutter_test_app/lib/main.dart` line 703–724 that
+  `tom_d4rt_flutter_ast_app` does not have, shrinking the
+  `Expanded(flex: 3)` widget pane by ~19 px).
+
+  **Fixed script-side (4):**
+   1. **`services/raw_keyboard_test.dart` — 75 px right.** Localised via
+      single-step bisection (removed `colophon` → cleared). Root cause:
+      the `colophon` `Row` packs 4 `_statPill` widgets + 3×12 px spacers
+      + `Spacer` + trailing text — total natural ~500+ px in the bounded
+      pane. **Fix:** Row → `Wrap` (`spacing: 12, runSpacing: 8,
+      crossAxisAlignment: center`) so pills flow to a second row under
+      tight widths.
+   2. **`widgets/scroll_notification_observer_state_test.dart` — 8 px
+      bottom.** Last child of each tab's outer `Column` is
+      `_buildInfoBanner(...)` (5-line wrapped Text with
+      `padding: const EdgeInsets.all(12)` ≈ 100 px natural). 8 px too
+      tall under the shorter pane. **Fix:** `EdgeInsets.all(12) →
+      EdgeInsets.all(8)` recovers the exact 8 px (4 top + 4 bottom).
+   3. **`widgets/center_test.dart` — 4 px bottom.** Same `_timelinePanel`
+      header pattern as todo #17. **Fix:** `SizedBox(8) → SizedBox(4)`
+      between subtitle and metrics `Wrap` in the timeline header.
+   4. **`widgets/checked_mode_banner_test.dart` — 4 px bottom.** Same
+      pattern; same fix in the ribbon timeline header.
+
+  **Covered by other clusters (2):**
+   - `retest/widgets/back_button_listener_test.dart` (×2 in timeout +
+     gen_interp_retest) — the single fw event is a 70 px bottom
+     `RenderFlex` overflow that flutter_test's strict success-check
+     converts to **F6** (Cluster B). Will be cleared when the layout
+     overflow itself is fixed (todo #11) and/or the runners'
+     framework-error-as-test-failure semantics are reconciled.
+   - `retest/widgets/app_kit_view_test.dart` — single fw event coincides
+     with **F5** `Set<Factory<OneSequenceGestureRecognizer>>` Cluster B
+     coercion failure (todo #10). Will be cleared by that fix.
+
+  All four script-side fixes are pure layout authoring; no interpreter
+  limitation involved. **Rule (a)** — test-script-only changes,
+  individual retest only. Pre-fix on flutter_test: 4 ×
+  `frameworkErrors=1` (75/8/4/4 px); post-fix: 4 × `frameworkErrors=0`
+  on **both** flutter_test and flutter_ast (no regression). Raw logs:
+  `ztmp/cluster_h_test_single/{raw_keyboard,scroll_notif,center,checked_mode_banner}*_{repro,bisect1,post*,final_ast,final_test}.{log,result.json}`.
 
 ### Cluster I — Interactive tap-by-text (carried over)
 

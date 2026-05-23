@@ -1194,7 +1194,14 @@ Widget _buildActionBtn(String text, IconData icon, VoidCallback onTap) {
 Widget _buildInfoBanner(String text) {
   return Container(
     width: double.infinity,
-    padding: const EdgeInsets.all(12),
+    // Cluster H follow-up: the info banner is the last child of each tab's
+    // outer Column, sitting BELOW an Expanded(log) entry. Under
+    // flutter_test_app's slightly shorter widget pane the natural
+    // height (5-line wrapped text + 12 px all-around padding ≈ 100 px)
+    // exceeds the Column slack by 8 px. Reducing the padding from 12 to
+    // 8 (saves 8 vertical px exactly) keeps the banner visible and
+    // recovers the overflow. Visual impact: slightly tighter banner.
+    padding: const EdgeInsets.all(8),
     color: _kPrimary.withValues(alpha: 0.08),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

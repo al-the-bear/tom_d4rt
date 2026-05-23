@@ -2028,16 +2028,23 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(18.0),
       border: Border.all(color: _alpha(_violet, 0.5), width: 1.0),
     ),
-    child: Row(
+    // Cluster H follow-up: 4 _statPill widgets + 3×12 spacers + Spacer +
+    // Text totalled ~500+ px natural in flutter_test_app's narrower
+    // widget pane, producing a 75 px right overflow. Switched the outer
+    // Row to a Wrap with vertical alignment center so the pills flow to
+    // a second row when the available width is tight. The trailing
+    // "rendered statically" note is wrapped in its own trailing entry —
+    // when the pills fit on one row Wrap pushes it to a second row;
+    // when the pills wrap, the note follows on the next row.
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 8.0,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
         _statPill('subject', 'RawKeyboard / RawKeyEvent', _cyan),
-        const SizedBox(width: 12.0),
         _statPill('introduced', 'Flutter 1.0', _amber),
-        const SizedBox(width: 12.0),
         _statPill('deprecated', 'Flutter 3.18', _coral),
-        const SizedBox(width: 12.0),
         _statPill('successor', 'HardwareKeyboard / KeyEvent', _lime),
-        const Spacer(),
         const Text(
           'rendered statically · no listeners attached',
           style: TextStyle(

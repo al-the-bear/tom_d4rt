@@ -1628,7 +1628,14 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                 Text('Center Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
                 const SizedBox(height: 4),
                 Text('Geometry controls, taps, and mode transitions.', style: TextStyle(color: _p.muted, fontSize: 10.7)),
-                const SizedBox(height: 8),
+                // Cluster H follow-up: same fix as
+                // widgets/callback_shortcuts_test.dart and
+                // widgets/child_back_button_dispatcher_test.dart timeline
+                // panels — the metrics Wrap adds 4 px more than the
+                // outer Column has available under flutter_test_app's
+                // slightly shorter widget pane. SizedBox(8) → SizedBox(4)
+                // recovers the exact 4 px with negligible visual impact.
+                const SizedBox(height: 4),
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,
