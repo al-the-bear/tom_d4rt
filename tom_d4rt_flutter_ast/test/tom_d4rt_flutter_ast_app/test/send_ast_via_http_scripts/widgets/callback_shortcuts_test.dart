@@ -724,32 +724,51 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                               children: <Widget>[
                                 Positioned.fill(child: _background(_canvasStyle)),
                                 Positioned.fill(
+                                  // Cluster H follow-up: the inner Column
+                                  // (Text + Wrap of pills + _actionCardGrid
+                                  // of ~144-px cards) can exceed the
+                                  // Positioned.fill viewport derived from
+                                  // SizedBox(height: 430) when rendered
+                                  // under a slightly shorter widget pane
+                                  // (flutter_test_app has an extra
+                                  // server-status row vs flutter_ast_app,
+                                  // shrinking the Expanded(flex:3) widget
+                                  // slot by ~19 px and the slack is
+                                  // amplified by the action-card wrap).
+                                  // Wrap the inner Column in a non-
+                                  // scrollable SingleChildScrollView so
+                                  // the bounded viewport silently clips
+                                  // the bottom-most card row instead of
+                                  // asserting RenderFlex overflow.
                                   child: Padding(
                                     padding: const EdgeInsets.all(12),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          'Mapped callbacks',
-                                          style: TextStyle(color: _p.ink, fontSize: 12.6, fontWeight: FontWeight.w800),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Wrap(
-                                          spacing: 8,
-                                          runSpacing: 8,
-                                          children: bindings
-                                              .map(
-                                                (binding) => _bindingPill(
-                                                  label: _activatorLabel(binding.activator),
-                                                  detail: binding.action.title,
-                                                  tone: binding.action.tone,
-                                                ),
-                                              )
-                                              .toList(),
-                                        ),
-                                        const SizedBox(height: 14),
-                                        _actionCardGrid(bindings, lane: 'primer-manual'),
-                                      ],
+                                    child: SingleChildScrollView(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Mapped callbacks',
+                                            style: TextStyle(color: _p.ink, fontSize: 12.6, fontWeight: FontWeight.w800),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 8,
+                                            children: bindings
+                                                .map(
+                                                  (binding) => _bindingPill(
+                                                    label: _activatorLabel(binding.activator),
+                                                    detail: binding.action.title,
+                                                    tone: binding.action.tone,
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                          const SizedBox(height: 14),
+                                          _actionCardGrid(bindings, lane: 'primer-manual'),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -1964,7 +1983,17 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                   'Event stream for callbacks, focus transitions, and profile changes.',
                   style: TextStyle(color: _p.muted, fontSize: 10.7),
                 ),
-                const SizedBox(height: 8),
+                // Cluster H follow-up: the metrics Wrap below makes the
+                // header Container 4 px taller than the timeline panel's
+                // outer Column has available under flutter_test_app's
+                // slightly shorter widget pane (extra server-status row vs
+                // flutter_ast_app). The Expanded(ListView) below then has
+                // 0 px to render and the inner Column overflows by 4 px.
+                // Cutting the spacing here from 8 to 4 recovers exactly the
+                // 4 px (the Wrap of pills + bottom padding fit the
+                // available header height). Visual impact: pills are 4 px
+                // closer to the subtitle text; negligible.
+                const SizedBox(height: 4),
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,

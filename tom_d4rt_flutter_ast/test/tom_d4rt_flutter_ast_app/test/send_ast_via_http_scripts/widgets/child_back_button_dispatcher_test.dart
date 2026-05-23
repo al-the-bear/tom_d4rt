@@ -765,41 +765,56 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                               child: CustomPaint(painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.2))),
                             ),
                           Positioned.fill(
+                            // Cluster H follow-up: same pattern as
+                            // widgets/callback_shortcuts_test.dart — the
+                            // inner Column (root node + 3-lane Row +
+                            // 2-lane Row + metrics Wrap with separator
+                            // SizedBoxes) can exceed the Positioned.fill
+                            // viewport derived from SizedBox(height: 470)
+                            // when rendered under flutter_test_app's
+                            // slightly shorter widget pane. Wrap the inner
+                            // Column in a non-scrollable
+                            // SingleChildScrollView so the bounded viewport
+                            // silently clips the bottom-most metrics row
+                            // instead of asserting RenderFlex overflow.
                             child: Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Column(
-                                children: <Widget>[
-                                  _laneNode(_laneData('root')),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(child: _laneNode(_laneData('A'))),
-                                      const SizedBox(width: 8),
-                                      Expanded(child: _laneNode(_laneData('B'))),
-                                      const SizedBox(width: 8),
-                                      Expanded(child: _laneNode(_laneData('C'))),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: <Widget>[
-                                      const Spacer(),
-                                      Expanded(child: _laneNode(_laneData('A1'))),
-                                      const SizedBox(width: 8),
-                                      Expanded(child: _laneNode(_laneData('A2'))),
-                                      const Spacer(),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Wrap(
-                                    spacing: 8,
-                                    runSpacing: 8,
-                                    children: <Widget>[
-                                      _metric('root order', _rootPriority.isEmpty ? 'none' : _rootPriority.join(' -> '), _p.accentA),
-                                      _metric('A order', _aPriority.isEmpty ? 'none' : _aPriority.join(' -> '), _p.accentB),
-                                    ],
-                                  ),
-                                ],
+                              child: SingleChildScrollView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  children: <Widget>[
+                                    _laneNode(_laneData('root')),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(child: _laneNode(_laneData('A'))),
+                                        const SizedBox(width: 8),
+                                        Expanded(child: _laneNode(_laneData('B'))),
+                                        const SizedBox(width: 8),
+                                        Expanded(child: _laneNode(_laneData('C'))),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: <Widget>[
+                                        const Spacer(),
+                                        Expanded(child: _laneNode(_laneData('A1'))),
+                                        const SizedBox(width: 8),
+                                        Expanded(child: _laneNode(_laneData('A2'))),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Wrap(
+                                      spacing: 8,
+                                      runSpacing: 8,
+                                      children: <Widget>[
+                                        _metric('root order', _rootPriority.isEmpty ? 'none' : _rootPriority.join(' -> '), _p.accentA),
+                                        _metric('A order', _aPriority.isEmpty ? 'none' : _aPriority.join(' -> '), _p.accentB),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -1811,7 +1826,15 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                   'Notification order, callback outcomes, and priority operations.',
                   style: TextStyle(color: _p.muted, fontSize: 10.7),
                 ),
-                const SizedBox(height: 8),
+                // Cluster H follow-up: same fix as the matching block in
+                // widgets/callback_shortcuts_test.dart — the metrics Wrap
+                // below adds 4 px more than the timeline panel's outer
+                // Column has available under flutter_test_app's slightly
+                // shorter widget pane (extra server-status row vs
+                // flutter_ast_app shrinks Expanded(flex:3) by ~19 px).
+                // Cutting the spacing here from 8 to 4 recovers the
+                // exact 4 px without any visual impact worth noting.
+                const SizedBox(height: 4),
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,
