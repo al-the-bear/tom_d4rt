@@ -68,7 +68,12 @@ class _CalculatorHomeState extends State<CalculatorHome> {
               entries: _engine.history,
               onClear: () => _wrap(_engine.clearHistory),
             ),
+            // Display column takes ~30% of the remaining vertical space;
+            // the pad takes the rest. flex ratios keep the layout sized
+            // to the available window so a short window doesn't trigger
+            // the prior unbounded-shrinkWrap overflow on the pad.
             Expanded(
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
                 child: Column(
@@ -89,18 +94,21 @@ class _CalculatorHomeState extends State<CalculatorHome> {
                 ),
               ),
             ),
-            CalculatorButtonPad(
-              onDigit: (d) => _wrap(() => _engine.inputDigit(d)),
-              onOperator: (op) => _wrap(() => _engine.inputOperator(op)),
-              onDot: () => _wrap(_engine.inputDot),
-              onEquals: () {
-                _wrap(_engine.equals);
-                _deferredClearNotice();
-              },
-              onClearAll: () => _wrap(_engine.clearAll),
-              onNegate: () => _wrap(_engine.negate),
-              onPercent: () => _wrap(_engine.percent),
-              onBackspace: () => _wrap(_engine.backspace),
+            Expanded(
+              flex: 5,
+              child: CalculatorButtonPad(
+                onDigit: (d) => _wrap(() => _engine.inputDigit(d)),
+                onOperator: (op) => _wrap(() => _engine.inputOperator(op)),
+                onDot: () => _wrap(_engine.inputDot),
+                onEquals: () {
+                  _wrap(_engine.equals);
+                  _deferredClearNotice();
+                },
+                onClearAll: () => _wrap(_engine.clearAll),
+                onNegate: () => _wrap(_engine.negate),
+                onPercent: () => _wrap(_engine.percent),
+                onBackspace: () => _wrap(_engine.backspace),
+              ),
             ),
           ],
         ),
