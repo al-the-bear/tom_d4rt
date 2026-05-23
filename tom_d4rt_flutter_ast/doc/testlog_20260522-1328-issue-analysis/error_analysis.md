@@ -47,7 +47,7 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 | 1 | `animation/tween_test.dart` | Runtime Error: Undefined variable: `build` |
 | 2 | `cupertino/scaffold_test.dart` | Runtime Error: Undefined variable: `build` |
 | 3 | `cupertino/theme_test.dart` | Runtime Error: Undefined variable: `build` |
-| 4 | `foundation/key_test.dart` | Runtime Error: Native error during static bridged method call `Timer.run`: `RangeError (length): Invalid value: Only valid value is 0: 1` |
+| 4 | `foundation/key_test.dart` | ~~Runtime Error: Native error during static bridged method call `Timer.run`: `RangeError (length): Invalid value: Only valid value is 0: 1`~~ **FIXED — Cluster E #9.** |
 | 5 | `gestures/details_test.dart` | Runtime Error: Undefined variable: `build` |
 | 6 | `material/materialapp_test.dart` | Runtime Error: Native error during bridged constructor `router` for class `MaterialApp`: Argument Error: Invalid parameter `routeInformationParser`: expected `RouteInformationParser<Object>?`, got `InterpretedInstance(_SimpleRouteParser)` |
 | 7 | `painting/gradient_shadow_test.dart` | Runtime Error: Undefined variable: `build` |
@@ -525,7 +525,15 @@ Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions*
 
 ### Cluster E — Bridged constructor native exceptions
 
-- [ ] **fixed** 9. `foundation/key_test.dart` — find the `Timer.run` call site that passes an empty/single-element list; fix script-side OR detect and wrap with proper error. (covers #4)
+- [x] **fixed** 9. `foundation/key_test.dart` — find the `Timer.run` call site that passes an empty/single-element list; fix script-side OR detect and wrap with proper error. (covers #4) — **Resolution:** **bridge bug, not script-side.** The `Timer.run` adapter in `tom_d4rt/lib/src/stdlib/async/timer.dart` (mirrored in `tom_d4rt_ast/lib/src/runtime/stdlib/async/timer.dart`) was indexing `positionalArgs[1]` even though the native signature is single-argument (`Timer.run(void Function() callback)`). Every script invocation supplied exactly one positional arg — the callback — so the bridge raised `RangeError (length): Invalid value: Only valid value is 0: 1` before ever scheduling the timer. The script's call site `Timer.run(() => debugPrint('Key demo: post-frame Timer fired'))` was correct. Fix: index `[0]` instead, and add an explicit arity guard (`length != 1 || namedArgs.isNotEmpty` → `RuntimeD4rtException`) so future misuse surfaces a clear error instead of a low-level `RangeError`. Added a 4-test unit suite (`test/stdlib/async/timer_test.dart`) in both `tom_d4rt` and `tom_d4rt_exec` covering `Timer.run` / `Timer(...)` / `Timer.periodic` happy paths plus the new arity guard — 4/4 pass in both projects. Reproducer `tom_d4rt_flutter_ast/test/cluster_e9_repro_test.dart` confirms `foundation/key_test.dart` now reports `status=success frameworkErrors=0 totalMs=2786` (pre-fix: `status=error httpStatus=400` with the `RangeError` payload). **Rule (b) regression sweep** (interpreter bridge changed; gii → essential → important → secondary, serial):
+  | Suite | Cluster B6 baseline | Post-fix | Delta |
+  |-------|---------------------|----------|-------|
+  | gii | `+80 ~2 -1` | `+80 ~2 -1` | identical |
+  | essential | `+107 -1` | `+108` | -1 cleared (key_test) |
+  | important | `+162 -2` | `+163 -1` | -1 cleared (key_test counterpart), codecs (E #10) remains |
+  | secondary | `+651 ~1 -2` | `+653 ~1` | -2 cleared (rolls in Cluster D #8 typed-data carry-over) |
+
+  Combined: **+4 newly passing, −4 failures cleared, zero regressions.** Raw logs in `tom_d4rt_flutter_ast/ztmp/cluster_e9/{repro,gii,essential,important,secondary}.log`. No `interpreter_unfixable.md` entry required — the underlying cause was a one-character bridge index bug, fixable without workaround.
 - [ ] **fixed** 10. `services/codecs_test.dart` — wrap `StandardMethodCodec.decodeEnvelope` calls in `try/catch PlatformException` per the codec's intended contract. (covers #11, #31)
 
 ### Cluster F — Script-internal null deref

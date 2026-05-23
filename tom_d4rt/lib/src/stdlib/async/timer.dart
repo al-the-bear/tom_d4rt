@@ -62,7 +62,14 @@ class TimerAsync {
             });
           },
           'run': (visitor, positionalArgs, namedArgs, _) {
-            final callback = positionalArgs[1] as InterpretedFunction;
+            // Timer.run(void Function() callback) — single positional
+            // arg. Previous code indexed positionalArgs[1], which
+            // RangeError'd ("Only valid value is 0: 1") on every call.
+            if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'Timer.run expects exactly one callback argument.');
+            }
+            final callback = positionalArgs[0] as InterpretedFunction;
             return Timer.run(() async {
               callback.call(visitor, []);
               await _yieldEventLoop();
