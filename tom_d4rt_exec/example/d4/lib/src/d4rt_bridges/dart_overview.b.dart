@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-05-03T12:23:41.862469
+// Generated: 2026-05-23T09:29:22.264169
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -657,7 +657,7 @@ class DartOverviewBridge {
         D4.requireMinArgs(positional, 1, 'swap');
         final pair$raw = positional[0];
         final pair = pair$raw is InterpretedRecord
-            ? (pair$raw.positionalFields[0] as int, pair$raw.positionalFields[1] as int)
+            ? (D4.extractBridgedArg<int>(pair$raw.positionalFields[0], 'pair.field0'), D4.extractBridgedArg<int>(pair$raw.positionalFields[1], 'pair.field1'))
             : pair$raw as (int, int);
         final $result = $d4_example_15.swap(pair);
         return InterpretedRecord([$result.$1, $result.$2], {});
@@ -1447,7 +1447,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).transform(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1756,7 +1756,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).map(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1810,7 +1810,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return (t as dynamic).fold(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }) as dynamic Function(dynamic), ((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).fold((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1892,6 +1892,7 @@ BridgedClass _createCarBridge() {
     nativeType: $d4_example_1.Car,
     name: 'Car',
     isAssignable: (v) => v is $d4_example_1.Car,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.Car();
@@ -1921,6 +1922,7 @@ BridgedClass _createMotorcycleBridge() {
     nativeType: $d4_example_1.Motorcycle,
     name: 'Motorcycle',
     isAssignable: (v) => v is $d4_example_1.Motorcycle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.Motorcycle();
@@ -1988,6 +1990,7 @@ BridgedClass _createDogAnimalBridge() {
     nativeType: $d4_example_1.DogAnimal,
     name: 'DogAnimal',
     isAssignable: (v) => v is $d4_example_1.DogAnimal,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DogAnimal');
@@ -2055,6 +2058,7 @@ BridgedClass _createJsonDataSourceBridge() {
     nativeType: $d4_example_1.JsonDataSource,
     name: 'JsonDataSource',
     isAssignable: (v) => v is $d4_example_1.JsonDataSource,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.JsonDataSource();
@@ -2084,6 +2088,7 @@ BridgedClass _createXmlDataSourceBridge() {
     nativeType: $d4_example_1.XmlDataSource,
     name: 'XmlDataSource',
     isAssignable: (v) => v is $d4_example_1.XmlDataSource,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.XmlDataSource();
@@ -2167,6 +2172,7 @@ BridgedClass _createSealedCircleBridge() {
     nativeType: $d4_example_1.SealedCircle,
     name: 'SealedCircle',
     isAssignable: (v) => v is $d4_example_1.SealedCircle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedCircle');
@@ -2195,6 +2201,7 @@ BridgedClass _createSealedSquareBridge() {
     nativeType: $d4_example_1.SealedSquare,
     name: 'SealedSquare',
     isAssignable: (v) => v is $d4_example_1.SealedSquare,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedSquare');
@@ -2223,6 +2230,7 @@ BridgedClass _createSealedTriangleBridge() {
     nativeType: $d4_example_1.SealedTriangle,
     name: 'SealedTriangle',
     isAssignable: (v) => v is $d4_example_1.SealedTriangle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SealedTriangle');
@@ -2287,6 +2295,7 @@ BridgedClass _createLoggingServiceBridge() {
     nativeType: $d4_example_1.LoggingService,
     name: 'LoggingService',
     isAssignable: (v) => v is $d4_example_1.LoggingService,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.LoggingService();
@@ -2350,6 +2359,7 @@ BridgedClass _createDerivedFromAbstractBaseBridge() {
     nativeType: $d4_example_1.DerivedFromAbstractBase,
     name: 'DerivedFromAbstractBase',
     isAssignable: (v) => v is $d4_example_1.DerivedFromAbstractBase,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.DerivedFromAbstractBase();
@@ -2406,6 +2416,7 @@ BridgedClass _createRestApiClientBridge() {
     nativeType: $d4_example_1.RestApiClient,
     name: 'RestApiClient',
     isAssignable: (v) => v is $d4_example_1.RestApiClient,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.RestApiClient();
@@ -2437,6 +2448,7 @@ BridgedClass _createGraphqlApiClientBridge() {
     nativeType: $d4_example_1.GraphqlApiClient,
     name: 'GraphqlApiClient',
     isAssignable: (v) => v is $d4_example_1.GraphqlApiClient,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_1.GraphqlApiClient();
@@ -2489,6 +2501,7 @@ BridgedClass _createSingletonHolderBridge() {
     nativeType: $d4_example_1.SingletonHolder,
     name: 'SingletonHolder',
     isAssignable: (v) => v is $d4_example_1.SingletonHolder,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -2725,6 +2738,7 @@ BridgedClass _createCircleShapeBridge() {
     nativeType: $d4_example_2.CircleShape,
     name: 'CircleShape',
     isAssignable: (v) => v is $d4_example_2.CircleShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CircleShape');
@@ -2755,6 +2769,7 @@ BridgedClass _createSquareShapeBridge() {
     nativeType: $d4_example_2.SquareShape,
     name: 'SquareShape',
     isAssignable: (v) => v is $d4_example_2.SquareShape,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SquareShape');
@@ -2842,6 +2857,7 @@ BridgedClass _createEmployeeBridge() {
     nativeType: $d4_example_2.Employee,
     name: 'Employee',
     isAssignable: (v) => v is $d4_example_2.Employee,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Employee');
@@ -2876,6 +2892,7 @@ BridgedClass _createManagerBridge() {
     nativeType: $d4_example_2.Manager,
     name: 'Manager',
     isAssignable: (v) => v is $d4_example_2.Manager,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Manager');
@@ -2954,6 +2971,7 @@ BridgedClass _createCatBridge() {
     nativeType: $d4_example_4.Cat,
     name: 'Cat',
     isAssignable: (v) => v is $d4_example_4.Cat,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Cat');
@@ -3030,6 +3048,7 @@ BridgedClass _createEmailNotificationServiceBridge() {
     nativeType: $d4_example_4.EmailNotificationService,
     name: 'EmailNotificationService',
     isAssignable: (v) => v is $d4_example_4.EmailNotificationService,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_4.EmailNotificationService();
@@ -3062,6 +3081,7 @@ BridgedClass _createSmsNotificationServiceBridge() {
     nativeType: $d4_example_4.SmsNotificationService,
     name: 'SmsNotificationService',
     isAssignable: (v) => v is $d4_example_4.SmsNotificationService,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_4.SmsNotificationService();
@@ -3177,6 +3197,7 @@ BridgedClass _createSmartThermostatBridge() {
     nativeType: $d4_example_4.SmartThermostat,
     name: 'SmartThermostat',
     isAssignable: (v) => v is $d4_example_4.SmartThermostat,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_4.SmartThermostat();
@@ -3277,6 +3298,7 @@ BridgedClass _createRobotBridge() {
     nativeType: $d4_example_4.Robot,
     name: 'Robot',
     isAssignable: (v) => v is $d4_example_4.Robot,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_4.Robot();
@@ -3307,6 +3329,7 @@ BridgedClass _createAdvancedRobotBridge() {
     nativeType: $d4_example_4.AdvancedRobot,
     name: 'AdvancedRobot',
     isAssignable: (v) => v is $d4_example_4.AdvancedRobot,
+    hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_4.AdvancedRobot();
@@ -3511,6 +3534,7 @@ BridgedClass _createSortablePersonBridge() {
     nativeType: $d4_example_5.SortablePerson,
     name: 'SortablePerson',
     isAssignable: (v) => v is $d4_example_5.SortablePerson,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SortablePerson');
@@ -3741,7 +3765,7 @@ BridgedClass _createNullableFieldsBridge() {
       'age': (visitor, target, value) => 
         D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').age = D4.extractBridgedArgOrNull<int>(value, 'age'),
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
+        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : D4.coerceList<String>(value, 'tags'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3896,6 +3920,7 @@ BridgedClass _createSerializablePrintableBridge() {
     nativeType: $d4_example_6.SerializablePrintable,
     name: 'SerializablePrintable',
     isAssignable: (v) => v is $d4_example_6.SerializablePrintable,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_6.SerializablePrintable();
@@ -3931,6 +3956,7 @@ BridgedClass _createTrackedItemBridge() {
     nativeType: $d4_example_6.TrackedItem,
     name: 'TrackedItem',
     isAssignable: (v) => v is $d4_example_6.TrackedItem,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TrackedItem');
@@ -4143,6 +4169,7 @@ BridgedClass _createMusicianBridge() {
     nativeType: $d4_example_14.Musician,
     name: 'Musician',
     isAssignable: (v) => v is $d4_example_14.Musician,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Musician');
@@ -4181,6 +4208,7 @@ BridgedClass _createProfessionalDancerBridge() {
     nativeType: $d4_example_14.ProfessionalDancer,
     name: 'ProfessionalDancer',
     isAssignable: (v) => v is $d4_example_14.ProfessionalDancer,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProfessionalDancer');
@@ -4219,6 +4247,7 @@ BridgedClass _createEntertainerBridge() {
     nativeType: $d4_example_14.Entertainer,
     name: 'Entertainer',
     isAssignable: (v) => v is $d4_example_14.Entertainer,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Entertainer');
@@ -4269,6 +4298,7 @@ BridgedClass _createCountableItemBridge() {
     nativeType: $d4_example_14.CountableItem,
     name: 'CountableItem',
     isAssignable: (v) => v is $d4_example_14.CountableItem,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.CountableItem();
@@ -4317,6 +4347,7 @@ BridgedClass _createConsoleLoggerBridge() {
     nativeType: $d4_example_14.ConsoleLogger,
     name: 'ConsoleLogger',
     isAssignable: (v) => v is $d4_example_14.ConsoleLogger,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.ConsoleLogger();
@@ -4374,6 +4405,7 @@ BridgedClass _createMultiMixedBridge() {
     nativeType: $d4_example_14.MultiMixed,
     name: 'MultiMixed',
     isAssignable: (v) => v is $d4_example_14.MultiMixed,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.MultiMixed();
@@ -4435,6 +4467,7 @@ BridgedClass _createHelpfulServiceBridge() {
     nativeType: $d4_example_14.HelpfulService,
     name: 'HelpfulService',
     isAssignable: (v) => v is $d4_example_14.HelpfulService,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $d4_example_14.HelpfulService();
@@ -4471,6 +4504,7 @@ BridgedClass _createButtonBridge() {
     nativeType: $d4_example_14.Button,
     name: 'Button',
     isAssignable: (v) => v is $d4_example_14.Button,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Button');
@@ -4539,6 +4573,7 @@ BridgedClass _createSortableItemBridge() {
     nativeType: $d4_example_14.SortableItem,
     name: 'SortableItem',
     isAssignable: (v) => v is $d4_example_14.SortableItem,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SortableItem');
@@ -4785,6 +4820,7 @@ BridgedClass _createComparableMixinBridge() {
     nativeType: $d4_example_14.ComparableMixin,
     name: 'ComparableMixin',
     isAssignable: (v) => v is $d4_example_14.ComparableMixin,
+    hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {

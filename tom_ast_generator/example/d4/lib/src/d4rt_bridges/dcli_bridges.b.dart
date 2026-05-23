@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-05-03T12:23:32.531662
+// Generated: 2026-05-20T12:42:31.040232
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1099,7 +1099,7 @@ class DcliBridge {
           throw ArgumentError('withOpenFile: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = (($dcli_35.FileSync p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [p0])); }) as dynamic Function($dcli_35.FileSync);
+        final action = ($dcli_35.FileSync p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [p0])); };
         final fileMode = D4.getNamedArgWithDefault<FileMode>(named, 'fileMode', FileMode.writeOnlyAppend);
         return $dcli_35.withOpenFile<dynamic>(pathToFile, action, fileMode: fileMode);
       },
@@ -6185,7 +6185,7 @@ BridgedClass _createFindProgressBridge() {
       'workingDirectory': (visitor, target, value) => 
         D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').workingDirectory = D4.extractBridgedArg<String>(value, 'workingDirectory'),
       'types': (visitor, target, value) => 
-        D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').types = (value as List).cast<FileSystemEntityType>().toList(),
+        D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').types = D4.coerceList<FileSystemEntityType>(value, 'types'),
     },
     methods: {
       'forEach': (visitor, target, positional, named, typeArgs) {

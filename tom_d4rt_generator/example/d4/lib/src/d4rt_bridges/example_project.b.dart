@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-05-03T13:57:28.278446
+// Generated: 2026-05-23T09:36:01.245662
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -463,7 +463,7 @@ class ExampleProjectBridge {
           throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
         }
         final processorRaw = positional[1];
-        final processor = ((dynamic p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, processorRaw, [p0]), 'callback', visitor) as Future<dynamic>; }) as Future<dynamic> Function(dynamic);
+        final processor = ((dynamic p0) { return Future.value(D4.callInterpreterCallback(visitor!, processorRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(dynamic);
         return $d4_example_5.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
@@ -1165,6 +1165,7 @@ BridgedClass _createEntityBridge() {
     nativeType: $d4_example_4.Entity,
     name: 'Entity',
     isAssignable: (v) => v is $d4_example_4.Entity,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Entity');
@@ -1573,6 +1574,7 @@ BridgedClass _createCircleBridge() {
     nativeType: $d4_example_6.Circle,
     name: 'Circle',
     isAssignable: (v) => v is $d4_example_6.Circle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
@@ -1624,6 +1626,7 @@ BridgedClass _createRectangleBridge() {
     nativeType: $d4_example_6.Rectangle,
     name: 'Rectangle',
     isAssignable: (v) => v is $d4_example_6.Rectangle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rectangle');
@@ -1732,6 +1735,7 @@ BridgedClass _createPointBridge() {
     nativeType: $d4_example_6.Point,
     name: 'Point',
     isAssignable: (v) => v is $d4_example_6.Point,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Point');
@@ -1813,6 +1817,7 @@ BridgedClass _createColoredRectangleBridge() {
     nativeType: $d4_example_6.ColoredRectangle,
     name: 'ColoredRectangle',
     isAssignable: (v) => v is $d4_example_6.ColoredRectangle,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ColoredRectangle');

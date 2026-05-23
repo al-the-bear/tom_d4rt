@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_extensions.dart
-// Generated: 2026-05-03T12:23:36.542723
+// Generated: 2026-05-23T09:29:15.490868
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -158,7 +158,7 @@ class CoreExtensionsBridge {
           throw ArgumentError('processItems: Missing required argument "transform" at position 1');
         }
         final transformRaw = positional[1];
-        final transform = ((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); }) as dynamic Function(dynamic);
+        final transform = (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); };
         return $d4_example_1.processItems<dynamic, dynamic>(items, transform);
       },
       'filterItems': (visitor, positional, named, typeArgs) {
@@ -248,7 +248,7 @@ BridgedClass _createItemProcessorBridge() {
           throw ArgumentError('ItemProcessor: Missing required argument "transform" at position 0');
         }
         final transformRaw = positional[0];
-        return $d4_example_1.ItemProcessor(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); }) as dynamic Function(dynamic));
+        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformRaw, [p0])); });
       },
       'identity': (visitor, positional, named) {
         return $d4_example_1.ItemProcessor.identity();

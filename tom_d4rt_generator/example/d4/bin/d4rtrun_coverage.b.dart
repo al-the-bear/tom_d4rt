@@ -1,23 +1,23 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4_example
-// Generated: 2026-05-23T07:21:23.338488
+// Generated: 2026-05-23T09:36:06.552693
 
 // ignore_for_file: avoid_print
 
 //
 // Usage:
-//   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
-//   dart run bin/d4rtrun.b.dart "<expression>"      Evaluate an expression
-//   dart run bin/d4rtrun.b.dart --eval-file <file>  Evaluate file content with eval()
-//   dart run bin/d4rtrun.b.dart --init-eval         Validate bridge registrations
-//   dart run bin/d4rtrun.b.dart --test <file>       Test script (structured JSON output)
-//   dart run bin/d4rtrun.b.dart --test-eval <init> <expr>  Test eval (structured JSON output)
+//   dart run bin/d4rtrun_coverage.b.dart <script.dart|.d4rt>  Run a D4rt script file
+//   dart run bin/d4rtrun_coverage.b.dart "<expression>"      Evaluate an expression
+//   dart run bin/d4rtrun_coverage.b.dart --eval-file <file>  Evaluate file content with eval()
+//   dart run bin/d4rtrun_coverage.b.dart --init-eval         Validate bridge registrations
+//   dart run bin/d4rtrun_coverage.b.dart --test <file>       Test script (structured JSON output)
+//   dart run bin/d4rtrun_coverage.b.dart --test-eval <init> <expr>  Test eval (structured JSON output)
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import 'package:d4_example/src/d4rt_bridges/core_extensions.b.dart' as core_extensions_bridges;
 import 'package:d4_example/src/d4rt_bridges/example_project.b.dart' as example_project_bridges;
 import 'package:d4_example/src/d4rt_bridges/user_guide.b.dart' as user_guide_bridges;
@@ -111,12 +111,12 @@ void _logD4Invocation(String mode, String input) {
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
     stderr.writeln('Usage:');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart "<expression>"      Evaluate an expression');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart --eval-file <file>  Evaluate file content with eval()');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart --init-eval         Validate bridge registrations');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart --test <file>       Test script (structured JSON output)');
-    stderr.writeln('  dart run bin/d4rtrun.b.dart --test-eval <init> <expr>  Test eval (structured JSON)');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart <script.dart|.d4rt>  Run a D4rt script file');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart "<expression>"      Evaluate an expression');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart --eval-file <file>  Evaluate file content with eval()');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart --init-eval         Validate bridge registrations');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart --test <file>       Test script (structured JSON output)');
+    stderr.writeln('  dart run bin/d4rtrun_coverage.b.dart --test-eval <init> <expr>  Test eval (structured JSON)');
     exit(1);
   }
 

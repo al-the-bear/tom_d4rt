@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-05-03T12:23:31.609403
+// Generated: 2026-05-20T12:42:29.662660
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -657,7 +657,7 @@ class DartOverviewBridge {
         D4.requireMinArgs(positional, 1, 'swap');
         final pair$raw = positional[0];
         final pair = pair$raw is InterpretedRecord
-            ? (pair$raw.positionalFields[0] as int, pair$raw.positionalFields[1] as int)
+            ? (D4.extractBridgedArg<int>(pair$raw.positionalFields[0], 'pair.field0'), D4.extractBridgedArg<int>(pair$raw.positionalFields[1], 'pair.field1'))
             : pair$raw as (int, int);
         final $result = $d4_example_15.swap(pair);
         return InterpretedRecord([$result.$1, $result.$2], {});
@@ -1447,7 +1447,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).transform(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1756,7 +1756,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return (t as dynamic).map(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, fRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -1810,7 +1810,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return (t as dynamic).fold(((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }) as dynamic Function(dynamic), ((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); }) as dynamic Function(dynamic));
+        return (t as dynamic).fold((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, onFailureRaw, [p0])); });
       },
     },
     constructorSignatures: {
@@ -3741,7 +3741,7 @@ BridgedClass _createNullableFieldsBridge() {
       'age': (visitor, target, value) => 
         D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').age = D4.extractBridgedArgOrNull<int>(value, 'age'),
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
+        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : D4.coerceList<String>(value, 'tags'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
