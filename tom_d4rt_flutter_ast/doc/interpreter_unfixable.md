@@ -5920,7 +5920,7 @@ they fit existing patterns:
 
 | Script | Error | Status |
 |--------|-------|--------|
-| `painting/textstyle_test.dart` | `Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion` | **New bridge gap.** The bridged `MaterialColor.withOpacity()` hits a Flutter SDK assertion in `Color.withOpacity` (line 342 of `dart:ui/painting.dart`) that the native widget would not normally trigger. Likely the bridge passes through an out-of-range alpha or the receiver is the wrong runtime type. Script-side workaround: replace `colorRef.withOpacity(α)` with `colorRef.withValues(alpha: α)` (the SDK-recommended replacement) or use `MaterialColor.shade*` constants directly. Sibling family: U13 (native exceptions across bridges). |
+| ~~`painting/textstyle_test.dart`~~ | ~~`Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion`~~ | **FIXED 2026-05-23 (entry #9).** Investigation showed this was a **script-side bug**, not a bridge gap: `Colors.grey.withOpacity(0.18 * (7 - i))` at line 1074 with `i=1` evaluates to `1.08`, exceeding Flutter's `assert(opacity >= 0.0 && opacity <= 1.0)` in `dart:ui/painting.dart` line 342. Native Flutter would assert at the same line — not a bridge-specific issue. **Fix:** clamp the computed alpha to `[0.0, 1.0]`. `frameworkErrors=1 → 0` on both projects. The "withOpacity on MaterialColor" framing in the earlier note was a red herring — the receiver type was incidental; the trigger was the out-of-range numeric input. |
 | `material/dialog_themes_test.dart` | `RenderFlex overflowed by 2.0 px on the right` | **U15 family.** Cupertino/Material bridge layout-rounding gap. Non-fatal; test passes. Per-script bisection would localise the exact culprit Row, but the bridge rounding can re-introduce on adjacent edits. Defer. |
 | `cupertino/cupertino_themes_batch3_test.dart` | `RenderFlex overflowed by 1.8 px on the right` | **U15 family.** Same as above. (Previously cleared by entry #21 of 20260522-1328 then re-introduced by post-fix content changes.) |
 | `painting/box_painter_test.dart` | `RenderFlex overflowed by 3.8 px on the right` | **U15 family.** Same. |
@@ -5964,7 +5964,7 @@ infinite-height issue is identical to the
 
 | Script | Suite | Status |
 |--------|-------|--------|
-| `painting/textstyle_test.dart` | essential | U23 |
+| ~~`painting/textstyle_test.dart`~~ | ~~essential~~ | ~~U23~~ → **FIXED entry #9** (script-side alpha clamp) |
 | `material/dialog_themes_test.dart` | important | U23 (U15 family) |
 | `cupertino/cupertino_themes_batch3_test.dart` | important | U23 (U15 family) |
 | `painting/box_painter_test.dart` | secondary | U23 (U15 family) |
@@ -5976,6 +5976,21 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U23** — `painting/textstyle_test.dart`
+  removed from deferred list and marked FIXED in entry #9 of
+  `testlog_20260523-1056-issue-analysis/error_analysis.md`. Root
+  cause was script-side (alpha computation `0.18 * (7 - i)` at
+  `i=1` evaluates to `1.08`, exceeding the SDK's
+  `assert(opacity >= 0.0 && opacity <= 1.0)`), not a bridge gap.
+  Fix: clamp the computed alpha to `[0.0, 1.0]`. U23 now lists 6
+  deferred scripts (down from 7): 5 small-pixel right overflows
+  under U15 family + 1 infinite-height under U14 family. Attempt
+  to fix `cupertino/cupertino_themes_batch3_test.dart` (1.8 px
+  right) by converting the `sampleControls` first Row to a Wrap
+  was tried under entry #9 and **reverted** — the overflow is
+  deeper inside the bridged Cupertino controls (likely
+  `CupertinoSwitch`/`CupertinoSlider` width measurement),
+  consistent with U15 family.
 - 2026-05-23: **Add U23** — 20260523-1056 H-5 follow-up: 7
   single-event scripts deferred (5 small-pixel right overflows
   under U15 family, 1 bridge SDK assertion on

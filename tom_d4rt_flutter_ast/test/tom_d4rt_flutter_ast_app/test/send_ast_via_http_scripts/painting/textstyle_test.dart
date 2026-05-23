@@ -1068,10 +1068,18 @@ class TextStyleDemoApp extends StatelessWidget {
       _ShadowCase(
         label: 'long cast',
         shadows: [
+          // Cluster H follow-up: original alpha was `0.18 * (7 - i)` which
+          // at i=1 evaluates to 1.08, exceeding Flutter's
+          // `assert(opacity >= 0.0 && opacity <= 1.0)` in dart:ui/painting.dart
+          // line 342 and producing the captured framework error. Clamped
+          // to [0.0, 1.0]. The visual intent (a 6-step shadow ramp) is
+          // preserved — i=1 now uses the maximum 1.0 alpha and the
+          // remaining steps unchanged (0.90, 0.72, 0.54, 0.36, 0.18).
           for (var i = 1; i <= 6; i++)
             Shadow(
               blurRadius: 0.0,
-              color: Colors.grey.withOpacity(0.18 * (7 - i)),
+              color: Colors.grey
+                  .withOpacity((0.18 * (7 - i)).clamp(0.0, 1.0)),
               offset: Offset(i.toDouble(), i.toDouble()),
             ),
         ],

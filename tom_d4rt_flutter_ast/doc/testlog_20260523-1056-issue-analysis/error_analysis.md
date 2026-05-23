@@ -352,12 +352,12 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial** — 3 fixed script-side (decoratedbox H2 borderRadius,
+**partial** — 4 fixed script-side (decoratedbox H2 borderRadius,
 refreshindicator header-into-ListView, placeholder buildBadCaseCMock
-height bump), 8 confirmed-deferred under existing U entries
-(U14/U17/U18/U22), 7 deferred under new U23 entry (5 small-pixel U15
-family + textstyle U13 family + render_exclude_semantics U14 family),
-1 covered by Cluster N (button_bar via F2). Todo #19 (test-only single
+height bump, textstyle alpha clamp), 8 confirmed-deferred under
+existing U entries (U14/U17/U18/U22), 6 deferred under U23 entry (5
+small-pixel U15 family + render_exclude_semantics U14 family), 1
+covered by Cluster N (button_bar via F2). Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -718,8 +718,8 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (3 of 19 fixed script-side, 15 deferred to U-entries
-  (8 existing + 7 new U23), 1 covered by Cluster N)** 18.
+- [~] **partial (4 of 19 fixed script-side, 14 deferred to U-entries
+  (8 existing + 6 new U23), 1 covered by Cluster N)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -765,7 +765,21 @@ and fail in test:
      also clear this fw event because the script will no longer fail to
      build past the ButtonBar lookup. No standalone fix in this todo.
 
-  **Follow-up sub-pass fixed (2 of 9):**
+  **Follow-up sub-pass fixed (3 of 9):**
+   - **`painting/textstyle_test.dart`** (entry #9) — was initially
+     thought to be a bridge gap (`MaterialColor.withOpacity` Flutter SDK
+     assertion). Investigation showed it's actually a **script-side
+     bug**: `Colors.grey.withOpacity(0.18 * (7 - i))` at line 1074 with
+     `i = 1` evaluates to `1.08`, exceeding Flutter's
+     `assert(opacity >= 0.0 && opacity <= 1.0)` in
+     `dart:ui/painting.dart` line 342. Native Flutter would also assert
+     here. **Fix:** clamp the computed alpha to `[0.0, 1.0]`. The
+     6-step shadow ramp's visual intent is preserved (i=1 now uses the
+     max 1.0 alpha; remaining steps unchanged at 0.90/0.72/0.54/0.36/0.18).
+     `fwErr 1→0` on both projects. Raw logs:
+     `ztmp/cluster_h_single_event/textstyle_post{,_test}.log`.
+
+  Plus the 2 from the earlier entry #8 sub-pass:
    - `material/refreshindicator_test.dart` — `RenderFlex overflowed by
      53 pixels on the bottom`. Default tab's outer `Column>[_headerCard,
      chipRow, SizedBox, Expanded(RefreshIndicator>ListView)]` — header +
@@ -789,12 +803,8 @@ and fail in test:
      label + 6 px spacer = 105 px natural). Left container (height 80)
      still fits with Row crossAxisAlignment.center. `fwErr 1→0`.
 
-  **Deferred under new U23 entry (7 of 9):**
-   - `painting/textstyle_test.dart` — `MaterialColor.withOpacity` hits
-     Flutter SDK assertion in `dart:ui/painting.dart` line 342.
-     **U23** (new bridge gap, U13 family). Script-side workaround:
-     `.withValues(alpha:)` instead of `.withOpacity()` (the SDK's own
-     recommended replacement).
+  **Deferred under U23 entry (6 of 9 — textstyle moved out as
+  FIXED above):**
    - `material/dialog_themes_test.dart` — 2.0 px right. **U23 (U15
      family).** Material bridge layout-rounding.
    - `cupertino/cupertino_themes_batch3_test.dart` — 1.8 px right.
@@ -810,15 +820,25 @@ and fail in test:
      forces an infinite height`. **U23 (U14 family).** Same as
      `animation/cubic_test.dart` (already U14).
 
-  **Status: partial — 3 of 19 cleared script-side (decoratedbox +
-  refresh + placeholder), 8 confirmed-deferred under existing U
-  entries (U14/U17/U18/U22), 7 deferred under new U23 entry, 1
-  covered by Cluster N (#12).** All three script-side fixes are pure
-  layout authoring. **Rule (a)** — test-script-only changes, individual
-  retest verified each (`fwErr 1→0`); the deferred entries do not
-  change code and require no regression sweep. Raw logs:
-  `ztmp/cluster_h_single_event/{refresh,placeholder}_*.{log,result.json}`
+  **Status: partial — 4 of 19 cleared script-side (decoratedbox +
+  refresh + placeholder + textstyle alpha clamp), 8 confirmed-deferred
+  under existing U entries (U14/U17/U18/U22), 6 deferred under U23
+  entry, 1 covered by Cluster N (#12).** All four script-side fixes are
+  pure script-side bug fixes (no interpreter limitation). **Rule (a)**
+  — test-script-only changes, individual retest verified each
+  (`fwErr 1→0`); the deferred entries do not change code and require
+  no regression sweep. Raw logs:
+  `ztmp/cluster_h_single_event/{refresh,placeholder,textstyle}_*.{log,result.json}`
   and the earlier `decoratedbox_post.log`.
+
+  **Attempt under entry #9 that was reverted:** tried to fix
+  `cupertino/cupertino_themes_batch3_test.dart` (1.8 px right) by
+  converting the `sampleControls` first Row to a Wrap. Localised the
+  source to `section15` via 5-step bisection (1-7 → 1-11 → 1-13 →
+  1-14 → 1-15 → fw_err returns), but the Wrap conversion didn't clear
+  it — the overflow is deeper inside the bridged Cupertino controls
+  (likely `CupertinoSwitch` / `CupertinoSlider` width measurement),
+  consistent with U15 family. Reverted; the script stays U23.
 - [x] **fixed (4 of 6 cleared script-side; 2 covered by Cluster B via
   todos #10/#11)** 19. **H-6 (test-only single events)** —
   `widgets/center_test.dart` (essential),
