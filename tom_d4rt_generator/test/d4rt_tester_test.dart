@@ -42,9 +42,18 @@ void main() {
   setUpAll(() async {
     // Load config from d4 project
     config = BuildConfigLoader.loadFromTomBuildYaml(_d4Project)!;
+    // Cluster M #34: give this suite its own runner-source and compiled-
+    // binary names so it can run in parallel with d4rt_coverage_test.dart
+    // without ETXTBSY ("Text file busy") on bin/d4. Both suites share the
+    // same `example/d4` project, so without distinct names dart's
+    // `compile exe -o bin/d4` in one suite's setUpAll races against
+    // `Process.start(bin/d4)` in the other suite's tests. Same pattern and
+    // fix as Cluster K #32 in tom_d4rt_exec.
     tester = D4rtTester(
       projectPath: _d4Project,
       defaultTimeout: const Duration(seconds: 30),
+      runnerExecutable: 'd4rtrun_tester.b',
+      compiledBinaryName: 'd4_tester',
     );
 
     // Generate bridges once for all tests
