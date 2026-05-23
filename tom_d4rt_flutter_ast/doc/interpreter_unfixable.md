@@ -5822,8 +5822,88 @@ Two patterns cover all known sites:
 
 ---
 
+## U22 — H23 single-event scripts deferred to interpreter-level work
+
+The H23 cluster (`testlog_20260522-1328-issue-analysis/error_analysis.md`
+entry #23, twelve scripts each reporting exactly one framework
+error) was originally classified as a homogeneous "one-event
+overflow" batch needing `Flexible` / `Expanded` / `SizedBox`
+adjustments. Reproduction showed the errors are diverse, and
+several map to script-side / interpreter-level patterns already
+documented elsewhere in this file or to new interpreter-level
+gaps. The following table summarises the deferred-as-unfixable
+items; the rest of the batch was fixed script-side under H23 and
+is summarised in `error_analysis.md` entry #23.
+
+| Script | Error | Status |
+|--------|-------|--------|
+| `animation/cubic_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U14.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Four prior script-side attempts (`SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)`) all failed; deferred. |
+| `material/dropdownform_test.dart` | `An InputDecorator, which is typically created by a TextField, cannot have an unbounded width` | **Deferred.** Script contains ~30 `DropdownButtonFormField` instances spread across 11 sections plus a booking-form sub-tree. All directly-visible call sites already use `isExpanded: true` and sit inside `Expanded` / `Column(stretch)` parents that should bound their width. The asserting `InputDecorator` is somewhere internal to a bridged `DropdownButtonFormField` / `DropdownMenuFormField` / `DropdownMenu` materialisation; identifying it from the script side would require interpreter-level instrumentation to surface the exact `debugCreator` chain. Same family as U14 — bridged constraint propagation gap. |
+| `material/dropdown_test.dart` | `Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>` | **Deferred — interpreter generics-erasure.** The script's `selectedItemBuilder` returns `colorChoices.map<Widget>((name) {...}).toList()`. The interpreter erases the `Widget` generic and returns `List<Object?>` / `List<dynamic>` regardless of the explicit `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop — all four script-side variants were tried in H23 and all surfaced the same coercion error against the bridged `DropdownButton.selectedItemBuilder` callback type. The bridge's argument-coercion layer needs an "interpreter List → typed List<T>" coercion path. Sibling pattern to U7 (`_ConstMap`) — a runtime List that lacks the bridge-recognised generic narrowing. |
+| `material/mergeable_test.dart` | `BoxConstraints forces an infinite height` (RenderPadding) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the section-1 `Row(crossAxisAlignment.stretch, children: conceptCards)`. Not part of U22; listed here only for cross-reference. |
+| `material/progress_test.dart` | `Progress bar value, minValue, and maxValue must be valid numbers. value: "0 percent", minValue: "0", maxValue: "100"` | **Fixed script-side under H23** — three `semanticsValue` strings switched from `'$percent percent'` / `'$percent%'` / `'85%'` to bare numeric strings (`'$percent'` / `'85'`). Not part of U22. |
+| `rendering/render_constraints_transform_box_test.dart` | `BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized` | **Already U17.** Teaching script whose purpose is to feed pathological inputs to `ConstraintsTransformBox`. Any pre-normalize fix exposes the next intentional banner. Deferred. |
+| `scheduler/ticker_test.dart` | `BoxConstraints forces an infinite height` (RenderDecoratedBox) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the per-row `Row(crossAxisAlignment.stretch, children: [Expanded(buildCompCell)…])` comparison-table builder. Not part of U22. |
+| `services/platform_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U18.** `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard). All four script-side variants crash the test-app transport, worse than the recoverable baseline banner. Deferred. |
+| `widgets/animation_test.dart` | `Runtime Error: LateInitializationError: Late variable '_meanAnim' without initializer is accessed before being assigned.` | **Deferred — interpreter limitation.** `_meanAnim = _MeanAnimation(_primary, _secondary)` is assigned in `initState`, but `_MeanAnimation extends CompoundAnimation<double>` is a script-defined subclass of a bridged abstract class. The d4rt construction silently fails (returns null or never executes the assignment), leaving the `late final` field unassigned. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U9 (`RouteAware`), U10 (`DiagnosticableTreeMixin`), U11 (`HitTestTarget`): a script-defined subtype of a bridged native abstract / mixin class cannot cross the d4rt → native boundary as that native type. Script-side workaround would require replacing `_MeanAnimation` with a non-`CompoundAnimation` Animation impl driven manually by a listener — significant rewrite of the demo (deferred). |
+| `widgets/slotted_multi_child_render_object_widget_test.dart` | `Runtime Error: Cannot access property 'r' on target of type null.` | **Deferred — interpreter null access on bridged Color M3 channel.** `_accent.r.toStringAsFixed(2)` in `_PrivateContentReporter._report` accesses the M3 float channel API on a `Color` returned by `_accents[_accentIndex.round() % _accents.length]`. The bridge either returns null for `Color.r` on a value that is not the exact bridged `Color` runtime type, or `_accent` itself is null at some point in the build cycle. The `_accent` getter is `_accents[…]` — `_accents` is a script-defined `List<Color>` literal so its element type may erase to `Object?` (same family as the `material/dropdown_test.dart` generics-erasure issue), and the bridge then rejects `.r` on the dynamic-typed result. Script-side workaround possible (drop the `.r/.g/.b` triple, use `.toString()` or `_accent.value.toRadixString(16)`) but the demo's purpose is to exercise the M3 Color API — defer until the bridge surfaces the actual null source. |
+| `retest/widgets/app_kit_view_test.dart` | `Runtime Error: Native error during default bridged constructor for 'AppKitView': Argument Error: Invalid parameter "gestureRecognizers": cannot convert to Set<Factory<OneSequenceGestureRecognizer>>` | **Deferred — interpreter generics-erasure on Set<Factory<T>>.** Sibling of the `dropdown_test.dart` `List<Widget>` case (and noted in `error_analysis.md` H23 row as "also fixed by Cluster B item 4" — i.e. expected to be cleared by the Cluster B / B-item-4 fix in this same testlog). The script passes a `Set<Factory<OneSequenceGestureRecognizer>>` (or empty set) to `AppKitView` and the bridge's coercion layer cannot narrow the interpreter-side `Set<Object?>` / `Set<dynamic>` back to the parameterised type. Defer pending Cluster B item 4 / the interpreter's typed-collection coercion work. |
+| `foundation/diagnosticable_tree_mixin_test.dart` | `Runtime Error: Instance of '_PrivateNode' has no method named 'toStringDeep'` | **Fixed script-side under H23** via the U10 sparse-fallback pattern (`_sparseToStringDeepFallback(tree)` helper that walks the script's data model and emits a string visually equivalent to Flutter's sparse `toStringDeep`). Mirrors `foundation/text_tree_configuration_test.dart`'s existing U10 workaround. Not part of U22; entry kept here only for cross-reference. |
+
+### What a real fix would look like
+
+The four genuinely interpreter-deferred items above (`dropdown_test`,
+`widgets/animation_test`, `slotted_multi_child_render_object_widget_test`,
+`retest/widgets/app_kit_view_test`) all reduce to two interpreter
+gaps, both already catalogued in this file:
+
+1. **Typed-collection coercion at the bridge boundary** —
+   `List<Widget>` / `Set<Factory<…>>` arguments (and probably
+   `Map<K, V>` arguments by extension) need a coercion path that
+   either preserves the generic type tag through `.toList()` /
+   `.toSet()` / typed literals, or narrows an `Iterable<Object?>`
+   to the declared parameter type at the adapter layer. This
+   would clear `dropdown_test.dart` and
+   `retest/widgets/app_kit_view_test.dart` simultaneously, and
+   plausibly also the null-source in
+   `slotted_multi_child_render_object_widget_test.dart` (the
+   `_accents` list's element type erasure).
+2. **Bridged abstract-class subclass construction routing** —
+   the family root cause spanning U3 / U5 / U9 / U10 / U11. A
+   script-defined `extends CompoundAnimation<double>` (in this
+   case) needs the same hand-written proxy treatment as
+   `CustomClipper` got under item #22 (`tom_d4rt` /
+   `tom_d4rt_ast` `d4rt_runtime_registrations.dart`). The
+   alternative is a general "auto-generate adapter proxies for
+   any bridged abstract class with N constructor variants"
+   pass — captured as E12 in `error_analysis.md` for tom_d4rt.
+
+### Affected scripts
+
+| Script | Notes |
+|--------|-------|
+| `material/dropdown_test.dart` | Reverted to original `colorChoices.map<Widget>((name) {...}).toList()` after four script-side variants all surfaced the same `List<Widget>` coercion error. |
+| `widgets/animation_test.dart` | `_MeanAnimation extends CompoundAnimation<double>` construction silently fails; `_meanAnim` stays unassigned. |
+| `widgets/slotted_multi_child_render_object_widget_test.dart` | `_accent.r` access in `_PrivateContentReporter._report`; root null source not yet pinned down. |
+| `retest/widgets/app_kit_view_test.dart` | `Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4. |
+| `material/dropdownform_test.dart` | Internal `InputDecorator` from a bridged dropdown variant — no externally visible call site identified. Same family as U14. |
+
+---
+
 ## Change Log
 
+- 2026-05-23: **Add U22** — H23 single-event scripts deferred to
+  interpreter-level work. Summarises the H23 cluster (`testlog_20260522-1328-issue-analysis/error_analysis.md`
+  entry #23) split: 5 scripts fixed script-side (mergeable_test,
+  ticker_test, progress_test, dropdown_test cross-ref already U17/U18/U14, and
+  diagnosticable_tree_mixin_test via the U10 sparse fallback), and 5 deferred
+  as cross-references to existing U14 / U17 / U18 entries or new
+  interpreter-level gaps (typed-collection coercion in
+  `dropdown_test` + `app_kit_view_test`, bridged-abstract subclass
+  routing in `widgets/animation_test`, null-source in
+  `slotted_multi_child_render_object_widget_test`, and the internal
+  InputDecorator in `dropdownform_test`). Catalogues the two
+  underlying interpreter gaps shared across the deferred items.
 - 2026-05-22: **Add U21** — `Quad` / `Vector3` from
   `package:vector_math/vector_math_64.dart` are not reachable
   from interpreted scripts because Flutter's barrel libraries

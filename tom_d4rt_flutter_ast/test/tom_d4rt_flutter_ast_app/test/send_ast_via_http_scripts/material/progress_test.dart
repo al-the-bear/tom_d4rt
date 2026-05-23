@@ -205,7 +205,13 @@ dynamic build(BuildContext context) {
       valueColor: AlwaysStoppedAnimation<Color>(Colors.blue.shade600),
       minHeight: 8.0,
       semanticsLabel: '$label progress',
-      semanticsValue: '$percent percent',
+      // Fix(H23): Flutter's accessibility-semantics check parses the
+      // progress value as a number against minValue/maxValue. Strings
+      // like "0 percent" or "0%" fail the parse and emit
+      // "Progress bar value, minValue, and maxValue must be valid
+      // numbers." Pass the bare numeric string. See
+      // doc/testlog_20260522-1328-issue-analysis entry #23.
+      semanticsValue: '$percent',
     );
 
     linearDeterminateCards.add(
@@ -623,7 +629,8 @@ dynamic build(BuildContext context) {
       backgroundColor: Colors.deepPurple.shade50,
       valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple.shade600),
       semanticsLabel: '$label progress',
-      semanticsValue: '$percent percent',
+      // Fix(H23): same as the linear case above — bare numeric string.
+      semanticsValue: '$percent',
     );
 
     circularDeterminateCards.add(
@@ -1101,7 +1108,8 @@ dynamic build(BuildContext context) {
               valueColor: AlwaysStoppedAnimation<Color>(Colors.amber.shade800),
               strokeWidth: 4.0,
               semanticsLabel: 'Refreshing',
-              semanticsValue: '85%',
+              // Fix(H23): bare numeric semantics value (see top of file).
+              semanticsValue: '85',
             ),
           ),
           SizedBox(height: 8.0),
@@ -1359,7 +1367,8 @@ dynamic build(BuildContext context) {
             backgroundColor: Colors.blue.shade50,
             valueColor: AlwaysStoppedAnimation<Color>(Colors.blue.shade600),
             semanticsLabel: 'Download progress',
-            semanticsValue: '${(downloadValue * 100).toInt()}%',
+            // Fix(H23): bare numeric semantics value (see top of file).
+            semanticsValue: '${(downloadValue * 100).toInt()}',
           ),
         ),
       ],

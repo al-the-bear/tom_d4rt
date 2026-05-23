@@ -1507,9 +1507,15 @@ dynamic build(BuildContext context) {
               brandPrimary,
             ),
             SizedBox(height: 12.0),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: conceptCards,
+            // Fix(H23): wrap stretch-Row in IntrinsicHeight so the
+            // outer SingleChildScrollView → Column(stretch) doesn't
+            // leak unbounded height down through Row(stretch) → Padding
+            // (BoxConstraints forces an infinite height).
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: conceptCards,
+              ),
             ),
             SizedBox(height: 28.0),
             _sectionTitle(

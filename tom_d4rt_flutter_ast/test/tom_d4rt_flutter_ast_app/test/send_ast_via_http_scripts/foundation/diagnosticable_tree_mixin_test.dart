@@ -145,6 +145,45 @@ class _PrivateNode with DiagnosticableTreeMixin {
   }
 }
 
+// Fix(H23): U10 script-side workaround for `tree.toStringDeep()` on a
+// d4rt-interpreted class that mixes in `DiagnosticableTreeMixin`.
+// Walks the tree using only the script-visible fields so no call into
+// the native mixin's concrete methods is needed. Output format mirrors
+// the shape of Flutter's sparse `toStringDeep`.
+String _sparseToStringDeepFallback(_PrivateNode root) {
+  final StringBuffer buf = StringBuffer();
+  _renderNodeRecursive(root, '', '', buf);
+  return buf.toString();
+}
+
+void _renderNodeRecursive(
+  _PrivateNode node,
+  String prefixSelf,
+  String prefixChildren,
+  StringBuffer buf,
+) {
+  buf.write(prefixSelf);
+  buf.write(node.toStringShort());
+  buf.write('(label: "');
+  buf.write(node.label);
+  buf.write('", kind: "');
+  buf.write(node.kind);
+  buf.write('", depth: ');
+  buf.write(node.depth);
+  buf.write(', weight: ');
+  buf.write(node.weight);
+  buf.write(', ');
+  buf.write(node.flagged ? 'FLAGGED' : 'normal');
+  buf.writeln(')');
+  for (int i = 0; i < node.children.length; i++) {
+    final bool isLast = i == node.children.length - 1;
+    final String childSelf =
+        '$prefixChildren${isLast ? '└─' : '├─'}child[$i]: ';
+    final String grandPrefix = '$prefixChildren${isLast ? '   ' : '│  '}';
+    _renderNodeRecursive(node.children[i], childSelf, grandPrefix, buf);
+  }
+}
+
 /// A miniature property-pack that we render in the gallery; it is a plain
 /// data holder, not bound to widgets.
 class _PrivatePropertyShape {
@@ -768,7 +807,18 @@ class _PrivateLiveClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> deepLines = _splitNonEmpty(tree.toStringDeep());
+    // Fix(H23): d4rt U10 workaround. Script-defined classes that mix in
+    // `DiagnosticableTreeMixin` cannot invoke the mixin's native
+    // `toStringDeep()` — the native side rejects the interpreted
+    // instance at the bridge boundary ("Instance of '_PrivateNode' has
+    // no method named 'toStringDeep'"). Render the tree via a
+    // script-side helper instead. Mirrors the pattern in
+    // `foundation/text_tree_configuration_test.dart`
+    // (`_sparseToStringDeepFallback`). See
+    // doc/interpreter_unfixable.md U10.
+    final List<String> deepLines = _splitNonEmpty(
+      _sparseToStringDeepFallback(tree),
+    );
     return _PrivateCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

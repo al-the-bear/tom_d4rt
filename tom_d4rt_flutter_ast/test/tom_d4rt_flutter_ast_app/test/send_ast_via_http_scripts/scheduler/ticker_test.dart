@@ -541,26 +541,33 @@ dynamic build(BuildContext context) {
   final compRows = <Widget>[];
   for (final row in comparisonRows) {
     compRows.add(
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 2,
-            child: buildCompCell(row['feature'] as String, Colors.blueGrey),
-          ),
-          Expanded(
-            flex: 3,
-            child: buildCompCell(row['ticker'] as String, Colors.deepPurple),
-          ),
-          Expanded(
-            flex: 3,
-            child: buildCompCell(row['timer'] as String, Colors.orange),
-          ),
-          Expanded(
-            flex: 3,
-            child: buildCompCell(row['controller'] as String, Colors.teal),
-          ),
-        ],
+      // Fix(H23): wrap stretch-Row in IntrinsicHeight to bound the
+      // unbounded vertical constraint coming from
+      // SingleChildScrollView → Column(stretch) → ClipRRect → Column.
+      // Without it, RenderDecoratedBox inside buildCompCell sees
+      // BoxConstraints(h=Infinity) and the framework asserts.
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 2,
+              child: buildCompCell(row['feature'] as String, Colors.blueGrey),
+            ),
+            Expanded(
+              flex: 3,
+              child: buildCompCell(row['ticker'] as String, Colors.deepPurple),
+            ),
+            Expanded(
+              flex: 3,
+              child: buildCompCell(row['timer'] as String, Colors.orange),
+            ),
+            Expanded(
+              flex: 3,
+              child: buildCompCell(row['controller'] as String, Colors.teal),
+            ),
+          ],
+        ),
       ),
     );
   }
