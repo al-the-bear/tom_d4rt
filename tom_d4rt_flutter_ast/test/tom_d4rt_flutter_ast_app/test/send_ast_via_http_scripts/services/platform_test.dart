@@ -73,14 +73,24 @@ dynamic build(BuildContext context) {
     print('TargetPlatform value: $p (index ${p.index})');
   }
 
+  // SingleChildScrollView wrap (entry #20 follow-up): the script's 11
+  // sections + intro + footer stack to ~7000+ px of natural height —
+  // far exceeding the typical 800-px test viewport. Without scroll
+  // wrapping, the Column overflows the bounded viewport by ~7257 px
+  // (the U18 IntrinsicHeight fix on _defaultVsThemeCard unmasked this
+  // previously-hidden overflow that the original Row(stretch)
+  // assertion was firing on first). Adding the SCV gives the Column
+  // an unbounded vertical extent and lets the content scroll, which
+  // is the expected UX for a long demo page anyway.
   return Container(
     color: _kPaper,
-    padding: const EdgeInsets.symmetric(vertical: 24.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _heroIntro(), const SizedBox(height: 28.0),
-        _section1Title(), const SizedBox(height: 12.0), _section1Body(),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _heroIntro(), const SizedBox(height: 28.0),
+          _section1Title(), const SizedBox(height: 12.0), _section1Body(),
         const SizedBox(height: 36.0),
         _section2Title(), const SizedBox(height: 12.0), _platformGallery(),
         const SizedBox(height: 36.0),
@@ -110,6 +120,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 32.0), _footerTagline(),
         const SizedBox(height: 24.0),
       ],
+    ),
     ),
   );
 }
@@ -541,42 +552,54 @@ Widget _section3Title() => _sectionTitle('3', 'defaultTargetPlatform vs Theme.of
 Widget _defaultVsThemeCard() {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16.0),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(child: _twinCard(
-          title: 'defaultTargetPlatform',
-          subtitle: 'package:flutter/foundation.dart',
-          question: '"What host OS am I running on?"',
-          color: _kAccent, icon: Icons.memory,
-          bullets: const <String>[
-            'Static, top-level getter.',
-            'Returns one of the six TargetPlatform values.',
-            'Best for: choosing your widget tree shape (e.g. wrap in '
-              'CupertinoApp vs MaterialApp) before a context exists.',
-            'Overridable in tests with debugDefaultTargetPlatformOverride.',
-            'Never returns "web" — pair with kIsWeb if you need to '
-              'distinguish browsers from native.',
-          ],
-        )),
-        const SizedBox(width: 14.0),
-        Expanded(child: _twinCard(
-          title: 'Theme.of(context).platform',
-          subtitle: 'package:flutter/material.dart',
-          question: '"What does the theme want me to look like?"',
-          color: _kWarn, icon: Icons.color_lens,
-          bullets: const <String>[
-            'Read off the ThemeData supplied by the nearest Theme.',
-            'What MaterialApp and its widgets actually obey.',
-            'Best for: adaptive widgets inside Material — '
-              'PageTransitionsTheme, ScrollPhysics, selection handles.',
-            'Falls back to defaultTargetPlatform unless overridden via '
-              'ThemeData(platform: ...).',
-            'Override it to test iOS-flavoured Material on a Linux dev '
-              'machine without restarting.',
-          ],
-        )),
-      ],
+    // IntrinsicHeight wrap (entry #20): a Row(crossAxisAlignment.stretch)
+    // inside a Container that sits in the outer Column receives
+    // `maxHeight: infinity` from the surrounding scroll view and
+    // propagates it via the cross-axis stretch into a synthetic
+    // RenderConstrainedBox inside each Expanded(_twinCard), surfacing
+    // as `BoxConstraints forces an infinite height`. IntrinsicHeight
+    // resolves the Row's height to the intrinsic min height of the
+    // taller twinCard so the stretch has a finite cross-axis to work
+    // with. Same family as entry #19's animation/cubic_test fix and
+    // entry #10's rendering/render_exclude_semantics_test fix.
+    child: IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child: _twinCard(
+            title: 'defaultTargetPlatform',
+            subtitle: 'package:flutter/foundation.dart',
+            question: '"What host OS am I running on?"',
+            color: _kAccent, icon: Icons.memory,
+            bullets: const <String>[
+              'Static, top-level getter.',
+              'Returns one of the six TargetPlatform values.',
+              'Best for: choosing your widget tree shape (e.g. wrap in '
+                'CupertinoApp vs MaterialApp) before a context exists.',
+              'Overridable in tests with debugDefaultTargetPlatformOverride.',
+              'Never returns "web" — pair with kIsWeb if you need to '
+                'distinguish browsers from native.',
+            ],
+          )),
+          const SizedBox(width: 14.0),
+          Expanded(child: _twinCard(
+            title: 'Theme.of(context).platform',
+            subtitle: 'package:flutter/material.dart',
+            question: '"What does the theme want me to look like?"',
+            color: _kWarn, icon: Icons.color_lens,
+            bullets: const <String>[
+              'Read off the ThemeData supplied by the nearest Theme.',
+              'What MaterialApp and its widgets actually obey.',
+              'Best for: adaptive widgets inside Material — '
+                'PageTransitionsTheme, ScrollPhysics, selection handles.',
+              'Falls back to defaultTargetPlatform unless overridden via '
+                'ThemeData(platform: ...).',
+              'Override it to test iOS-flavoured Material on a Linux dev '
+                'machine without restarting.',
+            ],
+          )),
+        ],
+      ),
     ),
   );
 }

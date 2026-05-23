@@ -352,7 +352,7 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial — 17 fixed script-side.** decoratedbox H2 borderRadius,
+**partial — 18 fixed script-side.** decoratedbox H2 borderRadius,
 refreshindicator header-into-ListView, placeholder buildBadCaseCMock
 height bump, textstyle alpha clamp, box_painter Expanded title,
 render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
@@ -364,11 +364,11 @@ animation_test _MeanAnimation→inline Listenable.merge (entry #16),
 dropdown_test omit selectedItemBuilder (entry #17), dropdownform_test
 SizedBox-bound DDFF + single-line per-item children (entry #18),
 cubic_test IntrinsicHeight wrap on _PrivateConstructorCards
-Row(stretch) (entry #19).
-**2 confirmed-deferred under existing U entries** (U17/U18) —
-render_constraints_transform_box ×2 (intentional teaching script),
-services/platform_test (all 4 script-side variants crash the
-test-app transport). Those need interpreter/bridge work.
+Row(stretch) (entry #19), platform_test IntrinsicHeight on
+_defaultVsThemeCard + SCV wrap on page body (entry #20).
+**1 confirmed-deferred under existing U entry** (U17) —
+render_constraints_transform_box ×2 (intentional teaching script — by
+design; each fix exposes the next intentional banner).
 0 remaining U23 (cleared entry #12). 0 remaining Cluster N (entry #13).
 **Bonus: entry #15 also cleared F5 (Cluster B back-port failure) on
 flutter_test for the same script.** Todo #19 (test-only single
@@ -762,11 +762,11 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (17 of 19 fixed script-side; 2 confirmed-deferred under
-  existing U entries U17/U18; 0 remaining U14 — U14 fully cleared entry
-  #19; 0 remaining U22 — U22 fully cleared entry #18; 0 remaining U23
-  — U23 CLEARED; 1 was covered by Cluster N — also FIXED entry #13)**
-  18.
+- [~] **partial (18 of 19 fixed script-side; 1 confirmed-deferred under
+  existing U entries (U17 only — intentional teaching script by design);
+  0 remaining U14 (entry #19); 0 remaining U18 (entry #20); 0 remaining
+  U22 (entry #18); 0 remaining U23 (CLEARED); 1 was covered by Cluster
+  N — also FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -822,8 +822,14 @@ and fail in test:
      bridged `AppKitView` constructor.~~ → **FIXED entry #15** —
      boot-status placeholder guard prevents AppKitView construction
      on first frame. Also clears F5 Cluster B failure.
-   - `services/platform_test.dart` — `BoxConstraints forces an infinite
-     height` in `_defaultVsThemeCard`. Already **U18**.
+   - ~~`services/platform_test.dart`~~ — ~~`BoxConstraints forces an
+     infinite height` in `_defaultVsThemeCard`. Already **U18**.~~ →
+     **FIXED entry #20** — combined fix: IntrinsicHeight wrap on the
+     `_defaultVsThemeCard` Row (same family as entry #19's cubic_test)
+     + `SingleChildScrollView` wrap on the page body (page natural
+     height ~7000 px; SCV gives unbounded vertical extent). The
+     2026-05-20 transport-cliff that blocked the prior 4 attempts did
+     not reproduce. `fwErr 1→0` on both projects.
    - `rendering/render_constraints_transform_box_test.dart` (×2 in
      secondary + timeout) — `BoxConstraints(... ; NOT NORMALIZED)`.
      Teaching script intrinsically incompatible with
@@ -940,7 +946,7 @@ and fail in test:
   deeper bisection. See `interpreter_unfixable.md` Change Log entry
   for 2026-05-23 entry #12 for the full retrospective.)
 
-  **Status: partial — 17 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 18 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
   IntrinsicHeight + dialog_themes Expanded label + editable_text
@@ -951,9 +957,11 @@ and fail in test:
   Listenable.merge entry #16 + dropdown_test omit selectedItemBuilder
   entry #17 + dropdownform_test SizedBox-bound DDFF + single-line items
   entry #18 + cubic_test IntrinsicHeight wrap on _PrivateConstructorCards
-  Row(stretch) entry #19), 2 confirmed-deferred under existing U entries
-  (U17/U18), 0 remaining U14, 0 remaining U22, 0 remaining U23, 0
-  remaining Cluster N (#12).** All six script-side fixes are pure script-side bug fixes
+  Row(stretch) entry #19 + platform_test IntrinsicHeight on
+  _defaultVsThemeCard + SCV wrap on page body entry #20), 1
+  confirmed-deferred under existing U entries (U17 only — intentional
+  teaching script by design), 0 remaining U14, 0 remaining U18, 0
+  remaining U22, 0 remaining U23, 0 remaining Cluster N (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries
   do not change code and require no regression sweep. Raw logs:

@@ -5426,6 +5426,31 @@ The recoverable `frameworkErrors=1` baseline is the steady state
 for this script until the interpreter / bridge can be
 instrumented to surface the actual crash trigger.
 
+**2026-05-23 update — FIXED (entry #20).** Re-attempted A1
+(`IntrinsicHeight` wrap on the `_defaultVsThemeCard` Row) — this
+time **the test-app transport did not crash**, instead surfacing
+a *different* recoverable error: a 7257-px bottom `RenderFlex`
+overflow caused by the page's natural ~7000-px total height
+exceeding the bounded ~800-px viewport (the original Row(stretch)
+assertion was masking this). The 2026-05-20 A1 attempt apparently
+hit the transport-cliff fingerprint described above on the
+then-current test-app build, but the cliff is no longer
+reproducing — host/test-app stability has improved (or some
+intervening interpreter/bridge fix removed the
+RenderFlex-construction trigger). **Combined fix:** (i)
+`IntrinsicHeight` wrap on the `_defaultVsThemeCard` Row (same
+family as entry #19's `animation/cubic_test` and entry #10's
+`rendering/render_exclude_semantics_test` fixes), AND (ii) wrap
+the page-level `Column(stretch)` in a `SingleChildScrollView`
+(predicted by "What a real fix would look like" item 2 above —
+the page content stacks to ~7000+ px and needs a scroll
+ancestor). `fwErr 1→0` on both projects, no transport
+destabilization. **U18 fully cleared script-side.** The original
+transport-cliff diagnostic above is preserved as a record of
+the 2026-05-20 investigation; should it re-emerge under
+different conditions, the interpreter-instrumentation roadmap
+in "What a real fix would look like" item 1 remains the path.
+
 **What a real fix would look like.**
 
 1. **Interpreter / bridge instrumentation.** Wrap the
@@ -5447,7 +5472,7 @@ instrumented to surface the actual crash trigger.
 
 | Script | Host suites | Sites | Notes |
 |--------|-------------|-------|-------|
-| `services/platform_test.dart` | `important_classes_test` (1/1) | `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard); page has no bounded-h ancestor. | Item 93 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U18 root-cause analysis above. |
+| ~~`services/platform_test.dart`~~ | ~~`important_classes_test` (1/1)~~ | ~~`_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard); page has no bounded-h ancestor.~~ | ~~Item 93 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U18 root-cause analysis above.~~ → **FIXED 2026-05-23 (entry #20)** — re-attempted IntrinsicHeight wrap on the Row (transport-cliff did not reproduce this time), then wrapped the page body in `SingleChildScrollView` to clear the unmasked 7257-px overflow. `fwErr 1→0` on both projects. See U18 §"2026-05-23 update" above. |
 
 ---
 
@@ -5874,7 +5899,7 @@ is summarised in `error_analysis.md` entry #23.
 | `material/progress_test.dart` | `Progress bar value, minValue, and maxValue must be valid numbers. value: "0 percent", minValue: "0", maxValue: "100"` | **Fixed script-side under H23** — three `semanticsValue` strings switched from `'$percent percent'` / `'$percent%'` / `'85%'` to bare numeric strings (`'$percent'` / `'85'`). Not part of U22. |
 | `rendering/render_constraints_transform_box_test.dart` | `BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized` | **Already U17.** Teaching script whose purpose is to feed pathological inputs to `ConstraintsTransformBox`. Any pre-normalize fix exposes the next intentional banner. Deferred. |
 | `scheduler/ticker_test.dart` | `BoxConstraints forces an infinite height` (RenderDecoratedBox) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the per-row `Row(crossAxisAlignment.stretch, children: [Expanded(buildCompCell)…])` comparison-table builder. Not part of U22. |
-| `services/platform_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U18.** `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard). All four script-side variants crash the test-app transport, worse than the recoverable baseline banner. Deferred. |
+| ~~`services/platform_test.dart`~~ | ~~`BoxConstraints forces an infinite height` (RenderConstrainedBox)~~ | **FIXED 2026-05-23 (entry #20).** The 4 prior A1–A4 script-side attempts in 2026-05-20 all hit a transport-cliff (`status=transport_error, httpStatus=-1`); re-attempt of A1 (`IntrinsicHeight` on the `_defaultVsThemeCard` Row) in 2026-05-23 did NOT reproduce the cliff — instead surfaced a 7257-px bottom overflow caused by the page's ~7000-px natural height with no scroll ancestor. Combined fix: IntrinsicHeight wrap on the Row + `SingleChildScrollView` wrap on the page body. See U18 §"2026-05-23 update" for retrospective. |
 | ~~`widgets/animation_test.dart`~~ | ~~`Runtime Error: LateInitializationError: Late variable '_meanAnim' without initializer is accessed before being assigned.`~~ | **FIXED 2026-05-23 (entry #16).** The `_MeanAnimation extends CompoundAnimation<double>` script-defined subclass remains unconstructible under d4rt (architectural U-family limitation). **Workaround:** removed the `_meanAnim` field and `_MeanAnimation` class entirely; the mean trace is now synthesised inline in `_CompoundSection` using `AnimatedBuilder(animation: Listenable.merge([minA, maxA]), builder: ...)` that computes `(min + max) / 2` on the fly. Mathematically equivalent — for any two values A and B, `mean(A,B) = (min(A,B) + max(A,B)) / 2` because `min + max = A + B` always. Visual impact: identical mean trace; the demo retains its "blend two parents into one Animation<double>" teaching content via `AnimationMin` and `AnimationMax` (the genuine public Flutter SDK classes). `fwErr 1→0` on both projects. The underlying interpreter limitation (script-defined subclass of bridged abstract class) remains documented under U3/U5/U9/U10/U11. |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`Runtime Error: Cannot access property 'r' on target of type null.`~~ | **FIXED 2026-05-23 (entry #14).** Confirmed the bridge returns `null` for `_accents[i]` (not just for `.r/.g/.b`) — `_accent` itself is null because `_accents` is a script-defined `static const List<Color>` whose element type erases to `Object?`/`dynamic` through the bridge. Both `.r` and `.value` fail with the same `Cannot access property '…' on target of type null.` Workaround applied: log the **accent INDEX** instead of trying to resolve the Color object's channels (`'accentIndex=${_accentIndex.round() % _accents.length}'`). The rest of the script still uses `_accent` in `decoration: BoxDecoration(color: _accent)` contexts where the bridge accepts the dynamic-typed value (paint-time coercion is more lenient than property access). Visual impact on rendered widgets: none — debug log records the index instead of channel values. `fwErr 1→0` on both projects. |
 | ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Runtime Error: Native error during default bridged constructor for 'AppKitView': Argument Error: Invalid parameter "gestureRecognizers": cannot convert to Set<Factory<OneSequenceGestureRecognizer>>`~~ | **FIXED 2026-05-23 (entry #15).** Investigation showed the crash fires on the **first frame** (before `initState`'s `_boot()` resolves `_status`). `_status` starts at `'boot'` (line 1692), which fell through all the `if (_status == '...')` guards in `_AppKitLane.build()` and reached `_liveSurface()` → `AppKitView(gestureRecognizers: widget.gestureRecognizers)`. The bridge then attempted to coerce the script-defined `Set<Factory<OneSequenceGestureRecognizer>>` to the parameterised type and crashed per U22 generics-erasure. **Native Flutter** doesn't surface this because StatefulWidget's first build happens after initState; the d4rt interpreter's build cycle differs slightly. **Fix:** add `'boot'` to the placeholder guard set — first frame renders the simulation placeholder, then `_boot()` resolves `_status` to its real value on the next frame. No change to steady-state behaviour. `fwErr 1→0` AND **F5** (Cluster B failure on flutter_test) cleared on both projects. |
@@ -5950,15 +5975,16 @@ entries (U14 `animation/cubic_test`, U17 `render_constraints_transform_box_test`
 `material/dropdownform_test`, `widgets/animation_test`,
 `widgets/slotted_multi_child_render_object_widget_test`,
 `retest/widgets/app_kit_view_test`) were progressively cleared by
-entries #14/#15/#16/#17/#18/#19 (U22 — ALL FIVE scripts FIXED,
-plus U14 cubic_test FIXED via the same family as entry #10's
+entries #14/#15/#16/#17/#18/#19/#20 (U22 — ALL FIVE scripts FIXED,
+plus U14 `cubic_test` FIXED via the same family as entry #10's
 IntrinsicHeight-on-Row(stretch) fix after the U14 diagnostic
-was found to mis-identify the source). Remaining genuinely-
-deferred items: U17 `render_constraints_transform_box_test` ×2
-(intentional teaching script), U18 `services/platform_test`
-(all 4 script-side variants destabilize the test-app transport).
-**U22 fully cleared as of entry #18; U14 fully cleared as of
-entry #19.**
+was found to mis-identify the source, plus U18
+`services/platform_test` FIXED via combined IntrinsicHeight + SCV
+wrap after the prior 2026-05-20 transport-cliff did not
+reproduce). **Remaining genuinely-deferred items: only U17
+`render_constraints_transform_box_test` ×2 (intentional teaching
+script — by design).** U22 fully cleared as of entry #18; U14
+fully cleared as of entry #19; U18 fully cleared as of entry #20.
 
 The 7 remaining items are deferred here, cross-referenced where
 they fit existing patterns:
@@ -6021,6 +6047,34 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U18 (entry #20)** —
+  `services/platform_test.dart` moved from U18-deferred to FIXED.
+  Re-attempted A1 (`IntrinsicHeight` wrap on the
+  `_defaultVsThemeCard` Row, originally tried 2026-05-20 with
+  transport-cliff result) — this time the transport did NOT
+  crash. Instead surfaced a *different* recoverable error: a
+  7257-px bottom `RenderFlex` overflow from the page's natural
+  ~7000-px total height (12 sections + intro + footer) exceeding
+  the bounded ~800-px viewport. The original
+  `Row(crossAxisAlignment.stretch)` assertion was firing FIRST
+  and masking this page-overflow issue. **Combined fix:**
+  (i) IntrinsicHeight wrap on the `_defaultVsThemeCard` Row,
+  same family as entry #19's `animation/cubic_test` and entry
+  #10's `rendering/render_exclude_semantics_test` fixes, AND
+  (ii) wrap the page-level `Column(stretch)` in a
+  `SingleChildScrollView` (predicted as a possible fix in U18's
+  original "What a real fix would look like" item 2). `fwErr
+  1→0` on both projects, no transport destabilization. The
+  2026-05-20 transport-cliff fingerprint did not reproduce —
+  host/test-app stability has improved or some intervening
+  interpreter/bridge fix removed the RenderFlex-construction
+  trigger. **U18 fully cleared script-side.** Original
+  transport-cliff investigation preserved in U18 body text as
+  historical record. **H-5 batch (entry #18 of
+  testlog_20260523-1056) now sits at 18/19 with only one
+  genuinely-deferred item remaining: U17
+  `render_constraints_transform_box_test` ×2 (intentional
+  teaching script by design — see U17 entry).**
 - 2026-05-23: **Update U14 (entry #19)** —
   `animation/cubic_test.dart` moved from U14-deferred to FIXED
   after five prior misdirected script-side attempts. The U14
