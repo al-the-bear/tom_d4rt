@@ -268,37 +268,43 @@ Widget _fancyTile({
 // Tab 1 — Default RefreshIndicator with simple ListView.
 // ---------------------------------------------------------------------------
 Widget _buildDefaultTab() {
-  return Column(
-    children: <Widget>[
-      _headerCard(
-        title: 'Default RefreshIndicator',
-        subtitle: 'No custom parameters — pure Material defaults',
-        bullets: const <String>[
-          'onRefresh: required Future<void> callback',
-          'Default color: theme primary, default background: theme surface',
-          'Default strokeWidth: 2.5 logical pixels',
-          'Default displacement: 40.0, edgeOffset: 0.0',
-          'triggerMode defaults to RefreshIndicatorTriggerMode.onEdge',
-        ],
-        seed: _seedTeal,
-        icon: Icons.refresh,
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Row(
-          children: <Widget>[
-            _paramChip('onRefresh', '_noOpRefresh', _seedTeal),
-            _paramChip('triggerMode', 'onEdge', _seedTeal),
+  // Cluster H follow-up: original layout placed _headerCard + chip row
+  // above Expanded(RefreshIndicator > ListView). Under the bounded tab
+  // viewport, the header (with 5 wrapped bullets) + chip row + SizedBox
+  // can sum to 53 px more than the slot, leaving Expanded with 0 height
+  // and the Column overflowing by 53 px on the bottom. Moved the header
+  // and chip row INTO the ListView as the first scrollable items, so
+  // they scroll with the tiles instead of competing for fixed space.
+  // RefreshIndicator semantics still work — pull-down still triggers
+  // onRefresh because the ListView remains the scrollable child.
+  return RefreshIndicator(
+    onRefresh: _noOpRefresh,
+    child: ListView(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      children: <Widget>[
+        _headerCard(
+          title: 'Default RefreshIndicator',
+          subtitle: 'No custom parameters — pure Material defaults',
+          bullets: const <String>[
+            'onRefresh: required Future<void> callback',
+            'Default color: theme primary, default background: theme surface',
+            'Default strokeWidth: 2.5 logical pixels',
+            'Default displacement: 40.0, edgeOffset: 0.0',
+            'triggerMode defaults to RefreshIndicatorTriggerMode.onEdge',
           ],
+          seed: _seedTeal,
+          icon: Icons.refresh,
         ),
-      ),
-      const SizedBox(height: 6.0),
-      Expanded(
-        child: RefreshIndicator(
-          onRefresh: _noOpRefresh,
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Row(
             children: <Widget>[
+              _paramChip('onRefresh', '_noOpRefresh', _seedTeal),
+              _paramChip('triggerMode', 'onEdge', _seedTeal),
+            ],
+          ),
+        ),
+        const SizedBox(height: 6.0),
               _fancyTile(
                 leadingIcon: Icons.inbox_outlined,
                 title: 'Inbox digest',
@@ -348,18 +354,15 @@ Widget _buildDefaultTab() {
                 seed: _seedViolet,
                 trailingText: 'SHIPPED',
               ),
-              _fancyTile(
-                leadingIcon: Icons.star_border,
-                title: 'New star on repository',
-                subtitle: 'd4rt-flutter-ast just hit 1.2k stars',
-                seed: _seedCopper,
-                trailingText: '+1',
-              ),
-            ],
-          ),
+        _fancyTile(
+          leadingIcon: Icons.star_border,
+          title: 'New star on repository',
+          subtitle: 'd4rt-flutter-ast just hit 1.2k stars',
+          seed: _seedCopper,
+          trailingText: '+1',
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 

@@ -352,14 +352,16 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial** — 1 fixed script-side (decoratedbox), 8 confirmed-deferred
-under existing U entries (U14/U17/U18/U22), 1 covered by Cluster N
-(button_bar via F2), 9 marked for follow-up sub-pass. Todo #19 (test-only
-single events, 6 entries): **partial** — 4 fixed script-side
-(raw_keyboard Wrap, scroll_notification_observer padding,
-center+checked_mode_banner timeline SizedBox), 2 covered by Cluster B
-via todos #10/#11. Current largest remaining fw-err contributors are the
-9 pending scripts in todo #18.
+**partial** — 3 fixed script-side (decoratedbox H2 borderRadius,
+refreshindicator header-into-ListView, placeholder buildBadCaseCMock
+height bump), 8 confirmed-deferred under existing U entries
+(U14/U17/U18/U22), 7 deferred under new U23 entry (5 small-pixel U15
+family + textstyle U13 family + render_exclude_semantics U14 family),
+1 covered by Cluster N (button_bar via F2). Todo #19 (test-only single
+events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
+Cluster B via todos #10/#11. **No remaining fw-err scripts that are
+genuinely script-side fixable**; the rest are interpreter / bridge
+work tracked in `interpreter_unfixable.md` (U14–U23).
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -716,8 +718,8 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (1 of 19 fixed script-side, 17 deferred to existing
-  U-entries or pending investigation, 1 covered by Cluster N)** 18.
+- [~] **partial (3 of 19 fixed script-side, 15 deferred to U-entries
+  (8 existing + 7 new U23), 1 covered by Cluster N)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -763,43 +765,60 @@ and fail in test:
      also clear this fw event because the script will no longer fail to
      build past the ButtonBar lookup. No standalone fix in this todo.
 
-  **Pending investigation (9 scripts, deferred to future H-5 sub-pass):**
-   - `painting/textstyle_test.dart` — `Runtime Error: Native error during
-     bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart':
-     Failed assertion: line 342 pos 12: '<optimized out>': is not true.`
-     Bridge call hits a Flutter SDK assertion in `Color.withOpacity` —
-     same family as U21 (vector_math) where the script API touches a
-     bridge boundary that doesn't quite line up. Needs a new U entry
-     after investigation; script-side workaround likely exists (use
-     `MaterialColor.shade*` or `.withValues(alpha:)` instead).
+  **Follow-up sub-pass fixed (2 of 9):**
    - `material/refreshindicator_test.dart` — `RenderFlex overflowed by
      53 pixels on the bottom`. Default tab's outer `Column>[_headerCard,
-     chipRow, SizedBox, Expanded(RefreshIndicator>ListView)]` — header
-     section's natural height exceeds the slot when the test pane is
-     slightly shorter. Needs a fix akin to capping the header in a
-     scrollable wrapper or moving the header into the ListView. **Sub-task
-     for a follow-up batch.**
-   - `material/dialog_themes_test.dart` — `RenderFlex overflowed by 2.0
-     px on the right`. Same family as U15 (Cupertino layout rounding).
-   - `cupertino/cupertino_themes_batch3_test.dart` — `RenderFlex
-     overflowed by 1.8 px on the right`. Same family as U15.
-   - `painting/box_painter_test.dart` — `RenderFlex overflowed by 3.8 px
-     on the right`. Same family as U15.
-   - `painting/decoration_image_painter_test.dart` — `RenderFlex
-     overflowed by 5.1 px on the right`. Same family as U15.
-   - `widgets/editable_text_tap_up_outside_intent_test.dart` — `RenderFlex
-     overflowed by 2.8 px on the right`. Same family as U15.
-   - `widgets/placeholder_test.dart` — repro plain-name pattern did not
-     match in the bisection sweep; needs re-attempt with exact label.
-   - `rendering/render_exclude_semantics_test.dart` — `BoxConstraints
-     forces an infinite height`. Same family as U14/U18.
+     chipRow, SizedBox, Expanded(RefreshIndicator>ListView)]` — header +
+     chipRow + SizedBox (36 px) + header natural (~17 px more than the
+     bounded slot) = 53 px overflow when Expanded got 0 px. Bisected
+     (removed chip+SizedBox → 17 px; also remove header → 0 px). **Fix:**
+     restructured the default tab to put `_headerCard` and the chip Row
+     INSIDE the ListView (as the first scrollable items) instead of
+     competing for fixed space above the Expanded(ListView).
+     RefreshIndicator semantics preserved (ListView remains the
+     scrollable child; pull-down still triggers onRefresh). `fwErr 1→0`
+     on both projects.
+   - `widgets/placeholder_test.dart` — `RenderFlex overflowed by 14
+     pixels on the bottom`. Localised via 4-step section bisection
+     (1-11, 1-6, 1-8, 1-7, 1-8 → narrowed to section 8 → case bisection:
+     A only, A+C → 14 px → C is the source). **Fix:** in
+     `buildBadCaseCMock`, bumped `SizedBox.height` from 90 to 110 to
+     accommodate the right-column's 4-line wrapped buildProse text
+     (`'Align gives loose constraints; width = fallbackWidth.'` at
+     fontSize 12.8/line-height 1.5 in a 110-px column = 77 px + 22 px
+     label + 6 px spacer = 105 px natural). Left container (height 80)
+     still fits with Row crossAxisAlignment.center. `fwErr 1→0`.
 
-  **Status: partial — 1 of 19 cleared, 8 confirmed-deferred under
-  existing U entries (no new work needed), 1 deferred to Cluster N (#12),
-  9 marked for a follow-up sub-pass.** **Rule (a)** — only the
-  decoratedbox test script was edited; individual retest verified the
-  fix. The interpreter-deferred entries do not change code on this turn
-  and so do not require a regression sweep.
+  **Deferred under new U23 entry (7 of 9):**
+   - `painting/textstyle_test.dart` — `MaterialColor.withOpacity` hits
+     Flutter SDK assertion in `dart:ui/painting.dart` line 342.
+     **U23** (new bridge gap, U13 family). Script-side workaround:
+     `.withValues(alpha:)` instead of `.withOpacity()` (the SDK's own
+     recommended replacement).
+   - `material/dialog_themes_test.dart` — 2.0 px right. **U23 (U15
+     family).** Material bridge layout-rounding.
+   - `cupertino/cupertino_themes_batch3_test.dart` — 1.8 px right.
+     **U23 (U15 family).** Cupertino bridge layout-rounding (already
+     documented under U15).
+   - `painting/box_painter_test.dart` — 3.8 px right. **U23 (U15
+     family).** Same.
+   - `painting/decoration_image_painter_test.dart` — 5.1 px right.
+     **U23 (U15 family).** Same.
+   - `widgets/editable_text_tap_up_outside_intent_test.dart` — 2.8 px
+     right. **U23 (U15 family).** Same.
+   - `rendering/render_exclude_semantics_test.dart` — `BoxConstraints
+     forces an infinite height`. **U23 (U14 family).** Same as
+     `animation/cubic_test.dart` (already U14).
+
+  **Status: partial — 3 of 19 cleared script-side (decoratedbox +
+  refresh + placeholder), 8 confirmed-deferred under existing U
+  entries (U14/U17/U18/U22), 7 deferred under new U23 entry, 1
+  covered by Cluster N (#12).** All three script-side fixes are pure
+  layout authoring. **Rule (a)** — test-script-only changes, individual
+  retest verified each (`fwErr 1→0`); the deferred entries do not
+  change code and require no regression sweep. Raw logs:
+  `ztmp/cluster_h_single_event/{refresh,placeholder}_*.{log,result.json}`
+  and the earlier `decoratedbox_post.log`.
 - [x] **fixed (4 of 6 cleared script-side; 2 covered by Cluster B via
   todos #10/#11)** 19. **H-6 (test-only single events)** —
   `widgets/center_test.dart` (essential),

@@ -5890,8 +5890,97 @@ gaps, both already catalogued in this file:
 
 ---
 
+## U23 — 20260523-1056 H-5 follow-up: 7 single-event scripts deferred (small layout-rounding overflows + bridge SDK assertion)
+
+The H-5 batch (entry #18 of
+`testlog_20260523-1056-issue-analysis/error_analysis.md`)
+contains 19 single-event framework-error scripts. After the
+2026-05-23 follow-up pass (entries #6 and #8), the script-side
+fixable items were cleared:
+
+- `widgets/decoratedbox_test.dart` — borderRadius+non-uniform
+  Border H2 fix (entry #6).
+- `material/refreshindicator_test.dart` — header moved into
+  ListView so it scrolls with content (entry #8, 53 px bottom
+  cleared).
+- `widgets/placeholder_test.dart` — `buildBadCaseCMock`
+  `SizedBox.height` bumped from 90 to 110 to accommodate
+  4-line wrapped prose in the right column (entry #8, 14 px
+  bottom cleared).
+
+The 8 scripts already documented as deferred under existing U
+entries (U14 `animation/cubic_test`, U17 `render_constraints_transform_box_test`
+×2, U18 `services/platform_test`, U22 `material/dropdown_test`,
+`material/dropdownform_test`, `widgets/animation_test`,
+`widgets/slotted_multi_child_render_object_widget_test`,
+`retest/widgets/app_kit_view_test`) are unchanged.
+
+The 7 remaining items are deferred here, cross-referenced where
+they fit existing patterns:
+
+| Script | Error | Status |
+|--------|-------|--------|
+| `painting/textstyle_test.dart` | `Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion` | **New bridge gap.** The bridged `MaterialColor.withOpacity()` hits a Flutter SDK assertion in `Color.withOpacity` (line 342 of `dart:ui/painting.dart`) that the native widget would not normally trigger. Likely the bridge passes through an out-of-range alpha or the receiver is the wrong runtime type. Script-side workaround: replace `colorRef.withOpacity(α)` with `colorRef.withValues(alpha: α)` (the SDK-recommended replacement) or use `MaterialColor.shade*` constants directly. Sibling family: U13 (native exceptions across bridges). |
+| `material/dialog_themes_test.dart` | `RenderFlex overflowed by 2.0 px on the right` | **U15 family.** Cupertino/Material bridge layout-rounding gap. Non-fatal; test passes. Per-script bisection would localise the exact culprit Row, but the bridge rounding can re-introduce on adjacent edits. Defer. |
+| `cupertino/cupertino_themes_batch3_test.dart` | `RenderFlex overflowed by 1.8 px on the right` | **U15 family.** Same as above. (Previously cleared by entry #21 of 20260522-1328 then re-introduced by post-fix content changes.) |
+| `painting/box_painter_test.dart` | `RenderFlex overflowed by 3.8 px on the right` | **U15 family.** Same. |
+| `painting/decoration_image_painter_test.dart` | `RenderFlex overflowed by 5.1 px on the right` | **U15 family.** Same. |
+| `widgets/editable_text_tap_up_outside_intent_test.dart` | `RenderFlex overflowed by 2.8 px on the right` | **U15 family.** Same. |
+| `rendering/render_exclude_semantics_test.dart` | `BoxConstraints forces an infinite height` | **U14 family.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Same as `animation/cubic_test.dart` (already U14). Defer. |
+
+### What a real fix would look like
+
+The 5 small-pixel right overflows (U15 family) collectively
+need one of:
+
+1. A bridge-side fix to the intrinsic-width measurement of
+   horizontal layouts under bounded parents — which is a
+   targeted investigation in
+   `tom_d4rt_flutterm/lib/src/bridges/widgets_bridges.b.dart`
+   and the underlying generator. Out of scope for cluster
+   work.
+2. Per-script defensive padding (subtract 2-6 px from a
+   fixed-width Container) — works but is fragile to bridge
+   updates.
+3. Add the same small overflows to the `ignoredPatterns` list
+   in both test apps' `_handleFlutterError` (under the
+   existing `'overflowed by 0.500 pixels'` filter pattern) —
+   matches the existing precedent and reduces fw-err noise
+   without per-script edits. This is the recommended next
+   step if H-5 cleanup escalates.
+
+The `painting/textstyle_test.dart` `withOpacity` issue is
+specific to `MaterialColor`-typed receivers and should be
+investigated in
+`tom_d4rt_flutterm/lib/src/bridges/painting_bridges.b.dart`
+(the bridge for the `Color` interface) — outside the scope of
+script-side cluster work.
+
+The `rendering/render_exclude_semantics_test.dart` U14-family
+infinite-height issue is identical to the
+`animation/cubic_test.dart` U14 entry; no new diagnostic.
+
+### Affected scripts (cross-referenced from H-5 follow-up entries #6 + #8)
+
+| Script | Suite | Status |
+|--------|-------|--------|
+| `painting/textstyle_test.dart` | essential | U23 |
+| `material/dialog_themes_test.dart` | important | U23 (U15 family) |
+| `cupertino/cupertino_themes_batch3_test.dart` | important | U23 (U15 family) |
+| `painting/box_painter_test.dart` | secondary | U23 (U15 family) |
+| `painting/decoration_image_painter_test.dart` | secondary | U23 (U15 family) |
+| `widgets/editable_text_tap_up_outside_intent_test.dart` | hardly_4 | U23 (U15 family) |
+| `rendering/render_exclude_semantics_test.dart` | secondary | U23 (U14 family) |
+
+---
+
 ## Change Log
 
+- 2026-05-23: **Add U23** — 20260523-1056 H-5 follow-up: 7
+  single-event scripts deferred (5 small-pixel right overflows
+  under U15 family, 1 bridge SDK assertion on
+  `MaterialColor.withOpacity`, 1 infinite-height under U14
+  family). Documents script-side and bridge-side fix paths.
 - 2026-05-23: **Add U22** — H23 single-event scripts deferred to
   interpreter-level work. Summarises the H23 cluster (`testlog_20260522-1328-issue-analysis/error_analysis.md`
   entry #23) split: 5 scripts fixed script-side (mergeable_test,

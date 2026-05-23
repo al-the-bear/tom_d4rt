@@ -1986,8 +1986,18 @@ Widget buildBadCaseBMock() {
 }
 
 Widget buildBadCaseCMock() {
+  // Cluster H follow-up: the right SizedBox(width: 110) Column packs
+  // buildLabelTag ('fallback hit') + SizedBox(6) + buildProse text
+  // ('Align gives loose constraints; width = fallbackWidth.' — 50
+  // chars). buildProse renders at fontSize 12.8 with line-height 1.5
+  // (19.2 px/line). In the 110-px column the prose wraps to 4 lines at
+  // tight render widths = 77 px; adding tag (~22 px) and SizedBox (6)
+  // = 105 px natural, exceeding the 90 px SizedBox by ~14 px. Bumped
+  // the SizedBox height to 110 to accommodate the 4-line prose with
+  // a small headroom. Left Container (height: 80) still fits — Row
+  // crossAxisAlignment.center keeps both children visually centred.
   return SizedBox(
-    height: 90,
+    height: 110,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
