@@ -5923,10 +5923,10 @@ they fit existing patterns:
 | ~~`painting/textstyle_test.dart`~~ | ~~`Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion`~~ | **FIXED 2026-05-23 (entry #9).** Investigation showed this was a **script-side bug**, not a bridge gap: `Colors.grey.withOpacity(0.18 * (7 - i))` at line 1074 with `i=1` evaluates to `1.08`, exceeding Flutter's `assert(opacity >= 0.0 && opacity <= 1.0)` in `dart:ui/painting.dart` line 342. Native Flutter would assert at the same line — not a bridge-specific issue. **Fix:** clamp the computed alpha to `[0.0, 1.0]`. `frameworkErrors=1 → 0` on both projects. The "withOpacity on MaterialColor" framing in the earlier note was a red herring — the receiver type was incidental; the trigger was the out-of-range numeric input. |
 | `material/dialog_themes_test.dart` | `RenderFlex overflowed by 2.0 px on the right` | **U15 family.** Cupertino/Material bridge layout-rounding gap. Non-fatal; test passes. Per-script bisection would localise the exact culprit Row, but the bridge rounding can re-introduce on adjacent edits. Defer. |
 | `cupertino/cupertino_themes_batch3_test.dart` | `RenderFlex overflowed by 1.8 px on the right` | **U15 family.** Same as above. (Previously cleared by entry #21 of 20260522-1328 then re-introduced by post-fix content changes.) |
-| `painting/box_painter_test.dart` | `RenderFlex overflowed by 3.8 px on the right` | **U15 family.** Same. |
+| ~~`painting/box_painter_test.dart`~~ | ~~`RenderFlex overflowed by 3.8 px on the right`~~ | **FIXED 2026-05-23 (entry #10).** Located via 3-step section bisection. Root cause: `_galleryCard` title `Row(Icon(18) + SizedBox(6) + Text(title, fontSize 13 bold))` — at card `width: 200` with `padding: 12` the inner is 176 px; longest title `'FlutterLogoDecoration'` (21 chars, fontSize 13 bold) needed ~196 px → 3.8 px right overflow. **Fix:** wrap the title `Text` in `Expanded` with `maxLines: 2, overflow: TextOverflow.ellipsis`. `fwErr 1→0` on both projects. |
 | `painting/decoration_image_painter_test.dart` | `RenderFlex overflowed by 5.1 px on the right` | **U15 family.** Same. |
 | `widgets/editable_text_tap_up_outside_intent_test.dart` | `RenderFlex overflowed by 2.8 px on the right` | **U15 family.** Same. |
-| `rendering/render_exclude_semantics_test.dart` | `BoxConstraints forces an infinite height` | **U14 family.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Same as `animation/cubic_test.dart` (already U14). Defer. |
+| ~~`rendering/render_exclude_semantics_test.dart`~~ | ~~`BoxConstraints forces an infinite height`~~ | **FIXED 2026-05-23 (entry #10).** Located via 4-step section bisection (down to `_buildSectionOne`). Root cause: `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` with `Expanded` children inside `SingleChildScrollView` (which gives unbounded vertical) — the cross-axis stretch needs bounded vertical from the parent, but the SingleChildScrollView passes `maxHeight: infinity`. U14 family. **Fix:** wrap the `Row` in `IntrinsicHeight` so the stretch resolves to the natural height of the tallest tile. `fwErr 1→0` on both projects. |
 
 ### What a real fix would look like
 
@@ -5967,15 +5967,30 @@ infinite-height issue is identical to the
 | ~~`painting/textstyle_test.dart`~~ | ~~essential~~ | ~~U23~~ → **FIXED entry #9** (script-side alpha clamp) |
 | `material/dialog_themes_test.dart` | important | U23 (U15 family) |
 | `cupertino/cupertino_themes_batch3_test.dart` | important | U23 (U15 family) |
-| `painting/box_painter_test.dart` | secondary | U23 (U15 family) |
+| ~~`painting/box_painter_test.dart`~~ | ~~secondary~~ | ~~U23 (U15 family)~~ → **FIXED entry #10** (Expanded title) |
 | `painting/decoration_image_painter_test.dart` | secondary | U23 (U15 family) |
 | `widgets/editable_text_tap_up_outside_intent_test.dart` | hardly_4 | U23 (U15 family) |
-| `rendering/render_exclude_semantics_test.dart` | secondary | U23 (U14 family) |
+| ~~`rendering/render_exclude_semantics_test.dart`~~ | ~~secondary~~ | ~~U23 (U14 family)~~ → **FIXED entry #10** (IntrinsicHeight wrap) |
 
 ---
 
 ## Change Log
 
+- 2026-05-23: **Update U23 (entry #10)** — Two more scripts moved
+  from U23-deferred to FIXED:
+  - `painting/box_painter_test.dart` — `_galleryCard` title `Row(Icon
+    + SizedBox + Text(title))` overflowed the inner card width when the
+    longest title (`'FlutterLogoDecoration'`) rendered. Fix: wrap the
+    title `Text` in `Expanded` with maxLines+ellipsis. `fwErr 1→0`.
+  - `rendering/render_exclude_semantics_test.dart` — `Row(crossAxisAlignment.stretch)`
+    with Expanded children inside SingleChildScrollView leaked
+    `maxHeight: infinity` (U14 family). Fix: wrap the Row in
+    `IntrinsicHeight`. `fwErr 1→0`.
+  Also attempted (and reverted) `painting/decoration_image_painter_test.dart`
+  (5.1 px right) — shrinking `_fitCard` width from 220 to 210
+  cleared the 5.1 px overflow but exposed a 15 px overflow
+  elsewhere (multiple small overflows mask each other). Reverted;
+  stays U23 deferred. U23 now lists 4 deferred scripts (down from 6).
 - 2026-05-23: **Update U23** — `painting/textstyle_test.dart`
   removed from deferred list and marked FIXED in entry #9 of
   `testlog_20260523-1056-issue-analysis/error_analysis.md`. Root

@@ -1335,16 +1335,28 @@ Widget _galleryCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Cluster H follow-up: the original Row [Icon(18) + SizedBox(6)
+        // + Text(title, fontSize 13 bold)] overflowed the 176-px inner
+        // width (200 - 24 padding) by 3.8 px on the right when the
+        // longest title 'FlutterLogoDecoration' (21 chars at fontSize
+        // 13 bold) is rendered. Wrapped the Text in Expanded so the
+        // Row provides bounded width to Text and lets it wrap or
+        // ellipsize (overflow: ellipsis with maxLines: 2 keeps the
+        // visual close to the original).
         Row(
           children: [
             Icon(Icons.brush, color: accent, size: 18.0),
             SizedBox(width: 6.0),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13.0,
-                color: slate800,
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.0,
+                  color: slate800,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

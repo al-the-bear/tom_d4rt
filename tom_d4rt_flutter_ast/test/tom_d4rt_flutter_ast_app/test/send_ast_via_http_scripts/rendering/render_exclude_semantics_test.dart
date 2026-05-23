@@ -307,13 +307,25 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           'and is forwarded to RenderExcludeSemantics.excluding.',
       content: Column(
         children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: falseTile),
-              const SizedBox(width: 14.0),
-              Expanded(child: trueTile),
-            ],
+          // Cluster H follow-up: original `Row(crossAxisAlignment.stretch)`
+          // with Expanded children leaked `maxHeight: infinity` to
+          // `RenderConstrainedBox` (U14 family — `Center >
+          // ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with
+          // descendants that demand bounded vertical). Wrapped the Row
+          // in `IntrinsicHeight` so the cross-axis stretch resolves to
+          // the natural height of the tallest tile rather than the
+          // unbounded SingleChildScrollView max. Visual: the two tiles
+          // still stretch to match each other's height; the row is no
+          // longer ambiguous to the layout engine.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: falseTile),
+                const SizedBox(width: 14.0),
+                Expanded(child: trueTile),
+              ],
+            ),
           ),
           const SizedBox(height: 18.0),
           _codeBlock(
