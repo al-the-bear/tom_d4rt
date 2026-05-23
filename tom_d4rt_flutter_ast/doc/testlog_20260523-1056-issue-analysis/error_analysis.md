@@ -365,10 +365,17 @@ dropdown_test omit selectedItemBuilder (entry #17), dropdownform_test
 SizedBox-bound DDFF + single-line per-item children (entry #18),
 cubic_test IntrinsicHeight wrap on _PrivateConstructorCards
 Row(stretch) (entry #19), platform_test IntrinsicHeight on
-_defaultVsThemeCard + SCV wrap on page body (entry #20).
-**1 confirmed-deferred under existing U entry** (U17) —
-render_constraints_transform_box ×2 (intentional teaching script — by
-design; each fix exposes the next intentional banner).
+_defaultVsThemeCard + SCV wrap on page body (entry #20). **Plus
+1 partial improvement (entry #21):** rctb kHalveMaxWidth normalize
+correctness fix retained (real script-side bug producing
+non-normalized BoxConstraints); fwErr count unchanged at 1 because
+the intentional overflow cascade in sections 4/7/8 then surfaces
+(per U17 design).
+**1 confirmed-deferred BY DESIGN under U17** —
+render_constraints_transform_box ×2 (intentional teaching script whose
+purpose is to demonstrate Flutter's overflow assertions via real
+overflowing widgets in sections 4/7/8; no script-side fix preserves
+teaching content).
 0 remaining U23 (cleared entry #12). 0 remaining Cluster N (entry #13).
 **Bonus: entry #15 also cleared F5 (Cluster B back-port failure) on
 flutter_test for the same script.** Todo #19 (test-only single
@@ -762,11 +769,14 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (18 of 19 fixed script-side; 1 confirmed-deferred under
-  existing U entries (U17 only — intentional teaching script by design);
-  0 remaining U14 (entry #19); 0 remaining U18 (entry #20); 0 remaining
-  U22 (entry #18); 0 remaining U23 (CLEARED); 1 was covered by Cluster
-  N — also FIXED entry #13)** 18.
+- [~] **partial (18 of 19 fixed script-side; 1 confirmed-deferred BY
+  DESIGN under U17 — intentional teaching script whose purpose is to
+  surface Flutter overflow assertions; entry #21 partial improvement
+  retained the kHalveMaxWidth correctness fix and re-confirmed the
+  cascade hypothesis but fwErr count unchanged at 1; 0 remaining U14
+  (entry #19); 0 remaining U18 (entry #20); 0 remaining U22 (entry
+  #18); 0 remaining U23 (CLEARED); 1 was covered by Cluster N — also
+  FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -831,9 +841,16 @@ and fail in test:
      2026-05-20 transport-cliff that blocked the prior 4 attempts did
      not reproduce. `fwErr 1→0` on both projects.
    - `rendering/render_constraints_transform_box_test.dart` (×2 in
-     secondary + timeout) — `BoxConstraints(... ; NOT NORMALIZED)`.
-     Teaching script intrinsically incompatible with
-     `frameworkErrors=0`. Already **U17**.
+     secondary + timeout) — ~~`BoxConstraints(... ; NOT NORMALIZED)`~~ →
+     now `A RenderConstraintsTransformBox overflowed by 30/15/15/30`
+     (section 7's intentional `clipBehavior` showcase, after entry
+     #21's kHalveMaxWidth normalize fix). Teaching script intrinsically
+     incompatible with `frameworkErrors=0`. Still **U17 — by design**.
+     **Entry #21 partial improvement:** kHalveMaxWidth correctness fix
+     retained (clamp minWidth to halved maxWidth — a real script-side
+     bug regardless of teaching context). fwErr count unchanged at 1;
+     banner source shifted from real bug to intentional teaching
+     demonstration in sections 4 / 7 / 8.
    - ~~`animation/cubic_test.dart`~~ — ~~`BoxConstraints forces an
      infinite height` from `Center > ConstrainedBox(maxWidth) >
      GridView.count`. Already **U14**.~~ → **FIXED entry #19** —
@@ -958,10 +975,16 @@ and fail in test:
   entry #17 + dropdownform_test SizedBox-bound DDFF + single-line items
   entry #18 + cubic_test IntrinsicHeight wrap on _PrivateConstructorCards
   Row(stretch) entry #19 + platform_test IntrinsicHeight on
-  _defaultVsThemeCard + SCV wrap on page body entry #20), 1
-  confirmed-deferred under existing U entries (U17 only — intentional
-  teaching script by design), 0 remaining U14, 0 remaining U18, 0
-  remaining U22, 0 remaining U23, 0 remaining Cluster N (#12).** All six script-side fixes are pure script-side bug fixes
+  _defaultVsThemeCard + SCV wrap on page body entry #20 + rctb
+  kHalveMaxWidth normalize correctness fix entry #21 — partial
+  improvement, fwErr count unchanged at 1 due to intentional cascade),
+  1 confirmed-deferred BY DESIGN under U17 (intentional teaching script
+  whose purpose is to demonstrate Flutter's overflow assertions via
+  real overflowing widgets in sections 4 / 7 / 8 — no script-side fix
+  preserves teaching content), 0 remaining U14, 0 remaining U18, 0
+  remaining U22, 0 remaining U23, 0 remaining Cluster N (#12).
+  **H-5 batch closes here: no genuine fixable-but-deferred items
+  remain.** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries
   do not change code and require no regression sweep. Raw logs:

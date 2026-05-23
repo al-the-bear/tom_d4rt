@@ -48,9 +48,20 @@ const Color kAccentFuchsia = Color(0xFFC026D3);
 // ----------------------------------------------------------------------------
 
 BoxConstraints kHalveMaxWidth(BoxConstraints input) {
+  // Probe (entry #21): clamp minWidth to the halved maxWidth so the
+  // returned constraints stay normalised. Without this clamp, a tight-
+  // width input (where minWidth == maxWidth) and halving produces
+  // minWidth > maxWidth → "BoxConstraints(...; NOT NORMALIZED) is not
+  // normalized". The teaching point — that a transform can shrink the
+  // available width — is preserved; we just don't violate the
+  // BoxConstraints normalisation invariant.
+  final double halvedMax =
+      input.hasBoundedWidth ? input.maxWidth / 2.0 : input.maxWidth;
+  final double safeMin =
+      input.minWidth > halvedMax ? halvedMax : input.minWidth;
   return BoxConstraints(
-    minWidth: input.minWidth,
-    maxWidth: input.hasBoundedWidth ? input.maxWidth / 2.0 : input.maxWidth,
+    minWidth: safeMin,
+    maxWidth: halvedMax,
     minHeight: input.minHeight,
     maxHeight: input.maxHeight,
   );

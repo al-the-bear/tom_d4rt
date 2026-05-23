@@ -5258,6 +5258,53 @@ The kHalveMaxWidth normalize fix was applied and verified (the
 first banner cleared), then reverted when the section-7 follow-up
 banner surfaced and inspection revealed the cascade.
 
+**2026-05-23 update — kHalveMaxWidth fix RETAINED; cascade
+re-confirmed; U17 status unchanged at "by design / deferred"
+(entry #21).** Re-probed the cascade for entry #21 of
+`testlog_20260523-1056-issue-analysis/error_analysis.md`. Result
+matches the 2026-05-20 finding exactly:
+1. Original baseline: `BoxConstraints(616.8<=w<=308.4, h=182.0;
+   NOT NORMALIZED) is not normalized` — kHalveMaxWidth produces
+   non-normalized constraints when the parent's width is tight.
+2. Apply kHalveMaxWidth normalize fix (clamp `minWidth` to the
+   halved `maxWidth` so `minWidth <= maxWidth` always holds —
+   real correctness improvement, not just an error suppressor):
+   first banner cleared.
+3. Next surfaces: `A RenderConstraintsTransformBox overflowed by
+   30 pixels on the left, 15 pixels on the top, 15 pixels on the
+   bottom, and 30 pixels on the right` — exactly the section 7
+   `_ClipPanel` overflow (220×110 child inside 160×80 slot via
+   `ConstraintsTransformBox.unconstrained`).
+4. Inspection of sections 4 (`_buildLiveDemos` — six `_LiveDemoTile`
+   instances, each with an `_OverflowChild` in a CTB of a
+   different transform variant) and 8 (`_buildComparisonPanel` —
+   `SizedBox(120×60) > CTB.unconstrained > Container(160×80)`)
+   confirms the cascade continues beyond section 7.
+
+**Difference from 2026-05-20:** the kHalveMaxWidth fix is now
+**retained** rather than reverted. Rationale: producing non-
+normalized BoxConstraints is undefined behavior in real Flutter
+code; the original implementation was a script-side bug
+(`minWidth > maxWidth` is invalid regardless of context). The fix
+clamps `minWidth` to the halved `maxWidth` while preserving the
+"custom transform that halves available width" teaching point —
+the function still demonstrates a user-defined `constraintsTransform`,
+just with valid output. fwErr count is **unchanged at 1** (the
+banner source has shifted from "real correctness bug" to
+"intentional overflow demonstration in section 7" — same count,
+better script quality).
+
+**Net entry #21 outcome:** kHalveMaxWidth bug fixed for
+correctness; cascade hypothesis re-confirmed; U17 remains
+deferred for the design reasons documented above (sections 4 / 7
+/ 8 demonstrate Flutter's overflow assertion behavior via real
+overflowing widgets — replacing them with non-overflowing
+equivalents or schematics is a design-level rewrite, not a
+per-item fix). The H-5 batch ends with U17 as the sole genuine
+deferral, but its underlying nature is "by design" (the script
+intentionally surfaces the assertion banner that the test runner
+counts), not an interpreter / bridge gap.
+
 **What a real fix would look like.**
 
 Either:
@@ -5293,7 +5340,7 @@ None of these belong in the per-item fix sweep — they are
 
 | Script | Host suites | Sites | Notes |
 |--------|-------------|-------|-------|
-| `rendering/render_constraints_transform_box_test.dart` | `secondary_classes_test` (1/1), `timeout_tests_test` (1/1) | kHalveMaxWidth produces non-normalized; sections 4 / 7 / 8 deliberately overflow CTBs for `clipBehavior` and pre-defined-transform demos. | Item 71 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U17 root-cause analysis above. |
+| `rendering/render_constraints_transform_box_test.dart` | `secondary_classes_test` (1/1), `timeout_tests_test` (1/1) | ~~kHalveMaxWidth produces non-normalized~~ (fixed entry #21 — minWidth clamped to halved maxWidth, see U17 §"2026-05-23 update"); sections 4 / 7 / 8 deliberately overflow CTBs for `clipBehavior` and pre-defined-transform demos (intentional, by design). | Item 71 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. **2026-05-23 entry #21 update:** kHalveMaxWidth correctness fix retained; fwErr count unchanged at 1 (banner source shifted from real bug to section 7's intentional `clipBehavior` overflow). U17 still deferred by design. |
 
 ---
 
@@ -5897,7 +5944,7 @@ is summarised in `error_analysis.md` entry #23.
 | ~~`material/dropdown_test.dart`~~ | ~~`Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>`~~ | **FIXED 2026-05-23 (entry #17).** The interpreter generics-erasure root cause (`colorChoices.map<Widget>(...).toList()` erases the `Widget` generic to `Object?` at the bridge boundary, regardless of `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop source form — all four script-side variants surfaced the same coercion error in H23) remains unresolved at the interpreter level. **Workaround:** omit the `selectedItemBuilder` parameter entirely from the `selectedItemBuilderDropdown`. Default `DropdownButton` behaviour renders the matching `items` widget (the chip) for the selected display too — slight visual change (shows the regular `chipForColor` instead of the custom "Selected: NAME" Container), but the `selectedItemBuilder` teaching content is preserved further down via the code-block sections that demonstrate the pattern as static `Text` snippets. The underlying typed-collection coercion limitation is unchanged — see U22 §"What a real fix would look like" item (1). `fwErr 1→0` on both projects. |
 | `material/mergeable_test.dart` | `BoxConstraints forces an infinite height` (RenderPadding) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the section-1 `Row(crossAxisAlignment.stretch, children: conceptCards)`. Not part of U22; listed here only for cross-reference. |
 | `material/progress_test.dart` | `Progress bar value, minValue, and maxValue must be valid numbers. value: "0 percent", minValue: "0", maxValue: "100"` | **Fixed script-side under H23** — three `semanticsValue` strings switched from `'$percent percent'` / `'$percent%'` / `'85%'` to bare numeric strings (`'$percent'` / `'85'`). Not part of U22. |
-| `rendering/render_constraints_transform_box_test.dart` | `BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized` | **Already U17.** Teaching script whose purpose is to feed pathological inputs to `ConstraintsTransformBox`. Any pre-normalize fix exposes the next intentional banner. Deferred. |
+| `rendering/render_constraints_transform_box_test.dart` | ~~`BoxConstraints(699.6<=w<=349.8, h=182.0; NOT NORMALIZED) is not normalized`~~ → now `A RenderConstraintsTransformBox overflowed by 30/15/15/30` (section 7's intentional `clipBehavior` showcase) | **Still U17 — by design.** Entry #21 (2026-05-23) **retained** the kHalveMaxWidth normalize fix (correctness — minWidth clamped to halved maxWidth). The first banner cleared; section 7's intentional overflow surfaced exactly as U17 predicted. The script's design intent is to demonstrate Flutter's overflow assertions via real overflowing widgets in sections 4 / 7 / 8 — replacing them with non-overflowing equivalents destroys the teaching. fwErr count unchanged at 1; banner source shifted from real bug to intentional teaching. |
 | `scheduler/ticker_test.dart` | `BoxConstraints forces an infinite height` (RenderDecoratedBox) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the per-row `Row(crossAxisAlignment.stretch, children: [Expanded(buildCompCell)…])` comparison-table builder. Not part of U22. |
 | ~~`services/platform_test.dart`~~ | ~~`BoxConstraints forces an infinite height` (RenderConstrainedBox)~~ | **FIXED 2026-05-23 (entry #20).** The 4 prior A1–A4 script-side attempts in 2026-05-20 all hit a transport-cliff (`status=transport_error, httpStatus=-1`); re-attempt of A1 (`IntrinsicHeight` on the `_defaultVsThemeCard` Row) in 2026-05-23 did NOT reproduce the cliff — instead surfaced a 7257-px bottom overflow caused by the page's ~7000-px natural height with no scroll ancestor. Combined fix: IntrinsicHeight wrap on the Row + `SingleChildScrollView` wrap on the page body. See U18 §"2026-05-23 update" for retrospective. |
 | ~~`widgets/animation_test.dart`~~ | ~~`Runtime Error: LateInitializationError: Late variable '_meanAnim' without initializer is accessed before being assigned.`~~ | **FIXED 2026-05-23 (entry #16).** The `_MeanAnimation extends CompoundAnimation<double>` script-defined subclass remains unconstructible under d4rt (architectural U-family limitation). **Workaround:** removed the `_meanAnim` field and `_MeanAnimation` class entirely; the mean trace is now synthesised inline in `_CompoundSection` using `AnimatedBuilder(animation: Listenable.merge([minA, maxA]), builder: ...)` that computes `(min + max) / 2` on the fly. Mathematically equivalent — for any two values A and B, `mean(A,B) = (min(A,B) + max(A,B)) / 2` because `min + max = A + B` always. Visual impact: identical mean trace; the demo retains its "blend two parents into one Animation<double>" teaching content via `AnimationMin` and `AnimationMax` (the genuine public Flutter SDK classes). `fwErr 1→0` on both projects. The underlying interpreter limitation (script-defined subclass of bridged abstract class) remains documented under U3/U5/U9/U10/U11. |
@@ -6047,6 +6094,29 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U17 (entry #21)** —
+  `rendering/render_constraints_transform_box_test.dart`
+  kHalveMaxWidth normalize fix **retained** as a correctness
+  improvement (clamp `minWidth` to the halved `maxWidth` so the
+  returned BoxConstraints stay normalised — a real script-side
+  bug regardless of the teaching demo context). U17's cascade
+  hypothesis re-confirmed: clearing kHalveMaxWidth surfaced
+  exactly the predicted section 7 `_ClipPanel` overflow
+  (`A RenderConstraintsTransformBox overflowed by 30 pixels on
+  the left, 15 pixels on the top, 15 pixels on the bottom, and
+  30 pixels on the right`). Sections 4 (`_buildLiveDemos`) and 8
+  (`_buildComparisonPanel`) confirmed to continue the cascade
+  beyond section 7 — each contains additional intentionally-
+  overflowing `ConstraintsTransformBox` instances. fwErr count
+  **unchanged at 1** (banner source shifted from real
+  correctness bug to intentional teaching demonstration). U17
+  remains deferred by design: the script's whole purpose is to
+  demonstrate Flutter's overflow-assertion behavior via real
+  overflowing widgets, and replacing them with non-overflowing
+  equivalents destroys the teaching content. **H-5 batch (entry
+  #18 of testlog_20260523-1056) closes at 18/19 fixed + 1
+  by-design deferred — no genuine fixable-but-deferred items
+  remain in the batch.**
 - 2026-05-23: **Update U18 (entry #20)** —
   `services/platform_test.dart` moved from U18-deferred to FIXED.
   Re-attempted A1 (`IntrinsicHeight` wrap on the
