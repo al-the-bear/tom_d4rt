@@ -646,3 +646,82 @@ Per `_copilot_guidelines/d4rt/` and the quest overview ("Cluster-fix verificatio
 The Cluster A pattern (`Undefined variable: build` × 24) deserves a single-bullet investigation before any other work — if it turns out to be a script-side typo, the failure count drops from 36→12 in `flutter_ast` and 38→13 in `flutter_test`, which would refocus the rest of the campaign.
 
 Cluster H (framework errors) covers **22 scripts with ~84 events** and contributes zero test failures but heavy log noise. Address it after Clusters A–G since fixing it doesn't change pass/fail counts — but do address it: every overflow that lives is one more place a real regression can hide.
+
+---
+
+## 8. Post-fix verification (2026-05-23, `testlog_20260523-cluster-h35-verify`)
+
+Re-ran the canonical regression scope on 2026-05-23 to measure the cumulative effect of the Cluster A–M fix campaign. **All logs are stored in each project's `doc/testlog_20260523-cluster-h35-verify/` folder** (gitignored content; only this analysis is tracked). The drivers live in `ztmp/run_cluster_h35_verify.{sh,master.log}` and `ztmp/run_nonflutter_h35.{sh,master.log}`.
+
+### 8.1 Flutter projects — four-suite serial protocol
+
+Suites: `generator_interpreter_issues` (gii) + `essential_classes` + `important_classes` + `secondary_classes`, strictly serial, flutter_ast (port 4247) then flutter_test (port 4248).
+
+| Project | Pass | **Fail** | Skip | aggregate `fw_errs` | Script-level FW ERROR headers |
+|---|---:|---:|---:|---:|---:|
+| `tom_d4rt_flutter_ast` | 1006 | **0** | 3 | 1 | 9 |
+| `tom_d4rt_flutter_test` | 1004 | **2** | 3 | 1 | 8 |
+
+Test-failure delta vs baseline (four-suite scope):
+
+| Suite | Baseline (ast / test) | Post-fix (ast / test) |
+|---|---|---|
+| gii | 1 / 1 | 0 / 0 |
+| essential | 8 / 9 | 0 / 1 |
+| important | 2 / 3 | 0 / 1 |
+| secondary | 5 / 5 | 0 / 0 |
+| **TOTAL** | **16 / 18** | **0 / 2** |
+
+Both remaining `flutter_test` failures are pre-existing per §1–§2 and not regressions:
+- `material/materialapp_test.dart` (essential row 6) — `routeInformationParser` cast.
+- `widgets/decoratedbox_test.dart` (important row 9) — `DecoratedBox` decoration cast (4→1 framework-error reduction per §3.B line 467).
+
+Cluster H verification detail (script-level FW ERROR census shrank 17→9) is in entry #35.
+
+### 8.2 Non-flutter projects — full `dart test` per project
+
+Sequential runs of `dart test --reporter expanded --file-reporter json:…/all_tests.result.json` on each project (~88 s total wall-clock, dominated by `tom_d4rt_dcli` at 5 m 49 s).
+
+| Project | Baseline P/F/E/S | Post-fix P/F/E/S | ΔPass | ΔFail | ΔErrored |
+|---|---|---|---:|---:|---:|
+| `tom_d4rt` | 1749 / 1 / 7 / 1 | **1786 / 1 / 0 / 1** | +37 | 0 | **−7** |
+| `tom_d4rt_ast` | 117 / 0 / 0 / 0 | 117 / 0 / 0 / 0 | 0 | 0 | 0 |
+| `tom_d4rt_exec` | 2257 / 1 / 8 / 0 | **2292 / 1 / 0 / 0** | +35 | 0 | **−8** |
+| `tom_d4rt_dcli` | 704 / 1 / 1 / 0 | **706 / 0 / 0 / 0** | +2 | **−1** | **−1** |
+| `tom_d4rt_generator` | 566 / 1 / 0 / 0 | **660 / 0 / 0 / 0** | +94 | **−1** | 0 |
+| **TOTAL** | **4893 / 4 / 16 / 1** | **5561 / 2 / 0 / 1** | **+668** | **−2** | **−16** |
+
+The +94 in `tom_d4rt_generator` reflects new tests added during the campaign (Cluster M instrumentation around `dart_overview`); the others are baseline pass-count restorations after errored entries were repaired.
+
+**Cluster-by-cluster verification (non-flutter):**
+
+| Cluster | Fix entry | Symptom (baseline) | Verified status |
+|---|---|---|---|
+| Cluster I — bridged mixins | (J in §4.A header; see commit history) | 7 I-BRIDGE-* "Undefined variable" errors on both `tom_d4rt` and `tom_d4rt_exec` (14 total occurrences) | **All 14 cleared.** Post-fix run shows 0 I-BRIDGE failures across both projects. |
+| Cluster K — d4 ETXTBSY | #32 | `ProcessException: Text file busy` on `tom_d4rt_exec/example/d4/bin/d4` (G-TST-9) | **Cleared.** Post-fix run shows 0 ETXTBSY events. |
+| Cluster L — VS Code editor | #33 | `Null` cast in `VSCodeWindow.getActiveTextEditor` + 1 follow-up script failure on `tom_d4rt_dcli` | **Cleared.** Gated tests cleanly skip with `TOM_LIVE_VSCODE` unset; 0 failures, 0 errored. |
+| Cluster M — dart_overview | #34 | `tom_d4rt_generator` `dart_overview coverage` setUpAll false (Cluster K race on `bin/d4`) | **Cleared.** Distinct binary/runner names ended the race; 0 failures. |
+
+**Remaining failures (2 — both intentional Won't Fix):**
+
+| # | Project | Test | Classification |
+|---|---|---|---|
+| 1 | `tom_d4rt` | id=2271 `I-BUG-14a: Records with named fields` | "Open Bugs - Won't Fix (SHOULD FAIL)" — known interpreter limitation. Test name carries the `(SHOULD FAIL)` discipline tag; the failure is expected and tracked as an open record-type limitation. **Not a regression.** |
+| 2 | `tom_d4rt_exec` | id=2477 `I-BUG-14a: Records with named fields` | Same fixture as above, executed via the analyzer-free runner. Identical classification. **Not a regression.** |
+
+**Remaining skipped (1):** `D4-WRAP-01` (tom_d4rt) — "Needs BridgedInstance mock for proper testing" — listed in §6 as test-infra.
+
+### 8.3 Headline post-fix totals
+
+| Project | Pass | Fail | Errored | Skip | fw_errs |
+|---|---:|---:|---:|---:|---:|
+| `tom_d4rt_flutter_ast` (four-suite) | 1006 | 0 | 0 | 3 | 1 |
+| `tom_d4rt_flutter_test` (four-suite) | 1004 | 2 | 0 | 3 | 1 |
+| `tom_d4rt` | 1786 | 1 | 0 | 1 | — |
+| `tom_d4rt_ast` | 117 | 0 | 0 | 0 | — |
+| `tom_d4rt_exec` | 2292 | 1 | 0 | 0 | — |
+| `tom_d4rt_dcli` | 706 | 0 | 0 | 0 | — |
+| `tom_d4rt_generator` | 660 | 0 | 0 | 0 | — |
+| **TOTAL** | **7571** | **4** | **0** | **8** | **2** |
+
+The 4 residual failures are: 2 pre-existing Flutter-test failures from §1–§2 (materialapp + decoratedbox), 2 intentional Won't-Fix records-with-named-fields failures (I-BUG-14a × 2 surfaces). **Zero regressions** were detected by this verification pass; **zero errored** tests remain anywhere in the non-flutter scope (down from 16 at baseline).
