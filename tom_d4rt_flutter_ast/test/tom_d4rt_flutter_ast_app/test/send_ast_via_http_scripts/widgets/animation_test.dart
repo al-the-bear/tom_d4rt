@@ -66,7 +66,18 @@ class _AnimationLabState extends State<_AnimationLab>
   // Compound animations across _primary and _secondary.
   late final Animation<double> _minAnim;
   late final Animation<double> _maxAnim;
-  late final Animation<double> _meanAnim;
+  // U22 workaround (entry #16): the script originally declared a
+  // `late final Animation<double> _meanAnim` and assigned it in
+  // initState via `_MeanAnimation(_primary, _secondary)` where
+  // `_MeanAnimation extends CompoundAnimation<double>` is a
+  // script-defined subclass of a bridged abstract class. d4rt
+  // silently fails this construction (returns null), leaving the
+  // late-final field unassigned — first access then trips
+  // `LateInitializationError`. Removed the field and the
+  // `_MeanAnimation` class; the mean trace is now computed inline
+  // as `(min + max) / 2` in the _CompoundSection (mathematically
+  // equivalent: for any two values A and B, mean(A,B) =
+  // (min(A,B) + max(A,B)) / 2 because min+max = A+B always).
 
   // Status of the primary controller, refreshed via addStatusListener.
   AnimationStatus _primaryStatus = AnimationStatus.dismissed;
@@ -98,7 +109,8 @@ class _AnimationLabState extends State<_AnimationLab>
 
     _minAnim = AnimationMin<double>(_primary, _secondary);
     _maxAnim = AnimationMax<double>(_primary, _secondary);
-    _meanAnim = _MeanAnimation(_primary, _secondary);
+    // mean is computed inline at the trace render site (see entry #16
+    // workaround note above) — no late-final field needed.
 
     // Kick everything off.
     _primary.repeat(reverse: true);
@@ -160,7 +172,6 @@ class _AnimationLabState extends State<_AnimationLab>
             b: _secondary,
             minA: _minAnim,
             maxA: _maxAnim,
-            meanA: _meanAnim,
           ),
           const SizedBox(height: 28),
           _StatusListenerSection(status: _primaryStatus),
@@ -1264,34 +1275,110 @@ class _CompoundSection extends StatelessWidget {
     required this.b,
     required this.minA,
     required this.maxA,
-    required this.meanA,
   });
 
   final Animation<double> a;
   final Animation<double> b;
   final Animation<double> minA;
   final Animation<double> maxA;
-  final Animation<double> meanA;
 
   @override
   Widget build(BuildContext context) {
+    // U22 workaround (entry #16): the original section also took
+    // `meanA: Animation<double>` produced by `_MeanAnimation extends
+    // CompoundAnimation<double>` (a script-defined subclass of a
+    // bridged abstract class — silently fails to construct under
+    // d4rt). Removed that parameter and synthesised the mean trace
+    // inline using a `Listenable.merge([minA, maxA])` driven
+    // AnimatedBuilder. Mathematically equivalent: for any two
+    // values A and B, mean(A,B) = (min(A,B) + max(A,B)) / 2.
+    const Color meanColor = Color(0xFF5E35B1);
     return _Bench(
       index: 7,
       title: 'CompoundAnimation: min, max, mean',
       subtitle:
-          'AnimationMin, AnimationMax (and a custom mean subclass of '
-          'CompoundAnimation) blend two parents into one Animation<double>. '
+          'AnimationMin and AnimationMax blend two parents into one '
+          'Animation<double>; the mean is synthesised inline as '
+          '(min + max) / 2 because a script-defined CompoundAnimation '
+          'subclass cannot be constructed under the interpreter (U22). '
           'Below: parents A and B running at different speeds, plus the '
           'three compound traces.',
       icon: Icons.merge_type,
-      color: const Color(0xFF5E35B1),
+      color: meanColor,
       child: Column(
         children: <Widget>[
           _Trace(label: 'A (primary)', anim: a, color: const Color(0xFF1976D2)),
           _Trace(label: 'B (secondary)', anim: b, color: const Color(0xFF00897B)),
           _Trace(label: 'min(A, B)', anim: minA, color: const Color(0xFFD81B60)),
           _Trace(label: 'max(A, B)', anim: maxA, color: const Color(0xFFF9A825)),
-          _Trace(label: 'mean(A, B)', anim: meanA, color: const Color(0xFF5E35B1)),
+          // Inline mean trace — composes _Trace's visual but reads from
+          // the merged Listenable [minA, maxA] and computes mean on the
+          // fly. We pass `minA` to the `anim` field of _Trace so any
+          // downstream consumer that requires an Animation<double>
+          // still has one; the AnimatedBuilder rebuilds whenever either
+          // parent fires, and we ignore minA.value at the value site
+          // because the inline-mean wrapper computes its own value.
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: AnimatedBuilder(
+              animation: Listenable.merge(<Listenable>[minA, maxA]),
+              builder: (BuildContext context, Widget? child) {
+                final double mean =
+                    ((minA.value + maxA.value) / 2.0).clamp(0.0, 1.0);
+                return Row(
+                  children: <Widget>[
+                    const SizedBox(
+                      width: 110,
+                      child: Text(
+                        'mean(A, B)',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 16,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                color: meanColor.withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            FractionallySizedBox(
+                              widthFactor: mean,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: meanColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 44,
+                      child: Text(
+                        mean.toStringAsFixed(2),
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -1379,15 +1466,13 @@ class _Trace extends StatelessWidget {
   }
 }
 
-// Concrete mean subclass of CompoundAnimation, since AnimationMean is not
-// part of the public Flutter SDK on all channels — we synthesize it.
-class _MeanAnimation extends CompoundAnimation<double> {
-  _MeanAnimation(Animation<double> first, Animation<double> next)
-      : super(first: first, next: next);
-
-  @override
-  double get value => (first.value + next.value) / 2.0;
-}
+// U22 workaround (entry #16): `_MeanAnimation extends CompoundAnimation<double>`
+// was a script-defined subclass of a bridged abstract class. d4rt
+// silently fails to construct such subclasses (returns null), leaving
+// any field assigned from the constructor unassigned. We removed the
+// class and synthesise the mean inline in _CompoundSection via
+// `Listenable.merge([minA, maxA])` + AnimatedBuilder; mean(A,B) is
+// always equal to (min(A,B) + max(A,B)) / 2 since min+max = A+B.
 
 // ---------------------------------------------------------------------------
 // SECTION 8: Status listener demo.
