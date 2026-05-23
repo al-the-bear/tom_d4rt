@@ -948,10 +948,21 @@ Widget _fitCard(_FitSample s) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
+        // Cluster H follow-up: original Row [_badge(s.name) + SizedBox +
+        // optional _chip('CLIPPED')] overflowed the inner card width
+        // (220 - 24 padding = 196 px) by 5.1 px when name is
+        // 'fitWidth (portrait)' (19 chars at fontSize 10 weight 800 +
+        // padding) AND the CLIPPED chip is present. Switched the Row
+        // to a Wrap so the chip can drop to a second line under the
+        // longer-name samples. Visual: identical for short names; the
+        // 'fitWidth (portrait)' clipped sample now shows the CLIPPED
+        // chip on a second line.
+        Wrap(
+          spacing: 6,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             _badge(s.name, _kAccent),
-            SizedBox(width: 6),
             if (s.clip) _chip('CLIPPED', _kAccent4),
           ],
         ),

@@ -352,12 +352,15 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial** — 6 fixed script-side (decoratedbox H2 borderRadius,
+**partial** — 9 fixed script-side (decoratedbox H2 borderRadius,
 refreshindicator header-into-ListView, placeholder buildBadCaseCMock
 height bump, textstyle alpha clamp, box_painter Expanded title,
-render_exclude_semantics IntrinsicHeight wrap), 8 confirmed-deferred
-under existing U entries (U14/U17/U18/U22), 4 deferred under U23 entry
-(4 small-pixel U15 family), 1 covered by Cluster N (button_bar via F2). Todo #19 (test-only single
+render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
+label, editable_text Expanded gesture label, decoration_image_painter
+title Row → Wrap), 8 confirmed-deferred under existing U entries
+(U14/U17/U18/U22), 1 deferred under U23 entry (only cupertino_themes_batch3
+where the overflow is genuinely deep in bridged Cupertino layout),
+1 covered by Cluster N (button_bar via F2). Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -718,8 +721,8 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (6 of 19 fixed script-side, 12 deferred to U-entries
-  (8 existing + 4 new U23), 1 covered by Cluster N)** 18.
+- [~] **partial (9 of 19 fixed script-side, 9 deferred to U-entries
+  (8 existing + 1 new U23), 1 covered by Cluster N)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -765,7 +768,24 @@ and fail in test:
      also clear this fw event because the script will no longer fail to
      build past the ButtonBar lookup. No standalone fix in this todo.
 
-  **Follow-up sub-pass fixed (5 of 9):**
+  **Follow-up sub-pass fixed (8 of 9):**
+   - **`material/dialog_themes_test.dart`** (entry #11) — 2.0 px right.
+     Bisected to `_flavoursSection` → `_simpleFlavour` → `_simpleDialogOption`.
+     Inner Row `[Icon(18) + _wgap(10) + Text(label)]` inside `SimpleDialog`
+     of width 240 placed in narrower Expanded slot. **Fix:** wrap label
+     `Text` in `Expanded(... maxLines: 1, overflow: ellipsis)`.
+   - **`widgets/editable_text_tap_up_outside_intent_test.dart`**
+     (entry #11) — 2.8 px right. `_buildGestureDisambiguation` inner Row
+     inside `SizedBox(width: 80)` packs `Icon(14) + SizedBox(4) +
+     Text(gesture, fontSize 10 bold)`. Longest label `'Scroll / Drag'`
+     (12 chars) measures ~84 px in 80 px slot → 2.8 px overflow. **Fix:**
+     wrap label `Text` in `Expanded(... maxLines: 1, overflow: ellipsis)`.
+   - **`painting/decoration_image_painter_test.dart`** (entry #11) —
+     5.1 px right. Second attempt after entry #10 reverted (shrinking
+     card width exposed deeper overflow). Successful approach: switch
+     the `_fitCard` title Row `[_badge + SizedBox + optional _chip]`
+     (line 951) to a `Wrap` so the optional CLIPPED chip can drop to a
+     second line for the longest sample name `'fitWidth (portrait)'`.
    - **`painting/box_painter_test.dart`** (entry #10) — `RenderFlex
      overflowed by 3.8 px on the right`. Located via 3-step section
      bisection (down to `gallerySection` → `_galleryCard`). The card's
@@ -824,26 +844,24 @@ and fail in test:
      label + 6 px spacer = 105 px natural). Left container (height 80)
      still fits with Row crossAxisAlignment.center. `fwErr 1→0`.
 
-  **Deferred under U23 entry (4 of 9 — textstyle + box_painter +
-  render_exclude_semantics moved out as FIXED above):**
-   - `material/dialog_themes_test.dart` — 2.0 px right. **U23 (U15
-     family).** Material bridge layout-rounding.
+  **Deferred under U23 entry (1 of 9 — only Cupertino bridge-deep
+  overflow remains; textstyle + box_painter + render_exclude_semantics
+  + dialog_themes + editable_text + decoration_image_painter moved out
+  as FIXED above):**
    - `cupertino/cupertino_themes_batch3_test.dart` — 1.8 px right.
-     **U23 (U15 family).** Cupertino bridge layout-rounding (already
-     documented under U15).
-   - `painting/decoration_image_painter_test.dart` — 5.1 px right.
-     **U23 (U15 family).** Bisected (entry #10) — attempted to shrink
-     `_fitCard` width 220 → 210, but that exposed a 15 px overflow
-     elsewhere (multiple small overflows mask each other). Reverted;
-     stays deferred.
-   - `widgets/editable_text_tap_up_outside_intent_test.dart` — 2.8 px
-     right. **U23 (U15 family).** Same.
+     **U23 (U15 family).** Localised to section15 via 5-step bisection
+     (entry #9), tried converting `sampleControls` first Row to a Wrap
+     but the overflow persisted — deeper inside the bridged
+     `CupertinoSwitch` / `CupertinoSlider` width measurement. Only U23
+     entry that is truly unreachable from script side.
 
-  **Status: partial — 6 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 9 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
-  IntrinsicHeight), 8 confirmed-deferred under existing U entries
-  (U14/U17/U18/U22), 4 deferred under U23 entry, 1 covered by Cluster N
+  IntrinsicHeight + dialog_themes Expanded label + editable_text
+  Expanded gesture label + decoration_image_painter title Row → Wrap),
+  8 confirmed-deferred under existing U entries (U14/U17/U18/U22), 1
+  deferred under U23 entry, 1 covered by Cluster N
   (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries

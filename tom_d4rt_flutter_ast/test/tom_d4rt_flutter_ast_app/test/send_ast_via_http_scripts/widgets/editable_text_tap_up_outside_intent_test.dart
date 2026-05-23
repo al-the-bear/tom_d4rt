@@ -612,17 +612,28 @@ Widget _buildGestureDisambiguation() {
             children: [
               SizedBox(
                 width: 80,
+                // Cluster H follow-up: inner Row [Icon(14) + SizedBox(4)
+                // + Text(gesture, fontSize 10 bold)] overflowed the 80 px
+                // slot by 2.8 px right when gesture is 'Scroll / Drag'
+                // (12 chars, the longest of the 4 labels). Wrap the Text
+                // in Expanded so it can ellipsize when the natural width
+                // exceeds the slot. Visual: identical at full width;
+                // ellipsis triggers only for the longest label.
                 child: Row(
                   children: [
                     Icon(gestures[i]['icon'] as IconData,
                         color: gestures[i]['color'] as Color, size: 14),
                     const SizedBox(width: 4),
-                    Text(
-                      gestures[i]['gesture'] as String,
-                      style: TextStyle(
-                        color: gestures[i]['color'] as Color,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Text(
+                        gestures[i]['gesture'] as String,
+                        style: TextStyle(
+                          color: gestures[i]['color'] as Color,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

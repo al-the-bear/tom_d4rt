@@ -5921,11 +5921,11 @@ they fit existing patterns:
 | Script | Error | Status |
 |--------|-------|--------|
 | ~~`painting/textstyle_test.dart`~~ | ~~`Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion`~~ | **FIXED 2026-05-23 (entry #9).** Investigation showed this was a **script-side bug**, not a bridge gap: `Colors.grey.withOpacity(0.18 * (7 - i))` at line 1074 with `i=1` evaluates to `1.08`, exceeding Flutter's `assert(opacity >= 0.0 && opacity <= 1.0)` in `dart:ui/painting.dart` line 342. Native Flutter would assert at the same line — not a bridge-specific issue. **Fix:** clamp the computed alpha to `[0.0, 1.0]`. `frameworkErrors=1 → 0` on both projects. The "withOpacity on MaterialColor" framing in the earlier note was a red herring — the receiver type was incidental; the trigger was the out-of-range numeric input. |
-| `material/dialog_themes_test.dart` | `RenderFlex overflowed by 2.0 px on the right` | **U15 family.** Cupertino/Material bridge layout-rounding gap. Non-fatal; test passes. Per-script bisection would localise the exact culprit Row, but the bridge rounding can re-introduce on adjacent edits. Defer. |
+| ~~`material/dialog_themes_test.dart`~~ | ~~`RenderFlex overflowed by 2.0 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** Located via 4-step section bisection (hero-elevation clean; +alignment+flavours+actionStyle → 2.0 px; flavour single-out → simpleFlavour is the source). Root cause: `_simpleDialogOption` Row `[Icon(18) + _wgap(10) + Text(label)]` inside `SimpleDialog` of width 240 rendered in a narrower Expanded slot. The Text widget had no flex wrapper, so it kept its natural width. **Fix:** wrap the Text in `Expanded(child: Text(..., maxLines: 1, overflow: TextOverflow.ellipsis))`. `fwErr 1→0` on both projects. |
 | `cupertino/cupertino_themes_batch3_test.dart` | `RenderFlex overflowed by 1.8 px on the right` | **U15 family.** Same as above. (Previously cleared by entry #21 of 20260522-1328 then re-introduced by post-fix content changes.) |
 | ~~`painting/box_painter_test.dart`~~ | ~~`RenderFlex overflowed by 3.8 px on the right`~~ | **FIXED 2026-05-23 (entry #10).** Located via 3-step section bisection. Root cause: `_galleryCard` title `Row(Icon(18) + SizedBox(6) + Text(title, fontSize 13 bold))` — at card `width: 200` with `padding: 12` the inner is 176 px; longest title `'FlutterLogoDecoration'` (21 chars, fontSize 13 bold) needed ~196 px → 3.8 px right overflow. **Fix:** wrap the title `Text` in `Expanded` with `maxLines: 2, overflow: TextOverflow.ellipsis`. `fwErr 1→0` on both projects. |
-| `painting/decoration_image_painter_test.dart` | `RenderFlex overflowed by 5.1 px on the right` | **U15 family.** Same. |
-| `widgets/editable_text_tap_up_outside_intent_test.dart` | `RenderFlex overflowed by 2.8 px on the right` | **U15 family.** Same. |
+| ~~`painting/decoration_image_painter_test.dart`~~ | ~~`RenderFlex overflowed by 5.1 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** First attempt under entry #10 (shrink `_fitCard` width 220 → 210) was reverted because it exposed a 15 px overflow elsewhere. Successful approach under entry #11: switch the title `Row [_badge + SizedBox + optional _chip]` inside `_fitCard` (line 951) to a `Wrap` so the optional CLIPPED chip can drop to a second line when the longest sample name `'fitWidth (portrait)'` (19 chars) doesn't leave room. `fwErr 1→0` on both projects. |
+| ~~`widgets/editable_text_tap_up_outside_intent_test.dart`~~ | ~~`RenderFlex overflowed by 2.8 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** Located by inspecting `_buildGestureDisambiguation` — inner Row inside `SizedBox(width: 80)` packs `Icon(14) + SizedBox(4) + Text(gesture, fontSize 10 bold)`. The longest label `'Scroll / Drag'` (12 chars) measures ~84 px which overflows the 80 px slot by ~4 px (Flutter reports 2.8 px). **Fix:** wrap the `Text` in `Expanded(... maxLines: 1, overflow: TextOverflow.ellipsis)` so the label can ellipsize under the bounded slot. `fwErr 1→0` on both projects. |
 | ~~`rendering/render_exclude_semantics_test.dart`~~ | ~~`BoxConstraints forces an infinite height`~~ | **FIXED 2026-05-23 (entry #10).** Located via 4-step section bisection (down to `_buildSectionOne`). Root cause: `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` with `Expanded` children inside `SingleChildScrollView` (which gives unbounded vertical) — the cross-axis stretch needs bounded vertical from the parent, but the SingleChildScrollView passes `maxHeight: infinity`. U14 family. **Fix:** wrap the `Row` in `IntrinsicHeight` so the stretch resolves to the natural height of the tallest tile. `fwErr 1→0` on both projects. |
 
 ### What a real fix would look like
@@ -5965,17 +5965,42 @@ infinite-height issue is identical to the
 | Script | Suite | Status |
 |--------|-------|--------|
 | ~~`painting/textstyle_test.dart`~~ | ~~essential~~ | ~~U23~~ → **FIXED entry #9** (script-side alpha clamp) |
-| `material/dialog_themes_test.dart` | important | U23 (U15 family) |
+| ~~`material/dialog_themes_test.dart`~~ | ~~important~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (Expanded label in _simpleDialogOption Row) |
 | `cupertino/cupertino_themes_batch3_test.dart` | important | U23 (U15 family) |
 | ~~`painting/box_painter_test.dart`~~ | ~~secondary~~ | ~~U23 (U15 family)~~ → **FIXED entry #10** (Expanded title) |
-| `painting/decoration_image_painter_test.dart` | secondary | U23 (U15 family) |
-| `widgets/editable_text_tap_up_outside_intent_test.dart` | hardly_4 | U23 (U15 family) |
+| ~~`painting/decoration_image_painter_test.dart`~~ | ~~secondary~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (title Row → Wrap in _fitCard) |
+| ~~`widgets/editable_text_tap_up_outside_intent_test.dart`~~ | ~~hardly_4~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (Expanded gesture label in disambiguation Row) |
 | ~~`rendering/render_exclude_semantics_test.dart`~~ | ~~secondary~~ | ~~U23 (U14 family)~~ → **FIXED entry #10** (IntrinsicHeight wrap) |
 
 ---
 
 ## Change Log
 
+- 2026-05-23: **Update U23 (entry #11)** — Three more scripts moved
+  from U23-deferred to FIXED, leaving only `cupertino/cupertino_themes_batch3_test.dart`
+  as the single remaining U23-deferred entry:
+  - `material/dialog_themes_test.dart` — `_simpleDialogOption` Row
+    [Icon + SizedBox + Text(label)] inside SimpleDialog of width 240
+    rendered in a narrower Expanded slot. Fix: wrap label Text in
+    Expanded with maxLines+ellipsis.
+  - `widgets/editable_text_tap_up_outside_intent_test.dart` —
+    `_buildGestureDisambiguation` inner Row inside SizedBox(width: 80)
+    overflows for the longest gesture label ('Scroll / Drag'). Same
+    fix pattern: Expanded(Text) with maxLines+ellipsis.
+  - `painting/decoration_image_painter_test.dart` — second attempt
+    after entry #10 reverted (shrinking card width exposed deeper
+    overflow). Successful: switch the `_fitCard` title Row [_badge +
+    SizedBox + optional _chip] to a Wrap so the CLIPPED chip can
+    drop to a second line for the longest sample name
+    `'fitWidth (portrait)'`.
+  Pattern across all three: an inner Row inside a bounded-width
+  parent had a fixed-width Text that didn't have a flex wrapper —
+  wrapping in Expanded (or converting the outer Row to Wrap) lets
+  the content fit. U23 now lists 1 deferred script (down from 4):
+  cupertino_themes_batch3 (1.8 px right) — the only entry where
+  the overflow is genuinely deeper in the bridged Cupertino layout
+  (CupertinoSwitch / CupertinoSlider width measurement) and not
+  reachable via script-side changes.
 - 2026-05-23: **Update U23 (entry #10)** — Two more scripts moved
   from U23-deferred to FIXED:
   - `painting/box_painter_test.dart` — `_galleryCard` title `Row(Icon

@@ -1250,13 +1250,28 @@ Widget _simpleFlavour() {
 }
 
 Widget _simpleDialogOption(String label, IconData icon) {
+  // Cluster H follow-up: SimpleDialogOption renders inside a
+  // SimpleDialog of width 240 placed via Center > SizedBox in a narrower
+  // Expanded slot (1/3 of the section width). The bridged
+  // SimpleDialogOption padding + Icon(18) + _wgap(10) + Text(label)
+  // overflowed the bounded Row width by 2 px right when the Text didn't
+  // have a flex wrapper. Wrap the Text in Expanded so it can shrink /
+  // ellipsize under tight widths. Visual: identical at the demo's
+  // natural rendering width; ellipsis triggers only under exceptional
+  // narrowing.
   return SimpleDialogOption(
     onPressed: () {},
     child: Row(
       children: [
         Icon(icon, color: _navy, size: 18),
         _wgap(10),
-        Text(label),
+        Expanded(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     ),
   );
