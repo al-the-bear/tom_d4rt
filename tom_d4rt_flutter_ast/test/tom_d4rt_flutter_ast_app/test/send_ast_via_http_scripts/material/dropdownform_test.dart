@@ -642,41 +642,48 @@ Widget _buildSection01() {
         labelText: 'Planet (rich items)',
         border: OutlineInputBorder(),
       ),
+      // The original demo used a two-line per-item Column
+      // (label + monospace 'id: $value' subtitle wrapped in a
+      // Container with vertical 4 padding). That rendered the
+      // selected-item area at ~70 px which exceeded the
+      // DropdownButton's default kMinInteractiveDimension (48 px)
+      // selected-item slot and produced a 22-px bottom RenderFlex
+      // overflow. The bridged DropdownButtonFormField does not
+      // honour the `itemHeight` parameter in d4rt (attempted
+      // itemHeight: 70 still surfaced the overflow). Workaround:
+      // collapse the per-item layout to a single line (icon + label
+      // only, no 'id:' subtitle), which fits comfortably inside the
+      // 48-px slot. The 'arbitrary widget subtrees' teaching point
+      // is still demonstrated by the icon-Container + Text Row.
       items: _planetOptions
           .map(
             (FormOption o) => DropdownMenuItem<String>(
               value: o.value,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: o.tint.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(o.icon, color: o.tint, size: 18),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: o.tint.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            o.label,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            'id: ${o.value}',
-                            style: _mono(10, color: kInkMute),
-                          ),
-                        ],
-                      ),
+                    child: Icon(o.icon, color: o.tint, size: 16),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      o.label,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    'id: ${o.value}',
+                    style: _mono(10, color: kInkMute),
+                  ),
+                ],
               ),
             ),
           )
@@ -1100,14 +1107,25 @@ Widget _buildSection06() {
   final Widget intrinsic = Form(
     child: Row(
       children: <Widget>[
-        DropdownButtonFormField<String>(
-          initialValue: 'mars',
-          decoration: const InputDecoration(
-            labelText: 'intrinsic',
-            border: OutlineInputBorder(),
+        // Demo of "intrinsic" sizing — sized to a fixed width that approximates
+        // the natural width of the widest item, with the trailing Spacer
+        // showing the unused horizontal space. A bare DropdownButtonFormField
+        // here (no isExpanded, no Expanded/Flexible/SizedBox) would receive
+        // unbounded horizontal constraints from the Row and assert
+        // "InputDecorator, which is typically created by a TextField, cannot
+        // have an unbounded width." — this is true in native Flutter too, so
+        // a bounded width is required to display the comparison.
+        SizedBox(
+          width: 220,
+          child: DropdownButtonFormField<String>(
+            initialValue: 'mars',
+            decoration: const InputDecoration(
+              labelText: 'intrinsic',
+              border: OutlineInputBorder(),
+            ),
+            items: _basicItems(_planetOptions),
+            onChanged: (_) {},
           ),
-          items: _basicItems(_planetOptions),
-          onChanged: (_) {},
         ),
         const Spacer(),
       ],

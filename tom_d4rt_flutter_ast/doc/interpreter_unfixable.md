@@ -5838,7 +5838,7 @@ is summarised in `error_analysis.md` entry #23.
 | Script | Error | Status |
 |--------|-------|--------|
 | `animation/cubic_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U14.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Four prior script-side attempts (`SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)`) all failed; deferred. |
-| `material/dropdownform_test.dart` | `An InputDecorator, which is typically created by a TextField, cannot have an unbounded width` | **Deferred.** Script contains ~30 `DropdownButtonFormField` instances spread across 11 sections plus a booking-form sub-tree. All directly-visible call sites already use `isExpanded: true` and sit inside `Expanded` / `Column(stretch)` parents that should bound their width. The asserting `InputDecorator` is somewhere internal to a bridged `DropdownButtonFormField` / `DropdownMenuFormField` / `DropdownMenu` materialisation; identifying it from the script side would require interpreter-level instrumentation to surface the exact `debugCreator` chain. Same family as U14 — bridged constraint propagation gap. |
+| ~~`material/dropdownform_test.dart`~~ | ~~`An InputDecorator, which is typically created by a TextField, cannot have an unbounded width`~~ | **FIXED 2026-05-23 (entry #18).** Bisected to `_buildSection06`'s `intrinsic` widget: a bare `DropdownButtonFormField<String>` (no `isExpanded`, no `Expanded`/`Flexible`/`SizedBox` wrapper) inside a `Row` with a trailing `Spacer()`. A `Row` gives unbounded horizontal constraints to children without flex wrappers, and the DDFF's internal `InputDecorator` rejects unbounded width. **Native Flutter exhibits the same crash** — this was a script-side authoring bug, not a bridge gap. **Fix 1:** wrap the DDFF in `SizedBox(width: 220)` to bound its width while preserving the "intrinsic-like sizing with trailing space" teaching intent. **Fix 2 (follow-up after Fix 1 unmasked a previously-hidden error):** the `complexItems` DDFF in `_buildSection01` used 2-line per-item children (label + monospace 'id:' subtitle in a Container with vertical 4 padding) measuring ~70 px per item. This exceeded the DropdownButton's default `kMinInteractiveDimension=48` selected-item slot and produced a 22-px bottom `RenderFlex overflow`. Attempted `itemHeight: 70` first — the bridged `DropdownButtonFormField` does not honour the `itemHeight` parameter (no effect). Workaround: collapsed the per-item layout to a single Row line (icon-Container + Expanded(label with maxLines:1, ellipsis) + 'id:' trailing Text), all of which fits comfortably inside the 48-px slot. The "arbitrary widget subtrees" teaching point is still demonstrated by the icon + Text + trailing-id Row. `fwErr 1→0` on both projects. |
 | ~~`material/dropdown_test.dart`~~ | ~~`Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>`~~ | **FIXED 2026-05-23 (entry #17).** The interpreter generics-erasure root cause (`colorChoices.map<Widget>(...).toList()` erases the `Widget` generic to `Object?` at the bridge boundary, regardless of `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop source form — all four script-side variants surfaced the same coercion error in H23) remains unresolved at the interpreter level. **Workaround:** omit the `selectedItemBuilder` parameter entirely from the `selectedItemBuilderDropdown`. Default `DropdownButton` behaviour renders the matching `items` widget (the chip) for the selected display too — slight visual change (shows the regular `chipForColor` instead of the custom "Selected: NAME" Container), but the `selectedItemBuilder` teaching content is preserved further down via the code-block sections that demonstrate the pattern as static `Text` snippets. The underlying typed-collection coercion limitation is unchanged — see U22 §"What a real fix would look like" item (1). `fwErr 1→0` on both projects. |
 | `material/mergeable_test.dart` | `BoxConstraints forces an infinite height` (RenderPadding) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the section-1 `Row(crossAxisAlignment.stretch, children: conceptCards)`. Not part of U22; listed here only for cross-reference. |
 | `material/progress_test.dart` | `Progress bar value, minValue, and maxValue must be valid numbers. value: "0 percent", minValue: "0", maxValue: "100"` | **Fixed script-side under H23** — three `semanticsValue` strings switched from `'$percent percent'` / `'$percent%'` / `'85%'` to bare numeric strings (`'$percent'` / `'85'`). Not part of U22. |
@@ -5852,12 +5852,16 @@ is summarised in `error_analysis.md` entry #23.
 
 ### What a real fix would look like
 
-The four originally interpreter-deferred items above (`dropdown_test`,
-`widgets/animation_test`, `slotted_multi_child_render_object_widget_test`,
+The five originally interpreter-deferred items above (`dropdown_test`,
+`dropdownform_test`, `widgets/animation_test`,
+`slotted_multi_child_render_object_widget_test`,
 `retest/widgets/app_kit_view_test`) — **all now cleared script-side
-(entries #14/#15/#16/#17, 2026-05-23)** — reduce to two interpreter
-gaps, both already catalogued in this file. The gaps themselves
-remain open even though every U22 script has been worked around:
+(entries #14/#15/#16/#17/#18, 2026-05-23)** — reduce to two
+interpreter gaps, both already catalogued in this file. The gaps
+themselves remain open even though every U22 script has been
+worked around (and the dropdownform issue turned out to be a
+script-side authoring bug rather than a bridged-constraint
+propagation gap):
 
 1. **Typed-collection coercion at the bridge boundary** —
    `List<Widget>` / `Set<Factory<…>>` arguments (and probably
@@ -5888,7 +5892,7 @@ remain open even though every U22 script has been worked around:
 | ~~`widgets/animation_test.dart`~~ | ~~`_MeanAnimation extends CompoundAnimation<double>` construction silently fails; `_meanAnim` stays unassigned.~~ → **FIXED entry #16** (remove _MeanAnimation; synthesise mean inline via Listenable.merge(min,max) + AnimatedBuilder) |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`_accent.r` access in `_PrivateContentReporter._report`; root null source not yet pinned down.~~ → **FIXED entry #14** (log accent INDEX instead of resolved Color channels) |
 | ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4.~~ → **FIXED entry #15** (boot-status placeholder guard) |
-| `material/dropdownform_test.dart` | Internal `InputDecorator` from a bridged dropdown variant — no externally visible call site identified. Same family as U14. |
+| ~~`material/dropdownform_test.dart`~~ | ~~Internal `InputDecorator` from a bridged dropdown variant — no externally visible call site identified. Same family as U14.~~ → **FIXED entry #18** — script-side authoring bug, not a bridge-internal issue. Bare DDFF in a Row (no flex wrapper, no isExpanded) gave unbounded width to the internal InputDecorator. Fix: wrap in `SizedBox(width: 220)` in `_buildSection06`. Follow-up: collapsed 2-line per-item children in `_buildSection01` to single-line layout to clear a previously-masked 22-px overflow. |
 
 ---
 
@@ -5916,11 +5920,13 @@ entries (U14 `animation/cubic_test`, U17 `render_constraints_transform_box_test`
 `material/dropdownform_test`, `widgets/animation_test`,
 `widgets/slotted_multi_child_render_object_widget_test`,
 `retest/widgets/app_kit_view_test`) were progressively cleared by
-entries #14/#15/#16/#17 (U22 generics-erasure pocket — all four
-scripts FIXED). Remaining genuinely-deferred items: U14
-`animation/cubic_test`, U17 `render_constraints_transform_box_test`
-×2, U18 `services/platform_test`, U22 `material/dropdownform_test`
-(U14-family bridged-constraint propagation, not generics-erasure).
+entries #14/#15/#16/#17/#18 (U22 — ALL FIVE scripts FIXED, both the
+generics-erasure pocket and the dropdownform layout-cascade
+formerly thought to be U14-family). Remaining genuinely-deferred
+items: U14 `animation/cubic_test`, U17
+`render_constraints_transform_box_test` ×2, U18
+`services/platform_test`. **U22 fully cleared script-side as of
+entry #18.**
 
 The 7 remaining items are deferred here, cross-referenced where
 they fit existing patterns:
@@ -5983,6 +5989,42 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U22 (entry #18)** —
+  `material/dropdownform_test.dart` moved from U22-deferred to
+  FIXED. Investigation revealed this was a script-side authoring
+  bug, not the U14-family bridged-constraint propagation gap it
+  was originally classified as. Section-level bisection
+  (sections 1-9 → only sections 6-7 → only section 6) located
+  the source in `_buildSection06`'s `intrinsic` widget: a bare
+  `DropdownButtonFormField<String>` (no `isExpanded`, no
+  `Expanded`/`Flexible`/`SizedBox` wrapper) inside a `Row` with
+  a trailing `Spacer()`. A `Row` gives unbounded horizontal
+  constraints to children without flex wrappers, and the DDFF's
+  internal `InputDecorator` rejects unbounded width. Native
+  Flutter exhibits the same crash. **Fix 1:** wrap the DDFF in
+  `SizedBox(width: 220)` to bound its width while preserving the
+  "intrinsic-like sizing with trailing space" teaching intent.
+  **Follow-up after Fix 1 unmasked a previously-hidden 22-px
+  bottom overflow:** further bisection (sections 1-5 disabled →
+  overflow gone, only section 1 → overflow returns, only section
+  1 with complexItems card disabled → overflow gone) localised
+  the second source to `_buildSection01`'s `complexItems` DDFF.
+  Its 2-line per-item children (label + monospace 'id:' subtitle
+  in a Container with vertical 4 padding) measured ~70 px per
+  item, exceeding the DropdownButton's default
+  `kMinInteractiveDimension=48` selected-item slot. Attempted
+  `itemHeight: 70` first — **the bridged
+  `DropdownButtonFormField` does not honour the `itemHeight`
+  parameter** (no effect). Workaround: collapsed the per-item
+  layout to a single Row line (icon-Container(24×24) +
+  Expanded(label maxLines:1 ellipsis) + trailing 'id:' Text).
+  The "arbitrary widget subtrees" teaching point is still
+  demonstrated. `fwErr 1→0` on both projects. **U22 now lists 0
+  deferred scripts** — all five originally-deferred items are
+  FIXED. Sub-note for future interpreter work: the bridged
+  DropdownButtonFormField's `itemHeight` parameter being ignored
+  is a separate bridge gap that may merit its own U-entry if
+  another script hits it.
 - 2026-05-23: **Update U22 (entry #17)** —
   `material/dropdown_test.dart` moved from U22-deferred to FIXED.
   The interpreter generics-erasure root cause (the script's
