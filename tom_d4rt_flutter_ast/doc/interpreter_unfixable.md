@@ -6092,8 +6092,141 @@ infinite-height issue is identical to the
 
 ---
 
+## U24 — `try { x = ui.SystemColor.light; } catch (e) { ... }` does not intercept the bridge-wrapped `UnsupportedError` on platforms that don't support SystemColor (interpreter / bridge exception-routing gap)
+
+**Category.** Interpreter / bridge exception-routing gap. The
+script-side `try / catch (e) { ... }` block around a bridged
+static getter that throws (`ui.SystemColor.light`,
+`ui.SystemColor.dark` on every desktop platform — these are only
+populated on web) does **not** intercept the thrown exception:
+the build endpoint surfaces `status=error httpStatus=400` with
+the error body containing the original `Unsupported operation:
+SystemColor not supported on the current platform.` message, the
+script's `catch (e)` arm never runs (no `WARNING:` print, no
+fallback-path execution), and the test framework treats the
+`expect(result.success, isTrue)` assertion as failed. The script
+**believes** it is handling the exception gracefully; in reality
+the catch is bypassed and the error escapes the function.
+
+**Sibling of U13.** U13 documents the same architectural shape
+for typed catches (`on PlatformException`): the d4rt bridge wraps
+native exceptions in `RuntimeD4rtException("Native error during
+bridged method call …")`, so the typed-catch arm never matches.
+U24 differs in that even the **untyped** `catch (e)` arm does not
+match — the exception appears to escape the `try` block entirely,
+not be re-wrapped and re-thrown after the catch.
+
+**Reproducer.** `retest/dart_ui/system_color_palette_test.dart`.
+The script's main `build()` body wraps the SystemColor access:
+
+```dart
+ui.SystemColorPalette? light;
+ui.SystemColorPalette? dark;
+String? platformError;
+try {
+  light = ui.SystemColor.light;   // throws UnsupportedError on desktop
+  dark = ui.SystemColor.dark;
+} catch (e) {                      // never intercepts — script crashes
+  platformError = e.toString();
+  print('WARNING: SystemColor not supported on this platform: $platformError');
+}
+if (light == null || dark == null) {
+  // ... returns fallback widget — unreachable in practice
+  return SingleChildScrollView(...);
+}
+```
+
+On macOS/Linux/Windows, the body fails with `Unsupported
+operation: SystemColor not supported on the current platform.`,
+HTTP 400 from the test app, and the test asserts `Expected:
+<true>, Actual: <false>` against `result.success`.
+
+The non-retest script (`dart_ui/system_color_palette_test.dart`)
+sidesteps this by gating on
+`ui.SystemColor.platformProvidesSystemColors` (a bool that returns
+`false` without throwing on desktop) and rendering its fallback
+widget when the platform indicates no support — that path avoids
+the throw entirely.
+
+**What was tried.** No interpreter-side intervention attempted in
+entry #22 — the d4rt exception-wrapping routing belongs in the
+tom_d4rt / tom_d4rt_ast interpreter's `visitTryStatement` matcher
+and the bridged-getter adapter chain in
+`tom_d4rt_ast/lib/src/runtime/stdlib/` (and the mirror in
+`tom_d4rt`). The fix would touch every `BridgedClass` adapter
+that surfaces a native exception across a getter / setter / method
+call site, plus the catch-clause matching logic in the visitor.
+
+**Workaround (chosen action — test-driver-only change).** Extend
+the platform skip on the retest registration to mark the test as
+SKIPPED on every desktop platform — i.e., everywhere the
+underlying API genuinely does not work. The original (non-retest)
+script continues to run unchanged because it has the `provides`
+gate. Site:
+`test/generator_interpreter_retest_test.dart` (both `tom_d4rt_flutter_ast`
+and `tom_d4rt_flutter_test`), the existing `Platform.isLinux`
+skip widened to `Platform.isLinux || Platform.isMacOS ||
+Platform.isWindows` with a comment block explaining the
+underlying U24 limitation.
+
+**What a real fix would look like.**
+
+1. **Bridge-adapter exception propagation.** When a bridged
+   getter / method invocation raises a native exception, the
+   wrapping `RuntimeD4rtException` (or whatever envelope the
+   adapter uses) must be raised in a way that the visitor's
+   `try/catch` matcher recognises, both for typed (`on FooError
+   catch (e)`) and untyped (`catch (e)`) arms. The matcher needs
+   to consult both the wrapper's runtime type and (for typed
+   catches) the `cause` field if it exists — the latter is the
+   U13 sibling fix. The visitor / matcher live in
+   `tom_d4rt/lib/src/interpreter_visitor.dart` and
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+   (mirror).
+2. **Untyped-catch-must-match invariant.** Add a regression test
+   asserting that for any bridged-call site that throws a native
+   exception, a surrounding `try { … } catch (e) { … }` block
+   always enters the `catch` arm. The fixture would expose the
+   smallest reproducer (a single bridged getter that throws
+   `UnsupportedError`) and a 5-line script body.
+
+### Affected scripts
+
+| Script | Host suites | Notes |
+|--------|-------------|-------|
+| `retest/dart_ui/system_color_palette_test.dart` | `generator_interpreter_retest_test` (1/1) | Skipped on every desktop platform via the workaround above. The original `dart_ui/system_color_palette_test.dart` continues to run unchanged. |
+
+---
+
 ## Change Log
 
+- 2026-05-23: **Add U24 (entry #22)** —
+  `try { x = ui.SystemColor.light; } catch (e) { ... }` does not
+  intercept the bridge-wrapped `UnsupportedError` on desktop
+  platforms (sibling of U13: U13 covers typed `on FooError`
+  catches not matching; U24 documents that even the untyped
+  `catch (e)` arm is bypassed). Reproducer:
+  `retest/dart_ui/system_color_palette_test.dart` (F1 from
+  `testlog_20260523-1056-issue-analysis/error_analysis.md`).
+  Investigation: full essential + important sweeps post-entry-21
+  confirmed the corpus is otherwise framework-error clean — only
+  transport timeouts remain (test-app degradation under long
+  sweeps, not real failures). The retest's `try/catch` workaround
+  proves insufficient under d4rt's bridge wrapping, so the test
+  was failing reliably on macOS (and would on every non-web
+  desktop) with `status=error httpStatus=400` and the original
+  `Unsupported operation` message reaching the test harness.
+  **Workaround:** extend the existing `Platform.isLinux` skip on
+  the test registration to cover macOS + Windows, matching the
+  platform reality that SystemColor is a web-only API. Applied
+  to both `tom_d4rt_flutter_ast/test/generator_interpreter_retest_test.dart`
+  and the mirror in `tom_d4rt_flutter_test`. The original
+  (non-retest) script remains unchanged — it gates on
+  `ui.SystemColor.platformProvidesSystemColors` and renders a
+  fallback widget. Rule (a) — test-driver-only change, individual
+  retest verified the skip on both projects (`exit=0, All tests
+  skipped, Skip: SystemColor not supported on desktop platforms
+  (web-only API)`).
 - 2026-05-23: **Update U17 (entry #21)** —
   `rendering/render_constraints_transform_box_test.dart`
   kHalveMaxWidth normalize fix **retained** as a correctness

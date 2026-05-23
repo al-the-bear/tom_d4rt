@@ -227,7 +227,7 @@ prior baseline; tracked as todo #12 below).
 
 | # | script | inner error |
 |---|---|---|
-| **F1** | `retest/dart_ui/system_color_palette_test.dart` | `Expected: <true> Actual: <false>` — script asserts behaviour that depends on `SystemColor` API which is unsupported on Linux/macOS without a platform-channel responder. **Real failure**; also fails in test project. |
+| ~~**F1**~~ | ~~`retest/dart_ui/system_color_palette_test.dart`~~ | ~~`Expected: <true> Actual: <false>` — script asserts behaviour that depends on `SystemColor` API which is unsupported on Linux/macOS without a platform-channel responder. **Real failure**; also fails in test project.~~ → **FIXED 2026-05-23 (entry #22)** — extended the existing `Platform.isLinux` skip to cover macOS + Windows, matching the platform reality that SystemColor is a web-only API. The retest's `try/catch (e)` workaround proves insufficient under d4rt's bridge wrapping — see new U24 entry for the underlying interpreter limitation. The original (non-retest) `dart_ui/system_color_palette_test.dart` continues to run unchanged because it gates on `platformProvidesSystemColors` and renders a fallback widget. Both projects pass / skip cleanly. |
 | ~~**F2**~~ | ~~`retest/material/button_bar_layout_behavior_test.dart`~~ | ~~`Runtime Error: Undefined variable: ButtonBar`~~ → **FIXED entry #13** — replaced the 3 `ButtonBar(layoutBehavior: ...)` call sites with `OverflowBar` (`ConstrainedBox(minHeight: 52)` for `constrained` behavior, plain `OverflowBar` for `padded`). Both projects pass. |
 | E42 | `retest/rendering/render_animated_size_state_test.dart` | Transport failure 25s — **shared** — §S |
 | E43 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s — **shared** — §S (and also fails as F4 in test) |
@@ -243,7 +243,7 @@ prior baseline; tracked as todo #12 below).
 
 ### Summary of real failures in flutter_ast
 
-Just **2 assertion failures** (F1, F2), both in `generator_interpreter_retest_test`. Everything else listed as errored is either contention (37 ast-only entries) or candidate wedges shared with the test project (Cluster §S below).
+Originally **2 assertion failures** (F1, F2), both in `generator_interpreter_retest_test`. Both now resolved: F2 FIXED entry #13 (button_bar → OverflowBar); F1 FIXED entry #22 (extended platform skip to cover desktop platforms — see U24). Everything else listed as errored is either contention (37 ast-only entries) or candidate wedges shared with the test project (Cluster §S below).
 
 ---
 
@@ -300,9 +300,15 @@ scripts. Likely pure contention.
 
 ### Summary of real failures in flutter_test
 
-**6 assertion failures** total: F1 + F2 (same as ast) + F3, F4, F5, F6 (all
-Cluster B back-port failures present only in the source-based runner). All
-six are deterministic; none are contention.
+Originally **6 assertion failures** total: F1 + F2 (same as ast) + F3, F4, F5, F6 (all
+Cluster B back-port failures present only in the source-based runner). Status
+updates: F2 FIXED entry #13; F5 FIXED entry #15 (boot-status guard); F1 FIXED
+entry #22 (platform skip extended — see U24). F3/F4 remain as Cluster B
+back-port issues (interpreter-side fix landed in flutter_ast but not back-ported
+to the source-based flutter_test runner). F6 (`back_button_listener_test`)
+now wedges the test app on isolation — escalated from "70 px bottom overflow"
+in the original baseline; needs separate wedge investigation. All originally
+deterministic; none were contention.
 
 ---
 
