@@ -951,12 +951,28 @@ dynamic build(BuildContext context) {
                   child: SizedBox(
                     width: 220.0,
                     height: 80.0,
-                    child: Row(
-                      children: <Widget>[
-                        Container(width: 120.0, color: Colors.red.shade300),
-                        Container(width: 120.0, color: Colors.green.shade300),
-                        Container(width: 120.0, color: Colors.blue.shade300),
-                      ],
+                    // The whole point of this section is to *show* what a
+                    // 140-px right overflow looks like, but actually triggering
+                    // it makes RenderFlex assert during paint (the assertion
+                    // fires even when ClipRect masks the visual overflow).
+                    // OverflowBox gives the inner Row unbounded width so the
+                    // 3×120-px children lay out at their natural 360 px; the
+                    // outer SizedBox+ClipRect still clip the rendered output
+                    // to 220×80, producing the same teaching schematic
+                    // without the framework error. See Cluster H #24.
+                    child: OverflowBox(
+                      alignment: Alignment.centerLeft,
+                      minWidth: 0.0,
+                      maxWidth: 360.0,
+                      minHeight: 80.0,
+                      maxHeight: 80.0,
+                      child: Row(
+                        children: <Widget>[
+                          Container(width: 120.0, color: Colors.red.shade300),
+                          Container(width: 120.0, color: Colors.green.shade300),
+                          Container(width: 120.0, color: Colors.blue.shade300),
+                        ],
+                      ),
                     ),
                   ),
                 ),
