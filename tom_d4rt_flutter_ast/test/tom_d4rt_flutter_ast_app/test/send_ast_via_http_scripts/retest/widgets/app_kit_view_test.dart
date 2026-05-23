@@ -1724,8 +1724,30 @@ class _AppKitLaneState extends State<_AppKitLane> {
 
   @override
   Widget build(BuildContext context) {
-    if (_status == 'simulated') {
-      return _simulatedSurface('Live view disabled for controlled comparison.');
+    // U22 / Cluster B workaround (entry #15): the original `build()`
+    // fell through all the `_status == '...'` guards when `_status`
+    // had its initial value of 'boot' (set on line 1692, before
+    // initState's `_boot()` runs). The first frame would then try to
+    // render `_liveSurface()` -> `AppKitView(gestureRecognizers:
+    // widget.gestureRecognizers)`, and the d4rt bridge would crash
+    // trying to coerce the script-defined `Set<Factory<
+    // OneSequenceGestureRecognizer>>` to the parameterised type
+    // (typed-collection generics erasure per U22 / Cluster B). On
+    // native Flutter this happened to work because the build runs in
+    // a single render frame that completes after `_boot()` has run
+    // (StatefulWidget initState fires before the first build). The
+    // d4rt interpreter's build cycle differs slightly and surfaces
+    // the AppKitView constructor during the 'boot' state.
+    // Workaround: explicitly handle 'boot' as the same fallback as
+    // 'simulated' / 'unsupported' (render the placeholder). This
+    // doesn't change the steady-state behaviour — `_boot()` still
+    // resolves `_status` to its real value on the next frame — but
+    // prevents the first-frame AppKitView construction with an
+    // unresolved-type gestureRecognizers Set.
+    if (_status == 'boot' ||
+        _status == 'simulated') {
+      return _simulatedSurface(
+          _status == 'boot' ? 'Initialising lane…' : 'Live view disabled for controlled comparison.');
     }
     if (_status == 'unsupported') {
       return _simulatedSurface('Live AppKitView unavailable on this host platform.');

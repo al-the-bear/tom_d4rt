@@ -5847,7 +5847,7 @@ is summarised in `error_analysis.md` entry #23.
 | `services/platform_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U18.** `_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard). All four script-side variants crash the test-app transport, worse than the recoverable baseline banner. Deferred. |
 | `widgets/animation_test.dart` | `Runtime Error: LateInitializationError: Late variable '_meanAnim' without initializer is accessed before being assigned.` | **Deferred — interpreter limitation.** `_meanAnim = _MeanAnimation(_primary, _secondary)` is assigned in `initState`, but `_MeanAnimation extends CompoundAnimation<double>` is a script-defined subclass of a bridged abstract class. The d4rt construction silently fails (returns null or never executes the assignment), leaving the `late final` field unassigned. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U9 (`RouteAware`), U10 (`DiagnosticableTreeMixin`), U11 (`HitTestTarget`): a script-defined subtype of a bridged native abstract / mixin class cannot cross the d4rt → native boundary as that native type. Script-side workaround would require replacing `_MeanAnimation` with a non-`CompoundAnimation` Animation impl driven manually by a listener — significant rewrite of the demo (deferred). |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`Runtime Error: Cannot access property 'r' on target of type null.`~~ | **FIXED 2026-05-23 (entry #14).** Confirmed the bridge returns `null` for `_accents[i]` (not just for `.r/.g/.b`) — `_accent` itself is null because `_accents` is a script-defined `static const List<Color>` whose element type erases to `Object?`/`dynamic` through the bridge. Both `.r` and `.value` fail with the same `Cannot access property '…' on target of type null.` Workaround applied: log the **accent INDEX** instead of trying to resolve the Color object's channels (`'accentIndex=${_accentIndex.round() % _accents.length}'`). The rest of the script still uses `_accent` in `decoration: BoxDecoration(color: _accent)` contexts where the bridge accepts the dynamic-typed value (paint-time coercion is more lenient than property access). Visual impact on rendered widgets: none — debug log records the index instead of channel values. `fwErr 1→0` on both projects. |
-| `retest/widgets/app_kit_view_test.dart` | `Runtime Error: Native error during default bridged constructor for 'AppKitView': Argument Error: Invalid parameter "gestureRecognizers": cannot convert to Set<Factory<OneSequenceGestureRecognizer>>` | **Deferred — interpreter generics-erasure on Set<Factory<T>>.** Sibling of the `dropdown_test.dart` `List<Widget>` case (and noted in `error_analysis.md` H23 row as "also fixed by Cluster B item 4" — i.e. expected to be cleared by the Cluster B / B-item-4 fix in this same testlog). The script passes a `Set<Factory<OneSequenceGestureRecognizer>>` (or empty set) to `AppKitView` and the bridge's coercion layer cannot narrow the interpreter-side `Set<Object?>` / `Set<dynamic>` back to the parameterised type. Defer pending Cluster B item 4 / the interpreter's typed-collection coercion work. |
+| ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Runtime Error: Native error during default bridged constructor for 'AppKitView': Argument Error: Invalid parameter "gestureRecognizers": cannot convert to Set<Factory<OneSequenceGestureRecognizer>>`~~ | **FIXED 2026-05-23 (entry #15).** Investigation showed the crash fires on the **first frame** (before `initState`'s `_boot()` resolves `_status`). `_status` starts at `'boot'` (line 1692), which fell through all the `if (_status == '...')` guards in `_AppKitLane.build()` and reached `_liveSurface()` → `AppKitView(gestureRecognizers: widget.gestureRecognizers)`. The bridge then attempted to coerce the script-defined `Set<Factory<OneSequenceGestureRecognizer>>` to the parameterised type and crashed per U22 generics-erasure. **Native Flutter** doesn't surface this because StatefulWidget's first build happens after initState; the d4rt interpreter's build cycle differs slightly. **Fix:** add `'boot'` to the placeholder guard set — first frame renders the simulation placeholder, then `_boot()` resolves `_status` to its real value on the next frame. No change to steady-state behaviour. `fwErr 1→0` AND **F5** (Cluster B failure on flutter_test) cleared on both projects. |
 | `foundation/diagnosticable_tree_mixin_test.dart` | `Runtime Error: Instance of '_PrivateNode' has no method named 'toStringDeep'` | **Fixed script-side under H23** via the U10 sparse-fallback pattern (`_sparseToStringDeepFallback(tree)` helper that walks the script's data model and emits a string visually equivalent to Flutter's sparse `toStringDeep`). Mirrors `foundation/text_tree_configuration_test.dart`'s existing U10 workaround. Not part of U22; entry kept here only for cross-reference. |
 
 ### What a real fix would look like
@@ -5885,7 +5885,7 @@ gaps, both already catalogued in this file:
 | `material/dropdown_test.dart` | Reverted to original `colorChoices.map<Widget>((name) {...}).toList()` after four script-side variants all surfaced the same `List<Widget>` coercion error. |
 | `widgets/animation_test.dart` | `_MeanAnimation extends CompoundAnimation<double>` construction silently fails; `_meanAnim` stays unassigned. |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`_accent.r` access in `_PrivateContentReporter._report`; root null source not yet pinned down.~~ → **FIXED entry #14** (log accent INDEX instead of resolved Color channels) |
-| `retest/widgets/app_kit_view_test.dart` | `Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4. |
+| ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4.~~ → **FIXED entry #15** (boot-status placeholder guard) |
 | `material/dropdownform_test.dart` | Internal `InputDecorator` from a bridged dropdown variant — no externally visible call site identified. Same family as U14. |
 
 ---
@@ -5976,6 +5976,23 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U22 (entry #15)** —
+  `retest/widgets/app_kit_view_test.dart` moved from U22-deferred to
+  FIXED. Investigation showed the crash fires on the **first frame**
+  (before `initState`'s `_boot()` resolves `_status`). `_status`
+  starts at `'boot'` (line 1692), which fell through all the
+  `if (_status == '...')` guards in `_AppKitLane.build()` and reached
+  `_liveSurface()` → `AppKitView(gestureRecognizers: widget.gestureRecognizers)`.
+  The bridge then attempted to coerce the script-defined Set and
+  crashed per U22 generics-erasure. Native Flutter doesn't surface
+  this because StatefulWidget's first build runs after initState
+  completes; the d4rt interpreter's build cycle differs slightly.
+  Fix: add `'boot'` to the placeholder guard set — first frame
+  renders the simulation placeholder, then `_boot()` resolves
+  `_status` on the next frame. Steady-state behaviour unchanged.
+  This **also clears F5** (Cluster B failure on flutter_test for the
+  same script). U22 now lists 3 deferred scripts (down from 4):
+  dropdown_test, dropdownform_test, widgets/animation_test.
 - 2026-05-23: **Update U22 (entry #14)** —
   `widgets/slotted_multi_child_render_object_widget_test.dart` moved
   from U22-deferred to FIXED. Confirmed the bridge returns `null` for

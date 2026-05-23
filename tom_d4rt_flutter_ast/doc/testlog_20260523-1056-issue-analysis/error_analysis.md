@@ -295,7 +295,7 @@ scripts. Likely pure contention.
 
 | # | script | inner error |
 |---|---|---|
-| **F5** | `retest/widgets/app_kit_view_test.dart` | `Runtime Error: Native error during default bridged constructor for 'AppKitView': Argument Error: Invalid parameter "gestureRecognizers": cannot convert to Set<Factory<OneSequenceGestureRecognizer>>` — Cluster B (Set<Factory<…>> coercion). **Passes in flutter_ast, fails in flutter_test.** |
+| ~~**F5**~~ | ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion~~ → **FIXED entry #15** — root cause was `_status` starting at `'boot'` and falling through `_AppKitLane.build()` guards into `_liveSurface()` on first frame. Fix: add `'boot'` to the placeholder guard set. Both projects pass. |
 | **F6** | `retest/widgets/back_button_listener_test.dart` | `Expected: <true> Actual: <false> A RenderFlex overflowed by 70 pixels on the bottom.` — flutter_test's success check treats framework errors as test failures, so this is actually an H1 layout overflow surfaced as a script failure (the metric line records `frameworkErrors=1`). Passes silently in flutter_ast (where the same overflow is recorded but not converted to a fail). Two reasonable fixes: (a) fix the layout (drop the 70 px overflow); (b) align flutter_ast's stricter failure semantics with flutter_test or vice-versa. |
 
 ### Summary of real failures in flutter_test
@@ -352,19 +352,21 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial — 12 fixed script-side.** decoratedbox H2 borderRadius,
+**partial — 13 fixed script-side.** decoratedbox H2 borderRadius,
 refreshindicator header-into-ListView, placeholder buildBadCaseCMock
 height bump, textstyle alpha clamp, box_painter Expanded title,
 render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
 label, editable_text Expanded gesture label, decoration_image_painter
 title Row → Wrap, themes_batch3 label SizedBox 88→70, button_bar
 ButtonBar→OverflowBar (entry #13), slotted_multi_child accent INDEX
-(entry #14). **7 confirmed-deferred under existing U entries**
-(U14/U17/U18/U22) — animation/cubic_test, render_constraints_transform_box
-×2, services/platform_test, material/dropdown_test,
-material/dropdownform_test, widgets/animation_test,
-retest/widgets/app_kit_view_test. Those need interpreter/bridge work.
-0 remaining U23 (cleared entry #12). 0 remaining Cluster N (entry #13). Todo #19 (test-only single
+(entry #14), app_kit_view boot-status guard (entry #15). **6
+confirmed-deferred under existing U entries** (U14/U17/U18/U22) —
+animation/cubic_test, render_constraints_transform_box ×2,
+services/platform_test, material/dropdown_test,
+material/dropdownform_test, widgets/animation_test. Those need
+interpreter/bridge work. 0 remaining U23 (cleared entry #12).
+0 remaining Cluster N (entry #13). **Bonus: entry #15 also cleared F5
+(Cluster B back-port failure) on flutter_test for the same script.** Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -555,8 +557,21 @@ and fail in test:
 - [ ] **fixed** 9. **F4** `important_classes_test widgets/decoratedbox_test.dart` —
   `DecoratedBox(decoration: DiagonalStripesDecoration)` rejection; same
   back-port.
-- [ ] **fixed** 10. **F5** `retest/widgets/app_kit_view_test.dart` —
-  `AppKitView.gestureRecognizers: Set<Factory<…>>` coercion; same back-port.
+- [x] **fixed** 10. **F5** `retest/widgets/app_kit_view_test.dart` —
+  `AppKitView.gestureRecognizers: Set<Factory<…>>` coercion. **FIXED
+  entry #15** script-side: the crash fired on the first frame because
+  `_status` started at `'boot'` and fell through all
+  `if (_status == '...')` guards in `_AppKitLane.build()`, reaching
+  `_liveSurface()` → `AppKitView(gestureRecognizers: ...)` before
+  `_boot()` had a chance to resolve `_status` to `'simulated'` /
+  `'unsupported'` / `'live'`. Native Flutter doesn't surface this
+  because StatefulWidget's first build runs after initState; the d4rt
+  interpreter's build cycle differs slightly. **Fix:** add `'boot'`
+  to the placeholder guard set. The underlying typed-collection
+  coercion bug (U22 generics-erasure on `Set<Factory<…>>`) is
+  unfixed at the bridge level — but the script no longer triggers
+  it because no AppKitView is constructed during the bridge-vulnerable
+  first frame. Both projects pass; `fwErr 1→0` on both.
 - [ ] **fixed** 11. **F6** `retest/widgets/back_button_listener_test.dart` —
   framework error (RenderFlex overflowed by 70 px bottom) classified as a
   failure by flutter_test's success check; flutter_ast records the same
@@ -742,7 +757,7 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (12 of 19 fixed script-side; 7 confirmed-deferred under
+- [~] **partial (13 of 19 fixed script-side; 6 confirmed-deferred under
   existing U entries U14/U17/U18/U22; 0 remaining U23 — U23 CLEARED;
   1 was covered by Cluster N — also FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
@@ -763,8 +778,8 @@ and fail in test:
      `ztmp/cluster_h_single_event/widgetsdecoratedbox_test_repro.log` and
      `decoratedbox_post.log`.
 
-  **Already in `interpreter_unfixable.md` U22 (7 scripts — defer; 1
-  moved out entry #14):**
+  **Already in `interpreter_unfixable.md` U22 (6 scripts — defer; 2
+  moved out: slotted_multi_child entry #14, app_kit_view entry #15):**
    - `material/dropdown_test.dart` — `List<Widget>` coercion failure. U22.
    - `material/dropdownform_test.dart` — internal `InputDecorator`
      unbounded width from a bridged dropdown variant. U22.
@@ -775,6 +790,11 @@ and fail in test:
      — ~~`Cannot access property 'r' on target of type null` on a bridged
      `Color`. U22 (typed-collection erasure family).~~ → **FIXED entry
      #14** — log accent INDEX instead of resolved Color channels.
+   - ~~`retest/widgets/app_kit_view_test.dart`~~ —
+     ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the
+     bridged `AppKitView` constructor.~~ → **FIXED entry #15** —
+     boot-status placeholder guard prevents AppKitView construction
+     on first frame. Also clears F5 Cluster B failure.
    - `services/platform_test.dart` — `BoxConstraints forces an infinite
      height` in `_defaultVsThemeCard`. Already **U18**.
    - `rendering/render_constraints_transform_box_test.dart` (×2 in
@@ -887,16 +907,15 @@ and fail in test:
   deeper bisection. See `interpreter_unfixable.md` Change Log entry
   for 2026-05-23 entry #12 for the full retrospective.)
 
-  **Status: partial — 12 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 13 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
   IntrinsicHeight + dialog_themes Expanded label + editable_text
   Expanded gesture label + decoration_image_painter title Row → Wrap +
   themes_batch3 label SizedBox 88→70 + button_bar ButtonBar→OverflowBar
-  entry #13 + slotted_multi_child accent INDEX entry #14), 7
-  confirmed-deferred under existing U entries (U14/U17/U18/U22) — was 8
-  before slotted_multi_child moved out, 0 remaining U23, 0 remaining
-  Cluster N
+  entry #13 + slotted_multi_child accent INDEX entry #14 + app_kit_view
+  boot-status guard entry #15), 6 confirmed-deferred under existing U
+  entries (U14/U17/U18/U22), 0 remaining U23, 0 remaining Cluster N
   (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries
