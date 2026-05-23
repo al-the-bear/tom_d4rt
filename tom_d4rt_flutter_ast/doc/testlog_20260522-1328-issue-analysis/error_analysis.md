@@ -61,7 +61,7 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 |---|---|---|
 | 9 | `widgets/decoratedbox_test.dart` | Runtime Error: Native error during default bridged constructor for `DecoratedBox`: Argument Error: Invalid parameter `decoration`: expected `Decoration`, got `InterpretedInstance(DiagonalStripesDecoration)` |
 | 10 | `widgets/interactiveviewer_test.dart` | Bad state: Cannot resolve import `package:vector_math/vector_math_64.dart` from main.dart: Package import is not bridged and not in the same package. |
-| 11 | `services/codecs_test.dart` | Runtime Error: Native error during bridged method call `decodeEnvelope` on `StandardMethodCodec`: `PlatformException(CAMERA_UNAVAILABLE, No camera matches the requested mode., {requested: front}, null)` |
+| 11 | `services/codecs_test.dart` | ~~Runtime Error: Native error during bridged method call `decodeEnvelope` on `StandardMethodCodec`: `PlatformException(CAMERA_UNAVAILABLE, No camera matches the requested mode., {requested: front}, null)`~~ **FIXED — Cluster E #10.** |
 
 **Framework error block:** sequence of `A RenderFlex overflowed by 23/23/23/39/15 pixels on the bottom` across `material/circleavatar_test.dart` through `material/togglebuttons_test.dart` (all tests pass; flutter logs the overflows).
 
@@ -114,7 +114,7 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 
 | # | script | inner error |
 |---|---|---|
-| 31 | `services/codecs_test.dart` | Same `PlatformException(CAMERA_UNAVAILABLE, ...)` as essential — dual coverage; one root cause (#11). |
+| 31 | `services/codecs_test.dart` | ~~Same `PlatformException(CAMERA_UNAVAILABLE, ...)` as essential — dual coverage; one root cause (#11).~~ **FIXED — Cluster E #10.** |
 
 **Skipped:**
 - `widgets/android_view_test.dart` — AndroidView platform-gated (OK).
@@ -164,7 +164,7 @@ Framework block: same transport timeout (already counted as failure #39, but `ag
 
 ### 2.C secondary_classes_test — bridge symptom flips
 
-In `flutter_test`, additional script also has `Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(CAMERA_UNAVAILABLE…)` symptom on `services/codecs_test.dart` (same root cause as #11/#31).
+In `flutter_test`, additional script also has `Native error during bridged method call 'decodeEnvelope' on StandardMethodCodec: PlatformException(CAMERA_UNAVAILABLE…)` symptom on `services/codecs_test.dart` (same root cause as #11/#31). **FIXED — Cluster E #10** (script-side broad-catch workaround clears all three drivers).
 
 All other failures and skips match `flutter_ast` 1:1.
 
@@ -534,7 +534,7 @@ Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions*
   | secondary | `+651 ~1 -2` | `+653 ~1` | -2 cleared (rolls in Cluster D #8 typed-data carry-over) |
 
   Combined: **+4 newly passing, −4 failures cleared, zero regressions.** Raw logs in `tom_d4rt_flutter_ast/ztmp/cluster_e9/{repro,gii,essential,important,secondary}.log`. No `interpreter_unfixable.md` entry required — the underlying cause was a one-character bridge index bug, fixable without workaround.
-- [ ] **fixed** 10. `services/codecs_test.dart` — wrap `StandardMethodCodec.decodeEnvelope` calls in `try/catch PlatformException` per the codec's intended contract. (covers #11, #31)
+- [x] **fixed** 10. `services/codecs_test.dart` — wrap `StandardMethodCodec.decodeEnvelope` calls in `try/catch PlatformException` per the codec's intended contract. (covers #11, #31) — **Resolution:** **interpreter limitation, script-side workaround.** The script *did* author the canonical pattern (`try { … } on PlatformException catch (e) { … }` at `_buildBinaryCodecsPage` line ~463), but the d4rt interpreter wraps every native exception raised across a `BridgedClass` adapter inside `RuntimeD4rtException` ("Native error during bridged method call …"), so the typed `on PlatformException` arm never matches and the wrapper escapes the try-block. This is exactly the architectural limitation already catalogued as **U13** in `doc/interpreter_unfixable.md`, with the same root cause as the C55 / C53 closure (`retest/services/method_codec_test.dart`). The proper interpreter fix (carry the original exception on a `cause` field through `RuntimeD4rtException` and consult it in `visitTryStatement`'s type-match arm) would touch 17 wrap sites across `tom_d4rt` ↔ `tom_d4rt_ast` plus the type-matcher logic, and is currently incompatible with the I-CLASS-26 regression test in `tom_d4rt/test/bridge/bridged_class_test.dart` which asserts the wrap's message format — out of scope for this cluster. Fix: broaden the catch to `catch (e)` and surface the wrapped message as `'PlatformException-like: ${e.toString()}'`. Codec's intended contract (an exception is thrown for error envelopes) is still verified end-to-end. U13's "Affected scripts" table extended with the new `services/codecs_test.dart` entry. Reproducer `tom_d4rt_flutter_ast/test/cluster_e10_repro_test.dart` confirms `status=success frameworkErrors=0 totalMs=4231` after the workaround. **Rule (a)** — script-side change only; individual retest is sufficient, no regression sweep required. Raw log in `tom_d4rt_flutter_ast/ztmp/cluster_e10/repro.log`. Rows #11 (important) and #31 (gii) cleared by the same change.
 
 ### Cluster F — Script-internal null deref
 

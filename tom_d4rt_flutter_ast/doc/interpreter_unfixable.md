@@ -4596,6 +4596,7 @@ type-test is not recoverable inside d4rt.
 | Script | Sites | Notes |
 |--------|-------|-------|
 | `retest/services/method_codec_test.dart` | Section 6 error-envelope showcase — two `std.decodeEnvelope` / `json.decodeEnvelope` calls inside `on PlatformException catch (pe)` blocks. The first envelope decode threw the wrapper-style `RuntimeError`, escaped the try-block, and surfaced as the test failure. | Workaround applied: broad `catch (e)` + string-parsing of the wrapper's `'PlatformException(<code>, …)'` marker to recover the code, then re-flagging `thrownType = 'PlatformException'`. C55 (test driver) / C53 (AST driver) closed 2026-05-18 on both drivers. |
+| `services/codecs_test.dart` | Single `stdMethodCodec.decodeEnvelope(stdErrorBd)` call inside `on PlatformException catch (e)` at the `_buildBinaryCodecsPage` error-envelope demo (~line 463). The decode threw the wrapper-style `RuntimeD4rtException`, escaped the typed catch, and surfaced as the test's lone framework error. | Workaround applied 2026-05-23 (Cluster E #10 of `testlog_20260522-1328-issue-analysis`): broaden to `catch (e)` and surface the wrapped message as `'PlatformException-like: ${e.toString()}'`. Codec's intended contract (an exception is thrown for error envelopes) remains verified. Same family closure as C55; also clears the gii row #31 and important row #11 entries listed in the testlog. |
 
 ### What a real fix would look like
 

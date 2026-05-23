@@ -464,9 +464,17 @@ dynamic build(BuildContext context) {
   try {
     stdMethodCodec.decodeEnvelope(stdErrorBd);
     stdErrorOutcome = '(no exception — unexpected)';
-  } on PlatformException catch (e) {
-    stdErrorOutcome =
-        'PlatformException(code=${e.code}, message=${e.message})';
+  } catch (e) {
+    // d4rt interpreter limitation: every native exception raised by a
+    // bridged method call is wrapped in `RuntimeD4rtException`, so a
+    // typed `on PlatformException catch (e)` clause never matches the
+    // underlying `PlatformException`. We catch broadly and surface the
+    // wrapped message; the codec's intended contract (an exception is
+    // thrown for error envelopes) is still verified. See
+    // `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` —
+    // "Native exception wrapping defeats typed `on Type` catch clauses".
+    final msg = e.toString();
+    stdErrorOutcome = 'PlatformException-like: $msg';
   }
   debugPrint(
     '[std-method] error envelope ${stdErrorBytes.length}B -> $stdErrorOutcome',
