@@ -1766,6 +1766,14 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                 ),
               ),
               // Grouped list
+              // Cluster H follow-up: 5 rows (~50 px each = ~250 px natural)
+              // exceed the Expanded slot (~205 px after status/nav/hero/spacer/
+              // tab in the 500 px frame). Wrap in a non-scrollable
+              // SingleChildScrollView so the bounded viewport silently clips
+              // overflowing rows (the outer frame already uses clipBehavior:
+              // Clip.antiAlias, so the visual was already clipped — only the
+              // assertion was firing). Mirrors the actual iOS Library layout
+              // which is a scrollable settings list.
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -1773,24 +1781,27 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                     color: rowBg,
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      _buildSwatchRow(
-                          CupertinoIcons.music_note, 'Listen Now',
-                          accent, textPrimary, sep, false),
-                      _buildSwatchRow(
-                          CupertinoIcons.radiowaves_right, 'Radio',
-                          accent, textPrimary, sep, false),
-                      _buildSwatchRow(
-                          CupertinoIcons.cloud_download, 'Downloads',
-                          accent, textPrimary, sep, false),
-                      _buildSwatchRow(
-                          CupertinoIcons.heart_fill, 'Favourites',
-                          accent, textPrimary, sep, false),
-                      _buildSwatchRow(
-                          CupertinoIcons.square_list, 'Playlists',
-                          accent, textPrimary, sep, true),
-                    ],
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Column(
+                      children: <Widget>[
+                        _buildSwatchRow(
+                            CupertinoIcons.music_note, 'Listen Now',
+                            accent, textPrimary, sep, false),
+                        _buildSwatchRow(
+                            CupertinoIcons.radiowaves_right, 'Radio',
+                            accent, textPrimary, sep, false),
+                        _buildSwatchRow(
+                            CupertinoIcons.cloud_download, 'Downloads',
+                            accent, textPrimary, sep, false),
+                        _buildSwatchRow(
+                            CupertinoIcons.heart_fill, 'Favourites',
+                            accent, textPrimary, sep, false),
+                        _buildSwatchRow(
+                            CupertinoIcons.square_list, 'Playlists',
+                            accent, textPrimary, sep, true),
+                      ],
+                    ),
                   ),
                 ),
               ),

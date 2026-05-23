@@ -342,7 +342,9 @@ remaining high-count scripts and totals are:
 | 1 | generator_interpreter_retest_test | `retest/material/button_bar_layout_behavior_test.dart` |
 
 Cupertino theme_test (5×56 px bottom overflow) is the largest single
-contributor and the natural next H1 target.
+contributor and the natural next H1 target. **Status: FIXED — see todo
+#14 below.** New largest contributor:
+`gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` (3 events).
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -558,10 +560,28 @@ and fail in test:
 
 ### Cluster H — Framework errors (RenderFlex overflows)
 
-- [ ] **fixed** 14. **H-1 (5 events)** `cupertino/theme_test.dart` — 5×
-  `RenderFlex overflowed by 56 pixels on the bottom` in essential. Wrap the
-  theme-demo column in `SingleChildScrollView` or raise the preview frame's
-  fixed height. Affects both projects (identical script).
+- [x] **fixed** 14. **H-1 (5 events)** `cupertino/theme_test.dart` — 5×
+  `RenderFlex overflowed by 56 pixels on the bottom` in essential. **Done —
+  root cause was the grouped-list `Column` in `_buildSwatchPhone` (section 6
+  swatch app grid, line 1769–1796).** Each of the 5 swatch phones renders a
+  260×500 frame containing a Column whose Expanded slot for the grouped list
+  is only ~205 px (500 frame − 26 status − 42 nav − 1 sep − ~158 hero −
+  12 spacer − 56 tab), while the 5 `_buildSwatchRow` children each have a
+  natural height of ~50 px (30 px icon + 20 px vertical padding) → ~250 px
+  total → ~45 px overflow per phone, surfaced as 5 × 56 px bottom events.
+  The outer frame already uses `clipBehavior: Clip.antiAlias` so the
+  visual was already clipped — only the assertion was firing. **Fix:**
+  wrap the inner `Column` (5 rows) in a
+  `SingleChildScrollView(physics: NeverScrollableScrollPhysics())` so the
+  bounded viewport silently absorbs the overflow without changing the
+  visual (mirrors actual iOS Settings-style scroll behaviour). Test-script
+  source lives once at `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/cupertino/theme_test.dart`
+  and is referenced by `tom_d4rt_flutter_test/test/send_test_runner.dart:121`,
+  so a single edit fixes both projects. **Rule (a)** — test-script-only
+  change, individual retest only. Pre-fix: `frameworkErrors=5`; post-fix:
+  `frameworkErrors=0` (verified on both `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test`, test still passes in both). Raw logs:
+  `ztmp/cluster_h_cupertino_theme/{repro,post,post_test}.{log,result.json}`.
 - [ ] **fixed** 15. **H-2 (3 events)** `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart`
   in hardly_1 — investigate the demo's row layout.
 - [ ] **fixed** 16. **H-3 (2 events each, both projects)**
