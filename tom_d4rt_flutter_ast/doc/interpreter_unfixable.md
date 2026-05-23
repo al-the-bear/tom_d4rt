@@ -54,7 +54,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U10 — Script-defined class `with DiagnosticableTreeMixin` / `Diagnosticable` cannot call inherited concrete methods (`toStringDeep`, `toString`, `toStringShallow`, `toDiagnosticsNode`); plus `super.debugFillProperties(...)` fails into bridged mixin](#u10--script-defined-class-with-diagnosticabletreemixin-cannot-call-inherited-concrete-methods-interpreter-limitation) | Interpreter limitation. (a) The bridged `DiagnosticableTreeMixin` / `Diagnosticable` methods all validate the target via `D4.validateTarget<...>(target, '...')`, which rejects an `InterpretedInstance` even when the script class declares `with DiagnosticableTreeMixin` or `with Diagnosticable`. Same architectural family as U3/U5/U8/U9. (b) Additionally, `super.debugFillProperties(properties)` from an interpreted class whose only super is the bridged mixin throws *`Class 'X' does not have a standard or bridged superclass, cannot use 'super'.`* — the interpreter does not resolve `super` calls into a bridged-mixin super-chain. Native `Diagnosticable.debugFillProperties` is a no-op anyway, so dropping the super call is safe. A proper fix requires a hand-written `_InterpretedDiagnosticableTreeMixin` proxy in `d4rt_runtime_registrations.dart` (deferred, feature-scale). Mandatory script-side workaround: (1) build the diagnostics dump directly via `_dumpNode` (children) / `_diagnosticableDeepDump` (no children) helpers that walk `debugFillProperties` / `debugDescribeChildren`; (2) for JSON shape, recursive `_manualSerialize(config, delegate, depth)`; (3) drop any `super.debugFillProperties(...)` call from the script's override. | `foundation/class_test.dart` (C36 closed 2026-05-18 — `_Node with DiagnosticableTreeMixin` `tree.toStringDeep()`); `foundation/diagnostics_serialization_delegate_test.dart` (C37 closed 2026-05-18 — `_DemoConfig with DiagnosticableTreeMixin` `toDiagnosticsNode(...).toJsonMap(delegate)`); `foundation/object_flag_property_test.dart` (C38 closed 2026-05-18 — `_DemoConfig with Diagnosticable` `super.debugFillProperties(...)` + `toDiagnosticsNode().toStringDeep()`; also had unrelated framework-assert bug fixed by supplying empty-string text for `ifPresent`/`ifNull` slots); `foundation/text_tree_configuration_test.dart` (Cluster F #11 closed 2026-05-23 — `_SampleScene extends DiagnosticableTree` `scene.toDiagnosticsNode().toStringDeep()` returned null on 3 sites; manual sparse renderer fallback applied) |
 | [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
 | [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
-| [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | Bridge/interpreter constraints-propagation gap (non-fatal). The bridged `Center`/`Align` does not implement `RenderPositionedBox`'s shrink-wrap-when-`maxHeight=∞` rule, and bridged `GridView.count` does not bound cell heights through `childAspectRatio`. Four script-level workarounds (`heightFactor:1.0`, `Row > Flexible > Column`, `SizedBox(width:800)`, `Expanded → SizedBox(height:60)` inside grid tiles) all failed to clear the banner because the assertion is firing on a synthetic `RenderConstrainedBox` inside a Material widget the script does not own. Test passes throughout; banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
+| [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | ~~Bridge/interpreter constraints-propagation gap (non-fatal).~~ ~~No script-side fix possible — accept the banner and defer.~~ → **FIXED 2026-05-23 (entry #19).** Section-level bisection localised the source to a different construct entirely — two `Row(crossAxisAlignment.stretch)` blocks in `_PrivateConstructorCards`. Wrapping each in `IntrinsicHeight` clears the assertion. The U14 entry's "Center/ConstrainedBox + GridView.count" diagnostic was a red herring; the entry is retained as a cautionary tale for future bisection-first investigation. The interpreter-side propagation gap remains a theoretical concern for genuine `Center > ConstrainedBox > SCV` cases not yet observed in the corpus. | ~~`animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19)~~ → FIXED entry #19 (IntrinsicHeight on Row(stretch)) |
 | [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (item 2 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
 | [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (item 5 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
 | [U17 — `ConstraintsTransformBox` teaching script is intrinsically incompatible with `frameworkErrors=0`](#u17--constraintstransformbox-teaching-script-render_constraints_transform_box_testdart-is-intrinsically-incompatible-with-frameworkerrors0-script-design) | Truly unfixable (script design). `render_constraints_transform_box_test.dart` is a deep-demo script whose purpose is to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug-mode assertions / overflow banners. The visible `frameworkErrors=1` (NOT NORMALIZED, from a user-defined `kHalveMaxWidth` transform on a tight-width input) is the *first* of a cascade — pre-normalising it immediately surfaces `RenderConstraintsTransformBox overflowed by 30/15/15/30` from section 7's intentional clipBehavior showcase, and behind that further banners from sections 4 and 8. Any workaround that suppresses one tile erases the teaching content of that tile. **No script-side fix possible — accept the banner and defer.** | `rendering/render_constraints_transform_box_test.dart` (item 71 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — kHalveMaxWidth normalize fix attempted and reverted 2026-05-20) |
@@ -4792,6 +4792,36 @@ attempted script edits and accept the banner as a known cosmetic
 artefact. Functional behaviour of the test is preserved
 (`expect(result.success, isTrue)` passes; the page renders).
 
+**2026-05-23 update — FIXED (entry #19).** The five prior
+script-side attempts (1–4 above plus the 2026-05-23 entry #14
+`Align(alignment: Alignment.topCenter) > ConstrainedBox` attempt)
+all targeted the *wrong source*. Section-level bisection
+(disable second half → still reports; only Constructor enabled →
+still reports; only Anatomy+Gallery → clean) localised the actual
+trigger to `_PrivateConstructorCards`, which had **two
+`Row(crossAxisAlignment: CrossAxisAlignment.stretch)` blocks**
+(lines 1209 + 1219 of the script) inside the section card's
+`Column`. A `Row(stretch)` requires bounded height from its
+parent; inside a `Column` that forwards
+`maxHeight: infinity` from the outer `SingleChildScrollView`,
+the stretch propagated infinite cross-axis into a synthetic
+`RenderConstrainedBox` inside each `_PrivateConstructorCard`'s
+130-px plot Container, surfacing as
+`BoxConstraints forces an infinite height`. **The
+`Center > ConstrainedBox(maxWidth)` and `GridView.count`
+descriptions in this entry were red herrings** — neither was the
+real source. Fix: wrap each `Row(stretch)` in `IntrinsicHeight`,
+which resolves the Row's height to the intrinsic min height of
+the tallest child so the stretch has a finite cross-axis to work
+with. Same family fix as entry #10's
+`rendering/render_exclude_semantics_test.dart`. `fwErr 1→0` on
+both projects. The interpreter-side "constraint-propagation gap"
+described at length above remains an open architectural concern
+for other future scripts that genuinely use the
+`Center > ConstrainedBox > SCV` pattern, but cubic_test was not
+an instance of it; this entry's diagnostic stays here as a
+cautionary tale for future bisection-first investigation.
+
 **What "achieves the same functional result" would mean here.**
 Because the assertion is fired by an internal
 `RenderConstrainedBox` we cannot identify, the only way to
@@ -5837,7 +5867,7 @@ is summarised in `error_analysis.md` entry #23.
 
 | Script | Error | Status |
 |--------|-------|--------|
-| `animation/cubic_test.dart` | `BoxConstraints forces an infinite height` (RenderConstrainedBox) | **Already U14.** `Center > ConstrainedBox(maxWidth)` inside `SingleChildScrollView` with `GridView.count` descendants leaks `maxHeight: infinity`. Four prior script-side attempts (`SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)`) all failed; deferred. |
+| ~~`animation/cubic_test.dart`~~ | ~~`BoxConstraints forces an infinite height` (RenderConstrainedBox)~~ | **FIXED 2026-05-23 (entry #19).** The U14 diagnostic mis-identified the source — it was not the `Center > ConstrainedBox` or `GridView.count` pattern but two `Row(crossAxisAlignment.stretch)` blocks in `_PrivateConstructorCards` (section 4) that propagated infinite cross-axis into a synthetic RenderConstrainedBox inside each card. Fix: `IntrinsicHeight` wrap on both Rows. Same family as entry #10's `render_exclude_semantics_test.dart` fix. See U14 §"2026-05-23 update" for retrospective. |
 | ~~`material/dropdownform_test.dart`~~ | ~~`An InputDecorator, which is typically created by a TextField, cannot have an unbounded width`~~ | **FIXED 2026-05-23 (entry #18).** Bisected to `_buildSection06`'s `intrinsic` widget: a bare `DropdownButtonFormField<String>` (no `isExpanded`, no `Expanded`/`Flexible`/`SizedBox` wrapper) inside a `Row` with a trailing `Spacer()`. A `Row` gives unbounded horizontal constraints to children without flex wrappers, and the DDFF's internal `InputDecorator` rejects unbounded width. **Native Flutter exhibits the same crash** — this was a script-side authoring bug, not a bridge gap. **Fix 1:** wrap the DDFF in `SizedBox(width: 220)` to bound its width while preserving the "intrinsic-like sizing with trailing space" teaching intent. **Fix 2 (follow-up after Fix 1 unmasked a previously-hidden error):** the `complexItems` DDFF in `_buildSection01` used 2-line per-item children (label + monospace 'id:' subtitle in a Container with vertical 4 padding) measuring ~70 px per item. This exceeded the DropdownButton's default `kMinInteractiveDimension=48` selected-item slot and produced a 22-px bottom `RenderFlex overflow`. Attempted `itemHeight: 70` first — the bridged `DropdownButtonFormField` does not honour the `itemHeight` parameter (no effect). Workaround: collapsed the per-item layout to a single Row line (icon-Container + Expanded(label with maxLines:1, ellipsis) + 'id:' trailing Text), all of which fits comfortably inside the 48-px slot. The "arbitrary widget subtrees" teaching point is still demonstrated by the icon + Text + trailing-id Row. `fwErr 1→0` on both projects. |
 | ~~`material/dropdown_test.dart`~~ | ~~`Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>`~~ | **FIXED 2026-05-23 (entry #17).** The interpreter generics-erasure root cause (`colorChoices.map<Widget>(...).toList()` erases the `Widget` generic to `Object?` at the bridge boundary, regardless of `.map<Widget>` / `List<Widget>.from(...)` / `<Widget>[]` literal / imperative loop source form — all four script-side variants surfaced the same coercion error in H23) remains unresolved at the interpreter level. **Workaround:** omit the `selectedItemBuilder` parameter entirely from the `selectedItemBuilderDropdown`. Default `DropdownButton` behaviour renders the matching `items` widget (the chip) for the selected display too — slight visual change (shows the regular `chipForColor` instead of the custom "Selected: NAME" Container), but the `selectedItemBuilder` teaching content is preserved further down via the code-block sections that demonstrate the pattern as static `Text` snippets. The underlying typed-collection coercion limitation is unchanged — see U22 §"What a real fix would look like" item (1). `fwErr 1→0` on both projects. |
 | `material/mergeable_test.dart` | `BoxConstraints forces an infinite height` (RenderPadding) | **Fixed script-side under H23** — `IntrinsicHeight` wrap on the section-1 `Row(crossAxisAlignment.stretch, children: conceptCards)`. Not part of U22; listed here only for cross-reference. |
@@ -5920,13 +5950,15 @@ entries (U14 `animation/cubic_test`, U17 `render_constraints_transform_box_test`
 `material/dropdownform_test`, `widgets/animation_test`,
 `widgets/slotted_multi_child_render_object_widget_test`,
 `retest/widgets/app_kit_view_test`) were progressively cleared by
-entries #14/#15/#16/#17/#18 (U22 — ALL FIVE scripts FIXED, both the
-generics-erasure pocket and the dropdownform layout-cascade
-formerly thought to be U14-family). Remaining genuinely-deferred
-items: U14 `animation/cubic_test`, U17
-`render_constraints_transform_box_test` ×2, U18
-`services/platform_test`. **U22 fully cleared script-side as of
-entry #18.**
+entries #14/#15/#16/#17/#18/#19 (U22 — ALL FIVE scripts FIXED,
+plus U14 cubic_test FIXED via the same family as entry #10's
+IntrinsicHeight-on-Row(stretch) fix after the U14 diagnostic
+was found to mis-identify the source). Remaining genuinely-
+deferred items: U17 `render_constraints_transform_box_test` ×2
+(intentional teaching script), U18 `services/platform_test`
+(all 4 script-side variants destabilize the test-app transport).
+**U22 fully cleared as of entry #18; U14 fully cleared as of
+entry #19.**
 
 The 7 remaining items are deferred here, cross-referenced where
 they fit existing patterns:
@@ -5989,6 +6021,35 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **Update U14 (entry #19)** —
+  `animation/cubic_test.dart` moved from U14-deferred to FIXED
+  after five prior misdirected script-side attempts. The U14
+  diagnostic identified the source as
+  `Center > ConstrainedBox(maxWidth)` inside
+  `SingleChildScrollView` or `Expanded inside
+  Column(mainAxisSize.min)` inside `GridView.count` cells —
+  neither was the actual trigger. Section-level bisection
+  (sections 2-5 enabled, banner reproduces; only Anatomy+Gallery
+  → clean; only Constructor → banner reproduces) localised the
+  source to **two `Row(crossAxisAlignment.stretch)` blocks in
+  `_PrivateConstructorCards`** (lines 1209 + 1219 of the script)
+  inside the section card's `Column`. A `Row(stretch)` requires
+  bounded height from its parent; inside a `Column` that forwards
+  `maxHeight: infinity` from the outer `SingleChildScrollView`,
+  the stretch propagated infinite cross-axis into a synthetic
+  `RenderConstrainedBox` inside each `_PrivateConstructorCard`'s
+  130-px plot Container, surfacing as `BoxConstraints forces an
+  infinite height`. Fix: wrap each `Row(stretch)` in
+  `IntrinsicHeight`, which resolves the Row's height to the
+  intrinsic min height of the tallest child so the stretch has a
+  finite cross-axis to work with. Same family fix as entry #10's
+  `rendering/render_exclude_semantics_test.dart`. `fwErr 1→0` on
+  both projects. **U14 fully cleared script-side.** The
+  interpreter-side "constraint-propagation gap" described in the
+  U14 entry's body text remains an open theoretical concern for
+  other future scripts that genuinely use the
+  `Center > ConstrainedBox > SCV` pattern, but no current corpus
+  script is an instance of it.
 - 2026-05-23: **Update U22 (entry #18)** —
   `material/dropdownform_test.dart` moved from U22-deferred to
   FIXED. Investigation revealed this was a script-side authoring

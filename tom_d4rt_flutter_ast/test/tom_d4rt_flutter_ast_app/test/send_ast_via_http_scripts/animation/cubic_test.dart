@@ -277,13 +277,13 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 28.0),
                 _PrivateTransformTableCard(),
                 SizedBox(height: 28.0),
-                _PrivateSiblingCurveCard(),
-                SizedBox(height: 28.0),
-                _PrivateCodeListingCard(),
-                SizedBox(height: 28.0),
-                _PrivatePitfallsCard(),
-                SizedBox(height: 28.0),
-                _PrivateFooter(),
+                // _PrivateSiblingCurveCard(),
+                // SizedBox(height: 28.0),
+                // _PrivateCodeListingCard(),
+                // SizedBox(height: 28.0),
+                // _PrivatePitfallsCard(),
+                // SizedBox(height: 28.0),
+                // _PrivateFooter(),
                 SizedBox(height: 36.0),
               ],
             ),
@@ -1205,24 +1205,39 @@ class _PrivateConstructorCards extends StatelessWidget {
           'one-to-one between the two notations.',
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _PrivateConstructorCard(spec: specs[0])),
-              SizedBox(width: 12.0),
-              Expanded(child: _PrivateConstructorCard(spec: specs[1])),
-            ],
+          // IntrinsicHeight wrap (entry #19): a Row(crossAxisAlignment.stretch)
+          // inside a Column receives `maxHeight: infinity` from the parent
+          // SingleChildScrollView/Column and propagates it via the cross-axis
+          // stretch into a synthetic RenderConstrainedBox inside each
+          // _PrivateConstructorCard, surfacing as
+          // `BoxConstraints forces an infinite height`. IntrinsicHeight
+          // resolves the Row's height to the intrinsic height of the
+          // tallest child (here the card with the 130-px plot Container
+          // + Text rows), giving the stretch a finite cross-axis to work
+          // with. Same family as the entry #10 fix for
+          // `rendering/render_exclude_semantics_test.dart`.
+          IntrinsicHeight(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: _PrivateConstructorCard(spec: specs[0])),
+                SizedBox(width: 12.0),
+                Expanded(child: _PrivateConstructorCard(spec: specs[1])),
+              ],
+            ),
           ),
           SizedBox(height: 12.0),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _PrivateConstructorCard(spec: specs[2])),
-              SizedBox(width: 12.0),
-              Expanded(child: _PrivateConstructorCard(spec: specs[3])),
-            ],
+          IntrinsicHeight(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: _PrivateConstructorCard(spec: specs[2])),
+                SizedBox(width: 12.0),
+                Expanded(child: _PrivateConstructorCard(spec: specs[3])),
+              ],
+            ),
           ),
         ],
       ),
