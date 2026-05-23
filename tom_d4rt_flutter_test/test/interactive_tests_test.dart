@@ -74,14 +74,18 @@ void main() {
     });
 
     test('showMenu - can tap menu item', () async {
+      // `material/showmenu_test.dart` is a static teaching demo that renders
+      // a `_PreviewMenuItem` gallery (Edit / Duplicate / Share / Delete) — it
+      // does not actually invoke `showMenu(...)`, so we tap a label that is
+      // present on the rendered gallery.
       final result = await SendTestRunner.sendAndInteract(
         'material/showmenu_test.dart',
         actions: [
-          // Wait for menu to appear
+          // Wait for the gallery to render
           {'type': 'waitFrames', 'frames': 30},
-          // Tap Option A
-          {'type': 'tapText', 'text': 'Option A'},
-          // Wait for menu to close
+          // Tap the 'Edit' menu item (rendered by _PreviewMenuItem)
+          {'type': 'tapText', 'text': 'Edit'},
+          // Wait one frame for any tap effects
           {'type': 'waitFrames', 'frames': 10},
         ],
         interactDelay: const Duration(milliseconds: 500),
@@ -118,15 +122,18 @@ void main() {
     });
 
     test('showDatePicker - can tap Cancel to dismiss', () async {
-      // Scheduled via Future.microtask with cancelText: 'Cancel'.
+      // `material/showdatepicker_test.dart` is a static teaching demo. The
+      // mock dialog scaffold renders `Text('CANCEL')` / `Text('OK')` via
+      // `_mockDialogScaffold` (uppercase, matching the real Material 3
+      // default). It does not actually invoke `showDatePicker(...)`.
       final result = await SendTestRunner.sendAndInteract(
         'material/showdatepicker_test.dart',
         actions: [
-          // Wait for the date picker to appear
+          // Wait for the mock dialog to render
           {'type': 'waitFrames', 'frames': 30},
-          // Tap the Cancel action to dismiss
-          {'type': 'tapText', 'text': 'Cancel'},
-          // Wait for dismiss
+          // Tap the rendered 'CANCEL' label
+          {'type': 'tapText', 'text': 'CANCEL'},
+          // Wait one frame for any tap effects
           {'type': 'waitFrames', 'frames': 10},
         ],
         interactDelay: const Duration(milliseconds: 500),
@@ -141,15 +148,18 @@ void main() {
     });
 
     test('showTimePicker - can tap Cancel to dismiss', () async {
-      // Scheduled via Future.microtask with cancelText: 'Cancel'.
+      // `material/showtimepicker_test.dart` is a static teaching demo. Section
+      // 9 (the helpText / cancelText / confirmText explainer) renders the
+      // labels directly — `Text('DISMISS', ...)` is the configured cancelText
+      // example. The script does not actually invoke `showTimePicker(...)`.
       final result = await SendTestRunner.sendAndInteract(
         'material/showtimepicker_test.dart',
         actions: [
-          // Wait for the time picker to appear
+          // Wait for the teaching widget to render
           {'type': 'waitFrames', 'frames': 30},
-          // Tap the Cancel action to dismiss
-          {'type': 'tapText', 'text': 'Cancel'},
-          // Wait for dismiss
+          // Tap the rendered 'DISMISS' label (cancelText example)
+          {'type': 'tapText', 'text': 'DISMISS'},
+          // Wait one frame for any tap effects
           {'type': 'waitFrames', 'frames': 10},
         ],
         interactDelay: const Duration(milliseconds: 500),
