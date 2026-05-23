@@ -902,12 +902,17 @@ dynamic build(BuildContext context) {
       color: color.withValues(alpha: 0.06),
       child: Stack(
         children: <Widget>[
+          // Cluster H #14: dash counts sized to fit the padded 208×108
+          // inner Stack. Horizontal: 11 dashes × 12 + 10 gaps × 6 = 192 ≤
+          // 208. Vertical: 7 dashes × 10 + 6 gaps × 6 = 106 ≤ 108. Earlier
+          // counts (12 horizontal × 8 vertical) overflowed by 2 px right
+          // and 14 px bottom, generating 32 RenderFlex framework errors.
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: dashedHorizontalRow(
-              dashes: 12,
+              dashes: 11,
               color: color,
               dashWidth: 12.0,
               gap: 6.0,
@@ -919,7 +924,7 @@ dynamic build(BuildContext context) {
             left: 0,
             right: 0,
             child: dashedHorizontalRow(
-              dashes: 12,
+              dashes: 11,
               color: color,
               dashWidth: 12.0,
               gap: 6.0,
@@ -931,7 +936,7 @@ dynamic build(BuildContext context) {
             bottom: 0,
             left: 0,
             child: Column(
-              children: List<Widget>.generate(8 * 2 - 1, (int i) {
+              children: List<Widget>.generate(7 * 2 - 1, (int i) {
                 if (i.isOdd) {
                   return const SizedBox(height: 6.0);
                 }
@@ -948,7 +953,7 @@ dynamic build(BuildContext context) {
             bottom: 0,
             right: 0,
             child: Column(
-              children: List<Widget>.generate(8 * 2 - 1, (int i) {
+              children: List<Widget>.generate(7 * 2 - 1, (int i) {
                 if (i.isOdd) {
                   return const SizedBox(height: 6.0);
                 }
