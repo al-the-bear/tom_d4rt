@@ -408,13 +408,17 @@ dynamic build(BuildContext context) {
   final Widget borderMixed = DecoratedBox(
     decoration: const BoxDecoration(
       color: Colors.white,
+      // Cluster H follow-up: borderRadius dropped because the four sides
+      // have non-uniform colors (amber/teal/rose/indigo). Flutter's
+      // BoxDecoration asserts "A borderRadius can only be given on borders
+      // with uniform colors." Demo still showcases mixed-side borders;
+      // square corners are the only legal pairing for the showcase.
       border: Border(
         top: BorderSide(color: paletteAmber, width: 6.0),
         right: BorderSide(color: paletteTeal, width: 3.0),
         bottom: BorderSide(color: paletteRose, width: 6.0),
         left: BorderSide(color: paletteIndigo, width: 3.0),
       ),
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
     ),
     child: const SizedBox(
       width: 130.0,

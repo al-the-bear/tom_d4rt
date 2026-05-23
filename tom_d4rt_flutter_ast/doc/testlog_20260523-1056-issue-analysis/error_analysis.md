@@ -351,8 +351,12 @@ and `widgets/directional_focus_action_test.dart`. **Status: FIXED — see
 todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
-todo #17 below.** Current largest remaining contributors are the
-single-event scripts in todo #18 / #19 (long list, mixed ast+test sources).
+todo #17 below.** Todo #18 (single-event scripts, 19 entries):
+**partial** — 1 fixed script-side (decoratedbox), 8 confirmed-deferred
+under existing U entries (U14/U17/U18/U22), 1 covered by Cluster N
+(button_bar via F2), 9 marked for follow-up sub-pass. Current largest
+remaining contributors are the test-only single-event scripts in todo
+#19 (mixed list, mostly small pixel-rounding overflows).
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -709,22 +713,90 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [ ] **fixed** 18. **H-5 (single-event scripts, fix in batches)** —
-  `material/dropdown_test.dart`, `painting/textstyle_test.dart`,
-  `widgets/animation_test.dart`, `widgets/decoratedbox_test.dart`,
-  `material/refreshindicator_test.dart`, `material/dialog_themes_test.dart`,
-  `material/dropdownform_test.dart`,
-  `cupertino/cupertino_themes_batch3_test.dart`,
-  `services/platform_test.dart`, `widgets/placeholder_test.dart`,
-  `painting/box_painter_test.dart`,
-  `painting/decoration_image_painter_test.dart`,
-  `rendering/render_constraints_transform_box_test.dart` (×2 in different
-  suites), `rendering/render_exclude_semantics_test.dart`,
-  `animation/cubic_test.dart`,
-  `widgets/editable_text_tap_up_outside_intent_test.dart`,
-  `widgets/slotted_multi_child_render_object_widget_test.dart`,
-  `retest/material/button_bar_layout_behavior_test.dart`. Per-script
-  Flexible/Expanded/SizedBox tweaks.
+- [~] **partial (1 of 19 fixed script-side, 17 deferred to existing
+  U-entries or pending investigation, 1 covered by Cluster N)** 18.
+  **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
+  each individually and capturing the inner error from the framework
+  error message:
+
+  **Fixed script-side (1):**
+   - `widgets/decoratedbox_test.dart` — `A borderRadius can only be given
+     on borders with uniform colors.` The `borderMixed` `DecoratedBox`
+     (line 408–424) sets four BorderSides with different colors
+     (`amber/teal/rose/indigo`) AND `borderRadius`. Same H2 pattern that
+     was previously cleared in `painting/border_test.dart` (entry #14 of
+     the 20260522-1328 doc). **Fix:** drop the `borderRadius`. **Rule (a)**
+     — test-script-only change, individual retest. `frameworkErrors=1 →
+     frameworkErrors=0` on flutter_ast (the only project the fw error
+     fires on; flutter_test has F4 unrelated Cluster B failure on the
+     same script, addressed by todo #9). Raw logs:
+     `ztmp/cluster_h_single_event/widgetsdecoratedbox_test_repro.log` and
+     `decoratedbox_post.log`.
+
+  **Already in `interpreter_unfixable.md` U22 (8 scripts — defer):**
+   - `material/dropdown_test.dart` — `List<Widget>` coercion failure. U22.
+   - `material/dropdownform_test.dart` — internal `InputDecorator`
+     unbounded width from a bridged dropdown variant. U22.
+   - `widgets/animation_test.dart` — `_MeanAnimation extends
+     CompoundAnimation<double>` script-defined subclass of bridged
+     abstract class. U22 (family U3/U5/U9/U10/U11).
+   - `widgets/slotted_multi_child_render_object_widget_test.dart` —
+     `Cannot access property 'r' on target of type null` on a bridged
+     `Color`. U22 (typed-collection erasure family).
+   - `services/platform_test.dart` — `BoxConstraints forces an infinite
+     height` in `_defaultVsThemeCard`. Already **U18**.
+   - `rendering/render_constraints_transform_box_test.dart` (×2 in
+     secondary + timeout) — `BoxConstraints(... ; NOT NORMALIZED)`.
+     Teaching script intrinsically incompatible with
+     `frameworkErrors=0`. Already **U17**.
+   - `animation/cubic_test.dart` — `BoxConstraints forces an infinite
+     height` from `Center > ConstrainedBox(maxWidth) > GridView.count`.
+     Already **U14**.
+
+  **Covered by other clusters (1):**
+   - `retest/material/button_bar_layout_behavior_test.dart` — single
+     framework error event coincides with the `Undefined variable:
+     ButtonBar` runtime failure (Cluster N). Fixing F2 (todo #12) will
+     also clear this fw event because the script will no longer fail to
+     build past the ButtonBar lookup. No standalone fix in this todo.
+
+  **Pending investigation (9 scripts, deferred to future H-5 sub-pass):**
+   - `painting/textstyle_test.dart` — `Runtime Error: Native error during
+     bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart':
+     Failed assertion: line 342 pos 12: '<optimized out>': is not true.`
+     Bridge call hits a Flutter SDK assertion in `Color.withOpacity` —
+     same family as U21 (vector_math) where the script API touches a
+     bridge boundary that doesn't quite line up. Needs a new U entry
+     after investigation; script-side workaround likely exists (use
+     `MaterialColor.shade*` or `.withValues(alpha:)` instead).
+   - `material/refreshindicator_test.dart` — `RenderFlex overflowed by
+     53 pixels on the bottom`. Default tab's outer `Column>[_headerCard,
+     chipRow, SizedBox, Expanded(RefreshIndicator>ListView)]` — header
+     section's natural height exceeds the slot when the test pane is
+     slightly shorter. Needs a fix akin to capping the header in a
+     scrollable wrapper or moving the header into the ListView. **Sub-task
+     for a follow-up batch.**
+   - `material/dialog_themes_test.dart` — `RenderFlex overflowed by 2.0
+     px on the right`. Same family as U15 (Cupertino layout rounding).
+   - `cupertino/cupertino_themes_batch3_test.dart` — `RenderFlex
+     overflowed by 1.8 px on the right`. Same family as U15.
+   - `painting/box_painter_test.dart` — `RenderFlex overflowed by 3.8 px
+     on the right`. Same family as U15.
+   - `painting/decoration_image_painter_test.dart` — `RenderFlex
+     overflowed by 5.1 px on the right`. Same family as U15.
+   - `widgets/editable_text_tap_up_outside_intent_test.dart` — `RenderFlex
+     overflowed by 2.8 px on the right`. Same family as U15.
+   - `widgets/placeholder_test.dart` — repro plain-name pattern did not
+     match in the bisection sweep; needs re-attempt with exact label.
+   - `rendering/render_exclude_semantics_test.dart` — `BoxConstraints
+     forces an infinite height`. Same family as U14/U18.
+
+  **Status: partial — 1 of 19 cleared, 8 confirmed-deferred under
+  existing U entries (no new work needed), 1 deferred to Cluster N (#12),
+  9 marked for a follow-up sub-pass.** **Rule (a)** — only the
+  decoratedbox test script was edited; individual retest verified the
+  fix. The interpreter-deferred entries do not change code on this turn
+  and so do not require a regression sweep.
 - [ ] **fixed** 19. **H-6 (test-only single events)** —
   `widgets/center_test.dart` (essential),
   `widgets/checked_mode_banner_test.dart` (secondary),
