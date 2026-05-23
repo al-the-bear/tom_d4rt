@@ -967,7 +967,18 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(children: [
                   SizedBox(
-                      width: 80,
+                      // Cluster H follow-up: rows below pack Icon(16) +
+                      // SizedBox(6) + Text(key, fontSize 10 bold) into this
+                      // SizedBox. With width 80 the inner area for the key
+                      // text was 58 px, but the longest keys ("Arrow Left"
+                      // 10 ch, "Arrow Right" 11 ch) measure ~62-64 px,
+                      // producing the observed 4.4 / 5.7 px right overflows
+                      // in two of the six rows. Bumped to 100 to accommodate
+                      // the longest key with margin. Header text 'Key' (3
+                      // chars) is unaffected and still left-aligns; the next
+                      // Expanded cell absorbs the change so the visual is
+                      // essentially identical.
+                      width: 100,
                       child: Text('Key',
                           style: TextStyle(
                               color: Colors.white,
@@ -990,7 +1001,7 @@ dynamic build(BuildContext context) {
                   color: isEven ? Colors.grey[50] : Colors.white,
                   child: Row(children: [
                     SizedBox(
-                      width: 80,
+                      width: 100,
                       child: Row(children: [
                         Icon(sm['icon'] as IconData,
                             size: 16,

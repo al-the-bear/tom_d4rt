@@ -342,7 +342,14 @@ dynamic build(BuildContext context) {
     );
     stateGalleryCards.add(
       Container(
-        width: 200.0,
+        // Cluster H follow-up: header Row is Icon(22) + SizedBox(6) +
+        // Text('ConnectionState.${label}', fontSize 12). At inner width
+        // 200-28 = 172 px the two longest labels overflow: 'waiting'
+        // (~14 px right) and 'active' (~6.5 px right). Bumped to 224 px
+        // (inner 196 px) which fits the longest 'ConnectionState.waiting'
+        // header with a small safety margin. Cards remain inside the
+        // outer Wrap so the visual still flows.
+        width: 224.0,
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(

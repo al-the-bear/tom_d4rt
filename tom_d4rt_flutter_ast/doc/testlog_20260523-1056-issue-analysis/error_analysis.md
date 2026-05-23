@@ -345,9 +345,12 @@ Cupertino theme_test (5×56 px bottom overflow) is the largest single
 contributor and the natural next H1 target. **Status: FIXED — see todo
 #14 below.** Second-largest contributor:
 `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` (3 events).
-**Status: FIXED — see todo #15 below.** Current largest contributors are
-the two 2-event scripts in todo #16 (`widgets/futurebuilder_test.dart`,
-`widgets/directional_focus_action_test.dart`).
+**Status: FIXED — see todo #15 below.** Third-largest pair of
+contributors in both projects (2 events each): `widgets/futurebuilder_test.dart`
+and `widgets/directional_focus_action_test.dart`. **Status: FIXED — see
+todo #16 below.** Current largest remaining contributors are the
+test-only 2-event scripts in todo #17 (`widgets/callback_shortcuts_test.dart`,
+`widgets/child_back_button_dispatcher_test.dart`).
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -605,10 +608,43 @@ and fail in test:
   `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`, test still passes in
   both). Raw logs:
   `ztmp/cluster_h_ios_fling_vtracker/{repro,post_ast,post_test}.{log,result.json}`.
-- [ ] **fixed** 16. **H-3 (2 events each, both projects)**
+- [x] **fixed** 16. **H-3 (2 events each, both projects)**
   `widgets/futurebuilder_test.dart` (important),
-  `widgets/directional_focus_action_test.dart` (hardly_4) — per-script
-  layout audit (Flexible/Expanded).
+  `widgets/directional_focus_action_test.dart` (hardly_4). **Done — two
+  separate test-script-only fixes.**
+
+  **(a) `futurebuilder_test.dart` Section 3 (ConnectionState gallery)** —
+  Each card is `Container(width: 200, padding: all 14)` → inner area 172 px.
+  Header `Row` is `Icon(22) + SizedBox(6) + Text('ConnectionState.${label}',
+  fontSize: 12)`. At fontSize 12 with the longest two labels:
+  `'ConnectionState.waiting'` (23 ch) ≈ 178 px → ~14 px right overflow;
+  `'ConnectionState.active'` (22 ch) ≈ 171 px → ~6.5 px right overflow.
+  Both magnitudes match the observed events exactly. Other two labels
+  (`'none'`/`'done'`, 20 ch) fit. **Fix:** bumped card `width` from 200 to
+  224 (inner 196 px), comfortably covering the longest header. Cards stay
+  inside the outer `Wrap` so the layout still flows naturally. Localised
+  via 4-step ascending bisection (1-3 sections / 1-2 sections) — the bug
+  was isolated to section 3 in 4 runs.
+
+  **(b) `directional_focus_action_test.dart` Section 6 (Keyboard
+  Shortcuts table)** — Each row's `Key` column is `SizedBox(width: 80,
+  child: Row([Icon(16), SizedBox(6), Text(key, fontSize: 10 bold)]))`,
+  leaving 58 px for the key text. The longest two keys overflow:
+  `'Arrow Right'` (11 ch) ≈ 64 px → ~5.7 px right overflow; `'Arrow Left'`
+  (10 ch) ≈ 62 px → ~4.4 px right overflow. Other four keys
+  (`'Arrow Up'`/`'Arrow Down'`/`'Tab'`/`'Shift+Tab'`) fit. **Fix:** bumped
+  the `SizedBox.width` from 80 to 100 in both header and body cells.
+  Header text `'Key'` (3 ch) still left-aligns; the next `Expanded` cell
+  ("Intent Generated") absorbs the change, so the visual is essentially
+  identical.
+
+  Both fixes are pure layout authoring; no interpreter limitation
+  involved. **Rule (a)** — test-script-only changes, individual retest
+  only. Pre-fix: `frameworkErrors=2` on both scripts; post-fix:
+  `frameworkErrors=0` on both, verified on both `tom_d4rt_flutter_ast` and
+  `tom_d4rt_flutter_test`. Raw logs:
+  `ztmp/cluster_h_futurebuilder/{repro,bisect[1-4],post_ast,post_test}.{log,result.json}`
+  and `ztmp/cluster_h_dir_focus_action/{repro,post_ast,post_test}.{log,result.json}`.
 - [ ] **fixed** 17. **H-4 (test-only, 2 events each)**
   `widgets/callback_shortcuts_test.dart`,
   `widgets/child_back_button_dispatcher_test.dart` (hardly_4) — appear only
