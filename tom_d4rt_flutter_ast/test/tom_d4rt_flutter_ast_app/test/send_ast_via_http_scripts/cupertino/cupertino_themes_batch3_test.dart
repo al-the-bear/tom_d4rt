@@ -2292,8 +2292,24 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              // Cluster H follow-up: section15 rendered 4 comparison rows
+              // [SizedBox(88) label + Expanded light-preview + SizedBox(8)
+              // + Expanded dark-preview]. The bridged Cupertino controls
+              // (CupertinoSwitch / CupertinoSlider) inside the preview
+              // frames have an intrinsic-width measurement that overflows
+              // by 1.8 px when the Expanded slot is at its baseline width
+              // (U15 bridge gap). Shrinking the label column from 88 to
+              // 70 hands ~18 px back to the two preview Expandeds, which
+              // is enough to absorb the bridged controls' rounding.
+              // Visual: label sits 18 px closer to the previews (the
+              // colored dot + "Active Blue"/"Indigo"/"Teal"/"Rose"
+              // labels remain fully visible — longest is 'Active Blue'
+              // at 11 chars × ~7 px = ~77 px including the dot+spacer,
+              // so the label is now allowed to wrap to a second line on
+              // the narrowest rendering width; previews now never
+              // overflow).
               SizedBox(
-                width: 88.0,
+                width: 70.0,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 36.0),
                   child: Row(
@@ -2307,12 +2323,16 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(width: 6.0),
-                      Text(
-                        name,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w800,
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

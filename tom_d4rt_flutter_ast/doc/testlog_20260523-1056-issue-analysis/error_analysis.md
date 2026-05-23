@@ -352,15 +352,16 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial** — 9 fixed script-side (decoratedbox H2 borderRadius,
-refreshindicator header-into-ListView, placeholder buildBadCaseCMock
-height bump, textstyle alpha clamp, box_painter Expanded title,
-render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
-label, editable_text Expanded gesture label, decoration_image_painter
-title Row → Wrap), 8 confirmed-deferred under existing U entries
-(U14/U17/U18/U22), 1 deferred under U23 entry (only cupertino_themes_batch3
-where the overflow is genuinely deep in bridged Cupertino layout),
-1 covered by Cluster N (button_bar via F2). Todo #19 (test-only single
+**partial — script-side fixes complete.** 10 fixed script-side
+(decoratedbox H2 borderRadius, refreshindicator header-into-ListView,
+placeholder buildBadCaseCMock height bump, textstyle alpha clamp,
+box_painter Expanded title, render_exclude_semantics IntrinsicHeight
+wrap, dialog_themes Expanded label, editable_text Expanded gesture
+label, decoration_image_painter title Row → Wrap, themes_batch3 label
+SizedBox 88→70). 8 confirmed-deferred under existing U entries
+(U14/U17/U18/U22) — those need interpreter/bridge work. 0 remaining
+under U23 (U23 was cleared in entry #12). 1 covered by Cluster N
+(button_bar via F2). Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -721,8 +722,9 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (9 of 19 fixed script-side, 9 deferred to U-entries
-  (8 existing + 1 new U23), 1 covered by Cluster N)** 18.
+- [~] **partial (10 of 19 fixed script-side; 8 confirmed-deferred under
+  existing U entries U14/U17/U18/U22; 0 remaining U23 — U23 CLEARED;
+  1 covered by Cluster N)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -768,7 +770,20 @@ and fail in test:
      also clear this fw event because the script will no longer fail to
      build past the ButtonBar lookup. No standalone fix in this todo.
 
-  **Follow-up sub-pass fixed (8 of 9):**
+  **Follow-up sub-pass fixed (9 of 9 — U23 CLEARED):**
+   - **`cupertino/cupertino_themes_batch3_test.dart`** (entry #12) —
+     1.8 px right. Earlier attempts (entry #9 — convert `sampleControls`
+     first Row to a Wrap) failed because the overflow was deeper in
+     bridged `CupertinoSwitch` / `CupertinoSlider` width measurement.
+     **Successful approach:** in `section15`'s comparison row layout
+     `[SizedBox(88) label + Expanded light-preview + SizedBox(8) +
+     Expanded dark-preview]`, shrink the label SizedBox from 88 to 70.
+     The 18 px recovered hands enough headroom to the two preview
+     Expandeds for the bridged controls' intrinsic-width rounding to
+     fit without overflowing. Label `Text` wrapped in
+     `Expanded(... maxLines: 2, overflow: ellipsis)` so the longest
+     `'Active Blue'` label gracefully wraps if needed. `fwErr 1→0` on
+     both projects.
    - **`material/dialog_themes_test.dart`** (entry #11) — 2.0 px right.
      Bisected to `_flavoursSection` → `_simpleFlavour` → `_simpleDialogOption`.
      Inner Row `[Icon(18) + _wgap(10) + Text(label)]` inside `SimpleDialog`
@@ -844,24 +859,19 @@ and fail in test:
      label + 6 px spacer = 105 px natural). Left container (height 80)
      still fits with Row crossAxisAlignment.center. `fwErr 1→0`.
 
-  **Deferred under U23 entry (1 of 9 — only Cupertino bridge-deep
-  overflow remains; textstyle + box_painter + render_exclude_semantics
-  + dialog_themes + editable_text + decoration_image_painter moved out
-  as FIXED above):**
-   - `cupertino/cupertino_themes_batch3_test.dart` — 1.8 px right.
-     **U23 (U15 family).** Localised to section15 via 5-step bisection
-     (entry #9), tried converting `sampleControls` first Row to a Wrap
-     but the overflow persisted — deeper inside the bridged
-     `CupertinoSwitch` / `CupertinoSlider` width measurement. Only U23
-     entry that is truly unreachable from script side.
+  **Deferred under U23 entry (0 of 9 — U23 CLEARED.** All 7
+  originally-deferred U23 scripts proved script-side fixable after
+  deeper bisection. See `interpreter_unfixable.md` Change Log entry
+  for 2026-05-23 entry #12 for the full retrospective.)
 
-  **Status: partial — 9 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 10 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
   IntrinsicHeight + dialog_themes Expanded label + editable_text
-  Expanded gesture label + decoration_image_painter title Row → Wrap),
-  8 confirmed-deferred under existing U entries (U14/U17/U18/U22), 1
-  deferred under U23 entry, 1 covered by Cluster N
+  Expanded gesture label + decoration_image_painter title Row → Wrap +
+  themes_batch3 label SizedBox 88→70), 8 confirmed-deferred under
+  existing U entries (U14/U17/U18/U22), 0 remaining U23, 1 covered by
+  Cluster N
   (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
   individual retest verified each (`fwErr 1→0`). The deferred entries

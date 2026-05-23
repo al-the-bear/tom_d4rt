@@ -5922,7 +5922,7 @@ they fit existing patterns:
 |--------|-------|--------|
 | ~~`painting/textstyle_test.dart`~~ | ~~`Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart' line 342 assertion`~~ | **FIXED 2026-05-23 (entry #9).** Investigation showed this was a **script-side bug**, not a bridge gap: `Colors.grey.withOpacity(0.18 * (7 - i))` at line 1074 with `i=1` evaluates to `1.08`, exceeding Flutter's `assert(opacity >= 0.0 && opacity <= 1.0)` in `dart:ui/painting.dart` line 342. Native Flutter would assert at the same line — not a bridge-specific issue. **Fix:** clamp the computed alpha to `[0.0, 1.0]`. `frameworkErrors=1 → 0` on both projects. The "withOpacity on MaterialColor" framing in the earlier note was a red herring — the receiver type was incidental; the trigger was the out-of-range numeric input. |
 | ~~`material/dialog_themes_test.dart`~~ | ~~`RenderFlex overflowed by 2.0 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** Located via 4-step section bisection (hero-elevation clean; +alignment+flavours+actionStyle → 2.0 px; flavour single-out → simpleFlavour is the source). Root cause: `_simpleDialogOption` Row `[Icon(18) + _wgap(10) + Text(label)]` inside `SimpleDialog` of width 240 rendered in a narrower Expanded slot. The Text widget had no flex wrapper, so it kept its natural width. **Fix:** wrap the Text in `Expanded(child: Text(..., maxLines: 1, overflow: TextOverflow.ellipsis))`. `fwErr 1→0` on both projects. |
-| `cupertino/cupertino_themes_batch3_test.dart` | `RenderFlex overflowed by 1.8 px on the right` | **U15 family.** Same as above. (Previously cleared by entry #21 of 20260522-1328 then re-introduced by post-fix content changes.) |
+| ~~`cupertino/cupertino_themes_batch3_test.dart`~~ | ~~`RenderFlex overflowed by 1.8 px on the right`~~ | **FIXED 2026-05-23 (entry #12).** Earlier attempts (entry #9 — convert `sampleControls` first Row to a Wrap) failed because the overflow was deeper in the bridged `CupertinoSwitch` / `CupertinoSlider` width measurement. Successful approach: in `section15`'s comparison row layout `[SizedBox(88) label + Expanded light-preview + SizedBox(8) + Expanded dark-preview]`, shrink the label SizedBox from 88 to 70. The recovered 18 px is handed to the two preview Expandeds, which is enough for the bridged controls' intrinsic-width rounding to fit without overflowing. The label Text is wrapped in `Expanded(... maxLines: 2, overflow: ellipsis)` so any narrowing on the longest label `'Active Blue'` (11 chars) wraps to 2 lines instead of overflowing the narrower SizedBox. `fwErr 1→0` on both projects. **U23 is now empty** — all 7 originally deferred scripts are fixed; 5 of the 6 U15-family small-pixel overflows turned out to be script-side fixable after deeper bisection. |
 | ~~`painting/box_painter_test.dart`~~ | ~~`RenderFlex overflowed by 3.8 px on the right`~~ | **FIXED 2026-05-23 (entry #10).** Located via 3-step section bisection. Root cause: `_galleryCard` title `Row(Icon(18) + SizedBox(6) + Text(title, fontSize 13 bold))` — at card `width: 200` with `padding: 12` the inner is 176 px; longest title `'FlutterLogoDecoration'` (21 chars, fontSize 13 bold) needed ~196 px → 3.8 px right overflow. **Fix:** wrap the title `Text` in `Expanded` with `maxLines: 2, overflow: TextOverflow.ellipsis`. `fwErr 1→0` on both projects. |
 | ~~`painting/decoration_image_painter_test.dart`~~ | ~~`RenderFlex overflowed by 5.1 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** First attempt under entry #10 (shrink `_fitCard` width 220 → 210) was reverted because it exposed a 15 px overflow elsewhere. Successful approach under entry #11: switch the title `Row [_badge + SizedBox + optional _chip]` inside `_fitCard` (line 951) to a `Wrap` so the optional CLIPPED chip can drop to a second line when the longest sample name `'fitWidth (portrait)'` (19 chars) doesn't leave room. `fwErr 1→0` on both projects. |
 | ~~`widgets/editable_text_tap_up_outside_intent_test.dart`~~ | ~~`RenderFlex overflowed by 2.8 px on the right`~~ | **FIXED 2026-05-23 (entry #11).** Located by inspecting `_buildGestureDisambiguation` — inner Row inside `SizedBox(width: 80)` packs `Icon(14) + SizedBox(4) + Text(gesture, fontSize 10 bold)`. The longest label `'Scroll / Drag'` (12 chars) measures ~84 px which overflows the 80 px slot by ~4 px (Flutter reports 2.8 px). **Fix:** wrap the `Text` in `Expanded(... maxLines: 1, overflow: TextOverflow.ellipsis)` so the label can ellipsize under the bounded slot. `fwErr 1→0` on both projects. |
@@ -5966,7 +5966,7 @@ infinite-height issue is identical to the
 |--------|-------|--------|
 | ~~`painting/textstyle_test.dart`~~ | ~~essential~~ | ~~U23~~ → **FIXED entry #9** (script-side alpha clamp) |
 | ~~`material/dialog_themes_test.dart`~~ | ~~important~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (Expanded label in _simpleDialogOption Row) |
-| `cupertino/cupertino_themes_batch3_test.dart` | important | U23 (U15 family) |
+| ~~`cupertino/cupertino_themes_batch3_test.dart`~~ | ~~important~~ | ~~U23 (U15 family)~~ → **FIXED entry #12** (shrink label SizedBox 88→70 in section15) |
 | ~~`painting/box_painter_test.dart`~~ | ~~secondary~~ | ~~U23 (U15 family)~~ → **FIXED entry #10** (Expanded title) |
 | ~~`painting/decoration_image_painter_test.dart`~~ | ~~secondary~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (title Row → Wrap in _fitCard) |
 | ~~`widgets/editable_text_tap_up_outside_intent_test.dart`~~ | ~~hardly_4~~ | ~~U23 (U15 family)~~ → **FIXED entry #11** (Expanded gesture label in disambiguation Row) |
@@ -5976,6 +5976,24 @@ infinite-height issue is identical to the
 
 ## Change Log
 
+- 2026-05-23: **U23 CLEARED (entry #12)** — The last deferred U23
+  script `cupertino/cupertino_themes_batch3_test.dart` (1.8 px right)
+  is now FIXED. Approach: shrink the `SizedBox(width: 88)` label
+  column in section15's comparison rows to `width: 70`. The 18 px
+  recovered hands enough headroom to the two preview Expandeds for
+  the bridged `CupertinoSwitch` / `CupertinoSlider` intrinsic-width
+  rounding to fit. Label Text wrapped in
+  `Expanded(... maxLines: 2, overflow: ellipsis)` so the longest
+  'Active Blue' label gracefully wraps on the narrower SizedBox.
+  Of the 7 original U23 entries, all 7 are now FIXED — 1 was the
+  textstyle alpha-out-of-range script-side bug, 5 were U15-family
+  small-pixel right overflows that turned out to be script-side
+  fixable after deeper bisection, 1 was a U14-family infinite-height
+  fixable by IntrinsicHeight wrap. The U23 family pattern was real
+  but the script-side workarounds turned out to be reachable in
+  every case via Expanded/Wrap/IntrinsicHeight wraps applied to the
+  identified culprit Row. **U23 is now an empty entry kept for
+  historical reference.**
 - 2026-05-23: **Update U23 (entry #11)** — Three more scripts moved
   from U23-deferred to FIXED, leaving only `cupertino/cupertino_themes_batch3_test.dart`
   as the single remaining U23-deferred entry:
