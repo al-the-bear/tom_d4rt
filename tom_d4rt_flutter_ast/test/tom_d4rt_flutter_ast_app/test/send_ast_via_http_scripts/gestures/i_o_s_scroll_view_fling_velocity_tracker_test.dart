@@ -1023,8 +1023,17 @@ class FlingVelocityDemoApp extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
+          // Cluster H follow-up: the inner bar Column packs
+          // Container(height: 100*w + 4) + SizedBox(4) + Text(fontSize 10,
+          // default line-height ~14 px). At w=1.0 the natural height is
+          // 104 + 4 + 14 = 122 px, exceeding the previous 120 px cap by 2 px
+          // and emitting one bottom overflow per card. The 3 weighting
+          // cards therefore produced 3 events of 2 px each. Bumped the cap
+          // to 124 (the minimum needed). mainAxisAlignment: end on each bar
+          // Column keeps the bar+label packed at the bottom; the extra 4 px
+          // appears as silent headroom above the bar tops, no visual change.
           SizedBox(
-            height: 120,
+            height: 124,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: bars,

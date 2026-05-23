@@ -343,8 +343,11 @@ remaining high-count scripts and totals are:
 
 Cupertino theme_test (5×56 px bottom overflow) is the largest single
 contributor and the natural next H1 target. **Status: FIXED — see todo
-#14 below.** New largest contributor:
+#14 below.** Second-largest contributor:
 `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` (3 events).
+**Status: FIXED — see todo #15 below.** Current largest contributors are
+the two 2-event scripts in todo #16 (`widgets/futurebuilder_test.dart`,
+`widgets/directional_focus_action_test.dart`).
 
 ### 3.B tom_d4rt_flutter_test — 31 scripts, 38 events
 
@@ -582,8 +585,26 @@ and fail in test:
   `frameworkErrors=0` (verified on both `tom_d4rt_flutter_ast` and
   `tom_d4rt_flutter_test`, test still passes in both). Raw logs:
   `ztmp/cluster_h_cupertino_theme/{repro,post,post_test}.{log,result.json}`.
-- [ ] **fixed** 15. **H-2 (3 events)** `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart`
-  in hardly_1 — investigate the demo's row layout.
+- [x] **fixed** 15. **H-2 (3 events)** `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart`
+  in hardly_1 — **Done — root cause was the Section 4 weighting-card bar
+  chart (line 1026–1032).** Each of the 3 weighting cards (Default, iOS,
+  macOS) renders a `SizedBox(height: 120)` containing a `Row` of 12 bar
+  `Column`s with `mainAxisAlignment: end`. Each bar Column packs
+  `Container(height: 100*w + 4)` + `SizedBox(height: 4)` + `Text('${i+1}',
+  fontSize: 10)`. At `w = 1.0` (present in all three profiles for the last
+  sample), the natural height is `104 + 4 + 14 = 122 px` vs the 120 px cap
+  → exactly 2 px bottom overflow per card. 3 cards × 1 event each = 3
+  events total. Framework error trace confirms: `RenderFlex constraints:
+  BoxConstraints(w=130.1, 0.0<=h<=120.0), size: Size(130.1, 120.0),
+  mainAxisAlignment: end`. **Fix:** bumped the `SizedBox.height` from 120
+  to 124 (the minimum needed for the `w=1.0` natural stack). Because
+  `mainAxisAlignment: end` packs content at the bottom, the extra 4 px
+  renders as silent headroom above the bar tops — no visual change. **Rule
+  (a)** — test-script-only change, individual retest only. Pre-fix:
+  `frameworkErrors=3`; post-fix: `frameworkErrors=0` (verified on both
+  `tom_d4rt_flutter_ast` and `tom_d4rt_flutter_test`, test still passes in
+  both). Raw logs:
+  `ztmp/cluster_h_ios_fling_vtracker/{repro,post_ast,post_test}.{log,result.json}`.
 - [ ] **fixed** 16. **H-3 (2 events each, both projects)**
   `widgets/futurebuilder_test.dart` (important),
   `widgets/directional_focus_action_test.dart` (hardly_4) — per-script
