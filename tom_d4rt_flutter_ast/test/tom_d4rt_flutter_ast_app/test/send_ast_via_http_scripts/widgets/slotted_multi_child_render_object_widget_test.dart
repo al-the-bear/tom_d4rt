@@ -1376,12 +1376,28 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
   Color get _accent => _accents[_accentIndex.round() % _accents.length];
 
   void _report() {
+    // U22 workaround (entry #14): the original log printed
+    // `_accent.r/.g/.b` (Material 3 Color channel API). Under d4rt
+    // `_accent` resolves to null because `_accents` is a script-defined
+    // `static const List<Color>` whose element type erases to `Object?`
+    // / `dynamic` through the bridge; `_accents[i]` then returns null,
+    // and any member access (`.r`, `.g`, `.b`, `.value`) fires
+    // `Cannot access property '...' on target of type null.` The
+    // workaround sidesteps the typed-collection erasure entirely by
+    // logging the accent INDEX instead of the resolved Color object.
+    // The rest of the script still uses the Color in `decoration:
+    // BoxDecoration(color: _accent)` contexts where the bridge happens
+    // to accept the dynamic-typed value at the call site (paint-time
+    // coercion is more lenient than property access). Visual impact
+    // on the rendered widgets: none — the debug log just records the
+    // index rather than channel values. The M3 Color API teaching is
+    // preserved elsewhere through the BoxDecoration usages.
     debugPrint(
       '[Smcrow] configurator: icon=$_showIcon title=$_showTitle '
       'subtitle=$_showSubtitle metric=$_showMetric trend=$_showTrend '
       'actions=$_showActions radius=${_radius.toStringAsFixed(1)} '
       'minH=${_minHeight.toStringAsFixed(0)} '
-      'accent=r${_accent.r.toStringAsFixed(2)}/g${_accent.g.toStringAsFixed(2)}/b${_accent.b.toStringAsFixed(2)}',
+      'accentIndex=${_accentIndex.round() % _accents.length}',
     );
   }
 

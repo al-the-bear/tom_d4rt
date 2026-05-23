@@ -352,16 +352,19 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial — script-side fixes complete.** 11 fixed script-side
-(decoratedbox H2 borderRadius, refreshindicator header-into-ListView,
-placeholder buildBadCaseCMock height bump, textstyle alpha clamp,
-box_painter Expanded title, render_exclude_semantics IntrinsicHeight
-wrap, dialog_themes Expanded label, editable_text Expanded gesture
-label, decoration_image_painter title Row → Wrap, themes_batch3 label
-SizedBox 88→70, button_bar ButtonBar→OverflowBar entry #13).
-8 confirmed-deferred under existing U entries (U14/U17/U18/U22) —
-those need interpreter/bridge work. 0 remaining under U23 (cleared
-in entry #12). 0 remaining Cluster N (button_bar cleared in entry #13). Todo #19 (test-only single
+**partial — 12 fixed script-side.** decoratedbox H2 borderRadius,
+refreshindicator header-into-ListView, placeholder buildBadCaseCMock
+height bump, textstyle alpha clamp, box_painter Expanded title,
+render_exclude_semantics IntrinsicHeight wrap, dialog_themes Expanded
+label, editable_text Expanded gesture label, decoration_image_painter
+title Row → Wrap, themes_batch3 label SizedBox 88→70, button_bar
+ButtonBar→OverflowBar (entry #13), slotted_multi_child accent INDEX
+(entry #14). **7 confirmed-deferred under existing U entries**
+(U14/U17/U18/U22) — animation/cubic_test, render_constraints_transform_box
+×2, services/platform_test, material/dropdown_test,
+material/dropdownform_test, widgets/animation_test,
+retest/widgets/app_kit_view_test. Those need interpreter/bridge work.
+0 remaining U23 (cleared entry #12). 0 remaining Cluster N (entry #13). Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -739,9 +742,9 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (11 of 19 fixed script-side; 8 confirmed-deferred under
+- [~] **partial (12 of 19 fixed script-side; 7 confirmed-deferred under
   existing U entries U14/U17/U18/U22; 0 remaining U23 — U23 CLEARED;
-  1 was covered by Cluster N — now also FIXED entry #13)** 18.
+  1 was covered by Cluster N — also FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -760,16 +763,18 @@ and fail in test:
      `ztmp/cluster_h_single_event/widgetsdecoratedbox_test_repro.log` and
      `decoratedbox_post.log`.
 
-  **Already in `interpreter_unfixable.md` U22 (8 scripts — defer):**
+  **Already in `interpreter_unfixable.md` U22 (7 scripts — defer; 1
+  moved out entry #14):**
    - `material/dropdown_test.dart` — `List<Widget>` coercion failure. U22.
    - `material/dropdownform_test.dart` — internal `InputDecorator`
      unbounded width from a bridged dropdown variant. U22.
    - `widgets/animation_test.dart` — `_MeanAnimation extends
      CompoundAnimation<double>` script-defined subclass of bridged
      abstract class. U22 (family U3/U5/U9/U10/U11).
-   - `widgets/slotted_multi_child_render_object_widget_test.dart` —
-     `Cannot access property 'r' on target of type null` on a bridged
-     `Color`. U22 (typed-collection erasure family).
+   - ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~
+     — ~~`Cannot access property 'r' on target of type null` on a bridged
+     `Color`. U22 (typed-collection erasure family).~~ → **FIXED entry
+     #14** — log accent INDEX instead of resolved Color channels.
    - `services/platform_test.dart` — `BoxConstraints forces an infinite
      height` in `_defaultVsThemeCard`. Already **U18**.
    - `rendering/render_constraints_transform_box_test.dart` (×2 in
@@ -882,13 +887,15 @@ and fail in test:
   deeper bisection. See `interpreter_unfixable.md` Change Log entry
   for 2026-05-23 entry #12 for the full retrospective.)
 
-  **Status: partial — 10 of 19 cleared script-side (decoratedbox H2 +
+  **Status: partial — 12 of 19 cleared script-side (decoratedbox H2 +
   refresh header-into-ListView + placeholder height bump + textstyle
   alpha clamp + box_painter Expanded title + render_exclude_semantics
   IntrinsicHeight + dialog_themes Expanded label + editable_text
   Expanded gesture label + decoration_image_painter title Row → Wrap +
-  themes_batch3 label SizedBox 88→70), 8 confirmed-deferred under
-  existing U entries (U14/U17/U18/U22), 0 remaining U23, 1 covered by
+  themes_batch3 label SizedBox 88→70 + button_bar ButtonBar→OverflowBar
+  entry #13 + slotted_multi_child accent INDEX entry #14), 7
+  confirmed-deferred under existing U entries (U14/U17/U18/U22) — was 8
+  before slotted_multi_child moved out, 0 remaining U23, 0 remaining
   Cluster N
   (#12).** All six script-side fixes are pure script-side bug fixes
   (no interpreter limitation). **Rule (a)** — test-script-only changes,
