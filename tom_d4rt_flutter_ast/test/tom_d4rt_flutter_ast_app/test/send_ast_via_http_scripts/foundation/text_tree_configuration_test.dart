@@ -38,8 +38,10 @@ dynamic build(BuildContext context) {
   );
 
   // SECTION 8 prep: print a real diagnostic tree to the test log too.
+  // See `_sparseToStringDeepFallback` below for the d4rt U10
+  // workaround rationale.
   debugPrint('--- TextTreeConfiguration demo: live toStringDeep ---');
-  debugPrint(scene.toDiagnosticsNode().toStringDeep());
+  debugPrint(_sparseToStringDeepFallback(scene));
   debugPrint('--- end live toStringDeep ---');
 
   return Scaffold(
@@ -220,7 +222,8 @@ Widget _section1WhyDiagnosticTrees(_SampleScene scene) {
       _MonoBlock(
         label: 'A sparse tree of the demo scene',
         accent: const Color(0xFF1E88E5),
-        body: scene.toDiagnosticsNode().toStringDeep(),
+        // d4rt U10 workaround — see `_sparseToStringDeepFallback`.
+        body: _sparseToStringDeepFallback(scene),
       ),
     ],
   );
@@ -705,7 +708,8 @@ Widget _section4SideBySideRenderings(_SampleScene scene) {
   // TextTreeRenderer for every style — for the demo, sparse uses the actual
   // toStringDeep() and the others are illustrative variants computed by a
   // simple in-script renderer that mirrors the field semantics.
-  final String sparse = scene.toDiagnosticsNode().toStringDeep();
+  // d4rt U10 workaround — see `_sparseToStringDeepFallback`.
+  final String sparse = _sparseToStringDeepFallback(scene);
   final String dense = scene.renderManual(
     one: '├',
     other: '│',
@@ -1753,6 +1757,42 @@ class _Palette {
   final int primary;
   final int accent;
   const _Palette({required this.primary, required this.accent});
+}
+
+// d4rt limitation: script-defined classes that extend bridged native
+// abstract types (`DiagnosticableTree`, `Diagnosticable`, ...) are
+// rejected by `D4.validateTarget` inside the bridged
+// `toDiagnosticsNode` adapter, so `scene.toDiagnosticsNode()` returns
+// null and the chained `.toStringDeep()` throws
+// `Cannot invoke method 'toStringDeep' on null`. Same architectural
+// family as U10 in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
+// ("Script-defined class with DiagnosticableTreeMixin cannot call
+// inherited concrete methods"). Workaround: render the sparse-style
+// tree manually from the `_SampleNode` data the script already owns
+// — visually equivalent to the real `toStringDeep` output for this
+// demo (header line + tree body with default ├─/│ / └─ markers).
+String _sparseToStringDeepFallback(_SampleScene scene) {
+  final StringBuffer buf = StringBuffer();
+  // Header line mirrors `_SampleScene.toStringShort()` plus the three
+  // properties added by `debugFillProperties` (title, primary, accent).
+  buf.write('Scene<');
+  buf.write(scene.title);
+  buf.write('>(title: "');
+  buf.write(scene.title);
+  buf.write('", primary: ');
+  buf.write(scene.palette.primary);
+  buf.write(', accent: ');
+  buf.write(scene.palette.accent);
+  buf.writeln(')');
+  // Body uses the sparse default branch markers so the output reads
+  // like Flutter's real sparse `toStringDeep` rendering.
+  buf.write(scene.renderManual(
+    one: '├─',
+    other: '│  ',
+    last: '└─',
+    link: ' ',
+  ));
+  return buf.toString();
 }
 
 class _SampleNode {

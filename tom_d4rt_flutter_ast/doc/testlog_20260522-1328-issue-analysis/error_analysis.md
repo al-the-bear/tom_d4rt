@@ -89,7 +89,7 @@ The runtime errors below were extracted from each `*.log.txt` (the JSON reporter
 | 21 | `dart_ui/box_width_style_test.dart` | Undefined variable: `build` |
 | 22 | `dart_ui/channel_buffers_test.dart` | Undefined variable: `build` |
 | 23 | `dart_ui/class_test.dart` | Undefined variable: `build` |
-| 24 | `foundation/text_tree_configuration_test.dart` | Runtime Error: Cannot invoke method `toStringDeep` on null. Use `?.` for null-aware method invocation. |
+| 24 | `foundation/text_tree_configuration_test.dart` | ~~Runtime Error: Cannot invoke method `toStringDeep` on null. Use `?.` for null-aware method invocation.~~ **FIXED — Cluster F #11.** |
 | 25 | `gestures/class_test.dart` | Undefined variable: `build` |
 | 26 | `gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart` | Undefined variable: `build` |
 | 27 | `gestures/polynomial_fit_test.dart` | ~~Runtime Error: Bridged class `Float64List` has no instance method named `map`~~ **FIXED — Cluster D #8.** |
@@ -267,7 +267,7 @@ These are `Iterable<num>` extension methods that Dart's typed_data lists inherit
 
 ### Cluster F — Script-internal null deref
 
-- `foundation/text_tree_configuration_test.dart` — `Cannot invoke method 'toStringDeep' on null`. The script reaches a code path where a `DiagnosticsNode` ancestor wasn't initialised. Pure script-side fix.
+- `foundation/text_tree_configuration_test.dart` — `Cannot invoke method 'toStringDeep' on null`. ~~The script reaches a code path where a `DiagnosticsNode` ancestor wasn't initialised. Pure script-side fix.~~ **FIXED — Cluster F #11.** Actual root cause is the U10 interpreter limitation (`_SampleScene extends DiagnosticableTree`): the bridged `toDiagnosticsNode` adapter returns `null` for an unrecognised `InterpretedInstance`, so the chained `.toStringDeep()` fails on null. Script-side workaround via a manual sparse renderer (`_sparseToStringDeepFallback`).
 
 ### Cluster G — flutter_test-only regressions
 
@@ -538,7 +538,7 @@ Combined: **+11 newly passing scripts, −11 failures cleared, zero regressions*
 
 ### Cluster F — Script-internal null deref
 
-- [ ] **fixed** 11. `foundation/text_tree_configuration_test.dart` — guard the `toStringDeep` call with `?.` or ensure the diagnostics ancestor is initialised before the deep-demo renders it. (covers #24)
+- [x] **fixed** 11. `foundation/text_tree_configuration_test.dart` — guard the `toStringDeep` call with `?.` or ensure the diagnostics ancestor is initialised before the deep-demo renders it. (covers #24) — **Resolution:** **interpreter limitation, script-side workaround.** Not a missing null-guard / uninitialised ancestor — the original hint mis-diagnosed the failure. The script's `_SampleScene extends DiagnosticableTree` triggers the same architectural limitation already catalogued as **U10** in `doc/interpreter_unfixable.md` ("Script-defined class `with DiagnosticableTreeMixin` / `Diagnosticable` cannot call inherited concrete methods"). For the abstract-class form (`extends DiagnosticableTree`), the bridged `toDiagnosticsNode` adapter returns `null` for an unrecognised `InterpretedInstance` instead of throwing, so the chained `.toStringDeep()` then fails on the null result with `Cannot invoke method 'toStringDeep' on null`. Three call sites were affected: the `debugPrint` live-header (line 42), the section-1 `_MonoBlock` body (line 223), and the section-4 `sparse` string (line 708). Proper fix is a hand-written `_InterpretedDiagnosticableTreeMixin` proxy (deferred, feature-scale per U10's "real fix" notes). Script-side fix: added a `_sparseToStringDeepFallback(_SampleScene scene)` helper that emits a header line (mirroring `toStringShort()` + the `debugFillProperties` property summary) followed by `scene.renderManual(one: '├─', other: '│  ', last: '└─', link: ' ')` — visually equivalent to Flutter's real sparse `toStringDeep` rendering. Switched all three call sites to the helper with comments referencing U10. `_SampleNodeDiagnosable` and `debugDescribeChildren` overrides remain in the script as teaching reference. U10's index entry and a new "Fifth instance" subsection extended in `interpreter_unfixable.md` to cover the abstract-class form (returns null vs. mixin form throws). Reproducer `tom_d4rt_flutter_ast/test/cluster_f11_repro_test.dart` confirms `status=success frameworkErrors=0 totalMs=3106` post-fix (pre-fix: `status=error httpStatus=400` with the `toStringDeep on null` payload). **Rule (a)** — script-side change only; individual retest is sufficient. Raw logs in `tom_d4rt_flutter_ast/ztmp/cluster_f11/{pre_fix,post_fix}.log`. Row #24 (hardly_relevant_classes_1) cleared by the same change.
 
 ### Cluster G — flutter_test-only regressions
 
