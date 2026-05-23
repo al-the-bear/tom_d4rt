@@ -490,10 +490,25 @@ Widget _buildButtonBarSpecimens(BuildContext context) {
         'buttonMinHeight). Try shrinking the window: the bar still presents a '
         'consistent dialog-style footer.',
     accent: cs.primary,
-    child: ButtonBar(
-      alignment: MainAxisAlignment.end,
-      layoutBehavior: ButtonBarLayoutBehavior.constrained,
-      children: sampleButtons(),
+    // Cluster N follow-up: ButtonBar + ButtonBarLayoutBehavior are
+    // deprecated in Flutter 3.x and filtered out of the d4rt bridge
+    // surface, so the original `ButtonBar(layoutBehavior:
+    // ButtonBarLayoutBehavior.constrained)` line raised "Undefined
+    // variable: ButtonBar" at script bundle time. Reproduced the
+    // visual ('constrained' = min 52 px height bar) using the
+    // recommended replacement: OverflowBar wrapped in a
+    // ConstrainedBox(minHeight: 52). This makes the specimen render
+    // identically (52 px footer with right-aligned actions) and the
+    // teaching comparison to the OverflowBar-only specimen below
+    // remains intact — the only difference now is that both
+    // specimens use OverflowBar internally, with the constrained
+    // one wrapping it in an explicit 52 px minimum.
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 52.0),
+      child: OverflowBar(
+        alignment: MainAxisAlignment.end,
+        children: sampleButtons(),
+      ),
     ),
   );
 
@@ -505,9 +520,12 @@ Widget _buildButtonBarSpecimens(BuildContext context) {
         'padding. Use this inside Cards or other containers that already '
         'control vertical spacing.',
     accent: cs.tertiary,
-    child: ButtonBar(
+    // Cluster N follow-up: 'padded' behavior maps directly to plain
+    // OverflowBar — children take their natural height plus the
+    // theme's default action padding. Same replacement rationale as
+    // the constrained specimen above.
+    child: OverflowBar(
       alignment: MainAxisAlignment.end,
-      layoutBehavior: ButtonBarLayoutBehavior.padded,
       children: sampleButtons(),
     ),
   );
@@ -557,16 +575,23 @@ Widget _buildButtonBarSpecimens(BuildContext context) {
                 'If you discard, your edits will be lost permanently.',
                 style: TextStyle(fontSize: 13.0, color: cs.onSurfaceVariant),
               ),
-              ButtonBar(
-                alignment: MainAxisAlignment.end,
-                layoutBehavior: ButtonBarLayoutBehavior.constrained,
-                children: <Widget>[
-                  TextButton(onPressed: () {}, child: const Text('KEEP')),
-                  FilledButton(
-                    onPressed: () {},
-                    child: const Text('DISCARD'),
-                  ),
-                ],
+              // Cluster N follow-up: same deprecated-ButtonBar pattern
+              // as the two top-level specimens — replaced with
+              // OverflowBar inside a ConstrainedBox(minHeight: 52) to
+              // preserve the dialog-style footer height. The fake-
+              // AlertDialog visual is unchanged.
+              ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 52.0),
+                child: OverflowBar(
+                  alignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(onPressed: () {}, child: const Text('KEEP')),
+                    FilledButton(
+                      onPressed: () {},
+                      child: const Text('DISCARD'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

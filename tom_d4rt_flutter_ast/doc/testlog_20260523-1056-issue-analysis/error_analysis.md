@@ -228,7 +228,7 @@ prior baseline; tracked as todo #12 below).
 | # | script | inner error |
 |---|---|---|
 | **F1** | `retest/dart_ui/system_color_palette_test.dart` | `Expected: <true> Actual: <false>` — script asserts behaviour that depends on `SystemColor` API which is unsupported on Linux/macOS without a platform-channel responder. **Real failure**; also fails in test project. |
-| **F2** | `retest/material/button_bar_layout_behavior_test.dart` | `Runtime Error: Undefined variable: ButtonBar` — `ButtonBar` was removed from `package:flutter/material.dart` (Flutter 3.x deprecation). **Real failure**; also fails in test project. |
+| ~~**F2**~~ | ~~`retest/material/button_bar_layout_behavior_test.dart`~~ | ~~`Runtime Error: Undefined variable: ButtonBar`~~ → **FIXED entry #13** — replaced the 3 `ButtonBar(layoutBehavior: ...)` call sites with `OverflowBar` (`ConstrainedBox(minHeight: 52)` for `constrained` behavior, plain `OverflowBar` for `padded`). Both projects pass. |
 | E42 | `retest/rendering/render_animated_size_state_test.dart` | Transport failure 25s — **shared** — §S |
 | E43 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s — **shared** — §S (and also fails as F4 in test) |
 
@@ -352,16 +352,16 @@ todo #16 below.** Test-only 2-event pair (test-app chrome asymmetry —
 `widgets/callback_shortcuts_test.dart`,
 `widgets/child_back_button_dispatcher_test.dart`). **Status: FIXED — see
 todo #17 below.** Todo #18 (single-event scripts, 19 entries):
-**partial — script-side fixes complete.** 10 fixed script-side
+**partial — script-side fixes complete.** 11 fixed script-side
 (decoratedbox H2 borderRadius, refreshindicator header-into-ListView,
 placeholder buildBadCaseCMock height bump, textstyle alpha clamp,
 box_painter Expanded title, render_exclude_semantics IntrinsicHeight
 wrap, dialog_themes Expanded label, editable_text Expanded gesture
 label, decoration_image_painter title Row → Wrap, themes_batch3 label
-SizedBox 88→70). 8 confirmed-deferred under existing U entries
-(U14/U17/U18/U22) — those need interpreter/bridge work. 0 remaining
-under U23 (U23 was cleared in entry #12). 1 covered by Cluster N
-(button_bar via F2). Todo #19 (test-only single
+SizedBox 88→70, button_bar ButtonBar→OverflowBar entry #13).
+8 confirmed-deferred under existing U entries (U14/U17/U18/U22) —
+those need interpreter/bridge work. 0 remaining under U23 (cleared
+in entry #12). 0 remaining Cluster N (button_bar cleared in entry #13). Todo #19 (test-only single
 events, 6 entries): **partial** — 4 fixed script-side, 2 covered by
 Cluster B via todos #10/#11. **No remaining fw-err scripts that are
 genuinely script-side fixable**; the rest are interpreter / bridge
@@ -563,11 +563,28 @@ and fail in test:
 
 ### Cluster N — New retest/material failure (both projects)
 
-- [ ] **fixed** 12. **F2** `retest/material/button_bar_layout_behavior_test.dart`
-  — `Runtime Error: Undefined variable: ButtonBar`. `ButtonBar` was removed
-  from `package:flutter/material.dart` (Flutter 3.x deprecation). Either
-  rewrite the demo with `OverflowBar`/`Row` or remove the test from the
-  `retest` corpus. Affects **both projects**.
+- [x] **fixed** 12. **F2** `retest/material/button_bar_layout_behavior_test.dart`
+  — `Runtime Error: Undefined variable: ButtonBar`. **Done (entry #13).**
+  `ButtonBar` and `ButtonBarLayoutBehavior` were deprecated in Flutter 3.x
+  and filtered out of the d4rt bridge surface (per U12 — `@Deprecated`-
+  annotated SDK symbols are excluded by generator policy). The original
+  script had 3 `ButtonBar(layoutBehavior: ButtonBarLayoutBehavior.X)`
+  call sites for visual comparison with the OverflowBar specimens that
+  appear elsewhere in the same script. **Fix:** replaced each
+  `ButtonBar(layoutBehavior: constrained)` with
+  `ConstrainedBox(constraints: BoxConstraints(minHeight: 52.0), child:
+  OverflowBar(alignment: end, children: ...))` (matches the
+  52-px-min-height behavior of the deprecated enum); replaced
+  `ButtonBar(layoutBehavior: padded)` with a plain `OverflowBar` (default
+  behavior matches). All call sites annotated with comments explaining
+  the substitution. The string literals that quote the deprecated API
+  in the migration-recipe sections remain unchanged — those are
+  documentation showing the user how the old API looked. **Rule (a)** —
+  test-script-only change, individual retest. Pre-fix: test **failed**
+  with `Undefined variable: ButtonBar` plus 1 framework error event;
+  post-fix: test passes with `frameworkErrors=0` on both projects.
+  Affects **both projects** (single source). Raw logs:
+  `ztmp/cluster_n_button_bar/post_{ast,test}.{log,result.json}`.
 
 ### Cluster O — SystemColor regression / mis-skipped
 
@@ -722,9 +739,9 @@ and fail in test:
   (no regression on flutter_ast). Localised the 4 px exactly via 3-step
   bisection on `_showMetrics`/`_showTimeline`/Wrap-block toggles. Raw
   logs: `ztmp/cluster_h_test_only/{cb_test_repro,cb_ast_repro,cbbd_test_repro,cbbd_ast_repro,cb_test_post[12],cb_ast_post,cbbd_test_post,cbbd_ast_post,cb_test_bisect_*}.{log,result.json}`.
-- [~] **partial (10 of 19 fixed script-side; 8 confirmed-deferred under
+- [~] **partial (11 of 19 fixed script-side; 8 confirmed-deferred under
   existing U entries U14/U17/U18/U22; 0 remaining U23 — U23 CLEARED;
-  1 covered by Cluster N)** 18.
+  1 was covered by Cluster N — now also FIXED entry #13)** 18.
   **H-5 (single-event scripts).** Triaged all 19 scripts by reproducing
   each individually and capturing the inner error from the framework
   error message:
@@ -765,10 +782,11 @@ and fail in test:
 
   **Covered by other clusters (1):**
    - `retest/material/button_bar_layout_behavior_test.dart` — single
-     framework error event coincides with the `Undefined variable:
-     ButtonBar` runtime failure (Cluster N). Fixing F2 (todo #12) will
-     also clear this fw event because the script will no longer fail to
-     build past the ButtonBar lookup. No standalone fix in this todo.
+     framework error event coincided with the `Undefined variable:
+     ButtonBar` runtime failure (Cluster N). **FIXED entry #13** by
+     replacing the 3 deprecated `ButtonBar` call sites with
+     `OverflowBar` (`ConstrainedBox(minHeight: 52)` wrap for the
+     `constrained` behavior). Test now passes and `fwErr=0`.
 
   **Follow-up sub-pass fixed (9 of 9 — U23 CLEARED):**
    - **`cupertino/cupertino_themes_batch3_test.dart`** (entry #12) —
