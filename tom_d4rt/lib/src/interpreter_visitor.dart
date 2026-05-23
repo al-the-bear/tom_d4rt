@@ -1968,6 +1968,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } else if (toBridgedInstance(thisInstance).$2) {
             if (rhsValue is BridgedEnumValue) {
               rhsValue = rhsValue.nativeValue;
+            } else if (rhsValue is BridgedInstance) {
+              // GEN-079: Unwrap BridgedInstance for native setter calls so
+              // covariant typed generic setters (e.g. ValueNotifier<Color>)
+              // receive the underlying native object rather than the wrapper.
+              rhsValue = rhsValue.nativeObject;
             }
             final bridgedInstance = toBridgedInstance(thisInstance).$1!;
             final bridgedClass = bridgedInstance.bridgedClass;
@@ -2261,6 +2266,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else if (toBridgedInstance(targetValue).$2) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls so
+          // covariant typed generic setters (e.g. ValueNotifier<Color>)
+          // receive the underlying native object rather than the wrapper.
+          rhsValue = rhsValue.nativeObject;
         }
         final bridgedInstance = toBridgedInstance(targetValue).$1!;
         final setterAdapter = bridgedInstance.bridgedClass
@@ -2313,6 +2323,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else if (targetValue is BoundBridgedSuper) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls so
+          // covariant typed generic setters (e.g. ValueNotifier<Color>)
+          // receive the underlying native object rather than the wrapper.
+          rhsValue = rhsValue.nativeObject;
         }
         // This handles: super.property = rhsValue; or super.property += rhsValue;
         final instance = targetValue.instance; // Instance 'this'
@@ -2567,6 +2582,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else if (toBridgedInstance(target).$2) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls so
+          // covariant typed generic setters (e.g. ValueNotifier<Color>)
+          // receive the underlying native object rather than the wrapper.
+          rhsValue = rhsValue.nativeObject;
         }
         final bridgedInstance = toBridgedInstance(target).$1!;
 
