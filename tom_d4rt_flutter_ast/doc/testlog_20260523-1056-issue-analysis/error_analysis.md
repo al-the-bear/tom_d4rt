@@ -2873,11 +2873,55 @@ and fail in test:
 
 ### Cluster I — Interactive tap-by-text (carried over)
 
-- [ ] **fixed** 20. Update `interactive_tests_test.dart` script entries for
-  `showdialog_test.dart`, `showdatepicker_test.dart`,
-  `showtimepicker_test.dart` — replace `tapText("Option A"/"Cancel")` with
-  `tapByKey(…)` or correct localised labels. (Carried over from baseline;
-  still soft-fails in stdout but does not fail the test.)
+- [x] **fixed** 20. ~~Update `interactive_tests_test.dart` script entries
+  for `showdialog_test.dart`, `showdatepicker_test.dart`,
+  `showtimepicker_test.dart` — replace `tapText("Option A"/"Cancel")`
+  with `tapByKey(…)` or correct localised labels.~~ **FIXED — all six
+  interactive tests now pass on both runners with no misleading "Could
+  not find text X" stdout noise.** Root cause was that all five demo
+  scripts (`showdialog`, `showmenu`, `showdatepicker`, `showtimepicker`,
+  `showbottomsheet`) are explicitly **static visual demos** that never
+  invoke their imperative companions (`showDialog`, `showMenu`, etc.) —
+  those functions return a Future and the harness forbids Futures in
+  `build`. The previous `tapText('OK')` / `tapText('Option A')` /
+  `tapText('Cancel')` labels never matched anything rendered. **Fix:**
+  point each tap at a Text widget the static demo actually renders:
+  - `showdialog_test.dart` (line 1745): `tapText('Cancel')` — the mock
+    AlertDialog visualisation's Cancel button text.
+  - `showmenu_test.dart` (line 1063): `tapText('Edit')` — the
+    `_PreviewMenuItem` gallery's Edit row.
+  - `showdatepicker_test.dart` (×3 occurrences): `tapText('CANCEL')`
+    — the `_mockDialogScaffold`'s Material-3 uppercase cancel label.
+  - `showtimepicker_test.dart` (section 9): `tapText('DISMISS')` —
+    the cancelText example label.
+  - `showbottomsheet_test.dart` (line 1996): `tapText('Share')` —
+    unchanged from baseline (already worked because the ListTile
+    title text actually rendered).
+
+  Also plumbed `httpBuildTimeout` through `SendTestRunner.sendAndInteract`
+  in both test packages and applied a 50 s cap (with a 90 s `Timeout`
+  wrapper on each test) to absorb cold-start contention on the ~800 KB+
+  AST bundles. **Rule (a)** — test-driver-only changes (both
+  `interactive_tests_test.dart` and `send_test_runner.dart` live in
+  `test/`).
+
+  Verification (both runners):
+  - **flutter_ast** (`tom_d4rt_flutter_ast/test/interactive_tests_test.dart`):
+    `+6 -0` all tests passed; every interaction reports
+    `InteractResult(success, output: [])` (warm + cold runs).
+  - **flutter_test** (`tom_d4rt_flutter_test/test/interactive_tests_test.dart`):
+    warm-run `+6 -0` all tests passed. Cold-run had 3 server-side
+    30 s `Build timed out` failures on the source-interpreter variant
+    for `showdatepicker` / `showtimepicker` / the second `showdialog`
+    build — pre-existing **U25-family cold-start contention** (source
+    interpreter cold-cold-cold-start can exceed the 30 s server cap
+    for medium-sized scripts), not a regression from this fix. Warm
+    retry of the same test sequence passes deterministically. The
+    caller-side 50 s cap I added cannot help because the server-side
+    30 s cap fires first.
+
+  Cluster I ← closes; residual cold-start flake on the source variant
+  tracked under U25.
 
 ### Cluster P — Pre-existing intentional & not-fixable
 

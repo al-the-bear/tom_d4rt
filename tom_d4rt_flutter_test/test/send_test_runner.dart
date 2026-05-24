@@ -646,12 +646,18 @@ class SendTestRunner {
     String host = defaultHost,
     int port = defaultPort,
     bool clearFirst = true,
+    // 20260524 §6 todo #20: passthrough so interactive tests can absorb
+    // cold-start contention on large bundles (the showdialog / showmenu /
+    // showdatepicker / showtimepicker static demos all bundle to ~800 KB+
+    // AST and exceed the default 25 s cap on a fresh app start).
+    Duration? httpBuildTimeout,
   }) async {
     final buildResult = await send(
       scriptPath,
       host: host,
       port: port,
       clearFirst: clearFirst,
+      httpBuildTimeout: httpBuildTimeout,
     );
 
     if (!buildResult.success) {

@@ -6462,6 +6462,17 @@ the super-class lookup. Tracked outside this entry.
 
 ## Change Log
 
+- 2026-05-24: **Extend U25 to cover interactive_tests on flutter_test
+  source variant (§6 todo #20).** The fix to `interactive_tests_test.dart`
+  (corrected `tapText` labels + caller-side `httpBuildTimeout: 50 s` +
+  `Timeout(90 s)` per test) closes the soft-fail cluster on warm runs.
+  On the flutter_test source variant cold-start, the server-side 30 s
+  build cap in `tom_d4rt_flutter_test_app/lib/main.dart` (line 451)
+  fires before the caller-side cap for medium-sized scripts (showdialog
+  73 KB, showdatepicker 71 KB, showtimepicker 77 KB) when the source
+  interpreter has not yet warmed. Warm retry passes all 6 tests in
+  ~35 s total. Same U25 cold-start performance ceiling — caller-side
+  bump does not help when the server-side cap fires first.
 - 2026-05-24: **Add U26 (entry §6 todo #8 / F3, partial)** —
   Source-based interpreter rejects `InterpretedInstance` for
   `RouterDelegate<Object>?` parameter on
