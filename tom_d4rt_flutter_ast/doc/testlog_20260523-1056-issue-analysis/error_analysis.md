@@ -126,7 +126,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | **DEFERRED (cold-start build exceeds 30 s server cap on both variants — extended U25)** — see §1.3/E5 fix note |
 | E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E6 fix note |
 | E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E7 fix note |
-| E8 | `widgets/selectable_region_test.dart` | TimeoutException 30s | ast-only |
+| E8 | `widgets/selectable_region_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E8 fix note |
 | E9 | `widgets/sliver_semantics_test.dart` | TimeoutException 30s | ast-only |
 
 **Skipped:** `widgets/android_view_test.dart` — *AndroidView only renders on Android* (platform-gated; OK).
@@ -400,6 +400,43 @@ E1/E2/E4/E6.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/rv_repro_ast.log`, `/tmp/rv_repro_test.log`,
 `/tmp/rv_post_ast.log`, `/tmp/rv_post_test.log`.
+
+#### §1.3/E8 — `widgets/selectable_region_test.dart` — FIXED
+
+**Status: FIXED.** This 1456-line / 54 KB / 607 KB AST bundle script
+builds in ~1.3–1.6 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention
+stretching the dart-test wrapper past its default 30 s budget, same
+family as E1/E2/E4/E6/E7. The script appears in **both**
+`secondary_classes_test.dart` and `timeout_tests_test.dart` per
+project (4 total test runner sites), so the fix was applied to all
+4 to keep the timeout-guard consistent.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 61 | 1316 | 1598 | success, frameworkErrors=0 |
+| flutter_test | 26 | 1350 | 1384 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in **all 4** test
+runner sites: `secondary_classes_test.dart` + `timeout_tests_test.dart`
+in both projects, each with the dart-test wrapper bumped to 60 s.
+Same caller-side pattern as E1/E2/E4/E6/E7.
+
+**Verification (post-fix, all 4 sites):**
+
+| project | suite | totalMs | httpMs | frameworkErrors |
+|---|---|---:|---:|---:|
+| flutter_ast | secondary | 1485 | 1250 | 0 |
+| flutter_ast | timeout | 1542 | 1276 | 0 |
+| flutter_test | secondary | 1456 | 1420 | 0 |
+| flutter_test | timeout | 1544 | 1514 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/sr_repro_ast.log`, `/tmp/sr_repro_test.log`,
+`/tmp/sr_post_ast_sec.log`, `/tmp/sr_post_ast_to.log`,
+`/tmp/sr_post_test_sec.log`, `/tmp/sr_post_test_to.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
