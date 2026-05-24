@@ -1871,24 +1871,45 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('date_time_range_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/date_time_range_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // 20260524-2003 baseline §6/E10–E12: cold-start cascade pattern in the
+    // material-individual group on `secondary_classes_test`. Bump cap from
+    // 25 s to 50 s with 60 s dart-test wrapper on the three date* + default
+    // localizations entries.
+    test(
+      'date_time_range_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/date_time_range_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
-    test('date_utils_test.dart', () async {
-      final result = await SendTestRunner.send('material/date_utils_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'date_utils_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/date_utils_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
-    test('default_material_localizations_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/default_material_localizations_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'default_material_localizations_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/default_material_localizations_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('deletable_chip_attributes_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -2782,12 +2803,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('render_ignore_baseline_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_ignore_baseline_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'render_ignore_baseline_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_ignore_baseline_test.dart',
+          // 20260524-2003 baseline §6/E15: cold-start contention in the
+          // rendering-individual group. Bump cap from 25 s to 50 s with
+          // 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('render_ignore_pointer_test.dart', () async {
       final result = await SendTestRunner.send(

@@ -317,12 +317,24 @@ framework-error volume despite running the same scripts.
   verification harness) recycled cleanly and the rest of the cupertino
   group passed. Closes E1/E2/E3/E4 + E5 on flutter_ast.
 
-- [ ] **fixed** 3. **flutter_ast secondary material/date* + render_ignore_baseline cold-start
-  cascade (E10–E12, E15).** `material/date_time_range_test`,
+- [x] **fixed** 3. **flutter_ast secondary material/date* + render_ignore_baseline cold-start
+  cascade (E10–E12, E15).** ~~`material/date_time_range_test`,
   `date_utils_test`, `default_material_localizations_test`,
   `rendering/render_ignore_baseline_test` — same cascade pattern in
-  `secondary_classes_test`'s material-individual group. Fix: bump
-  the four entries' caller-side cap, or re-order. Rule (a).
+  `secondary_classes_test`'s material-individual group.~~ **FIXED.**
+  Bumped `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)` wrapper on
+  all 4 entries in both projects (8 registrations total — flutter_test
+  shared the same cascade per T11/T13, kept symmetric for the other
+  two). Rule (a) — test-driver-only change.
+
+  Verified each individually on flutter_ast in serial isolation, all 4
+  pass cleanly:
+  - `material/date_time_range_test`: totalMs=1667 frameworkErrors=0 ✓
+  - `material/date_utils_test`: totalMs=1698 frameworkErrors=0 ✓
+  - `material/default_material_localizations_test`: totalMs=1911 frameworkErrors=0 ✓
+  - `rendering/render_ignore_baseline_test`: totalMs=1619 frameworkErrors=0 ✓
+
+  Closes E10/E11/E12 + E15 on flutter_ast and T11/T13 on flutter_test.
 
 - [ ] **fixed** 4. **flutter_ast retest cold-start (E8–E9, E18, E20).**
   `retest/rendering/render_animated_size_state_test`,
