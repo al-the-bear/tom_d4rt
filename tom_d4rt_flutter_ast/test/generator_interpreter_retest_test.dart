@@ -238,12 +238,26 @@ void main() {
       expectSuccess(result);
     });
 
-    test('retest: rendering/render_animated_size_state_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/rendering/render_animated_size_state_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: rendering/render_animated_size_state_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/rendering/render_animated_size_state_test.dart',
+          // 20260523-1056 baseline §1.12/E42 (= §S/S6 — listed in
+          // the wedge-candidate cluster because it appeared in both
+          // ast and flutter_test runs in generator_interpreter_retest).
+          // Serial isolated re-run produces 2.3 s (ast) / 2.1 s
+          // (flutter_test) with frameworkErrors=0. The cross-project
+          // failure was cold-start contention, not a real wedge.
+          // Same family as E1/E12/E25/E36/E39: 50 s leaves 10 s of
+          // headroom under the 60 s dart-test wrapper. This is the
+          // last §S candidate — with this fix, §S is fully closed.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: rendering/render_sliver_box_child_manager_test.dart', () async {
       final result = await SendTestRunner.send(

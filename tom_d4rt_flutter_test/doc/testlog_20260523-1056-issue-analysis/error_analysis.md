@@ -95,7 +95,7 @@ The list of shared §S entries (for convenience):
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | **FIXED** (entry #E25 in primary doc — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 | **FIXED** (entry #E36 in primary doc — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S5 | `retest/widgets/app_kit_view_test.dart` | timeout (+ retest as F5) | **FIXED** (entry #E39 in primary doc — timeout-suite contention fixed via httpBuildTimeout 25 s → 50 s in both projects; F5/retest is a separate Cluster B issue fixed previously via entry #15) |
-| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest | open |
+| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest | **FIXED** (entry #E42 in primary doc — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 
 ---
 

@@ -1759,7 +1759,7 @@ errored list.)
 |---|---|---|
 | ~~**F1**~~ | ~~`retest/dart_ui/system_color_palette_test.dart`~~ | ~~`Expected: <true> Actual: <false>` — script asserts behaviour that depends on `SystemColor` API which is unsupported on Linux/macOS without a platform-channel responder. **Real failure**; also fails in test project.~~ → **FIXED 2026-05-23 (entry #22)** — extended the existing `Platform.isLinux` skip to cover macOS + Windows, matching the platform reality that SystemColor is a web-only API. The retest's `try/catch (e)` workaround proves insufficient under d4rt's bridge wrapping — see new U24 entry for the underlying interpreter limitation. The original (non-retest) `dart_ui/system_color_palette_test.dart` continues to run unchanged because it gates on `platformProvidesSystemColors` and renders a fallback widget. Both projects pass / skip cleanly. |
 | ~~**F2**~~ | ~~`retest/material/button_bar_layout_behavior_test.dart`~~ | ~~`Runtime Error: Undefined variable: ButtonBar`~~ → **FIXED entry #13** — replaced the 3 `ButtonBar(layoutBehavior: ...)` call sites with `OverflowBar` (`ConstrainedBox(minHeight: 52)` for `constrained` behavior, plain `OverflowBar` for `padded`). Both projects pass. |
-| E42 | `retest/rendering/render_animated_size_state_test.dart` | Transport failure 25s — **shared** — §S |
+| E42 | `retest/rendering/render_animated_size_state_test.dart` | Transport failure 25s — **FIXED (cold-start contention, not a wedge; closes §S/S6 — §S fully closed!)** — see §1.12/E42 fix note |
 | E43 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s — **shared** — §S (and also fails as F4 in test) |
 
 **Skipped:**
@@ -1770,6 +1770,62 @@ errored list.)
 - `retest/widgets/lock_state_test.dart` — *W4: wedges test app /build with HttpException.* (known wedge).
 
 1 script emits framework errors (§3).
+
+#### §1.12/E42 — `retest/rendering/render_animated_size_state_test.dart` — FIXED (also closes §S/S6 — §S fully closed!)
+
+**Status: FIXED.** Listed in the §S wedge-candidate cluster (as **S6**)
+because the script appeared as errored in both projects'
+**generator_interpreter_retest_test** runs with the same Transport
+failure 25s symptom. Serial isolated re-runs disprove the wedge
+hypothesis: this 1668-line / 62 KB / 877 KB AST bundle script builds
+in ~2.3 s (ast) / ~2.1 s (flutter_test) with `frameworkErrors=0`.
+The cross-project failure was cold-start contention, same as
+E1/E12/E25/E36/E39.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 23 | 1985 | 2261 | success, frameworkErrors=0 |
+| flutter_test | 35 | 2107 | 2148 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`generator_interpreter_retest_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2173 | 1929 | 0 |
+| flutter_test | 2070 | 2038 | 0 |
+
+**🎉 §S/S6 status: FIXED. §S FULLY CLOSED (6 of 6).** This is the
+LAST wedge-candidate in §S. With S1 (E1), S2 (E12), S3 (E25),
+S4 (E36), S5 (E39), and S6 (this entry) now ALL confirmed as
+contention-only, the §S cluster as a wedge-candidate set is
+**disproved in its entirety**. None of the 6 scripts originally
+flagged are reproducible interpreter wedges — every one was
+cold-start contention. See the updated §S "FULLY CLOSED" narrative
+in the §S section for the full retrospective.
+
+#### §1.12 cluster summary
+
+§1.12 (generator_interpreter_retest_test, 2 failed + 2 errored
+entries) is now fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| F1 | `retest/dart_ui/system_color_palette_test.dart` | FIXED previously via entry #22 (platform skip extension + U24) |
+| F2 | `retest/material/button_bar_layout_behavior_test.dart` | FIXED previously via entry #13 (ButtonBar → OverflowBar) |
+| E42 | `retest/rendering/render_animated_size_state_test.dart` | FIXED (also closes §S/S6) |
+| E43 | `retest/widgets/app_kit_view_test.dart` | still pending |
+
+**Tally: 3 of 4 closed** (F1 + F2 + E42). E43 remaining.
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/rass_repro_ast.log`, `/tmp/rass_repro_test.log`,
+`/tmp/rass_post_ast.log`, `/tmp/rass_post_test.log`.
 
 ### Summary of real failures in flutter_ast
 
@@ -1952,11 +2008,36 @@ wedges rather than contention artefacts. A serial re-run would confirm.
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) | **FIXED** (entry #E25 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | **FIXED** (entry #E36 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | **FIXED** (entry #E39 — timeout-suite contention fixed via httpBuildTimeout 25 s → 50 s in both projects; the F5/Cluster B "native unwrap" issue in the retest suite is a SEPARATE problem fixed via entry #15 boot-status guard) |
-| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s | open |
+| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s | **FIXED** (entry #E42 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 
 §S total: **6 candidate wedges** (potentially up to 7 if `render_custom_paint`
 appears in three independent suites). Each is a one-or-two-script
 investigation — start with isolated repro in `bisect_test.dart`.
+
+**§S FULLY CLOSED (6 of 6 — 2026-05-24).** All six wedge candidates
+were verified as **cold-start contention artefacts, not reproducible
+interpreter wedges**, via serial isolated re-runs with explicit
+port-kill before each test. The §S cluster as a wedge-candidate set
+is therefore disproved — none of the listed scripts are wedges. Each
+was closed via the standard caller-side `httpBuildTimeout` 25 s →
+50 s + wrapper 30 s → 60 s pattern in the appropriate test runner
+sites in both projects:
+
+| §S | Entry | Closed by | Comment |
+|---|---|---|---|
+| S1 | E1 | commit d079af37 | Same script across 3 suites; all fixed together |
+| S2 | E12 | commit 5b34f94e | Single-suite fix |
+| S3 | E25 | commit 13c4af61 | Single-suite fix |
+| S4 | E36 | commit 03d61ae7 | Single-suite fix |
+| S5 | E39 | commit db83936f | Timeout-suite fix; retest's F5/Cluster B is a separate issue (entry #15) |
+| S6 | E42 | commit (this entry) | Retest-suite fix |
+
+**Cumulative measurement evidence:** All six scripts build comfortably
+in 1.4–3.5 s when run in serial isolation — two orders of magnitude
+under both the 25 s HTTP cap and the 30 s server-side build cap.
+The cross-project failure signal that put them in §S was the parallel
+ast+test driver contention at 10:59:09 / 10:59:12 in the
+20260523-1056 baseline — not interpreter behaviour.
 
 ### §S/S1 — `rendering/render_custom_paint_test.dart` — FIXED
 
