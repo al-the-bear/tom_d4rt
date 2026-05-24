@@ -793,13 +793,19 @@ dynamic build(BuildContext context) {
                     'Per-phase counts and sums for a 2-second profiling window',
               ),
               const SizedBox(height: 12),
+              // 20260524-2003 baseline §6/H-secondary todo #14
+              // (aggregated_timed_block_test): 6×14 px bottom overflow
+              // — `_AggregateCard` natural height is ~14 px taller
+              // than 1.45 aspect gives at the flutter_ast pane's
+              // ~700/3-col cell width. Drop to 1.18 to widen the cell
+              // vertically.
               GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 1.45,
+                childAspectRatio: 1.18,
                 children: <Widget>[
                   for (final p in samplePhases)
                     _AggregateCard(phase: p, highlight: false),

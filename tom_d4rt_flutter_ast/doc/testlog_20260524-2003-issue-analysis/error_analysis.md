@@ -586,17 +586,56 @@ console output. essential / important / gii do gate on
   **partial** in this testlog; deferred scripts to be addressed in
   per-script follow-up todos.
 
-- [ ] **fixed** 14. **H-secondary (flutter_ast, 27 scripts, 84 events)** —
-  largest cluster. Top offenders: `widgets/image_filtered_test`
-  (14), `foundation/aggregated_timed_block_test` (11),
-  `widgets/list_wheel_viewport_test` (8),
-  `material/expansion_stepper_test` (7),
-  `widgets/list_wheel_scroll_view_test` (7),
-  `material/desktop_text_selection_toolbar_button_test` (4),
-  `widgets/navigation_toolbar_test` (4), `widgets/actions_intents_test`
-  (3), `widgets/overflow_bar_test` (3), `widgets/overflow_box_test`
-  (3), plus 17 scripts with 1–2 events. Triage in priority order.
-  Rule (a) per script.
+- [~] **partial (4 of 27 scripts fixed: 40 of 84 events cleared = 48 %; 23 scripts deferred)** 14.
+  **H-secondary (flutter_ast, 27 scripts, 84 events)** —
+  largest cluster.
+
+  **Fixed (4 of 27 — 40 of 84 events, 48 %):**
+  - **`widgets/image_filtered_test.dart`** (14 → 0). 3 GridViews
+    with `childAspectRatio` 1.1 / 1.2 / 1.12; each had cells whose
+    inner Column needed 11–31 px more height than the cell offered
+    on the flutter_ast pane. **Fix:** dropped the ratios to 0.88 /
+    0.95 / 0.92 respectively. Verified totalMs=2369 fwErr=0.
+  - **`foundation/aggregated_timed_block_test.dart`** (11 → 0).
+    Section with `GridView.count(crossAxisCount: 3, childAspectRatio: 1.45)`
+    × 6 `samplePhases` produced 6 × 14 px bottom overflows AND the
+    cell-height pressure also pushed 5 right-side overflows (34 + 3×55 + 56 px).
+    **Fix:** dropped `childAspectRatio: 1.45 → 1.18` so cells get
+    ~16 % more vertical room — all 11 events vanish, including the
+    cross-axis ones. Verified totalMs=1769 fwErr=0.
+  - **`widgets/list_wheel_viewport_test.dart`** (8 → 0). Sibling
+    pattern to list_wheel_scroll_view: a 2-col
+    `GridView.count(childAspectRatio: 1.45)` with 4 `_metricTile`
+    cells produced 4 × 24 px right + 4 × 4.6 px bottom = 8 events.
+    **Fix:** ratio 1.45 → 1.0. Verified totalMs=2670 fwErr=0.
+  - **`widgets/list_wheel_scroll_view_test.dart`** (7 → 0). Same
+    pattern in `_miniMetric` 2-col grid (`childAspectRatio: 1.45`).
+    **Fix:** ratio 1.45 → 1.0. Verified totalMs=2423 fwErr=0.
+
+  **Deferred (23 of 27 — need per-script bisection, 44 of 84 events):**
+  - `material/expansion_stepper_test` (7 events of mixed magnitudes
+    21/17/0.7/6.6/6.7/15/8.6 px right) — 104 KB; varied magnitudes
+    suggest multiple distinct sources, needs bisection.
+  - `material/desktop_text_selection_toolbar_button_test` (4)
+  - `widgets/navigation_toolbar_test` (4)
+  - `widgets/actions_intents_test` (3)
+  - `widgets/overflow_bar_test` (3) — note: title might be intentional.
+  - `widgets/overflow_box_test` (3) — note: title might be intentional.
+  - `material/themes_advanced_test` (2)
+  - `rendering/hittest_pipeline_test` (2)
+  - `dart_ui/ztmp_path_metrics_access_test` (2)
+  - 14 scripts with 1 event each.
+
+  **Single fwErr in U17 by-design** (already documented):
+  - `rendering/render_constraints_transform_box_test` (1 event) —
+    U17 by-design teaching demo, no fix.
+
+  Rule (a) — test-script-only changes. Marks §6 todo #14 as
+  **partial** in this testlog. The fix pattern emerging across H-
+  cluster work: most overflows are GridView `childAspectRatio`
+  miscalibrated for the flutter_ast pane width — dropping the ratio
+  by 0.2–0.5 typically resolves both right and bottom overflows for
+  GridView-based cards.
 
 - [ ] **fixed** 15. **H-hardly1 (flutter_ast, 5 scripts, 22 events)** —
   `gestures/tap_move_details_test` (10),

@@ -739,7 +739,13 @@ class _BlurMatrixSceneState extends State<_BlurMatrixScene> {
         crossAxisCount: 4,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-        childAspectRatio: 1.1,
+        // 20260524-2003 baseline §6/H-secondary todo #14
+        // (image_filtered_test): the 1.1 ratio gave cells ~10 px less
+        // height than the icon + label Column needs in the flutter_ast
+        // widget pane, producing 29/31 px bottom overflows. Drop to
+        // 0.88 to give the column enough room without enlarging cells
+        // beyond reasonable.
+        childAspectRatio: 0.88,
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -1449,7 +1455,9 @@ class _ScopePatternSceneState extends State<_ScopePatternScene> {
         crossAxisCount: 2,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-        childAspectRatio: 1.2,
+        // 20260524-2003 baseline §6/H-secondary todo #14
+        // (image_filtered_test) — see comment on the 4-col grid above.
+        childAspectRatio: 0.95,
       ),
       itemBuilder: (context, index) {
         final item = _scopeCards[index];
@@ -1753,7 +1761,9 @@ class _PracticalBoardSceneState extends State<_PracticalBoardScene> {
         crossAxisCount: 2,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-        childAspectRatio: 1.12,
+        // 20260524-2003 baseline §6/H-secondary todo #14
+        // (image_filtered_test) — see 4-col grid comment above.
+        childAspectRatio: 0.92,
       ),
       itemBuilder: (context, index) {
         final tile = profile.tiles[index];

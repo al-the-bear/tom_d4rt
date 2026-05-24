@@ -1340,11 +1340,15 @@ class _PracticalSceneState extends State<_PracticalScene> {
           ),
           const SizedBox(height: 8),
           Expanded(
+            // 20260524-2003 baseline §6/H-secondary todo #14
+            // (list_wheel_scroll_view_test): same pattern as the
+            // sibling list_wheel_viewport_test — 4 _miniMetric cells
+            // overflow under 1.45 aspect. Drop to 1.0.
             child: GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
-              childAspectRatio: 1.45,
+              childAspectRatio: 1.0,
               children: [
                 _miniMetric('Latency', '${90 + (_minute * 3)}ms', _blue),
                 _miniMetric('Threads', '${4 + (_mode * 2)}', _teal),

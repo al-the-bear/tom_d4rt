@@ -1451,11 +1451,18 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
           ),
           const SizedBox(height: 8),
           Expanded(
+            // 20260524-2003 baseline §6/H-secondary todo #14
+            // (list_wheel_viewport_test): 4 metricTile cells overflow
+            // by 24 px right and 4.6 px bottom under the 1.45 aspect.
+            // Drop to 1.0 to give the content enough room on both
+            // axes (metric label + value + colour bar Column needs
+            // more height; the wider-than-tall ratio also forced the
+            // tile's title row past its width).
             child: GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
-              childAspectRatio: 1.45,
+              childAspectRatio: 1.0,
               children: [
                 _metricTile('Latency', '${60 + (_slot * 5)}ms', _ocean),
                 _metricTile('Threads', '${2 + (_priority * 2)}', _forest),
