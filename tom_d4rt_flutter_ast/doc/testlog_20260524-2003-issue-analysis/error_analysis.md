@@ -795,11 +795,20 @@ console output. essential / important / gii do gate on
 
 ### Cluster U — By-design / documented limitations (no fix required)
 
-- [ ] **fixed** 21. **U17 — `rendering/render_constraints_transform_box_test`** —
-  appears in secondary + timeout with 1 fwErr each on both runners.
+- [x] **fixed** 21. **U17 — `rendering/render_constraints_transform_box_test`** —
+  ~~appears in secondary + timeout with 1 fwErr each on both runners.
   Intentional teaching demo per U17 (sections 4 / 7 / 8 demonstrate
   Flutter's overflow assertions via real overflowing widgets). No
-  script-side fix preserves teaching content. **No action.**
+  script-side fix preserves teaching content. **No action.**~~
+  **VERIFIED — accepted by design under U17.** This script
+  intentionally demonstrates Flutter's overflow assertions in
+  sections 4 / 7 / 8 (the prior testlog's §6 todo #18 entry #21
+  partial closure documented this — the kHalveMaxWidth normalize
+  fix was retained as a real script-side correctness fix, but the
+  intentional cascade overflow remains at fwErr=1 on both runners).
+  Counts at 1 each: `secondary_classes_test` and
+  `timeout_tests_test`, both on flutter_ast and flutter_test. No
+  code change required for this baseline. **Cluster acknowledged.**
 
 - [ ] **fixed** 22. **I-BUG-14a SHOULD FAIL marker** — tom_d4rt (1) and
   tom_d4rt_exec (1) both fail this intentional `(FAIL)` marker for
