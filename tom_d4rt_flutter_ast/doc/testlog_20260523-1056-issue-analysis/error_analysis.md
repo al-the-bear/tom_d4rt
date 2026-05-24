@@ -2315,14 +2315,45 @@ unwraps `InterpretedInstance` whose declared chain includes the bridged
 abstract class) is not in `tom_d4rt_flutter_test`. Four scripts pass in ast
 and fail in test:
 
-- [ ] **fixed** 8. **F3** `essential_classes_test material/materialapp_test.dart` —
-  `MaterialApp.router(routeInformationParser:)` rejects `_SimpleRouteParser`.
+- [~] **partial (RouteInformationParser side fixed; RouterDelegate side deferred to U26)** 8.
+  **F3** `essential_classes_test material/materialapp_test.dart` —
+  ~~`MaterialApp.router(routeInformationParser:)` rejects `_SimpleRouteParser`.
   Port the AST-runner's `D4.unwrapAs<RouteInformationParser>` walk to the
   source-based runner OR migrate `tom_d4rt_flutter_test` to share the AST
-  test app.
-- [ ] **fixed** 9. **F4** `important_classes_test widgets/decoratedbox_test.dart` —
-  `DecoratedBox(decoration: DiagonalStripesDecoration)` rejection; same
-  back-port.
+  test app.~~ **PARTIAL.** Root cause: `tom_d4rt_flutter_test/buildkit.yaml`
+  was missing 4 proxy entries that `tom_d4rt_flutter_ast/buildkit.yaml`
+  had — `Decoration`, `BoxPainter`, `RouteInformationParser`,
+  `RouterDelegate`. Without these, the generator never emitted the
+  `D4.registerInterfaceProxy(...)` calls for those abstract classes, so
+  `extractBridgedArg<RouteInformationParser<Object>?>` had no proxy
+  factory to call when handed an `InterpretedInstance(_SimpleRouteParser)`.
+  **Fix:** added the 4 missing proxy entries to `tom_d4rt_flutter_test/buildkit.yaml`
+  (verbatim copy of the ast variant's Cluster-B comments) and regenerated
+  via `dart run tool/regenerate_bridges.dart`. The 17 `.b.dart` files in
+  `tom_d4rt_flutter_test/lib/src/bridges/` now contain the same 15
+  proxy registrations as the ast variant (was 11). Verified: F4
+  (DecoratedBox / Decoration proxy) now PASSES in serial isolation —
+  see entry #9 below. F3 still fails, but with a DIFFERENT error:
+  `routerDelegate` now rejects the InterpretedInstance even though the
+  RouterDelegate proxy is registered. The proxy factory `D4rtRouterDelegate<Object>`
+  is generated identically to the ast variant's, but the source-based
+  interpreter (`tom_d4rt`) does not route `_SimpleRouterDelegate` through
+  `tryCreateInterfaceProxyWithVisitor` the same way the ast interpreter
+  (`tom_d4rt_ast`) does. Documented as **U26** in
+  `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (added 2026-05-24).
+  Rule (b) regression run: essential 107/1/0 (only F3 still errored, no
+  new regressions); important 157/0/7 (7 cold-start contention flakes
+  identical to the §S pattern, isolated retries pass warm — see todo #1).
+  **Commit:** included in the same commit as todo #9 below.
+- [x] **fixed** 9. **F4** `important_classes_test widgets/decoratedbox_test.dart` —
+  ~~`DecoratedBox(decoration: DiagonalStripesDecoration)` rejection; same
+  back-port.~~ **FIXED — side benefit of todo #8's buildkit.yaml fix.**
+  Adding the `Decoration` and `BoxPainter` proxy entries to
+  `tom_d4rt_flutter_test/buildkit.yaml` + bridge regen restored the
+  proxy factories for `Decoration`, which is what `DecoratedBox(decoration:)`
+  unwraps to. Verified: `widgets/decoratedbox_test.dart` now passes
+  in serial isolation with `totalMs=2163 frameworkErrors=0`.
+  Rule (b) regression: see todo #8.
 - [x] **fixed** 10. **F5** `retest/widgets/app_kit_view_test.dart` —
   `AppKitView.gestureRecognizers: Set<Factory<…>>` coercion. **FIXED
   entry #15** script-side: the crash fired on the first frame because

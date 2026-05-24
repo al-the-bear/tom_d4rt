@@ -6335,8 +6335,157 @@ falls in the 30 s–50 s gap. Tracked outside this entry.
 
 ---
 
+## U26 — Source-based interpreter rejects `InterpretedInstance` for `RouterDelegate<Object>?` parameter despite identical proxy registration (cross-runner divergence)
+
+**Category.** Cross-runner interpreter divergence on a constructor
+boundary that accepts a `RouterDelegate<Object>?`. The analyzer-free
+`tom_d4rt_ast` runner — used by `tom_d4rt_flutter_ast` — accepts a
+script-defined subclass of `RouterDelegate` (passed in as an
+`InterpretedInstance`) when constructing
+`MaterialApp.router(routerDelegate: _SimpleRouterDelegate(...))`.
+The analyzer-based `tom_d4rt` runner — used by
+`tom_d4rt_flutter_test` — rejects the same input with a coercion
+error at the bridged constructor adapter, even though the proxy
+factory is registered correctly and the surrounding interpreter
+code paths look identical.
+
+**Reproducer.** `essential_classes_test.dart` group `material`
+script `material/materialapp_test.dart` (the §6/F3 entry from
+`testlog_20260523-1056-issue-analysis/error_analysis.md`). The
+script defines:
+
+```dart
+class _SimpleRouteInformationParser
+    extends RouteInformationParser<Object> { ... }
+
+class _SimpleRouterDelegate extends RouterDelegate<Object>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<Object> { ... }
+
+MaterialApp.router(
+  routeInformationParser: _SimpleRouteInformationParser(),
+  routerDelegate: _SimpleRouterDelegate(),
+);
+```
+
+After the cluster-level buildkit.yaml gap fix (adding `Decoration`,
+`BoxPainter`, `RouteInformationParser`, `RouterDelegate` to
+`tom_d4rt_flutter_test/buildkit.yaml` and regenerating bridges so
+`flutter_proxies.b.dart` has the same 15 `registerInterfaceProxy`
+calls as the ast variant), the `routeInformationParser` side
+*works* — but the `routerDelegate` side still rejects the
+`InterpretedInstance`. The ast variant accepts both.
+
+**What we confirmed identical between the two runners.**
+
+| Concern | tom_d4rt | tom_d4rt_ast |
+|---|---|---|
+| Proxy class source | `D4rtRouterDelegate<Object>` extends `RouterDelegate<Object>` with the same method overrides | `D4rtRouterDelegate<Object>` extends `RouterDelegate<Object>` with the same method overrides |
+| `D4.registerInterfaceProxy('RouterDelegate', factory)` registration site in generated `flutter_proxies.b.dart` | present, identical signature | present, identical signature |
+| `D4.extractBridgedArg<T>(...)` resolution path | falls through to `tryCreateInterfaceProxyWithVisitor<T>` for `InterpretedInstance` | falls through to `tryCreateInterfaceProxyWithVisitor<T>` for `InterpretedInstance` |
+| `D4.withActiveVisitor` wrapping on the `MaterialApp.router` constructor adapter | present | present |
+| `flutter_proxies.b.dart` proxy factory body | structurally identical | structurally identical |
+
+Despite this surface equivalence, the source-based runner does not
+walk the same proxy path for the `routerDelegate` parameter. Adding
+debug prints to `tom_d4rt/lib/src/generator/d4.dart` did not surface
+diagnostic output through `SendTestRunner` (which suppresses
+sub-process stdout unless transport errors occur), so the actual
+divergence point inside `extractBridgedArg` / the constructor
+adapter wiring remains unidentified.
+
+**Triage status.** The `RouteInformationParser` side passes in both
+runners after the buildkit.yaml fix. Only the `RouterDelegate` side
+diverges, and only on the source-based runner. The script passes
+end-to-end in `tom_d4rt_flutter_ast`. It fails in
+`tom_d4rt_flutter_test` with `status=error frameworkErrors=1` (the
+constructor-adapter coercion error for `RouterDelegate<Object>?`).
+
+**Why we cannot fix it without deeper interpreter work.** The
+buildkit-level fix that closed F4 (Decoration / DecoratedBox) on
+both runners does not close F3's RouterDelegate side on the source
+runner. The remaining failure is interpreter-internal: the source
+runner takes a different code path through `extractBridgedArg` for
+the `RouterDelegate<Object>?` parameter than for
+`RouteInformationParser<Object>`, despite both being abstract proxy
+classes registered through the same generator output. Hypotheses
+(none verified):
+
+1. The `RouterDelegate` mixin chain
+   (`ChangeNotifier`, `PopNavigatorRouterDelegateMixin<Object>`)
+   may interact with the analyzer-based interpreter's mixin
+   resolution differently than the AST-based interpreter's
+   resolution, causing the script subclass's runtime type to be
+   reported as something the proxy factory does not match.
+2. The `RouterDelegate<T>` super-class itself extends `Listenable`
+   in Flutter; the analyzer-based interpreter may resolve the
+   bridge target through `Listenable` and miss the
+   `RouterDelegate` proxy registration during the parameter
+   coercion walk.
+3. The constructor signature `MaterialApp.router(... ,
+   RouterDelegate<T>? routerDelegate, ...)` is nullable; the
+   nullable type check may be evaluated before the proxy walk in
+   one runner and after in the other.
+
+All three are guesses. A proper fix requires step-through
+debugging of `D4.extractBridgedArg` and
+`tryCreateInterfaceProxyWithVisitor` on both runners with the same
+input.
+
+**Workaround (current state, deferred).** None — the
+`MaterialApp.router(routerDelegate:)` constructor remains
+unsupported on the source-based runner for script-defined
+`RouterDelegate` subclasses. The ast-based runner is the
+operational verification surface for any script that exercises
+this constructor. Marked **PARTIAL** in
+`testlog_20260523-1056-issue-analysis/error_analysis.md` §6 todo #8:
+`RouteInformationParser` side fixed (buildkit gap), `RouterDelegate`
+side deferred to this U26.
+
+**Affected scripts.**
+
+| Script | Runner | Status | Note |
+|--------|--------|--------|------|
+| `material/materialapp_test.dart` | tom_d4rt_flutter_ast | passes | `MaterialApp.router(routerDelegate: _SimpleRouterDelegate())` accepted. |
+| `material/materialapp_test.dart` | tom_d4rt_flutter_test | **fails** | `MaterialApp.router(routerDelegate: _SimpleRouterDelegate())` rejected at constructor adapter — proxy walk not reached. |
+
+**Open / deferred.** A focused debug pass on
+`D4.extractBridgedArg`/`tryCreateInterfaceProxyWithVisitor` for the
+`RouterDelegate` parameter in the source-based runner is needed.
+The likely shape of the eventual fix is either: (a) align the
+analyzer-based runner's coercion walk with the ast-based runner's
+(small change, large unknowns about other side-effects); or (b)
+make the `RouterDelegate` proxy registration cover its `Listenable`
+super-type so the source-runner's coercion walk hits the proxy via
+the super-class lookup. Tracked outside this entry.
+
+---
+
 ## Change Log
 
+- 2026-05-24: **Add U26 (entry §6 todo #8 / F3, partial)** —
+  Source-based interpreter rejects `InterpretedInstance` for
+  `RouterDelegate<Object>?` parameter on
+  `MaterialApp.router(routerDelegate:)` despite identical proxy
+  registration in both runners. Root cause of the §6/F3 cluster
+  was two-fold: (1) `tom_d4rt_flutter_test/buildkit.yaml` was
+  missing four proxy entries (`Decoration`, `BoxPainter`,
+  `RouteInformationParser`, `RouterDelegate`) that the ast variant
+  had — fixed by adding them and regenerating bridges, which
+  closed F4 (Decoration / DecoratedBox) entirely and the
+  `RouteInformationParser` side of F3; (2) the `RouterDelegate`
+  side of F3 still fails in the source runner, with the
+  constructor adapter rejecting the script subclass's
+  `InterpretedInstance` before the proxy walk fires. The ast
+  runner accepts the same input. Debug investigation via
+  `D4.extractBridgedArg` / `tryCreateInterfaceProxyWithVisitor`
+  did not isolate the divergence (SendTestRunner suppresses
+  sub-process stdout). Deferred to a future focused debug pass
+  on the analyzer-based interpreter's coercion walk for the
+  `RouterDelegate` (likely `Listenable` super-class) parameter.
+  Marked **PARTIAL** in
+  `testlog_20260523-1056-issue-analysis/error_analysis.md` §6
+  todo #8; §6 todo #9 (F4 Decoration / DecoratedBox) closes as a
+  side benefit and is marked **FIXED**.
 - 2026-05-24: **Extend U25 to cover E5
   (`widgets/inherited_widget_test.dart`).** This 2535-line / 88 KB
   source / 1.3 MB AST bundle script exceeds the 30 s server-side
