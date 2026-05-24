@@ -1097,12 +1097,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('keyboard_key_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/keyboard_key_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'keyboard_key_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/keyboard_key_test.dart',
+          // 20260523-1056 baseline §1.6/E28: TimeoutException 30s
+          // — cold-start contention. This 1803-line / 57 KB script
+          // (707 KB bundle) builds in ~1.8 s in both variants. Same
+          // family as the §1.3/§1.4/§1.5 E-series: 50 s leaves 10 s
+          // of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('keyboard_lock_mode_test.dart', () async {
       final result = await SendTestRunner.send(

@@ -1032,7 +1032,7 @@ clean closure of §1.4.
 | E25 | `rendering/render_app_kit_view_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S3)** — see §1.6/E25 fix note |
 | E26 | `rendering/sliver_paint_order_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E26 fix note |
 | E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E27 fix note |
-| E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | ast-only |
+| E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E28 fix note |
 | E29 | `services/raw_key_event_data_ios_test.dart` | Transport failure 25s | ast-only |
 | E30 | `services/text_editing_delta_deletion_test.dart` | Transport failure 25s | ast-only |
 
@@ -1166,6 +1166,35 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/asd_repro_ast.log`, `/tmp/asd_repro_test.log`,
 `/tmp/asd_post_ast.log`, `/tmp/asd_post_test.log`.
+
+#### §1.6/E28 — `services/keyboard_key_test.dart` — FIXED
+
+**Status: FIXED.** This 1803-line / 57 KB / 707 KB AST bundle script
+builds in ~1.8 s in both variants — well under the 25 s default cap.
+The original `TimeoutException 30s` was cold-start contention, same
+family as the §1.3/§1.4/§1.5 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 22 | 1628 | 1860 | success, frameworkErrors=0 |
+| flutter_test | 26 | 1764 | 1797 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_3_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1965 | 1721 | 0 |
+| flutter_test | 1796 | 1758 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/kk_repro_ast.log`, `/tmp/kk_repro_test.log`,
+`/tmp/kk_post_ast.log`, `/tmp/kk_post_test.log`.
 
 ### 1.7 hardly_relevant_classes_4_test — 224 passed, 0 failed, 3 errored
 
