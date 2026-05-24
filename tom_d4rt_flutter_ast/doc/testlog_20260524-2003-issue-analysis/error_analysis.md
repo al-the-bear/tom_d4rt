@@ -708,10 +708,32 @@ console output. essential / important / gii do gate on
 
   Rule (a) — test-script-only change.
 
-- [ ] **fixed** 18. **H-hardly4 (flutter_ast, 5 scripts, 7 events)** —
-  `widgets/bottom_navigation_bar_item_test` (2),
+- [~] **deferred (all 5 scripts have dispersed Row/Column overflows; no GridView shortcuts)** 18.
+  **H-hardly4 (flutter_ast, 5 scripts, 7 events)** —
+  ~~`widgets/bottom_navigation_bar_item_test` (2),
   `widgets/child_back_button_dispatcher_test` (2), 3 single-event
-  scripts. Rule (a).
+  scripts.~~ **DEFERRED.** Audit shows:
+  - `widgets/android_overscroll_indicator_test` (51 px bottom)
+  - `widgets/bottom_navigation_bar_item_test` (29 px right + 45 px bottom — 2 distinct sources)
+  - `widgets/callback_shortcuts_test` (93 px bottom)
+  - `widgets/child_back_button_dispatcher_test` (2 px right + 93 px bottom — 2 distinct sources)
+  - `widgets/nested_scroll_view_state_test` (20 px bottom)
+
+  **None of the 5 scripts contains a `GridView.count`,
+  `GridView.builder`, or `childAspectRatio` setting** — the
+  high-leverage fix pattern I've used on other H-cluster scripts
+  (aspect-ratio tweaks for GridView-of-cards) does not apply here.
+  All 7 events come from scattered `Row` / `Column` patterns whose
+  natural extent slightly exceeds the flutter_ast widget pane.
+
+  callback_shortcuts and child_back_button_dispatcher were partially
+  fixed in the prior testlog's §6 todo #17 (H-4 cluster, 2026-05-24
+  session); the current 93 px bottom overflows on both scripts are
+  presumably different sources from the ones closed then.
+
+  Without per-section runtime bisection, locating dispersed
+  Row/Column overflows by static inspection is impractical. Tracked
+  for follow-up. **No code change this run.**
 
 - [ ] **fixed** 19. **H-hardly5 (flutter_ast, 6 scripts, 13 events)** —
   `widgets/scroll_context_test` (6),
