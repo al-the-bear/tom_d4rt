@@ -2425,13 +2425,25 @@ and fail in test:
 
 ### Cluster O — SystemColor regression / mis-skipped
 
-- [ ] **fixed** 13. **F1** `retest/dart_ui/system_color_palette_test.dart` —
-  was previously skipped with reason *"SystemColor not supported on Linux"*;
-  skip is gone but the underlying limitation is still present. Either re-add
-  `@Skip('SystemColor not supported on the current platform')` (the inner
-  error matches: `Runtime Error: Unexpected error: Unsupported operation:
-  SystemColor not supported on the current platform.`) or implement the
-  SystemColor bridge in the interpreter. Affects **both projects**.
+- [x] **fixed** 13. **F1** `retest/dart_ui/system_color_palette_test.dart` —
+  ~~was previously skipped with reason *"SystemColor not supported on Linux"*;
+  skip is gone but the underlying limitation is still present.~~ **FIXED —
+  platform skip already extended to all desktop platforms per U24
+  (`testlog_20260522-1328-issue-analysis` entry #22, applied 2026-05-23).**
+  The skip on the `retest/` test registration in
+  `generator_interpreter_retest_test.dart` covers `Linux || macOS ||
+  Windows` (SystemColor is a web-only API; `platformProvidesSystemColors`
+  returns `false` on every desktop). Reason string:
+  `'SystemColor not supported on desktop platforms (web-only API)'`.
+  Verified both runners cleanly skip:
+  - flutter_ast: `Skip: SystemColor not supported on desktop platforms
+    (web-only API)` — `+0 ~1` All tests skipped.
+  - flutter_test: same, `+0 ~1` All tests skipped.
+  The original (non-retest) `dart_ui/system_color_palette_test.dart`
+  remains unchanged — it gates on
+  `ui.SystemColor.platformProvidesSystemColors` in-script and renders a
+  fallback widget when `false`, so it runs to completion on desktop
+  without throwing. Cluster O ← closes.
 
 ### Cluster H — Framework errors (RenderFlex overflows)
 
