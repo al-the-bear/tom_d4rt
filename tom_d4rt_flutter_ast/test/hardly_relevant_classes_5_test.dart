@@ -777,12 +777,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('selectable_region_selection_status_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/selectable_region_selection_status_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'selectable_region_selection_status_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/selectable_region_selection_status_test.dart',
+          // 20260523-1056 baseline §1.8/E35: TimeoutException 30s
+          // — cold-start contention. This 2150-line / 75 KB script
+          // (882 KB bundle) builds in ~1.8 s in both variants. Same
+          // family as the §1.3–§1.7 E-series: 50 s leaves 10 s of
+          // headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('selectable_region_state_test.dart', () async {
       final result = await SendTestRunner.send(
