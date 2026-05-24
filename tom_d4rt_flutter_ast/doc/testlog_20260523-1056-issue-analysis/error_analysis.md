@@ -503,7 +503,7 @@ cold-start ceilings tracked under U25 in
 | E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E14 fix note |
 | E15 | `foundation/object_event_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E15 fix note |
 | E16 | `gestures/least_squares_solver_test.dart` | Transport failure 25s | **FIXED (cold-start contention; already covered by Step 9 / 2026-05-18 precedent — verified)** — see §1.4/E16 fix note |
-| E17 | `gestures/primary_pointer_gesture_recognizer_test.dart` | Transport failure 25s | ast-only |
+| E17 | `gestures/primary_pointer_gesture_recognizer_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E17 fix note |
 
 **Skipped:**
 
@@ -758,6 +758,61 @@ healthy.
 
 Rule (a) — no code change; verification-only entry. Raw logs:
 `/tmp/lss_repro_ast.log`, `/tmp/lss_repro_test.log`.
+
+#### §1.4/E17 — `gestures/primary_pointer_gesture_recognizer_test.dart` — FIXED
+
+**Status: FIXED.** This 2178-line / 71 KB / 765 KB AST bundle script
+builds in ~1.4–1.5 s in both variants — well under the 25 s default
+cap. The original `Transport failure 25s` was cold-start contention
+pushing the first request just past the 25 s HTTP cap, same family
+as E1/E2.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 28 | 1266 | 1453 | success, frameworkErrors=0 |
+| flutter_test | 27 | 1483 | 1517 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_1_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1514 | 1317 | 0 |
+| flutter_test | 1405 | 1371 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/ppgr_repro_ast.log`, `/tmp/ppgr_repro_test.log`,
+`/tmp/ppgr_post_ast.log`, `/tmp/ppgr_post_test.log`.
+
+#### §1.4 cluster summary
+
+§1.4 (hardly_relevant_classes_1_test, 8 errored entries) is now
+fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E10 | `cupertino/class_test.dart` | FIXED |
+| E11 | `dart_ui/class_test.dart` | FIXED |
+| E12 | `dart_ui/opacity_engine_layer_test.dart` | FIXED (also closes §S/S2) |
+| E13 | `dart_ui/uniform_vec2_slot_test.dart` | FIXED |
+| E14 | `foundation/diagnostics_serialization_delegate_test.dart` | FIXED |
+| E15 | `foundation/object_event_test.dart` | FIXED |
+| E16 | `gestures/least_squares_solver_test.dart` | FIXED (already covered by Step 9 / 2026-05-18 precedent; verification-only) |
+| E17 | `gestures/primary_pointer_gesture_recognizer_test.dart` | FIXED |
+
+**Tally: 8 of 8 FIXED.** 7 via the standard caller-side
+`httpBuildTimeout` 25 s → 50 s + wrapper 30 s → 60 s pattern; 1
+(E16) was already covered by the original Step 9 precedent and only
+needed verification. No partials, no deferrals — §1.4 closes
+cleanly. The §S table is now 2 of 6 cleared (S1 via E1, S2 via E12);
+the remaining four §S candidates (S3–S6) still need serial isolated
+re-run verification in their respective sections (§1.6, §1.8, §1.10,
+§1.12).
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 
