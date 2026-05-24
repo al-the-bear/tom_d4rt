@@ -502,7 +502,7 @@ cold-start ceilings tracked under U25 in
 | E13 | `dart_ui/uniform_vec2_slot_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E13 fix note |
 | E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E14 fix note |
 | E15 | `foundation/object_event_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E15 fix note |
-| E16 | `gestures/least_squares_solver_test.dart` | Transport failure 25s | ast-only |
+| E16 | `gestures/least_squares_solver_test.dart` | Transport failure 25s | **FIXED (cold-start contention; already covered by Step 9 / 2026-05-18 precedent — verified)** — see §1.4/E16 fix note |
 | E17 | `gestures/primary_pointer_gesture_recognizer_test.dart` | Transport failure 25s | ast-only |
 
 **Skipped:**
@@ -716,6 +716,48 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/oe_repro_ast.log`, `/tmp/oe_repro_test.log`,
 `/tmp/oe_post_ast.log`, `/tmp/oe_post_test.log`.
+
+#### §1.4/E16 — `gestures/least_squares_solver_test.dart` — FIXED (already covered)
+
+**Status: FIXED (no new code change required — verified existing
+mitigation is sufficient).** This 2337-line / 81 KB / 939 KB AST
+bundle script was the **original Step 9 / 2026-05-18 precedent** for
+the per-script `httpBuildTimeout` 25 s → 50 s override that the
+E-series fixes adopt. The override has been in place in both
+projects since `testlog_20260518-1449-flutter-suites` (see Step 9
+follow-up + Step 10 verification). The 20260523-1056 baseline
+labelling `Transport failure 25s` was a category description
+("HTTP transport timeout"), not the actual cap that fired — the
+test runner code at line 1307–1325 of both projects' `hardly_relevant_classes_1_test.dart`
+already declares `httpBuildTimeout: const Duration(seconds: 50)`
+plus `timeout: const Timeout(Duration(seconds: 60))`.
+
+**Verification (after explicit port-kill cold start, no code
+change):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 19 | 3963 | 4208 | success, frameworkErrors=0 |
+| flutter_test | 26 | 4043 | 4074 | success, frameworkErrors=0 |
+
+Both variants build in ~4 s — well within both the existing 50 s
+HTTP cap and the 60 s wrapper. No code change is needed; the
+existing override is sufficient. Marked here to close E16 in the
+20260523-1056 baseline.
+
+**Why the baseline reported this as failing:** when the 20260523
+analysis ran in parallel-driver mode (ast + test booting
+concurrently), the contention pushed build time briefly past 25 s
+on at least one of the cold-start runs. The existing 50 s override
+would still have absorbed that — so either (a) the failure was
+recorded just before the override took effect in a subsequent code
+push, or (b) the analysis author used "Transport failure 25s" as
+shorthand for any HTTP-transport timeout regardless of the actual
+cap. The serial isolated re-run today confirms the script is
+healthy.
+
+Rule (a) — no code change; verification-only entry. Raw logs:
+`/tmp/lss_repro_ast.log`, `/tmp/lss_repro_test.log`.
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 
