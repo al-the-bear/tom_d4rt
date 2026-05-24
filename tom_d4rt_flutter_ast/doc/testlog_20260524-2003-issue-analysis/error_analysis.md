@@ -293,13 +293,29 @@ framework-error volume despite running the same scripts.
   (AST timeout) on flutter_ast and T3/T4 (TEST gii), T14/T15 (TEST
   secondary), T17/T18 (TEST timeout) on flutter_test.
 
-- [ ] **fixed** 2. **flutter_ast cupertino cold-start cascade (E1–E4 + dart_ui E5).**
-  `cupertino/picker_test`, `scaffold_test`, `segmented_test`,
+- [x] **fixed** 2. **flutter_ast cupertino cold-start cascade (E1–E4 + dart_ui E5).**
+  ~~`cupertino/picker_test`, `scaffold_test`, `segmented_test`,
   `textfield_test`, `dart_ui/color_test` — first 5 large scripts in
-  `essential_classes_test` cascade-fail within the cupertino group.
-  Either re-order so the lightest cupertino script runs first
-  (warm-up), or bump `httpBuildTimeout: 50 s` on the cupertino +
-  dart_ui group entries. Rule (a).
+  `essential_classes_test` cascade-fail within the cupertino group.~~
+  **FIXED.** Bumped `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)`
+  wrapper on all 5 target registrations in both projects (10 registrations
+  total; kept symmetric to avoid future drift):
+  - `tom_d4rt_flutter_ast/test/essential_classes_test.dart`:
+    `cupertino/picker_test`, `cupertino/scaffold_test`,
+    `cupertino/segmented_test`, `cupertino/textfield_test`,
+    `dart_ui/color_test`.
+  - `tom_d4rt_flutter_test/test/essential_classes_test.dart`: same 5
+    entries (preventive — flutter_test was clean in the baseline but
+    the cold-start contention pattern is host-CPU/memory-driven and
+    can affect either runner).
+
+  Rule (a) — test-driver-only change. Verified on flutter_ast: the
+  cupertino group runs through all 13 scripts (E1–E4 each pass at
+  ~2 s warm) and `dart_ui/color_test` passes in 1.5 s with
+  `frameworkErrors=0`. A noise `-1` on `contextmenu_test.dart` (not in
+  the fix list, caused by an unrelated parallel-run conflict in the
+  verification harness) recycled cleanly and the rest of the cupertino
+  group passed. Closes E1/E2/E3/E4 + E5 on flutter_ast.
 
 - [ ] **fixed** 3. **flutter_ast secondary material/date* + render_ignore_baseline cold-start
   cascade (E10–E12, E15).** `material/date_time_range_test`,

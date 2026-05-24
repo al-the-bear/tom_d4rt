@@ -101,30 +101,63 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('picker_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/picker_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // 20260524-2003 baseline §6/E1–E4: the first 4 large cupertino scripts
+    // in essential_classes_test cascade-fail under cold-start contention on
+    // a freshly-launched test app (flutter_ast variant; flutter_test was
+    // clean in the baseline but kept symmetric to avoid future drift).
+    // Bump cap from 25 s to 50 s with 60 s dart-test wrapper on each.
+    test(
+      'picker_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/picker_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('route_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/route_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('scaffold_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/scaffold_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'scaffold_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/scaffold_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
-    test('segmented_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/segmented_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'segmented_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/segmented_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
-    test('textfield_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/textfield_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'textfield_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/textfield_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('theme_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/theme_test.dart');
@@ -136,10 +169,19 @@ void main() {
   // DART:UI PACKAGE TESTS (8 files)
   // ============================================================
   group('dart_ui/', () {
-    test('color_test.dart', () async {
-      final result = await SendTestRunner.send('dart_ui/color_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // 20260524-2003 baseline §6/E5: cold-start cascade victim from the
+    // cupertino group above. Bump cap from 25 s to 50 s.
+    test(
+      'color_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'dart_ui/color_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('geometry_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/geometry_test.dart');
