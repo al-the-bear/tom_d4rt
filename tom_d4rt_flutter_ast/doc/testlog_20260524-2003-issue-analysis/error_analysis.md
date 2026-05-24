@@ -446,10 +446,12 @@ framework-error volume despite running the same scripts.
 
   Closes T9/T10/T11/T13/T16 on flutter_test.
 
-- [ ] **fixed** 9. **flutter_test T12 `material/date_range_picker_dialog_test`** —
-  dart-test 30 s wrapper fired. Need to either raise the
-  `timeout: Timeout(Duration(seconds: ...))` wrapper or split the
-  test into smaller stages. Rule (a).
+- [x] **fixed** 9. **flutter_test T12 `material/date_range_picker_dialog_test`** —
+  ~~dart-test 30 s wrapper fired.~~ **FIXED.** Applied standard
+  `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)` wrapper on both
+  projects (kept symmetric). The 60 s wrapper covers the dart-test
+  default-30 s cap. Rule (a) — test-driver-only change. Verified on
+  flutter_test: totalMs=2404 frameworkErrors=0 ✓. Closes T12.
 
 ### Cluster F — Real interpreter / bridge issues (already documented)
 

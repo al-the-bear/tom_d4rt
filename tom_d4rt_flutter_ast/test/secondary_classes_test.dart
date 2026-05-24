@@ -1872,12 +1872,20 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('date_range_picker_dialog_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/date_range_picker_dialog_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'date_range_picker_dialog_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/date_range_picker_dialog_test.dart',
+          // 20260524-2003 baseline §6/T12 (= todo #9): dart-test 30 s
+          // wrapper fired on the flutter_test side; flutter_ast bumped
+          // symmetrically. Standard 25 s → 50 s cap + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // 20260524-2003 baseline §6/E10–E12: cold-start cascade pattern in the
     // material-individual group on `secondary_classes_test`. Bump cap from
