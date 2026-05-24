@@ -3377,12 +3377,24 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('hybrid_android_view_controller_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/hybrid_android_view_controller_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'hybrid_android_view_controller_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/hybrid_android_view_controller_test.dart',
+          // 20260523-1056 baseline §1.3/E2: under parallel-driver
+          // contention (ast+test apps booting concurrently) the /build
+          // for this 1399-line, 52 KB script can exceed the default
+          // 25 s HTTP cap on the first request after the test app
+          // cold-start (measured 25001 ms cold vs 1661 ms warm — a 15×
+          // gap). Serial isolated re-runs complete in ~1.7 s. 50 s
+          // leaves 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('live_text_test.dart', () async {
       final result = await SendTestRunner.send('services/live_text_test.dart');

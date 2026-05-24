@@ -120,7 +120,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | # | script | inner error | contention? |
 |---|---|---|---|
 | E1 | `rendering/render_custom_paint_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
-| E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | ast-only |
+| E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E2 fix note below |
 | E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | ast-only |
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | ast-only |
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | ast-only |
@@ -131,6 +131,37 @@ Clean. 7 scripts emit framework errors (see §3).
 
 **Skipped:** `widgets/android_view_test.dart` — *AndroidView only renders on Android* (platform-gated; OK).
 5 scripts emit framework errors (§3).
+
+#### §1.3/E2 — `services/hybrid_android_view_controller_test.dart` — FIXED
+
+**Status: FIXED.** Cold-start vs warm re-run measurement confirms this is
+contention, not a wedge: cold first-request `httpMs=25001 → transport_error`
+(precisely the default 25 s HTTP cap), warm follow-up `httpMs=1661 → success
+frameworkErrors=0`. 15× gap. The script (1399 lines, 52 KB source, 589 KB
+bundle JSON) is well within the interpreter's normal capability; the
+failure mode is the test app cold-start stretching the first HTTP build
+beyond the cap when ast+test drivers boot in parallel.
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`secondary_classes_test.dart` invocation in both projects (the script
+only appears in one suite per project), with the dart-test wrapper
+bumped to 60 s. Mirrors the `least_squares_solver_test.dart` precedent
+and the E1 fix. Applied symmetrically across ast and test even though
+the §1.3 row was labelled "ast-only" — §2.C confirms flutter_test had
+9 of the same errored entries plus 2 extras (so flutter_test was
+equally exposed; "ast-only" referred to the §S wedge-candidate
+symptom-match heuristic, not to contention exposure).
+
+**Verification (post-fix, serial isolated re-run):**
+
+| project | totalMs | httpMs | status | frameworkErrors |
+|---|---:|---:|---|---:|
+| flutter_ast | 1598 | 1371 | success | 0 |
+| flutter_test | 1619 | 1586 | success | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/havc_repro_ast.log` (cold-start repro), `/tmp/havc_repro_ast_2.log`
+(warm retry), `/tmp/havc_post_ast.log`, `/tmp/havc_post_test.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
