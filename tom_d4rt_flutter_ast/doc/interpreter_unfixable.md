@@ -6298,15 +6298,35 @@ skip the parse step entirely). Operationally:
   test individually; subsequent runs against the same warm app
   complete in <2 s.
 
-**Affected scripts** (post-fix on E1/E2 in source variant — these are
-the scripts whose source-based cold-start exceeds the 25 s default;
+**Affected scripts** (post-fix on E1/E2/E4 in source variant — these
+are the scripts whose source-based cold-start exceeds the 25 s default;
 each was triaged with a serial isolated re-run):
 
 | Script | Suite | Cold httpMs | Warm httpMs | Resolution |
 |--------|-------|-------------:|-------------:|------------|
 | `widgets/always_scrollable_scroll_physics_test.dart` | secondary | 50000+ (hang) | 1655 | **U25 (this entry)** — source-cold exceeds 50 s; ast variant fixed via caller-side timeout raise. |
+| `widgets/inherited_widget_test.dart` (E5) | secondary + gii | 30095 (server cap) | 5537 (ast) / 1.3 s (test warm) | **U25 (this entry)** — 2535-line / 88 KB / 1.3 MB bundle; ast variant cold-build itself exceeds the 30 s server-side cap (not just source-cold). Both variants affected. Caller-side bump 25 s → 50 s does **not** help: server fires at 30 s before the caller cap. |
 | `services/hybrid_android_view_controller_test.dart` | secondary | ~25000 | 1586 | **E2 fix** — caller-side 50 s timeout sufficient (cold-start contention was 25 s, not 30 s+). |
+| `widgets/context_menu_button_item_test.dart` (E4) | secondary | ~30000 | 1316 (ast) / 1504 (test) | **E4 fix** — caller-side 50 s timeout sufficient; cold + warm both finish under 30 s. |
 | `rendering/render_custom_paint_test.dart` | secondary, timeout, gii | ~25000 | 2078 | **E1 fix** — caller-side 50 s timeout sufficient. |
+
+**Observation on E5 (widening of U25's scope).** E5 reveals that the
+cold-start performance ceiling is not limited to the source-based
+variant. For `widgets/inherited_widget_test.dart` (88 KB / 2535-line
+source → 1.3 MB AST bundle, builds a deep InheritedWidget hierarchy
+with many static-method and operator dispatches), even the **ast
+variant** exceeds the 30 s server-side cap on cold start. The script
+warm-builds in 5.5 s in ast and 1.3 s in test (test was warm during
+both retries — `clearMs=44` indicating port reuse). This means the
+interpreter has *two* compounding cold-start costs: the source parse
+step (E3 family — only flutter_test affected) and the build/execute
+warm-up step (E5 family — both variants affected, surfaces only on
+the largest scripts). A proper resolution requires either: (a)
+interpreter perf work on both stages; or (b) an explicit `/warmup`
+endpoint that pre-walks the script ahead of the timed measurement
+phase. Tracked outside this entry; cold-start failure is accepted
+as a known flake on first-script-after-setUpAll, with the script
+passing reliably on any subsequent run.
 
 **Open / deferred.** A follow-up interpreter task to add app-startup
 warm-up of the d4rt parser + interpreter infrastructure would close
@@ -6317,6 +6337,19 @@ falls in the 30 s–50 s gap. Tracked outside this entry.
 
 ## Change Log
 
+- 2026-05-24: **Extend U25 to cover E5
+  (`widgets/inherited_widget_test.dart`).** This 2535-line / 88 KB
+  source / 1.3 MB AST bundle script exceeds the 30 s server-side
+  build cap **even on the ast variant** during cold start. Both
+  ast and flutter_test variants are affected. Warm-run completes
+  in 5.5 s (ast) / 1.3 s (test) — well under any cap. Caller-side
+  bump 25 s → 50 s does **not** help: the server fires at 30 s
+  before the caller cap. Reverted the caller-side change (no
+  net diff vs baseline). Marked **DEFERRED** in
+  `testlog_20260523-1056-issue-analysis/error_analysis.md` §1.3/E5.
+  Updates the U25 affected-scripts table; widens U25's scope to
+  include the build/execute warm-up cost in addition to the
+  source parse warm-up cost.
 - 2026-05-24: **Add U25 (entry #E3, partial)** — Source-based
   interpreter cold-start parse + execute exceeds 50 s for
   `widgets/always_scrollable_scroll_physics_test.dart` in

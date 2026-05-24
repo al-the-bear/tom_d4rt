@@ -123,7 +123,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E2 fix note below |
 | E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | **PARTIAL (ast fixed via caller-side 50 s timeout; flutter_test source-cold-start exceeds 50 s — deferred to U25)** — see §1.3/E3 fix note |
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E4 fix note |
-| E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | ast-only |
+| E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | **DEFERRED (cold-start build exceeds 30 s server cap on both variants — extended U25)** — see §1.3/E5 fix note |
 | E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | ast-only |
 | E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | ast-only |
 | E8 | `widgets/selectable_region_test.dart` | TimeoutException 30s | ast-only |
@@ -266,6 +266,67 @@ to 60 s. Same caller-side pattern as E1/E2.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/cmbi_repro_ast.log`, `/tmp/cmbi_repro_test.log`,
 `/tmp/cmbi_post_ast.log`, `/tmp/cmbi_post_test.log`.
+
+#### §1.3/E5 — `widgets/inherited_widget_test.dart` — DEFERRED
+
+**Status: DEFERRED to U25.** This is the largest deep-demo in the
+secondary corpus: 2535 lines / 88 KB source → 1.3 MB AST bundle. Both
+variants exceed the 30 s server-side build cap on cold start; the
+caller-side `httpBuildTimeout` 25 s → 50 s bump does **not** help
+because the server fires at 30 s before the caller cap.
+
+**Cold-start vs warm measurements (isolated, serial):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast (cold) | 2013 | 25003 | 27288 | caller cap fired at 25 s (transport_error) |
+| flutter_ast (cold, retry — port reuse, `clearMs=28`) | 28 | 25005 | 25408 | caller cap (transport_error). Server was still rebuilding from the previous request. |
+| flutter_ast (with caller bump 25 s → 50 s, cold) | 2061 | 30095 | 32434 | **server cap fired at 30 s** (status=error, httpStatus=400) — the 50 s caller-side raise just lets the server burn an extra 5 s before failing. |
+| flutter_ast (warm) | 21 | 5537 | 5816 | success, frameworkErrors=0 |
+| flutter_test (cold) | 44 | 25003 | 25062 | caller cap (transport_error) — but `clearMs=44` indicates a port-reuse warm-ish state; the build itself was still slow |
+| flutter_test (cold, retry) | 2009 | 25002 | 27022 | caller cap (transport_error) |
+
+The ast variant warm-run is 5.5 s (vs ~1.5 s for the other E1–E4
+scripts) — this script is intrinsically heavier in the interpreter
+because of its deep InheritedWidget hierarchy. On cold start the
+interpreter also incurs first-execution warm-up cost (declaration
+visitor, Environment construction, bridge registration walk), which
+together exceed the 30 s server cap.
+
+**Fix attempts and outcomes:**
+
+1. **Caller-side `httpBuildTimeout` 25 s → 50 s on ast variant** —
+   Did not help: the server-side build timeout (30 s) fires first.
+   The new 50 s caller cap is irrelevant. **Reverted** (no net diff
+   vs baseline).
+
+**Final state: no test changes.** Both `tom_d4rt_flutter_ast/test/secondary_classes_test.dart`
+and `tom_d4rt_flutter_test/test/secondary_classes_test.dart` E5
+entries remain at their baseline 2-line `test(…)` invocation. The
+script will continue to flake on first-script-after-setUpAll under
+contention; subsequent runs in the same warm app instance pass
+cleanly (5.5 s ast / 1.3 s test).
+
+**Deferred to U25.** The cold-start build/execute ceiling for the
+largest scripts in the corpus is now documented as the **second
+strand** of U25 (the first strand being the source-cold-start parse
+limit for E3). U25's affected-scripts table is updated to include
+E5 and explicitly notes that E5 affects both variants, unlike E3
+which affects only flutter_test.
+
+Resolution requires interpreter perf work (warm-up of the d4rt
+declaration visitor / Environment / bridge registration walk during
+app start-up) or a `/warmup` endpoint that pre-walks the script
+ahead of the timed `/build` measurement. Both are outside the scope
+of an entry-level timeout fix.
+
+Rule (a) for the attempted ast caller-side bump (reverted). No
+unreverted server-side or interpreter changes remain. Raw logs:
+`/tmp/iw_repro_ast.log`, `/tmp/iw_repro_test.log`,
+`/tmp/iw_warm_ast.log`, `/tmp/iw_warm_test.log`,
+`/tmp/iw_50s_ast.log` (50 s caller-side attempt — server cap fired),
+`/tmp/iw_50s_ast_warm.log` (warm follow-up after the failed cold —
+5.5 s success).
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
