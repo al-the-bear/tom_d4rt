@@ -125,7 +125,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E4 fix note |
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | **DEFERRED (cold-start build exceeds 30 s server cap on both variants — extended U25)** — see §1.3/E5 fix note |
 | E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E6 fix note |
-| E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | ast-only |
+| E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E7 fix note |
 | E8 | `widgets/selectable_region_test.dart` | TimeoutException 30s | ast-only |
 | E9 | `widgets/sliver_semantics_test.dart` | TimeoutException 30s | ast-only |
 
@@ -369,6 +369,37 @@ Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/psb_repro_ast.log`, `/tmp/psb_repro_test.log`,
 `/tmp/psb_cold_ast.log` (forced cold start), `/tmp/psb_post_ast.log`,
 `/tmp/psb_post_test.log`.
+
+#### §1.3/E7 — `widgets/raw_view_test.dart` — FIXED
+
+**Status: FIXED.** This 1716-line / 54 KB / 573 KB AST bundle script
+builds in ~1.7 s warm and ~1.8 s cold in both variants — well under
+the 25 s default cap. The original `TimeoutException 30s` was cold-
+start contention stretching the dart-test wrapper past its default
+30 s budget, same family as E1/E2/E4/E6.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 30 | 1599 | 1843 | success, frameworkErrors=0 |
+| flutter_test | 75 | 1579 | 1663 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`secondary_classes_test.dart` invocation in both projects, with the
+dart-test wrapper bumped to 60 s. Same caller-side pattern as
+E1/E2/E4/E6.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1653 | 1465 | 0 |
+| flutter_test | 1647 | 1605 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/rv_repro_ast.log`, `/tmp/rv_repro_test.log`,
+`/tmp/rv_post_ast.log`, `/tmp/rv_post_test.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
