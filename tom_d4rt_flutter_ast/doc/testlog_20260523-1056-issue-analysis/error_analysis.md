@@ -820,12 +820,43 @@ All 6 entries are TimeoutException 30s or Transport failure 25s; all **ast-only*
 
 | # | script | inner error |
 |---|---|---|
-| E18 | `material/dynamic_scheme_variant_test.dart` | TimeoutException 30s |
+| E18 | `material/dynamic_scheme_variant_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E18 fix note |
 | E19 | `material/hour_format_test.dart` | TimeoutException 30s |
 | E20 | `material/progress_indicator_test.dart` | TimeoutException 30s |
 | E21 | `material/snack_bar_theme_data_test.dart` | TimeoutException 30s |
 | E22 | `material/widget_state_input_border_test.dart` | Transport failure 25s |
 | E23 | `painting/one_frame_image_stream_completer_test.dart` | TimeoutException 30s |
+
+#### §1.5/E18 — `material/dynamic_scheme_variant_test.dart` — FIXED
+
+**Status: FIXED.** This 1697-line / 58 KB / 652 KB AST bundle script
+builds in ~3.8–3.9 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention
+stretching the dart-test wrapper past its default 30 s budget, same
+family as the §1.3/§1.4 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 29 | 3540 | 3780 | success, frameworkErrors=0 |
+| flutter_test | 17 | 3926 | 3950 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_2_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern
+as the §1.3/§1.4 E-series.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 4202 | 3925 | 0 |
+| flutter_test | 4043 | 4012 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/dsv_repro_ast.log`, `/tmp/dsv_repro_test.log`,
+`/tmp/dsv_post_ast.log`, `/tmp/dsv_post_test.log`.
 
 ### 1.6 hardly_relevant_classes_3_test — 194 passed, 0 failed, 7 errored
 
