@@ -122,7 +122,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | E1 | `rendering/render_custom_paint_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
 | E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E2 fix note below |
 | E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | **PARTIAL (ast fixed via caller-side 50 s timeout; flutter_test source-cold-start exceeds 50 s — deferred to U25)** — see §1.3/E3 fix note |
-| E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | ast-only |
+| E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E4 fix note |
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | ast-only |
 | E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | ast-only |
 | E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | ast-only |
@@ -235,6 +235,37 @@ proved out of scope. Raw logs: `/tmp/assp_repro_ast.log`,
 `/tmp/assp_post_test_warm.log`, `/tmp/assp_post_test_fix.log`,
 `/tmp/assp_warm_test.log`, `/tmp/assp_warm_test_2.log`,
 `/tmp/assp_ast_final.log`.
+
+#### §1.3/E4 — `widgets/context_menu_button_item_test.dart` — FIXED
+
+**Status: FIXED.** Isolated serial re-runs on both projects produce
+`frameworkErrors=0` with `totalMs` of ~1.5 s — twenty times under the
+30 s wrapper cap. The original `TimeoutException 30s` was cold-start
+contention stretching the dart-test wrapper past its default 30 s
+budget, the same family as E1/E2.
+
+**Pre-fix isolated re-runs:**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 33 | 1316 | 1526 | success, frameworkErrors=0 |
+| flutter_test | 22 | 1504 | 1537 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`secondary_classes_test.dart` invocation in both projects (the script
+appears in one suite per project), with the dart-test wrapper bumped
+to 60 s. Same caller-side pattern as E1/E2.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1593 | 1366 | 0 |
+| flutter_test | 1470 | 1443 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/cmbi_repro_ast.log`, `/tmp/cmbi_repro_test.log`,
+`/tmp/cmbi_post_ast.log`, `/tmp/cmbi_post_test.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
