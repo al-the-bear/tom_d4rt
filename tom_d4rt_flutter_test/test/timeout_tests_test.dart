@@ -238,12 +238,24 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('retest: widgets/app_kit_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/app_kit_view_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'retest: widgets/app_kit_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/app_kit_view_test.dart',
+          // 20260523-1056 baseline §1.10/E39 (= §S/S5). Serial
+          // isolated re-run produces 2.3 s with frameworkErrors=0.
+          // Original cross-project Transport failure was cold-start
+          // contention, not a real wedge. Same family as
+          // E1/E12/E25/E36: 50 s leaves 10 s of headroom under the
+          // 60 s dart-test wrapper. Applied symmetrically with the
+          // ast variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: widgets/back_button_listener_test.dart', () async {
       final result = await SendTestRunner.send(

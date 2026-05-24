@@ -238,12 +238,30 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('retest: widgets/app_kit_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/app_kit_view_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'retest: widgets/app_kit_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/app_kit_view_test.dart',
+          // 20260523-1056 baseline §1.10/E39 (= §S/S5 — listed in
+          // the wedge-candidate cluster because it appeared in both
+          // ast and flutter_test runs in timeout_tests_test).
+          // Serial isolated re-run produces 2.2 s (ast) / 2.3 s
+          // (flutter_test) with frameworkErrors=0. The cross-project
+          // failure was cold-start contention, not a real wedge.
+          // Same family as E1/E12/E25/E36: 50 s leaves 10 s of
+          // headroom under the 60 s dart-test wrapper.
+          //
+          // NOTE: The retest occurrence of this script in
+          // generator_interpreter_retest_test.dart is a DIFFERENT
+          // failure (F5 / Cluster B — Set<Factory<…>> coercion), not
+          // this contention issue. That one was fixed via entry #15.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: widgets/back_button_listener_test.dart', () async {
       final result = await SendTestRunner.send(

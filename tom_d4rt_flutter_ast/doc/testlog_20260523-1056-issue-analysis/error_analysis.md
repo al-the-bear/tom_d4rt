@@ -1567,7 +1567,7 @@ prior baseline; tracked as todo #12 below).
 | # | script | inner error | contention? |
 |---|---|---|---|
 | E38 | `rendering/render_custom_paint_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
-| E39 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s | **shared** — §S |
+| E39 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge; closes §S/S5)** — see §1.10/E39 fix note |
 | E40 | `widgets/sliver_animated_list_state_test.dart` | Transport failure 25s | ast-only |
 
 #### §1.10/E38 — `rendering/render_custom_paint_test.dart` — FIXED (covered by E1)
@@ -1595,6 +1595,60 @@ the existing E1 fix in `timeout_tests_test.dart` lines 103–119
 override. Raw logs: `/tmp/rcp_e38_ast.log`, `/tmp/rcp_e38_test.log`.
 
 Rule (a) — no code change; verification-only entry.
+
+#### §1.10/E39 — `retest/widgets/app_kit_view_test.dart` — FIXED (also closes §S/S5)
+
+**Status: FIXED.** Listed in the §S wedge-candidate cluster (as **S5**)
+because the script appeared as errored in both projects'
+**timeout_tests_test** runs with the same Transport failure 25s
+symptom. Serial isolated re-runs disprove the wedge hypothesis: this
+2089-line / 71 KB / 957 KB AST bundle script builds in ~2.2 s (ast)
+/ ~2.3 s (flutter_test) with `frameworkErrors=0`. The cross-project
+failure was cold-start contention, same as E1/E12/E25/E36.
+
+**Important distinction:** S5 references **two separate failure
+modes** for the same script:
+
+1. **Timeout-suite (this entry / E39):** Transport failure 25s —
+   cold-start contention. **Fixed here via caller-side timeout
+   raise.**
+2. **Retest suite (F5 in §2.G):** "native unwrap" — `Set<Factory<OneSequenceGestureRecognizer>>`
+   coercion failure at the bridged `AppKitView` constructor.
+   **Fixed previously via entry #15** (boot-status placeholder guard
+   that prevents AppKitView construction on the first frame). This
+   is a Cluster B issue, unrelated to the cold-start contention
+   addressed here.
+
+**Pre-fix isolated re-runs of the timeout-suite occurrence (after
+explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 18 | 1906 | 2180 | success, frameworkErrors=0 |
+| flutter_test | 27 | 2248 | 2282 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+**`timeout_tests_test.dart`** invocation in both projects (NOT in
+the retest test — that's a separate fix tracked under entry #15),
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix, timeout suite):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2259 | 1970 | 0 |
+| flutter_test | 2215 | 2182 | 0 |
+
+**§S/S5 status: FIXED.** §S table row updated in both projects'
+error_analysis.md. With S1 (E1), S2 (E12), S3 (E25), S4 (E36), and
+S5 (this entry) now all confirmed as contention-only, the §S
+wedge-candidate cluster is **5 of 6 cleared**; only S6
+(`retest/rendering/render_animated_size_state_test.dart` in §1.12)
+still needs serial isolated re-run verification.
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/akv_repro_ast.log`, `/tmp/akv_repro_test.log`,
+`/tmp/akv_post_ast.log`, `/tmp/akv_post_test.log`.
 
 ### 1.11 generator_interpreter_issues_test — 80 passed, 0 failed, 1 errored, 2 skipped
 
@@ -1805,7 +1859,7 @@ wedges rather than contention artefacts. A serial re-run would confirm.
 | S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) | **FIXED** (entry #E12 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) | **FIXED** (entry #E25 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | **FIXED** (entry #E36 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
-| S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | open |
+| S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | **FIXED** (entry #E39 — timeout-suite contention fixed via httpBuildTimeout 25 s → 50 s in both projects; the F5/Cluster B "native unwrap" issue in the retest suite is a SEPARATE problem fixed via entry #15 boot-status guard) |
 | S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s | open |
 
 §S total: **6 candidate wedges** (potentially up to 7 if `render_custom_paint`
