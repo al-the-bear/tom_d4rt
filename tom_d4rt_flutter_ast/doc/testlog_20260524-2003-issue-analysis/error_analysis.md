@@ -824,10 +824,25 @@ console output. essential / important / gii do gate on
   count is exactly 2 = same root cause, different consumer. No code
   change required.
 
-- [ ] **fixed** 23. **tom_d4rt_dcli macOS `[fails on Macos]` (14 tests)** —
-  upstream DCli 8.4.2 `_whoami()` bug + APFS case-insensitive. Cluster
+- [x] **fixed** 23. **tom_d4rt_dcli macOS `[fails on Macos]` (14 tests)** —
+  ~~upstream DCli 8.4.2 `_whoami()` bug + APFS case-insensitive. Cluster
   Q / §6 todo #22 verified — all 14 markers intact, full root-cause
-  doc in `tom_d4rt_dcli/doc/known_issues_macos.md`. **No action.**
+  doc in `tom_d4rt_dcli/doc/known_issues_macos.md`. **No action.**~~
+  **ACKNOWLEDGED — all 14 markers intact per prior testlog's §6 todo #22
+  verification (commit `86c7ffe0`).** Confirmed in the 20260524-2003
+  baseline: `tom_d4rt_dcli` reports 692/0/14 with all 14 failures
+  carrying the `[fails on Macos]` marker:
+  - 13 × `permissions_test.dart` (DCli 8.4.2's `_whoami()` returns
+    'root' on macOS when `getlogin()` throws ENXIO instead of falling
+    through to the `whoami` shell fallback)
+  - 1 × `directory_operations_test.dart` (macOS APFS
+    case-insensitive: FILE.TXT and file.txt collapse to the same
+    inode)
+
+  Full root-cause analysis in
+  `tom_d4rt_dcli/doc/known_issues_macos.md`. Marker approach
+  intentionally preserved (not skipped) so the upstream DCli fix
+  remains detectable. No code change required.
 
 ### Cluster W — Test-app wedges (skipped, not fixable in this pass)
 
