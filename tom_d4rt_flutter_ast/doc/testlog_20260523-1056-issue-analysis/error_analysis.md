@@ -1570,6 +1570,32 @@ prior baseline; tracked as todo #12 below).
 | E39 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s | **shared** — §S |
 | E40 | `widgets/sliver_animated_list_state_test.dart` | Transport failure 25s | ast-only |
 
+#### §1.10/E38 — `rendering/render_custom_paint_test.dart` — FIXED (covered by E1)
+
+**Status: FIXED (covered by §1.3/E1).** This is the **timeout_tests_test**
+occurrence of `rendering/render_custom_paint_test.dart`. The same
+script appears in §1.3/E1 (secondary_classes_test), §1.10/E38
+(timeout_tests_test, this row), and §1.11/E41 (generator_interpreter_issues_test).
+The E1 fix landed the caller-side `httpBuildTimeout` 25 s → 50 s +
+wrapper 30 s → 60 s in **all three** test runner sites simultaneously
+in both projects (see commit `d079af37`); E38 here is therefore
+already covered.
+
+The §S/S1 closure (also via E1) documents the cross-suite
+verification. Re-verification today (post-cold-start):
+
+| project | suite | totalMs | httpMs | frameworkErrors |
+|---|---|---:|---:|---:|
+| flutter_ast | timeout_tests | 1939 | 1672 | 0 |
+| flutter_test | timeout_tests | 1843 | 1818 | 0 |
+
+Both well under the 50 s HTTP cap. No new code change required —
+the existing E1 fix in `timeout_tests_test.dart` lines 103–119
+(both projects) already provides the necessary `httpBuildTimeout`
+override. Raw logs: `/tmp/rcp_e38_ast.log`, `/tmp/rcp_e38_test.log`.
+
+Rule (a) — no code change; verification-only entry.
+
 ### 1.11 generator_interpreter_issues_test — 80 passed, 0 failed, 1 errored, 2 skipped
 
 | # | script | inner error |
