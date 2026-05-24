@@ -823,7 +823,7 @@ All 6 entries are TimeoutException 30s or Transport failure 25s; all **ast-only*
 | E18 | `material/dynamic_scheme_variant_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E18 fix note |
 | E19 | `material/hour_format_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E19 fix note |
 | E20 | `material/progress_indicator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E20 fix note |
-| E21 | `material/snack_bar_theme_data_test.dart` | TimeoutException 30s |
+| E21 | `material/snack_bar_theme_data_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E21 fix note |
 | E22 | `material/widget_state_input_border_test.dart` | Transport failure 25s |
 | E23 | `painting/one_frame_image_stream_completer_test.dart` | TimeoutException 30s |
 
@@ -916,6 +916,35 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/pi_repro_ast.log`, `/tmp/pi_repro_test.log`,
 `/tmp/pi_post_ast.log`, `/tmp/pi_post_test.log`.
+
+#### §1.5/E21 — `material/snack_bar_theme_data_test.dart` — FIXED
+
+**Status: FIXED.** This 1331-line / 49 KB / 448 KB AST bundle script
+builds in ~1.7–1.8 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention,
+same family as the §1.3/§1.4 E-series and E18/E19/E20.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 33 | 1587 | 1762 | success, frameworkErrors=0 |
+| flutter_test | 18 | 1781 | 1804 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_2_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1945 | 1769 | 0 |
+| flutter_test | 1854 | 1828 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/sbtd_repro_ast.log`, `/tmp/sbtd_repro_test.log`,
+`/tmp/sbtd_post_ast.log`, `/tmp/sbtd_post_test.log`.
 
 ### 1.6 hardly_relevant_classes_3_test — 194 passed, 0 failed, 7 errored
 
