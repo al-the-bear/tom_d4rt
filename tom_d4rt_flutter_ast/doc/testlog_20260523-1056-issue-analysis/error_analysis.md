@@ -1285,7 +1285,7 @@ verification in their respective sections (§1.8, §1.10, §1.12).
 |---|---|---|
 | E31 | `widgets/draggable_scrollable_actuator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.7/E31 fix note |
 | E32 | `widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.7/E32 fix note |
-| E33 | `widgets/overscroll_notification_test.dart` | Transport failure 25s |
+| E33 | `widgets/overscroll_notification_test.dart` | **FIXED** Transport failure 25s — cold-start contention; see §1.7/E33 fix note |
 
 2 scripts emit framework errors (§3).
 
@@ -1346,6 +1346,52 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/eswbcli_repro_ast.log`, `/tmp/eswbcli_repro_test.log`,
 `/tmp/eswbcli_post_ast.log`, `/tmp/eswbcli_post_test.log`.
+
+#### §1.7/E33 — `widgets/overscroll_notification_test.dart` — FIXED
+
+**Status: FIXED.** This 1278-line / 54 KB / 510 KB AST bundle script
+builds in ~1.4–1.6 s in both variants — well under the 25 s default
+cap. The original `Transport failure 25s` was cold-start contention
+pushing the first request just past the 25 s HTTP cap, same family
+as E1/E2/E11/E12/E16/E17/E22/E26/E29/E30.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 32 | 1368 | 1588 | success, frameworkErrors=0 |
+| flutter_test | 26 | 1417 | 1450 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_4_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1519 | 1296 | 0 |
+| flutter_test | 1496 | 1463 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/on_repro_ast.log`, `/tmp/on_repro_test.log`,
+`/tmp/on_post_ast.log`, `/tmp/on_post_test.log`.
+
+#### §1.7 cluster summary
+
+§1.7 (hardly_relevant_classes_4_test, 3 errored entries) is now
+fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E31 | `widgets/draggable_scrollable_actuator_test.dart` | FIXED |
+| E32 | `widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` | FIXED |
+| E33 | `widgets/overscroll_notification_test.dart` | FIXED |
+
+**Tally: 3 of 3 FIXED.** All via the standard caller-side
+`httpBuildTimeout` 25 s → 50 s + wrapper 30 s → 60 s pattern. No
+partials, no deferrals — **§1.7 closes cleanly**, mirroring the
+clean closures of §1.4, §1.5, and §1.6.
 
 ### 1.8 hardly_relevant_classes_5_test — 226 passed, 0 failed, 4 errored
 

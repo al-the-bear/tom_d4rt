@@ -1549,12 +1549,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('overscroll_notification_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/overscroll_notification_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'overscroll_notification_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/overscroll_notification_test.dart',
+          // 20260523-1056 baseline §1.7/E33: Transport failure 25s
+          // — cold-start contention. This 1278-line / 54 KB script
+          // (510 KB bundle) builds in ~1.5 s in both variants. Same
+          // family as E1/E2/E11/E12/E16/E17/E22/E26/E29/E30: 50 s
+          // leaves 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('page_metrics_test.dart', () async {
       final result = await SendTestRunner.send(
