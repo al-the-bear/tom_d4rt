@@ -1030,7 +1030,7 @@ clean closure of §1.4.
 |---|---|---|---|
 | E24 | `rendering/image_filter_config_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E24 fix note |
 | E25 | `rendering/render_app_kit_view_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S3)** — see §1.6/E25 fix note |
-| E26 | `rendering/sliver_paint_order_test.dart` | Transport failure 25s | ast-only |
+| E26 | `rendering/sliver_paint_order_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E26 fix note |
 | E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | ast-only |
 | E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | ast-only |
 | E29 | `services/raw_key_event_data_ios_test.dart` | Transport failure 25s | ast-only |
@@ -1104,6 +1104,36 @@ respective sections.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/rakv_repro_ast.log`, `/tmp/rakv_repro_test.log`,
 `/tmp/rakv_post_ast.log`, `/tmp/rakv_post_test.log`.
+
+#### §1.6/E26 — `rendering/sliver_paint_order_test.dart` — FIXED
+
+**Status: FIXED.** This 2233-line / 73 KB / 775 KB AST bundle script
+builds in ~2.0 s in both variants — well under the 25 s default cap.
+The original `Transport failure 25s` was cold-start contention
+pushing the first request just past the 25 s HTTP cap, same family
+as E1/E2/E11/E12/E16/E17/E22.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 19 | 2009 | 2251 | success, frameworkErrors=0 |
+| flutter_test | 24 | 2047 | 2079 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_3_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2269 | 2022 | 0 |
+| flutter_test | 2058 | 2032 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/spo_repro_ast.log`, `/tmp/spo_repro_test.log`,
+`/tmp/spo_post_ast.log`, `/tmp/spo_post_test.log`.
 
 ### 1.7 hardly_relevant_classes_4_test — 224 passed, 0 failed, 3 errored
 
