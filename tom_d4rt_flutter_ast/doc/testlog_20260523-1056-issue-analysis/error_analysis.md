@@ -1028,13 +1028,42 @@ clean closure of §1.4.
 
 | # | script | inner error | contention? |
 |---|---|---|---|
-| E24 | `rendering/image_filter_config_test.dart` | TimeoutException 30s | ast-only |
+| E24 | `rendering/image_filter_config_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E24 fix note |
 | E25 | `rendering/render_app_kit_view_test.dart` | TimeoutException 30s | **shared** — §S |
 | E26 | `rendering/sliver_paint_order_test.dart` | Transport failure 25s | ast-only |
 | E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | ast-only |
 | E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | ast-only |
 | E29 | `services/raw_key_event_data_ios_test.dart` | Transport failure 25s | ast-only |
 | E30 | `services/text_editing_delta_deletion_test.dart` | Transport failure 25s | ast-only |
+
+#### §1.6/E24 — `rendering/image_filter_config_test.dart` — FIXED
+
+**Status: FIXED.** This 715-line / 22 KB / 234 KB AST bundle script
+builds in ~1.3 s in both variants — well under the 25 s default cap.
+The original `TimeoutException 30s` was cold-start contention, same
+family as the §1.3/§1.4/§1.5 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 27 | 1183 | 1345 | success, frameworkErrors=0 |
+| flutter_test | 20 | 1289 | 1316 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_3_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1432 | 1245 | 0 |
+| flutter_test | 1362 | 1338 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/ifc_repro_ast.log`, `/tmp/ifc_repro_test.log`,
+`/tmp/ifc_post_ast.log`, `/tmp/ifc_post_test.log`.
 
 ### 1.7 hardly_relevant_classes_4_test — 224 passed, 0 failed, 3 errored
 
