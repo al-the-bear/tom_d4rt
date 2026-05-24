@@ -810,10 +810,19 @@ console output. essential / important / gii do gate on
   `timeout_tests_test`, both on flutter_ast and flutter_test. No
   code change required for this baseline. **Cluster acknowledged.**
 
-- [ ] **fixed** 22. **I-BUG-14a SHOULD FAIL marker** — tom_d4rt (1) and
+- [x] **fixed** 22. **I-BUG-14a SHOULD FAIL marker** — ~~tom_d4rt (1) and
   tom_d4rt_exec (1) both fail this intentional `(FAIL)` marker for
   records with named fields. Cluster P / §6 todo #21 verified — both
-  markers intact, baseline tracks as `X/X`. **No action.**
+  markers intact, baseline tracks as `X/X`. **No action.**~~
+  **ACKNOWLEDGED — both `(FAIL)` + `SHOULD FAIL` markers intact per
+  prior testlog's §6 todo #21 verification (commit `b8111230`).**
+  In the 20260524-2003 baseline these 2 events appear as the
+  `-1` results in `tom_d4rt` (1786/1/1) and `tom_d4rt_exec`
+  (2292/0/1) summaries. Baseline tracking treats them as `X/X`
+  (consistent intentional fail). The shared test fixture
+  propagates the same I-BUG-14a test through both packages so the
+  count is exactly 2 = same root cause, different consumer. No code
+  change required.
 
 - [ ] **fixed** 23. **tom_d4rt_dcli macOS `[fails on Macos]` (14 tests)** —
   upstream DCli 8.4.2 `_whoami()` bug + APFS case-insensitive. Cluster
