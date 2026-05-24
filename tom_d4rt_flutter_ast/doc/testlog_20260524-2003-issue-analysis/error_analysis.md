@@ -262,16 +262,36 @@ framework-error volume despite running the same scripts.
 
 ### Cluster Cold-Start (U25 family) — transport / build-timeout cascades
 
-- [ ] **fixed** 1. **U25 cold-start contention on `render_custom_paint_test.dart` +
-  `render_custom_single_child_layout_box_test.dart`** — these two
+- [x] **fixed** 1. **U25 cold-start contention on `render_custom_paint_test.dart` +
+  `render_custom_single_child_layout_box_test.dart`** — ~~these two
   rendering scripts produce 6 deterministic failures across both
   projects (E6, E7, E13, E14, E16, E17 on flutter_ast; T3, T4, T14,
-  T15, T17, T18 on flutter_test). They are the first scripts in
-  gii's Section 2 / secondary's rendering-individual / timeout's
-  rendering groups, so they reliably catch the cold-start cap.
-  Fix: bump per-script `httpBuildTimeout` to 50 s on all six
-  registrations, OR move them to a "warm-up" preamble in each
-  suite's `setUpAll`. Rule (a) — test-driver-only change.
+  T15, T17, T18 on flutter_test).~~ **FIXED.** The
+  `render_custom_paint_test.dart` registrations had already been
+  bumped in earlier §S/E1 / §1.4/E38 / §1.5/E41 commits (3 files ×
+  2 projects = 6 registrations); only the sibling
+  `render_custom_single_child_layout_box_test.dart` was missed.
+  Applied the same `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)`
+  wrapper to the 6 missed registrations:
+  - `tom_d4rt_flutter_ast/test/timeout_tests_test.dart` (E17)
+  - `tom_d4rt_flutter_ast/test/secondary_classes_test.dart` (E14)
+  - `tom_d4rt_flutter_ast/test/generator_interpreter_issues_test.dart` (E7)
+  - `tom_d4rt_flutter_test/test/timeout_tests_test.dart` (T18)
+  - `tom_d4rt_flutter_test/test/secondary_classes_test.dart` (T15)
+  - `tom_d4rt_flutter_test/test/generator_interpreter_issues_test.dart` (T4)
+
+  Rule (a) — test-driver-only change. Verified each entry
+  individually in serial isolation, all 6 pass cleanly:
+  - AST timeout: totalMs=2167 frameworkErrors=0 ✓
+  - AST secondary: totalMs=2272 frameworkErrors=0 ✓
+  - AST gii: totalMs=2064 frameworkErrors=0 ✓
+  - TEST timeout: totalMs=2065 frameworkErrors=0 ✓
+  - TEST secondary: totalMs=2124 frameworkErrors=0 ✓
+  - TEST gii: totalMs=2040 frameworkErrors=0 ✓
+
+  Closes E6/E7 (AST gii Section 2), E13/E14 (AST secondary), E16/E17
+  (AST timeout) on flutter_ast and T3/T4 (TEST gii), T14/T15 (TEST
+  secondary), T17/T18 (TEST timeout) on flutter_test.
 
 - [ ] **fixed** 2. **flutter_ast cupertino cold-start cascade (E1–E4 + dart_ui E5).**
   `cupertino/picker_test`, `scaffold_test`, `segmented_test`,

@@ -2724,12 +2724,21 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('render_custom_single_child_layout_box_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_custom_single_child_layout_box_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'render_custom_single_child_layout_box_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_custom_single_child_layout_box_test.dart',
+          // 20260524-2003 baseline §6/E14 + T15: same cold-start
+          // contention pattern as the sibling render_custom_paint_test
+          // (§S/E1). Bump cap from 25 s to 50 s with 60 s dart-test
+          // wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('render_editable_test.dart', () async {
       final result = await SendTestRunner.send(

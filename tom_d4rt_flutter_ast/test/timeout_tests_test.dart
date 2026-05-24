@@ -118,12 +118,23 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('render_custom_single_child_layout_box_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_custom_single_child_layout_box_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'render_custom_single_child_layout_box_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_custom_single_child_layout_box_test.dart',
+          // 20260524-2003 baseline §6/E7/E14/E17 + T4/T15/T18: same
+          // cold-start contention pattern as the sibling
+          // render_custom_paint_test (§S/E1) — /build for this
+          // render-heavy script can exceed the default 25 s HTTP cap on
+          // the first request after the test app cold-start. Bump to
+          // 50 s with 10 s headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('render_darwin_platform_view_test.dart', () async {
       final result = await SendTestRunner.send(

@@ -398,12 +398,22 @@ void main() {
     );
 
     // 45. rendering/render_custom_single_child_layout_box_test.dart (idx 320)
-    test('rendering/render_custom_single_child_layout_box_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_custom_single_child_layout_box_test.dart',
-      );
-      expectSuccess(result);
-    });
+    // 20260524-2003 baseline §6/E7: same cold-start contention pattern as the
+    // sibling render_custom_paint_test (§S/E1) — the gii Section 2 group
+    // gates on frameworkErrors==0, so the cold-start /build timeout cascades
+    // into the success-check failing. Bump cap from 25 s to 50 s with 60 s
+    // dart-test wrapper.
+    test(
+      'rendering/render_custom_single_child_layout_box_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_custom_single_child_layout_box_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // 46. rendering/render_physical_shape_test.dart (idx 323)
     test('rendering/render_physical_shape_test.dart', () async {
