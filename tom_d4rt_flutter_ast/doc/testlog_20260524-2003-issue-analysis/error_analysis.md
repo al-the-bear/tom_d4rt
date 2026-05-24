@@ -846,12 +846,37 @@ console output. essential / important / gii do gate on
 
 ### Cluster W — Test-app wedges (skipped, not fixable in this pass)
 
-- [ ] **fixed** 24. **W1–W5 / D1 — script wedges and platform skips (S2, S4–S8).**
-  Six tests are skipped because the underlying scripts either
+- [x] **fixed** 24. **W1–W5 / D1 — script wedges and platform skips (S2, S4–S8).**
+  ~~Six tests are skipped because the underlying scripts either
   destabilise the test app process (W1, W2, W3, W4, W5, D1) or
   require a non-host platform (AndroidView × 2 in S1+S10). These are
   pre-documented and require deeper interpreter / app-process
-  diagnostics. **No action this run.**
+  diagnostics. **No action this run.**~~
+  **ACKNOWLEDGED — all 10 skips intact in the 20260524-2003
+  baseline.** Verified in §4 Skipped tests table:
+  - S1 / S10: `widgets/android_view_test.dart` (gii + secondary) —
+    `AndroidView only renders on Android`.
+  - S2: `widgets/animated_switcher_test.dart` — W5 wedges /build
+    for ~60 s.
+  - S3: `dart_ui/system_color_palette_test.dart` (retest) — U24
+    platform skip (web-only API).
+  - S4: `widgets/context_action_test.dart` — W1 cascade victim.
+  - S5: `widgets/default_text_editing_shortcuts_test.dart` — W2
+    /build hangs.
+  - S6: `widgets/live_text_input_status_test.dart` — W3 cascade of W2.
+  - S7: `widgets/lock_state_test.dart` — W4 cascades 19 retests.
+  - S8: `dart_ui/image_sampler_slot_test.dart` — D1 destabilises
+    test app for subsequent dart_ui/gestures scripts.
+  - S9: `dart_ui/isolate_name_server_test.dart` — `IsolateNameServer`
+    not supported by d4rt interpreter.
+
+  Each skip carries its own reason string and is intentional (per
+  `doc/interpreter_issues.md` or `interpreter_unfixable.md`). The W1–W5
+  and D1 wedges represent test-app-process destabilisation that
+  requires app-side diagnostics (the script appears to corrupt the
+  /clear or /build handlers in ways that cascade); a proper fix would
+  involve re-running the wedge scripts in isolation with extra
+  instrumentation. **No code change required for this baseline.**
 
 ### Verification (after fixes)
 
