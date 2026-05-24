@@ -637,10 +637,31 @@ console output. essential / important / gii do gate on
   by 0.2–0.5 typically resolves both right and bottom overflows for
   GridView-based cards.
 
-- [ ] **fixed** 15. **H-hardly1 (flutter_ast, 5 scripts, 22 events)** —
-  `gestures/tap_move_details_test` (10),
-  `foundation/diagnosticable_tree_test` (9), 3 single-event scripts.
-  Rule (a).
+- [~] **partial (2 of 5 scripts fixed: tap_move_details 10→0 + diagnosticable_tree 9→0 = 19 of 22 events cleared, 86 %; 3 single-event scripts deferred)** 15.
+  **H-hardly1 (flutter_ast, 5 scripts, 22 events)** —
+  ~~`gestures/tap_move_details_test` (10),
+  `foundation/diagnosticable_tree_test` (9), 3 single-event scripts.~~
+
+  **Fixed (2 of 5 — 19 of 22 events, 86 %):**
+  - **`gestures/tap_move_details_test.dart`** (10 → 0). Each of the
+    10 simulated-move cards rendered an inner Row of 2 `_kvChip`
+    widgets whose intrinsic width (`'global=Offset(x.x, y.y)'` +
+    `'Δ=Offset(x.x, y.y)'`) exceeded the card's pane by ~18 px.
+    **Fix:** replaced the inner `Row` (line 655) with a `Wrap` so
+    chips drop to the next line under tight widths. Verified
+    totalMs=1661 fwErr=0.
+  - **`foundation/diagnosticable_tree_test.dart`** (9 → 0). A 2-col
+    `GridView.count(childAspectRatio: 2.05)` with 9 `_PropEntry`
+    items — each cell ~167 px tall vs `_PropCard` natural ~173 px →
+    9 × 6.3 px bottom overflow. **Fix:** dropped
+    `childAspectRatio: 2.05 → 1.85`. Verified totalMs=2509 fwErr=0.
+
+  **Deferred (3 of 5 — 3 single events):**
+  - `dart_ui/callback_handle_test.dart` (1)
+  - `foundation/category_test.dart` (1)
+  - `gestures/pointer_pan_zoom_update_event_test.dart` (1)
+
+  Rule (a) — test-script-only changes.
 
 - [ ] **fixed** 16. **H-hardly2 (flutter_ast, 1 script, 6 events)** —
   `material/menu_accelerator_label_test` (6). Rule (a).

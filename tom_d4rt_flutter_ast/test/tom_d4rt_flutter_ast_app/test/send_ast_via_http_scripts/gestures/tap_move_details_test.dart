@@ -652,10 +652,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            // 20260524-2003 baseline §6/H-hardly1 todo #15
+                            // (tap_move_details_test): the inner Row of
+                            // two `_kvChip` widgets (intrinsic-width
+                            // based on their 'global=Offset(x.x, y.y)'
+                            // and 'Δ=Offset(x.x, y.y)' content) overflows
+                            // the card's inner pane by ~18 px on the
+                            // right for each of the 10 simulated-move
+                            // cards. Replace with a Wrap so chips drop
+                            // to the next line when there is not enough
+                            // horizontal room.
+                            Wrap(
+                              spacing: 6.0,
+                              runSpacing: 4.0,
                               children: [
                                 _kvChip('global', '${m.globalPosition}', accent),
-                                SizedBox(width: 6.0),
                                 _kvChip('Δ', '${m.delta}', accent),
                               ],
                             ),

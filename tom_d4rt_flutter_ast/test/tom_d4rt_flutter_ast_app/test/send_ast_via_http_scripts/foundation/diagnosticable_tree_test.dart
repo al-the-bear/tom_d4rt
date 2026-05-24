@@ -1613,13 +1613,18 @@ class _PropertiesBuilderGallerySection extends StatelessWidget {
             tint: _accentAlt,
           ),
           SizedBox(height: 18),
+          // 20260524-2003 baseline §6/H-hardly1 todo #15
+          // (diagnosticable_tree_test): 9 _PropEntry × 6.3 px bottom
+          // overflow in this 2-col grid (childAspectRatio: 2.05 gives
+          // cell height ≈ 167 px but _PropCard natural ≈ 173 px). Drop
+          // to 1.85 for a few px of headroom.
           GridView.count(
             crossAxisCount: 2,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             crossAxisSpacing: 14,
             mainAxisSpacing: 14,
-            childAspectRatio: 2.05,
+            childAspectRatio: 1.85,
             children: <Widget>[
               for (final _PropEntry entry in entries) _PropCard(entry: entry),
             ],
