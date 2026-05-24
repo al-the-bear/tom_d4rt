@@ -1397,10 +1397,39 @@ clean closures of §1.4, §1.5, and §1.6.
 
 | # | script | inner error | contention? |
 |---|---|---|---|
-| E34 | `widgets/restorable_num_n_test.dart` | TimeoutException 30s | ast-only |
+| E34 | `widgets/restorable_num_n_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.8/E34 fix note |
 | E35 | `widgets/selectable_region_selection_status_test.dart` | TimeoutException 30s | ast-only |
 | E36 | `widgets/tree_sliver_state_mixin_test.dart` | TimeoutException 30s | **shared** — §S |
 | E37 | `widgets/update_selection_intent_test.dart` | Transport failure 25s | ast-only |
+
+#### §1.8/E34 — `widgets/restorable_num_n_test.dart` — FIXED
+
+**Status: FIXED.** This 1734-line / 57 KB / 675 KB AST bundle script
+builds in ~1.3–1.4 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention,
+same family as the §1.3–§1.7 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 34 | 1112 | 1389 | success, frameworkErrors=0 |
+| flutter_test | 25 | 1221 | 1254 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_5_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1347 | 1078 | 0 |
+| flutter_test | 1201 | 1167 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/rnn_repro_ast.log`, `/tmp/rnn_repro_test.log`,
+`/tmp/rnn_post_ast.log`, `/tmp/rnn_post_test.log`.
 
 1 script emits framework errors (§3).
 

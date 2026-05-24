@@ -484,12 +484,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('restorable_num_n_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/restorable_num_n_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'restorable_num_n_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/restorable_num_n_test.dart',
+          // 20260523-1056 baseline §1.8/E34 (ast) + §2.D contention
+          // (test): TimeoutException 30s — cold-start contention.
+          // 1734-line / 57 KB script builds in ~1.3 s. Same family
+          // as the §1.3–§1.7 E-series: 50 s leaves 10 s of headroom
+          // under the 60 s dart-test wrapper. Applied symmetrically
+          // with the ast variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('restorable_num_test.dart', () async {
       final result = await SendTestRunner.send(
