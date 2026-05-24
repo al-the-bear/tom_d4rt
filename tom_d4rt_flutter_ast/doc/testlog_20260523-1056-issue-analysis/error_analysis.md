@@ -2988,10 +2988,102 @@ and fail in test:
 
 ### Cluster R — Verification
 
-- [ ] **fixed** 23. After all 1–22 fixes, re-run the four-suite serial
-  protocol per project (gii + essential + important + secondary) and
-  confirm the headline numbers drop to ≈ 2188/0/0 (ast) and ≈ 2192/0/0
-  (test) with framework error totals ≤ 5 each.
+- [~] **partial — flutter_test meets all targets; flutter_ast has
+  build-pass rate 97.5 % but framework-error totals well over the
+  ≤ 5/suite goal** 23. Re-ran the four-suite serial protocol per project
+  (gii + essential + important + secondary) after todos #1–#22 closed.
+  Raw logs:
+  `ztmp/cluster_r_verify/ast_all.log` (488 KB) and
+  `ztmp/cluster_r_verify/test_all.log` (248 KB). Wall-clock per
+  project: ~21 min (ast) / ~33 min (test).
+
+  **flutter_ast (`tom_d4rt_flutter_ast`):**
+
+  | Suite | passed | skipped | errored | fwErr total | scripts w/ fwErr |
+  |---|---:|---:|---:|---:|---:|
+  | gii | 70 | 2 | 11 | **42** | 9 |
+  | essential | 102 | 0 | 6 | **26** | 6 |
+  | important | 161 | 0 | 3 | **43** | 6 |
+  | secondary | 651 | 1 | 2 | **84** | 27 |
+  | **total** | **984** | **3** | **22** | **195** | — |
+
+  Build-pass rate: 984 / 1009 = **97.5 %**. Of the 22 errors,
+  11 are `Transport failure` cold-start contention
+  (U25 family — `Failed to foreground app; open returned 1`),
+  plus 16 `TimeoutException` lines (some overlap). The remaining
+  errors come from gii's `Section 2 - Bridge Generator Issues`
+  expecting `frameworkErrors==0` and failing on scripts that emit
+  layout overflows (`image_filtered_test` 14 events,
+  `list_wheel_viewport_test` 8, `list_wheel_scroll_view_test` 7,
+  `navigation_toolbar_test` 4, `overflow_bar_test` 3,
+  `overflow_box_test` 3, etc.) — these scripts are **not in the
+  original H-cluster baseline** and were not triaged in todos
+  #14–#19. essential's `appbar_test` (12) / `icon_test` (9) and
+  important's `matrix_test` (18) / `router_test` (14) /
+  `dialog_themes_test` (8) are similar new fwErr surfacers.
+
+  **flutter_test (`tom_d4rt_flutter_test`):**
+
+  | Suite | passed | skipped | errored | fwErr total | scripts w/ fwErr |
+  |---|---:|---:|---:|---:|---:|
+  | gii | 81 | 2 | 0 | **0** | 0 |
+  | essential | 107 | 0 | 1 | **0** | 0 |
+  | important | 163 | 0 | 0 | **0** | 0 |
+  | secondary | 651 | 1 | 2 | **1** | 1 |
+  | **total** | **1002** | **3** | **3** | **1** | — |
+
+  Build-pass rate: 1002 / 1008 = **99.4 %**. The 3 errors:
+  - `essential material/materialapp_test.dart` — **F3
+    RouterDelegate** divergence on the source-based runner;
+    documented as **U26** in `interpreter_unfixable.md` (§6 todo #8
+    partial; the `RouteInformationParser` side closes, the
+    `RouterDelegate` side rejects `InterpretedInstance` despite
+    identical proxy registration).
+  - `secondary rendering/individual render_custom_paint_test.dart`
+    — `Transport failure` cold-start contention (U25 family).
+  - `secondary rendering/individual render_custom_single_child_layout_box_test.dart`
+    — same cold-start contention (U25).
+
+  The 1 framework error is the U17 by-design teaching demo
+  `rendering/render_constraints_transform_box_test.dart` (todo
+  #18's "1 confirmed-deferred BY DESIGN").
+
+  **flutter_test fully meets all per-suite targets** (`framework
+  error totals ≤ 5 each`: 0/0/0/1 across the four suites). All
+  errors are pre-documented (U17/U25/U26) or expected. **Cluster R
+  closes on the flutter_test side.**
+
+  **flutter_ast side over target.** The framework-error totals
+  (42/26/43/84) are well over 5/suite. Investigation shows the
+  high-volume scripts (e.g., `image_filtered_test` 14 events,
+  `matrix_test` 18 events, `router_test` 14 events) are not in the
+  original baseline's H-cluster lists and were not triaged in
+  todos #14–#19. These appear to be either (a) scripts whose layout
+  overflows were latent in the baseline run (the original baseline
+  did not aggregate per-script fwErr totals across gii), or (b)
+  rendering-time regressions surfaced by accumulated layout changes
+  in the script corpus. The actual TEST FAILURES on flutter_ast are
+  almost entirely the gii Section-2 strict-fwErr-zero expectations
+  firing on these scripts — a relaxation of those expectations would
+  bring the pass rate to ~100 % but mask real overflows; a triage
+  pass on the new high-volume scripts would close them properly.
+  **Deferred to a follow-up cluster.**
+
+  **Headline-number comparison vs target.** The target
+  `≈ 2188/0/0 (ast) and ≈ 2192/0/0 (test)` references total tests
+  across the four suites, but my count is 1009 / 1008 per project.
+  Either the original estimate was based on a different aggregate
+  (e.g., including hardly_relevant_1..5, generator_interpreter_retest,
+  timeout_tests, and other auxiliary test files) or the test corpus
+  has shrunk since the baseline was written. Auxiliary test files
+  are out of scope for the four-suite protocol; they were already
+  exercised cluster-by-cluster in todos #11/#13/#20.
+
+  Cluster R ← **partial close**. flutter_test verification done;
+  flutter_ast verification deferred (97.5 % build-pass rate
+  acceptable, but the 195 framework-error events across 48 scripts
+  on flutter_ast need a fresh H-cluster triage pass to close
+  formally).
 
 ---
 
