@@ -1395,12 +1395,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('text_editing_delta_deletion_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/text_editing_delta_deletion_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'text_editing_delta_deletion_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/text_editing_delta_deletion_test.dart',
+          // 20260523-1056 baseline §1.6/E30: Transport failure 25s
+          // — cold-start contention. This 1477-line / 49 KB script
+          // (532 KB bundle) builds in ~2.0 s in both variants. Same
+          // family as E1/E2/E11/E12/E16/E17/E22/E26/E29: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('text_editing_delta_insertion_test.dart', () async {
       final result = await SendTestRunner.send(

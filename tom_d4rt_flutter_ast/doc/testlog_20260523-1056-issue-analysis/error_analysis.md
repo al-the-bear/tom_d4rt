@@ -1034,7 +1034,7 @@ clean closure of §1.4.
 | E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E27 fix note |
 | E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E28 fix note |
 | E29 | `services/raw_key_event_data_ios_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E29 fix note |
-| E30 | `services/text_editing_delta_deletion_test.dart` | Transport failure 25s | ast-only |
+| E30 | `services/text_editing_delta_deletion_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E30 fix note |
 
 #### §1.6/E24 — `rendering/image_filter_config_test.dart` — FIXED
 
@@ -1225,6 +1225,59 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/rkedi_repro_ast.log`, `/tmp/rkedi_repro_test.log`,
 `/tmp/rkedi_post_ast.log`, `/tmp/rkedi_post_test.log`.
+
+#### §1.6/E30 — `services/text_editing_delta_deletion_test.dart` — FIXED
+
+**Status: FIXED.** This 1477-line / 49 KB / 532 KB AST bundle script
+builds in ~2.0 s in both variants — well under the 25 s default cap.
+The original `Transport failure 25s` was cold-start contention
+pushing the first request just past the 25 s HTTP cap, same family
+as E1/E2/E11/E12/E16/E17/E22/E26/E29.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 29 | 1802 | 2011 | success, frameworkErrors=0 |
+| flutter_test | 26 | 1976 | 2009 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_3_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2071 | 1830 | 0 |
+| flutter_test | 2031 | 1998 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/tedd_repro_ast.log`, `/tmp/tedd_repro_test.log`,
+`/tmp/tedd_post_ast.log`, `/tmp/tedd_post_test.log`.
+
+#### §1.6 cluster summary
+
+§1.6 (hardly_relevant_classes_3_test, 7 errored entries) is now
+fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E24 | `rendering/image_filter_config_test.dart` | FIXED |
+| E25 | `rendering/render_app_kit_view_test.dart` | FIXED (also closes §S/S3) |
+| E26 | `rendering/sliver_paint_order_test.dart` | FIXED |
+| E27 | `services/application_switcher_description_test.dart` | FIXED |
+| E28 | `services/keyboard_key_test.dart` | FIXED |
+| E29 | `services/raw_key_event_data_ios_test.dart` | FIXED |
+| E30 | `services/text_editing_delta_deletion_test.dart` | FIXED |
+
+**Tally: 7 of 7 FIXED.** All via the standard caller-side
+`httpBuildTimeout` 25 s → 50 s + wrapper 30 s → 60 s pattern. No
+partials, no deferrals — **§1.6 closes cleanly**, mirroring the
+clean closures of §1.4 and §1.5. The §S table is now 3 of 6 cleared
+(S1 via E1, S2 via E12, S3 via E25); the remaining three §S
+candidates (S4, S5, S6) still need serial isolated re-run
+verification in their respective sections (§1.8, §1.10, §1.12).
 
 ### 1.7 hardly_relevant_classes_4_test — 224 passed, 0 failed, 3 errored
 
