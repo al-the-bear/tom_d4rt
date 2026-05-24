@@ -6198,8 +6198,139 @@ underlying U24 limitation.
 
 ---
 
+## U25 — Source-based interpreter cold-start parse + execute exceeds 50 s for `widgets/always_scrollable_scroll_physics_test.dart` in `tom_d4rt_flutter_test` (source interpreter performance limit)
+
+**Category.** Source-based interpreter cold-start performance limit. The
+`tom_d4rt_flutter_test` variant (which receives raw Dart source over HTTP
+and invokes the source-based interpreter to parse + execute it) cannot
+complete the build for this 1219-line, 42.5 KB script within the test
+app's internal 30 s timeout — and increasing the timeout to 50 s does
+not help, because the build either runs past 50 s or hangs entirely on
+the *first* request after the test app cold-starts. The `tom_d4rt_flutter_ast`
+variant (which receives a pre-compiled AST bundle) completes the same
+script in ~1.4 s, so the corpus / bridge surface is fine; only the
+source path is affected.
+
+**Reproducer.** `widgets/always_scrollable_scroll_physics_test.dart`
+in `tom_d4rt_flutter_test/test/secondary_classes_test.dart` group
+`widgets/ individual`. Three consecutive cold-start runs (each
+`flutter test` invocation kills + restarts the test app):
+
+```
+[METRIC] sourceChars=42551 clearMs=2011 httpMs=30027 totalMs=32045 status=error httpStatus=400  (Build timed out after 30 seconds)
+[METRIC] sourceChars=42551 clearMs=2012 httpMs=50005 totalMs=52040 status=transport_error      (server-side 30s removed; HTTP 50s caller cap fires instead)
+[METRIC] sourceChars=42551 clearMs=2013 httpMs=50003 totalMs=52028 status=transport_error      (same as above, deterministic)
+```
+
+Compare to the warm follow-up (test app already running from a previous
+`flutter test` invocation that completed `setUpAll`):
+
+```
+[METRIC] sourceChars=42551 clearMs=37 httpMs=1655 totalMs=1699 status=success frameworkErrors=0
+```
+
+The same script in `tom_d4rt_flutter_ast` (which loads a 479 KB AST
+bundle and skips parsing) completes in ~1.4 s on cold start:
+
+```
+[METRIC] sourceBytes=42579 sourceChars=42551 bundleJsonBytes=479097 clearMs=19 readMs=2 bundleMs=166 httpMs=1353 totalMs=1542 status=success frameworkErrors=0
+```
+
+So the slow path is specifically the source-based parser + interpreter's
+*first* run after the test app starts. Subsequent runs in the same app
+instance are fast (~1.7 s).
+
+**Root cause (suspected, not bisected).** The source-based interpreter
+in `tom_d4rt_flutter_test_app` has a one-time JIT warm-up cost on the
+first execution after the Flutter engine starts. For most scripts (<25 s
+cold-start budget under contention) this is invisible. For this
+1219-line script the cold-start parse + execute pushes the build past
+30 s — and apparently past 50 s on the runs we measured.
+
+This is *distinct* from §1.3/E1 and §1.3/E2 (which were genuine
+cold-start contention covered by the 25 s → 50 s caller-side
+`httpBuildTimeout` raise; the warm `httpMs` is well under 25 s for
+those). For E3 the warm `httpMs` is also well under 25 s, but the
+*cold* run is intrinsically slower than the source interpreter can
+handle within any reasonable timeout we tried.
+
+**Why we cannot fix it without interpreter work.** Three options were
+attempted:
+
+1. **Caller-side `httpBuildTimeout` 25 s → 50 s** (applied to both
+   variants). Helps E1/E2 (which finish in 1.5–2.1 s warm); does not
+   help E3 because the source-cold-start exceeds 50 s.
+2. **Server-side build timeout 30 s → 50 s** (in both `main.dart`
+   files). Removes the 30 s server cap but the build still does not
+   complete within the new 50 s window — the caller-side timeout fires
+   instead, producing the same end-result failure.
+3. **Reduce the script** — out of scope for this fix pass; the script
+   is a hand-authored deep-demo and is the unit of work for the
+   secondary suite.
+
+The genuine fix requires either:
+
+- **Interpreter perf work**: speed up the source-based interpreter's
+  first-execution overhead so that even large scripts finish in
+  ≤30 s under contention. Likely involves pre-warming the d4rt
+  parser / declaration visitor / Environment infrastructure during
+  app startup.
+- **Test-app warm-up step**: before `setUpAll` returns, push a small
+  dummy script through `/build` to incur the first-run cost during
+  setUp time instead of during the first real test.
+
+Either approach is outside the scope of an entry-level timeout fix.
+
+**Workaround (current state, deferred).** The `tom_d4rt_flutter_ast`
+variant runs the same corpus without this limitation (AST bundles
+skip the parse step entirely). Operationally:
+
+- The ast variant is the primary verification surface for the script
+  corpus on a single host.
+- The `tom_d4rt_flutter_test` variant is best run *with the test app
+  already warm* — i.e., after at least one successful `flutter test`
+  pass against the same `tom_d4rt_flutter_test_app` instance. In
+  practice this means running `tom_d4rt_flutter_test` suites
+  **serially** rather than in parallel with the ast driver, and
+  accepting that the **first** script in a freshly-launched
+  `flutter test` invocation may flake.
+- If the cold-start failure recurs in a CI run, re-run the affected
+  test individually; subsequent runs against the same warm app
+  complete in <2 s.
+
+**Affected scripts** (post-fix on E1/E2 in source variant — these are
+the scripts whose source-based cold-start exceeds the 25 s default;
+each was triaged with a serial isolated re-run):
+
+| Script | Suite | Cold httpMs | Warm httpMs | Resolution |
+|--------|-------|-------------:|-------------:|------------|
+| `widgets/always_scrollable_scroll_physics_test.dart` | secondary | 50000+ (hang) | 1655 | **U25 (this entry)** — source-cold exceeds 50 s; ast variant fixed via caller-side timeout raise. |
+| `services/hybrid_android_view_controller_test.dart` | secondary | ~25000 | 1586 | **E2 fix** — caller-side 50 s timeout sufficient (cold-start contention was 25 s, not 30 s+). |
+| `rendering/render_custom_paint_test.dart` | secondary, timeout, gii | ~25000 | 2078 | **E1 fix** — caller-side 50 s timeout sufficient. |
+
+**Open / deferred.** A follow-up interpreter task to add app-startup
+warm-up of the d4rt parser + interpreter infrastructure would close
+this and likely several other E-series scripts whose cold httpMs
+falls in the 30 s–50 s gap. Tracked outside this entry.
+
+---
+
 ## Change Log
 
+- 2026-05-24: **Add U25 (entry #E3, partial)** — Source-based
+  interpreter cold-start parse + execute exceeds 50 s for
+  `widgets/always_scrollable_scroll_physics_test.dart` in
+  `tom_d4rt_flutter_test`. Caller-side `httpBuildTimeout` raise
+  (25 s → 50 s) clears the corresponding ast-variant failure
+  (which warm-runs in ~1.4 s), but the source variant cold-start
+  exceeds the new 50 s cap. Server-side build timeout bump
+  (30 s → 50 s in both `main.dart` files) was attempted and
+  reverted — the build does not complete within the new window
+  either. Marked **partial** in
+  `testlog_20260523-1056-issue-analysis/error_analysis.md` §1.3/E3:
+  ast variant fixed, flutter_test variant deferred to a future
+  interpreter perf pass (likely needs an app-startup warm-up of
+  the d4rt parser / declaration visitor / Environment).
 - 2026-05-23: **Add U24 (entry #22)** —
   `try { x = ui.SystemColor.light; } catch (e) { ... }` does not
   intercept the bridge-wrapped `UnsupportedError` on desktop

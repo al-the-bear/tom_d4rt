@@ -121,7 +121,7 @@ Clean. 7 scripts emit framework errors (see §3).
 |---|---|---|---|
 | E1 | `rendering/render_custom_paint_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
 | E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E2 fix note below |
-| E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | ast-only |
+| E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | **PARTIAL (ast fixed via caller-side 50 s timeout; flutter_test source-cold-start exceeds 50 s — deferred to U25)** — see §1.3/E3 fix note |
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | ast-only |
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | ast-only |
 | E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | ast-only |
@@ -162,6 +162,79 @@ symptom-match heuristic, not to contention exposure).
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/havc_repro_ast.log` (cold-start repro), `/tmp/havc_repro_ast_2.log`
 (warm retry), `/tmp/havc_post_ast.log`, `/tmp/havc_post_test.log`.
+
+#### §1.3/E3 — `widgets/always_scrollable_scroll_physics_test.dart` — PARTIAL
+
+**Status: PARTIAL.** The ast variant is fixed via the same caller-side
+`httpBuildTimeout` 25 s → 50 s pattern as E1/E2. The flutter_test
+(source-based) variant cannot be fixed by timeout tuning: cold-start
+parse + execute of this 1219-line script exceeds even a 50 s budget.
+
+**Cold-start measurements** (each `flutter test` invocation kills + restarts
+the test app, so each is a cold run):
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast (cold) | 27 | 1444 | 1661 | success (ast fix works) |
+| flutter_test (cold #1) | 2011 | 30027 | 32045 | server returned `Build timed out after 30 seconds` (status=error, httpStatus=400) |
+| flutter_test (cold #2, after server-side 30 s → 50 s bump) | 2012 | 50005 | 52040 | caller HTTP timed out (status=transport_error) |
+| flutter_test (cold #3, same config) | 2013 | 50003 | 52028 | same as #2 (deterministic) |
+| flutter_test (warm follow-up) | 37 | 1655 | 1699 | success |
+
+So the ast variant warm-runs in 1.4 s; the flutter_test variant warm-runs
+in 1.7 s; but the flutter_test cold-start build exceeds 50 s consistently.
+The ast variant is unaffected because it loads a 479 KB pre-compiled AST
+bundle and skips parsing entirely.
+
+**Fix attempts and outcomes:**
+
+1. **Caller-side `httpBuildTimeout` 25 s → 50 s on both variants** —
+   Fixes ast (warm/cold ~1.4 s, well under 25 s). Insufficient for
+   flutter_test cold-start.
+2. **Server-side build timeout 30 s → 50 s in both `main.dart`** (rule (b)
+   change) — Removes the 30 s server cap; the source build then runs
+   until the new 50 s caller cap. Still does not complete. **Reverted.**
+
+**Reverted changes:**
+
+- `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart` —
+  build timeout back to 30 s (no functional change vs baseline).
+- `tom_d4rt_flutter_test/test/tom_d4rt_flutter_test_app/lib/main.dart` —
+  build timeout back to 30 s.
+- `tom_d4rt_flutter_test/test/secondary_classes_test.dart` E3 entry —
+  reverted to the original 2-line `test(…)` invocation without the
+  caller-side override. Bumping the caller-side cap with no path
+  forward to actually complete the build was misleading; the source
+  variant of this test should fail-fast at the existing 30 s
+  server-side cap rather than burn 50 s of CI time per cold-start
+  attempt.
+
+**Final fix kept:** caller-side `httpBuildTimeout` 50 s + wrapper 60 s
+in `tom_d4rt_flutter_ast/test/secondary_classes_test.dart` only (ast
+variant). This eliminates the original "TimeoutException 30s" failure
+mode for that variant. The flutter_test variant continues to use the
+default 30 s timeout — same as before this fix.
+
+**Deferred to U25.** The source-based interpreter cold-start performance
+limit is documented as **U25** in
+`tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` (added 2026-05-24).
+Resolution requires either (a) interpreter perf work to reduce
+first-execution overhead, or (b) a test-app warm-up step in `setUpAll`
+that incurs the JIT cost outside the first real test. Both are outside
+the scope of an entry-level timeout fix.
+
+**Verification (post-revert, ast only):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1661 | 1444 | 0 |
+
+Rule (a) for the kept ast change; rule (b) attempted for server-side
+bump and **reverted** when the underlying source-cold-start issue
+proved out of scope. Raw logs: `/tmp/assp_repro_ast.log`,
+`/tmp/assp_post_test_warm.log`, `/tmp/assp_post_test_fix.log`,
+`/tmp/assp_warm_test.log`, `/tmp/assp_warm_test_2.log`,
+`/tmp/assp_ast_final.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 

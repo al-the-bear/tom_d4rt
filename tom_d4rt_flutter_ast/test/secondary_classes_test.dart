@@ -3535,12 +3535,23 @@ void main() {
 
   // --- WIDGETS INDIVIDUAL SCRIPTS (172 files) ---
   group('widgets/ individual', () {
-    test('always_scrollable_scroll_physics_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/always_scrollable_scroll_physics_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'always_scrollable_scroll_physics_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/always_scrollable_scroll_physics_test.dart',
+          // 20260523-1056 baseline §1.3/E3: TimeoutException after 30s
+          // — the dart-test wrapper's default 30 s timeout fired before
+          // the 25 s HTTP cap, indicating both clearMs and httpMs are
+          // stretched by parallel-driver contention. Serial isolated
+          // re-runs complete in ~1.7 s (httpMs=1438). 50 s leaves 10 s
+          // of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('android_view_test.dart', () async {
       final result = await SendTestRunner.send(
