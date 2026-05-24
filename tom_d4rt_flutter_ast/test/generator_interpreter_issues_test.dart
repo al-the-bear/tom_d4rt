@@ -380,12 +380,22 @@ void main() {
     });
 
     // 44. rendering/render_custom_paint_test.dart (idx 319)
-    test('rendering/render_custom_paint_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_custom_paint_test.dart',
-      );
-      expectSuccess(result);
-    });
+    // 20260523-1056 baseline §S/E1/E41: under parallel-driver contention the
+    // /build for this 1521-line, 60 KB script can exceed the default 25 s
+    // HTTP cap on the first request after the test app cold-start. Serial
+    // isolated re-runs complete in ~2 s. 50 s leaves 10 s of headroom under
+    // the 60 s dart-test wrapper.
+    test(
+      'rendering/render_custom_paint_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_custom_paint_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // 45. rendering/render_custom_single_child_layout_box_test.dart (idx 320)
     test('rendering/render_custom_single_child_layout_box_test.dart', () async {

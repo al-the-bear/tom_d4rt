@@ -119,7 +119,7 @@ Clean. 7 scripts emit framework errors (see §3).
 
 | # | script | inner error | contention? |
 |---|---|---|---|
-| E1 | `rendering/render_custom_paint_test.dart` | Transport failure POST /build 25s | **shared with test** — see §S |
+| E1 | `rendering/render_custom_paint_test.dart` | Transport failure POST /build 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
 | E2 | `services/hybrid_android_view_controller_test.dart` | Transport failure POST /build 25s | ast-only |
 | E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | ast-only |
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | ast-only |
@@ -208,7 +208,7 @@ prior baseline; tracked as todo #12 below).
 
 | # | script | inner error | contention? |
 |---|---|---|---|
-| E38 | `rendering/render_custom_paint_test.dart` | Transport failure 25s | **shared** — §S |
+| E38 | `rendering/render_custom_paint_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
 | E39 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s | **shared** — §S |
 | E40 | `widgets/sliver_animated_list_state_test.dart` | Transport failure 25s | ast-only |
 
@@ -216,7 +216,7 @@ prior baseline; tracked as todo #12 below).
 
 | # | script | inner error |
 |---|---|---|
-| E41 | `rendering/render_custom_paint_test.dart` | Transport failure 25s — **ast-only here** but mirrors §1.10 wedge |
+| E41 | `rendering/render_custom_paint_test.dart` | Transport failure 25s — **FIXED (cold-start contention, not a wedge)** — see §S |
 
 **Skipped:**
 
@@ -415,18 +415,47 @@ These are the **only** errored entries that appear in *both* flutter_ast
 and flutter_test runs — strong signal they are reproducible interpreter
 wedges rather than contention artefacts. A serial re-run would confirm.
 
-| # | script | suite(s) | symptom |
-|---|---|---|---|
-| S1 | `rendering/render_custom_paint_test.dart` | secondary + timeout (+ gii on ast) | Transport failure POST /build 25s |
-| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) |
-| S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) |
-| S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s |
-| S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) |
-| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s |
+| # | script | suite(s) | symptom | status |
+|---|---|---|---|---|
+| S1 | `rendering/render_custom_paint_test.dart` | secondary + timeout (+ gii on ast) | Transport failure POST /build 25s | **FIXED** (entry #E1 — cold-start contention, not a wedge) |
+| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) | open |
+| S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) | open |
+| S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | open |
+| S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | open |
+| S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s | open |
 
 §S total: **6 candidate wedges** (potentially up to 7 if `render_custom_paint`
 appears in three independent suites). Each is a one-or-two-script
 investigation — start with isolated repro in `bisect_test.dart`.
+
+### §S/S1 — `rendering/render_custom_paint_test.dart` — FIXED
+
+**Status: FIXED.** Serial isolated re-runs of the script in all 3 suites
+on both projects produced `frameworkErrors=0` with httpMs of 1.7–2.1 s —
+two orders of magnitude under the 25 s HTTP cap. The original transport
+failure was therefore **cold-start contention** (the parallel
+ast+test app boots at 10:59:09 / 10:59:12 stretched the first /build
+request beyond 25 s), not a reproducible interpreter wedge.
+
+**Verification (post-fix):**
+
+| project | suite | totalMs | status | frameworkErrors |
+|---|---|---:|---|---:|
+| flutter_ast | secondary | 2051 | success | 0 |
+| flutter_ast | timeout | 1993 | success | 0 |
+| flutter_ast | gii | 2020 | success | 0 |
+| flutter_test | secondary | 2090 | success | 0 |
+| flutter_test | timeout | 1971 | success | 0 |
+| flutter_test | gii | 1941 | success | 0 |
+
+**Fix:** raised the per-script HTTP build timeout from 25 s → 50 s in the
+3 ast test files and the 3 test test files that drive this script,
+mirroring the existing precedent for `gestures/least_squares_solver_test.dart`
+in `hardly_relevant_classes_1_test.dart` (lines 1237–1255). The
+dart-test wrapper timeout is also bumped to 60 s so the 50 s HTTP cap
+fires first if a real hang occurs in future runs. The script itself
+was not modified; rule (a) applies (test-script-level configuration
+change in `test/`). Raw verification logs: `/tmp/rcp_post_{ast,test}_{secondary,timeout,gii}.log`.
 
 ---
 
