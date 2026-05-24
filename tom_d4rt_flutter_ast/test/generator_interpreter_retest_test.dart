@@ -259,20 +259,36 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('retest: rendering/render_sliver_box_child_manager_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/rendering/render_sliver_box_child_manager_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: rendering/render_sliver_box_child_manager_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/rendering/render_sliver_box_child_manager_test.dart',
+          // 20260524-2003 baseline §6/T6 (= todo #7): cold-start
+          // contention in the gir retest cluster (symmetric with the
+          // flutter_test variant). Standard 25 s → 50 s + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // Services
-    test('retest: services/message_codec_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/services/message_codec_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: services/message_codec_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/services/message_codec_test.dart',
+          // 20260524-2003 baseline §6/T7 (= todo #7): cold-start
+          // contention in the gir retest cluster (symmetric with the
+          // flutter_test variant). Standard 25 s → 50 s + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: services/method_codec_test.dart', () async {
       final result = await SendTestRunner.send(

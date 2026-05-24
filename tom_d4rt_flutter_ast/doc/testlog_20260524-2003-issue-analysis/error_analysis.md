@@ -397,12 +397,30 @@ framework-error volume despite running the same scripts.
   Verified flutter_test side: totalMs=3386 frameworkErrors=0 ✓.
   Closes T1 on flutter_test.
 
-- [ ] **fixed** 7. **flutter_test T5–T8 retest cold-start cascade.**
-  `retest/rendering/render_animated_size_state_test`,
+- [x] **fixed** 7. **flutter_test T5–T8 retest cold-start cascade.**
+  ~~`retest/rendering/render_animated_size_state_test`,
   `retest/rendering/render_sliver_box_child_manager_test`,
   `retest/services/message_codec_test`,
   `retest/widgets/app_kit_view_test` — same as flutter_ast retest
-  cluster. Bump caps. Rule (a).
+  cluster.~~ **FIXED.** Audit found:
+  - T5 (`render_animated_size_state`) and T8 (`app_kit_view`) were
+    already capped in earlier work — T5 via §6 todo #4 commit
+    `b594c380` (this session); T8 via §1.12/E43 from the prior
+    baseline. No change needed for those two.
+  - T6 (`render_sliver_box_child_manager`) and T7
+    (`message_codec`) had no cap. Bumped with the standard
+    `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)` wrapper.
+    flutter_ast bumped symmetrically.
+
+  Files changed:
+  - `tom_d4rt_flutter_ast/test/generator_interpreter_retest_test.dart`
+  - `tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart`
+
+  Rule (a) — test-driver-only change. Verified on flutter_test:
+  - `render_sliver_box_child_manager`: totalMs=1516 frameworkErrors=0 ✓
+  - `message_codec`: totalMs=1936 frameworkErrors=0 ✓
+
+  Closes T5/T6/T7/T8 on flutter_test.
 
 - [ ] **fixed** 8. **flutter_test T9 `widgets/tree_sliver_test`** (hardly_5),
   **T10 `material/circleavatar_test`** (important),
