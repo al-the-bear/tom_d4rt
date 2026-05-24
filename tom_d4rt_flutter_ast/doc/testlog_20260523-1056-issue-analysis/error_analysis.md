@@ -1760,7 +1760,7 @@ errored list.)
 | ~~**F1**~~ | ~~`retest/dart_ui/system_color_palette_test.dart`~~ | ~~`Expected: <true> Actual: <false>` — script asserts behaviour that depends on `SystemColor` API which is unsupported on Linux/macOS without a platform-channel responder. **Real failure**; also fails in test project.~~ → **FIXED 2026-05-23 (entry #22)** — extended the existing `Platform.isLinux` skip to cover macOS + Windows, matching the platform reality that SystemColor is a web-only API. The retest's `try/catch (e)` workaround proves insufficient under d4rt's bridge wrapping — see new U24 entry for the underlying interpreter limitation. The original (non-retest) `dart_ui/system_color_palette_test.dart` continues to run unchanged because it gates on `platformProvidesSystemColors` and renders a fallback widget. Both projects pass / skip cleanly. |
 | ~~**F2**~~ | ~~`retest/material/button_bar_layout_behavior_test.dart`~~ | ~~`Runtime Error: Undefined variable: ButtonBar`~~ → **FIXED entry #13** — replaced the 3 `ButtonBar(layoutBehavior: ...)` call sites with `OverflowBar` (`ConstrainedBox(minHeight: 52)` for `constrained` behavior, plain `OverflowBar` for `padded`). Both projects pass. |
 | E42 | `retest/rendering/render_animated_size_state_test.dart` | Transport failure 25s — **FIXED (cold-start contention, not a wedge; closes §S/S6 — §S fully closed!)** — see §1.12/E42 fix note |
-| E43 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s — **shared** — §S (and also fails as F4 in test) |
+| E43 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s — **FIXED (cold-start contention companion to entry #15's coercion fix)** — see §1.12/E43 fix note |
 
 **Skipped:**
 
@@ -1809,6 +1809,45 @@ flagged are reproducible interpreter wedges — every one was
 cold-start contention. See the updated §S "FULLY CLOSED" narrative
 in the §S section for the full retrospective.
 
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/rass_repro_ast.log`, `/tmp/rass_repro_test.log`,
+`/tmp/rass_post_ast.log`, `/tmp/rass_post_test.log`.
+
+#### §1.12/E43 — `retest/widgets/app_kit_view_test.dart` — FIXED
+
+**Status: FIXED.** This is the **generator_interpreter_retest_test**
+occurrence of the same script that appeared as §1.10/E39
+(timeout_tests_test, already fixed) and was previously the F4/F5
+Cluster B failure (`Set<Factory<OneSequenceGestureRecognizer>>`
+coercion at the bridged `AppKitView` constructor, fixed via
+**entry #15** boot-status placeholder guard).
+
+The Transport failure 25s reported for E43 is a **separate** issue
+from F4/F5 — it's the same cold-start contention family as
+E1/E12/E25/E36/E39, not a coercion error. Serial isolated re-runs
+produce ~2.3 s with `frameworkErrors=0`:
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 18 | 1962 | 2256 | success, frameworkErrors=0 |
+| flutter_test | 33 | 2223 | 2263 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`generator_interpreter_retest_test.dart` invocation in both
+projects, with the dart-test wrapper bumped to 60 s. Same
+caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2217 | 1926 | 0 |
+| flutter_test | 2079 | 2049 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/akv2_repro_ast.log`, `/tmp/akv2_repro_test.log`,
+`/tmp/akv2_post_ast.log`, `/tmp/akv2_post_test.log`.
+
 #### §1.12 cluster summary
 
 §1.12 (generator_interpreter_retest_test, 2 failed + 2 errored
@@ -1819,13 +1858,12 @@ entries) is now fully triaged:
 | F1 | `retest/dart_ui/system_color_palette_test.dart` | FIXED previously via entry #22 (platform skip extension + U24) |
 | F2 | `retest/material/button_bar_layout_behavior_test.dart` | FIXED previously via entry #13 (ButtonBar → OverflowBar) |
 | E42 | `retest/rendering/render_animated_size_state_test.dart` | FIXED (also closes §S/S6) |
-| E43 | `retest/widgets/app_kit_view_test.dart` | still pending |
+| E43 | `retest/widgets/app_kit_view_test.dart` | FIXED |
 
-**Tally: 3 of 4 closed** (F1 + F2 + E42). E43 remaining.
-
-Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
-`/tmp/rass_repro_ast.log`, `/tmp/rass_repro_test.log`,
-`/tmp/rass_post_ast.log`, `/tmp/rass_post_test.log`.
+**Tally: 4 of 4 FIXED.** F1 + F2 closed previously (entries #22, #13);
+E42 fixed in this pass and closes §S/S6 (the LAST §S candidate);
+E43 fixed in this pass via the standard caller-side timeout pattern.
+**§1.12 closes cleanly.**
 
 ### Summary of real failures in flutter_ast
 

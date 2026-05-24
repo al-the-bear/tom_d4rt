@@ -289,12 +289,27 @@ void main() {
       expectSuccess(result);
     });
 
-    test('retest: widgets/app_kit_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/app_kit_view_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: widgets/app_kit_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/app_kit_view_test.dart',
+          // 20260523-1056 baseline §1.12/E43: Transport failure 25s
+          // — cold-start contention. This is the gir_retest suite
+          // occurrence of the same 2089-line / 71 KB script that
+          // also appears in §1.10/E39 (timeout_tests_test, fixed
+          // separately) and was previously the F4/F5 Cluster B
+          // failure (Set<Factory<...>> coercion, fixed via entry #15
+          // boot-status guard). Serial isolated re-run produces
+          // 2.4 s (ast) / 2.3 s (flutter_test) with frameworkErrors=0.
+          // 50 s leaves 10 s of headroom under the 60 s dart-test
+          // wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: widgets/back_button_listener_test.dart', () async {
       final result = await SendTestRunner.send(
