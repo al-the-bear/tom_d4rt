@@ -1,0 +1,491 @@
+00:00 +0: loading test/vscode_scripting_api_bridges_test.dart
+00:00 +0: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient.isAvailable returns bool
+VS Code bridge available: true
+00:00 +1: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient can connect when available
+00:00 +2: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+00:00 +3: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getVersion returns version string
+VS Code version: 1.120.0
+00:00 +4: test/cli_api_test.dart: CliState initial state
+00:00 +5: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +6: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +6: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getEnv returns environment info
+VS Code app name: Visual Studio Code
+00:00 +7: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +8: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +9: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +10: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +11: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +12: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +13: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +14: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +14: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getWorkspaceFolders returns list
+Workspace folders:
+  - tom_agent_container: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container
+00:00 +15: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +16: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +17: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +18: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +19: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +20: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +21: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +22: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +22: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getConfiguration returns configuration
+Editor config keys: [tabSize, indentSize, insertSpaces, detectIndentation, trimAutoWhitespace]
+00:00 +23: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +24: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:00 +25: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +25: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow getActiveTextEditor returns editor info
+Skipping: TOM_LIVE_VSCODE=1 not set (headless run)
+00:00 +26: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +27: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +28: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +29: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +30: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +31: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +31: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands getCommands returns list of commands
+Total commands: 5289
+Sample commands: [noop, undo, default:undo, redo, default:redo]
+00:00 +32: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +33: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +34: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +35: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +36: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +37: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +38: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +39: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +40: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:00 +41: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +42: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +43: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +44: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +45: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +46: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +47: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +48: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +49: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +50: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +51: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +52: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +52: test/cli_api_test.dart: D4rtCliController execute runs code in fresh environment
+42
+00:00 +53: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +54: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +55: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +56: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +57: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +58: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +59: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +60: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +61: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +62: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +63: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +64: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +65: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +66: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +67: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +68: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +69: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +70: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+00:00 +71: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+Total extensions: 172
+Tom extensions: [vscode.theme-tomorrow-night-blue, peter-nicolai-alexis-kyaw.tom-ai-extension, tomoki1207.pdf]
+00:00 +72: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +72: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getExtension returns specific extension
+Found extension: vscode.git
+00:00 +73: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +74: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +75: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +76: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +77: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +78: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +79: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +80: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +81: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +82: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +83: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +84: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +85: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +86: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +87: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +88: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +89: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +90: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +91: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +92: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +93: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:00 +94: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +95: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +96: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +97: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +98: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +99: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +100: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +101: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +102: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +103: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +104: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +105: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +106: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +107: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +108: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +108: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution execute runs fresh program
+42
+00:00 +109: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +110: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +111: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +111: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence variable shadowing in new execution
+20
+00:00 +112: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +113: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +114: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +115: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +116: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +117: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +118: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +119: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +120: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +121: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +122: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +123: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +124: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +125: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +126: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +127: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +127: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeFile runs file
+from file
+00:00 +128: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +129: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +129: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get VS Code version through bridge
+Version from script: 1.120.0
+00:01 +130: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +131: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +132: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +133: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +134: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +135: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +136: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +136: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get workspace folders through bridge
+Folders from script: 1
+tom_agent_container
+00:01 +137: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +138: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +138: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get active editor through bridge
+Skipping: TOM_LIVE_VSCODE=1 not set (headless run)
+00:01 +139: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +140: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +141: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +142: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +143: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +144: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +145: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +146: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +147: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +148: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +149: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +150: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +151: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +152: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +153: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +154: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +155: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +156: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +157: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +158: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +159: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +160: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +161: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +162: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +163: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +164: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +165: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +166: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +167: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +168: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +169: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +170: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +171: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +172: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +173: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +174: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +175: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +176: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +177: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +178: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +179: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +180: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +181: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +182: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +183: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +184: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +185: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +186: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +187: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +188: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +189: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +189: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline execute runs in fresh environment
+fresh
+00:01 +190: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +191: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +192: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +193: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +194: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +195: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +196: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +197: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +198: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +199: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +200: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +201: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +202: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +203: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +204: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +205: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +206: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +207: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +208: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +209: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +210: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +211: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +212: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +213: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +214: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +215: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +216: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +217: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +218: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +219: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +220: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +221: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +222: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +223: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +224: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +225: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +226: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +227: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +228: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +229: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +230: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +231: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +232: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +233: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +234: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +235: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +236: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +237: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +238: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +239: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +240: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +241: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +242: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +243: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +244: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +245: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +246: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +247: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +248: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +249: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +250: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +251: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +252: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +253: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +254: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +255: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +256: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +257: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +258: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +259: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+Hello Echo00:01 +260: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+no newlineafter00:01 +261: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +262: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +263: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +264: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +265: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+══════════════════════════════════════════════════════════════
+  dcli --stdin Smart Preprocessing Tests
+══════════════════════════════════════════════════════════════
+
+Case 1: Bare statements (auto-import, auto-wrap)
+  ✓ bare print statement exits 0 (exit=0)
+  ✓ bare print statement output
+  ✓ bare return int → exit code 42 (exit=42)
+  ✓ bare return 0 → exit code 0 (exit=0)
+  ✓ multi-line bare statements exit 0 (exit=0)
+  ✓ multi-line bare computes correctly
+  ✓ stdlib bridges available in bare mode (exit=0)
+  ✓ dart:math max() works
+  ✓ dart:io Platform available in bare mode (exit=0)
+
+Case 2: main() without imports (auto-prefix imports)
+  ✓ void main without imports exits 0 (exit=0)
+  ✓ void main output correct
+  ✓ Object main with bridge usage exits 0 (exit=0)
+  ✓ bridge imports auto-prefixed for main
+  ✓ int main() return value used as exit code (exit=7)
+
+Case 3: Complete script (imports + main)
+  ✓ complete script exits 0 (exit=0)
+  ✓ complete script output correct
+  ✓ complete script with dart:io exits 0 (exit=0)
+  ✓ complete script accesses dart:io
+
+Error handling
+  ✓ empty stdin exits 1 (exit=1)
+  ✓ empty stdin error message
+  ✓ unclosed string is lenient (parser recovers) (exit=0)
+  ✓ syntax error exits 2 (exit=2)
+  ✓ runtime error exits 2 (exit=2)
+
+══════════════════════════════════════════════════════════════
+  All 23 tests passed ✓
+══════════════════════════════════════════════════════════════
+
+00:01 +266: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +267: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +268: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +269: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +270: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +271: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +272: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +273: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +274: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:01 +275: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +276: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +277: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +278: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +279: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +280: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +281: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +282: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +283: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +284: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +285: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +286: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +287: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +288: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +289: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +290: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +291: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +292: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +293: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +294: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +295: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +296: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +297: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +298: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +299: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +300: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +301: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +302: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +303: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +304: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +305: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +306: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +307: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +308: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +309: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +310: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +311: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +312: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +313: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +314: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +315: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +316: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +317: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +318: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +319: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +320: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +321: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +322: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +323: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +324: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +325: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +326: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +327: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +328: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +329: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +330: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +331: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +332: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +333: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +334: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +335: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +336: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +337: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +338: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +339: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +340: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +341: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +342: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +343: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +344: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +345: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +346: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +347: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +348: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +349: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +350: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +351: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +352: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +353: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +354: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +355: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +356: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +357: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +358: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +359: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +360: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +361: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +362: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +363: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +364: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +365: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +366: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +367: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +368: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +369: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +370: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:02 +371: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +372: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +373: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +374: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +375: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +376: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +377: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +378: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +379: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +380: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +381: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +382: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +383: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +384: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +385: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +386: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +387: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +388: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +389: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +390: test/dcli_example/dcli_example_test.dart: (setUpAll)
+00:03 +391: test/dcli_example/dcli_example_test.dart: (setUpAll)
+Using dclie binary: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_dcli_exec/bin/dclie
+00:17 +391: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:18 +392: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 02_string_as_process
+00:18 +393: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 03_colors
+00:18 +394: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:18 +395: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:18 +396: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:18 +397: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 07_basic_file_ops
+00:18 +398: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:19 +399: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:19 +400: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:19 +401: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample color_output
+00:19 +402: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:19 +403: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample directory_operations
+00:19 +404: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:19 +405: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:19 +406: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 12_error_handling
+00:19 +407: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 14_shell_execution
+00:19 +408: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) environment
+00:19 +409: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:20 +410: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) error_handling
+00:20 +411: test/dcli_example/dcli_example_test.dart: DCli Project - standalone (advanced) redirect
+00:20 +412: test/dcli_example/dcli_example_test.dart: (tearDownAll)
+00:20 +412: All tests passed!

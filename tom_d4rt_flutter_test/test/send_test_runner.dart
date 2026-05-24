@@ -138,6 +138,73 @@ class SendTestRunner {
   static final List<String> _testAppStderrTail = <String>[];
   static int? _lastTestAppExitCode;
 
+  /// Name of the currently-active test suite (e.g. `secondary_classes_test.dart`).
+  /// Detected from [Platform.script] in [setUp] and forwarded on every
+  /// `/build` request so the app can display it in its header.
+  static String? _currentSuite;
+
+  static String? _detectSuiteName() {
+    try {
+      final segs = Platform.script.pathSegments;
+      if (segs.isEmpty) return null;
+      final last = segs.last;
+      return last.isEmpty ? null : last;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Dart VM Service URI captured from the test app's stdout. Populated when
+  /// the app announces it during startup, typically in --profile mode.
+  static String? _vmServiceUri;
+
+  /// Flutter DevTools URI captured from the test app's stdout (CPU profiler,
+  /// timeline, memory views).
+  static String? _devToolsUri;
+
+  static final RegExp _vmServiceUriPattern = RegExp(
+    r'(?:Dart VM Service|VM Service).*?available at:\s*(http://\S+)',
+  );
+  static final RegExp _devToolsUriPattern = RegExp(
+    r'(?:Flutter DevTools|DevTools).*?available at:\s*(http://\S+)',
+  );
+
+  /// True when env var `D4RT_PROFILE` is set. Launches the test app with
+  /// `--profile` and keeps the app process running after [tearDown] so the
+  /// human can attach DevTools via the URLs printed during startup.
+  static bool get _profileMode {
+    final v = Platform.environment['D4RT_PROFILE']?.toLowerCase();
+    return v == '1' || v == 'true' || v == 'yes';
+  }
+
+  static void _scanForProfilerUris(String line) {
+    if (_vmServiceUri == null) {
+      final m = _vmServiceUriPattern.firstMatch(line);
+      if (m != null) {
+        _vmServiceUri = m.group(1);
+        _printProfilerBanner('Dart VM Service: $_vmServiceUri');
+      }
+    }
+    if (_devToolsUri == null) {
+      final m = _devToolsUriPattern.firstMatch(line);
+      if (m != null) {
+        _devToolsUri = m.group(1);
+        _printProfilerBanner('Flutter DevTools: $_devToolsUri');
+      }
+    }
+  }
+
+  static void _printProfilerBanner(String message) {
+    // ignore: avoid_print
+    print('');
+    // ignore: avoid_print
+    print('=================================================================');
+    // ignore: avoid_print
+    print('[D4RT_PROFILE] $message');
+    // ignore: avoid_print
+    print('=================================================================');
+  }
+
   /// Initialize the test runner (call in setUpAll).
   ///
   /// If the test app is not already running on [defaultPort], starts it
@@ -145,9 +212,13 @@ class SendTestRunner {
   static Future<void> setUp({
     bool startApp = true,
     Duration timeout = const Duration(seconds: 60),
+    String? suite,
   }) async {
     _client = HttpClient();
     _startedByRunner = false;
+    _vmServiceUri = null;
+    _devToolsUri = null;
+    _currentSuite = suite ?? _detectSuiteName();
 
     if (startApp) {
       final alreadyRunning = await isAppRunning();
@@ -165,9 +236,14 @@ class SendTestRunner {
 
   /// Tear down the test runner (call in tearDownAll).
   ///
-  /// Kills the test app only if it was started by [setUp].
+  /// Kills the test app only if it was started by [setUp]. When env var
+  /// `D4RT_PROFILE` is set, the kill is suppressed so the human can attach
+  /// DevTools to the still-running app via the URLs printed at startup.
   static Future<void> tearDown() async {
-    final shouldStopApp = _startedByRunner;
+    final keepAlive = _profileMode;
+    final shouldStopApp = _startedByRunner && !keepAlive;
+    final liveProcess = _testAppProcess;
+
     _client?.close();
     _client = null;
     _startedByRunner = false;
@@ -178,6 +254,15 @@ class SendTestRunner {
       } catch (_) {
         // ignore — process may already be gone
       }
+    } else if (keepAlive && liveProcess != null) {
+      _printProfilerBanner(
+        'KEEP-ALIVE: test app (pid=${liveProcess.pid}) left running. '
+        'Attach DevTools via the URL(s) above. '
+        'Kill manually when done: kill -9 ${liveProcess.pid}',
+      );
+      // Detach our handle so any later cleanup in this dart test session
+      // (e.g. a stray recycle) does not SIGKILL the still-useful process.
+      _testAppProcess = null;
     }
   }
 
@@ -260,9 +345,19 @@ class SendTestRunner {
         ? 'windows'
         : 'linux';
 
+    final profileMode = _profileMode;
+    final args = <String>['run', '-d', device, if (profileMode) '--profile'];
+
+    if (profileMode) {
+      _printProfilerBanner(
+        'Launching test app in --profile mode '
+        '(AOT build may take 1–3 minutes on first run)',
+      );
+    }
+
     _testAppProcess = await Process.start(
       flutterExecutable,
-      ['run', '-d', device],
+      args,
       workingDirectory: appDir,
     );
 
@@ -282,7 +377,12 @@ class SendTestRunner {
       );
     });
 
-    final deadline = DateTime.now().add(timeout);
+    // AOT builds are an order of magnitude slower than debug builds; floor
+    // the timeout at 5 minutes in profile mode regardless of caller default.
+    final effectiveTimeout = profileMode && timeout < const Duration(minutes: 5)
+        ? const Duration(minutes: 5)
+        : timeout;
+    final deadline = DateTime.now().add(effectiveTimeout);
     var ready = false;
     while (DateTime.now().isBefore(deadline)) {
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -306,7 +406,8 @@ class SendTestRunner {
     if (!ready) {
       await _killTestApp();
       throw StateError(
-        'Source test app failed to start within ${timeout.inSeconds} seconds',
+        'Source test app failed to start within '
+        '${effectiveTimeout.inSeconds} seconds',
       );
     }
   }
@@ -341,6 +442,14 @@ class SendTestRunner {
   /// No-op if the runner did not start the app itself.
   static Future<void> _recycleTestApp() async {
     if (!_startedByRunner) {
+      return;
+    }
+    if (_profileMode) {
+      // ignore: avoid_print
+      print(
+        '[recycle] suppressed: D4RT_PROFILE is set, keeping the wedged app '
+        'alive for inspection. Subsequent sends will likely fail.',
+      );
       return;
     }
     // ignore: avoid_print
@@ -513,12 +622,16 @@ class SendTestRunner {
 
     // POST raw source to /build (not JSON).
     final encodedPath = Uri.encodeComponent(scriptPath);
+    final suiteQuery = _currentSuite != null
+        ? '&suite=${Uri.encodeComponent(_currentSuite!)}'
+        : '';
+    final buildUrl = '/build?filename=$encodedPath$suiteQuery';
     late final Map<String, dynamic> response;
     final httpStopwatch = Stopwatch()..start();
     try {
       response = await _httpPostSource(
         client,
-        '/build?filename=$encodedPath',
+        buildUrl,
         source,
         host: host,
         port: port,
@@ -534,7 +647,7 @@ class SendTestRunner {
       // flutter_test's test-level timeout.
       _appNeedsRecycle = true;
       final diagnostics = await _buildSendDiagnostics(
-        operation: 'POST /build?filename=$encodedPath',
+        operation: 'POST $buildUrl',
         scriptPath: scriptPath,
         error: error,
         stackTrace: stackTrace,
@@ -782,6 +895,7 @@ class SendTestRunner {
     // ignore: unawaited_futures
     utf8.decoder.bind(stream).transform(const LineSplitter()).listen((line) {
       _appendProcessTail(sink, line);
+      _scanForProfilerUris(line);
     });
   }
 
