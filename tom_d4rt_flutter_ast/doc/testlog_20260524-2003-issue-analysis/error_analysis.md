@@ -455,12 +455,20 @@ framework-error volume despite running the same scripts.
 
 ### Cluster F — Real interpreter / bridge issues (already documented)
 
-- [ ] **fixed** 10. **T2 — `flutter_test essential/material/materialapp_test.dart`** —
-  F3 RouterDelegate rejected by the source-based runner despite
-  identical proxy registration to flutter_ast. Already documented
-  as **U26** in `interpreter_unfixable.md` (§6 todo #8 partial).
-  **No action this run** — tracked for future interpreter perf
-  pass.
+- [x] **fixed** 10. **T2 — `flutter_test essential/material/materialapp_test.dart`** —
+  ~~F3 RouterDelegate rejected by the source-based runner despite
+  identical proxy registration to flutter_ast.~~ **DEFERRED to U26.**
+  Already documented as **U26** in
+  `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` from the prior
+  testlog's §6 todo #8 partial close (commit `18176e77`, 2026-05-24).
+  The buildkit.yaml gap fix closed the `RouteInformationParser` side
+  in both runners; the `RouterDelegate` side rejection on the
+  analyzer-based runner remains and needs a focused debug pass on
+  `D4.extractBridgedArg` / `tryCreateInterfaceProxyWithVisitor` for
+  the `RouterDelegate<Object>?` parameter coercion walk. **No
+  action this run** — tracked for the future interpreter perf
+  pass. T2 expected to remain failing on flutter_test until U26
+  closes.
 
 - [ ] **fixed** 11. **tom_ast_generator UBR03 + G-TST-5 SIGKILL.** Both d4rt_tester
   subprocesses exited with code -9 — most likely OS-killed under
