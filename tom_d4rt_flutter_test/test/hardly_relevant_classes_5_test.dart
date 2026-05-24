@@ -1322,12 +1322,24 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('tree_sliver_state_mixin_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/tree_sliver_state_mixin_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'tree_sliver_state_mixin_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/tree_sliver_state_mixin_test.dart',
+          // 20260523-1056 baseline §1.8/E36 (= §S/S4). Serial
+          // isolated re-run produces 3.2 s with frameworkErrors=0.
+          // Original cross-project TimeoutException was cold-start
+          // contention, not a real wedge. Same family as
+          // E1/E12/E25: 50 s leaves 10 s of headroom under the 60 s
+          // dart-test wrapper. Applied symmetrically with the ast
+          // variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('tree_sliver_test.dart', () async {
       final result = await SendTestRunner.send('widgets/tree_sliver_test.dart');

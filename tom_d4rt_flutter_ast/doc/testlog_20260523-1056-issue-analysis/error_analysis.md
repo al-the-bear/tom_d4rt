@@ -1399,7 +1399,7 @@ clean closures of §1.4, §1.5, and §1.6.
 |---|---|---|---|
 | E34 | `widgets/restorable_num_n_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.8/E34 fix note |
 | E35 | `widgets/selectable_region_selection_status_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.8/E35 fix note |
-| E36 | `widgets/tree_sliver_state_mixin_test.dart` | TimeoutException 30s | **shared** — §S |
+| E36 | `widgets/tree_sliver_state_mixin_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S4)** — see §1.8/E36 fix note |
 | E37 | `widgets/update_selection_intent_test.dart` | Transport failure 25s | ast-only |
 
 #### §1.8/E34 — `widgets/restorable_num_n_test.dart` — FIXED
@@ -1459,6 +1459,49 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/srss_repro_ast.log`, `/tmp/srss_repro_test.log`,
 `/tmp/srss_post_ast.log`, `/tmp/srss_post_test.log`.
+
+#### §1.8/E36 — `widgets/tree_sliver_state_mixin_test.dart` — FIXED (also closes §S/S4)
+
+**Status: FIXED.** Listed in the §S wedge-candidate cluster (as **S4**)
+because the script appeared as errored in both projects with the same
+TimeoutException 30s symptom. Serial isolated re-runs disprove the
+wedge hypothesis: this 2639-line / 88 KB / 1.0 MB AST bundle script
+builds in ~3.5 s (ast) / ~3.2 s (flutter_test) with
+`frameworkErrors=0`. Despite being similar size to E5 (`inherited_widget_test`,
+88 KB / 1.3 MB bundle, deferred), this script's runtime workload is
+much lighter (3.5 s vs E5's 5.5 s) and stays well under the 30 s
+server cap. The cross-project failure was cold-start contention,
+same as E1/E12/E25.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 37 | 3046 | 3470 | success, frameworkErrors=0 |
+| flutter_test | 25 | 3145 | 3179 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_5_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 3370 | 3073 | 0 |
+| flutter_test | 3326 | 3295 | 0 |
+
+**§S/S4 status: FIXED.** §S table row updated in both projects'
+error_analysis.md. With S1 (E1), S2 (E12), S3 (E25), and S4 (this
+entry) now all confirmed as contention-only, the §S wedge-candidate
+cluster is **4 of 6 cleared**; the remaining two (S5 `retest/widgets/app_kit_view`,
+S6 `retest/rendering/render_animated_size_state`) still need
+verification via serial isolated re-runs in their respective sections
+(§1.10, §1.12).
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/tssm_repro_ast.log`, `/tmp/tssm_repro_test.log`,
+`/tmp/tssm_post_ast.log`, `/tmp/tssm_post_test.log`.
 
 1 script emits framework errors (§3).
 
@@ -1684,7 +1727,7 @@ wedges rather than contention artefacts. A serial re-run would confirm.
 | S1 | `rendering/render_custom_paint_test.dart` | secondary + timeout (+ gii on ast) | Transport failure POST /build 25s | **FIXED** (entry #E1 — cold-start contention, not a wedge) |
 | S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) | **FIXED** (entry #E12 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) | **FIXED** (entry #E25 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
-| S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | open |
+| S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | **FIXED** (entry #E36 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | open |
 | S6 | `retest/rendering/render_animated_size_state_test.dart` | retest (both) | Transport failure POST /build 25s | open |
 
