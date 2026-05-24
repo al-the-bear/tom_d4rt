@@ -1706,15 +1706,24 @@ dynamic build(BuildContext context) {
           style: _bodyStyle(lapisCharcoal, size: 12),
         ),
         _verticalGap(12),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            compareRow([
-              compareCell('Aspect', lapisIvory, isHeader: true),
-              compareCell('Icon', lapisIvory, isHeader: true),
-              compareCell('ImageIcon', lapisIvory, isHeader: true),
-              compareCell('SvgPicture', lapisIvory, isHeader: true),
-            ]),
+        // 20260524-2003 baseline §6/H-essential todo #12 (icon_test):
+        // 9× `compareRow` of 4× `compareCell(width: 220)` = 880 px row
+        // width, vs the flutter_ast widget pane of ~715 px → 9 × ~165 px
+        // right overflows. Wrap the comparison-matrix Column in a
+        // horizontal SingleChildScrollView so the table scrolls
+        // horizontally instead of overflowing. Preserves the original
+        // cell widths and matches a standard data-table pattern.
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              compareRow([
+                compareCell('Aspect', lapisIvory, isHeader: true),
+                compareCell('Icon', lapisIvory, isHeader: true),
+                compareCell('ImageIcon', lapisIvory, isHeader: true),
+                compareCell('SvgPicture', lapisIvory, isHeader: true),
+              ]),
             compareRow([
               compareCell('Source format', lapisInk),
               compareCell('Glyph in icon font', lapisCharcoal),
@@ -1764,6 +1773,7 @@ dynamic build(BuildContext context) {
               compareCell('Crisp brand vector', lapisCharcoal),
             ]),
           ],
+          ),
         ),
         _verticalGap(10),
         Text(

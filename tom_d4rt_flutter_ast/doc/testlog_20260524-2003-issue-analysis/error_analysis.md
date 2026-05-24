@@ -496,15 +496,46 @@ The hardly_relevant_1..5 suites and secondary do not gate on
 console output. essential / important / gii do gate on
 `frameworkErrors==0`, so any new fwErr here would fail the suite.
 
-- [ ] **fixed** 12. **H-essential (flutter_ast, 6 scripts, 26 events)** —
+- [~] **partial (1 of 6 scripts fixed: icon_test 9→0; 5 scripts deferred)** 12.
+  **H-essential (flutter_ast, 6 scripts, 26 events)** —
   `widgets/appbar_test` (12), `widgets/icon_test` (9),
   `widgets/form_test` (2), `widgets/center_test` (1),
-  `widgets/row_test` (1), `widgets/sized_box_test` (1). These pass
-  the test (the strict gate fired in §6 todo #14 H-1 was on
-  `cupertino/theme_test` — fixed there). Here the scripts emit
-  fwErrs but the essential tests still report `+103 -5` (the 5
-  failures are E1–E5, all cold-start). Layout-fix script-side per
-  the H-cluster pattern. Rule (a).
+  `widgets/row_test` (1), `widgets/sized_box_test` (1).
+
+  **Fixed (1 of 6 — highest leverage, 9 events closed):**
+  - **`widgets/icon_test.dart`** — Section 14 comparison-table
+    overflow. Located via grep: 9 `compareRow([...])` calls (lines
+    1712–1765) each containing 4 × `compareCell(width: 220)`
+    Containers = 880 px row width, vs the flutter_ast widget pane
+    ~715 px → 9 × ~165 px right overflows. **Fix:** wrapped the
+    inner Column (containing the 9 rows) in a horizontal
+    `SingleChildScrollView` so the table scrolls horizontally
+    instead of overflowing. Preserves the original cell widths
+    and matches a standard data-table pattern. Verified
+    individually: `widgets/icon_test.dart` totalMs=1567
+    frameworkErrors=0 ✓ (was 9).
+
+  **Deferred (5 of 6 — need per-script bisection):**
+  - `widgets/appbar_test.dart` (12 events: 186/22/31 px right + 9 more)
+    — largest script (3351 lines, 110 KB), multiple distinct
+    overflow magnitudes suggest 3+ separate root causes; needs
+    runtime bisection.
+  - `widgets/form_test.dart` (2 events: 32 + 16 px right) — needs
+    bisection across 2057 lines.
+  - `widgets/center_test.dart` (1 event: 77 px bottom) — needs
+    bisection across 1838 lines.
+  - `widgets/row_test.dart` (1 event: 3 px right) — sub-pixel
+    overflow, low priority.
+  - `widgets/sized_box_test.dart` (1 event: 62 px right) — needs
+    bisection across 1867 lines.
+
+  Rule (a) — test-script-only change. The 5 deferred scripts pass
+  the success check (the strict `fwErr==0` gate is not in essential
+  for these specific scripts); the framework events appear as
+  console noise but don't fail the suite. Each deferred script
+  should be triaged in its own follow-up todo with the H-cluster
+  bisection pattern (section-by-section toggle + identify the
+  smallest section that still emits the overflow).
 
 - [ ] **fixed** 13. **H-important (flutter_ast, 6 scripts, 43 events)** —
   `painting/matrix_test` (18), `widgets/router_test` (14),
