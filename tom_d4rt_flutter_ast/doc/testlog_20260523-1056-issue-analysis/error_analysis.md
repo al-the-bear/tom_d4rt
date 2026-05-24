@@ -1568,7 +1568,7 @@ prior baseline; tracked as todo #12 below).
 |---|---|---|---|
 | E38 | `rendering/render_custom_paint_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §S |
 | E39 | `retest/widgets/app_kit_view_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge; closes §S/S5)** — see §1.10/E39 fix note |
-| E40 | `widgets/sliver_animated_list_state_test.dart` | Transport failure 25s | ast-only |
+| E40 | `widgets/sliver_animated_list_state_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.10/E40 fix note |
 
 #### §1.10/E38 — `rendering/render_custom_paint_test.dart` — FIXED (covered by E1)
 
@@ -1649,6 +1649,57 @@ still needs serial isolated re-run verification.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/akv_repro_ast.log`, `/tmp/akv_repro_test.log`,
 `/tmp/akv_post_ast.log`, `/tmp/akv_post_test.log`.
+
+#### §1.10/E40 — `widgets/sliver_animated_list_state_test.dart` — FIXED
+
+**Status: FIXED.** This 858-line / 31 KB / 412 KB AST bundle script
+builds in ~1.4 s in both variants — well under the 25 s default cap.
+The original `Transport failure 25s` was cold-start contention, same
+family as the §1.3–§1.8 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 19 | 1225 | 1464 | success, frameworkErrors=0 |
+| flutter_test | 26 | 1400 | 1432 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`timeout_tests_test.dart` invocation in both projects (NOT in the
+other suites where this script also appears —
+`hardly_relevant_classes_5_test.dart` and
+`generator_interpreter_issues_test.dart` did NOT surface this script
+as errored in the 20260523-1056 baseline, so they're left at the
+default 25 s cap to keep the patch surface minimal), with the
+dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1493 | 1237 | 0 |
+| flutter_test | 1463 | 1429 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/sals_repro_ast.log`, `/tmp/sals_repro_test.log`,
+`/tmp/sals_post_ast.log`, `/tmp/sals_post_test.log`.
+
+#### §1.10 cluster summary
+
+§1.10 (timeout_tests_test, 3 errored entries) is now fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E38 | `rendering/render_custom_paint_test.dart` | FIXED (covered by E1 — same script in 3 suites all fixed together) |
+| E39 | `retest/widgets/app_kit_view_test.dart` | FIXED (also closes §S/S5) |
+| E40 | `widgets/sliver_animated_list_state_test.dart` | FIXED |
+
+**Tally: 3 of 3 FIXED.** All via the standard caller-side
+`httpBuildTimeout` 25 s → 50 s + wrapper 30 s → 60 s pattern (E38
+inherited the override from the E1 multi-suite fix). The §S table
+is now 5 of 6 cleared; only S6
+(`retest/rendering/render_animated_size_state_test.dart` in §1.12)
+remains open.
 
 ### 1.11 generator_interpreter_issues_test — 80 passed, 0 failed, 1 errored, 2 skipped
 

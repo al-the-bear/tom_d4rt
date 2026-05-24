@@ -391,12 +391,31 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('sliver_animated_list_state_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_animated_list_state_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'sliver_animated_list_state_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/sliver_animated_list_state_test.dart',
+          // 20260523-1056 baseline §1.10/E40: Transport failure 25s
+          // — cold-start contention. This 858-line / 31 KB script
+          // (412 KB bundle) builds in ~1.4 s in both variants. Same
+          // family as the §1.3–§1.8 E-series: 50 s leaves 10 s of
+          // headroom under the 60 s dart-test wrapper.
+          //
+          // NOTE: The script also appears in
+          // hardly_relevant_classes_5_test.dart and
+          // generator_interpreter_issues_test.dart, but those
+          // suites did NOT surface this script as errored in the
+          // 20260523-1056 baseline — only the timeout_tests
+          // occurrence was caught by the contention. The other two
+          // entries are left at the default 25 s cap to keep the
+          // patch surface minimal.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('sliver_animated_list_test.dart', () async {
       final result = await SendTestRunner.send(
