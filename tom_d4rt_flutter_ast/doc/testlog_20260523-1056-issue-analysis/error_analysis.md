@@ -500,7 +500,7 @@ cold-start ceilings tracked under U25 in
 | E11 | `dart_ui/class_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E11 fix note |
 | E12 | `dart_ui/opacity_engine_layer_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S2)** — see §1.4/E12 fix note |
 | E13 | `dart_ui/uniform_vec2_slot_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E13 fix note |
-| E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | ast-only |
+| E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E14 fix note |
 | E15 | `foundation/object_event_test.dart` | TimeoutException 30s | ast-only |
 | E16 | `gestures/least_squares_solver_test.dart` | Transport failure 25s | ast-only |
 | E17 | `gestures/primary_pointer_gesture_recognizer_test.dart` | Transport failure 25s | ast-only |
@@ -656,6 +656,36 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/uvs_repro_ast.log`, `/tmp/uvs_repro_test.log`,
 `/tmp/uvs_post_ast.log`, `/tmp/uvs_post_test.log`.
+
+#### §1.4/E14 — `foundation/diagnostics_serialization_delegate_test.dart` — FIXED
+
+**Status: FIXED.** This 2260-line / 70 KB / 837 KB AST bundle script
+builds in ~2.1 s in both variants — well under the 25 s default cap.
+The original `TimeoutException 30s` was cold-start contention
+stretching the dart-test wrapper past its default 30 s budget, same
+family as the §1.3 E-series and E10/E11/E12/E13.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 22 | 1819 | 2083 | success, frameworkErrors=0 |
+| flutter_test | 19 | 2146 | 2172 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_1_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2244 | 1975 | 0 |
+| flutter_test | 2029 | 2000 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/dsd_repro_ast.log`, `/tmp/dsd_repro_test.log`,
+`/tmp/dsd_post_ast.log`, `/tmp/dsd_post_test.log`.
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 

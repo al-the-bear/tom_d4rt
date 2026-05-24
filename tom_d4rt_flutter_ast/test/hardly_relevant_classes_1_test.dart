@@ -1023,12 +1023,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('diagnostics_serialization_delegate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/diagnostics_serialization_delegate_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'diagnostics_serialization_delegate_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'foundation/diagnostics_serialization_delegate_test.dart',
+          // 20260523-1056 baseline §1.4/E14: TimeoutException 30s
+          // — cold-start contention. This 2260-line / 70 KB script
+          // (837 KB bundle) builds in ~2.1 s in both variants. Same
+          // family as the §1.3 E-series and E10-E13: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('diagnostics_stack_trace_test.dart', () async {
       final result = await SendTestRunner.send(
