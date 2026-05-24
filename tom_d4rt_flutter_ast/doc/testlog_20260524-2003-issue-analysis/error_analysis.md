@@ -663,8 +663,23 @@ console output. essential / important / gii do gate on
 
   Rule (a) — test-script-only changes.
 
-- [ ] **fixed** 16. **H-hardly2 (flutter_ast, 1 script, 6 events)** —
-  `material/menu_accelerator_label_test` (6). Rule (a).
+- [~] **deferred (needs per-section bisection)** 16. **H-hardly2 (flutter_ast, 1 script, 6 events)** —
+  `material/menu_accelerator_label_test` (6). **DEFERRED.** The 6
+  events have 5 distinct magnitudes (26 ×2 / 56 / 9.6 / 14 / 31 px,
+  all right overflows) which indicates 5+ separate root causes
+  scattered across the 12 demo sections (buildOverview /
+  buildBasicAcceleratorLabel ×3 / buildAcceleratorComparison /
+  buildMenuItemContext / buildStyledLabels /
+  buildParsingDemonstration / buildRowLayouts /
+  buildUnderlineStyles / buildAcceleratorGrid /
+  buildMenuWithAccelerators / buildColoredAccelerators / Tips).
+  Unlike the other H-cluster scripts (where one or two patterns
+  produced many events), this script has unique overflow sources
+  scattered through the body, requiring per-section runtime
+  bisection (toggle each section on/off to identify the smallest
+  set that still produces the overflow). Deferred until bisection
+  infrastructure is in place or each section can be reviewed
+  individually. **No code change this run.**
 
 - [ ] **fixed** 17. **H-hardly3 (flutter_ast, 7 scripts, 17 events)** —
   `services/text_input_type_test` (6),
