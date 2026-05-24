@@ -2197,7 +2197,17 @@ dynamic build(BuildContext context) {
                 'grid for each construction in the gallery. Wrapped '
                 'in try/catch so degenerate matrices show as "err".',
             accentMagenta,
-            pointTransformTable(),
+            // 20260524-2003 baseline §6/H-important todo #13
+            // (matrix_test): pointTransformTable produces 9 rows of
+            // (110 + 6×130) = 890 + 20 padding ≈ 910 px wide which
+            // overflows the flutter_ast widget pane (~700 px) by
+            // ~210 px on every row. Wrap in a horizontal
+            // SingleChildScrollView so the table can scroll right
+            // without firing the RenderFlex overflow assertion.
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: pointTransformTable(),
+            ),
           ),
           panel(
             'Rect Transform Table',
@@ -2205,7 +2215,13 @@ dynamic build(BuildContext context) {
                 'output is the axis-aligned bounding box of the four '
                 'transformed corners, not the rotated quad itself.',
             accentRose,
-            rectTransformTable(),
+            // Same fix as the point table above: rectTransformTable
+            // is 110 + 4×220 = 990 + 20 padding ≈ 1010 px wide,
+            // overflowing the ~700-px pane by ~310 px on every row.
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: rectTransformTable(),
+            ),
           ),
           panel(
             'Classification: isIdentity / asTranslation',

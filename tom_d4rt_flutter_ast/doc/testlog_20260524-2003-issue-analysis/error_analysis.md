@@ -537,12 +537,54 @@ console output. essential / important / gii do gate on
   bisection pattern (section-by-section toggle + identify the
   smallest section that still emits the overflow).
 
-- [ ] **fixed** 13. **H-important (flutter_ast, 6 scripts, 43 events)** —
+- [~] **partial (2 of 6 scripts fixed: matrix_test 18→0 + dialog_themes 8→0 = 26 of 43 events cleared; 4 scripts deferred)** 13.
+  **H-important (flutter_ast, 6 scripts, 43 events)** —
   `painting/matrix_test` (18), `widgets/router_test` (14),
   `material/dialog_themes_test` (8), `widgets/listener_test` (1),
   `widgets/backbutton_test` (1),
-  `cupertino/cupertino_themes_batch3_test` (1). High volume — needs
-  bisection per script. Rule (a) per script.
+  `cupertino/cupertino_themes_batch3_test` (1).
+
+  **Fixed (2 of 6 — 26 of 43 events resolved, 60 %):**
+  - **`painting/matrix_test.dart`** (18 events: 9×210 px right + 9×310 px right → 0).
+    Two tables: `pointTransformTable()` (header + 8 data rows, each
+    Row = 110 + 6×130 = 890 + 20 padding ≈ 910 px wide) and
+    `rectTransformTable()` (header + 8 data rows, each Row = 110 +
+    4×220 = 990 + 20 padding ≈ 1010 px wide). Both overflow the
+    flutter_ast widget pane (~700 px) by the observed amounts on
+    every row. **Fix:** wrapped each table's call site (lines 2200
+    and 2208) in a horizontal `SingleChildScrollView`. Verified:
+    `painting/matrix_test.dart` totalMs=2182 frameworkErrors=0 ✓.
+  - **`material/dialog_themes_test.dart`** (8 events: 6×52 px bottom + 34 + 42 px right → 0).
+    Section 5 (Colour palette dialogs):
+    `GridView.count(crossAxisCount: 3, childAspectRatio: 1.05)` with
+    6 `_PaletteSpec` entries → each cell's height ≈ width / 1.05 ≈
+    211 px, but each `_paletteCard`'s natural content (label + title
+    + 2-line body + button row) measured ≈ 263 px → exactly 52 px
+    taller per card. **Fix:** dropped `childAspectRatio: 1.05 → 0.84`
+    so cell height ≈ 264 px and the natural content fits. The 34 +
+    42 px right overflows also vanished — likely from same cards
+    that had cross-axis pressure when vertical was constrained.
+    Verified: `material/dialog_themes_test.dart` totalMs=1815
+    frameworkErrors=0 ✓.
+
+  **Deferred (4 of 6 — need per-script bisection):**
+  - `widgets/router_test.dart` (14 events: 11×5.4 px + 2.9/12/29/47/98 px right)
+    — 116 KB script, 14 distinct overflows of varying magnitudes;
+    most are sub-pixel-ish (5.4 px) suggesting font-metric / icon-row
+    rounding patterns. Needs per-event bisection.
+  - `widgets/listener_test.dart` (1 event: 144 px right) — 14
+    anatomyRow/hitRow patterns; the 144 px source not obvious from
+    width survey.
+  - `widgets/backbutton_test.dart` (1 event: 99 px right) — needs
+    bisection across 53 KB script.
+  - `cupertino/cupertino_themes_batch3_test.dart` (1 event) — was
+    closed for the 1.8 px right overflow in prior testlog §6 todo #18
+    (entry #12); the current 1 event is presumably a different
+    overflow surfaced after later changes. Needs re-triage.
+
+  Rule (a) — test-script-only changes. Marks §6 todo #13 as
+  **partial** in this testlog; deferred scripts to be addressed in
+  per-script follow-up todos.
 
 - [ ] **fixed** 14. **H-secondary (flutter_ast, 27 scripts, 84 events)** —
   largest cluster. Top offenders: `widgets/image_filtered_test`

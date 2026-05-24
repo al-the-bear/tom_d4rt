@@ -887,13 +887,21 @@ Widget _palettesSection() {
           '.backgroundColor and a matching titleTextStyle colour.',
         ),
         _gap(18),
+        // 20260524-2003 baseline §6/H-important todo #13
+        // (dialog_themes_test): 6 × 52 px bottom overflows fired here.
+        // The 3-col grid with childAspectRatio: 1.05 gives each cell a
+        // height ≈ width / 1.05 ≈ 211 px, but each _paletteCard's
+        // natural content (label + title + 2-line body + button row)
+        // measures ≈ 263 px → exactly 52 px taller. Bumped the aspect
+        // ratio down to 0.84 so cell height ≈ 264 px and the natural
+        // content fits.
         GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 3,
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
-          childAspectRatio: 1.05,
+          childAspectRatio: 0.84,
           children: [for (final s in specs) _paletteCard(s)],
         ),
       ],
