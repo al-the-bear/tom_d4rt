@@ -530,12 +530,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('hour_format_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/hour_format_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'hour_format_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/hour_format_test.dart',
+          // 20260523-1056 baseline §1.5/E19: TimeoutException 30s
+          // — cold-start contention. This 1664-line / 49 KB script
+          // (702 KB bundle) builds in ~2.0 s in both variants. Same
+          // family as the §1.3/§1.4 E-series and E18: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('icon_alignment_test.dart', () async {
       final result = await SendTestRunner.send(
