@@ -2954,12 +2954,37 @@ and fail in test:
 
 ### Cluster Q — macOS DCli known-fails (do not fix)
 
-- [ ] **fixed** 22. **F8–F20, E44** — 14 `[fails on Macos]` failures in
-  `tom_d4rt_dcli/test/{permissions,directory_operations}_test.dart`.
-  Documented upstream DCli 8.4.2 `_whoami()` bug. Verify the existing
-  `doc/known_issues_macos.md` covers them and (optionally) gate the
-  affected tests with `@TestOn('!mac-os')` so they don't surface as
-  failures on macOS hosts. **No interpreter change required.**
+- [x] **fixed** 22. **F8–F20, E44** — ~~14 `[fails on Macos]` failures
+  in `tom_d4rt_dcli/test/{permissions,directory_operations}_test.dart`.
+  Documented upstream DCli 8.4.2 `_whoami()` bug.~~ **VERIFIED — all
+  14 marker tests and the documentation are intact.**
+  - `tom_d4rt_dcli/test/permissions_test.dart`: 13 `[fails on Macos]`
+    markers (13 tests).
+  - `tom_d4rt_dcli/test/directory_operations_test.dart`: 1
+    `[fails on Macos]` marker (1 test).
+  - Total: 14, matching F8–F20 + E44.
+  - `tom_d4rt_dcli/doc/known_issues_macos.md` exists with full
+    root-cause analysis for both issues: (1) DCli 8.4.2's
+    `_whoami()` bug setting `user = 'root'` on ENXIO instead of
+    falling through to the `whoami` shell fallback (affects the 13
+    `isWritable`-based permission tests), and (2) macOS APFS
+    case-insensitive filesystem behavior (affects the 1
+    `case-insensitive matching when specified` test in
+    `directory_operations_test.dart` — `FILE.TXT` and `file.txt`
+    overwrite each other on APFS so `find` returns 1 instead of 2).
+
+  The team's chosen resolution is the marker approach (same pattern
+  as I-BUG-14a in §6 todo #21), which testkit's baseline tracking
+  treats correctly as `X/X` (consistent intentional fail). The
+  optional `@TestOn('!mac-os')` skip gating is intentionally NOT
+  applied — `doc/known_issues_macos.md` explicitly states the
+  failures are "annotated with `[fails on Macos]` in test
+  descriptions so they can be identified and filtered." Skipping
+  would hide the upstream DCli bug from being re-tested when DCli
+  publishes a fix; the marker approach keeps the tests runnable for
+  fix-detection purposes.
+
+  **No interpreter change required.** Cluster Q ← closes.
 
 ### Cluster R — Verification
 
