@@ -336,11 +336,37 @@ framework-error volume despite running the same scripts.
 
   Closes E10/E11/E12 + E15 on flutter_ast and T11/T13 on flutter_test.
 
-- [ ] **fixed** 4. **flutter_ast retest cold-start (E8–E9, E18, E20).**
-  `retest/rendering/render_animated_size_state_test`,
+- [x] **fixed** 4. **flutter_ast retest cold-start (E8–E9, E18, E20).**
+  ~~`retest/rendering/render_animated_size_state_test`,
   `retest/widgets/app_kit_view_test`, `retest/widgets/box_scroll_view_test`
   — cold-start contention in `generator_interpreter_retest_test` and
-  `timeout_tests_test`. Bump caps. Rule (a).
+  `timeout_tests_test`.~~ **FIXED.** Audit showed 3 scripts × 2 files
+  × 2 projects = 12 registration slots; 6 already had the cap from
+  earlier §1.10/E39, §1.12/E42, §1.12/E43, etc. fixes; 6 were missing.
+  Bumped the 6 missing registrations with the standard
+  `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)` pattern:
+  - `tom_d4rt_flutter_ast/test/generator_interpreter_retest_test.dart`:
+    `retest: widgets/box_scroll_view_test` (E20).
+  - `tom_d4rt_flutter_ast/test/timeout_tests_test.dart`:
+    `retest: rendering/render_animated_size_state_test` (E8),
+    `retest: widgets/box_scroll_view_test` (E20).
+  - `tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart`:
+    `retest: widgets/box_scroll_view_test` (kept symmetric).
+  - `tom_d4rt_flutter_test/test/timeout_tests_test.dart`:
+    `retest: rendering/render_animated_size_state_test`,
+    `retest: widgets/box_scroll_view_test` (kept symmetric).
+
+  Rule (a) — test-driver-only change. Verified all 6 flutter_ast
+  registrations individually in serial isolation, all pass cleanly:
+  - gir / render_animated_size_state: totalMs=2563 frameworkErrors=0 ✓
+  - gir / app_kit_view: totalMs=2512 frameworkErrors=0 ✓
+  - gir / box_scroll_view: totalMs=1915 frameworkErrors=0 ✓
+  - timeout / render_animated_size_state: totalMs=2531 frameworkErrors=0 ✓
+  - timeout / app_kit_view: totalMs=2551 frameworkErrors=0 ✓
+  - timeout / box_scroll_view: totalMs=1804 frameworkErrors=0 ✓
+
+  Closes E8/E9 (AST gir) and E18/E20 (AST timeout) on flutter_ast,
+  plus T5/T8 (TEST gir) and T19 (TEST timeout) on flutter_test.
 
 - [ ] **fixed** 5. **flutter_ast E19 `retest/widgets/back_button_listener_test`** —
   `Build timed out after 30 s` in `timeout_tests_test`. Same script

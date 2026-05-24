@@ -327,12 +327,20 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('retest: widgets/box_scroll_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/box_scroll_view_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: widgets/box_scroll_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/box_scroll_view_test.dart',
+          // 20260524-2003 baseline §6/E20 (= todo #4): cold-start
+          // contention in the gir retest cluster. Standard caller-side
+          // 25 s → 50 s cap with 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // W1: Script passes in isolation (frameworkErrors=0, totalMs<1s) but
     // wedges the test app's /clear handler afterward, causing the next

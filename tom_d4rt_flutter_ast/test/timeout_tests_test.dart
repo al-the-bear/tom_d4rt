@@ -44,12 +44,21 @@ void main() {
   // RENDERING PACKAGE TESTS (21 files)
   // ============================================================
   group('rendering/', () {
-    test('retest: rendering/render_animated_size_state_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/rendering/render_animated_size_state_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'retest: rendering/render_animated_size_state_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/rendering/render_animated_size_state_test.dart',
+          // 20260524-2003 baseline §6/E8 (= todo #4): cold-start
+          // contention in the timeout retest cluster (gir variant
+          // already capped via §1.12/E42). Standard caller-side 25 s
+          // → 50 s cap with 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('render_backdrop_filter_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -289,12 +298,20 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('retest: widgets/box_scroll_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/box_scroll_view_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'retest: widgets/box_scroll_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/box_scroll_view_test.dart',
+          // 20260524-2003 baseline §6/E20 (= todo #4): cold-start
+          // contention in the timeout retest cluster. Standard
+          // caller-side 25 s → 50 s cap with 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: widgets/context_action_test.dart', () async {
       final result = await SendTestRunner.send(
