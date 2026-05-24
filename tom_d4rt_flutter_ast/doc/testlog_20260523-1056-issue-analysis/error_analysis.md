@@ -1031,7 +1031,7 @@ clean closure of §1.4.
 | E24 | `rendering/image_filter_config_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E24 fix note |
 | E25 | `rendering/render_app_kit_view_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S3)** — see §1.6/E25 fix note |
 | E26 | `rendering/sliver_paint_order_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E26 fix note |
-| E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | ast-only |
+| E27 | `services/application_switcher_description_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.6/E27 fix note |
 | E28 | `services/keyboard_key_test.dart` | TimeoutException 30s | ast-only |
 | E29 | `services/raw_key_event_data_ios_test.dart` | Transport failure 25s | ast-only |
 | E30 | `services/text_editing_delta_deletion_test.dart` | Transport failure 25s | ast-only |
@@ -1134,6 +1134,38 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/spo_repro_ast.log`, `/tmp/spo_repro_test.log`,
 `/tmp/spo_post_ast.log`, `/tmp/spo_post_test.log`.
+
+#### §1.6/E27 — `services/application_switcher_description_test.dart` — FIXED
+
+**Status: FIXED.** Despite being a large 2630-line / 86 KB / 917 KB
+AST bundle script, this builds in ~2.0 s in both variants — well
+under the 25 s default cap. (Like E11, this is a case where script
+size doesn't predict cold-start ceiling failures — runtime workload
+matters more, and this script has light runtime work.) The original
+`Transport failure 25s` was cold-start contention pushing the first
+request just past the 25 s HTTP cap, same family as E1/E2.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 38 | 1963 | 2229 | success, frameworkErrors=0 |
+| flutter_test | 26 | 2016 | 2048 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_3_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2112 | 1861 | 0 |
+| flutter_test | 2137 | 2104 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/asd_repro_ast.log`, `/tmp/asd_repro_test.log`,
+`/tmp/asd_post_ast.log`, `/tmp/asd_post_test.log`.
 
 ### 1.7 hardly_relevant_classes_4_test — 224 passed, 0 failed, 3 errored
 
