@@ -248,10 +248,22 @@ void main() {
   // CUPERTINO PACKAGE (15 files)
   // ============================================================
   group('cupertino/', () {
-    test('class_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'class_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/class_test.dart',
+          // 20260523-1056 baseline §1.4/E10: TimeoutException after
+          // 30s — cold-start contention. This 1723-line / 70 KB
+          // script (861 KB bundle) takes ~3.4 s in both variants.
+          // Same family as §1.3 E1/E2/E4/E6/E7/E8/E9: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('cupertino_button_size_test.dart', () async {
       final result = await SendTestRunner.send(

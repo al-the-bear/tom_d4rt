@@ -496,7 +496,7 @@ cold-start ceilings tracked under U25 in
 
 | # | script | inner error | contention? |
 |---|---|---|---|
-| E10 | `cupertino/class_test.dart` | TimeoutException 30s | ast-only |
+| E10 | `cupertino/class_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E10 fix note |
 | E11 | `dart_ui/class_test.dart` | Transport failure 25s | ast-only |
 | E12 | `dart_ui/opacity_engine_layer_test.dart` | TimeoutException 30s | **shared** — §S |
 | E13 | `dart_ui/uniform_vec2_slot_test.dart` | TimeoutException 30s | ast-only |
@@ -511,6 +511,38 @@ cold-start ceilings tracked under U25 in
 - `dart_ui/isolate_name_server_test.dart` — *IsolateNameServer is not supported by the d4rt interpreter (requires real Dart isolate infrastructure)* (interpreter limitation; OK).
 
 2 scripts emit framework errors (§3).
+
+#### §1.4/E10 — `cupertino/class_test.dart` — FIXED
+
+**Status: FIXED.** This 1723-line / 70 KB / 861 KB AST bundle script
+builds in ~3.4 s in both variants — well under the 25 s default cap.
+The original `TimeoutException 30s` was cold-start contention
+stretching the dart-test wrapper past its default 30 s budget, same
+family as the §1.3 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 94 | 3310 | 3660 | success, frameworkErrors=0 |
+| flutter_test | 18 | 3417 | 3442 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_1_test.dart` invocation in both projects
+(the script appears in one suite per project for this cluster), with
+the dart-test wrapper bumped to 60 s. Same caller-side pattern as
+the §1.3 E-series.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 3288 | 3014 | 0 |
+| flutter_test | 3707 | 3666 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/cct_repro_ast.log`, `/tmp/cct_repro_test.log`,
+`/tmp/cct_post_ast.log`, `/tmp/cct_post_test.log`.
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 
