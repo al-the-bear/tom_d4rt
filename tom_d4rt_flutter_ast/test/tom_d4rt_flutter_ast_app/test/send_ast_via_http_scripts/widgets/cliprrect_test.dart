@@ -691,8 +691,11 @@ dynamic build(BuildContext context) {
         style: TextStyle(fontSize: 13.0, height: 1.4),
       ),
       const SizedBox(height: 12.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // Wrap instead of Row so the two 220 px cards reflow on narrow viewports.
+      Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        spacing: 12.0,
+        runSpacing: 12.0,
         children: <Widget>[waveCardA, waveCardB],
       ),
       const SizedBox(height: 8.0),
@@ -796,8 +799,12 @@ dynamic build(BuildContext context) {
         style: TextStyle(fontSize: 13.0, height: 1.4),
       ),
       const SizedBox(height: 12.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // Wrap instead of Row so the three 120 px image columns reflow on
+      // narrow viewports without triggering a RenderFlex overflow.
+      Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        spacing: 16.0,
+        runSpacing: 16.0,
         children: <Widget>[
           Column(
             mainAxisSize: MainAxisSize.min,
