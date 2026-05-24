@@ -681,11 +681,32 @@ console output. essential / important / gii do gate on
   infrastructure is in place or each section can be reviewed
   individually. **No code change this run.**
 
-- [ ] **fixed** 17. **H-hardly3 (flutter_ast, 7 scripts, 17 events)** —
-  `services/text_input_type_test` (6),
+- [~] **partial (1 of 7 scripts fixed: performance_overlay_option 5→0 = 5 of 17 events; 6 scripts deferred)** 17.
+  **H-hardly3 (flutter_ast, 7 scripts, 17 events)** —
+  ~~`services/text_input_type_test` (6),
   `rendering/performance_overlay_option_test` (5),
-  `rendering/clear_selection_event_test` (2), 4 single-event scripts.
-  Rule (a).
+  `rendering/clear_selection_event_test` (2), 4 single-event scripts.~~
+
+  **Fixed (1 of 7 — 5 of 17 events):**
+  - **`rendering/performance_overlay_option_test.dart`** (5 → 0).
+    `_privateBuildFlagCardsGrid()` — 2-col
+    `GridView.count(childAspectRatio: 1.55)` × 7 `_PrivateFlagInfo`
+    entries → 3 × 0.516 px + 2 × 21 px bottom overflows (different
+    cards have different content heights). **Fix:** dropped
+    `childAspectRatio: 1.55 → 1.40` so every cell has ~22 px more
+    vertical room. Verified totalMs=3237 fwErr=0.
+
+  **Deferred (6 of 7 — dispersed overflow sources need bisection):**
+  - `services/text_input_type_test` (6 events, 6 distinct magnitudes
+    110/90/56/72/66/195 px right) — no GridView in script;
+    overflows spread across multiple wide-card sections (widths
+    540 / 420 / 380 / 320 px). Like §6 todo #16, dispersed sources
+    require per-section bisection.
+  - `rendering/clear_selection_event_test` (2 events, 9.8 + 29 px)
+    — no GridView; 2 distinct sources need bisection.
+  - 4 single-event scripts (1 event each).
+
+  Rule (a) — test-script-only change.
 
 - [ ] **fixed** 18. **H-hardly4 (flutter_ast, 5 scripts, 7 events)** —
   `widgets/bottom_navigation_bar_item_test` (2),

@@ -1042,11 +1042,17 @@ const List<_PrivateFlagInfo> _privateFlagInfos = [
 ];
 
 Widget _privateBuildFlagCardsGrid() {
+  // 20260524-2003 baseline §6/H-hardly3 todo #17
+  // (performance_overlay_option_test): 7 _PrivateFlagInfo cards in
+  // 2-col grid with childAspectRatio 1.55 → 3 × 0.516 px + 2 × 21 px
+  // bottom overflows (different cards need different amounts more
+  // height). Drop to 1.40 to give every cell ~22 px more vertical
+  // room (cell height ~245 vs widest natural ~243).
   return GridView.count(
     crossAxisCount: 2,
     mainAxisSpacing: 12,
     crossAxisSpacing: 12,
-    childAspectRatio: 1.55,
+    childAspectRatio: 1.40,
     physics: const NeverScrollableScrollPhysics(),
     shrinkWrap: true,
     children: [
