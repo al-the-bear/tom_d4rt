@@ -470,12 +470,24 @@ framework-error volume despite running the same scripts.
   pass. T2 expected to remain failing on flutter_test until U26
   closes.
 
-- [ ] **fixed** 11. **tom_ast_generator UBR03 + G-TST-5 SIGKILL.** Both d4rt_tester
+- [x] **fixed** 11. **tom_ast_generator UBR03 + G-TST-5 SIGKILL.** ~~Both d4rt_tester
   subprocesses exited with code -9 — most likely OS-killed under
-  memory pressure during the parallel flutter sweeps. Re-run in
-  isolation (no flutter sweep concurrent) to confirm whether
-  this is a flaky resource issue or a genuine generator bug.
-  Rule (b) if it turns out to be a generator change is needed.
+  memory pressure during the parallel flutter sweeps.~~ **CONFIRMED
+  HOST PRESSURE — both tests pass cleanly in isolation.** Re-ran each
+  individually (no flutter sweep concurrent):
+  - `dart test test/generator_tests/d4rt_tester_test.dart --plain-name 'UBR03'`
+    → `+1 All tests passed!` (17 s wall-clock).
+  - `dart test test/generator_tests/d4rt_tester_test.dart --plain-name 'G-TST-5'`
+    → `+1 All tests passed!` (16 s wall-clock).
+
+  The SIGKILL (exit -9) was the macOS kernel killing the d4rt_tester
+  subprocesses to free memory while the two parallel `flutter test`
+  sweeps (flutter_ast + flutter_test) were also running, each spawning
+  flutter test apps and dart-test VMs. **No generator change needed**
+  — rule (a) regression scope. The next baseline run should sequence
+  the non-flutter sweep before/after the flutter sweeps rather than
+  concurrent with them to avoid this artefact. Operational note added
+  inline below.
 
 ### Cluster H — Framework errors (RenderFlex / layout overflows)
 
