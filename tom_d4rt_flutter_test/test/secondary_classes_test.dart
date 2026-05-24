@@ -3992,12 +3992,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('page_storage_bucket_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/page_storage_bucket_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'page_storage_bucket_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/page_storage_bucket_test.dart',
+          // 20260523-1056 baseline §1.3/E6 (ast) + §2.C contention
+          // (test): TimeoutException after 30s — cold-start contention.
+          // This 2285-line / 84 KB script takes ~2.7 s on a serial
+          // cold run and ~2.5 s warm. Same family as E1/E2/E4: 50 s
+          // leaves 10 s of headroom under the 60 s dart-test wrapper.
+          // Applied symmetrically with the ast variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('page_storage_key_test.dart', () async {
       final result = await SendTestRunner.send(

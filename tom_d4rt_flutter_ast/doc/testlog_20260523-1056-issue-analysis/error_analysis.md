@@ -124,7 +124,7 @@ Clean. 7 scripts emit framework errors (see §3).
 | E3 | `widgets/always_scrollable_scroll_physics_test.dart` | TimeoutException 30s | **PARTIAL (ast fixed via caller-side 50 s timeout; flutter_test source-cold-start exceeds 50 s — deferred to U25)** — see §1.3/E3 fix note |
 | E4 | `widgets/context_menu_button_item_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E4 fix note |
 | E5 | `widgets/inherited_widget_test.dart` | TimeoutException 30s | **DEFERRED (cold-start build exceeds 30 s server cap on both variants — extended U25)** — see §1.3/E5 fix note |
-| E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | ast-only |
+| E6 | `widgets/page_storage_bucket_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.3/E6 fix note |
 | E7 | `widgets/raw_view_test.dart` | TimeoutException 30s | ast-only |
 | E8 | `widgets/selectable_region_test.dart` | TimeoutException 30s | ast-only |
 | E9 | `widgets/sliver_semantics_test.dart` | TimeoutException 30s | ast-only |
@@ -327,6 +327,48 @@ unreverted server-side or interpreter changes remain. Raw logs:
 `/tmp/iw_50s_ast.log` (50 s caller-side attempt — server cap fired),
 `/tmp/iw_50s_ast_warm.log` (warm follow-up after the failed cold —
 5.5 s success).
+
+#### §1.3/E6 — `widgets/page_storage_bucket_test.dart` — FIXED
+
+**Status: FIXED.** Despite being one of the larger scripts in the
+secondary corpus (2285 lines / 84 KB source → 1.0 MB AST bundle),
+both variants build comfortably under any reasonable cap: warm-run
+~2.5 s and cold-run (after a clean app start) ~2.8 s. The original
+`TimeoutException 30s` was cold-start contention stretching the
+dart-test wrapper past its default 30 s budget, same family as
+E1/E2/E4 (and unlike E5 whose build genuinely exceeds 30 s).
+
+**Pre-fix isolated re-runs:**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast (post port-kill cold) | 24 | 2575 | 2844 | success, frameworkErrors=0 |
+| flutter_ast (warm) | 28 | 2543 | 2816 | success, frameworkErrors=0 |
+| flutter_test (warm) | 37 | 2661 | 2710 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`secondary_classes_test.dart` invocation in both projects, with the
+dart-test wrapper bumped to 60 s. Same caller-side pattern as
+E1/E2/E4.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2710 | 2411 | 0 |
+| flutter_test | 2785 | 2751 | 0 |
+
+Note: this script also appears in `generator_interpreter_issues_test.dart`
+(both projects, line ~588) but was NOT in the original §1.3/E6
+failure list — only the secondary instance failed under contention.
+The gii test runner reference was left unchanged to avoid widening
+the patch surface; if it surfaces in a future contention run, the
+same caller-side pattern should be applied symmetrically.
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/psb_repro_ast.log`, `/tmp/psb_repro_test.log`,
+`/tmp/psb_cold_ast.log` (forced cold start), `/tmp/psb_post_ast.log`,
+`/tmp/psb_post_test.log`.
 
 ### 1.4 hardly_relevant_classes_1_test — 195 passed, 0 failed, 8 errored, 2 skipped
 
