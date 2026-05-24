@@ -1712,6 +1712,47 @@ remains open.
 - `widgets/android_view_test.dart` — AndroidView platform-gated (OK).
 - `widgets/animated_switcher_test.dart` — *W5: wedges test app /build for ~60s then "Lost connection to device"; cascades 34 subsequent gii tests.* (known wedge; OK to skip).
 
+#### §1.11/E41 — `rendering/render_custom_paint_test.dart` — FIXED (covered by E1)
+
+**Status: FIXED (covered by §1.3/E1).** This is the
+**generator_interpreter_issues_test** occurrence of
+`rendering/render_custom_paint_test.dart`. The same script appears
+in §1.3/E1 (secondary_classes_test), §1.10/E38
+(timeout_tests_test), and §1.11/E41 (gii, this row). The E1 fix
+landed the caller-side `httpBuildTimeout` 25 s → 50 s + wrapper
+30 s → 60 s in **all three** test runner sites simultaneously in
+both projects (see commit `d079af37`); E41 here is therefore
+already covered.
+
+Re-verification today (forced cold start):
+
+| project | suite | totalMs | httpMs | frameworkErrors |
+|---|---|---:|---:|---:|
+| flutter_ast | gii | 2148 | 1893 | 0 |
+| flutter_test | gii | 1970 | 1944 | 0 |
+
+Both well under the 50 s HTTP cap. No new code change required —
+the existing E1 fix in `generator_interpreter_issues_test.dart`
+lines 382–397 (both projects, with explicit `§S/E1/E41` reference
+in the comment) already provides the necessary `httpBuildTimeout`
+override. Raw logs: `/tmp/rcp_e41_ast.log`, `/tmp/rcp_e41_test.log`.
+
+Rule (a) — no code change; verification-only entry.
+
+#### §1.11 cluster summary
+
+§1.11 (generator_interpreter_issues_test, 1 errored entry — plus
+the W5 cascade wedge documented as skipped) is now fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E41 | `rendering/render_custom_paint_test.dart` | FIXED (covered by E1 — same script in 3 suites all fixed together) |
+
+**Tally: 1 of 1 FIXED.** Inherited from the E1 multi-suite fix.
+No new code change required. §1.11 closes cleanly. (The W5
+animated_switcher cascade wedge skip is OK as-is — not in the
+errored list.)
+
 ### 1.12 generator_interpreter_retest_test — 50 passed, 2 failed, 2 errored, 4 skipped
 
 | # | script | inner error |
