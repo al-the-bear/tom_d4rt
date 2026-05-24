@@ -764,11 +764,34 @@ console output. essential / important / gii do gate on
 
   Rule (a) — test-script-only change.
 
-- [ ] **fixed** 20. **H-flutter_test (5 scripts, 10 events total)** — much
-  smaller than the ast variant. Top: `widgets/standard_component_type_test`
+- [~] **deferred (no GridView shortcuts; sources need bisection; U17 by-design accepted)** 20.
+  **H-flutter_test (5 scripts, 10 events total)** — ~~much smaller
+  than the ast variant. Top: `widgets/standard_component_type_test`
   (4 events in hardly_5), plus single-event scripts and the U17
-  by-design teaching demo `render_constraints_transform_box_test`.
-  Rule (a).
+  by-design teaching demo `render_constraints_transform_box_test`.~~
+  **DEFERRED.** Audit:
+
+  | Script | Events | Notes |
+  |---|---:|---|
+  | `widgets/standard_component_type_test` | 4 (3×10 + 1×22 px bottom) | 5 `_SctSpecimen`-based sections, no GridView; need bisection |
+  | `widgets/bottom_navigation_bar_item_test` | 1 (52 px bottom) | no GridView |
+  | `widgets/callback_shortcuts_test` | 1 (65 px bottom) | no GridView (prior testlog §6 todo #17 fixed different sources here) |
+  | `widgets/child_back_button_dispatcher_test` | 1 (65 px bottom) | same as callback_shortcuts |
+  | `widgets/bouncing_scroll_physics_test` | 1 | unknown source |
+  | `rendering/render_constraints_transform_box_test` | 2 (1 in secondary, 1 in timeout) | **U17 by-design teaching demo** — no fix |
+
+  None of the scripts has a `GridView.count` / `GridView.builder`
+  whose `childAspectRatio` could be tweaked. All overflows are
+  dispersed Row/Column sources needing per-section runtime
+  bisection.
+
+  The U17 `render_constraints_transform_box_test` events (2 of 10)
+  are accepted by design — the script intentionally demonstrates
+  Flutter overflow assertions.
+
+  Most of these scripts have already been partially worked on in
+  prior testlogs; the current events represent **new** dispersed
+  overflows that survived earlier fixes. **No code change this run.**
 
 ### Cluster U — By-design / documented limitations (no fix required)
 
