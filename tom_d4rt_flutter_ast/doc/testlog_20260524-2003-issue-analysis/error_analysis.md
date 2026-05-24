@@ -422,13 +422,29 @@ framework-error volume despite running the same scripts.
 
   Closes T5/T6/T7/T8 on flutter_test.
 
-- [ ] **fixed** 8. **flutter_test T9 `widgets/tree_sliver_test`** (hardly_5),
+- [x] **fixed** 8. **flutter_test T9 `widgets/tree_sliver_test`** (hardly_5),
   **T10 `material/circleavatar_test`** (important),
   **T11 `material/data_table_theme_test`** (secondary),
   **T13 `material/date_time_range_test`** (secondary),
   **T16 `rendering/render_proxy_box_with_hit_test_behavior_test`** (secondary)
-  — single-script cold-start transport failures. Bump per-script
-  caps. Rule (a).
+  — ~~single-script cold-start transport failures.~~ **FIXED.** Audit
+  found T13 already capped via §6 todo #3 (commit `9154a1c3`); 4 entries
+  needed bumps. Applied the standard
+  `httpBuildTimeout: 25 s → 50 s` + `Timeout(60 s)` wrapper on both
+  projects (8 edits total — kept symmetric):
+  - `widgets/tree_sliver_test.dart` (hardly_5)
+  - `material/circleavatar_test.dart` (important)
+  - `material/data_table_theme_test.dart` (secondary)
+  - `rendering/render_proxy_box_with_hit_test_behavior_test.dart` (secondary)
+
+  Rule (a) — test-driver-only change. Verified all 4 on flutter_test in
+  serial isolation:
+  - tree_sliver: totalMs=1461 frameworkErrors=0 ✓
+  - circleavatar: totalMs=1672 frameworkErrors=0 ✓
+  - data_table_theme: totalMs=1763 frameworkErrors=0 ✓
+  - render_proxy_box_with_hit_test_behavior: totalMs=1851 frameworkErrors=0 ✓
+
+  Closes T9/T10/T11/T13/T16 on flutter_test.
 
 - [ ] **fixed** 9. **flutter_test T12 `material/date_range_picker_dialog_test`** —
   dart-test 30 s wrapper fired. Need to either raise the

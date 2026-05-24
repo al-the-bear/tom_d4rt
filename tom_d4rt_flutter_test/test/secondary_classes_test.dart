@@ -1857,12 +1857,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('data_table_theme_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/data_table_theme_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'data_table_theme_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/data_table_theme_test.dart',
+          // 20260524-2003 baseline §6/T11 (= todo #8): cold-start
+          // transport failure in the material-individual group.
+          // Standard 25 s → 50 s cap + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('date_range_picker_dialog_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -2916,12 +2924,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('render_proxy_box_with_hit_test_behavior_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_proxy_box_with_hit_test_behavior_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'render_proxy_box_with_hit_test_behavior_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'rendering/render_proxy_box_with_hit_test_behavior_test.dart',
+          // 20260524-2003 baseline §6/T16 (= todo #8): cold-start
+          // transport failure in the rendering-individual group.
+          // Standard 25 s → 50 s cap + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('render_repaint_boundary_test.dart', () async {
       final result = await SendTestRunner.send(

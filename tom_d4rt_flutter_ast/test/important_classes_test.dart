@@ -52,12 +52,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('circleavatar_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/circleavatar_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'circleavatar_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'material/circleavatar_test.dart',
+          // 20260524-2003 baseline §6/T10 (= todo #8): cold-start
+          // transport failure on flutter_test; flutter_ast bumped
+          // symmetrically. Standard 25 s → 50 s cap + 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('scrollbar_test.dart', () async {
       final result = await SendTestRunner.send('material/scrollbar_test.dart');

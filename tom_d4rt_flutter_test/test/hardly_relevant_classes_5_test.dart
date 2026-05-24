@@ -1341,10 +1341,20 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('tree_sliver_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/tree_sliver_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'tree_sliver_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/tree_sliver_test.dart',
+          // 20260524-2003 baseline §6/T9 (= todo #8): cold-start
+          // transport failure in hardly_5. Standard 25 s → 50 s cap +
+          // 60 s wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('two_dimensional_child_builder_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
