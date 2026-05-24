@@ -91,7 +91,7 @@ The list of shared §S entries (for convenience):
 | # | script | suites | status |
 |---|---|---|---|
 | S1 | `rendering/render_custom_paint_test.dart` | secondary, timeout | **FIXED** (entry #E1 in primary doc — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
-| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | open |
+| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | **FIXED** (entry #E12 in primary doc — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | open |
 | S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 | open |
 | S5 | `retest/widgets/app_kit_view_test.dart` | timeout (+ retest as F5) | open |

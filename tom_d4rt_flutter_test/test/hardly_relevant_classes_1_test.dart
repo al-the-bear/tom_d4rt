@@ -655,12 +655,25 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('opacity_engine_layer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/opacity_engine_layer_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'opacity_engine_layer_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'dart_ui/opacity_engine_layer_test.dart',
+          // 20260523-1056 baseline §1.4/E12 (= §S/S2). Serial
+          // isolated re-run produces 2.7 s with frameworkErrors=0.
+          // Original "Transport failure 25s" was cold-start
+          // contention (ast was 3.0 s, just past the 25 s HTTP cap
+          // under parallel-driver load). Same family as the §1.3
+          // E-series: 50 s leaves 10 s of headroom under the 60 s
+          // dart-test wrapper. Applied symmetrically with the ast
+          // variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('painting_style_test.dart', () async {
       final result = await SendTestRunner.send(

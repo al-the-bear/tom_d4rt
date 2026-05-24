@@ -498,7 +498,7 @@ cold-start ceilings tracked under U25 in
 |---|---|---|---|
 | E10 | `cupertino/class_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E10 fix note |
 | E11 | `dart_ui/class_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E11 fix note |
-| E12 | `dart_ui/opacity_engine_layer_test.dart` | TimeoutException 30s | **shared** — §S |
+| E12 | `dart_ui/opacity_engine_layer_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge; closes §S/S2)** — see §1.4/E12 fix note |
 | E13 | `dart_ui/uniform_vec2_slot_test.dart` | TimeoutException 30s | ast-only |
 | E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | ast-only |
 | E15 | `foundation/object_event_test.dart` | TimeoutException 30s | ast-only |
@@ -586,6 +586,46 @@ contention-only flake, fully resolved by the timeout bump.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/duc_repro_ast.log`, `/tmp/duc_repro_test.log`,
 `/tmp/duc_post_ast.log`, `/tmp/duc_post_test.log`.
+
+#### §1.4/E12 — `dart_ui/opacity_engine_layer_test.dart` — FIXED (also closes §S/S2)
+
+**Status: FIXED.** Listed in the §S wedge-candidate cluster (as **S2**)
+because the script appeared as errored in both projects (TimeoutException
+30s ast / Transport failure 25s flutter_test). Serial isolated re-runs
+disprove the wedge hypothesis: this 1188-line / 37 KB / 465 KB AST bundle
+script builds in ~3.0 s (ast) / ~2.7 s (flutter_test) with
+`frameworkErrors=0`. The cross-project failure mode was the same root
+cause as E1: cold-start contention pushing the first request just past
+the 25 s HTTP cap (and downstream past the 30 s wrapper).
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 18 | 3031 | 3239 | success, frameworkErrors=0 |
+| flutter_test | 21 | 2677 | 2705 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_1_test.dart` invocation in both projects, with
+the dart-test wrapper bumped to 60 s. Same caller-side pattern as E1.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 3293 | 3049 | 0 |
+| flutter_test | 2539 | 2511 | 0 |
+
+**§S/S2 status: FIXED.** §S table row updated. With S1 (E1) and S2
+(this entry) now both confirmed as contention-only, the §S
+wedge-candidate cluster is **2 of 6 cleared**; the remaining four
+(S3 `render_app_kit_view`, S4 `tree_sliver_state_mixin`, S5
+`retest/widgets/app_kit_view`, S6 `retest/rendering/render_animated_size_state`)
+still need verification via serial isolated re-runs.
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/oel_repro_ast.log`, `/tmp/oel_repro_test.log`,
+`/tmp/oel_post_ast.log`, `/tmp/oel_post_test.log`.
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 
@@ -853,7 +893,7 @@ wedges rather than contention artefacts. A serial re-run would confirm.
 | # | script | suite(s) | symptom | status |
 |---|---|---|---|---|
 | S1 | `rendering/render_custom_paint_test.dart` | secondary + timeout (+ gii on ast) | Transport failure POST /build 25s | **FIXED** (entry #E1 — cold-start contention, not a wedge) |
-| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) | open |
+| S2 | `dart_ui/opacity_engine_layer_test.dart` | hardly_1 | TimeoutException 30s (ast); Transport 25s (test) | **FIXED** (entry #E12 — cold-start contention, not a wedge; per-script HTTP timeout raised 25 s → 50 s in both projects) |
 | S3 | `rendering/render_app_kit_view_test.dart` | hardly_3 | TimeoutException 30s (both) | open |
 | S4 | `widgets/tree_sliver_state_mixin_test.dart` | hardly_5 (ast) + hardly_5 (test, also hardly_5) | TimeoutException 30s | open |
 | S5 | `retest/widgets/app_kit_view_test.dart` | timeout (both) — also F5 in retest test | Transport 25s (timeout); native unwrap (retest) | open |
