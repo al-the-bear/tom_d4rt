@@ -824,7 +824,7 @@ All 6 entries are TimeoutException 30s or Transport failure 25s; all **ast-only*
 | E19 | `material/hour_format_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E19 fix note |
 | E20 | `material/progress_indicator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E20 fix note |
 | E21 | `material/snack_bar_theme_data_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E21 fix note |
-| E22 | `material/widget_state_input_border_test.dart` | Transport failure 25s |
+| E22 | `material/widget_state_input_border_test.dart` | **FIXED** Transport failure 25s — cold-start contention; see §1.5/E22 fix note |
 | E23 | `painting/one_frame_image_stream_completer_test.dart` | TimeoutException 30s |
 
 #### §1.5/E18 — `material/dynamic_scheme_variant_test.dart` — FIXED
@@ -945,6 +945,36 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/sbtd_repro_ast.log`, `/tmp/sbtd_repro_test.log`,
 `/tmp/sbtd_post_ast.log`, `/tmp/sbtd_post_test.log`.
+
+#### §1.5/E22 — `material/widget_state_input_border_test.dart` — FIXED
+
+**Status: FIXED.** This 1380-line / 48 KB / 558 KB AST bundle script
+builds in ~1.5–1.6 s in both variants — well under the 25 s default
+cap. The original `Transport failure 25s` was cold-start contention
+pushing the first request just past the 25 s HTTP cap, same family
+as E1/E2/E11/E12/E16/E17.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 35 | 1445 | 1624 | success, frameworkErrors=0 |
+| flutter_test | 19 | 1506 | 1530 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_2_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1666 | 1482 | 0 |
+| flutter_test | 1585 | 1553 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/wsib_repro_ast.log`, `/tmp/wsib_repro_test.log`,
+`/tmp/wsib_post_ast.log`, `/tmp/wsib_post_test.log`.
 
 ### 1.6 hardly_relevant_classes_3_test — 194 passed, 0 failed, 7 errored
 
