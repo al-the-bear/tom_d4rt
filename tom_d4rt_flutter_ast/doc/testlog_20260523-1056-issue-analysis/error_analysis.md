@@ -2925,10 +2925,32 @@ and fail in test:
 
 ### Cluster P — Pre-existing intentional & not-fixable
 
-- [ ] **fixed** 21. **F7** `I-BUG-14a: Records with named fields` —
-  intentional `SHOULD FAIL` marker; verify the description still includes
-  the `(SHOULD FAIL)` marker and that the test isn't accidentally counted
-  as a regression by downstream tooling. **No code change required.**
+- [x] **fixed** 21. **F7** `I-BUG-14a: Records with named fields` —
+  ~~intentional `SHOULD FAIL` marker; verify the description still
+  includes the `(SHOULD FAIL)` marker and that the test isn't
+  accidentally counted as a regression by downstream tooling.~~
+  **VERIFIED — both markers intact, baseline + tests.csv tracking
+  correct.** Test source: `tom_d4rt/test/limitations_and_bugs_test.dart`
+  line 99:
+  ```dart
+  test('I-BUG-14a: Records with named fields. [2026-02-10 06:37] (FAIL)', () { ... });
+  ```
+  enclosed in `group('Open Bugs - Won\'t Fix (SHOULD FAIL)', () { ... })`
+  at line 71. The full test name reported by dart-test is
+  `Open Bugs - Won't Fix (SHOULD FAIL) I-BUG-14a: Records with named fields. [2026-02-10 06:37] (FAIL)` —
+  both the group `SHOULD FAIL` marker and the test `(FAIL)` marker are
+  present. Baseline tracking is correct:
+  - `tom_d4rt/doc/baseline_0210_1100.csv` line 2: `X/X` (fail
+    expected ↔ fail observed) under group `Open Bugs - Won't Fix
+    (SHOULD FAIL)`.
+  - `tom_d4rt/doc/baseline_0422_1959.csv` line 2: same `X/X`
+    across all 11 result columns.
+  - `tom_d4rt/doc/tests.csv` line 934: `(FAIL)` marker preserved in
+    the test description.
+
+  Downstream testkit tooling already treats this as `X/X` (consistent
+  intentional fail) and does not count it as a regression. **No code
+  change required.** Cluster P ← closes.
 
 ### Cluster Q — macOS DCli known-fails (do not fix)
 
