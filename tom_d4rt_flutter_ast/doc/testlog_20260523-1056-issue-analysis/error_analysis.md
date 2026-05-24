@@ -497,7 +497,7 @@ cold-start ceilings tracked under U25 in
 | # | script | inner error | contention? |
 |---|---|---|---|
 | E10 | `cupertino/class_test.dart` | TimeoutException 30s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E10 fix note |
-| E11 | `dart_ui/class_test.dart` | Transport failure 25s | ast-only |
+| E11 | `dart_ui/class_test.dart` | Transport failure 25s | **FIXED (cold-start contention, not a wedge)** — see §1.4/E11 fix note |
 | E12 | `dart_ui/opacity_engine_layer_test.dart` | TimeoutException 30s | **shared** — §S |
 | E13 | `dart_ui/uniform_vec2_slot_test.dart` | TimeoutException 30s | ast-only |
 | E14 | `foundation/diagnostics_serialization_delegate_test.dart` | TimeoutException 30s | ast-only |
@@ -543,6 +543,49 @@ the §1.3 E-series.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/cct_repro_ast.log`, `/tmp/cct_repro_test.log`,
 `/tmp/cct_post_ast.log`, `/tmp/cct_post_test.log`.
+
+#### §1.4/E11 — `dart_ui/class_test.dart` — FIXED
+
+**Status: FIXED.** Despite being one of the largest scripts in the
+corpus (3275 lines / 109 KB / 1.3 MB AST bundle — bundle size
+matches E5), this script builds in ~2.1 s in both variants. Unlike
+E5 (`inherited_widget_test`, ~5.5 s warm-build, deferred), this
+dart_ui class_test is light at runtime — it's mostly class
+definitions and sample-data setup rather than deep widget-tree
+construction. The original `Transport failure 25s` was cold-start
+contention pushing the first request just past the 25 s HTTP cap,
+same family as E1/E2.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 22 | 2037 | 2312 | success, frameworkErrors=0 |
+| flutter_test | 26 | 2073 | 2104 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_1_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern
+as the §1.3 E-series and E10.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 2397 | 2116 | 0 |
+| flutter_test | 2157 | 2133 | 0 |
+
+**Why this isn't a U25 candidate (despite the size).** Bundle size
+alone is not the predictor of cold-start failures — the structure
+of what the script renders matters more. E5's deep InheritedWidget
+hierarchy compounds the cost in the interpreter; this script's
+mostly-static class-definition setup does not. Tracked separately
+from U25 because the failure mode here was the original
+contention-only flake, fully resolved by the timeout bump.
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/duc_repro_ast.log`, `/tmp/duc_repro_test.log`,
+`/tmp/duc_post_ast.log`, `/tmp/duc_post_test.log`.
 
 ### 1.5 hardly_relevant_classes_2_test — 197 passed, 0 failed, 6 errored
 

@@ -442,10 +442,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('class_test.dart', () async {
-      final result = await SendTestRunner.send('dart_ui/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'class_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'dart_ui/class_test.dart',
+          // 20260523-1056 baseline §1.4/E11 (ast) + §2.D contention
+          // (test): Transport failure 25s — cold-start contention.
+          // 3275-line / 109 KB script builds in ~2.1 s. Same family
+          // as the §1.3 E-series: 50 s leaves 10 s of headroom
+          // under the 60 s dart-test wrapper. Applied symmetrically
+          // with the ast variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('clip_op_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/clip_op_test.dart');
