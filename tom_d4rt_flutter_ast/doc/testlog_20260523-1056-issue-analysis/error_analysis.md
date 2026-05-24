@@ -822,7 +822,7 @@ All 6 entries are TimeoutException 30s or Transport failure 25s; all **ast-only*
 |---|---|---|
 | E18 | `material/dynamic_scheme_variant_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E18 fix note |
 | E19 | `material/hour_format_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E19 fix note |
-| E20 | `material/progress_indicator_test.dart` | TimeoutException 30s |
+| E20 | `material/progress_indicator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E20 fix note |
 | E21 | `material/snack_bar_theme_data_test.dart` | TimeoutException 30s |
 | E22 | `material/widget_state_input_border_test.dart` | Transport failure 25s |
 | E23 | `painting/one_frame_image_stream_completer_test.dart` | TimeoutException 30s |
@@ -887,6 +887,35 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/hf_repro_ast.log`, `/tmp/hf_repro_test.log`,
 `/tmp/hf_post_ast.log`, `/tmp/hf_post_test.log`.
+
+#### §1.5/E20 — `material/progress_indicator_test.dart` — FIXED
+
+**Status: FIXED.** This 1734-line / 58 KB / 576 KB AST bundle script
+builds in ~1.4–1.5 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention,
+same family as the §1.3/§1.4 E-series and E18/E19.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 35 | 1302 | 1510 | success, frameworkErrors=0 |
+| flutter_test | 23 | 1420 | 1449 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_2_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1531 | 1325 | 0 |
+| flutter_test | 1470 | 1448 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/pi_repro_ast.log`, `/tmp/pi_repro_test.log`,
+`/tmp/pi_post_ast.log`, `/tmp/pi_post_test.log`.
 
 ### 1.6 hardly_relevant_classes_3_test — 194 passed, 0 failed, 7 errored
 
