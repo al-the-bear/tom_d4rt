@@ -1451,12 +1451,23 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('update_selection_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/update_selection_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'update_selection_intent_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/update_selection_intent_test.dart',
+          // 20260523-1056 baseline §1.8/E37 (ast) + §2.D contention
+          // (test): Transport failure 25s — cold-start contention.
+          // 1835-line / 62 KB script builds in ~1.4 s. Same family
+          // as E1/E2/E11/E12/E16/E17/E22/E26/E29/E30/E33: 50 s
+          // leaves 10 s of headroom under the 60 s dart-test
+          // wrapper. Applied symmetrically with the ast variant.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('user_scroll_notification_test.dart', () async {
       final result = await SendTestRunner.send(
