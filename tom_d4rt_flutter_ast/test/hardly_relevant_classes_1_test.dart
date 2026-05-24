@@ -1150,12 +1150,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('object_event_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/object_event_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'object_event_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'foundation/object_event_test.dart',
+          // 20260523-1056 baseline §1.4/E15: TimeoutException 30s
+          // — cold-start contention. This 2326-line / 72 KB script
+          // (854 KB bundle) builds in ~1.8 s in both variants. Same
+          // family as the §1.3 E-series and E10-E14: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('object_flag_property_test.dart', () async {
       final result = await SendTestRunner.send(
