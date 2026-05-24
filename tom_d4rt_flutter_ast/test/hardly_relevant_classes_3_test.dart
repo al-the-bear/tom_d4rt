@@ -1219,12 +1219,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('raw_key_event_data_ios_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/raw_key_event_data_ios_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'raw_key_event_data_ios_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'services/raw_key_event_data_ios_test.dart',
+          // 20260523-1056 baseline §1.6/E29: Transport failure 25s
+          // — cold-start contention. This 1939-line / 65 KB script
+          // (759 KB bundle) builds in ~1.9 s in both variants. Same
+          // family as E1/E2/E11/E12/E16/E17/E22/E26: 50 s leaves
+          // 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('raw_key_event_data_linux_test.dart', () async {
       final result = await SendTestRunner.send(
