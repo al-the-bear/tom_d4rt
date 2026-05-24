@@ -263,12 +263,20 @@ void main() {
       timeout: const Timeout(Duration(seconds: 60)),
     );
 
-    test('retest: widgets/back_button_listener_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/back_button_listener_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'retest: widgets/back_button_listener_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/back_button_listener_test.dart',
+          // 20260524 §6 todo #11 / F6: 78 KB / 1.07 MB AST bundle.
+          // Cold-start build hits the default 25 s caller cap before
+          // /build returns. Bump to 50 s so the build completes.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('retest: widgets/box_scroll_view_test.dart', () async {
       final result = await SendTestRunner.send(
