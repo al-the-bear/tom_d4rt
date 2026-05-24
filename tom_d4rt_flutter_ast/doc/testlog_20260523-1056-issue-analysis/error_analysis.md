@@ -1284,7 +1284,7 @@ verification in their respective sections (§1.8, §1.10, §1.12).
 | # | script | inner error |
 |---|---|---|
 | E31 | `widgets/draggable_scrollable_actuator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.7/E31 fix note |
-| E32 | `widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` | TimeoutException 30s |
+| E32 | `widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.7/E32 fix note |
 | E33 | `widgets/overscroll_notification_test.dart` | Transport failure 25s |
 
 2 scripts emit framework errors (§3).
@@ -1317,6 +1317,35 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/dsa_repro_ast.log`, `/tmp/dsa_repro_test.log`,
 `/tmp/dsa_post_ast.log`, `/tmp/dsa_post_test.log`.
+
+#### §1.7/E32 — `widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` — FIXED
+
+**Status: FIXED.** This 656-line / 28 KB / 195 KB AST bundle script
+builds in ~1.3–1.5 s in both variants — well under the 25 s default
+cap. The original `TimeoutException 30s` was cold-start contention,
+same family as the §1.3–§1.6 E-series.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 20 | 1254 | 1405 | success, frameworkErrors=0 |
+| flutter_test | 22 | 1429 | 1458 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_4_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1329 | 1165 | 0 |
+| flutter_test | 1352 | 1319 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/eswbcli_repro_ast.log`, `/tmp/eswbcli_repro_test.log`,
+`/tmp/eswbcli_post_ast.log`, `/tmp/eswbcli_post_test.log`.
 
 ### 1.8 hardly_relevant_classes_5_test — 226 passed, 0 failed, 4 errored
 
