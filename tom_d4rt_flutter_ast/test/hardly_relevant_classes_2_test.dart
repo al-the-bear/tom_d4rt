@@ -1382,12 +1382,22 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('one_frame_image_stream_completer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'painting/one_frame_image_stream_completer_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'one_frame_image_stream_completer_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'painting/one_frame_image_stream_completer_test.dart',
+          // 20260523-1056 baseline §1.5/E23: TimeoutException 30s
+          // — cold-start contention. This 1206-line / 36 KB script
+          // (406 KB bundle) builds in ~1.5 s in both variants. Same
+          // family as the §1.3/§1.4 E-series and E18–E22: 50 s
+          // leaves 10 s of headroom under the 60 s dart-test wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     test('painting_binding_test.dart', () async {
       final result = await SendTestRunner.send(

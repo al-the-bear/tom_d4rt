@@ -825,7 +825,7 @@ All 6 entries are TimeoutException 30s or Transport failure 25s; all **ast-only*
 | E20 | `material/progress_indicator_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E20 fix note |
 | E21 | `material/snack_bar_theme_data_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E21 fix note |
 | E22 | `material/widget_state_input_border_test.dart` | **FIXED** Transport failure 25s — cold-start contention; see §1.5/E22 fix note |
-| E23 | `painting/one_frame_image_stream_completer_test.dart` | TimeoutException 30s |
+| E23 | `painting/one_frame_image_stream_completer_test.dart` | **FIXED** TimeoutException 30s — cold-start contention; see §1.5/E23 fix note |
 
 #### §1.5/E18 — `material/dynamic_scheme_variant_test.dart` — FIXED
 
@@ -975,6 +975,54 @@ with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
 Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
 `/tmp/wsib_repro_ast.log`, `/tmp/wsib_repro_test.log`,
 `/tmp/wsib_post_ast.log`, `/tmp/wsib_post_test.log`.
+
+#### §1.5/E23 — `painting/one_frame_image_stream_completer_test.dart` — FIXED
+
+**Status: FIXED.** This 1206-line / 36 KB / 406 KB AST bundle script
+builds in ~1.5 s in both variants — well under the 25 s default cap.
+The original `TimeoutException 30s` was cold-start contention, same
+family as the §1.3/§1.4 E-series and E18–E22.
+
+**Pre-fix isolated re-runs (after explicit port-kill cold start):**
+
+| project | clearMs | httpMs | totalMs | status |
+|---|---:|---:|---:|---|
+| flutter_ast | 19 | 1332 | 1485 | success, frameworkErrors=0 |
+| flutter_test | 20 | 1454 | 1480 | success, frameworkErrors=0 |
+
+**Fix:** raised `httpBuildTimeout` from 25 s → 50 s in the
+`hardly_relevant_classes_2_test.dart` invocation in both projects,
+with the dart-test wrapper bumped to 60 s. Same caller-side pattern.
+
+**Verification (post-fix):**
+
+| project | totalMs | httpMs | frameworkErrors |
+|---|---:|---:|---:|
+| flutter_ast | 1469 | 1299 | 0 |
+| flutter_test | 1496 | 1470 | 0 |
+
+Rule (a) — test-runner-only change in `test/` subfolder. Raw logs:
+`/tmp/ofisc_repro_ast.log`, `/tmp/ofisc_repro_test.log`,
+`/tmp/ofisc_post_ast.log`, `/tmp/ofisc_post_test.log`.
+
+#### §1.5 cluster summary
+
+§1.5 (hardly_relevant_classes_2_test, 6 errored entries) is now
+fully triaged:
+
+| Entry | Script | Status |
+|---|---|---|
+| E18 | `material/dynamic_scheme_variant_test.dart` | FIXED |
+| E19 | `material/hour_format_test.dart` | FIXED |
+| E20 | `material/progress_indicator_test.dart` | FIXED |
+| E21 | `material/snack_bar_theme_data_test.dart` | FIXED |
+| E22 | `material/widget_state_input_border_test.dart` | FIXED |
+| E23 | `painting/one_frame_image_stream_completer_test.dart` | FIXED |
+
+**Tally: 6 of 6 FIXED.** All via the standard caller-side
+`httpBuildTimeout` 25 s → 50 s + wrapper 30 s → 60 s pattern. No
+partials, no deferrals — **§1.5 closes cleanly**, mirroring the
+clean closure of §1.4.
 
 ### 1.6 hardly_relevant_classes_3_test — 194 passed, 0 failed, 7 errored
 
