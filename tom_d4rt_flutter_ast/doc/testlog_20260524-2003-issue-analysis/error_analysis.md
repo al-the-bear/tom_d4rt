@@ -735,10 +735,34 @@ console output. essential / important / gii do gate on
   Row/Column overflows by static inspection is impractical. Tracked
   for follow-up. **No code change this run.**
 
-- [ ] **fixed** 19. **H-hardly5 (flutter_ast, 6 scripts, 13 events)** —
-  `widgets/scroll_context_test` (6),
+- [~] **partial (1 of 6 scripts fixed: scroll_context_test 6→0 = 6 of 13 events; 5 scripts deferred)** 19.
+  **H-hardly5 (flutter_ast, 6 scripts, 13 events)** —
+  ~~`widgets/scroll_context_test` (6),
   `widgets/two_dimensional_child_manager_test` (3), 4 single-event
-  scripts. Rule (a).
+  scripts.~~
+
+  **Fixed (1 of 6 — 6 of 13 events, 46 %):**
+  - **`widgets/scroll_context_test.dart`** (6 → 0). The `_RefRow`
+    widget in section 08 (`ScrollContext — full interface`) has a
+    Row with `SizedBox(230) + SizedBox(150) + Expanded` = 380 px
+    fixed + flex; enclosing `_SectionCard` provided only ~350 px of
+    inner width on the flutter_ast pane → 30 px right overflow per
+    row, 6 rows that produced the overflow. **Fix:** shrank
+    `SizedBox(230) → SizedBox(200)` and `SizedBox(150) → SizedBox(110)`
+    so the Expanded note column can absorb the remainder. Verified
+    totalMs=1990 fwErr=0.
+
+  **Deferred (5 of 6 — need per-section bisection):**
+  - `widgets/two_dimensional_child_manager_test` (3 × 217 px right)
+    — 2000-line script; 217 px is a large overflow that likely
+    comes from a control-bar Row with many fixed-width controls +
+    `Spacer`, but the exact source needs runtime bisection.
+  - `widgets/scroll_notification_observer_state_test` (1 event)
+  - `widgets/shortcut_activator_test` (1 event)
+  - `widgets/standard_component_type_test` (1 event)
+  - `widgets/tree_sliver_state_mixin_test` (1 event)
+
+  Rule (a) — test-script-only change.
 
 - [ ] **fixed** 20. **H-flutter_test (5 scripts, 10 events total)** — much
   smaller than the ast variant. Top: `widgets/standard_component_type_test`

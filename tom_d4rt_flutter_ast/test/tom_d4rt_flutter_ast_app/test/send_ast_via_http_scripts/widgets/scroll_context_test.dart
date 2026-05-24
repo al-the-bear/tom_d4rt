@@ -1719,15 +1719,21 @@ class _RefRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       color: zebra ? kMist.withValues(alpha: 0.25) : Colors.transparent,
+      // 20260524-2003 baseline §6/H-hardly5 todo #19 (scroll_context_test):
+      // 6 × ~30 px right overflow on the _RefRow table — the row was
+      // `SizedBox(230) + SizedBox(150) + Expanded` = 380 fixed + flex,
+      // but the enclosing _SectionCard provided only ~350 px of inner
+      // width on the flutter_ast pane. Shrunk the two fixed cells so
+      // the Expanded note column can absorb the remainder.
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 230,
+            width: 200,
             child: Text(entry.name, style: kMonoBold),
           ),
           SizedBox(
-            width: 150,
+            width: 110,
             child: Text(
               entry.kind,
               style: const TextStyle(
