@@ -368,11 +368,24 @@ framework-error volume despite running the same scripts.
   Closes E8/E9 (AST gir) and E18/E20 (AST timeout) on flutter_ast,
   plus T5/T8 (TEST gir) and T19 (TEST timeout) on flutter_test.
 
-- [ ] **fixed** 5. **flutter_ast E19 `retest/widgets/back_button_listener_test`** —
-  `Build timed out after 30 s` in `timeout_tests_test`. Same script
+- [x] **fixed** 5. **flutter_ast E19 `retest/widgets/back_button_listener_test`** —
+  ~~`Build timed out after 30 s` in `timeout_tests_test`. Same script
   was closed in §6 todo #11 for `generator_interpreter_retest_test`
   (50 s cap), but the `timeout_tests_test` entry was missed in that
-  fix. Apply the same `httpBuildTimeout: 50 s` to that entry. Rule (a).
+  fix.~~ **ALREADY FIXED — §6 todo #11 (commit `ea6dd604`)
+  actually applied the 50 s cap to both runners' `timeout_tests_test`
+  entries on the ast side.** Audit found the cap in
+  `tom_d4rt_flutter_ast/test/timeout_tests_test.dart` lines 286–299
+  with the §6 todo #11 / F6 comment. The flutter_test variant of
+  the same entry had no cap (passed at 18 s totalMs in the baseline,
+  close to the 25 s default). Bumped the flutter_test entry to 50 s
+  + 60 s wrapper for symmetry as preventive against future
+  cold-start spikes. Rule (a) — test-driver-only change.
+  Verified both sides pass cleanly:
+  - flutter_ast / timeout: totalMs=1603 frameworkErrors=0 ✓
+  - flutter_test / timeout: totalMs=1532 frameworkErrors=0 ✓
+
+  Closes E19 on flutter_ast.
 
 - [ ] **fixed** 6. **flutter_test T1 `cupertino/list_test.dart` cold-start.** Same
   pattern as flutter_ast E1–E4 but on a different cupertino script.
