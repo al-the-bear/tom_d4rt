@@ -96,10 +96,21 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('list_test.dart', () async {
-      final result = await SendTestRunner.send('cupertino/list_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
+    test(
+      'list_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'cupertino/list_test.dart',
+          // 20260524-2003 baseline §6/T1: cold-start contention in the
+          // cupertino group (same pattern as the ast variant's E1–E4).
+          // Standard caller-side 25 s → 50 s cap with 60 s dart-test
+          // wrapper.
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // 20260524-2003 baseline §6/E1–E4: the first 4 large cupertino scripts
     // in essential_classes_test cascade-fail under cold-start contention on

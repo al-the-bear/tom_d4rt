@@ -387,9 +387,15 @@ framework-error volume despite running the same scripts.
 
   Closes E19 on flutter_ast.
 
-- [ ] **fixed** 6. **flutter_test T1 `cupertino/list_test.dart` cold-start.** Same
+- [x] **fixed** 6. **flutter_test T1 `cupertino/list_test.dart` cold-start.** ~~Same
   pattern as flutter_ast E1–E4 but on a different cupertino script.
-  Bump cap. Rule (a).
+  Bump cap.~~ **FIXED.** Applied standard `httpBuildTimeout: 25 s → 50 s`
+  + `Timeout(60 s)` wrapper on the `cupertino/list_test.dart`
+  registration in both projects (kept symmetric — flutter_ast was
+  not failing on this script in the baseline but bumped to match
+  flutter_test's cap policy). Rule (a) — test-driver-only change.
+  Verified flutter_test side: totalMs=3386 frameworkErrors=0 ✓.
+  Closes T1 on flutter_test.
 
 - [ ] **fixed** 7. **flutter_test T5–T8 retest cold-start cascade.**
   `retest/rendering/render_animated_size_state_test`,
