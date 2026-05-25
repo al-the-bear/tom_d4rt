@@ -81,6 +81,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// Incremented each time a new D4rt widget is installed (and on clear).
   int _widgetGeneration = 0;
 
+  // ---------------------------------------------------------------------
+  // Cleanup-trace instrumentation
+  //
+  // Mirrors the same fields + [_traceCleanup] helper in
+  // tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart. See
+  // that file for the full rationale. In short: the test app intermittently
+  // fails with a full-screen red `_dependents.isEmpty` assertion after some
+  // test sequence; these fields let us correlate the failure with the
+  // exact /clear that preceded it. Filter the debug console with
+  // `grep '\[D4rtApp\]\[clean\]'`.
+  int _clearCount = 0;
+  String? _lastClearedFile;
+  DateTime? _lastClearedAt;
+
   /// Tab controller for the Widget / Logs tabs.
   late TabController _tabController;
 
@@ -167,6 +181,26 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     ];
     final isSilenced = silencedPatterns.any((p) => message.contains(p));
 
+    // Cleanup-trace: ALWAYS log every error that mentions `_dependents` so
+    // we catch the case where Flutter's wording changed and the silencer
+    // pattern no longer matches. Mirrors flutter_ast/main.dart.
+    final lower = message.toLowerCase();
+    final isDependentsHit =
+        lower.contains('_dependent') || lower.contains('dependents');
+    if (isDependentsHit) {
+      _traceCleanup(
+        isSilenced ? 'silenced' : '_dependents-catch-all',
+        'FlutterError fired: $message',
+        stack: details.stack,
+      );
+    } else {
+      _traceCleanup(
+        'framework',
+        'FlutterError fired (capturing=$_capturingFrameworkErrors): '
+            '${message.split('\n').first}',
+      );
+    }
+
     if (_capturingFrameworkErrors) {
       // The `_RenderEditableCustomPaint` cascade is a known transient first-frame
       // artifact when a `CupertinoTextField` (or any `EditableText` host) is laid
@@ -233,9 +267,13 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _lastError = null;
             _widgetGeneration++;
           });
+          _traceCleanup('silenced-restart',
+              'internal restart applied (generation=$_widgetGeneration)');
         }
       });
     } else {
+      _traceCleanup('forwarded',
+          'forwarding to original FlutterError handler (would show red screen)');
       _originalFlutterErrorHandler?.call(details);
     }
   }
@@ -253,6 +291,19 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         _addLogEntry('[platform stack] ... ${lines.length - 8} more line(s)');
       }
     }
+
+    // Cleanup-trace: surface platform-dispatcher errors here too, with a
+    // distinct tag for _dependents hits.
+    final msg = error.toString();
+    final lower = msg.toLowerCase();
+    final isDependentsHit =
+        lower.contains('_dependent') || lower.contains('dependents');
+    _traceCleanup(
+      isDependentsHit ? 'platform-_dependents' : 'platform',
+      'platform-dispatcher error: ${msg.split('\n').first}',
+      stack: isDependentsHit ? stackTrace : null,
+    );
+
     final handledByOriginal = _originalPlatformErrorHandler?.call(
       error,
       stackTrace,
@@ -292,6 +343,28 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
+  }
+
+  /// Cleanup-trace logger — see equivalent in flutter_ast/main.dart for full
+  /// rationale. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
+  void _traceCleanup(String tag, String message, {StackTrace? stack}) {
+    final lastClear = _lastClearedFile ?? '<none>';
+    final current = _currentTestFile ?? '<none>';
+    final sinceMs = _lastClearedAt == null
+        ? -1
+        : DateTime.now().difference(_lastClearedAt!).inMilliseconds;
+    final header =
+        '[D4rtApp][clean][$tag] clearCount=$_clearCount '
+        'lastClearedFile="$lastClear" currentTestFile="$current" '
+        'sinceClearMs=$sinceMs gen=$_widgetGeneration';
+    debugPrint('$header :: $message');
+    if (stack != null) {
+      final lines = stack.toString().split('\n');
+      for (final line in lines.take(8)) {
+        if (line.trim().isEmpty) continue;
+        debugPrint('[D4rtApp][clean][$tag][stack] $line');
+      }
+    }
   }
 
   bool get _isWaitingForUser =>
@@ -380,6 +453,18 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         case '/logs':
           _respond(request, 200, {'logs': _logs});
         case '/clear':
+          // Cleanup-trace: increment BEFORE setState so the assertion handler
+          // sees the same counter as the clear request that logged here.
+          _clearCount++;
+          _lastClearedFile = _currentTestFile;
+          _lastClearedAt = DateTime.now();
+          final inflightBlocked =
+              _buildCompleter != null && !_buildCompleter!.isCompleted;
+          _traceCleanup(
+            'clear',
+            'received /clear (inflightBuild=$inflightBlocked, '
+                'pendingSource=${_pendingSource != null})',
+          );
           // Cancel any in-flight build so a blocked build does not delay /clear.
           final inflight = _buildCompleter;
           if (inflight != null && !inflight.isCompleted) {
@@ -414,6 +499,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (clearResponded) return;
             clearResponded = true;
+            _traceCleanup('clear-postframe',
+                'post-frame fired, responding with status=cleared');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared'});
             }
@@ -421,6 +508,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
+            _traceCleanup('clear-timeout',
+                'post-frame did NOT fire within 2s, responding via timeout');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -477,6 +566,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _addLogEntry(
       'Building widget${filename != null ? ' [$filename]' : ''}'
       ' (${source.length} chars)',
+    );
+    _traceCleanup(
+      'build',
+      'incoming /build filename="$filename" suite="$suite" chars=${source.length}',
     );
 
     final completer = Completer<_BuildResult>();

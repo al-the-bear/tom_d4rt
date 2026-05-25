@@ -78,6 +78,28 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// script is loaded, reducing InheritedElement dependency leaks.
   int _widgetGeneration = 0;
 
+  // ---------------------------------------------------------------------
+  // Cleanup-trace instrumentation
+  //
+  // The test app intermittently fails with a full-screen red
+  // `framework.dart: Failed assertion line 6269 pos 12:
+  //  '_dependents.isEmpty': is not true` after some test sequence. We have a
+  // silencer in [_handleFlutterError] but the red screen still appears in
+  // some runs, which means either (a) the assertion message changed and the
+  // pattern no longer matches, (b) the assertion bypasses
+  // [FlutterError.onError] (some Flutter builds fire these inside an
+  // unguarded zone, surfacing on the platform dispatcher instead), or
+  // (c) the silencer's post-frame restart itself re-triggers the assertion.
+  //
+  // These fields + [_traceCleanup] let us correlate the assertion with the
+  // exact /clear that preceded it. Look for the `[D4rtApp][clean]` tag in
+  // the debug output (filter: `grep '\[clean\]'`).
+  //
+  // Remove once the root cause is fixed.
+  int _clearCount = 0;
+  String? _lastClearedFile;
+  DateTime? _lastClearedAt;
+
   /// Tab controller for the Widget / Source tabs.
   late TabController _tabController;
 
@@ -183,6 +205,28 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     ];
     final isSilenced = silencedPatterns.any((p) => message.contains(p));
 
+    // Cleanup-trace: ALWAYS log every error that mentions `_dependents` (case
+    // insensitive) so we catch the case where Flutter's wording changed and
+    // the silencer pattern no longer matches. This is the symptom the user
+    // is debugging.
+    final lower = message.toLowerCase();
+    final isDependentsHit =
+        lower.contains('_dependent') || lower.contains('dependents');
+    if (isDependentsHit) {
+      _traceCleanup(
+        isSilenced ? 'silenced' : '_dependents-catch-all',
+        'FlutterError fired: $message',
+        stack: details.stack,
+      );
+    } else {
+      // Non-_dependents errors get a single-line trace (no stack) for context.
+      _traceCleanup(
+        'framework',
+        'FlutterError fired (capturing=$_capturingFrameworkErrors): '
+            '${message.split('\n').first}',
+      );
+    }
+
     if (_capturingFrameworkErrors) {
       // Filter out internal Flutter framework assertions that are not visible
       // red error screens (e.g. semantics parent-data bookkeeping).
@@ -259,12 +303,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _lastError = null;
             _widgetGeneration++;
           });
-          debugPrint('[D4rtApp] [silenced assertion] internal restart applied '
-              '(generation=$_widgetGeneration)');
+          _traceCleanup('silenced-restart',
+              'internal restart applied (generation=$_widgetGeneration)');
         }
       });
     } else {
       // Forward all other errors to the original handler for logging / display.
+      _traceCleanup('forwarded',
+          'forwarding to original FlutterError handler (would show red screen)');
       _originalFlutterErrorHandler?.call(details);
     }
   }
@@ -284,6 +330,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         _addLogEntry('[platform stack] ... ${lines.length - 8} more line(s)');
       }
     }
+
+    // Cleanup-trace: surface platform-dispatcher errors in the cleanup
+    // stream too. If the _dependents.isEmpty assertion ever fires through
+    // this path (instead of FlutterError.onError), the trace tag here will
+    // make it obvious.
+    final msg = error.toString();
+    final lower = msg.toLowerCase();
+    final isDependentsHit =
+        lower.contains('_dependent') || lower.contains('dependents');
+    _traceCleanup(
+      isDependentsHit ? 'platform-_dependents' : 'platform',
+      'platform-dispatcher error: ${msg.split('\n').first}',
+      stack: isDependentsHit ? stackTrace : null,
+    );
 
     final handledByOriginal = _originalPlatformErrorHandler?.call(
       error,
@@ -327,6 +387,32 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
+  }
+
+  /// Cleanup-trace logger. Emits a single line in a consistent shape so the
+  /// `_dependents.isEmpty` cascade can be correlated with the preceding
+  /// /clear. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
+  ///
+  /// [tag] is a short label (e.g. `clear`, `build`, `silenced`, `framework`,
+  /// `platform`, `_dependents-catch-all`).
+  void _traceCleanup(String tag, String message, {StackTrace? stack}) {
+    final lastClear = _lastClearedFile ?? '<none>';
+    final current = _currentTestFile ?? '<none>';
+    final sinceMs = _lastClearedAt == null
+        ? -1
+        : DateTime.now().difference(_lastClearedAt!).inMilliseconds;
+    final header =
+        '[D4rtApp][clean][$tag] clearCount=$_clearCount '
+        'lastClearedFile="$lastClear" currentTestFile="$current" '
+        'sinceClearMs=$sinceMs gen=$_widgetGeneration';
+    debugPrint('$header :: $message');
+    if (stack != null) {
+      final lines = stack.toString().split('\n');
+      for (final line in lines.take(8)) {
+        if (line.trim().isEmpty) continue;
+        debugPrint('[D4rtApp][clean][$tag][stack] $line');
+      }
+    }
   }
 
   /// Whether we are waiting for the user to click next/good/bad.
@@ -426,6 +512,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         case '/logs':
           _respond(request, 200, {'logs': _logs});
         case '/clear':
+          // Cleanup-trace: bump the counter BEFORE the setState so the
+          // assertion-handler sees the same counter value the clear request
+          // logged. We also snapshot the test file that just finished so a
+          // later assertion can be attributed to it.
+          _clearCount++;
+          _lastClearedFile = _currentTestFile;
+          _lastClearedAt = DateTime.now();
+          final inflightBlocked =
+              _buildCompleter != null && !_buildCompleter!.isCompleted;
+          _traceCleanup(
+            'clear',
+            'received /clear (inflightBuild=$inflightBlocked, '
+                'pendingBundle=${_pendingBundle != null})',
+          );
           // Plan C — Test-app build-handler hardening: actively cancel any
           // in-flight /build so a slow/blocked build doesn't keep a follower
           // /clear waiting until the /build's 30s timeout fires. Without this
@@ -471,6 +571,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (clearResponded) return;
             clearResponded = true;
+            _traceCleanup('clear-postframe',
+                'post-frame fired, responding with status=cleared');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared'});
             }
@@ -478,6 +580,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
+            _traceCleanup('clear-timeout',
+                'post-frame did NOT fire within 2s, responding via timeout');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -563,6 +667,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _addLogEntry(
       'Building widget${filename != null ? ' [$filename]' : ''}'
       ' (${body.length} bytes)',
+    );
+    _traceCleanup(
+      'build',
+      'incoming /build filename="$filename" suite="$suite" bytes=${body.length}',
     );
 
     try {
