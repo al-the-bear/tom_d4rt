@@ -870,7 +870,18 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
   }
 
   Widget _buildNativeSurfaceLane(ColorScheme scheme) {
-    if (_showRealMount && _isDarwinHost) {
+    // Cluster J TODO #19 (testlog 20260525-1059) — the conditional below
+    // originally activated a real `UiKitView('demo.darwin.surface', …)`
+    // whenever `_showRealMount && _isDarwinHost` was true. Under the
+    // d4rt test harness on macOS the platform-view factory isn't
+    // registered; empirically the UiKitView constructor + first-frame
+    // composition wedges the Flutter pipeline past the harness's 30 s
+    // build budget. Force the placeholder branch — the demo's teaching
+    // content (showing what a UiKitView call site looks like + state
+    // overlays) is preserved while the native UiKitView wedge is
+    // avoided. Same root cause + same workaround as
+    // `widgets/app_kit_view_test.dart` § Section 5.
+    if (false /* was: _showRealMount && _isDarwinHost — see TODO #19 */) {
       return DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),

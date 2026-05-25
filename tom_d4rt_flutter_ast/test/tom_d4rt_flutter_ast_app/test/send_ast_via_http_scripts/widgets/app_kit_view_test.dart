@@ -442,8 +442,18 @@ dynamic build(BuildContext context) {
   // SECTION 5 -- Live AppKitView attempt
   // ---------------------------------------------------------------------------
   print('--- Section 5: Live AppKitView attempt ---');
+  // Cluster J TODO #19 (testlog 20260525-1059) — the `isMac` branch
+  // originally instantiated a real `AppKitView` widget. Under the d4rt
+  // test harness on macOS the native NSView factory isn't registered;
+  // empirically the AppKitView constructor + first-frame layout wedges
+  // the Flutter pipeline for >30 s (the test app's State.build() never
+  // runs after setState), driving the build past the harness's 50 s
+  // cap. Render the styled placeholder on every platform instead — the
+  // demo's teaching content (showing what an AppKitView call site
+  // looks like, with the right size + label) is preserved while the
+  // native NSView wedge is avoided.
   Widget liveAppKitView() {
-    if (isMac) {
+    if (false /* was: isMac — see TODO #19 comment above */) {
       print('  -> instantiating real AppKitView on macOS');
       return IgnorePointer(
         child: SizedBox(
@@ -564,7 +574,11 @@ dynamic build(BuildContext context) {
   Widget viewTypeCard(Map<String, dynamic> entry) {
     final Color color = entry['color'] as Color;
     final String viewType = entry['viewType'] as String;
-    final Widget body = isMac
+    // Cluster J TODO #19 — same isMac→placeholder shift as in
+    // `liveAppKitView()` above. Forcing the placeholder branch so the
+    // AppKitView native-view wedge never engages on the macOS test
+    // host. See the comment above `liveAppKitView()` for rationale.
+    final Widget body = false /* was: isMac — see TODO #19 */
         ? IgnorePointer(
             child: SizedBox(
               width: 200,
