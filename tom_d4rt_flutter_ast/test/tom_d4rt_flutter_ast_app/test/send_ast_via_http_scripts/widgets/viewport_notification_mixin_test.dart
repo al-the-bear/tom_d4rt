@@ -1506,20 +1506,30 @@ class _VnmOuterScroller extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Cluster G TODO #14 fix: thumbVisibility: true requires an explicit
+    // ScrollController; the ambient PrimaryScrollController isn't
+    // auto-inherited by ListView on desktop.
     return SizedBox(
       height: 520,
-      child: Scrollbar(
-        thumbVisibility: true,
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          itemCount: 6,
-          itemBuilder: (BuildContext context, int section) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-              child: _VnmSectionCapsule(section: section, log: log),
-            );
-          },
-        ),
+      child: Builder(
+        builder: (ctx) {
+          final scrollCtrl = ScrollController();
+          return Scrollbar(
+            controller: scrollCtrl,
+            thumbVisibility: true,
+            child: ListView.builder(
+              controller: scrollCtrl,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              itemCount: 6,
+              itemBuilder: (BuildContext context, int section) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+                  child: _VnmSectionCapsule(section: section, log: log),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

@@ -155,6 +155,10 @@ List<Widget> buildListItems(int count, MaterialColor color, String prefix) {
 
 Widget buildScrollbarInListView() {
   print('Building scrollbar in ListView with theme');
+  // Cluster G TODO #14 fix: thumbVisibility: true requires explicit
+  // ScrollController; the ambient PrimaryScrollController isn't
+  // auto-inherited by ListView on desktop.
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -190,8 +194,10 @@ Widget buildScrollbarInListView() {
               radius: Radius.circular(4),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(15, Colors.teal, 'Basic'),
               ),
@@ -205,6 +211,7 @@ Widget buildScrollbarInListView() {
 
 Widget buildThicknessVariation(String label, double thickness, MaterialColor color) {
   print('Building thickness variation: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -255,8 +262,10 @@ Widget buildThicknessVariation(String label, double thickness, MaterialColor col
               radius: Radius.circular(thickness / 2),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(12, color, 'Thick'),
               ),
@@ -282,6 +291,7 @@ Widget buildThicknessVariationsSection() {
 
 Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor color) {
   print('Building thumb visibility demo: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -343,8 +353,10 @@ Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor 
               thumbVisibility: WidgetStateProperty.all(alwaysVisible),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: alwaysVisible,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(10, color, 'Vis'),
               ),
@@ -368,6 +380,7 @@ Widget buildThumbVisibilitySection() {
 
 Widget buildRadiusVariation(String label, Radius radius, MaterialColor color) {
   print('Building radius variation: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -418,9 +431,11 @@ Widget buildRadiusVariation(String label, Radius radius, MaterialColor color) {
               radius: radius,
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               radius: radius,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(10, color, 'Rad'),
               ),
@@ -446,6 +461,7 @@ Widget buildRadiusVariationsSection() {
 
 Widget buildTrackVisibilityDemo(String label, bool showTrack, MaterialColor color) {
   print('Building track visibility demo: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -512,9 +528,11 @@ Widget buildTrackVisibilityDemo(String label, bool showTrack, MaterialColor colo
               trackVisibility: WidgetStateProperty.all(showTrack),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               trackVisibility: showTrack,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(12, color, 'Track'),
               ),
@@ -538,6 +556,7 @@ Widget buildTrackVisibilitySection() {
 
 Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColor color) {
   print('Building interactive property demo: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -606,9 +625,11 @@ Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColo
               interactive: interactive,
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               interactive: interactive,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(15, color, 'Int'),
               ),
@@ -638,6 +659,7 @@ Widget buildColorConfigDemo(
   MaterialColor displayColor,
 ) {
   print('Building color configuration demo: $label');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -680,9 +702,11 @@ Widget buildColorConfigDemo(
               radius: Radius.circular(5),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               trackVisibility: true,
               child: ListView(
+                controller: scrollCtrl,
                 padding: EdgeInsets.all(4),
                 children: buildListItems(12, displayColor, 'Color'),
               ),
@@ -899,6 +923,7 @@ Widget buildCrossAxisMarginDemo() {
   List<Widget> items = [];
   int i = 0;
   for (i = 0; i < margins.length; i = i + 1) {
+    final scrollCtrl = ScrollController();
     items.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -944,8 +969,10 @@ Widget buildCrossAxisMarginDemo() {
                   crossAxisMargin: margins[i],
                 ),
                 child: Scrollbar(
+                  controller: scrollCtrl,
                   thumbVisibility: true,
                   child: ListView(
+                    controller: scrollCtrl,
                     padding: EdgeInsets.all(4),
                     children: buildListItems(8, colors[i], 'M'),
                   ),
@@ -993,6 +1020,7 @@ Widget buildMainAxisMarginDemo() {
   List<Widget> items = [];
   int i = 0;
   for (i = 0; i < margins.length; i = i + 1) {
+    final scrollCtrl = ScrollController();
     items.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -1038,8 +1066,10 @@ Widget buildMainAxisMarginDemo() {
                   mainAxisMargin: margins[i],
                 ),
                 child: Scrollbar(
+                  controller: scrollCtrl,
                   thumbVisibility: true,
                   child: ListView(
+                    controller: scrollCtrl,
                     padding: EdgeInsets.all(4),
                     children: buildListItems(8, colors[i], 'MA'),
                   ),
@@ -1087,6 +1117,7 @@ Widget buildMinThumbLengthDemo() {
   List<Widget> items = [];
   int i = 0;
   for (i = 0; i < minLengths.length; i = i + 1) {
+    final scrollCtrl = ScrollController();
     items.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -1132,8 +1163,10 @@ Widget buildMinThumbLengthDemo() {
                   minThumbLength: minLengths[i],
                 ),
                 child: Scrollbar(
+                  controller: scrollCtrl,
                   thumbVisibility: true,
                   child: ListView(
+                    controller: scrollCtrl,
                     padding: EdgeInsets.all(4),
                     children: buildListItems(50, colors[i], 'TL'),
                   ),
@@ -1175,6 +1208,7 @@ Widget buildMinThumbLengthDemo() {
 
 Widget buildHorizontalScrollbarDemo() {
   print('Building horizontal scrollbar demo');
+  final scrollCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1211,9 +1245,11 @@ Widget buildHorizontalScrollbarDemo() {
               trackVisibility: WidgetStateProperty.all(true),
             ),
             child: Scrollbar(
+              controller: scrollCtrl,
               thumbVisibility: true,
               trackVisibility: true,
               child: SingleChildScrollView(
+                controller: scrollCtrl,
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: _buildHorizontalItems(20),
@@ -1258,6 +1294,8 @@ List<Widget> _buildHorizontalItems(int count) {
 
 Widget buildNestedScrollbarsDemo() {
   print('Building nested scrollbars demo');
+  final outerCtrl = ScrollController();
+  final innerCtrl = ScrollController();
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1293,8 +1331,10 @@ Widget buildNestedScrollbarsDemo() {
               radius: Radius.circular(5),
             ),
             child: Scrollbar(
+              controller: outerCtrl,
               thumbVisibility: true,
               child: ListView(
+                controller: outerCtrl,
                 padding: EdgeInsets.all(8),
                 children: [
                   Container(
@@ -1324,8 +1364,10 @@ Widget buildNestedScrollbarsDemo() {
                         radius: Radius.circular(3),
                       ),
                       child: Scrollbar(
+                        controller: innerCtrl,
                         thumbVisibility: true,
                         child: ListView(
+                          controller: innerCtrl,
                           padding: EdgeInsets.all(4),
                           children: buildListItems(10, Colors.cyan, 'Inner'),
                         ),

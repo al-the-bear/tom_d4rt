@@ -758,13 +758,21 @@ dynamic build(BuildContext context) {
             border: Border.all(color: Colors.brown[300]!),
           ),
           clipBehavior: Clip.antiAlias,
-          child: RawScrollbar(
-            thumbVisibility: true,
-            thickness: 8,
-            radius: Radius.circular(4),
-            thumbColor: Colors.brown[400],
-            child: ListView.builder(
-              itemCount: sampleItems.length,
+          // Cluster G TODO #14 fix: thumbVisibility: true requires an
+          // explicit ScrollController (PrimaryScrollController isn't
+          // auto-inherited by ListView on desktop).
+          child: Builder(
+            builder: (ctx) {
+              final scrollCtrl = ScrollController();
+              return RawScrollbar(
+                controller: scrollCtrl,
+                thumbVisibility: true,
+                thickness: 8,
+                radius: Radius.circular(4),
+                thumbColor: Colors.brown[400],
+                child: ListView.builder(
+                  controller: scrollCtrl,
+                  itemCount: sampleItems.length,
               itemBuilder: (ctx, i) {
                 final item = sampleItems[i];
                 return Container(
@@ -800,6 +808,8 @@ dynamic build(BuildContext context) {
                 );
               },
             ),
+          );
+            },
           ),
         ),
 

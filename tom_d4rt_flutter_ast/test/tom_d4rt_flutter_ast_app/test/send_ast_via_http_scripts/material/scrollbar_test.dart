@@ -200,7 +200,26 @@ dynamic build(BuildContext context) {
     return out;
   }
 
-  // Variant 1: Default Scrollbar (hover-driven)
+  // Cluster G TODO #14 fix: every Scrollbar(thumbVisibility: true, ...)
+  // needs an explicit ScrollController (PrimaryScrollController isn't
+  // auto-inherited by ListView on desktop). One controller per Scrollbar
+  // instance — a single controller cannot be attached to multiple
+  // ScrollViews simultaneously.
+  final _scThumb = ScrollController();
+  final _scTrack = ScrollController();
+  final _scThick = ScrollController();
+  final _scLeft = ScrollController();
+  final _scNon = ScrollController();
+  final _scRaw1 = ScrollController();
+  final _scRaw2 = ScrollController();
+  final _scCup = ScrollController();
+  final _scLog = ScrollController();
+  final _scSide = ScrollController();
+  final _scChat = ScrollController();
+  final _scTheme = ScrollController();
+
+  // Variant 1: Default Scrollbar (hover-driven) — no thumbVisibility, no
+  // explicit controller needed.
   final scrollDefault = Scrollbar(
     child: ListView(children: rainbowRows(20)),
   );
@@ -208,41 +227,46 @@ dynamic build(BuildContext context) {
 
   // Variant 2: thumbVisibility=true
   final scrollThumbVisible = Scrollbar(
+    controller: _scThumb,
     thumbVisibility: true,
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scThumb, children: rainbowRows(20)),
   );
   print('Variant 2: thumbVisibility=true');
 
   // Variant 3: trackVisibility + thumbVisibility
   final scrollTrackVisible = Scrollbar(
+    controller: _scTrack,
     thumbVisibility: true,
     trackVisibility: true,
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scTrack, children: rainbowRows(20)),
   );
   print('Variant 3: trackVisibility=true');
 
   // Variant 4: thick scrollbar with rounded radius
   final scrollThickRadius = Scrollbar(
+    controller: _scThick,
     thumbVisibility: true,
     thickness: 14.0,
     radius: Radius.circular(8.0),
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scThick, children: rainbowRows(20)),
   );
   print('Variant 4: thickness=14, radius=8');
 
   // Variant 5: orientation=left
   final scrollLeft = Scrollbar(
+    controller: _scLeft,
     thumbVisibility: true,
     scrollbarOrientation: ScrollbarOrientation.left,
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scLeft, children: rainbowRows(20)),
   );
   print('Variant 5: scrollbarOrientation=left');
 
   // Variant 6: interactive=false (display-only)
   final scrollNonInteractive = Scrollbar(
+    controller: _scNon,
     thumbVisibility: true,
     interactive: false,
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scNon, children: rainbowRows(20)),
   );
   print('Variant 6: interactive=false');
 
@@ -357,16 +381,18 @@ dynamic build(BuildContext context) {
 
   // Custom-colored RawScrollbar (full control)
   final rawCustom = RawScrollbar(
+    controller: _scRaw1,
     thumbVisibility: true,
     thumbColor: Colors.pink.shade400,
     thickness: 10.0,
     radius: Radius.circular(5.0),
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scRaw1, children: rainbowRows(20)),
   );
   print('Raw scrollbar with pink thumb');
 
   // RawScrollbar with track painted
   final rawTrack = RawScrollbar(
+    controller: _scRaw2,
     thumbVisibility: true,
     trackVisibility: true,
     thumbColor: Colors.deepPurple,
@@ -374,11 +400,11 @@ dynamic build(BuildContext context) {
     trackBorderColor: Colors.deepPurple.shade300,
     thickness: 12.0,
     radius: Radius.circular(2.0),
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scRaw2, children: rainbowRows(20)),
   );
   print('Raw scrollbar with track painted');
 
-  // Cupertino default
+  // Cupertino default — no thumbVisibility, no explicit controller needed.
   final cupertinoDefault = CupertinoScrollbar(
     child: ListView(children: rainbowRows(20)),
   );
@@ -386,12 +412,13 @@ dynamic build(BuildContext context) {
 
   // Cupertino thick + always visible
   final cupertinoThick = CupertinoScrollbar(
+    controller: _scCup,
     thumbVisibility: true,
     thickness: 8.0,
     thicknessWhileDragging: 14.0,
     radius: Radius.circular(7.0),
     radiusWhileDragging: Radius.circular(0.0),
-    child: ListView(children: rainbowRows(20)),
+    child: ListView(controller: _scCup, children: rainbowRows(20)),
   );
   print('Cupertino thick scrollbar');
 
@@ -682,6 +709,7 @@ dynamic build(BuildContext context) {
         SizedBox(
           height: 220.0,
           child: RawScrollbar(
+            controller: _scLog,
             thumbVisibility: true,
             trackVisibility: true,
             thumbColor: Colors.greenAccent.withValues(alpha: 0.7),
@@ -689,7 +717,7 @@ dynamic build(BuildContext context) {
             trackBorderColor: Colors.grey.shade700,
             thickness: 8.0,
             radius: Radius.circular(4.0),
-            child: ListView(children: logTiles),
+            child: ListView(controller: _scLog, children: logTiles),
           ),
         ),
       ],
@@ -800,10 +828,11 @@ dynamic build(BuildContext context) {
         SizedBox(
           height: 240.0,
           child: Scrollbar(
+            controller: _scSide,
             thumbVisibility: true,
             thickness: 6.0,
             radius: Radius.circular(3.0),
-            child: ListView(children: sidebarTiles),
+            child: ListView(controller: _scSide, children: sidebarTiles),
           ),
         ),
       ],
@@ -950,10 +979,11 @@ dynamic build(BuildContext context) {
         SizedBox(
           height: 260.0,
           child: CupertinoScrollbar(
+            controller: _scChat,
             thumbVisibility: true,
             thickness: 6.0,
             radius: Radius.circular(3.0),
-            child: ListView(children: chatTiles),
+            child: ListView(controller: _scChat, children: chatTiles),
           ),
         ),
       ],
@@ -1002,9 +1032,13 @@ dynamic build(BuildContext context) {
     mainAxisMargin: 4.0,
   );
 
+  // Theme-set thumbVisibility:true also needs an explicit controller.
   final themedScrollable = Theme(
     data: Theme.of(context).copyWith(scrollbarTheme: scrollbarThemeData),
-    child: Scrollbar(child: ListView(children: rainbowRows(25))),
+    child: Scrollbar(
+      controller: _scTheme,
+      child: ListView(controller: _scTheme, children: rainbowRows(25)),
+    ),
   );
   print('Created themed scrollbar (MaterialState-aware)');
 

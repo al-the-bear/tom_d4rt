@@ -482,8 +482,8 @@ Distinct messages logged by the test-app's `_capturingFrameworkErrors` path. The
 | 5 | `Tried to build dirty widget in the wrong build scope.` | B (cascade) — **✅ FIXED 20260525** | gii |
 | 6 | `A RenderConstraintsTransformBox overflowed by 30 pixels …` | U17 (intentional by-design) | secondary, timeout |
 | 7 | `'package:flutter/src/widgets/framework.dart' Failed assertion: line 6417 pos 14: '() {` | F (framework assertion) — **✅ FIXED 20260525** (eliminated by cluster-B fix; downstream cascade of the inactive-element assertion) | secondary, timeout |
-| 8 | `A ScrollController is required when Scrollbar.thumbVisibility is true.` | G (script bug) | hr2, hr5, important (test) |
-| 9 | `A ScrollController is required when the scrollbar is interactive.` | G (script bug) | important (test) |
+| 8 | `A ScrollController is required when Scrollbar.thumbVisibility is true.` | G (script bug) — **✅ FIXED 20260525** | hr2, hr5, important (test) |
+| 9 | `A ScrollController is required when the scrollbar is interactive.` | G (script bug) — **✅ FIXED 20260525** (same family, same scripts) | important (test) |
 | 10 | `Exception: Codec failed to produce an image, possibly due to invalid image data.` | H (script bug) | hr4 |
 | 11 | `BoxConstraints forces an infinite height.` | I (script layout bug) | hr5 |
 
@@ -591,13 +591,39 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
   Root cause: the line-6417 assertion is the next-frame downstream cascade of "`findRenderObject` on an inactive element" — once cluster-B made the bridge return null instead of throwing, the cascade never starts. No silencer pattern was added because none is needed; the assertion no longer appears in the captured framework-error stream. _fixed:_ ✅
 
-### Cluster G — Script-side bugs (Scrollbar / ScrollController)
+### Cluster G — Script-side bugs (Scrollbar / ScrollController) — **✅ FIXED**
 
-- [ ] **14. `Scrollbar.thumbVisibility = true` without `ScrollController`.** Scripts use the primary scroll controller but pass `thumbVisibility: true`, which requires an explicit controller. Add a controller in:
-  - `hardly_relevant_classes_2_test` (1 script)
-  - `hardly_relevant_classes_5_test` (1 script)
-  - `important_classes_test` (1 script — also has the `interactive` variant)
-  Identify exact scripts via `grep -l 'thumbVisibility' tom_d4rt_flutter_ast/test/.../send_ast_via_http_scripts/`. _fixed:_
+- [x] **14. `Scrollbar.thumbVisibility = true` without `ScrollController`.** _Done 2026‑05‑25._ Identified the four scripts that produce the framework error in the 1059 baseline:
+  - `material/scrollbar_test.dart` (12 errors in `important_classes_test`)
+  - `material/scrollbar_theme_data_test.dart` (**34 errors** in `hardly_relevant_classes_2_test` — the biggest one, originally undercounted in the TODO body)
+  - `widgets/raw_scrollbar_state_test.dart` (1 error in `hardly_relevant_classes_5_test`)
+  - `widgets/viewport_notification_mixin_test.dart` (1 error in `hardly_relevant_classes_5_test`)
+
+  All four are static teaching demos in
+  `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/`
+  (shared by both flutter_ast and flutter_test via the `scriptsPath`
+  reference in flutter_test's `send_test_runner.dart`).
+
+  Fix pattern applied uniformly: each `Scrollbar/RawScrollbar/CupertinoScrollbar`
+  with `thumbVisibility: true` (or with `thumbVisibility` set via
+  `ScrollbarThemeData`) now has an explicit `ScrollController()`
+  threaded into BOTH the Scrollbar `controller:` and the inner
+  `ListView`/`SingleChildScrollView` `controller:` (a single
+  controller can only be attached to one Scrollable at a time, so each
+  Scrollbar needs its own). Helpers that are called multiple times
+  declare a fresh `ScrollController()` per call inside a `for` loop or
+  at the top of the helper function. Scripts that build top-level
+  `final scrollX = Scrollbar(...)` assignments declare named
+  controllers at the top of `build(context)`.
+
+  Verification (per rule (a), only test/ subfolder files changed):
+  - `widgets/viewport_notification_mixin_test.dart` (isolated): rc=0, frameworkErrors=0.
+  - `widgets/raw_scrollbar_state_test.dart` (isolated): rc=0.
+  - `material/scrollbar_test.dart` (in full `important_classes_test`): build 3.1 s, frameworkErrors=0, suite +164 ALL PASS.
+  - `material/scrollbar_theme_data_test.dart` (in full `hardly_relevant_classes_2_test`): build 2.55 s, frameworkErrors=0, status=success.
+  - No `A ScrollController is required when Scrollbar` lines remain anywhere in the hr2 full sweep log.
+
+  _fixed:_ ✅
 
 ### Cluster H — Script-side bug (Codec)
 
