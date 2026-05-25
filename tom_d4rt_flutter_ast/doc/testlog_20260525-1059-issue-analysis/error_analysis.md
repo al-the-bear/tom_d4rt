@@ -13,38 +13,117 @@
 
 ## 1. Headline numbers
 
-| Project | passed | skip | failure (real) | error (transport/timeout) | error‑widget suppressed | silenced `_dependents.isEmpty` |
+| Project | passed | skip | broken — assertion (`failure`) | broken — over-budget (`error`) | error‑widget suppressed | silenced `_dependents.isEmpty` |
 |---|---:|---:|---:|---:|---:|---:|
 | `tom_d4rt_flutter_ast`  | **2146** | 3 | **14** | **81** | **10** | **45** |
 | `tom_d4rt_flutter_test` | **2143** | 3 | **14** | **84** | **10** | **45** |
 
-**Interpretation in three lines:**
+### A failure is a failure — `failure` vs `error` is just *where it manifested*
 
-1. `failure` (real D4rt script / runtime / interpreter bugs) is **14 per project** — almost all overlap, the canonical "cluster of known D4rt bugs" that the bug-fix campaign tracks.
-2. `error` (transport-failure + timeout, 81–84 per project) is **pure cold-start parallel-sweep contention** — the same well-documented pattern seen in the `20260525-0316` baseline (87 / 98 transports). No regression. None of these correlate with `[error-widget]` events; the suppressed red screens never blocked subsequent tests.
-3. The pump + `ErrorWidget.builder` override is **proven to work**: 20 red screens (10 per project) were intercepted (the `_dependents.isEmpty` assertion alone fired 45 times per app and was silenced both visually and in the log), and zero `clear-timeout` / zero `_dependents-catch-all` events across the entire sweep.
+dart-test reports two statuses for a broken test, but with our 30 s harness
+budget **both mean the test is broken and needs a code fix.** The labels
+only tell us where in the pipeline the breakage surfaced:
+
+- **`failure`** — `SendTestRunner.send()` returned, the harness's `expect()`
+  ran and was false. The test app produced a response that said "this
+  script didn't succeed", usually with a captured `frameworkErrors` list.
+  Root cause is in the script under test, in the interpreter, in the
+  bridge, or in the generator.
+
+- **`error`** — `SendTestRunner.send()` threw, before any `expect()` could
+  run. In our corpus this is **always one of two things**:
+
+  1. `Bad state: Transport failure` — test app's `/build` handler did not
+     produce a JSON response within the test app's internal 25 s budget.
+  2. `TimeoutException after 0:00:30` — harness gave up after 30 s.
+
+  Either way: **the script + interpreter combination took longer than
+  30 s to render a widget**, which is a bug. A bridged d4rt script
+  should produce a Widget in **1–3 s** end-to-end. 30 s is **two orders
+  of magnitude** over budget. Something in the interpreter or the
+  script is doing pathological work, hanging on a future that never
+  completes, or thrashing memory.
+
+The TODO list at the end of this document treats `failure` and `error`
+rows the same way: **every broken test is a code-fix item.**
+
+### What stayed working — pump + ErrorWidget override
+
+The pump + `ErrorWidget.builder` override is proven durable: 20 red
+screens (10 per project) were intercepted (the `_dependents.isEmpty`
+assertion alone fired 45 times per app and was silenced both visually
+and in the log), and **zero `clear-timeout` / zero
+`_dependents-catch-all` / zero `platform-_dependents` events** across
+the entire sweep. None of the 165 `error` rows are caused by red-screen
+cascades — that whole class of failure is gone.
+
+### Why a 30 s `error` is a bug, not "host pressure"
+
+The prior `20260525-0316` baseline framed transport/timeout errors as
+"cold-start parallel-sweep contention" — i.e. *not* a bug, *not*
+fixable, *acceptable noise*. **That framing was wrong.** A 30 s budget
+is already 10–30× longer than a healthy widget build should need. If
+two parallel `flutter test` processes on a modern Mac can drive a
+single interpreted Dart script past that budget, the script (or an
+interpreter path it hits) has a performance bug worth finding —
+host-pressure is exposing a latent O(n²) or unbounded-await
+somewhere, not creating a new problem.
+
+The fix protocol is **bisection**, applied to every `error` row:
+
+1. Re-run the failing script *alone* with `--plain-name`.  If it still
+   fails alone → real script/interpreter bug.  If it passes alone but
+   fails in-sweep → see step 2.
+2. Re-run the failing script while the *other* flutter project is
+   *also* running its sweep, but isolate to the single test file in
+   the harness.  If the script now exceeds 30 s on its own with only
+   light external load, the bug is reproducible under contention but
+   not in solo runs — still a real bug, just one that requires load to
+   surface.
+3. Add `Stopwatch` instrumentation to the test app's `/build` path
+   (around interpret-bundle, around runZonedGuarded, around the
+   completer-pump) and capture the per-stage timings for the
+   slow script.  The slowest stage points at the file to investigate
+   in the interpreter / bridge.
+4. Either:
+   - **Fix the interpreter** if a specific node visitor or bridge
+     adapter is pathologically slow.  Mirror tom_d4rt ↔ tom_d4rt_ast.
+   - **Rewrite the script** if it does work that's not part of the
+     property under test (e.g. constructs 1000 widgets when only 10
+     are needed, or awaits a Future that the interpreter can never
+     complete).  The test file should remain in the suite covering
+     the same surface area, just within a normal time frame.
+
+A script that genuinely needs more than 30 s to test what it tests is
+a sign the test scope is wrong — split it into multiple smaller
+focused tests.
 
 ---
 
 ## 2. Per‑file results
 
+> **Reading the `err` column:** every `err` entry is an over-budget
+> build (script + interpreter combination took > 25 s to produce a
+> Widget). Each is a code-fix item — see §6 step #17 and the
+> per-script bisection list in `over_budget_scripts.md`.
+
 ### 2.1 `tom_d4rt_flutter_ast`
 
 | File | pass | skip | fail | err | fwErr (distinct) | error-widget | notes |
 |---|---:|---:|---:|---:|---:|---:|---|
-| `essential_classes_test`              | 108 | 0 |  0 |  3 | 0 | 0 | 3 transports (cold-start) |
+| `essential_classes_test`              | 108 | 0 |  0 |  3 | 0 | 0 | 3 over-budget builds (curve, row, transform) |
 | `important_classes_test`              | 167 | 0 |  0 |  0 | 0 | 0 | ✓ clean |
-| `secondary_classes_test`              | 631 | 1 |  2 | 23 | 4 | 5 | biggest file: 23 cold-start transports + 2 real script failures + 4 distinct fwErrs |
-| `hardly_relevant_classes_1_test`      | 196 | 1 |  1 | 10 | 0 | 0 | object_event_test fail + 10 cold-start |
-| `hardly_relevant_classes_2_test`      | 197 | 0 |  0 |  9 | 1 | 0 | Scrollbar.thumbVisibility fwErr + 9 cold-start |
-| `hardly_relevant_classes_3_test`      | 193 | 0 |  0 | 11 | 0 | 0 | 11 cold-start |
-| `hardly_relevant_classes_4_test`      | 222 | 0 |  0 |  8 | 1 | 0 | Codec fwErr + 8 cold-start |
-| `hardly_relevant_classes_5_test`      | 221 | 0 |  0 | 12 | 2 | 0 | 2 fwErrs (BoxConstraints, Scrollbar) + 12 cold-start |
+| `secondary_classes_test`              | 631 | 1 |  2 | 23 | 4 | 5 | 23 over-budget + 2 assertion-side failures + 4 distinct fwErrs — biggest file by surface area |
+| `hardly_relevant_classes_1_test`      | 196 | 1 |  1 | 10 | 0 | 0 | object_event_test assertion-side + 10 over-budget |
+| `hardly_relevant_classes_2_test`      | 197 | 0 |  0 |  9 | 1 | 0 | Scrollbar.thumbVisibility fwErr + 9 over-budget |
+| `hardly_relevant_classes_3_test`      | 193 | 0 |  0 | 11 | 0 | 0 | 11 over-budget |
+| `hardly_relevant_classes_4_test`      | 222 | 0 |  0 |  8 | 1 | 0 | Codec fwErr + 8 over-budget |
+| `hardly_relevant_classes_5_test`      | 221 | 0 |  0 | 12 | 2 | 0 | 2 fwErrs (BoxConstraints, Scrollbar) + 12 over-budget |
 | `crashing_tests_test`                 |   7 | 0 |  0 |  0 | 0 | 0 | ✓ clean |
-| `timeout_tests_test`                  |  50 | 0 |  2 |  2 | 3 | 5 | render_custom_paint + r_c_s_c_l_box failures + 2 transports |
+| `timeout_tests_test`                  |  50 | 0 |  2 |  2 | 3 | 5 | render_custom_paint + r_c_s_c_l_box assertion-side + 2 over-budget |
 | `blocking_tests_test`                 |   8 | 0 |  0 |  0 | 0 | 0 | ✓ clean |
-| `generator_interpreter_issues_test`   |  77 | 1 |  7 |  1 | 2 | 0 | 7 cluster bugs + render_physical_shape transport |
-| `generator_interpreter_retest_test`   |  58 | 1 |  0 |  2 | 0 | 0 | 2 transports (render_animated_size_state, app_kit_view) |
+| `generator_interpreter_issues_test`   |  77 | 1 |  7 |  1 | 2 | 0 | 7 cluster bugs (assertion-side) + render_physical_shape over-budget |
+| `generator_interpreter_retest_test`   |  58 | 1 |  0 |  2 | 0 | 0 | 2 over-budget (render_animated_size_state, app_kit_view) |
 | `interactive_tests_test`              |   7 | 0 |  2 |  0 | 0 | 0 | dismiss-via-barrier + showDatePicker‑CANCEL |
 | **TOTAL**                             | **2146** | 3 | 14 | 81 | 13 | 10 |  |
 
@@ -52,19 +131,19 @@
 
 | File | pass | skip | fail | err | fwErr (distinct) | error-widget | notes |
 |---|---:|---:|---:|---:|---:|---:|---|
-| `essential_classes_test`              | 110 | 0 |  1 |  0 | 0 | 0 | materialapp_test fail |
-| `important_classes_test`              | 166 | 0 |  0 |  1 | 2 | 0 | selectabletext_test transport + 2 Scrollbar fwErrs |
-| `secondary_classes_test`              | 623 | 1 |  2 | 31 | 5 | 5 | biggest: 31 cold-start + 2 real failures + 5 fwErrs |
-| `hardly_relevant_classes_1_test`      | 195 | 1 |  1 | 11 | 0 | 0 | cupertino/class_test fail + 11 cold-start |
-| `hardly_relevant_classes_2_test`      | 197 | 0 |  0 |  9 | 0 | 0 | 9 cold-start |
-| `hardly_relevant_classes_3_test`      | 191 | 0 |  1 | 12 | 0 | 0 | text_editing_delta_deletion + 12 cold-start |
-| `hardly_relevant_classes_4_test`      | 218 | 0 |  0 | 12 | 0 | 0 | 12 cold-start |
-| `hardly_relevant_classes_5_test`      | 230 | 0 |  0 |  3 | 0 | 0 | 3 cold-start |
+| `essential_classes_test`              | 110 | 0 |  1 |  0 | 0 | 0 | materialapp_test assertion-side |
+| `important_classes_test`              | 166 | 0 |  0 |  1 | 2 | 0 | selectabletext_test over-budget + 2 Scrollbar fwErrs |
+| `secondary_classes_test`              | 623 | 1 |  2 | 31 | 5 | 5 | 31 over-budget + 2 assertion-side + 5 fwErrs — biggest by surface area |
+| `hardly_relevant_classes_1_test`      | 195 | 1 |  1 | 11 | 0 | 0 | cupertino/class_test assertion-side + 11 over-budget |
+| `hardly_relevant_classes_2_test`      | 197 | 0 |  0 |  9 | 0 | 0 | 9 over-budget |
+| `hardly_relevant_classes_3_test`      | 191 | 0 |  1 | 12 | 0 | 0 | text_editing_delta_deletion assertion-side + 12 over-budget |
+| `hardly_relevant_classes_4_test`      | 218 | 0 |  0 | 12 | 0 | 0 | 12 over-budget |
+| `hardly_relevant_classes_5_test`      | 230 | 0 |  0 |  3 | 0 | 0 | 3 over-budget |
 | `crashing_tests_test`                 |   7 | 0 |  0 |  0 | 0 | 0 | ✓ clean |
 | `timeout_tests_test`                  |  50 | 0 |  2 |  2 | 3 | 5 | same render_custom_paint + r_c_s_c_l_box pair |
 | `blocking_tests_test`                 |   8 | 0 |  0 |  0 | 0 | 0 | ✓ clean |
 | `generator_interpreter_issues_test`   |  77 | 1 |  7 |  1 | 2 | 0 | same 7 cluster bugs |
-| `generator_interpreter_retest_test`   |  58 | 1 |  0 |  2 | 0 | 0 | same 2 transports |
+| `generator_interpreter_retest_test`   |  58 | 1 |  0 |  2 | 0 | 0 | same 2 over-budget |
 | `interactive_tests_test`              |   9 | 0 |  0 |  0 | 0 | 0 | ✓ clean (flutter_test version interprets source directly — passes both interactive scripts that fail in flutter_ast) |
 | **TOTAL**                             | **2143** | 3 | 14 | 84 | 12 | 10 |  |
 
@@ -123,16 +202,43 @@ Scripts that fail in exactly one of the two projects (real script-specific bugs,
 | flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` |
 | flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` |
 
-### Cluster E — Cold-start parallel-sweep contention (transport / timeout)
+### Cluster E — Over-budget builds (every `error` row)
 
-165 errors across both projects (81 + 84). Each manifests as either:
+165 errors across both projects (81 + 84). Each manifests as one of:
 
-- **Transport failure**: harness sends `POST /build`, test-app HTTP server times out at 25 s. The next script then runs cleanly.
-- **TimeoutException after 0:00:30**: harness-level test-timeout after 30 s.
+- **Transport failure**: harness sent `POST /build`, the test app's
+  internal `/build` handler did not complete the build within its 25 s
+  budget. The completer never fires → HTTP request never gets a
+  response → harness reports the transport channel as failed.
+- **TimeoutException after 0:00:30**: harness gave up after wrapping
+  the HTTP request in its own 30 s `Future.timeout`.
 
-These do **not** correlate with `[error-widget]` invocations (only 10 per project), with `_dependents.isEmpty` events (45 per project, all silenced), or with framework errors. They cluster around the start of each test file (cold-start), with the test-app process spending its first ~25–30 s warming up the Dart VM + Flutter engine + first interpreter cold-cache, while the harness has already moved on.
+**Every one of these is a bug.** A healthy widget build (parse the
+bundle → run the script's `build` function → render a Widget → pump
+200 ms) should complete in **1–3 s**. 25–30 s is **10–30× over
+budget**. Something is wrong: a script does pathological work, an
+interpreter visitor has an O(n²) path it shouldn't, a `Future` is
+awaited that the d4rt isolate can never complete, a bridge call
+recursively expands, etc.
 
-**This pattern is documented as the baseline parallel-sweep contention** (see `testlog_20260525-0316-issue-analysis/error_analysis.md` §1). Single-script re-runs of any of these scripts in isolation pass cleanly. **Fix is host-pressure-related, not interpreter / generator / bridge / pump.**
+These do **not** correlate with `[error-widget]` invocations (only 10
+per project) or `_dependents.isEmpty` events (45 per project, all
+silenced). They are independent of the cleanup machinery — they are
+performance / correctness bugs in the build path.
+
+The prior `20260525-0316` baseline framed this cluster as "cold-start
+parallel-sweep contention" — i.e. host-pressure noise, not actionable.
+**That framing is now retracted.** Two parallel `flutter test`
+processes on a modern Mac should not drive a single interpreted Dart
+script past 30 s. The host-pressure framing was confusing reproducible
+performance bugs with environmental flakes.
+
+**Bisection protocol** for every script in this cluster is in §6
+items #17–#21. The 165 per-script entries are listed in
+`over_budget_scripts.md` (already generated — see #17), with a
+cross-cutting section calling out the 7 scripts that are over-budget
+in **both** projects (these are the top-priority targets — likely
+interpreter / bridge bottlenecks rather than per-app harness issues).
 
 ---
 
@@ -250,9 +356,72 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
 - [ ] **16. `BoxConstraints forces an infinite height`.** One script in `hardly_relevant_classes_5_test`. The script lays out a `Column` (or similar unbounded-height widget) inside an unbounded-height ancestor. Wrap in `IntrinsicHeight` or a `SizedBox(height: ...)`. _fixed:_
 
-### Cluster J — Cold-start parallel-sweep contention (cluster E above)
+### Cluster E (revisited) — Over-budget builds
 
-- [ ] **17. Document the contention pattern in the test harness README.** Not a bug — but the 81–84 transports/timeouts per project significantly hurt the signal-to-noise ratio when reading the logs. Add a note to the test harness that explains "if you see Transport failure on a cold-start test, re-run that single test in isolation; it will pass". Optional: add a per-test retry mechanism in `SendTestRunner` (e.g. one retry on `Transport failure` only, with a 2 s pause). _fixed:_
+Every `error` row needs investigation: 81 in flutter_ast, 84 in
+flutter_test, with substantial overlap. The 30 s budget is generous —
+a build that exceeds it is broken. Treat each one as a bisection
+problem.
+
+- [x] **17. Generate the per-script over-budget bisection list.**
+  Done — `over_budget_scripts.md` (in this same testlog folder)
+  contains 81 + 84 = 165 individual over-budget script entries
+  grouped by `(project, test_file)`, plus a "cross-cutting" section
+  listing the **7 scripts that are over-budget in BOTH projects** —
+  these are the highest-priority targets for #19 (interpreter /
+  bridge bottlenecks rather than per-app harness issues). _fixed:
+  generated 2026-05-25 by `ztmp/gen_over_budget_list_20260525-1059.py`_
+
+- [ ] **18. Add `Stopwatch` instrumentation to the test app's
+  `/build` handler.** Capture per-stage timings (bundle parse,
+  interpret, runZonedGuarded entry, first frame, pump duration) on
+  every build and emit them in the `[METRIC]` log line. Without this
+  data, bisecting a 25 s wedge is guesswork — the slowest stage tells
+  us which subsystem to investigate. Both apps need this; mirror the
+  changes per the saved sync rules. _fixed:_
+
+- [ ] **19. Bisect the top 5 most-frequent over-budget scripts.**
+  After #18, take the 5 scripts that appear in the most test
+  files (i.e. cross-cutting — likely interpreter bottlenecks rather
+  than per-script bugs). For each:
+  1. Re-run alone with `--plain-name "<script_name>"` to confirm the
+     over-budget repro is deterministic, not contention-induced.
+  2. Read the new `[METRIC]` stage timings to identify the slowest
+     stage.
+  3. Drill into that stage: profile the interpreter visitor / bridge
+     adapter responsible, or read the script to find the unbounded
+     work.
+  4. Fix the root cause. If it's an interpreter bug, mirror tom_d4rt
+     ↔ tom_d4rt_ast. If it's a script bug, rewrite the script to
+     test the same behaviour within budget (split into multiple
+     focused tests if needed — keep the same surface coverage,
+     reduce the per-test work).
+  5. Re-run the script in isolation, confirm < 5 s build time.
+  6. Re-run the full test file the script lives in (still in isolation
+     of the other flutter project) — confirm no other new failures.
+  _fixed:_
+
+- [ ] **20. Bisect the remaining over-budget scripts.** After 19
+  resolves the cross-cutting ones, repeat the bisect-and-fix loop
+  for every remaining script in `over_budget_scripts.md`. The list
+  shrinks rapidly once cross-cutting interpreter bottlenecks land.
+  Mark each script's checkbox in `over_budget_scripts.md` as it
+  closes. _fixed:_
+
+- [ ] **21. Convergence target.** Once #19 + #20 are done, re-run
+  the full 14-test sweep on both projects in parallel under the same
+  conditions as this run (`20260525-1059`). The success criterion is
+  **zero `error` rows in either project** — every test that's in the
+  suite either passes, is intentionally `skip`ped, or hits a real
+  `failure` that the interpreter / bridge / script TODO list (#1–#16)
+  is responsible for. _fixed:_
+
+**Note:** items #1–#16 above (clusters A through I) MAY incidentally
+fix some `error` rows too — e.g. fixing cluster B's `findRenderObject`
+on inactive element may eliminate the cascade that's holding some
+scripts past 25 s. Do not assume any `error` is independent of the
+other clusters until #18 generates the per-stage `[METRIC]` timings
+and the work is sequenced.
 
 ---
 

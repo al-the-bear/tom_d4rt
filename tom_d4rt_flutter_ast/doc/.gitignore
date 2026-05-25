@@ -9,3 +9,4 @@ testlog_*/**
 !testlog_*/_timestamp.txt
 !testlog_*/_driver.log.txt
 !testlog_*/framework_error_fix_plan.md
+!testlog_*/over_budget_scripts.md
