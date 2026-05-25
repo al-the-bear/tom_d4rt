@@ -1050,6 +1050,9 @@ class SendTestRunner {
     final frameworkErrors =
         (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
     final judgment = response['judgment'] as String?;
+    // Cluster J TODO #18 — test-app per-stage timings.
+    final appMetric =
+        (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -1065,6 +1068,7 @@ class SendTestRunner {
       httpStatus: httpStatus,
       outputLines: output.length,
       frameworkErrorCount: frameworkErrors.length,
+      appMetric: appMetric,
     );
 
     // Log framework errors (red error screens) prominently so they are
@@ -1370,7 +1374,15 @@ class SendTestRunner {
     required int? httpStatus,
     required int outputLines,
     required int frameworkErrorCount,
+    // Cluster J TODO #18 — optional per-stage build timings returned by
+    // the test app in the `_buildMetric` response field. Null means the
+    // milestone wasn't reached on this build (transport_error before any
+    // stage, or the timing fields weren't returned). All times are
+    // millisecond offsets from the test app's Stopwatch start at the
+    // top of `_handleBuild`.
+    Map<String, dynamic>? appMetric,
   }) {
+    final appStages = _formatAppMetric(appMetric);
     // ignore: avoid_print
     print(
       '[METRIC] script=$scriptPath '
@@ -1382,8 +1394,30 @@ class SendTestRunner {
       'httpMs=${httpDuration.inMilliseconds} '
       'totalMs=${totalDuration.inMilliseconds} '
       'status=$status httpStatus=${httpStatus ?? -1} '
-      'outputLines=$outputLines frameworkErrors=$frameworkErrorCount',
+      'outputLines=$outputLines frameworkErrors=$frameworkErrorCount'
+      '$appStages',
     );
+  }
+
+  /// Format the optional `_buildMetric` map (see TODO #18) as a suffix
+  /// for the `[METRIC]` line. Returns an empty string when the response
+  /// didn't carry one, so the existing METRIC shape is unchanged on
+  /// transport-error rows (where the test app never replied).
+  static String _formatAppMetric(Map<String, dynamic>? m) {
+    if (m == null) return '';
+    int? i(String key) {
+      final v = m[key];
+      if (v is int) return v;
+      if (v is num) return v.toInt();
+      return null;
+    }
+    return ' appBodyMs=${i('bodyMs') ?? -1}'
+        ' appParseMs=${i('parseMs') ?? -1}'
+        ' appSetStateMs=${i('setStateMs') ?? -1}'
+        ' appInterpretStartMs=${i('interpretStartMs') ?? -1}'
+        ' appInterpretEndMs=${i('interpretEndMs') ?? -1}'
+        ' appFirstFrameMs=${i('firstFrameMs') ?? -1}'
+        ' appPumpEndMs=${i('pumpEndMs') ?? -1}';
   }
 
   static Future<List<String>> _tryFetchRemoteAppLogs({

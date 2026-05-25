@@ -103,6 +103,18 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   Completer<_BuildResult>? _buildCompleter;
   List<String> _capturedOutput = [];
 
+  // Cluster J TODO #18 (testlog 20260525-1059) — per-stage /build timing.
+  // Mirror of fields + helper in flutter_ast/main.dart. Filter the debug
+  // console with `grep '\[D4rtApp\]\[build-metric\]'`.
+  Stopwatch? _buildStopwatch;
+  int? _bodyMs;
+  int? _parseMs;      // source receive (no JSON decode on flutter_test)
+  int? _setStateMs;
+  int? _interpretStartMs;
+  int? _interpretEndMs;
+  int? _firstFrameMs;
+  int? _pumpEndMs;
+
   // Test execution control
   bool _isPaused = false;
   String? _currentTestFile;
@@ -410,6 +422,28 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     }
   }
 
+  /// Cluster J TODO #18 — mirror of flutter_ast/main.dart's _emitBuildMetric.
+  /// Emits a `[BUILD_METRIC]` debug line at the end of every /build with
+  /// the per-stage timing breakdown captured during the current handler.
+  /// Filter with `grep '\[D4rtApp\]\[build-metric\]'`.
+  void _emitBuildMetric({String? widgetType, String? error}) {
+    final sw = _buildStopwatch;
+    if (sw == null) return;
+    final totalMs = sw.elapsedMilliseconds;
+    sw.stop();
+    final fileLabel = _currentTestFile ?? '<none>';
+    final widgetLabel = widgetType ?? '<no-widget>';
+    final errorTail = error == null ? '' : ' error="${error.split('\n').first}"';
+    debugPrint(
+      '[D4rtApp][build-metric] file="$fileLabel" widgetType="$widgetLabel" '
+      'bodyMs=$_bodyMs parseMs=$_parseMs setStateMs=$_setStateMs '
+      'interpretStartMs=$_interpretStartMs interpretEndMs=$_interpretEndMs '
+      'firstFrameMs=$_firstFrameMs pumpEndMs=$_pumpEndMs '
+      'totalMs=$totalMs$errorTail',
+    );
+    _buildStopwatch = null;
+  }
+
   /// Cleanup-trace logger — see equivalent in flutter_ast/main.dart for full
   /// rationale. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
   void _traceCleanup(String tag, String message, {StackTrace? stack}) {
@@ -620,6 +654,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       return;
     }
 
+    // Cluster J TODO #18 — start the per-stage Stopwatch at the earliest
+    // point. See flutter_ast/main.dart for the full rationale.
+    _buildStopwatch = Stopwatch()..start();
+    _bodyMs = null;
+    _parseMs = null;
+    _setStateMs = null;
+    _interpretStartMs = null;
+    _interpretEndMs = null;
+    _firstFrameMs = null;
+    _pumpEndMs = null;
+
     final filenameParam = request.uri.queryParameters['filename'];
     final filename = filenameParam != null
         ? Uri.decodeComponent(filenameParam)
@@ -637,6 +682,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
     // Body is raw Dart source — not JSON.
     final source = await utf8.decoder.bind(request).join();
+    _bodyMs = _buildStopwatch!.elapsedMilliseconds;
+    // `parseMs` is intentionally equal to `bodyMs` on the source-direct
+    // runner — there is no JSON decode step. Recorded here for shape
+    // parity with flutter_ast so a single grep/awk extracts the same
+    // columns from both projects' captured logs.
+    _parseMs = _bodyMs;
     _addLogEntry(
       'Building widget${filename != null ? ' [$filename]' : ''}'
       ' (${source.length} chars)',
@@ -656,6 +707,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       _pendingSource = source;
       _lastError = null;
     });
+    _setStateMs = _buildStopwatch!.elapsedMilliseconds;
 
     await Future<void>.delayed(Duration.zero);
 
@@ -663,6 +715,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       const Duration(seconds: 30),
       onTimeout: () {
         _capturingFrameworkErrors = false;
+        _emitBuildMetric(error: 'Build timed out after 30 seconds');
         return _BuildResult(
           success: false,
           error: 'Build timed out after 30 seconds',
@@ -692,6 +745,19 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
     final responseJson = result.toJson();
     if (judgment != null) responseJson['judgment'] = judgment;
+    // Cluster J TODO #18 — mirror of flutter_ast: include per-stage
+    // timings in the response so the harness can print them in its
+    // `[METRIC]` line on every build. See flutter_ast/main.dart for
+    // the full rationale.
+    responseJson['_buildMetric'] = <String, dynamic>{
+      'bodyMs': _bodyMs,
+      'parseMs': _parseMs,
+      'setStateMs': _setStateMs,
+      'interpretStartMs': _interpretStartMs,
+      'interpretEndMs': _interpretEndMs,
+      'firstFrameMs': _firstFrameMs,
+      'pumpEndMs': _pumpEndMs,
+    };
     _respond(request, result.success ? 200 : 400, responseJson);
   }
 
@@ -708,7 +774,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       runZonedGuarded(
         () {
           try {
+            _interpretStartMs = _buildStopwatch?.elapsedMilliseconds;
             final widget = _d4rt.build<Widget>(source, context);
+            _interpretEndMs = _buildStopwatch?.elapsedMilliseconds;
             _d4rtWidget = widget;
             _widgetGeneration++;
             _lastError = null;
@@ -723,8 +791,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               final completer = _buildCompleter;
               _buildCompleter = null;
               WidgetsBinding.instance.addPostFrameCallback((_) {
+                _firstFrameMs = _buildStopwatch?.elapsedMilliseconds;
                 unawaited(() async {
                   await _pumpFor(_postMutationPumpDuration);
+                  _pumpEndMs = _buildStopwatch?.elapsedMilliseconds;
                   _capturingFrameworkErrors = false;
                   _traceCleanup(
                     'build-postpump',
@@ -732,6 +802,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                         'on built widget (${widget.runtimeType}), '
                         'capturedFrameworkErrors=${_frameworkErrors.length}',
                   );
+                  _emitBuildMetric(widgetType: widget.runtimeType.toString());
                   if (completer != null && !completer.isCompleted) {
                     completer.complete(
                       _BuildResult(
@@ -750,6 +821,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
+              _emitBuildMetric(
+                error: 'SourceFlutterD4rtException: ${e.message}',
+              );
               final c = _buildCompleter;
               _buildCompleter = null;
               if (c != null && !c.isCompleted) {
@@ -770,6 +844,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
+              _emitBuildMetric(error: 'Build error: $errStr');
               final c = _buildCompleter;
               _buildCompleter = null;
               if (c != null && !c.isCompleted) {
@@ -793,6 +868,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           if (!buildCompleted) {
             buildCompleted = true;
             _capturingFrameworkErrors = false;
+            _emitBuildMetric(error: errStr);
             final c = _buildCompleter;
             _buildCompleter = null;
             if (c != null && !c.isCompleted) {

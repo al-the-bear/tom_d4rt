@@ -675,6 +675,9 @@ class SendTestRunner {
         (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
     final judgment = response['judgment'] as String?;
     final remoteStackTrace = response['stackTrace'] as String?;
+    // Cluster J TODO #18 — test-app per-stage timings.
+    final appMetric =
+        (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -686,6 +689,7 @@ class SendTestRunner {
       httpStatus: httpStatus,
       outputLines: output.length,
       frameworkErrorCount: frameworkErrors.length,
+      appMetric: appMetric,
     );
 
     if (frameworkErrors.isNotEmpty) {
@@ -983,7 +987,10 @@ class SendTestRunner {
     required int? httpStatus,
     required int outputLines,
     required int frameworkErrorCount,
+    // Cluster J TODO #18 — per-stage test-app timings.
+    Map<String, dynamic>? appMetric,
   }) {
+    final appStages = _formatAppMetric(appMetric);
     // ignore: avoid_print
     print(
       '[METRIC] script=$scriptPath sourceChars=$sourceChars '
@@ -991,8 +998,30 @@ class SendTestRunner {
       'httpMs=${httpDuration.inMilliseconds} '
       'totalMs=${totalDuration.inMilliseconds} '
       'status=$status httpStatus=${httpStatus ?? -1} '
-      'outputLines=$outputLines frameworkErrors=$frameworkErrorCount',
+      'outputLines=$outputLines frameworkErrors=$frameworkErrorCount'
+      '$appStages',
     );
+  }
+
+  /// Mirror of flutter_ast's `_formatAppMetric` — formats the test-app
+  /// `_buildMetric` map as a suffix for the `[METRIC]` line. Empty
+  /// string when null (preserves the existing METRIC shape on
+  /// transport-error rows).
+  static String _formatAppMetric(Map<String, dynamic>? m) {
+    if (m == null) return '';
+    int? i(String key) {
+      final v = m[key];
+      if (v is int) return v;
+      if (v is num) return v.toInt();
+      return null;
+    }
+    return ' appBodyMs=${i('bodyMs') ?? -1}'
+        ' appParseMs=${i('parseMs') ?? -1}'
+        ' appSetStateMs=${i('setStateMs') ?? -1}'
+        ' appInterpretStartMs=${i('interpretStartMs') ?? -1}'
+        ' appInterpretEndMs=${i('interpretEndMs') ?? -1}'
+        ' appFirstFrameMs=${i('firstFrameMs') ?? -1}'
+        ' appPumpEndMs=${i('pumpEndMs') ?? -1}';
   }
 
   static Future<List<String>> _tryFetchRemoteAppLogs({

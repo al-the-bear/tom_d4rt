@@ -108,6 +108,30 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   Completer<_BuildResult>? _buildCompleter;
   List<String> _capturedOutput = [];
 
+  // Cluster J TODO #18 (testlog 20260525-1059) — per-stage /build timing.
+  // The harness already emits a `[METRIC]` line measuring the HTTP
+  // round-trip but doesn't break down what happens inside the test app
+  // between request arrival and response. Without that breakdown, an
+  // over-budget build at `httpMs=25003` is opaque — we can't tell
+  // whether the time went into bundle JSON decode, the interpreter
+  // visiting nodes, Flutter's first-frame layout/paint, or the cleanup
+  // pump.
+  //
+  // These fields are captured by `_handleBuild` (HTTP-side stages) and
+  // `_buildD4rtWidget` (interpreter + post-frame stages) and printed
+  // as a single `[BUILD_METRIC]` debug line just before responding.
+  // All times are millisecond offsets from `_buildStopwatch.start()`
+  // (called at the top of `_handleBuild`). Cluster-E bisection consumes
+  // these by grep'ing the log for the slowest stage.
+  Stopwatch? _buildStopwatch;
+  int? _bodyMs;
+  int? _parseMs;
+  int? _setStateMs;
+  int? _interpretStartMs;
+  int? _interpretEndMs;
+  int? _firstFrameMs;
+  int? _pumpEndMs;
+
   // Test execution control
   bool _isPaused = false;
   String? _currentTestFile;
@@ -482,6 +506,37 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     }
   }
 
+  /// Cluster J TODO #18 — emit a `[BUILD_METRIC]` debug line containing
+  /// the per-stage timing breakdown captured during the current /build
+  /// handler. Called once at the end of every /build (success, failure,
+  /// async error, and timeout paths) so cluster-E bisection can locate
+  /// the slowest stage by grep'ing the captured test-app log.
+  ///
+  /// Filter the debug console with `grep '\[D4rtApp\]\[build-metric\]'`.
+  ///
+  /// All times are millisecond offsets from `_buildStopwatch.start()`
+  /// (called at the top of `_handleBuild`); the differences between
+  /// consecutive milestones give the per-stage duration. `null` means
+  /// the milestone wasn't reached on this call (e.g. a build that
+  /// errored before interpret start records no `interpretEndMs`).
+  void _emitBuildMetric({String? widgetType, String? error}) {
+    final sw = _buildStopwatch;
+    if (sw == null) return;
+    final totalMs = sw.elapsedMilliseconds;
+    sw.stop();
+    final fileLabel = _currentTestFile ?? '<none>';
+    final widgetLabel = widgetType ?? '<no-widget>';
+    final errorTail = error == null ? '' : ' error="${error.split('\n').first}"';
+    debugPrint(
+      '[D4rtApp][build-metric] file="$fileLabel" widgetType="$widgetLabel" '
+      'bodyMs=$_bodyMs parseMs=$_parseMs setStateMs=$_setStateMs '
+      'interpretStartMs=$_interpretStartMs interpretEndMs=$_interpretEndMs '
+      'firstFrameMs=$_firstFrameMs pumpEndMs=$_pumpEndMs '
+      'totalMs=$totalMs$errorTail',
+    );
+    _buildStopwatch = null;
+  }
+
   /// Cleanup-trace logger. Emits a single line in a consistent shape so the
   /// `_dependents.isEmpty` cascade can be correlated with the preceding
   /// /clear. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
@@ -761,6 +816,18 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       return;
     }
 
+    // Cluster J TODO #18 — start the per-stage Stopwatch at the earliest
+    // point. URI parsing is negligible (microseconds), so resetting all
+    // other milestones here gives the cleanest baseline.
+    _buildStopwatch = Stopwatch()..start();
+    _bodyMs = null;
+    _parseMs = null;
+    _setStateMs = null;
+    _interpretStartMs = null;
+    _interpretEndMs = null;
+    _firstFrameMs = null;
+    _pumpEndMs = null;
+
     final filenameParam = request.uri.queryParameters['filename'];
     final filename = filenameParam != null
         ? Uri.decodeComponent(filenameParam)
@@ -777,6 +844,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     }
 
     final body = await utf8.decoder.bind(request).join();
+    _bodyMs = _buildStopwatch!.elapsedMilliseconds;
     _addLogEntry(
       'Building widget${filename != null ? ' [$filename]' : ''}'
       ' (${body.length} bytes)',
@@ -790,6 +858,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       final bundle = AstBundle.fromJson(
         jsonDecode(body) as Map<String, dynamic>,
       );
+      _parseMs = _buildStopwatch!.elapsedMilliseconds;
 
       // Extract source code if included in the bundle
       if (bundle.sources != null && bundle.sources!.isNotEmpty) {
@@ -811,6 +880,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         _pendingBundle = bundle;
         _lastError = null;
       });
+      _setStateMs = _buildStopwatch!.elapsedMilliseconds;
 
       // Yield to allow the frame to be scheduled and built
       await Future<void>.delayed(Duration.zero);
@@ -826,6 +896,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         const Duration(seconds: 30),
         onTimeout: () {
           _capturingFrameworkErrors = false;
+          _emitBuildMetric(error: 'Build timed out after 30 seconds');
           return _BuildResult(
             success: false,
             error: 'Build timed out after 30 seconds',
@@ -861,9 +932,25 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       if (judgment != null) {
         responseJson['judgment'] = judgment;
       }
+      // Cluster J TODO #18 — include the per-stage timings so the
+      // harness can print them in its `[METRIC]` line on every build,
+      // not just on the failure paths where the test-app stdout is
+      // dumped. The harness's `_printSendMetrics` reads `_buildMetric`
+      // from this map and extends the METRIC line. `null` means the
+      // milestone wasn't reached on this call.
+      responseJson['_buildMetric'] = <String, dynamic>{
+        'bodyMs': _bodyMs,
+        'parseMs': _parseMs,
+        'setStateMs': _setStateMs,
+        'interpretStartMs': _interpretStartMs,
+        'interpretEndMs': _interpretEndMs,
+        'firstFrameMs': _firstFrameMs,
+        'pumpEndMs': _pumpEndMs,
+      };
       _respond(request, result.success ? 200 : 400, responseJson);
     } on FormatException catch (e) {
       _capturingFrameworkErrors = false;
+      _emitBuildMetric(error: 'JSON parse error: $e');
       _log('JSON parse error: $e');
       _respond(request, 400, {
         'error': 'Invalid JSON: $e',
@@ -892,7 +979,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       runZonedGuarded(
         () {
           try {
+            _interpretStartMs = _buildStopwatch?.elapsedMilliseconds;
             final widget = _d4rt.build<Widget>(bundle, context);
+            _interpretEndMs = _buildStopwatch?.elapsedMilliseconds;
             _d4rtWidget = widget;
             _widgetGeneration++;
             _lastError = null;
@@ -914,6 +1003,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               final completer = _buildCompleter;
               _buildCompleter = null;
               WidgetsBinding.instance.addPostFrameCallback((_) {
+                _firstFrameMs = _buildStopwatch?.elapsedMilliseconds;
                 // Pump runs inside an unawaited closure so the post-frame
                 // callback itself returns synchronously (the framework
                 // expects FrameCallback to be void/sync). Capture stays on
@@ -921,6 +1011,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                 // `_frameworkErrors` before we copy the list.
                 unawaited(() async {
                   await _pumpFor(_postMutationPumpDuration);
+                  _pumpEndMs = _buildStopwatch?.elapsedMilliseconds;
                   _capturingFrameworkErrors = false;
                   _traceCleanup(
                     'build-postpump',
@@ -928,6 +1019,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
                         'on built widget (${widget.runtimeType}), '
                         'capturedFrameworkErrors=${_frameworkErrors.length}',
                   );
+                  _emitBuildMetric(widgetType: widget.runtimeType.toString());
                   // Plan C — guard against double-completion. A concurrent
                   // /clear may have completed this completer with 'cleared
                   // by client' already; calling complete() again would throw.
@@ -949,6 +1041,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
+              _emitBuildMetric(error: 'FlutterD4rtException: ${e.message}');
               final c = _buildCompleter;
               _buildCompleter = null;
               if (c != null && !c.isCompleted) {
@@ -967,6 +1060,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
+              _emitBuildMetric(error: 'Build error: $e');
               final c = _buildCompleter;
               _buildCompleter = null;
               if (c != null && !c.isCompleted) {
@@ -989,6 +1083,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           if (!buildCompleted) {
             buildCompleted = true;
             _capturingFrameworkErrors = false;
+            _emitBuildMetric(error: 'Uncaught error: $error');
             final c = _buildCompleter;
             _buildCompleter = null;
             if (c != null && !c.isCompleted) {

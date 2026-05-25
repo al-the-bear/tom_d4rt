@@ -669,13 +669,54 @@ problem.
   bridge bottlenecks rather than per-app harness issues). _fixed:
   generated 2026-05-25 by `ztmp/gen_over_budget_list_20260525-1059.py`_
 
-- [ ] **18. Add `Stopwatch` instrumentation to the test app's
-  `/build` handler.** Capture per-stage timings (bundle parse,
-  interpret, runZonedGuarded entry, first frame, pump duration) on
-  every build and emit them in the `[METRIC]` log line. Without this
-  data, bisecting a 25 s wedge is guesswork — the slowest stage tells
-  us which subsystem to investigate. Both apps need this; mirror the
-  changes per the saved sync rules. _fixed:_
+- [x] **18. Add `Stopwatch` instrumentation to the test app's
+  `/build` handler.** _Done 2026‑05‑25._ Both test apps now capture
+  seven millisecond-offset milestones from `_handleBuild` start:
+  - `bodyMs` — HTTP body fully read
+  - `parseMs` — `AstBundle.fromJson` complete (== `bodyMs` on the
+    source-direct flutter_test runner since there's no JSON decode)
+  - `setStateMs` — `setState(_pendingBundle = …)` returned
+  - `interpretStartMs` — `_d4rt.build<Widget>(…)` call entered
+  - `interpretEndMs` — `_d4rt.build<Widget>(…)` returned
+  - `firstFrameMs` — first post-frame callback fired
+  - `pumpEndMs` — `_pumpFor(_postMutationPumpDuration)` returned
+
+  Each /build response now carries these in a `_buildMetric` map; the
+  harness's `SendTestRunner._printSendMetrics` reads them and extends
+  the `[METRIC]` line with `appBodyMs / appParseMs / appSetStateMs /
+  appInterpretStartMs / appInterpretEndMs / appFirstFrameMs /
+  appPumpEndMs` columns. `null` milestones are emitted as `-1` so
+  awk/grep extraction is robust.
+
+  **Per-stage durations** are simply the differences between
+  consecutive milestones. Sample on `animation/tween_test.dart`
+  (cold-start, flutter_ast):
+
+  ```
+  appBodyMs=7 appParseMs=66 appSetStateMs=66 appInterpretStartMs=73
+  appInterpretEndMs=1660 appFirstFrameMs=5403 appPumpEndMs=5605
+  ```
+
+  → body=7 ms, JSON parse=59 ms, setState=0 ms, schedule→interpret=7 ms,
+  **interpret=1587 ms**, **first-frame layout+paint=3743 ms**, pump=202 ms.
+
+  Same script on flutter_test (source-direct):
+  ```
+  appBodyMs=6 appParseMs=6 appSetStateMs=7 appInterpretStartMs=14
+  appInterpretEndMs=1216 appFirstFrameMs=3385 appPumpEndMs=3586
+  ```
+  → interpret=1202 ms, first-frame=2169 ms, pump=201 ms.
+
+  Source-direct is faster (no 700 KB JSON to parse, smaller-tree
+  interpret). First-frame cost on cold start is the dominant chunk
+  in both — useful baseline for #19's bisection of why some scripts
+  spend dramatically longer in interpret or first-frame.
+
+  Per rule (a): all changes are in `test/` subfolder
+  (`send_test_runner.dart` + the test apps' `main.dart`) so only
+  individual retest needed. Verified both projects emit the new
+  columns by isolated reruns of `essential_classes_test --plain-name
+  'animation/ tween_test'`. `_fixed:_` ✅
 
 - [ ] **19. Bisect the top 5 most-frequent over-budget scripts.**
   After #18, take the 5 scripts that appear in the most test
