@@ -229,7 +229,13 @@ interpreter-sync policy.
 No bridge generator changes, no `*.b.dart` edits, no script edits, no
 user-bridge edits. The fix is purely interpreter-side.
 
-### Cluster B — Bridge `Cannot get renderObject of inactive element`
+### Cluster B — Bridge `Cannot get renderObject of inactive element` — **STATUS: ✅ FIXED**
+
+> **Fixed 2026‑05‑25 in commit ⟨pending⟩.** Workaround applied at the
+> interpreter's generic bridge-method-call catch block. Full
+> Flutter-side rationale and underlying assertion documented as **U27**
+> in `interpreter_unfixable.md`. Verified zero `Cannot get renderObject
+> of inactive element` framework errors in the regression sweep.
 
 Bridges that wrap `Element.findRenderObject()` don't check the element-active state before calling through. Native Flutter asserts inactive elements have no renderObject.
 
@@ -239,6 +245,75 @@ Runtime Error: Native error during bridged method call 'findRenderObject' on
 ```
 
 This shows up as a captured framework error (visible in `secondary_classes_test` for both apps) but currently doesn't cause a script‑level failure — it surfaces inside script teardown and the harness still completes. Pre-emptive fix prevents the `Looking up a deactivated widget's ancestor is unsafe` cascade that follows.
+
+#### Resolution summary
+
+**Root cause (workaround case — see `interpreter_unfixable.md` §U27 for
+full Dart/Flutter explanation).** `Element.findRenderObject()` in
+Flutter's framework asserts `_lifecycleState == _ElementLifecycle.active`,
+which is **strictly stronger** than `Element.mounted`. Scripts following
+Flutter's documented convention `(ctx.mounted) ? ctx.findRenderObject() :
+null` still hit the assertion during the `inactive`-but-still-mounted
+window (keepalive teardown, route pop, parent-data update, etc.). The
+script can't detect this state — `_lifecycleState` is private and
+`debugIsActive` is debug-only.
+
+**Workaround.** The interpreters' generic bridge-method-call catch
+block now pattern-matches the specific assertion text and returns
+`null` for `findRenderObject` calls that produced it — exactly
+matching the documented signature `RenderObject? findRenderObject()`
+(returning null on "no render object available right now") that the
+script's `?.` chains already expect.
+
+```dart
+} catch (e, s) {
+  if (methodName == 'findRenderObject' &&
+      e.toString().contains(
+          'Cannot get renderObject of inactive element')) {
+    return null;
+  }
+  // existing rethrow path …
+}
+```
+
+This was chosen over per-class user bridges because `findRenderObject`
+is generated for **44 separate Element subclasses** (one adapter
+each) — a per-class user-bridge approach would require 44 override
+files and be brittle to add to. The interpreter-side catch covers
+all 44 plus any future subclasses with one location per interpreter.
+Bridge generator was not modified; `.b.dart` files were not touched.
+
+The fix is mirrored verbatim between
+`tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
+
+**Verification.**
+- Isolated rerun of the canonical case
+  (`rendering/render_absorb_pointer_test.dart`):
+  0 framework errors (was 3 occurrences in the `20260525-1059`
+  baseline).
+- Regression sweep (essential + important + secondary, both projects,
+  parallel, full capture in `testlog_20260525-1830-fix4-regress/`):
+  - `tom_d4rt_flutter_ast`: `+111 / +167 / +656 ~1 -0` — all three
+    suites now **completely clean**. Was `+110 ~0 -1 / +167 / +655
+    ~1 -1` after fix #1 (cluster A) → **2 more tests recovered**.
+  - `tom_d4rt_flutter_test`: `+110 -1 (materialapp pre-existing) /
+    +167 / +656 ~1 -0` — important + secondary now **completely
+    clean** in both projects. Was `+110 -1 / +164 / +656 ~1 -0`
+    after fix #1 → **3 more tests recovered**.
+  - Zero new failures introduced; the only remaining failure is
+    the pre-existing `materialapp_test` (TODO item #9), unrelated
+    to cluster B.
+
+**Files touched.**
+- `tom_d4rt/lib/src/interpreter_visitor.dart` — 4-line guard added
+  to the existing bridge-call catch block.
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` — same.
+- `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` — added §U27
+  documenting the underlying Flutter assertion gap and the workaround.
+
+No bridge generator changes, no `*.b.dart` edits, no script edits, no
+user-bridge edits.
 
 ### Cluster C — Interactive test scripts (flutter_ast only)
 
@@ -306,9 +381,9 @@ Distinct messages logged by the test-app's `_capturingFrameworkErrors` path. The
 |---|---|---|---|
 | 1 | `Runtime Error: No setter 'hueShift' for assignment in cascade.` | A — **✅ FIXED 20260525** | secondary, gii, timeout |
 | 2 | `Runtime Error: No setter 'layoutMode' for assignment in cascade.` | A — **✅ FIXED 20260525** | secondary, gii, timeout |
-| 3 | `Runtime Error: Native error during bridged method call 'findRenderObject' on SingleChildRenderObjectElement: Cannot get renderObject of inactive element.` | B | secondary |
-| 4 | `Looking up a deactivated widget's ancestor is unsafe.` | B (cascade) | gii |
-| 5 | `Tried to build dirty widget in the wrong build scope.` | B (cascade) | gii |
+| 3 | `Runtime Error: Native error during bridged method call 'findRenderObject' on SingleChildRenderObjectElement: Cannot get renderObject of inactive element.` | B — **✅ FIXED 20260525** | secondary |
+| 4 | `Looking up a deactivated widget's ancestor is unsafe.` | B (cascade) — **✅ FIXED 20260525** | gii |
+| 5 | `Tried to build dirty widget in the wrong build scope.` | B (cascade) — **✅ FIXED 20260525** | gii |
 | 6 | `A RenderConstraintsTransformBox overflowed by 30 pixels …` | U17 (intentional by-design) | secondary, timeout |
 | 7 | `'package:flutter/src/widgets/framework.dart' Failed assertion: line 6417 pos 14: '() {` | F (framework assertion) | secondary, timeout |
 | 8 | `A ScrollController is required when Scrollbar.thumbVisibility is true.` | G (script bug) | hr2, hr5, important (test) |
@@ -370,13 +445,17 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
 - [ ] **3a. Investigate `widgets/shader_mask_test.dart` "callable function" error.** (Spun off cluster-A item #3.) The script fails with `Argument Error: Expected a callable function, got (Duration) => void` — a callback / animation-driver / Ticker-style argument coercion issue, distinct from the cascade setter resolution. Likely a separate cluster of its own (something about how the interpreter passes typed `void Function(Duration)` arguments to bridged constructors). _fixed:_
 
-### Cluster B — Bridge: `findRenderObject` on inactive element
+### Cluster B — Bridge: `findRenderObject` on inactive element — **✅ FIXED**
 
-- [ ] **4. Guard `LeafRenderObjectElement.findRenderObject` bridge adapter against inactive elements.** Add an `_lifecycleState != _ElementLifecycle.active` check in the bridge wrapper and return `null` (or throw a typed exception that the interpreter swallows in cleanup paths) when the element has been deactivated. File: `tom_d4rt_flutter_ast/lib/src/d4rt_user_bridges/*element*` (and `tom_d4rt_flutter_test` equivalent). _fixed:_
+- [x] **4. Guard `LeafRenderObjectElement.findRenderObject` bridge adapter against inactive elements.** _Done 2026‑05‑25._ The original proposal of a per-class user bridge isn't viable — `findRenderObject` is generated for **44 separate Element subclasses** and the abstract base override doesn't apply to subclass adapters. Instead, the workaround lives in the interpreter's generic bridge-method-call catch block: pattern-match the specific Flutter assertion `Cannot get renderObject of inactive element` for `methodName == 'findRenderObject'` and return `null` instead of wrapping it as a `RuntimeD4rtException`. That matches the documented `RenderObject? findRenderObject()` signature ("no render object available right now") that the script's `?.` chains already expect. Bridge generator not modified, `.b.dart` files not touched. See `interpreter_unfixable.md` §U27 for the full Dart/Flutter root cause and the underlying framework-assertion mismatch with `BuildContext.mounted`. _fixed:_ ✅
 
-- [ ] **5. Same guard for `SingleChildRenderObjectElement.findRenderObject`.** Same pattern. _fixed:_
+- [x] **5. Same guard for `SingleChildRenderObjectElement.findRenderObject`.** _Done 2026‑05‑25 by item #4._ The interpreter-side catch applies to all 44 Element subclasses simultaneously. _fixed:_ ✅
 
-- [ ] **6. Verify cascade gone after fix.** Re-run `secondary_classes_test` in flutter_ast and check the captured fwErrs no longer include `findRenderObject … inactive element` nor the downstream `Looking up a deactivated widget's ancestor is unsafe` / `Tried to build dirty widget in the wrong build scope` cascade messages. _fixed:_
+- [x] **6. Verify cascade gone after fix.** _Done 2026‑05‑25._ Isolated rerun of `rendering/render_absorb_pointer_test.dart`: 0 framework errors (was 3 in the `20260525-1059` baseline). Regression sweep (`testlog_20260525-1830-fix4-regress/`) confirms:
+  - flutter_ast: `+111 / +167 / +656 ~1 -0` — **all three suites completely clean** (was `+110 -1 / +167 / +655 -1` after fix #1).
+  - flutter_test: `+110 -1 / +167 / +656 ~1 -0` — only the pre-existing `materialapp_test` failure (TODO #9) remains; important + secondary completely clean.
+  - The downstream `Looking up a deactivated widget's ancestor is unsafe` / `Tried to build dirty widget in the wrong build scope` cascade messages no longer appear in either project's captured framework errors.
+  _fixed:_ ✅
 
 ### Cluster C — flutter_ast interactive tests (`interactive_tests_test`)
 

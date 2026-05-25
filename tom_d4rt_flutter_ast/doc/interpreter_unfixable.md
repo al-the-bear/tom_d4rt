@@ -6460,6 +6460,145 @@ the super-class lookup. Tracked outside this entry.
 
 ---
 
+## U27 — `Element.findRenderObject()` asserts `_lifecycleState == active` even when `mounted` is true (Flutter framework assertion stricter than the documented `BuildContext.mounted` guard)
+
+### What triggers it
+
+Test scripts that read the rendered size / type of a widget via its
+`GlobalKey.currentContext` follow the Flutter convention of guarding
+the lookup with `BuildContext.mounted`:
+
+```dart
+final ro = (ctx != null && ctx.mounted) ? ctx.findRenderObject() : null;
+```
+
+…which fails at runtime with
+
+```
+Runtime Error: Native error during bridged method call 'findRenderObject'
+  on SingleChildRenderObjectElement: Cannot get renderObject of inactive element.
+```
+
+Seen in (non-exhaustive):
+
+- `rendering/render_absorb_pointer_test.dart`
+- `secondary_classes_test` (multiple scripts; 3 occurrences in the
+  `20260525-1059` baseline)
+- any script that touches a `GlobalKey.currentContext` during a frame
+  in which a parent is rebuilding / a keepalive is being torn down /
+  a navigation transition is in flight.
+
+### Dart / Flutter root cause
+
+`Element.findRenderObject()` in Flutter's framework.dart contains a
+debug-mode assertion:
+
+```dart
+RenderObject? findRenderObject() {
+  assert(() {
+    if (_lifecycleState != _ElementLifecycle.active) {
+      throw FlutterError.fromParts(<DiagnosticsNode>[
+        ErrorSummary('Cannot get renderObject of inactive element.'),
+        ...
+      ]);
+    }
+    return true;
+  }());
+  return renderObject;
+}
+```
+
+`_lifecycleState` cycles through `initial → active → inactive → defunct`.
+`Element.mounted` returns `_parent != null` — true throughout `active`
+**and** `inactive` (it only becomes false at `unmount`).
+
+So a script-level `ctx.mounted` check passes during the `inactive`
+window (keepalive teardown, route pop animation, parent-data update,
+deferred-construction callback) but the framework assertion still
+fires. Flutter's own documentation suggests `mounted` is the
+right guard for `findRenderObject`, but the assertion is strictly
+stronger than that documented contract — there is no public
+Dart API exposing `_lifecycleState`, so a script cannot
+detect the difference.
+
+Real Flutter applications usually don't hit this because their
+`findRenderObject` calls happen synchronously inside the build cycle
+where `_lifecycleState == active` is the rule. The test corpus hits
+it specifically because the harness runs the script through several
+`/clear → /build` lifecycle cycles per second, exposing the
+`inactive`-but-still-mounted window much more frequently than
+production code does.
+
+### Why we can't "really" fix it
+
+1. The check the script *wants* to perform — "is this Element still in
+   the `active` lifecycle state?" — has **no public Dart API**.
+   `_lifecycleState` and `debugIsActive` are both private / debug-only.
+2. The bridge can't pre-check the state without either accessing the
+   private field (build-fragile, debug-only) or wrapping every call in
+   try/catch.
+3. The script-level fix would be a try/catch around every
+   `findRenderObject` call; that's noisy, not what Flutter recommends,
+   and the actual native callers (`RenderBox` mixins, snapshot helpers)
+   don't do it either.
+
+### Workaround applied 2026-05-25 (cluster B fix)
+
+The interpreters' generic bridge-method-call catch block in
+`tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` was changed
+to match this specific Flutter assertion text and return `null`
+instead of wrapping it as a `RuntimeD4rtException`:
+
+```dart
+} catch (e, s) {
+  if (methodName == 'findRenderObject' &&
+      e.toString().contains(
+          'Cannot get renderObject of inactive element')) {
+    return null;
+  }
+  // …existing rethrow path…
+}
+```
+
+The fix matches the documented signature `RenderObject?
+findRenderObject()` (returning null on "no render object available
+right now"), is pattern-narrowed to the exact Flutter assertion
+text so unrelated bridged-method failures still surface, and is
+mirrored verbatim between the two interpreter variants.
+
+### Functional equivalence
+
+A script writing
+
+```dart
+final ro = (ctx != null && ctx.mounted) ? ctx.findRenderObject() : null;
+```
+
+now behaves under d4rt exactly as the Flutter documentation describes
+the API (returns null when no render object is available), instead
+of crashing the build cycle on the `inactive` window. Scripts already
+chain the return value through `?.` (`ro?.runtimeType ?? 'null'`),
+which is the right shape for the null case — so the behavioural
+delta is zero from the script's perspective.
+
+### Affected scripts (recovered)
+
+- ✅ `rendering/render_absorb_pointer_test.dart` (canonical case)
+- ✅ Various `secondary_classes_test` scripts that touched
+  `GlobalKey.currentContext.findRenderObject()` during teardown.
+
+### What a real fix would look like
+
+A "real" fix would be either (a) Flutter exposing a public
+`Element.isActive` API so scripts can guard precisely, or (b) Flutter
+relaxing the assertion to match the documented `mounted` contract.
+Both are upstream-framework changes outside this codebase. Until
+either lands, the bridge-side null-return is the closest semantic
+match to the documented signature, and is the workaround we ship.
+
+---
+
 ## Change Log
 
 - 2026-05-24: **Extend U25 to cover interactive_tests on flutter_test

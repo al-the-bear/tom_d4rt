@@ -3189,6 +3189,31 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
           } catch (e, s) {
+            // Cluster B item #4+#5 (TODO 20260525-1059) —
+            // Flutter's `Element.findRenderObject()` asserts
+            // `_lifecycleState == _ElementLifecycle.active`. The active state
+            // is *strictly stronger* than mounted: `mounted` becomes false
+            // only on unmount, but Flutter transitions an Element through
+            // `inactive` during keepalive / route teardown / parent-data
+            // updates while it's still in the tree. Test scripts that
+            // already guard with `ctx.mounted` (e.g.
+            // `(ctx != null && ctx.mounted) ? ctx.findRenderObject() : null`)
+            // hit this assertion in those windows.
+            //
+            // The documented signature is `RenderObject? findRenderObject()`
+            // — returning null on "no render object available right now" is
+            // exactly the same shape the script's guard expects. Swallow
+            // the specific assertion so the script's `?.` chains continue
+            // to work; bridge any other failure on through as before.
+            //
+            // Pattern-matched on the assertion text so we don't suppress
+            // unrelated Flutter errors that happen to flow through the
+            // same bridged-method-call path.
+            if (methodName == 'findRenderObject' &&
+                e.toString().contains(
+                    'Cannot get renderObject of inactive element')) {
+              return null;
+            }
             // Add the stack trace for debugging
             Logger.log("Native Error Stack Trace: $s"); // Print stack trace
             // Catch potential errors from the native code/adapter

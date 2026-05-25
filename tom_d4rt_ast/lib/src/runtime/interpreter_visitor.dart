@@ -3643,6 +3643,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
           } catch (e, s) {
+            // Cluster B item #4+#5 (TODO 20260525-1059) — mirror of
+            // tom_d4rt/interpreter_visitor.dart. Flutter's
+            // `Element.findRenderObject` asserts that the element is in
+            // the `active` lifecycle state, which is strictly stronger
+            // than `mounted`. Scripts that already guard with
+            // `ctx.mounted` still hit this assertion during keepalive /
+            // route-teardown / parent-data update windows. The
+            // documented signature is `RenderObject? findRenderObject()`,
+            // so returning null on this specific assertion matches the
+            // contract the script's `?.` chain expects.
+            if (methodName == 'findRenderObject' &&
+                e.toString().contains(
+                    'Cannot get renderObject of inactive element')) {
+              return null;
+            }
             // Add the stack trace for debugging
             Logger.log("Native Error Stack Trace: $s"); // Print stack trace
             // Catch potential errors from the native code/adapter
