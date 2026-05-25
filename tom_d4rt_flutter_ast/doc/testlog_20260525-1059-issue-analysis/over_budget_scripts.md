@@ -1,5 +1,28 @@
 # Over-budget scripts — bisection TODO list
 
+> **Status (2026‑05‑25): This list is informational only — the entries are NOT individual bugs to fix.**
+>
+> TODO #20 of `error_analysis.md` proved the over-budget list is
+> **position-dependent**, not script-specific. Running the same suite
+> serially with no parallel pressure produces a completely different
+> set of "wedged" scripts (zero overlap with this baseline list).
+>
+> Root cause: U28 — the `FlutterD4rt` interpreter accumulates
+> interpreted-class declarations across `/clear → /build` cycles, and
+> the accumulation crosses a wedge threshold every ~18 builds in the
+> larger suites. Whichever scripts happen to be running at that
+> position will appear in lists like this.
+>
+> See **§ TODO #20** in `error_analysis.md` and **§U28 → TODO #20
+> follow-up** in `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md`
+> for the full bisection data, the failed proactive-recycle workaround
+> attempt (reverted), and the deferred real-fix path (clear
+> interpreted-class registry on /clear in both tom_d4rt and
+> tom_d4rt_ast).
+>
+> The checkboxes below are kept un-ticked deliberately — ticking them
+> would imply we'd fixed per-script bugs that don't actually exist.
+
 Generated from `testlog_20260525-1059-issue-analysis` result JSONs. Every entry is a script whose `/build` exceeded 30 s. Each is a bisection-and-fix item per §6 step #17c/#17d in the parent `error_analysis.md`.
 
 Format: `kind` is `Transport` (test app `/build` did not respond within its 25 s internal budget) or `Timeout-30s` (harness `Future.timeout` fired). Both mean the script + interpreter combination took > 25 s to produce a Widget.

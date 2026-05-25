@@ -740,12 +740,81 @@ problem.
      of the other flutter project) — confirm no other new failures.
   _fixed:_
 
-- [ ] **20. Bisect the remaining over-budget scripts.** After 19
-  resolves the cross-cutting ones, repeat the bisect-and-fix loop
-  for every remaining script in `over_budget_scripts.md`. The list
-  shrinks rapidly once cross-cutting interpreter bottlenecks land.
-  Mark each script's checkbox in `over_budget_scripts.md` as it
-  closes. _fixed:_
+- [x] **20. Bisect the remaining over-budget scripts.** _Done 2026‑05‑25 — investigation complete, no per-script fixes applicable; workaround attempt reverted; deferred to U28._
+
+  **Method.** Validated TODO #19's "contention-only" hypothesis on the
+  2 unverified cross-cutting scripts (`painting/matrix_utils_test`
+  and `dart_ui/channel_buffers_test`) — both pass cleanly in
+  isolation (2.6–2.7 s, 0 framework errors). Then ran the full
+  flutter_ast suite serially (no parallel sweep pressure) to see
+  which over-budget scripts wedge in isolation:
+  `testlog_20260525-2330-todo20-sample/`.
+
+  **Finding 1 — over_budget_scripts.md is volatile, not actionable.**
+  Cross-referenced the 23 over-budget scripts from baseline's
+  `secondary_classes_test` against the 22 `transport_error` scripts
+  from the serial rerun: **zero overlap**. The same suite produces a
+  completely different set of "wedged" scripts on each run. The
+  over-budget list is a snapshot of *which scripts happened to be
+  running when the accumulation crossed the wedge threshold*, not a
+  list of scripts with individual bugs.
+
+  **Finding 2 — wedge rate is suite-size-dependent.**
+
+  | Suite | Tests | Wedges in serial | Wedge rate |
+  |---|---:|---:|---:|
+  | essential | 108 | 0 | 0 % |
+  | secondary | 656 | 22 | 3.4 % |
+  | hr1-hr5 | 192–217 each | 5–6 each | ~2.7 % |
+
+  Essential's 108 tests fit comfortably in the test-app process's
+  state-accumulation budget; the larger suites cross it ~22 times
+  per 656 tests. Median inter-wedge gap = 18 tests.
+
+  **Finding 3 — root cause is U28 (test-app state accumulation).**
+  Same mechanism as cluster C's interactive-test failures, just
+  manifesting at a different scale (every ~18 builds vs every
+  static-demo build).
+
+  **Failed workaround attempt — proactive recycle every N builds.**
+  Implemented `_proactiveRecycleThreshold = 20` + a
+  `_buildsSinceRecycle` counter in `SendTestRunner` in both projects.
+  Validated on `secondary_classes_test` serial rerun (aborted at
+  +240 -40):
+
+  | Metric | Baseline serial | Proactive-recycle serial |
+  |---|---:|---:|
+  | Wedge rate (first 240 tests) | 6/240 ≈ 2.5 % | 14/240 ≈ 5.8 % |
+  | First wedge position | test 37 | test 13 |
+  | Median inter-wedge gap | 18 | 15 |
+  | Recycle-self-failure | 0 | ≥ 1 |
+
+  The proactive recycle **doubled** the wedge rate AND introduced a
+  catastrophic new failure (the recycle itself failing to start the
+  test app within 60 s). Hypothesis: forcing ~33 cold starts per
+  656-test suite saturates the macOS filesystem-cache / dyld-load
+  pipeline. **Reverted** both
+  `tom_d4rt_flutter_ast/test/send_test_runner.dart` and
+  `tom_d4rt_flutter_test/test/send_test_runner.dart` to upstream.
+  Documented in §U28 of `interpreter_unfixable.md` (see "TODO #20
+  follow-up" sub-section).
+
+  **Conclusion.** Per-script bisection is the wrong tool for this
+  cluster — there are no per-script bugs to fix. The real fix is to
+  clear the interpreter's interpreted-class registry on `/clear` so
+  the test-app process doesn't accumulate declarations across
+  builds. That's deep interpreter work in both `tom_d4rt` and
+  `tom_d4rt_ast`, with broad regression implications, and was
+  explicitly deferred from cluster C as out-of-scope for the
+  flutter_ast quest. **TODO #20 is closed by deferring to U28**; the
+  flutter_ast 14-suite test sweep accepts the systemic ~3 % wedge
+  rate as expected noise until that fix lands.
+
+  `over_budget_scripts.md` is NOT being checked-off per-script —
+  doing so would imply the items represent fixable bugs. Instead,
+  added a banner at the top of that file pointing readers to this
+  TODO and the U28 deferral. _fixed:_ ✅ *(closed via deferral to
+  U28; workaround attempt reverted)*
 
 - [ ] **21. Convergence target.** Once #19 + #20 are done, re-run
   the full 14-test sweep on both projects in parallel under the same

@@ -6766,6 +6766,82 @@ proven workaround, and the bridge between this test-level
 workaround and the deeper interpreter fix that would render it
 unnecessary.
 
+### TODO #20 follow-up (2026‑05‑25): serial-sweep evidence + failed proactive-recycle workaround
+
+Investigation under TODO #20 of
+`testlog_20260525-1059-issue-analysis/error_analysis.md` (section 6,
+cluster E) extended the U28 evidence base. Captured in
+`testlog_20260525-2330-todo20-sample/`:
+
+**Serial-sweep wedge rate (flutter_ast, no parallel pressure):**
+
+| Suite | Tests | Wedges (`transport_error`) | `clear_failed` | Median inter-wedge gap |
+|---|---:|---:|---:|---:|
+| `essential_classes_test` | 108 | 0 | 0 | n/a |
+| `secondary_classes_test` | 656 | 22 | 16 | 18 tests |
+| `hardly_relevant_classes_1_test` | 192 | ~5 | ~7 | ~28 tests |
+| `hardly_relevant_classes_2_test` | 192 | ~5 | ~6 | ~28 tests |
+| `hardly_relevant_classes_3_test` | 189 | ~5 | ~7 | ~28 tests |
+| `hardly_relevant_classes_4_test` | 216 | ~5 | ~6 | ~28 tests |
+| `hardly_relevant_classes_5_test` | 217 | ~6 | ~7 | ~28 tests |
+
+**Two new observations beyond the interactive-test-only repro of U28:**
+
+1. **The wedge is suite-size-dependent, not script-specific.** Essential
+   (108 tests) shows zero wedges; secondary (656 tests) shows 22.
+   Wedge rate scales with how many builds have accumulated in the
+   test-app process. Cross-referencing the failing-script list
+   between this serial sweep and the parallel `20260525-1059`
+   baseline showed **zero overlap** — different scripts wedge on each
+   run. The wedge is **position-dependent**, not a property of any
+   single script. The over_budget_scripts.md list from the baseline
+   is therefore not a "scripts to fix" list — it's a snapshot of
+   which scripts happened to be running when the accumulation crossed
+   the wedge threshold.
+
+2. **Reactive recycling alone cannot prevent the wedges** — by the time
+   a wedge is detected, three things have already happened: (a) the
+   wedged test failed within its 30 s budget, (b) the wedge state is
+   already in the process and cannot be reasoned about, (c) the
+   recycle fires too late to save the current test. The cluster-C
+   workaround in `requestRecycle()` is a per-test prophylactic that
+   only works for the small interactive-test group because each test
+   there is independently expensive enough to justify the ~10 s
+   recycle cost; applying the same pattern across the full corpus
+   (640+ tests) would balloon wall time by ~6 hours.
+
+**Failed workaround attempt (reverted 2026‑05‑25):** added a
+`_proactiveRecycleThreshold = 20` constant and a
+`_buildsSinceRecycle` counter to `SendTestRunner` in both projects,
+firing `_appNeedsRecycle = true` after every 20 successful builds so
+the next test starts with a fresh process.
+
+Result on `secondary_classes_test` serial rerun (aborted at +240
+-40, ≈ 36 % of suite):
+
+| Metric | Baseline serial | Proactive-recycle serial |
+|---|---:|---:|
+| Wedge rate at same progress point | 6/240 ≈ 2.5 % | 14/240 ≈ 5.8 % |
+| First wedge position | test 37 | test 13 |
+| Median inter-wedge gap | 18 | 15 |
+| Recycle-self-failure (`Test app failed to start within 60s`) | 0 | ≥ 1 |
+
+The proactive-recycle workaround **doubled** the wedge rate AND
+introduced a new failure mode (the recycle itself failing to start
+the test app within 60 s when fired too frequently). Hypothesis:
+forcing ~33 cold starts per 656-test suite saturates the macOS
+filesystem-cache / dyld-load pipeline beyond what reactive-only
+recycling does (which fires only ~22 times per suite). Reverted
+both `tom_d4rt_flutter_ast/test/send_test_runner.dart` and
+`tom_d4rt_flutter_test/test/send_test_runner.dart` to upstream.
+
+**The actual U28 fix remains the only viable path:** clearing the
+interpreter's interpreted-class registry on `/clear` so each
+`/build` starts with the same declaration state the first build
+saw. That is deep interpreter work touching the declaration /
+environment model across both `tom_d4rt` and `tom_d4rt_ast`. The
+TODO #20 closure defers cluster-E to that future investigation.
+
 ---
 
 ## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap)
