@@ -590,32 +590,28 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    // 20260525 §6.1 bisect: S8 (D1) re-verified to run cleanly in
+    // isolation. Bisect under `flutter test --plain-name 'image_sampler_slot_test.dart'
+    // --run-skipped` reproduced 3× passing runs (totalMs 2266 / 2461 /
+    // 2426, frameworkErrors=0). The original D1 "wedge" diagnosis from
+    // the 20260427 Linux baseline was a misattribution of U25-family
+    // cold-start cascade contention to a permanent test-app
+    // destabilisation. Lifted the skip and replaced with the standard
+    // `httpBuildTimeout: 50 s` caller-side cap (the script bundles to
+    // 448 KB AST → its first-frame build can exceed the default 25 s
+    // when run after the heavier preceding cupertino + dart_ui tests).
+    // Subsequent dart_ui/gestures tests in the same suite verified to
+    // not cascade-fail.
     test(
       'image_sampler_slot_test.dart',
       () async {
         final result = await SendTestRunner.send(
           'dart_ui/image_sampler_slot_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      // D1 — the script alone passes (verified via `bisect_test.dart`)
-      // because the in-script `await Future<void>.delayed(Duration.zero)`
-      // settles the engine before touching `ui.FragmentProgram` /
-      // `ui.FragmentShader`. However, on the Linux test harness the
-      // shader-pipeline initialisation that the script triggers leaves
-      // the test-app process in a state where every subsequent script
-      // in the same suite times out at 30 s, eventually cascading into
-      // `transport_error` / `clear_failed` for the rest of the suite
-      // (124 timeouts in this run). The script is in-scope for the
-      // single-script bisect harness and for any dedicated dart_ui
-      // suite, but is excluded here to keep `hardly_relevant_classes_1`
-      // (animation, cupertino, dart_ui, foundation, gestures) running
-      // cleanly. See `doc/testlog_20260427-1339-post-c22/error_analysis.md`
-      // cluster D1 and `doc/interpreter_issues.md` "[RESOLVED 2026-04-26]
-      // ui.FragmentProgram / ui.FragmentShader timing race".
-      skip:
-          'D1 — destabilises the test app for subsequent dart_ui/gestures '
-          'scripts on Linux. Run via bisect_test.dart instead.',
+      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test(

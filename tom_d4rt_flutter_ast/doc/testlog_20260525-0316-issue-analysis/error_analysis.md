@@ -361,6 +361,72 @@ S6, S7) **no longer wedge when run in isolation.** This suggests:
 
 ---
 
+## 6.2 S8 (D1) bisect — wedge misdiagnosis corrected
+
+Following the §6.1 retest where S8 (`dart_ui/image_sampler_slot_test.dart`)
+was the only skipped test that appeared to still fail, a deep bisect
+was performed to find the actual `/build` hang cause.
+
+### Bisect timeline
+
+| Variant | What | Result |
+|---|---|---|
+| v0 | Minimal MaterialApp + Text                            | PASS (totalMs=1147) |
+| v1 | Original script with `_runProbes()` call removed       | PASS (totalMs=2293) |
+| v2 | `_runProbes()` enabled, both Fragment* type accesses commented | PASS (totalMs=2492) |
+| v3 | `_runProbes()` with only `ui.FragmentProgram` Type access | PASS (totalMs=2369) |
+| v4 | `_runProbes()` with only `ui.FragmentShader` Type access  | PASS (totalMs=2283) |
+| v5 | `_runProbes()` with BOTH Fragment* Type accesses (= prior original) | PASS (totalMs=2444) |
+| **ORIGINAL** | Restored verbatim, run 3× in a row | **PASS** (2266 / 2461 / 2426) |
+
+**Conclusion: there is no script-side hang.** S8 was misdiagnosed as
+a "wedge" in the 20260427-1339 Linux baseline. The actual failure mode
+is U25-family cold-start cascade contention — the script's 448 KB AST
+bundle bakes ~2.3 s of cold-start build time, which is fine under
+default 25 s caller-side cap when host is idle but cascades into
+transport timeouts when the host is under pressure (e.g. immediately
+after a 3-hour parallel sweep, as in the §6.1 retest at 08:31:28).
+
+### Fix
+
+The D1 skip annotation in both projects' `hardly_relevant_classes_1_test.dart`
+was replaced with the standard `httpBuildTimeout: 50 s` caller-side
+cap + `Timeout(60 s)` dart-test wrapper:
+
+- `tom_d4rt_flutter_ast/test/hardly_relevant_classes_1_test.dart`
+- `tom_d4rt_flutter_test/test/hardly_relevant_classes_1_test.dart`
+
+### Verification
+
+After lifting the skip on `tom_d4rt_flutter_ast`, the full
+`hardly_relevant_classes_1_test.dart` suite was re-run end-to-end:
+
+```
+08:23 +204 ~1: gestures/ velocity_tracker_test.dart
+08:24 +204 ~1: All tests passed!
+```
+
+**`+204 ~1 -0` — all 204 tests pass, only the remaining
+`isolate_name_server_test` skip remains.** No cascade failures on
+subsequent dart_ui or gestures tests. The original D1 cascade concern
+from the 20260427 Linux baseline does not reproduce on the current
+corpus / interpreter state.
+
+### Impact
+
+This closes one of the W-cluster skips entirely:
+
+| Skip ID | Test | Prior status | Current status |
+|---|---|---|---|
+| **S8 / D1** | `hardly_1 dart_ui/image_sampler_slot_test` | SKIPPED (wedge) | **PASSING** (skip lifted) |
+
+The five other W-cluster skips (S2, S4, S5, S6, S7) were shown to
+pass in isolation during the §6.1 retest but the cascade concern on
+subsequent tests was never re-verified — they remain skipped pending
+a similar suite-level cascade verification.
+
+---
+
 ## 7. Raw logs
 
 - `tom_d4rt_flutter_ast/doc/testlog_20260525-0316-issue-analysis/`
