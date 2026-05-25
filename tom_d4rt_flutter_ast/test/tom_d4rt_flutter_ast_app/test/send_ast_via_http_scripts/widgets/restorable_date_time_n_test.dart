@@ -660,8 +660,16 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      // Cluster I TODO #16 fix: `crossAxisAlignment: CrossAxisAlignment.stretch`
+      // on a Row whose parent gives unbounded vertical extent (this widget
+      // is nested in SingleChildScrollView → Column) propagates infinite
+      // height into the Expanded > Container > BoxDecoration chain, which
+      // fails RenderDecoratedBox's layout assertion. The session card has
+      // a single child whose width is already controlled by Expanded; we
+      // don't actually need cross-axis stretching here. Default
+      // `CrossAxisAlignment.center` lets the Container size to its
+      // children's intrinsic height.
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Container(

@@ -485,7 +485,7 @@ Distinct messages logged by the test-app's `_capturingFrameworkErrors` path. The
 | 8 | `A ScrollController is required when Scrollbar.thumbVisibility is true.` | G (script bug) — **✅ FIXED 20260525** | hr2, hr5, important (test) |
 | 9 | `A ScrollController is required when the scrollbar is interactive.` | G (script bug) — **✅ FIXED 20260525** (same family, same scripts) | important (test) |
 | 10 | `Exception: Codec failed to produce an image, possibly due to invalid image data.` | H — **✅ FIXED 20260525 via filter workaround** (underlying bridge bug deferred — U29) | hr4 |
-| 11 | `BoxConstraints forces an infinite height.` | I (script layout bug) | hr5 |
+| 11 | `BoxConstraints forces an infinite height.` | I (script layout bug) — **✅ FIXED 20260525** | hr5 |
 
 Patterns 6 / 8 / 10 / 11 are **script-side bugs** that the scripts already document or that surface as testable contracts. Pattern 7 is a framework assertion that's expected to cascade through after a `_dependents.isEmpty` event (line 6417 lives a few lines from line 6268 in `framework.dart` — same teardown path). Patterns 1–5 are the real D4rt bugs to fix.
 
@@ -643,9 +643,15 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
   Real fix deferred to U29 — a focused diagnostic test plus a fix in `extractBridgedArg<Uint8List>` (or the `MemoryImage` constructor bridge, or the `Uint8List.fromList` stdlib bridge) is needed. _fixed:_ ✅ *(noise suppressed; underlying limitation tracked in §U29)*
 
-### Cluster I — Script-side bug (infinite height)
+### Cluster I — Script-side bug (infinite height) — **✅ FIXED**
 
-- [ ] **16. `BoxConstraints forces an infinite height`.** One script in `hardly_relevant_classes_5_test`. The script lays out a `Column` (or similar unbounded-height widget) inside an unbounded-height ancestor. Wrap in `IntrinsicHeight` or a `SizedBox(height: ...)`. _fixed:_
+- [x] **16. `BoxConstraints forces an infinite height`.** _Done 2026‑05‑25._ Affected script: `widgets/restorable_date_time_n_test.dart` (hr5) — `_buildSessionCardSection`. The offender was `Row(crossAxisAlignment: CrossAxisAlignment.stretch, …)` wrapped around an `Expanded(child: Container(decoration: …))`. Because the surrounding `MyHomePage.build` body is `SingleChildScrollView → Column(crossAxisAlignment: stretch)`, the section receives unbounded vertical extent. The Row's `stretch` propagates that infinite height into the `Expanded > Container > BoxDecoration` chain, which fails the `RenderDecoratedBox.layout()` bounded-constraints assertion.
+
+  **Fix:** removed the `crossAxisAlignment: CrossAxisAlignment.stretch` from the Row (default is `CrossAxisAlignment.center`, which lets the Container size to its children's intrinsic height). The session card has only one child whose width is already controlled by `Expanded`, so cross-axis stretching wasn't needed in the first place.
+
+  **Verification (rule (a), only test/ subfolder file changed):** isolated rerun of `restorable_date_time_n_test` in hr5 — rc=0, build 1.96 s, `frameworkErrors=0`, 0 `BoxConstraints forces an infinite height` lines.
+
+  _fixed:_ ✅
 
 ### Cluster E (revisited) — Over-budget builds
 
