@@ -6474,19 +6474,27 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     final propertyName = node.propertyName!.name;
+
+    // Cluster A item #1+#2 (TODO 20260525-1059) — Cascade target unwrap.
+    // Mirror of tom_d4rt/interpreter_visitor.dart::_executeCascadePropertyAccess.
+    // See [_cascadeInterpretedTarget] there for the full rationale.
+    final interpreted = _cascadeInterpretedTarget(targetValue);
+
     // Resolve property/getter ON targetValue
-    if (targetValue is InterpretedInstance) {
-      final member = targetValue.get(propertyName);
+    if (interpreted != null) {
+      final member = interpreted.get(propertyName);
       if (member is InterpretedFunction && member.isGetter) {
         return member.call(
           this,
           [],
           {},
         ); // Call getter, return its value (needed for assignment LHS)
-      } else {
+      } else if (member != null) {
         return member; // Return field value (needed for assignment LHS)
       }
-    } else if (toBridgedInstance(targetValue).$2) {
+      // Fall through to the bridge path on miss.
+    }
+    if (toBridgedInstance(targetValue).$2) {
       final bridgedInstance = toBridgedInstance(targetValue).$1!;
       final getter = bridgedInstance.bridgedClass.findInstanceGetterAdapter(
         propertyName,
@@ -6498,11 +6506,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw RuntimeD4rtException(
         "Bridged instance property '$propertyName' (getter) not found in cascade.",
       );
+    } else if (interpreted != null) {
+      // Preserve legacy "return whatever `.get` returns" for pure
+      // InterpretedInstance misses.
+      return interpreted.get(propertyName);
     } else {
       throw RuntimeD4rtException(
         "property '$propertyName' (getter) not found in cascade.",
       );
     }
+  }
+
+  /// Mirror of tom_d4rt/interpreter_visitor.dart::_cascadeInterpretedTarget.
+  /// If [targetValue] is an [InterpretedInstance] directly, returns it. If it
+  /// is a [D4InterpretedProxy] that wraps one, returns the wrapped instance.
+  /// Returns `null` otherwise — callers should fall through to the bridge
+  /// path.
+  InterpretedInstance? _cascadeInterpretedTarget(Object? targetValue) {
+    if (targetValue is InterpretedInstance) return targetValue;
+    if (targetValue is D4InterpretedProxy) {
+      final inner = targetValue.d4rtInstance;
+      if (inner is InterpretedInstance) return inner;
+    }
+    return null;
   }
 
   Object? _executeCascadeIndexAccess(
@@ -6552,6 +6578,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final operatorType = node.operator;
     final lhs = node.leftHandSide;
 
+    // Cluster A item #1+#2 (TODO 20260525-1059) — Cascade target unwrap.
+    // Mirror of tom_d4rt/interpreter_visitor.dart::_executeCascadeAssignment.
+    // See [_cascadeInterpretedTarget] there for the full rationale.
+    final interpreted = _cascadeInterpretedTarget(targetValue);
+    final isProxyTarget =
+        interpreted != null && !identical(interpreted, targetValue);
+
     if (lhs is SSimpleIdentifier) {
       // Property assignment: targetValue.propertyName op= rhsValue
       final propertyName = lhs.name;
@@ -6561,51 +6594,71 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else {
         // Compound assignment
         Object? currentValue;
-        // Need to get the current value from the target
-        if (targetValue is InterpretedInstance) {
-          currentValue = targetValue.get(propertyName);
-        } else if (toBridgedInstance(targetValue).$2) {
-          final bridgedInstance = toBridgedInstance(targetValue).$1!;
-          final getter = bridgedInstance.bridgedClass.findInstanceGetterAdapter(
-            propertyName,
-          );
-          if (getter == null) {
+        var resolvedCurrent = false;
+        if (interpreted != null) {
+          final getter = interpreted.klass.findInstanceGetter(propertyName);
+          if (getter != null) {
+            currentValue = getter.bind(interpreted).call(this, [], {});
+            resolvedCurrent = true;
+          } else if (!isProxyTarget ||
+              interpreted.klass.getInstanceFieldNames().contains(propertyName)) {
+            currentValue = interpreted.get(propertyName);
+            resolvedCurrent = true;
+          }
+        }
+        if (!resolvedCurrent) {
+          if (toBridgedInstance(targetValue).$2) {
+            final bridgedInstance = toBridgedInstance(targetValue).$1!;
+            final getter = bridgedInstance.bridgedClass
+                .findInstanceGetterAdapter(propertyName);
+            if (getter == null) {
+              throw RuntimeD4rtException(
+                "No getter '$propertyName' for compound assignment in cascade.",
+              );
+            }
+            currentValue = getter(this, bridgedInstance.nativeObject);
+          } else {
             throw RuntimeD4rtException(
-              "No getter '$propertyName' for compound assignment in cascade.",
+              "Cannot get property '$propertyName' for compound assignment on ${targetValue.runtimeType} in cascade.",
             );
           }
-          currentValue = getter(this, bridgedInstance.nativeObject);
-        } else {
-          throw RuntimeD4rtException(
-            "Cannot get property '$propertyName' for compound assignment on ${targetValue.runtimeType} in cascade.",
-          );
         }
         newValue = computeCompoundValue(currentValue, rhsValue, operatorType);
       }
 
-      // Set the value on the target
-      if (targetValue is InterpretedInstance) {
-        final setter = targetValue.klass.findInstanceSetter(propertyName);
+      // Set the value on the target — InterpretedInstance side first, then
+      // bridge fallback.
+      var assigned = false;
+      if (interpreted != null) {
+        final setter = interpreted.klass.findInstanceSetter(propertyName);
         if (setter != null) {
-          setter.bind(targetValue).call(this, [newValue], {});
-        } else {
-          targetValue.set(propertyName, newValue, this); // Direct field set
+          setter.bind(interpreted).call(this, [newValue], {});
+          assigned = true;
+        } else if (!isProxyTarget ||
+            interpreted.klass.getInstanceFieldNames().contains(propertyName)) {
+          interpreted.set(propertyName, newValue, this);
+          assigned = true;
         }
-      } else if (toBridgedInstance(targetValue).$2) {
-        final bridgedInstance = toBridgedInstance(targetValue).$1!;
-        final setter = bridgedInstance.bridgedClass.findInstanceSetterAdapter(
-          propertyName,
-        );
-        if (setter == null) {
+      }
+      if (!assigned) {
+        if (toBridgedInstance(targetValue).$2) {
+          final bridgedInstance = toBridgedInstance(targetValue).$1!;
+          final setter = bridgedInstance.bridgedClass.findInstanceSetterAdapter(
+            propertyName,
+          );
+          if (setter == null) {
+            throw RuntimeD4rtException(
+              "No setter '$propertyName' for assignment in cascade.",
+            );
+          }
+          setter(this, bridgedInstance.nativeObject, newValue);
+        } else if (interpreted != null) {
+          interpreted.set(propertyName, newValue, this);
+        } else {
           throw RuntimeD4rtException(
-            "No setter '$propertyName' for assignment in cascade.",
+            "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.",
           );
         }
-        setter(this, bridgedInstance.nativeObject, newValue);
-      } else {
-        throw RuntimeD4rtException(
-          "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.",
-        );
       }
     } else if (lhs is SIndexExpression) {
       // Index assignment in cascade. The SIndexExpression may target:
@@ -6713,6 +6766,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (lhs is SPropertyAccess) {
       // Cascade assignment like: target..property = value or target..property += value
       // Note: targetValue is the original cascade target, NOT lhs.target
+      //
+      // Cluster A item #1+#2 (TODO 20260525-1059) — mirror of tom_d4rt's
+      // PropertyAccess branch fix. See [_cascadeInterpretedTarget] for
+      // the full rationale.
+      final interpretedP = _cascadeInterpretedTarget(targetValue);
+      final isProxyTargetP =
+          interpretedP != null && !identical(interpretedP, targetValue);
       final propertyName = lhs.propertyName!.name;
       Object? newValue;
 
@@ -6721,53 +6781,70 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else {
         // Compound assignment
         Object? currentValue;
-        // 1. Get current value from targetValue using propertyName
-        if (targetValue is InterpretedInstance) {
-          currentValue = targetValue.get(propertyName); // Handles field/getter
-        } else if (toBridgedInstance(targetValue).$2) {
-          final bridgedInstance = toBridgedInstance(targetValue).$1!;
-          final getter = bridgedInstance.bridgedClass.findInstanceGetterAdapter(
-            propertyName,
-          );
-          if (getter == null) {
+        var resolvedCurrent = false;
+        if (interpretedP != null) {
+          final getter = interpretedP.klass.findInstanceGetter(propertyName);
+          if (getter != null) {
+            currentValue = getter.bind(interpretedP).call(this, [], {});
+            resolvedCurrent = true;
+          } else if (!isProxyTargetP ||
+              interpretedP.klass.getInstanceFieldNames().contains(propertyName)) {
+            currentValue = interpretedP.get(propertyName);
+            resolvedCurrent = true;
+          }
+        }
+        if (!resolvedCurrent) {
+          if (toBridgedInstance(targetValue).$2) {
+            final bridgedInstance = toBridgedInstance(targetValue).$1!;
+            final getter = bridgedInstance.bridgedClass
+                .findInstanceGetterAdapter(propertyName);
+            if (getter == null) {
+              throw RuntimeD4rtException(
+                "No getter '$propertyName' for compound assignment in cascade.",
+              );
+            }
+            currentValue = getter(this, bridgedInstance.nativeObject);
+          } else {
             throw RuntimeD4rtException(
-              "No getter '$propertyName' for compound assignment in cascade.",
+              "Cannot get property '$propertyName' for compound assignment on ${targetValue.runtimeType} in cascade.",
             );
           }
-          currentValue = getter(this, bridgedInstance.nativeObject);
-        } else {
-          throw RuntimeD4rtException(
-            "Cannot get property '$propertyName' for compound assignment on ${targetValue.runtimeType} in cascade.",
-          );
         }
         // 2. Compute new value
         newValue = computeCompoundValue(currentValue, rhsValue, operatorType);
       }
 
-      // 3. Set the new value on targetValue using propertyName
-      if (targetValue is InterpretedInstance) {
-        final setter = targetValue.klass.findInstanceSetter(propertyName);
+      // 3. Set the new value — InterpretedInstance first, bridge fallback.
+      var assigned = false;
+      if (interpretedP != null) {
+        final setter = interpretedP.klass.findInstanceSetter(propertyName);
         if (setter != null) {
-          setter.bind(targetValue).call(this, [newValue], {});
-        } else {
-          // Direct field assignment if no setter
-          targetValue.set(propertyName, newValue, this);
+          setter.bind(interpretedP).call(this, [newValue], {});
+          assigned = true;
+        } else if (!isProxyTargetP ||
+            interpretedP.klass.getInstanceFieldNames().contains(propertyName)) {
+          interpretedP.set(propertyName, newValue, this);
+          assigned = true;
         }
-      } else if (toBridgedInstance(targetValue).$2) {
-        final bridgedInstance = toBridgedInstance(targetValue).$1!;
-        final setter = bridgedInstance.bridgedClass.findInstanceSetterAdapter(
-          propertyName,
-        );
-        if (setter == null) {
+      }
+      if (!assigned) {
+        if (toBridgedInstance(targetValue).$2) {
+          final bridgedInstance = toBridgedInstance(targetValue).$1!;
+          final setter = bridgedInstance.bridgedClass
+              .findInstanceSetterAdapter(propertyName);
+          if (setter == null) {
+            throw RuntimeD4rtException(
+              "No setter '$propertyName' for assignment in cascade.",
+            );
+          }
+          setter(this, bridgedInstance.nativeObject, newValue);
+        } else if (interpretedP != null) {
+          interpretedP.set(propertyName, newValue, this);
+        } else {
           throw RuntimeD4rtException(
-            "No setter '$propertyName' for assignment in cascade.",
+            "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.",
           );
         }
-        setter(this, bridgedInstance.nativeObject, newValue);
-      } else {
-        throw RuntimeD4rtException(
-          "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.",
-        );
       }
     } else {
       throw UnimplementedD4rtException(
