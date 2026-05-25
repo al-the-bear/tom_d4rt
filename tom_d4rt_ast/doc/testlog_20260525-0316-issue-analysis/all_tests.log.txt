@@ -1,0 +1,119 @@
+00:00 +0: loading test/runtime/unwrap_as_test.dart
+00:00 +0: test/runtime/unwrap_as_test.dart: null handling returns null when T is nullable
+00:00 +1: test/runtime/register_idempotency_test.dart: D4.registerInterfaceProxy is idempotent repeated registration with the same key does not throw and stays visible via hasInterfaceProxy
+00:00 +2: test/runtime/unwrap_as_test.dart: null handling throws D4UnwrapException when T is non-nullable
+00:00 +3: test/runtime/register_idempotency_test.dart: D4.registerTypeCoercion is idempotent repeated registration with the same source/target pair does not throw
+00:00 +4: test/runtime/unwrap_as_test.dart: null handling uses expectedDescription override in error message
+00:00 +5: test/runtime/register_idempotency_test.dart: D4.registerGenericConstructor is idempotent the same factory registered twice is stored as the bare factory (no chained closure layered on itself)
+00:00 +6: test/runtime/unwrap_as_test.dart: BridgedInstance unwraps native object when assignable to T
+00:00 +7: test/runtime/register_idempotency_test.dart: D4.registerGenericConstructor is idempotent two distinct factories chain (first registered → fallback) and a re-registration of either does not extend the chain
+00:00 +8: test/runtime/unwrap_as_test.dart: BridgedInstance unwraps to a more specific T when concretely assignable
+00:00 +9: test/runtime/register_idempotency_test.dart: D4.registerGenericTypeWrapper is idempotent repeated registration of the same factory does not throw
+00:00 +10: test/runtime/unwrap_as_test.dart: BridgedInstance throws D4UnwrapException with bridged-class context when native is not a T
+00:00 +11: test/runtime/register_idempotency_test.dart: D4.registerSupplementaryMethod is idempotent repeated registration with same (class, method) overwrites without throwing
+00:00 +12: test/runtime/unwrap_as_test.dart: BridgedEnumValue unwraps native enum value when assignable to T
+00:00 +13: test/runtime/register_idempotency_test.dart: BridgedClass.registerSupertypes is idempotent repeated registration of the same hierarchy does not duplicate entries (Set semantics)
+00:00 +14: test/runtime/register_idempotency_test.dart: BridgedClass.registerSupertypes is idempotent repeated registration of the same hierarchy does not duplicate entries (Set semantics)
+00:00 +15: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +16: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +17: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +18: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +19: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +20: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +21: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +22: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +23: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +24: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +25: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +26: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +27: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +28: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +29: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +30: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> returns the raw int when T == int
+00:00 +31: test/runtime/ast_bundle_test.dart: AstBundle bytes serialization round-trips via gzip bytes
+00:00 +32: test/runtime/ast_bundle_test.dart: AstBundle bytes serialization round-trips via gzip bytes
+00:00 +33: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> throws D4UnwrapException when result is not a T
+00:00 +34: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> throws D4UnwrapException when result is not a T
+00:00 +35: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> throws D4UnwrapException when result is not a T
+00:00 +36: test/runtime/execute_bundle_as_test.dart: D4rtRunner.executeBundleAs<T> throws D4UnwrapException when result is not a T
+00:00 +37: test/runtime/ast_bundle_test.dart: AstBundle ZIP serialization round-trips via ZIP
+00:00 +38: test/runtime/ast_bundle_test.dart: AstBundle ZIP serialization round-trips via ZIP
+00:00 +39: test/runtime/ast_bundle_test.dart: AstBundle ZIP serialization round-trips via ZIP
+00:00 +40: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +41: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +42: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +43: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +44: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +45: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +46: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +47: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +48: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +49: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +50: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +51: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +52: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +53: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +54: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +55: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores modules map
+00:00 +56: test/runtime/ast_bundle_test.dart: AstBundleManifest rejects JSON without version
+00:00 +57: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores global environment
+00:00 +58: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores global environment
+00:00 +59: test/runtime/ast_bundle_test.dart: AstBundleManifest rejects JSON without files
+00:00 +60: test/runtime/ast_bundle_test.dart: AstBundleManifest toString is descriptive
+00:00 +61: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor stores runner reference
+00:00 +62: test/runtime/ast_bundle_test.dart: Cross-format consistency JSON → bytes → JSON produces identical bundle
+00:00 +63: test/runtime/ast_module_loader_test.dart: AstModuleLoader constructor currentLibrary is initially null
+00:00 +64: test/runtime/ast_bundle_test.dart: Cross-format consistency JSON → ZIP → JSON produces identical bundle
+00:00 +65: test/runtime/ast_module_loader_test.dart: checkPermission delegates to runner
+00:00 +66: test/runtime/ast_bundle_test.dart: Cross-format consistency all formats preserve module URIs and AST structure
+00:00 +67: test/runtime/ast_module_loader_test.dart: checkPermission reflects runner permission changes
+00:00 +68: test/runtime/ast_module_loader_test.dart: checkPermission reflects runner permission changes
+00:00 +69: test/runtime/ast_module_loader_test.dart: module caching returns cached module on second call
+00:00 +70: test/runtime/ast_module_loader_test.dart: module caching caches stdlib modules
+00:00 +71: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:core without error
+00:00 +72: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:async without error
+00:00 +73: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire in registration order when finalizeBridges is called
+00:00 +74: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire in registration order when finalizeBridges is called
+00:00 +75: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire in registration order when finalizeBridges is called
+00:00 +76: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire in registration order when finalizeBridges is called
+00:00 +77: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire in registration order when finalizeBridges is called
+00:00 +78: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:io
+00:00 +79: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:io
+00:00 +80: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:io
+00:00 +81: test/runtime/ast_module_loader_test.dart: stdlib loading loads dart:io
+00:00 +82: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +83: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +84: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +85: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +86: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +87: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +88: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +89: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +90: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +91: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +92: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +93: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +94: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +95: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +96: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges callbacks fire implicitly on the first executeBundle call
+00:00 +97: test/runtime/ast_module_loader_test.dart: export processing export with hide combinator
+00:00 +98: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges a second executeBundle call does NOT re-run callbacks
+00:00 +99: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges a second executeBundle call does NOT re-run callbacks
+00:00 +100: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges a second executeBundle call does NOT re-run callbacks
+00:00 +101: test/runtime/ast_module_loader_test.dart: show/hide filtering import with show combinator
+00:00 +102: test/runtime/extension_hook_test.dart: D4rtRunner.registerExtensions / finalizeBridges explicit finalizeBridges before execute is supported and still runs callbacks before the script
+00:00 +103: test/runtime/ast_module_loader_test.dart: show/hide filtering import with hide combinator
+00:00 +104: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle executes single-module bundle
+00:00 +105: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle executes multi-module bundle with imports
+00:00 +106: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle throws for missing entry point override
+00:00 +107: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle uses custom entry point override
+00:00 +108: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle calls named function from bundle
+00:00 +109: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle supports dart:math import in bundle
+00:00 +110: test/runtime/ast_module_loader_test.dart: D4rtRunner.executeBundle throws for missing function in entry point
+00:00 +111: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports merges a single re-exported bridged class into the source module
+00:00 +112: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports respects re-export show filter
+00:00 +113: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports respects re-export hide filter
+00:00 +114: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports handles transitive re-export chain
+00:00 +115: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports survives a re-export cycle without infinite recursion
+00:00 +116: test/runtime/ast_module_loader_test.dart: GEN-107 library re-exports does not leak target bridges into globalEnvironment
+00:00 +117: All tests passed!
