@@ -381,7 +381,7 @@ Scripts that fail in exactly one of the two projects (real script-specific bugs,
 |---|---|---|---|
 | flutter_test | `essential_classes_test`              | `material/materialapp_test.dart` | **✅ FIXED 20260525** (TODO #9 — `_InterpretedRouterDelegate` proxy generic-arg sync, see U26) |
 | flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` | **✅ FIXED 20260525** (TODO #10 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr1 suite) |
-| flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` | open (TODO #11) |
+| flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` | **✅ FIXED 20260525** (TODO #11 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr1 suite on flutter_test) |
 | flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` | open (TODO #12) |
 
 #### TODO #9 resolution summary
@@ -563,7 +563,11 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
   The original analysis's "AST-bundle pipeline divergence (same family as #7 / #8)" framing was wrong — TODOs #7 and #8 themselves turned out to be state-accumulation issues, not AST-bundle divergences, and #10 also doesn't reproduce against the current tom_d4rt_ast interpreter. Confirmed clean against revision `bd89fb58` (post-cluster-D commit). _fixed:_ ✅
 
-- [ ] **11. flutter_test `cupertino/class_test.dart`.** Source-direct only. Identify the assertion. _fixed:_
+- [x] **11. flutter_test `cupertino/class_test.dart`.** _Done 2026‑05‑25 (incidental fix by cumulative cluster A/B/C work, same pattern as TODO #10)._ Re-verified after fix #9 landed:
+  - Isolated run (`flutter test … --plain-name 'cupertino/ class_test.dart'`): rc=0, frameworkErrors=0, build 3.8 s.
+  - Full hr1 suite on flutter_test: `+206 ~1 -1` (the single -1 is `gestures/tap_gesture_recognizer_test.dart` — a cluster-E transport flake on a different script). `cupertino/class_test.dart` resolves to `'success'`.
+
+  Confirmed clean against revision `69d677d9` (post-cluster-D + TODO-#10 commit). _fixed:_ ✅
 
 - [ ] **12. flutter_test `services/text_editing_delta_deletion_test.dart`.** Source-direct only. _fixed:_
 
