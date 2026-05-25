@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tom_d4rt_flutter_test/tom_d4rt_flutter_test.dart';
 
 import 'interaction_controller.dart';
@@ -90,6 +92,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   // Test execution control
   bool _isPaused = false;
   String? _currentTestFile;
+  String? _currentSuite;
   Completer<String>? _userActionCompleter;
 
   // Results log — holds up to 4000 entries
@@ -109,6 +112,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
   static const int _serverPort = 4248;
 
+  /// Dart VM Service URI (set asynchronously on startup; null in release mode
+  /// or when the VM service is disabled).
+  String? _vmServiceUri;
+
+  /// Public DevTools URL built from [_vmServiceUri]. Opens devtools.flutter.dev
+  /// pre-attached to this app's VM service.
+  String? _devToolsUri;
+
   @override
   void initState() {
     super.initState();
@@ -119,6 +130,32 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     FlutterError.onError = _handleFlutterError;
     WidgetsBinding.instance.platformDispatcher.onError = _handlePlatformError;
     _startServer();
+    _discoverProfilerUris();
+  }
+
+  Future<void> _discoverProfilerUris() async {
+    try {
+      final info = await developer.Service.getInfo();
+      final serverUri = info.serverUri;
+      if (serverUri == null) return;
+      // DevTools wants a ws:// URI ending in /ws.
+      final wsUri = serverUri.replace(
+        scheme: serverUri.scheme == 'https' ? 'wss' : 'ws',
+        pathSegments: [
+          ...serverUri.pathSegments.where((s) => s.isNotEmpty),
+          'ws',
+        ],
+      );
+      final devToolsUri = 'https://devtools.flutter.dev/?uri='
+          '${Uri.encodeQueryComponent(wsUri.toString())}';
+      if (!mounted) return;
+      setState(() {
+        _vmServiceUri = serverUri.toString();
+        _devToolsUri = devToolsUri;
+      });
+    } catch (_) {
+      // VM service unavailable (e.g. release mode); leave URIs null.
+    }
   }
 
   void _handleFlutterError(FlutterErrorDetails details) {
@@ -424,8 +461,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     final filename = filenameParam != null
         ? Uri.decodeComponent(filenameParam)
         : null;
-    if (filename != null && mounted) {
-      setState(() => _currentTestFile = filename);
+    final suiteParam = request.uri.queryParameters['suite'];
+    final suite = suiteParam != null
+        ? Uri.decodeComponent(suiteParam)
+        : null;
+    if (mounted && (filename != null || suite != null)) {
+      setState(() {
+        if (filename != null) _currentTestFile = filename;
+        if (suite != null) _currentSuite = suite;
+      });
     }
 
     // Body is raw Dart source — not JSON.
@@ -666,28 +710,49 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        toolbarHeight: 40,
+        titleSpacing: 8,
+        title: Row(
           children: [
             const Text(
               'D4rt Source Bridge Test',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
             ),
-            if (_currentTestFile != null)
+            if (_currentSuite != null) ...[
+              const SizedBox(width: 8),
               Text(
-                _currentTestFile!,
+                _currentSuite!,
                 style: const TextStyle(
                   fontSize: 12,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w500,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
+            ],
+            if (_currentTestFile != null) ...[
+              const SizedBox(width: 6),
+              const Text(
+                '/',
+                style: TextStyle(fontSize: 11, color: Colors.black54),
+              ),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(
+                  _currentTestFile!,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ],
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            visualDensity: VisualDensity.compact,
+            icon: const Icon(Icons.refresh, size: 18),
             tooltip: 'Clear widget',
             onPressed: () => setState(() {
               _d4rtWidget = null;
@@ -699,9 +764,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       ),
       body: Column(
         children: [
+          // Profiler URIs (visible when VM service is enabled — i.e. debug or
+          // --profile builds; hidden in release).
+          if (_vmServiceUri != null || _devToolsUri != null)
+            _ProfilerUrisBanner(
+              vmServiceUri: _vmServiceUri,
+              devToolsUri: _devToolsUri,
+            ),
+
           // Server status bar
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             color: _server != null
                 ? Colors.green.shade100
                 : Colors.red.shade100,
@@ -709,15 +782,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               children: [
                 Icon(
                   _server != null ? Icons.wifi : Icons.wifi_off,
-                  size: 16,
+                  size: 14,
                   color: _server != null ? Colors.green : Colors.red,
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 6),
                 Text(
                   _server != null
                       ? 'Server: http://localhost:$_serverPort'
                       : 'Server: not running',
-                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+                  style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -731,9 +804,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: TabBar(
               controller: _tabController,
+              labelPadding: const EdgeInsets.symmetric(vertical: 2),
+              labelStyle: const TextStyle(fontSize: 12),
               tabs: const [
-                Tab(text: 'Widget', icon: Icon(Icons.widgets, size: 16)),
-                Tab(text: 'Logs', icon: Icon(Icons.list, size: 16)),
+                Tab(height: 28, text: 'Widget'),
+                Tab(height: 28, text: 'Logs'),
               ],
             ),
           ),
@@ -906,21 +981,23 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
   Widget _buildControlBar() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       color: Theme.of(context).colorScheme.surfaceContainerLow,
       child: Row(
         children: [
           IconButton(
-            icon: Icon(_isPaused ? Icons.play_arrow : Icons.pause),
+            visualDensity: VisualDensity.compact,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+            icon: Icon(_isPaused ? Icons.play_arrow : Icons.pause, size: 18),
             tooltip: _isPaused ? 'Resume' : 'Pause after next build',
             onPressed: _onPausePlay,
-            iconSize: 20,
           ),
           const Spacer(),
           Text(
             _isPaused ? 'PAUSED' : 'Running',
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 10,
               color: _isPaused
                   ? Colors.orange
                   : Theme.of(context).colorScheme.outline,
@@ -933,34 +1010,45 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
   Widget _buildJudgmentBar() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       color: Colors.orange.shade50,
       child: Row(
         children: [
           const Text(
             'Judge:',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
           ElevatedButton.icon(
             onPressed: _onGood,
-            icon: const Icon(Icons.thumb_up, size: 16),
-            label: const Text('Good'),
+            icon: const Icon(Icons.thumb_up, size: 14),
+            label: const Text('Good', style: TextStyle(fontSize: 11)),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green.shade100,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              minimumSize: Size.zero,
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
           ElevatedButton.icon(
             onPressed: _onBad,
-            icon: const Icon(Icons.thumb_down, size: 16),
-            label: const Text('Needs rewrite'),
+            icon: const Icon(Icons.thumb_down, size: 14),
+            label: const Text('Needs rewrite', style: TextStyle(fontSize: 11)),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red.shade100,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              minimumSize: Size.zero,
             ),
           ),
-          const SizedBox(width: 8),
-          TextButton(onPressed: _onNext, child: const Text('Skip')),
+          const SizedBox(width: 6),
+          TextButton(
+            onPressed: _onNext,
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              minimumSize: Size.zero,
+            ),
+            child: const Text('Skip', style: TextStyle(fontSize: 11)),
+          ),
         ],
       ),
     );
@@ -1064,6 +1152,97 @@ class _ErrorDisplay extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Compact banner that shows the Dart VM Service and Flutter DevTools URIs,
+/// each as a [SelectableText] with a copy-to-clipboard button.
+class _ProfilerUrisBanner extends StatelessWidget {
+  const _ProfilerUrisBanner({
+    required this.vmServiceUri,
+    required this.devToolsUri,
+  });
+
+  final String? vmServiceUri;
+  final String? devToolsUri;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: scheme.primaryContainer,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (devToolsUri != null)
+              _ProfilerUriRow(label: 'DevTools', uri: devToolsUri!),
+            if (vmServiceUri != null)
+              _ProfilerUriRow(label: 'VM Service', uri: vmServiceUri!),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfilerUriRow extends StatelessWidget {
+  const _ProfilerUriRow({required this.label, required this.uri});
+
+  final String label;
+  final String uri;
+
+  @override
+  Widget build(BuildContext context) {
+    final onContainer = Theme.of(context).colorScheme.onPrimaryContainer;
+    final labelStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 10,
+      height: 1.0,
+      color: onContainer,
+    );
+    final uriStyle = TextStyle(
+      fontFamily: 'monospace',
+      fontSize: 10,
+      height: 1.0,
+      color: onContainer,
+    );
+    return SizedBox(
+      height: 14,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 64,
+            child: Text('$label:', style: labelStyle),
+          ),
+          Expanded(
+            child: SelectableText(uri, style: uriStyle, maxLines: 1),
+          ),
+          Tooltip(
+            message: 'Copy $label URI',
+            child: InkWell(
+              onTap: () async {
+                await Clipboard.setData(ClipboardData(text: uri));
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$label URI copied'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Icon(Icons.copy, size: 12, color: onContainer),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

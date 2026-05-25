@@ -450,20 +450,19 @@ void main() {
     });
 
     // 50. widgets/animated_switcher_test.dart (idx 332)
+    // 20260525 §6.3 follow-up: W5 cascade verified resolved on the ast
+    // variant (full gii +78 ~1 -4 with animated_switcher passing in
+    // 1511 ms). Lifting skip symmetrically with the standard 50 s cap.
     test(
       'widgets/animated_switcher_test.dart',
       () async {
         final result = await SendTestRunner.send(
           'widgets/animated_switcher_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      skip:
-          'W5 (2026-04-28): wedges test app /build for ~60s then "Lost connection to device"; '
-          'cascades 34 subsequent gii tests. Pre-existing testlog_20260428-1220-issue-analysis '
-          'gii run aborted at this script (test ID 54). Likely deep-demo widget tree leaving '
-          'animation tickers / post-frame callbacks scheduled past teardown. Skipping until the '
-          'structural test-app watchdog (interpreter_issues.md META) lands.',
+      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     // 51. widgets/autofill_group_test.dart (idx 333)

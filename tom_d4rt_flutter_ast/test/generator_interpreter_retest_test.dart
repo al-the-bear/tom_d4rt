@@ -365,14 +365,20 @@ void main() {
     // for diagnosis.  Skipping is the only reliable way to avoid the
     // cascade until the wedge root cause is fixed at the app/interpreter
     // level.
-    test('retest: widgets/context_action_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/context_action_test.dart',
-      );
-      expectSuccess(result);
-    }, skip: 'W1: script passes in isolation but wedges app /clear afterward,'
-        ' causing cascade of timeouts in the rest of the run.'
-        ' See doc/interpreter_issues.md.');
+    // 20260525 §6.3 follow-up: §6.1 retest passed W1 in isolation; lifting
+    // skip with standard caller-side 50 s cap to absorb cold-start build.
+    // Full gir suite re-run verifies no cascade on subsequent scripts.
+    test(
+      'retest: widgets/context_action_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/context_action_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // default_selection_style runs fine (verified passing in run4) but the
     // 10s waitBeforeClear is kept as a defensive buffer — it's a
@@ -390,47 +396,53 @@ void main() {
     // (which passes) immediately preceding it.  Same Actions/Shortcuts
     // family as W1 (D4rt-LIMIT #8 family).  Skipping until the wedge is
     // root-caused.  See doc/interpreter_issues.md (W2).
-    test('retest: widgets/default_text_editing_shortcuts_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/default_text_editing_shortcuts_test.dart',
-        waitBeforeClear: const Duration(seconds: 10),
-      );
-      expectSuccess(result);
-    }, skip: 'W2: /build hangs 30s, wedges app /clear afterward.'
-        ' Cascades into the rest of the run.'
-        ' See doc/interpreter_issues.md.');
+    // 20260525 §6.3 follow-up: §6.1 retest passed W2 in isolation; lifting
+    // skip with 50 s cap. waitBeforeClear retained as defensive buffer.
+    test(
+      'retest: widgets/default_text_editing_shortcuts_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/default_text_editing_shortcuts_test.dart',
+          waitBeforeClear: const Duration(seconds: 10),
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
     // W3: Pre-emptively skipped while W2 is the upstream wedger.  In
     // run4 this test cascade-failed after W2.  Once W2 is fixed,
     // re-run in isolation to determine whether to un-skip.  See
     // doc/interpreter_issues.md (W3).
-    test('retest: widgets/live_text_input_status_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/live_text_input_status_test.dart',
-        waitBeforeClear: const Duration(seconds: 10),
-      );
-      expectSuccess(result);
-    }, skip: 'W3: cascade victim of W2 in retest runs.'
-        ' Re-evaluate once W2 is fixed.'
-        ' See doc/interpreter_issues.md.');
+    // 20260525 §6.3 follow-up: W3 was cascade victim of W2; with W2
+    // lifted, re-enable W3 with the same caller-side cap pattern.
+    test(
+      'retest: widgets/live_text_input_status_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/live_text_input_status_test.dart',
+          waitBeforeClear: const Duration(seconds: 10),
+          httpBuildTimeout: const Duration(seconds: 50),
+        );
+        expectSuccess(result);
+      },
+      timeout: const Timeout(Duration(seconds: 60)),
+    );
 
+    // 20260525 §6.3 follow-up: §6.1 retest passed W4 in isolation; lifting
+    // skip with the standard 50 s cap. The original W4 "connection-closed"
+    // wedge cascade does not reproduce on the current interpreter.
     test(
       'retest: widgets/lock_state_test.dart',
       () async {
         final result = await SendTestRunner.send(
           'retest/widgets/lock_state_test.dart',
+          httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      skip:
-          'W4 (2026-04-28): wedges test app /build with '
-          '"HttpException: Connection closed before full header was received", '
-          'then test app process dies and cascades 19 subsequent retests with '
-          'SocketException: Connection refused. Captured in '
-          'doc/testlog_20260428-1333-issue-analysis/error_analysis.md cluster R '
-          'and doc/interpreter_issues.md "[WEDGE — Watchlist] W4". Skipping '
-          'until the structural test-app watchdog (interpreter_issues.md META) '
-          'lands or the underlying lock-state interpreter shape is diagnosed.',
+      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
