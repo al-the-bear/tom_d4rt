@@ -389,6 +389,46 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     });
   }
 
+  /// Default time we let the engine pump after mounting (or unmounting) a
+  /// D4rt widget subtree before responding to the harness. Long enough for:
+  /// - Post-frame callbacks scheduled during build/teardown to fire.
+  /// - InheritedElement `_dependents` slots to be cleared by the framework.
+  /// - Animations / async work scheduled in `initState` to settle so any
+  ///   framework errors they produce surface inside the capture window.
+  ///
+  /// Empirically 200 ms ≈ 12 frames at 60 fps which is well past the usual
+  /// 1–3 frame settling window.
+  static const Duration _postMutationPumpDuration =
+      Duration(milliseconds: 200);
+
+  /// Schedules frames and waits for [duration] so the engine has a chance to
+  /// run post-frame work between mutations of the widget tree. The wait is
+  /// hard-capped at [duration] — if the scheduler is wedged each iteration
+  /// times out and we fall through, so the caller can never block longer
+  /// than [duration] even when the engine is not producing frames.
+  ///
+  /// Used after `/clear` (to let the prior widget subtree unmount) and after
+  /// a successful `/build` (to let the new subtree settle before the harness
+  /// reads back `frameworkErrors`).
+  Future<void> _pumpFor(Duration duration) async {
+    final deadline = DateTime.now().add(duration);
+    while (mounted && DateTime.now().isBefore(deadline)) {
+      final c = Completer<void>();
+      WidgetsBinding.instance
+        ..scheduleFrame()
+        ..addPostFrameCallback((_) {
+          if (!c.isCompleted) c.complete();
+        });
+      final remaining = deadline.difference(DateTime.now());
+      // ~50 ms per polled tick so a wedged scheduler still resolves a
+      // bounded number of iterations rather than spinning indefinitely.
+      final tick = remaining < const Duration(milliseconds: 50)
+          ? remaining
+          : const Duration(milliseconds: 50);
+      await c.future.timeout(tick, onTimeout: () {});
+    }
+  }
+
   /// Cleanup-trace logger. Emits a single line in a consistent shape so the
   /// `_dependents.isEmpty` cascade can be correlated with the preceding
   /// /clear. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
@@ -567,21 +607,41 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           // fallback, /clear never responds, the harness HTTP call hangs
           // forever, and flutter_test's per-test 30s timeout cascades through
           // every subsequent script. Respond from whichever path fires first.
+          // The `setState` above flips `_d4rtWidget` to `null`, which makes
+          // the next frame mount `_WaitingDisplay` in the widget tab — a
+          // distinct widget type from the interpreted D4rt subtree, so
+          // Flutter has to fully unmount the prior element subtree rather
+          // than reusing it. Then `_pumpFor` lets that teardown actually
+          // happen across several frames before we report 'cleared' to the
+          // harness. Without the pump the harness fires the next /build
+          // before `_dependents` slots in stale InheritedElements have been
+          // released, which is the documented trigger for the
+          // `framework.dart 6269: '_dependents.isEmpty'` red screen.
+          //
+          // Bucket-2 cascade fix is preserved: a 2 s fallback timer still
+          // responds if the engine is so wedged that even `_pumpFor`
+          // can't make progress (each iteration of `_pumpFor` is capped at
+          // ~50 ms, but it could still total to 200 ms while the harness
+          // expects an answer faster).
           var clearResponded = false;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          unawaited(() async {
+            await _pumpFor(_postMutationPumpDuration);
             if (clearResponded) return;
             clearResponded = true;
-            _traceCleanup('clear-postframe',
-                'post-frame fired, responding with status=cleared');
+            _traceCleanup(
+              'clear-postpump',
+              'pumped ${_postMutationPumpDuration.inMilliseconds}ms '
+                  'on waiting screen, responding with status=cleared',
+            );
             if (mounted) {
               _respond(request, 200, {'status': 'cleared'});
             }
-          });
+          }());
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
             _traceCleanup('clear-timeout',
-                'post-frame did NOT fire within 2s, responding via timeout');
+                'pump did NOT complete within 2s, responding via timeout');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -784,27 +844,51 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _widgetGeneration++;
             _lastError = null;
 
-            // Defer completion until after the frame (layout + paint) so that
-            // framework errors (red error screens) are captured.
+            // Defer completion until after the frame (layout + paint) AND
+            // an additional pump window so we capture framework errors
+            // produced by:
+            //   - the first frame (layout, paint, debug-paint warnings)
+            //   - any post-frame async work the script kicked off in build
+            //     (animation tickers, controllers initialised in initState,
+            //     etc.) that produces errors on a later frame.
+            //
+            // Without the pump, scripts that schedule work after build
+            // returned a 'success' before the framework had a chance to
+            // surface the deferred error — making the failure look random
+            // from the harness side.
             if (!buildCompleted) {
               buildCompleted = true;
               final completer = _buildCompleter;
               _buildCompleter = null;
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                _capturingFrameworkErrors = false;
-                // Plan C — guard against double-completion. A concurrent /clear
-                // may have completed this completer with 'cleared by client'
-                // already; calling complete() again would throw.
-                if (completer != null && !completer.isCompleted) {
-                  completer.complete(
-                    _BuildResult(
-                      success: true,
-                      widgetType: widget.runtimeType.toString(),
-                      output: output,
-                      frameworkErrors: List<String>.from(_frameworkErrors),
-                    ),
+                // Pump runs inside an unawaited closure so the post-frame
+                // callback itself returns synchronously (the framework
+                // expects FrameCallback to be void/sync). Capture stays on
+                // until the pump completes so deferred errors land in
+                // `_frameworkErrors` before we copy the list.
+                unawaited(() async {
+                  await _pumpFor(_postMutationPumpDuration);
+                  _capturingFrameworkErrors = false;
+                  _traceCleanup(
+                    'build-postpump',
+                    'pumped ${_postMutationPumpDuration.inMilliseconds}ms '
+                        'on built widget (${widget.runtimeType}), '
+                        'capturedFrameworkErrors=${_frameworkErrors.length}',
                   );
-                }
+                  // Plan C — guard against double-completion. A concurrent
+                  // /clear may have completed this completer with 'cleared
+                  // by client' already; calling complete() again would throw.
+                  if (completer != null && !completer.isCompleted) {
+                    completer.complete(
+                      _BuildResult(
+                        success: true,
+                        widgetType: widget.runtimeType.toString(),
+                        output: output,
+                        frameworkErrors: List<String>.from(_frameworkErrors),
+                      ),
+                    );
+                  }
+                }());
               });
             }
           } on FlutterD4rtException catch (e) {

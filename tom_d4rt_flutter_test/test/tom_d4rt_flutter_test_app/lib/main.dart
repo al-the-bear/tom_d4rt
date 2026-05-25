@@ -345,6 +345,32 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     });
   }
 
+  /// Default pump duration after mounting/unmounting a D4rt widget subtree —
+  /// see equivalent docstring in flutter_ast/main.dart for full rationale.
+  static const Duration _postMutationPumpDuration =
+      Duration(milliseconds: 200);
+
+  /// Mirror of flutter_ast/main.dart::_pumpFor — schedules frames and waits
+  /// for [duration] so the engine has a chance to run post-frame work
+  /// between mutations. Wait is hard-capped at [duration] even when the
+  /// scheduler is wedged.
+  Future<void> _pumpFor(Duration duration) async {
+    final deadline = DateTime.now().add(duration);
+    while (mounted && DateTime.now().isBefore(deadline)) {
+      final c = Completer<void>();
+      WidgetsBinding.instance
+        ..scheduleFrame()
+        ..addPostFrameCallback((_) {
+          if (!c.isCompleted) c.complete();
+        });
+      final remaining = deadline.difference(DateTime.now());
+      final tick = remaining < const Duration(milliseconds: 50)
+          ? remaining
+          : const Duration(milliseconds: 50);
+      await c.future.timeout(tick, onTimeout: () {});
+    }
+  }
+
   /// Cleanup-trace logger — see equivalent in flutter_ast/main.dart for full
   /// rationale. Filter the debug console with `grep '\[D4rtApp\]\[clean\]'`.
   void _traceCleanup(String tag, String message, {StackTrace? stack}) {
@@ -495,21 +521,30 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           // fallback, /clear never responds, the harness HTTP call hangs
           // forever, and flutter_test's per-test 30s timeout cascades through
           // every subsequent script. Respond from whichever path fires first.
+          // Mirrors flutter_ast/main.dart: the setState above flips
+          // `_d4rtWidget` to `null` (mounts `_WaitingDisplay` next frame),
+          // and `_pumpFor` lets the prior D4rt element subtree finish
+          // unmounting across several frames before we report 'cleared' to
+          // the harness. See flutter_ast/main.dart for the full rationale.
           var clearResponded = false;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          unawaited(() async {
+            await _pumpFor(_postMutationPumpDuration);
             if (clearResponded) return;
             clearResponded = true;
-            _traceCleanup('clear-postframe',
-                'post-frame fired, responding with status=cleared');
+            _traceCleanup(
+              'clear-postpump',
+              'pumped ${_postMutationPumpDuration.inMilliseconds}ms '
+                  'on waiting screen, responding with status=cleared',
+            );
             if (mounted) {
               _respond(request, 200, {'status': 'cleared'});
             }
-          });
+          }());
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
             _traceCleanup('clear-timeout',
-                'post-frame did NOT fire within 2s, responding via timeout');
+                'pump did NOT complete within 2s, responding via timeout');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -639,22 +674,36 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _widgetGeneration++;
             _lastError = null;
 
+            // Mirrors flutter_ast/main.dart: pump after the first frame so
+            // framework errors from deferred work (animation tickers, async
+            // controllers) land in `_frameworkErrors` before we copy it
+            // into the response. See flutter_ast/main.dart for the full
+            // rationale.
             if (!buildCompleted) {
               buildCompleted = true;
               final completer = _buildCompleter;
               _buildCompleter = null;
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                _capturingFrameworkErrors = false;
-                if (completer != null && !completer.isCompleted) {
-                  completer.complete(
-                    _BuildResult(
-                      success: true,
-                      widgetType: widget.runtimeType.toString(),
-                      output: output,
-                      frameworkErrors: List<String>.from(_frameworkErrors),
-                    ),
+                unawaited(() async {
+                  await _pumpFor(_postMutationPumpDuration);
+                  _capturingFrameworkErrors = false;
+                  _traceCleanup(
+                    'build-postpump',
+                    'pumped ${_postMutationPumpDuration.inMilliseconds}ms '
+                        'on built widget (${widget.runtimeType}), '
+                        'capturedFrameworkErrors=${_frameworkErrors.length}',
                   );
-                }
+                  if (completer != null && !completer.isCompleted) {
+                    completer.complete(
+                      _BuildResult(
+                        success: true,
+                        widgetType: widget.runtimeType.toString(),
+                        output: output,
+                        frameworkErrors: List<String>.from(_frameworkErrors),
+                      ),
+                    );
+                  }
+                }());
               });
             }
           } on SourceFlutterD4rtException catch (e) {
