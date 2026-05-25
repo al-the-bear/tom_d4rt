@@ -380,7 +380,7 @@ Scripts that fail in exactly one of the two projects (real script-specific bugs,
 | Project | File | Script | Status |
 |---|---|---|---|
 | flutter_test | `essential_classes_test`              | `material/materialapp_test.dart` | **✅ FIXED 20260525** (TODO #9 — `_InterpretedRouterDelegate` proxy generic-arg sync, see U26) |
-| flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` | open (TODO #10) |
+| flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` | **✅ FIXED 20260525** (TODO #10 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr1 suite) |
 | flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` | open (TODO #11) |
 | flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` | open (TODO #12) |
 
@@ -557,7 +557,11 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
 - [x] **9. flutter_test `material/materialapp_test.dart`.** _Done 2026‑05‑25._ Root cause: `_InterpretedRouterDelegate` proxy class in `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart` extended `RouterDelegate<dynamic>` while the flutter_ast counterpart already extended `RouterDelegate<Object>` (with a comment explaining GEN-118b: Dart's invariant-generic `is` check fails on the `<dynamic>` variant when the bridge boundary asks for `<Object>?`). The flutter_ast variant had been fixed but the flutter_test variant was never synced. Aligned the flutter_test proxy to `<Object>` and copied the explanatory comment from flutter_ast. Mirrors the existing pattern; no new code; no interpreter changes. Updated U26 in `interpreter_unfixable.md` to **✅ FIXED**. _fixed:_ ✅
 
-- [ ] **10. flutter_ast `foundation/object_event_test.dart`.** Passes in flutter_test, fails in flutter_ast. AST-bundle pipeline divergence (same family as #7 / #8). _fixed:_
+- [x] **10. flutter_ast `foundation/object_event_test.dart`.** _Done 2026‑05‑25 (incidental fix by cumulative cluster A/B/C work)._ Re-verified after fix #9 landed:
+  - Isolated run (`flutter test … --plain-name 'object_event_test.dart'`): rc=0, frameworkErrors=0, build 2.5 s.
+  - Full hr1 suite (`flutter test test/hardly_relevant_classes_1_test.dart`): `+207 ~1 -0` (`object_event_test` resolves to `'success'`).
+
+  The original analysis's "AST-bundle pipeline divergence (same family as #7 / #8)" framing was wrong — TODOs #7 and #8 themselves turned out to be state-accumulation issues, not AST-bundle divergences, and #10 also doesn't reproduce against the current tom_d4rt_ast interpreter. Confirmed clean against revision `bd89fb58` (post-cluster-D commit). _fixed:_ ✅
 
 - [ ] **11. flutter_test `cupertino/class_test.dart`.** Source-direct only. Identify the assertion. _fixed:_
 
