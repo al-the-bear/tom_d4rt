@@ -4680,22 +4680,32 @@ class _InterpretedTextSelectionGestureDetectorBuilderDelegate
 // Cluster E11 — RouterDelegate proxy
 // =============================================================================
 //
-// Native [RouterDelegate<dynamic>] backed by an interpreted subclass.
+// Native [RouterDelegate<Object>] backed by an interpreted subclass.
 // Registered as the interface-proxy factory for 'RouterDelegate'.
 //
-// The proxy extends the real abstract `RouterDelegate<dynamic>` and forwards
+// The proxy extends the real abstract `RouterDelegate<Object>` and forwards
 // `setNewRoutePath`, `popRoute`, `build`, and the `Listenable` contract
 // (`addListener`/`removeListener`) to the interpreted class. Test scripts
 // commonly mix in a small `_ChangeNotifierShim` (since the bridge does not
 // expose `ChangeNotifier`); the proxy delegates listener registration to that
 // shim via the interpreted instance.
 //
-// The generic type parameter is bound to `dynamic` because Dart cannot
-// specialise generic type arguments at runtime; this is the same trick used
-// for `_InterpretedParentDataWidget` and `_InterpretedAction`. Scripts that
-// declare `RouterDelegate<Foo>` work at the interpreter level; only the
-// proxy boundary erases to `dynamic`.
-class _InterpretedRouterDelegate extends RouterDelegate<dynamic>
+// Cluster D TODO #9 (testlog 20260525-1059) — `<Object>` not `<dynamic>`:
+//
+// The generic type parameter is bound to `Object` (not `dynamic`) because
+// `WidgetsApp.router(routerDelegate: ...)` declares the parameter as
+// `RouterDelegate<Object>?`. Dart's runtime `is` check for invariant
+// generics treats `RouterDelegate<dynamic>` as distinct from
+// `RouterDelegate<Object>` (see GEN-118b in the flutter_ast variant), so
+// a `<dynamic>` proxy would fail `extractBridgedArg<RouterDelegate<Object>?>`
+// even when correctly registered — `proxy is RouterDelegate<Object>?`
+// returns false. `<Object>` is the universal top-non-nullable type that
+// satisfies the bridge boundary. Scripts that declare
+// `RouterDelegate<Foo>` work at the interpreter level; only the proxy
+// boundary erases to `Object`. Mirror of
+// `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`'s
+// `_InterpretedRouterDelegate` (same body shape).
+class _InterpretedRouterDelegate extends RouterDelegate<Object>
     implements D4InterpretedProxy {
   _InterpretedRouterDelegate(this._visitor, this._instance);
 

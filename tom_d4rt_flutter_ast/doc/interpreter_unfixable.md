@@ -6335,7 +6335,40 @@ falls in the 30 s–50 s gap. Tracked outside this entry.
 
 ---
 
-## U26 — Source-based interpreter rejects `InterpretedInstance` for `RouterDelegate<Object>?` parameter despite identical proxy registration (cross-runner divergence)
+## U26 — Source-based interpreter rejects `InterpretedInstance` for `RouterDelegate<Object>?` parameter despite identical proxy registration (cross-runner divergence) — **✅ FIXED 2026‑05‑25**
+
+> **Resolution.** The deferred status was wrong: the bug was visible
+> in plain Dart source the whole time. The `_InterpretedRouterDelegate`
+> proxy class in
+> `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`
+> declared `extends RouterDelegate<dynamic>`, while the corresponding
+> proxy in
+> `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
+> declared `extends RouterDelegate<Object>` and carried a four-line
+> comment explaining exactly why (GEN-118b: Dart's runtime `is` check
+> for invariant generics treats `RouterDelegate<dynamic>` as distinct
+> from `RouterDelegate<Object>`, so a `<dynamic>` proxy fails
+> `proxy is RouterDelegate<Object>?` even when correctly registered).
+> The flutter_ast variant was fixed long ago; the flutter_test
+> variant was never synced. Aligning the two — `<dynamic>` → `<Object>`
+> in the flutter_test proxy class declaration — resolves the
+> divergence and brings `material/materialapp_test.dart` back to
+> passing on both runners.
+>
+> Hypothesis #2 in the original analysis below ("`RouterDelegate<T>`
+> super-class itself extends `Listenable`; the analyzer-based
+> interpreter may resolve the bridge target through `Listenable` and
+> miss the proxy") was close — the proxy walk DOES find the
+> `RouterDelegate` factory, it creates the proxy correctly, but the
+> subsequent `proxy is T` check failed because the proxy's generic
+> type argument didn't match. Hypothesis #1 (mixin chain) and #3
+> (nullable check ordering) were red herrings.
+>
+> See `testlog_20260525-1059-issue-analysis/error_analysis.md`
+> cluster D + TODO #9 for the fix commit and regression results.
+
+### Original investigation (pre-fix, retained for reference)
+
 
 **Category.** Cross-runner interpreter divergence on a constructor
 boundary that accepts a `RouterDelegate<Object>?`. The analyzer-free

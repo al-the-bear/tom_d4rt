@@ -377,12 +377,51 @@ was NOT modified — it passes cleanly without recycle.
 
 Scripts that fail in exactly one of the two projects (real script-specific bugs, not pump-related):
 
-| Project | File | Script |
-|---|---|---|
-| flutter_test | `essential_classes_test`              | `material/materialapp_test.dart` |
-| flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` |
-| flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` |
-| flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` |
+| Project | File | Script | Status |
+|---|---|---|---|
+| flutter_test | `essential_classes_test`              | `material/materialapp_test.dart` | **✅ FIXED 20260525** (TODO #9 — `_InterpretedRouterDelegate` proxy generic-arg sync, see U26) |
+| flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` | open (TODO #10) |
+| flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` | open (TODO #11) |
+| flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` | open (TODO #12) |
+
+#### TODO #9 resolution summary
+
+**Root cause.** The `_InterpretedRouterDelegate` proxy class in
+`tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`
+extended `RouterDelegate<dynamic>` while the corresponding class
+in `tom_d4rt_flutter_ast/lib/src/d4rt_runtime_registrations.dart`
+extended `RouterDelegate<Object>` (the fix-recipe was already
+present in flutter_ast with a four-line comment explaining
+GEN-118b: Dart's runtime `is` check for invariant generics treats
+`RouterDelegate<dynamic>` as distinct from `RouterDelegate<Object>`,
+so a `<dynamic>` proxy fails `proxy is RouterDelegate<Object>?`
+even when correctly registered). The flutter_test variant was
+never synced. `MaterialApp.router` declares the parameter as
+`RouterDelegate<Object>?`, so the proxy walk created the
+`<dynamic>` proxy correctly, then the `is T` check (T =
+`RouterDelegate<Object>?`) returned false, causing
+`extractBridgedArg` to fall through to the "Invalid parameter"
+error.
+
+**Fix.** Aligned the flutter_test proxy declaration to
+`extends RouterDelegate<Object>` and copied the four-line
+GEN-118b comment from flutter_ast. The method bodies were
+already structurally identical between the two variants — no
+other changes needed.
+
+**Verification.**
+- `material/materialapp_test.dart` (isolated): rc=0, frameworkErrors=0
+  (was status=error frameworkErrors=1 with
+  `Argument Error: Invalid parameter "routerDelegate": expected
+  RouterDelegate<Object>?, got InterpretedInstance(_SimpleRouterDelegate)`).
+- Regression sweep (essential + important + secondary, both projects,
+  parallel, `testlog_20260525-2030-fix9-regress/`): zero new failures
+  introduced; the previously-failing `materialapp_test` recovered.
+
+**U26 status.** Updated to **✅ FIXED** with the original investigation
+retained for reference. The "deferred — needs deeper interpreter
+debugging" framing was wrong: the bug was a missed sync between
+the two project-local proxy classes, visible in plain Dart source.
 
 ### Cluster E — Over-budget builds (every `error` row)
 
@@ -516,7 +555,7 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
 ### Cluster D — Single-project script failures
 
-- [ ] **9. flutter_test `material/materialapp_test.dart`.** Passes in flutter_ast, fails in flutter_test. First-line error `Expected: true` — pull from the log to identify the actual assertion the script tests. Likely a Material-app construction difference. _fixed:_
+- [x] **9. flutter_test `material/materialapp_test.dart`.** _Done 2026‑05‑25._ Root cause: `_InterpretedRouterDelegate` proxy class in `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart` extended `RouterDelegate<dynamic>` while the flutter_ast counterpart already extended `RouterDelegate<Object>` (with a comment explaining GEN-118b: Dart's invariant-generic `is` check fails on the `<dynamic>` variant when the bridge boundary asks for `<Object>?`). The flutter_ast variant had been fixed but the flutter_test variant was never synced. Aligned the flutter_test proxy to `<Object>` and copied the explanatory comment from flutter_ast. Mirrors the existing pattern; no new code; no interpreter changes. Updated U26 in `interpreter_unfixable.md` to **✅ FIXED**. _fixed:_ ✅
 
 - [ ] **10. flutter_ast `foundation/object_event_test.dart`.** Passes in flutter_test, fails in flutter_ast. AST-bundle pipeline divergence (same family as #7 / #8). _fixed:_
 
