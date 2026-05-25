@@ -481,7 +481,7 @@ Distinct messages logged by the test-app's `_capturingFrameworkErrors` path. The
 | 4 | `Looking up a deactivated widget's ancestor is unsafe.` | B (cascade) — **✅ FIXED 20260525** | gii |
 | 5 | `Tried to build dirty widget in the wrong build scope.` | B (cascade) — **✅ FIXED 20260525** | gii |
 | 6 | `A RenderConstraintsTransformBox overflowed by 30 pixels …` | U17 (intentional by-design) | secondary, timeout |
-| 7 | `'package:flutter/src/widgets/framework.dart' Failed assertion: line 6417 pos 14: '() {` | F (framework assertion) | secondary, timeout |
+| 7 | `'package:flutter/src/widgets/framework.dart' Failed assertion: line 6417 pos 14: '() {` | F (framework assertion) — **✅ FIXED 20260525** (eliminated by cluster-B fix; downstream cascade of the inactive-element assertion) | secondary, timeout |
 | 8 | `A ScrollController is required when Scrollbar.thumbVisibility is true.` | G (script bug) | hr2, hr5, important (test) |
 | 9 | `A ScrollController is required when the scrollbar is interactive.` | G (script bug) | important (test) |
 | 10 | `Exception: Codec failed to produce an image, possibly due to invalid image data.` | H (script bug) | hr4 |
@@ -581,9 +581,15 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
   Confirmed clean against revision `6da3db2d` (post-TODO-#11 commit). _fixed:_ ✅
 
-### Cluster F — Framework assertion `framework.dart:6417`
+### Cluster F — Framework assertion `framework.dart:6417` — **✅ FIXED**
 
-- [ ] **13. Investigate `framework.dart line 6417` assertion.** This assertion lives in the same teardown path as the `_dependents.isEmpty` assertion at line 6268. Both are now non-fatal (silencer + `ErrorWidget.builder` override). Investigate whether the cluster-B fix (#4 / #5) eliminates this cascade — they are mechanically tied. If not, add an additional silencer pattern for this assertion message. _fixed:_
+- [x] **13. Investigate `framework.dart line 6417` assertion.** _Done 2026‑05‑25 (no code change — eliminated by cluster-B fix as predicted by the TODO body)._ The TODO body itself hypothesised "they are mechanically tied" and that the cluster-B fix (`findRenderObject` inactive-element guard, commit `8901143a`) might already eliminate this cascade. Verified by grep across all post-cluster-B test logs:
+  - **1059 baseline (pre-cluster-B):** **18 occurrences** of the line-6417 assertion (6 each in flutter_ast `secondary_classes_test.log.txt`, flutter_ast `timeout_tests_test.log.txt`, and flutter_test `secondary_classes_test.log.txt`).
+  - **Post-cluster-B regression sweep (`testlog_20260525-1830-fix4-regress/`):** **0 occurrences**.
+  - **Post-cluster-D regression sweep (`testlog_20260525-2030-fix9-regress/`):** **0 occurrences**.
+  - **Post-incidental-fixes hr1/hr3 verifications (`testlog_20260525-2110-fix10-*`, `2115-fix11-*`, `2125-fix12-*`):** **0 occurrences**.
+
+  Root cause: the line-6417 assertion is the next-frame downstream cascade of "`findRenderObject` on an inactive element" — once cluster-B made the bridge return null instead of throwing, the cascade never starts. No silencer pattern was added because none is needed; the assertion no longer appears in the captured framework-error stream. _fixed:_ ✅
 
 ### Cluster G — Script-side bugs (Scrollbar / ScrollController)
 
