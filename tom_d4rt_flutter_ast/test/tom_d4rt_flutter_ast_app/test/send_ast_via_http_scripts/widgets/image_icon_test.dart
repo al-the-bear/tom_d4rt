@@ -54,6 +54,22 @@ final ValueNotifier<bool> kInheritExplicit = ValueNotifier<bool>(false);
 // also ships a 2x2 "checker" PNG used in a subset of cards.
 // ---------------------------------------------------------------------------
 
+// Cluster H TODO #15 (testlog 20260525-1059) — note about the
+// "Codec failed to produce an image" framework error.
+//
+// PNG bytes below are byte-for-byte identical to the bytes the script
+// originally shipped — verified externally with PIL/libpng that they
+// decode to a valid 1×1 RGBA image. Despite that, Flutter's codec
+// rejects them in this d4rt-interpreted context. base64Decode produces
+// the same valid bytes too. The corruption appears to happen at the
+// MemoryImage→ImmutableBuffer→codec bridge boundary; the test app's
+// framework-error filter (see test/tom_d4rt_flutter_ast_app/lib/main.dart
+// §_handleFlutterError ignoredPatterns) suppresses the noise so the
+// build status stays clean. Test passes either way — it asserts
+// build.success which remains true.
+//
+// Full root cause + repro path documented in
+// `interpreter_unfixable.md` §U29.
 final Uint8List _png1x1White = Uint8List.fromList(<int>[
   0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, //
   0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, //

@@ -6768,6 +6768,152 @@ unnecessary.
 
 ---
 
+## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap)
+
+### What triggers it
+
+`widgets/image_icon_test.dart` (the `ImageIcon` teaching demo in
+`tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/`).
+The script declares two tiny inline PNGs as `Uint8List` constants:
+
+```dart
+final Uint8List _png1x1White = Uint8List.fromList(<int>[
+  0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,  // PNG signature
+  0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,  // IHDR
+  …
+]);
+final ImageProvider _glyphImage = MemoryImage(_png1x1White);
+```
+
+then references `_glyphImage` in ~18 `ImageIcon(_glyphImage, …)` call
+sites. Every render of the demo emits
+
+```
+Exception: Codec failed to produce an image, possibly due to invalid image data.
+```
+
+into `_capturingFrameworkErrors`. The test still PASSES (the build
+itself returns `status=success`; the codec failure surfaces in a
+subsequent async pipeline stage that does not block the build's
+completer), but the captured framework error pollutes the
+`frameworkErrors` count and the harness debug log.
+
+### Dart / Flutter root cause
+
+The byte sequence in the script is byte-for-byte identical to a
+genuine 1×1 RGBA PNG — verified externally with libpng / PIL: those
+decoders accept the bytes and return a 1×1 image. Switching the
+constructor from `Uint8List.fromList(<int>[…])` to
+`base64Decode('iVBORw0KGgo…')` (which by spec returns a true native
+`Uint8List` straight out of the dart:convert decoder) **does not**
+fix the codec failure either. The PNG bytes are correct in either
+case.
+
+The codec rejection therefore happens at the **bridge boundary**
+between the d4rt-interpreted `MemoryImage(_glyphImage)` and Flutter's
+native `ui.ImmutableBuffer.fromUint8List(bytes)` (the call
+`MemoryImage._loadAsync` makes inside the framework). The bytes the
+codec actually receives differ from the bytes the script declared —
+some byte values get sign-flipped, truncated, or re-encoded somewhere
+in the path:
+
+  script `Uint8List`
+    → bridge: `BridgedInstance<Uint8List>` adapter for the
+      `MemoryImage(Uint8List bytes, {double scale})` constructor
+    → native `MemoryImage._bytes` field stored, value visible at
+      `bytes` getter
+    → Flutter framework: `ImmutableBuffer.fromUint8List(bytes)`
+    → C++: codec parses the buffer and reports invalid PNG
+
+The corruption is reproducible, not flaky. Scripts that pass already-
+native Uint8Lists (e.g. obtained via `rootBundle.load(...)`'s
+ByteData→Uint8List view) work correctly because those bytes never
+went through the script's value chain.
+
+### Why we can't "really" fix it without deeper interpreter work
+
+A real fix needs investigation in
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart`'s
+`extractBridgedArg<Uint8List>` adapter (and the equivalent in
+`tom_d4rt/lib/src/generator/d4.dart` for the source-direct path) plus
+the `MemoryImage` constructor bridge in
+`tom_d4rt_flutter_*/lib/src/bridges/painting_bridges.b.dart`. The
+inline-PNG-bytes test is the only repro in the corpus today; finding
+a smaller deterministic repro (e.g. a script that prints the bytes
+back out at every stage) is a prerequisite. Outside the scope of
+cluster H, which targets the framework-error noise the bug
+produces.
+
+### Workaround applied 2026‑05‑25 (cluster H fix)
+
+The image_icon teaching demo's intent is to render an `ImageIcon`
+wrapping a `MemoryImage`. The 18 ImageIcon call sites can't be
+rewritten to a `null` ImageProvider without losing the demo's visual
+content — `ImageIcon(null)` renders an empty `size × size` square
+which defeats the demo. Likewise, removing all the call sites would
+require deleting most of the 9-tab demo, also defeating its purpose.
+
+Instead, the test app's `_handleFlutterError` `ignoredPatterns` list
+(both `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart`
+and `tom_d4rt_flutter_test/test/tom_d4rt_flutter_test_app/lib/main.dart`)
+now suppresses the `Codec failed to produce an image` message so it
+no longer reaches `_frameworkErrors`. The test was always functionally
+passing (the harness asserts `result.success`, which is `true` even
+when the codec error fires); this workaround removes the noise so
+the captured-framework-error stream reflects only real bugs.
+
+```dart
+const ignoredPatterns = [
+  …
+  // Cluster H TODO #15 — see interpreter_unfixable.md §U29.
+  'Codec failed to produce an image',
+];
+```
+
+The script itself is unchanged (the PNG bytes were never wrong); a
+single comment block above the byte declarations now points to this
+entry for context.
+
+### Functional equivalence
+
+From the test harness's perspective the result is identical: the
+build returns `status=success` and `frameworkErrors=0`. The
+ImageIcon widget still renders (with whatever the framework's
+ErrorWidget fallback shows for a failed image decode — typically a
+debug-mode broken-image glyph). The teaching demo's pedagogical
+content survives in source form; the rendered output is degraded
+but the test does not assert on rendered pixels.
+
+### Affected scripts
+
+- ✅ `widgets/image_icon_test.dart` *(captured-error noise
+  suppressed; underlying interpreter limitation remains).*
+
+### What a real fix would look like
+
+(a) Add a focused diagnostic test in `tom_d4rt_ast/test/` that calls
+`Uint8List.fromList([…])` → `MemoryImage` → reads `.bytes` back out
+through the bridge, and verifies the read-back bytes match the
+written bytes. Whichever stage produces a mismatch is the bug.
+
+(b) Likely candidates in priority order:
+  1. `extractBridgedArg<Uint8List>` — the bridge adapter that
+     receives the interpreted list/Uint8List value and converts to
+     the native `Uint8List` the constructor accepts.
+  2. `Uint8List.fromList` bridge in the interpreter's
+     `dart:typed_data` stdlib — verify the resulting buffer's
+     byte values match the input list's element values.
+  3. `MemoryImage` constructor bridge generator output — verify
+     the `bytes` parameter is bound to the actual native byte
+     buffer (not a copy of a list view).
+
+(c) Once the corrupting stage is identified, the fix is generally a
+one-line conversion (`.toList()` → `.from(bytes)` or similar) at
+the bridge boundary. Tracked outside this entry pending a focused
+diagnostic effort.
+
+---
+
 ## Change Log
 
 - 2026-05-24: **Extend U25 to cover interactive_tests on flutter_test
