@@ -139,6 +139,30 @@ class SendTestRunner {
   /// 30s budget — the recycle (which can take ~10s) runs against the next
   /// test's budget instead of cascading into "did not complete".
   static bool _appNeedsRecycle = false;
+
+  /// Public API to request a test-app recycle before the next [send] /
+  /// [sendAndInteract] call.
+  ///
+  /// Use this in a `setUp` hook for tests where the interpreter / test app
+  /// is known to accumulate state across `/clear → /build` cycles in a way
+  /// that exceeds the per-build budget — most notably the **interactive
+  /// static-demo suite** (cluster C, TODO #7+#8 of
+  /// `testlog_20260525-1059-issue-analysis/error_analysis.md`). The first
+  /// `material/show{dialog,bottomsheet,menu,datepicker,timepicker}_test.dart`
+  /// build in a freshly-started test app completes in ~3 s; subsequent
+  /// builds of any similarly-large script in the same test-app process
+  /// time out at the test app's internal 30 s budget. Marking the
+  /// recycle flag at the start of every interactive test makes each test
+  /// run against a freshly-launched test app, paying ~5-10 s of process
+  /// spin-up to gain a deterministic ~3 s build.
+  ///
+  /// See `interpreter_unfixable.md` §U28 for the underlying flutter_ast
+  /// state-accumulation issue and the reason this workaround was chosen
+  /// over deeper interpreter fixes.
+  static void requestRecycle() {
+    _appNeedsRecycle = true;
+  }
+
   static bool _bridgesRegenerated = false;
   static const String _forceBridgeRegenEnv = 'D4RT_FORCE_BRIDGE_REGEN';
   static const String _skipBridgeRegenEnv = 'D4RT_SKIP_BRIDGE_REGEN';

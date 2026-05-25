@@ -315,12 +315,63 @@ The fix is mirrored verbatim between
 No bridge generator changes, no `*.b.dart` edits, no script edits, no
 user-bridge edits.
 
-### Cluster C — Interactive test scripts (flutter_ast only)
+### Cluster C — Interactive test scripts (flutter_ast only) — **STATUS: ✅ FIXED (test-script workaround)**
 
-Two `interactive_tests_test` scripts fail in flutter_ast but PASS in flutter_test. The flutter_ast project parses through the AST bundle → mirror AST pipeline; flutter_test interprets the source directly. The divergence is the AST bundle (it's missing something the source-direct interpreter has).
+> **Fixed 2026‑05‑25 in commit ⟨pending⟩.** Workaround applied in
+> `interactive_tests_test.dart` via a new `SendTestRunner.requestRecycle()`
+> API + `setUp` hook. All 9 interactive tests now pass in the full
+> suite. Full Dart/Flutter root cause and the underlying interpreter
+> state-accumulation documented as **U28** in `interpreter_unfixable.md`.
+
+Two `interactive_tests_test` scripts fail in flutter_ast but PASS in flutter_test. The flutter_ast project parses through the AST bundle → mirror AST pipeline; flutter_test interprets the source directly.
 
 - `dismiss modal via barrier tap`
 - `Interactive tests showDatePicker static demo — taps rendered CANCEL label`
+
+**Original hypothesis (AST bundle missing something) was wrong.**
+Investigation showed:
+
+- Per-test isolated reruns of either failing script PASS cleanly
+  (build ~3 s, 0 framework errors).
+- The same scripts also PASS cleanly via the
+  `tom_d4rt_flutter_test` source-direct path in the full suite.
+- In the flutter_ast full suite, ONLY THE FIRST `/build` of an
+  ~800 KB-bundled static-demo script is fast (~3 s). Every
+  subsequent `/build` of any similarly-large script hits the test
+  app's internal 30 s timeout. The bundle deserialisation is fast
+  (`bundleMs=25`); the time is spent inside the interpreter.
+
+**Real cause.** The single `FlutterD4rt` instance in the flutter_ast
+test app re-runs the class/function declaration pass on every
+`/build`, re-registering names without GC-ing the previous build's
+declarations. For small bundles (~5–50 KB, the bulk of the corpus)
+this is harmless; for the ~700 KB – 1 MB static-demo bundles in
+`interactive_tests_test` the second declaration pass crosses the
+30 s budget. The source-direct path
+(`tom_d4rt_flutter_test/SourceFlutterD4rt`) doesn't hit this because
+the input is the ~70 KB source rather than the ~1 MB bundle JSON.
+
+**Workaround (cluster C fix).** Added
+`SendTestRunner.requestRecycle()` public API to
+`tom_d4rt_flutter_ast/test/send_test_runner.dart`; called from a
+`setUp` hook in `interactive_tests_test.dart` so each interactive
+test runs against a freshly-launched test app. Pays ~5–10 s of
+process spin-up per test; gains deterministic in-budget builds.
+
+**Outcome.** Full `flutter test test/interactive_tests_test.dart`:
+all 9 tests now PASS (was 2/5 failures in the 1059 baseline). Test
+runtime grows from ~3 min to ~4 min — a ~30 % wall-time cost for
+deterministic in-budget builds.
+
+**Real fix (deferred).** Clear the interpreter's interpreted-class
+registry on `/clear` so each `/build` starts with the same declaration
+state the first build saw. Tracked in `interpreter_unfixable.md` §U28
+— that fix affects every test in the corpus, not just the five
+static-demo scripts, so needs its own investigation and broader
+regression sweep before adoption.
+
+**Scope.** flutter_ast-only. flutter_test's `interactive_tests_test`
+was NOT modified — it passes cleanly without recycle.
 
 ### Cluster D — Project-specific isolated failures
 
@@ -457,11 +508,11 @@ The cold-start contention errors (cluster E) are **not** on this list because th
   - The downstream `Looking up a deactivated widget's ancestor is unsafe` / `Tried to build dirty widget in the wrong build scope` cascade messages no longer appear in either project's captured framework errors.
   _fixed:_ ✅
 
-### Cluster C — flutter_ast interactive tests (`interactive_tests_test`)
+### Cluster C — flutter_ast interactive tests (`interactive_tests_test`) — **✅ FIXED (test-script workaround)**
 
-- [ ] **7. Diagnose `dismiss modal via barrier tap` divergence.** The script passes in flutter_test (source-direct interpretation) but fails in flutter_ast (AST-bundle pipeline). Compare what the AST bundle is missing — likely a top-level helper not getting serialised. Walk through both runners side by side. _fixed:_
+- [x] **7. Diagnose `dismiss modal via barrier tap` divergence.** _Done 2026‑05‑25._ Original hypothesis (AST bundle missing something) was wrong. Investigation showed the per-test isolated rerun PASSES cleanly on flutter_ast (~3 s, 0 framework errors), but the FULL `interactive_tests_test` suite fails because the flutter_ast `FlutterD4rt` instance accumulates interpreted-class declarations across `/clear → /build` cycles. For the ~800 KB-bundled static-demo scripts in this group, the second declaration pass crosses the test app's 30 s build budget. The source-direct flutter_test path doesn't suffer because it parses ~70 KB source instead of ~1 MB JSON. **Workaround applied:** added `SendTestRunner.requestRecycle()` public API + `setUp` hook in `interactive_tests_test.dart` so each interactive test runs against a fresh test-app process. All 9 interactive tests now pass in the full suite (was 5/9 failing earlier in this session). See `interpreter_unfixable.md` §U28 for the underlying state-accumulation issue and the deferred "real" fix that would clear the interpreter's interpreted-class registry on `/clear`. _fixed:_ ✅
 
-- [ ] **8. Diagnose `Interactive tests showDatePicker static demo — taps rendered CANCEL label` divergence.** Same shape as #7. Fix may share the same root cause; verify. _fixed:_
+- [x] **8. Diagnose `Interactive tests showDatePicker static demo — taps rendered CANCEL label` divergence.** _Done 2026‑05‑25 by item #7._ Same root cause (accumulated declarations across builds), same workaround (recycle in `setUp`). Both originally-suspected interactive tests now pass in the full suite. _fixed:_ ✅
 
 ### Cluster D — Single-project script failures
 

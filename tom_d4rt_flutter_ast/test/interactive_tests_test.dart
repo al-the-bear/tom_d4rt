@@ -44,6 +44,22 @@ void main() {
   });
 
   group('Interactive tests', () {
+    // Cluster C TODO #7+#8 (testlog_20260525-1059) — flutter_ast accumulates
+    // state across `/clear → /build` cycles in a way that drives the second
+    // and subsequent builds of these ~800 KB-bundled static demos past the
+    // test app's internal 30 s build budget. The first build is fast
+    // (~3 s) on a freshly-launched test app; isolated re-runs of any one
+    // test pass cleanly. Recycling between every test in this group makes
+    // each interactive test run against a fresh test app — pays ~5-10 s
+    // of process spin-up per test in exchange for deterministic, in-budget
+    // builds. See `interpreter_unfixable.md` §U28 for the underlying
+    // accumulation issue and why we chose this workaround over deeper
+    // interpreter changes.
+    setUp(() {
+      SendTestRunner.requestRecycle();
+    });
+
+
     test(
       'showDialog static demo — taps rendered Cancel label',
       () async {

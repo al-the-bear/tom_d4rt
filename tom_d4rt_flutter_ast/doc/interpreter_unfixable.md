@@ -6599,6 +6599,142 @@ match to the documented signature, and is the workaround we ship.
 
 ---
 
+## U28 — `tom_d4rt_flutter_ast` test-app accumulates state across `/clear → /build` cycles such that the 2nd+ build of an ~800 KB-bundled static-demo script exceeds the test app's 30 s build budget (flutter_ast-only; flutter_test source-direct path is unaffected)
+
+### What triggers it
+
+`tom_d4rt_flutter_ast/test/interactive_tests_test.dart` runs nine
+"static demo" tests in sequence. Each one POSTs a large AST bundle
+(~700 KB – 1 MB JSON) for one of:
+
+- `material/showdialog_test.dart`
+- `material/showbottomsheet_test.dart`
+- `material/showmenu_test.dart`
+- `material/showdatepicker_test.dart`
+- `material/showtimepicker_test.dart`
+
+…to the test app's `/build` endpoint and asserts the build returns
+`success: true`.
+
+Observation in run `20260525-1059`:
+
+- The **first** `/build` of any of these scripts completes in **~3 s**
+  on a freshly-launched test app and returns success.
+- Every **subsequent** `/build` of any of these scripts hits the test
+  app's internal 30 s build-completer timeout and returns
+  `success: false, error: 'Build timed out after 30 seconds'`.
+
+Repro details:
+
+- Per-script isolated re-runs (`flutter test … --plain-name 'show…'`)
+  always pass cleanly, regardless of which script. So the script
+  itself is fine.
+- The same nine tests run via the source-direct interpretation path
+  in `tom_d4rt_flutter_test/test/interactive_tests_test.dart` all
+  pass cleanly in the full suite. So the bundle and the script are
+  fine.
+- Captured `[METRIC] script=… bundleMs=25 httpMs=30031` lines confirm
+  the bundle deserialisation is fast (~25 ms); the time is spent
+  inside the `FlutterD4rt.build()` call between `setState(_pendingBundle = …)`
+  and the post-frame completer firing.
+
+### Dart / Flutter root cause
+
+The single `FlutterD4rt _d4rt = FlutterD4rt()` instance lives for the
+lifetime of one `flutter test` invocation. Every `/build` re-runs
+`_d4rt.build<Widget>(bundle, context)` which:
+
+1. Decodes the bundle JSON → `AstBundle`.
+2. Walks the bundle's compilation units to register interpreted
+   classes, top-level functions, and constants in the interpreter's
+   global environment.
+3. Resolves declared classes against the bridged class registry
+   (mounted by `d4rt_runtime_registrations.dart`).
+4. Evaluates the script's `build(BuildContext)` function and returns
+   the resulting `Widget`.
+
+Empirically, the registration step in (2)/(3) re-declares names that
+were registered by previous `/build` cycles. The d4rt interpreter
+does not GC interpreted class declarations on `/clear`, and the
+declaration map grows monotonically per test-app process. For the
+small bundles that the bulk of the test corpus uses (~5–50 KB) this
+overhead is negligible; for the ~700 KB – 1 MB static-demo bundles
+in `interactive_tests_test` it crosses the threshold where the second
+declaration pass takes longer than the 30 s build budget.
+
+The `tom_d4rt_flutter_test` source-direct path uses a different
+front-end (`SourceFlutterD4rt`) that compiles source → analyzer AST
+→ interpreter on every build. Although it still re-runs the
+declaration pass, the input is the ~70 KB source rather than the
+~1 MB bundle JSON, so the second pass stays well inside the budget —
+which is why flutter_test's interactive_tests_test passes cleanly
+in the full suite.
+
+A "real" fix would clear the interpreter's interpreted-class registry
+on `/clear` so each `/build` starts with the same declaration state
+the first build saw. That touches the d4rt declaration / environment
+model in a way that affects every test in the corpus, not just the
+five static-demo scripts, so it needs its own investigation,
+broader regression sweep, and (likely) a phased rollout. Outside
+the scope of TODO #7/#8.
+
+### Workaround applied 2026‑05‑25 (cluster C fix)
+
+`tom_d4rt_flutter_ast/test/send_test_runner.dart` gained a public
+`SendTestRunner.requestRecycle()` method that sets the existing
+`_appNeedsRecycle` flag. `interactive_tests_test.dart` now has a
+`setUp(() { SendTestRunner.requestRecycle(); })` hook inside the
+`Interactive tests` group, so every test in that group runs against
+a freshly-launched test app. The recycle cost is ~5–10 s per test;
+the build cost is ~3 s on a fresh app; total per-test overhead is
+~25 s which is well inside the 90 s per-test timeout already set on
+each interactive test.
+
+Net result: all 9 interactive tests pass in the full suite (was
+2 / 5 failures in the 20260525-1059 baseline, depending on which
+fixes were applied). Test runtime grows from ~3 min to ~4 min — a
+~30 % wall-time cost for deterministic in-budget builds.
+
+### Why not bump the 30 s build budget?
+
+A proportional bump (e.g. to 60 s) would mask the issue but not fix
+it — the accumulation isn't bounded, and the budget would have to
+grow with every script added to the corpus. Recycling between
+heavy-bundle tests bounds the per-test work and remains stable as
+the corpus grows. The 30 s budget is intentionally tight (a healthy
+build is 1–3 s; see §1 of `error_analysis.md` re: cluster E framing)
+and should stay that way to keep the cluster-E bisection signal
+clean.
+
+### Affected scripts (recovered)
+
+- ✅ `Interactive tests showDialog static demo — taps rendered Cancel label`
+- ✅ `Interactive tests showBottomSheet static demo — taps the rendered Share ListTile`
+- ✅ `Interactive tests showMenu static demo — taps Edit menu item`
+- ✅ `Interactive tests interaction - dismiss modal via barrier tap` *(canonical TODO #7)*
+- ✅ `Interactive tests showDatePicker static demo — taps rendered CANCEL label` *(canonical TODO #8)*
+- ✅ `Interactive tests showTimePicker static demo — taps rendered DISMISS label`
+
+(All in `tom_d4rt_flutter_ast/test/interactive_tests_test.dart`. The
+remaining three tests in the same group were always passing — they
+'re listed here only to confirm the recycle hook doesn't introduce
+regressions.)
+
+### Scope and follow-up
+
+The recycle workaround is **flutter_ast-only**. The
+`tom_d4rt_flutter_test` variant of `interactive_tests_test.dart`
+does not need the hook and was not modified — its tests already
+pass cleanly.
+
+The underlying accumulation in `FlutterD4rt` remains. Tracked here
+so a future investigator has the precise repro instructions, the
+proven workaround, and the bridge between this test-level
+workaround and the deeper interpreter fix that would render it
+unnecessary.
+
+---
+
 ## Change Log
 
 - 2026-05-24: **Extend U25 to cover interactive_tests on flutter_test
