@@ -134,6 +134,16 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// The original platform dispatcher error handler.
   bool Function(Object, StackTrace)? _originalPlatformErrorHandler;
 
+  /// The original [ErrorWidget.builder]. Restored on dispose. We override it
+  /// because the default builder mounts a red [ErrorWidget] in place of the
+  /// failing element subtree — which covers the test app UI, blocks the
+  /// next `/clear` → `/build` cycle from rendering, and routinely cascades
+  /// into 'Transport failure' timeouts in the harness. The error is still
+  /// captured via [FlutterError.onError] → `_frameworkErrors` and returned
+  /// to the harness in the `/build` JSON response, so we can replace the
+  /// red ErrorWidget with a tiny non-blocking placeholder.
+  ErrorWidgetBuilder? _originalErrorWidgetBuilder;
+
   static const int _serverPort = 4247;
 
   /// Dart VM Service URI (set asynchronously on startup; null in release mode
@@ -155,8 +165,36 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     // Install our custom handler that captures framework errors during builds.
     FlutterError.onError = _handleFlutterError;
     WidgetsBinding.instance.platformDispatcher.onError = _handlePlatformError;
+    // Override the visual ErrorWidget — see field doc on
+    // `_originalErrorWidgetBuilder`.  Without this, an assertion in element
+    // teardown (e.g. `_dependents.isEmpty`) replaces the failing subtree
+    // with a full-bleed red ErrorWidget that covers the test app UI even
+    // though `_handleFlutterError` silenced the log side of the same error.
+    _originalErrorWidgetBuilder = ErrorWidget.builder;
+    ErrorWidget.builder = _silentErrorWidget;
     _startServer();
     _discoverProfilerUris();
+  }
+
+  /// Replacement for the default [ErrorWidget.builder]. Renders a 1×1
+  /// non-blocking placeholder so the framework's red error UI never covers
+  /// the test app. The error itself is captured by [_handleFlutterError]
+  /// into `_frameworkErrors` and reported via the `/build` JSON response,
+  /// which is the only error channel the harness reads.
+  ///
+  /// Emitted trace: `[D4rtApp][clean][error-widget]` — invoked once per
+  /// element that the framework would have replaced with a red screen, so
+  /// the log shows exactly when (and for which test) the framework would
+  /// have rendered the red rectangle.
+  Widget _silentErrorWidget(FlutterErrorDetails details) {
+    final firstLine = details.exceptionAsString().split('\n').first;
+    _traceCleanup(
+      'error-widget',
+      'ErrorWidget.builder invoked, returning placeholder. error=$firstLine',
+    );
+    // 1×1 transparent placeholder — preserves the slot so the parent
+    // layout doesn't reflow weirdly, but is invisible and inert.
+    return const SizedBox.shrink();
   }
 
   Future<void> _discoverProfilerUris() async {
@@ -358,6 +396,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     FlutterError.onError = _originalFlutterErrorHandler;
     WidgetsBinding.instance.platformDispatcher.onError =
         _originalPlatformErrorHandler;
+    if (_originalErrorWidgetBuilder != null) {
+      ErrorWidget.builder = _originalErrorWidgetBuilder!;
+    }
     _server?.close(force: true);
     super.dispose();
   }

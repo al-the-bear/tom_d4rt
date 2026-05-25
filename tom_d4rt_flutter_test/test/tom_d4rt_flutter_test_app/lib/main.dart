@@ -124,6 +124,13 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// The original platform dispatcher error handler.
   bool Function(Object, StackTrace)? _originalPlatformErrorHandler;
 
+  /// The original [ErrorWidget.builder] — see equivalent doc in
+  /// flutter_ast/main.dart for the full rationale. We override it so an
+  /// assertion in element teardown (`_dependents.isEmpty`, etc.) cannot
+  /// mount a red ErrorWidget that covers the test app UI and cascades
+  /// into Transport failures.
+  ErrorWidgetBuilder? _originalErrorWidgetBuilder;
+
   static const int _serverPort = 4248;
 
   /// Dart VM Service URI (set asynchronously on startup; null in release mode
@@ -143,8 +150,29 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         WidgetsBinding.instance.platformDispatcher.onError;
     FlutterError.onError = _handleFlutterError;
     WidgetsBinding.instance.platformDispatcher.onError = _handlePlatformError;
+    // Override the visual red ErrorWidget — see flutter_ast/main.dart for
+    // the full rationale. The framework's default would mount a red box
+    // in place of any failing element subtree, including the assertions
+    // we already silence via `_handleFlutterError`. Returning a 1×1
+    // placeholder keeps the test app UI alive so the next /build can run.
+    _originalErrorWidgetBuilder = ErrorWidget.builder;
+    ErrorWidget.builder = _silentErrorWidget;
     _startServer();
     _discoverProfilerUris();
+  }
+
+  /// Replacement for [ErrorWidget.builder] — mirrors flutter_ast/main.dart.
+  /// Errors are captured by [_handleFlutterError] into `_frameworkErrors`
+  /// and reported through the `/build` JSON response. Rendering a red
+  /// rectangle on top of the test app served no purpose and reliably
+  /// cascaded into Transport failures in the harness.
+  Widget _silentErrorWidget(FlutterErrorDetails details) {
+    final firstLine = details.exceptionAsString().split('\n').first;
+    _traceCleanup(
+      'error-widget',
+      'ErrorWidget.builder invoked, returning placeholder. error=$firstLine',
+    );
+    return const SizedBox.shrink();
   }
 
   Future<void> _discoverProfilerUris() async {
@@ -317,6 +345,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     FlutterError.onError = _originalFlutterErrorHandler;
     WidgetsBinding.instance.platformDispatcher.onError =
         _originalPlatformErrorHandler;
+    if (_originalErrorWidgetBuilder != null) {
+      ErrorWidget.builder = _originalErrorWidgetBuilder!;
+    }
     _server?.close(force: true);
     super.dispose();
   }
