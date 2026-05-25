@@ -373,7 +373,13 @@ regression sweep before adoption.
 **Scope.** flutter_ast-only. flutter_test's `interactive_tests_test`
 was NOT modified — it passes cleanly without recycle.
 
-### Cluster D — Project-specific isolated failures
+### Cluster D — Project-specific isolated failures — **STATUS: ✅ FIXED**
+
+> All four cluster-D items resolved by 2026-05-25:
+> - #9 (`material/materialapp_test.dart` on flutter_test) — explicit fix in commit `bd89fb58` (RouterDelegate proxy generic-arg sync, resolves U26).
+> - #10 (`foundation/object_event_test.dart` on flutter_ast) — incidental fix by cumulative cluster A/B/C work, marked clean in commit `69d677d9`.
+> - #11 (`cupertino/class_test.dart` on flutter_test) — incidental fix, marked clean in commit `6da3db2d`.
+> - #12 (`services/text_editing_delta_deletion_test.dart` on flutter_test) — incidental fix, marked clean in commit ⟨pending⟩.
 
 Scripts that fail in exactly one of the two projects (real script-specific bugs, not pump-related):
 
@@ -382,7 +388,7 @@ Scripts that fail in exactly one of the two projects (real script-specific bugs,
 | flutter_test | `essential_classes_test`              | `material/materialapp_test.dart` | **✅ FIXED 20260525** (TODO #9 — `_InterpretedRouterDelegate` proxy generic-arg sync, see U26) |
 | flutter_ast  | `hardly_relevant_classes_1_test`      | `foundation/object_event_test.dart` | **✅ FIXED 20260525** (TODO #10 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr1 suite) |
 | flutter_test | `hardly_relevant_classes_1_test`      | `cupertino/class_test.dart` | **✅ FIXED 20260525** (TODO #11 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr1 suite on flutter_test) |
-| flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` | open (TODO #12) |
+| flutter_test | `hardly_relevant_classes_3_test`      | `services/text_editing_delta_deletion_test.dart` | **✅ FIXED 20260525** (TODO #12 — incidental fix by cumulative cluster A/B/C interpreter improvements; verified clean in full hr3 suite on flutter_test) |
 
 #### TODO #9 resolution summary
 
@@ -569,7 +575,11 @@ The cold-start contention errors (cluster E) are **not** on this list because th
 
   Confirmed clean against revision `69d677d9` (post-cluster-D + TODO-#10 commit). _fixed:_ ✅
 
-- [ ] **12. flutter_test `services/text_editing_delta_deletion_test.dart`.** Source-direct only. _fixed:_
+- [x] **12. flutter_test `services/text_editing_delta_deletion_test.dart`.** _Done 2026‑05‑25 (incidental fix by cumulative cluster A/B/C work, same pattern as TODOs #10 and #11)._ Re-verified after fix #9 landed:
+  - Isolated run (`flutter test … --plain-name 'text_editing_delta_deletion_test'`): rc=0, frameworkErrors=0, build 2.65 s.
+  - Full hr3 suite on flutter_test: `+191 -13 (12 errors + 1 failure)` — `services/text_editing_delta_deletion_test` resolves to `'success'`. All 13 failures are on different scripts (rendering/flow_painting_context, performance_overlay_option, render_editable_painter, revealed_offset, sliver_paint_order, sliver_physical_container_parent_data, semantics/class_test, services/class_test, etc.) — cluster-E over-budget transports unrelated to TODO #12.
+
+  Confirmed clean against revision `6da3db2d` (post-TODO-#11 commit). _fixed:_ ✅
 
 ### Cluster F — Framework assertion `framework.dart:6417`
 
