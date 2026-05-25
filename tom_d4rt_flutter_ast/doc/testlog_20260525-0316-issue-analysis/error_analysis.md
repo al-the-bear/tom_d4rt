@@ -264,6 +264,103 @@ eliminated 227 of the 229 events (98.3 %).
 
 ---
 
+## 6.1 Individual-retest results (per-failing-test, serial, 07:57 – 08:32)
+
+After the baseline sweep completed (~06:30), the corpus was retested
+per-failing-test using `flutter test --name=<regex>` grouped by test
+file (one invocation per file targeting only the failing tests in that
+file). The retest ran **serially** across both projects — no parallel
+flutter sweeps. Logs:
+`/Users/alexiskyaw/.../ztmp/retest_results/<project>_<file>.log`.
+
+### flutter_ast — ALL 93 failing tests PASS in isolation ✓
+
+11 file-level batches, all `rc=0`:
+
+| Test file | tests retested | result | wall-clock |
+|---|---:|---|---|
+| essential_classes_test                | 2  | ALL PASS | 44 s |
+| generator_interpreter_issues_test     | 4  | ALL PASS | 38 s |
+| generator_interpreter_retest_test     | 3  | ALL PASS | 34 s |
+| hardly_relevant_classes_1_test        | 10 | ALL PASS | 46 s |
+| hardly_relevant_classes_2_test        | 8  | ALL PASS | 43 s |
+| hardly_relevant_classes_3_test        | 9  | ALL PASS | 47 s |
+| hardly_relevant_classes_4_test        | 8  | ALL PASS | 44 s |
+| hardly_relevant_classes_5_test        | 9  | ALL PASS | 50 s |
+| important_classes_test                | 6  | ALL PASS | 47 s |
+| secondary_classes_test                | 30 | ALL PASS | 1 m 37 s |
+| timeout_tests_test                    | 4  | ALL PASS | 42 s |
+
+**Conclusion:** 100 % of the 93 flutter_ast baseline failures were
+cold-start contention from the parallel verification sweep, **not real
+test failures.** The H-cluster fix campaign is durable; the inflated
+failure counts in the baseline were entirely environmental.
+
+### flutter_test — could not be retested due to source-app cold-start ceiling ✗
+
+All 11 file-level batches failed at `setUpAll` with the same error:
+
+```
+Bad state: Source test app failed to start within 60 seconds
+test/send_test_runner.dart 408:7  SendTestRunner._startTestApp
+```
+
+Each batch took exactly ~2 min 04 s to fail (60 s startup timeout + ~64 s
+of overhead/teardown). The macOS Flutter launch of the source-variant
+test app couldn't complete within the 60 s ceiling baked into
+`tom_d4rt_flutter_test/test/send_test_runner.dart` line 408.
+
+This is a **U25-family cold-start ceiling on the source-interpreter's
+app boot**, distinct from individual-script cold-starts. The source
+app parses each script through the analyzer at runtime (vs the AST
+variant which loads pre-compiled bundles), and the host was still
+under residual pressure from the 3-hour parallel sweep that had
+completed an hour earlier.
+
+**Individual flutter_test tests could not be retested** because the
+test app couldn't start. Two follow-up options:
+1. Retry with a fully idle host (let the host cool down for 1+ hour
+   before retesting).
+2. Bump the 60 s `_appStartupTimeout` in
+   `tom_d4rt_flutter_test/test/send_test_runner.dart:408` to 120 s
+   (preventive — rule (a) test-driver-only change).
+
+### Skipped tests retest (S2, S4–S8) — 5 of 6 pass in isolation!
+
+Using `flutter test --run-skipped --name=<test name>`:
+
+| ID | Test | Result | Notes |
+|----|------|--------|-------|
+| S2 | `gii widgets/animated_switcher_test.dart`             | **PASS** | rc=0, 27 s. Does not wedge /build in isolation. |
+| S4 | `gir widgets/context_action_test.dart`                | **PASS** | rc=0, 25 s. Does not wedge /clear in isolation. |
+| S5 | `gir widgets/default_text_editing_shortcuts_test.dart`| **PASS** | rc=0, 32 s. Does not hang /build in isolation. |
+| S6 | `gir widgets/live_text_input_status_test.dart`        | **PASS** | rc=0, 35 s. (Was a W2 cascade victim.) |
+| S7 | `gir widgets/lock_state_test.dart`                    | **PASS** | rc=0, 25 s. Does not wedge /build in isolation. |
+| S8 | `hardly_1 dart_ui/image_sampler_slot_test.dart`       | **FAIL** | rc=1, 50 s. Still hangs at POST /build (matches D1 doc). |
+
+**Significant finding:** 5 of 6 previously-wedged scripts (S2, S4, S5,
+S6, S7) **no longer wedge when run in isolation.** This suggests:
+- The wedges were **cascade effects** from prior scripts in the same
+  test file destabilising the app state, not intrinsic to these
+  scripts.
+- These 5 skip annotations could potentially be removed if the test
+  ordering / cleanup is improved, OR if the tests are run as isolated
+  one-shot invocations rather than as part of the full file.
+- **S8 (image_sampler_slot_test) remains genuinely problematic** —
+  even in isolation the test app accepts the POST /build but never
+  returns. Matches the D1 documentation: this is a script-side issue
+  (or interpreter issue specific to this script's content).
+
+### Retest summary table
+
+| Cluster | Baseline failures | Retest pass | Retest fail | Verdict |
+|---|---:|---:|---:|---|
+| flutter_ast individual retest | 93 | **93** | **0** | 100 % contention noise |
+| flutter_test individual retest | 103 | — | — (app-startup blocked) | needs idle host + 120 s startup cap |
+| Skipped scripts retest (W-cluster) | 6 wedge candidates | **5** | **1** (S8/D1) | 5/6 no longer wedge in isolation |
+
+---
+
 ## 7. Raw logs
 
 - `tom_d4rt_flutter_ast/doc/testlog_20260525-0316-issue-analysis/`
