@@ -296,6 +296,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // image_icon teaching demo. Suppressing the noise so build
         // status stays clean.
         'Codec failed to produce an image',
+        // 1401-TODO #4 (F4): mirror of flutter_ast filter. The
+        // rendering/render_constraints_transform_box_test teaching demo
+        // intentionally overflows its parent box (Clip.none vs
+        // Clip.hardEdge vs Clip.antiAlias comparison). Narrow filter on
+        // the render-object class name keeps the demo's intentional
+        // overflow out of the captured framework-error list while
+        // real overflow bugs in other render objects stay visible.
+        'A RenderConstraintsTransformBox overflowed by',
       ];
       final isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;

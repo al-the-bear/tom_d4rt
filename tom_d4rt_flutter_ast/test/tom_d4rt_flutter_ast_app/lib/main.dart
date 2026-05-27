@@ -349,6 +349,24 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // true even when the framework error fires. Full root cause +
         // repro path: `interpreter_unfixable.md` §U29.
         'Codec failed to produce an image',
+        // 1401-TODO #4 (F4): the rendering/render_constraints_transform_box_test
+        // teaching demo intentionally overflows its parent box —
+        // it's the entire point of the script. The script demonstrates
+        // the Clip.none vs Clip.hardEdge vs Clip.antiAlias comparison
+        // (line 463), and its own `_ClipEntry` for Clip.none
+        // documents the overflow as expected: "Child paints freely
+        // past the parent box. Best when overflow is expected and
+        // visually intentional (badges, tooltips)." The error message
+        // shape `RenderConstraintsTransformBox overflowed by …
+        // pixels on the left, … on the top, …` is unique to this
+        // demo (other scripts using ConstraintsTransformBox without
+        // overflow won't trigger it; flex/column/wrap overflows fire
+        // their own `RenderFlex overflowed by …` / `RenderColumn …`
+        // messages that remain captured). Filter narrowly on the
+        // render-object class name so the demo's intentional overflow
+        // doesn't pollute the captured framework-error list while
+        // real overflow bugs in other render objects stay visible.
+        'A RenderConstraintsTransformBox overflowed by',
       ];
       final isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;

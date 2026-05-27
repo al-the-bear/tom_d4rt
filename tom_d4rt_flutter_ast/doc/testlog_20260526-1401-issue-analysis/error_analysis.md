@@ -279,7 +279,35 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   Captured in `doc/testlog_20260527-1430-todo3-verify/`. No `interpreter_unfixable.md` entry needed — script-side bug, script-side fix. _fixed:_ ✅
 
-- [ ] **4. Fix F4: `rendering/render_constraints_transform_box_test.dart` overflow noise.** Inspect the script and decide: (a) if the overflow is unintentional, fix the box constraints; (b) if intentional (the script is demonstrating overflow), add `'overflowed by'` to the test-app `ignoredPatterns` filter alongside cluster H's `Codec` entry. **Rule (a)** if (a), **rule (a)+lib pattern change for ignoredPatterns** if (b) — touching `lib/main.dart` of both test apps still triggers regression but the filter is well-tested. _fixed:_
+- [x] **4. Fix F4: `rendering/render_constraints_transform_box_test.dart` overflow noise.** _Done 2026‑05‑27 — path (b): intentional overflow, filter the captured noise._
+
+  Script analysis: this is a **teaching demo of `ConstraintsTransformBox`** whose entire purpose is to show how the widget interacts with overflow. Among other things, it includes a `_kClipEntries` list (line 329) that explicitly compares `Clip.none` / `Clip.hardEdge` / `Clip.antiAlias`, and the `Clip.none` entry's `note:` reads: *"Child paints freely past the parent box. Best when overflow is expected and visually intentional (badges, tooltips)."* So the overflow is the script's pedagogical point — fixing the box constraints would erase the lesson.
+
+  **Fix.** Added a narrow filter pattern to the `ignoredPatterns` list in **both** test apps' `lib/main.dart`:
+
+  ```dart
+  // 1401-TODO #4 (F4): the rendering/render_constraints_transform_box_test
+  // teaching demo intentionally overflows … Filter narrowly on the
+  // render-object class name so the demo's intentional overflow doesn't
+  // pollute the captured framework-error list while real overflow bugs
+  // in other render objects stay visible.
+  'A RenderConstraintsTransformBox overflowed by',
+  ```
+
+  The filter is intentionally narrow — it matches only `RenderConstraintsTransformBox` overflows (a render-object class only this teaching demo exercises). Overflows from `RenderFlex` / `RenderColumn` / `RenderWrap` / etc. still surface as framework errors, so real layout bugs in other widgets remain visible.
+
+  Mirrored the same filter and rationale comment in `tom_d4rt_flutter_test/test/tom_d4rt_flutter_test_app/lib/main.dart`.
+
+  **Verification** (rule (b): `lib/main.dart` changes, but the filter mechanism is well-tested via clusters F4 / step-5 / step-6 / cluster H precedents):
+
+  | Stage | Project | Result |
+  |---|---|---|
+  | Isolated `rendering/render_constraints_transform_box_test.dart` | flutter_ast | **fwErr 1 → 0**, 2.35 s |
+  | Isolated same | flutter_test | **fwErr 1 → 0**, 2.17 s |
+  | Full `essential_classes_test` regression | flutter_ast | 108 / 0 / 0 in 4 min 14 s |
+  | Full `essential_classes_test` regression | flutter_test | 108 / 0 / 0 in 4 min 17 s |
+
+  Captured in `doc/testlog_20260527-1450-todo4-verify/`. No `interpreter_unfixable.md` entry needed — this is a captured-noise suppression, not a workaround for an unfixable underlying issue (the framework-error capture is doing exactly what it's designed to, the demo is doing exactly what it's designed to, the filter lets both coexist). _fixed:_ ✅
 
 - [ ] **5. Fix F11: `_InterpretedTextSelectionControls` proxy in `tom_d4rt_flutter_test`.** Mirror the flutter_ast proxy (search `_InterpretedRouterDelegate` for the pattern from cluster D TODO #9). Add to `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`. **Rule (b)** — touches lib code, so essential + important + secondary regression on flutter_test required (no AST change). _fixed:_
 
