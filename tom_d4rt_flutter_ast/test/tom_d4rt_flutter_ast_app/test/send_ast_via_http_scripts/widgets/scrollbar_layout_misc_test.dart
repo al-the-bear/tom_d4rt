@@ -507,15 +507,21 @@ class _SampleContent extends StatelessWidget {
     required this.itemCount,
     this.color = _kAccent,
     this.horizontal = false,
+    this.controller,
   });
   final int itemCount;
   final Color color;
   final bool horizontal;
+  // Cluster G TODO #14 / 1401-TODO #2 (F3): when the enclosing Scrollbar uses
+  // `thumbVisibility:true` it MUST share its ScrollController with the inner
+  // Scrollable. Callers pass the same controller they hand to the Scrollbar.
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
     if (horizontal) {
       return ListView.builder(
+        controller: controller,
         scrollDirection: Axis.horizontal,
         itemCount: itemCount,
         itemBuilder: (BuildContext c, int i) {
@@ -542,6 +548,7 @@ class _SampleContent extends StatelessWidget {
       );
     }
     return ListView.builder(
+      controller: controller,
       itemCount: itemCount,
       itemBuilder: (BuildContext c, int i) {
         return Container(
@@ -1046,7 +1053,7 @@ class _RecipeVerticalScrollbar extends StatelessWidget {
                 return Scrollbar(
                   controller: ctrl,
                   thumbVisibility: true,
-                  child: _SampleContent(itemCount: 28, color: _kAccent),
+                  child: _SampleContent(itemCount: 28, color: _kAccent, controller: ctrl),
                 );
               },
             ),
@@ -1150,7 +1157,7 @@ class _RecipeThemedScrollbar extends StatelessWidget {
                 builder: (BuildContext c, ScrollController ctrl) {
                   return Scrollbar(
                     controller: ctrl,
-                    child: _SampleContent(itemCount: 30, color: _kViolet),
+                    child: _SampleContent(itemCount: 30, color: _kViolet, controller: ctrl),
                   );
                 },
               ),
@@ -1197,7 +1204,7 @@ class _RecipeAlwaysShown extends StatelessWidget {
                   trackVisibility: true,
                   thickness: 10,
                   radius: const Radius.circular(4),
-                  child: _SampleContent(itemCount: 22, color: _kEmerald),
+                  child: _SampleContent(itemCount: 22, color: _kEmerald, controller: ctrl),
                 );
               },
             ),
@@ -1232,7 +1239,7 @@ class _RecipeInteractive extends StatelessWidget {
                   interactive: true,
                   thickness: 12,
                   radius: const Radius.circular(6),
-                  child: _SampleContent(itemCount: 26, color: _kAmber),
+                  child: _SampleContent(itemCount: 26, color: _kAmber, controller: ctrl),
                 );
               },
             ),
@@ -1268,7 +1275,7 @@ class _RecipeFatThumb extends StatelessWidget {
                   trackVisibility: true,
                   thickness: 18,
                   radius: const Radius.circular(9),
-                  child: _SampleContent(itemCount: 24, color: _kRose),
+                  child: _SampleContent(itemCount: 24, color: _kRose, controller: ctrl),
                 );
               },
             ),
@@ -1303,7 +1310,7 @@ class _RecipeThinThumb extends StatelessWidget {
                   thumbVisibility: true,
                   thickness: 4,
                   radius: const Radius.circular(2),
-                  child: _SampleContent(itemCount: 30, color: _kSlate),
+                  child: _SampleContent(itemCount: 30, color: _kSlate, controller: ctrl),
                 );
               },
             ),
@@ -1401,7 +1408,7 @@ class _RecipeOverride extends StatelessWidget {
                       return Scrollbar(
                         controller: ctrl,
                         thumbVisibility: true,
-                        child: _SampleContent(itemCount: 22, color: _kAccent),
+                        child: _SampleContent(itemCount: 22, color: _kAccent, controller: ctrl),
                       );
                     },
                   ),
@@ -1421,7 +1428,7 @@ class _RecipeOverride extends StatelessWidget {
                       builder: (BuildContext c, ScrollController ctrl) {
                         return Scrollbar(
                           controller: ctrl,
-                          child: _SampleContent(itemCount: 22, color: _kAmber),
+                          child: _SampleContent(itemCount: 22, color: _kAmber, controller: ctrl),
                         );
                       },
                     ),
@@ -1524,7 +1531,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                               controller: ctrl,
                               thumbVisibility: true,
                               trackVisibility: true,
-                              child: _SampleContent(itemCount: 30, color: _kAccent),
+                              child: _SampleContent(itemCount: 30, color: _kAccent, controller: ctrl),
                             );
                           },
                         ),
@@ -1560,7 +1567,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                               thicknessWhileDragging: 8,
                               radius: const Radius.circular(2),
                               radiusWhileDragging: const Radius.circular(4),
-                              child: _SampleContent(itemCount: 30, color: _kEmerald),
+                              child: _SampleContent(itemCount: 30, color: _kEmerald, controller: ctrl),
                             );
                           },
                         ),
@@ -1638,7 +1645,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   trackVisibility: true,
                   trackColor: _kAmberSoft,
                   trackBorderColor: _kAmber.withValues(alpha: 0.5),
-                  child: _SampleContent(itemCount: 24, color: _kAmber),
+                  child: _SampleContent(itemCount: 24, color: _kAmber, controller: ctrl),
                 );
               },
             ),
@@ -1656,7 +1663,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 8,
                   thumbVisibility: true,
                   scrollbarOrientation: ScrollbarOrientation.left,
-                  child: _SampleContent(itemCount: 22, color: _kRose),
+                  child: _SampleContent(itemCount: 22, color: _kRose, controller: ctrl),
                 );
               },
             ),
@@ -1717,7 +1724,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 8,
                   thumbVisibility: true,
                   minThumbLength: 80,
-                  child: _SampleContent(itemCount: 200, color: _kTeal),
+                  child: _SampleContent(itemCount: 200, color: _kTeal, controller: ctrl),
                 );
               },
             ),
@@ -1735,7 +1742,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 6,
                   fadeDuration: const Duration(milliseconds: 1200),
                   timeToFade: const Duration(milliseconds: 1500),
-                  child: _SampleContent(itemCount: 26, color: _kEmerald),
+                  child: _SampleContent(itemCount: 26, color: _kEmerald, controller: ctrl),
                 );
               },
             ),
@@ -1757,7 +1764,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   mainAxisMargin: 16,
                   crossAxisMargin: 6,
                   radius: const Radius.circular(4),
-                  child: _SampleContent(itemCount: 22, color: _kSlate),
+                  child: _SampleContent(itemCount: 22, color: _kSlate, controller: ctrl),
                 );
               },
             ),

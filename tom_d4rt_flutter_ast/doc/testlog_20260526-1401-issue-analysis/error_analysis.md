@@ -237,7 +237,24 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   _fixed:_ ✅
 
-- [ ] **2. Fix F3: `widgets/scrollbar_layout_misc_test.dart` missing `ScrollController`.** Apply cluster G TODO #14 fix pattern: thread an explicit `ScrollController()` into the `Scrollbar(thumbVisibility:true, controller: …)` and into the inner scrollable's `controller:`. **Rule (a)** (single test script). _fixed:_
+- [x] **2. Fix F3: `widgets/scrollbar_layout_misc_test.dart` missing `ScrollController`.** _Done 2026‑05‑27._
+
+  Root cause: 15 call sites in the script wrapped `_SampleContent` inside a `Scrollbar(controller: ctrl, thumbVisibility: true, child: _SampleContent(...))` (or `RawScrollbar` or `CupertinoScrollbar`) where `ctrl` came from a `_LocalScroll` builder. But `_SampleContent` built its own internal `ListView.builder` **without a `controller:`** — so the Scrollbar held `ctrl` but the inner Scrollable was on a separate, default `PrimaryScrollController`-derived position. Result: each Scrollbar fired `The Scrollbar's ScrollController has no ScrollPosition attached`, with 20 framework errors per script invocation (one per visible Scrollbar after layout).
+
+  **Fix** (no widening of cluster G's surface area — same shape):
+
+  1. Added an optional `ScrollController? controller` parameter to `_SampleContent` plus an explanatory inline comment referencing this TODO + cluster G TODO #14.
+  2. Threaded `controller` into both branches of `_SampleContent.build()` — `controller: controller` on each `ListView.builder` (horizontal and vertical).
+  3. Updated all **15** call sites (`_SampleContent(itemCount: …, color: _kXxx)` → `…, controller: ctrl)`) via a single regex pass; the `ctrl` is always in scope because each call lives inside a `_LocalScroll(builder: (BuildContext c, ScrollController ctrl) { … })` builder.
+
+  **Verification** (rule (a) — single test script changed):
+
+  | Project | Before fwErr | After fwErr | Build time |
+  |---|---:|---:|---:|
+  | flutter_ast | 20 | **0** | 4.12 s |
+  | flutter_test | 20 | **0** | 4.22 s |
+
+  Captured in `doc/testlog_20260527-1410-todo2-verify/`. No `interpreter_unfixable.md` entry needed — script-side bug, scripts now follow the cluster G TODO #14 pattern of "always pair an explicit controller with the inner Scrollable when using `thumbVisibility:true`" (a quote literally already in the script's own `_Bullet` documentation block at line 648). _fixed:_ ✅
 
 - [ ] **3. Fix F2: `animation/animatable_test.dart` FractionallySizedBox assertion.** Either rewrite the demo to honour `widthFactor >= 0.0` (clamp to abs() or remove the deliberate negative example) or wrap the offending block in a documented `try/catch`. **Rule (a)**. _fixed:_
 
