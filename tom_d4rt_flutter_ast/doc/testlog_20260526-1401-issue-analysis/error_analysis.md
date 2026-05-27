@@ -340,7 +340,41 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   No `interpreter_unfixable.md` entry needed — the proxy is the real fix, not a workaround. _fixed:_ ✅
 
-- [ ] **6. Fix F8: bridge setter for `cellSize` (TwoDimensionalChildBuilderDelegate or relative).** Same shape as TODO #19a (`onLayout` for `RenderProxyBox`). Investigate which class actually owns `cellSize`, add it to the generator's setter coverage, regenerate bridges (`tool/regenerate_bridges.dart`), verify essential + important + secondary on both projects. **Rule (b)** — generator + regenerated `.b.dart` files. _fixed:_
+- [x] **6. Fix F8: `cellSize` cascade setter on script-defined `RenderTwoDimensionalViewport` subclass.** _Done 2026‑05‑27._
+
+  **Diagnosis correction.** The TODO body framed this as "missing bridge setter for `cellSize` on `TwoDimensionalChildBuilderDelegate` or relative" — same shape as TODO #19a's `onLayout` on `RenderProxyBox`. That framing was wrong. Reading the script shows `cellSize` is **defined on the script's own subclass** (`class _TwoDSSRenderViewport extends RenderTwoDimensionalViewport` at line 1960 of `widgets/two_dimensional_scrollable_state_test.dart`, with the setter at line 1975). The failing cascade `renderObject..cellSize = cellSize` (line 1956) is targeting the script's own setter, not a Flutter framework class. So this is a **cascade-resolution bug in the interpreter's proxy registration**, not a missing bridge.
+
+  **Root cause.** The proxy class `_InterpretedRenderTwoDimensionalViewport` in `lib/src/d4rt_runtime_registrations.dart` (both projects) `extends RenderTwoDimensionalViewport` but did **not** implement `D4InterpretedProxy`. The cascade-resolution helper `_cascadeInterpretedTarget` (in both interpreters' `interpreter_visitor.dart`, added by cluster A) detects script-defined setters by unwrapping `D4InterpretedProxy` → `InterpretedInstance`. Without the marker interface, the helper returned `null`, the cascade fell through to the bridge setter lookup, which has no `cellSize` (it's framework-only) — and the interpreter threw `No setter 'cellSize' for assignment in cascade.`
+
+  **Fix.** Two-line change to both projects' `_InterpretedRenderTwoDimensionalViewport`:
+
+  1. Class declaration: append `implements D4InterpretedProxy`.
+  2. Add the getter `@override Object get d4rtInstance => _instance;`.
+
+  Mirrors the `_InterpretedRenderBox` shape from cluster A.
+
+  No bridge generator change, no `.b.dart` regeneration, no script change. Pure proxy-class wiring fix.
+
+  **Verification** (rule (b) — `lib/src/d4rt_runtime_registrations.dart` modified):
+
+  | Stage | Project | Result |
+  |---|---|---|
+  | Isolated `widgets/two_dimensional_scrollable_state_test.dart` | flutter_ast | **fwErr 1 → 0**, 3.34 s |
+  | Isolated same | flutter_test | **fwErr 1 → 0**, 3.11 s |
+  | `essential_classes_test` regression | flutter_ast | 107 / 0 / 1 — 1 U28 transport_error |
+  | `essential_classes_test` regression | flutter_test | 105 / 0 / 3 — 3 U28 transport_errors |
+  | `important_classes_test` regression | flutter_ast | 159 / 0 / 5 — 5 U28 transport_errors |
+  | `important_classes_test` regression | flutter_test | 162 / 0 / 2 — 2 U28 transport_errors |
+  | `secondary_classes_test` regression | flutter_ast | 630 / 1 / 23 — 22 U28 transport + 1 U28 clear_failed |
+  | `secondary_classes_test` regression | flutter_test | **653 / 1 / 0 (rc=0)** — *cleaner than the 1401-baseline* |
+
+  **Zero `build_failed`, zero new framework-error categories** introduced by the proxy-marker addition. All regression failures are pure `status=transport_error` / `clear_failed` U28 systemic wedges (documented per TODO #20 closure). The TEST `secondary_classes_test` actually came back **cleaner than the 1401 baseline** (`653/1/0` vs baseline's `652/1/1`).
+
+  Captured in `doc/testlog_20260527-1620-todo6-verify/` and `tom_d4rt_flutter_test/doc/testlog_20260527-1620-todo6-verify/`.
+
+  **Known un-marked proxies (out of scope for this TODO, but flagged for follow-up).** A grep shows several other `_Interpreted*` classes that extend Flutter classes without `implements D4InterpretedProxy`: `_InterpretedLeafRenderObjectWidget`, `_InterpretedSingleChildRenderObjectWidget`, `_InterpretedMultiChildRenderObjectWidget`, `_InterpretedSlottedMultiChildRenderObjectWidget`, `_InterpretedMultiChildLayoutDelegate`, `_InterpretedSingleChildLayoutDelegate`, `_InterpretedCustomClipperPath`/`Rect`/`RRect`/`RSuperellipse`. Cascades on these proxies would presumably fail the same way, but no test in the 20260526-1401 sweep exercises that path. Adding `implements D4InterpretedProxy` to all of them preemptively would be a small, targeted hygiene pass (each class follows the same shape); deferred here to keep TODO #6's blast radius minimal.
+
+  No `interpreter_unfixable.md` entry needed — the proxy-marker addition is the real fix. _fixed:_ ✅
 
 - [ ] **7. Fix TODO #19a-parent: bridge setter for `RenderProxyBox.onLayout`.** Spun off from `20260525-1059-issue-analysis` TODO #19. Same fix path as #6. _fixed:_
 

@@ -4468,7 +4468,8 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
 /// through the bridge boundary; resolution lands on this proxy because we
 /// set `instance.nativeProxy = this` in [create].
 class _InterpretedRenderTwoDimensionalViewport
-    extends RenderTwoDimensionalViewport {
+    extends RenderTwoDimensionalViewport
+    implements D4InterpretedProxy {
   _InterpretedRenderTwoDimensionalViewport._(
     this._visitor,
     this._instance, {
@@ -4535,6 +4536,18 @@ class _InterpretedRenderTwoDimensionalViewport
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
+
+  // 1401-TODO #6 (F8): expose the interpreted instance so cascade-setter
+  // resolution in `_cascadeInterpretedTarget` finds it. Without this,
+  // cascades on a script's `RenderTwoDimensionalViewport` subclass (e.g.
+  // `_TwoDSSRenderViewport..cellSize = …` in
+  // `widgets/two_dimensional_scrollable_state_test.dart`) failed with
+  // "No setter '<field>' for assignment in cascade." because the cascade
+  // helper fell through to the bridge setter table (which has no
+  // script-defined members). Mirror of `_InterpretedRenderBox`'s
+  // existing `D4InterpretedProxy` implementation.
+  @override
+  Object get d4rtInstance => _instance;
 
   @override
   void layoutChildSequence() {
