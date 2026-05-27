@@ -131,6 +131,46 @@ class D4 {
       _genericTypeWrappers = {};
 
   // ==========================================================================
+  // 1401-TODO #7 (F9) — Native ↔ Interpreted reverse map
+  // ==========================================================================
+
+  /// Maps a native bridged-super object back to the [InterpretedInstance]
+  /// that owns it. Populated by [extractBridgedArg] when an
+  /// `InterpretedInstance.bridgedSuperObject` is returned to native code
+  /// (e.g. `_invokeInterpretedAs<RenderObject>` returns the bridged super
+  /// of a script's `_RenderMeasureBox` to the Flutter framework). The
+  /// interpreter consults this map at property-assignment sites when the
+  /// bridge has no matching setter, so script-defined fields on a concrete
+  /// subclass (`_RenderMeasureBox.onLayout`) can still be reached after the
+  /// framework has handed the native side back to script code.
+  ///
+  /// [Expando] is used so the map entries do not pin the native object
+  /// against garbage collection. Each native object can have at most one
+  /// associated InterpretedInstance (the last extracted one wins —
+  /// extractBridgedArg is idempotent within one interpreter session, so
+  /// re-extractions of the same arg overwrite with the same value).
+  static final Expando<Object> _nativeToInterpreted =
+      Expando<Object>('d4rt:nativeToInterpreted');
+
+  /// Records that [nativeObject] is the bridged-super of [interpretedInstance].
+  /// No-op for non-Object keys (Expandos require Object keys).
+  static void registerInterpretedForNative(
+    Object nativeObject,
+    Object interpretedInstance,
+  ) {
+    _nativeToInterpreted[nativeObject] = interpretedInstance;
+  }
+
+  /// Returns the [InterpretedInstance] previously registered for
+  /// [nativeObject], or `null` if none. The return type is `Object?` to
+  /// avoid a cross-module import of `InterpretedInstance` here; callers in
+  /// the interpreter cast to `InterpretedInstance`.
+  static Object? interpretedForNative(Object? nativeObject) {
+    if (nativeObject == null) return null;
+    return _nativeToInterpreted[nativeObject];
+  }
+
+  // ==========================================================================
   // RC-1: Interface Proxy Registration
   // ==========================================================================
 
@@ -1539,6 +1579,11 @@ class D4 {
       // bridgedSuperObject (from abstract classes like CustomPainter) would
       // match nullable T (e.g., CustomPainter?) and skip proxy resolution.
       if (superObj != null && superObj is T) {
+        // 1401-TODO #7 (F9): record the native↔interpreted mapping so
+        // later property assignments on this native object can route
+        // back to script-defined fields/setters. See
+        // [_nativeToInterpreted].
+        registerInterpretedForNative(superObj, arg);
         return superObj as T;
       }
       // RC-6b: After superObj fails the `is T` check (e.g., Tween<dynamic>

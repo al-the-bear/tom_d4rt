@@ -376,7 +376,49 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   No `interpreter_unfixable.md` entry needed — the proxy-marker addition is the real fix. _fixed:_ ✅
 
-- [ ] **7. Fix TODO #19a-parent: bridge setter for `RenderProxyBox.onLayout`.** Spun off from `20260525-1059-issue-analysis` TODO #19. Same fix path as #6. _fixed:_
+- [x] **7. Fix TODO #19a-parent: `RenderProxyBox.onLayout` cascade-setter resolution on script-defined concrete subclass.** _Done 2026‑05‑27._
+
+  **Diagnosis correction.** Like TODO #6, the TODO body framed this as "missing bridge setter" but reading the script proved otherwise. `onLayout` is **declared on the script's own subclass** (`class _RenderMeasureBox extends RenderProxyBox` at line 1658 of `retest/rendering/render_animated_size_state_test.dart`, with `ValueChanged<Size> onLayout;` at line 1661). The failing assignment `renderObject.onLayout = onLayout;` (line 1654, inside the widget's `updateRenderObject`) targets the script's own field. So this is an interpreter-side resolution bug, not a missing bridge.
+
+  **Why TODO #6's fix doesn't generalise.** TODO #6 added `implements D4InterpretedProxy` to `_InterpretedRenderTwoDimensionalViewport`. That proxy works because `RenderTwoDimensionalViewport` is an **abstract** bridged class — the interpreter's `D4.extractBridgedArg` finds no `bridgedSuperObject` and falls through to the proxy walk, returning a `_InterpretedRenderTwoDimensionalViewport` that DOES implement `D4InterpretedProxy`. The cluster A cascade-helper unwrap then finds the InterpretedInstance.
+
+  `RenderProxyBox` is **concrete**. The bridge has a constructor, so the InterpretedInstance's `bridgedSuperObject` is a real native `RenderProxyBox`. `D4.extractBridgedArg<RenderObject>(arg)` finds `superObj != null && superObj is RenderObject` and **returns the bridged super directly** — no proxy is involved. The framework stores the bridged super; `updateRenderObject` receives a plain native `RenderProxyBox`, not a `D4InterpretedProxy`. The cluster A unwrap can't help because there's no proxy to unwrap.
+
+  Also, `renderObject.onLayout = onLayout` was parsing as `SPrefixedIdentifier` (not `SPropertyAccess`), so any fix in the SPropertyAccess assignment branch alone wouldn't trigger — both branches needed updating.
+
+  **Fix: Expando-based native↔interpreted reverse map in `D4`.**
+
+  In `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and `tom_d4rt/lib/src/generator/d4.dart`:
+
+  1. Added a static `Expando<Object> _nativeToInterpreted` plus `D4.registerInterpretedForNative(nativeObject, interpretedInstance)` and `D4.interpretedForNative(nativeObject)` helpers. Expando is used so the reverse map doesn't pin native objects against GC.
+
+  2. In `extractBridgedArg`, when returning `arg.bridgedSuperObject` to native code, also call `registerInterpretedForNative(superObj, arg)` so future property assignments on that native object can find their way back to the script side.
+
+  In `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` and `tom_d4rt/lib/src/interpreter_visitor.dart`:
+
+  3. At the regular-assignment bridge-fallback throw site for **both** `SPropertyAccess` and `SPrefixedIdentifier` LHS branches, before throwing "No setter adapter found", check `D4.interpretedForNative(bridgedInstance.nativeObject)`. If the wrapping InterpretedInstance declares the property (via setter OR field), route the assignment to the InterpretedInstance side (script setter binding or `instance.set` for direct fields). Bridge-only setters still reach the bridge path because this fallback only fires when the bridge has no adapter.
+
+  Mirror commit: both interpreters edited identically (modulo `'='` vs `TokenType.EQ` operator tag).
+
+  **Verification** (rule (b) — interpreter changes in both runners):
+
+  | Stage | Project | Result |
+  |---|---|---|
+  | Isolated `retest/rendering/render_animated_size_state_test.dart` | flutter_ast | **fwErr 1 → 0**, 2.73 s |
+  | Isolated `rendering/render_animated_size_state_test.dart` | flutter_ast | **fwErr 1 → 0**, 2.30 s |
+  | Isolated `rendering/render_animated_size_state_test.dart` | flutter_test | **fwErr 1 → 0**, 2.36 s |
+  | `essential_classes_test` regression | flutter_ast | **108/0/0 (rc=0)** |
+  | `essential_classes_test` regression | flutter_test | **108/0/0 (rc=0)** |
+  | `important_classes_test` regression | flutter_ast | **164/0/0 (rc=0)** |
+  | `important_classes_test` regression | flutter_test | **163/0/0 (rc=0)** — *improved vs baseline (was rc=1 with 1 transport_error)* |
+  | `secondary_classes_test` regression | flutter_ast | 649/1/4 (4 U28 transport_errors) |
+  | `secondary_classes_test` regression | flutter_test | 641/1/12 (12 U28 transport_errors) |
+
+  Zero `build_failed`, zero new framework-error categories introduced. Only pre-existing framework errors observed are F5/F6 (`shader_mask_test.dart`, `widgets_binding_test.dart` — cluster A TODO #3a known limitation). All regression failures are pure `transport_error` U28 wedges (documented per TODO #20 closure). flutter_test important's improvement (rc=1 → rc=0) reflects the U28 stochastic variation.
+
+  Captured in `doc/testlog_20260527-1850-todo7-verify/` and `tom_d4rt_flutter_test/doc/testlog_20260527-1850-todo7-verify/`.
+
+  No `interpreter_unfixable.md` entry needed — the Expando-based native↔interpreted reverse map is the real fix for the cross-boundary assignment case. It addresses a general gap (every concrete bridged class's subclass would have hit this), not a workaround for an unfixable issue. _fixed:_ ✅
 
 - [ ] **8. Fix F5/F6: interpreter argument coercion for typed `void Function(Duration)` callbacks.** Same root cause as cluster A's TODO #3a (`shader_mask` `Expected a callable function, got (Duration) => void`). Trace the coercion path in `tom_d4rt/lib/src/interpreter_visitor.dart` (and mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`) for typed `Function` parameters with parameter-list signatures. **Rule (b)** — interpreter change, both projects' essential/important/secondary required + the 4 scripts in cluster A. _fixed:_
 

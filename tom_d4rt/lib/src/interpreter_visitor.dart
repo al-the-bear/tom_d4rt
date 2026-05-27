@@ -2316,7 +2316,50 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return newValue; // Compound assignment returns new value
           }
         } else {
-          // No setter adapter found
+          // 1401-TODO #7 (F9): no setter adapter on the bridge. Before
+          // throwing, check the native↔interpreted reverse map: if this
+          // native object is the bridged super of an InterpretedInstance
+          // that declares the property (script-defined field/setter),
+          // route the assignment to the InterpretedInstance side. Mirror
+          // of tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart.
+          final interpretedObj =
+              D4.interpretedForNative(bridgedInstance.nativeObject);
+          if (interpretedObj is InterpretedInstance) {
+            final scriptSetter =
+                interpretedObj.klass.findInstanceSetter(propertyName);
+            final hasField = interpretedObj.klass
+                .getInstanceFieldNames()
+                .contains(propertyName);
+            if (scriptSetter != null || hasField) {
+              if (operatorType == TokenType.EQ) {
+                if (scriptSetter != null) {
+                  scriptSetter
+                      .bind(interpretedObj)
+                      .call(this, [rhsValue], {});
+                } else {
+                  interpretedObj.set(propertyName, rhsValue, this);
+                }
+                return rhsValue;
+              } else {
+                final getter = interpretedObj.klass
+                    .findInstanceGetter(propertyName);
+                final Object? currentValue = getter != null
+                    ? getter.bind(interpretedObj).call(this, [], {})
+                    : interpretedObj.get(propertyName);
+                final Object? newValue = computeCompoundValue(
+                    currentValue, rhsValue, operatorType);
+                if (scriptSetter != null) {
+                  scriptSetter
+                      .bind(interpretedObj)
+                      .call(this, [newValue], {});
+                } else {
+                  interpretedObj.set(propertyName, newValue, this);
+                }
+                return newValue;
+              }
+            }
+          }
+          // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
               "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found.");
         }
@@ -2633,7 +2676,50 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return newValue; // Compound assignment returns new value
           }
         } else {
-          // No setter adapter found
+          // 1401-TODO #7 (F9): PrefixedIdentifier variant — same shape
+          // as the PropertyAccess branch above. The script's
+          // `renderObject.onLayout = …` may be parsed as a prefixed
+          // identifier; if the bridge has no `onLayout` setter, check
+          // the native↔interpreted reverse map for a script-defined
+          // setter/field on the wrapping InterpretedInstance.
+          final interpretedObj =
+              D4.interpretedForNative(bridgedInstance.nativeObject);
+          if (interpretedObj is InterpretedInstance) {
+            final scriptSetter =
+                interpretedObj.klass.findInstanceSetter(propertyName);
+            final hasField = interpretedObj.klass
+                .getInstanceFieldNames()
+                .contains(propertyName);
+            if (scriptSetter != null || hasField) {
+              if (operatorType == TokenType.EQ) {
+                if (scriptSetter != null) {
+                  scriptSetter
+                      .bind(interpretedObj)
+                      .call(this, [rhsValue], {});
+                } else {
+                  interpretedObj.set(propertyName, rhsValue, this);
+                }
+                return rhsValue;
+              } else {
+                final getter = interpretedObj.klass
+                    .findInstanceGetter(propertyName);
+                final Object? currentValue = getter != null
+                    ? getter.bind(interpretedObj).call(this, [], {})
+                    : interpretedObj.get(propertyName);
+                final Object? newValue = computeCompoundValue(
+                    currentValue, rhsValue, operatorType);
+                if (scriptSetter != null) {
+                  scriptSetter
+                      .bind(interpretedObj)
+                      .call(this, [newValue], {});
+                } else {
+                  interpretedObj.set(propertyName, newValue, this);
+                }
+                return newValue;
+              }
+            }
+          }
+          // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
               "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found.");
         }
