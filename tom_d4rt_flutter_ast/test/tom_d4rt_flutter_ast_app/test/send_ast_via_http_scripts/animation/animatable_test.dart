@@ -1270,7 +1270,15 @@ dynamic build(BuildContext context) {
                                 return Align(
                                   alignment: Alignment.centerLeft,
                                   child: FractionallySizedBox(
-                                    widthFactor: v,
+                                    // FractionallySizedBox asserts
+                                    // `widthFactor >= 0.0` (basic.dart:3224).
+                                    // Curves like `easeInBack` / `elasticOut`
+                                    // briefly produce negative output during
+                                    // animation; the demo includes them in
+                                    // `curveSpecs`, so clamp the lower bound
+                                    // here. Upper bound (overshoot above 1)
+                                    // is allowed by FractionallySizedBox.
+                                    widthFactor: v < 0.0 ? 0.0 : v,
                                     heightFactor: 1.0,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -1504,7 +1512,12 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: FractionallySizedBox(
-                              widthFactor: v,
+                              // Clamp lower bound — see comment on the earlier
+                              // FractionallySizedBox in this script. Curves
+                              // like easeInBack briefly go negative, which
+                              // would fail the framework's widthFactor >= 0.0
+                              // assertion.
+                              widthFactor: v < 0.0 ? 0.0 : v,
                               alignment: Alignment.centerLeft,
                               heightFactor: 1.0,
                               child: Container(

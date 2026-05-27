@@ -256,7 +256,28 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   Captured in `doc/testlog_20260527-1410-todo2-verify/`. No `interpreter_unfixable.md` entry needed — script-side bug, scripts now follow the cluster G TODO #14 pattern of "always pair an explicit controller with the inner Scrollable when using `thumbVisibility:true`" (a quote literally already in the script's own `_Bullet` documentation block at line 648). _fixed:_ ✅
 
-- [ ] **3. Fix F2: `animation/animatable_test.dart` FractionallySizedBox assertion.** Either rewrite the demo to honour `widthFactor >= 0.0` (clamp to abs() or remove the deliberate negative example) or wrap the offending block in a documented `try/catch`. **Rule (a)**. _fixed:_
+- [x] **3. Fix F2: `animation/animatable_test.dart` FractionallySizedBox assertion.** _Done 2026‑05‑27._
+
+  Root cause confirmed: the script demonstrates a `Curves` gallery via a `curveSpecs` list (line 1171) that includes `Curves.easeInBack` and `Curves.elasticOut`. These curves briefly produce **negative** output during the `[0, 1]` animation interval. The script then feeds the (un-clamped) curve value `v` straight into `FractionallySizedBox(widthFactor: v)` at two sites (lines 1273 and 1507). Flutter's `FractionallySizedBox` constructor asserts `widthFactor == null || widthFactor >= 0.0` (`basic.dart:3224`), and the assertion fires the first time `v < 0`. This is a genuine script-side bug — the demo author didn't account for the negative tail of these curves.
+
+  **Why not "fix the interpreter".** Per the user's guidance to fix the interpreter/generator when possible — checked: the interpreter is faithful here. The same script would fail the same way in native Dart. The Curves output is mathematically negative for these curves; the framework rejects negative widthFactor by design (a layout can't have negative fractional size). The interpreter has nothing to fix.
+
+  **Fix.** Clamped the lower bound at both consumer sites with a ternary expression and added an inline comment pointing at the assertion and at the offending curves:
+
+  ```dart
+  widthFactor: v < 0.0 ? 0.0 : v,
+  ```
+
+  The upper bound is unchanged — `FractionallySizedBox` allows overshoot above 1, which is what the demo wants to show for curves like `easeOutBack` (child grows larger than parent briefly). Only the negative-tail case (which the framework rejects) is clamped, so the visual still shows the overshoot portion of every curve.
+
+  **Verification** (rule (a) — single test script):
+
+  | Project | Before fwErr | After fwErr | Build time |
+  |---|---:|---:|---:|
+  | flutter_ast | 1 | **0** | 2.85 s |
+  | flutter_test | 1 | **0** | 2.66 s |
+
+  Captured in `doc/testlog_20260527-1430-todo3-verify/`. No `interpreter_unfixable.md` entry needed — script-side bug, script-side fix. _fixed:_ ✅
 
 - [ ] **4. Fix F4: `rendering/render_constraints_transform_box_test.dart` overflow noise.** Inspect the script and decide: (a) if the overflow is unintentional, fix the box constraints; (b) if intentional (the script is demonstrating overflow), add `'overflowed by'` to the test-app `ignoredPatterns` filter alongside cluster H's `Codec` entry. **Rule (a)** if (a), **rule (a)+lib pattern change for ignoredPatterns** if (b) — touching `lib/main.dart` of both test apps still triggers regression but the filter is well-tested. _fixed:_
 
