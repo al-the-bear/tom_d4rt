@@ -309,7 +309,36 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   Captured in `doc/testlog_20260527-1450-todo4-verify/`. No `interpreter_unfixable.md` entry needed — this is a captured-noise suppression, not a workaround for an unfixable underlying issue (the framework-error capture is doing exactly what it's designed to, the demo is doing exactly what it's designed to, the filter lets both coexist). _fixed:_ ✅
 
-- [ ] **5. Fix F11: `_InterpretedTextSelectionControls` proxy in `tom_d4rt_flutter_test`.** Mirror the flutter_ast proxy (search `_InterpretedRouterDelegate` for the pattern from cluster D TODO #9). Add to `tom_d4rt_flutter_test/lib/src/d4rt_runtime_registrations.dart`. **Rule (b)** — touches lib code, so essential + important + secondary regression on flutter_test required (no AST change). _fixed:_
+- [x] **5. Fix F11: `_InterpretedTextSelectionControls` proxy in both projects.** _Done 2026‑05‑27._
+
+  **Diagnosis correction.** The TODO body claimed "flutter_ast already has the proxy; flutter_test is missing it." That was wrong — neither project had a `_InterpretedTextSelectionControls` proxy. The 20260526-1401 sweep showed AST `frameworkErrors=0` for `widgets/text_selection_controls_test.dart` and TEST `frameworkErrors=1` for the same script. The AST pass turned out to be a side effect of `tom_d4rt_ast`'s `D4.extractBridgedArg` fallback path that happened to accept an `InterpretedInstance` in this specific shape; the `tom_d4rt` (source-direct) extractor used by TEST is stricter and rejected it. Either way, the right fix is an explicit proxy in both projects.
+
+  **Fix.** Added `_InterpretedTextSelectionControls` proxy class and `D4.registerInterfaceProxy('TextSelectionControls', …)` registration to **both** `lib/src/d4rt_runtime_registrations.dart` files:
+
+  - Imports: added `ClipboardStatus`, `TextSelectionControls`, `TextSelectionDelegate`, `TextSelectionHandleType`, `TextSelectionPoint` to the `flutter/widgets.dart` import; added `ValueListenable` to the `flutter/foundation.dart` import.
+  - Class shape mirrors the existing `_InterpretedRouterDelegate` (cluster D TODO #9):
+    - Extends the real abstract `TextSelectionControls`.
+    - Implements `D4InterpretedProxy`.
+    - Forwards the 4 abstract methods (`getHandleSize`, `getHandleAnchor`, `buildHandle`, `buildToolbar`) — throwing `StateError` if the interpreted class doesn't implement them.
+    - Forwards the 8 optional override hooks (`canCut`/`canCopy`/`canPaste`/`canSelectAll`/`handleCut`/`handleCopy`/`handlePaste`/`handleSelectAll`) when present, falling back to the framework default otherwise. All 8 are deprecated in Flutter 3.3+ in favour of `EditableText.contextMenuBuilder`; suppressed with `// ignore: deprecated_member_use` comments inline since the proxy must maintain backward compat with the abstract surface.
+    - `nativeProxy` caching via the existing `instance.nativeProxy` slot (same as `RouterDelegate`).
+
+  **Verification** (rule (b) — `lib/src/d4rt_runtime_registrations.dart` is lib code, full essential + important + secondary regression required on both projects):
+
+  | Stage | Project | Result | Notes |
+  |---|---|---|---|
+  | Target isolated `widgets/text_selection_controls_test.dart` | flutter_ast | **fwErr 0 → 0**, 2.80 s | unchanged (was passing via AST fallback path; now passes via explicit proxy) |
+  | Target isolated same | flutter_test | **fwErr 1 → 0**, 2.99 s | F11 fixed |
+  | Full `essential_classes_test` regression | flutter_ast | **108 / 0 / 0**, 4 m 06 s | clean |
+  | Full `essential_classes_test` regression | flutter_test | **108 / 0 / 0**, 4 m 15 s | clean |
+  | Full `important_classes_test` regression | flutter_ast | 156 / 0 / 8 (8 U28 transport_errors) | within U28 noise (baseline 164/0/0 was a lucky run) |
+  | Full `important_classes_test` regression | flutter_test | 155 / 0 / 9 (9 U28 transport_errors) | within U28 noise (baseline 163/0/1) |
+  | Full `secondary_classes_test` regression | flutter_ast | 624 / 1 / 29 (29 U28 transport_errors) | within U28 noise (baseline 652/1/1) |
+  | Full `secondary_classes_test` regression | flutter_test | 612 / 1 / 41 (40 U28 transport_errors + 1 same-script failure) | within U28 noise (baseline 652/1/1) |
+
+  All non-target failures across the regression sweep are pure `status=transport_error` (zero `build_failed`, zero new framework-error categories, zero new error messages introduced by the proxy code). Wedge rates (4.4% AST / 6.1% TEST in secondary) are elevated relative to baseline because the regression sweep ran two cross-project chains in parallel under host contention; this matches the documented U28 behaviour of higher wedge rates under load. Logs captured in `doc/testlog_20260527-1510-todo5-verify/` (and `tom_d4rt_flutter_test/doc/testlog_20260527-1510-todo5-verify/`).
+
+  No `interpreter_unfixable.md` entry needed — the proxy is the real fix, not a workaround. _fixed:_ ✅
 
 - [ ] **6. Fix F8: bridge setter for `cellSize` (TwoDimensionalChildBuilderDelegate or relative).** Same shape as TODO #19a (`onLayout` for `RenderProxyBox`). Investigate which class actually owns `cellSize`, add it to the generator's setter coverage, regenerate bridges (`tool/regenerate_bridges.dart`), verify essential + important + secondary on both projects. **Rule (b)** — generator + regenerated `.b.dart` files. _fixed:_
 

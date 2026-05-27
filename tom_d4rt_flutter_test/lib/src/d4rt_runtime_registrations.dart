@@ -22,6 +22,7 @@ import 'package:flutter/foundation.dart'
         Key,
         Listenable,
         ValueKey,
+        ValueListenable,
         ValueNotifier,
         VoidCallback,
         debugPrint;
@@ -100,7 +101,12 @@ import 'package:flutter/widgets.dart'
         StatefulElement,
         StatefulWidget,
         StatelessWidget,
+        ClipboardStatus,
+        TextSelectionControls,
+        TextSelectionDelegate,
         TextSelectionGestureDetectorBuilderDelegate,
+        TextSelectionHandleType,
+        TextSelectionPoint,
         TickerProviderStateMixin,
         TwoDimensionalChildDelegate,
         TwoDimensionalChildManager,
@@ -876,6 +882,33 @@ void registerD4rtInterfaceProxyOverrides() {
     final cached = instance.nativeProxy;
     if (cached is RouterDelegate) return cached;
     final proxy = _InterpretedRouterDelegate(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // 1401-TODO #5 (F11) — TextSelectionControls adapter proxy.
+  //
+  // Scripts that subclass `TextSelectionControls` (e.g. the
+  // `widgets/text_selection_controls_test.dart` "_TscFoundryTextSelectionControls"
+  // teaching demo) need a real native `TextSelectionControls` instance so
+  // they can be passed to `TextField(selectionControls: …)` and the
+  // bridge's `extractBridgedArg<TextSelectionControls?>` succeeds.
+  //
+  // The bridge for `TextSelectionControls` is `isAbstract: true` with no
+  // concrete constructor that the interpreter can chain through, so the
+  // user subclass never gets a `bridgedSuperObject`. Without this proxy
+  // registration, the cast falls through and throws.
+  //
+  // The proxy extends the real abstract `TextSelectionControls` and
+  // forwards the four abstract methods (`buildHandle`, `buildToolbar`,
+  // `getHandleAnchor`, `getHandleSize`) plus the optional override hooks
+  // (`canCut`/`canCopy`/`canPaste`/`canSelectAll`/`handleCut`/…) to the
+  // interpreted class when present, falling back to the framework's
+  // default implementation otherwise.
+  D4.registerInterfaceProxy('TextSelectionControls', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is TextSelectionControls) return cached;
+    final proxy = _InterpretedTextSelectionControls(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -4773,6 +4806,204 @@ class _InterpretedRouterDelegate extends RouterDelegate<Object>
   void removeListener(VoidCallback listener) {
     final result = _maybeInvoke('removeListener', [listener]);
     if (identical(result, _kNotImplemented)) return;
+  }
+}
+
+/// 1401-TODO #5 (F11): adapter proxy for interpreted `TextSelectionControls`
+/// subclasses. Mirror of the RouterDelegate pattern just above —
+/// `TextSelectionControls` is abstract, has no concrete constructor the
+/// interpreter can chain through, and is consumed by `TextField` /
+/// `EditableText` via `extractBridgedArg<TextSelectionControls?>`. The
+/// proxy forwards the four abstract methods to the interpreted instance
+/// and falls back to the framework's default implementation for the
+/// optional override hooks (canCut, canCopy, canPaste, canSelectAll,
+/// handleCut, handleCopy, handlePaste, handleSelectAll) when the script
+/// doesn't override them.
+class _InterpretedTextSelectionControls extends TextSelectionControls
+    implements D4InterpretedProxy {
+  _InterpretedTextSelectionControls(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  Object? _maybeInvoke(String methodName, List<Object?> args,
+      [Map<String, Object?> named = const {}]) {
+    final method = _instance.klass.findInstanceMethod(methodName);
+    if (method == null) return _kNotImplemented;
+    return method.bind(_instance).call(_visitor, args, named);
+  }
+
+  // ----- Abstract methods (must be implemented) -----
+
+  @override
+  Size getHandleSize(double textLineHeight) {
+    final result = _maybeInvoke('getHandleSize', [textLineHeight]);
+    if (identical(result, _kNotImplemented)) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'TextSelectionControls.getHandleSize',
+      );
+    }
+    return D4.extractBridgedArg<Size>(result, 'getHandleSize', _visitor);
+  }
+
+  @override
+  Offset getHandleAnchor(
+      TextSelectionHandleType type, double textLineHeight) {
+    final result =
+        _maybeInvoke('getHandleAnchor', [type, textLineHeight]);
+    if (identical(result, _kNotImplemented)) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'TextSelectionControls.getHandleAnchor',
+      );
+    }
+    return D4.extractBridgedArg<Offset>(result, 'getHandleAnchor', _visitor);
+  }
+
+  @override
+  Widget buildHandle(
+    BuildContext context,
+    TextSelectionHandleType type,
+    double textLineHeight, [
+    VoidCallback? onTap,
+  ]) {
+    final result = _maybeInvoke(
+      'buildHandle',
+      [context, type, textLineHeight, onTap],
+    );
+    if (identical(result, _kNotImplemented)) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'TextSelectionControls.buildHandle',
+      );
+    }
+    return D4.extractBridgedArg<Widget>(result, 'buildHandle', _visitor);
+  }
+
+  @override
+  Widget buildToolbar(
+    BuildContext context,
+    Rect globalEditableRegion,
+    double textLineHeight,
+    Offset selectionMidpoint,
+    List<TextSelectionPoint> endpoints,
+    TextSelectionDelegate delegate,
+    ValueListenable<ClipboardStatus>? clipboardStatus,
+    Offset? lastSecondaryTapDownPosition,
+  ) {
+    final result = _maybeInvoke('buildToolbar', [
+      context,
+      globalEditableRegion,
+      textLineHeight,
+      selectionMidpoint,
+      endpoints,
+      delegate,
+      clipboardStatus,
+      lastSecondaryTapDownPosition,
+    ]);
+    if (identical(result, _kNotImplemented)) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'TextSelectionControls.buildToolbar',
+      );
+    }
+    return D4.extractBridgedArg<Widget>(result, 'buildToolbar', _visitor);
+  }
+
+  // ----- Optional override hooks (default impls in TextSelectionControls) -----
+
+  // All eight hooks below (canCut/canCopy/canPaste/canSelectAll/handleCut/
+  // handleCopy/handlePaste/handleSelectAll) are deprecated in Flutter 3.3+
+  // in favour of `EditableText.contextMenuBuilder` but remain on the
+  // abstract base class. Scripts that subclass TextSelectionControls may
+  // still override them; the proxy must forward to the interpreted impl
+  // when present. The `deprecated_member_use` ignores are intentional —
+  // we're maintaining backward-compat with the abstract surface, not
+  // endorsing the API.
+  // ignore: deprecated_member_use
+  @override
+  bool canCut(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('canCut', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) return super.canCut(delegate);
+    // ignore: deprecated_member_use
+    return result is bool ? result : super.canCut(delegate);
+  }
+
+  // ignore: deprecated_member_use
+  @override
+  bool canCopy(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('canCopy', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) return super.canCopy(delegate);
+    // ignore: deprecated_member_use
+    return result is bool ? result : super.canCopy(delegate);
+  }
+
+  // The following four hooks are deprecated in Flutter 3.3+ in favour of
+  // `EditableText.contextMenuBuilder` but remain on the abstract base class.
+  // Scripts that subclass TextSelectionControls may still override them; the
+  // proxy must forward to the interpreted impl when present. The
+  // `deprecated_member_use` ignore is intentional — we're maintaining
+  // backward-compat with the abstract surface, not endorsing the API.
+  // ignore: deprecated_member_use
+  @override
+  bool canPaste(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('canPaste', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) return super.canPaste(delegate);
+    // ignore: deprecated_member_use
+    return result is bool ? result : super.canPaste(delegate);
+  }
+
+  // ignore: deprecated_member_use
+  @override
+  bool canSelectAll(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('canSelectAll', [delegate]);
+    if (identical(result, _kNotImplemented)) {
+      // ignore: deprecated_member_use
+      return super.canSelectAll(delegate);
+    }
+    // ignore: deprecated_member_use
+    return result is bool ? result : super.canSelectAll(delegate);
+  }
+
+  @override
+  void handleCut(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('handleCut', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) super.handleCut(delegate);
+  }
+
+  @override
+  void handleCopy(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('handleCopy', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) super.handleCopy(delegate);
+  }
+
+  @override
+  Future<void> handlePaste(TextSelectionDelegate delegate) async {
+    final result = _maybeInvoke('handlePaste', [delegate]);
+    if (identical(result, _kNotImplemented)) {
+      // ignore: deprecated_member_use
+      await super.handlePaste(delegate);
+      return;
+    }
+    if (result is Future) await result;
+  }
+
+  @override
+  void handleSelectAll(TextSelectionDelegate delegate) {
+    final result = _maybeInvoke('handleSelectAll', [delegate]);
+    // ignore: deprecated_member_use
+    if (identical(result, _kNotImplemented)) super.handleSelectAll(delegate);
   }
 }
 
