@@ -27,6 +27,17 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # Placeholder assets for d4rt scripts that demonstrate AssetImage / DecorationImage
+  # API surface. The script `painting/decoration_test.dart` documents these as
+  # "AssetImage placeholder strings — the painting recipe is still valid even when
+  # the asset cannot resolve at frozen-frame time"; bundling tiny 1×1 placeholder
+  # PNGs makes the demos render without the `Unable to load asset` framework error.
+  # See `doc/testlog_20260526-1401-issue-analysis/error_analysis.md` TODO #1 (F1/F7).
+  assets:
+    - plaster.png
+    - cartoon.png
+    - assets/checker.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

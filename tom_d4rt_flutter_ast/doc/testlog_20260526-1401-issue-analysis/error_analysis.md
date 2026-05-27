@@ -201,7 +201,41 @@ All `[METRIC]` lines were captured to the `*.log.txt` files. They include the fu
 
 Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each closes. Listed in priority order (highest-leverage, smallest-blast-radius first).
 
-- [ ] **1. Fix F1/F7: bundle asset for `decoration_test` / `opacity_engine_layer_test`.** Either add `plaster.png` and `assets/checker.png` to `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/pubspec.yaml > flutter > assets`, OR rewrite the demos to use a tiny `MemoryImage(<inline-bytes>)`. **Rule (a) — test-script-only change once we settle on the rewrite path.** _fixed:_
+- [x] **1. Fix F1/F7: bundle asset for `decoration_test` / `opacity_engine_layer_test`.** _Done 2026‑05‑27._
+
+  Root cause confirmed by reading the affected scripts: both `painting/decoration_test.dart` (which references `AssetImage('plaster.png')` and `AssetImage('cartoon.png')` with `opacity: 0.0`) and `dart_ui/opacity_engine_layer_test.dart` (which references `AssetImage('assets/checker.png')`) use the assets as **documented placeholders**. The decoration_test script explicitly notes in its comment block:
+
+  > `// 4. Image.  We use an AssetImage placeholder string; AssetImage cannot resolve at frozen-frame time but the painting recipe is still valid.`
+
+  So the scripts are correct as written — they intentionally demonstrate the `image:` field API surface without expecting the asset to actually load. The framework error came from the test apps not bundling the placeholder assets.
+
+  **Fix.** Bundled a 1×1 transparent placeholder PNG (68 bytes) at three paths in **both** test apps and declared them under `flutter > assets` in each `pubspec.yaml`:
+
+  - `test/tom_d4rt_flutter_ast_app/plaster.png`
+  - `test/tom_d4rt_flutter_ast_app/cartoon.png`
+  - `test/tom_d4rt_flutter_ast_app/assets/checker.png`
+  - `test/tom_d4rt_flutter_test_app/plaster.png`
+  - `test/tom_d4rt_flutter_test_app/cartoon.png`
+  - `test/tom_d4rt_flutter_test_app/assets/checker.png`
+
+  `pubspec.yaml` of each test app gained a `flutter > assets:` list with the three paths plus a comment block referencing this TODO and the script's own placeholder documentation. No script changes — the scripts work as authored.
+
+  **Verification** (rule (b) — pubspec.yaml lives under `test/<app>/` but is not a "test script", so the wider regression applies):
+
+  Isolated reruns of the affected scripts (captured in `doc/testlog_20260527-1340-todo1-verify/`):
+
+  | Script | Project | Before | After | Build time |
+  |---|---|---:|---:|---:|
+  | `painting/decoration_test.dart` | AST | fwErr=2 | **fwErr=0** | 2.28 s |
+  | `painting/decoration_test.dart` | TEST | fwErr=2 | **fwErr=0** | 2.07 s |
+  | `dart_ui/opacity_engine_layer_test.dart` | AST | fwErr=1 | **fwErr=0** | 6.77 s |
+  | `dart_ui/opacity_engine_layer_test.dart` | TEST | fwErr=0* | **fwErr=0** | 4.72 s |
+
+  *(TEST baseline didn't show this script as having fwErr — it failed earlier with transport_error on a different position. Post-fix it succeeds cleanly.)*
+
+  Quick regression on `essential_classes_test` for both projects (parallel cross-package — same script set as the prior sweep): both **108 pass, 0 fail, 0 framework errors** in 4 min 9 s each. No degradation.
+
+  _fixed:_ ✅
 
 - [ ] **2. Fix F3: `widgets/scrollbar_layout_misc_test.dart` missing `ScrollController`.** Apply cluster G TODO #14 fix pattern: thread an explicit `ScrollController()` into the `Scrollbar(thumbVisibility:true, controller: …)` and into the inner scrollable's `controller:`. **Rule (a)** (single test script). _fixed:_
 
