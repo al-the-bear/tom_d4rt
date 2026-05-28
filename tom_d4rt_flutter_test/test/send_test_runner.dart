@@ -224,8 +224,33 @@ class SendTestRunner {
 
   /// Initialize the test runner (call in setUpAll).
   ///
-  /// If the test app is not already running on [defaultPort], starts it
-  /// automatically from [testAppPath].
+  /// This will:
+  /// 1. Kill any leftover test app process holding the target port (so a
+  ///    crashed / SIGKILL'd prior invocation cannot leak its app into
+  ///    this run).
+  /// 2. Wait for the port to be free.
+  /// 3. Start a brand-new test app process from [testAppPath].
+  /// 4. Wait for it to be ready.
+  ///
+  /// **Reuse semantics removed (20260528-2x — "only one instance"
+  /// guarantee):** earlier versions reused an existing healthy app on
+  /// the port to save the ~5-10 s startup cost across multiple
+  /// `flutter test` invocations. That optimization was load-bearing on
+  /// the assumption that the prior invocation's `tearDown` ran cleanly,
+  /// which doesn't hold when:
+  ///   * the parent `flutter test` is SIGKILL'd (timeout budget, user
+  ///     interrupt) → `tearDownAll` never executes → orphan app survives;
+  ///   * the test_app event loop wedges → orphan keeps the LISTEN socket;
+  ///   * on macOS, an orphaned-then-wedged child transitions to state
+  ///     `UE` (uninterruptible kernel exit) and becomes immortal — see
+  ///     `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §U28
+  ///     TODO #10/#11.
+  ///
+  /// The new flow always launches a fresh app, after first reaping any
+  /// stale process bound to the target port. `_startedByRunner` is set
+  /// to `true` unconditionally so [tearDown] always kills the app it
+  /// owns. The +5-10 s/file startup cost is the price of guaranteed
+  /// cleanup.
   static Future<void> setUp({
     bool startApp = true,
     // 1401-TODO #10 (H1) — bumped from 60s to 120s. In the 1401 sweep
@@ -246,16 +271,18 @@ class SendTestRunner {
     _currentSuite = suite ?? _detectSuiteName();
 
     if (startApp) {
-      final alreadyRunning = await isAppRunning();
-      if (!alreadyRunning) {
-        try {
-          await _startTestApp(timeout: timeout);
-        } catch (_) {
-          await _killExistingProcess();
-          await _startTestApp(timeout: timeout);
-        }
-        _startedByRunner = true;
+      // Always reap any prior test_app first — covers orphans from a
+      // SIGKILL'd parent or a wedged-but-still-bound prior invocation.
+      await _killExistingProcess();
+      await _waitForPortFree(timeout: const Duration(seconds: 10));
+      try {
+        await _startTestApp(timeout: timeout);
+      } catch (_) {
+        await _killExistingProcess();
+        await _waitForPortFree(timeout: const Duration(seconds: 10));
+        await _startTestApp(timeout: timeout);
       }
+      _startedByRunner = true;
     }
   }
 
