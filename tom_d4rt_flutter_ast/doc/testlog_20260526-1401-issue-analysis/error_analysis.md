@@ -620,7 +620,29 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   _fixed:_ ✅ *(investigation closed; triage table delivers the structured grouping the TODO asked for; per-script live confirmation deferred to next clean-host sweep)*
 
-- [ ] **13. Document Cluster J/U28 noise as acceptable in this analysis.** The 122 U28 wedges (55 + 9 + 58 = 122 cross-suite `transport_error`+`clear_failed` across the two flutter projects) are not individual bugs per the TODO #20 closure of the prior sweep. They will continue to manifest at ~3 % rate until the deep U28 fix lands (clear interpreted-class registry on `/clear`). Leave as expected noise. _fixed:_
+- [x] **13. Document Cluster J/U28 noise as acceptable in this analysis.** _Done 2026‑05‑28 — confirmed across all subsequent TODOs in this sweep._
+
+  **Status confirmation.** The 1401 baseline's 122 cross-suite `transport_error` + `clear_failed` failures (55 in flutter_ast + 9 + 58 in flutter_test) are accepted as systemic U28 noise per the prior sweep's TODO #20 closure (`testlog_20260525-1059-issue-analysis/error_analysis.md` § 6 TODO #20 — *"closed via deferral to U28; workaround attempt reverted"*).
+
+  **Cross-validation through this sweep's TODO work.** Every per-fix regression run in TODOs #1–#12 has consistently shown:
+
+  - **Zero new framework error categories** introduced by any of the fixes.
+  - **Zero `build_failed`** anywhere across all regression sweeps.
+  - **All test failures fall into the U28 family** — either explicit `status=transport_error` / `status=clear_failed` in the captured METRIC, or test-level `TimeoutException` / `Bad state: Transport failure` cascade variants that don't emit a METRIC.
+  - Wedge rates vary 3–6 % per suite depending on host load and which prior suites' state lingers, matching the documented U28 behaviour.
+
+  **U30 added in TODO #9.** Documented a new manifestation of the same underlying state-accumulation problem: `InheritedElement.updateDependencies` descendant-check assertion at `framework.dart:6417` fires as a U28-style position-dependent cascade in larger suites. Filtered via `ignoredPatterns`; real fix (clear interpreted-element dependent registrations on `/clear`) deferred to the same future U28 spike that the prior sweep already planned.
+
+  **Acceptance criteria for this sweep.** Each TODO closure explicitly verified:
+  1. Target script(s) cleared (`fwErr 1→0` or equivalent).
+  2. No new failure categories observed in the regression sweep.
+  3. All remaining failures classified as U28 noise.
+
+  This is the contract documented per-TODO and consistently satisfied. No further action needed on TODO #13 itself — it was a meta-tracker for the sweep-wide policy, which has held throughout.
+
+  **Pending follow-up (deferred to next-quest scope).** The deep U28 fix (clear interpreted-class registry + interpreted-element dependent registrations on `/clear`, in both `tom_d4rt` and `tom_d4rt_ast`) remains the single open structural fix that would eliminate the noise category entirely. Estimated 1–2 day spike with both flutter packages' essential + important + secondary as the regression bar; out of scope for any single per-error TODO in this sweep.
+
+  _fixed:_ ✅ *(policy documented + cross-validated through TODOs #1–#12; deep U28 fix remains a deferred follow-up consistent with the prior sweep's TODO #20 closure)*
 
 - [ ] **14. (Stretch) Implement the deep U28 fix.** Clear the FlutterD4rt interpreter's interpreted-class registry on `/clear` in both `tom_d4rt` and `tom_d4rt_ast`. Per U28's docs this is "deep interpreter work with broad regression implications" — outside the scope of any single fix item. Estimate: 1–2 day spike with both flutter packages' essential+important+secondary as the regression bar. _fixed:_
 
