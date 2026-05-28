@@ -143,7 +143,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// into Transport failures.
   ErrorWidgetBuilder? _originalErrorWidgetBuilder;
 
-  static const int _serverPort = 4248;
+  /// HTTP port the test app's local server binds to. Resolves
+  /// `TOM_D4RT_TEST_TEST_PORT` env var at startup (matching
+  /// `SendTestRunner.portEnvVar`); falls back to 4248. Lets the runner
+  /// bypass the §U28 / TODO #10/#11 kernel-zombie wedge on the default
+  /// port without requiring a host reboot.
+  static final int _serverPort =
+      int.tryParse(Platform.environment['TOM_D4RT_TEST_TEST_PORT'] ?? '') ??
+          4248;
 
   /// Dart VM Service URI (set asynchronously on startup; null in release mode
   /// or when the VM service is disabled).

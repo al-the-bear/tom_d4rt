@@ -108,7 +108,24 @@ class InteractResult {
 /// simultaneously without conflicts.
 class SendTestRunner {
   /// Default HTTP port for the source-based test app.
+  ///
+  /// Kept `const` so parameter-default expressions (`int port =
+  /// defaultPort`) continue to compile. Runtime binding / connection
+  /// sites use [port] (the env-var-overridable value).
   static const int defaultPort = 4248;
+
+  /// Env-var name for overriding [defaultPort] at runtime. Set when the
+  /// kernel-zombie wedge described in
+  /// `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §U28
+  /// (TODO #10/#11) traps the default port and a host reboot isn't
+  /// possible — point both runner and test app at a fresh port
+  /// (e.g. `TOM_D4RT_TEST_TEST_PORT=14248`).
+  static const String portEnvVar = 'TOM_D4RT_TEST_TEST_PORT';
+
+  /// Effective HTTP port. Resolves [portEnvVar] once at class
+  /// initialization, falling back to [defaultPort].
+  static final int port =
+      int.tryParse(Platform.environment[portEnvVar] ?? '') ?? defaultPort;
 
   /// Default HTTP host.
   static const String defaultHost = 'localhost';
@@ -289,7 +306,7 @@ class SendTestRunner {
         final result = await Process.run('lsof', [
           '-t',
           '-i',
-          ':$defaultPort',
+          ':$port',
           '-sTCP:LISTEN',
         ]);
         pids = result.stdout
@@ -328,7 +345,7 @@ class SendTestRunner {
         final result = await Process.run('lsof', [
           '-t',
           '-i',
-          ':$defaultPort',
+          ':$port',
           '-sTCP:LISTEN',
         ]);
         if (result.stdout.toString().trim().isEmpty) {
@@ -397,7 +414,7 @@ class SendTestRunner {
       try {
         final tempClient = HttpClient();
         try {
-          final request = await tempClient.get(defaultHost, defaultPort, '/health');
+          final request = await tempClient.get(defaultHost, port, '/health');
           final response = await request.close();
           if (response.statusCode == 200) {
             ready = true;
@@ -494,7 +511,7 @@ class SendTestRunner {
       client,
       '/clear',
       host: defaultHost,
-      port: defaultPort,
+      port: port,
       timeout: const Duration(seconds: 8),
     );
     // ignore: avoid_print
@@ -548,7 +565,7 @@ class SendTestRunner {
   static Future<SendResult> send(
     String scriptPath, {
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
     bool clearFirst = true,
     Duration? waitBeforeClear,
     // Step 9 follow-up: per-script override for the /build HTTP timeout
@@ -558,6 +575,10 @@ class SendTestRunner {
     // own dart-test wrapper timeout so the wrapper does not fire first.
     Duration? httpBuildTimeout,
   }) async {
+    // §U28 / TODO #1404 port-override: `port = 0` means "use the
+    // env-var-resolved [SendTestRunner.port]". Lets callers that pass
+    // no `port` automatically pick up `TOM_D4RT_TEST_TEST_PORT`.
+    if (port == 0) port = SendTestRunner.port;
     final packageRoot = Directory.current.path;
     final fullPath = p.join(packageRoot, scriptsPath, scriptPath);
     final file = File(fullPath);
@@ -776,7 +797,7 @@ class SendTestRunner {
     required List<Map<String, dynamic>> actions,
     Duration interactDelay = const Duration(milliseconds: 300),
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
     bool clearFirst = true,
     // 20260524 §6 todo #20: passthrough so interactive tests can absorb
     // cold-start contention on large bundles (the showdialog / showmenu /
@@ -784,6 +805,7 @@ class SendTestRunner {
     // AST and exceed the default 25 s cap on a fresh app start).
     Duration? httpBuildTimeout,
   }) async {
+    if (port == 0) port = SendTestRunner.port;
     final buildResult = await send(
       scriptPath,
       host: host,
@@ -812,8 +834,9 @@ class SendTestRunner {
   static Future<InteractResult> interact(
     List<Map<String, dynamic>> actions, {
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
   }) async {
+    if (port == 0) port = SendTestRunner.port;
     final body = jsonEncode({'actions': actions});
     try {
       final response = await _httpPost(
@@ -848,8 +871,9 @@ class SendTestRunner {
   /// Check if the test app is running on [defaultPort].
   static Future<bool> isAppRunning({
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
   }) async {
+    if (port == 0) port = SendTestRunner.port;
     try {
       final httpClient = _client ?? HttpClient();
       final response = await _httpGet(
@@ -867,16 +891,18 @@ class SendTestRunner {
   /// Clear the test app UI.
   static Future<void> clearApp({
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
   }) async {
+    if (port == 0) port = SendTestRunner.port;
     await _httpGet(client, '/clear', host: host, port: port);
   }
 
   /// Get the app logs.
   static Future<List<String>> getAppLogs({
     String host = defaultHost,
-    int port = defaultPort,
+    int port = 0,
   }) async {
+    if (port == 0) port = SendTestRunner.port;
     final response = await _httpGet(client, '/logs', host: host, port: port);
     return (response['logs'] as List?)?.cast<String>() ?? [];
   }
@@ -1155,7 +1181,7 @@ void main() {
       isRunning,
       isTrue,
       reason:
-          'App server must be running on port ${SendTestRunner.defaultPort}. '
+          'App server must be running on port ${SendTestRunner.port}. '
           'Start it with: cd test/tom_d4rt_flutter_test_app && flutter run -d linux',
     );
 
