@@ -730,6 +730,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             );
           }
           _capturingFrameworkErrors = false;
+          // §U28 / TODO #14 — Evict script-declared entries from the
+          // interpreter's global environment so the next /build starts
+          // with the same name-set the first build saw. This is the
+          // forward-compatibility hook surfaced by the U28 deep fix;
+          // see interpreter_unfixable.md §U28 for the architectural
+          // caveat (current D4rtRunner already constructs a fresh
+          // Environment per executeBundle, so this is harmless but
+          // does NOT replace the requestRecycle() workaround).
+          _d4rt.resetScript();
           setState(() {
             _d4rtWidget = null;
             _lastError = null;

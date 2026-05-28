@@ -221,6 +221,21 @@ class D4rt {
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
 
+  /// §U28 / TODO #14 — snapshot of `_moduleLoader.globalEnvironment.values`
+  /// keys captured at the end of [_initModule], AFTER stdlib registration
+  /// but BEFORE per-library bridge imports are processed during
+  /// `execute*`.
+  ///
+  /// Used by [resetScriptDeclarations] to distinguish entries created
+  /// by the script (and per-library bridge imports) from entries
+  /// created by [Stdlib.register]. On reset, anything outside this
+  /// baseline is evicted; the next `execute*` rebuilds [_moduleLoader]
+  /// from scratch via [_initModule], so the eviction is observation-
+  /// only and never strands a running execution.
+  ///
+  /// `null` until the first [_initModule] call.
+  Set<String>? _baselineValueKeys;
+
   /// Registers a bridged enum definition for use in interpreted code.
   ///
   /// [definition] The enum definition containing the native enum type and its values.
@@ -483,7 +498,70 @@ class D4rt {
       }
     }
 
+    // §U28 / TODO #14 — capture the post-stdlib baseline of `_values`
+    // keys for [resetScriptDeclarations]. Per-library bridge entries
+    // (functions, variables, getters) land in `_values` later when the
+    // ModuleLoader processes import directives, so the baseline
+    // intentionally does NOT include them — a reset between executes
+    // therefore wipes prior-execute imports too. That is safe because
+    // the next `execute*` call always re-runs `_initModule`, which
+    // re-registers everything from scratch.
+    _baselineValueKeys = globalEnv.values.keys.toSet();
+
     return moduleLoader;
+  }
+
+  /// §U28 / TODO #14 — Evict script-declared entries from the current
+  /// [_moduleLoader].`globalEnvironment` so a follower `execute*` /
+  /// `executeBundle*` call starts with the same name-set the last
+  /// `_initModule` produced.
+  ///
+  /// Walks `_moduleLoader.globalEnvironment.values` and removes every
+  /// key not present in [_baselineValueKeys] (the snapshot captured at
+  /// the end of [_initModule]). Bridge registrations
+  /// (`_bridgedClasses`, `_bridgedClassesLookupByType`, `_bridgedEnums`)
+  /// are NOT touched.
+  ///
+  /// ## Architectural caveat
+  ///
+  /// As of the 2026‑05‑28 audit (interpreter_unfixable.md §U28),
+  /// `execute*` already calls [_initModule] on every invocation, which
+  /// constructs a brand-new [ModuleLoader] backed by a brand-new
+  /// [Environment]. The previous environment is dropped on the floor
+  /// by the next call, so script declarations do NOT accumulate
+  /// across executes in `_values`. This API therefore acts as a
+  /// forward-compatibility hook for embedders that want to:
+  ///
+  /// 1. Free GC roots held by the previous execute's interpreted
+  ///    classes / functions between executions.
+  /// 2. Get a stable "reset" surface that survives any future change
+  ///    to the per-call fresh-loader invariant.
+  ///
+  /// The §U28 wedge (position-dependent failures in flutter_ast's
+  /// secondary-class sweep) is NOT addressed by this method — that
+  /// wedge originates from state outside the script-declaration map.
+  ///
+  /// No-op if [_moduleLoader] has not been initialised yet
+  /// ([_hasExecutedOnce] is false) or if no baseline was captured.
+  void resetScriptDeclarations() {
+    if (!_hasExecutedOnce) return;
+    final baseline = _baselineValueKeys;
+    if (baseline == null) return;
+    final env = _moduleLoader.globalEnvironment;
+    final toRemove = <String>[];
+    for (final key in env.values.keys) {
+      if (!baseline.contains(key)) {
+        toRemove.add(key);
+      }
+    }
+    for (final key in toRemove) {
+      env.removeLocalValue(key);
+    }
+    Logger.debug(
+      "[D4rt.resetScriptDeclarations] Removed ${toRemove.length} "
+      "script-declared entries; ${env.values.length} stdlib entries "
+      "preserved.",
+    );
   }
 
   /// Validates all bridge registrations by running the given init script

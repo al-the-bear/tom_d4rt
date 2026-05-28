@@ -153,6 +153,21 @@ class D4rtRunner {
   Environment? _globalEnvironment;
   bool _hasExecutedOnce = false;
 
+  /// §U28 / TODO #14 — snapshot of [_globalEnvironment].`values` keys
+  /// captured at the end of [_initEnvironment], i.e. AFTER stdlib +
+  /// bridge registration but BEFORE the DeclarationVisitor visits the
+  /// script's top-level declarations.
+  ///
+  /// Used by [resetScriptDeclarations] to distinguish entries created
+  /// by the script from entries created by the runner's own bridge /
+  /// stdlib registration. The former are evicted on reset; the latter
+  /// are preserved.
+  ///
+  /// Refreshed on every [_initEnvironment] call (the bridge / stdlib
+  /// surface is identical per call, but capturing every time keeps the
+  /// snapshot trivially consistent with the current environment).
+  Set<String>? _baselineValueKeys;
+
   /// Step 6: extension callbacks registered by bridge packages, keyed by
   /// package name. Insertion order is preserved (Dart `Map` literals are
   /// `LinkedHashMap`) so [finalizeBridges] runs callbacks deterministically.
@@ -526,7 +541,64 @@ class D4rtRunner {
     // overwrite specific entries when libraries are explicitly imported.
     _registerBridgedDefinitions(globalEnv);
 
+    // §U28 / TODO #14 — capture the post-registration baseline of
+    // `_values` keys so [resetScriptDeclarations] can later distinguish
+    // bridge / stdlib entries from script-declared ones added during
+    // pass 1 (DeclarationVisitor) and pass 2 (import processing).
+    _baselineValueKeys = globalEnv.values.keys.toSet();
+
     return globalEnv;
+  }
+
+  /// §U28 / TODO #14 — Evict script-declared entries from the current
+  /// global environment so a follower `executeBundle` call starts with
+  /// the same name-set the first build saw.
+  ///
+  /// Walks [_globalEnvironment].`values` and removes any key not present
+  /// in [_baselineValueKeys] (the snapshot captured at the end of the
+  /// last [_initEnvironment]). Bridge registrations (`_bridgedClasses`,
+  /// `_bridgedClassesLookupByType`, `_bridgedEnums`) are NOT touched.
+  /// The [D4._nativeToInterpreted] Expando is NOT touched.
+  ///
+  /// ## Architectural caveat
+  ///
+  /// As of the 2026‑05‑28 audit (interpreter_unfixable.md §U28),
+  /// [executeBundle] and [execute] already call [_initEnvironment] on
+  /// every invocation, which constructs a brand-new [Environment]. The
+  /// previous environment is dropped on the floor by the next build,
+  /// so script declarations do NOT accumulate across `/build` cycles
+  /// in `_values`. This API therefore acts as a forward-compatibility
+  /// hook for embedders that want to:
+  ///
+  /// 1. Free GC roots held by the previous build's interpreted classes
+  ///    / functions between `/clear` and the next `/build`.
+  /// 2. Get a stable "reset" surface that survives any future change
+  ///    to the per-call fresh-environment invariant.
+  ///
+  /// The §U28 wedge (position-dependent failures in flutter_ast's
+  /// secondary-class sweep) is NOT addressed by this method — that
+  /// wedge originates from state outside the script-declaration map.
+  ///
+  /// No-op if no execution has happened yet (no global environment
+  /// to walk) or if no baseline was captured.
+  void resetScriptDeclarations() {
+    final env = _globalEnvironment;
+    final baseline = _baselineValueKeys;
+    if (env == null || baseline == null) return;
+    final toRemove = <String>[];
+    for (final key in env.values.keys) {
+      if (!baseline.contains(key)) {
+        toRemove.add(key);
+      }
+    }
+    for (final key in toRemove) {
+      env.removeLocalValue(key);
+    }
+    Logger.debug(
+      "[D4rtRunner.resetScriptDeclarations] Removed ${toRemove.length} "
+      "script-declared entries; ${env.values.length} bridge/stdlib "
+      "entries preserved.",
+    );
   }
 
   /// Registers all bridged definitions into the environment.

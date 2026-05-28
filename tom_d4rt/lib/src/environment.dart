@@ -112,6 +112,23 @@ class Environment {
   ///
   /// If a name is already defined or conflicts with a bridged type,
   /// a warning will be logged.
+  /// Removes [name] from this environment's local [_values] map.
+  ///
+  /// Used by [D4rt.resetScriptDeclarations] (interpreter_unfixable.md
+  /// §U28) to evict script-declared entries between `execute` /
+  /// `executeBundle` calls while preserving the bridge maps. Returns
+  /// whether an entry was removed. Does NOT walk the enclosing scope
+  /// chain.
+  ///
+  /// Note: this only mutates [_values]. [_bridgedClasses], [_bridgedEnums],
+  /// and [_bridgedClassesLookupByType] are left intact — bridge
+  /// registrations survive a reset by design.
+  bool removeLocalValue(String name) {
+    if (!_values.containsKey(name)) return false;
+    _values.remove(name);
+    return true;
+  }
+
   void define(String name, Object? value) {
     if (_values.containsKey(name) ||
         _bridgedClasses.containsKey(name) ||

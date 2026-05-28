@@ -125,6 +125,22 @@ class FlutterD4rt {
             namedArgs: namedArgs,
           ));
 
+  /// §U28 / TODO #14 — Evict script-declared entries from the underlying
+  /// interpreter so a follower [build] / [execute] starts with the same
+  /// global-environment name-set the first build saw.
+  ///
+  /// Forwards to [D4rt.resetScriptDeclarations]. Intended to be called
+  /// from the host app's `/clear` handler between test runs.
+  ///
+  /// See `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §U28 for
+  /// the architectural caveat: the underlying runner already builds a
+  /// fresh `Environment` per `executeBundle`, so this is a forward-
+  /// compatibility hook rather than the §U28 wedge fix. The existing
+  /// `SendTestRunner.requestRecycle()` hook in
+  /// `interactive_tests_test.dart` is preserved as the actual wedge
+  /// workaround.
+  void resetScript() => _interpreter.resetScriptDeclarations();
+
   static List<Object?>? _argsForContext(BuildContext? buildContext) =>
       buildContext == null ? null : <Object?>[buildContext];
 

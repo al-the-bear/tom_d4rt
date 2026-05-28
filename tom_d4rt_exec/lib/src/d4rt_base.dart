@@ -533,6 +533,24 @@ class D4rt {
   /// **Idempotent:** repeat calls return without re-running anything.
   void finalizeBridges() => _runner.finalizeBridges();
 
+  /// §U28 / TODO #14 — Evict script-declared entries from the inner
+  /// [D4rtRunner]'s global environment so a follower `executeBundle`
+  /// call starts with the same name-set the first build saw.
+  ///
+  /// Forwards to [D4rtRunner.resetScriptDeclarations]. See that
+  /// method for the full contract and the architectural caveat
+  /// (the runner already constructs a fresh [Environment] per
+  /// [executeBundle] call, so this API is a forward-compatibility
+  /// hook rather than the §U28 wedge fix).
+  ///
+  /// This method does NOT walk the classic [execute]-path's
+  /// `_moduleLoader.globalEnvironment`. Callers that mix [execute]
+  /// (source-direct) with [executeBundle] (AST-driven) and need
+  /// both flushed should call this followed by re-instantiating
+  /// the D4rt host (or open a follow-up issue if that becomes a
+  /// real use case).
+  void resetScriptDeclarations() => _runner.resetScriptDeclarations();
+
   /// Returns a complete configuration snapshot of this interpreter instance.
   ///
   /// This method provides a comprehensive view of the interpreter's current state,

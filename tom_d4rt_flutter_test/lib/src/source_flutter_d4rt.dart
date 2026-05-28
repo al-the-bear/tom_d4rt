@@ -120,6 +120,25 @@ class SourceFlutterD4rt {
         return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
       });
 
+  /// §U28 / TODO #14 — Evict script-declared entries from the underlying
+  /// interpreter so a follower [build] / [execute] starts with the same
+  /// global-environment name-set the last `execute` produced.
+  ///
+  /// Forwards to [D4rt.resetScriptDeclarations]. Intended to be called
+  /// from the host app's `/clear` handler between test runs.
+  ///
+  /// Note: per `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` §U28,
+  /// the `tom_d4rt_flutter_test` source-direct path is NOT affected by
+  /// the U28 wedge (only `tom_d4rt_flutter_ast`'s bundle-driven path
+  /// is). The reset is provided here for parity so both app variants
+  /// expose the same `/clear` contract; whether it's a no-op or
+  /// useful depends entirely on the host app's lifecycle.
+  ///
+  /// See `D4rt.resetScriptDeclarations` for the architectural caveat
+  /// (the analyzer-based interpreter already builds a fresh
+  /// `ModuleLoader` per `execute*`).
+  void resetScript() => _interpreter.resetScriptDeclarations();
+
   /// Generic execute — call the function [name] with the given arguments
   /// and unwrap the result as [T].
   T execute<T>(

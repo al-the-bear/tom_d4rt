@@ -6842,6 +6842,126 @@ saw. That is deep interpreter work touching the declaration /
 environment model across both `tom_d4rt` and `tom_d4rt_ast`. The
 TODO #20 closure defers cluster-E to that future investigation.
 
+### 2026‑05‑28 update — `resetScriptDeclarations` API landed; original hypothesis architecturally invalidated
+
+TODO #14 of `testlog_20260526-1401-issue-analysis/error_analysis.md`
+designed a three-layer "U28 deep fix": a `resetScriptDeclarations`
+API on both `D4rt` (analyzer-based, `tom_d4rt`) and `D4rtRunner` /
+`D4rt` (AST-based, `tom_d4rt_ast` / `tom_d4rt_exec`), a `resetScript`
+pass-through on `FlutterD4rt` / `SourceFlutterD4rt`, and a wire-up
+in each test app's `/clear` handler. That API has now shipped:
+
+- `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart` — adds
+  `_baselineValueKeys` snapshot captured at the end of
+  `_initEnvironment`, plus the public
+  `D4rtRunner.resetScriptDeclarations()` method that walks
+  `_globalEnvironment.values` and evicts any key not in the
+  snapshot.
+- `tom_d4rt_exec/lib/src/d4rt_base.dart` — adds
+  `D4rt.resetScriptDeclarations()` that delegates to the inner
+  `_runner`.
+- `tom_d4rt/lib/src/d4rt_base.dart` — adds the analyzer-based mirror
+  with its own `_baselineValueKeys` snapshot captured at the end
+  of `_initModule`.
+- `tom_d4rt_ast/lib/src/runtime/environment.dart` and
+  `tom_d4rt/lib/src/environment.dart` — add `removeLocalValue`
+  helper on `Environment`.
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` and
+  `tom_d4rt_flutter_test/lib/src/source_flutter_d4rt.dart` — add
+  `resetScript()` pass-throughs.
+- `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart`
+  and `tom_d4rt_flutter_test/test/tom_d4rt_flutter_test_app/lib/main.dart`
+  — call `_d4rt.resetScript()` from the `/clear` handler before
+  the `setState` that nulls the rendered widget.
+
+**Architectural finding — the original hypothesis was wrong.**
+
+Before implementing TODO #14, a code-path audit was performed to
+verify the "declaration map grows monotonically per test-app
+process" hypothesis the original §U28 entry committed to. The audit
+found the opposite:
+
+- `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart:728` — `executeBundle`
+  calls `_initEnvironment()` on every invocation.
+- `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart:516-530` —
+  `_initEnvironment()` constructs a brand-new `Environment()`,
+  re-runs `Stdlib(globalEnv).register()`, re-runs
+  `_registerBridgedDefinitions(globalEnv)`. The previous
+  environment is dropped on the floor by the next build.
+- `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart:727` —
+  `InterpretedFunction.clearParentMap()` already resets the static
+  identity-map of AST→parent before each bundle execution.
+- `tom_d4rt_exec/lib/src/d4rt_base.dart:349-373` — `_initModule()`
+  constructs a fresh `ModuleLoader(Environment(), …)`, a fresh
+  `InterpreterVisitor`, and re-runs `Stdlib(...).register()`. Each
+  `execute*`/`executeBundle*` invocation goes through this path.
+- `tom_d4rt/lib/src/d4rt_base.dart:450-487` — same shape on the
+  analyzer-based path.
+
+So the `globalEnvironment._values` map (where `DeclarationVisitor`
+defines script classes / mixins / enums / top-level functions /
+top-level variables) is born fresh every `/build`. Walking it on
+`/clear` therefore acts only on the *previous build's* environment
+between the `/clear` arrival and the next `/build` — which then
+discards the prior environment anyway. The shipped API correctly
+implements the design but is architecturally a no-op for the
+wedge it was designed to address.
+
+The position-dependent / suite-size-dependent behaviour documented
+in the TODO #20 follow-up (essential 108 tests → 0 wedges,
+secondary 656 → 22 wedges, with zero overlap of failing scripts
+across runs) is consistent with native-state accumulation outside
+the script-declaration map. Real candidates ranked by suspicion:
+
+1. **`D4._nativeToInterpreted` Expando** (TODO #7 introduction).
+   Weak references in principle, but entries are pinned as long
+   as the native bridged-super objects are reachable. Flutter's
+   framework keeps Elements / RenderObjects / animations alive
+   across rebuilds, so Expando entries pinned by those will
+   accumulate across `/build` cycles.
+2. **D4 generator static caches**
+   (`tom_d4rt_ast/lib/src/runtime/generator/d4.dart`) — relaxer
+   / proxy registrations, type resolution caches, generic-
+   constructor factory chains. None get reset by
+   `_initEnvironment`.
+3. **Flutter framework state** — Element tree leftover from the
+   prior build, GestureBinding state, Ticker registrations,
+   `ImageCache`, `RouteObserver`. The test-app re-mounts the root
+   widget on `/build` but does not tear down the binding.
+4. **Bridge-registered globals on the D4rt instance itself** — the
+   `_bridgedEnumDefinitions`, `_bridgedClases`, `_libraryFunctions`,
+   etc. lists. These are intended to persist, but a future bridge-
+   re-registration bug could double-up entries on the second cycle.
+
+None of (1) – (4) is touched by walking `_values`. A real U28 fix
+would have to identify which of these actually accumulates,
+instrument a counter on `/clear`, and add a targeted reset path.
+
+**Why this API still ships:**
+
+- **Forward compatibility.** Embedders that want a stable "reset"
+  surface now have one. If the per-call fresh-environment
+  invariant is ever weakened (e.g. an optimisation that caches
+  the environment to avoid re-running Stdlib registration), the
+  reset hook becomes the path that keeps the host's `/clear`
+  semantics intact.
+- **Defense in depth.** Calling it between builds frees GC roots
+  held by the previous build's interpreted classes / functions
+  marginally earlier than waiting for the next `_initEnvironment`
+  to drop them.
+- **Hygiene.** The host's `/clear` semantics now match expectations
+  — "clear all script state" — even if the actual wedge cause is
+  elsewhere.
+
+**`requestRecycle()` workaround preserved.** The
+`setUp(() { SendTestRunner.requestRecycle(); })` hook in
+`tom_d4rt_flutter_ast/test/interactive_tests_test.dart` is the
+actual mitigation for the position-dependent wedge and is NOT
+removed by the TODO #14 implementation. If a future investigation
+identifies the real accumulator (most likely #1 or #2 in the
+ranked list above) and ships a targeted reset, `requestRecycle()`
+can be reconsidered.
+
 ---
 
 ## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap)
