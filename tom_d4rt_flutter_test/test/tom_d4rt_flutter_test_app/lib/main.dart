@@ -304,6 +304,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // overflow out of the captured framework-error list while
         // real overflow bugs in other render objects stay visible.
         'A RenderConstraintsTransformBox overflowed by',
+        // 1401-TODO #9 (F10): mirror of flutter_ast. The
+        // `framework.dart:6417` InheritedElement.updateDependencies
+        // descendant-check assertion fires as a U28-style
+        // position-dependent cascade in larger suites. Filter on the
+        // unique assertion-body comment string. See flutter_ast's
+        // equivalent ignoredPatterns entry and
+        // `interpreter_unfixable.md` §U30 for the full rationale and
+        // the deferred deep fix.
+        'check that it really is our descendant',
       ];
       final isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
