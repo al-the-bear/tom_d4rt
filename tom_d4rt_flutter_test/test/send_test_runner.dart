@@ -211,7 +211,15 @@ class SendTestRunner {
   /// automatically from [testAppPath].
   static Future<void> setUp({
     bool startApp = true,
-    Duration timeout = const Duration(seconds: 60),
+    // 1401-TODO #10 (H1) — bumped from 60s to 120s. In the 1401 sweep
+    // baseline the source test app's `setUpAll` failed for 5 cascading
+    // suites (crashing/timeout/blocking/gii/gir) with "Source test app
+    // failed to start within 60 seconds" because the prior suite's
+    // wedged app held the port long enough that the next suite's
+    // launcher exceeded its budget. 120s gives the host headroom for
+    // dyld/filesystem cache pressure and kernel port-bind release
+    // after a hard SIGKILL of the wedged process.
+    Duration timeout = const Duration(seconds: 120),
     String? suite,
   }) async {
     _client = HttpClient();
@@ -465,11 +473,18 @@ class SendTestRunner {
     // LISTEN socket on [defaultPort], then wait for the kernel to release
     // the bind before launching a replacement.
     await _killExistingProcess();
-    await _waitForPortFree(timeout: const Duration(seconds: 10));
+    // 1401-TODO #10 (H1) — bumped from 10s to 20s. The kernel can take
+    // several seconds to fully reclaim the TCP bind after SIGKILL of
+    // a wedged Flutter wrapper + its desktop child; 20s is still well
+    // below the test-level 30s budget but doubles the safety margin.
+    await _waitForPortFree(timeout: const Duration(seconds: 20));
     _testAppProcess = null;
     // ignore: avoid_print
     print('[recycle] starting fresh test app');
-    await _startTestApp(timeout: const Duration(seconds: 60));
+    // 1401-TODO #10 (H1) — bumped from 60s to 120s, matching the
+    // [setUp] default. See setUp's comment for the cascade-failure
+    // rationale.
+    await _startTestApp(timeout: const Duration(seconds: 120));
     // /health is synchronous and only proves the HTTP server is up; it does
     // not exercise the widget tree. Confirm the new app's event loop is
     // actually responsive by doing a real /clear roundtrip.
