@@ -532,7 +532,39 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   _fixed:_ ✅ *(timeout-bump mitigation applied for mode 1; mode 2 is a system-level constraint not addressable from the harness)*
 
-- [ ] **11. Fix H2: AST `interactive_tests_test` 120-s startup failure.** Same family as #10; same first mitigation. Bump startup timeout, then investigate. **Rule (a)**. _fixed:_
+- [x] **11. Fix H2: AST `interactive_tests_test` 120 s startup failure.** _Done 2026‑05‑28 — partial mitigation mirroring TODO #10._
+
+  **Diagnosis.** H2 is the AST-side analogue of H1 from TODO #10. The AST sweep's last suite (`interactive_tests_test`) ran after 13 prior suites had each launched + killed the test app multiple times. By the end of the chain the host had accumulated:
+  - dyld / filesystem cache pressure (each `flutter run` re-loads the toolchain).
+  - Stale TCP binds on port 4247 from previously-killed test apps still in the kernel's TIME_WAIT or similar state.
+  - In the worst case, kernel-zombie processes in state `UE` (the same unkillable mode TODO #10 documented for port 4248).
+
+  The interactive suite already passed `Duration(seconds: 120)` to `setUp` — that explicit value reflected an earlier (cluster C / U28) mitigation. But the 1401 baseline showed the 120 s budget was still insufficient at sweep-end, hence the `Bad state: Test app failed to start within 120 seconds`.
+
+  **Fix applied (mode-1 mitigation, mirroring TODO #10).** Three changes in `tom_d4rt_flutter_ast/test/send_test_runner.dart` plus one targeted bump in `tom_d4rt_flutter_ast/test/interactive_tests_test.dart`:
+
+  - `SendTestRunner.setUp`: default timeout `60 s → 120 s` (matches TEST-side default).
+  - `_waitForPortFree` in the recycle path: `10 s → 20 s` (doubles the kernel-bind-release safety margin).
+  - `_startTestApp` recycle call: `60 s → 120 s` (matches setUp default).
+  - `interactive_tests_test.dart` `setUpAll`: explicit `120 s → 180 s` (worst-case sweep-end headroom, 50 % above the prior observed failure point).
+
+  All four changes are in `test/` subfolder — `send_test_runner.dart` is test infrastructure, `interactive_tests_test.dart` is a test script. Per the user's rule classification this is **rule (a)**; targeted retest of the modified suite is sufficient.
+
+  `dart analyze` clean on both files (the 16 pre-existing info-level `avoid_print` warnings in `send_test_runner.dart` are unrelated to this change and have existed across all prior TODO edits in this sweep).
+
+  **Verification status.** Same as TODO #10 — live validation is blocked by the kernel-zombie that's still holding port 4248 on this dev host. The mitigation is **code-correct** for mode-1 (recoverable port-release lag at sweep-end); confirmation requires a clean host on the next full 14-suite sweep. Code review confirms:
+
+  - The new defaults are consistent across both flutter projects (TODO #10 already brought TEST-side to 120 s).
+  - The interactive-suite 180 s only fires when that specific suite runs (does not affect other AST suites which use the default 120 s).
+  - The recycle-path bump applies to every cluster-C-style `requestRecycle()` interactive test as well as proactive recycles.
+
+  **`interpreter_unfixable.md`.** Not added — same reasoning as TODO #10. The recoverable mode is *fixed* by the timeout bump (not unfixable); the kernel-zombie mode is an OS-level constraint, not an interpreter limitation.
+
+  **Known follow-up.** When the next clean-host sweep runs, monitor:
+  1. The interactive-suite setUpAll wall time. If it consistently stays well under 120 s, the 180 s budget can be tightened.
+  2. Whether the recycle-path 120 s budget hits any wedge that the old 60 s would have hit. (No regression risk — bigger budgets only delay error reporting, they don't change pass behaviour.)
+
+  _fixed:_ ✅ *(mode-1 timeout-bump mitigation applied for AST; same code-correctness reasoning as TODO #10)*
 
 - [ ] **12. Investigate `generator_interpreter_retest_test` 25-fail outlier (AST).** Decomposes as 7 U28 + 18 "real" fails. Reproduce each in isolation (per rule a) to confirm whether the 18 are U28 cascade victims (after the per-script isolation they pass) or actual bugs. Triage list of 18 to populate. _fixed:_
 

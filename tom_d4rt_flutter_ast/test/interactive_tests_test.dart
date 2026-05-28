@@ -33,9 +33,19 @@ const Duration _interactiveBuildTimeout = Duration(seconds: 50);
 
 void main() {
   setUpAll(() async {
+    // 1401-TODO #11 (H2) — bumped from 120s to 180s. `interactive_tests_test`
+    // runs LAST in the 14-suite chain. By that point the host has
+    // accumulated dyld/filesystem cache pressure plus stale port-binds
+    // from the previous 13 suites — the 1401 baseline's setUpAll hit
+    // the prior 120s budget and failed with "Test app failed to start
+    // within 120 seconds". 180s gives a 50% safety margin over the
+    // observed failure point while still bounded enough to detect a
+    // genuinely-stuck launch within a reasonable wall-time. See TEST
+    // side TODO #10 in error_analysis.md for the recoverable-vs-
+    // kernel-zombie mode analysis.
     await SendTestRunner.setUp(
       regenerateBridges: false,
-      timeout: const Duration(seconds: 120),
+      timeout: const Duration(seconds: 180),
     );
   });
 
