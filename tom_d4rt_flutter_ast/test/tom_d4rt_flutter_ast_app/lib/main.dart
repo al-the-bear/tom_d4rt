@@ -730,15 +730,6 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             );
           }
           _capturingFrameworkErrors = false;
-          // §U28 / TODO #14 — Evict script-declared entries from the
-          // interpreter's global environment so the next /build starts
-          // with the same name-set the first build saw. This is the
-          // forward-compatibility hook surfaced by the U28 deep fix;
-          // see interpreter_unfixable.md §U28 for the architectural
-          // caveat (current D4rtRunner already constructs a fresh
-          // Environment per executeBundle, so this is harmless but
-          // does NOT replace the requestRecycle() workaround).
-          _d4rt.resetScript();
           setState(() {
             _d4rtWidget = null;
             _lastError = null;
@@ -747,6 +738,19 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _capturedOutput = [];
             _widgetGeneration++;   // force fresh element subtree on next build
           });
+          // §U28 / TODO #14 — Evict script-declared entries from the
+          // interpreter's global environment so the next /build starts
+          // with the same name-set the first build saw. Placed AFTER
+          // setState per the TODO #14 design spec — setState has already
+          // nulled _d4rtWidget so the next frame mounts _WaitingDisplay
+          // and the old element subtree starts unmounting before the
+          // interpreter env is walked. This is the forward-compatibility
+          // hook surfaced by the U28 deep fix; see
+          // interpreter_unfixable.md §U28 for the architectural caveat
+          // (current D4rtRunner already constructs a fresh Environment
+          // per executeBundle, so this is harmless but does NOT replace
+          // the requestRecycle() workaround).
+          _d4rt.resetScript();
           // Post-frame fix: respond AFTER Flutter has processed the frame so
           // the old element subtree is fully deactivated before the test runner
           // sends the next /build. Without this, /clear responds immediately,

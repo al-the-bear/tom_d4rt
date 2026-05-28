@@ -593,14 +593,6 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             );
           }
           _capturingFrameworkErrors = false;
-          // §U28 / TODO #14 — Evict script-declared entries from the
-          // interpreter's global environment so the next /build starts
-          // with the same name-set the last execute produced. Provided
-          // for parity with tom_d4rt_flutter_ast; per §U28, this
-          // source-direct path is NOT affected by the U28 wedge, so
-          // this is a forward-compatibility hook only. See
-          // interpreter_unfixable.md §U28.
-          _d4rt.resetScript();
           setState(() {
             _d4rtWidget = null;
             _lastError = null;
@@ -609,6 +601,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _capturedOutput = [];
             _widgetGeneration++;
           });
+          // §U28 / TODO #14 — Evict script-declared entries from the
+          // interpreter's global environment so the next /build starts
+          // with the same name-set the last execute produced. Placed
+          // AFTER setState per the TODO #14 design spec. Provided for
+          // parity with tom_d4rt_flutter_ast; per §U28, this
+          // source-direct path is NOT affected by the U28 wedge, so
+          // this is a forward-compatibility hook only. See
+          // interpreter_unfixable.md §U28.
+          _d4rt.resetScript();
           // Respond after the frame so the old element subtree is fully
           // deactivated before the next /build arrives.
           //
