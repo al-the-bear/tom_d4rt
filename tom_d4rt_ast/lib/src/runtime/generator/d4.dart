@@ -1982,6 +1982,27 @@ class D4 {
       result = callback.call(visitor, args, namedArgs);
     } else if (callback is Callable) {
       result = callback.call(visitor, args, namedArgs);
+    } else if (callback is Function) {
+      // 1401-TODO #8 (F5/F6): plain native Dart function. Happens when
+      // the framework hands a typed callback (e.g. `TickerCallback =
+      // void Function(Duration)`) to a script method via the bridge,
+      // and the script forwards it unchanged to another bridge
+      // constructor (e.g. `Ticker(onTick)`). The Ticker bridge wraps
+      // it in `callInterpreterCallback`, which at tick time receives
+      // the original native Dart closure — not wrapped as
+      // InterpretedFunction/NativeFunction/Callable. `Function.apply`
+      // dispatches by Dart Function signature; named args are
+      // re-keyed to Symbols (Dart's `Function.apply` requires
+      // `Map<Symbol, dynamic>?`).
+      final Map<Symbol, dynamic>? symbolNamedArgs;
+      if (namedArgs.isEmpty) {
+        symbolNamedArgs = null;
+      } else {
+        symbolNamedArgs = {
+          for (final entry in namedArgs.entries) Symbol(entry.key): entry.value,
+        };
+      }
+      result = Function.apply(callback, args, symbolNamedArgs);
     } else {
       throw ArgumentD4rtException(
         'Expected a callable function, got ${callback?.runtimeType}',

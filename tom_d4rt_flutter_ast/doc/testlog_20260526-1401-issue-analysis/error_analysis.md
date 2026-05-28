@@ -420,7 +420,47 @@ Numbered so we can process step by step. Checkbox `[ ]` toggles to `[x]` as each
 
   No `interpreter_unfixable.md` entry needed — the Expando-based native↔interpreted reverse map is the real fix for the cross-boundary assignment case. It addresses a general gap (every concrete bridged class's subclass would have hit this), not a workaround for an unfixable issue. _fixed:_ ✅
 
-- [ ] **8. Fix F5/F6: interpreter argument coercion for typed `void Function(Duration)` callbacks.** Same root cause as cluster A's TODO #3a (`shader_mask` `Expected a callable function, got (Duration) => void`). Trace the coercion path in `tom_d4rt/lib/src/interpreter_visitor.dart` (and mirror to `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`) for typed `Function` parameters with parameter-list signatures. **Rule (b)** — interpreter change, both projects' essential/important/secondary required + the 4 scripts in cluster A. _fixed:_
+- [x] **8. Fix F5/F6: `callInterpreterCallback` rejects plain native Dart functions.** _Done 2026‑05‑27._
+
+  **Diagnosis correction.** The TODO body framed this as "interpreter argument coercion" — a Function-type coercion gap in `interpreter_visitor.dart`. Reading the call chain proved it's in `D4.callInterpreterCallback`, not the visitor. The script flow is:
+
+  1. Script declares a mixin `_TickerProviderShim.createTicker(TickerCallback onTick) => Ticker(onTick)` (where `TickerCallback = void Function(Duration elapsed)`).
+  2. When an AnimationController calls `createTicker`, Flutter's framework constructs the callback (`AnimationController._tick` — a native Dart Function tearoff) and passes it as `onTick`.
+  3. The script forwards `onTick` to the `Ticker(...)` constructor.
+  4. The Ticker bridge constructor adapter wraps it: `Ticker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); })`.
+  5. When Flutter ticks, the wrapper closure calls `D4.callInterpreterCallback(visitor, nativeClosure, [Duration])`.
+  6. `callInterpreterCallback` checks `is InterpretedFunction` → no; `is NativeFunction` → no; `is Callable` → no (`NativeFunction` and `InterpretedFunction` `implement Callable`, but plain Dart `Function`s do not).
+  7. Throws `Expected a callable function, got (Duration) => void`.
+
+  The runtime type `(Duration) => void` is the standard `Function.runtimeType.toString()` formatting for a Dart `void Function(Duration)` tearoff — confirming it's a plain Dart closure, not an interpreter wrapper.
+
+  **Fix.** Added an `else if (callback is Function)` branch to `callInterpreterCallback` in both `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and `tom_d4rt/lib/src/generator/d4.dart`, using `Function.apply` for dispatch. Named args are re-keyed to `Map<Symbol, dynamic>` (Dart's `Function.apply` requires Symbol keys). Because `InterpretedFunction` / `NativeFunction` / `Callable` are dispatched by the earlier `is X` branches, the new fallback only fires for plain Dart functions — no behaviour change for the wrapped-callable paths.
+
+  **Verification** (rule (b)):
+
+  Isolated retests (all four target scripts):
+
+  | Script | Project | Before fwErr | After fwErr | Build time |
+  |---|---|---:|---:|---:|
+  | `widgets/shader_mask_test.dart` | flutter_ast | 1 | **0** | 2.15 s |
+  | `widgets/shader_mask_test.dart` | flutter_test | 1 | **0** | 2.02 s |
+  | `widgets/widgets_binding_test.dart` | flutter_ast | 1 | **0** | 2.46 s |
+  | `widgets/widgets_binding_test.dart` | flutter_test | 1 | **0** | 2.29 s |
+
+  Suite regression (logs in `doc/testlog_20260527-2120-todo8-verify/` and the same path in flutter_test):
+
+  | Suite | Project | Result | Failures classification |
+  |---|---|---|---|
+  | `essential_classes_test` | flutter_ast | 105 / 0 / 3 (rc=1) | 3 U28 transport_errors |
+  | `essential_classes_test` | flutter_test | 105 / 0 / 3 (rc=1) | 3 U28 (4 transport_errors but recycle absorbed 1) |
+  | `important_classes_test` | flutter_ast | 156 / 0 / 8 (rc=1) | 7 transport_errors + 1 clear_failed (all U28) |
+  | `important_classes_test` | flutter_test | 156 / 0 / 8 (rc=1) | 7 U28 transport_errors |
+  | `secondary_classes_test` | flutter_ast | 644 / 1 / 9 (rc=1) | 7 transport_errors + 2 clear_failed (all U28) |
+  | `secondary_classes_test` | flutter_test | 634 / 1 / 19 (rc=1) | 16 transport_errors + 2 clear_failed (all U28) + 1 misc |
+
+  **Zero `build_failed`, zero new framework-error categories.** The `Expected a callable function` framework errors that defined F5 and F6 in the baseline sweep are completely absent from the regression logs. The elevated U28 wedge counts (vs the 1401 baseline's `652/1/1` for secondary) reflect host load during the regression sweep, per documented U28 behaviour. Critically, the `widgets/shader_mask_test.dart` and `widgets/widgets_binding_test.dart` scripts now pass cleanly inside their full suites; their previous framework-error contribution is eliminated.
+
+  No `interpreter_unfixable.md` entry needed — `Function.apply` is the proper dispatch path for plain Dart functions reaching the interpreter callback bridge, not a workaround for an unfixable issue. _fixed:_ ✅
 
 - [ ] **9. Fix F10: framework `_debugLifecycleState` assertion straggler at framework.dart:6417.** Cluster B / U27 family. The cluster-B `findRenderObject` catch only matches that method name; broaden it (or the inactive-element guard) to also handle the other `RenderObject?` accessors that produce the same `_debugLifecycleState != _ElementLifecycle.active` cascade. **Rule (b)** — interpreter change. _fixed:_
 
