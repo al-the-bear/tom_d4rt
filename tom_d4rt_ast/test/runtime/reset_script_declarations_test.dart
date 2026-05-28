@@ -151,5 +151,96 @@ void main() {
       // next executeBundle relies on.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(17)), 17);
     });
+
+    // TODO #14 risk §707 ("false positive — over-clearing"): if the
+    // reset accidentally evicts stdlib or bridge entries, subsequent
+    // builds will fail with "Undefined name" errors. These cases pin
+    // the contract that those classes of entry are preserved.
+    test(
+        'preserves stdlib names — print and Stopwatch survive reset', () {
+      final runner = D4rtRunner();
+      // Bootstrap the global environment by running any bundle.
+      expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
+
+      // Stdlib bridges land in `_values` via `Stdlib(globalEnv).register()`
+      // during _initEnvironment. They MUST be in the post-init baseline
+      // so the reset preserves them.
+      final env = runner.visitor!.globalEnvironment;
+      expect(
+        env.values.containsKey('print'),
+        isTrue,
+        reason: 'stdlib `print` must be registered after _initEnvironment',
+      );
+
+      // The script declarations get evicted...
+      runner.resetScriptDeclarations();
+
+      // ...but stdlib survives.
+      expect(
+        env.values.containsKey('print'),
+        isTrue,
+        reason: 'reset must NOT evict stdlib `print` (TODO #14 §707)',
+      );
+      // A second executeBundle that depends on stdlib still succeeds —
+      // this is the integration-level guarantee equivalent to "smoke
+      // test passes after reset" from the validation plan.
+      expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(2)), 2);
+    });
+
+    test(
+        'preserves bridge registrations — _bridgedClasses survive reset',
+        () {
+      final runner = D4rtRunner();
+      // Run any bundle to populate the environment.
+      expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
+
+      final env = runner.visitor!.globalEnvironment;
+      // _registerBridgedDefinitions is called during _initEnvironment
+      // and registers built-in stdlib bridges (e.g. _Random) via
+      // `defineBridge` into `_bridgedClasses`. They live in a different
+      // map than `_values`, so the reset (which walks `_values`) MUST
+      // NOT touch them. We snapshot the bridge-name count and the
+      // assignment-by-type map size pre-reset, and assert post-reset
+      // they are unchanged.
+      final preBridgeNames = env.bridgedClassNames.toSet();
+      expect(
+        preBridgeNames,
+        isNotEmpty,
+        reason:
+            'stdlib bridge registration must populate _bridgedClasses '
+            '(at minimum: _Random etc.)',
+      );
+
+      runner.resetScriptDeclarations();
+
+      final postBridgeNames = env.bridgedClassNames.toSet();
+      expect(
+        postBridgeNames,
+        preBridgeNames,
+        reason:
+            'reset must NOT evict any bridged class names — bridge '
+            'registrations live in `_bridgedClasses`, not `_values` '
+            '(TODO #14 §707 + §676 — Expando/bridge preservation rule)',
+      );
+    });
+
+    test(
+        'preserves bridged enum registrations across reset', () {
+      final runner = D4rtRunner();
+      expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
+
+      final env = runner.visitor!.globalEnvironment;
+      final preEnumNames = env.bridgedEnumNames.toSet();
+
+      runner.resetScriptDeclarations();
+
+      expect(
+        env.bridgedEnumNames.toSet(),
+        preEnumNames,
+        reason:
+            'reset must NOT evict bridged enum names — they live in '
+            '`_bridgedEnums`, not `_values`',
+      );
+    });
   });
 }
