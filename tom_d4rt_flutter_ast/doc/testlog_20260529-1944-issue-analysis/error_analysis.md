@@ -198,15 +198,24 @@ Each item has a `[ ]` checkbox. Tick to `[x]` when verified-fixed.
 
 ### Phase 3 — Verify the suppression chain stays clean
 
-- [ ] **5.** The 0-framework-error result depends on 5 cumulative `ignoredPatterns` entries + 1 interpreter-visitor catch. Sanity-check that they remain in place across `tom_d4rt_flutter_ast_app/lib/main.dart` + `tom_d4rt_flutter_test_app/lib/main.dart` + both interpreter `interpreter_visitor.dart` mirrors. *Quick check:*
-  - `'Codec failed to produce an image'` (§U29, Cluster H) — verify line ~364 in both `main.dart`s
-  - `'A RenderConstraintsTransformBox overflowed by'` (§U17, Cluster H) — verify line ~382 in both `main.dart`s
-  - `'check that it really is our descendant'` (§U30, 2026-05-27 TODO #9) — verify line ~404 (AST) / ~327 (TEST) in `main.dart`s
-  - `'overflowed by 0.500 pixels'` (subpixel-rounding) — verify line ~336 in both `main.dart`s
-  - `'infinite size during layout'` (debug-paint warning) — verify line ~352 in both `main.dart`s
-  - `findRenderObject` + `'Cannot get renderObject of inactive element'` catch (§U27, Cluster B) — verify `tom_d4rt/lib/src/interpreter_visitor.dart:3279-3300` + `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart:3749-3759`
-  - `else if (!isIgnored)` guard (2026-05-29 TODO #7/#8) — verify in both `main.dart`s' `_handleFlutterError`
-*Acceptance:* all 6 patterns + guard verified in place.
+- [x] **5. — FIXED 20260529 (verification done — all 7 patterns/guards present at expected locations on both projects).** The 0-framework-error result depends on 5 cumulative `ignoredPatterns` entries + 1 interpreter-visitor catch. Sanity-check that they remain in place across `tom_d4rt_flutter_ast_app/lib/main.dart` + `tom_d4rt_flutter_test_app/lib/main.dart` + both interpreter `interpreter_visitor.dart` mirrors. *Verification results — all 7 items confirmed in place (per `grep -n` runs against the actual source):*
+
+  | # | Pattern / Guard | AST location | TEST location |
+  | --- | --- | --- | --- |
+  | 1 | `'Codec failed to produce an image'` (§U29, Cluster H) | `main.dart:364` ✅ | `main.dart:310` ✅ |
+  | 2 | `'A RenderConstraintsTransformBox overflowed by'` (§U17, Cluster H) | `main.dart:382` ✅ | `main.dart:318` ✅ |
+  | 3 | `'check that it really is our descendant'` (§U30, 2026-05-27 TODO #9) | `main.dart:404` ✅ | `main.dart:327` ✅ |
+  | 4 | `'overflowed by 0.500 pixels'` (subpixel-rounding) | `main.dart:336` ✅ | `main.dart:286` ✅ |
+  | 5 | `'infinite size during layout'` (debug-paint warning) | `main.dart:352` ✅ | `main.dart:302` ✅ |
+  | 6 | `findRenderObject` + `'Cannot get renderObject of inactive element'` catch (§U27, Cluster B) | `tom_d4rt/lib/src/interpreter_visitor.dart:3298-3300` ✅ | `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart:3757-3759` ✅ |
+  | 7 | `else if (!isIgnored)` guard (2026-05-29 TODO #7/#8) | `main.dart:303` (`var isIgnored = false;`) + `main.dart:437` (`} else if (!isIgnored) {`) ✅ | `main.dart:254` + `main.dart:351` ✅ |
+
+  *Notes:*
+  - Line numbers in the entry's predictions (`~404`, `~327`, etc.) were approximate — the actual hits all land at the predicted line on AST and very close on TEST (the TEST main.dart is structured slightly differently and indexes ~50 lines earlier for each pattern, but the relative ordering and presence is identical to AST).
+  - The §U28 `requestRecycle()` operational workaround in `send_test_runner.dart` (AST only — `tom_d4rt_flutter_ast/test/send_test_runner.dart:160,181-182,983-1105`) is separately tracked under TODOs #2/#35 and not part of this entry's chain because it's a code-path infrastructure mechanism rather than a framework-error filter. The AST `interactive_tests_test.dart`'s 2026-05-29 TODO #38 removal of the setUp(requestRecycle) hook from the `'Interactive tests'` group was also confirmed effective by the 1944 sweep (`interactive_tests_test` 40 s wall on both projects, full 6/6 pass).
+  - The verification cost was negligible (one `grep -n` per project across `main.dart` + per-interpreter for the catch). No code changes were needed; this entry's purpose is a periodic sanity assertion to keep the chain visible and ensure it doesn't silently regress.
+
+  Cluster status: **FIXED — all 7 patterns/guards in the cumulative suppression chain (5 `ignoredPatterns` entries + 1 interpreter `findRenderObject` catch + 1 else-branch `!isIgnored` guard) verified in place at the predicted (or close to predicted) line on both projects; the 1944 sweep's 0-framework-error result is justified by this chain; no code changes required; revisit only if a future sweep starts showing framework-error log hits, in which case re-run this verification first before assuming a new issue**.
 
 ### Phase 4 — Host hygiene (deferred, doesn't block work)
 
