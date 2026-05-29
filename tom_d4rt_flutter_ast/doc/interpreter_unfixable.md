@@ -4895,7 +4895,30 @@ unbounded `maxHeight`.
 
 ---
 
-## U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify (bridge layout-rounding gap)
+## U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify (bridge layout-rounding gap) — **✅ FIXED in 2206 baseline (apparent self-resolution)**
+
+**2026-05-29 update — FIXED.** The `cupertino/cupertino_nav_segmented_test.dart` script ran in the
+`testlog_20260528-2206-issue-analysis` sweep with `frameworkErrors=0
+status=success` on both projects. METRIC lines from the 2206
+`secondary_classes_test.log.txt` (AST + TEST) confirm:
+`frameworkErrors=0 status=success`. The §U15 banner pattern
+`A RenderFlex overflowed by 2.0 pixels on the right` is NOT in
+either test_app's `ignoredPatterns` list (only the subpixel
+`'overflowed by 0.500 pixels'` pattern is filtered) — so the
+absence of hits is real, not suppression-driven. The 2206 logs
+contain zero hits across all 28 files. Between the 0519-1247
+sweep (where the banner fired at 2 per frame) and the 0528-2206
+sweep, bridge regens + interpreter fixes appear to have closed
+the 2-pixel Cupertino layout-rounding gap. Exact closing change
+not localised, but the outcome is verified clean. The detailed
+analysis below is retained as a cautionary tale: a "non-fatal,
+script cannot identify the source" banner can still self-resolve
+through unrelated bridge regenerations, and the periodic full
+sweep is the right place to detect that.
+
+---
+
+## U15 — original analysis (retained for reference; the banner no longer fires as of 2026-05-29 / 2206 baseline)
 
 **Category.** Bridge layout-rounding gap (non-fatal). On a
 Cupertino-flavoured deep-demo page rendered at the standard
