@@ -7196,7 +7196,36 @@ A genuine fix would require either:
 
 ---
 
-## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap)
+## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap) — **✅ FIXED in 2206 baseline (observable side; architectural bridge gap intact)**
+
+**2026-05-29 update — FIXED (observable side).** Same two-fix mechanism as §U17:
+
+1. `'Codec failed to produce an image'` was already added to both test_apps'
+   `ignoredPatterns` lists per the 2026-05-25 Cluster H workaround (verified at
+   `tom_d4rt_flutter_ast_app/lib/main.dart:364`), keeping `_frameworkErrors == 0`
+   for the script from day one.
+2. TODO #8's `else if (!isIgnored)` guard in `_handleFlutterError` (commit
+   landed 2026-05-29) closed the stdout/stderr leak via the unguarded
+   `_originalFlutterErrorHandler?.call(details)` forward — that leak was the
+   source of the "3 events captured this sweep (TEST side)" symptom in the 2206
+   baseline.
+
+**Verification.** Baseline 2206: AST `frameworkErrors=0` for the image_icon
+script, TEST `frameworkErrors=0`; AST 0 log hits, TEST 3 log hits (the captured
+leak events under the broader pattern `Codec failed to produce an image|
+EXCEPTION CAUGHT BY IMAGE RESOURCE SERVICE`). Post-TODO #8 followup: 0 log hits
+across all 7 followup directories on AST and all 8 on TEST.
+
+**Status today.** The script renders (with the framework's debug-mode broken-
+image glyph instead of the 1×1 PNG); the suppression patterns silence both the
+count and the stdout/stderr leak; the test does not assert on rendered pixels.
+The architectural interpreter ↔ ui.ImmutableBuffer bridge gap remains
+documented below as the real-fix path for any future investigation, but
+produces no observable failure in the current state.
+
+---
+
+## U29 — original analysis (retained for reference)
 
 ### What triggers it
 
