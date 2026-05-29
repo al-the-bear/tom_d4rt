@@ -6962,6 +6962,157 @@ identifies the real accumulator (most likely #1 or #2 in the
 ranked list above) and ships a targeted reset, `requestRecycle()`
 can be reconsidered.
 
+### 2026-05-29 update — D4 instrumentation probe disproves the §U28 architectural hypothesis
+
+`testlog_20260528-2206-issue-analysis/error_analysis.md` TODO #3
+called for instrumenting per-`/clear` counters on
+`D4._nativeToInterpreted` and the D4 static caches, then re-running
+the affected subsuites to identify which counter grows monotonically.
+The instrumentation was shipped temporarily for the 20260529 probe
+then **reverted after the regression sweep** (documented further
+below). The instrumentation shape, for future investigators that want
+to re-add it temporarily:
+
+- `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` — add
+  `D4._expandoAddCount` (incremented on every
+  `registerInterpretedForNative` call; never decremented since
+  Dart Expandos cannot be enumerated) and
+  `D4.diagnosticState()` returning a snapshot of the counter plus
+  the sizes of every other D4 static map / set.
+- `tom_d4rt/lib/src/generator/d4.dart` — mirror of the same.
+- `tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` and
+  `tom_d4rt_flutter_test/lib/src/source_flutter_d4rt.dart` — add
+  `static Map<String, int> diagnosticState() => D4.diagnosticState();`
+  pass-throughs so the test_app can call them without depending on
+  `tom_d4rt_ast`/`tom_d4rt` directly (`depend_on_referenced_packages`
+  lint compliance).
+- Both test_apps' `/clear` handlers — log a `[D4_DIAG]
+  clearCount=N expandoAddCount=… interfaceProxies=… …` line per
+  `/clear` cycle, immediately after the `_d4rt.resetScript()` call.
+  Gate this behind a `TOM_D4RT_D4_DIAG=1` env-var check
+  (`_d4DiagEnabled` static final field) so the default code path
+  pays zero cost per `/clear`.
+
+**Probe results across both projects, `generator_interpreter_retest_test`
+(the highest-density transport_clear_wedge file from the 2206
+sweep — 32 errors AST / 33 errors TEST):**
+
+```
+AST (tom_d4rt_flutter_ast, port 14255, 12 dumps captured):
+  clearCount=1..18  →  expandoAddCount=0
+                       interfaceProxies=44 (flat)
+                       superArgCapturingProxies=4 (flat)
+                       typeCoercions=2 (flat)
+                       typeCoercionsByType=2 (flat)
+                       genericTypeWrappers=52 (flat)
+                       genericTypeWrapperIdentities=52 (flat)
+                       genericConstructors=120 (flat)
+                       genericConstructorIdentities=120 (flat)
+                       supplementaryMethods=4 (flat)
+                       methodInterceptors=2 (flat)
+                       staticMethodInterceptors=2 (flat)
+                       enumStaticGetters=0 (flat)
+
+TEST (tom_d4rt_flutter_test, port 14254, 8 dumps captured):
+  clearCount=19..26  →  expandoAddCount=0
+                        ...all other fields identical to AST baseline, all flat...
+```
+
+**Verdict: the §U28 architectural hypothesis is disproven.**
+
+- The Expando counter stays at **0** on both projects. The
+  `extractBridgedArg` paths that `registerInterpretedForNative`
+  was meant to instrument never fire for the
+  `generator_interpreter_retest_test` scripts in either project.
+- Every D4 static cache stays at its **post-`finalizeBridges`
+  registration size**. Bridge registration is one-shot at boot;
+  these caches do not grow per `/build` cycle.
+- The architectural finding documented in commit `42588be2`
+  (§U28 deep-fix implementation) listed Expando entries pinned by
+  live Flutter elements and D4 generator static caches as the
+  most-suspect candidates. The instrumentation falsifies both.
+
+**What this means for the wedge family:** the cross-build
+accumulator that drives `transport_clear_wedge` /
+`test_30s_timeout` outcomes lives **OUTSIDE** the D4 / interpreter
+state surface. Remaining candidates, in plausibility order:
+
+1. **Flutter framework state retained across `/build` cycles** —
+   the test_app re-mounts the root widget on `/build` but never
+   tears down the binding. `ImageCache`, `RouteObserver`,
+   `Ticker` registrations, `GestureBinding` pointer-arena state,
+   pending `addPostFrameCallback` registrations, and
+   `AutofillContext`'s native-side platform-channel queue all
+   survive a `setState(() { _d4rtWidget = null; })` cycle.
+   Scripts that schedule async work via these subsystems can
+   leave dangling callbacks that fire LATER and block the next
+   `/build`'s frame scheduler — the documented "wedge" pattern.
+
+2. **Test_app event-loop pending work** — `Future`s scheduled by
+   the prior script that resolve after `/clear` returns but
+   before the next `/build` arrives. The post-`/clear` `_pumpFor`
+   in both test_apps' `/clear` handlers tries to drain these but
+   only allots ~200 ms of pump time.
+
+3. **Test runner client-side state in `SendTestRunner`** —
+   `_d4rt._interpreter` is shared across all scripts in one
+   `flutter test` invocation. The U28 deep-fix
+   `resetScriptDeclarations()` walks `_values` but the analysis
+   showed `_initEnvironment` already constructs a fresh
+   `Environment` per `executeBundle`, so this is a no-op for
+   cross-build state. Not the cause.
+
+**Status of TODO #3:** investigation complete; hypothesis
+disproven; no D4-side reset added (none needed). The instrumentation
+was **reverted** after the post-investigation regression sweep
+showed a persistent slowdown + cascade timeouts in essential /
+important / secondary on both projects (essential timing 2.7× the
+baseline; cascade `test_30s_timeout` / `transport_clear_wedge`
+failures even with the dump gated behind an opt-in env var). A
+post-revert essential re-run also showed similar regression numbers,
+suggesting the underlying cause is **host-load accumulation from
+the 5+ hours of sweep activity that day** rather than the
+instrumentation itself — but per the workspace rule "Try to fix
+the regressions, if this fails, revert the changes," the safer
+outcome is to keep the runtime unchanged and document the finding.
+The negative-finding evidence (20 dumps captured during the probe
+showing `expandoAddCount=0` + flat caches across both projects)
+was preserved in this doc + the testlog folder's `_followup/`
+captures. Future investigators can re-add the instrumentation
+temporarily by copying the shape sketched above. The
+`requestRecycle()` hook in `interactive_tests_test.dart` stays —
+it's still the only mitigation that works because it gives each
+test a process with fresh Flutter framework state, which is where
+the actual accumulator lives.
+
+**Workaround inventory.** Two paths exist for ongoing mitigation
+until the framework-state accumulator is identified and fixed:
+
+- **`SendTestRunner.requestRecycle()`** — recycles the test_app
+  process between tests. Cost: ~5–10 s per recycle. Currently
+  applied only to the small `interactive_tests_test.dart` group
+  on flutter_ast. Could be applied to other affected suites
+  (`generator_interpreter_retest_test`, etc.) if their wedge rate
+  becomes intolerable; cost scales linearly with test count.
+- **`TOM_D4RT_*_TEST_PORT` env-var override** (commit `8cd7c27a`)
+  — bypasses kernel-zombie ports without requiring a host reboot.
+  Doesn't address the wedge cause but unblocks regression sweeps
+  when a prior wedge created an unkillable test_app process.
+
+A genuine fix would require either:
+
+- **Identifying and isolating the framework-state accumulator** —
+  likely a deep investigation into which Flutter framework
+  subsystem retains references across the test_app's
+  `setState(() { _d4rtWidget = null; })` cycle. Candidates listed
+  above. Once identified, the test_app could reset that
+  subsystem explicitly on `/clear`.
+
+- **Per-build test-app isolation** — running each `/build` in a
+  fresh isolate or process. Mirrors `requestRecycle()` but
+  amortised at the framework level. Cost: significant —
+  effectively makes the test_app a stateless executor.
+
 ---
 
 ## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap)
