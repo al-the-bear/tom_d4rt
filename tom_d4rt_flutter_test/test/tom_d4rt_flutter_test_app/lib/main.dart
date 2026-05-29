@@ -718,6 +718,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     final suite = suiteParam != null
         ? Uri.decodeComponent(suiteParam)
         : null;
+    // testlog_20260528-2206 TODO #5 — per-request build budget override
+    // (mirror of flutter_ast). Defaults to 30 s; slow scripts can
+    // override via the test runner's `httpBuildTimeout` which threads
+    // through as `&buildBudgetMs=N`. Capped at 120 s.
+    final budgetParamMs =
+        int.tryParse(request.uri.queryParameters['buildBudgetMs'] ?? '');
+    final buildBudget = budgetParamMs != null
+        ? Duration(milliseconds: budgetParamMs.clamp(1000, 120000))
+        : const Duration(seconds: 30);
     if (mounted && (filename != null || suite != null)) {
       setState(() {
         if (filename != null) _currentTestFile = filename;
@@ -756,14 +765,18 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
     await Future<void>.delayed(Duration.zero);
 
+    // testlog_20260528-2206 TODO #5 — budget now comes from `buildBudget`
+    // parsed at the top of this method (defaults to 30 s; overridable
+    // per request via `?buildBudgetMs=N`).
+    final budgetSec = buildBudget.inSeconds;
     final result = await completer.future.timeout(
-      const Duration(seconds: 30),
+      buildBudget,
       onTimeout: () {
         _capturingFrameworkErrors = false;
-        _emitBuildMetric(error: 'Build timed out after 30 seconds');
+        _emitBuildMetric(error: 'Build timed out after $budgetSec seconds');
         return _BuildResult(
           success: false,
-          error: 'Build timed out after 30 seconds',
+          error: 'Build timed out after $budgetSec seconds',
           output: _capturedOutput,
         );
       },

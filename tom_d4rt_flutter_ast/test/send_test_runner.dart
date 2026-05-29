@@ -1069,7 +1069,20 @@ class SendTestRunner {
     final suiteQuery = _currentSuite != null
         ? '&suite=${Uri.encodeComponent(_currentSuite!)}'
         : '';
-    final buildUrl = '/build?filename=$encodedPath$suiteQuery';
+    // testlog_20260528-2206 TODO #5 — thread the caller-supplied
+    // `httpBuildTimeout` into the test_app via a `&buildBudgetMs=N`
+    // query param. The test_app's `_handleBuild` defaults to its
+    // own 30 s build-completer budget; when this param is present
+    // it uses that value instead. Lets slow scripts like
+    // `retest/widgets/app_kit_view_test.dart` (an AppKit-native-view
+    // embedding demo that legitimately needs >30 s to build on
+    // macOS) opt into a longer budget without changing the global
+    // default. Only emitted when the caller explicitly passes a
+    // non-null `httpBuildTimeout` — typical scripts unaffected.
+    final buildBudgetQuery = httpBuildTimeout != null
+        ? '&buildBudgetMs=${httpBuildTimeout.inMilliseconds}'
+        : '';
+    final buildUrl = '/build?filename=$encodedPath$suiteQuery$buildBudgetQuery';
     late final Map<String, dynamic> response;
     final httpStopwatch = Stopwatch()..start();
     try {

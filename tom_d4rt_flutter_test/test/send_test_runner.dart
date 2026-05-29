@@ -688,7 +688,16 @@ class SendTestRunner {
     final suiteQuery = _currentSuite != null
         ? '&suite=${Uri.encodeComponent(_currentSuite!)}'
         : '';
-    final buildUrl = '/build?filename=$encodedPath$suiteQuery';
+    // testlog_20260528-2206 TODO #5 — mirror of flutter_ast. Thread the
+    // caller-supplied `httpBuildTimeout` into the test_app via a
+    // `&buildBudgetMs=N` query param so slow scripts can opt into a
+    // longer per-request build-completer budget. The test_app's
+    // `_handleBuild` defaults to its own 30 s budget when the param
+    // is absent.
+    final buildBudgetQuery = httpBuildTimeout != null
+        ? '&buildBudgetMs=${httpBuildTimeout.inMilliseconds}'
+        : '';
+    final buildUrl = '/build?filename=$encodedPath$suiteQuery$buildBudgetQuery';
     late final Map<String, dynamic> response;
     final httpStopwatch = Stopwatch()..start();
     try {
