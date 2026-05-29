@@ -67,7 +67,7 @@ budget_for() {
   case "$1" in
     essential_classes_test)               echo 300 ;;
     important_classes_test)               echo 900 ;;  # 2206 found 300s insufficient
-    secondary_classes_test)               echo 2400 ;;
+    secondary_classes_test)               echo 3000 ;; # 1944 found 2400s insufficient on TEST (host-load variance; AST done in 1930s)
     hardly_relevant_classes_*)            echo 1200 ;;
     crashing_tests_test)                  echo 300 ;;
     timeout_tests_test)                   echo 900 ;;
