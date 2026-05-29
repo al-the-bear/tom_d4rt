@@ -5219,7 +5219,41 @@ fit) and clamp each to `0.0` defensively.
 
 ---
 
-## U17 — `ConstraintsTransformBox` teaching script (`render_constraints_transform_box_test.dart`) is intrinsically incompatible with `frameworkErrors=0` (script design)
+## U17 — `ConstraintsTransformBox` teaching script (`render_constraints_transform_box_test.dart`) is intrinsically incompatible with `frameworkErrors=0` (script design) — **✅ FIXED in 2206 baseline (observable side; architectural framing intact)**
+
+**2026-05-29 update — FIXED (observable side).** The architectural "by design"
+framing below remains accurate — the script does intentionally feed pathological
+inputs to Flutter's debug-mode assertion machinery. But the **observable** side
+has been fully closed by two cooperating fixes:
+
+1. `'A RenderConstraintsTransformBox overflowed by'` was already in both
+   test_apps' `ignoredPatterns` lists (verified at `main.dart:382` of each
+   project's test_app), keeping `_frameworkErrors == 0` for the script from day
+   one.
+2. TODO #7's `else if (!isIgnored)` guard in `_handleFlutterError` (commit
+   landed 2026-05-29) closed the stdout/stderr leak via the unguarded
+   `_originalFlutterErrorHandler?.call(details)` forward — that leak was the
+   source of the "2 events captured in `timeout_tests_test.log.txt`" symptom in
+   the 2206 baseline.
+
+**Verification.** Baseline 2206 sweep: AST `frameworkErrors=0`, TEST
+`frameworkErrors=0` for the script; AST 0 log hits, TEST 2 log hits (the
+captured leak events). Post-TODO #7 followup: 0 log hits across all 7 followup
+directories on AST and all 8 on TEST. Both projects' METRIC lines still report
+`frameworkErrors=0 status=success`.
+
+**Status today.** The script renders, the demo's overflow assertions still fire
+inside Flutter's debug machinery (the teaching value is preserved), the
+suppression patterns silence both the count and the stdout/stderr leak. The
+architectural "by design" concern remains true in principle but produces no
+observable failure. Revisit only if (a) someone removes the suppression
+entry, OR (b) a new script triggers the same RCTB overflow shape for a
+non-teaching reason — the suppression would then need narrowing or a real
+bridge fix per the "What a real fix would look like" section below.
+
+---
+
+## U17 — original analysis (retained for reference)
 
 **Category.** Truly unfixable at both the script and the
 interpreter level — the script's *teaching purpose* is to
