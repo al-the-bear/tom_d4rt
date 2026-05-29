@@ -3263,7 +3263,31 @@ rewriting.
 
 ---
 
-## U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames` (interpreter limitation)
+## U7 — Dart-internal `_ConstMap` (runtime class of `const <K, V>{}`) is not in the Map bridge's `nativeNames` (interpreter limitation) — **✅ FIXED in commit `f5ff30ee`**
+
+> **2026-05-29 update — FIXED.** Commit `f5ff30ee`
+> (`fix(d4rt-interpreter): register _ConstMap in Map bridge nativeNames (C43)`)
+> added `_ConstMap` to the `nativeNames` lists in both
+> `tom_d4rt_ast/lib/src/runtime/stdlib/core/map.dart` and
+> `tom_d4rt/lib/src/stdlib/core/map.dart`. The 20260528-2206 sweep
+> contains zero "Cannot access property '…' on target of type
+> _ConstMap<…>" hits across all `*.log.txt` files, and all 5
+> historically-affected SemanticsEvent scripts
+> (`announce_semantics_event_test.dart`, `tap_semantic_event_test.dart`,
+> `semantics_events_test.dart`, `semantics_data_test.dart`,
+> `semantics_event_test.dart`) pass cleanly. The §U7 problem
+> description below documents the original symptom + diagnostic
+> guidance and the script-side workaround (now optional rather than
+> mandatory) for archive purposes; new occurrences should not happen
+> on the current bridge surface.
+>
+> The broader architectural fix proposed in the original §U7
+> "Constraints" section (teach the Map adapter to fall back to
+> `target is Map` whenever the runtime type lookup misses) was NOT
+> taken — the narrower `_ConstMap`-by-name fix matches the same SDK
+> classes the existing `_CompactLinkedHashMap` / `_MapView` /
+> `_UnmodifiableMapView` entries target, and is consistent with the
+> rest of the bridge surface's naming-based approach.
 
 **Category.** Interpreter / stdlib-bridge limitation. The d4rt
 Map `BridgedClass` registers a curated `nativeNames` list so that
