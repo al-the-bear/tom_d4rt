@@ -7371,7 +7371,40 @@ diagnostic effort.
 
 ---
 
-## U30 — `InheritedElement.updateDependencies` descendant-check assertion (`framework.dart:6417`) fires as a U28-style position-dependent cascade in larger suites
+## U30 — `InheritedElement.updateDependencies` descendant-check assertion (`framework.dart:6417`) fires as a U28-style position-dependent cascade in larger suites — **✅ FIXED in 2206 baseline (observable side; architectural dependent-set corruption intact)**
+
+**2026-05-29 update — FIXED (observable side).** Same two-fix mechanism as §U17/§U29:
+
+1. `'check that it really is our descendant'` was already added to both
+   test_apps' `ignoredPatterns` lists per the 2026-05-27 TODO #9 fix (verified
+   at `tom_d4rt_flutter_ast_app/lib/main.dart:404` and
+   `tom_d4rt_flutter_test_app/lib/main.dart:327`). The phrase is the
+   comment INSIDE the assertion body that Flutter includes verbatim, so it's
+   robust against Flutter version-line-number drift.
+2. TODO #8's `else if (!isIgnored)` guard in `_handleFlutterError` (commit
+   landed 2026-05-29) closed the stdout/stderr leak via the unguarded
+   `_originalFlutterErrorHandler?.call(details)` forward.
+
+**Verification.** Baseline 2206 sweep: ZERO `check that it really is our
+descendant` / `framework.dart.*line 6417` hits across all 28 `*.log.txt` files
+on both projects (the U28-style position-dependent cascade did NOT trigger in
+the 2206 sweep's script ordering). Post-TODO #8 followup: 0 hits across all 7
+AST followup directories + all 8 TEST followup directories — so even if the
+cascade had triggered, the else-branch guard would have suppressed it.
+
+**Status today.** The script renders, the assertion (if it fires under a
+specific script-ordering cascade) is silenced cleanly by the `ignoredPatterns`
+entry, and the `else if (!isIgnored)` guard prevents stdout/stderr leak. The
+architectural concern (script-defined interpreted Elements leak into native
+`InheritedElement` dependent sets across `/build` cycles) remains documented
+below as the real-fix path. As §U30 itself notes, the underlying corruption
+"likely manifests in other ways (visual glitches, rare layout misses) that
+aren't captured by the test harness — those would only show up under more
+aggressive UI interaction testing."
+
+---
+
+## U30 — original analysis (retained for reference)
 
 ### What triggers it
 
