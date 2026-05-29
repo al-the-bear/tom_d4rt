@@ -20,6 +20,13 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+/// testlog_20260528-2206 TODO #4 — mirror of flutter_ast. Bumped
+/// per-test timeout for scripts that historically trip the Flutter
+/// test framework's default 30 s wrapper. The source-direct
+/// interpreter's cold-start parse + execute (§U25) is heavier than
+/// the AST-bundle path so this project has more candidates.
+const _slowTestTimeout = Timeout(Duration(seconds: 60));
+
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp();
@@ -166,7 +173,7 @@ void main() {
     test('raw_image_test.dart', () async {
       final result = await SendTestRunner.send('widgets/raw_image_test.dart');
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('raw_keyboard_listener_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -274,7 +281,7 @@ void main() {
         'widgets/regular_window_controller_win32_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('regular_window_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -482,7 +489,7 @@ void main() {
         'widgets/restorable_listenable_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test(
       'restorable_num_n_test.dart',
@@ -596,7 +603,7 @@ void main() {
         'widgets/scroll_activity_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('scroll_activity_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -708,7 +715,7 @@ void main() {
         'widgets/scroll_to_document_boundary_intent_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('scroll_update_notification_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -836,7 +843,7 @@ void main() {
         'widgets/semantics_debugger_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('semantics_gesture_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1109,7 +1116,7 @@ void main() {
         'widgets/static_selection_container_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('status_transition_widget_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1375,7 +1382,7 @@ void main() {
         'widgets/two_dimensional_child_list_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('two_dimensional_child_manager_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1484,7 +1491,7 @@ void main() {
         'widgets/user_scroll_notification_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('viewport_element_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1587,7 +1594,7 @@ void main() {
         'widgets/widget_state_property_all_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('widget_state_test.dart', () async {
       final result = await SendTestRunner.send(

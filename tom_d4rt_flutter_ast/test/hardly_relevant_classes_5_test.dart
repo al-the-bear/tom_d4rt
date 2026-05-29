@@ -20,6 +20,17 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+/// testlog_20260528-2206 TODO #4 — bumped per-test timeout for scripts
+/// that historically trip the Flutter test framework's default 30 s
+/// wrapper. Per `interpreter_unfixable.md` §U25 the source-direct
+/// interpreter's cold-start parse + execute can exceed 50 s on the
+/// largest scripts; the AST-bundle path is faster but still hits the
+/// 30 s boundary on some widget-state demos when the host is loaded.
+/// 60 s gives enough headroom without masking genuine wedge behaviour
+/// (transport_clear_wedge scripts still fail at the test_app's
+/// internal 30 s build budget before the outer wrapper fires).
+const _slowTestTimeout = Timeout(Duration(seconds: 60));
+
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp();
@@ -173,7 +184,7 @@ void main() {
         'widgets/raw_keyboard_listener_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('raw_menu_anchor_group_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -295,7 +306,7 @@ void main() {
         'widgets/relative_rect_tween_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('render_abstract_layout_builder_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -412,7 +423,7 @@ void main() {
         'widgets/repeating_animation_builder_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('replace_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -658,7 +669,7 @@ void main() {
         'widgets/scroll_increment_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('scroll_metrics_notification_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -799,7 +810,7 @@ void main() {
         'widgets/selectable_region_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('selection_container_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1044,7 +1055,7 @@ void main() {
         'widgets/slotted_container_render_object_mixin_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('slotted_multi_child_render_object_widget_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1276,7 +1287,7 @@ void main() {
         'widgets/transition_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('transition_route_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1396,7 +1407,7 @@ void main() {
         'widgets/two_dimensional_scrollable_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('two_dimensional_scrollable_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1524,7 +1535,7 @@ void main() {
         'widgets/web_browser_detection_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('widget_inspector_service_extensions_test.dart', () async {
       final result = await SendTestRunner.send(
