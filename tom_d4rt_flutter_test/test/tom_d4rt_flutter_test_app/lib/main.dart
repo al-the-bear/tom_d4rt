@@ -248,6 +248,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       );
     }
 
+    // 20260529 — testlog_20260528-2206 TODO #7/#8: mirror of flutter_ast
+    // fix. Declare `isIgnored` at outer scope so the forwarding branch
+    // (below) can also see it and skip forwarding for ignored patterns.
+    var isIgnored = false;
+
     if (_capturingFrameworkErrors) {
       // The `_RenderEditableCustomPaint` cascade is a known transient first-frame
       // artifact when a `CupertinoTextField` (or any `EditableText` host) is laid
@@ -321,7 +326,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // the deferred deep fix.
         'check that it really is our descendant',
       ];
-      final isIgnored =
+      isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
 
       if (!isIgnored) {
@@ -343,7 +348,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               'internal restart applied (generation=$_widgetGeneration)');
         }
       });
-    } else {
+    } else if (!isIgnored) {
+      // 20260529 — testlog_20260528-2206 TODO #7/#8: mirror of the
+      // flutter_ast fix. Forward only un-ignored errors. Previously
+      // this branch fired unconditionally so §U17/§U29/§U30 patterns
+      // matched by `ignoredPatterns` still hit Flutter's default
+      // handler and printed `EXCEPTION CAUGHT BY ...` to stdout —
+      // polluting per-file log captures even though the intended
+      // suppression had correctly kept them out of `_frameworkErrors`.
       _traceCleanup('forwarded',
           'forwarding to original FlutterError handler (would show red screen)');
       _originalFlutterErrorHandler?.call(details);

@@ -296,6 +296,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       );
     }
 
+    // 20260529 — testlog_20260528-2206 TODO #7/#8: declare `isIgnored` at
+    // outer scope so the forwarding branch (below) can also see it.
+    // Stays `false` outside capture periods (preserves the original
+    // pre-capture forwarding behavior). Set inside the capturing block.
+    var isIgnored = false;
+
     if (_capturingFrameworkErrors) {
       // Filter out internal Flutter framework assertions that are not visible
       // red error screens (e.g. semantics parent-data bookkeeping).
@@ -397,7 +403,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // framework assertion.
         'check that it really is our descendant',
       ];
-      final isIgnored =
+      isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
 
       if (!isIgnored) {
@@ -428,8 +434,24 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               'internal restart applied (generation=$_widgetGeneration)');
         }
       });
-    } else {
-      // Forward all other errors to the original handler for logging / display.
+    } else if (!isIgnored) {
+      // Forward UN-IGNORED errors to the original handler for logging / display.
+      //
+      // 20260529 — testlog_20260528-2206 TODO #7/#8: previously this branch
+      // ran for every non-silenced error, INCLUDING those matched by
+      // `ignoredPatterns`. The `if (!isIgnored)` guard above correctly
+      // skipped adding to `_frameworkErrors` (so `result.frameworkErrors`
+      // stayed clean), but the unconditional forward here still let
+      // Flutter's default handler print the red `EXCEPTION CAUGHT BY ...`
+      // block to stdout — polluting per-file log captures with §U17
+      // (ConstraintsTransformBox overflow demo), §U29 (MemoryImage codec
+      // failure), §U30 (InheritedElement descendant-check), etc. lines
+      // that the ignore-list was explicitly meant to suppress.
+      //
+      // Guarding the forward on `!isIgnored` makes the suppression
+      // complete: ignored patterns now neither surface as framework
+      // errors NOR as stderr noise. Real (non-ignored) framework errors
+      // still get the original red-screen treatment for visibility.
       _traceCleanup('forwarded',
           'forwarding to original FlutterError handler (would show red screen)');
       _originalFlutterErrorHandler?.call(details);

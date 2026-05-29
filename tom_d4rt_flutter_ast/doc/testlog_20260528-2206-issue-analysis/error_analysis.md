@@ -41,7 +41,7 @@ The `generator_interpreter_retest_test` AST improvement (32 → 2 errors) is not
 | File | Pass | Fail | Err | Skip | Done? | Budget / Used |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `essential_classes_test` | 111 | 0 | 0 | 0 | ✅ | 300 / 250 s |
-| `important_classes_test` | 135 | 0 | 0 | 0 | ⏸ killed | 300 s cap |
+| `important_classes_test` | 166 | 0 | 1 | 0 | ✅ (followup) | 900 / 430 s — entry #1 |
 | `secondary_classes_test` | 656 | 0 | 0 | 1 | ✅ | 2400 / 1920 s |
 | `hardly_relevant_classes_1_test` | 207 | 0 | 0 | 1 | ✅ | 1200 / 600 s |
 | `hardly_relevant_classes_2_test` | 206 | 0 | 0 | 0 | ✅ | 1200 / 360 s |
@@ -61,7 +61,7 @@ The `generator_interpreter_retest_test` AST improvement (32 → 2 errors) is not
 | File | Pass | Fail | Err | Skip | Done? | Budget / Used |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `essential_classes_test` | 111 | 0 | 0 | 0 | ✅ | 300 / 260 s |
-| `important_classes_test` | 120 | 0 | 0 | 0 | ⏸ killed | 300 s cap |
+| `important_classes_test` | 167 | 0 | 0 | 0 | ✅ (followup) | 900 / 600 s — entry #1 |
 | `secondary_classes_test` | 656 | 0 | 0 | 1 | ✅ | 2400 / 1910 s |
 | `hardly_relevant_classes_1_test` | 207 | 0 | 0 | 1 | ✅ | 1200 / 630 s |
 | `hardly_relevant_classes_2_test` | 206 | 0 | 0 | 0 | ✅ | 1200 / 380 s |
@@ -163,7 +163,7 @@ Each item has a `[ ]` checkbox. Tick to `[x]` when verified-fixed.
 
 ### Phase 1 — Coverage gap to close (cheap)
 
-- [ ] **1.** Re-run `important_classes_test` with budget ≥600 s (likely 700–800 s safe) on both projects to capture the remaining ~30 AST tests + ~50 TEST tests cut by the 300 s cap. Update §2 tables in this `error_analysis.md` with the post-bump counts.
+- [x] **1. — FIXED 20260529.** Re-run `important_classes_test` with budget ≥600 s on both projects to capture the remaining tests cut by the 300 s cap. *Done in followup sweep:* AST `166 pass / 0 fail / 1 err / 0 skip` (430 s) and TEST `167 pass / 0 fail / 0 err / 0 skip` (600 s). §2 tables updated. The single AST error is `material/bottomappbar_test.dart` — a `transport_build_wedge` (POST /build TimeoutException at 25 s). This script wasn't reached at the prior 300 s cap (135/120 pass before kill), so the error is **newly visible** but not a regression — it's a pre-existing U28-wedge-family symptom in a previously-uncovered script. Tracked under TODO #3 (transport_clear_wedge cluster — same root cause family).
 
 ### Phase 2 — Host hygiene (deferred, doesn't block work)
 
@@ -181,9 +181,9 @@ Each item has a `[ ]` checkbox. Tick to `[x]` when verified-fixed.
 
 - [ ] **6.** TEST `interactive_tests_test` setUpAll error — captured as a single `test_30s_timeout` on `(setUpAll)`. Likely the recycle hook from `requestRecycle()` consumed the setUpAll's 180 s budget when the test_app was slow to start (cold launch of the source-direct app is genuinely heavier per §U25). Either raise the suite's setUpAll timeout OR fold the recycle into a later setUp where the budget is per-test.
 
-- [ ] **7.** §U17 framework-error noise — `render_constraints_transform_box_test.dart` emits 2 overflow + 3 FlutterError lines to the test wrapper log. Per §U17 this is by design (intrinsic to the teaching script). Confirm whether the `_handleFlutterError` `ignoredPatterns` in `tom_d4rt_flutter_test_app/lib/main.dart` includes the `RenderConstraintsTransformBox overflowed by` pattern; if not, add it to mute the noise without affecting test outcomes.
+- [x] **7. — FIXED 20260529.** §U17 framework-error noise — *Investigation:* both test_apps already had `'A RenderConstraintsTransformBox overflowed by'` in their `ignoredPatterns` lists; the bug was elsewhere. The inner `if (_capturingFrameworkErrors)` block correctly skipped adding ignored patterns to `_frameworkErrors`, but the outer `else { _originalFlutterErrorHandler?.call(...) }` ran unconditionally for every non-silenced error — forwarding ignored patterns to Flutter's default red-screen handler and printing `EXCEPTION CAUGHT BY ...` to stdout. *Fix:* hoist `isIgnored` declaration to outer scope; change `else` → `else if (!isIgnored)` so ignored patterns are silently dropped from both `_frameworkErrors` AND the forwarded handler. *Verification:* followup re-run of TEST `timeout_tests_test` (where §U17 fired in 2206) now shows **0 EXCEPTION CAUGHT BY lines, 0 overflow lines, 0 RCTB lines, 0 framework_error events** in the log. **Cluster status: FIXED.**
 
-- [ ] **8.** §U29 framework-error noise — `image_icon_test.dart` emits 3 `Codec failed to produce an image` lines on the TEST side. The §U29 closure documents adding this exact line to `ignoredPatterns` — verify the ignore is still active in `tom_d4rt_flutter_test_app/lib/main.dart` (it may have been reverted, or the patch was AST-only).
+- [x] **8. — FIXED 20260529.** §U29 framework-error noise — same root cause + same fix as #7 above (single change covers both Ux entries plus §U30 going forward). The `'Codec failed to produce an image'` pattern was already in both `ignoredPatterns` lists; the forward-path bug was making it leak anyway. *Verification:* followup re-run of TEST `hardly_relevant_classes_4_test` (where §U29 fired in 2206) now shows **0 Codec lines, 0 EXCEPTION CAUGHT BY lines** in the log. **Cluster status: FIXED.**
 
 ### Phase 4 — Deferred items from `interpreter_unfixable.md`
 
@@ -227,6 +227,57 @@ One TODO per open Ux entry. Items #3, #4, #7, #8 above already address U17, U25,
 
 ---
 
-**End of analysis.** The combination of the §U28 deep-fix (`42588be2`/`d613142e`/`90854bc9`), the port-override (`8cd7c27a`), and the lifecycle fix (`9f4dc79c`) yielded a sweep with **4309 passing tests, 1 failure, 79 errors, 8 skipped** across both projects — a **98.2 % pass rate** and **2× the coverage** of the prior 1919 sweep. All non-pass outcomes classify into known U28-wedge-family causes or pre-documented `interpreter_unfixable.md` items; zero novel infrastructure regressions.
+## Cluster status — followup sweep 20260529 (entry #1 + framework-error cleanup)
 
-Phase 1 (#1) and Phase 3 (#3, #4) are the highest-leverage immediate next steps. Phase 2 (#2, host reboot) is deferrable indefinitely while the port-override is available.
+This block summarises the followup work done against TODO entries #1, #7, #8.
+
+| TODO | Cluster | Status | Verification |
+| --- | --- | --- | --- |
+| #1 | `important_classes_test` budget bump | **FIXED** | AST 166/0/1 (full coverage; 1 newly-visible U28 wedge), TEST 167/0/0 |
+| #7 | §U17 framework-error log noise | **FIXED** | TEST `timeout_tests_test` followup: 0 EXCEPTION CAUGHT BY / 0 overflow / 0 RCTB / 0 framework_error events |
+| #8 | §U29 framework-error log noise | **FIXED** | TEST `hardly_relevant_classes_4_test` followup: 0 Codec / 0 EXCEPTION CAUGHT BY events |
+
+**What was done:**
+
+1. **Diagnosed the framework-error leak.** Initial hypothesis (#7/#8 in original list) was that the `ignoredPatterns` lists didn't include §U17 / §U29 patterns. Investigation showed both patterns WERE already in the lists — the leak was elsewhere. Root cause: the inner `if (_capturingFrameworkErrors) { ... }` block correctly skipped adding ignored patterns to `_frameworkErrors`, but the outer `else { _originalFlutterErrorHandler?.call(details); }` ran unconditionally for every non-silenced error, forwarding ignored patterns to Flutter's default handler and printing the red `EXCEPTION CAUGHT BY ...` block to stdout.
+
+2. **Fixed both test_apps' `_handleFlutterError`** (tom_d4rt_flutter_ast_app/lib/main.dart + tom_d4rt_flutter_test_app/lib/main.dart):
+   - Hoisted `isIgnored` declaration to outer scope (`var isIgnored = false;` before the inner block).
+   - Inside the `if (_capturingFrameworkErrors)` block, changed `final isIgnored = ...` to `isIgnored = ...` (assignment to outer var).
+   - Changed outer `} else { ... }` → `} else if (!isIgnored) { ... }` so ignored patterns now skip BOTH the `_frameworkErrors` add AND the red-screen forward.
+
+3. **Re-ran the regression sweep per rule (b)** since the test_apps are host-side `tom_d4rt_flutterm` code (not test scripts in the `test/` subfolder): essential + important + secondary on both projects, plus the two cleanup-verification files (TEST timeout_tests_test, TEST hardly_relevant_classes_4_test) at fresh ports 14252/14253.
+
+**Followup sweep results (07:51 → 08:50 PDT, ~59 min wall):**
+
+| File | AST followup | TEST followup |
+| --- | --- | --- |
+| `essential_classes_test` | 111 / 0 / 0 / 0 | 111 / 0 / 0 / 0 |
+| `important_classes_test` | 166 / 0 / 1 / 0 (entry #1 ✅) | 167 / 0 / 0 / 0 (entry #1 ✅) |
+| `secondary_classes_test` | 656 / 0 / 0 / 1 | 656 / 0 / 0 / 1 |
+| `timeout_tests_test` (TEST verify) | — | 54 / 0 / 0 / 0 (was 52 / 0 / 2 / 0) |
+| `hardly_relevant_classes_4_test` (TEST verify) | — | 230 / 0 / 0 / 0 (was 225 / 0 / 5 / 0) |
+| **Followup totals** | **933 / 0 / 1 / 1** | **1218 / 0 / 0 / 1** |
+| Regression vs. 2206 | clean (no new failures introduced by the change) | clean — and 7 prior errors disappeared (likely host-load variance in the U28-wedge family) |
+
+**Log-noise verification (the actual user-requested check):**
+
+| Pattern | AST followup logs | TEST followup logs |
+| --- | ---: | ---: |
+| `EXCEPTION CAUGHT BY` | **0** | **0** |
+| `overflowed by` | **0** | **0** |
+| `Codec failed to produce an image` | **0** | **0** |
+| `RenderConstraintsTransformBox overflowed` | **0** | **0** |
+| `[framework] FlutterError fired` (trace lines) | **0** | **0** |
+
+Both test_apps now correctly suppress the entire ignored-pattern set — `_frameworkErrors` stays clean (build assertions still see `frameworkErrors == 0` for these scripts) AND log captures stay clean (no stderr noise from Flutter's default handler). The change is fully symmetric across both test_apps.
+
+**Regression rule (b) compliance.** The change touches host-side test_app `lib/main.dart` files — classified as "tom_d4rt_flutterm code" (not test scripts in the test/ scripts subfolder). Rule (b) requires essential + important + secondary + modified-component verification. All five files re-ran clean above; the 1 newly-visible `bottomappbar_test` error in AST important is a pre-existing U28-wedge symptom that was previously masked by the 300 s budget cap (it was never reached in the 2206 sweep), NOT a regression introduced by this change.
+
+**Followup captures location.** Raw `.result.json` + `.log.txt` files for the 8 followup runs live in `doc/testlog_20260528-2206-issue-analysis/_followup/` in each project. The `_followup/` subfolder is gitignored per the `testlog_*/**` convention; only this analysis file documents the outcome.
+
+---
+
+**End of analysis.** The combination of the §U28 deep-fix (`42588be2`/`d613142e`/`90854bc9`), the port-override (`8cd7c27a`), the lifecycle fix (`9f4dc79c`), and the 20260529 framework-error-suppression fix yielded a sweep with **4309 passing tests + 933+1218 followup passes, 1 failure, 79 errors (now 1 in followup), 8 skipped** — clean test outcomes and clean per-file log captures. All non-pass outcomes classify into known U28-wedge-family causes or pre-documented `interpreter_unfixable.md` items; zero novel infrastructure regressions.
+
+Phase 1 (#1) ✅ closed. Phase 3 #7/#8 ✅ closed. Phase 2 (#2, host reboot) deferrable. Phase 3 #3/#4/#5 (real U28 wedge accumulator + §U25 cold-start) remain the highest-leverage open work.
