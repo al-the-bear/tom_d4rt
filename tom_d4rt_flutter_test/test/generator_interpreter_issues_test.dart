@@ -16,6 +16,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
+/// scripts that historically trip the Flutter test framework's default
+/// 30 s wrapper. See the AST sibling
+/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
+/// full rationale. Source-direct interpreter cold-start (§U25) can
+/// exceed 30 s on the largest scripts; 60 s gives enough headroom
+/// without masking genuine wedge behaviour.
+const _slowTestTimeout = Timeout(Duration(seconds: 60));
+
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
   final errors = result.frameworkErrors.isNotEmpty
@@ -337,7 +346,7 @@ void main() {
         'rendering/custom_painter_semantics_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // 39. rendering/relayout_when_system_fonts_change_mixin_test.dart (idx 312)
     test('rendering/relayout_when_system_fonts_change_mixin_test.dart', () async {
@@ -511,7 +520,7 @@ void main() {
         'widgets/html_element_view_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // 57. widgets/image_filtered_test.dart (idx 343)
     test('widgets/image_filtered_test.dart', () async {
@@ -591,7 +600,7 @@ void main() {
         'widgets/overflow_box_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // 67. widgets/page_storage_bucket_test.dart (idx 354)
     test('widgets/page_storage_bucket_test.dart', () async {
@@ -713,7 +722,7 @@ void main() {
         'widgets/scrollbar_orientation_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // 2. widgets/sliver_animated_list_state_test.dart (idx 203)
     test('widgets/sliver_animated_list_state_test.dart', () async {

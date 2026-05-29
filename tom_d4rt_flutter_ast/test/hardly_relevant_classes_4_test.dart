@@ -20,6 +20,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
+/// scripts that historically trip the Flutter test framework's default
+/// 30 s wrapper. See `hardly_relevant_classes_5_test.dart` for full
+/// rationale.
+const _slowTestTimeout = Timeout(Duration(seconds: 60));
+
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp(regenerateBridges: false);
@@ -1519,7 +1525,7 @@ void main() {
         'widgets/overlay_portal_controller_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('overlay_portal_test.dart', () async {
       final result = await SendTestRunner.send(

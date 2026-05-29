@@ -17,6 +17,25 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
+/// scripts that historically trip the Flutter test framework's default
+/// 30 s wrapper. See the AST sibling
+/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
+/// full rationale. The TEST project's source-direct interpreter cold
+/// start (§U25) can exceed 30 s on the largest scripts; 60 s gives
+/// enough headroom without masking genuine wedge behaviour.
+const _slowTestTimeout = Timeout(Duration(seconds: 60));
+
+/// Four §U25 cold-start retest scripts already had a 60 s wrapper applied
+/// in earlier baselines but the 2206 sweep still saw them hit the 1-min
+/// boundary on TEST (popup_menu / app_kit_view / box_scroll_view /
+/// live_text_input_status / render_sliver_box_child_manager). Bumping
+/// those individually to 120 s — same rationale, longer headroom for the
+/// slowest cold-start path. Wedge family (transport_clear_wedge) still
+/// fails at the test_app's internal 30 s build budget; this only affects
+/// the outer test-framework wrapper.
+const _verySlowTestTimeout = Timeout(Duration(seconds: 120));
+
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
   final errors = result.frameworkErrors.isNotEmpty
@@ -185,7 +204,7 @@ void main() {
         'retest/material/popup_menu_position_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: material/theme_extension_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -265,11 +284,14 @@ void main() {
           // 20260524-2003 baseline §6/T6 (= todo #7): cold-start
           // contention in the gir retest cluster. Standard caller-side
           // 25 s → 50 s cap with 60 s dart-test wrapper.
+          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
+          // 1-min boundary on TEST; bumped to 120 s (_verySlowTestTimeout)
+          // for §U25 cold-start headroom.
           httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
+      timeout: _verySlowTestTimeout,
     );
 
     // Services
@@ -293,7 +315,7 @@ void main() {
         'retest/services/method_codec_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // Widgets
     test('retest: widgets/android_view_surface_test.dart', () async {
@@ -315,11 +337,14 @@ void main() {
           // family as E1/E12/E25/E36/E39: 50 s leaves 10 s of
           // headroom under the 60 s dart-test wrapper. Applied
           // symmetrically with the ast variant.
+          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
+          // 1-min boundary on TEST; bumped to 120 s
+          // (_verySlowTestTimeout) for §U25 cold-start headroom.
           httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
+      timeout: _verySlowTestTimeout,
     );
 
     test('retest: widgets/back_button_listener_test.dart', () async {
@@ -338,11 +363,14 @@ void main() {
           // contention in the gir retest cluster (symmetric with the
           // ast variant). Standard caller-side 25 s → 50 s cap with
           // 60 s dart-test wrapper.
+          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
+          // 1-min boundary on TEST; bumped to 120 s
+          // (_verySlowTestTimeout) for §U25 cold-start headroom.
           httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
+      timeout: _verySlowTestTimeout,
     );
 
     // W1: Script passes in isolation (frameworkErrors=0, totalMs<1s) but
@@ -375,7 +403,7 @@ void main() {
         waitBeforeClear: const Duration(seconds: 10),
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     // W2: Confirmed independent wedger (run4, 2026-04-28).  /build hangs
     // for 30s when this script runs — even with default_selection_style
@@ -409,12 +437,15 @@ void main() {
       () async {
         final result = await SendTestRunner.send(
           'retest/widgets/live_text_input_status_test.dart',
+          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
+          // 1-min boundary on TEST; bumped to 120 s
+          // (_verySlowTestTimeout) for §U25 cold-start headroom.
           waitBeforeClear: const Duration(seconds: 10),
           httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
+      timeout: _verySlowTestTimeout,
     );
 
     // 20260525 §6.3 follow-up: W4 cascade verified resolved on the ast
@@ -436,7 +467,7 @@ void main() {
         'retest/widgets/nested_scroll_view_state_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/next_focus_intent_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -450,7 +481,7 @@ void main() {
         'retest/widgets/object_key_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/raw_dialog_route_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -464,7 +495,7 @@ void main() {
         'retest/widgets/raw_keyboard_listener_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/raw_menu_overlay_info_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -478,7 +509,7 @@ void main() {
         'retest/widgets/raw_radio_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/redo_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -492,7 +523,7 @@ void main() {
         'retest/widgets/regular_window_controller_delegate_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/regular_window_controller_linux_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -506,7 +537,7 @@ void main() {
         'retest/widgets/regular_window_controller_mac_o_s_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/regular_window_controller_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -520,7 +551,7 @@ void main() {
         'retest/widgets/regular_window_controller_win32_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/regular_window_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -534,7 +565,7 @@ void main() {
         'retest/widgets/render_abstract_layout_builder_mixin_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/render_nested_scroll_view_viewport_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -548,7 +579,7 @@ void main() {
         'retest/widgets/render_tap_region_surface_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
 
     test('retest: widgets/replace_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -562,6 +593,6 @@ void main() {
         'retest/widgets/request_focus_action_test.dart',
       );
       expectSuccess(result);
-    });
+    }, timeout: _slowTestTimeout);
   });
 }
