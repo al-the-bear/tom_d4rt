@@ -19,6 +19,31 @@
 /// `httpBuildTimeout: 50 s` to absorb cold-start contention on the
 /// 800 KB+ AST bundles.
 @TestOn('vm')
+// testlog_20260528-2206 TODO #6 — library-level @Timeout default.
+//
+// Dart `package:test` applies a 30 s default timeout to `setUpAll` /
+// `tearDownAll` / `setUp` / `tearDown` and any `test()` without an
+// explicit `timeout:` override. The 2206 baseline captured a
+// `test_30s_timeout` error on this file's `(setUpAll)` because the
+// source-direct test_app's cold launch + port reap can exceed 30 s
+// when the host is under sweep load (§U25 cold-start performance
+// limit + host-saturation contention documented across the 20260529
+// regression turns).
+//
+// The internal `SendTestRunner.setUp(timeout: 180s)` below cannot
+// kick in if the outer wrapper has already fired. Per-test
+// `timeout:` overrides (90 s each) only apply to `test()` blocks,
+// not to setUpAll. The library-level `@Timeout` annotation is the
+// supported `package:test` mechanism to extend the suite default
+// for everything that doesn't carry its own override.
+//
+// 240 s gives ~2× headroom over the inner 180 s `SendTestRunner.setUp`
+// timeout — enough to absorb a worst-case cold launch while still
+// bounded enough to detect a genuinely-stuck setUpAll within a
+// reasonable wall-time. The per-test 90 s timeouts further down
+// still apply unchanged — they override this library default for
+// the test() blocks they appear on.
+@Timeout(Duration(seconds: 240))
 library;
 
 import 'package:flutter_test/flutter_test.dart';
@@ -32,7 +57,16 @@ const Duration _interactiveBuildTimeout = Duration(seconds: 50);
 
 void main() {
   setUpAll(() async {
-    await SendTestRunner.setUp(timeout: const Duration(seconds: 120));
+    // testlog_20260528-2206 TODO #6 — bumped from 120 s to 180 s
+    // for parity with the AST sibling. Mirrors the 1401-TODO #11
+    // (H2) headroom rationale: when this suite runs late in a
+    // multi-suite sweep the host has accumulated dyld/filesystem
+    // cache pressure plus stale port-binds; 120 s is the prior
+    // 1401 failure point, 180 s gives 50 % headroom. Combined with
+    // the library-level `@Timeout(240 s)` annotation above, the
+    // outer wrapper now allows enough room for this to actually
+    // complete.
+    await SendTestRunner.setUp(timeout: const Duration(seconds: 180));
   });
 
   tearDownAll(() async {
