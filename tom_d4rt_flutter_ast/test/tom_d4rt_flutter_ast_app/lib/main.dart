@@ -304,15 +304,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
     if (_capturingFrameworkErrors) {
       // Filter out internal Flutter framework assertions that are not visible
-      // red error screens (e.g. semantics parent-data bookkeeping).
-      //
-      // The `_RenderEditableCustomPaint` cascade is a known transient first-frame
-      // artifact when a `CupertinoTextField` (or any `EditableText` host) is laid
-      // out under the test app's tightly-bounded widget-tab pane. The negative
-      // minimum height assertion fires once on the first frame, then the same
-      // RenderObject is relaid out cleanly on the next frame and the test passes.
-      // We filter the root error and its direct downstream cascade so the
-      // captured `frameworkErrors` reflect real script bugs only.
+      // red error screens. The list below historically suppressed several
+      // categories of transient first-frame and bridge artifacts; per
+      // 1944 TODO A.1-A.7 (2026-05-30) every entry has been audited by
+      // discovery sweeps and either removed (no longer firing) or fixed
+      // at the script level. Each removal is documented in-place below.
       const ignoredPatterns = [
         // 1944 TODO A.6 (2026-05-30): the `'parentDataDirty'` and
         // `'parentData is set up correctly'` ignoredPatterns entries
@@ -331,12 +327,25 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // script reintroduces such a pattern, the assertions will
         // surface in the framework-error log (good — that signal is
         // what the suppressions previously hid).
-        // _RenderEditableCustomPaint first-frame cascade — see comment above.
-        '_RenderEditableCustomPaint',
-        // Direct downstream layout assertion when the painter wasn't laid out.
-        "'hasSize'",
-        // Semantics layout-state assertion that follows the same cascade.
-        "'!childSemantics.renderObject._needsLayout'",
+        // 1944 TODO A.7 (2026-05-30): the `'_RenderEditableCustomPaint'`,
+        // `"'hasSize'"`, and `"'!childSemantics.renderObject._needsLayout'"`
+        // ignoredPatterns entries that previously lived here have been
+        // REMOVED. Discovery sweep across both projects' full test
+        // corpora (9 host files = ~1992 scripts each) with all three
+        // entries commented out found ZERO occurrences of any of the
+        // three patterns on either project. The historical cascade
+        // (`CupertinoTextField` / `EditableText` host laid out under
+        // a tightly-bounded widget-tab pane → negative minimum height
+        // assertion on the first frame → cascading `hasSize` /
+        // `!childSemantics._needsLayout` assertions) is no longer
+        // reproducible in the current corpus, presumably because the
+        // affected interactive_tests / textfield demos have been
+        // rewritten or stabilised by prior TODOs. The framework's
+        // assertions themselves remain the correct signal for
+        // EditableText first-frame layout bugs. If a future script
+        // reintroduces such a pattern, the assertions will surface
+        // in the framework-error log (good — that signal is what
+        // the suppressions previously hid).
         // 1944 TODO A.4 (2026-05-30): the `'overflowed by 0.500 pixels'`
         // ignoredPatterns entry that previously lived here has been
         // REMOVED. Discovery sweep across both projects' full test

@@ -254,14 +254,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     var isIgnored = false;
 
     if (_capturingFrameworkErrors) {
-      // The `_RenderEditableCustomPaint` cascade is a known transient first-frame
-      // artifact when a `CupertinoTextField` (or any `EditableText` host) is laid
-      // out under the test app's tightly-bounded widget-tab pane. The negative
-      // minimum height assertion fires once on the first frame, then the same
-      // RenderObject is relaid out cleanly on the next frame and the test passes.
-      // We filter the root error and its direct downstream cascade so the
-      // captured `frameworkErrors` reflect real script bugs only. Keep this list
-      // in sync with the equivalent block in
+      // Filter out internal Flutter framework assertions that are not visible
+      // red error screens. Per 1944 TODO A.1-A.7 (2026-05-30) every entry
+      // in this list has been audited by discovery sweeps and either
+      // removed (no longer firing) or fixed at the script level. Keep
+      // this list in sync with the equivalent block in
       // `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart`.
       const ignoredPatterns = [
         // 1944 TODO A.6 (2026-05-30): mirror of flutter_ast removal. The
@@ -271,12 +268,14 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // corpora (~1957 scripts each) found ZERO occurrences of either
         // parentData-related assertion on either project. See
         // flutter_ast main.dart for the full rationale.
-        // _RenderEditableCustomPaint first-frame cascade — see comment above.
-        '_RenderEditableCustomPaint',
-        // Direct downstream layout assertion when the painter wasn't laid out.
-        "'hasSize'",
-        // Semantics layout-state assertion that follows the same cascade.
-        "'!childSemantics.renderObject._needsLayout'",
+        // 1944 TODO A.7 (2026-05-30): mirror of flutter_ast removal. The
+        // `'_RenderEditableCustomPaint'`, `"'hasSize'"`, and
+        // `"'!childSemantics.renderObject._needsLayout'"` ignoredPatterns
+        // entries that previously lived here have been REMOVED. Discovery
+        // sweep on both projects' full 9-host-file corpora (~1974 scripts
+        // each) found ZERO occurrences of any of the three patterns on
+        // either project. See flutter_ast main.dart for the full
+        // rationale + recovery path.
         // 1944 TODO A.4 (2026-05-30): mirror of flutter_ast removal. The
         // `'overflowed by 0.500 pixels'` ignoredPatterns entry that
         // previously lived here has been REMOVED. Discovery sweep
