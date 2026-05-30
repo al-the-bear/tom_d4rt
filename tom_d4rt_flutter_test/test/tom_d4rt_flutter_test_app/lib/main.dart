@@ -283,7 +283,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // visible. Filter narrowly on the exact ".500 pixels" decimal
         // string so non-subpixel overflows (1 px, 2 px, …) are still
         // captured as framework errors.
-        'overflowed by 0.500 pixels',
+        // [A.4 DISCOVER 20260530-1115] temporarily commented to enumerate
+        // which scripts emit the 0.500-pixel overflow banner. Will be
+        // restored or permanently removed once the discovery sweep has
+        // identified each affected script.
+        // 'overflowed by 0.500 pixels',
         // Step 6: "object was given an infinite size during layout"
         // is a Flutter framework debug-paint warning emitted by the
         // render pipeline when a render object resolves to an

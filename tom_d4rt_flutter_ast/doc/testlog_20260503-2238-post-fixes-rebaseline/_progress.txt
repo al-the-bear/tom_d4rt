@@ -1,7 +1,0 @@
-tom_d4rt_ast done: 0
-tom_d4rt done: 0
-tom_dcli_exec done: 0
-tom_ast_generator done: 0
-tom_d4rt_generator done: 0
-tom_d4rt_exec done: 0
-tom_d4rt_dcli done: 0
