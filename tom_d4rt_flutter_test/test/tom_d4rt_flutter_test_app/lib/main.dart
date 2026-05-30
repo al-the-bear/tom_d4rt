@@ -285,22 +285,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // overflow detection itself remains the correct signal and
         // will surface in the framework-error log if a future script
         // re-introduces the same layout-sum-vs-parent-height mismatch.
-        // Step 6: "object was given an infinite size during layout"
-        // is a Flutter framework debug-paint warning emitted by the
-        // render pipeline when a render object resolves to an
-        // unbounded constraint (e.g. a `Column` inside a
-        // `SingleChildScrollView` without a bounded height ancestor).
-        // The framework prints the warning and recovers by clamping
-        // the size; no exception is thrown, layout continues, and the
-        // host tests assert only on `result.success` — they never
-        // assert on debug-paint output. The same scripts produce the
-        // same warning when run natively on the desktop test surface.
-        // Filter on the exact "infinite size during layout" substring
-        // which matches all six render-object variants
-        // (RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
-        // RenderPadding / RenderParagraph / RenderWrap) without
-        // affecting any other framework error shape.
-        'infinite size during layout',
+        // 1944 TODO A.5 (2026-05-30): mirror of flutter_ast removal. The
+        // `'infinite size during layout'` ignoredPatterns entry that
+        // previously lived here has been REMOVED. Discovery sweep
+        // across both projects' full test corpora (9 host files,
+        // ~2036 scripts each) with the suppression off found ZERO
+        // occurrences of the `infinite size during layout` debug-paint
+        // warning on either project. See flutter_ast main.dart for
+        // the full rationale. If a future script reintroduces an
+        // unbounded-constraint layout pattern (Column inside
+        // SingleChildScrollView without a bounded height ancestor,
+        // etc.), the warning will surface in the framework-error log.
         // 1944 TODO A.1 (2026-05-30): the `'Codec failed to produce an
         // image'` ignoredPatterns entry that previously lived here has
         // been REMOVED — see flutter_ast/main.dart for the full

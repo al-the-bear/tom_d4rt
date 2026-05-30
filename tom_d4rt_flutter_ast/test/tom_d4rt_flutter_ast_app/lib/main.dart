@@ -346,22 +346,24 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // re-introduces the same pattern, the banner will surface
         // in the framework-error log (good — that signal is what
         // the suppression previously hid).
-        // Step 6: "object was given an infinite size during layout"
-        // is a Flutter framework debug-paint warning emitted by the
-        // render pipeline when a render object resolves to an
-        // unbounded constraint (e.g. a `Column` inside a
+        // 1944 TODO A.5 (2026-05-30): the `'infinite size during layout'`
+        // ignoredPatterns entry that previously lived here has been
+        // REMOVED. Discovery sweep across both projects' full test
+        // corpora (essential + important + secondary + hardly_relevant
+        // × 5 + timeout — 9 host files = ~2035 scripts each) with the
+        // suppression off found ZERO occurrences of the
+        // `infinite size during layout` debug-paint warning on either
+        // project. The script-set has shifted since the suppression
+        // was added — the historical 2206 TODOs #22 + #28 closed the
+        // last known instances (`cubic_test`, `editable_text_misc_test`),
+        // and no current script triggers the unbounded-constraint
+        // recovery path. The framework's "infinite size during layout"
+        // warning itself remains the correct signal for unbounded-
+        // constraint layout regressions (e.g. a `Column` inside a
         // `SingleChildScrollView` without a bounded height ancestor).
-        // The framework prints the warning and recovers by clamping
-        // the size; no exception is thrown, layout continues, and the
-        // host tests assert only on `result.success` — they never
-        // assert on debug-paint output. The same scripts produce the
-        // same warning when run natively on the desktop test surface.
-        // Filter on the exact "infinite size during layout" substring
-        // which matches all six render-object variants
-        // (RenderConstrainedBox / RenderDecoratedBox / RenderFlex /
-        // RenderPadding / RenderParagraph / RenderWrap) without
-        // affecting any other framework error shape.
-        'infinite size during layout',
+        // If a future script reintroduces such a pattern, the
+        // warning will surface in the framework-error log (good —
+        // that signal is what the suppression previously hid).
         // 1944 TODO A.1 (2026-05-30): the `'Codec failed to produce an
         // image'` ignoredPatterns entry that previously lived here has
         // been REMOVED. The script-side workaround in
