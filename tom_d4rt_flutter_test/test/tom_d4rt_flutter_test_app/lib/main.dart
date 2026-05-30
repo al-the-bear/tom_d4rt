@@ -264,8 +264,13 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // in sync with the equivalent block in
       // `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/lib/main.dart`.
       const ignoredPatterns = [
-        'parentDataDirty',
-        'parentData is set up correctly',
+        // 1944 TODO A.6 (2026-05-30): mirror of flutter_ast removal. The
+        // `'parentDataDirty'` and `'parentData is set up correctly'`
+        // ignoredPatterns entries that previously lived here have
+        // been REMOVED. Discovery sweep on both projects' full 9-host-file
+        // corpora (~1957 scripts each) found ZERO occurrences of either
+        // parentData-related assertion on either project. See
+        // flutter_ast main.dart for the full rationale.
         // _RenderEditableCustomPaint first-frame cascade — see comment above.
         '_RenderEditableCustomPaint',
         // Direct downstream layout assertion when the painter wasn't laid out.

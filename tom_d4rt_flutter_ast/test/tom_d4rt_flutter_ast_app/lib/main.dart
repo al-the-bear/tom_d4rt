@@ -314,8 +314,23 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // We filter the root error and its direct downstream cascade so the
       // captured `frameworkErrors` reflect real script bugs only.
       const ignoredPatterns = [
-        'parentDataDirty',
-        'parentData is set up correctly',
+        // 1944 TODO A.6 (2026-05-30): the `'parentDataDirty'` and
+        // `'parentData is set up correctly'` ignoredPatterns entries
+        // that previously lived here have been REMOVED. Discovery
+        // sweep across both projects' full test corpora (9 host
+        // files = ~1989 scripts each) with both entries commented
+        // out found ZERO occurrences of either parentData-related
+        // assertion on either project. The historical script(s)
+        // that triggered the cascading parentData wiring assertion
+        // (typically a custom RenderObject that forgot to call
+        // `child.parentData = ParentData()`) have either been
+        // rewritten or removed from the corpus since the
+        // suppression was first added. The framework's parentData-
+        // integrity assertions themselves remain the correct signal
+        // for custom layout-children wiring bugs. If a future
+        // script reintroduces such a pattern, the assertions will
+        // surface in the framework-error log (good — that signal is
+        // what the suppressions previously hid).
         // _RenderEditableCustomPaint first-frame cascade — see comment above.
         '_RenderEditableCustomPaint',
         // Direct downstream layout assertion when the painter wasn't laid out.
