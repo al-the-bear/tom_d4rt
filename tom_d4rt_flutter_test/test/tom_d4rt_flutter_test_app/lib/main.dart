@@ -309,14 +309,24 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // longer traversed by any script, so suppressing the codec
         // error is no longer needed. The underlying §U29 bridge bug
         // remains documented in `interpreter_unfixable.md` §U29.
-        // 1401-TODO #4 (F4): mirror of flutter_ast filter. The
-        // rendering/render_constraints_transform_box_test teaching demo
-        // intentionally overflows its parent box (Clip.none vs
-        // Clip.hardEdge vs Clip.antiAlias comparison). Narrow filter on
-        // the render-object class name keeps the demo's intentional
-        // overflow out of the captured framework-error list while
-        // real overflow bugs in other render objects stay visible.
-        'A RenderConstraintsTransformBox overflowed by',
+        // 1944 TODO A.2 (2026-05-30): mirror of flutter_ast removal. The
+        // `'A RenderConstraintsTransformBox overflowed by'` ignoredPatterns
+        // entry that previously lived here has been REMOVED. The
+        // script-side rewrite in
+        // `rendering/render_constraints_transform_box_test.dart`
+        // (Sections 4 / 7 / 8) shrinks every CTB child so it fits the
+        // parent slot. Section 7's clip behaviour, which originally
+        // needed an overflowing child to make the clip visible, now
+        // pairs a static Stack-based schematic (no CTB → no banner)
+        // with a fitting CTB instance (API surface still exercised).
+        // The corpus-wide audit confirmed that
+        // `widgets/constraints_transform_box_test.dart` and
+        // `rendering/renderobjects_layout_test.dart` do not trip the
+        // banner, so removing the suppression here is safe. Verified
+        // via `frameworkErrors=0` on isolated retests of all three
+        // scripts on both AST + TEST projects. If a future script
+        // reintroduces an overflowing ConstraintsTransformBox, the
+        // banner will surface in the framework-error log.
         // 1401-TODO #9 (F10): mirror of flutter_ast. The
         // `framework.dart:6417` InheritedElement.updateDependencies
         // descendant-check assertion fires as a U28-style

@@ -367,24 +367,26 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // codec error will surface in the framework-error log (good — that
         // signals the §U29 bug is being re-triggered and the new script
         // needs the AssetImage substitution applied).
-        // 1401-TODO #4 (F4): the rendering/render_constraints_transform_box_test
-        // teaching demo intentionally overflows its parent box —
-        // it's the entire point of the script. The script demonstrates
-        // the Clip.none vs Clip.hardEdge vs Clip.antiAlias comparison
-        // (line 463), and its own `_ClipEntry` for Clip.none
-        // documents the overflow as expected: "Child paints freely
-        // past the parent box. Best when overflow is expected and
-        // visually intentional (badges, tooltips)." The error message
-        // shape `RenderConstraintsTransformBox overflowed by …
-        // pixels on the left, … on the top, …` is unique to this
-        // demo (other scripts using ConstraintsTransformBox without
-        // overflow won't trigger it; flex/column/wrap overflows fire
-        // their own `RenderFlex overflowed by …` / `RenderColumn …`
-        // messages that remain captured). Filter narrowly on the
-        // render-object class name so the demo's intentional overflow
-        // doesn't pollute the captured framework-error list while
-        // real overflow bugs in other render objects stay visible.
-        'A RenderConstraintsTransformBox overflowed by',
+        // 1944 TODO A.2 (2026-05-30): the
+        // `'A RenderConstraintsTransformBox overflowed by'` ignoredPatterns
+        // entry that previously lived here has been REMOVED. The
+        // script-side rewrite in
+        // `rendering/render_constraints_transform_box_test.dart`
+        // (Sections 4 / 7 / 8) shrinks every CTB child so it fits the
+        // parent slot. Section 7's clip behaviour, which originally
+        // needed an overflowing child to make the clip visible, now
+        // pairs a static Stack-based schematic (no CTB → no banner)
+        // with a fitting CTB instance (API surface still exercised).
+        // The corpus-wide audit also re-ran
+        // `widgets/constraints_transform_box_test.dart` and
+        // `rendering/renderobjects_layout_test.dart` with this entry
+        // commented out — neither tripped the banner, so removing it
+        // here is safe. Verified via `frameworkErrors=0` on isolated
+        // retests of all three scripts on both AST + TEST projects.
+        // If a future script reintroduces an overflowing
+        // ConstraintsTransformBox, the banner will surface in the
+        // framework-error log (good — that signal is what the
+        // suppression previously hid).
         // 1401-TODO #9 (F10): `framework.dart:6417` InheritedElement
         // dependent-descendant assertion. The TODO body framed this as
         // a `findRenderObject`-on-inactive-element family (cluster B

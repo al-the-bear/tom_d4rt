@@ -5219,9 +5219,71 @@ fit) and clamp each to `0.0` defensively.
 
 ---
 
-## U17 — `ConstraintsTransformBox` teaching script (`render_constraints_transform_box_test.dart`) is intrinsically incompatible with `frameworkErrors=0` (script design) — **✅ FIXED in 2206 baseline (observable side; architectural framing intact)**
+## U17 — `ConstraintsTransformBox` teaching script (`render_constraints_transform_box_test.dart`) is intrinsically incompatible with `frameworkErrors=0` (script design) — **✅ FULLY CLOSED 2026-05-30 (suppression removed; script rewritten; not a workaround — a real fix)**
 
-**2026-05-29 update — FIXED (observable side).** The architectural "by design"
+**2026-05-30 update — A.2 CLOSURE (suppression removed).** The 1944 TODO A.2
+rewrite of `rendering/render_constraints_transform_box_test.dart` Sections 4 /
+7 / 8 closes the loop opened by the 2026-05-29 entry below. The
+`'A RenderConstraintsTransformBox overflowed by'` `ignoredPatterns` line has
+now been **permanently removed** from both test_apps' `main.dart`. The closure
+is not a workaround — it's the design fix the original entry was deferring:
+
+- **Section 4 (Live demos):** the demo child shrank from `SizedBox(320 × 140)`
+  to `SizedBox(160 × 60)` — smaller than the 200 × 80 parent slot in both
+  axes. Every transform (`unmodified`, `unconstrained`,
+  `widthUnconstrained`, `heightUnconstrained`, `maxWidthUnconstrained`,
+  `maxHeightUnconstrained`) still demonstrably produces a different child
+  size depending on which axis the transform loosens vs leaves tight, but no
+  variant exceeds the CTB's reported size → no overflow → no banner. A new
+  `_OverflowSchematic` widget (pure Stack + Container — no CTB) sits above
+  the live tiles and visually depicts what the original overflow case looked
+  like, so the pedagogical content is preserved.
+- **Section 7 (clipBehavior showcase):** because the clip's visual effect
+  requires *something* to clip, replacing the overflow alone wouldn't teach.
+  Each panel is now split into (a) a `_ClipSchematic` static widget that
+  paints the same "oversized child past parent slot" scenario with
+  `Stack(clipBehavior: Clip.none) + Positioned + Container` + the matching
+  `ClipRect` / `ClipRRect` wrap for `Clip.hardEdge` / `Clip.antiAlias`
+  (so the user *sees* the clip behaviour), and (b) a fitting live CTB
+  instance below that exercises
+  `ConstraintsTransformBox(clipBehavior: …, constraintsTransform: …,
+  alignment: …)` through the d4rt bridge with a child that fits the
+  parent slot.
+- **Section 8 (Comparison panel):** the CTB inline in `_ComparisonInline`
+  shrank its child from `Container(160 × 80)` to `Container(100 × 44)` so
+  it fits the 120 × 60 slot. The OverflowBox and UnconstrainedBox inlines
+  are unchanged — those widgets are documented to allow overflow without
+  the framework banner.
+
+**Cross-script audit (A.2):** ran the rewritten script in isolation on both
+projects with the suppression removed; `frameworkErrors=0` on both AST + TEST.
+Also ran the two other corpus scripts that use `ConstraintsTransformBox`
+(`widgets/constraints_transform_box_test.dart` and
+`rendering/renderobjects_layout_test.dart`) with the suppression removed;
+both clean (`frameworkErrors=0`). No follow-up Phase A spawning required.
+
+**Workaround vs real fix.** The framework banner is correctly informing the
+developer that the layout has overflow. There is no underlying interpreter
+or bridge bug to work around — the original script was *itself* the cause,
+and the script-side rewrite is the canonical fix. The fitting-child
+substitution preserves full API coverage of every CTB constructor parameter
+(constraintsTransform, clipBehavior, alignment, child) across all six
+pre-defined transforms and the static schematics document what overflow
+would look like for readers who want the original teaching content.
+
+**Status today.** The script renders, all CTB API surfaces are still
+exercised live, the framework no longer fires its overflow banner because
+no live CTB in the corpus overflows. The suppression entry is permanently
+gone from both `main.dart` files. The architectural "by design" framing in
+the 2026-05-29 update no longer applies — the script's design has changed
+to deliberately NOT trigger the banner, and the original "feed pathological
+inputs" purpose is now served by the static schematics.
+
+---
+
+## U17 — 2026-05-29 update (retained for reference, superseded by 2026-05-30)
+
+The architectural "by design"
 framing below remains accurate — the script does intentionally feed pathological
 inputs to Flutter's debug-mode assertion machinery. But the **observable** side
 has been fully closed by two cooperating fixes:
@@ -5242,14 +5304,18 @@ captured leak events). Post-TODO #7 followup: 0 log hits across all 7 followup
 directories on AST and all 8 on TEST. Both projects' METRIC lines still report
 `frameworkErrors=0 status=success`.
 
-**Status today.** The script renders, the demo's overflow assertions still fire
-inside Flutter's debug machinery (the teaching value is preserved), the
-suppression patterns silence both the count and the stdout/stderr leak. The
-architectural "by design" concern remains true in principle but produces no
-observable failure. Revisit only if (a) someone removes the suppression
-entry, OR (b) a new script triggers the same RCTB overflow shape for a
-non-teaching reason — the suppression would then need narrowing or a real
-bridge fix per the "What a real fix would look like" section below.
+**Status today (2026-05-29).** The script renders, the demo's overflow
+assertions still fire inside Flutter's debug machinery (the teaching value
+is preserved), the suppression patterns silence both the count and the
+stdout/stderr leak. The architectural "by design" concern remains true in
+principle but produces no observable failure. Revisit only if (a) someone
+removes the suppression entry, OR (b) a new script triggers the same RCTB
+overflow shape for a non-teaching reason — the suppression would then need
+narrowing or a real bridge fix per the "What a real fix would look like"
+section below.
+
+(**2026-05-30 note:** condition (a) is now what A.2 did — see the
+"FULLY CLOSED" entry above.)
 
 ---
 

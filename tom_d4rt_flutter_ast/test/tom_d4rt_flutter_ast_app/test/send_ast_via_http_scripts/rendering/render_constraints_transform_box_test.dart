@@ -14,6 +14,25 @@
 //   - Alignment, clipBehavior, and a comparison vs OverflowBox /
 //     UnconstrainedBox.
 //   - Real-world usage patterns and caveats.
+//
+// 1944 TODO A.2 (2026-05-30 rewrite for §U17 family):
+//   The originally-live demos in Sections 4 / 7 / 8 intentionally laid out
+//   a child larger than the parent slot to demonstrate CTB's "child paints
+//   past parent reported size" behaviour. The framework correctly emits
+//   `A RenderConstraintsTransformBox overflowed by …` in debug mode for
+//   each overflowing build, polluting the captured framework-error log.
+//   Per the 2026-05-30 review, that banner is a real framework signal —
+//   the correct fix is to rewrite the offending scripts so they no longer
+//   induce the overflow, then remove the suppression entry. The script
+//   continues to exercise the full CTB API surface (all six pre-defined
+//   transforms, custom transforms, alignment, clipBehavior, comparison
+//   with OverflowBox / UnconstrainedBox) but now sizes children to fit
+//   the parent slot. Where the original demo needed an actual overflow
+//   to teach (Section 7 clipBehavior — the clip is invisible without
+//   something to clip), a static Stack-based schematic depicts the
+//   original visual without instantiating CTB on an overflowing layout.
+//   See `interpreter_unfixable.md` §U17 for the underlying framework
+//   detail and the historical context of this rewrite.
 
 import 'package:flutter/material.dart';
 
@@ -1124,82 +1143,263 @@ Widget _buildLiveDemos() {
     eyebrow: 'Section 04 / Live',
     title: 'Live demonstrations of pre-defined transforms',
     subtitle:
-        'A child whose intrinsic size exceeds the parent slot. Each tile '
-        'wraps the same child in a different transform so you can see how '
-        'the layout responds.',
+        'Six live ConstraintsTransformBox instances, one per pre-defined '
+        'transform. The child is sized to fit the parent slot in all cases '
+        '(160 × 60 child inside a 200 × 80 slot) so the framework does not '
+        'emit its `RenderConstraintsTransformBox overflowed by …` debug '
+        'banner — but every transform still produces a visibly different '
+        'final layout because the constraint shape reaching the child '
+        'differs per transform. The schematic below depicts the original '
+        '"child larger than parent" case for visual reference.',
     accent: kAccentEmerald,
     paper: kPaperMint,
-    child: Wrap(
-      spacing: 18,
-      runSpacing: 18,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _LiveDemoTile(
-          label: 'unmodified',
-          accent: kAccentSky,
-          paper: kPaperSky,
-          child: ConstraintsTransformBox(
-            constraintsTransform: ConstraintsTransformBox.unmodified,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Pass-through'),
-          ),
-        ),
-        _LiveDemoTile(
-          label: 'unconstrained',
-          accent: kAccentIndigo,
-          paper: kPaperLilac,
-          child: ConstraintsTransformBox(
-            constraintsTransform: ConstraintsTransformBox.unconstrained,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Both axes free'),
-          ),
-        ),
-        _LiveDemoTile(
-          label: 'widthUnconstrained',
-          accent: kAccentTeal,
-          paper: kPaperMint,
-          child: ConstraintsTransformBox(
-            constraintsTransform:
-                ConstraintsTransformBox.widthUnconstrained,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Wide free axis'),
-          ),
-        ),
-        _LiveDemoTile(
-          label: 'heightUnconstrained',
-          accent: kAccentEmerald,
-          paper: kPaperMint,
-          child: ConstraintsTransformBox(
-            constraintsTransform:
-                ConstraintsTransformBox.heightUnconstrained,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Tall free axis'),
-          ),
-        ),
-        _LiveDemoTile(
-          label: 'maxWidthUnconstrained',
-          accent: kAccentRose,
-          paper: kPaperRose,
-          child: ConstraintsTransformBox(
-            constraintsTransform:
-                ConstraintsTransformBox.maxWidthUnconstrained,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Upper-w free'),
-          ),
-        ),
-        _LiveDemoTile(
-          label: 'maxHeightUnconstrained',
-          accent: kAccentAmber,
-          paper: kPaperWarm,
-          child: ConstraintsTransformBox(
-            constraintsTransform:
-                ConstraintsTransformBox.maxHeightUnconstrained,
-            clipBehavior: Clip.hardEdge,
-            child: const _OverflowChild(text: 'Upper-h free'),
-          ),
+        const _OverflowSchematic(),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 18,
+          runSpacing: 18,
+          children: <Widget>[
+            _LiveDemoTile(
+              label: 'unmodified',
+              accent: kAccentSky,
+              paper: kPaperSky,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: tight(200, 80)\n'
+                  'child SizedBox(160, 60) forced to (200, 80)',
+              child: ConstraintsTransformBox(
+                constraintsTransform: ConstraintsTransformBox.unmodified,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Pass-through'),
+              ),
+            ),
+            _LiveDemoTile(
+              label: 'unconstrained',
+              accent: kAccentIndigo,
+              paper: kPaperLilac,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: (0..∞, 0..∞)\n'
+                  'child renders at its preferred (160, 60)',
+              child: ConstraintsTransformBox(
+                constraintsTransform: ConstraintsTransformBox.unconstrained,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Both axes free'),
+              ),
+            ),
+            _LiveDemoTile(
+              label: 'widthUnconstrained',
+              accent: kAccentTeal,
+              paper: kPaperMint,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: (0..∞, 80..80)\n'
+                  'child renders (160, 80) — width preferred, height tight',
+              child: ConstraintsTransformBox(
+                constraintsTransform:
+                    ConstraintsTransformBox.widthUnconstrained,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Wide free axis'),
+              ),
+            ),
+            _LiveDemoTile(
+              label: 'heightUnconstrained',
+              accent: kAccentEmerald,
+              paper: kPaperMint,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: (200..200, 0..∞)\n'
+                  'child renders (200, 60) — width tight, height preferred',
+              child: ConstraintsTransformBox(
+                constraintsTransform:
+                    ConstraintsTransformBox.heightUnconstrained,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Tall free axis'),
+              ),
+            ),
+            _LiveDemoTile(
+              label: 'maxWidthUnconstrained',
+              accent: kAccentRose,
+              paper: kPaperRose,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: (200..∞, 80..80)\n'
+                  'child forced to (200, 80) — min stays 200 in this tight '
+                  'input case; difference vs widthUnconstrained only shows '
+                  'when input is loose',
+              child: ConstraintsTransformBox(
+                constraintsTransform:
+                    ConstraintsTransformBox.maxWidthUnconstrained,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Upper-w free'),
+              ),
+            ),
+            _LiveDemoTile(
+              label: 'maxHeightUnconstrained',
+              accent: kAccentAmber,
+              paper: kPaperWarm,
+              constraintsAnnotation:
+                  'in: tight(200, 80) → out: (200..200, 80..∞)\n'
+                  'child forced to (200, 80) — symmetric to '
+                  'maxWidthUnconstrained on tight input',
+              child: ConstraintsTransformBox(
+                constraintsTransform:
+                    ConstraintsTransformBox.maxHeightUnconstrained,
+                clipBehavior: Clip.hardEdge,
+                child: const _DemoChild(text: 'Upper-h free'),
+              ),
+            ),
+          ],
         ),
       ],
     ),
   );
+}
+
+/// Static schematic depicting "what an overflowing CTB looks like" without
+/// instantiating CTB itself. Pure Stack / Container layout — no framework
+/// overflow banner is emitted because no render object reports overflow.
+///
+/// Visualises: a 200 × 80 parent slot with a 320 × 140 child whose top-left
+/// corner sits at the parent's top-left, drawn unclipped so the child paints
+/// visibly past the parent's right + bottom edges. A label on the leaked
+/// region notes that the framework would normally emit the
+/// `RenderConstraintsTransformBox overflowed by …` debug banner here.
+class _OverflowSchematic extends StatelessWidget {
+  const _OverflowSchematic();
+
+  @override
+  Widget build(BuildContext context) {
+    const double parentW = 200;
+    const double parentH = 80;
+    const double childW = 320;
+    const double childH = 140;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: kAccentRose.withValues(alpha: 0.40)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(Icons.warning_amber_outlined,
+                  color: kAccentRose, size: 16),
+              const SizedBox(width: 8),
+              const Text(
+                'Schematic: what happens when child > parent slot',
+                style: TextStyle(
+                  color: kInkDeep,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'The original demo had a 320 × 140 child inside a 200 × 80 '
+            'CTB. The child paints past the CTB\'s reported size; the '
+            'framework emits `A RenderConstraintsTransformBox overflowed '
+            'by 60 on the right, 60 on the bottom`. We depict it below '
+            'with plain Stack + Container (no CTB) so the live demo can '
+            'avoid the banner.',
+            style: TextStyle(
+              color: kInkSoft,
+              fontSize: 12,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: childW + 24,
+            height: childH + 24,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: <Widget>[
+                // The would-be child painted past the parent.
+                Positioned(
+                  left: 12,
+                  top: 12,
+                  child: Container(
+                    width: childW,
+                    height: childH,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: <Color>[
+                          Color(0xFF0F766E),
+                          Color(0xFF4F46E5),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'child 320 × 140',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+                // Dashed-like outline of the parent slot drawn over the child.
+                Positioned(
+                  left: 12,
+                  top: 12,
+                  child: Container(
+                    width: parentW,
+                    height: parentH,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: kAccentAmber, width: 3),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    alignment: Alignment.topRight,
+                    padding: const EdgeInsets.all(4),
+                    child: const Text(
+                      'parent slot 200 × 80',
+                      style: TextStyle(
+                        color: kAccentAmber,
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w800,
+                        backgroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                // Banner label pinned to the leaked region.
+                Positioned(
+                  left: parentW + 18,
+                  top: parentH + 18,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: kAccentRose.withValues(alpha: 0.85),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Text(
+                      'overflow 60 × 60\n→ debug banner fires',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        height: 1.3,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _LiveDemoTile extends StatelessWidget {
@@ -1207,12 +1407,19 @@ class _LiveDemoTile extends StatelessWidget {
     required this.label,
     required this.accent,
     required this.paper,
+    required this.constraintsAnnotation,
     required this.child,
   });
 
   final String label;
   final Color accent;
   final Color paper;
+
+  /// Multi-line `in: … → out: …` annotation describing what the transform
+  /// does to the constraints flowing through the CTB in this tile, plus a
+  /// note about the resulting child size. Replaces the previously-overflowing
+  /// visual demonstration (A.2 rewrite).
+  final String constraintsAnnotation;
   final Widget child;
 
   @override
@@ -1279,11 +1486,12 @@ class _LiveDemoTile extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Parent slot 200 x 80; child intrinsic ~320 x 140.',
+              constraintsAnnotation,
               style: TextStyle(
                 color: kInkMuted,
-                fontSize: 11,
+                fontSize: 10.5,
                 height: 1.4,
+                fontFamily: 'monospace',
               ),
             ),
           ],
@@ -1293,16 +1501,31 @@ class _LiveDemoTile extends StatelessWidget {
   }
 }
 
-class _OverflowChild extends StatelessWidget {
-  const _OverflowChild({required this.text});
+/// Fit-sized demo child used by every Section 4 _LiveDemoTile.
+///
+/// Original (pre-A.2): SizedBox(320 × 140) — intentionally larger than
+/// the 200 × 80 parent slot to demonstrate CTB's overflow behaviour.
+/// That induced a `RenderConstraintsTransformBox overflowed by …` debug
+/// banner on every build, captured by the framework-error stream.
+///
+/// Rewrite (A.2): SizedBox(160 × 60) — smaller than the slot in both
+/// axes. CTB's `constraints.constrain(childSize)` still reports the slot
+/// size for `unmodified`-style transforms (slot wins via tight input),
+/// while transforms that loosen at least one axis let the child render
+/// at its preferred 160 × 60 (or width-only / height-only mixes). Every
+/// resulting child size is ≤ CTB's reported size → no overflow → no
+/// debug banner. The original overflowing scenario is visualised in
+/// [_OverflowSchematic] above using plain Stack widgets.
+class _DemoChild extends StatelessWidget {
+  const _DemoChild({required this.text});
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 320,
-      height: 140,
+      width: 160,
+      height: 60,
       child: Container(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
@@ -1317,15 +1540,15 @@ class _OverflowChild extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(6),
           child: Text(
             text,
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
-              height: 1.3,
+              height: 1.25,
             ),
           ),
         ),
@@ -1694,9 +1917,15 @@ Widget _buildClipBehaviorShowcase() {
     eyebrow: 'Section 07 / Clip',
     title: 'clipBehavior in three flavors',
     subtitle:
-        'Same overflow scenario shown three times: no clipping, hard edge, '
-        'and antialiased. Notice how Clip.none lets the child paint past '
-        'the parent box.',
+        'Three panels comparing Clip.none / Clip.hardEdge / Clip.antiAlias. '
+        'Each panel pairs (a) a Stack-based static schematic that paints the '
+        '"oversized child past parent slot" scenario without involving a CTB '
+        '(so the framework does not emit its overflow indicator), with '
+        '(b) a live ConstraintsTransformBox instance whose child fits the '
+        'parent slot so the CTB constructor still exercises this entry\'s '
+        'clipBehavior on the same render-object class. The schematic '
+        'communicates the visual effect; the live instance proves the '
+        'API call is wired through the d4rt bridge.',
     accent: kAccentViolet,
     paper: kPaperLilac,
     child: Row(
@@ -1751,42 +1980,9 @@ class _ClipPanel extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Container(
-            height: 130,
-            decoration: BoxDecoration(
-              color: kPaperCool,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: entry.accent.withValues(alpha: 0.25)),
-            ),
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 160,
-              height: 80,
-              child: ConstraintsTransformBox(
-                constraintsTransform: ConstraintsTransformBox.unconstrained,
-                clipBehavior: entry.clip,
-                alignment: Alignment.center,
-                child: Container(
-                  width: 220,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: entry.accent.withValues(alpha: 0.80),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: entry.accent, width: 2),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'oversized child',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // (a) Static schematic — depicts the visual outcome of this
+          // clipBehavior on an oversized child WITHOUT instantiating a CTB.
+          _ClipSchematic(clip: entry.clip, accent: entry.accent),
           const SizedBox(height: 10),
           Text(
             entry.note,
@@ -1796,7 +1992,159 @@ class _ClipPanel extends StatelessWidget {
               height: 1.45,
             ),
           ),
+          const SizedBox(height: 10),
+          // (b) Live CTB instance — non-overflowing child so the API call
+          // is exercised without inducing the overflow banner.
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: kPaperCool,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                  color: entry.accent.withValues(alpha: 0.20)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'live CTB instance (fits — no banner)',
+                  style: TextStyle(
+                    color: entry.accent.withValues(alpha: 0.80),
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                SizedBox(
+                  width: 160,
+                  height: 60,
+                  child: ConstraintsTransformBox(
+                    constraintsTransform:
+                        ConstraintsTransformBox.unconstrained,
+                    clipBehavior: entry.clip,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 120,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: entry.accent.withValues(alpha: 0.80),
+                        borderRadius: BorderRadius.circular(6),
+                        border:
+                            Border.all(color: entry.accent, width: 1.5),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'fitting child',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+/// Static depiction of a single clipBehavior applied to an oversized
+/// rectangular child. Uses Stack + Container + optional ClipRect /
+/// ClipRRect — never a CTB — so no overflow banner is induced.
+///
+/// Layout reference: parent slot 160 × 80, child 220 × 110 (the same
+/// shape the original Section 7 demo used). With Clip.none the child
+/// is shown leaking past the slot; with hardEdge / antiAlias the
+/// leaked region is clipped at the slot boundary.
+class _ClipSchematic extends StatelessWidget {
+  const _ClipSchematic({required this.clip, required this.accent});
+
+  final Clip clip;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    const double parentW = 160;
+    const double parentH = 80;
+    const double childW = 220;
+    const double childH = 110;
+    final Widget childRect = Container(
+      width: childW,
+      height: childH,
+      decoration: BoxDecoration(
+        color: accent.withValues(alpha: 0.80),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: accent, width: 2),
+      ),
+      alignment: Alignment.center,
+      child: const Text(
+        'oversized child',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+    // Stack centred around the parent slot so the child leaks symmetrically.
+    final Widget overlap = SizedBox(
+      width: parentW,
+      height: parentH,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: <Widget>[
+          Positioned(
+            left: -(childW - parentW) / 2,
+            top: -(childH - parentH) / 2,
+            child: childRect,
+          ),
+        ],
+      ),
+    );
+    // Apply the matching clip strategy via the static-widget equivalent.
+    final Widget clipped;
+    switch (clip) {
+      case Clip.none:
+        clipped = overlap;
+        break;
+      case Clip.hardEdge:
+        clipped = ClipRect(child: overlap);
+        break;
+      case Clip.antiAlias:
+      case Clip.antiAliasWithSaveLayer:
+        clipped = ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          clipBehavior: Clip.antiAlias,
+          child: overlap,
+        );
+        break;
+    }
+    // Bound the schematic so Clip.none's leaked region stays inside the panel.
+    return Container(
+      height: 130,
+      decoration: BoxDecoration(
+        color: kPaperCool,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: accent.withValues(alpha: 0.25)),
+      ),
+      alignment: Alignment.center,
+      child: ClipRect(
+        // Outer clip is purely for layout containment so the leak of the
+        // Clip.none variant doesn't spill into adjacent panels. It is NOT
+        // the demo's clip — the schematic's own [clipped] widget shows
+        // the entry's clipBehavior in effect.
+        child: SizedBox(
+          width: parentW + 60, // give Clip.none room to spill visually
+          height: parentH + 30,
+          child: Center(child: clipped),
+        ),
       ),
     );
   }
@@ -1811,8 +2159,14 @@ Widget _buildComparisonPanel() {
     eyebrow: 'Section 08 / Compare',
     title: 'OverflowBox vs UnconstrainedBox vs ConstraintsTransformBox',
     subtitle:
-        'Same content, same parent constraint. Each card calls out who '
-        'reports what size, and how the child is measured.',
+        'Same parent slot, three widgets that handle "child wants more room" '
+        'differently. OverflowBox and UnconstrainedBox keep their original '
+        'oversized-child inlines because those widgets do not emit the '
+        'debug-mode overflow banner. The ConstraintsTransformBox inline '
+        'sizes its child to fit the slot for the same reason — the '
+        'pedagogical "child paints past CTB\'s reported size" outcome is '
+        'documented in Section 4\'s schematic and in this card\'s '
+        '"child measured" row.',
     accent: kAccentFuchsia,
     paper: kPaperLilac,
     child: Row(
@@ -1984,6 +2338,11 @@ class _ComparisonInline extends StatelessWidget {
         ),
       );
     }
+    // CTB inline — child sized to fit the parent slot so the framework's
+    // overflow indicator banner does not fire. The original "oversized
+    // child" outcome (which the OverflowBox + UnconstrainedBox inlines
+    // above still depict) is captured in the card's "child measured"
+    // row and in Section 4's _OverflowSchematic.
     return ClipRect(
       child: SizedBox(
         width: 120,
@@ -1991,12 +2350,13 @@ class _ComparisonInline extends StatelessWidget {
         child: ConstraintsTransformBox(
           constraintsTransform: ConstraintsTransformBox.unconstrained,
           clipBehavior: Clip.hardEdge,
+          alignment: Alignment.center,
           child: Container(
-            width: 160,
-            height: 80,
+            width: 100,
+            height: 44,
             color: accent.withValues(alpha: 0.85),
             alignment: Alignment.center,
-            child: const Text('CTB',
+            child: const Text('CTB (fits)',
                 style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
         ),
