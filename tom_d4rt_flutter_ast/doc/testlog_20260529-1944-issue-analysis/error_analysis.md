@@ -169,7 +169,7 @@ Same 3 rationales × 2 projects + 1 extra duplication on `android_view_test` (co
 - **U28** (`/clear → /build` accumulation): operational `requestRecycle()` workaround was even removed from AST per 2206 TODO #38 and the AST `interactive_tests_test` still passes 6/6 in 40 s — confirming the cliff self-resolved.
 - The 11 `transport_clear_wedge` errors in §3 above are still §U28-family in shape (same `TimeoutException after 0:00:25.000000` fingerprint as the 2206 TODO #3 investigation traced) but the real accumulator cause was disproven on the d4rt side and is suspected to live in Flutter framework subsystems (per 2206 TODO #3's negative finding).
 
-## 8. Numbered TODO list — fix-id `20260529-1944-issue-analysis` (REWRITTEN 20260530)
+## 8. Numbered TODO list — fix-id `20260529-1944-issue-analysis` (REWRITTEN 20260530, EXPANDED TO PER-TEST ENTRIES 20260530)
 
 **Replaces the original Phase 1–5 list (items #1–#8, all closed by 20260529-2353).** The 1944 sweep snapshotted 4249 passing + 0 fail + 11 err + 0 framework-error log noise — but per the 2026-05-30 review the user reframed three categories of bugs that the previous closure accepted too leniently:
 
@@ -179,7 +179,7 @@ Same 3 rationales × 2 projects + 1 extra duplication on `android_view_test` (co
 
 **Goal:** all tests pass within <30 s each, with no test_app breakdowns, and with the `ignoredPatterns` chain emptied (or shrunk to exception-only entries).
 
-**Numbering scheme (revised 20260530):** each phase uses a single Arabic counter that runs from 1 to x for individual TODO items (A.1, A.2, …; B.1, B.2, …; C.1, C.2, …). Subsection **headlines** use lower-case Roman numerals (A.i, A.ii, …; B.i, …; C.i, …) so they don't share the numbering space with the items. Iterate items by ascending Arabic number within each phase.
+**Numbering scheme (revised 20260530, expanded 20260530):** each phase uses a single Arabic counter that runs from 1 to x for individual TODO items (A.1, A.2, …; B.1, B.2, …; C.1, C.2, …). Subsection **headlines** use lower-case Roman numerals (A.i, A.ii, …; B.i, …; C.i, …) so they don't share the numbering space with the items. **One entry per test** — Phase B sites that originally grouped multiple cross-project occurrences under one entry are now split (e.g. an AST + TEST pair becomes two entries); Phase C now has one entry per `>30s` timeout wrapper across both projects (~222 items total: 8 in A + 12 in B + 202 in C).
 
 The list below enumerates every test affected by one or more of these three categories so they can be processed one by one. Each item carries `[ ]` for tracking.
 
@@ -213,100 +213,273 @@ The 8 distinct `ignoredPatterns` entries / interpreter catches each correspond t
 
 ### Phase B — Tests causing test_app to stop: each failure (and possibly its predecessor) must be fixed
 
-Each of the 11 transport_clear_wedge errors observed in the 1944 sweep represents a test that took the app down (either via the failing test itself or — more often per the 2206 TODO #3 investigation — via the test that ran **before** it leaving framework state that wedged the next `/build` or `/clear`). The fix is to: (a) reproduce in isolation (the prior TODOs #2/#3/#4 already did this for several); (b) if it doesn't fail in isolation, find the predecessor culprit by binary search of the prior tests in the same file; (c) fix the predecessor (or the failing test if it fails in isolation). The `requestRecycle()` recovery mechanism is **diagnostic**, not a fix — it helps subsequent tests run but the underlying breakdown remains.
+Each of the 11 transport_clear_wedge errors observed in the 1944 sweep represents a test that took the app down (either via the failing test itself or — more often per the 2206 TODO #3 investigation — via the test that ran **before** it leaving framework state that wedged the next `/build` or `/clear`). The fix is to: (a) reproduce in isolation (the prior TODOs #2/#3/#4 already did this for several); (b) if it doesn't fail in isolation, find the predecessor culprit by binary search of the prior tests in the same file; (c) fix the predecessor (or the failing test if it fails in isolation). The `requestRecycle()` recovery mechanism is **diagnostic**, not a fix — it helps subsequent tests run but the underlying breakdown remains. Each site (not script) gets its own entry — same script in multiple host files is multiple entries because the predecessor differs.
 
 #### B.i — Deterministic per-script interpreter wedges (fail-in-isolation; the script itself is the bug)
-- [ ] **B.1** `material/bottomappbar_test.dart` (TEST `important_classes_test`) — 2-sweep recurrence (2206 + 1944). Per 1944 TODO #4 PARTIAL, this script wedges in the very first build after setUpAll with `httpMs=25002`, `Building widget [...] (39 KB)` log present, build never completes. Bisect against bridge regenerations between commits where the script previously passed and where it now wedges. Fix the per-script interpreter cliff (the build pipeline starts but doesn't finish — likely a specific bridge call hangs deterministically for this script's widget shape).
-- [ ] **B.2** `rendering/annotated_region_layer_test.dart` (AST `hardly_relevant_classes_3_test`) — 1-sweep regression. Same first-build wedge pattern as **B.1** (`httpMs=25003`, 516 KB bundle, app log confirms `Building widget` started). Investigate alongside **B.1**; likely same family.
+- [ ] **B.1** TEST `important_classes_test.dart` — `material/bottomappbar_test.dart` — 2-sweep recurrence (2206 + 1944). Per 1944 TODO #4 PARTIAL, this script wedges in the very first build after setUpAll with `httpMs=25002`, `Building widget [...] (39 KB)` log present, build never completes. Bisect against bridge regenerations between commits where the script previously passed and where it now wedges. Fix the per-script interpreter cliff (the build pipeline starts but doesn't finish — likely a specific bridge call hangs deterministically for this script's widget shape).
+- [ ] **B.2** AST `hardly_relevant_classes_3_test.dart` — `rendering/annotated_region_layer_test.dart` — 1-sweep regression. Same first-build wedge pattern as **B.1** (`httpMs=25003`, 516 KB bundle, app log confirms `Building widget` started). Investigate alongside **B.1**; likely same family.
 
-#### B.ii — Position-dependent §U28 wedges (pass-in-isolation; predecessor is the real culprit)
+#### B.ii — Position-dependent §U28 wedges (pass-in-isolation; predecessor in the same host file is the real culprit)
 
-For each: identify the test that ran **before** the failure and fix THAT one. The `requestRecycle()` recovery is NOT the fix — the underlying predecessor bug is what must be addressed.
+For each: identify the test that ran **before** the failure (in the SAME host test file on the SAME project) and fix THAT one. The `requestRecycle()` recovery is NOT the fix — the underlying predecessor bug is what must be addressed.
 
-- [ ] **B.3** `rendering/alignment_geometry_tween_test.dart` (AST + TEST `hardly_relevant_classes_3_test`, A1 + T3) — both projects in same sweep, strong wedge signal. 1944 TODO #2 confirmed pass-in-isolation. Binary-search the prior tests in `hardly_relevant_classes_3_test` to find the culprit. Fix the culprit's lifecycle cleanup (it leaves Flutter framework state — most plausibly `ImageCache` / `RouteObserver` / `Ticker` / `addPostFrameCallback` queue — that wedges the next `/build`).
-- [ ] **B.4** `retest/rendering/render_animated_size_state_test.dart` (AST `timeout_tests_test` A3 + AST `gir` A4 + TEST `gir` T7) — 3 sites. 1944 TODO #3 confirmed pass-in-isolation. **A3** specifically wedged in the first build with §U25 cold-start signature on AST-bundle path (876 KB bundle, the largest in the rendering group) — fix the §U25 cold-start root cause (per §U25 "Real fix": interpreter perf work to pre-warm the d4rt parser / declaration visitor / Environment OR a test-app `/warmup` endpoint that pre-walks a dummy script during `setUpAll`). **A4 + T7** are /clear-after-25-tests cascades — find the predecessor (25th test in gir retest section) that wedges the next /clear; fix that predecessor's lifecycle cleanup.
-- [ ] **B.5** `material/expansionpanel_test.dart` (TEST `important_classes_test`, T2) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix the predecessor test in `important_classes_test`.
-- [ ] **B.6** `widgets/reading_order_traversal_policy_test.dart` (TEST `hardly_relevant_classes_5_test`, T4) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in `hardly_relevant_classes_5_test`.
-- [ ] **B.7** `widgets/render_object_to_widget_adapter_test.dart` (TEST `generator_interpreter_issues_test`, T5) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in TEST `gii`.
-- [ ] **B.8** `retest: dart_ui/key_event_type_test.dart` (TEST `generator_interpreter_retest_test`, T6) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in TEST `gir`.
+- [ ] **B.3** AST `hardly_relevant_classes_3_test.dart` — `rendering/alignment_geometry_tween_test.dart` (1944 site A1) — cross-project repeat with **B.4**. 1944 TODO #2 confirmed pass-in-isolation. Binary-search the prior tests in AST `hardly_relevant_classes_3_test.dart` to find the culprit. Fix the culprit's lifecycle cleanup.
+- [ ] **B.4** TEST `hardly_relevant_classes_3_test.dart` — `rendering/alignment_geometry_tween_test.dart` (1944 site T3) — cross-project repeat with **B.3**. Same script + sweep but different host file. Binary-search the prior tests in TEST `hardly_relevant_classes_3_test.dart` (likely a different predecessor than B.3 due to different file ordering).
+- [ ] **B.5** AST `timeout_tests_test.dart` — `retest/rendering/render_animated_size_state_test.dart` (1944 site A3) — wedged in the very first build after setUpAll with §U25 cold-start signature on AST-bundle path (876 KB bundle, the largest in the rendering group). Fix the §U25 cold-start root cause per §U25 "Real fix": interpreter perf work to pre-warm the d4rt parser / declaration visitor / Environment OR a test-app `/warmup` endpoint that pre-walks a dummy script during `setUpAll`. Cross-references **B.6** + **B.7** (same script, different host files).
+- [ ] **B.6** AST `generator_interpreter_retest_test.dart` — `retest/rendering/render_animated_size_state_test.dart` (1944 site A4) — /clear-after-25-tests cascade. Find the predecessor (25th test in the gir retest section on AST) that wedges the next /clear; fix that predecessor's lifecycle cleanup.
+- [ ] **B.7** TEST `generator_interpreter_retest_test.dart` — `retest/rendering/render_animated_size_state_test.dart` (1944 site T7) — mirrors **B.6** on TEST. Find the predecessor in TEST gir retest section; fix its lifecycle.
+- [ ] **B.8** TEST `important_classes_test.dart` — `material/expansionpanel_test.dart` (1944 site T2) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix the predecessor test in TEST `important_classes_test.dart`.
+- [ ] **B.9** TEST `hardly_relevant_classes_5_test.dart` — `widgets/reading_order_traversal_policy_test.dart` (1944 site T4) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in TEST `hardly_relevant_classes_5_test.dart`.
+- [ ] **B.10** TEST `generator_interpreter_issues_test.dart` — `widgets/render_object_to_widget_adapter_test.dart` (1944 site T5) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in TEST `gii`.
+- [ ] **B.11** TEST `generator_interpreter_retest_test.dart` — `retest: dart_ui/key_event_type_test.dart` (1944 site T6) — 1944 TODO #4 confirmed pass-in-isolation. Find + fix predecessor in TEST `gir`.
 
 #### B.iii — Whole-file budget breaches (the test suite as a whole is too slow)
-- [ ] **B.9** TEST `secondary_classes_test` — 1944 was KILLED at 2400 s with 132 / 656 tests not reached. The 1944 TODO #1 bumped the budget to 3000 s but that's masking the real bug: too many slow tests in the same file. Per Phase C, identify every >30 s test in `secondary_classes_test` and fix each; the file should then complete in well under the original 2400 s budget — and the budget can be brought back down (or removed entirely). **Closing C.3 also addresses this entry.**
+- [ ] **B.12** TEST `secondary_classes_test` — 1944 was KILLED at 2400 s with 132 / 656 tests not reached. The 1944 TODO #1 bumped the budget to 3000 s but that's masking the real bug: too many slow tests in the same file. Per Phase C (entries C.15–C.45 cover the AST + TEST `secondary_classes_test` slow tests), fix each slow test; the file should then complete in well under the original 2400 s budget — and the budget can be brought back down (or removed entirely).
 
 ### Phase C — Tests taking >30 s: each test with a 60 s / 120 s / 240 s timeout wrapper must be sped up to ≤ 30 s (ideally ≤ 10 s)
 
-The 1944 codebase has **201 test entries** across the two projects carrying a `_slowTestTimeout = Timeout(Duration(seconds: 60))`, `_verySlowTestTimeout = Timeout(Duration(seconds: 120))`, inline `Timeout(Duration(seconds: 60))`, or `@Timeout(Duration(seconds: 240))` (library-level on TEST `interactive_tests_test`). Each is a workaround for a slow test, not a fix. The fix is to identify why the test is slow (cold-start parse, large bundle, many `/build` cycles, etc.) and reduce the work to fit ≤ 10 s.
+The 1944 codebase has **201 test entries** across the two projects carrying a `_slowTestTimeout = Timeout(Duration(seconds: 60))`, `_verySlowTestTimeout = Timeout(Duration(seconds: 120))`, or inline `Timeout(Duration(seconds: 60))`, plus the TEST `interactive_tests_test`'s library-level `@Timeout(Duration(seconds: 240))`. Each is a workaround for a slow test, not a fix. The fix is to identify why the test is slow (cold-start parse, large bundle, many `/build` cycles, etc.) and reduce the work to fit ≤ 10 s.
 
-The list below groups by host file. Each file gets one numbered TODO; closing the TODO requires removing every `>30s` timeout wrapper from that file and confirming the file's tests still pass within 30 s (ideally 10 s) each.
+Each slow test entry below is one numbered TODO. Subsection Roman numerals group by host file across both projects (AST first, TEST second within each subsection). The Arabic counter runs continuously across all of Phase C.
 
-#### C.i — AST + TEST `essential_classes_test` (6 + 6 slow tests, all 60 s)
-- [ ] **C.1** Affected scripts: `icons_test.dart` (2 sites), `route_test.dart` (3 sites), `theme_test.dart` (1 site). Fix the underlying slowness so each test runs ≤ 10 s. Remove all 6 `Timeout(60s)` wrappers in `essential_classes_test.dart` on both projects.
+#### C.i — `essential_classes_test.dart` (12 slow tests across AST + TEST)
+- [ ] **C.1** AST `essential_classes_test.dart:102` (`60s`) — `list_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.2** AST `essential_classes_test.dart:121` (`60s`) — `picker_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.3** AST `essential_classes_test.dart:138` (`60s`) — `scaffold_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.4** AST `essential_classes_test.dart:150` (`60s`) — `segmented_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.5** AST `essential_classes_test.dart:162` (`60s`) — `textfield_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.6** AST `essential_classes_test.dart:186` (`60s`) — `color_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.7** TEST `essential_classes_test.dart:99` (`60s`) — `list_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.8** TEST `essential_classes_test.dart:120` (`60s`) — `picker_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.9** TEST `essential_classes_test.dart:137` (`60s`) — `scaffold_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.10** TEST `essential_classes_test.dart:149` (`60s`) — `segmented_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.11** TEST `essential_classes_test.dart:161` (`60s`) — `textfield_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.12** TEST `essential_classes_test.dart:185` (`60s`) — `color_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.ii — AST + TEST `important_classes_test` (1 + 1 slow tests, all 60 s)
-- [ ] **C.2** `bottomappbar_test.dart` (1 site each, line 67) — also tracked under **B.1** (deterministic wedge). Removing the timeout wrapper depends on the B.1 fix.
+#### C.ii — `important_classes_test.dart` (2 slow tests across AST + TEST)
+- [ ] **C.13** AST `important_classes_test.dart:55` (`60s`) — `circleavatar_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.14** TEST `important_classes_test.dart:55` (`60s`) — `circleavatar_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.iii — AST `secondary_classes_test` (16 slow tests) + TEST same (15 slow tests, mostly identical)
+#### C.iii — `secondary_classes_test.dart` (31 slow tests across AST + TEST)
+- [ ] **C.15** AST `secondary_classes_test.dart:1860` (`60s`) — `data_table_theme_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.16** AST `secondary_classes_test.dart:1875` (`60s`) — `date_range_picker_dialog_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.17** AST `secondary_classes_test.dart:1894` (`60s`) — `date_time_range_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.18** AST `secondary_classes_test.dart:1906` (`60s`) — `date_utils_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.19** AST `secondary_classes_test.dart:1918` (`60s`) — `default_material_localizations_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.20** AST `secondary_classes_test.dart:2746` (`60s`) — `render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.21** AST `secondary_classes_test.dart:2764` (`60s`) — `render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.22** AST `secondary_classes_test.dart:2822` (`60s`) — `render_ignore_baseline_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.23** AST `secondary_classes_test.dart:2935` (`60s`) — `render_proxy_box_with_hit_test_behavior_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.24** AST `secondary_classes_test.dart:3442` (`60s`) — `hybrid_android_view_controller_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.25** AST `secondary_classes_test.dart:3600` (`60s`) — `always_scrollable_scroll_physics_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.26** AST `secondary_classes_test.dart:3770` (`60s`) — `context_menu_button_item_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.27** AST `secondary_classes_test.dart:4064` (`60s`) — `page_storage_bucket_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.28** AST `secondary_classes_test.dart:4238` (`60s`) — `raw_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.29** AST `secondary_classes_test.dart:4405` (`60s`) — `selectable_region_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.30** AST `secondary_classes_test.dart:4588` (`60s`) — `sliver_semantics_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.31** TEST `secondary_classes_test.dart:1860` (`60s`) — `data_table_theme_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.32** TEST `secondary_classes_test.dart:1875` (`60s`) — `date_range_picker_dialog_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.33** TEST `secondary_classes_test.dart:1895` (`60s`) — `date_time_range_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.34** TEST `secondary_classes_test.dart:1907` (`60s`) — `date_utils_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.35** TEST `secondary_classes_test.dart:1919` (`60s`) — `default_material_localizations_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.36** TEST `secondary_classes_test.dart:2747` (`60s`) — `render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.37** TEST `secondary_classes_test.dart:2765` (`60s`) — `render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.38** TEST `secondary_classes_test.dart:2823` (`60s`) — `render_ignore_baseline_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.39** TEST `secondary_classes_test.dart:2936` (`60s`) — `render_proxy_box_with_hit_test_behavior_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.40** TEST `secondary_classes_test.dart:3443` (`60s`) — `hybrid_android_view_controller_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.41** TEST `secondary_classes_test.dart:3762` (`60s`) — `context_menu_button_item_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.42** TEST `secondary_classes_test.dart:4058` (`60s`) — `page_storage_bucket_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.43** TEST `secondary_classes_test.dart:4233` (`60s`) — `raw_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.44** TEST `secondary_classes_test.dart:4401` (`60s`) — `selectable_region_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.45** TEST `secondary_classes_test.dart:4585` (`60s`) — `sliver_semantics_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-Affected scripts (deduped): `data_table_theme_data_test.dart` (5 sites), `render_custom_multi_child_layout_box_test.dart` (2 sites), `render_fractionally_sized_overflow_box_test.dart`, `render_proxy_box_mixin_test.dart`, `font_loader_test.dart`, `undo_manager_test.dart` (AST only), `content_insertion_configuration_test.dart`, `page_scroll_physics_test.dart`, `raw_magnifier_test.dart`, `scrollable_test.dart`, `sliver_safe_area_test.dart`.
-- [ ] **C.3** Fix each so it runs ≤ 10 s; remove the corresponding `Timeout(60s)` wrappers. **Closing this entry also addresses B.9** (secondary_classes whole-file budget breach).
+#### C.iv — `hardly_relevant_classes_1_test.dart` (18 slow tests across AST + TEST)
+- [ ] **C.46** AST `hardly_relevant_classes_1_test.dart:251` (`60s`) — `class_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.47** AST `hardly_relevant_classes_1_test.dart:444` (`60s`) — `class_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.48** AST `hardly_relevant_classes_1_test.dart:605` (`60s`) — `image_sampler_slot_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.49** AST `hardly_relevant_classes_1_test.dart:654` (`60s`) — `opacity_engine_layer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.50** AST `hardly_relevant_classes_1_test.dart:887` (`60s`) — `uniform_vec2_slot_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.51** AST `hardly_relevant_classes_1_test.dart:1022` (`60s`) — `diagnostics_serialization_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.52** AST `hardly_relevant_classes_1_test.dart:1149` (`60s`) — `object_event_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.53** AST `hardly_relevant_classes_1_test.dart:1303` (`60s`) — `least_squares_solver_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.54** AST `hardly_relevant_classes_1_test.dart:1498` (`60s`) — `primary_pointer_gesture_recognizer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.55** TEST `hardly_relevant_classes_1_test.dart:251` (`60s`) — `class_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.56** TEST `hardly_relevant_classes_1_test.dart:445` (`60s`) — `class_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.57** TEST `hardly_relevant_classes_1_test.dart:602` (`60s`) — `image_sampler_slot_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.58** TEST `hardly_relevant_classes_1_test.dart:651` (`60s`) — `opacity_engine_layer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.59** TEST `hardly_relevant_classes_1_test.dart:883` (`60s`) — `uniform_vec2_slot_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.60** TEST `hardly_relevant_classes_1_test.dart:1019` (`60s`) — `diagnostics_serialization_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.61** TEST `hardly_relevant_classes_1_test.dart:1147` (`60s`) — `object_event_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.62** TEST `hardly_relevant_classes_1_test.dart:1302` (`60s`) — `least_squares_solver_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.63** TEST `hardly_relevant_classes_1_test.dart:1497` (`60s`) — `primary_pointer_gesture_recognizer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.iv — AST `hardly_relevant_classes_1_test` (5 slow tests) + TEST same (6 slow tests)
+#### C.v — `hardly_relevant_classes_2_test.dart` (12 slow tests across AST + TEST)
+- [ ] **C.64** AST `hardly_relevant_classes_2_test.dart:345` (`60s`) — `dynamic_scheme_variant_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.65** AST `hardly_relevant_classes_2_test.dart:533` (`60s`) — `hour_format_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.66** AST `hardly_relevant_classes_2_test.dart:862` (`60s`) — `progress_indicator_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.67** AST `hardly_relevant_classes_2_test.dart:1059` (`60s`) — `snack_bar_theme_data_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.68** AST `hardly_relevant_classes_2_test.dart:1224` (`60s`) — `widget_state_input_border_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.69** AST `hardly_relevant_classes_2_test.dart:1385` (`60s`) — `one_frame_image_stream_completer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.70** TEST `hardly_relevant_classes_2_test.dart:345` (`60s`) — `dynamic_scheme_variant_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.71** TEST `hardly_relevant_classes_2_test.dart:534` (`60s`) — `hour_format_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.72** TEST `hardly_relevant_classes_2_test.dart:864` (`60s`) — `progress_indicator_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.73** TEST `hardly_relevant_classes_2_test.dart:1062` (`60s`) — `snack_bar_theme_data_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.74** TEST `hardly_relevant_classes_2_test.dart:1228` (`60s`) — `widget_state_input_border_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.75** TEST `hardly_relevant_classes_2_test.dart:1390` (`60s`) — `one_frame_image_stream_completer_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-Scripts: `draggable_details_test.dart`, `extend_selection_to_next_word_boundary_intent_test.dart`, `overlay_portal_controller_test.dart` (AST only), `overscroll_indicator_notification_test.dart`, `inspector_button_test.dart` (TEST only), `overflow_bar_alignment_test.dart` (TEST only).
-- [ ] **C.4** Fix each ≤ 10 s; remove wrappers.
+#### C.vi — `hardly_relevant_classes_3_test.dart` (14 slow tests across AST + TEST)
+- [ ] **C.76** AST `hardly_relevant_classes_3_test.dart:216` (`60s`) — `image_filter_config_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.77** AST `hardly_relevant_classes_3_test.dart:366` (`60s`) — `render_app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.78** AST `hardly_relevant_classes_3_test.dart:644` (`60s`) — `sliver_paint_order_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.79** AST `hardly_relevant_classes_3_test.dart:871` (`60s`) — `application_switcher_description_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.80** AST `hardly_relevant_classes_3_test.dart:1100` (`60s`) — `keyboard_key_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.81** AST `hardly_relevant_classes_3_test.dart:1222` (`60s`) — `raw_key_event_data_ios_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.82** AST `hardly_relevant_classes_3_test.dart:1398` (`60s`) — `text_editing_delta_deletion_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.83** TEST `hardly_relevant_classes_3_test.dart:216` (`60s`) — `image_filter_config_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.84** TEST `hardly_relevant_classes_3_test.dart:367` (`60s`) — `render_app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.85** TEST `hardly_relevant_classes_3_test.dart:644` (`60s`) — `sliver_paint_order_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.86** TEST `hardly_relevant_classes_3_test.dart:872` (`60s`) — `application_switcher_description_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.87** TEST `hardly_relevant_classes_3_test.dart:1101` (`60s`) — `keyboard_key_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.88** TEST `hardly_relevant_classes_3_test.dart:1224` (`60s`) — `raw_key_event_data_ios_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.89** TEST `hardly_relevant_classes_3_test.dart:1401` (`60s`) — `text_editing_delta_deletion_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.v — AST + TEST `hardly_relevant_classes_2_test` (6 + 6 slow tests, all 60 s)
+#### C.vii — `hardly_relevant_classes_4_test.dart` (9 slow tests across AST + TEST)
+- [ ] **C.90** AST `hardly_relevant_classes_4_test.dart:756` (`60s`) — `draggable_scrollable_actuator_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.91** AST `hardly_relevant_classes_4_test.dart:934` (`60s`) — `extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.92** AST `hardly_relevant_classes_4_test.dart:1523` (`60s`) — `overlay_portal_controller_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.93** AST `hardly_relevant_classes_4_test.dart:1558` (`60s`) — `overscroll_notification_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.94** TEST `hardly_relevant_classes_4_test.dart:757` (`60s`) — `draggable_scrollable_actuator_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.95** TEST `hardly_relevant_classes_4_test.dart:936` (`60s`) — `extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.96** TEST `hardly_relevant_classes_4_test.dart:1223` (`60s`) — `inspector_button_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.97** TEST `hardly_relevant_classes_4_test.dart:1505` (`60s`) — `overflow_bar_alignment_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.98** TEST `hardly_relevant_classes_4_test.dart:1561` (`60s`) — `overscroll_notification_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-Scripts: `durations_test.dart`, `handle_thumb_shape_test.dart`, `popup_menu_position_test.dart`, `slider_interaction_test.dart`, `vertical_divider_test.dart`, `network_image_load_exception_test.dart`.
-- [ ] **C.5** Fix each ≤ 10 s; remove wrappers.
+#### C.viii — `hardly_relevant_classes_5_test.dart` (29 slow tests across AST + TEST)
+- [ ] **C.99** AST `hardly_relevant_classes_5_test.dart:182` (`60s`) — `raw_keyboard_listener_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.100** AST `hardly_relevant_classes_5_test.dart:304` (`60s`) — `relative_rect_tween_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.101** AST `hardly_relevant_classes_5_test.dart:421` (`60s`) — `repeating_animation_builder_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.102** AST `hardly_relevant_classes_5_test.dart:498` (`60s`) — `restorable_num_n_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.103** AST `hardly_relevant_classes_5_test.dart:667` (`60s`) — `scroll_increment_type_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.104** AST `hardly_relevant_classes_5_test.dart:791` (`60s`) — `selectable_region_selection_status_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.105** AST `hardly_relevant_classes_5_test.dart:808` (`60s`) — `selectable_region_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.106** AST `hardly_relevant_classes_5_test.dart:1053` (`60s`) — `slotted_container_render_object_mixin_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.107** AST `hardly_relevant_classes_5_test.dart:1285` (`60s`) — `transition_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.108** AST `hardly_relevant_classes_5_test.dart:1334` (`60s`) — `tree_sliver_state_mixin_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.109** AST `hardly_relevant_classes_5_test.dart:1355` (`60s`) — `tree_sliver_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.110** AST `hardly_relevant_classes_5_test.dart:1405` (`60s`) — `two_dimensional_scrollable_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.111** AST `hardly_relevant_classes_5_test.dart:1475` (`60s`) — `update_selection_intent_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.112** AST `hardly_relevant_classes_5_test.dart:1533` (`60s`) — `web_browser_detection_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.113** TEST `hardly_relevant_classes_5_test.dart:173` (`60s`) — `raw_image_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.114** TEST `hardly_relevant_classes_5_test.dart:279` (`60s`) — `regular_window_controller_win32_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.115** TEST `hardly_relevant_classes_5_test.dart:487` (`60s`) — `restorable_listenable_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.116** TEST `hardly_relevant_classes_5_test.dart:494` (`60s`) — `restorable_num_n_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.117** TEST `hardly_relevant_classes_5_test.dart:601` (`60s`) — `scroll_activity_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.118** TEST `hardly_relevant_classes_5_test.dart:713` (`60s`) — `scroll_to_document_boundary_intent_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.119** TEST `hardly_relevant_classes_5_test.dart:788` (`60s`) — `selectable_region_selection_status_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.120** TEST `hardly_relevant_classes_5_test.dart:841` (`60s`) — `semantics_debugger_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.121** TEST `hardly_relevant_classes_5_test.dart:1114` (`60s`) — `static_selection_container_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.122** TEST `hardly_relevant_classes_5_test.dart:1332` (`60s`) — `tree_sliver_state_mixin_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.123** TEST `hardly_relevant_classes_5_test.dart:1351` (`60s`) — `tree_sliver_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.124** TEST `hardly_relevant_classes_5_test.dart:1380` (`60s`) — `two_dimensional_child_list_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.125** TEST `hardly_relevant_classes_5_test.dart:1471` (`60s`) — `update_selection_intent_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.126** TEST `hardly_relevant_classes_5_test.dart:1489` (`60s`) — `user_scroll_notification_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.127** TEST `hardly_relevant_classes_5_test.dart:1592` (`60s`) — `widget_state_property_all_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.vi — AST `hardly_relevant_classes_3_test` (7 slow tests) + TEST same (7 slow tests)
+#### C.ix — `generator_interpreter_issues_test.dart` (11 slow tests across AST + TEST)
+- [ ] **C.128** AST `generator_interpreter_issues_test.dart:397` (`60s`) — `rendering/render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.129** AST `generator_interpreter_issues_test.dart:415` (`60s`) — `rendering/render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.130** AST `generator_interpreter_issues_test.dart:468` (`60s`) — `widgets/animated_switcher_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.131** AST `generator_interpreter_issues_test.dart:521` (`60s`) — `widgets/html_element_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.132** TEST `generator_interpreter_issues_test.dart:344` (`60s`) — `rendering/custom_painter_semantics_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.133** TEST `generator_interpreter_issues_test.dart:397` (`60s`) — `rendering/render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.134** TEST `generator_interpreter_issues_test.dart:415` (`60s`) — `rendering/render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.135** TEST `generator_interpreter_issues_test.dart:465` (`60s`) — `widgets/animated_switcher_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.136** TEST `generator_interpreter_issues_test.dart:518` (`60s`) — `widgets/html_element_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.137** TEST `generator_interpreter_issues_test.dart:598` (`60s`) — `widgets/overflow_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.138** TEST `generator_interpreter_issues_test.dart:720` (`60s`) — `widgets/scrollbar_orientation_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-Scripts: `hit_test_behavior_test.dart`, `render_animated_size_state_test.dart` (related to **B.4**'s retest variant), `sliver_logical_container_parent_data_test.dart`, `android_pointer_properties_test.dart`, `key_up_event_test.dart`, `raw_key_event_data_fuchsia_test.dart`, `text_capitalization_test.dart` + TEST adds `raw_image_test.dart`, `regular_window_controller_win32_test.dart`.
-- [ ] **C.6** Fix each ≤ 10 s; remove wrappers.
+#### C.x — `generator_interpreter_retest_test.dart` (33 slow tests across AST + TEST)
+- [ ] **C.139** AST `generator_interpreter_retest_test.dart:241` (`60s`) — `retest: rendering/render_android_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.140** AST `generator_interpreter_retest_test.dart:248` (`60s`) — `retest: rendering/render_animated_size_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.141** AST `generator_interpreter_retest_test.dart:269` (`60s`) — `retest: rendering/render_sliver_box_child_manager_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.142** AST `generator_interpreter_retest_test.dart:285` (`60s`) — `retest: services/message_codec_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.143** AST `generator_interpreter_retest_test.dart:315` (`60s`) — `retest: widgets/app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.144** AST `generator_interpreter_retest_test.dart:337` (`60s`) — `retest: widgets/back_button_listener_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.145** AST `generator_interpreter_retest_test.dart:353` (`60s`) — `retest: widgets/box_scroll_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.146** AST `generator_interpreter_retest_test.dart:378` (`60s`) — `retest: widgets/context_action_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.147** AST `generator_interpreter_retest_test.dart:408` (`60s`) — `retest: widgets/default_text_editing_shortcuts_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.148** AST `generator_interpreter_retest_test.dart:427` (`60s`) — `retest: widgets/live_text_input_status_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.149** AST `generator_interpreter_retest_test.dart:443` (`60s`) — `retest: widgets/lock_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.150** TEST `generator_interpreter_retest_test.dart:202` (`60s`) — `retest: material/popup_menu_position_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.151** TEST `generator_interpreter_retest_test.dart:260` (`60s`) — `retest: rendering/render_animated_size_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.152** TEST `generator_interpreter_retest_test.dart:279` (`120s`) — `retest: rendering/render_sliver_box_child_manager_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.153** TEST `generator_interpreter_retest_test.dart:298` (`60s`) — `retest: services/message_codec_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.154** TEST `generator_interpreter_retest_test.dart:313` (`60s`) — `retest: services/method_codec_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.155** TEST `generator_interpreter_retest_test.dart:328` (`120s`) — `retest: widgets/app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.156** TEST `generator_interpreter_retest_test.dart:357` (`120s`) — `retest: widgets/box_scroll_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.157** TEST `generator_interpreter_retest_test.dart:385` (`60s`) — `retest: widgets/context_action_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.158** TEST `generator_interpreter_retest_test.dart:400` (`60s`) — `retest: widgets/default_selection_style_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.159** TEST `generator_interpreter_retest_test.dart:416` (`60s`) — `retest: widgets/default_text_editing_shortcuts_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.160** TEST `generator_interpreter_retest_test.dart:435` (`120s`) — `retest: widgets/live_text_input_status_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.161** TEST `generator_interpreter_retest_test.dart:453` (`60s`) — `retest: widgets/lock_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.162** TEST `generator_interpreter_retest_test.dart:465` (`60s`) — `retest: widgets/nested_scroll_view_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.163** TEST `generator_interpreter_retest_test.dart:479` (`60s`) — `retest: widgets/object_key_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.164** TEST `generator_interpreter_retest_test.dart:493` (`60s`) — `retest: widgets/raw_keyboard_listener_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.165** TEST `generator_interpreter_retest_test.dart:507` (`60s`) — `retest: widgets/raw_radio_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.166** TEST `generator_interpreter_retest_test.dart:521` (`60s`) — `retest: widgets/regular_window_controller_delegate_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.167** TEST `generator_interpreter_retest_test.dart:535` (`60s`) — `retest: widgets/regular_window_controller_mac_o_s_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.168** TEST `generator_interpreter_retest_test.dart:549` (`60s`) — `retest: widgets/regular_window_controller_win32_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.169** TEST `generator_interpreter_retest_test.dart:563` (`60s`) — `retest: widgets/render_abstract_layout_builder_mixin_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.170** TEST `generator_interpreter_retest_test.dart:577` (`60s`) — `retest: widgets/render_tap_region_surface_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.171** TEST `generator_interpreter_retest_test.dart:591` (`60s`) — `retest: widgets/request_focus_action_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.vii — AST `hardly_relevant_classes_4_test` (3 slow tests) + TEST same (3 slow tests, mostly distinct from C.iv)
+#### C.xi — `timeout_tests_test.dart` (18 slow tests across AST + TEST)
+- [ ] **C.172** AST `timeout_tests_test.dart:47` (`60s`) — `retest: rendering/render_animated_size_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.173** AST `timeout_tests_test.dart:112` (`60s`) — `render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.174** AST `timeout_tests_test.dart:130` (`60s`) — `render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.175** AST `timeout_tests_test.dart:261` (`60s`) — `retest: widgets/app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.176** AST `timeout_tests_test.dart:286` (`60s`) — `retest: widgets/back_button_listener_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.177** AST `timeout_tests_test.dart:301` (`60s`) — `retest: widgets/box_scroll_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.178** AST `timeout_tests_test.dart:344` (`60s`) — `selectable_region_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.179** AST `timeout_tests_test.dart:430` (`60s`) — `sliver_animated_list_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.180** TEST `timeout_tests_test.dart:54` (`60s`) — `retest: rendering/render_animated_size_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.181** TEST `timeout_tests_test.dart:113` (`60s`) — `render_custom_multi_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.182** TEST `timeout_tests_test.dart:120` (`60s`) — `render_custom_paint_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.183** TEST `timeout_tests_test.dart:138` (`60s`) — `render_custom_single_child_layout_box_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.184** TEST `timeout_tests_test.dart:235` (`60s`) — `retest: services/message_codec_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.185** TEST `timeout_tests_test.dart:269` (`60s`) — `retest: widgets/app_kit_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.186** TEST `timeout_tests_test.dart:288` (`60s`) — `retest: widgets/back_button_listener_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.187** TEST `timeout_tests_test.dart:305` (`60s`) — `retest: widgets/box_scroll_view_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.188** TEST `timeout_tests_test.dart:349` (`60s`) — `selectable_region_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.189** TEST `timeout_tests_test.dart:436` (`60s`) — `sliver_animated_list_state_test.dart` — fix to ≤ 10 s; remove timeout wrapper.
 
-AST scripts: `overlay_portal_controller_test.dart` (line 1528, also in **C.4**), `overscroll_indicator_notification_test.dart` (line 1572). TEST scripts: `inspector_button_test.dart`, `overflow_bar_alignment_test.dart` (both also in **C.4**).
-- [ ] **C.7** Fix each ≤ 10 s; remove wrappers.
+#### C.xii — `interactive_tests_test.dart` (12 slow tests across AST + TEST)
+- [ ] **C.190** AST `interactive_tests_test.dart:79` (`90s`) — `showDialog static demo — taps rendered Cancel label` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.191** AST `interactive_tests_test.dart:120` (`90s`) — `showBottomSheet static demo — taps the rendered Share ListTile` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.192** AST `interactive_tests_test.dart:147` (`90s`) — `showMenu static demo — taps Edit menu item` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.193** AST `interactive_tests_test.dart:175` (`90s`) — `interaction - dismiss modal via barrier tap` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.194** AST `interactive_tests_test.dart:201` (`90s`) — `showDatePicker static demo — taps rendered CANCEL label` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.195** AST `interactive_tests_test.dart:230` (`90s`) — `showTimePicker static demo — taps rendered DISMISS label` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.196** TEST `interactive_tests_test.dart:77` (`90s`) — `showDialog static demo — taps rendered Cancel label` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.197** TEST `interactive_tests_test.dart:118` (`90s`) — `showBottomSheet static demo — taps the rendered Share ListTile` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.198** TEST `interactive_tests_test.dart:144` (`90s`) — `showMenu static demo — taps Edit menu item` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.199** TEST `interactive_tests_test.dart:172` (`90s`) — `interaction - dismiss modal via barrier tap` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.200** TEST `interactive_tests_test.dart:196` (`90s`) — `showDatePicker static demo — taps rendered CANCEL label` — fix to ≤ 10 s; remove timeout wrapper.
+- [ ] **C.201** TEST `interactive_tests_test.dart:225` (`90s`) — `showTimePicker static demo — taps rendered DISMISS label` — fix to ≤ 10 s; remove timeout wrapper.
 
-#### C.viii — AST `hardly_relevant_classes_5_test` (~14 slow tests) + TEST same (~16 slow tests)
-
-AST scripts: `raw_keyboard_listener_test.dart`, `relative_rect_tween_test.dart`, `repeating_animation_builder_test.dart`, `restorable_listenable_test.dart`, `scroll_increment_type_test.dart`, `selectable_region_selection_status_scope_test.dart`, `selectable_region_state_test.dart`, `slotted_container_render_object_mixin_test.dart`, `transition_delegate_test.dart`, `tree_sliver_node_test.dart` (2 sites), `two_dimensional_scrollable_state_test.dart`, `unmanaged_restoration_scope_test.dart`, `web_browser_detection_test.dart`. TEST adds: `scroll_activity_delegate_test.dart`, `scroll_to_document_boundary_intent_test.dart`, `semantics_debugger_test.dart`, `static_selection_container_delegate_test.dart`, `two_dimensional_child_list_delegate_test.dart`, `user_scroll_notification_test.dart`, `widget_state_property_all_test.dart`.
-- [ ] **C.8** Fix each ≤ 10 s; remove wrappers.
-
-#### C.ix — AST `generator_interpreter_issues_test` (4 slow tests) + TEST same (7 slow tests)
-
-AST scripts: `rendering/render_custom_multi_child_layout_box_test.dart` (2 sites), `widgets/animated_cross_fade_test.dart`, `widgets/html_element_view_test.dart`. TEST adds: `rendering/custom_painter_semantics_test.dart`, `widgets/overflow_box_test.dart`, `widgets/scrollbar_orientation_test.dart`.
-- [ ] **C.9** Fix each ≤ 10 s; remove wrappers.
-
-#### C.x — AST `generator_interpreter_retest_test` (11 slow tests) + TEST same (22 slow tests, including 4 `_verySlowTestTimeout = 120 s` sites)
-
-AST retest scripts: `rendering/render_android_view_test.dart` (3 sites), `widgets/android_view_surface_test.dart` (2 sites), `widgets/default_selection_style_test.dart` (2 sites). TEST adds the long list from 2206 TODO #4 phase 2: `material/popup_menu_position`, `services/method_codec`, `widgets/back_button_listener` (60 s + 120 s sites), `widgets/default_text_editing_shortcuts`, `widgets/nested_scroll_view_state`, `widgets/object_key`, `widgets/raw_keyboard_listener`, `widgets/raw_radio`, `widgets/regular_window_controller_{delegate,mac_o_s,win32}`, `widgets/render_abstract_layout_builder_mixin`, `widgets/render_tap_region_surface`, `widgets/request_focus_action`. TEST also has 4 `_verySlowTestTimeout = 120 s` sites: `render_sliver_box_child_manager`, `app_kit_view` (also touched by **B.4** in the timeout_tests file), `box_scroll_view`, `live_text_input_status`.
-- [ ] **C.10** Fix each ≤ 10 s; remove all `60 s` and `120 s` wrappers. The retest section's scripts are deliberately the "workarounds reverted" versions — many of these are slow because the workaround the original script applied was for a real perf issue. Some retests may need to be retired as duplicate coverage if the original `dart_ui/widgets/` script already covers the same API.
-
-#### C.xi — AST + TEST `timeout_tests_test` (8 + 10 slow tests, all 60 s — including the `'app is running'` setUp sentinel test)
-
-Scripts: `'app is running'` (setUp synthetic test), `render_custom_multi_child_layout_box_test.dart` (also in **C.9**), `retest/widgets/android_view_surface_test.dart` (also in **C.10**), `retest: services/message_codec_test.dart` (TEST only), `scrollbar_orientation_test.dart` (also in **C.9**), `sliver_animated_grid_test.dart`.
-- [ ] **C.11** Fix each ≤ 10 s; remove wrappers.
-
-#### C.xii — AST + TEST `interactive_tests_test` (6 + 6 slow tests, all **90 s**)
-
-Each of the 6 interactive tests has a 90 s wrapper. These are the static-demo `showDialog`/`showBottomSheet`/`showMenu`/`showDatePicker`/`showTimePicker` + their dismiss tests. Per 2206 TODO #38, the AST builds finish in 1.8-2.5 s once §U28 self-resolved.
-- [ ] **C.12** Bring each interactive test down to ≤ 30 s wall (ideally ≤ 10 s). The 90 s wrapper was for the `requestRecycle()` overhead — now that the recycle is removed from AST per 2206 TODO #38, the 90 s should be droppable to 30 s or less. Verify by individual retest; if still > 30 s, investigate why the interactive demo is slow.
-
-#### C.xiii — TEST `interactive_tests_test` library-level `@Timeout(Duration(seconds: 240))`
-- [ ] **C.13** The TEST `interactive_tests_test.dart` carries a library-level `@Timeout(Duration(seconds: 240))` (per 2206 TODO #6). This was added because `package:test` defaults `setUpAll` to 30 s, and the file's `SendTestRunner.setUp(timeout: 180s)` couldn't complete inside that wrapper. The real fix is to bring `SendTestRunner.setUp` itself down to ≤ 30 s so the library-level annotation can be reduced to the package default (30 s) or removed entirely.
+#### C.xiii — TEST `interactive_tests_test.dart` library-level `@Timeout(Duration(seconds: 240))`
+- [ ] **C.202** TEST `interactive_tests_test.dart` `@Timeout(Duration(seconds: 240))` library annotation (per 2206 TODO #6, added because `package:test` defaults `setUpAll` to 30 s and `SendTestRunner.setUp(timeout: 180s)` couldn't complete inside that wrapper). Fix `SendTestRunner.setUp` itself to ≤ 30 s so the library-level annotation can be reduced to the package default (30 s) or removed entirely.
 
 ### Goal-tracker
 
-Once all entries in Phases A (A.1–A.8 plus any A.9, A.10, … spawned by A.3-A.7 enumeration work), B (B.1–B.9), and C (C.1–C.13) are closed:
+Once all entries in Phases A (A.1–A.8 plus any A.9, A.10, … spawned by A.3-A.7 enumeration work), B (B.1–B.12), and C (C.1–C.202) are closed:
 - **All `ignoredPatterns` entries in both test_apps' `main.dart` removed** (or shrunk to demonstrable exception-only).
 - **All 11 transport_clear_wedge errors from 1944 stopped recurring** (verified by next sweep).
 - **All 201 `>30s` timeout wrappers removed**; each test runs ≤ 10 s wall.
+- **The TEST `interactive_tests_test` library-level `@Timeout(240 s)` removed** (or reduced to the package default 30 s).
 - **`tool/sweep_both_projects.sh` budgets shrink** to the actual realistic worst cases (likely halving total sweep time from ~2 h to ~1 h).
 - **Final invariant:** *"all tests passed within less than 30 seconds each and without test app breakdowns."*
 
 ---
 
-**End of analysis.** The 1944 sweep snapshotted 4249 passing + 0 fail + 11 err + 0 framework-error log noise — but per the 2026-05-30 review, the apparent "0 framework errors" and "11 acceptable §U28-family flakes" both mask underlying bugs that have been worked around rather than fixed. The new TODO list above enumerates 8 Category A pattern-groups (items A.1–A.8; A.3-A.7 will spawn additional A.9, A.10, … items once the corresponding `ignoredPatterns` entries are removed and affected scripts are identified), 9 Category B test_app-stop sites (B.1–B.9), and 13 Category C file-groups covering 201 slow tests across both projects (C.1–C.13). Working through them one by one is what gets the test corpus to "all tests pass < 30 s each, no test_app breakdowns."
+**End of analysis.** The 1944 sweep snapshotted 4249 passing + 0 fail + 11 err + 0 framework-error log noise — but per the 2026-05-30 review, the apparent "0 framework errors" and "11 acceptable §U28-family flakes" both mask underlying bugs that have been worked around rather than fixed. The new TODO list above enumerates 8 Category A pattern-groups (items A.1–A.8; A.3-A.7 will spawn additional A.9, A.10, … items once the corresponding `ignoredPatterns` entries are removed and affected scripts are identified), 12 Category B test_app-stop sites (B.1–B.12, one per failing test site rather than one per script), and 202 Category C individual slow-test entries (C.1–C.202 across 13 Roman subsections, covering 201 `>30s` timeout wrappers + the TEST interactive `@Timeout(240s)` library annotation). Working through them one by one is what gets the test corpus to "all tests pass < 30 s each, no test_app breakdowns."
