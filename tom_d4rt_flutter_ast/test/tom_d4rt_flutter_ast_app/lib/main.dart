@@ -350,18 +350,23 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // RenderPadding / RenderParagraph / RenderWrap) without
         // affecting any other framework error shape.
         'infinite size during layout',
-        // Step 7 / Cluster H TODO #15: MemoryImage codec failure.
-        // The d4rt interpreter's MemoryImage→ImmutableBuffer→codec
-        // bridge path mangles inline PNG bytes (verified externally
-        // valid via libpng/PIL) so the codec rejects them every time
-        // the image_icon teaching demo renders. The bytes never reach
-        // Flutter's codec intact, so there is no script-level
-        // workaround that preserves the demo's visual content.
-        // Suppressing the captured noise so the build status stays
-        // clean — the test asserts only `build.success` which remains
-        // true even when the framework error fires. Full root cause +
-        // repro path: `interpreter_unfixable.md` §U29.
-        'Codec failed to produce an image',
+        // 1944 TODO A.1 (2026-05-30): the `'Codec failed to produce an
+        // image'` ignoredPatterns entry that previously lived here has
+        // been REMOVED. The script-side workaround in
+        // `widgets/image_icon_test.dart` (replacing
+        // `MemoryImage(Uint8List.fromList(<inline PNG bytes>))` with
+        // `AssetImage('assets/checker.png')` / `AssetImage('plaster.png')`
+        // for every visible ImageIcon) means the §U29 MemoryImage →
+        // ImmutableBuffer → codec bridge path is no longer traversed by
+        // any script in the corpus — so the codec error no longer fires,
+        // and suppressing it is no longer needed. The underlying §U29
+        // bridge bug remains documented in `interpreter_unfixable.md` §U29
+        // and the (now-unused) inline PNG byte arrays are retained in the
+        // image_icon_test.dart script for API documentation purposes.
+        // If a future script reintroduces `MemoryImage(Uint8List)`, the
+        // codec error will surface in the framework-error log (good — that
+        // signals the §U29 bug is being re-triggered and the new script
+        // needs the AssetImage substitution applied).
         // 1401-TODO #4 (F4): the rendering/render_constraints_transform_box_test
         // teaching demo intentionally overflows its parent box —
         // it's the entire point of the script. The script demonstrates

@@ -9,12 +9,23 @@
 // will render in a visually pleasing way. If the provider is null, the widget
 // reserves a size x size blank space.
 //
-// The harness this demo runs under (tom_d4rt_flutter_ast) does NOT provide
-// asset bundles or the network, so every ImageIcon in this demo relies on a
-// tiny inline PNG served through MemoryImage(Uint8List.fromList(...)). The
-// bytes below encode a 1x1 fully opaque white PNG; when rendered through
-// ImageIcon with BlendMode.srcIn the colour you supply wins — which is
-// exactly what a real asset-backed glyph does.
+// The demo originally used `MemoryImage(Uint8List.fromList(<inline PNG
+// bytes>))` for every ImageIcon — but the d4rt bridge's
+// `Uint8List` → `MemoryImage._bytes` → `ImmutableBuffer.fromUint8List` →
+// C++ codec path corrupts inline PNG bytes (verified externally with
+// PIL/libpng — bytes decode cleanly outside d4rt; only the in-bridge
+// path fails). Full root cause + repro: `interpreter_unfixable.md` §U29.
+// Per the 20260530 review (1944 TODO A.1) the script-side fix is to use
+// a working ImageProvider that doesn't traverse the corrupting bridge
+// path. The tom_d4rt_flutter_*_app projects already bundle a few real
+// PNG assets in their pubspec.yaml ({assets/checker.png, plaster.png,
+// cartoon.png}); we now build every visible ImageIcon from
+// `AssetImage(...)` of those bundled files. ImageIcon's contract is
+// fully exercised: the ImageProvider parameter, the size+color tint via
+// BlendMode.srcIn, IconTheme inheritance, semanticLabel — all still
+// rendered live. The `Uint8List` + `MemoryImage` constructors are kept
+// below as constants for API documentation but no longer fed into the
+// widget tree.
 //
 // The demo is deliberately a StatelessWidget. Interactive surfaces are driven
 // by top-level ValueNotifiers and ValueListenableBuilder so we never have to
@@ -54,22 +65,21 @@ final ValueNotifier<bool> kInheritExplicit = ValueNotifier<bool>(false);
 // also ships a 2x2 "checker" PNG used in a subset of cards.
 // ---------------------------------------------------------------------------
 
-// Cluster H TODO #15 (testlog 20260525-1059) — note about the
-// "Codec failed to produce an image" framework error.
+// API-documentation constants — these PNG byte arrays are kept verbatim
+// from the 2026-05-25 Cluster H investigation. They encode a 1×1 opaque
+// white PNG and a 1×1 opaque black PNG respectively (verified externally
+// with PIL/libpng as valid). They are NOT fed into the widget tree
+// because of the §U29 bridge corruption documented in this file's
+// header — `MemoryImage(Uint8List)` would emit a captured
+// `Exception: Codec failed to produce an image` even though the bytes
+// are byte-for-byte valid. The byte arrays + the commented-out
+// `MemoryImage` constructors are kept here for educational reference so
+// readers see exactly what the original MemoryImage(Uint8List) usage
+// looked like, while the live ImageIcon widgets below use bundled
+// `AssetImage` providers that exercise the same ImageIcon contract
+// without tripping §U29.
 //
-// PNG bytes below are byte-for-byte identical to the bytes the script
-// originally shipped — verified externally with PIL/libpng that they
-// decode to a valid 1×1 RGBA image. Despite that, Flutter's codec
-// rejects them in this d4rt-interpreted context. base64Decode produces
-// the same valid bytes too. The corruption appears to happen at the
-// MemoryImage→ImmutableBuffer→codec bridge boundary; the test app's
-// framework-error filter (see test/tom_d4rt_flutter_ast_app/lib/main.dart
-// §_handleFlutterError ignoredPatterns) suppresses the noise so the
-// build status stays clean. Test passes either way — it asserts
-// build.success which remains true.
-//
-// Full root cause + repro path documented in
-// `interpreter_unfixable.md` §U29.
+// ignore: unused_element
 final Uint8List _png1x1White = Uint8List.fromList(<int>[
   0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, //
   0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, //
@@ -82,8 +92,7 @@ final Uint8List _png1x1White = Uint8List.fromList(<int>[
   0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82, //
 ]);
 
-// Alternate texture — a 1x1 opaque black PNG. Used in places where we want
-// to emphasise that the black "seed" will be replaced by srcIn's tint.
+// ignore: unused_element
 final Uint8List _png1x1Black = Uint8List.fromList(<int>[
   0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, //
   0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, //
@@ -96,10 +105,15 @@ final Uint8List _png1x1Black = Uint8List.fromList(<int>[
   0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82, //
 ]);
 
-// A cached MemoryImage instance — MemoryImage caches by byte identity, so
-// reusing a single instance across the tree keeps the image cache small.
-final ImageProvider _glyphImage = MemoryImage(_png1x1White);
-final ImageProvider _glyphImageBlack = MemoryImage(_png1x1Black);
+// Live ImageProvider instances actually fed to ImageIcon below.
+// Originally these were `MemoryImage(_png1x1White)` /
+// `MemoryImage(_png1x1Black)` but those trip §U29's codec bridge bug.
+// Both AssetImage variants resolve through the same ImageIcon → BlendMode.srcIn →
+// tint colour code path so the demo's pedagogical content stays intact —
+// only the ImageProvider concrete subclass changed.
+final ImageProvider _glyphImage =
+    const AssetImage('assets/checker.png');
+final ImageProvider _glyphImageBlack = const AssetImage('plaster.png');
 
 // ---------------------------------------------------------------------------
 // Constants / shared data.

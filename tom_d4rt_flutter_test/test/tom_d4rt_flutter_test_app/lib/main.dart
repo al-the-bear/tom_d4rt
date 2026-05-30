@@ -300,14 +300,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // RenderPadding / RenderParagraph / RenderWrap) without
         // affecting any other framework error shape.
         'infinite size during layout',
-        // Cluster H TODO #15 — see flutter_ast/main.dart equivalent for
-        // the full rationale + interpreter_unfixable.md §U29 for the
-        // MemoryImage→codec bridge corruption. The codec fails to
-        // decode bytes that are externally verified as valid PNG;
-        // there is no script-level workaround that preserves the
-        // image_icon teaching demo. Suppressing the noise so build
-        // status stays clean.
-        'Codec failed to produce an image',
+        // 1944 TODO A.1 (2026-05-30): the `'Codec failed to produce an
+        // image'` ignoredPatterns entry that previously lived here has
+        // been REMOVED — see flutter_ast/main.dart for the full
+        // rationale. The script-side workaround in
+        // `widgets/image_icon_test.dart` (AssetImage instead of
+        // MemoryImage(Uint8List)) means the §U29 bridge path is no
+        // longer traversed by any script, so suppressing the codec
+        // error is no longer needed. The underlying §U29 bridge bug
+        // remains documented in `interpreter_unfixable.md` §U29.
         // 1401-TODO #4 (F4): mirror of flutter_ast filter. The
         // rendering/render_constraints_transform_box_test teaching demo
         // intentionally overflows its parent box (Clip.none vs
