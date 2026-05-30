@@ -322,22 +322,30 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         "'hasSize'",
         // Semantics layout-state assertion that follows the same cascade.
         "'!childSemantics.renderObject._needsLayout'",
-        // Step 5: 0.500-pixel `RenderFlex` overflow is a subpixel
-        // rounding artefact from Flutter's desktop test surface (the
-        // non-integer device pixel ratio of the host window means a
-        // Column whose children sum to exactly the parent height
-        // rounds 0.5 px over). It is universally advisory — overflow
-        // bars only appear in debug paint, layout is correct, and
-        // the host tests do not assert on debug-paint output. Any
-        // legitimate layout bug overflows by ≥ 1 px and remains
-        // visible. Filter narrowly on the exact ".500 pixels" decimal
-        // string so non-subpixel overflows (1 px, 2 px, …) are still
-        // captured as framework errors.
-        // [A.4 DISCOVER 20260530-1115] temporarily commented to enumerate
-        // which scripts emit the 0.500-pixel overflow banner. Will be
-        // restored or permanently removed once the discovery sweep has
-        // identified each affected script.
-        // 'overflowed by 0.500 pixels',
+        // 1944 TODO A.4 (2026-05-30): the `'overflowed by 0.500 pixels'`
+        // ignoredPatterns entry that previously lived here has been
+        // REMOVED. Discovery sweep across both projects' full test
+        // corpora (essential + important + secondary + hardly_relevant
+        // × 5 + timeout) with the suppression off found exactly ONE
+        // affected script: `cupertino/restorable_cupertino_tab_controller_test.dart`
+        // with 55 hits, all originating from the per-tab-item Column
+        // inside the script's `_MiniTabBar` helper. The Column's
+        // children (Icon size 18 + SizedBox 2 + Text fontSize 10)
+        // request ≈ 34 logical pixels because Flutter's default font
+        // line-height factor for fontSize 10 rounds the rendered Text
+        // height to ≈ 14 px (not 10); available inner-Column space
+        // was 33.5 ((tabBarHeight 50 − 0.5 top border) − 8 margin − 8
+        // padding). Script-side fix bumped `_kTabBarHeight` from
+        // 50.0 to 51.0 — raises available inner-Column space to 34.5,
+        // eliminating the banner without visibly changing the tab-bar
+        // dimensions. Post-fix isolated retests on AST + TEST both
+        // returned `frameworkErrors=0`. The framework's 0.500-pixel
+        // overflow detection itself remains the correct signal — it
+        // catches legitimate layout-sum-vs-parent-height mismatches
+        // that future scripts could regress on. If a future script
+        // re-introduces the same pattern, the banner will surface
+        // in the framework-error log (good — that signal is what
+        // the suppression previously hid).
         // Step 6: "object was given an infinite size during layout"
         // is a Flutter framework debug-paint warning emitted by the
         // render pipeline when a render object resolves to an

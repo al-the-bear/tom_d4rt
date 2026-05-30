@@ -68,7 +68,20 @@ import 'dart:ui' as ui;
 const double _kSectionPad = 20.0;
 const double _kCardRadius = 18.0;
 const double _kPillRadius = 999.0;
-const double _kTabBarHeight = 50.0;
+// _kTabBarHeight bumped from 50.0 to 51.0 (A.4 fix): inside _MiniTabBar,
+// each Expanded child has Container(margin: 4 + padding-vertical: 4) →
+// available inner-Column height = (tabBarHeight − 0.5 top border) − 8
+// margin − 8 padding = 33.5 with the old 50.0. Column children
+// (Icon 18 + SizedBox 2 + Text fontSize 10) request ≈ 34 logical pixels
+// because Flutter's default font line-height factor for fontSize 10
+// rounds the Text's painted height to ≈ 14 (not 10). 34 > 33.5 → the
+// framework's `RenderFlex` overflow detector fires
+// `overflowed by 0.500 pixels on the bottom`. Bumping the bar height
+// to 51 raises available inner-Column space to 34.5, eliminating the
+// banner without visibly changing the tab-bar dimensions. The 5×11 ≈
+// 55 banner copies seen in the discovery sweep all originated from
+// the per-tab-item Column inside this _MiniTabBar pattern.
+const double _kTabBarHeight = 51.0;
 const double _kTabBarHeightTall = 64.0;
 const double _kGalleryTileWidth = 280.0;
 const double _kGalleryTileHeight = 200.0;
