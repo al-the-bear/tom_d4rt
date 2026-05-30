@@ -387,28 +387,31 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // ConstraintsTransformBox, the banner will surface in the
         // framework-error log (good — that signal is what the
         // suppression previously hid).
-        // 1401-TODO #9 (F10): `framework.dart:6417` InheritedElement
-        // dependent-descendant assertion. The TODO body framed this as
-        // a `findRenderObject`-on-inactive-element family (cluster B
-        // / U27), but tracing the actual assertion shows it is the
-        // `InheritedElement.updateDependencies` descendant check
-        // (assertion body comment: "check that it really is our
-        // descendant"). It only fires in the full `timeout_tests_test`
-        // suite for `rendering/render_custom_multi_child_layout_box_test.dart`
-        // — isolated rerun of the same script is clean (`frameworkErrors=0`).
-        // So it's a U28-style position-dependent cascade triggered by
-        // prior scripts in the suite leaving InheritedWidget dependent
-        // state mis-parented across `/clear → /build`. The cluster-B
-        // findRenderObject catch can't intercept this — the assertion
-        // fires inside the framework's own internal updateDependencies
-        // call, not in a bridge method the interpreter routes through.
-        // See `interpreter_unfixable.md` §U30 for the speculative root
-        // cause and the deferred deep fix (clear interpreted-element
-        // dependent-set on /clear). Filter on the assertion body's
-        // unique comment string so the filter survives Flutter
-        // line-number changes; the phrase only appears in this one
-        // framework assertion.
-        'check that it really is our descendant',
+        // 1944 TODO A.3 (2026-05-30): the
+        // `'check that it really is our descendant'` ignoredPatterns
+        // entry that previously lived here has been REMOVED. The
+        // discovery sweep ran both `secondary_classes_test.dart` (where
+        // the historical §U30 cascade `render_constraints_transform_box_test`
+        // → `render_custom_multi_child_layout_box_test` lives) AND
+        // `timeout_tests_test.dart` (where §U30 was originally observed
+        // in 2026-05-26) on BOTH projects with this entry commented
+        // out. Result: zero `'check that it really is our descendant'`
+        // hits across both projects. The §U30 position-dependent
+        // cascade is no longer reproducible in the current corpus.
+        // Likely contributors: (a) A.2 rewrote
+        // `render_constraints_transform_box_test.dart` to remove its
+        // live overflowing CTBs (which were the prime suspect for
+        // leaking InheritedElement dependents across /clear→/build);
+        // (b) general lifecycle hygiene improvements since the original
+        // 2026-05-27 TODO #9 added this suppression. The architectural
+        // concern documented in `interpreter_unfixable.md` §U30
+        // (script-defined interpreted Elements potentially leaking into
+        // native InheritedElement dependent sets) remains open in
+        // principle but has no observable failure mode under the
+        // current corpus + interpreter combination. If a future script
+        // reintroduces the cascade, the assertion will surface in the
+        // framework-error log (good — that signal is what the
+        // suppression previously hid).
       ];
       isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;

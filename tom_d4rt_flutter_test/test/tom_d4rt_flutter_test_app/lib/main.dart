@@ -327,15 +327,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // scripts on both AST + TEST projects. If a future script
         // reintroduces an overflowing ConstraintsTransformBox, the
         // banner will surface in the framework-error log.
-        // 1401-TODO #9 (F10): mirror of flutter_ast. The
-        // `framework.dart:6417` InheritedElement.updateDependencies
-        // descendant-check assertion fires as a U28-style
-        // position-dependent cascade in larger suites. Filter on the
-        // unique assertion-body comment string. See flutter_ast's
-        // equivalent ignoredPatterns entry and
-        // `interpreter_unfixable.md` §U30 for the full rationale and
-        // the deferred deep fix.
-        'check that it really is our descendant',
+        // 1944 TODO A.3 (2026-05-30): mirror of flutter_ast removal. The
+        // `'check that it really is our descendant'` ignoredPatterns
+        // entry that previously lived here has been REMOVED. The
+        // discovery sweep ran both `secondary_classes_test.dart` (where
+        // the historical §U30 cascade `render_constraints_transform_box_test`
+        // → `render_custom_multi_child_layout_box_test` lives) AND
+        // `timeout_tests_test.dart` (where §U30 was originally observed
+        // in 2026-05-26) on BOTH projects with this entry commented
+        // out. Result: zero `'check that it really is our descendant'`
+        // hits across both projects (the TEST sweep returned a clean
+        // `+704 ~1 All tests passed!`). The §U30 position-dependent
+        // cascade is no longer reproducible in the current corpus.
+        // See flutter_ast's main.dart for the full rationale and
+        // `interpreter_unfixable.md` §U30 for the architectural framing.
       ];
       isIgnored =
           ignoredPatterns.any((p) => message.contains(p)) || isSilenced;

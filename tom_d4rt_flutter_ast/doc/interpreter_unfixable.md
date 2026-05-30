@@ -7437,9 +7437,71 @@ diagnostic effort.
 
 ---
 
-## U30 — `InheritedElement.updateDependencies` descendant-check assertion (`framework.dart:6417`) fires as a U28-style position-dependent cascade in larger suites — **✅ FIXED in 2206 baseline (observable side; architectural dependent-set corruption intact)**
+## U30 — `InheritedElement.updateDependencies` descendant-check assertion (`framework.dart:6417`) fires as a U28-style position-dependent cascade in larger suites — **✅ FULLY CLOSED 2026-05-30 (suppression removed; cascade no longer reproducible after A.2 rewrite)**
 
-**2026-05-29 update — FIXED (observable side).** Same two-fix mechanism as §U17/§U29:
+**2026-05-30 update — A.3 CLOSURE (suppression removed).** The 1944 TODO A.3
+discovery sweep ran both `secondary_classes_test.dart` (where the historical
+§U30 cascade `render_constraints_transform_box_test` →
+`render_custom_multi_child_layout_box_test` lives at adjacent lines 2732 /
+2739) AND `timeout_tests_test.dart` (the original 2026-05-26 reproducer host
+file) on BOTH AST + TEST projects with the
+`'check that it really is our descendant'` `ignoredPatterns` entry commented
+out. **Result: zero `'check that it really is our descendant'` hits across
+both projects** (AST: 702/+1/-2 with 2 unrelated §U25 cold-start failures;
+TEST: clean `+704 ~1 All tests passed!` in 38:04). The §U30 cascade is no
+longer reproducible in the current corpus + interpreter combination.
+
+**Likely contributors to the cascade no longer reproducing:**
+
+1. **A.2 rewrite of `render_constraints_transform_box_test.dart`** (committed
+   2026-05-30, commit `da4b3234`): the historical §U30 reproducer trace
+   was specifically `render_constraints_transform_box_test → /clear → /build
+   render_custom_multi_child_layout_box_test → assertion`. A.2 shrank every
+   live CTB in Sections 4/7/8 so the parent slot fits the child, and
+   replaced overflowing live demos with `Stack`-based static schematics.
+   The previously-live overflowing CTBs were the prime suspect for leaking
+   InheritedElement dependents (via `InheritedTheme` / `MediaQuery`
+   dependency chains formed inside the CTB descendants) across the `/clear
+   → /build` boundary. With those overflowing CTBs gone, the predecessor
+   no longer leaves stale dependents for the successor to trip over.
+2. **General lifecycle hygiene improvements** since 2026-05-27 TODO #9
+   added the suppression: TODO #6's interpreter-side `requestRecycle()`
+   improvements + TODO #7/#8's `_handleFlutterError` guard cleanups have
+   tightened the `/clear` cleanup path generally.
+
+**Suppression removal.** `'check that it really is our descendant'`
+permanently removed from both test_apps' `ignoredPatterns` lists
+(`tom_d4rt_flutter_ast_app/lib/main.dart:411` and
+`tom_d4rt_flutter_test_app/lib/main.dart:328` per the pre-removal layout).
+Replaced in both `main.dart`s with a comment block explaining the removal
+rationale, the discovery sweep results, and the recovery path if a future
+script re-introduces the cascade.
+
+**Workaround vs real fix.** Per §U30's own "Real fix (deferred)" section,
+the canonical fix was either (a) clear interpreted-element dependent
+registrations on `/clear` in the test app, OR (b) have the interpreter
+track interpreted-element lifecycles and unregister from native
+InheritedElement dependent sets when an interpreted Element deactivates.
+A.3 achieved the outcome (no cascade) without either of those deep fixes —
+the script-side rewrite in A.2 removed the trigger, which is functionally
+equivalent to (a) for the current corpus.
+
+**Status today.** Architectural concern documented below remains open in
+principle (interpreted Elements *could* still leak InheritedElement
+dependents under a future script pattern not present in today's corpus),
+but no observable failure mode exists. The suppression is gone — if a
+future script re-introduces the cascade, the assertion will surface in
+the framework-error log and that signal will be visible (good — that's
+exactly what the suppression previously hid). Revisit only if a future
+sweep produces a non-zero `'check that it really is our descendant'`
+count; the deep fix in the "Real fix (deferred)" section below remains
+the path forward in that scenario.
+
+---
+
+## U30 — 2026-05-29 update (retained for reference, superseded by 2026-05-30)
+
+Same two-fix mechanism as §U17/§U29:
 
 1. `'check that it really is our descendant'` was already added to both
    test_apps' `ignoredPatterns` lists per the 2026-05-27 TODO #9 fix (verified
