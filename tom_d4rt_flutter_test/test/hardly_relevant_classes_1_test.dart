@@ -1432,23 +1432,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'primary_pointer_gesture_recognizer_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'gestures/primary_pointer_gesture_recognizer_test.dart',
-          // 20260523-1056 baseline §1.4/E17 (ast) + §2.D contention
-          // (test): Transport failure 25s — cold-start contention.
-          // 2178-line / 71 KB script builds in ~1.5 s. Same family
-          // as the §1.3 E-series: 50 s leaves 10 s of headroom
-          // under the 60 s dart-test wrapper. Applied symmetrically
-          // with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('primary_pointer_gesture_recognizer_test.dart', () async {
+      // 1944 TODO C.63 (2026-05-31): historical 20260523-1056 §1.4/E17
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. Script runs in ~1.6 s under normal load
+      // (httpMs=1584, sourceChars=71258 — 71 KB / 2178-line script).
+      final result = await SendTestRunner.send(
+        'gestures/primary_pointer_gesture_recognizer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('sampling_clock_test.dart', () async {
       final result = await SendTestRunner.send(
