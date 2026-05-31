@@ -6868,6 +6868,22 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   symptom-rename of the same §U28 vulnerability — not a new
   deterministic per-script wedge.
 
+- `retest/rendering/render_animated_size_state_test.dart` (1944
+  B.5/B.6/B.7 — cross-host triple-pair, 876 KB AST bundle — the
+  LARGEST in the rendering group, exceeding §U28's documented
+  ~800 KB ceiling). Host files: `tom_d4rt_flutter_ast/test/timeout_tests_test.dart`
+  (B.5), `tom_d4rt_flutter_ast/test/generator_interpreter_retest_test.dart`
+  (B.6), `tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart`
+  (B.7). Verified passing on AST/timeout_tests_test under load avg
+  5.3 in 2.1 s isolated (httpMs=2119) and in 2.2 s at +1 of the
+  full sweep (httpMs=2175, +51 ALL PASSED in 9:20, zero failures).
+  Previously reported wedging in the 1944 baseline with explicit
+  §U25 cold-start signature; the entry's authors knew it was a
+  §U25 host-load family symptom and proposed the §U25 "real fix"
+  (interpreter perf work to pre-warm parser / declaration visitor
+  / Environment OR test-app `/warmup` endpoint) as the path
+  forward. That deep fix remains deferred.
+
 - `rendering/alignment_geometry_tween_test.dart` (1944 B.3/B.4 —
   cross-project pair, 427 KB AST bundle, 30 KB TEST source).
   AST host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`;
