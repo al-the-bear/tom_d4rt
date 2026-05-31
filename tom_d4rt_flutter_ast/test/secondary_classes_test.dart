@@ -2725,23 +2725,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_custom_paint_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_paint_test.dart',
-          // 20260523-1056 baseline §S/E1: under parallel-driver contention
-          // (ast+test apps booting concurrently) the /build for this
-          // 1521-line, 60 KB script can exceed the default 25 s HTTP cap
-          // on the first request after the test app cold-start. Serial
-          // isolated re-runs complete in ~2 s. 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_custom_paint_test.dart', () async {
+      // 1944 TODO C.20 (2026-05-31): historical 20260523-1056 §S/E1
+      // parallel-driver-contention wrapper REMOVED. Script runs in
+      // ~2.0 s under normal load (httpMs=1981) on the 958 KB bundle.
+      // The original concurrent-cold-start failure was resolved by
+      // §U25/§U28 mitigations shipped across A.1-A.8 + B.1-B.12
+      // closures.
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_paint_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'render_custom_single_child_layout_box_test.dart',
