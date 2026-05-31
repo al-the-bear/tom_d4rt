@@ -1882,17 +1882,14 @@ void main() {
     // material-individual group on `secondary_classes_test`. Bump cap from
     // 25 s to 50 s with 60 s dart-test wrapper on the three date* + default
     // localizations entries.
-    test(
-      'date_time_range_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/date_time_range_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('date_time_range_test.dart', () async {
+      // 1944 TODO C.17 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~1.6 s under normal load (httpMs=1590).
+      final result = await SendTestRunner.send(
+        'material/date_time_range_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'date_utils_test.dart',
