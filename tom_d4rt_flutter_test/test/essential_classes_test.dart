@@ -144,17 +144,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'textfield_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/textfield_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('textfield_test.dart', () async {
+      // 1944 TODO C.11 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~1.9 s under normal load (httpMs=1938). TEST mirror of C.5.
+      // Last of the TEST §6/T1/§6/E1-E4 cluster (C.7-C.11 closed
+      // the TEST mirrors of the AST cupertino cold-start cluster).
+      final result = await SendTestRunner.send(
+        'cupertino/textfield_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('theme_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/theme_test.dart');
