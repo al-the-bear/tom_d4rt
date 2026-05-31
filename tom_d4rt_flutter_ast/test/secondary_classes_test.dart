@@ -4506,22 +4506,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'sliver_semantics_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/sliver_semantics_test.dart',
-          // 20260523-1056 baseline §1.3/E9: TimeoutException after 30s
-          // — cold-start contention. This 1096-line / 40 KB script
-          // (429 KB bundle) takes ~1.7 s in both variants. Same
-          // family as E1/E2/E4/E6/E7/E8: 50 s leaves 10 s of headroom
-          // under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('sliver_semantics_test.dart', () async {
+      // 1944 TODO C.30 (2026-05-31): historical 20260523-1056 §1.3/E9
+      // cold-start-contention wrapper REMOVED. Script runs in ~1.4 s
+      // under normal load (httpMs=1365, bundleJsonBytes=429244).
+      final result = await SendTestRunner.send(
+        'widgets/sliver_semantics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('sliver_visibility_test.dart', () async {
       final result = await SendTestRunner.send(
