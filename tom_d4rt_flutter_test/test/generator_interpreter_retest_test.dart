@@ -260,6 +260,23 @@ void main() {
     test(
       'retest: rendering/render_animated_size_state_test.dart',
       () async {
+        // 1944 TODO B.7 (2026-05-31): mirror of the B.6 fix on the
+        // AST sibling host file. The script is 60 KB source and
+        // builds in 1.8 s isolated, but at position +25 in this
+        // TEST gir retest section the cumulative declaration state
+        // from the 24 preceding tests OOM-wedges the test_app's
+        // `/clear` (pre-fix sweep observed `status=clear_failed`,
+        // `Connection closed before full header was received` on
+        // `GET /clear` — the test_app process dies during the
+        // /clear before this test's /build can start). Targeted
+        // `SendTestRunner.requestRecycle()` forces a fresh
+        // test_app process before this single test, avoiding the
+        // §U28 cumulative-state cascade. Cost: ~10 s extra wall
+        // time. See `interpreter_unfixable.md` §U28 for the
+        // architectural root cause and the deferred deep fix
+        // (interpreter-side declaration-registry-clear-on-/clear).
+        // Same workaround as B.6 / AST gir retest.
+        SendTestRunner.requestRecycle();
         final result = await SendTestRunner.send(
           'retest/rendering/render_animated_size_state_test.dart',
           // 20260523-1056 baseline §1.12/E42 (= §S/S6). Serial

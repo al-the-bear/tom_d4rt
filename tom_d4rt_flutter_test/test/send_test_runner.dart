@@ -149,6 +149,22 @@ class SendTestRunner {
   /// 30s budget — the recycle (which can take ~10s) runs against the next
   /// test's budget instead of cascading into "did not complete".
   static bool _appNeedsRecycle = false;
+
+  /// 1944 TODO B.7 (2026-05-31): public mirror of the AST sibling's
+  /// `SendTestRunner.requestRecycle()` API. Sets `_appNeedsRecycle`
+  /// so the next [send] call recycles the test_app process before
+  /// dispatching the build. Used by host-file test/* files to opt
+  /// individual large-bundle scripts out of the §U28 cumulative-
+  /// declaration-state accumulation cliff (see
+  /// `interpreter_unfixable.md` §U28 for the architectural root
+  /// cause and the deferred deep fix). Pattern: call this at the
+  /// start of an individual test's body before
+  /// `SendTestRunner.send(...)` to force a fresh test_app for
+  /// THAT one test.
+  static void requestRecycle() {
+    _appNeedsRecycle = true;
+  }
+
   static const int _processLogTailLimit = 200;
 
   static final List<String> _testAppStdoutTail = <String>[];

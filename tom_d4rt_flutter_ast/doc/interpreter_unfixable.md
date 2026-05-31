@@ -6907,6 +6907,27 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   interpreter-side declaration-registry-clear-on-/clear remains
   the canonical resolution.
 
+  **B.7 closure (2026-05-31).** Mirror of B.6 on the TEST
+  (source-direct) project. Pre-fix sweep on `tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart`:
+  same position +25 vulnerability with a slightly different
+  failure mode — `status=clear_failed`, `Connection closed
+  before full header was received` on `GET /clear` (test_app
+  process dies DURING `/clear`, before this test's `/build`
+  can start). Pre-fix sweep: 56 ~1 -1 in 2:55. The TEST project
+  did not previously have a public
+  `SendTestRunner.requestRecycle()` method (only the
+  internally-set `_appNeedsRecycle` flag), so the fix added the
+  public API mirror to `tom_d4rt_flutter_test/test/send_test_runner.dart`
+  (3-line method with comment block), then applied the same
+  targeted recycle call at the start of this test's body.
+  Post-fix sweep: **+57 ~1 ALL TESTS PASSED in 2:57**, ZERO
+  failures. Recycle log confirms identical mechanism:
+  `[recycle] killing wedged test app (pid=42511)` →
+  `[recycle] starting fresh test app` →
+  `[recycle] verifying /clear roundtrip` → `[recycle] ready` →
+  script builds in 2.6 s. Both projects now use the same
+  targeted-recycle pattern for this script.
+
 - `rendering/alignment_geometry_tween_test.dart` (1944 B.3/B.4 —
   cross-project pair, 427 KB AST bundle, 30 KB TEST source).
   AST host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`;
