@@ -1250,25 +1250,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'least_squares_solver_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'gestures/least_squares_solver_test.dart',
-          // Step 9 follow-up: under full-suite contention the /build for
-          // this 2337-line script can exceed the default 25 s HTTP cap.
-          // 50 s leaves 10 s of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      // 2337-line script: build can stack against the default HTTP +
-      // dart-test timeouts under contention. Wrapper bumped to 60 s so
-      // the 50 s HTTP cap above can fire first if a real hang occurs.
-      // See doc/testlog_20260518-1449-flutter-suites/error_analysis.md
-      // Step 9 (transport flake) + Step 10 verification follow-up.
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('least_squares_solver_test.dart', () async {
+      // 1944 TODO C.53 (2026-05-31): historical 20260518-1449 Step 9
+      // full-suite-contention wrapper REMOVED. Script runs in ~4.1 s
+      // under normal load (httpMs=4067, bundleJsonBytes=938527 —
+      // 939 KB bundle / 81 KB / 2337-line script). Slower than the
+      // average §C.iv entry but still ~26 s of headroom under 30 s.
+      final result = await SendTestRunner.send(
+        'gestures/least_squares_solver_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('mac_o_s_scroll_view_fling_velocity_tracker_test.dart', () async {
       final result = await SendTestRunner.send(
