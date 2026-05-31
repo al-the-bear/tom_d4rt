@@ -6868,6 +6868,26 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   symptom-rename of the same §U28 vulnerability — not a new
   deterministic per-script wedge.
 
+- `material/expansionpanel_test.dart` (1944 B.8 — 52 KB source,
+  host: `tom_d4rt_flutter_test/test/important_classes_test.dart`,
+  position +56 in the suite). Verified passing on TEST under
+  load avg ~7 in 2.0 s isolated (httpMs=2010) and in 1.4 s at
+  +56 of full important_classes_test (httpMs=1430, +164 ALL
+  PASSED in 6:46, zero failures). Previously reported wedging
+  in the 1944 baseline at site T2; the "predecessor cascade"
+  framing in B.8's hypothesis was a §U28 cumulative-state
+  symptom — the script passes cleanly under low load even at
+  position +56, but is vulnerable when the host is saturated
+  (under high load, the cumulative declaration state from 55
+  predecessors + concurrent host pressure tips the test_app
+  over its memory/budget ceiling even for a 52 KB script). No
+  per-script or host-file fix applied — the script is innocent
+  and the wedge does not reproduce under normal load. Same
+  family as B.1-B.5; if the wedge re-emerges under host-load
+  pressure, the targeted-recycle fix from B.6/B.7 would apply
+  (call `SendTestRunner.requestRecycle()` at the start of this
+  test's body).
+
 - `retest/rendering/render_animated_size_state_test.dart` (1944
   B.5/B.6/B.7 — cross-host triple-pair, 876 KB AST bundle — the
   LARGEST in the rendering group, exceeding §U28's documented
