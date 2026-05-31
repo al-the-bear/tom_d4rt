@@ -6367,6 +6367,18 @@ same deferred interpreter-side cold-start work:
   host-load-dependent, not script-specific. No per-script fix is
   warranted; the script is innocent.
 
+- `widgets/render_object_to_widget_adapter_test.dart` (1944 B.10
+  — 42 KB source, host: `tom_d4rt_flutter_test/test/generator_interpreter_issues_test.dart`,
+  position +1 — first test after setUpAll). Verified passing on
+  TEST under load avg ~7 in 1.7 s isolated (httpMs=1455) and in
+  1.6 s at +1 of full gii sweep (httpMs=1411, +80 ~1 -2 in
+  10:32, the 2 failures are later-position §U25/§U28 transport_errors
+  on unrelated widgets/ scripts). Previously reported wedging in
+  the 1944 baseline at site T5; the "find + fix predecessor"
+  framing was misleading — the script runs FIRST (no predecessor
+  exists). Same family as B.1 (TEST source-direct first-build
+  cold-start vulnerability under high host load).
+
 These additions confirm §U25's broader pattern: any source-direct
 script (~40 KB+ with moderate widget-tree complexity) that happens to
 be the *first* script after `setUpAll` is vulnerable to the cold-start
