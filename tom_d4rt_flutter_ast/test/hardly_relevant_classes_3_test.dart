@@ -849,23 +849,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'application_switcher_description_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'services/application_switcher_description_test.dart',
-          // 20260523-1056 baseline §1.6/E27: Transport failure 25s
-          // — cold-start contention. This 2630-line / 86 KB script
-          // (917 KB bundle) builds in ~2.0 s in both variants. Same
-          // family as E1/E11/E12 (large script, light runtime):
-          // 50 s leaves 10 s of headroom under the 60 s dart-test
-          // wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('application_switcher_description_test.dart', () async {
+      // 1944 TODO C.79 (2026-05-31): historical 20260523-1056 §1.6/E27
+      // cold-start-contention wrapper REMOVED. Script runs in ~2.7 s
+      // under normal load (httpMs=2694, bundleJsonBytes=917432 —
+      // 917 KB bundle / 86 KB / 2630-line script). Large-script,
+      // light-runtime family (like dart_ui/class_test).
+      final result = await SendTestRunner.send(
+        'services/application_switcher_description_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('autofill_client_test.dart', () async {
       final result = await SendTestRunner.send(
