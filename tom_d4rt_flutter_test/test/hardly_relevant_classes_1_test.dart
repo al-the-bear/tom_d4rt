@@ -576,26 +576,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    // 20260525 §6.1 bisect: S8 (D1) re-verified to run cleanly in
-    // isolation. Bisect on the ast variant reproduced 3× passing runs
-    // (totalMs 2266 / 2461 / 2426, frameworkErrors=0). The original D1
-    // "wedge" diagnosis from the 20260427 Linux baseline was a
-    // misattribution of U25-family cold-start cascade contention to a
-    // permanent test-app destabilisation. Lifted the skip and replaced
-    // with the standard `httpBuildTimeout: 50 s` caller-side cap; the
-    // ast variant's full hardly_1 suite run verified no cascade
-    // (+204 ~1 -0). Applied symmetrically to flutter_test.
-    test(
-      'image_sampler_slot_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/image_sampler_slot_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('image_sampler_slot_test.dart', () async {
+      // 1944 TODO C.57 (2026-05-31): historical 20260525 §6.1/D1
+      // "wedge" misattribution wrapper REMOVED. Script runs in
+      // ~2.2 s under normal load (httpMs=2162, sourceChars=28842).
+      final result = await SendTestRunner.send(
+        'dart_ui/image_sampler_slot_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'isolate_name_server_test.dart',
