@@ -848,23 +848,16 @@ void main() {
       },
     );
 
-    test(
-      'progress_indicator_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/progress_indicator_test.dart',
-          // 20260523-1056 baseline §1.5/E20 (ast) + §2.D contention
-          // (test): TimeoutException 30s — cold-start contention.
-          // 1734-line / 58 KB script builds in ~1.4 s. Same family
-          // as the §1.3/§1.4 E-series: 50 s leaves 10 s of headroom
-          // under the 60 s dart-test wrapper. Applied symmetrically
-          // with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('progress_indicator_test.dart', () async {
+      // 1944 TODO C.72 (2026-05-31): historical 20260523-1056 §1.5/E20
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. Script runs in ~1.7 s under normal load
+      // (httpMs=1728, sourceChars=57863 — 58 KB / 1734-line script).
+      final result = await SendTestRunner.send(
+        'material/progress_indicator_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('raw_chip_test.dart', () async {
       final result = await SendTestRunner.send('material/raw_chip_test.dart');
