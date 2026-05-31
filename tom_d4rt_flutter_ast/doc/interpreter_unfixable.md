@@ -6850,6 +6850,39 @@ match to the documented signature, and is the workaround we ship.
 
 ## U28 — `tom_d4rt_flutter_ast` test-app accumulates state across `/clear → /build` cycles such that the 2nd+ build of an ~800 KB-bundled static-demo script exceeds the test app's 30 s build budget (flutter_ast-only; flutter_test source-direct path is unaffected)
 
+**2026-05-31 update — additional known victims (1944 TODO B.2 closure).**
+The Phase B host-load wedge investigations during the 1944 closure cycle
+identified additional AST-side scripts that hit the same §U28 cumulative-
+declaration-state cold-start ceiling under heavy host load (sustained
+load avg 12+). These scripts pass cleanly in isolation and under low
+load but wedge at `httpMs=25002` mid-run or on the first `/build` after
+`setUpAll` when the host is saturated:
+
+- `rendering/annotated_region_layer_test.dart` (1944 B.2 — 516 KB
+  bundle, host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`).
+  Verified passing under load avg 2.4 in 1.8 s isolated (httpMs=1869),
+  and in 1.6 s at +3 of full hardly_relevant_classes_3_test
+  (httpMs=1581). Previously reported wedging in the 1944 baseline
+  hardly_relevant_classes_3_test sweep. The "first-build wedge
+  pattern as B.1" framing in B.2's original hypothesis was a
+  symptom-rename of the same §U28 vulnerability — not a new
+  deterministic per-script wedge.
+
+These additions confirm §U28's broader pattern: any AST-bundle script
+with a bundle size approaching or exceeding the cumulative declaration-
+state ceiling is vulnerable under heavy host load. The 516 KB B.2
+bundle plus accumulating state from prior tests in the same host file
+combined with host load saturation crosses the 25 s caller-side timeout
+even though the script itself only takes ~1.6 s to build cleanly.
+
+The mitigations stay the same as documented below — `requestRecycle()`
+between vulnerable tests, or the deferred deep fix (clear interpreter's
+interpreted-class registry on `/clear`).
+
+---
+
+## U28 — original analysis (retained for reference)
+
 ### What triggers it
 
 `tom_d4rt_flutter_ast/test/interactive_tests_test.dart` runs nine
