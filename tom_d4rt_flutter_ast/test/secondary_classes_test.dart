@@ -3549,23 +3549,20 @@ void main() {
 
   // --- WIDGETS INDIVIDUAL SCRIPTS (172 files) ---
   group('widgets/ individual', () {
-    test(
-      'always_scrollable_scroll_physics_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/always_scrollable_scroll_physics_test.dart',
-          // 20260523-1056 baseline §1.3/E3: TimeoutException after 30s
-          // — the dart-test wrapper's default 30 s timeout fired before
-          // the 25 s HTTP cap, indicating both clearMs and httpMs are
-          // stretched by parallel-driver contention. Serial isolated
-          // re-runs complete in ~1.7 s (httpMs=1438). 50 s leaves 10 s
-          // of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('always_scrollable_scroll_physics_test.dart', () async {
+      // 1944 TODO C.25 (2026-05-31): historical 20260523-1056 §1.3/E3
+      // parallel-driver-contention wrapper REMOVED. Script runs in
+      // ~1.5 s under normal load (httpMs=1457). Note: this same
+      // script is the canonical §U25 source-direct cold-start
+      // reproducer documented in `interpreter_unfixable.md` §U25 —
+      // but the AST-bundle path completes in ~1.5 s; the §U25
+      // pathology is specific to the source-direct (TEST) variant
+      // and does NOT affect this AST entry.
+      final result = await SendTestRunner.send(
+        'widgets/always_scrollable_scroll_physics_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('android_view_test.dart', () async {
       final result = await SendTestRunner.send(
