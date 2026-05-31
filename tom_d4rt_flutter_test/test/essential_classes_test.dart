@@ -167,17 +167,14 @@ void main() {
   group('dart_ui/', () {
     // 20260524-2003 baseline §6/E5: cold-start cascade victim from the
     // cupertino group above. Bump cap from 25 s to 50 s.
-    test(
-      'color_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/color_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('color_test.dart', () async {
+      // 1944 TODO C.12 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~1.5 s under normal load (httpMs=1461). TEST mirror of C.6.
+      // Last entry in §C.i — closes the entire essential_classes_test
+      // historical cold-start wrapper cleanup (C.1-C.12).
+      final result = await SendTestRunner.send('dart_ui/color_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('geometry_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/geometry_test.dart');
