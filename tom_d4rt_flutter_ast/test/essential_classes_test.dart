@@ -114,19 +114,18 @@ void main() {
 
     // 20260524-2003 baseline §6/E1–E4: the first 4 large cupertino scripts
     // in essential_classes_test cascade-fail under cold-start contention on
-    // a freshly-launched test app. Bump cap from 25 s to 50 s with 60 s
-    // dart-test wrapper on each.
-    test(
-      'picker_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/picker_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // a freshly-launched test app. Historical 60 s wrapper +
+    // `httpBuildTimeout: 50 s` on each. 1944 TODO C.2-C.5 (2026-05-31)
+    // closures remove the wrappers one at a time as each script is
+    // re-verified under normal load after the §U25/§U28 mitigations
+    // from A.1-A.8 + B.1-B.12 closures.
+    test('picker_test.dart', () async {
+      // 1944 TODO C.2 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~2.4 s under normal load (httpMs=2446) — well inside the
+      // default 30 s `test()` timeout and 25 s `httpBuildTimeout`.
+      final result = await SendTestRunner.send('cupertino/picker_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('route_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/route_test.dart');
