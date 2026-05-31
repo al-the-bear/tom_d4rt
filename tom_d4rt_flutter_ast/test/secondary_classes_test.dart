@@ -1857,20 +1857,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'data_table_theme_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/data_table_theme_test.dart',
-          // 20260524-2003 baseline §6/T11 (= todo #8): cold-start
-          // transport failure on flutter_test; flutter_ast bumped
-          // symmetrically. Standard 25 s → 50 s cap + 60 s wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('data_table_theme_test.dart', () async {
+      // 1944 TODO C.15 (2026-05-31): historical 20260524-2003 §6/T11
+      // cold-start wrapper REMOVED. Script runs in ~1.6 s under
+      // normal load (httpMs=1579). First entry of subsection §C.iii
+      // (secondary_classes_test cleanup, 31 entries).
+      final result = await SendTestRunner.send(
+        'material/data_table_theme_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'date_range_picker_dialog_test.dart',
