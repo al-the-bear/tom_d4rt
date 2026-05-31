@@ -357,24 +357,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_app_kit_view_test.dart',
-          // 20260523-1056 baseline §1.6/E25 (= §S/S3 — listed in the
-          // wedge-candidate cluster because it appeared in both ast
-          // and flutter_test runs). Serial isolated re-run produces
-          // 2.4 s (ast) / 2.5 s (flutter_test) with frameworkErrors=0.
-          // The cross-project failure mode was the same as E1/E12:
-          // cold-start contention, not a real wedge. 50 s leaves
-          // 10 s of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_app_kit_view_test.dart', () async {
+      // 1944 TODO C.77 (2026-05-31): historical 20260523-1056 §1.6/E25
+      // (= §S/S3 wedge-candidate cluster) cold-start-contention
+      // wrapper REMOVED. Script runs in ~3.2 s under normal load
+      // (httpMs=3157, bundleJsonBytes=850801 — 851 KB bundle / 61 KB
+      // source). Slower than typical but still ~27 s of headroom.
+      final result = await SendTestRunner.send(
+        'rendering/render_app_kit_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_clip_r_superellipse_test.dart', () async {
       final result = await SendTestRunner.send(
