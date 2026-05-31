@@ -1039,22 +1039,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'snack_bar_theme_data_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/snack_bar_theme_data_test.dart',
-          // 20260523-1056 baseline §1.5/E21: TimeoutException 30s
-          // — cold-start contention. This 1331-line / 49 KB script
-          // (448 KB bundle) builds in ~1.8 s in both variants. Same
-          // family as the §1.3/§1.4 E-series and E18/E19/E20: 50 s
-          // leaves 10 s of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('snack_bar_theme_data_test.dart', () async {
+      // 1944 TODO C.67 (2026-05-31): historical 20260523-1056 §1.5/E21
+      // cold-start-contention wrapper REMOVED. Script runs in ~1.8 s
+      // under normal load (httpMs=1825, bundleJsonBytes=447625 —
+      // 448 KB bundle / 49 KB / 1331-line script).
+      final result = await SendTestRunner.send(
+        'material/snack_bar_theme_data_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('spell_check_suggestions_toolbar_layout_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
