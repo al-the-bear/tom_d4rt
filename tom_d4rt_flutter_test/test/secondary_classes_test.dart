@@ -1877,21 +1877,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    // 20260524-2003 baseline §6/E10–E12 + T11/T13: cold-start cascade in
-    // the material-individual group on `secondary_classes_test`. Bump cap
-    // from 25 s to 50 s with 60 s dart-test wrapper on the three date* +
-    // default localizations entries (kept symmetric with flutter_ast).
-    test(
-      'date_time_range_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/date_time_range_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('date_time_range_test.dart', () async {
+      // 1944 TODO C.33 (2026-05-31): historical 20260524-2003 §6/E10
+      // cold-start-cascade wrapper REMOVED. Script runs in ~1.7 s
+      // under normal load (httpMs=1711, sourceChars=30926).
+      final result = await SendTestRunner.send(
+        'material/date_time_range_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'date_utils_test.dart',
