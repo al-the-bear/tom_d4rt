@@ -6868,6 +6868,21 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   symptom-rename of the same §U28 vulnerability — not a new
   deterministic per-script wedge.
 
+- `widgets/reading_order_traversal_policy_test.dart` (1944 B.9
+  — 38 KB source, host: `tom_d4rt_flutter_test/test/hardly_relevant_classes_5_test.dart`,
+  position +27 in the suite of 224 tests). Verified passing on
+  TEST under load avg ~7 in 1.8 s isolated (httpMs=1580) and in
+  1.5 s at +27 of full hardly_relevant_classes_5_test
+  (httpMs=1273, +221 -9 in 18:53 — the 9 failures are all
+  later-position §U25/§U28 transport_errors on widgets/ scripts
+  at positions +21 to +220, none reading_order-related).
+  Previously reported wedging in the 1944 baseline at site T4;
+  the "find + fix predecessor" framing in B.9's hypothesis was
+  a §U28 cumulative-state symptom — the script passes cleanly
+  under low load even at position +27 (past the §U28 25-test
+  ceiling), but is vulnerable when host is saturated. Same
+  closure pattern as B.8.
+
 - `material/expansionpanel_test.dart` (1944 B.8 — 52 KB source,
   host: `tom_d4rt_flutter_test/test/important_classes_test.dart`,
   position +56 in the suite). Verified passing on TEST under
