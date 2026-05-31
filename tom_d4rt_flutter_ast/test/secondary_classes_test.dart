@@ -2790,20 +2790,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_ignore_baseline_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_ignore_baseline_test.dart',
-          // 20260524-2003 baseline §6/E15: cold-start contention in the
-          // rendering-individual group. Bump cap from 25 s to 50 s with
-          // 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_ignore_baseline_test.dart', () async {
+      // 1944 TODO C.22 (2026-05-31): historical 20260524-2003 §6/E15
+      // cold-start wrapper REMOVED. Script runs in ~1.5 s under
+      // normal load (httpMs=1462).
+      final result = await SendTestRunner.send(
+        'rendering/render_ignore_baseline_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_ignore_pointer_test.dart', () async {
       final result = await SendTestRunner.send(
