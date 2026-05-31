@@ -248,6 +248,29 @@ void main() {
     test(
       'retest: rendering/render_animated_size_state_test.dart',
       () async {
+        // 1944 TODO B.6 (2026-05-31): targeted recycle before this
+        // specific test. The script bundles to 876 KB (the largest
+        // in the rendering retest group; exceeds §U28's documented
+        // ~800 KB cumulative-state ceiling). At position +25 in
+        // this gir retest section, the cumulative declaration
+        // state from the 24 preceding tests + the 876 KB bundle
+        // OOM-wedges the AST test_app's `/build`, producing a
+        // `Connection reset by peer` transport_error
+        // (httpMs=323 — the test_app process dies before the
+        // build can complete; nothing to do with the 25/30/50 s
+        // build budget). Empirically confirmed on a low-load host
+        // (load avg ~5): wedge fires at +25 even though the script
+        // builds in 2.1 s in isolation (httpMs=2065). Targeted
+        // `requestRecycle()` forces a fresh test_app process
+        // before this single test runs, avoiding the cumulative-
+        // state §U28 vulnerability. Cost: ~5-10 s extra wall time
+        // for THIS test only (other 47 tests in the section keep
+        // sharing the same test_app process; total sweep cost
+        // ≈ +10 s vs ≈ +5-10 min for a section-wide setUp recycle).
+        // See `interpreter_unfixable.md` §U28 for the architectural
+        // root cause and the deferred deep fix
+        // (interpreter-side declaration-registry-clear-on-/clear).
+        SendTestRunner.requestRecycle();
         final result = await SendTestRunner.send(
           'retest/rendering/render_animated_size_state_test.dart',
           // 20260523-1056 baseline §1.12/E42 (= §S/S6 — listed in

@@ -6884,6 +6884,29 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   / Environment OR test-app `/warmup` endpoint) as the path
   forward. That deep fix remains deferred.
 
+  **B.6 closure (2026-05-31).** In the AST gir retest host file,
+  the script runs at position +25 (after 24 large-bundle
+  predecessors). Even on a low-load host (load avg ~5), the
+  pre-fix sweep showed: predecessor `render_android_view_test`
+  (790 KB) at +24 took httpMs=14474 (slow), and then `/clear`
+  before render_animated_size_state succeeded but `/build`
+  immediately returned `Connection reset by peer` with
+  httpMs=323 — the test_app process died (likely OOM under
+  declaration-state pressure) before the build could complete.
+  Workaround applied: targeted `SendTestRunner.requestRecycle()`
+  call at the START of THIS specific test's body in the gir
+  retest host file. This forces a fresh test_app process before
+  the 876 KB build. Cost: ~10 s extra wall time for this one
+  test (vs ~5-10 min for a section-wide setUp recycle covering
+  all 48 tests). Post-fix sweep: **+57 ~1 ALL TESTS PASSED in
+  4:22** (faster than the failed pre-fix 6:53 because the recycle
+  also resolves accumulated slowness in subsequent tests).
+  Recycle log confirms: `[recycle] killing wedged test app
+  (pid=27745)` → `[recycle] ready` → script builds in 2.6 s.
+  The recycle is a workaround, not a deep fix; §U28's
+  interpreter-side declaration-registry-clear-on-/clear remains
+  the canonical resolution.
+
 - `rendering/alignment_geometry_tween_test.dart` (1944 B.3/B.4 —
   cross-project pair, 427 KB AST bundle, 30 KB TEST source).
   AST host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`;
