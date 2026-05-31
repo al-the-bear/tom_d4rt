@@ -6347,6 +6347,36 @@ underlying U24 limitation.
 
 ## U25 — Source-based interpreter cold-start parse + execute exceeds 50 s for `widgets/always_scrollable_scroll_physics_test.dart` in `tom_d4rt_flutter_test` (source interpreter performance limit)
 
+**2026-05-31 update — additional known victims (1944 TODO B.1 closure).**
+The Phase B host-load wedge investigations during the 1944 closure cycle
+identified additional scripts that hit the same §U25 cold-start
+performance ceiling on the `tom_d4rt_flutter_test` source-direct path
+when the host is under heavy load (sustained load avg 12+). These
+scripts pass cleanly in isolation (httpMs < 5 s) and in full-suite runs
+under normal load (load avg < 8), but wedge at `httpMs=25002` on the
+*first* `/build` after `setUpAll` when the host is saturated. They are
+sibling symptoms of the canonical §U25 reproducer and resolve via the
+same deferred interpreter-side cold-start work:
+
+- `material/bottomappbar_test.dart` (1944 B.1 — 39 KB, host:
+  `tom_d4rt_flutter_test/test/important_classes_test.dart`). Verified
+  passing under load avg 3.7 in 1.7 s (httpMs=1728); previously
+  reported wedging under load avg 15+ in A.2/A.3/A.4/A.5/A.7
+  regression sweeps. The "deterministic per-script interpreter cliff"
+  framing in B.1's original hypothesis was inaccurate — the wedge is
+  host-load-dependent, not script-specific. No per-script fix is
+  warranted; the script is innocent.
+
+These additions confirm §U25's broader pattern: any source-direct
+script (~40 KB+ with moderate widget-tree complexity) that happens to
+be the *first* script after `setUpAll` is vulnerable to the cold-start
+timeout under heavy host load. The mitigations stay the same as
+documented below.
+
+---
+
+## U25 — original analysis (retained for reference)
+
 **Category.** Source-based interpreter cold-start performance limit. The
 `tom_d4rt_flutter_test` variant (which receives raw Dart source over HTTP
 and invokes the source-based interpreter to parse + execute it) cannot
