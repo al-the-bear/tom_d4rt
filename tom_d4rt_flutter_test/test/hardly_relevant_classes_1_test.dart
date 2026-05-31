@@ -847,23 +847,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'uniform_vec2_slot_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/uniform_vec2_slot_test.dart',
-          // 20260523-1056 baseline §1.4/E13 (ast) + §2.D contention
-          // (test): TimeoutException 30s — cold-start contention.
-          // 2156-line / 68 KB script builds in ~1.7 s. Same family
-          // as the §1.3 E-series: 50 s leaves 10 s of headroom
-          // under the 60 s dart-test wrapper. Applied symmetrically
-          // with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('uniform_vec2_slot_test.dart', () async {
+      // 1944 TODO C.59 (2026-05-31): historical 20260523-1056 §1.4/E13
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. Script runs in ~1.7 s under normal load
+      // (httpMs=1735, sourceChars=68472 — 68 KB / 2156-line script).
+      final result = await SendTestRunner.send(
+        'dart_ui/uniform_vec2_slot_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('uniform_vec3_slot_test.dart', () async {
       final result = await SendTestRunner.send(
