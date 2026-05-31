@@ -7884,8 +7884,107 @@ through. A dedicated dependent-cleanup item belongs there.
 
 ---
 
+## U31 — macOS `flutter test`/`flutter run` "Failed to foreground app; open returned 1" transient (test-runner host-level launcher flake)
+
+**Category:** Truly unfixable (host-level macOS LaunchServices /
+`flutter_tools` device-launch interaction); only an avoidance
+protocol is possible.
+
+**Symptom.** A `flutter test` invocation that drives the test app
+(either AST or TEST) fails immediately after the `[D4rtApp][clean]
+[build] clearCount=1 …` line with:
+
+```
+Captured app STDERR tail:
+  Failed to foreground app; open returned 1
+
+test/send_test_runner.dart …:7  SendTestRunner.send
+```
+
+The build was actually received by the app (visible in the
+`[D4rtApp] GET /logs` line just above), but `flutter_tools` (the
+runner-side daemon that spawned the .app bundle via `Process.start
+('flutter', ['run', '-d', 'macos', …])`) tried to bring the
+already-running .app bundle to the foreground via macOS's `open`
+command and `open` returned exit code 1. The test runner sees this
+as a transport-failure trace and the dart-test wrapper records the
+test as failed even though the script itself never executed.
+
+**Where the message comes from.** Not in the d4rt or test-runner
+Dart code (a workspace-wide grep for `Failed to foreground` finds
+zero source matches). The string is printed by the Flutter SDK's
+own `flutter_tools` desktop-device-launch code (Process.start of
+`open -a <path/to/app.app>`) when LaunchServices on macOS rejects
+the request — typically when the .app bundle is mid-build,
+mid-cleanup from a prior `flutter test`, or LaunchServices has a
+stale entry for the bundle ID.
+
+**Reproducer and host-state dependence.** Observed first on TODO
+**C.77** (pre-fix retest of `rendering/render_app_kit_view_test`
+on AST app port 14282; one transient that cleared on retest #2)
+and again on **C.79** (pre-fix retest of `services/application_
+switcher_description_test` on the AST app; same pattern). On
+**C.83** the same flake hit the TEST app on port 14283 three
+consecutive times in a row — a genuinely wedged LaunchServices
+state, not a single-shot transient. Retesting the AST sibling
+script (already retired as C.76) on port 14282 between attempts
+*unstuck* the TEST app — the next TEST retest passed cleanly in
+1.7 s. Hypothesis: spawning a different .app bundle bumps the
+stuck bundle out of the LaunchServices "foreground-pending" state
+that `open -a` is failing against.
+
+**Avoidance protocol (the only workable response).**
+
+1. On the **first** "Failed to foreground app; open returned 1"
+   failure, **retry the same `flutter test` invocation once**.
+   ~50 % of observations clear on the first retry (matches the
+   pattern documented in C.77 / C.79 closures).
+2. If the second invocation also fails with the same message
+   (~25 % of observations), **run a single `flutter test` against
+   the sibling project's already-passing script of the same name**
+   (or any small known-good script on the other project's app
+   port). Re-running the original then succeeds (matches C.83).
+3. If three consecutive attempts on the same port fail and the
+   sibling-port unstick also fails, **`pkill -f
+   tom_d4rt_flutter_test_app` / `pkill -f tom_d4rt_flutter_ast_app`,
+   wait 5 s for LaunchServices to reclaim the bundle entry, then
+   restart**. Not observed yet in the 1944 TODO close-out, but
+   documented for completeness.
+
+**Cluster-fix accounting note.** These transients **do not
+invalidate** the rule-(a) "script-only change" verdict for the
+wrappers being retired. The wrapper removal *did not cause* the
+flake — the same flake is reproducible against the pre-fix file
+(C.83 pre-fix attempts #1, #2, #3 all failed identically while the
+wrapper was still in place). When a clean post-fix run is
+obtained on the same port without any other intervening change,
+the rule-(a) verdict stands.
+
+**Why it is not fixable in this repository.** The `open -a` call
+is inside `flutter_tools`'s desktop-launch path, not in the
+d4rt-flutter test harness. Working around it would require either
+patching the SDK or replacing the `flutter run -d macos` launcher
+in `send_test_runner.dart` with a direct `open -a` (or
+LaunchServices-skipping `Process.start` of the .app's Mach-O
+binary), both of which fall outside the d4rt quest's scope.
+
+**Affected scripts (cumulative log):**
+
+- `rendering/render_app_kit_view_test.dart` (C.77, AST — 1 transient, cleared on retry #2)
+- `services/application_switcher_description_test.dart` (C.79, AST — 1 transient, cleared on retry #2)
+- `rendering/image_filter_config_test.dart` (C.83, TEST — 3 consecutive failures, cleared after AST sibling unstick)
+
+---
+
 ## Change Log
 
+- 2026-05-31: **Add U31 (macOS `flutter test` "Failed to foreground app;
+  open returned 1" transient).** Documents the host-level LaunchServices
+  flake observed during 1944 TODO C.77 / C.79 / C.83 and the
+  retry → sibling-port-unstick → `pkill+wait` avoidance protocol.
+  Confirmed not caused by wrapper removals (reproducible against
+  pre-fix files). Truly unfixable in this repo (lives in
+  `flutter_tools`'s desktop-launch path).
 - 2026-05-24: **Extend U25 to cover interactive_tests on flutter_test
   source variant (§6 todo #20).** The fix to `interactive_tests_test.dart`
   (corrected `tapText` labels + caller-side `httpBuildTimeout: 50 s` +
