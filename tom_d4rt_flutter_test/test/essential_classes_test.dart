@@ -112,17 +112,14 @@ void main() {
     // a freshly-launched test app (flutter_ast variant; flutter_test was
     // clean in the baseline but kept symmetric to avoid future drift).
     // Bump cap from 25 s to 50 s with 60 s dart-test wrapper on each.
-    test(
-      'picker_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/picker_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('picker_test.dart', () async {
+      // 1944 TODO C.8 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~2.7 s under normal load (httpMs=2652). TEST mirror of C.2.
+      final result = await SendTestRunner.send(
+        'cupertino/picker_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('route_test.dart', () async {
       final result = await SendTestRunner.send('cupertino/route_test.dart');
