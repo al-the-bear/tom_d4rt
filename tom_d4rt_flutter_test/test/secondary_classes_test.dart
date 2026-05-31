@@ -1887,17 +1887,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'date_utils_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/date_utils_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('date_utils_test.dart', () async {
+      // 1944 TODO C.34 (2026-05-31): historical 20260524-2003 §6/E11
+      // cold-start-cascade wrapper REMOVED. Script runs in ~1.8 s
+      // under normal load (httpMs=1836, sourceChars=34302).
+      final result = await SendTestRunner.send(
+        'material/date_utils_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'default_material_localizations_test.dart',
