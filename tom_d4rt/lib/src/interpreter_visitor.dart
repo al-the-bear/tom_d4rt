@@ -3275,31 +3275,29 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
           } catch (e, s) {
-            // Cluster B item #4+#5 (TODO 20260525-1059) —
-            // Flutter's `Element.findRenderObject()` asserts
-            // `_lifecycleState == _ElementLifecycle.active`. The active state
-            // is *strictly stronger* than mounted: `mounted` becomes false
-            // only on unmount, but Flutter transitions an Element through
-            // `inactive` during keepalive / route teardown / parent-data
-            // updates while it's still in the tree. Test scripts that
-            // already guard with `ctx.mounted` (e.g.
-            // `(ctx != null && ctx.mounted) ? ctx.findRenderObject() : null`)
-            // hit this assertion in those windows.
-            //
-            // The documented signature is `RenderObject? findRenderObject()`
-            // — returning null on "no render object available right now" is
-            // exactly the same shape the script's guard expects. Swallow
-            // the specific assertion so the script's `?.` chains continue
-            // to work; bridge any other failure on through as before.
-            //
-            // Pattern-matched on the assertion text so we don't suppress
-            // unrelated Flutter errors that happen to flow through the
-            // same bridged-method-call path.
-            if (methodName == 'findRenderObject' &&
-                e.toString().contains(
-                    'Cannot get renderObject of inactive element')) {
-              return null;
-            }
+            // 1944 TODO A.8 (2026-05-31): the historical Cluster B item
+            // #4+#5 (TODO 20260525-1059) `findRenderObject` /
+            // `'Cannot get renderObject of inactive element'` catch that
+            // returned `null` instead of rethrowing has been REMOVED.
+            // Discovery sweep across both projects' full test corpora
+            // (9 host files = ~1974 scripts each) with a diagnostic
+            // print added to the catch found ZERO `[A8_CATCH_FIRED]`
+            // hits on either project — no current script in the corpus
+            // hits the inactive-element assertion. The catch was dead
+            // code. If a future script regresses on the same pattern
+            // (script-level `ctx.mounted` guard that races the
+            // active→inactive lifecycle transition during keepalive /
+            // route teardown / parent-data update), it will surface
+            // through the rethrow path below as a real RuntimeD4rtException
+            // — at which point the right fix is either (a) restore this
+            // narrow null-return catch (the documented §U27 workaround,
+            // still semantically correct vs Flutter's `RenderObject?`
+            // signature) or (b) rewrite the script to call
+            // `findRenderObject()` only from guaranteed-active contexts
+            // (LayoutBuilder callback, postFrameCallback, etc).
+            // See `interpreter_unfixable.md` §U27 for the full
+            // architectural framing and the rationale for the original
+            // workaround.
             // Add the stack trace for debugging
             Logger.log("Native Error Stack Trace: $s"); // Print stack trace
             // Catch potential errors from the native code/adapter

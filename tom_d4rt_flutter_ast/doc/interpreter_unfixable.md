@@ -6640,7 +6640,46 @@ the super-class lookup. Tracked outside this entry.
 
 ---
 
-## U27 — `Element.findRenderObject()` asserts `_lifecycleState == active` even when `mounted` is true (Flutter framework assertion stricter than the documented `BuildContext.mounted` guard)
+## U27 — `Element.findRenderObject()` asserts `_lifecycleState == active` even when `mounted` is true (Flutter framework assertion stricter than the documented `BuildContext.mounted` guard) — **✅ FULLY CLOSED 2026-05-31 (interpreter catch removed; corpus no longer hits the pattern)**
+
+**2026-05-31 update — A.8 CLOSURE (interpreter catch removed).** The 1944
+TODO A.8 discovery sweep added a diagnostic `print` next to the existing
+`findRenderObject` / `'Cannot get renderObject of inactive element'` catch
+in both interpreters (`tom_d4rt/lib/src/interpreter_visitor.dart:3298-3300`
+and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart:3757-3759`) and
+ran the full corpus (9 host files = ~1974 scripts per project) on both
+projects with the diagnostic in place. **Result: ZERO `[A8_CATCH_FIRED]`
+hits on either project.** The catch was dead code in the current
+script-set — no current script in the corpus triggers the inactive-element
+assertion. The narrow null-return catch was therefore removed from both
+interpreters; the catch sites are now plain rethrow paths with a
+maintenance comment cross-referencing this entry.
+
+**Why zero hits today.** The original 2026-05-25 cluster B fix shipped this
+catch in response to specific scripts that called `findRenderObject()`
+during the framework's `active → inactive` keepalive / route-teardown
+windows (notably `rendering/render_absorb_pointer_test.dart`). Those
+scripts have since been rewritten or stabilised by lifecycle-related
+TODOs (A.2's CTB rewrite removed many `/clear → /build` cycle hazards;
+A.3's discovery confirmed §U30's `InheritedElement` cascade is no longer
+reproducible — both are sibling symptoms of the same lifecycle window).
+The current 1974+ scripts in the corpus call `findRenderObject()` only
+from guaranteed-active contexts (or via patterns where the framework's
+own dependency tracking ensures the active state at call time).
+
+**If a future script regresses on the same pattern**, the rethrow path
+will surface a `RuntimeD4rtException` carrying the original Flutter
+assertion text. The right fix in that case is **either** (a) restore the
+narrow null-return catch documented below — semantically still correct
+vs Flutter's `RenderObject? findRenderObject()` signature — **or**
+(b) rewrite the script to call `findRenderObject()` only from
+guaranteed-active contexts (`LayoutBuilder` callback,
+`WidgetsBinding.instance.addPostFrameCallback`, build-time access via
+`context.findRenderObject()` inside `build()`).
+
+---
+
+## U27 — original analysis (retained for reference, superseded by 2026-05-31 closure)
 
 ### What triggers it
 
