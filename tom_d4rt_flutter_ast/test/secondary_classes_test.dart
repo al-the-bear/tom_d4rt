@@ -4170,22 +4170,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'raw_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/raw_view_test.dart',
-          // 20260523-1056 baseline §1.3/E7: TimeoutException after 30s
-          // — cold-start contention. This 1716-line / 54 KB script
-          // (573 KB bundle) takes ~1.8 s cold and ~1.7 s warm in both
-          // variants. Same family as E1/E2/E4/E6: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('raw_view_test.dart', () async {
+      // 1944 TODO C.28 (2026-05-31): historical 20260523-1056 §1.3/E7
+      // parallel-driver-contention wrapper REMOVED. Script runs in
+      // ~1.5 s under normal load (httpMs=1521).
+      final result = await SendTestRunner.send(
+        'widgets/raw_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_object_element_test.dart', () async {
       final result = await SendTestRunner.send(
