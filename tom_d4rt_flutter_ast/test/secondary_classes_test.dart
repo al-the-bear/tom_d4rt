@@ -2898,20 +2898,15 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_proxy_box_with_hit_test_behavior_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_proxy_box_with_hit_test_behavior_test.dart',
-          // 20260524-2003 baseline §6/T16 (= todo #8): cold-start
-          // transport failure on flutter_test; flutter_ast bumped
-          // symmetrically. Standard 25 s → 50 s cap + 60 s wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_proxy_box_with_hit_test_behavior_test.dart', () async {
+      // 1944 TODO C.23 (2026-05-31): historical 20260524-2003 §6/T16
+      // cold-start wrapper REMOVED. Script runs in ~2.0 s under
+      // normal load (httpMs=1955) on a 1.0 MB bundle.
+      final result = await SendTestRunner.send(
+        'rendering/render_proxy_box_with_hit_test_behavior_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_repaint_boundary_test.dart', () async {
       final result = await SendTestRunner.send(
