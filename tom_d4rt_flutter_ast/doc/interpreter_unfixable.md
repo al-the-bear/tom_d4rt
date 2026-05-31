@@ -6868,20 +6868,26 @@ load but wedge at `httpMs=25002` mid-run or on the first `/build` after
   symptom-rename of the same §U28 vulnerability — not a new
   deterministic per-script wedge.
 
-- `rendering/alignment_geometry_tween_test.dart` (1944 B.3 — 427 KB
-  bundle, host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`).
-  Verified passing under load avg 2.4 in 1.4 s isolated
-  (httpMs=1417), and in 1.4 s at +1 of full
-  hardly_relevant_classes_3_test (httpMs=1449). Previously
-  reported as a "position-dependent §U28 wedge" with predecessor
-  hypothesis ("Binary-search the prior tests… fix the culprit's
-  lifecycle cleanup"); the discovery sweep showed no wedge under
-  normal load and no predecessor culprit needed — the failure is
-  the same host-load-dependent §U28 vulnerability as B.2,
-  amplified by the cumulative declaration state from the dozens
-  of tests that ran earlier in hardly_relevant_classes_3_test.
-  Cross-project pair: B.4 is the TEST/source-direct sibling of
-  this same script in the same host file.
+- `rendering/alignment_geometry_tween_test.dart` (1944 B.3/B.4 —
+  cross-project pair, 427 KB AST bundle, 30 KB TEST source).
+  AST host: `tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart`;
+  TEST host: `tom_d4rt_flutter_test/test/hardly_relevant_classes_3_test.dart`.
+  - **B.3 (AST)**: verified passing under load avg 2.4 in 1.4 s
+    isolated (httpMs=1417), and in 1.4 s at +1 of full
+    hardly_relevant_classes_3_test (httpMs=1449).
+  - **B.4 (TEST)**: verified passing under load avg 2-4 in 1.4 s
+    isolated (httpMs=1422), and in 1.5 s at +1 of full
+    hardly_relevant_classes_3_test (httpMs=1500).
+  Previously reported as "position-dependent §U28 wedges" with
+  predecessor hypothesis ("Binary-search the prior tests… fix
+  the culprit's lifecycle cleanup"); both discovery sweeps showed
+  no wedge under normal load and no predecessor culprit needed —
+  the failure is the same host-load-dependent §U28 vulnerability
+  as B.2, amplified by the cumulative declaration state from the
+  dozens of tests that ran earlier in hardly_relevant_classes_3_test.
+  Both projects' position-+1 pass confirms there IS no predecessor
+  when the wedge would occur; the wedge only surfaces under heavy
+  host load with concurrent test-app activity.
 
 These additions confirm §U28's broader pattern: any AST-bundle script
 with a bundle size approaching or exceeding the cumulative declaration-
