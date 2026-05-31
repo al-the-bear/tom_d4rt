@@ -174,19 +174,13 @@ void main() {
   // DART:UI PACKAGE TESTS (8 files)
   // ============================================================
   group('dart_ui/', () {
-    // 20260524-2003 baseline §6/E5: cold-start cascade victim from the
-    // cupertino group above. Bump cap from 25 s to 50 s.
-    test(
-      'color_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/color_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('color_test.dart', () async {
+      // 1944 TODO C.6 (2026-05-31): historical 20260524-2003 §6/E5
+      // cold-start cascade wrapper REMOVED. Script runs in ~1.4 s
+      // under normal load (httpMs=1432).
+      final result = await SendTestRunner.send('dart_ui/color_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('geometry_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/geometry_test.dart');
