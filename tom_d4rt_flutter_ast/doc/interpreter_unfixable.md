@@ -6379,6 +6379,17 @@ same deferred interpreter-side cold-start work:
   exists). Same family as B.1 (TEST source-direct first-build
   cold-start vulnerability under high host load).
 
+- `retest/dart_ui/key_event_type_test.dart` (1944 B.11 — 37 KB
+  source, host: `tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart`,
+  position +1 — first test in Section 1's "Tests with workarounds
+  reverted" group). Verified passing on TEST under load avg ~7 in
+  1.6 s (httpMs=1539 in B.7 pre-fix sweep, httpMs=1559 in B.7
+  post-fix sweep — both passed). Previously reported wedging in
+  the 1944 baseline at site T6; the "find + fix predecessor"
+  framing was misleading — the script runs FIRST in its section.
+  Same family as B.1/B.10 (TEST source-direct first-build cold-
+  start vulnerability).
+
 These additions confirm §U25's broader pattern: any source-direct
 script (~40 KB+ with moderate widget-tree complexity) that happens to
 be the *first* script after `setUpAll` is vulnerable to the cold-start
