@@ -628,26 +628,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'opacity_engine_layer_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/opacity_engine_layer_test.dart',
-          // 20260523-1056 baseline §1.4/E12 (= §S/S2 — listed in
-          // the wedge-candidate cluster because it appears in both
-          // ast and flutter_test runs). Serial isolated re-run
-          // produces 3.0 s (ast) / 2.7 s (flutter_test) with
-          // frameworkErrors=0. The original "TimeoutException 30s"
-          // (ast) / "Transport failure 25s" (test) was cold-start
-          // contention, not a real wedge. Same family as the §1.3
-          // E-series: 50 s leaves 10 s of headroom under the 60 s
-          // dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('opacity_engine_layer_test.dart', () async {
+      // 1944 TODO C.49 (2026-05-31): historical 20260523-1056 §1.4/E12
+      // (= §S/S2 wedge-candidate cluster) cold-start-contention
+      // wrapper REMOVED. Script runs in ~4.4 s under normal load
+      // (httpMs=4404, bundleJsonBytes=465112 — 465 KB bundle).
+      // Slower than typical but well within 30s default headroom.
+      final result = await SendTestRunner.send(
+        'dart_ui/opacity_engine_layer_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('painting_style_test.dart', () async {
       final result = await SendTestRunner.send(
