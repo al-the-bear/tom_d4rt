@@ -2733,21 +2733,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_custom_single_child_layout_box_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_single_child_layout_box_test.dart',
-          // 20260524-2003 baseline §6/E14 + T15: same cold-start
-          // contention pattern as the sibling render_custom_paint_test
-          // (§S/E1). Bump cap from 25 s to 50 s with 60 s dart-test
-          // wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_custom_single_child_layout_box_test.dart', () async {
+      // 1944 TODO C.37 (2026-05-31): historical 20260524-2003 §6/E14
+      // + T15 sibling-cold-start-contention wrapper REMOVED. Script
+      // runs in ~2.3 s under normal load (httpMs=2324,
+      // sourceChars=71483 — 71 KB / one of the larger scripts).
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_single_child_layout_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_editable_test.dart', () async {
       final result = await SendTestRunner.send(
