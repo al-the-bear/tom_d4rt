@@ -628,22 +628,16 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'sliver_paint_order_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/sliver_paint_order_test.dart',
-          // 20260523-1056 baseline §1.6/E26: Transport failure 25s
-          // — cold-start contention. This 2233-line / 73 KB script
-          // (775 KB bundle) builds in ~2.0 s in both variants. Same
-          // family as the §1.3/§1.4/§1.5 E-series: 50 s leaves 10 s
-          // of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('sliver_paint_order_test.dart', () async {
+      // 1944 TODO C.78 (2026-05-31): historical 20260523-1056 §1.6/E26
+      // cold-start-contention wrapper REMOVED. Script runs in ~2.4 s
+      // under normal load (httpMs=2399, bundleJsonBytes=775156 —
+      // 775 KB bundle / 73 KB / 2233-line script).
+      final result = await SendTestRunner.send(
+        'rendering/sliver_paint_order_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('sliver_physical_container_parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
