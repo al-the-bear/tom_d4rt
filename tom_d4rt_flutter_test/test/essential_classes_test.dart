@@ -135,17 +135,14 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'segmented_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'cupertino/segmented_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('segmented_test.dart', () async {
+      // 1944 TODO C.10 (2026-05-31): wrapper REMOVED. Script runs in
+      // ~3.2 s under normal load (httpMs=3167). TEST mirror of C.4.
+      final result = await SendTestRunner.send(
+        'cupertino/segmented_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'textfield_test.dart',
