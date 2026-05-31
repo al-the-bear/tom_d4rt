@@ -342,22 +342,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'dynamic_scheme_variant_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/dynamic_scheme_variant_test.dart',
-          // 20260523-1056 baseline §1.5/E18: TimeoutException 30s
-          // — cold-start contention. This 1697-line / 58 KB script
-          // (652 KB bundle) builds in ~3.8 s in both variants. Same
-          // family as the §1.3/§1.4 E-series: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('dynamic_scheme_variant_test.dart', () async {
+      // 1944 TODO C.64 (2026-05-31): historical 20260523-1056 §1.5/E18
+      // cold-start-contention wrapper REMOVED. Script runs in ~3.8 s
+      // under normal load (httpMs=3836, bundleJsonBytes=652320 —
+      // 652 KB bundle / 58 KB / 1697-line script). Slower than typical
+      // but still ~26 s of headroom under the 30 s default.
+      final result = await SendTestRunner.send(
+        'material/dynamic_scheme_variant_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('easing_test.dart', () async {
       final result = await SendTestRunner.send('material/easing_test.dart');
