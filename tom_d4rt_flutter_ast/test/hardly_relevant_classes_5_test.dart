@@ -1080,11 +1080,17 @@ void main() {
     });
 
     test('slotted_container_render_object_mixin_test.dart', () async {
+      // 1944 TODO C.106 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~2.1 s
+      // under isolated retest (httpMs=1600, totalMs=2071,
+      // frameworkErrors=0, sourceBytes=75454, sourceChars=75294,
+      // bundleJsonBytes=810348 — 75 KB / 810 KB bundle; outputLines=
+      // 1). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/slotted_container_render_object_mixin_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('slotted_multi_child_render_object_widget_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
