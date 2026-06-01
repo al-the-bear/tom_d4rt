@@ -507,19 +507,28 @@ void main() {
       expectSuccess(result);
     });
 
-    // 20260525 §6.3 follow-up: W4 cascade verified resolved on the ast
-    // variant. Lifting skip symmetrically.
-    test(
-      'retest: widgets/lock_state_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/lock_state_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W4 history (preserved for context): 20260525 §6.3 follow-up — W4
+    // cascade verified resolved on the ast variant; skip lifted
+    // symmetrically behind a caller-side `httpBuildTimeout: 50s` + outer
+    // `timeout: Timeout(60s)` §U25 cold-start wrapper.
+    // 1944 TODO C.161 (2026-06-02): timeout wrapper + 50 s httpBuildTimeout
+    // removed — TEST sibling of the AST-side C.149 fix (same script). The
+    // isolated retest builds the 48 KB source in ~2.2 s (httpMs≈1999,
+    // frameworkErrors=0, outputLines=24, sourceChars=48235); totalMs≈2228.
+    // Stripped both `httpBuildTimeout: 50s` and the outer
+    // `timeout: Timeout(60s)`; defaults (25 s httpBuildTimeout + 30 s
+    // dart-test timeout) now apply with ~27 s headroom over the ~2.2 s
+    // build. Like the AST-side C.149 sibling, this entry never carried a
+    // `waitBeforeClear` buffer, so the strip is wrapper-only — collapsed to
+    // the single-line `test(name, body)` form matching the §C.x siblings.
+    // The W4 cascade is confirmed absent in isolation. No B.6/B.7
+    // requestRecycle() §U28 protection on this script.
+    test('retest: widgets/lock_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/lock_state_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(
