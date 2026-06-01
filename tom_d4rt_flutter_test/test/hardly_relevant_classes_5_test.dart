@@ -868,11 +868,17 @@ void main() {
     });
 
     test('semantics_debugger_test.dart', () async {
+      // 1944 TODO C.120 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~2.0 s under isolated retest
+      // (httpMs=1742, totalMs=1975, frameworkErrors=0,
+      // sourceChars=39540 — 40 KB semantics-debugger widget test;
+      // outputLines=14 — rich coverage). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/semantics_debugger_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('semantics_gesture_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
