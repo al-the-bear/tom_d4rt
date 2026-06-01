@@ -328,22 +328,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'selectable_region_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/selectable_region_test.dart',
-          // 20260523-1056 baseline §1.3/E8 (secondary instance): same
-          // cold-start contention as the secondary_classes_test entry.
-          // 1456-line / 54 KB script; ~1.3 s typical. 50 s leaves
-          // 10 s of headroom under the 60 s dart-test wrapper.
-          // Applied symmetrically with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // testlog_20260529-1944 TODO C.188 — removed the cold-start wrapper
+    // (50 s httpBuildTimeout + 60 s dart-test Timeout). Isolated retest
+    // builds in ~1.6 s (httpMs=1557, totalMs=1782, frameworkErrors=0,
+    // outputLines=17) — far under the default 25 s httpBuildTimeout cap.
+    // TEST-side sibling of the AST-side C.178. Defaults now apply.
+    test('selectable_region_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/selectable_region_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('selection_container_test.dart', () async {
       final result = await SendTestRunner.send(
