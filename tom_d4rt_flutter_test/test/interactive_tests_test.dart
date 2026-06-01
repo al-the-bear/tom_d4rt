@@ -190,10 +190,16 @@ void main() {
     test(
       'interaction - dismiss modal via barrier tap',
       () async {
-        final buildResult = await SendTestRunner.send(
-          'material/showdialog_test.dart',
-          httpBuildTimeout: _interactiveBuildTimeout,
-        );
+        // testlog_20260529-1944 TODO C.199 — cold-start timeout wrapper
+        // removed. Isolated retest builds `material/showdialog_test.dart`
+        // in ~2.1 s (httpMs=1864, totalMs=2091, frameworkErrors=0,
+        // outputLines=2); the 50 s `httpBuildTimeout`/90 s dart-test
+        // `Timeout` padding masked nothing. Defaults now apply (25 s
+        // httpBuildTimeout + 30 s dart-test timeout). The shared
+        // `_interactiveBuildTimeout` const is RETAINED (still used by
+        // C.200/C.201).
+        final buildResult =
+            await SendTestRunner.send('material/showdialog_test.dart');
 
         expect(buildResult.success, isTrue,
             reason: 'Build should succeed: ${buildResult.error}');
@@ -208,7 +214,6 @@ void main() {
 
         print('Dismiss result: $interactResult');
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
