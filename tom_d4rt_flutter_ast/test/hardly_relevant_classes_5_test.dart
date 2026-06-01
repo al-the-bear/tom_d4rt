@@ -434,11 +434,17 @@ void main() {
     });
 
     test('repeating_animation_builder_test.dart', () async {
+      // 1944 TODO C.101 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~2.2 s
+      // under isolated retest (httpMs=1792, totalMs=2184,
+      // frameworkErrors=0, sourceChars=43350 — 43 KB
+      // repeating-animation-builder test; outputLines=10 — rich
+      // coverage). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/repeating_animation_builder_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('replace_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
