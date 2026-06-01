@@ -26,15 +26,11 @@ import 'send_test_runner.dart';
 /// enough headroom without masking genuine wedge behaviour.
 const _slowTestTimeout = Timeout(Duration(seconds: 60));
 
-/// Four §U25 cold-start retest scripts already had a 60 s wrapper applied
-/// in earlier baselines but the 2206 sweep still saw them hit the 1-min
-/// boundary on TEST (popup_menu / app_kit_view / box_scroll_view /
-/// live_text_input_status / render_sliver_box_child_manager). Bumping
-/// those individually to 120 s — same rationale, longer headroom for the
-/// slowest cold-start path. Wedge family (transport_clear_wedge) still
-/// fails at the test_app's internal 30 s build budget; this only affects
-/// the outer test-framework wrapper.
-const _verySlowTestTimeout = Timeout(Duration(seconds: 120));
+// 1944 TODO C.160 (2026-06-02): the `_verySlowTestTimeout` (120 s) const
+// was removed here once its last usage (the live_text_input_status retest)
+// dropped its outer timeout wrapper. All four §C.x TEST-side 120 s entries
+// (C.152/C.155/C.156/C.160) are now retired, so the const is orphaned —
+// mirror of the C.139/C.131/C.138 single-usage const cleanups.
 
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
@@ -480,27 +476,36 @@ void main() {
       expectSuccess(result);
     });
 
-    // W3: Pre-emptively skipped while W2 is the upstream wedger.  In
-    // run4 this test cascade-failed after W2.  Once W2 is fixed,
-    // re-run in isolation to determine whether to un-skip.  See
-    // doc/interpreter_issues.md (W3).
-    // 20260525 §6.3 follow-up: W3 was cascade victim of W2; with W2
-    // lifted, re-enable W3 with the same caller-side cap pattern.
-    test(
-      'retest: widgets/live_text_input_status_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/live_text_input_status_test.dart',
-          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
-          // 1-min boundary on TEST; bumped to 120 s
-          // (_verySlowTestTimeout) for §U25 cold-start headroom.
-          waitBeforeClear: const Duration(seconds: 10),
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: _verySlowTestTimeout,
-    );
+    // W3 history (preserved for context): cascade victim of the upstream
+    // W2 default_text_editing_shortcuts wedger (run4, 2026-04-28,
+    // Actions/Shortcuts family, D4rt-LIMIT #8). Pre-emptively skipped
+    // while W2 was the root wedger; with W2 lifted (20260525 §6.3) the
+    // skip was re-enabled behind a caller-side `httpBuildTimeout: 50s` +
+    // outer `timeout: _verySlowTestTimeout` (120 s) §U25 cold-start
+    // wrapper plus a `waitBeforeClear: 10s` defensive buffer.
+    // 1944 TODO C.160 (2026-06-02): timeout wrapper + 50 s httpBuildTimeout
+    // removed — TEST sibling of the AST-side C.148 fix (same script). The
+    // isolated retest builds the 47 KB source in ~2.2 s (httpMs≈2201,
+    // frameworkErrors=0, outputLines=25); totalMs ≈12.4 s is dominated by
+    // the 10 s waitBeforeClear buffer, not the build. Stripped both
+    // `httpBuildTimeout: 50s` and the outer `timeout: _verySlowTestTimeout`;
+    // defaults (25 s httpBuildTimeout + 30 s dart-test timeout) now apply
+    // with ~18 s headroom over the ~12 s total. Deliberately retained
+    // `waitBeforeClear: 10s` — this makes the TEST entry structurally
+    // identical to the AST-side C.148 W3 sibling and protects the
+    // following test's /clear against this deep Actions/Shortcuts demo.
+    // The W3 cascade is confirmed absent in isolation. This was the LAST
+    // usage of `_verySlowTestTimeout` in this file, so the now-orphaned
+    // const declaration + its doc comment were removed (mirror of the
+    // C.139/C.131/C.138 single-usage const cleanups). No B.6/B.7
+    // requestRecycle() §U28 protection on this script — clean wrapper strip.
+    test('retest: widgets/live_text_input_status_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/live_text_input_status_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
+      );
+      expectSuccess(result);
+    });
 
     // 20260525 §6.3 follow-up: W4 cascade verified resolved on the ast
     // variant. Lifting skip symmetrically.
