@@ -829,11 +829,17 @@ void main() {
     });
 
     test('selectable_region_state_test.dart', () async {
+      // 1944 TODO C.105 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~2.1 s
+      // under isolated retest (httpMs=1613, totalMs=2055,
+      // frameworkErrors=0, sourceBytes=72013, sourceChars=71935,
+      // bundleJsonBytes=825058 — 72 KB / 825 KB bundle; outputLines=
+      // 1). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/selectable_region_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('selection_container_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
