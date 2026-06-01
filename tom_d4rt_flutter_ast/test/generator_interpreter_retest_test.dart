@@ -335,27 +335,19 @@ void main() {
       expectSuccess(result);
     });
 
-    test(
-      'retest: widgets/app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/app_kit_view_test.dart',
-          // 20260523-1056 baseline §1.12/E43: Transport failure 25s
-          // — cold-start contention. This is the gir_retest suite
-          // occurrence of the same 2089-line / 71 KB script that
-          // also appears in §1.10/E39 (timeout_tests_test, fixed
-          // separately) and was previously the F4/F5 Cluster B
-          // failure (Set<Factory<...>> coercion, fixed via entry #15
-          // boot-status guard). Serial isolated re-run produces
-          // 2.4 s (ast) / 2.3 s (flutter_test) with frameworkErrors=0.
-          // 50 s leaves 10 s of headroom under the 60 s dart-test
-          // wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('retest: widgets/app_kit_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/app_kit_view_test.dart',
+        // 1944 TODO C.143 (2026-06-02): the 20260523-1056 §1.12/E43
+        // httpBuildTimeout:50s + outer Timeout:60s cold-start wrapper was
+        // REMOVED. The 957 KB bundle (71 KB / 71147-char, 2089-line source)
+        // builds in ~2.7 s in isolation (httpMs=2173, totalMs=2651,
+        // frameworkErrors=0); the 60 s wrapper masked nothing on the build
+        // side. Defaults now apply (25 s httpBuildTimeout + 30 s dart-test
+        // timeout) — ample headroom for the ~2.7 s build.
+      );
+      expectSuccess(result);
+    });
 
     test(
       'retest: widgets/back_button_listener_test.dart',
