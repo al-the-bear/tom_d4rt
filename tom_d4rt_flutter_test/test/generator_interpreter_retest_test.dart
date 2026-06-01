@@ -199,12 +199,18 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.150 (2026-06-02): wrapper removed. Isolated retest
+    // runs in ~2.2 s (httpMs≈2.0 s, frameworkErrors=0, outputLines=75
+    // — rich coverage). The 60 s `_slowTestTimeout` was cold-start
+    // padding only; defaults (25 s httpBuildTimeout + 30 s dart-test
+    // timeout) leave ~28 s headroom. `_slowTestTimeout` is retained —
+    // it is still used by many other entries in this file.
     test('retest: material/popup_menu_position_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/popup_menu_position_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: material/theme_extension_test.dart', () async {
       final result = await SendTestRunner.send(
