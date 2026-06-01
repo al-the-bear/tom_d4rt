@@ -311,11 +311,17 @@ void main() {
     });
 
     test('relative_rect_tween_test.dart', () async {
+      // 1944 TODO C.100 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~1.8 s
+      // under isolated retest (httpMs=1419, totalMs=1810,
+      // frameworkErrors=0, sourceChars=33219 — 33 KB
+      // relative-rect-tween test; outputLines=22 — rich coverage).
+      // Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/relative_rect_tween_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('render_abstract_layout_builder_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
