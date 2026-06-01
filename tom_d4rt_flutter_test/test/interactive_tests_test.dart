@@ -160,6 +160,14 @@ void main() {
         // renders a `_PreviewMenuItem` gallery (Edit / Duplicate / Share
         // / Delete) — it does not actually invoke `showMenu(...)`.
         // Tap a label that is present on the rendered gallery.
+        //
+        // testlog_20260529-1944 TODO C.198 — cold-start timeout wrapper
+        // removed. Isolated retest builds this script in ~2.1 s
+        // (httpMs=1841, totalMs=2070, frameworkErrors=0); the 50 s
+        // `httpBuildTimeout`/90 s dart-test `Timeout` padding masked
+        // nothing. Defaults now apply (25 s httpBuildTimeout + 30 s
+        // dart-test timeout). The shared `_interactiveBuildTimeout`
+        // const is RETAINED (still used by C.199–C.201).
         final result = await SendTestRunner.sendAndInteract(
           'material/showmenu_test.dart',
           actions: [
@@ -168,7 +176,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -178,7 +185,6 @@ void main() {
           print('Interaction result: ${result.interact}');
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
