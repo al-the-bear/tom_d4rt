@@ -389,22 +389,20 @@ void main() {
     });
 
     // 44. rendering/render_custom_paint_test.dart (idx 319)
-    // 20260523-1056 baseline §S/E1/E41: under parallel-driver contention the
-    // /build for this 1521-line, 60 KB script can exceed the default 25 s
-    // HTTP cap on the first request after the test app cold-start. Serial
-    // isolated re-runs complete in ~2 s. 50 s leaves 10 s of headroom under
-    // the 60 s dart-test wrapper.
-    test(
-      'rendering/render_custom_paint_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_paint_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // 1944 TODO C.128 (2026-06-01): historical 20260523-1056 §S/E1/E41
+    // cold-start-contention wrapper REMOVED. First entry of §C.ix
+    // (generator_interpreter_issues — the gii harness). Script runs
+    // in ~2.5 s under isolated retest (httpMs=2103, totalMs=2539,
+    // frameworkErrors=0, sourceBytes=60304, sourceChars=60302,
+    // bundleJsonBytes=958971 — 60 KB / 1521-line / 959 KB bundle).
+    // First pre-fix retest hit U31; retry #1 PASSED clean — standard
+    // U31 retry protocol. Defaults apply.
+    test('rendering/render_custom_paint_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_paint_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // 45. rendering/render_custom_single_child_layout_box_test.dart (idx 320)
     // 20260524-2003 baseline §6/E7: same cold-start contention pattern as the
