@@ -180,11 +180,20 @@ void main() {
     });
 
     test('raw_keyboard_listener_test.dart', () async {
+      // 1944 TODO C.99 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` (Timeout(Duration(seconds: 60)))
+      // REMOVED. First entry in §C.viii (hardly_relevant_5 — also
+      // widgets-heavy). Script runs in ~2.1 s under isolated retest
+      // (httpMs=1611, totalMs=2093, frameworkErrors=0, sourceBytes=
+      // 70618, sourceChars=70524, bundleJsonBytes=761035 — 71 KB /
+      // 761 KB bundle). Defaults apply. Const stays — 8 more usages
+      // remain in this file (C.100, C.101, C.103, C.104, C.106,
+      // C.107, C.111, C.112 — to be removed as each entry closes).
       final result = await SendTestRunner.send(
         'widgets/raw_keyboard_listener_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('raw_menu_anchor_group_test.dart', () async {
       final result = await SendTestRunner.send(
