@@ -105,12 +105,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+    // testlog_20260529-1944 TODO C.181 — removed the 60 s `_slowTestTimeout`
+    // dart-test wrapper. The pre-fix isolated retest built in ~1.6 s
+    // (httpMs=1369, frameworkErrors=0), far under the default 25 s HTTP cap —
+    // the wrapper masked nothing. Defaults (25 s httpBuildTimeout + 30 s
+    // dart-test timeout) now apply.
     test('render_custom_multi_child_layout_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_custom_multi_child_layout_box_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test(
       'render_custom_paint_test.dart',
