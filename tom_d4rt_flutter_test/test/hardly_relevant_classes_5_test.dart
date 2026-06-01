@@ -1375,20 +1375,21 @@ void main() {
     test(
       'tree_sliver_state_mixin_test.dart',
       () async {
+        // 1944 TODO C.122 (2026-06-01): historical 20260523-1056
+        // §1.8/E36 (= §S/S4 wedge-candidate cluster) cold-start-
+        // contention wrapper REMOVED. TEST sibling of C.108 (AST).
+        // Inline `httpBuildTimeout: 50s` + outer `Timeout: 60s` shape
+        // — original cross-project TimeoutException was cold-start
+        // contention, not a real wedge. Script runs in ~4.0 s under
+        // isolated retest (httpMs=3808, totalMs=4045,
+        // frameworkErrors=0, sourceChars=87798 — 88 KB / 1.0 MB
+        // bundle in the AST sibling baseline). Defaults (25 s
+        // httpBuildTimeout + 30 s dart-test) apply — ~26 s headroom.
         final result = await SendTestRunner.send(
           'widgets/tree_sliver_state_mixin_test.dart',
-          // 20260523-1056 baseline §1.8/E36 (= §S/S4). Serial
-          // isolated re-run produces 3.2 s with frameworkErrors=0.
-          // Original cross-project TimeoutException was cold-start
-          // contention, not a real wedge. Same family as
-          // E1/E12/E25: 50 s leaves 10 s of headroom under the 60 s
-          // dart-test wrapper. Applied symmetrically with the ast
-          // variant.
-          httpBuildTimeout: const Duration(seconds: 50),
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test(
