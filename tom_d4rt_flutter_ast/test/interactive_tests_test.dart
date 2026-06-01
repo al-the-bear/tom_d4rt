@@ -194,9 +194,16 @@ void main() {
       () async {
         // Build the showdialog static demo (does not actually push a
         // route; barrier tap is exercised against the rendered scaffold).
+        //
+        // 20260602 TODO C.193 closure: the 50 s `httpBuildTimeout` (via the
+        // shared `_interactiveBuildTimeout` const) + 90 s dart-test `Timeout`
+        // were cold-start padding masking nothing. Isolated retest builds in
+        // ~2.3 s (httpMs=1899, totalMs=2299, frameworkErrors=0) — far under
+        // the default 25 s HTTP cap — so both wrappers are removed. The shared
+        // `_interactiveBuildTimeout` const stays in place; it is still used by
+        // the sibling static-demo tests (C.194–C.195).
         final buildResult = await SendTestRunner.send(
           'material/showdialog_test.dart',
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(buildResult.success, isTrue,
@@ -212,7 +219,6 @@ void main() {
 
         print('Dismiss result: $interactResult');
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
