@@ -262,24 +262,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'retest: widgets/app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/app_kit_view_test.dart',
-          // 20260523-1056 baseline §1.10/E39 (= §S/S5). Serial
-          // isolated re-run produces 2.3 s with frameworkErrors=0.
-          // Original cross-project Transport failure was cold-start
-          // contention, not a real wedge. Same family as
-          // E1/E12/E25/E36: 50 s leaves 10 s of headroom under the
-          // 60 s dart-test wrapper. Applied symmetrically with the
-          // ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // 20260602 1944 TODO C.185 (TEST-side sibling of AST-side C.175):
+    // pre-fix isolated retest built in totalMs=2529 (httpMs=2297) with
+    // frameworkErrors=0 — far under the default 25 s HTTP cap, so the
+    // historical §1.10/E39 (= §S/S5) cold-start padding (50 s
+    // httpBuildTimeout + 60 s dart-test wrapper) masked nothing.
+    // Wrappers removed; defaults (25 s HTTP + 30 s dart-test) apply.
+    test('retest: widgets/app_kit_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/app_kit_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'retest: widgets/back_button_listener_test.dart',
