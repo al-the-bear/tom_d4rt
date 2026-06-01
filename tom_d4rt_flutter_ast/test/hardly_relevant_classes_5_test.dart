@@ -684,11 +684,17 @@ void main() {
     });
 
     test('scroll_increment_type_test.dart', () async {
+      // 1944 TODO C.103 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~2.4 s
+      // under isolated retest (httpMs=1947, totalMs=2394,
+      // frameworkErrors=0, sourceBytes=71635, sourceChars=71543,
+      // bundleJsonBytes=882010 — 72 KB / 882 KB bundle). Defaults
+      // apply.
       final result = await SendTestRunner.send(
         'widgets/scroll_increment_type_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('scroll_metrics_notification_test.dart', () async {
       final result = await SendTestRunner.send(
