@@ -20,12 +20,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See the AST sibling
-/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
-/// full rationale.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
+// testlog_20260529-1944 TODO C.184 — the shared `_slowTestTimeout`
+// (60 s) const was removed once its last usage (the
+// `retest: services/message_codec_test.dart` wrapper) was stripped. All
+// §C.xi TEST-side timeout wrappers that used it are now retired; tests run
+// under the default 25 s httpBuildTimeout + 30 s dart-test timeout.
 
 void main() {
   setUpAll(() async {
@@ -222,12 +221,19 @@ void main() {
   // SERVICES PACKAGE TESTS (3 files)
   // ============================================================
   group('services/', () {
+    // testlog_20260529-1944 TODO C.184 — removed the 60 s `_slowTestTimeout`
+    // dart-test wrapper. The pre-fix isolated retest built in ~2.3 s
+    // (httpMs=2001, frameworkErrors=0, sourceChars=89125), far under the
+    // default 25 s HTTP cap — the wrapper masked nothing. This was the LAST
+    // `_slowTestTimeout` usage in the file, so the now-orphaned const
+    // declaration was removed. Defaults (25 s httpBuildTimeout + 30 s
+    // dart-test timeout) now apply.
     test('retest: services/message_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/services/message_codec_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: services/method_codec_test.dart', () async {
       final result = await SendTestRunner.send(
