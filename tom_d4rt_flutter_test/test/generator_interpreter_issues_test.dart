@@ -16,15 +16,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See the AST sibling
-/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
-/// full rationale. Source-direct interpreter cold-start (§U25) can
-/// exceed 30 s on the largest scripts; 60 s gives enough headroom
-/// without masking genuine wedge behaviour.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
   final errors = result.frameworkErrors.isNotEmpty
@@ -731,12 +722,19 @@ void main() {
 
   group('Section 2 - Interpreter Issues (3)', () {
     // 1. widgets/scrollbar_orientation_test.dart (idx 186)
+    // 1944 TODO C.138 (2026-06-02): historical 20260528-2206 TODO #4
+    // follow-up `_slowTestTimeout` REMOVED — final §C.ix entry, so the
+    // now-orphaned const declaration + its doc comment were deleted too
+    // (symmetric to the AST-side cleanup in C.131). Script runs in
+    // ~2.2 s under isolated retest (httpMs=1952, totalMs=2168,
+    // frameworkErrors=0, outputLines=4, sourceChars=30200 — 30 KB).
+    // Defaults apply.
     test('widgets/scrollbar_orientation_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/scrollbar_orientation_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // 2. widgets/sliver_animated_list_state_test.dart (idx 203)
     test('widgets/sliver_animated_list_state_test.dart', () async {
