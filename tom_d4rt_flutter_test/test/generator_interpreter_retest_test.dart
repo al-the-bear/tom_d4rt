@@ -530,12 +530,20 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.162 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
+    // removed. Pre-fix isolated retest builds the 54 KB source in ~2.0 s
+    // (httpMs=1781, totalMs=2015, frameworkErrors=0, outputLines=19,
+    // sourceChars=54210, status=success) — the §U25 cold-start padding masked
+    // nothing on the build side. Defaults now apply (25 s httpBuildTimeout +
+    // 30 s dart-test timeout), leaving ~28 s headroom over the ~2.0 s build.
+    // No `waitBeforeClear` buffer was attached, so the strip is wrapper-only.
+    // `_slowTestTimeout` const retained — still used by other entries.
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/nested_scroll_view_state_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: widgets/next_focus_intent_test.dart', () async {
       final result = await SendTestRunner.send(
