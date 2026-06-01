@@ -1395,16 +1395,19 @@ void main() {
     test(
       'tree_sliver_test.dart',
       () async {
+        // 1944 TODO C.123 (2026-06-01): historical 20260524-2003 §6/T9
+        // (= todo #8) cold-start-contention wrapper REMOVED. TEST
+        // sibling of C.109 (AST). Same shape as the AST sibling
+        // (inline `httpBuildTimeout: 50s` + outer `Timeout: 60s`).
+        // Script runs in ~1.8 s under isolated retest (httpMs=1614,
+        // totalMs=1842, frameworkErrors=0, sourceChars=41326 — 41 KB;
+        // outputLines=45 — rich coverage). Defaults apply, matching
+        // the AST sibling C.109.
         final result = await SendTestRunner.send(
           'widgets/tree_sliver_test.dart',
-          // 20260524-2003 baseline §6/T9 (= todo #8): cold-start
-          // transport failure in hardly_5. Standard 25 s → 50 s cap +
-          // 60 s wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test('two_dimensional_child_builder_delegate_test.dart', () async {
