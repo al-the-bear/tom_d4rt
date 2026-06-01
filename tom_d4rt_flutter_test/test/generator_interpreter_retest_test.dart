@@ -319,20 +319,21 @@ void main() {
     });
 
     // Services
-    test(
-      'retest: services/message_codec_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/services/message_codec_test.dart',
-          // 20260524-2003 baseline §6/T7 (= todo #7): cold-start
-          // contention in the gir retest cluster. Standard caller-side
-          // 25 s → 50 s cap with 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('retest: services/message_codec_test.dart', () async {
+      // 1944 TODO C.153 (2026-06-02): timeout wrapper removed — TEST
+      // sibling of the AST-side C.142 fix. The historical
+      // `httpBuildTimeout: 50s` + outer `Timeout: 60s`
+      // (20260524-2003 §6/T7 = todo #7) was §U25 cold-start padding;
+      // isolated retest builds the 89 KB / 1.0 MB bundle in ~3 s
+      // (httpMs≈2739, totalMs≈3018, frameworkErrors=0) so defaults
+      // (25 s httpBuildTimeout + 30 s dart-test timeout) now apply
+      // with ~22 s headroom. No B.6/B.7 requestRecycle() §U28
+      // protection on this script — clean wrapper-only strip.
+      final result = await SendTestRunner.send(
+        'retest/services/message_codec_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     test('retest: services/method_codec_test.dart', () async {
       final result = await SendTestRunner.send(
