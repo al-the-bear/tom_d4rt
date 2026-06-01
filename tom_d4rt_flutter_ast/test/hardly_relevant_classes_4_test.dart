@@ -20,12 +20,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See `hardly_relevant_classes_5_test.dart` for full
-/// rationale.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp(regenerateBridges: false);
@@ -1515,11 +1509,17 @@ void main() {
     });
 
     test('overlay_portal_controller_test.dart', () async {
+      // 1944 TODO C.92 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` (Timeout(Duration(seconds: 60)))
+      // REMOVED. Script runs in ~1.9 s under isolated retest
+      // (httpMs=1516, totalMs=1903, frameworkErrors=0, sourceChars=
+      // 51459 — 51 KB / overlay_portal controller test with rich
+      // controller-lifecycle output: outputLines=23). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/overlay_portal_controller_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('overlay_portal_test.dart', () async {
       final result = await SendTestRunner.send(
