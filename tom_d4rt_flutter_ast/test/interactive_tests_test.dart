@@ -26,11 +26,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// Cold-start contention cap for the static-demo scripts. Each bundles
-/// to ~800 KB+ of AST JSON and the first script in a freshly-launched
-/// `flutter test` invocation can exceed the default 25 s build cap.
-const Duration _interactiveBuildTimeout = Duration(seconds: 50);
-
 void main() {
   setUpAll(() async {
     // 1401-TODO #11 (H2) — bumped from 120s to 180s. `interactive_tests_test`
@@ -264,6 +259,14 @@ void main() {
         // renders the labels directly — `Text('DISMISS', ...)` is the
         // configured cancelText example. The imperative
         // `showTimePicker(...)` is never invoked.
+        //
+        // 20260602 TODO C.195 closure: the 50 s `httpBuildTimeout` (via the
+        // shared `_interactiveBuildTimeout` const) + 90 s dart-test `Timeout`
+        // were cold-start padding masking nothing. Isolated retest builds in
+        // ~2.3 s (httpMs=1855, totalMs=2251, frameworkErrors=0, outputLines=41)
+        // — far under the default 25 s HTTP cap — so both wrappers are removed.
+        // C.195 is the last §C.xii sibling, so the shared
+        // `_interactiveBuildTimeout` const is removed with this closure.
         final result = await SendTestRunner.sendAndInteract(
           'material/showtimepicker_test.dart',
           actions: [
@@ -272,7 +275,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -282,7 +284,6 @@ void main() {
           print('Interaction result: ${result.interact}');
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
   });
 }
