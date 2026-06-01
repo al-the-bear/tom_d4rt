@@ -357,23 +357,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_app_kit_view_test.dart',
-          // 20260523-1056 baseline §1.6/E25 (= §S/S3). Serial
-          // isolated re-run produces 2.5 s with frameworkErrors=0.
-          // Original cross-project TimeoutException was cold-start
-          // contention. Same family as E1/E12: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper. Applied
-          // symmetrically with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('render_app_kit_view_test.dart', () async {
+      // 1944 TODO C.84 (2026-06-01): historical 20260523-1056 §1.6/E25
+      // (= §S/S3 wedge-candidate cluster) cold-start-contention
+      // wrapper REMOVED. TEST sibling of C.77 (AST). Script runs in
+      // ~3.2 s under isolated retest (httpMs=2978, totalMs=3207,
+      // frameworkErrors=0 — 60 KB source / 851 KB bundle). Default
+      // 25 s httpBuildTimeout + 30 s dart-test timeout apply.
+      final result = await SendTestRunner.send(
+        'rendering/render_app_kit_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_clip_r_superellipse_test.dart', () async {
       final result = await SendTestRunner.send(
