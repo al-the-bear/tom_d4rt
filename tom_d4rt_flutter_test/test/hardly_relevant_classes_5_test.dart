@@ -1540,11 +1540,17 @@ void main() {
     );
 
     test('user_scroll_notification_test.dart', () async {
+      // 1944 TODO C.126 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~2.8 s under isolated retest
+      // (httpMs=2581, totalMs=2802, frameworkErrors=0,
+      // sourceChars=76766 — 77 KB user-scroll-notification widget
+      // test; outputLines=1). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/user_scroll_notification_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('viewport_element_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
