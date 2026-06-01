@@ -285,11 +285,17 @@ void main() {
     });
 
     test('regular_window_controller_win32_test.dart', () async {
+      // 1944 TODO C.114 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling — TEST-only
+      // entry. Script runs in ~2.2 s under isolated retest
+      // (httpMs=1979, totalMs=2209, frameworkErrors=0,
+      // sourceChars=97856 — 98 KB regular-window-controller-win32
+      // widget test). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/regular_window_controller_win32_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('regular_window_test.dart', () async {
       final result = await SendTestRunner.send(
