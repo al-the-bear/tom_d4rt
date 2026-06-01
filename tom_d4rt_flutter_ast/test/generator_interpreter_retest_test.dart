@@ -450,20 +450,24 @@ void main() {
       expectSuccess(result);
     });
 
-    // 20260525 §6.3 follow-up: §6.1 retest passed W4 in isolation; lifting
-    // skip with the standard 50 s cap. The original W4 "connection-closed"
-    // wedge cascade does not reproduce on the current interpreter.
-    test(
-      'retest: widgets/lock_state_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/lock_state_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W4 (historical): §6.1 retest passed W4 in isolation; the skip was
+    // lifted (20260525 §6.3) behind a caller-side 50 s httpBuildTimeout +
+    // outer Timeout:60s cold-start wrapper. The original W4
+    // "connection-closed" wedge cascade does not reproduce on the current
+    // interpreter.
+    // 1944 TODO C.149 (2026-06-02): the cold-start wrapper (httpBuildTimeout
+    // :50s + outer Timeout:60s) was REMOVED. The 488 KB bundle (50 KB /
+    // 48235-char source) now builds in ~2.1 s in isolation (httpMs=1680,
+    // totalMs=2090, frameworkErrors=0, outputLines=24) with no W4 cascade —
+    // the 60 s wrapper masked nothing on the build side. Defaults now apply
+    // (25 s httpBuildTimeout + 30 s dart-test timeout). No waitBeforeClear
+    // buffer was ever attached to this entry, so the strip is wrapper-only.
+    test('retest: widgets/lock_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/lock_state_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(
