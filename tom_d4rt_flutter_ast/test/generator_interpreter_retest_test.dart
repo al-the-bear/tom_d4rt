@@ -428,24 +428,27 @@ void main() {
       expectSuccess(result);
     });
 
-    // W3: Pre-emptively skipped while W2 is the upstream wedger.  In
-    // run4 this test cascade-failed after W2.  Once W2 is fixed,
-    // re-run in isolation to determine whether to un-skip.  See
-    // doc/interpreter_issues.md (W3).
-    // 20260525 §6.3 follow-up: W3 was cascade victim of W2; with W2
-    // lifted, re-enable W3 with the same caller-side cap pattern.
-    test(
-      'retest: widgets/live_text_input_status_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/live_text_input_status_test.dart',
-          waitBeforeClear: const Duration(seconds: 10),
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W3 (historical): pre-emptively skipped while W2 was the upstream
+    // wedger — in run4 this test cascade-failed after W2 (D4rt-LIMIT #8
+    // Actions/Shortcuts family). The skip was lifted (20260525 §6.3) behind
+    // a caller-side 50 s httpBuildTimeout + outer Timeout:60s cold-start
+    // wrapper, with waitBeforeClear:10s as a defensive buffer.
+    // 1944 TODO C.148 (2026-06-02): the cold-start wrapper (httpBuildTimeout
+    // :50s + outer Timeout:60s) was REMOVED. The 483 KB bundle (47 KB /
+    // 46799-char source) now builds in ~1.7 s in isolation (httpMs=1653,
+    // frameworkErrors=0, outputLines=25) with no W3 cascade — the 60 s
+    // wrapper masked nothing on the build side. Defaults now apply (25 s
+    // httpBuildTimeout + 30 s dart-test timeout). The waitBeforeClear:10s
+    // defensive buffer is RETAINED (matching the C.147 W2 sibling above)
+    // because this is a deep Actions/Shortcuts demo with W2/W3 cascade
+    // history that could still destabilize the following test's /clear.
+    test('retest: widgets/live_text_input_status_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/live_text_input_status_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
+      );
+      expectSuccess(result);
+    });
 
     // 20260525 §6.3 follow-up: §6.1 retest passed W4 in isolation; lifting
     // skip with the standard 50 s cap. The original W4 "connection-closed"
