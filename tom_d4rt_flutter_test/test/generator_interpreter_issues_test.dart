@@ -604,12 +604,17 @@ void main() {
     });
 
     // 66. widgets/overflow_box_test.dart (idx 353)
+    // 1944 TODO C.137 (2026-06-01): historical 20260528-2206 TODO #4
+    // follow-up `_slowTestTimeout` REMOVED. No AST sibling — TEST-only
+    // entry. Script runs in ~3.1 s under isolated retest (httpMs=2886,
+    // totalMs=3113, frameworkErrors=0, sourceChars=75480 — 75 KB).
+    // Defaults apply.
     test('widgets/overflow_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overflow_box_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // 67. widgets/page_storage_bucket_test.dart (idx 354)
     test('widgets/page_storage_bucket_test.dart', () async {
