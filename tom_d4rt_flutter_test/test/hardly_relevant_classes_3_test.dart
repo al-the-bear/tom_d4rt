@@ -1366,23 +1366,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'text_editing_delta_deletion_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'services/text_editing_delta_deletion_test.dart',
-          // 20260523-1056 baseline §1.6/E30 (ast) + §2.D contention
-          // (test): Transport failure 25s — cold-start contention.
-          // 1477-line / 49 KB script builds in ~2.0 s. Same family
-          // as E1/E2/E11/E12/E16/E17/E22/E26/E29: 50 s leaves 10 s
-          // of headroom under the 60 s dart-test wrapper. Applied
-          // symmetrically with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('text_editing_delta_deletion_test.dart', () async {
+      // 1944 TODO C.89 (2026-06-01): historical 20260523-1056 §1.6/E30
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. TEST sibling of C.82 (AST). Script runs in ~2.4 s
+      // under isolated retest (httpMs=2149, totalMs=2366,
+      // frameworkErrors=0, sourceChars=48937 — 49 KB / 1477-line).
+      // Defaults (25 s httpBuildTimeout + 30 s dart-test) apply.
+      // Closes §C.vi (hardly_relevant_classes_3) — 14/14 entries
+      // retired (C.76-C.89, 7 AST + 7 TEST siblings).
+      final result = await SendTestRunner.send(
+        'services/text_editing_delta_deletion_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('text_editing_delta_insertion_test.dart', () async {
       final result = await SendTestRunner.send(
