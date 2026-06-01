@@ -714,12 +714,21 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.170 (2026-06-02): stripped the `timeout: _slowTestTimeout`
+    // (60 s) §U25 cold-start wrapper. Pre-fix isolated retest passed in
+    // ~1.8 s (httpMs=1573, totalMs=1789, frameworkErrors=0, sourceChars=38539
+    // — exercises the full `RenderTapRegionSurface`/`TapRegion` widget API);
+    // the 60 s padding masked nothing. TEST-side wrapper-only strip; AST
+    // sibling never wrapped this script; no `waitBeforeClear` buffer and no
+    // B.6/B.7 requestRecycle() §U28 protection on this script. Defaults now
+    // apply (25 s httpBuildTimeout + 30 s dart-test timeout). `_slowTestTimeout`
+    // const retained — still used by 1 other entry (request_focus_action C.171).
     test('retest: widgets/render_tap_region_surface_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/render_tap_region_surface_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: widgets/replace_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
