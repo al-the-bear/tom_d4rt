@@ -518,12 +518,18 @@ void main() {
     });
 
     // 56. widgets/html_element_view_test.dart (idx 342)
+    // 1944 TODO C.136 (2026-06-01): historical 20260528-2206 TODO #4
+    // follow-up `_slowTestTimeout` REMOVED. TEST sibling of C.131
+    // (AST same script — both retired). Script runs in ~3.3 s under
+    // isolated retest (httpMs=3107, totalMs=3338, frameworkErrors=0,
+    // sourceChars=59882 — 60 KB, matching the AST sibling C.131
+    // baseline). Defaults apply.
     test('widgets/html_element_view_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/html_element_view_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // 57. widgets/image_filtered_test.dart (idx 343)
     test('widgets/image_filtered_test.dart', () async {
