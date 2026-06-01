@@ -271,22 +271,24 @@ void main() {
         // root cause and the deferred deep fix
         // (interpreter-side declaration-registry-clear-on-/clear).
         SendTestRunner.requestRecycle();
+        // 1944 TODO C.140 (2026-06-02): the §1.12/E42 (= §S/S6)
+        // httpBuildTimeout:50s + outer Timeout:60s wrapper was
+        // REMOVED. The 876 KB bundle (largest in the rendering
+        // retest group) builds in ~2.3 s in isolation (httpMs=2341,
+        // totalMs=18108, frameworkErrors=0); the 60 s wrapper masked
+        // nothing on the build side. The ~18 s totalMs is entirely
+        // the B.6 requestRecycle() §U28 cumulative-state protection
+        // cost above — kept deliberately, since removing it
+        // re-introduces the +25 wedge during the full gir sweep.
+        // Defaults now apply: the 25 s httpBuildTimeout leaves ample
+        // headroom for the 2.3 s build, and the 30 s dart-test
+        // timeout comfortably covers the ~15 s recycle + 2.3 s build
+        // (~12 s spare). §S stays closed.
         final result = await SendTestRunner.send(
           'retest/rendering/render_animated_size_state_test.dart',
-          // 20260523-1056 baseline §1.12/E42 (= §S/S6 — listed in
-          // the wedge-candidate cluster because it appeared in both
-          // ast and flutter_test runs in generator_interpreter_retest).
-          // Serial isolated re-run produces 2.3 s (ast) / 2.1 s
-          // (flutter_test) with frameworkErrors=0. The cross-project
-          // failure was cold-start contention, not a real wedge.
-          // Same family as E1/E12/E25/E36/E39: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper. This is the
-          // last §S candidate — with this fix, §S is fully closed.
-          httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test(
