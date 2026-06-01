@@ -450,26 +450,35 @@ void main() {
       expectSuccess(result);
     });
 
-    // W2: Confirmed independent wedger (run4, 2026-04-28).  /build hangs
-    // for 30s when this script runs — even with default_selection_style
-    // (which passes) immediately preceding it.  Same Actions/Shortcuts
-    // family as W1 (D4rt-LIMIT #8 family).  Skipping until the wedge is
-    // root-caused.  See doc/interpreter_issues.md (W2).
-    // 20260525 §6.3 follow-up: W2 cascade verified resolved on the ast
-    // variant. Lifting skip symmetrically; build actually completes in
-    // ~11 s (not 30+ s as originally observed).
-    test(
-      'retest: widgets/default_text_editing_shortcuts_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/default_text_editing_shortcuts_test.dart',
-          waitBeforeClear: const Duration(seconds: 10),
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W2 history (preserved for context): confirmed independent wedger
+    // (run4, 2026-04-28) — /build once hung for 30 s when this script ran,
+    // even with default_selection_style (which passes) immediately
+    // preceding it. Same Actions/Shortcuts family as W1 (D4rt-LIMIT #8
+    // family). Skipped until root-caused (see doc/interpreter_issues.md
+    // W2), then skip lifted in the 20260525 §6.3 follow-up behind a
+    // caller-side `httpBuildTimeout: 50s` + outer `timeout: Timeout(60s)`
+    // §U25 cold-start wrapper after the W2 cascade was verified resolved
+    // on the ast variant.
+    // 1944 TODO C.159 (2026-06-02): timeout wrapper removed — TEST sibling
+    // of the AST-side C.147 fix (same script). The isolated retest builds
+    // the 38 KB source in ~2.0 s (httpMs≈2025, frameworkErrors=0); totalMs
+    // ≈12.3 s is dominated by the 10 s waitBeforeClear buffer, not the
+    // build. Stripped both `httpBuildTimeout: 50s` and the outer
+    // `timeout: Timeout(60s)`; defaults (25 s httpBuildTimeout + 30 s
+    // dart-test timeout) now apply with ~18 s headroom over the ~12 s
+    // total. Deliberately retained `waitBeforeClear: 10s` — this makes the
+    // TEST entry structurally identical to the AST-side C.147 W2 sibling
+    // and protects the following test's /clear against this deep
+    // Actions/Shortcuts demo. The W2 wedge is confirmed absent in
+    // isolation. No B.6/B.7 requestRecycle() §U28 protection on this
+    // script — clean wrapper-only strip.
+    test('retest: widgets/default_text_editing_shortcuts_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/default_text_editing_shortcuts_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
+      );
+      expectSuccess(result);
+    });
 
     // W3: Pre-emptively skipped while W2 is the upstream wedger.  In
     // run4 this test cascade-failed after W2.  Once W2 is fixed,
