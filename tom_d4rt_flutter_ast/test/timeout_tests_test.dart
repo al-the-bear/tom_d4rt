@@ -309,21 +309,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'selectable_region_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/selectable_region_test.dart',
-          // 20260523-1056 baseline §1.3/E8 (secondary instance): same
-          // cold-start contention as the secondary_classes_test entry.
-          // 1456-line / 54 KB script; ~1.5 s typical. 50 s leaves
-          // 10 s of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // C.178 (1944) — FIXED 20260602: removed the §1.3/E8 cold-start wrapper
+    // (50 s httpBuildTimeout + 60 s dart-test Timeout). Isolated retest
+    // builds this 54 KB / 1456-line script in ~1.6 s (httpMs~1570,
+    // bundleJsonBytes=606867, frameworkErrors=0); the wrapper was padding
+    // that masked nothing. Defaults now apply (25 s httpBuildTimeout +
+    // 30 s dart-test timeout).
+    test('selectable_region_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/selectable_region_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('selection_container_test.dart', () async {
       final result = await SendTestRunner.send(
