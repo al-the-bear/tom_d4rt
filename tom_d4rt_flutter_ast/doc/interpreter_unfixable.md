@@ -7973,11 +7973,42 @@ binary), both of which fall outside the d4rt quest's scope.
 - `rendering/render_app_kit_view_test.dart` (C.77, AST — 1 transient, cleared on retry #2)
 - `services/application_switcher_description_test.dart` (C.79, AST — 1 transient, cleared on retry #2)
 - `rendering/image_filter_config_test.dart` (C.83, TEST — 3 consecutive failures, cleared after AST sibling unstick)
+- `widgets/overflow_bar_alignment_test.dart` (C.97, TEST — 1 transient, cleared on retry #2)
+- `widgets/transition_delegate_test.dart` (C.107, AST — **4 transients in close succession** (pre-fix #1, post-fix #1, post-fix #2, post-fix #3); TEST-sibling unstick attempt (with `widgets/raw_image_test.dart` on port 4248) ran cleanly but **did not clear the AST-side flake**; only an additional cooldown + retry #4 succeeded. This is the heaviest U31 cluster observed so far)
+
+**2026-06-01 protocol refinement (from C.107 close-out).** When the
+sibling-port unstick step (item 2 in the avoidance protocol) is
+attempted but the original port still fails on the next retry, the
+LaunchServices state is in a deeper wedge than the sibling unstick
+can clear. The empirical resolution in C.107 was **additional
+cooldown time (~90 s of doing nothing on the affected port) + one
+more retry** — the 4th post-fix attempt then passed cleanly. The
+`pkill + wait 5 s` step (item 3 in the avoidance protocol) was not
+attempted on C.107 because the wall-clock cost of letting the wedge
+self-clear was lower than the cost of tearing down both apps; for
+future heavy clusters this trade-off may invert. The
+script-content profile that triggered the C.107 heavy cluster is
+unremarkable (34 KB / 397 KB bundle, no special interpreter
+behaviour) — the wedge appears genuinely time-correlated rather
+than script-correlated.
 
 ---
 
 ## Change Log
 
+- 2026-06-01: **Update U31 with C.97 and C.107 observations + protocol
+  refinement.** C.97 (TEST `widgets/overflow_bar_alignment_test`)
+  added a single-shot transient (4th occurrence in campaign).
+  C.107 (AST `widgets/transition_delegate_test`) added a heavy
+  4-transient cluster (5th-8th occurrences) where the
+  sibling-port unstick step was attempted with a clean TEST-suite
+  run of `widgets/raw_image_test` on port 4248 but did NOT clear
+  the AST-side flake. Resolution required additional cooldown
+  (~90 s) + a 4th retry. New protocol refinement appended to U31:
+  when sibling-port unstick fails, the wedge is deeper than the
+  unstick can clear, and additional time + retry is the only
+  remaining cheap resolution short of the `pkill + wait 5 s`
+  reset.
 - 2026-05-31: **Add U31 (macOS `flutter test` "Failed to foreground app;
   open returned 1" transient).** Documents the host-level LaunchServices
   flake observed during 1944 TODO C.77 / C.79 / C.83 and the

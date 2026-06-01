@@ -1318,11 +1318,20 @@ void main() {
     });
 
     test('transition_delegate_test.dart', () async {
+      // 1944 TODO C.107 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~2.3 s
+      // under isolated retest (httpMs=1810, totalMs=2295,
+      // frameworkErrors=0, sourceBytes=34960, sourceChars=33755,
+      // bundleJsonBytes=396518 — 34 KB / 397 KB bundle;
+      // outputLines=4 — rich coverage). First isolated retest hit
+      // the U31 LaunchServices "Failed to foreground app" flake;
+      // retry #1 PASSED clean — standard U31 retry protocol.
+      // Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/transition_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('transition_route_test.dart', () async {
       final result = await SendTestRunner.send(
