@@ -171,9 +171,17 @@ void main() {
     });
 
     test('raw_image_test.dart', () async {
+      // 1944 TODO C.113 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. First entry of TEST
+      // half of §C.viii. No AST sibling (AST half does not include
+      // raw_image — the closest AST entry is C.99 raw_keyboard_listener).
+      // Script runs in ~1.9 s under isolated retest (httpMs=1692,
+      // totalMs=1931, frameworkErrors=0, sourceChars=60026 — 60 KB
+      // raw-image widget test; outputLines=23 — rich coverage).
+      // Defaults apply.
       final result = await SendTestRunner.send('widgets/raw_image_test.dart');
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('raw_keyboard_listener_test.dart', () async {
       final result = await SendTestRunner.send(
