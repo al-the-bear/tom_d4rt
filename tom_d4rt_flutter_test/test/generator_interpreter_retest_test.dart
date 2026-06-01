@@ -336,11 +336,19 @@ void main() {
     });
 
     test('retest: services/method_codec_test.dart', () async {
+      // 1944 TODO C.154 (2026-06-02): timeout wrapper removed. The
+      // historical 60 s `_slowTestTimeout` was §U25 cold-start padding;
+      // isolated retest builds the 50 KB source in ~2.5 s (httpMs≈2242,
+      // totalMs≈2472, frameworkErrors=0, outputLines=39 — rich coverage)
+      // so defaults (25 s httpBuildTimeout + 30 s dart-test timeout) now
+      // apply with ~27 s headroom. No B.6/B.7 requestRecycle() §U28
+      // protection on this script — clean wrapper-only strip.
+      // `_slowTestTimeout` const retained — still used by 11 other entries.
       final result = await SendTestRunner.send(
         'retest/services/method_codec_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // Widgets
     test('retest: widgets/android_view_surface_test.dart', () async {
