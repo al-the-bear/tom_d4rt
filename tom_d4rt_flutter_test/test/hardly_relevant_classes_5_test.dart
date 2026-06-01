@@ -499,11 +499,17 @@ void main() {
     });
 
     test('restorable_listenable_test.dart', () async {
+      // 1944 TODO C.115 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~1.6 s under isolated retest
+      // (httpMs=1406, totalMs=1636, frameworkErrors=0, sourceChars=
+      // 40489 — 40 KB restorable-listenable widget test;
+      // outputLines=2 — rich coverage). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/restorable_listenable_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test(
       'restorable_num_n_test.dart',
