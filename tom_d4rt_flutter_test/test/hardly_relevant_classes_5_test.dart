@@ -20,13 +20,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 — mirror of flutter_ast. Bumped
-/// per-test timeout for scripts that historically trip the Flutter
-/// test framework's default 30 s wrapper. The source-direct
-/// interpreter's cold-start parse + execute (§U25) is heavier than
-/// the AST-bundle path so this project has more candidates.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp();
@@ -1649,11 +1642,20 @@ void main() {
     });
 
     test('widget_state_property_all_test.dart', () async {
+      // 1944 TODO C.127 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Last `_slowTestTimeout`
+      // usage in this file (and last entry in §C.viii), so the const
+      // declaration + its doc comment are removed too. No AST sibling
+      // — TEST-only entry. Script runs in ~2.1 s under isolated
+      // retest (httpMs=1915, totalMs=2145, frameworkErrors=0,
+      // sourceChars=114229 — 114 KB widget-state-property-all widget
+      // test, largest TEST-side §C.viii script). Defaults apply.
+      // Closes TEST half of §C.viii and the entire §C.viii cluster.
       final result = await SendTestRunner.send(
         'widgets/widget_state_property_all_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('widget_state_test.dart', () async {
       final result = await SendTestRunner.send(
