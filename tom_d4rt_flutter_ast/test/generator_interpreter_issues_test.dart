@@ -454,23 +454,21 @@ void main() {
     });
 
     // 50. widgets/animated_switcher_test.dart (idx 332)
-    // 20260525 §6.3 follow-up: §6.1 retest passed S2 in isolation; the W5
-    // cascade concern from 20260428 was re-verified by lifting the skip
-    // and running the full gii suite. No cascade on the current corpus.
-    // Replaced skip with the standard caller-side 50 s cap to absorb the
-    // script's cold-start build (deep-demo widget tree → AnimatedSwitcher
-    // tickers).
-    test(
-      'widgets/animated_switcher_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/animated_switcher_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // 1944 TODO C.130 (2026-06-01): historical 20260525 §6.3 follow-up
+    // (originally a skip lifted in 20260525 with a caller-side 50 s
+    // cap to absorb the cold-start build for the deep-demo widget
+    // tree → AnimatedSwitcher tickers) cold-start-contention wrapper
+    // REMOVED. Script runs in ~2.2 s under isolated retest
+    // (httpMs=1786, totalMs=2214, frameworkErrors=0, sourceBytes=
+    // 59802, sourceChars=54682, bundleJsonBytes=631989 — 60 KB / 632
+    // KB bundle). First pre-fix retest hit U31; retry #1 PASSED
+    // clean — standard U31 retry protocol. Defaults apply.
+    test('widgets/animated_switcher_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animated_switcher_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // 51. widgets/autofill_group_test.dart (idx 333)
     test('widgets/autofill_group_test.dart', () async {
