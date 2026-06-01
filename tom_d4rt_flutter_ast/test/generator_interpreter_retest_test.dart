@@ -349,21 +349,19 @@ void main() {
       expectSuccess(result);
     });
 
-    test(
-      'retest: widgets/back_button_listener_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/back_button_listener_test.dart',
-          // 20260524 §6 todo #11 / F6: 78 KB / 1.07 MB AST bundle.
-          // Cold-start build hits the default 25 s caller cap before
-          // /build returns. Bump to 50 s so the build completes and
-          // any genuine layout overflow surfaces.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('retest: widgets/back_button_listener_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/back_button_listener_test.dart',
+        // 1944 TODO C.144 (2026-06-02): the 20260524 §6 todo #11 / F6
+        // httpBuildTimeout:50s + outer Timeout:60s cold-start wrapper was
+        // REMOVED. The 1.07 MB bundle (78 KB / 78203-char source) builds in
+        // ~2.1 s in isolation (httpMs=1595, totalMs=2070, frameworkErrors=0);
+        // the 60 s wrapper masked nothing on the build side. Defaults now
+        // apply (25 s httpBuildTimeout + 30 s dart-test timeout) — ample
+        // headroom for the ~2.1 s build.
+      );
+      expectSuccess(result);
+    });
 
     test(
       'retest: widgets/box_scroll_view_test.dart',
