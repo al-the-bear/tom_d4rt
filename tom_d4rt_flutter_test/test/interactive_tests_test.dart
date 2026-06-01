@@ -19,31 +19,21 @@
 /// `httpBuildTimeout: 50 s` to absorb cold-start contention on the
 /// 800 KB+ AST bundles.
 @TestOn('vm')
-// testlog_20260528-2206 TODO #6 — library-level @Timeout default.
-//
-// Dart `package:test` applies a 30 s default timeout to `setUpAll` /
-// `tearDownAll` / `setUp` / `tearDown` and any `test()` without an
-// explicit `timeout:` override. The 2206 baseline captured a
-// `test_30s_timeout` error on this file's `(setUpAll)` because the
-// source-direct test_app's cold launch + port reap can exceed 30 s
-// when the host is under sweep load (§U25 cold-start performance
-// limit + host-saturation contention documented across the 20260529
-// regression turns).
-//
-// The internal `SendTestRunner.setUp(timeout: 180s)` below cannot
-// kick in if the outer wrapper has already fired. Per-test
-// `timeout:` overrides (90 s each) only apply to `test()` blocks,
-// not to setUpAll. The library-level `@Timeout` annotation is the
-// supported `package:test` mechanism to extend the suite default
-// for everything that doesn't carry its own override.
-//
-// 240 s gives ~2× headroom over the inner 180 s `SendTestRunner.setUp`
-// timeout — enough to absorb a worst-case cold launch while still
-// bounded enough to detect a genuinely-stuck setUpAll within a
-// reasonable wall-time. The per-test 90 s timeouts further down
-// still apply unchanged — they override this library default for
-// the test() blocks they appear on.
-@Timeout(Duration(seconds: 240))
+// testlog_20260529-1944 TODO C.202 — library-level @Timeout(240 s)
+// REMOVED. The annotation was added (2206 TODO #6) on the theory that
+// the source-direct test_app's cold launch could exceed the 30 s
+// `package:test` default applied to `setUpAll`. Direct measurement
+// disproves that: the `SendTestRunner.setUp` cold launch (port reap +
+// `flutter run` + /health poll) completes in ~16 s on an isolated
+// retest — ~14 s of headroom under the 30 s default — and the AST
+// sibling (`tom_d4rt_flutter_ast/test/interactive_tests_test.dart`)
+// has always run with NO library annotation and passes. The inner
+// `SendTestRunner.setUp(timeout:)` budget below is reduced to 25 s
+// (< the 30 s default wrapper) so a genuinely-stuck launch fails fast
+// with the runner's own clear message instead of the generic
+// `(setUpAll)` 30 s timeout. The per-test 90 s timeouts were already
+// removed in C.196–C.201; the suite now runs entirely on
+// `package:test` defaults.
 library;
 
 import 'package:flutter_test/flutter_test.dart';
@@ -52,16 +42,15 @@ import 'send_test_runner.dart';
 
 void main() {
   setUpAll(() async {
-    // testlog_20260528-2206 TODO #6 — bumped from 120 s to 180 s
-    // for parity with the AST sibling. Mirrors the 1401-TODO #11
-    // (H2) headroom rationale: when this suite runs late in a
-    // multi-suite sweep the host has accumulated dyld/filesystem
-    // cache pressure plus stale port-binds; 120 s is the prior
-    // 1401 failure point, 180 s gives 50 % headroom. Combined with
-    // the library-level `@Timeout(240 s)` annotation above, the
-    // outer wrapper now allows enough room for this to actually
-    // complete.
-    await SendTestRunner.setUp(timeout: const Duration(seconds: 180));
+    // testlog_20260529-1944 TODO C.202 — budget reduced 180 s → 25 s.
+    // The measured cold launch is ~16 s (isolated retest), so a 25 s
+    // budget keeps ~9 s of headroom while staying under the 30 s
+    // `package:test` default applied to `setUpAll` — the library-level
+    // `@Timeout(240 s)` annotation is now removed (see header). If a
+    // launch genuinely wedges, the 25 s budget fires first and surfaces
+    // `SendTestRunner`'s own "failed to start within 25 seconds"
+    // message rather than the generic `(setUpAll)` timeout.
+    await SendTestRunner.setUp(timeout: const Duration(seconds: 25));
   });
 
   tearDownAll(() async {
