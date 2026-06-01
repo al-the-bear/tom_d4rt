@@ -412,22 +412,19 @@ void main() {
     });
 
     // 45. rendering/render_custom_single_child_layout_box_test.dart (idx 320)
-    // 20260524-2003 baseline §6/T4: same cold-start contention pattern as the
-    // sibling render_custom_paint_test (§S/E1) — the gii Section 2 group
-    // gates on frameworkErrors==0, so the cold-start /build timeout cascades
-    // into the success-check failing. Bump cap from 25 s to 50 s with 60 s
-    // dart-test wrapper.
-    test(
-      'rendering/render_custom_single_child_layout_box_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_single_child_layout_box_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // 1944 TODO C.134 (2026-06-01): historical 20260524-2003 §6/T4
+    // cold-start-contention wrapper REMOVED. TEST sibling of C.129
+    // (AST). Same inline `httpBuildTimeout: 50s` + outer `Timeout:
+    // 60s` shape as the AST sibling C.129 and the C.133 sibling.
+    // Script runs in ~2.6 s under isolated retest (httpMs=2425,
+    // totalMs=2638, frameworkErrors=0, sourceChars=71483 — 71 KB
+    // matching the AST sibling C.129 baseline). Defaults apply.
+    test('rendering/render_custom_single_child_layout_box_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_single_child_layout_box_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // 46. rendering/render_physical_shape_test.dart (idx 323)
     test('rendering/render_physical_shape_test.dart', () async {
