@@ -377,27 +377,22 @@ void main() {
       expectSuccess(result);
     });
 
-    // W1: Script passes in isolation (frameworkErrors=0, totalMs<1s) but
-    // wedges the test app's /clear handler afterward, causing the next
-    // ~10–22 tests to time out at 30s.  Even a 10s waitBeforeClear on the
-    // following test was insufficient.  See doc/interpreter_issues.md (W1)
-    // for diagnosis.  Skipping is the only reliable way to avoid the
-    // cascade until the wedge root cause is fixed at the app/interpreter
-    // level.
-    // 20260525 §6.3 follow-up: §6.1 retest passed W1 in isolation; lifting
-    // skip with standard caller-side 50 s cap to absorb cold-start build.
-    // Full gir suite re-run verifies no cascade on subsequent scripts.
-    test(
-      'retest: widgets/context_action_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/context_action_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W1 (historical): this script once wedged the test app's /clear handler
+    // and cascaded into the next ~10–22 tests; it was skipped, then the skip
+    // was lifted (20260525 §6.3) behind a caller-side 50 s httpBuildTimeout +
+    // outer Timeout:60s cold-start wrapper.
+    // 1944 TODO C.146 (2026-06-02): the cold-start wrapper was REMOVED. The
+    // 854 KB bundle (90 KB / 87366-char source) builds in ~2.3 s in isolation
+    // (httpMs=1857, totalMs=2316, frameworkErrors=0, outputLines=21) with no
+    // W1 cascade — the 60 s wrapper masked nothing on the build side. Defaults
+    // now apply (25 s httpBuildTimeout + 30 s dart-test timeout) — ample
+    // headroom for the ~2.3 s build.
+    test('retest: widgets/context_action_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/context_action_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // default_selection_style runs fine (verified passing in run4) but the
     // 10s waitBeforeClear is kept as a defensive buffer — it's a
