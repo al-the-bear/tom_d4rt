@@ -1391,20 +1391,19 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'tree_sliver_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/tree_sliver_test.dart',
-          // 20260524-2003 baseline §6/T9 (= todo #8): cold-start
-          // transport failure on flutter_test; flutter_ast bumped
-          // symmetrically. Standard 25 s → 50 s cap + 60 s wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('tree_sliver_test.dart', () async {
+      // 1944 TODO C.109 (2026-06-01): historical 20260524-2003 §6/T9
+      // (= todo #8) cold-start-contention wrapper REMOVED. Same shape
+      // as C.102/C.104/C.108. Script runs in ~1.9 s under isolated
+      // retest (httpMs=1488, totalMs=1880, frameworkErrors=0,
+      // sourceBytes=41332, sourceChars=41326, bundleJsonBytes=445618
+      // — 41 KB / 446 KB bundle; outputLines=45 — rich coverage).
+      // Defaults apply.
+      final result = await SendTestRunner.send(
+        'widgets/tree_sliver_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('two_dimensional_child_builder_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
