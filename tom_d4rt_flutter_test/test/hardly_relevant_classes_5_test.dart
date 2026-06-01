@@ -1425,11 +1425,17 @@ void main() {
     });
 
     test('two_dimensional_child_list_delegate_test.dart', () async {
+      // 1944 TODO C.124 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~3.9 s under isolated retest
+      // (httpMs=3647, totalMs=3870, frameworkErrors=0,
+      // sourceChars=70012 — 70 KB two-dimensional-child-list-delegate
+      // widget test; outputLines=1). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/two_dimensional_child_list_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('two_dimensional_child_manager_test.dart', () async {
       final result = await SendTestRunner.send(
