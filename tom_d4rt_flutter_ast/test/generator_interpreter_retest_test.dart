@@ -17,13 +17,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See `hardly_relevant_classes_5_test.dart` for full
-/// rationale. 60 s gives enough headroom for §U25 cold-start without
-/// masking genuine wedge behaviour.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
   final errors = result.frameworkErrors.isNotEmpty
@@ -238,12 +231,19 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.139 (2026-06-02): _slowTestTimeout wrapper removed —
+    // script builds in ~2.9 s in isolation (httpMs=2427, totalMs=2879,
+    // frameworkErrors=0); the historical 60 s wrapper masked nothing.
+    // This was the only `_slowTestTimeout` usage in the file, so the
+    // now-orphaned const declaration + its doc comment were removed too
+    // (mirror of the C.131/C.138 cleanups). Defaults apply (25 s
+    // httpBuildTimeout + 30 s dart-test timeout).
     test('retest: rendering/render_android_view_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/rendering/render_android_view_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test(
       'retest: rendering/render_animated_size_state_test.dart',
