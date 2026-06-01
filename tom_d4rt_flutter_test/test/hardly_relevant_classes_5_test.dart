@@ -816,23 +816,21 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'selectable_region_selection_status_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/selectable_region_selection_status_test.dart',
-          // 20260523-1056 baseline §1.8/E35 (ast) + §2.D contention
-          // (test): TimeoutException 30s — cold-start contention.
-          // 2150-line / 75 KB script builds in ~1.8 s. Same family
-          // as the §1.3–§1.7 E-series: 50 s leaves 10 s of headroom
-          // under the 60 s dart-test wrapper. Applied symmetrically
-          // with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('selectable_region_selection_status_test.dart', () async {
+      // 1944 TODO C.119 (2026-06-01): historical 20260523-1056 §1.8/E35
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. TEST sibling of C.104 (AST). Inline `httpBuildTimeout:
+      // 50s` + outer `Timeout: 60s` shape — second TEST entry of
+      // §C.viii that uses the inline-E-series shape after C.116.
+      // Script runs in ~2.2 s under isolated retest (httpMs=1944,
+      // totalMs=2174, frameworkErrors=0, sourceChars=75121 — 75 KB
+      // / 2150-line; outputLines=45 — rich coverage). Defaults
+      // apply, matching the AST sibling C.104.
+      final result = await SendTestRunner.send(
+        'widgets/selectable_region_selection_status_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('selectable_region_state_test.dart', () async {
       final result = await SendTestRunner.send(
