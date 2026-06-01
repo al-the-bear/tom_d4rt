@@ -403,26 +403,29 @@ void main() {
       expectSuccess(result);
     });
 
-    // W1: Script passes in isolation (frameworkErrors=0, totalMs<1s) but
-    // wedges the test app's /clear handler afterward, causing the next
-    // ~10–22 tests to time out at 30s.  Even a 10s waitBeforeClear on the
-    // following test was insufficient.  See doc/interpreter_issues.md (W1)
-    // for diagnosis.  Skipping is the only reliable way to avoid the
-    // cascade until the wedge root cause is fixed at the app/interpreter
-    // level.
-    // 20260525 §6.3 follow-up: W1 cascade verified resolved on the ast
-    // variant. Lifting skip symmetrically.
-    test(
-      'retest: widgets/context_action_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/context_action_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W1 history (preserved for context): this script once passed in
+    // isolation (frameworkErrors=0) but wedged the test app's /clear
+    // handler afterward, cascading the next ~10–22 tests into 30 s
+    // timeouts; even a 10 s waitBeforeClear on the following test was
+    // insufficient, so the test was skipped (see doc/interpreter_issues.md
+    // W1). The 20260525 §6.3 follow-up verified the W1 cascade resolved on
+    // the ast variant and lifted the skip symmetrically behind a
+    // caller-side `httpBuildTimeout: 50s` + outer `timeout: Timeout(60s)`
+    // §U25 cold-start wrapper.
+    // 1944 TODO C.157 (2026-06-02): timeout wrapper removed — TEST sibling
+    // of the AST-side C.146 fix (same script). Isolated retest builds the
+    // 87 KB source in ~2.0 s (httpMs≈2005, totalMs≈2240, frameworkErrors=0,
+    // outputLines=21 — rich coverage) so defaults (25 s httpBuildTimeout +
+    // 30 s dart-test timeout) now apply with ~27 s headroom. The W1
+    // wedge/cascade is confirmed absent in isolation. This entry carries
+    // NO B.6/B.7 requestRecycle() §U28 protection and never had a
+    // waitBeforeClear buffer — clean wrapper-only strip.
+    test('retest: widgets/context_action_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/context_action_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // default_selection_style runs fine (verified passing in run4) but the
     // 10s waitBeforeClear is kept as a defensive buffer — it's a
