@@ -16,15 +16,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See the sibling annotation in
-/// `hardly_relevant_classes_5_test.dart` for full rationale. 60 s gives
-/// enough headroom for §U25 cold-start without masking genuine wedge
-/// behaviour (transport_clear_wedge scripts still fail at the test_app's
-/// internal 30 s build budget before the outer wrapper fires).
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
   final errors = result.frameworkErrors.isNotEmpty
@@ -511,12 +502,21 @@ void main() {
     });
 
     // 56. widgets/html_element_view_test.dart (idx 342)
+    // 1944 TODO C.131 (2026-06-01): historical 20260528-2206 TODO #4
+    // follow-up `_slowTestTimeout` REMOVED. Last AST entry in §C.ix
+    // — also the last `_slowTestTimeout` usage in this file, so the
+    // const declaration is removed too. Script runs in ~3.3 s under
+    // isolated retest (httpMs=2850, totalMs=3304, frameworkErrors=0,
+    // sourceBytes=59882, sourceChars=59882, bundleJsonBytes=788267
+    // — 60 KB / 788 KB bundle). First pre-fix retest hit U31;
+    // retry #1 PASSED clean — standard U31 retry protocol. Defaults
+    // apply. Closes AST half of §C.ix.
     test('widgets/html_element_view_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/html_element_view_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // 57. widgets/image_filtered_test.dart (idx 343)
     test('widgets/image_filtered_test.dart', () async {
