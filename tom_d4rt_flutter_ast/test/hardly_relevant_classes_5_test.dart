@@ -20,17 +20,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 — bumped per-test timeout for scripts
-/// that historically trip the Flutter test framework's default 30 s
-/// wrapper. Per `interpreter_unfixable.md` §U25 the source-direct
-/// interpreter's cold-start parse + execute can exceed 50 s on the
-/// largest scripts; the AST-bundle path is faster but still hits the
-/// 30 s boundary on some widget-state demos when the host is loaded.
-/// 60 s gives enough headroom without masking genuine wedge behaviour
-/// (transport_clear_wedge scripts still fail at the test_app's
-/// internal 30 s build budget before the outer wrapper fires).
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp();
@@ -1571,11 +1560,20 @@ void main() {
     });
 
     test('web_browser_detection_test.dart', () async {
+      // 1944 TODO C.112 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Last AST entry in
+      // §C.viii — also the last `_slowTestTimeout` usage in this
+      // file, so the const declaration + its doc comment are
+      // removed too. Script runs in ~2.2 s under isolated retest
+      // (httpMs=1748, totalMs=2225, frameworkErrors=0, sourceBytes=
+      // 76028, sourceChars=75964, bundleJsonBytes=866117 — 76 KB /
+      // 866 KB bundle; outputLines=3 — rich coverage). Defaults
+      // apply. Closes AST half of §C.viii.
       final result = await SendTestRunner.send(
         'widgets/web_browser_detection_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('widget_inspector_service_extensions_test.dart', () async {
       final result = await SendTestRunner.send(
