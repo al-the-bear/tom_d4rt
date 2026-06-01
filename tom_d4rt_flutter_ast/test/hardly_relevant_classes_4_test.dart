@@ -930,18 +930,16 @@ void main() {
     test(
       'extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart',
       () async {
+        // 1944 TODO C.91 (2026-06-01): historical 20260523-1056
+        // §1.7/E32 cold-start-contention wrapper REMOVED. Script
+        // runs in ~1.8 s under isolated retest (httpMs=1470,
+        // totalMs=1803, frameworkErrors=0, sourceChars=28348 — 28 KB
+        // / 656-line / 195 KB bundle). Defaults apply.
         final result = await SendTestRunner.send(
           'widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart',
-          // 20260523-1056 baseline §1.7/E32: TimeoutException 30s
-          // — cold-start contention. This 656-line / 28 KB script
-          // (195 KB bundle) builds in ~1.4 s in both variants. Same
-          // family as the §1.3–§1.6 E-series: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test(
