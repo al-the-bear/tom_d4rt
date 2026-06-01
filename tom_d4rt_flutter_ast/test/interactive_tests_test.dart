@@ -127,8 +127,15 @@ void main() {
       'showBottomSheet static demo — taps the rendered Share ListTile',
       () async {
         // showbottomsheet_test.dart renders `ListTile(title: Text('Share'))`
-        // (line 1996). The one interactive test that was already working
-        // pre-fix; kept as-is with the cold-start cap added.
+        // (line 1996).
+        //
+        // 20260602 TODO C.191 closure: the 50 s `httpBuildTimeout` +
+        // 90 s dart-test `Timeout` were cold-start padding masking
+        // nothing. Isolated retest builds in ~3.0 s (httpMs=2617,
+        // totalMs=3032, frameworkErrors=0) — far under the default 25 s
+        // HTTP cap — so both wrappers are removed. The shared
+        // `_interactiveBuildTimeout` const stays in place; it is still
+        // used by the sibling static-demo tests (C.192–C.195).
         final result = await SendTestRunner.sendAndInteract(
           'material/showbottomsheet_test.dart',
           actions: [
@@ -137,7 +144,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -147,7 +153,6 @@ void main() {
           print('Interaction result: ${result.interact}');
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
