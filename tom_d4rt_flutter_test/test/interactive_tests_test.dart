@@ -125,7 +125,15 @@ void main() {
       'showBottomSheet static demo — taps the rendered Share ListTile',
       () async {
         // showbottomsheet_test.dart renders `ListTile(title: Text('Share'))`
-        // (line 1996). Kept as-is with the cold-start cap added.
+        // (line 1996).
+        //
+        // testlog_20260529-1944 TODO C.197 — cold-start timeout wrapper
+        // removed. Isolated retest builds this script in ~3.0 s
+        // (httpMs=2745, totalMs=3025, frameworkErrors=0, outputLines=7);
+        // the 50 s `httpBuildTimeout`/90 s dart-test `Timeout` padding
+        // masked nothing. Defaults now apply (25 s httpBuildTimeout + 30 s
+        // dart-test timeout). The shared `_interactiveBuildTimeout` const
+        // is RETAINED (still used by C.198–C.201).
         final result = await SendTestRunner.sendAndInteract(
           'material/showbottomsheet_test.dart',
           actions: [
@@ -134,7 +142,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -144,7 +151,6 @@ void main() {
           print('Interaction result: ${result.interact}');
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
