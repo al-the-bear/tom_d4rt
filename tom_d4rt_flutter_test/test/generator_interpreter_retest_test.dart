@@ -689,12 +689,23 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.169 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
+    // §U25 cold-start padding that masked nothing on the build side. The
+    // isolated retest builds the 42 KB source in ~1.6 s (httpMs≈1566,
+    // totalMs≈1784, frameworkErrors=0, outputLines=0, sourceChars=42352,
+    // status=success; app stages appInterpretEndMs=1179, appFirstFrameMs=1355,
+    // appPumpEndMs=1555). Stripped the `timeout: _slowTestTimeout` argument;
+    // defaults (25 s httpBuildTimeout + 30 s dart-test timeout) now apply with
+    // ~28 s headroom over the ~1.8 s build. No `waitBeforeClear` buffer and no
+    // B.6/B.7 requestRecycle() §U28 protection on this script — clean
+    // wrapper-only strip. `_slowTestTimeout` const retained — still used by
+    // 2 other entries.
     test('retest: widgets/render_abstract_layout_builder_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/render_abstract_layout_builder_mixin_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: widgets/render_nested_scroll_view_viewport_test.dart', () async {
       final result = await SendTestRunner.send(
