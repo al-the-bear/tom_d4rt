@@ -117,23 +117,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_custom_paint_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_paint_test.dart',
-          // 20260523-1056 baseline §S/E1/E38: under parallel-driver
-          // contention the /build for this 1521-line, 60 KB script can
-          // exceed the default 25 s HTTP cap on the first request after
-          // the test app cold-start. Serial isolated re-runs complete in
-          // ~2 s. 50 s leaves 10 s of headroom under the 60 s
-          // dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // testlog_20260529-1944 TODO C.182 — removed the 50 s `httpBuildTimeout`
+    // override + 60 s dart-test `Timeout` wrapper. The pre-fix isolated retest
+    // built in ~2.7 s (httpMs=2478, frameworkErrors=0), far under the default
+    // 25 s HTTP cap — the historical §S/E1/E38 cold-start padding masked
+    // nothing. TEST-side sibling of the AST-side C.173. Defaults (25 s
+    // httpBuildTimeout + 30 s dart-test timeout) now apply.
+    test('render_custom_paint_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_paint_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'render_custom_single_child_layout_box_test.dart',
