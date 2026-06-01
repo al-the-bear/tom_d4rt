@@ -618,11 +618,17 @@ void main() {
     });
 
     test('scroll_activity_delegate_test.dart', () async {
+      // 1944 TODO C.117 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~2.1 s under isolated retest
+      // (httpMs=1910, totalMs=2128, frameworkErrors=0, sourceChars=
+      // 67991 — 68 KB scroll-activity-delegate widget test).
+      // Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/scroll_activity_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('scroll_activity_test.dart', () async {
       final result = await SendTestRunner.send(
