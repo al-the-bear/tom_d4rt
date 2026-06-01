@@ -1147,11 +1147,19 @@ void main() {
     });
 
     test('static_selection_container_delegate_test.dart', () async {
+      // 1944 TODO C.121 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~2.9 s under isolated retest
+      // (httpMs=2687, totalMs=2915, frameworkErrors=0, sourceChars=
+      // 69126 — 69 KB static-selection-container-delegate widget
+      // test; outputLines=1). First pre-fix retest hit the U31
+      // LaunchServices flake; retry #1 PASSED clean — standard U31
+      // retry protocol. Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/static_selection_container_delegate_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('status_transition_widget_test.dart', () async {
       final result = await SendTestRunner.send(
