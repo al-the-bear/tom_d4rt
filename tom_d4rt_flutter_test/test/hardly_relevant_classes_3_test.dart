@@ -1194,23 +1194,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'raw_key_event_data_ios_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'services/raw_key_event_data_ios_test.dart',
-          // 20260523-1056 baseline §1.6/E29 (ast) + §2.D contention
-          // (test): Transport failure 25s — cold-start contention.
-          // 1939-line / 65 KB script builds in ~1.8 s. Same family
-          // as E1/E2/E11/E12/E16/E17/E22/E26: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper. Applied
-          // symmetrically with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('raw_key_event_data_ios_test.dart', () async {
+      // 1944 TODO C.88 (2026-06-01): historical 20260523-1056 §1.6/E29
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. TEST sibling of C.81 (AST). Script runs in ~2.3 s
+      // under isolated retest (httpMs=2086, totalMs=2317,
+      // frameworkErrors=0, sourceChars=64723 — 65 KB / 1939-line).
+      // Defaults (25 s httpBuildTimeout + 30 s dart-test) apply.
+      final result = await SendTestRunner.send(
+        'services/raw_key_event_data_ios_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('raw_key_event_data_linux_test.dart', () async {
       final result = await SendTestRunner.send(
