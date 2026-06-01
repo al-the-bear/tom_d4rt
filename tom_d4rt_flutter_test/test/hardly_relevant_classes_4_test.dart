@@ -1560,23 +1560,20 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'overscroll_notification_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/overscroll_notification_test.dart',
-          // 20260523-1056 baseline §1.7/E33 (ast) + §2.D contention
-          // (test): Transport failure 25s — cold-start contention.
-          // 1278-line / 54 KB script builds in ~1.4 s. Same family
-          // as E1/E2/E11/E12/E16/E17/E22/E26/E29/E30: 50 s leaves
-          // 10 s of headroom under the 60 s dart-test wrapper.
-          // Applied symmetrically with the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('overscroll_notification_test.dart', () async {
+      // 1944 TODO C.98 (2026-06-01): historical 20260523-1056 §1.7/E33
+      // (ast) + §2.D contention (test) cold-start-contention wrapper
+      // REMOVED. TEST sibling of C.93 (AST). Script runs in ~1.9 s
+      // under isolated retest (httpMs=1701, totalMs=1918,
+      // frameworkErrors=0, sourceChars=53631 — 54 KB / 1278-line;
+      // outputLines=25 — rich coverage preserved). Closes §C.vii
+      // (hardly_relevant_classes_4) — 9/9 entries retired
+      // (C.90-C.98, 4 AST + 5 TEST). Defaults apply.
+      final result = await SendTestRunner.send(
+        'widgets/overscroll_notification_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('page_metrics_test.dart', () async {
       final result = await SendTestRunner.send(
