@@ -736,11 +736,17 @@ void main() {
     });
 
     test('scroll_to_document_boundary_intent_test.dart', () async {
+      // 1944 TODO C.118 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. No AST sibling —
+      // TEST-only entry. Script runs in ~2.5 s under isolated retest
+      // (httpMs=2309, totalMs=2542, frameworkErrors=0,
+      // sourceChars=67760 — 68 KB scroll-to-document-boundary-intent
+      // widget test). Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/scroll_to_document_boundary_intent_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('scroll_update_notification_test.dart', () async {
       final result = await SendTestRunner.send(
