@@ -1517,23 +1517,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'update_selection_intent_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/update_selection_intent_test.dart',
-          // 20260523-1056 baseline §1.8/E37: Transport failure 25s
-          // — cold-start contention. This 1835-line / 62 KB script
-          // (799 KB bundle) builds in ~1.5 s in both variants. Same
-          // family as E1/E2/E11/E12/E16/E17/E22/E26/E29/E30/E33:
-          // 50 s leaves 10 s of headroom under the 60 s dart-test
-          // wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('update_selection_intent_test.dart', () async {
+      // 1944 TODO C.111 (2026-06-01): historical 20260523-1056 §1.8/E37
+      // cold-start-contention wrapper REMOVED. Same shape as
+      // C.102/C.104/C.108. Script runs in ~1.8 s under isolated retest
+      // (httpMs=1382, totalMs=1838, frameworkErrors=0,
+      // sourceBytes=65957, sourceChars=61573, bundleJsonBytes=799306
+      // — 62 KB script / 1835-line / 799 KB bundle). Defaults apply.
+      final result = await SendTestRunner.send(
+        'widgets/update_selection_intent_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('user_scroll_notification_test.dart', () async {
       final result = await SendTestRunner.send(
