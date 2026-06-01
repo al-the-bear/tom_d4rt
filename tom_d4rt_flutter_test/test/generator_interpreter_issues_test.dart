@@ -461,20 +461,21 @@ void main() {
     });
 
     // 50. widgets/animated_switcher_test.dart (idx 332)
-    // 20260525 §6.3 follow-up: W5 cascade verified resolved on the ast
-    // variant (full gii +78 ~1 -4 with animated_switcher passing in
-    // 1511 ms). Lifting skip symmetrically with the standard 50 s cap.
-    test(
-      'widgets/animated_switcher_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/animated_switcher_test.dart',
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // 1944 TODO C.135 (2026-06-01): historical 20260525 §6.3 follow-up
+    // (W5 cascade verified resolved on the ast variant; skip lifted
+    // symmetrically with a standard 50 s cap) cold-start-contention
+    // wrapper REMOVED. TEST sibling of C.130 (AST). Same inline
+    // `httpBuildTimeout: 50s` + outer `Timeout: 60s` shape as the
+    // AST sibling. Script runs in ~2.0 s under isolated retest
+    // (httpMs=1772, totalMs=1989, frameworkErrors=0,
+    // sourceChars=54682 — 55 KB). Defaults apply, matching the AST
+    // sibling C.130.
+    test('widgets/animated_switcher_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animated_switcher_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // 51. widgets/autofill_group_test.dart (idx 333)
     test('widgets/autofill_group_test.dart', () async {
