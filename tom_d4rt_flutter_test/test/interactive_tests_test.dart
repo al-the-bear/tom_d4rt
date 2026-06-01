@@ -83,6 +83,14 @@ void main() {
         // returns a Future). The mock dialog renders `Text('Cancel')`
         // (script line 1745); tap that instead of the never-rendered
         // `'OK'`.
+        //
+        // testlog_20260529-1944 TODO C.196 — cold-start timeout wrapper
+        // removed. Isolated retest builds this script in ~2.1 s
+        // (httpMs=1875, totalMs=2090, frameworkErrors=0); the 50 s
+        // `httpBuildTimeout`/90 s dart-test `Timeout` padding masked
+        // nothing. Defaults now apply (25 s httpBuildTimeout + 30 s
+        // dart-test timeout). The shared `_interactiveBuildTimeout`
+        // const is RETAINED (still used by C.197–C.201).
         final result = await SendTestRunner.sendAndInteract(
           'material/showdialog_test.dart',
           actions: [
@@ -91,7 +99,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -112,7 +119,6 @@ void main() {
           }
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
