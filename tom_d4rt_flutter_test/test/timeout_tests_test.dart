@@ -51,22 +51,17 @@ void main() {
   // RENDERING PACKAGE TESTS (21 files)
   // ============================================================
   group('rendering/', () {
-    test(
-      'retest: rendering/render_animated_size_state_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/rendering/render_animated_size_state_test.dart',
-          // 20260524-2003 baseline §6/E8 (= todo #4): cold-start
-          // contention in the timeout retest cluster (symmetric with
-          // the ast variant; gir variant already capped via §1.12/E42).
-          // Standard caller-side 25 s → 50 s cap with 60 s dart-test
-          // wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // testlog_20260529-1944 TODO C.180 — removed the 50 s httpBuildTimeout
+    // override + 60 s dart-test wrapper (the §6/E8 cold-start padding). The
+    // pre-fix isolated retest built in ~3.0 s (httpMs=2770, frameworkErrors=0),
+    // far under the default 25 s HTTP cap — the wrapper masked nothing.
+    // Defaults (25 s httpBuildTimeout + 30 s dart-test timeout) now apply.
+    test('retest: rendering/render_animated_size_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/rendering/render_animated_size_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_backdrop_filter_test.dart', () async {
       final result = await SendTestRunner.send(
