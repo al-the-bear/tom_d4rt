@@ -229,6 +229,14 @@ void main() {
         // `Text('OK')` via `_mockDialogScaffold` (uppercase, matching
         // the real Material 3 default). The imperative
         // `showDatePicker(...)` is never invoked.
+        //
+        // 20260602 TODO C.194 closure: the 50 s `httpBuildTimeout` (via the
+        // shared `_interactiveBuildTimeout` const) + 90 s dart-test `Timeout`
+        // were cold-start padding masking nothing. Isolated retest builds in
+        // ~2.2 s (httpMs=1767, totalMs=2188, frameworkErrors=0, outputLines=73)
+        // — far under the default 25 s HTTP cap — so both wrappers are removed.
+        // The shared `_interactiveBuildTimeout` const stays in place; it is
+        // still used by the sibling static-demo test C.195 (showTimePicker).
         final result = await SendTestRunner.sendAndInteract(
           'material/showdatepicker_test.dart',
           actions: [
@@ -237,7 +245,6 @@ void main() {
             {'type': 'waitFrames', 'frames': 10},
           ],
           interactDelay: const Duration(milliseconds: 500),
-          httpBuildTimeout: _interactiveBuildTimeout,
         );
 
         expect(result.build.success, isTrue,
@@ -247,7 +254,6 @@ void main() {
           print('Interaction result: ${result.interact}');
         }
       },
-      timeout: const Timeout(Duration(seconds: 90)),
     );
 
     test(
