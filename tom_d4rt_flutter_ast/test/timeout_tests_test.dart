@@ -268,20 +268,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'retest: widgets/box_scroll_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/box_scroll_view_test.dart',
-          // 20260524-2003 baseline §6/E20 (= todo #4): cold-start
-          // contention in the timeout retest cluster. Standard
-          // caller-side 25 s → 50 s cap with 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // C.177 — FIXED 20260602: removed the §6/E20 (= todo #4) cold-start
+    // wrapper (50 s httpBuildTimeout + 60 s dart-test Timeout). Isolated
+    // retest builds this 61 KB / 837 KB-bundle script in ~2.2 s
+    // (httpMs=1692, frameworkErrors=0); the wrapper was padding that
+    // masked nothing. Defaults now apply (25 s httpBuildTimeout + 30 s
+    // dart-test timeout).
+    test('retest: widgets/box_scroll_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/box_scroll_view_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('retest: widgets/context_action_test.dart', () async {
       final result = await SendTestRunner.send(
