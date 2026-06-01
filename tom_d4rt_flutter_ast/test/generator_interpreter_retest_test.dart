@@ -291,20 +291,19 @@ void main() {
       },
     );
 
-    test(
-      'retest: rendering/render_sliver_box_child_manager_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/rendering/render_sliver_box_child_manager_test.dart',
-          // 20260524-2003 baseline §6/T6 (= todo #7): cold-start
-          // contention in the gir retest cluster (symmetric with the
-          // flutter_test variant). Standard 25 s → 50 s + 60 s wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('retest: rendering/render_sliver_box_child_manager_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/rendering/render_sliver_box_child_manager_test.dart',
+        // 1944 TODO C.141 (2026-06-02): the 20260524-2003 §6/T6 (= todo #7)
+        // httpBuildTimeout:50s + outer Timeout:60s cold-start wrapper was
+        // REMOVED. The 787 KB bundle builds in ~2.0 s in isolation
+        // (httpMs=1562, totalMs=2012, frameworkErrors=0, sourceChars=66380);
+        // the 60 s wrapper masked nothing on the build side. Defaults now
+        // apply (25 s httpBuildTimeout + 30 s dart-test timeout) — ample
+        // headroom for the ~2 s build.
+      );
+      expectSuccess(result);
+    });
 
     // Services
     test(
