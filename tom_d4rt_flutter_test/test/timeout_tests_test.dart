@@ -130,23 +130,18 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'render_custom_single_child_layout_box_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'rendering/render_custom_single_child_layout_box_test.dart',
-          // 20260524-2003 baseline §6/E7/E14/E17 + T4/T15/T18: same
-          // cold-start contention pattern as the sibling
-          // render_custom_paint_test (§S/E1) — /build for this
-          // render-heavy script can exceed the default 25 s HTTP cap on
-          // the first request after the test app cold-start. Bump to
-          // 50 s with 10 s headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // testlog_20260529-1944 TODO C.183 — removed the 50 s `httpBuildTimeout`
+    // override + 60 s dart-test `Timeout` wrapper. The pre-fix isolated retest
+    // built in ~2.4 s (httpMs=2191, frameworkErrors=0), far under the default
+    // 25 s HTTP cap — the historical §6/E7/E14/E17 + T4/T15/T18 cold-start
+    // padding masked nothing. TEST-side sibling of the AST-side C.174. Defaults
+    // (25 s httpBuildTimeout + 30 s dart-test timeout) now apply.
+    test('render_custom_single_child_layout_box_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'rendering/render_custom_single_child_layout_box_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('render_darwin_platform_view_test.dart', () async {
       final result = await SendTestRunner.send(
