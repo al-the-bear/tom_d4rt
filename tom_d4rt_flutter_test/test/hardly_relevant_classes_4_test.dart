@@ -20,13 +20,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See the AST sibling
-/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
-/// full rationale.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 void main() {
   setUpAll(() async {
     await SendTestRunner.setUp();
@@ -1503,11 +1496,20 @@ void main() {
     });
 
     test('overflow_bar_alignment_test.dart', () async {
+      // 1944 TODO C.97 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` (Timeout(Duration(seconds: 60)))
+      // REMOVED. No AST sibling — TEST-only entry. Script runs in
+      // ~2.1 s under isolated retest (httpMs=1883, totalMs=2115,
+      // frameworkErrors=0, sourceChars=59899 — 60 KB overflow-bar
+      // alignment test with rich output: outputLines=17). Defaults
+      // apply. First isolated retest hit the U31 LaunchServices
+      // "Failed to foreground app" flake; retry #1 PASSED clean —
+      // standard U31 retry protocol.
       final result = await SendTestRunner.send(
         'widgets/overflow_bar_alignment_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('overlay_child_layout_info_test.dart', () async {
       final result = await SendTestRunner.send(
