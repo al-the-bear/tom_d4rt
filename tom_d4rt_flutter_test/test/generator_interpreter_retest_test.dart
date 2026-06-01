@@ -303,23 +303,20 @@ void main() {
       },
     );
 
-    test(
-      'retest: rendering/render_sliver_box_child_manager_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/rendering/render_sliver_box_child_manager_test.dart',
-          // 20260524-2003 baseline §6/T6 (= todo #7): cold-start
-          // contention in the gir retest cluster. Standard caller-side
-          // 25 s → 50 s cap with 60 s dart-test wrapper.
-          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
-          // 1-min boundary on TEST; bumped to 120 s (_verySlowTestTimeout)
-          // for §U25 cold-start headroom.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: _verySlowTestTimeout,
-    );
+    test('retest: rendering/render_sliver_box_child_manager_test.dart', () async {
+      // 1944 TODO C.152 (2026-06-02): timeout wrapper removed. The
+      // historical 60 s→120 s `_verySlowTestTimeout` wrapper + 50 s
+      // `httpBuildTimeout` cap (20260524 §6/T6 + 20260528-2206 TODO #4
+      // follow-up) were §U25 cold-start padding; isolated retest builds
+      // in ~1.8 s (httpMs≈1615, frameworkErrors=0) so defaults (25 s
+      // httpBuildTimeout + 30 s dart-test timeout) now apply with ample
+      // headroom. `_verySlowTestTimeout` const retained — still used by
+      // 3 other entries (C.155 app_kit_view / C.156 box_scroll_view / ...).
+      final result = await SendTestRunner.send(
+        'retest/rendering/render_sliver_box_child_manager_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     // Services
     test(
