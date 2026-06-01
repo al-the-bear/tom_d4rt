@@ -275,22 +275,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'retest: widgets/back_button_listener_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/back_button_listener_test.dart',
-          // 20260524-2003 baseline §6 todo #5 (preventive sibling of §6
-          // todo #11 / F6 on the ast side): 78 KB / ~1 MB bundle close
-          // to the 25 s cap (~18 s totalMs in the baseline sweep). Bump
-          // to 50 s with 60 s dart-test wrapper. Symmetric with the ast
-          // variant.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // testlog_20260529-1944 TODO C.186 — wrapper removed (was 50 s
+    // httpBuildTimeout + 60 s dart-test Timeout). The §6 todo #5 baseline
+    // "~18 s totalMs" was a cold-start contention flake; the isolated retest
+    // builds in ~1.6 s (httpMs=1623, totalMs=1894, sourceChars=78203,
+    // frameworkErrors=0) — far under the default 25 s cap. Defaults apply.
+    test('retest: widgets/back_button_listener_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/back_button_listener_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'retest: widgets/box_scroll_view_test.dart',
