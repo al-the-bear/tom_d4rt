@@ -256,20 +256,17 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'retest: widgets/back_button_listener_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/back_button_listener_test.dart',
-          // 20260524 §6 todo #11 / F6: 78 KB / 1.07 MB AST bundle.
-          // Cold-start build hits the default 25 s caller cap before
-          // /build returns. Bump to 50 s so the build completes.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // C.176 — FIXED 20260602: removed the §6/F6 cold-start wrapper
+    // (50 s httpBuildTimeout + 60 s dart-test Timeout). Isolated retest
+    // builds this 78 KB / 1.07 MB-bundle script in ~2.3 s (httpMs=1787,
+    // frameworkErrors=0); the wrapper was padding that masked nothing.
+    // Defaults now apply (25 s httpBuildTimeout + 30 s dart-test timeout).
+    test('retest: widgets/back_button_listener_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/back_button_listener_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'retest: widgets/box_scroll_view_test.dart',
