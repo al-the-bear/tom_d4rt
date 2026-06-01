@@ -552,12 +552,18 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.163 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
+    // §U25 cold-start padding only — the build runs in ~2.0 s (httpMs=1758,
+    // totalMs=2034, frameworkErrors=0, outputLines=26, sourceChars=47530).
+    // Stripped the `timeout: _slowTestTimeout` argument; defaults (25 s
+    // httpBuildTimeout + 30 s dart-test timeout) leave ~28 s headroom.
+    // `_slowTestTimeout` const retained — still used by 9 other entries.
     test('retest: widgets/object_key_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/object_key_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: widgets/raw_dialog_route_test.dart', () async {
       final result = await SendTestRunner.send(
