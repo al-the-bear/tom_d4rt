@@ -666,12 +666,21 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.168 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
+    // §U25 cold-start padding only — the build runs in ~1.8 s (httpMs=1580,
+    // totalMs=1799, frameworkErrors=0, outputLines=1, sourceChars=56775 — 57 KB
+    // source exercising the full RegularWindowControllerWin32 widget API).
+    // Stripped the `timeout: _slowTestTimeout` argument; defaults (25 s
+    // httpBuildTimeout + 30 s dart-test timeout) now apply with ~28 s headroom
+    // over the ~1.8 s build. No `waitBeforeClear` buffer and no B.6/B.7
+    // requestRecycle() §U28 protection on this script — clean wrapper-only
+    // strip. `_slowTestTimeout` const retained — still used by 3 other entries.
     test('retest: widgets/regular_window_controller_win32_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/regular_window_controller_win32_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('retest: widgets/regular_window_test.dart', () async {
       final result = await SendTestRunner.send(
