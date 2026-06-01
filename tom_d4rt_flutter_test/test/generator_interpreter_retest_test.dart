@@ -358,27 +358,24 @@ void main() {
       expectSuccess(result);
     });
 
-    test(
-      'retest: widgets/app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/app_kit_view_test.dart',
-          // 20260523-1056 baseline §1.12/E43 (= §2.G/F4 contention
-          // companion to entry #15's F5 coercion fix): Transport
-          // failure 25s — cold-start contention. Serial isolated
-          // re-run produces 2.3 s with frameworkErrors=0. Same
-          // family as E1/E12/E25/E36/E39: 50 s leaves 10 s of
-          // headroom under the 60 s dart-test wrapper. Applied
-          // symmetrically with the ast variant.
-          // 20260528-2206 TODO #4 follow-up: 60 s wrapper still hit
-          // 1-min boundary on TEST; bumped to 120 s
-          // (_verySlowTestTimeout) for §U25 cold-start headroom.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: _verySlowTestTimeout,
-    );
+    test('retest: widgets/app_kit_view_test.dart', () async {
+      // 1944 TODO C.155 (2026-06-02): timeout wrapper removed — TEST
+      // sibling of the AST-side C.143 fix (same script). The historical
+      // `httpBuildTimeout: 50s` + outer `timeout: _verySlowTestTimeout`
+      // (= 120 s; 20260523-1056 §1.12/E43 cold-start shape, bumped from
+      // 60 s in the 20260528-2206 TODO #4 follow-up) was §U25 cold-start
+      // padding; isolated retest builds the 71 KB source in ~2.6 s
+      // (httpMs≈2598, totalMs≈2823, frameworkErrors=0) so defaults
+      // (25 s httpBuildTimeout + 30 s dart-test timeout) now apply with
+      // ~27 s headroom. `_verySlowTestTimeout` const retained — still
+      // used by 2 other entries (C.156 box_scroll_view / C.160
+      // live_text_input_status). No B.6/B.7 requestRecycle() §U28
+      // protection on this script — clean wrapper-only strip.
+      final result = await SendTestRunner.send(
+        'retest/widgets/app_kit_view_test.dart',
+      );
+      expectSuccess(result);
+    });
 
     test('retest: widgets/back_button_listener_test.dart', () async {
       final result = await SendTestRunner.send(
