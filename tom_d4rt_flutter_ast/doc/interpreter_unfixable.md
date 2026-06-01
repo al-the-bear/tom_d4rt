@@ -7975,6 +7975,7 @@ binary), both of which fall outside the d4rt quest's scope.
 - `rendering/image_filter_config_test.dart` (C.83, TEST — 3 consecutive failures, cleared after AST sibling unstick)
 - `widgets/overflow_bar_alignment_test.dart` (C.97, TEST — 1 transient, cleared on retry #2)
 - `widgets/transition_delegate_test.dart` (C.107, AST — **4 transients in close succession** (pre-fix #1, post-fix #1, post-fix #2, post-fix #3); TEST-sibling unstick attempt (with `widgets/raw_image_test.dart` on port 4248) ran cleanly but **did not clear the AST-side flake**; only an additional cooldown + retry #4 succeeded. This is the heaviest U31 cluster observed so far)
+- `rendering/custom_painter_semantics_test.dart` (C.132, TEST — **3 transients in close succession** on the TEST side (post-fix #1, post-fix #2, post-fix #3); AST-sibling unstick attempt (with `widgets/html_element_view_test.dart` on port 4247) ran cleanly but **did not clear the TEST-side flake**; only an additional cooldown + retry #4 succeeded. Symmetric to the C.107 AST heavy cluster — confirms the same wedge pattern can hit either port and the sibling-unstick is not always sufficient. Campaign-cumulative U31 count after C.132: 18.)
 
 **2026-06-01 protocol refinement (from C.107 close-out).** When the
 sibling-port unstick step (item 2 in the avoidance protocol) is
@@ -7996,6 +7997,18 @@ than script-correlated.
 
 ## Change Log
 
+- 2026-06-01 (later): **Add C.132 TEST heavy cluster — symmetric
+  to C.107 AST heavy cluster.** C.132 (TEST
+  `rendering/custom_painter_semantics_test`) added a second
+  3-transient close-succession cluster (16th-18th campaign
+  occurrences). AST-sibling unstick attempt (with
+  `widgets/html_element_view_test` on port 4247) ran cleanly but
+  did NOT clear the TEST-side flake. Resolution required
+  additional cooldown (~90 s) + a 4th retry, exactly mirroring
+  the C.107 AST pattern. Confirms the wedge can hit either port
+  and the sibling-unstick is not always sufficient — the
+  cooldown-and-retry path documented during C.107 closure now
+  has two empirical data points.
 - 2026-06-01: **Update U31 with C.97 and C.107 observations + protocol
   refinement.** C.97 (TEST `widgets/overflow_bar_alignment_test`)
   added a single-shot transient (4th occurrence in campaign).

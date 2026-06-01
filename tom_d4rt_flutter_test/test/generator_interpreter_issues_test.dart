@@ -341,12 +341,19 @@ void main() {
     });
 
     // 38. rendering/custom_painter_semantics_test.dart (idx 310)
+    // 1944 TODO C.132 (2026-06-01): historical 20260528-2206 TODO #4
+    // follow-up `_slowTestTimeout` REMOVED. First entry of TEST half
+    // of §C.ix. No AST sibling (the AST gii half doesn't include
+    // custom_painter_semantics). Script runs in ~2.2 s under
+    // isolated retest (httpMs=1944, totalMs=2227, frameworkErrors=0,
+    // sourceChars=39718 — 40 KB custom-painter-semantics test;
+    // outputLines=10 — rich coverage). Defaults apply.
     test('rendering/custom_painter_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/custom_painter_semantics_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // 39. rendering/relayout_when_system_fonts_change_mixin_test.dart (idx 312)
     test('rendering/relayout_when_system_fonts_change_mixin_test.dart', () async {
