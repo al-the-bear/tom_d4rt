@@ -363,20 +363,19 @@ void main() {
       expectSuccess(result);
     });
 
-    test(
-      'retest: widgets/box_scroll_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/box_scroll_view_test.dart',
-          // 20260524-2003 baseline §6/E20 (= todo #4): cold-start
-          // contention in the gir retest cluster. Standard caller-side
-          // 25 s → 50 s cap with 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('retest: widgets/box_scroll_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/box_scroll_view_test.dart',
+        // 1944 TODO C.145 (2026-06-02): the 20260524-2003 §6/E20 (= todo #4)
+        // httpBuildTimeout:50s + outer Timeout:60s cold-start wrapper was
+        // REMOVED. The 837 KB bundle (61 KB / 60999-char source) builds in
+        // ~2.0 s in isolation (httpMs=1575, totalMs=2047, frameworkErrors=0);
+        // the 60 s wrapper masked nothing on the build side. Defaults now
+        // apply (25 s httpBuildTimeout + 30 s dart-test timeout) — ample
+        // headroom for the ~2.0 s build.
+      );
+      expectSuccess(result);
+    });
 
     // W1: Script passes in isolation (frameworkErrors=0, totalMs<1s) but
     // wedges the test app's /clear handler afterward, causing the next
