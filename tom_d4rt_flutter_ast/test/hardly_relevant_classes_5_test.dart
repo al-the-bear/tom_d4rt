@@ -1375,26 +1375,21 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'tree_sliver_state_mixin_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/tree_sliver_state_mixin_test.dart',
-          // 20260523-1056 baseline §1.8/E36 (= §S/S4 — listed in the
-          // wedge-candidate cluster because it appeared in both ast
-          // and flutter_test runs). Serial isolated re-run produces
-          // 3.5 s (ast) / 3.2 s (flutter_test) with frameworkErrors=0.
-          // Despite being similar size to E5 (87 KB / 1.0 MB bundle),
-          // runtime workload is lighter so the build doesn't exceed
-          // the 30 s server cap. The cross-project failure was the
-          // same as E1/E12/E25: cold-start contention. 50 s leaves
-          // 10 s of headroom under the 60 s dart-test wrapper.
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    test('tree_sliver_state_mixin_test.dart', () async {
+      // 1944 TODO C.108 (2026-06-01): historical 20260523-1056
+      // §1.8/E36 (= §S/S4 wedge-candidate cluster) cold-start-contention
+      // wrapper REMOVED. Same shape as C.102/C.104 (inline
+      // `httpBuildTimeout: 50s` + outer `Timeout: 60s`). Script runs
+      // in ~4.0 s under isolated retest (httpMs=3469, totalMs=3988,
+      // frameworkErrors=0, sourceBytes=87899, sourceChars=87798,
+      // bundleJsonBytes=1038635 — 88 KB script / 1.0 MB bundle).
+      // Defaults (25 s httpBuildTimeout + 30 s dart-test) apply —
+      // ~26 s headroom even on this heavier script.
+      final result = await SendTestRunner.send(
+        'widgets/tree_sliver_state_mixin_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test(
       'tree_sliver_test.dart',
