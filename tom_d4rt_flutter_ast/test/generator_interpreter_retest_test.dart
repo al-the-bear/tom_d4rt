@@ -405,25 +405,28 @@ void main() {
       expectSuccess(result);
     });
 
-    // W2: Confirmed independent wedger (run4, 2026-04-28).  /build hangs
-    // for 30s when this script runs — even with default_selection_style
-    // (which passes) immediately preceding it.  Same Actions/Shortcuts
-    // family as W1 (D4rt-LIMIT #8 family).  Skipping until the wedge is
-    // root-caused.  See doc/interpreter_issues.md (W2).
-    // 20260525 §6.3 follow-up: §6.1 retest passed W2 in isolation; lifting
-    // skip with 50 s cap. waitBeforeClear retained as defensive buffer.
-    test(
-      'retest: widgets/default_text_editing_shortcuts_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/default_text_editing_shortcuts_test.dart',
-          waitBeforeClear: const Duration(seconds: 10),
-          httpBuildTimeout: const Duration(seconds: 50),
-        );
-        expectSuccess(result);
-      },
-      timeout: const Timeout(Duration(seconds: 60)),
-    );
+    // W2 (historical): this script was a confirmed independent wedger
+    // (run4, 2026-04-28) — /build hung for 30s — in the same Actions/Shortcuts
+    // family as W1 (D4rt-LIMIT #8 family). It was skipped, then the skip was
+    // lifted (20260525 §6.3) behind a caller-side 50 s httpBuildTimeout +
+    // outer Timeout:60s cold-start wrapper, with waitBeforeClear:10s as a
+    // defensive buffer.
+    // 1944 TODO C.147 (2026-06-02): the cold-start wrapper (httpBuildTimeout
+    // :50s + outer Timeout:60s) was REMOVED. The 468 KB bundle (38 KB /
+    // 38581-char source) now builds in ~1.7 s in isolation (httpMs=1746,
+    // frameworkErrors=0) with no W2 wedge — the 60 s wrapper masked nothing on
+    // the build side. Defaults now apply (25 s httpBuildTimeout + 30 s
+    // dart-test timeout). The waitBeforeClear:10s defensive buffer is RETAINED
+    // (matching the default_selection_style sibling above) because this is a
+    // deep Actions/Shortcuts demo with W2 wedge history that could still
+    // destabilize the following test's /clear.
+    test('retest: widgets/default_text_editing_shortcuts_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/default_text_editing_shortcuts_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
+      );
+      expectSuccess(result);
+    });
 
     // W3: Pre-emptively skipped while W2 is the upstream wedger.  In
     // run4 this test cascade-failed after W2.  Once W2 is fixed,
