@@ -429,14 +429,26 @@ void main() {
 
     // default_selection_style runs fine (verified passing in run4) but the
     // 10s waitBeforeClear is kept as a defensive buffer — it's a
-    // 1000+-line deep-demo script and could destabilize the next /clear.
+    // 1000+-line deep-demo script and could destabilize the next /clear
+    // (the immediately-following W2 default_text_editing_shortcuts retest).
+    // 1944 TODO C.158 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
+    // §U25 cold-start padding; the isolated retest builds the 38 KB source
+    // in ~2.0 s (httpMs≈2068, frameworkErrors=0) so defaults (25 s
+    // httpBuildTimeout + 30 s dart-test timeout) now apply with ~28 s
+    // headroom. Stripped only the `timeout: _slowTestTimeout` argument and
+    // retained `waitBeforeClear: 10s` — this makes the TEST entry
+    // structurally identical to the AST-side sibling (which carries the
+    // buffer with no wrapper and is not flagged as a slow test, confirming
+    // the buffer alone is acceptable). `_slowTestTimeout` const retained —
+    // still used by 11 other entries in this file. The ~2 s build + 10 s
+    // buffer ≈ 12 s totalMs sits comfortably under the 30 s budget.
     test('retest: widgets/default_selection_style_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/default_selection_style_test.dart',
         waitBeforeClear: const Duration(seconds: 10),
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
 
     // W2: Confirmed independent wedger (run4, 2026-04-28).  /build hangs
     // for 30s when this script runs — even with default_selection_style
