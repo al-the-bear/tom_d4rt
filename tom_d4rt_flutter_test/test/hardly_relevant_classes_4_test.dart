@@ -1214,11 +1214,18 @@ void main() {
     });
 
     test('inspector_button_test.dart', () async {
+      // 1944 TODO C.96 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` (Timeout(Duration(seconds: 60)))
+      // REMOVED. No AST sibling — TEST-only entry. Script runs in
+      // ~2.2 s under isolated retest (httpMs=1939, totalMs=2177,
+      // frameworkErrors=0, sourceChars=34763 — 35 KB inspector-
+      // button widget test with rich output: outputLines=18).
+      // Defaults apply.
       final result = await SendTestRunner.send(
         'widgets/inspector_button_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('inspector_button_variant_test.dart', () async {
       final result = await SendTestRunner.send(
