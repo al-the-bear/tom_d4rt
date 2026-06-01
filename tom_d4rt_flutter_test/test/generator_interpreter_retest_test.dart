@@ -17,20 +17,17 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-/// testlog_20260528-2206 TODO #4 follow-up — bumped per-test timeout for
-/// scripts that historically trip the Flutter test framework's default
-/// 30 s wrapper. See the AST sibling
-/// `tom_d4rt_flutter_ast/test/hardly_relevant_classes_5_test.dart` for
-/// full rationale. The TEST project's source-direct interpreter cold
-/// start (§U25) can exceed 30 s on the largest scripts; 60 s gives
-/// enough headroom without masking genuine wedge behaviour.
-const _slowTestTimeout = Timeout(Duration(seconds: 60));
-
 // 1944 TODO C.160 (2026-06-02): the `_verySlowTestTimeout` (120 s) const
 // was removed here once its last usage (the live_text_input_status retest)
 // dropped its outer timeout wrapper. All four §C.x TEST-side 120 s entries
 // (C.152/C.155/C.156/C.160) are now retired, so the const is orphaned —
 // mirror of the C.139/C.131/C.138 single-usage const cleanups.
+//
+// 1944 TODO C.171 (2026-06-02): the `_slowTestTimeout` (60 s) const was
+// likewise removed once its last usage (the request_focus_action retest,
+// the final §C.x TEST-side 60 s entry) dropped its outer timeout wrapper.
+// All §C.x TEST-side timeout wrappers are now retired; both shared timeout
+// consts are gone.
 
 /// Helper to check that a test truly passes (success AND no framework errors).
 void expectSuccess(SendResult result) {
@@ -737,11 +734,22 @@ void main() {
       expectSuccess(result);
     });
 
+    // 1944 TODO C.171 (2026-06-02): stripped the `timeout: _slowTestTimeout`
+    // (60 s) §U25 cold-start wrapper. Pre-fix isolated retest passed in
+    // ~1.6 s (httpMs=1403, totalMs=1619, frameworkErrors=0, sourceChars=49789,
+    // outputLines=1 — exercises the full `RequestFocusAction`/`RequestFocusIntent`
+    // widget API); the 60 s padding masked nothing. TEST-side wrapper-only
+    // strip; AST sibling never wrapped this script; no `waitBeforeClear`
+    // buffer and no B.6/B.7 requestRecycle() §U28 protection on this script.
+    // Defaults now apply (25 s httpBuildTimeout + 30 s dart-test timeout).
+    // This was the LAST `_slowTestTimeout` usage in the file, so the now-
+    // orphaned const declaration (+ its doc comment) was removed — mirror of
+    // the C.160 `_verySlowTestTimeout` single-usage cleanup.
     test('retest: widgets/request_focus_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/request_focus_action_test.dart',
       );
       expectSuccess(result);
-    }, timeout: _slowTestTimeout);
+    });
   });
 }
