@@ -1441,11 +1441,18 @@ void main() {
     });
 
     test('two_dimensional_scrollable_state_test.dart', () async {
+      // 1944 TODO C.110 (2026-06-01): historical 20260528-2206 TODO #4
+      // follow-up `_slowTestTimeout` REMOVED. Script runs in ~3.4 s
+      // under isolated retest (httpMs=2886, totalMs=3408,
+      // frameworkErrors=0, sourceBytes=111042, sourceChars=110942,
+      // bundleJsonBytes=1252452 — 111 KB script / 1.25 MB bundle, the
+      // largest single script in §C.viii). Defaults apply — ~27 s
+      // headroom remains even on this heaviest entry.
       final result = await SendTestRunner.send(
         'widgets/two_dimensional_scrollable_state_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, timeout: _slowTestTimeout);
+    });
 
     test('two_dimensional_scrollable_test.dart', () async {
       final result = await SendTestRunner.send(
