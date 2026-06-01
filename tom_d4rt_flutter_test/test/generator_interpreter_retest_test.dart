@@ -283,20 +283,24 @@ void main() {
         // (interpreter-side declaration-registry-clear-on-/clear).
         // Same workaround as B.6 / AST gir retest.
         SendTestRunner.requestRecycle();
+        // 1944 TODO C.151 (2026-06-02): the §1.12/E42 (= §S/S6)
+        // httpBuildTimeout:50s + outer Timeout:60s wrapper was
+        // REMOVED — TEST sibling of the AST-side C.140 fix. The
+        // 62 KB source builds in ~2.7 s in isolation (httpMs=2698,
+        // totalMs=18197, frameworkErrors=0); the 60 s wrapper masked
+        // nothing on the build side. The ~18 s totalMs is entirely
+        // the B.7 requestRecycle() §U28 cumulative-state protection
+        // cost above — kept deliberately, since removing it
+        // re-introduces the +25 wedge during the full gir sweep.
+        // Defaults now apply: the 25 s httpBuildTimeout leaves ample
+        // headroom for the 2.7 s build, and the 30 s dart-test
+        // timeout comfortably covers the ~15 s recycle + 2.7 s build
+        // (~12 s spare). §S stays closed.
         final result = await SendTestRunner.send(
           'retest/rendering/render_animated_size_state_test.dart',
-          // 20260523-1056 baseline §1.12/E42 (= §S/S6). Serial
-          // isolated re-run produces 2.1 s with frameworkErrors=0.
-          // Original cross-project Transport failure was cold-start
-          // contention, not a real wedge. Same family as
-          // E1/E12/E25/E36/E39: 50 s leaves 10 s of headroom under
-          // the 60 s dart-test wrapper. Applied symmetrically with
-          // the ast variant.
-          httpBuildTimeout: const Duration(seconds: 50),
         );
         expectSuccess(result);
       },
-      timeout: const Timeout(Duration(seconds: 60)),
     );
 
     test(
