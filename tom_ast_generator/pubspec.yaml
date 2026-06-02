@@ -2,7 +2,12 @@ name: tom_ast_generator
 description: AST converter from Dart analyzer AST to serializable AST model.
 version: 0.1.0
 repository: https://github.com/al-the-bear/tom_d4rt
-publish_to: none
+homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_generator
+topics:
+  - ast
+  - analyzer
+  - interpreter
+  - d4rt
 
 environment:
   sdk: ^3.10.4
@@ -13,16 +18,17 @@ dependencies:
   glob: ^2.1.2
   path: ^1.9.1
   yaml: ^3.1.2
-  tom_d4rt_ast:
-    path: ../tom_d4rt_ast
-  tom_ast_model:
-    path: ../tom_ast_model
-  tom_build_base: any
+  tom_d4rt_ast: ^0.1.4
+  tom_ast_model: ^0.1.0
+  tom_build_base: ^2.6.21
 
 dev_dependencies:
-  tom_d4rt_generator:
-    path: ../tom_d4rt_generator
-  tom_d4rt_exec:
-    path: ../tom_d4rt_exec
+  tom_d4rt_generator: ^1.9.0
   lints: ^6.0.0
   test: ^1.25.6
+  # tom_d4rt_exec is used by the cross-package integration tests in
+  # test/generator_tests/ but creates a publish-time runtime cycle
+  # (tom_d4rt_exec depends on this package). The committed
+  # pubspec_overrides.yaml supplies it from local path for dev and publish
+  # resolution; consumers ignore dev_dependencies, so the constraint is inert.
+  tom_d4rt_exec: ^1.8.2

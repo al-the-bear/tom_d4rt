@@ -1,0 +1,4 @@
+# Develop against local sibling source. Not published (pub strips this file).
+dependency_overrides:
+  tom_ast_model:
+    path: ../tom_ast_model

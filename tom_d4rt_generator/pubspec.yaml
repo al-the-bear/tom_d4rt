@@ -30,10 +30,10 @@ dependencies:
   yaml: ^3.1.0
   
   # Shared build utilities
-  tom_build_base: any
+  tom_build_base: ^2.6.21
 
   # D4rt runtime (used by testing library)
-  tom_d4rt: any
+  tom_d4rt: ^1.8.20
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each

@@ -1,6 +1,15 @@
-# Transitive deps needed for local path-based tom_d4rt_generator.
-# Not committed — remove once tom_d4rt_generator + tom_analyzer_shared are on pub.dev.
+# Develop against local sibling source. Not published (pub strips this file).
 dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt
+  tom_d4rt_ast:
+    path: ../tom_d4rt_ast
+  tom_ast_generator:
+    path: ../tom_ast_generator
+  tom_ast_model:
+    path: ../tom_ast_model
+  tom_d4rt_generator:
+    path: ../tom_d4rt_generator
   tom_analyzer_shared:
     path: ../../basics/tom_analyzer_shared
   tom_build_base:
