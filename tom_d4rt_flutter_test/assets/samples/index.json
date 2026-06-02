@@ -1,0 +1,386 @@
+{
+  "generated": "tool/sync_samples_to_assets.dart",
+  "samples": [
+    {
+      "name": "bezier_curve_editor",
+      "main": "main.dart",
+      "files": [
+        "bezier_model.dart",
+        "bezier_painter.dart",
+        "controls.dart",
+        "home.dart",
+        "main.dart"
+      ]
+    },
+    {
+      "name": "bottom_nav_shell",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "home.dart",
+        "main.dart",
+        "tab_home.dart",
+        "tab_navigator.dart",
+        "tab_profile.dart",
+        "tab_search.dart",
+        "theme_scope.dart"
+      ]
+    },
+    {
+      "name": "bouncing_balls_physics",
+      "main": "main.dart",
+      "files": [
+        "ball_painter.dart",
+        "home.dart",
+        "main.dart",
+        "physics_controls.dart",
+        "world.dart"
+      ]
+    },
+    {
+      "name": "calculator",
+      "main": "main.dart",
+      "files": [
+        "button_pad.dart",
+        "engine.dart",
+        "history_strip.dart",
+        "home.dart",
+        "main.dart"
+      ]
+    },
+    {
+      "name": "card_swiper",
+      "main": "main.dart",
+      "files": [
+        "card_widget.dart",
+        "deck.dart",
+        "home.dart",
+        "main.dart",
+        "swipe_controller.dart"
+      ]
+    },
+    {
+      "name": "carousel_pager",
+      "main": "main.dart",
+      "files": [
+        "detail_page.dart",
+        "home.dart",
+        "indicator.dart",
+        "main.dart",
+        "page_card.dart",
+        "pages.dart"
+      ]
+    },
+    {
+      "name": "chat_ui",
+      "main": "main.dart",
+      "files": [
+        "bubble.dart",
+        "chat_store.dart",
+        "composer.dart",
+        "home.dart",
+        "main.dart",
+        "message.dart"
+      ]
+    },
+    {
+      "name": "clock_face",
+      "main": "main.dart",
+      "files": [
+        "clock.dart",
+        "clock_painter.dart",
+        "home.dart",
+        "main.dart",
+        "timezone_dial.dart"
+      ]
+    },
+    {
+      "name": "color_picker_studio",
+      "main": "main.dart",
+      "files": [
+        "color_model.dart",
+        "hex_field.dart",
+        "home.dart",
+        "hsv_panel.dart",
+        "main.dart",
+        "rgb_panel.dart",
+        "swatch_strip.dart"
+      ]
+    },
+    {
+      "name": "conway_life",
+      "main": "main.dart",
+      "files": [
+        "board.dart",
+        "control_bar.dart",
+        "grid_painter.dart",
+        "home.dart",
+        "main.dart",
+        "patterns.dart"
+      ]
+    },
+    {
+      "name": "counter2",
+      "main": "main.dart",
+      "files": [
+        "main.dart"
+      ]
+    },
+    {
+      "name": "counter_app",
+      "main": "main.dart",
+      "files": [
+        "counter.dart",
+        "main.dart"
+      ]
+    },
+    {
+      "name": "drawing_pad",
+      "main": "main.dart",
+      "files": [
+        "canvas_painter.dart",
+        "home.dart",
+        "main.dart",
+        "stroke.dart",
+        "tool_bar.dart"
+      ]
+    },
+    {
+      "name": "form_wizard",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "home.dart",
+        "main.dart",
+        "progress_bar.dart",
+        "step_account.dart",
+        "step_preferences.dart",
+        "step_profile.dart",
+        "step_review.dart",
+        "wizard.dart"
+      ]
+    },
+    {
+      "name": "kanban_board",
+      "main": "main.dart",
+      "files": [
+        "board.dart",
+        "card_dialog.dart",
+        "card_tile.dart",
+        "column_view.dart",
+        "composer.dart",
+        "home.dart",
+        "main.dart"
+      ]
+    },
+    {
+      "name": "memory_match",
+      "main": "main.dart",
+      "files": [
+        "card_widget.dart",
+        "difficulty.dart",
+        "game.dart",
+        "home.dart",
+        "main.dart",
+        "score_panel.dart"
+      ]
+    },
+    {
+      "name": "note_app",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "dialogs.dart",
+        "editor.dart",
+        "home.dart",
+        "main.dart",
+        "note.dart",
+        "note_list.dart",
+        "store.dart"
+      ]
+    },
+    {
+      "name": "particle_field",
+      "main": "main.dart",
+      "files": [
+        "field.dart",
+        "home.dart",
+        "main.dart",
+        "mode_selector.dart",
+        "particle_painter.dart"
+      ]
+    },
+    {
+      "name": "photo_gallery_hero",
+      "main": "main.dart",
+      "files": [
+        "gallery_grid.dart",
+        "gradient_tile.dart",
+        "home.dart",
+        "main.dart",
+        "viewer_page.dart"
+      ]
+    },
+    {
+      "name": "pomodoro_timer",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "home.dart",
+        "main.dart",
+        "phase_chip.dart",
+        "session.dart"
+      ]
+    },
+    {
+      "name": "slide_puzzle",
+      "main": "main.dart",
+      "files": [
+        "confetti.dart",
+        "home.dart",
+        "main.dart",
+        "puzzle.dart",
+        "solver.dart",
+        "tile.dart"
+      ]
+    },
+    {
+      "name": "snake_game",
+      "main": "main.dart",
+      "files": [
+        "board.dart",
+        "board_painter.dart",
+        "home.dart",
+        "keymap.dart",
+        "main.dart",
+        "snake.dart"
+      ]
+    },
+    {
+      "name": "solitaire",
+      "main": "main.dart",
+      "files": [
+        "main.dart"
+      ]
+    },
+    {
+      "name": "solitaire2",
+      "main": "main.dart",
+      "files": [
+        "card_view.dart",
+        "engine.dart",
+        "home.dart",
+        "main.dart",
+        "piles.dart",
+        "rules.dart"
+      ]
+    },
+    {
+      "name": "stopwatch_laps",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "format.dart",
+        "home.dart",
+        "lap.dart",
+        "lap_list.dart",
+        "main.dart",
+        "time_display.dart"
+      ]
+    },
+    {
+      "name": "stpauls",
+      "main": "main.dart",
+      "files": [
+        "context_map.dart",
+        "home.dart",
+        "hotspots.dart",
+        "main.dart",
+        "plan_painter.dart"
+      ]
+    },
+    {
+      "name": "stpeters",
+      "main": "main.dart",
+      "files": [
+        "home.dart",
+        "landmarks.dart",
+        "main.dart",
+        "plan_painter.dart"
+      ]
+    },
+    {
+      "name": "sudoku_app",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "board.dart",
+        "home.dart",
+        "keypad.dart",
+        "main.dart",
+        "puzzles.dart",
+        "rules.dart"
+      ]
+    },
+    {
+      "name": "tabbed_dashboard",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "chart_painter.dart",
+        "home.dart",
+        "main.dart",
+        "tab_chart.dart",
+        "tab_log.dart",
+        "tab_settings.dart"
+      ]
+    },
+    {
+      "name": "tic_tac_toe",
+      "main": "main.dart",
+      "files": [
+        "app.dart",
+        "cell.dart",
+        "home.dart",
+        "main.dart",
+        "result_banner.dart",
+        "win_line_painter.dart"
+      ]
+    },
+    {
+      "name": "tip_calculator",
+      "main": "main.dart",
+      "files": [
+        "currency.dart",
+        "home.dart",
+        "inputs.dart",
+        "locale_dropdown.dart",
+        "main.dart",
+        "summary.dart"
+      ]
+    },
+    {
+      "name": "todo_list",
+      "main": "main.dart",
+      "files": [
+        "composer.dart",
+        "filter_bar.dart",
+        "home.dart",
+        "main.dart",
+        "store.dart",
+        "task.dart",
+        "task_tile.dart"
+      ]
+    },
+    {
+      "name": "tron",
+      "main": "main.dart",
+      "files": [
+        "engine.dart",
+        "home.dart",
+        "main.dart",
+        "painter.dart"
+      ]
+    }
+  ]
+}

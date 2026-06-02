@@ -7,13 +7,12 @@
 /// step.
 library;
 
-import 'dart:io';
-
 import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
 import 'bridges/material_bridges.b.dart';
 import 'd4rt_runtime_registrations.dart';
+import 'sample_source.dart';
 // ignore: unused_import — registers $RelaxedTween via top-level call below.
 import 'bridges/flutter_relaxers.b.dart';
 
@@ -88,32 +87,34 @@ class SourceFlutterD4rt {
   ///
   /// This is the entry point for sample apps in `example/<name>/` whose
   /// gameplay logic spans more than one file.
+  ///
+  /// Reads from disk — desktop only. Mobile builds load the source set from
+  /// bundled assets via [SampleSource] and run it through [buildProgram].
   T buildMultiFile<T>(
     String mainFilePath, {
     BuildContext? buildContext,
   }) =>
+      buildProgram<T>(buildDiskProgram(mainFilePath),
+          buildContext: buildContext);
+
+  /// Run an already-resolved multi-file [program] and return the result of
+  /// its `build` function as [T].
+  ///
+  /// The program's [SampleProgram.sources] map must already contain every
+  /// transitively-imported file, so the interpreter performs no filesystem
+  /// access (`allowFileSystemImports: false`). This is the platform-neutral
+  /// core shared by the disk path ([buildMultiFile]) and the asset path used
+  /// on iOS / iPadOS / Android.
+  T buildProgram<T>(
+    SampleProgram program, {
+    BuildContext? buildContext,
+  }) =>
       _wrapUnwrap(() {
-        final mainFile = File(mainFilePath);
-        if (!mainFile.existsSync()) {
-          throw SourceFlutterD4rtException(
-            'Sample entry point not found: $mainFilePath',
-          );
-        }
-        final fullPath = mainFile.resolveSymbolicLinksSync();
-        final libraryUri = 'file://$fullPath';
-        final basePath = mainFile.parent.path;
-        final sources = <String, String>{};
-        resolveImportsRecursively(
-          mainFile.readAsStringSync(),
-          libraryUri,
-          sources,
-          null,
-        );
         final raw = _interpreter.execute(
-          library: libraryUri,
-          sources: sources,
-          basePath: basePath,
-          allowFileSystemImports: true,
+          library: program.libraryUri,
+          sources: program.sources,
+          basePath: program.basePath,
+          allowFileSystemImports: false,
           name: 'build',
           positionalArgs: buildContext != null ? [buildContext] : null,
         );

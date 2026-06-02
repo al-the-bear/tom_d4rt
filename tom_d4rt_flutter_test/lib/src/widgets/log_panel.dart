@@ -72,8 +72,10 @@ class _LogPanelState extends State<LogPanel> {
         break;
       }
     }
+    // Desktop-only path: the disk source uses the main.dart path as the
+    // entry locator, so this matches the freshly generated app on disk.
     match ??= widget.samples.samples
-        .where((s) => s.mainPath == widget.notifier.generatedMainPath)
+        .where((s) => s.locator == widget.notifier.generatedMainPath)
         .firstOrNull;
     if (match != null) widget.onRun(match);
   }

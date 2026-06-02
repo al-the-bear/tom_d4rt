@@ -18,10 +18,16 @@ class SampleAppPage extends StatefulWidget {
   final SampleAppEntry sample;
   final SourceFlutterD4rt d4rt;
 
+  /// Resolves [sample] into a runnable program. On desktop this reads disk;
+  /// on mobile it loads the source set from bundled assets — so the page must
+  /// await it before interpreting.
+  final Future<SampleProgram> Function(SampleAppEntry) loadProgram;
+
   const SampleAppPage({
     super.key,
     required this.sample,
     required this.d4rt,
+    required this.loadProgram,
   });
 
   @override
@@ -29,13 +35,37 @@ class SampleAppPage extends StatefulWidget {
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
+  /// The resolved program, once loaded. Until then the page shows a spinner.
+  SampleProgram? _program;
   Widget? _built;
   String? _errorMessage;
   StackTrace? _errorStack;
 
   @override
+  void initState() {
+    super.initState();
+    _loadProgram();
+  }
+
+  Future<void> _loadProgram() async {
+    try {
+      final program = await widget.loadProgram(widget.sample);
+      if (!mounted) return;
+      setState(() => _program = program);
+    } catch (e, st) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = e.toString();
+        _errorStack = st;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (_built == null && _errorMessage == null) {
+    // Interpret only once the program has been loaded and a real
+    // BuildContext (with Theme/Navigator) is in scope.
+    if (_program != null && _built == null && _errorMessage == null) {
       _interpret(context);
     }
     final scheme = Theme.of(context).colorScheme;
@@ -86,8 +116,8 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   void _interpret(BuildContext context) {
     try {
-      final widgetResult = widget.d4rt.buildMultiFile<Widget>(
-        widget.sample.mainPath,
+      final widgetResult = widget.d4rt.buildProgram<Widget>(
+        _program!,
         buildContext: context,
       );
       _built = widgetResult;

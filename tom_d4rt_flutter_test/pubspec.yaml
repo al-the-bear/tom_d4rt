@@ -26,3 +26,40 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # >>> BEGIN generated sample assets (tool/sync_samples_to_assets.dart) <<<
+  assets:
+    - assets/samples/index.json
+    - assets/samples/bezier_curve_editor/
+    - assets/samples/bottom_nav_shell/
+    - assets/samples/bouncing_balls_physics/
+    - assets/samples/calculator/
+    - assets/samples/card_swiper/
+    - assets/samples/carousel_pager/
+    - assets/samples/chat_ui/
+    - assets/samples/clock_face/
+    - assets/samples/color_picker_studio/
+    - assets/samples/conway_life/
+    - assets/samples/counter2/
+    - assets/samples/counter_app/
+    - assets/samples/drawing_pad/
+    - assets/samples/form_wizard/
+    - assets/samples/kanban_board/
+    - assets/samples/memory_match/
+    - assets/samples/note_app/
+    - assets/samples/particle_field/
+    - assets/samples/photo_gallery_hero/
+    - assets/samples/pomodoro_timer/
+    - assets/samples/slide_puzzle/
+    - assets/samples/snake_game/
+    - assets/samples/solitaire/
+    - assets/samples/solitaire2/
+    - assets/samples/stopwatch_laps/
+    - assets/samples/stpauls/
+    - assets/samples/stpeters/
+    - assets/samples/sudoku_app/
+    - assets/samples/tabbed_dashboard/
+    - assets/samples/tic_tac_toe/
+    - assets/samples/tip_calculator/
+    - assets/samples/todo_list/
+    - assets/samples/tron/
+  # >>> END generated sample assets <<<

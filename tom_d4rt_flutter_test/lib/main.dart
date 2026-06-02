@@ -67,7 +67,11 @@ class D4rtTestApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
-      home: const _AppShell(),
+      // Mobile (iOS / iPadOS / Android) has no workspace filesystem, so the
+      // test runner and code generator are disabled there — the app is a
+      // plain browser over the bundled sample apps. Desktop keeps the full
+      // multi-tab shell.
+      home: isMobileRuntime ? const _MobileSamplesShell() : const _AppShell(),
     );
   }
 }
@@ -125,7 +129,11 @@ class _AppShellState extends State<_AppShell>
   void _runSample(SampleAppEntry sample) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => SampleAppPage(sample: sample, d4rt: _d4rt),
+        builder: (_) => SampleAppPage(
+          sample: sample,
+          d4rt: _d4rt,
+          loadProgram: _samplesNotifier.loadProgram,
+        ),
       ),
     );
   }
@@ -239,6 +247,131 @@ class _ExamplesTab extends StatelessWidget {
           child: ResultPanel(runner: runner),
         ),
       ],
+    );
+  }
+}
+
+/// Simplified shell for mobile (iOS / iPadOS / Android): a grid of the
+/// bundled sample apps, each tappable to run. No test runner, no generator —
+/// those depend on the workspace filesystem, which mobile sandboxes forbid.
+class _MobileSamplesShell extends StatefulWidget {
+  const _MobileSamplesShell();
+
+  @override
+  State<_MobileSamplesShell> createState() => _MobileSamplesShellState();
+}
+
+class _MobileSamplesShellState extends State<_MobileSamplesShell> {
+  late final SampleAppsNotifier _samplesNotifier;
+  late final SourceFlutterD4rt _d4rt;
+
+  @override
+  void initState() {
+    super.initState();
+    _samplesNotifier = SampleAppsNotifier();
+    _d4rt = SourceFlutterD4rt();
+  }
+
+  @override
+  void dispose() {
+    _samplesNotifier.dispose();
+    super.dispose();
+  }
+
+  void _runSample(SampleAppEntry sample) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SampleAppPage(
+          sample: sample,
+          d4rt: _d4rt,
+          loadProgram: _samplesNotifier.loadProgram,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('D4rt Samples')),
+      body: ListenableBuilder(
+        listenable: _samplesNotifier,
+        builder: (context, _) {
+          if (_samplesNotifier.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final samples = _samplesNotifier.samples;
+          if (samples.isEmpty) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  'No bundled samples found.\n\nRun '
+                  '`dart run tool/sync_samples_to_assets.dart` and rebuild.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+            );
+          }
+          return GridView.builder(
+            padding: const EdgeInsets.all(12),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 220,
+              mainAxisExtent: 84,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: samples.length,
+            itemBuilder: (context, i) {
+              final sample = samples[i];
+              return _SampleTile(
+                sample: sample,
+                onTap: () => _runSample(sample),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _SampleTile extends StatelessWidget {
+  final SampleAppEntry sample;
+  final VoidCallback onTap;
+
+  const _SampleTile({required this.sample, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Row(
+            children: [
+              Icon(Icons.apps, color: scheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  sample.name,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const Icon(Icons.play_arrow),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
