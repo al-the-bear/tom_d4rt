@@ -1,3 +1,14 @@
+## 1.8.20
+
+### Fixes
+- Cross-boundary native↔interpreted interop: `callInterpreterCallback`
+  handles plain native `Function` via `Function.apply`; Expando-based
+  reverse map for native↔interpreted assignment.
+- Cascade setter/getter resolution unwraps `D4InterpretedProxy` targets.
+- `resetScriptDeclarations` API + `/clear` REPL wiring.
+- Async/timer, typed_data, and bridged-setter back-ports aligned with the
+  flutter-material cluster fixes (kept in sync with `tom_d4rt_ast`).
+
 ## 1.8.19
 
 ### Fixes

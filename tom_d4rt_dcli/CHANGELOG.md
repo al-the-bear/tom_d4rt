@@ -1,3 +1,12 @@
+## 1.1.4
+
+### Maintenance
+
+- Regenerated dcli bridges against the current `tom_d4rt_generator` 1.9.0
+  (summary-backed extraction, GEN-095 and follow-up fixes).
+- Pinned dependency constraints to current releases (`tom_d4rt` ^1.8.20,
+  `tom_vscode_scripting_api` ^1.0.1, `tom_chattools` ^1.0.2).
+
 ## 1.1.3
 
 ### Maintenance
