@@ -1152,13 +1152,6 @@ void main() {
 
   // --- ANIMATION INDIVIDUAL SCRIPTS (4 files) ---
   group('animation/ individual', () {
-    test('animation_max_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'animation/animation_max_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('animation_mean_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_mean_test.dart',
@@ -1214,20 +1207,6 @@ void main() {
     test('cupertino_sheet_transition_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_sheet_transition_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('cupertino_spell_check_suggestions_toolbar_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/cupertino_spell_check_suggestions_toolbar_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('cupertino_text_magnifier_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'cupertino/cupertino_text_magnifier_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -1352,13 +1331,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('ztmp_path_metrics_access_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/ztmp_path_metrics_access_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('platform_dispatcher_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/platform_dispatcher_test.dart',
@@ -1402,13 +1374,6 @@ void main() {
     test('semantics_action_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/semantics_action_event_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('semantics_action_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/semantics_action_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
@@ -3111,13 +3076,6 @@ void main() {
     test('selection_point_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/selection_point_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('selection_registrar_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/selection_registrar_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

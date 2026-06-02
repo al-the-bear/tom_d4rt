@@ -51,13 +51,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('popup_window_controller_delegate_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/popup_window_controller_delegate_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('popup_window_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/popup_window_controller_test.dart',

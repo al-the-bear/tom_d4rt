@@ -146,13 +146,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('customscrollview_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/customscrollview_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('decoratedbox_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/decoratedbox_test.dart',
@@ -246,13 +239,6 @@ void main() {
 
     test('clipping_test.dart', () async {
       final result = await SendTestRunner.send('widgets/clipping_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('transform_full_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/transform_full_test.dart',
-      );
       expect(result.success, isTrue, reason: result.error);
     });
 

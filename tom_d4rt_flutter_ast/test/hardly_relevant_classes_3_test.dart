@@ -294,13 +294,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('persistent_header_show_on_screen_configuration_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/persistent_header_show_on_screen_configuration_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('pipeline_manifold_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/pipeline_manifold_test.dart',

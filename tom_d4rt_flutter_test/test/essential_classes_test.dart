@@ -535,11 +535,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('appbar_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/appbar_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('center_test.dart', () async {
       final result = await SendTestRunner.send('widgets/center_test.dart');
       expect(result.success, isTrue, reason: result.error);
@@ -596,11 +591,6 @@ void main() {
 
     test('gridview_test.dart', () async {
       final result = await SendTestRunner.send('widgets/gridview_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('icon_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/icon_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -661,13 +651,6 @@ void main() {
 
     test('scaffold_test.dart', () async {
       final result = await SendTestRunner.send('widgets/scaffold_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('singlechildscrollview_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/singlechildscrollview_test.dart',
-      );
       expect(result.success, isTrue, reason: result.error);
     });
 

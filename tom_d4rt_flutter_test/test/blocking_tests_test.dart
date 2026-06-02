@@ -1,26 +1,29 @@
-/// Blocking Tests — W1-W5 wedger isolation harness.
+/// Blocking Tests — consolidated error-case harness.
 ///
-/// This test file groups the 5 scripts that have been skipped from
-/// `generator_interpreter_retest_test.dart` (W1-W4) and
-/// `generator_interpreter_issues_test.dart` (W5) because each of
-/// them wedges the test-app process and causes a cascade of
-/// timeouts in the surrounding suite.
+/// This file is the single place where every script that currently wedges or
+/// fails the test app is collected. Each entry is EXPECTED to fail or time
+/// out under the present interpreter/bridge (transport timeout on POST /build
+/// or GET /clear, or an outright crash). Keeping them here lets every other
+/// suite run clean.
 ///
-/// Purpose: run the 5 wedgers together in their own dedicated
-/// suite to see whether they pass when not embedded in a larger
-/// run. If the suite-level cascade does not reproduce here, the
-/// scripts are individually viable and the cascade is a
-/// scaling/ordering artefact rather than a per-script bug.
+/// Sources of the entries below:
+///   - W1/W2: generator_interpreter_retest wedgers that still block.
+///     (W3 live_text_input_status, W4 lock_state, W5 animated_switcher were
+///     moved to timeout_tests_test.dart because they pass in both runs.)
+///   - crashing_tests_test.dart (now deleted): display_feature_sub_screen.
+///   - essential_classes_test.dart: appbar, icon, singlechildscrollview.
+///   - important_classes_test.dart: customscrollview, transform_full.
+///   - secondary_classes_test.dart: selection_registrar, animation_max,
+///     cupertino_spell_check_suggestions_toolbar (+ cupertino_text_magnifier,
+///     which fails on the preceding /clear), ztmp_path_metrics_access,
+///     semantics_action.
+///   - hardly_relevant_classes_2_test.dart: selection_area, animated_icon_data.
+///   - hardly_relevant_classes_3_test.dart:
+///     persistent_header_show_on_screen_configuration.
+///   - hardly_relevant_classes_5_test.dart: popup_window_controller_delegate.
 ///
-/// W1: retest/widgets/context_action_test.dart
-/// W2: retest/widgets/default_text_editing_shortcuts_test.dart
-/// W3: retest/widgets/live_text_input_status_test.dart
-/// W4: retest/widgets/lock_state_test.dart
-/// W5: widgets/animated_switcher_test.dart  (NOT in retest/)
-///
-/// See doc/interpreter_issues.md (W1-W5 entries) and
-/// doc/testlog_20260428-1333-issue-analysis/error_analysis.md
-/// (cluster R / fix-clusters F1-F5) for the upstream diagnoses.
+/// See doc/testlog_20260602-0629-issue-analysis/error_analysis.md and
+/// doc/interpreter_issues.md for the per-script diagnoses.
 @TestOn('vm')
 library;
 
@@ -46,7 +49,7 @@ void main() {
     await SendTestRunner.tearDown();
   });
 
-  group('Blocking tests - W1-W5 isolated', () {
+  group('Blocking tests - retest wedgers', () {
     test('W1: retest/widgets/context_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/context_action_test.dart',
@@ -62,25 +65,128 @@ void main() {
       );
       expectSuccess(result);
     });
+  });
 
-    test('W3: retest/widgets/live_text_input_status_test.dart', () async {
+  group('Blocking tests - relocated failing scripts', () {
+    // From crashing_tests_test.dart (deleted).
+    test('display_feature_sub_screen_test.dart (from secondary_classes)',
+        () async {
       final result = await SendTestRunner.send(
-        'retest/widgets/live_text_input_status_test.dart',
-        waitBeforeClear: const Duration(seconds: 10),
+        'widgets/display_feature_sub_screen_test.dart',
       );
       expectSuccess(result);
     });
 
-    test('W4: retest/widgets/lock_state_test.dart', () async {
+    // From essential_classes_test.dart.
+    test('appbar_test.dart (from essential_classes)', () async {
+      final result = await SendTestRunner.send('widgets/appbar_test.dart');
+      expectSuccess(result);
+    });
+
+    test('icon_test.dart (from essential_classes)', () async {
+      final result = await SendTestRunner.send('widgets/icon_test.dart');
+      expectSuccess(result);
+    });
+
+    test('singlechildscrollview_test.dart (from essential_classes)', () async {
       final result = await SendTestRunner.send(
-        'retest/widgets/lock_state_test.dart',
+        'widgets/singlechildscrollview_test.dart',
       );
       expectSuccess(result);
     });
 
-    test('W5: widgets/animated_switcher_test.dart', () async {
+    // From important_classes_test.dart.
+    test('customscrollview_test.dart (from important_classes)', () async {
       final result = await SendTestRunner.send(
-        'widgets/animated_switcher_test.dart',
+        'widgets/customscrollview_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('transform_full_test.dart (from important_classes)', () async {
+      final result = await SendTestRunner.send(
+        'widgets/transform_full_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    // From secondary_classes_test.dart.
+    test('selection_registrar_test.dart (from secondary_classes)', () async {
+      final result = await SendTestRunner.send(
+        'rendering/selection_registrar_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('animation_max_test.dart (from secondary_classes)', () async {
+      final result = await SendTestRunner.send(
+        'animation/animation_max_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    // The wedger that causes the cupertino_text_magnifier /clear timeout.
+    test('cupertino_spell_check_suggestions_toolbar_test.dart (from secondary_classes)',
+        () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_spell_check_suggestions_toolbar_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('cupertino_text_magnifier_test.dart (from secondary_classes)',
+        () async {
+      final result = await SendTestRunner.send(
+        'cupertino/cupertino_text_magnifier_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('ztmp_path_metrics_access_test.dart (from secondary_classes)',
+        () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/ztmp_path_metrics_access_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('semantics_action_test.dart (from secondary_classes)', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/semantics_action_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    // From hardly_relevant_classes_2_test.dart.
+    test('selection_area_test.dart (from hardly_relevant_classes_2)', () async {
+      final result = await SendTestRunner.send(
+        'material/selection_area_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    test('animated_icon_data_test.dart (from hardly_relevant_classes_2)',
+        () async {
+      final result = await SendTestRunner.send(
+        'material/animated_icon_data_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    // From hardly_relevant_classes_3_test.dart.
+    test('persistent_header_show_on_screen_configuration_test.dart (from hardly_relevant_classes_3)',
+        () async {
+      final result = await SendTestRunner.send(
+        'rendering/persistent_header_show_on_screen_configuration_test.dart',
+      );
+      expectSuccess(result);
+    });
+
+    // From hardly_relevant_classes_5_test.dart.
+    test('popup_window_controller_delegate_test.dart (from hardly_relevant_classes_5)',
+        () async {
+      final result = await SendTestRunner.send(
+        'widgets/popup_window_controller_delegate_test.dart',
       );
       expectSuccess(result);
     });

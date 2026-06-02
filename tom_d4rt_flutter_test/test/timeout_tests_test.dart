@@ -12,7 +12,11 @@
 /// down by 30s+ timeouts. Once the underlying interpreter or generator
 /// issues are fixed, these tests can be moved back.
 ///
-/// Total: 51 unique scripts.
+/// The "relocated passing" group at the end holds scripts moved out of
+/// crashing_tests_test.dart and blocking_tests_test.dart that pass cleanly
+/// in both the AST and TEST runs.
+///
+/// Total: 56 unique scripts.
 @TestOn('vm')
 library;
 
@@ -472,6 +476,56 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
+  });
+
+  // ============================================================
+  // RELOCATED PASSING TESTS
+  // Moved here because they pass in both the AST and TEST runs:
+  //   - directionality / extend_selection_to_line_break_intent:
+  //       from crashing_tests_test.dart (now deleted).
+  //   - live_text_input_status / lock_state / animated_switcher:
+  //       previously the W3/W4/W5 entries of blocking_tests_test.dart.
+  // ============================================================
+  group('relocated passing', () {
+    test('directionality_test.dart (from crashing_tests)', () async {
+      final result = await SendTestRunner.send(
+        'widgets/directionality_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test(
+      'extend_selection_to_line_break_intent_test.dart (from crashing_tests)',
+      () async {
+        final result = await SendTestRunner.send(
+          'widgets/extend_selection_to_line_break_intent_test.dart',
+        );
+        expect(result.success, isTrue, reason: result.error);
+      },
+    );
+
+    test('retest/widgets/live_text_input_status_test.dart (from blocking W3)',
+        () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/live_text_input_status_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('retest/widgets/lock_state_test.dart (from blocking W4)', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/lock_state_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
+
+    test('widgets/animated_switcher_test.dart (from blocking W5)', () async {
+      final result = await SendTestRunner.send(
+        'widgets/animated_switcher_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
   });
 
 }
