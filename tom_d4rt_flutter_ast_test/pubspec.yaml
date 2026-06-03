@@ -1,0 +1,46 @@
+name: tom_d4rt_flutter_ast_test
+description: >-
+  Analyzer-free D4rt Flutter demo. Loads pre-compiled AstBundle JSON from
+  assets and renders the widget trees via the tom_d4rt_flutter_ast runtime —
+  no analyzer, no dart:io, web-safe.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Analyzer-free AST runtime + Flutter Material bridges. This is the whole
+  # point of the app: FlutterD4rt executes pre-compiled AstBundle JSON with
+  # zero analyzer/dart:io dependency, so the app builds and runs on the web.
+  tom_d4rt_flutter_ast:
+    path: ../tom_d4rt_flutter_ast
+  tom_d4rt_ast:
+    path: ../tom_d4rt_ast
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  path: ^1.9.0
+
+  # Analyzer-based source→AstBundle compiler. Used ONLY by the build-time
+  # tool (tool/compile_samples_to_bundles.dart, run under `flutter test`) —
+  # never by lib/ runtime code, so the shipped app stays analyzer-free.
+  tom_ast_generator:
+    path: ../tom_ast_generator
+
+flutter:
+  uses-material-design: true
+
+  # >>> BEGIN generated bundle assets (tool/compile_samples_to_bundles.dart) <<<
+  assets:
+    - assets/bundles/
+  # >>> END generated bundle assets <<<

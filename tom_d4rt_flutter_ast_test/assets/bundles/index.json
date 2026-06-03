@@ -1,0 +1,20 @@
+{
+  "generated": "tool/compile_samples_to_bundles.dart",
+  "bundles": [
+    {
+      "name": "calculator"
+    },
+    {
+      "name": "clock_face"
+    },
+    {
+      "name": "counter_app"
+    },
+    {
+      "name": "stopwatch_laps"
+    },
+    {
+      "name": "tip_calculator"
+    }
+  ]
+}
