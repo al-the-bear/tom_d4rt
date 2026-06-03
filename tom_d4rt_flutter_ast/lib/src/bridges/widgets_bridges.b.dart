@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-06-03T14:47:30.916286
+// Generated: 2026-06-03T17:06:54.577320
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -9,7 +9,6 @@ import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer' as $dart_developer;
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
@@ -42163,32 +42162,6 @@ BridgedClass _createImageBridge() {
         final webHtmlElementStrategy = D4.getNamedArgWithDefault<$flutter_44.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', $flutter_44.WebHtmlElementStrategy.never);
         return $flutter_172.Image.network(src, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : (($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor) as $flutter_164.Widget; }) as $flutter_164.Widget Function($flutter_164.BuildContext, $flutter_164.Widget, int?, bool), loadingBuilder: loadingBuilderRaw == null ? null : (($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_45.ImageChunkEvent? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, loadingBuilderRaw, [p0, p1, p2]), 'callback', visitor) as $flutter_164.Widget; }) as $flutter_164.Widget Function($flutter_164.BuildContext, $flutter_164.Widget, $flutter_45.ImageChunkEvent?), errorBuilder: errorBuilderRaw == null ? null : (($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor) as $flutter_164.Widget; }) as $flutter_164.Widget Function($flutter_164.BuildContext, Object, StackTrace?), semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, filterQuality: filterQuality, isAntiAlias: isAntiAlias, headers: headers, cacheWidth: cacheWidth, cacheHeight: cacheHeight, webHtmlElementStrategy: webHtmlElementStrategy);
       },
-      'file': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Image');
-        final file = D4.getRequiredArg<File>(positional, 0, 'file', 'Image');
-        final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
-        final frameBuilderRaw = named['frameBuilder'];
-        final errorBuilderRaw = named['errorBuilder'];
-        final semanticLabel = D4.getOptionalNamedArg<String?>(named, 'semanticLabel');
-        final excludeFromSemantics = D4.getNamedArgWithDefault<bool>(named, 'excludeFromSemantics', false);
-        final width = D4.getOptionalNamedArg<double?>(named, 'width');
-        final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
-        final opacity = D4.getOptionalNamedArg<$flutter_1.Animation<double>?>(named, 'opacity');
-        final colorBlendMode = D4.getOptionalNamedArg<BlendMode?>(named, 'colorBlendMode');
-        final fit = D4.getOptionalNamedArg<$flutter_37.BoxFit?>(named, 'fit');
-        final alignment = D4.getNamedArgWithDefault<$flutter_32.AlignmentGeometry>(named, 'alignment', $flutter_136.Alignment.center);
-        final repeat = D4.getNamedArgWithDefault<$flutter_40.ImageRepeat>(named, 'repeat', $flutter_40.ImageRepeat.noRepeat);
-        final centerSlice = D4.getOptionalNamedArg<Rect?>(named, 'centerSlice');
-        final matchTextDirection = D4.getNamedArgWithDefault<bool>(named, 'matchTextDirection', false);
-        final gaplessPlayback = D4.getNamedArgWithDefault<bool>(named, 'gaplessPlayback', false);
-        final isAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'isAntiAlias', false);
-        final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
-        final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
-        final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
-        return $flutter_172.Image.file(file, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : (($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor) as $flutter_164.Widget; }) as $flutter_164.Widget Function($flutter_164.BuildContext, $flutter_164.Widget, int?, bool), errorBuilder: errorBuilderRaw == null ? null : (($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor) as $flutter_164.Widget; }) as $flutter_164.Widget Function($flutter_164.BuildContext, Object, StackTrace?), semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
-      },
       'asset': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Image');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Image');
@@ -42327,7 +42300,6 @@ BridgedClass _createImageBridge() {
     constructorSignatures: {
       '': 'const Image({Key? key, required ImageProvider<Object> image, ImageFrameBuilder? frameBuilder, ImageLoadingBuilder? loadingBuilder, ImageErrorWidgetBuilder? errorBuilder, String? semanticLabel, bool excludeFromSemantics = false, double? width, double? height, Color? color, Animation<double>? opacity, BlendMode? colorBlendMode, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat, Rect? centerSlice, bool matchTextDirection = false, bool gaplessPlayback = false, bool isAntiAlias = false, FilterQuality filterQuality = FilterQuality.medium})',
       'network': 'Image.network(String src, {Key? key, double scale = 1.0, ImageFrameBuilder? frameBuilder, ImageLoadingBuilder? loadingBuilder, ImageErrorWidgetBuilder? errorBuilder, String? semanticLabel, bool excludeFromSemantics = false, double? width, double? height, Color? color, Animation<double>? opacity, BlendMode? colorBlendMode, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat, Rect? centerSlice, bool matchTextDirection = false, bool gaplessPlayback = false, FilterQuality filterQuality = FilterQuality.medium, bool isAntiAlias = false, Map<String, String>? headers, int? cacheWidth, int? cacheHeight, WebHtmlElementStrategy webHtmlElementStrategy = WebHtmlElementStrategy.never})',
-      'file': 'Image.file(File file, {Key? key, double scale = 1.0, ImageFrameBuilder? frameBuilder, ImageErrorWidgetBuilder? errorBuilder, String? semanticLabel, bool excludeFromSemantics = false, double? width, double? height, Color? color, Animation<double>? opacity, BlendMode? colorBlendMode, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat, Rect? centerSlice, bool matchTextDirection = false, bool gaplessPlayback = false, bool isAntiAlias = false, FilterQuality filterQuality = FilterQuality.medium, int? cacheWidth, int? cacheHeight})',
       'asset': 'Image.asset(String name, {Key? key, AssetBundle? bundle, ImageFrameBuilder? frameBuilder, ImageErrorWidgetBuilder? errorBuilder, String? semanticLabel, bool excludeFromSemantics = false, double? scale, double? width, double? height, Color? color, Animation<double>? opacity, BlendMode? colorBlendMode, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat, Rect? centerSlice, bool matchTextDirection = false, bool gaplessPlayback = false, bool isAntiAlias = false, String? package, FilterQuality filterQuality = FilterQuality.medium, int? cacheWidth, int? cacheHeight})',
       'memory': 'Image.memory(Uint8List bytes, {Key? key, double scale = 1.0, ImageFrameBuilder? frameBuilder, ImageErrorWidgetBuilder? errorBuilder, String? semanticLabel, bool excludeFromSemantics = false, double? width, double? height, Color? color, Animation<double>? opacity, BlendMode? colorBlendMode, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat, Rect? centerSlice, bool matchTextDirection = false, bool gaplessPlayback = false, bool isAntiAlias = false, FilterQuality filterQuality = FilterQuality.medium, int? cacheWidth, int? cacheHeight})',
     },

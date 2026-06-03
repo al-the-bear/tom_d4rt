@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-06-03T14:47:20.715206
+// Generated: 2026-06-03T17:06:47.258668
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -8,7 +8,6 @@ import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
@@ -137,7 +136,6 @@ class FlutterPaintingBridge {
       _createResizeImageKeyBridge(),
       _createResizeImageBridge(),
       _createNetworkImageBridge(),
-      _createFileImageBridge(),
       _createMemoryImageBridge(),
       _createExactAssetImageBridge(),
       _createNetworkImageLoadExceptionBridge(),
@@ -236,7 +234,6 @@ class FlutterPaintingBridge {
       'ResizeImageKey': 'package:flutter/src/painting/image_provider.dart',
       'ResizeImage': 'package:flutter/src/painting/image_provider.dart',
       'NetworkImage': 'package:flutter/src/painting/image_provider.dart',
-      'FileImage': 'package:flutter/src/painting/image_provider.dart',
       'MemoryImage': 'package:flutter/src/painting/image_provider.dart',
       'ExactAssetImage': 'package:flutter/src/painting/image_provider.dart',
       'NetworkImageLoadException': 'package:flutter/src/painting/image_provider.dart',
@@ -7829,127 +7826,6 @@ BridgedClass _createNetworkImageBridge() {
       'scale': 'double get scale',
       'headers': 'Map<String, String>? get headers',
       'webHtmlElementStrategy': 'WebHtmlElementStrategy get webHtmlElementStrategy',
-    },
-  );
-}
-
-// =============================================================================
-// FileImage Bridge
-// =============================================================================
-
-BridgedClass _createFileImageBridge() {
-  return BridgedClass(
-    nativeType: $flutter_34.FileImage,
-    name: 'FileImage',
-    isAssignable: (v) => v is $flutter_34.FileImage,
-    hierarchyDepth: 1,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'FileImage');
-        final file = D4.getRequiredArg<File>(positional, 0, 'file', 'FileImage');
-        final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
-        return $flutter_34.FileImage(file, scale: scale);
-      },
-    },
-    getters: {
-      'file': (visitor, target) => D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage').file,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage').scale,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage').hashCode,
-    },
-    methods: {
-      'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_34.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
-        return t.resolve(configuration);
-      },
-      'createStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 1, 'createStream');
-        final configuration = D4.getRequiredArg<$flutter_34.ImageConfiguration>(positional, 0, 'configuration', 'createStream');
-        return t.createStream(configuration);
-      },
-      'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_34.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
-        final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
-      },
-      'resolveStreamForKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 4, 'resolveStreamForKey');
-        final configuration = D4.getRequiredArg<$flutter_34.ImageConfiguration>(positional, 0, 'configuration', 'resolveStreamForKey');
-        final stream = D4.getRequiredArg<$flutter_36.ImageStream>(positional, 1, 'stream', 'resolveStreamForKey');
-        final key = D4.getRequiredArg<$flutter_34.FileImage>(positional, 2, 'key', 'resolveStreamForKey');
-        if (positional.length <= 3) {
-          throw ArgumentError('resolveStreamForKey: Missing required argument "handleError" at position 3');
-        }
-        final handleErrorRaw = positional[3];
-        t.resolveStreamForKey(configuration, stream, key, (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
-        return null;
-      },
-      'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        final cache = D4.getOptionalNamedArg<$flutter_32.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_34.ImageConfiguration>(named, 'configuration', $flutter_34.ImageConfiguration.empty);
-        return t.evict(cache: cache, configuration: configuration);
-      },
-      'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_34.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
-        return t.obtainKey(configuration);
-      },
-      'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 2, 'loadBuffer');
-        final key = D4.getRequiredArg<$flutter_34.FileImage>(positional, 0, 'key', 'loadBuffer');
-        if (positional.length <= 1) {
-          throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
-        }
-        final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth})).then((v) => v as Codec); });
-      },
-      'loadImage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        D4.requireMinArgs(positional, 2, 'loadImage');
-        final key = D4.getRequiredArg<$flutter_34.FileImage>(positional, 0, 'key', 'loadImage');
-        if (positional.length <= 1) {
-          throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
-        }
-        final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return Future.value(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize})).then((v) => v as Codec); });
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        return t.toString();
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
-        // GEN-103: Dart spec — non-null == null is always false.
-        if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    constructorSignatures: {
-      '': 'const FileImage(File file, {double scale = 1.0})',
-    },
-    methodSignatures: {
-      'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, FileImage key, ImageErrorListener handleError)',
-      'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
-      'obtainKey': 'Future<FileImage> obtainKey(ImageConfiguration configuration)',
-      'loadBuffer': 'ImageStreamCompleter loadBuffer(FileImage key, DecoderBufferCallback decode)',
-      'loadImage': 'ImageStreamCompleter loadImage(FileImage key, ImageDecoderCallback decode)',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'file': 'File get file',
-      'scale': 'double get scale',
-      'hashCode': 'int get hashCode',
     },
   );
 }

@@ -99,11 +99,21 @@ d4rtgen:
     - name: flutter_painting
       barrelImport: package:flutter/painting.dart
       outputPath: lib/src/bridges/painting_bridges.b.dart
+      # Web-safe: FileImage's constructor takes a dart:io File. Dropping it
+      # keeps painting (and the whole bridge set) free of dart:io so the
+      # AST runtime can run on web. Asset/Network/MemoryImage remain.
+      excludeClasses:
+        - FileImage
       skipReExports:
         - dart:ui
     - name: flutter_foundation
       barrelImport: package:flutter/foundation.dart
       outputPath: lib/src/bridges/foundation_bridges.b.dart
+      # Web-safe: consolidateHttpClientResponseBytes takes a dart:io
+      # HttpClientResponse. Dropping it removes the last dart:io reference
+      # from foundation so the bridge set stays analyzer/dart:io-free.
+      excludeFunctions:
+        - consolidateHttpClientResponseBytes
       skipReExports:
         - dart:ui
         - package:flutter/painting.dart
@@ -181,6 +191,11 @@ d4rtgen:
     - name: flutter_widgets
       barrelImport: package:flutter/widgets.dart
       outputPath: lib/src/bridges/widgets_bridges.b.dart
+      # Web-safe: Image.file takes a dart:io File. Drop only that one
+      # constructor — Image.asset/.network/.memory keep working. This is
+      # the last dart:io reference in the widgets bridge.
+      excludeConstructors:
+        - Image.file
       skipReExports:
         - dart:ui
         - package:flutter/painting.dart

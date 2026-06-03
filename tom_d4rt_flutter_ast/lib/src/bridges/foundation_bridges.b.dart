@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 28 files
-// Generated: 2026-06-03T14:47:21.529102
+// Sources: 27 files
+// Generated: 2026-06-03T17:06:47.803246
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -8,7 +8,6 @@ import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
@@ -21,25 +20,24 @@ import 'package:flutter/src/foundation/bitfield.dart' as $flutter_5;
 import 'package:flutter/src/foundation/capabilities.dart' as $flutter_6;
 import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_7;
 import 'package:flutter/src/foundation/collections.dart' as $flutter_8;
-import 'package:flutter/src/foundation/consolidate_response.dart' as $flutter_9;
-import 'package:flutter/src/foundation/constants.dart' as $flutter_10;
-import 'package:flutter/src/foundation/debug.dart' as $flutter_11;
-import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_12;
-import 'package:flutter/src/foundation/isolates.dart' as $flutter_13;
-import 'package:flutter/src/foundation/key.dart' as $flutter_14;
-import 'package:flutter/src/foundation/licenses.dart' as $flutter_15;
-import 'package:flutter/src/foundation/memory_allocations.dart' as $flutter_16;
-import 'package:flutter/src/foundation/object.dart' as $flutter_17;
-import 'package:flutter/src/foundation/observer_list.dart' as $flutter_18;
-import 'package:flutter/src/foundation/persistent_hash_map.dart' as $flutter_19;
-import 'package:flutter/src/foundation/platform.dart' as $flutter_20;
-import 'package:flutter/src/foundation/print.dart' as $flutter_21;
-import 'package:flutter/src/foundation/serialization.dart' as $flutter_22;
-import 'package:flutter/src/foundation/service_extensions.dart' as $flutter_23;
-import 'package:flutter/src/foundation/stack_frame.dart' as $flutter_24;
-import 'package:flutter/src/foundation/synchronous_future.dart' as $flutter_25;
-import 'package:flutter/src/foundation/timeline.dart' as $flutter_26;
-import 'package:flutter/src/foundation/unicode.dart' as $flutter_27;
+import 'package:flutter/src/foundation/constants.dart' as $flutter_9;
+import 'package:flutter/src/foundation/debug.dart' as $flutter_10;
+import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_11;
+import 'package:flutter/src/foundation/isolates.dart' as $flutter_12;
+import 'package:flutter/src/foundation/key.dart' as $flutter_13;
+import 'package:flutter/src/foundation/licenses.dart' as $flutter_14;
+import 'package:flutter/src/foundation/memory_allocations.dart' as $flutter_15;
+import 'package:flutter/src/foundation/object.dart' as $flutter_16;
+import 'package:flutter/src/foundation/observer_list.dart' as $flutter_17;
+import 'package:flutter/src/foundation/persistent_hash_map.dart' as $flutter_18;
+import 'package:flutter/src/foundation/platform.dart' as $flutter_19;
+import 'package:flutter/src/foundation/print.dart' as $flutter_20;
+import 'package:flutter/src/foundation/serialization.dart' as $flutter_21;
+import 'package:flutter/src/foundation/service_extensions.dart' as $flutter_22;
+import 'package:flutter/src/foundation/stack_frame.dart' as $flutter_23;
+import 'package:flutter/src/foundation/synchronous_future.dart' as $flutter_24;
+import 'package:flutter/src/foundation/timeline.dart' as $flutter_25;
+import 'package:flutter/src/foundation/unicode.dart' as $flutter_26;
 import 'package:meta/meta.dart' as $meta_1;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_ast_1;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
@@ -242,21 +240,21 @@ class FlutterFoundationBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$flutter_12.DiagnosticLevel>(
+      BridgedEnumDefinition<$flutter_11.DiagnosticLevel>(
         name: 'DiagnosticLevel',
-        values: $flutter_12.DiagnosticLevel.values,
+        values: $flutter_11.DiagnosticLevel.values,
       ),
-      BridgedEnumDefinition<$flutter_12.DiagnosticsTreeStyle>(
+      BridgedEnumDefinition<$flutter_11.DiagnosticsTreeStyle>(
         name: 'DiagnosticsTreeStyle',
-        values: $flutter_12.DiagnosticsTreeStyle.values,
+        values: $flutter_11.DiagnosticsTreeStyle.values,
       ),
-      BridgedEnumDefinition<$flutter_20.TargetPlatform>(
+      BridgedEnumDefinition<$flutter_19.TargetPlatform>(
         name: 'TargetPlatform',
-        values: $flutter_20.TargetPlatform.values,
+        values: $flutter_19.TargetPlatform.values,
       ),
-      BridgedEnumDefinition<$flutter_23.FoundationServiceExtensions>(
+      BridgedEnumDefinition<$flutter_22.FoundationServiceExtensions>(
         name: 'FoundationServiceExtensions',
-        values: $flutter_23.FoundationServiceExtensions.values,
+        values: $flutter_22.FoundationServiceExtensions.values,
       ),
     ];
   }
@@ -438,57 +436,57 @@ class FlutterFoundationBridge {
       errors.add('Failed to register variable "visibleForTesting": $e');
     }
     try {
-      interpreter.registerGlobalVariable('sparseTextConfiguration', $flutter_12.sparseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('sparseTextConfiguration', $flutter_11.sparseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "sparseTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('dashedTextConfiguration', $flutter_12.dashedTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('dashedTextConfiguration', $flutter_11.dashedTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "dashedTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('denseTextConfiguration', $flutter_12.denseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('denseTextConfiguration', $flutter_11.denseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "denseTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('transitionTextConfiguration', $flutter_12.transitionTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('transitionTextConfiguration', $flutter_11.transitionTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "transitionTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('errorTextConfiguration', $flutter_12.errorTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('errorTextConfiguration', $flutter_11.errorTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "errorTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('whitespaceTextConfiguration', $flutter_12.whitespaceTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('whitespaceTextConfiguration', $flutter_11.whitespaceTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "whitespaceTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('flatTextConfiguration', $flutter_12.flatTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('flatTextConfiguration', $flutter_11.flatTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "flatTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('singleLineTextConfiguration', $flutter_12.singleLineTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('singleLineTextConfiguration', $flutter_11.singleLineTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "singleLineTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('errorPropertyTextConfiguration', $flutter_12.errorPropertyTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('errorPropertyTextConfiguration', $flutter_11.errorPropertyTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "errorPropertyTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('shallowTextConfiguration', $flutter_12.shallowTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('shallowTextConfiguration', $flutter_11.shallowTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "shallowTextConfiguration": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kNoDefaultValue', $flutter_12.kNoDefaultValue, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+      interpreter.registerGlobalVariable('kNoDefaultValue', $flutter_11.kNoDefaultValue, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
     } catch (e) {
       errors.add('Failed to register variable "kNoDefaultValue": $e');
     }
@@ -498,77 +496,77 @@ class FlutterFoundationBridge {
       errors.add('Failed to register variable "kMaxUnsignedSMI": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kReleaseMode', $flutter_10.kReleaseMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('kReleaseMode', $flutter_9.kReleaseMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "kReleaseMode": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kProfileMode', $flutter_10.kProfileMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('kProfileMode', $flutter_9.kProfileMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "kProfileMode": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kDebugMode', $flutter_10.kDebugMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('kDebugMode', $flutter_9.kDebugMode, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDebugMode": $e');
     }
     try {
-      interpreter.registerGlobalVariable('precisionErrorTolerance', $flutter_10.precisionErrorTolerance, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('precisionErrorTolerance', $flutter_9.precisionErrorTolerance, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "precisionErrorTolerance": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kIsWeb', $flutter_10.kIsWeb, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('kIsWeb', $flutter_9.kIsWeb, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "kIsWeb": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kIsWasm', $flutter_10.kIsWasm, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
+      interpreter.registerGlobalVariable('kIsWasm', $flutter_9.kIsWasm, importPath, sourceUri: 'package:flutter/src/foundation/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "kIsWasm": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrint', $flutter_21.debugPrint, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
+      interpreter.registerGlobalVariable('debugPrint', $flutter_20.debugPrint, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrint": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugInstrumentationEnabled', $flutter_11.debugInstrumentationEnabled, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
+      interpreter.registerGlobalVariable('debugInstrumentationEnabled', $flutter_10.debugInstrumentationEnabled, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugInstrumentationEnabled": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugDoublePrecision', $flutter_11.debugDoublePrecision, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
+      interpreter.registerGlobalVariable('debugDoublePrecision', $flutter_10.debugDoublePrecision, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugDoublePrecision": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugBrightnessOverride', $flutter_11.debugBrightnessOverride, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
+      interpreter.registerGlobalVariable('debugBrightnessOverride', $flutter_10.debugBrightnessOverride, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugBrightnessOverride": $e');
     }
     try {
-      interpreter.registerGlobalVariable('activeDevToolsServerAddress', $flutter_11.activeDevToolsServerAddress, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
+      interpreter.registerGlobalVariable('activeDevToolsServerAddress', $flutter_10.activeDevToolsServerAddress, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "activeDevToolsServerAddress": $e');
     }
     try {
-      interpreter.registerGlobalVariable('connectedVmServiceUri', $flutter_11.connectedVmServiceUri, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
+      interpreter.registerGlobalVariable('connectedVmServiceUri', $flutter_10.connectedVmServiceUri, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "connectedVmServiceUri": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kFlutterMemoryAllocationsEnabled', $flutter_16.kFlutterMemoryAllocationsEnabled, importPath, sourceUri: 'package:flutter/src/foundation/memory_allocations.dart');
+      interpreter.registerGlobalVariable('kFlutterMemoryAllocationsEnabled', $flutter_15.kFlutterMemoryAllocationsEnabled, importPath, sourceUri: 'package:flutter/src/foundation/memory_allocations.dart');
     } catch (e) {
       errors.add('Failed to register variable "kFlutterMemoryAllocationsEnabled": $e');
     }
     interpreter.registerGlobalGetter('isCanvasKit', () => $flutter_6.isCanvasKit, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
     interpreter.registerGlobalGetter('isSkwasm', () => $flutter_6.isSkwasm, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
     interpreter.registerGlobalGetter('isSkiaWeb', () => $flutter_6.isSkiaWeb, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
-    interpreter.registerGlobalGetter('debugPrintDone', () => $flutter_21.debugPrintDone, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
-    interpreter.registerGlobalGetter('defaultTargetPlatform', () => $flutter_20.defaultTargetPlatform, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
-    interpreter.registerGlobalGetter('debugDefaultTargetPlatformOverride', () => $flutter_20.debugDefaultTargetPlatformOverride, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
-    interpreter.registerGlobalSetter('debugDefaultTargetPlatformOverride', (v) => $flutter_20.debugDefaultTargetPlatformOverride = v as $flutter_20.TargetPlatform?, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
+    interpreter.registerGlobalGetter('debugPrintDone', () => $flutter_20.debugPrintDone, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
+    interpreter.registerGlobalGetter('defaultTargetPlatform', () => $flutter_19.defaultTargetPlatform, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
+    interpreter.registerGlobalGetter('debugDefaultTargetPlatformOverride', () => $flutter_19.debugDefaultTargetPlatformOverride, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
+    interpreter.registerGlobalSetter('debugDefaultTargetPlatformOverride', (v) => $flutter_19.debugDefaultTargetPlatformOverride = v as $flutter_19.TargetPlatform?, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (flutter_foundation):\n${errors.join("\n")}');
@@ -588,12 +586,12 @@ class FlutterFoundationBridge {
       'shortHash': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'shortHash');
         final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'shortHash');
-        return $flutter_12.shortHash(object);
+        return $flutter_11.shortHash(object);
       },
       'describeIdentity': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'describeIdentity');
         final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'describeIdentity');
-        return $flutter_12.describeIdentity(object);
+        return $flutter_11.describeIdentity(object);
       },
       'debugPrintStack': (visitor, positional, named, typeArgs) {
         final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
@@ -634,43 +632,35 @@ class FlutterFoundationBridge {
         final compare = compareRaw == null ? null : ((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, compareRaw, [p0, p1]) as int; }) as int Function(dynamic, dynamic);
         return $flutter_8.mergeSort<dynamic>(list, start: start, end: end, compare: compare);
       },
-      'consolidateHttpClientResponseBytes': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'consolidateHttpClientResponseBytes');
-        final response = D4.getRequiredArg<HttpClientResponse>(positional, 0, 'response', 'consolidateHttpClientResponseBytes');
-        final autoUncompress = D4.getNamedArgWithDefault<bool>(named, 'autoUncompress', true);
-        final onBytesReceivedRaw = named['onBytesReceived'];
-        final onBytesReceived = onBytesReceivedRaw == null ? null : (int p0, int? p1) { D4.callInterpreterCallback(visitor!, onBytesReceivedRaw, [p0, p1]); };
-        return $flutter_9.consolidateHttpClientResponseBytes(response, autoUncompress: autoUncompress, onBytesReceived: onBytesReceived);
-      },
       'debugPrintSynchronously': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugPrintSynchronously');
         final message = D4.getRequiredArg<String?>(positional, 0, 'message', 'debugPrintSynchronously');
         final wrapWidth = D4.getOptionalNamedArg<int?>(named, 'wrapWidth');
-        return $flutter_21.debugPrintSynchronously(message, wrapWidth: wrapWidth);
+        return $flutter_20.debugPrintSynchronously(message, wrapWidth: wrapWidth);
       },
       'debugPrintThrottled': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugPrintThrottled');
         final message = D4.getRequiredArg<String?>(positional, 0, 'message', 'debugPrintThrottled');
         final wrapWidth = D4.getOptionalNamedArg<int?>(named, 'wrapWidth');
-        return $flutter_21.debugPrintThrottled(message, wrapWidth: wrapWidth);
+        return $flutter_20.debugPrintThrottled(message, wrapWidth: wrapWidth);
       },
       'debugWordWrap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'debugWordWrap');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'debugWordWrap');
         final width = D4.getRequiredArg<int>(positional, 1, 'width', 'debugWordWrap');
         final wrapIndent = D4.getNamedArgWithDefault<String>(named, 'wrapIndent', '');
-        return $flutter_21.debugWordWrap(message, width, wrapIndent: wrapIndent);
+        return $flutter_20.debugWordWrap(message, width, wrapIndent: wrapIndent);
       },
       'debugAssertAllFoundationVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllFoundationVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllFoundationVarsUnset');
         if (!named.containsKey('debugPrintOverride')) {
-          return $flutter_11.debugAssertAllFoundationVarsUnset(reason);
+          return $flutter_10.debugAssertAllFoundationVarsUnset(reason);
         }
         if (named.containsKey('debugPrintOverride')) {
           final debugPrintOverrideRaw = named['debugPrintOverride'];
           final debugPrintOverride = (String? p0, {int? wrapWidth}) { D4.callInterpreterCallback(visitor!, debugPrintOverrideRaw, [p0], {'wrapWidth': wrapWidth}); };
-          return $flutter_11.debugAssertAllFoundationVarsUnset(reason, debugPrintOverride: debugPrintOverride);
+          return $flutter_10.debugAssertAllFoundationVarsUnset(reason, debugPrintOverride: debugPrintOverride);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -682,24 +672,24 @@ class FlutterFoundationBridge {
         }
         final actionRaw = positional[1];
         final action = (() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])).then((v) => v as dynamic); }) as Future<dynamic> Function();
-        return $flutter_11.debugInstrumentAction<dynamic>(description, action);
+        return $flutter_10.debugInstrumentAction<dynamic>(description, action);
       },
       'debugFormatDouble': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugFormatDouble');
         final value = D4.getRequiredArg<double?>(positional, 0, 'value', 'debugFormatDouble');
-        return $flutter_11.debugFormatDouble(value);
+        return $flutter_10.debugFormatDouble(value);
       },
       'debugMaybeDispatchCreated': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'debugMaybeDispatchCreated');
         final flutterLibrary = D4.getRequiredArg<String>(positional, 0, 'flutterLibrary', 'debugMaybeDispatchCreated');
         final className = D4.getRequiredArg<String>(positional, 1, 'className', 'debugMaybeDispatchCreated');
         final object = D4.getRequiredArg<Object>(positional, 2, 'object', 'debugMaybeDispatchCreated');
-        return $flutter_11.debugMaybeDispatchCreated(flutterLibrary, className, object);
+        return $flutter_10.debugMaybeDispatchCreated(flutterLibrary, className, object);
       },
       'debugMaybeDispatchDisposed': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugMaybeDispatchDisposed');
         final object = D4.getRequiredArg<Object>(positional, 0, 'object', 'debugMaybeDispatchDisposed');
-        return $flutter_11.debugMaybeDispatchDisposed(object);
+        return $flutter_10.debugMaybeDispatchDisposed(object);
       },
       'compute': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'compute');
@@ -710,13 +700,13 @@ class FlutterFoundationBridge {
         final callback = ((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic);
         final message = D4.getRequiredArg<dynamic>(positional, 1, 'message', 'compute');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        return $flutter_13.compute<dynamic, dynamic>(callback, message, debugLabel: debugLabel);
+        return $flutter_12.compute<dynamic, dynamic>(callback, message, debugLabel: debugLabel);
       },
       'objectRuntimeType': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'objectRuntimeType');
         final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'objectRuntimeType');
         final optimizedValue = D4.getRequiredArg<String>(positional, 1, 'optimizedValue', 'objectRuntimeType');
-        return $flutter_17.objectRuntimeType(object, optimizedValue);
+        return $flutter_16.objectRuntimeType(object, optimizedValue);
       },
     };
   }
@@ -736,7 +726,6 @@ class FlutterFoundationBridge {
       'mapEquals': 'package:flutter/src/foundation/collections.dart',
       'binarySearch': 'package:flutter/src/foundation/collections.dart',
       'mergeSort': 'package:flutter/src/foundation/collections.dart',
-      'consolidateHttpClientResponseBytes': 'package:flutter/src/foundation/consolidate_response.dart',
       'debugPrintSynchronously': 'package:flutter/src/foundation/print.dart',
       'debugPrintThrottled': 'package:flutter/src/foundation/print.dart',
       'debugWordWrap': 'package:flutter/src/foundation/print.dart',
@@ -762,7 +751,6 @@ class FlutterFoundationBridge {
       'mapEquals': 'bool mapEquals(Map<T, U>? a, Map<T, U>? b)',
       'binarySearch': 'int binarySearch(List<T> sortedList, T value)',
       'mergeSort': 'void mergeSort(List<T> list, {int start = 0, int? end, int Function(T, T)? compare})',
-      'consolidateHttpClientResponseBytes': 'Future<Uint8List> consolidateHttpClientResponseBytes(HttpClientResponse response, {bool autoUncompress = true, BytesReceivedCallback? onBytesReceived})',
       'debugPrintSynchronously': 'void debugPrintSynchronously(String? message, {int? wrapWidth})',
       'debugPrintThrottled': 'void debugPrintThrottled(String? message, {int? wrapWidth})',
       'debugWordWrap': 'Iterable<String> debugWordWrap(String message, int width, {String wrapIndent = \'\'})',
@@ -791,7 +779,6 @@ class FlutterFoundationBridge {
       'package:flutter/src/foundation/capabilities.dart',
       'package:flutter/src/foundation/change_notifier.dart',
       'package:flutter/src/foundation/collections.dart',
-      'package:flutter/src/foundation/consolidate_response.dart',
       'package:flutter/src/foundation/constants.dart',
       'package:flutter/src/foundation/debug.dart',
       'package:flutter/src/foundation/diagnostics.dart',
@@ -1232,9 +1219,9 @@ BridgedClass _createFactoryBridge() {
 
 BridgedClass _createTextTreeConfigurationBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.TextTreeConfiguration,
+    nativeType: $flutter_11.TextTreeConfiguration,
     name: 'TextTreeConfiguration',
-    isAssignable: (v) => v is $flutter_12.TextTreeConfiguration,
+    isAssignable: (v) => v is $flutter_11.TextTreeConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final prefixLineOne = D4.getRequiredNamedArg<String>(named, 'prefixLineOne', 'TextTreeConfiguration');
@@ -1262,36 +1249,36 @@ BridgedClass _createTextTreeConfigurationBridge() {
         final beforeName = D4.getNamedArgWithDefault<String>(named, 'beforeName', '');
         final suffixLineOne = D4.getNamedArgWithDefault<String>(named, 'suffixLineOne', '');
         final mandatoryFooter = D4.getNamedArgWithDefault<String>(named, 'mandatoryFooter', '');
-        return $flutter_12.TextTreeConfiguration(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, prefixLastChildLineOne: prefixLastChildLineOne, prefixOtherLinesRootNode: prefixOtherLinesRootNode, linkCharacter: linkCharacter, propertyPrefixIfChildren: propertyPrefixIfChildren, propertyPrefixNoChildren: propertyPrefixNoChildren, lineBreak: lineBreak, lineBreakProperties: lineBreakProperties, afterName: afterName, afterDescriptionIfBody: afterDescriptionIfBody, afterDescription: afterDescription, beforeProperties: beforeProperties, afterProperties: afterProperties, mandatoryAfterProperties: mandatoryAfterProperties, propertySeparator: propertySeparator, bodyIndent: bodyIndent, footer: footer, showChildren: showChildren, addBlankLineIfNoChildren: addBlankLineIfNoChildren, isNameOnOwnLine: isNameOnOwnLine, isBlankLineBetweenPropertiesAndChildren: isBlankLineBetweenPropertiesAndChildren, beforeName: beforeName, suffixLineOne: suffixLineOne, mandatoryFooter: mandatoryFooter);
+        return $flutter_11.TextTreeConfiguration(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, prefixLastChildLineOne: prefixLastChildLineOne, prefixOtherLinesRootNode: prefixOtherLinesRootNode, linkCharacter: linkCharacter, propertyPrefixIfChildren: propertyPrefixIfChildren, propertyPrefixNoChildren: propertyPrefixNoChildren, lineBreak: lineBreak, lineBreakProperties: lineBreakProperties, afterName: afterName, afterDescriptionIfBody: afterDescriptionIfBody, afterDescription: afterDescription, beforeProperties: beforeProperties, afterProperties: afterProperties, mandatoryAfterProperties: mandatoryAfterProperties, propertySeparator: propertySeparator, bodyIndent: bodyIndent, footer: footer, showChildren: showChildren, addBlankLineIfNoChildren: addBlankLineIfNoChildren, isNameOnOwnLine: isNameOnOwnLine, isBlankLineBetweenPropertiesAndChildren: isBlankLineBetweenPropertiesAndChildren, beforeName: beforeName, suffixLineOne: suffixLineOne, mandatoryFooter: mandatoryFooter);
       },
     },
     getters: {
-      'prefixLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLineOne,
-      'suffixLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').suffixLineOne,
-      'prefixOtherLines': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLines,
-      'prefixLastChildLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLastChildLineOne,
-      'prefixOtherLinesRootNode': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLinesRootNode,
-      'propertyPrefixIfChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixIfChildren,
-      'propertyPrefixNoChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixNoChildren,
-      'linkCharacter': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').linkCharacter,
-      'childLinkSpace': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').childLinkSpace,
-      'lineBreak': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreak,
-      'lineBreakProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreakProperties,
-      'beforeName': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeName,
-      'afterName': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterName,
-      'afterDescriptionIfBody': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescriptionIfBody,
-      'afterDescription': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescription,
-      'beforeProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeProperties,
-      'afterProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterProperties,
-      'mandatoryAfterProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryAfterProperties,
-      'propertySeparator': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertySeparator,
-      'bodyIndent': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').bodyIndent,
-      'showChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').showChildren,
-      'addBlankLineIfNoChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').addBlankLineIfNoChildren,
-      'isNameOnOwnLine': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').isNameOnOwnLine,
-      'footer': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').footer,
-      'mandatoryFooter': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryFooter,
-      'isBlankLineBetweenPropertiesAndChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').isBlankLineBetweenPropertiesAndChildren,
+      'prefixLineOne': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLineOne,
+      'suffixLineOne': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').suffixLineOne,
+      'prefixOtherLines': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLines,
+      'prefixLastChildLineOne': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLastChildLineOne,
+      'prefixOtherLinesRootNode': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLinesRootNode,
+      'propertyPrefixIfChildren': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixIfChildren,
+      'propertyPrefixNoChildren': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixNoChildren,
+      'linkCharacter': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').linkCharacter,
+      'childLinkSpace': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').childLinkSpace,
+      'lineBreak': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreak,
+      'lineBreakProperties': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreakProperties,
+      'beforeName': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeName,
+      'afterName': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterName,
+      'afterDescriptionIfBody': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescriptionIfBody,
+      'afterDescription': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescription,
+      'beforeProperties': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeProperties,
+      'afterProperties': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterProperties,
+      'mandatoryAfterProperties': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryAfterProperties,
+      'propertySeparator': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertySeparator,
+      'bodyIndent': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').bodyIndent,
+      'showChildren': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').showChildren,
+      'addBlankLineIfNoChildren': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').addBlankLineIfNoChildren,
+      'isNameOnOwnLine': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').isNameOnOwnLine,
+      'footer': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').footer,
+      'mandatoryFooter': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryFooter,
+      'isBlankLineBetweenPropertiesAndChildren': (visitor, target) => D4.validateTarget<$flutter_11.TextTreeConfiguration>(target, 'TextTreeConfiguration').isBlankLineBetweenPropertiesAndChildren,
     },
     constructorSignatures: {
       '': 'TextTreeConfiguration({required String prefixLineOne, required String prefixOtherLines, required String prefixLastChildLineOne, required String prefixOtherLinesRootNode, required String linkCharacter, required String propertyPrefixIfChildren, required String propertyPrefixNoChildren, String lineBreak = \'\\n\', bool lineBreakProperties = true, String afterName = \':\', String afterDescriptionIfBody = \'\', String afterDescription = \'\', String beforeProperties = \'\', String afterProperties = \'\', String mandatoryAfterProperties = \'\', String propertySeparator = \'\', String bodyIndent = \'\', String footer = \'\', bool showChildren = true, bool addBlankLineIfNoChildren = true, bool isNameOnOwnLine = false, bool isBlankLineBetweenPropertiesAndChildren = true, String beforeName = \'\', String suffixLineOne = \'\', String mandatoryFooter = \'\'})',
@@ -1333,26 +1320,26 @@ BridgedClass _createTextTreeConfigurationBridge() {
 
 BridgedClass _createTextTreeRendererBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.TextTreeRenderer,
+    nativeType: $flutter_11.TextTreeRenderer,
     name: 'TextTreeRenderer',
-    isAssignable: (v) => v is $flutter_12.TextTreeRenderer,
+    isAssignable: (v) => v is $flutter_11.TextTreeRenderer,
     constructors: {
       '': (visitor, positional, named) {
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 100);
         final wrapWidthProperties = D4.getNamedArgWithDefault<int>(named, 'wrapWidthProperties', 65);
         final maxDescendentsTruncatableNode = D4.getNamedArgWithDefault<int>(named, 'maxDescendentsTruncatableNode', -1);
-        return $flutter_12.TextTreeRenderer(minLevel: minLevel, wrapWidth: wrapWidth, wrapWidthProperties: wrapWidthProperties, maxDescendentsTruncatableNode: maxDescendentsTruncatableNode);
+        return $flutter_11.TextTreeRenderer(minLevel: minLevel, wrapWidth: wrapWidth, wrapWidthProperties: wrapWidthProperties, maxDescendentsTruncatableNode: maxDescendentsTruncatableNode);
       },
     },
     methods: {
       'render': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.TextTreeRenderer>(target, 'TextTreeRenderer');
+        final t = D4.validateTarget<$flutter_11.TextTreeRenderer>(target, 'TextTreeRenderer');
         D4.requireMinArgs(positional, 1, 'render');
-        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'render');
+        final node = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 0, 'node', 'render');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.render(node, prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration);
       },
     },
@@ -1371,82 +1358,82 @@ BridgedClass _createTextTreeRendererBridge() {
 
 BridgedClass _createDiagnosticsNodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticsNode,
+    nativeType: $flutter_11.DiagnosticsNode,
     name: 'DiagnosticsNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsNode,
+    isAssignable: (v) => v is $flutter_11.DiagnosticsNode,
     isAbstract: true,
     constructors: {
       'message': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsNode');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'DiagnosticsNode');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
-        return $flutter_12.DiagnosticsNode.message(message, style: style, level: level, allowWrap: allowWrap);
+        return $flutter_11.DiagnosticsNode.message(message, style: style, level: level, allowWrap: allowWrap);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').textTreeConfiguration,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode').textTreeConfiguration,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsNode>(target, 'DiagnosticsNode');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -1457,10 +1444,10 @@ BridgedClass _createDiagnosticsNodeBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('toJsonList: Missing required argument "nodes" at position 0');
         }
-        final nodes = D4.coerceListOrNull<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
-        final parent = D4.getRequiredArg<$flutter_12.DiagnosticsNode?>(positional, 1, 'parent', 'toJsonList');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 2, 'delegate', 'toJsonList');
-        return $flutter_12.DiagnosticsNode.toJsonList(nodes, parent, delegate);
+        final nodes = D4.coerceListOrNull<$flutter_11.DiagnosticsNode>(positional[0], 'nodes');
+        final parent = D4.getRequiredArg<$flutter_11.DiagnosticsNode?>(positional, 1, 'parent', 'toJsonList');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 2, 'delegate', 'toJsonList');
+        return $flutter_11.DiagnosticsNode.toJsonList(nodes, parent, delegate);
       },
     },
     constructorSignatures: {
@@ -1503,97 +1490,97 @@ BridgedClass _createDiagnosticsNodeBridge() {
 
 BridgedClass _createMessagePropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.MessageProperty,
+    nativeType: $flutter_11.MessageProperty,
     name: 'MessageProperty',
-    isAssignable: (v) => v is $flutter_12.MessageProperty,
+    isAssignable: (v) => v is $flutter_11.MessageProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MessageProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'MessageProperty');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'MessageProperty');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
-        return $flutter_12.MessageProperty(name, message, style: style, level: level);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
+        return $flutter_11.MessageProperty(name, message, style: style, level: level);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').isInteresting,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty').isInteresting,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -1644,9 +1631,9 @@ BridgedClass _createMessagePropertyBridge() {
 
 BridgedClass _createStringPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.StringProperty,
+    nativeType: $flutter_11.StringProperty,
     name: 'StringProperty',
-    isAssignable: (v) => v is $flutter_12.StringProperty,
+    isAssignable: (v) => v is $flutter_11.StringProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -1658,96 +1645,96 @@ BridgedClass _createStringPropertyBridge() {
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final quoted = D4.getNamedArgWithDefault<bool>(named, 'quoted', true);
         final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level);
+          return $flutter_11.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'StringProperty');
-          return $flutter_12.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_11.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').isInteresting,
-      'quoted': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').quoted,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').isInteresting,
+      'quoted': (visitor, target) => D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty').quoted,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -1799,9 +1786,9 @@ BridgedClass _createStringPropertyBridge() {
 
 BridgedClass _createDoublePropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DoubleProperty,
+    nativeType: $flutter_11.DoubleProperty,
     name: 'DoubleProperty',
-    isAssignable: (v) => v is $flutter_12.DoubleProperty,
+    isAssignable: (v) => v is $flutter_11.DoubleProperty,
     hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
@@ -1812,14 +1799,14 @@ BridgedClass _createDoublePropertyBridge() {
         final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level);
+          return $flutter_11.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DoubleProperty');
-          return $flutter_12.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_11.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -1834,98 +1821,98 @@ BridgedClass _createDoublePropertyBridge() {
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.DoubleProperty.lazy(name, (() { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as double?; }) as double? Function(), ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level);
+          return $flutter_11.DoubleProperty.lazy(name, (() { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as double?; }) as double? Function(), ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DoubleProperty');
-          return $flutter_12.DoubleProperty.lazy(name, (() { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as double?; }) as double? Function(), ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level, defaultValue: defaultValue);
+          return $flutter_11.DoubleProperty.lazy(name, (() { return D4.callInterpreterCallback(visitor!, computeValueRaw, []) as double?; }) as double? Function(), ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'unit': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').unit,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').expandableValue,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowNameWrap,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').missingIfNull,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').propertyType,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').value,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').defaultValue,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').isInteresting,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').level,
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').emptyBodyDescription,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').style,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').textTreeConfiguration,
+      'unit': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty').textTreeConfiguration,
     },
     methods: {
       'numberToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         return t.numberToString();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         return t.getChildren();
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         return t.toTimelineArguments();
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final t = D4.validateTarget<$flutter_11.DoubleProperty>(target, 'DoubleProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -1980,9 +1967,9 @@ BridgedClass _createDoublePropertyBridge() {
 
 BridgedClass _createIntPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.IntProperty,
+    nativeType: $flutter_11.IntProperty,
     name: 'IntProperty',
-    isAssignable: (v) => v is $flutter_12.IntProperty,
+    isAssignable: (v) => v is $flutter_11.IntProperty,
     hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
@@ -1992,99 +1979,99 @@ BridgedClass _createIntPropertyBridge() {
         final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level);
+          return $flutter_11.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'IntProperty');
-          return $flutter_12.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_11.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'unit': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').unit,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').expandableValue,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowNameWrap,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').missingIfNull,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').propertyType,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').value,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').defaultValue,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').isInteresting,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').level,
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').emptyBodyDescription,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').style,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').textTreeConfiguration,
+      'unit': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty').textTreeConfiguration,
     },
     methods: {
       'numberToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         return t.numberToString();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         return t.getChildren();
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         return t.toTimelineArguments();
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final t = D4.validateTarget<$flutter_11.IntProperty>(target, 'IntProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -2138,9 +2125,9 @@ BridgedClass _createIntPropertyBridge() {
 
 BridgedClass _createPercentPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.PercentProperty,
+    nativeType: $flutter_11.PercentProperty,
     name: 'PercentProperty',
-    isAssignable: (v) => v is $flutter_12.PercentProperty,
+    isAssignable: (v) => v is $flutter_11.PercentProperty,
     hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
@@ -2151,91 +2138,91 @@ BridgedClass _createPercentPropertyBridge() {
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
         final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
-        return $flutter_12.PercentProperty(name, fraction, ifNull: ifNull, showName: showName, tooltip: tooltip, unit: unit, level: level);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
+        return $flutter_11.PercentProperty(name, fraction, ifNull: ifNull, showName: showName, tooltip: tooltip, unit: unit, level: level);
       },
     },
     getters: {
-      'unit': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').unit,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').expandableValue,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowNameWrap,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').missingIfNull,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').propertyType,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').value,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').defaultValue,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').isInteresting,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').level,
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').emptyBodyDescription,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').style,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').textTreeConfiguration,
+      'unit': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty').textTreeConfiguration,
     },
     methods: {
       'numberToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         return t.numberToString();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         return t.getChildren();
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         return t.toTimelineArguments();
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final t = D4.validateTarget<$flutter_11.PercentProperty>(target, 'PercentProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -2289,9 +2276,9 @@ BridgedClass _createPercentPropertyBridge() {
 
 BridgedClass _createFlagPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.FlagProperty,
+    nativeType: $flutter_11.FlagProperty,
     name: 'FlagProperty',
-    isAssignable: (v) => v is $flutter_12.FlagProperty,
+    isAssignable: (v) => v is $flutter_11.FlagProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -2302,89 +2289,89 @@ BridgedClass _createFlagPropertyBridge() {
         final ifFalse = D4.getOptionalNamedArg<String?>(named, 'ifFalse');
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', false);
         final defaultValue = D4.getOptionalNamedArg<Object?>(named, 'defaultValue');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
-        return $flutter_12.FlagProperty(name, value: value, ifTrue: ifTrue, ifFalse: ifFalse, showName: showName, defaultValue: defaultValue, level: level);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
+        return $flutter_11.FlagProperty(name, value: value, ifTrue: ifTrue, ifFalse: ifFalse, showName: showName, defaultValue: defaultValue, level: level);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').isInteresting,
-      'ifTrue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifTrue,
-      'ifFalse': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifFalse,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').isInteresting,
+      'ifTrue': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').ifTrue,
+      'ifFalse': (visitor, target) => D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty').ifFalse,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -2437,9 +2424,9 @@ BridgedClass _createFlagPropertyBridge() {
 
 BridgedClass _createIterablePropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.IterableProperty,
+    nativeType: $flutter_11.IterableProperty,
     name: 'IterableProperty',
-    isAssignable: (v) => v is $flutter_12.IterableProperty,
+    isAssignable: (v) => v is $flutter_11.IterableProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -2451,97 +2438,97 @@ BridgedClass _createIterablePropertyBridge() {
         final value = D4.coerceListOrNull<dynamic>(positional[1], 'value');
         final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
         final ifEmpty = D4.getNamedArgWithDefault<String?>(named, 'ifEmpty', '[]');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level);
+          return $flutter_11.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'IterableProperty');
-          return $flutter_12.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level, defaultValue: defaultValue);
+          return $flutter_11.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').isInteresting,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty').isInteresting,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -2592,103 +2579,103 @@ BridgedClass _createIterablePropertyBridge() {
 
 BridgedClass _createEnumPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.EnumProperty,
+    nativeType: $flutter_11.EnumProperty,
     name: 'EnumProperty',
-    isAssignable: (v) => v is $flutter_12.EnumProperty,
+    isAssignable: (v) => v is $flutter_11.EnumProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EnumProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'EnumProperty');
         final value = D4.getRequiredArg<Enum?>(positional, 1, 'value', 'EnumProperty');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.EnumProperty(name, value, level: level);
+          return $flutter_11.EnumProperty(name, value, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'EnumProperty');
-          return $flutter_12.EnumProperty(name, value, level: level, defaultValue: defaultValue);
+          return $flutter_11.EnumProperty(name, value, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').isInteresting,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty').isInteresting,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -2739,9 +2726,9 @@ BridgedClass _createEnumPropertyBridge() {
 
 BridgedClass _createObjectFlagPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.ObjectFlagProperty,
+    nativeType: $flutter_11.ObjectFlagProperty,
     name: 'ObjectFlagProperty',
-    isAssignable: (v) => v is $flutter_12.ObjectFlagProperty,
+    isAssignable: (v) => v is $flutter_11.ObjectFlagProperty,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -2751,243 +2738,243 @@ BridgedClass _createObjectFlagPropertyBridge() {
         final ifPresent = D4.getOptionalNamedArg<String?>(named, 'ifPresent');
         final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', false);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_12.ObjectFlagProperty<double>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case int _: return $flutter_12.ObjectFlagProperty<int>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case String _: return $flutter_12.ObjectFlagProperty<String>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case bool _: return $flutter_12.ObjectFlagProperty<bool>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.FlutterError _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterError>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.PercentProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.PercentProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DoubleProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DoubleProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.ErrorDescription _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorDescription>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.ErrorHint _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorHint>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.ErrorSummary _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.IntProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IntProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_7.ValueNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeMixin>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticableTreeNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.DiagnosticsStackTrace _: return $flutter_12.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.EnumProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.EnumProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.ErrorSpacer _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSpacer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.FlagProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.FlagsSummary _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagsSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.IterableProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IterableProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.MessageProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.MessageProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.StringProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.StringProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_14.UniqueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.UniqueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_14.ValueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.ValueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_3.CachingIterable _: return $flutter_12.ObjectFlagProperty<$flutter_3.CachingIterable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_7.ChangeNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ChangeNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticableNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticableTree _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTree>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticsBlock _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticsProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.FlutterErrorDetails _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_18.HashedObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.HashedObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntryWithLineBreaks>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_14.LocalKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.LocalKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_16.ObjectCreated _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectCreated>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_16.ObjectDisposed _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectDisposed>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_18.ObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.ObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_25.SynchronousFuture _: return $flutter_12.ObjectFlagProperty<$flutter_25.SynchronousFuture>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_7.ValueListenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueListenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_26.AggregatedTimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_26.AggregatedTimings _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimings>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_4.BindingBase _: return $flutter_12.ObjectFlagProperty<$flutter_4.BindingBase>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_5.BitField _: return $flutter_12.ObjectFlagProperty<$flutter_5.BitField>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_1.Category _: return $flutter_12.ObjectFlagProperty<$flutter_1.Category>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticPropertiesBuilder>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.Diagnosticable _: return $flutter_12.ObjectFlagProperty<$flutter_12.Diagnosticable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticsNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsSerializationDelegate>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_1.DocumentationIcon _: return $flutter_12.ObjectFlagProperty<$flutter_1.DocumentationIcon>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_3.Factory _: return $flutter_12.ObjectFlagProperty<$flutter_3.Factory>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_16.FlutterMemoryAllocations _: return $flutter_12.ObjectFlagProperty<$flutter_16.FlutterMemoryAllocations>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_26.FlutterTimeline _: return $flutter_12.ObjectFlagProperty<$flutter_26.FlutterTimeline>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $meta_1.Immutable _: return $flutter_12.ObjectFlagProperty<$meta_1.Immutable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_14.Key _: return $flutter_12.ObjectFlagProperty<$flutter_14.Key>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_15.LicenseEntry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_15.LicenseParagraph _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseParagraph>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_15.LicenseRegistry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseRegistry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_7.Listenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.Listenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_16.ObjectEvent _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectEvent>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.PartialStackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_2.PartialStackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_19.PersistentHashMap _: return $flutter_12.ObjectFlagProperty<$flutter_19.PersistentHashMap>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_22.ReadBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.ReadBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_2.StackFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.StackFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_24.StackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_24.StackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_1.Summary _: return $flutter_12.ObjectFlagProperty<$flutter_1.Summary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.TextTreeConfiguration _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeConfiguration>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_12.TextTreeRenderer _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeRenderer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_26.TimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.TimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_27.Unicode _: return $flutter_12.ObjectFlagProperty<$flutter_27.Unicode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          case $flutter_22.WriteBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.WriteBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
-          default: return $flutter_12.ObjectFlagProperty(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case double _: return $flutter_11.ObjectFlagProperty<double>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case int _: return $flutter_11.ObjectFlagProperty<int>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case String _: return $flutter_11.ObjectFlagProperty<String>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case bool _: return $flutter_11.ObjectFlagProperty<bool>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.FlutterError _: return $flutter_11.ObjectFlagProperty<$flutter_2.FlutterError>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.PercentProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.PercentProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DoubleProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.DoubleProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorDescription _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorDescription>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorHint _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorHint>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorSummary _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.IntProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.IntProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ValueNotifier _: return $flutter_11.ObjectFlagProperty<$flutter_7.ValueNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticableTreeMixin _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTreeMixin>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticableTreeNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTreeNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_11.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.EnumProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.EnumProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.ErrorSpacer _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorSpacer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.FlagProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.FlagProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.FlagsSummary _: return $flutter_11.ObjectFlagProperty<$flutter_11.FlagsSummary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.IterableProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.IterableProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.MessageProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.MessageProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.StringProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.StringProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_13.UniqueKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.UniqueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_13.ValueKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.ValueKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_3.CachingIterable _: return $flutter_11.ObjectFlagProperty<$flutter_3.CachingIterable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ChangeNotifier _: return $flutter_11.ObjectFlagProperty<$flutter_7.ChangeNotifier>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticableNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticableTree _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTree>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticsBlock _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticsProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsProperty>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_11.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_17.HashedObserverList _: return $flutter_11.ObjectFlagProperty<$flutter_17.HashedObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.LicenseEntryWithLineBreaks _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseEntryWithLineBreaks>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_13.LocalKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.LocalKey>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.ObjectCreated _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectCreated>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.ObjectDisposed _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectDisposed>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_17.ObserverList _: return $flutter_11.ObjectFlagProperty<$flutter_17.ObserverList>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_11.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_24.SynchronousFuture _: return $flutter_11.ObjectFlagProperty<$flutter_24.SynchronousFuture>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.ValueListenable _: return $flutter_11.ObjectFlagProperty<$flutter_7.ValueListenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_25.AggregatedTimedBlock _: return $flutter_11.ObjectFlagProperty<$flutter_25.AggregatedTimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_25.AggregatedTimings _: return $flutter_11.ObjectFlagProperty<$flutter_25.AggregatedTimings>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_4.BindingBase _: return $flutter_11.ObjectFlagProperty<$flutter_4.BindingBase>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_5.BitField _: return $flutter_11.ObjectFlagProperty<$flutter_5.BitField>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.Category _: return $flutter_11.ObjectFlagProperty<$flutter_1.Category>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticPropertiesBuilder _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticPropertiesBuilder>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.Diagnosticable _: return $flutter_11.ObjectFlagProperty<$flutter_11.Diagnosticable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticsNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsNode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.DiagnosticsSerializationDelegate _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsSerializationDelegate>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.DocumentationIcon _: return $flutter_11.ObjectFlagProperty<$flutter_1.DocumentationIcon>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_3.Factory _: return $flutter_11.ObjectFlagProperty<$flutter_3.Factory>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.FlutterMemoryAllocations _: return $flutter_11.ObjectFlagProperty<$flutter_15.FlutterMemoryAllocations>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_25.FlutterTimeline _: return $flutter_11.ObjectFlagProperty<$flutter_25.FlutterTimeline>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $meta_1.Immutable _: return $flutter_11.ObjectFlagProperty<$meta_1.Immutable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_13.Key _: return $flutter_11.ObjectFlagProperty<$flutter_13.Key>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.LicenseEntry _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseEntry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.LicenseParagraph _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseParagraph>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_14.LicenseRegistry _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseRegistry>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_7.Listenable _: return $flutter_11.ObjectFlagProperty<$flutter_7.Listenable>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_15.ObjectEvent _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectEvent>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.PartialStackFrame _: return $flutter_11.ObjectFlagProperty<$flutter_2.PartialStackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_18.PersistentHashMap _: return $flutter_11.ObjectFlagProperty<$flutter_18.PersistentHashMap>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_21.ReadBuffer _: return $flutter_11.ObjectFlagProperty<$flutter_21.ReadBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_2.StackFilter _: return $flutter_11.ObjectFlagProperty<$flutter_2.StackFilter>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_23.StackFrame _: return $flutter_11.ObjectFlagProperty<$flutter_23.StackFrame>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_1.Summary _: return $flutter_11.ObjectFlagProperty<$flutter_1.Summary>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.TextTreeConfiguration _: return $flutter_11.ObjectFlagProperty<$flutter_11.TextTreeConfiguration>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_11.TextTreeRenderer _: return $flutter_11.ObjectFlagProperty<$flutter_11.TextTreeRenderer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_25.TimedBlock _: return $flutter_11.ObjectFlagProperty<$flutter_25.TimedBlock>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_26.Unicode _: return $flutter_11.ObjectFlagProperty<$flutter_26.Unicode>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          case $flutter_21.WriteBuffer _: return $flutter_11.ObjectFlagProperty<$flutter_21.WriteBuffer>(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+          default: return $flutter_11.ObjectFlagProperty(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
         }
       },
       'has': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ObjectFlagProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ObjectFlagProperty');
         final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'ObjectFlagProperty');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_12.ObjectFlagProperty<double>.has(name, value, level: level);
-          case int _: return $flutter_12.ObjectFlagProperty<int>.has(name, value, level: level);
-          case String _: return $flutter_12.ObjectFlagProperty<String>.has(name, value, level: level);
-          case bool _: return $flutter_12.ObjectFlagProperty<bool>.has(name, value, level: level);
-          case $flutter_2.FlutterError _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterError>.has(name, value, level: level);
-          case $flutter_12.PercentProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.PercentProperty>.has(name, value, level: level);
-          case $flutter_12.DoubleProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DoubleProperty>.has(name, value, level: level);
-          case $flutter_2.ErrorDescription _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorDescription>.has(name, value, level: level);
-          case $flutter_2.ErrorHint _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorHint>.has(name, value, level: level);
-          case $flutter_2.ErrorSummary _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSummary>.has(name, value, level: level);
-          case $flutter_12.IntProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IntProperty>.has(name, value, level: level);
-          case $flutter_7.ValueNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueNotifier>.has(name, value, level: level);
-          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeMixin>.has(name, value, level: level);
-          case $flutter_12.DiagnosticableTreeNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTreeNode>.has(name, value, level: level);
-          case $flutter_2.DiagnosticsStackTrace _: return $flutter_12.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>.has(name, value, level: level);
-          case $flutter_12.EnumProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.EnumProperty>.has(name, value, level: level);
-          case $flutter_2.ErrorSpacer _: return $flutter_12.ObjectFlagProperty<$flutter_2.ErrorSpacer>.has(name, value, level: level);
-          case $flutter_12.FlagProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagProperty>.has(name, value, level: level);
-          case $flutter_12.FlagsSummary _: return $flutter_12.ObjectFlagProperty<$flutter_12.FlagsSummary>.has(name, value, level: level);
-          case $flutter_12.IterableProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.IterableProperty>.has(name, value, level: level);
-          case $flutter_12.MessageProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.MessageProperty>.has(name, value, level: level);
-          case $flutter_12.StringProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.StringProperty>.has(name, value, level: level);
-          case $flutter_14.UniqueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.UniqueKey>.has(name, value, level: level);
-          case $flutter_14.ValueKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.ValueKey>.has(name, value, level: level);
-          case $flutter_3.CachingIterable _: return $flutter_12.ObjectFlagProperty<$flutter_3.CachingIterable>.has(name, value, level: level);
-          case $flutter_7.ChangeNotifier _: return $flutter_12.ObjectFlagProperty<$flutter_7.ChangeNotifier>.has(name, value, level: level);
-          case $flutter_12.DiagnosticableNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableNode>.has(name, value, level: level);
-          case $flutter_12.DiagnosticableTree _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticableTree>.has(name, value, level: level);
-          case $flutter_12.DiagnosticsBlock _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsBlock>.has(name, value, level: level);
-          case $flutter_12.DiagnosticsProperty _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsProperty>.has(name, value, level: level);
-          case $flutter_2.FlutterErrorDetails _: return $flutter_12.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>.has(name, value, level: level);
-          case $flutter_18.HashedObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.HashedObserverList>.has(name, value, level: level);
-          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntryWithLineBreaks>.has(name, value, level: level);
-          case $flutter_14.LocalKey _: return $flutter_12.ObjectFlagProperty<$flutter_14.LocalKey>.has(name, value, level: level);
-          case $flutter_16.ObjectCreated _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectCreated>.has(name, value, level: level);
-          case $flutter_16.ObjectDisposed _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectDisposed>.has(name, value, level: level);
-          case $flutter_18.ObserverList _: return $flutter_12.ObjectFlagProperty<$flutter_18.ObserverList>.has(name, value, level: level);
-          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>.has(name, value, level: level);
-          case $flutter_25.SynchronousFuture _: return $flutter_12.ObjectFlagProperty<$flutter_25.SynchronousFuture>.has(name, value, level: level);
-          case $flutter_7.ValueListenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.ValueListenable>.has(name, value, level: level);
-          case $flutter_26.AggregatedTimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimedBlock>.has(name, value, level: level);
-          case $flutter_26.AggregatedTimings _: return $flutter_12.ObjectFlagProperty<$flutter_26.AggregatedTimings>.has(name, value, level: level);
-          case $flutter_4.BindingBase _: return $flutter_12.ObjectFlagProperty<$flutter_4.BindingBase>.has(name, value, level: level);
-          case $flutter_5.BitField _: return $flutter_12.ObjectFlagProperty<$flutter_5.BitField>.has(name, value, level: level);
-          case $flutter_1.Category _: return $flutter_12.ObjectFlagProperty<$flutter_1.Category>.has(name, value, level: level);
-          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticPropertiesBuilder>.has(name, value, level: level);
-          case $flutter_12.Diagnosticable _: return $flutter_12.ObjectFlagProperty<$flutter_12.Diagnosticable>.has(name, value, level: level);
-          case $flutter_12.DiagnosticsNode _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsNode>.has(name, value, level: level);
-          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_12.ObjectFlagProperty<$flutter_12.DiagnosticsSerializationDelegate>.has(name, value, level: level);
-          case $flutter_1.DocumentationIcon _: return $flutter_12.ObjectFlagProperty<$flutter_1.DocumentationIcon>.has(name, value, level: level);
-          case $flutter_3.Factory _: return $flutter_12.ObjectFlagProperty<$flutter_3.Factory>.has(name, value, level: level);
-          case $flutter_16.FlutterMemoryAllocations _: return $flutter_12.ObjectFlagProperty<$flutter_16.FlutterMemoryAllocations>.has(name, value, level: level);
-          case $flutter_26.FlutterTimeline _: return $flutter_12.ObjectFlagProperty<$flutter_26.FlutterTimeline>.has(name, value, level: level);
-          case $meta_1.Immutable _: return $flutter_12.ObjectFlagProperty<$meta_1.Immutable>.has(name, value, level: level);
-          case $flutter_14.Key _: return $flutter_12.ObjectFlagProperty<$flutter_14.Key>.has(name, value, level: level);
-          case $flutter_15.LicenseEntry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseEntry>.has(name, value, level: level);
-          case $flutter_15.LicenseParagraph _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseParagraph>.has(name, value, level: level);
-          case $flutter_15.LicenseRegistry _: return $flutter_12.ObjectFlagProperty<$flutter_15.LicenseRegistry>.has(name, value, level: level);
-          case $flutter_7.Listenable _: return $flutter_12.ObjectFlagProperty<$flutter_7.Listenable>.has(name, value, level: level);
-          case $flutter_16.ObjectEvent _: return $flutter_12.ObjectFlagProperty<$flutter_16.ObjectEvent>.has(name, value, level: level);
-          case $flutter_2.PartialStackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_2.PartialStackFrame>.has(name, value, level: level);
-          case $flutter_19.PersistentHashMap _: return $flutter_12.ObjectFlagProperty<$flutter_19.PersistentHashMap>.has(name, value, level: level);
-          case $flutter_22.ReadBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.ReadBuffer>.has(name, value, level: level);
-          case $flutter_2.StackFilter _: return $flutter_12.ObjectFlagProperty<$flutter_2.StackFilter>.has(name, value, level: level);
-          case $flutter_24.StackFrame _: return $flutter_12.ObjectFlagProperty<$flutter_24.StackFrame>.has(name, value, level: level);
-          case $flutter_1.Summary _: return $flutter_12.ObjectFlagProperty<$flutter_1.Summary>.has(name, value, level: level);
-          case $flutter_12.TextTreeConfiguration _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeConfiguration>.has(name, value, level: level);
-          case $flutter_12.TextTreeRenderer _: return $flutter_12.ObjectFlagProperty<$flutter_12.TextTreeRenderer>.has(name, value, level: level);
-          case $flutter_26.TimedBlock _: return $flutter_12.ObjectFlagProperty<$flutter_26.TimedBlock>.has(name, value, level: level);
-          case $flutter_27.Unicode _: return $flutter_12.ObjectFlagProperty<$flutter_27.Unicode>.has(name, value, level: level);
-          case $flutter_22.WriteBuffer _: return $flutter_12.ObjectFlagProperty<$flutter_22.WriteBuffer>.has(name, value, level: level);
-          default: return $flutter_12.ObjectFlagProperty.has(name, value, level: level);
+          case double _: return $flutter_11.ObjectFlagProperty<double>.has(name, value, level: level);
+          case int _: return $flutter_11.ObjectFlagProperty<int>.has(name, value, level: level);
+          case String _: return $flutter_11.ObjectFlagProperty<String>.has(name, value, level: level);
+          case bool _: return $flutter_11.ObjectFlagProperty<bool>.has(name, value, level: level);
+          case $flutter_2.FlutterError _: return $flutter_11.ObjectFlagProperty<$flutter_2.FlutterError>.has(name, value, level: level);
+          case $flutter_11.PercentProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.PercentProperty>.has(name, value, level: level);
+          case $flutter_11.DoubleProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.DoubleProperty>.has(name, value, level: level);
+          case $flutter_2.ErrorDescription _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorDescription>.has(name, value, level: level);
+          case $flutter_2.ErrorHint _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorHint>.has(name, value, level: level);
+          case $flutter_2.ErrorSummary _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorSummary>.has(name, value, level: level);
+          case $flutter_11.IntProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.IntProperty>.has(name, value, level: level);
+          case $flutter_7.ValueNotifier _: return $flutter_11.ObjectFlagProperty<$flutter_7.ValueNotifier>.has(name, value, level: level);
+          case $flutter_11.DiagnosticableTreeMixin _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTreeMixin>.has(name, value, level: level);
+          case $flutter_11.DiagnosticableTreeNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTreeNode>.has(name, value, level: level);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_11.ObjectFlagProperty<$flutter_2.DiagnosticsStackTrace>.has(name, value, level: level);
+          case $flutter_11.EnumProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.EnumProperty>.has(name, value, level: level);
+          case $flutter_2.ErrorSpacer _: return $flutter_11.ObjectFlagProperty<$flutter_2.ErrorSpacer>.has(name, value, level: level);
+          case $flutter_11.FlagProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.FlagProperty>.has(name, value, level: level);
+          case $flutter_11.FlagsSummary _: return $flutter_11.ObjectFlagProperty<$flutter_11.FlagsSummary>.has(name, value, level: level);
+          case $flutter_11.IterableProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.IterableProperty>.has(name, value, level: level);
+          case $flutter_11.MessageProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.MessageProperty>.has(name, value, level: level);
+          case $flutter_11.StringProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.StringProperty>.has(name, value, level: level);
+          case $flutter_13.UniqueKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.UniqueKey>.has(name, value, level: level);
+          case $flutter_13.ValueKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.ValueKey>.has(name, value, level: level);
+          case $flutter_3.CachingIterable _: return $flutter_11.ObjectFlagProperty<$flutter_3.CachingIterable>.has(name, value, level: level);
+          case $flutter_7.ChangeNotifier _: return $flutter_11.ObjectFlagProperty<$flutter_7.ChangeNotifier>.has(name, value, level: level);
+          case $flutter_11.DiagnosticableNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableNode>.has(name, value, level: level);
+          case $flutter_11.DiagnosticableTree _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticableTree>.has(name, value, level: level);
+          case $flutter_11.DiagnosticsBlock _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsBlock>.has(name, value, level: level);
+          case $flutter_11.DiagnosticsProperty _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsProperty>.has(name, value, level: level);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_11.ObjectFlagProperty<$flutter_2.FlutterErrorDetails>.has(name, value, level: level);
+          case $flutter_17.HashedObserverList _: return $flutter_11.ObjectFlagProperty<$flutter_17.HashedObserverList>.has(name, value, level: level);
+          case $flutter_14.LicenseEntryWithLineBreaks _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseEntryWithLineBreaks>.has(name, value, level: level);
+          case $flutter_13.LocalKey _: return $flutter_11.ObjectFlagProperty<$flutter_13.LocalKey>.has(name, value, level: level);
+          case $flutter_15.ObjectCreated _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectCreated>.has(name, value, level: level);
+          case $flutter_15.ObjectDisposed _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectDisposed>.has(name, value, level: level);
+          case $flutter_17.ObserverList _: return $flutter_11.ObjectFlagProperty<$flutter_17.ObserverList>.has(name, value, level: level);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_11.ObjectFlagProperty<$flutter_2.RepetitiveStackFrameFilter>.has(name, value, level: level);
+          case $flutter_24.SynchronousFuture _: return $flutter_11.ObjectFlagProperty<$flutter_24.SynchronousFuture>.has(name, value, level: level);
+          case $flutter_7.ValueListenable _: return $flutter_11.ObjectFlagProperty<$flutter_7.ValueListenable>.has(name, value, level: level);
+          case $flutter_25.AggregatedTimedBlock _: return $flutter_11.ObjectFlagProperty<$flutter_25.AggregatedTimedBlock>.has(name, value, level: level);
+          case $flutter_25.AggregatedTimings _: return $flutter_11.ObjectFlagProperty<$flutter_25.AggregatedTimings>.has(name, value, level: level);
+          case $flutter_4.BindingBase _: return $flutter_11.ObjectFlagProperty<$flutter_4.BindingBase>.has(name, value, level: level);
+          case $flutter_5.BitField _: return $flutter_11.ObjectFlagProperty<$flutter_5.BitField>.has(name, value, level: level);
+          case $flutter_1.Category _: return $flutter_11.ObjectFlagProperty<$flutter_1.Category>.has(name, value, level: level);
+          case $flutter_11.DiagnosticPropertiesBuilder _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticPropertiesBuilder>.has(name, value, level: level);
+          case $flutter_11.Diagnosticable _: return $flutter_11.ObjectFlagProperty<$flutter_11.Diagnosticable>.has(name, value, level: level);
+          case $flutter_11.DiagnosticsNode _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsNode>.has(name, value, level: level);
+          case $flutter_11.DiagnosticsSerializationDelegate _: return $flutter_11.ObjectFlagProperty<$flutter_11.DiagnosticsSerializationDelegate>.has(name, value, level: level);
+          case $flutter_1.DocumentationIcon _: return $flutter_11.ObjectFlagProperty<$flutter_1.DocumentationIcon>.has(name, value, level: level);
+          case $flutter_3.Factory _: return $flutter_11.ObjectFlagProperty<$flutter_3.Factory>.has(name, value, level: level);
+          case $flutter_15.FlutterMemoryAllocations _: return $flutter_11.ObjectFlagProperty<$flutter_15.FlutterMemoryAllocations>.has(name, value, level: level);
+          case $flutter_25.FlutterTimeline _: return $flutter_11.ObjectFlagProperty<$flutter_25.FlutterTimeline>.has(name, value, level: level);
+          case $meta_1.Immutable _: return $flutter_11.ObjectFlagProperty<$meta_1.Immutable>.has(name, value, level: level);
+          case $flutter_13.Key _: return $flutter_11.ObjectFlagProperty<$flutter_13.Key>.has(name, value, level: level);
+          case $flutter_14.LicenseEntry _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseEntry>.has(name, value, level: level);
+          case $flutter_14.LicenseParagraph _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseParagraph>.has(name, value, level: level);
+          case $flutter_14.LicenseRegistry _: return $flutter_11.ObjectFlagProperty<$flutter_14.LicenseRegistry>.has(name, value, level: level);
+          case $flutter_7.Listenable _: return $flutter_11.ObjectFlagProperty<$flutter_7.Listenable>.has(name, value, level: level);
+          case $flutter_15.ObjectEvent _: return $flutter_11.ObjectFlagProperty<$flutter_15.ObjectEvent>.has(name, value, level: level);
+          case $flutter_2.PartialStackFrame _: return $flutter_11.ObjectFlagProperty<$flutter_2.PartialStackFrame>.has(name, value, level: level);
+          case $flutter_18.PersistentHashMap _: return $flutter_11.ObjectFlagProperty<$flutter_18.PersistentHashMap>.has(name, value, level: level);
+          case $flutter_21.ReadBuffer _: return $flutter_11.ObjectFlagProperty<$flutter_21.ReadBuffer>.has(name, value, level: level);
+          case $flutter_2.StackFilter _: return $flutter_11.ObjectFlagProperty<$flutter_2.StackFilter>.has(name, value, level: level);
+          case $flutter_23.StackFrame _: return $flutter_11.ObjectFlagProperty<$flutter_23.StackFrame>.has(name, value, level: level);
+          case $flutter_1.Summary _: return $flutter_11.ObjectFlagProperty<$flutter_1.Summary>.has(name, value, level: level);
+          case $flutter_11.TextTreeConfiguration _: return $flutter_11.ObjectFlagProperty<$flutter_11.TextTreeConfiguration>.has(name, value, level: level);
+          case $flutter_11.TextTreeRenderer _: return $flutter_11.ObjectFlagProperty<$flutter_11.TextTreeRenderer>.has(name, value, level: level);
+          case $flutter_25.TimedBlock _: return $flutter_11.ObjectFlagProperty<$flutter_25.TimedBlock>.has(name, value, level: level);
+          case $flutter_26.Unicode _: return $flutter_11.ObjectFlagProperty<$flutter_26.Unicode>.has(name, value, level: level);
+          case $flutter_21.WriteBuffer _: return $flutter_11.ObjectFlagProperty<$flutter_21.WriteBuffer>.has(name, value, level: level);
+          default: return $flutter_11.ObjectFlagProperty.has(name, value, level: level);
         }
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').isInteresting,
-      'ifPresent': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifPresent,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').isInteresting,
+      'ifPresent': (visitor, target) => D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifPresent,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -3040,9 +3027,9 @@ BridgedClass _createObjectFlagPropertyBridge() {
 
 BridgedClass _createFlagsSummaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.FlagsSummary,
+    nativeType: $flutter_11.FlagsSummary,
     name: 'FlagsSummary',
-    isAssignable: (v) => v is $flutter_12.FlagsSummary,
+    isAssignable: (v) => v is $flutter_11.FlagsSummary,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -3055,87 +3042,87 @@ BridgedClass _createFlagsSummaryBridge() {
         final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
-        return $flutter_12.FlagsSummary(name, value, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, level: level);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
+        return $flutter_11.FlagsSummary(name, value, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, level: level);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').isInteresting,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary').isInteresting,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -3186,9 +3173,9 @@ BridgedClass _createFlagsSummaryBridge() {
 
 BridgedClass _createDiagnosticsPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticsProperty,
+    nativeType: $flutter_11.DiagnosticsProperty,
     name: 'DiagnosticsProperty',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsProperty,
+    isAssignable: (v) => v is $flutter_11.DiagnosticsProperty,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -3206,14 +3193,14 @@ BridgedClass _createDiagnosticsPropertyBridge() {
         final expandableValue = D4.getNamedArgWithDefault<bool>(named, 'expandableValue', false);
         final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
         final allowNameWrap = D4.getNamedArgWithDefault<bool>(named, 'allowNameWrap', true);
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
+          return $flutter_11.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DiagnosticsProperty');
-          return $flutter_12.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_11.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -3234,95 +3221,95 @@ BridgedClass _createDiagnosticsPropertyBridge() {
         final expandableValue = D4.getNamedArgWithDefault<bool>(named, 'expandableValue', false);
         final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
         final allowNameWrap = D4.getNamedArgWithDefault<bool>(named, 'allowNameWrap', true);
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         if (!named.containsKey('defaultValue')) {
-          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
+          return $flutter_11.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
         }
         if (named.containsKey('defaultValue')) {
           final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DiagnosticsProperty');
-          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
+          return $flutter_11.DiagnosticsProperty.lazy(name, () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, computeValueRaw, [])); }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').textTreeConfiguration,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').expandableValue,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').missingIfNull,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').defaultValue,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').propertyType,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').exception,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').isInteresting,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').textTreeConfiguration,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').defaultValue,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').exception,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty').isInteresting,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -3374,81 +3361,81 @@ BridgedClass _createDiagnosticsPropertyBridge() {
 
 BridgedClass _createDiagnosticableNodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticableNode,
+    nativeType: $flutter_11.DiagnosticableNode,
     name: 'DiagnosticableNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableNode,
+    isAssignable: (v) => v is $flutter_11.DiagnosticableNode,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final value = D4.getRequiredNamedArg<$flutter_12.Diagnosticable>(named, 'value', 'DiagnosticableNode');
-        final style = D4.getRequiredNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableNode');
-        return $flutter_12.DiagnosticableNode(name: name, value: value, style: style);
+        final value = D4.getRequiredNamedArg<$flutter_11.Diagnosticable>(named, 'value', 'DiagnosticableNode');
+        final style = D4.getRequiredNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableNode');
+        return $flutter_11.DiagnosticableNode(name: name, value: value, style: style);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').textTreeConfiguration,
-      'builder': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').builder,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').textTreeConfiguration,
+      'builder': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode').builder,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableNode>(target, 'DiagnosticableNode');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -3491,81 +3478,81 @@ BridgedClass _createDiagnosticableNodeBridge() {
 
 BridgedClass _createDiagnosticableTreeNodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticableTreeNode,
+    nativeType: $flutter_11.DiagnosticableTreeNode,
     name: 'DiagnosticableTreeNode',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeNode,
+    isAssignable: (v) => v is $flutter_11.DiagnosticableTreeNode,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final value = D4.getRequiredNamedArg<$flutter_12.DiagnosticableTree>(named, 'value', 'DiagnosticableTreeNode');
-        final style = D4.getRequiredNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableTreeNode');
-        return $flutter_12.DiagnosticableTreeNode(name: name, value: value, style: style);
+        final value = D4.getRequiredNamedArg<$flutter_11.DiagnosticableTree>(named, 'value', 'DiagnosticableTreeNode');
+        final style = D4.getRequiredNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableTreeNode');
+        return $flutter_11.DiagnosticableTreeNode(name: name, value: value, style: style);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').textTreeConfiguration,
-      'builder': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').builder,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').textTreeConfiguration,
+      'builder': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').builder,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -3608,38 +3595,38 @@ BridgedClass _createDiagnosticableTreeNodeBridge() {
 
 BridgedClass _createDiagnosticPropertiesBuilderBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticPropertiesBuilder,
+    nativeType: $flutter_11.DiagnosticPropertiesBuilder,
     name: 'DiagnosticPropertiesBuilder',
-    isAssignable: (v) => v is $flutter_12.DiagnosticPropertiesBuilder,
+    isAssignable: (v) => v is $flutter_11.DiagnosticPropertiesBuilder,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_12.DiagnosticPropertiesBuilder();
+        return $flutter_11.DiagnosticPropertiesBuilder();
       },
       'fromProperties': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticPropertiesBuilder');
         if (positional.isEmpty) {
           throw ArgumentError('DiagnosticPropertiesBuilder: Missing required argument "properties" at position 0');
         }
-        final properties = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'properties');
-        return $flutter_12.DiagnosticPropertiesBuilder.fromProperties(properties);
+        final properties = D4.coerceList<$flutter_11.DiagnosticsNode>(positional[0], 'properties');
+        return $flutter_11.DiagnosticPropertiesBuilder.fromProperties(properties);
       },
     },
     getters: {
-      'properties': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').properties,
-      'defaultDiagnosticsTreeStyle': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription,
+      'properties': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').properties,
+      'defaultDiagnosticsTreeStyle': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription,
     },
     setters: {
       'defaultDiagnosticsTreeStyle': (visitor, target, value) => 
-        D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle = D4.extractBridgedArg<$flutter_12.DiagnosticsTreeStyle>(value, 'defaultDiagnosticsTreeStyle'),
+        D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle = D4.extractBridgedArg<$flutter_11.DiagnosticsTreeStyle>(value, 'defaultDiagnosticsTreeStyle'),
       'emptyBodyDescription': (visitor, target, value) => 
-        D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription = D4.extractBridgedArgOrNull<String>(value, 'emptyBodyDescription'),
+        D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription = D4.extractBridgedArgOrNull<String>(value, 'emptyBodyDescription'),
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder');
+        final t = D4.validateTarget<$flutter_11.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder');
         D4.requireMinArgs(positional, 1, 'add');
-        final property = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'property', 'add');
+        final property = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 0, 'property', 'add');
         t.add(property);
         return null;
       },
@@ -3669,51 +3656,51 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
 
 BridgedClass _createDiagnosticableTreeBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticableTree,
+    nativeType: $flutter_11.DiagnosticableTree,
     name: 'DiagnosticableTree',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTree,
+    isAssignable: (v) => v is $flutter_11.DiagnosticableTree,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
     },
     methods: {
       'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         return t.toStringShallow(joiner: joiner, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         return t.toStringShort();
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style');
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         return t.debugDescribeChildren();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(minLevel: minLevel);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTree>(target, 'DiagnosticableTree');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_11.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -3736,92 +3723,92 @@ BridgedClass _createDiagnosticableTreeBridge() {
 
 BridgedClass _createDiagnosticsBlockBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticsBlock,
+    nativeType: $flutter_11.DiagnosticsBlock,
     name: 'DiagnosticsBlock',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsBlock,
+    isAssignable: (v) => v is $flutter_11.DiagnosticsBlock,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.whitespace);
+        final style = D4.getNamedArgWithDefault<$flutter_11.DiagnosticsTreeStyle>(named, 'style', $flutter_11.DiagnosticsTreeStyle.whitespace);
         final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
         final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
         final linePrefix = D4.getOptionalNamedArg<String?>(named, 'linePrefix');
         final value = D4.getOptionalNamedArg<Object?>(named, 'value');
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final level = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'level', $flutter_11.DiagnosticLevel.info);
         final allowTruncate = D4.getNamedArgWithDefault<bool>(named, 'allowTruncate', false);
         final children = named.containsKey('children') && named['children'] != null
-            ? D4.coerceList<$flutter_12.DiagnosticsNode>(named['children'], 'children')
-            : const <$flutter_12.DiagnosticsNode>[];
+            ? D4.coerceList<$flutter_11.DiagnosticsNode>(named['children'], 'children')
+            : const <$flutter_11.DiagnosticsNode>[];
         final properties = named.containsKey('properties') && named['properties'] != null
-            ? D4.coerceList<$flutter_12.DiagnosticsNode>(named['properties'], 'properties')
-            : const <$flutter_12.DiagnosticsNode>[];
-        return $flutter_12.DiagnosticsBlock(name: name, style: style, showName: showName, showSeparator: showSeparator, linePrefix: linePrefix, value: value, description: description, level: level, allowTruncate: allowTruncate, children: children, properties: properties);
+            ? D4.coerceList<$flutter_11.DiagnosticsNode>(named['properties'], 'properties')
+            : const <$flutter_11.DiagnosticsNode>[];
+        return $flutter_11.DiagnosticsBlock(name: name, style: style, showName: showName, showSeparator: showSeparator, linePrefix: linePrefix, value: value, description: description, level: level, allowTruncate: allowTruncate, children: children, properties: properties);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').linePrefix,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').style,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').level,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').value,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').textTreeConfiguration,
+      'name': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').level,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').value,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowTruncate,
+      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock').textTreeConfiguration,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsBlock>(target, 'DiagnosticsBlock');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -3863,82 +3850,82 @@ BridgedClass _createDiagnosticsBlockBridge() {
 
 BridgedClass _createDiagnosticsSerializationDelegateBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticsSerializationDelegate,
+    nativeType: $flutter_11.DiagnosticsSerializationDelegate,
     name: 'DiagnosticsSerializationDelegate',
-    isAssignable: (v) => v is $flutter_12.DiagnosticsSerializationDelegate,
+    isAssignable: (v) => v is $flutter_11.DiagnosticsSerializationDelegate,
     isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
-          return $flutter_12.DiagnosticsSerializationDelegate();
+          return $flutter_11.DiagnosticsSerializationDelegate();
         }
         if (named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
           final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate');
-          return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth);
+          return $flutter_11.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth);
         }
         if (!named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
           final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate');
-          return $flutter_12.DiagnosticsSerializationDelegate(includeProperties: includeProperties);
+          return $flutter_11.DiagnosticsSerializationDelegate(includeProperties: includeProperties);
         }
         if (named.containsKey('subtreeDepth') && named.containsKey('includeProperties')) {
           final subtreeDepth = D4.getRequiredNamedArg<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate');
           final includeProperties = D4.getRequiredNamedArg<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate');
-          return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+          return $flutter_11.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'subtreeDepth': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').subtreeDepth,
-      'includeProperties': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').includeProperties,
-      'expandPropertyValues': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').expandPropertyValues,
+      'subtreeDepth': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').subtreeDepth,
+      'includeProperties': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').includeProperties,
+      'expandPropertyValues': (visitor, target) => D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').expandPropertyValues,
     },
     methods: {
       'additionalNodeProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         D4.requireMinArgs(positional, 1, 'additionalNodeProperties');
-        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'additionalNodeProperties');
+        final node = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 0, 'node', 'additionalNodeProperties');
         final fullDetails = D4.getNamedArgWithDefault<bool>(named, 'fullDetails', true);
         return t.additionalNodeProperties(node, fullDetails: fullDetails);
       },
       'filterChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         D4.requireMinArgs(positional, 2, 'filterChildren');
         if (positional.isEmpty) {
           throw ArgumentError('filterChildren: Missing required argument "nodes" at position 0');
         }
-        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
-        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 1, 'owner', 'filterChildren');
+        final nodes = D4.coerceList<$flutter_11.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 1, 'owner', 'filterChildren');
         return t.filterChildren(nodes, owner);
       },
       'filterProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         D4.requireMinArgs(positional, 2, 'filterProperties');
         if (positional.isEmpty) {
           throw ArgumentError('filterProperties: Missing required argument "nodes" at position 0');
         }
-        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
-        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 1, 'owner', 'filterProperties');
+        final nodes = D4.coerceList<$flutter_11.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 1, 'owner', 'filterProperties');
         return t.filterProperties(nodes, owner);
       },
       'truncateNodesList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         D4.requireMinArgs(positional, 2, 'truncateNodesList');
         if (positional.isEmpty) {
           throw ArgumentError('truncateNodesList: Missing required argument "nodes" at position 0');
         }
-        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
-        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode?>(positional, 1, 'owner', 'truncateNodesList');
+        final nodes = D4.coerceList<$flutter_11.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_11.DiagnosticsNode?>(positional, 1, 'owner', 'truncateNodesList');
         return t.truncateNodesList(nodes, owner);
       },
       'delegateForNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         D4.requireMinArgs(positional, 1, 'delegateForNode');
-        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'delegateForNode');
+        final node = D4.getRequiredArg<$flutter_11.DiagnosticsNode>(positional, 0, 'node', 'delegateForNode');
         return t.delegateForNode(node);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final t = D4.validateTarget<$flutter_11.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
         if (!named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
           return t.copyWith();
         }
@@ -3983,33 +3970,33 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
 
 BridgedClass _createDiagnosticableBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.Diagnosticable,
+    nativeType: $flutter_11.Diagnosticable,
     name: 'Diagnosticable',
-    isAssignable: (v) => v is $flutter_12.Diagnosticable,
+    isAssignable: (v) => v is $flutter_11.Diagnosticable,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final t = D4.validateTarget<$flutter_11.Diagnosticable>(target, 'Diagnosticable');
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.Diagnosticable>(target, 'Diagnosticable');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final t = D4.validateTarget<$flutter_11.Diagnosticable>(target, 'Diagnosticable');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style');
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final t = D4.validateTarget<$flutter_11.Diagnosticable>(target, 'Diagnosticable');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_11.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -4029,9 +4016,9 @@ BridgedClass _createDiagnosticableBridge() {
 
 BridgedClass _createDiagnosticableTreeMixinBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.DiagnosticableTreeMixin,
+    nativeType: $flutter_11.DiagnosticableTreeMixin,
     name: 'DiagnosticableTreeMixin',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
+    isAssignable: (v) => v is $flutter_11.DiagnosticableTreeMixin,
     hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
@@ -4039,42 +4026,42 @@ BridgedClass _createDiagnosticableTreeMixinBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(minLevel: minLevel);
       },
       'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         return t.toStringShallow(joiner: joiner, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         return t.toStringShort();
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style');
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         return t.debugDescribeChildren();
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final t = D4.validateTarget<$flutter_11.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_11.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -4097,9 +4084,9 @@ BridgedClass _createDiagnosticableTreeMixinBridge() {
 
 BridgedClass _createStackFrameBridge() {
   return BridgedClass(
-    nativeType: $flutter_24.StackFrame,
+    nativeType: $flutter_23.StackFrame,
     name: 'StackFrame',
-    isAssignable: (v) => v is $flutter_24.StackFrame,
+    isAssignable: (v) => v is $flutter_23.StackFrame,
     constructors: {
       '': (visitor, positional, named) {
         final number = D4.getRequiredNamedArg<int>(named, 'number', 'StackFrame');
@@ -4112,29 +4099,29 @@ BridgedClass _createStackFrameBridge() {
         final method = D4.getRequiredNamedArg<String>(named, 'method', 'StackFrame');
         final isConstructor = D4.getNamedArgWithDefault<bool>(named, 'isConstructor', false);
         final source = D4.getRequiredNamedArg<String>(named, 'source', 'StackFrame');
-        return $flutter_24.StackFrame(number: number, column: column, line: line, packageScheme: packageScheme, package: package, packagePath: packagePath, className: className, method: method, isConstructor: isConstructor, source: source);
+        return $flutter_23.StackFrame(number: number, column: column, line: line, packageScheme: packageScheme, package: package, packagePath: packagePath, className: className, method: method, isConstructor: isConstructor, source: source);
       },
     },
     getters: {
-      'source': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').source,
-      'number': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').number,
-      'packageScheme': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').packageScheme,
-      'package': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').package,
-      'packagePath': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').packagePath,
-      'line': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').line,
-      'column': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').column,
-      'className': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').className,
-      'method': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').method,
-      'isConstructor': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').isConstructor,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame').hashCode,
+      'source': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').source,
+      'number': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').number,
+      'packageScheme': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').packageScheme,
+      'package': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').package,
+      'packagePath': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').packagePath,
+      'line': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').line,
+      'column': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').column,
+      'className': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').className,
+      'method': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').method,
+      'isConstructor': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').isConstructor,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame');
+        final t = D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_24.StackFrame>(target, 'StackFrame');
+        final t = D4.validateTarget<$flutter_23.StackFrame>(target, 'StackFrame');
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
@@ -4142,24 +4129,24 @@ BridgedClass _createStackFrameBridge() {
       },
     },
     staticGetters: {
-      'asynchronousSuspension': (visitor) => $flutter_24.StackFrame.asynchronousSuspension,
-      'stackOverFlowElision': (visitor) => $flutter_24.StackFrame.stackOverFlowElision,
+      'asynchronousSuspension': (visitor) => $flutter_23.StackFrame.asynchronousSuspension,
+      'stackOverFlowElision': (visitor) => $flutter_23.StackFrame.stackOverFlowElision,
     },
     staticMethods: {
       'fromStackTrace': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromStackTrace');
         final stack = D4.getRequiredArg<StackTrace>(positional, 0, 'stack', 'fromStackTrace');
-        return $flutter_24.StackFrame.fromStackTrace(stack);
+        return $flutter_23.StackFrame.fromStackTrace(stack);
       },
       'fromStackString': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromStackString');
         final stack = D4.getRequiredArg<String>(positional, 0, 'stack', 'fromStackString');
-        return $flutter_24.StackFrame.fromStackString(stack);
+        return $flutter_23.StackFrame.fromStackString(stack);
       },
       'fromStackTraceLine': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromStackTraceLine');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'fromStackTraceLine');
-        return $flutter_24.StackFrame.fromStackTraceLine(line);
+        return $flutter_23.StackFrame.fromStackTraceLine(line);
       },
     },
     constructorSignatures: {
@@ -4219,7 +4206,7 @@ BridgedClass _createPartialStackFrameBridge() {
       'matches': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.PartialStackFrame>(target, 'PartialStackFrame');
         D4.requireMinArgs(positional, 1, 'matches');
-        final stackFrame = D4.getRequiredArg<$flutter_24.StackFrame>(positional, 0, 'stackFrame', 'matches');
+        final stackFrame = D4.getRequiredArg<$flutter_23.StackFrame>(positional, 0, 'stackFrame', 'matches');
         return t.matches(stackFrame);
       },
     },
@@ -4262,7 +4249,7 @@ BridgedClass _createStackFilterBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('filter: Missing required argument "stackFrames" at position 0');
         }
-        final stackFrames = D4.coerceList<$flutter_24.StackFrame>(positional[0], 'stackFrames');
+        final stackFrames = D4.coerceList<$flutter_23.StackFrame>(positional[0], 'stackFrames');
         if (positional.length <= 1) {
           throw ArgumentError('filter: Missing required argument "reasons" at position 1');
         }
@@ -4309,7 +4296,7 @@ BridgedClass _createRepetitiveStackFrameFilterBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('filter: Missing required argument "stackFrames" at position 0');
         }
-        final stackFrames = D4.coerceList<$flutter_24.StackFrame>(positional[0], 'stackFrames');
+        final stackFrames = D4.coerceList<$flutter_23.StackFrame>(positional[0], 'stackFrames');
         if (positional.length <= 1) {
           throw ArgumentError('filter: Missing required argument "reasons" at position 1');
         }
@@ -4375,24 +4362,24 @@ BridgedClass _createErrorDescriptionBridge() {
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
@@ -4406,7 +4393,7 @@ BridgedClass _createErrorDescriptionBridge() {
       'isFiltered': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
@@ -4416,15 +4403,15 @@ BridgedClass _createErrorDescriptionBridge() {
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -4513,24 +4500,24 @@ BridgedClass _createErrorSummaryBridge() {
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
@@ -4544,7 +4531,7 @@ BridgedClass _createErrorSummaryBridge() {
       'isFiltered': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
@@ -4554,15 +4541,15 @@ BridgedClass _createErrorSummaryBridge() {
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -4651,24 +4638,24 @@ BridgedClass _createErrorHintBridge() {
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
@@ -4682,7 +4669,7 @@ BridgedClass _createErrorHintBridge() {
       'isFiltered': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
@@ -4692,15 +4679,15 @@ BridgedClass _createErrorHintBridge() {
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -4787,13 +4774,13 @@ BridgedClass _createErrorSpacerBridge() {
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
@@ -4811,33 +4798,33 @@ BridgedClass _createErrorSpacerBridge() {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'valueToString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
       },
     },
@@ -4897,11 +4884,11 @@ BridgedClass _createFlutterErrorDetailsBridge() {
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'FlutterErrorDetails');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final library = D4.getNamedArgWithDefault<String?>(named, 'library', 'Flutter framework');
-        final context = D4.getOptionalNamedArg<$flutter_12.DiagnosticsNode?>(named, 'context');
+        final context = D4.getOptionalNamedArg<$flutter_11.DiagnosticsNode?>(named, 'context');
         final stackFilterRaw = named['stackFilter'];
         final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        return $flutter_2.FlutterErrorDetails(exception: exception, stack: stack, library: library, context: context, stackFilter: stackFilterRaw == null ? null : ((Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor) as Iterable<String>; }) as Iterable<String> Function(Iterable<String>), informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_12.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_12.DiagnosticsNode>; }) as Iterable<$flutter_12.DiagnosticsNode> Function(), silent: silent);
+        return $flutter_2.FlutterErrorDetails(exception: exception, stack: stack, library: library, context: context, stackFilter: stackFilterRaw == null ? null : ((Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor) as Iterable<String>; }) as Iterable<String> Function(Iterable<String>), informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_11.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_11.DiagnosticsNode>; }) as Iterable<$flutter_11.DiagnosticsNode> Function(), silent: silent);
       },
     },
     getters: {
@@ -4917,14 +4904,14 @@ BridgedClass _createFlutterErrorDetailsBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
-        final context = D4.getOptionalNamedArg<$flutter_12.DiagnosticsNode?>(named, 'context');
+        final context = D4.getOptionalNamedArg<$flutter_11.DiagnosticsNode?>(named, 'context');
         final exception = D4.getOptionalNamedArg<Object?>(named, 'exception');
         final informationCollectorRaw = named['informationCollector'];
         final library = D4.getOptionalNamedArg<String?>(named, 'library');
         final silent = D4.getOptionalNamedArg<bool?>(named, 'silent');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final stackFilterRaw = named['stackFilter'];
-        return t.copyWith(context: context, exception: exception, informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_12.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_12.DiagnosticsNode>; }) as Iterable<$flutter_12.DiagnosticsNode> Function(), library: library, silent: silent, stack: stack, stackFilter: stackFilterRaw == null ? null : ((Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor) as Iterable<String>; }) as Iterable<String> Function(Iterable<String>));
+        return t.copyWith(context: context, exception: exception, informationCollector: informationCollectorRaw == null ? null : (() { return D4.extractBridgedArg<Iterable<$flutter_11.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor) as Iterable<$flutter_11.DiagnosticsNode>; }) as Iterable<$flutter_11.DiagnosticsNode> Function(), library: library, silent: silent, stack: stack, stackFilter: stackFilterRaw == null ? null : ((Iterable<String> p0) { return D4.extractBridgedArg<Iterable<String>>(D4.callInterpreterCallback(visitor!, stackFilterRaw, [p0]), 'callback', visitor) as Iterable<String>; }) as Iterable<String> Function(Iterable<String>));
       },
       'exceptionAsString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
@@ -4933,7 +4920,7 @@ BridgedClass _createFlutterErrorDetailsBridge() {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_11.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -4943,13 +4930,13 @@ BridgedClass _createFlutterErrorDetailsBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style');
         return t.toDiagnosticsNode(name: name, style: style);
       },
     },
@@ -5004,7 +4991,7 @@ BridgedClass _createFlutterErrorBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('FlutterError: Missing required argument "diagnostics" at position 0');
         }
-        final diagnostics = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'diagnostics');
+        final diagnostics = D4.coerceList<$flutter_11.DiagnosticsNode>(positional[0], 'diagnostics');
         return $flutter_2.FlutterError.fromParts(diagnostics);
       },
     },
@@ -5017,7 +5004,7 @@ BridgedClass _createFlutterErrorBridge() {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_11.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -5027,27 +5014,27 @@ BridgedClass _createFlutterErrorBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(minLevel: minLevel);
       },
       'toStringShallow': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         return t.toStringShallow(joiner: joiner, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_11.DiagnosticsTreeStyle?>(named, 'style');
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
@@ -5187,13 +5174,13 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_11.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
@@ -5211,27 +5198,27 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_11.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_11.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_11.DiagnosticLevel>(named, 'minLevel', $flutter_11.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -5709,72 +5696,72 @@ BridgedClass _createValueNotifierBridge() {
           case String _: return $flutter_7.ValueNotifier<String>(value);
           case bool _: return $flutter_7.ValueNotifier<bool>(value);
           case $flutter_2.FlutterError _: return $flutter_7.ValueNotifier<$flutter_2.FlutterError>(value);
-          case $flutter_12.PercentProperty _: return $flutter_7.ValueNotifier<$flutter_12.PercentProperty>(value);
-          case $flutter_12.DoubleProperty _: return $flutter_7.ValueNotifier<$flutter_12.DoubleProperty>(value);
+          case $flutter_11.PercentProperty _: return $flutter_7.ValueNotifier<$flutter_11.PercentProperty>(value);
+          case $flutter_11.DoubleProperty _: return $flutter_7.ValueNotifier<$flutter_11.DoubleProperty>(value);
           case $flutter_2.ErrorDescription _: return $flutter_7.ValueNotifier<$flutter_2.ErrorDescription>(value);
           case $flutter_2.ErrorHint _: return $flutter_7.ValueNotifier<$flutter_2.ErrorHint>(value);
           case $flutter_2.ErrorSummary _: return $flutter_7.ValueNotifier<$flutter_2.ErrorSummary>(value);
-          case $flutter_12.IntProperty _: return $flutter_7.ValueNotifier<$flutter_12.IntProperty>(value);
-          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTreeMixin>(value);
-          case $flutter_12.DiagnosticableTreeNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTreeNode>(value);
+          case $flutter_11.IntProperty _: return $flutter_7.ValueNotifier<$flutter_11.IntProperty>(value);
+          case $flutter_11.DiagnosticableTreeMixin _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticableTreeMixin>(value);
+          case $flutter_11.DiagnosticableTreeNode _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticableTreeNode>(value);
           case $flutter_2.DiagnosticsStackTrace _: return $flutter_7.ValueNotifier<$flutter_2.DiagnosticsStackTrace>(value);
-          case $flutter_12.EnumProperty _: return $flutter_7.ValueNotifier<$flutter_12.EnumProperty>(value);
+          case $flutter_11.EnumProperty _: return $flutter_7.ValueNotifier<$flutter_11.EnumProperty>(value);
           case $flutter_2.ErrorSpacer _: return $flutter_7.ValueNotifier<$flutter_2.ErrorSpacer>(value);
-          case $flutter_12.FlagProperty _: return $flutter_7.ValueNotifier<$flutter_12.FlagProperty>(value);
-          case $flutter_12.FlagsSummary _: return $flutter_7.ValueNotifier<$flutter_12.FlagsSummary>(value);
-          case $flutter_12.IterableProperty _: return $flutter_7.ValueNotifier<$flutter_12.IterableProperty>(value);
-          case $flutter_12.MessageProperty _: return $flutter_7.ValueNotifier<$flutter_12.MessageProperty>(value);
-          case $flutter_12.ObjectFlagProperty _: return $flutter_7.ValueNotifier<$flutter_12.ObjectFlagProperty>(value);
-          case $flutter_12.StringProperty _: return $flutter_7.ValueNotifier<$flutter_12.StringProperty>(value);
-          case $flutter_14.UniqueKey _: return $flutter_7.ValueNotifier<$flutter_14.UniqueKey>(value);
-          case $flutter_14.ValueKey _: return $flutter_7.ValueNotifier<$flutter_14.ValueKey>(value);
+          case $flutter_11.FlagProperty _: return $flutter_7.ValueNotifier<$flutter_11.FlagProperty>(value);
+          case $flutter_11.FlagsSummary _: return $flutter_7.ValueNotifier<$flutter_11.FlagsSummary>(value);
+          case $flutter_11.IterableProperty _: return $flutter_7.ValueNotifier<$flutter_11.IterableProperty>(value);
+          case $flutter_11.MessageProperty _: return $flutter_7.ValueNotifier<$flutter_11.MessageProperty>(value);
+          case $flutter_11.ObjectFlagProperty _: return $flutter_7.ValueNotifier<$flutter_11.ObjectFlagProperty>(value);
+          case $flutter_11.StringProperty _: return $flutter_7.ValueNotifier<$flutter_11.StringProperty>(value);
+          case $flutter_13.UniqueKey _: return $flutter_7.ValueNotifier<$flutter_13.UniqueKey>(value);
+          case $flutter_13.ValueKey _: return $flutter_7.ValueNotifier<$flutter_13.ValueKey>(value);
           case $flutter_3.CachingIterable _: return $flutter_7.ValueNotifier<$flutter_3.CachingIterable>(value);
           case $flutter_7.ChangeNotifier _: return $flutter_7.ValueNotifier<$flutter_7.ChangeNotifier>(value);
-          case $flutter_12.DiagnosticableNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableNode>(value);
-          case $flutter_12.DiagnosticableTree _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticableTree>(value);
-          case $flutter_12.DiagnosticsBlock _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsBlock>(value);
-          case $flutter_12.DiagnosticsProperty _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsProperty>(value);
+          case $flutter_11.DiagnosticableNode _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticableNode>(value);
+          case $flutter_11.DiagnosticableTree _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticableTree>(value);
+          case $flutter_11.DiagnosticsBlock _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticsBlock>(value);
+          case $flutter_11.DiagnosticsProperty _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticsProperty>(value);
           case $flutter_2.FlutterErrorDetails _: return $flutter_7.ValueNotifier<$flutter_2.FlutterErrorDetails>(value);
-          case $flutter_18.HashedObserverList _: return $flutter_7.ValueNotifier<$flutter_18.HashedObserverList>(value);
-          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_7.ValueNotifier<$flutter_15.LicenseEntryWithLineBreaks>(value);
-          case $flutter_14.LocalKey _: return $flutter_7.ValueNotifier<$flutter_14.LocalKey>(value);
-          case $flutter_16.ObjectCreated _: return $flutter_7.ValueNotifier<$flutter_16.ObjectCreated>(value);
-          case $flutter_16.ObjectDisposed _: return $flutter_7.ValueNotifier<$flutter_16.ObjectDisposed>(value);
-          case $flutter_18.ObserverList _: return $flutter_7.ValueNotifier<$flutter_18.ObserverList>(value);
+          case $flutter_17.HashedObserverList _: return $flutter_7.ValueNotifier<$flutter_17.HashedObserverList>(value);
+          case $flutter_14.LicenseEntryWithLineBreaks _: return $flutter_7.ValueNotifier<$flutter_14.LicenseEntryWithLineBreaks>(value);
+          case $flutter_13.LocalKey _: return $flutter_7.ValueNotifier<$flutter_13.LocalKey>(value);
+          case $flutter_15.ObjectCreated _: return $flutter_7.ValueNotifier<$flutter_15.ObjectCreated>(value);
+          case $flutter_15.ObjectDisposed _: return $flutter_7.ValueNotifier<$flutter_15.ObjectDisposed>(value);
+          case $flutter_17.ObserverList _: return $flutter_7.ValueNotifier<$flutter_17.ObserverList>(value);
           case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_7.ValueNotifier<$flutter_2.RepetitiveStackFrameFilter>(value);
-          case $flutter_25.SynchronousFuture _: return $flutter_7.ValueNotifier<$flutter_25.SynchronousFuture>(value);
+          case $flutter_24.SynchronousFuture _: return $flutter_7.ValueNotifier<$flutter_24.SynchronousFuture>(value);
           case $flutter_7.ValueListenable _: return $flutter_7.ValueNotifier<$flutter_7.ValueListenable>(value);
-          case $flutter_26.AggregatedTimedBlock _: return $flutter_7.ValueNotifier<$flutter_26.AggregatedTimedBlock>(value);
-          case $flutter_26.AggregatedTimings _: return $flutter_7.ValueNotifier<$flutter_26.AggregatedTimings>(value);
+          case $flutter_25.AggregatedTimedBlock _: return $flutter_7.ValueNotifier<$flutter_25.AggregatedTimedBlock>(value);
+          case $flutter_25.AggregatedTimings _: return $flutter_7.ValueNotifier<$flutter_25.AggregatedTimings>(value);
           case $flutter_4.BindingBase _: return $flutter_7.ValueNotifier<$flutter_4.BindingBase>(value);
           case $flutter_5.BitField _: return $flutter_7.ValueNotifier<$flutter_5.BitField>(value);
           case $flutter_1.Category _: return $flutter_7.ValueNotifier<$flutter_1.Category>(value);
-          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticPropertiesBuilder>(value);
-          case $flutter_12.Diagnosticable _: return $flutter_7.ValueNotifier<$flutter_12.Diagnosticable>(value);
-          case $flutter_12.DiagnosticsNode _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsNode>(value);
-          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_7.ValueNotifier<$flutter_12.DiagnosticsSerializationDelegate>(value);
+          case $flutter_11.DiagnosticPropertiesBuilder _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticPropertiesBuilder>(value);
+          case $flutter_11.Diagnosticable _: return $flutter_7.ValueNotifier<$flutter_11.Diagnosticable>(value);
+          case $flutter_11.DiagnosticsNode _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticsNode>(value);
+          case $flutter_11.DiagnosticsSerializationDelegate _: return $flutter_7.ValueNotifier<$flutter_11.DiagnosticsSerializationDelegate>(value);
           case $flutter_1.DocumentationIcon _: return $flutter_7.ValueNotifier<$flutter_1.DocumentationIcon>(value);
           case $flutter_3.Factory _: return $flutter_7.ValueNotifier<$flutter_3.Factory>(value);
-          case $flutter_16.FlutterMemoryAllocations _: return $flutter_7.ValueNotifier<$flutter_16.FlutterMemoryAllocations>(value);
-          case $flutter_26.FlutterTimeline _: return $flutter_7.ValueNotifier<$flutter_26.FlutterTimeline>(value);
+          case $flutter_15.FlutterMemoryAllocations _: return $flutter_7.ValueNotifier<$flutter_15.FlutterMemoryAllocations>(value);
+          case $flutter_25.FlutterTimeline _: return $flutter_7.ValueNotifier<$flutter_25.FlutterTimeline>(value);
           case $meta_1.Immutable _: return $flutter_7.ValueNotifier<$meta_1.Immutable>(value);
-          case $flutter_14.Key _: return $flutter_7.ValueNotifier<$flutter_14.Key>(value);
-          case $flutter_15.LicenseEntry _: return $flutter_7.ValueNotifier<$flutter_15.LicenseEntry>(value);
-          case $flutter_15.LicenseParagraph _: return $flutter_7.ValueNotifier<$flutter_15.LicenseParagraph>(value);
-          case $flutter_15.LicenseRegistry _: return $flutter_7.ValueNotifier<$flutter_15.LicenseRegistry>(value);
+          case $flutter_13.Key _: return $flutter_7.ValueNotifier<$flutter_13.Key>(value);
+          case $flutter_14.LicenseEntry _: return $flutter_7.ValueNotifier<$flutter_14.LicenseEntry>(value);
+          case $flutter_14.LicenseParagraph _: return $flutter_7.ValueNotifier<$flutter_14.LicenseParagraph>(value);
+          case $flutter_14.LicenseRegistry _: return $flutter_7.ValueNotifier<$flutter_14.LicenseRegistry>(value);
           case $flutter_7.Listenable _: return $flutter_7.ValueNotifier<$flutter_7.Listenable>(value);
-          case $flutter_16.ObjectEvent _: return $flutter_7.ValueNotifier<$flutter_16.ObjectEvent>(value);
+          case $flutter_15.ObjectEvent _: return $flutter_7.ValueNotifier<$flutter_15.ObjectEvent>(value);
           case $flutter_2.PartialStackFrame _: return $flutter_7.ValueNotifier<$flutter_2.PartialStackFrame>(value);
-          case $flutter_19.PersistentHashMap _: return $flutter_7.ValueNotifier<$flutter_19.PersistentHashMap>(value);
-          case $flutter_22.ReadBuffer _: return $flutter_7.ValueNotifier<$flutter_22.ReadBuffer>(value);
+          case $flutter_18.PersistentHashMap _: return $flutter_7.ValueNotifier<$flutter_18.PersistentHashMap>(value);
+          case $flutter_21.ReadBuffer _: return $flutter_7.ValueNotifier<$flutter_21.ReadBuffer>(value);
           case $flutter_2.StackFilter _: return $flutter_7.ValueNotifier<$flutter_2.StackFilter>(value);
-          case $flutter_24.StackFrame _: return $flutter_7.ValueNotifier<$flutter_24.StackFrame>(value);
+          case $flutter_23.StackFrame _: return $flutter_7.ValueNotifier<$flutter_23.StackFrame>(value);
           case $flutter_1.Summary _: return $flutter_7.ValueNotifier<$flutter_1.Summary>(value);
-          case $flutter_12.TextTreeConfiguration _: return $flutter_7.ValueNotifier<$flutter_12.TextTreeConfiguration>(value);
-          case $flutter_12.TextTreeRenderer _: return $flutter_7.ValueNotifier<$flutter_12.TextTreeRenderer>(value);
-          case $flutter_26.TimedBlock _: return $flutter_7.ValueNotifier<$flutter_26.TimedBlock>(value);
-          case $flutter_27.Unicode _: return $flutter_7.ValueNotifier<$flutter_27.Unicode>(value);
-          case $flutter_22.WriteBuffer _: return $flutter_7.ValueNotifier<$flutter_22.WriteBuffer>(value);
+          case $flutter_11.TextTreeConfiguration _: return $flutter_7.ValueNotifier<$flutter_11.TextTreeConfiguration>(value);
+          case $flutter_11.TextTreeRenderer _: return $flutter_7.ValueNotifier<$flutter_11.TextTreeRenderer>(value);
+          case $flutter_25.TimedBlock _: return $flutter_7.ValueNotifier<$flutter_25.TimedBlock>(value);
+          case $flutter_26.Unicode _: return $flutter_7.ValueNotifier<$flutter_26.Unicode>(value);
+          case $flutter_21.WriteBuffer _: return $flutter_7.ValueNotifier<$flutter_21.WriteBuffer>(value);
           default: return $flutter_7.ValueNotifier(value);
         }
       },
@@ -5849,15 +5836,15 @@ BridgedClass _createValueNotifierBridge() {
 
 BridgedClass _createKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.Key,
+    nativeType: $flutter_13.Key,
     name: 'Key',
-    isAssignable: (v) => v is $flutter_14.Key,
+    isAssignable: (v) => v is $flutter_13.Key,
     isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Key');
         final value = D4.getRequiredArg<String>(positional, 0, 'value', 'Key');
-        return $flutter_14.Key(value);
+        return $flutter_13.Key(value);
       },
     },
     constructorSignatures: {
@@ -5872,9 +5859,9 @@ BridgedClass _createKeyBridge() {
 
 BridgedClass _createLocalKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.LocalKey,
+    nativeType: $flutter_13.LocalKey,
     name: 'LocalKey',
-    isAssignable: (v) => v is $flutter_14.LocalKey,
+    isAssignable: (v) => v is $flutter_13.LocalKey,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
@@ -5888,18 +5875,18 @@ BridgedClass _createLocalKeyBridge() {
 
 BridgedClass _createUniqueKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.UniqueKey,
+    nativeType: $flutter_13.UniqueKey,
     name: 'UniqueKey',
-    isAssignable: (v) => v is $flutter_14.UniqueKey,
+    isAssignable: (v) => v is $flutter_13.UniqueKey,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_14.UniqueKey();
+        return $flutter_13.UniqueKey();
       },
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.UniqueKey>(target, 'UniqueKey');
+        final t = D4.validateTarget<$flutter_13.UniqueKey>(target, 'UniqueKey');
         return t.toString();
       },
     },
@@ -5918,9 +5905,9 @@ BridgedClass _createUniqueKeyBridge() {
 
 BridgedClass _createValueKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.ValueKey,
+    nativeType: $flutter_13.ValueKey,
     name: 'ValueKey',
-    isAssignable: (v) => v is $flutter_14.ValueKey,
+    isAssignable: (v) => v is $flutter_13.ValueKey,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -5928,92 +5915,92 @@ BridgedClass _createValueKeyBridge() {
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'ValueKey');
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_14.ValueKey<double>(value);
-          case int _: return $flutter_14.ValueKey<int>(value);
-          case String _: return $flutter_14.ValueKey<String>(value);
-          case bool _: return $flutter_14.ValueKey<bool>(value);
-          case $flutter_2.FlutterError _: return $flutter_14.ValueKey<$flutter_2.FlutterError>(value);
-          case $flutter_12.PercentProperty _: return $flutter_14.ValueKey<$flutter_12.PercentProperty>(value);
-          case $flutter_12.DoubleProperty _: return $flutter_14.ValueKey<$flutter_12.DoubleProperty>(value);
-          case $flutter_2.ErrorDescription _: return $flutter_14.ValueKey<$flutter_2.ErrorDescription>(value);
-          case $flutter_2.ErrorHint _: return $flutter_14.ValueKey<$flutter_2.ErrorHint>(value);
-          case $flutter_2.ErrorSummary _: return $flutter_14.ValueKey<$flutter_2.ErrorSummary>(value);
-          case $flutter_12.IntProperty _: return $flutter_14.ValueKey<$flutter_12.IntProperty>(value);
-          case $flutter_7.ValueNotifier _: return $flutter_14.ValueKey<$flutter_7.ValueNotifier>(value);
-          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTreeMixin>(value);
-          case $flutter_12.DiagnosticableTreeNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTreeNode>(value);
-          case $flutter_2.DiagnosticsStackTrace _: return $flutter_14.ValueKey<$flutter_2.DiagnosticsStackTrace>(value);
-          case $flutter_12.EnumProperty _: return $flutter_14.ValueKey<$flutter_12.EnumProperty>(value);
-          case $flutter_2.ErrorSpacer _: return $flutter_14.ValueKey<$flutter_2.ErrorSpacer>(value);
-          case $flutter_12.FlagProperty _: return $flutter_14.ValueKey<$flutter_12.FlagProperty>(value);
-          case $flutter_12.FlagsSummary _: return $flutter_14.ValueKey<$flutter_12.FlagsSummary>(value);
-          case $flutter_12.IterableProperty _: return $flutter_14.ValueKey<$flutter_12.IterableProperty>(value);
-          case $flutter_12.MessageProperty _: return $flutter_14.ValueKey<$flutter_12.MessageProperty>(value);
-          case $flutter_12.ObjectFlagProperty _: return $flutter_14.ValueKey<$flutter_12.ObjectFlagProperty>(value);
-          case $flutter_12.StringProperty _: return $flutter_14.ValueKey<$flutter_12.StringProperty>(value);
-          case $flutter_14.UniqueKey _: return $flutter_14.ValueKey<$flutter_14.UniqueKey>(value);
-          case $flutter_3.CachingIterable _: return $flutter_14.ValueKey<$flutter_3.CachingIterable>(value);
-          case $flutter_7.ChangeNotifier _: return $flutter_14.ValueKey<$flutter_7.ChangeNotifier>(value);
-          case $flutter_12.DiagnosticableNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableNode>(value);
-          case $flutter_12.DiagnosticableTree _: return $flutter_14.ValueKey<$flutter_12.DiagnosticableTree>(value);
-          case $flutter_12.DiagnosticsBlock _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsBlock>(value);
-          case $flutter_12.DiagnosticsProperty _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsProperty>(value);
-          case $flutter_2.FlutterErrorDetails _: return $flutter_14.ValueKey<$flutter_2.FlutterErrorDetails>(value);
-          case $flutter_18.HashedObserverList _: return $flutter_14.ValueKey<$flutter_18.HashedObserverList>(value);
-          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_14.ValueKey<$flutter_15.LicenseEntryWithLineBreaks>(value);
-          case $flutter_14.LocalKey _: return $flutter_14.ValueKey<$flutter_14.LocalKey>(value);
-          case $flutter_16.ObjectCreated _: return $flutter_14.ValueKey<$flutter_16.ObjectCreated>(value);
-          case $flutter_16.ObjectDisposed _: return $flutter_14.ValueKey<$flutter_16.ObjectDisposed>(value);
-          case $flutter_18.ObserverList _: return $flutter_14.ValueKey<$flutter_18.ObserverList>(value);
-          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_14.ValueKey<$flutter_2.RepetitiveStackFrameFilter>(value);
-          case $flutter_25.SynchronousFuture _: return $flutter_14.ValueKey<$flutter_25.SynchronousFuture>(value);
-          case $flutter_7.ValueListenable _: return $flutter_14.ValueKey<$flutter_7.ValueListenable>(value);
-          case $flutter_26.AggregatedTimedBlock _: return $flutter_14.ValueKey<$flutter_26.AggregatedTimedBlock>(value);
-          case $flutter_26.AggregatedTimings _: return $flutter_14.ValueKey<$flutter_26.AggregatedTimings>(value);
-          case $flutter_4.BindingBase _: return $flutter_14.ValueKey<$flutter_4.BindingBase>(value);
-          case $flutter_5.BitField _: return $flutter_14.ValueKey<$flutter_5.BitField>(value);
-          case $flutter_1.Category _: return $flutter_14.ValueKey<$flutter_1.Category>(value);
-          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_14.ValueKey<$flutter_12.DiagnosticPropertiesBuilder>(value);
-          case $flutter_12.Diagnosticable _: return $flutter_14.ValueKey<$flutter_12.Diagnosticable>(value);
-          case $flutter_12.DiagnosticsNode _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsNode>(value);
-          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_14.ValueKey<$flutter_12.DiagnosticsSerializationDelegate>(value);
-          case $flutter_1.DocumentationIcon _: return $flutter_14.ValueKey<$flutter_1.DocumentationIcon>(value);
-          case $flutter_3.Factory _: return $flutter_14.ValueKey<$flutter_3.Factory>(value);
-          case $flutter_16.FlutterMemoryAllocations _: return $flutter_14.ValueKey<$flutter_16.FlutterMemoryAllocations>(value);
-          case $flutter_26.FlutterTimeline _: return $flutter_14.ValueKey<$flutter_26.FlutterTimeline>(value);
-          case $meta_1.Immutable _: return $flutter_14.ValueKey<$meta_1.Immutable>(value);
-          case $flutter_14.Key _: return $flutter_14.ValueKey<$flutter_14.Key>(value);
-          case $flutter_15.LicenseEntry _: return $flutter_14.ValueKey<$flutter_15.LicenseEntry>(value);
-          case $flutter_15.LicenseParagraph _: return $flutter_14.ValueKey<$flutter_15.LicenseParagraph>(value);
-          case $flutter_15.LicenseRegistry _: return $flutter_14.ValueKey<$flutter_15.LicenseRegistry>(value);
-          case $flutter_7.Listenable _: return $flutter_14.ValueKey<$flutter_7.Listenable>(value);
-          case $flutter_16.ObjectEvent _: return $flutter_14.ValueKey<$flutter_16.ObjectEvent>(value);
-          case $flutter_2.PartialStackFrame _: return $flutter_14.ValueKey<$flutter_2.PartialStackFrame>(value);
-          case $flutter_19.PersistentHashMap _: return $flutter_14.ValueKey<$flutter_19.PersistentHashMap>(value);
-          case $flutter_22.ReadBuffer _: return $flutter_14.ValueKey<$flutter_22.ReadBuffer>(value);
-          case $flutter_2.StackFilter _: return $flutter_14.ValueKey<$flutter_2.StackFilter>(value);
-          case $flutter_24.StackFrame _: return $flutter_14.ValueKey<$flutter_24.StackFrame>(value);
-          case $flutter_1.Summary _: return $flutter_14.ValueKey<$flutter_1.Summary>(value);
-          case $flutter_12.TextTreeConfiguration _: return $flutter_14.ValueKey<$flutter_12.TextTreeConfiguration>(value);
-          case $flutter_12.TextTreeRenderer _: return $flutter_14.ValueKey<$flutter_12.TextTreeRenderer>(value);
-          case $flutter_26.TimedBlock _: return $flutter_14.ValueKey<$flutter_26.TimedBlock>(value);
-          case $flutter_27.Unicode _: return $flutter_14.ValueKey<$flutter_27.Unicode>(value);
-          case $flutter_22.WriteBuffer _: return $flutter_14.ValueKey<$flutter_22.WriteBuffer>(value);
-          default: return $flutter_14.ValueKey(value);
+          case double _: return $flutter_13.ValueKey<double>(value);
+          case int _: return $flutter_13.ValueKey<int>(value);
+          case String _: return $flutter_13.ValueKey<String>(value);
+          case bool _: return $flutter_13.ValueKey<bool>(value);
+          case $flutter_2.FlutterError _: return $flutter_13.ValueKey<$flutter_2.FlutterError>(value);
+          case $flutter_11.PercentProperty _: return $flutter_13.ValueKey<$flutter_11.PercentProperty>(value);
+          case $flutter_11.DoubleProperty _: return $flutter_13.ValueKey<$flutter_11.DoubleProperty>(value);
+          case $flutter_2.ErrorDescription _: return $flutter_13.ValueKey<$flutter_2.ErrorDescription>(value);
+          case $flutter_2.ErrorHint _: return $flutter_13.ValueKey<$flutter_2.ErrorHint>(value);
+          case $flutter_2.ErrorSummary _: return $flutter_13.ValueKey<$flutter_2.ErrorSummary>(value);
+          case $flutter_11.IntProperty _: return $flutter_13.ValueKey<$flutter_11.IntProperty>(value);
+          case $flutter_7.ValueNotifier _: return $flutter_13.ValueKey<$flutter_7.ValueNotifier>(value);
+          case $flutter_11.DiagnosticableTreeMixin _: return $flutter_13.ValueKey<$flutter_11.DiagnosticableTreeMixin>(value);
+          case $flutter_11.DiagnosticableTreeNode _: return $flutter_13.ValueKey<$flutter_11.DiagnosticableTreeNode>(value);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_13.ValueKey<$flutter_2.DiagnosticsStackTrace>(value);
+          case $flutter_11.EnumProperty _: return $flutter_13.ValueKey<$flutter_11.EnumProperty>(value);
+          case $flutter_2.ErrorSpacer _: return $flutter_13.ValueKey<$flutter_2.ErrorSpacer>(value);
+          case $flutter_11.FlagProperty _: return $flutter_13.ValueKey<$flutter_11.FlagProperty>(value);
+          case $flutter_11.FlagsSummary _: return $flutter_13.ValueKey<$flutter_11.FlagsSummary>(value);
+          case $flutter_11.IterableProperty _: return $flutter_13.ValueKey<$flutter_11.IterableProperty>(value);
+          case $flutter_11.MessageProperty _: return $flutter_13.ValueKey<$flutter_11.MessageProperty>(value);
+          case $flutter_11.ObjectFlagProperty _: return $flutter_13.ValueKey<$flutter_11.ObjectFlagProperty>(value);
+          case $flutter_11.StringProperty _: return $flutter_13.ValueKey<$flutter_11.StringProperty>(value);
+          case $flutter_13.UniqueKey _: return $flutter_13.ValueKey<$flutter_13.UniqueKey>(value);
+          case $flutter_3.CachingIterable _: return $flutter_13.ValueKey<$flutter_3.CachingIterable>(value);
+          case $flutter_7.ChangeNotifier _: return $flutter_13.ValueKey<$flutter_7.ChangeNotifier>(value);
+          case $flutter_11.DiagnosticableNode _: return $flutter_13.ValueKey<$flutter_11.DiagnosticableNode>(value);
+          case $flutter_11.DiagnosticableTree _: return $flutter_13.ValueKey<$flutter_11.DiagnosticableTree>(value);
+          case $flutter_11.DiagnosticsBlock _: return $flutter_13.ValueKey<$flutter_11.DiagnosticsBlock>(value);
+          case $flutter_11.DiagnosticsProperty _: return $flutter_13.ValueKey<$flutter_11.DiagnosticsProperty>(value);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_13.ValueKey<$flutter_2.FlutterErrorDetails>(value);
+          case $flutter_17.HashedObserverList _: return $flutter_13.ValueKey<$flutter_17.HashedObserverList>(value);
+          case $flutter_14.LicenseEntryWithLineBreaks _: return $flutter_13.ValueKey<$flutter_14.LicenseEntryWithLineBreaks>(value);
+          case $flutter_13.LocalKey _: return $flutter_13.ValueKey<$flutter_13.LocalKey>(value);
+          case $flutter_15.ObjectCreated _: return $flutter_13.ValueKey<$flutter_15.ObjectCreated>(value);
+          case $flutter_15.ObjectDisposed _: return $flutter_13.ValueKey<$flutter_15.ObjectDisposed>(value);
+          case $flutter_17.ObserverList _: return $flutter_13.ValueKey<$flutter_17.ObserverList>(value);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_13.ValueKey<$flutter_2.RepetitiveStackFrameFilter>(value);
+          case $flutter_24.SynchronousFuture _: return $flutter_13.ValueKey<$flutter_24.SynchronousFuture>(value);
+          case $flutter_7.ValueListenable _: return $flutter_13.ValueKey<$flutter_7.ValueListenable>(value);
+          case $flutter_25.AggregatedTimedBlock _: return $flutter_13.ValueKey<$flutter_25.AggregatedTimedBlock>(value);
+          case $flutter_25.AggregatedTimings _: return $flutter_13.ValueKey<$flutter_25.AggregatedTimings>(value);
+          case $flutter_4.BindingBase _: return $flutter_13.ValueKey<$flutter_4.BindingBase>(value);
+          case $flutter_5.BitField _: return $flutter_13.ValueKey<$flutter_5.BitField>(value);
+          case $flutter_1.Category _: return $flutter_13.ValueKey<$flutter_1.Category>(value);
+          case $flutter_11.DiagnosticPropertiesBuilder _: return $flutter_13.ValueKey<$flutter_11.DiagnosticPropertiesBuilder>(value);
+          case $flutter_11.Diagnosticable _: return $flutter_13.ValueKey<$flutter_11.Diagnosticable>(value);
+          case $flutter_11.DiagnosticsNode _: return $flutter_13.ValueKey<$flutter_11.DiagnosticsNode>(value);
+          case $flutter_11.DiagnosticsSerializationDelegate _: return $flutter_13.ValueKey<$flutter_11.DiagnosticsSerializationDelegate>(value);
+          case $flutter_1.DocumentationIcon _: return $flutter_13.ValueKey<$flutter_1.DocumentationIcon>(value);
+          case $flutter_3.Factory _: return $flutter_13.ValueKey<$flutter_3.Factory>(value);
+          case $flutter_15.FlutterMemoryAllocations _: return $flutter_13.ValueKey<$flutter_15.FlutterMemoryAllocations>(value);
+          case $flutter_25.FlutterTimeline _: return $flutter_13.ValueKey<$flutter_25.FlutterTimeline>(value);
+          case $meta_1.Immutable _: return $flutter_13.ValueKey<$meta_1.Immutable>(value);
+          case $flutter_13.Key _: return $flutter_13.ValueKey<$flutter_13.Key>(value);
+          case $flutter_14.LicenseEntry _: return $flutter_13.ValueKey<$flutter_14.LicenseEntry>(value);
+          case $flutter_14.LicenseParagraph _: return $flutter_13.ValueKey<$flutter_14.LicenseParagraph>(value);
+          case $flutter_14.LicenseRegistry _: return $flutter_13.ValueKey<$flutter_14.LicenseRegistry>(value);
+          case $flutter_7.Listenable _: return $flutter_13.ValueKey<$flutter_7.Listenable>(value);
+          case $flutter_15.ObjectEvent _: return $flutter_13.ValueKey<$flutter_15.ObjectEvent>(value);
+          case $flutter_2.PartialStackFrame _: return $flutter_13.ValueKey<$flutter_2.PartialStackFrame>(value);
+          case $flutter_18.PersistentHashMap _: return $flutter_13.ValueKey<$flutter_18.PersistentHashMap>(value);
+          case $flutter_21.ReadBuffer _: return $flutter_13.ValueKey<$flutter_21.ReadBuffer>(value);
+          case $flutter_2.StackFilter _: return $flutter_13.ValueKey<$flutter_2.StackFilter>(value);
+          case $flutter_23.StackFrame _: return $flutter_13.ValueKey<$flutter_23.StackFrame>(value);
+          case $flutter_1.Summary _: return $flutter_13.ValueKey<$flutter_1.Summary>(value);
+          case $flutter_11.TextTreeConfiguration _: return $flutter_13.ValueKey<$flutter_11.TextTreeConfiguration>(value);
+          case $flutter_11.TextTreeRenderer _: return $flutter_13.ValueKey<$flutter_11.TextTreeRenderer>(value);
+          case $flutter_25.TimedBlock _: return $flutter_13.ValueKey<$flutter_25.TimedBlock>(value);
+          case $flutter_26.Unicode _: return $flutter_13.ValueKey<$flutter_26.Unicode>(value);
+          case $flutter_21.WriteBuffer _: return $flutter_13.ValueKey<$flutter_21.WriteBuffer>(value);
+          default: return $flutter_13.ValueKey(value);
         }
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$flutter_14.ValueKey>(target, 'ValueKey').value,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_14.ValueKey>(target, 'ValueKey').hashCode,
+      'value': (visitor, target) => D4.validateTarget<$flutter_13.ValueKey>(target, 'ValueKey').value,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_13.ValueKey>(target, 'ValueKey').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ValueKey>(target, 'ValueKey');
+        final t = D4.validateTarget<$flutter_13.ValueKey>(target, 'ValueKey');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ValueKey>(target, 'ValueKey');
+        final t = D4.validateTarget<$flutter_13.ValueKey>(target, 'ValueKey');
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
@@ -6039,23 +6026,23 @@ BridgedClass _createValueKeyBridge() {
 
 BridgedClass _createLicenseParagraphBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.LicenseParagraph,
+    nativeType: $flutter_14.LicenseParagraph,
     name: 'LicenseParagraph',
-    isAssignable: (v) => v is $flutter_15.LicenseParagraph,
+    isAssignable: (v) => v is $flutter_14.LicenseParagraph,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'LicenseParagraph');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'LicenseParagraph');
         final indent = D4.getRequiredArg<int>(positional, 1, 'indent', 'LicenseParagraph');
-        return $flutter_15.LicenseParagraph(text, indent);
+        return $flutter_14.LicenseParagraph(text, indent);
       },
     },
     getters: {
-      'text': (visitor, target) => D4.validateTarget<$flutter_15.LicenseParagraph>(target, 'LicenseParagraph').text,
-      'indent': (visitor, target) => D4.validateTarget<$flutter_15.LicenseParagraph>(target, 'LicenseParagraph').indent,
+      'text': (visitor, target) => D4.validateTarget<$flutter_14.LicenseParagraph>(target, 'LicenseParagraph').text,
+      'indent': (visitor, target) => D4.validateTarget<$flutter_14.LicenseParagraph>(target, 'LicenseParagraph').indent,
     },
     staticGetters: {
-      'centeredIndent': (visitor) => $flutter_15.LicenseParagraph.centeredIndent,
+      'centeredIndent': (visitor) => $flutter_14.LicenseParagraph.centeredIndent,
     },
     constructorSignatures: {
       '': 'const LicenseParagraph(String text, int indent)',
@@ -6076,15 +6063,15 @@ BridgedClass _createLicenseParagraphBridge() {
 
 BridgedClass _createLicenseEntryBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.LicenseEntry,
+    nativeType: $flutter_14.LicenseEntry,
     name: 'LicenseEntry',
-    isAssignable: (v) => v is $flutter_15.LicenseEntry,
+    isAssignable: (v) => v is $flutter_14.LicenseEntry,
     isAbstract: true,
     constructors: {
     },
     getters: {
-      'packages': (visitor, target) => D4.validateTarget<$flutter_15.LicenseEntry>(target, 'LicenseEntry').packages,
-      'paragraphs': (visitor, target) => D4.validateTarget<$flutter_15.LicenseEntry>(target, 'LicenseEntry').paragraphs,
+      'packages': (visitor, target) => D4.validateTarget<$flutter_14.LicenseEntry>(target, 'LicenseEntry').packages,
+      'paragraphs': (visitor, target) => D4.validateTarget<$flutter_14.LicenseEntry>(target, 'LicenseEntry').paragraphs,
     },
     getterSignatures: {
       'packages': 'Iterable<String> get packages',
@@ -6099,9 +6086,9 @@ BridgedClass _createLicenseEntryBridge() {
 
 BridgedClass _createLicenseEntryWithLineBreaksBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.LicenseEntryWithLineBreaks,
+    nativeType: $flutter_14.LicenseEntryWithLineBreaks,
     name: 'LicenseEntryWithLineBreaks',
-    isAssignable: (v) => v is $flutter_15.LicenseEntryWithLineBreaks,
+    isAssignable: (v) => v is $flutter_14.LicenseEntryWithLineBreaks,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -6111,13 +6098,13 @@ BridgedClass _createLicenseEntryWithLineBreaksBridge() {
         }
         final packages = D4.coerceList<String>(positional[0], 'packages');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'LicenseEntryWithLineBreaks');
-        return $flutter_15.LicenseEntryWithLineBreaks(packages, text);
+        return $flutter_14.LicenseEntryWithLineBreaks(packages, text);
       },
     },
     getters: {
-      'packages': (visitor, target) => D4.validateTarget<$flutter_15.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').packages,
-      'paragraphs': (visitor, target) => D4.validateTarget<$flutter_15.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').paragraphs,
-      'text': (visitor, target) => D4.validateTarget<$flutter_15.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').text,
+      'packages': (visitor, target) => D4.validateTarget<$flutter_14.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').packages,
+      'paragraphs': (visitor, target) => D4.validateTarget<$flutter_14.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').paragraphs,
+      'text': (visitor, target) => D4.validateTarget<$flutter_14.LicenseEntryWithLineBreaks>(target, 'LicenseEntryWithLineBreaks').text,
     },
     constructorSignatures: {
       '': 'const LicenseEntryWithLineBreaks(List<String> packages, String text)',
@@ -6136,14 +6123,14 @@ BridgedClass _createLicenseEntryWithLineBreaksBridge() {
 
 BridgedClass _createLicenseRegistryBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.LicenseRegistry,
+    nativeType: $flutter_14.LicenseRegistry,
     name: 'LicenseRegistry',
-    isAssignable: (v) => v is $flutter_15.LicenseRegistry,
+    isAssignable: (v) => v is $flutter_14.LicenseRegistry,
     isAbstract: true,
     constructors: {
     },
     staticGetters: {
-      'licenses': (visitor) => $flutter_15.LicenseRegistry.licenses,
+      'licenses': (visitor) => $flutter_14.LicenseRegistry.licenses,
     },
     staticMethods: {
       'addLicense': (visitor, positional, named, typeArgs) {
@@ -6152,11 +6139,11 @@ BridgedClass _createLicenseRegistryBridge() {
           throw ArgumentError('addLicense: Missing required argument "collector" at position 0');
         }
         final collectorRaw = positional[0];
-        final collector = (() { return D4.extractBridgedArg<Stream<$flutter_15.LicenseEntry>>(D4.callInterpreterCallback(visitor!, collectorRaw, []), 'callback', visitor) as Stream<$flutter_15.LicenseEntry>; }) as Stream<$flutter_15.LicenseEntry> Function();
-        return $flutter_15.LicenseRegistry.addLicense(collector);
+        final collector = (() { return D4.extractBridgedArg<Stream<$flutter_14.LicenseEntry>>(D4.callInterpreterCallback(visitor!, collectorRaw, []), 'callback', visitor) as Stream<$flutter_14.LicenseEntry>; }) as Stream<$flutter_14.LicenseEntry> Function();
+        return $flutter_14.LicenseRegistry.addLicense(collector);
       },
       'reset': (visitor, positional, named, typeArgs) {
-        return $flutter_15.LicenseRegistry.reset();
+        return $flutter_14.LicenseRegistry.reset();
       },
     },
     staticMethodSignatures: {
@@ -6175,18 +6162,18 @@ BridgedClass _createLicenseRegistryBridge() {
 
 BridgedClass _createObjectEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.ObjectEvent,
+    nativeType: $flutter_15.ObjectEvent,
     name: 'ObjectEvent',
-    isAssignable: (v) => v is $flutter_16.ObjectEvent,
+    isAssignable: (v) => v is $flutter_15.ObjectEvent,
     isAbstract: true,
     constructors: {
     },
     getters: {
-      'object': (visitor, target) => D4.validateTarget<$flutter_16.ObjectEvent>(target, 'ObjectEvent').object,
+      'object': (visitor, target) => D4.validateTarget<$flutter_15.ObjectEvent>(target, 'ObjectEvent').object,
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.ObjectEvent>(target, 'ObjectEvent');
+        final t = D4.validateTarget<$flutter_15.ObjectEvent>(target, 'ObjectEvent');
         return t.toMap();
       },
     },
@@ -6205,26 +6192,26 @@ BridgedClass _createObjectEventBridge() {
 
 BridgedClass _createObjectCreatedBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.ObjectCreated,
+    nativeType: $flutter_15.ObjectCreated,
     name: 'ObjectCreated',
-    isAssignable: (v) => v is $flutter_16.ObjectCreated,
+    isAssignable: (v) => v is $flutter_15.ObjectCreated,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final library = D4.getRequiredNamedArg<String>(named, 'library', 'ObjectCreated');
         final className = D4.getRequiredNamedArg<String>(named, 'className', 'ObjectCreated');
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'ObjectCreated');
-        return $flutter_16.ObjectCreated(library: library, className: className, object: object);
+        return $flutter_15.ObjectCreated(library: library, className: className, object: object);
       },
     },
     getters: {
-      'object': (visitor, target) => D4.validateTarget<$flutter_16.ObjectCreated>(target, 'ObjectCreated').object,
-      'library': (visitor, target) => D4.validateTarget<$flutter_16.ObjectCreated>(target, 'ObjectCreated').library,
-      'className': (visitor, target) => D4.validateTarget<$flutter_16.ObjectCreated>(target, 'ObjectCreated').className,
+      'object': (visitor, target) => D4.validateTarget<$flutter_15.ObjectCreated>(target, 'ObjectCreated').object,
+      'library': (visitor, target) => D4.validateTarget<$flutter_15.ObjectCreated>(target, 'ObjectCreated').library,
+      'className': (visitor, target) => D4.validateTarget<$flutter_15.ObjectCreated>(target, 'ObjectCreated').className,
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.ObjectCreated>(target, 'ObjectCreated');
+        final t = D4.validateTarget<$flutter_15.ObjectCreated>(target, 'ObjectCreated');
         return t.toMap();
       },
     },
@@ -6248,22 +6235,22 @@ BridgedClass _createObjectCreatedBridge() {
 
 BridgedClass _createObjectDisposedBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.ObjectDisposed,
+    nativeType: $flutter_15.ObjectDisposed,
     name: 'ObjectDisposed',
-    isAssignable: (v) => v is $flutter_16.ObjectDisposed,
+    isAssignable: (v) => v is $flutter_15.ObjectDisposed,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'ObjectDisposed');
-        return $flutter_16.ObjectDisposed(object: object);
+        return $flutter_15.ObjectDisposed(object: object);
       },
     },
     getters: {
-      'object': (visitor, target) => D4.validateTarget<$flutter_16.ObjectDisposed>(target, 'ObjectDisposed').object,
+      'object': (visitor, target) => D4.validateTarget<$flutter_15.ObjectDisposed>(target, 'ObjectDisposed').object,
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.ObjectDisposed>(target, 'ObjectDisposed');
+        final t = D4.validateTarget<$flutter_15.ObjectDisposed>(target, 'ObjectDisposed');
         return t.toMap();
       },
     },
@@ -6285,44 +6272,44 @@ BridgedClass _createObjectDisposedBridge() {
 
 BridgedClass _createFlutterMemoryAllocationsBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.FlutterMemoryAllocations,
+    nativeType: $flutter_15.FlutterMemoryAllocations,
     name: 'FlutterMemoryAllocations',
-    isAssignable: (v) => v is $flutter_16.FlutterMemoryAllocations,
+    isAssignable: (v) => v is $flutter_15.FlutterMemoryAllocations,
     constructors: {
     },
     getters: {
-      'hasListeners': (visitor, target) => D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations').hasListeners,
+      'hasListeners': (visitor, target) => D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations').hasListeners,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
+        final t = D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener(($flutter_16.ObjectEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addListener(($flutter_15.ObjectEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
+        final t = D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener(($flutter_16.ObjectEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeListener(($flutter_15.ObjectEvent p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
         return null;
       },
       'dispatchObjectEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
+        final t = D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
         D4.requireMinArgs(positional, 1, 'dispatchObjectEvent');
-        final event = D4.getRequiredArg<$flutter_16.ObjectEvent>(positional, 0, 'event', 'dispatchObjectEvent');
+        final event = D4.getRequiredArg<$flutter_15.ObjectEvent>(positional, 0, 'event', 'dispatchObjectEvent');
         t.dispatchObjectEvent(event);
         return null;
       },
       'dispatchObjectCreated': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
+        final t = D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
         final library = D4.getRequiredNamedArg<String>(named, 'library', 'dispatchObjectCreated');
         final className = D4.getRequiredNamedArg<String>(named, 'className', 'dispatchObjectCreated');
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'dispatchObjectCreated');
@@ -6330,14 +6317,14 @@ BridgedClass _createFlutterMemoryAllocationsBridge() {
         return null;
       },
       'dispatchObjectDisposed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
+        final t = D4.validateTarget<$flutter_15.FlutterMemoryAllocations>(target, 'FlutterMemoryAllocations');
         final object = D4.getRequiredNamedArg<Object>(named, 'object', 'dispatchObjectDisposed');
         t.dispatchObjectDisposed(object: object);
         return null;
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_16.FlutterMemoryAllocations.instance,
+      'instance': (visitor) => $flutter_15.FlutterMemoryAllocations.instance,
     },
     methodSignatures: {
       'addListener': 'void addListener(ObjectEventListener listener)',
@@ -6361,60 +6348,60 @@ BridgedClass _createFlutterMemoryAllocationsBridge() {
 
 BridgedClass _createObserverListBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.ObserverList,
+    nativeType: $flutter_17.ObserverList,
     name: 'ObserverList',
-    isAssignable: (v) => v is $flutter_18.ObserverList,
+    isAssignable: (v) => v is $flutter_17.ObserverList,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_18.ObserverList();
+        return $flutter_17.ObserverList();
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').iterator,
-      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').isEmpty,
-      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').isNotEmpty,
-      'length': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').length,
-      'first': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').first,
-      'last': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').last,
-      'single': (visitor, target) => D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList').single,
+      'iterator': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').iterator,
+      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').isEmpty,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').isNotEmpty,
+      'length': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').length,
+      'first': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').first,
+      'last': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').last,
+      'single': (visitor, target) => D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList').single,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'add');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'add');
         t.add(item);
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'remove');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'remove');
         return t.remove(item);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         t.clear();
         return null;
       },
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'contains');
         final element = D4.getRequiredArg<Object?>(positional, 0, 'element', 'contains');
         return t.contains(element);
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         final growable = D4.getNamedArgWithDefault<bool>(named, 'growable', true);
         return t.toList(growable: growable);
       },
       'cast': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         return t.cast();
       },
       'followedBy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'followedBy');
         if (positional.isEmpty) {
           throw ArgumentError('followedBy: Missing required argument "other" at position 0');
@@ -6423,7 +6410,7 @@ BridgedClass _createObserverListBridge() {
         return t.followedBy(other);
       },
       'map': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'map');
         if (positional.isEmpty) {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
@@ -6432,7 +6419,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'where');
         if (positional.isEmpty) {
           throw ArgumentError('where: Missing required argument "test" at position 0');
@@ -6441,11 +6428,11 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).where(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         return t.whereType();
       },
       'expand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'expand');
         if (positional.isEmpty) {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
@@ -6454,7 +6441,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).expand(((dynamic p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function(dynamic));
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
@@ -6464,7 +6451,7 @@ BridgedClass _createObserverListBridge() {
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'reduce');
         if (positional.isEmpty) {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
@@ -6473,7 +6460,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 2, 'fold');
         final initialValue = D4.getRequiredArg<dynamic>(positional, 0, 'initialValue', 'fold');
         if (positional.length <= 1) {
@@ -6483,7 +6470,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'every');
         if (positional.isEmpty) {
           throw ArgumentError('every: Missing required argument "test" at position 0');
@@ -6492,12 +6479,12 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).every(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'join': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         final separator = D4.getOptionalArgWithDefault<String>(positional, 0, 'separator', "");
         return t.join(separator);
       },
       'any': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'any');
         if (positional.isEmpty) {
           throw ArgumentError('any: Missing required argument "test" at position 0');
@@ -6506,17 +6493,17 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).any(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         return t.toSet();
       },
       'take': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'take');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'take');
         return t.take(count);
       },
       'takeWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'takeWhile');
         if (positional.isEmpty) {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
@@ -6525,13 +6512,13 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).takeWhile(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'skip': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'skip');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'skip');
         return t.skip(count);
       },
       'skipWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'skipWhile');
         if (positional.isEmpty) {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
@@ -6540,7 +6527,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).skipWhile(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'firstWhere');
         if (positional.isEmpty) {
           throw ArgumentError('firstWhere: Missing required argument "test" at position 0');
@@ -6550,7 +6537,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).firstWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'lastWhere');
         if (positional.isEmpty) {
           throw ArgumentError('lastWhere: Missing required argument "test" at position 0');
@@ -6560,7 +6547,7 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).lastWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'singleWhere');
         if (positional.isEmpty) {
           throw ArgumentError('singleWhere: Missing required argument "test" at position 0');
@@ -6570,13 +6557,13 @@ BridgedClass _createObserverListBridge() {
         return (t as dynamic).singleWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         D4.requireMinArgs(positional, 1, 'elementAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'elementAt');
         return t.elementAt(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
+        final t = D4.validateTarget<$flutter_17.ObserverList>(target, 'ObserverList');
         return t.toString();
       },
     },
@@ -6630,60 +6617,60 @@ BridgedClass _createObserverListBridge() {
 
 BridgedClass _createHashedObserverListBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.HashedObserverList,
+    nativeType: $flutter_17.HashedObserverList,
     name: 'HashedObserverList',
-    isAssignable: (v) => v is $flutter_18.HashedObserverList,
+    isAssignable: (v) => v is $flutter_17.HashedObserverList,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_18.HashedObserverList();
+        return $flutter_17.HashedObserverList();
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').iterator,
-      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').isEmpty,
-      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').isNotEmpty,
-      'length': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').length,
-      'first': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').first,
-      'last': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').last,
-      'single': (visitor, target) => D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList').single,
+      'iterator': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').iterator,
+      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').isEmpty,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').isNotEmpty,
+      'length': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').length,
+      'first': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').first,
+      'last': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').last,
+      'single': (visitor, target) => D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList').single,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'add');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'add');
         t.add(item);
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'remove');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'remove');
         return t.remove(item);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         t.clear();
         return null;
       },
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'contains');
         final element = D4.getRequiredArg<Object?>(positional, 0, 'element', 'contains');
         return t.contains(element);
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         final growable = D4.getNamedArgWithDefault<bool>(named, 'growable', true);
         return t.toList(growable: growable);
       },
       'cast': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         return t.cast();
       },
       'followedBy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'followedBy');
         if (positional.isEmpty) {
           throw ArgumentError('followedBy: Missing required argument "other" at position 0');
@@ -6692,7 +6679,7 @@ BridgedClass _createHashedObserverListBridge() {
         return t.followedBy(other);
       },
       'map': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'map');
         if (positional.isEmpty) {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
@@ -6701,7 +6688,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'where');
         if (positional.isEmpty) {
           throw ArgumentError('where: Missing required argument "test" at position 0');
@@ -6710,11 +6697,11 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).where(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         return t.whereType();
       },
       'expand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'expand');
         if (positional.isEmpty) {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
@@ -6723,7 +6710,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).expand(((dynamic p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function(dynamic));
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
@@ -6733,7 +6720,7 @@ BridgedClass _createHashedObserverListBridge() {
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'reduce');
         if (positional.isEmpty) {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
@@ -6742,7 +6729,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 2, 'fold');
         final initialValue = D4.getRequiredArg<dynamic>(positional, 0, 'initialValue', 'fold');
         if (positional.length <= 1) {
@@ -6752,7 +6739,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'every');
         if (positional.isEmpty) {
           throw ArgumentError('every: Missing required argument "test" at position 0');
@@ -6761,12 +6748,12 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).every(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'join': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         final separator = D4.getOptionalArgWithDefault<String>(positional, 0, 'separator', "");
         return t.join(separator);
       },
       'any': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'any');
         if (positional.isEmpty) {
           throw ArgumentError('any: Missing required argument "test" at position 0');
@@ -6775,17 +6762,17 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).any(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         return t.toSet();
       },
       'take': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'take');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'take');
         return t.take(count);
       },
       'takeWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'takeWhile');
         if (positional.isEmpty) {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
@@ -6794,13 +6781,13 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).takeWhile(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'skip': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'skip');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'skip');
         return t.skip(count);
       },
       'skipWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'skipWhile');
         if (positional.isEmpty) {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
@@ -6809,7 +6796,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).skipWhile(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'firstWhere');
         if (positional.isEmpty) {
           throw ArgumentError('firstWhere: Missing required argument "test" at position 0');
@@ -6819,7 +6806,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).firstWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'lastWhere');
         if (positional.isEmpty) {
           throw ArgumentError('lastWhere: Missing required argument "test" at position 0');
@@ -6829,7 +6816,7 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).lastWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'singleWhere');
         if (positional.isEmpty) {
           throw ArgumentError('singleWhere: Missing required argument "test" at position 0');
@@ -6839,13 +6826,13 @@ BridgedClass _createHashedObserverListBridge() {
         return (t as dynamic).singleWhere(((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(dynamic), orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         D4.requireMinArgs(positional, 1, 'elementAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'elementAt');
         return t.elementAt(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
+        final t = D4.validateTarget<$flutter_17.HashedObserverList>(target, 'HashedObserverList');
         return t.toString();
       },
     },
@@ -6899,24 +6886,24 @@ BridgedClass _createHashedObserverListBridge() {
 
 BridgedClass _createPersistentHashMapBridge() {
   return BridgedClass(
-    nativeType: $flutter_19.PersistentHashMap,
+    nativeType: $flutter_18.PersistentHashMap,
     name: 'PersistentHashMap',
-    isAssignable: (v) => v is $flutter_19.PersistentHashMap,
+    isAssignable: (v) => v is $flutter_18.PersistentHashMap,
     constructors: {
       'empty': (visitor, positional, named) {
-        return $flutter_19.PersistentHashMap.empty();
+        return $flutter_18.PersistentHashMap.empty();
       },
     },
     methods: {
       'put': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PersistentHashMap>(target, 'PersistentHashMap');
+        final t = D4.validateTarget<$flutter_18.PersistentHashMap>(target, 'PersistentHashMap');
         D4.requireMinArgs(positional, 2, 'put');
         final key = D4.getRequiredArg<Object>(positional, 0, 'key', 'put');
         final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'put');
         return t.put(key, value);
       },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PersistentHashMap>(target, 'PersistentHashMap');
+        final t = D4.validateTarget<$flutter_18.PersistentHashMap>(target, 'PersistentHashMap');
         final index = D4.getRequiredArg<Object>(positional, 0, 'index', 'operator[]');
         return t[index];
       },
@@ -6936,25 +6923,25 @@ BridgedClass _createPersistentHashMapBridge() {
 
 BridgedClass _createWriteBufferBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.WriteBuffer,
+    nativeType: $flutter_21.WriteBuffer,
     name: 'WriteBuffer',
-    isAssignable: (v) => v is $flutter_22.WriteBuffer,
+    isAssignable: (v) => v is $flutter_21.WriteBuffer,
     constructors: {
       '': (visitor, positional, named) {
         final startCapacity = D4.getNamedArgWithDefault<int>(named, 'startCapacity', 8);
-        return $flutter_22.WriteBuffer(startCapacity: startCapacity);
+        return $flutter_21.WriteBuffer(startCapacity: startCapacity);
       },
     },
     methods: {
       'putUint8': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putUint8');
         final byte = D4.getRequiredArg<int>(positional, 0, 'byte', 'putUint8');
         t.putUint8(byte);
         return null;
       },
       'putUint16': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putUint16');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'putUint16');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
@@ -6962,7 +6949,7 @@ BridgedClass _createWriteBufferBridge() {
         return null;
       },
       'putUint32': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putUint32');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'putUint32');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
@@ -6970,7 +6957,7 @@ BridgedClass _createWriteBufferBridge() {
         return null;
       },
       'putInt32': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putInt32');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'putInt32');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
@@ -6978,7 +6965,7 @@ BridgedClass _createWriteBufferBridge() {
         return null;
       },
       'putInt64': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putInt64');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'putInt64');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
@@ -6986,7 +6973,7 @@ BridgedClass _createWriteBufferBridge() {
         return null;
       },
       'putFloat64': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putFloat64');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'putFloat64');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
@@ -6994,42 +6981,42 @@ BridgedClass _createWriteBufferBridge() {
         return null;
       },
       'putUint8List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putUint8List');
         final list = D4.getRequiredArg<Uint8List>(positional, 0, 'list', 'putUint8List');
         t.putUint8List(list);
         return null;
       },
       'putInt32List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putInt32List');
         final list = D4.getRequiredArg<Int32List>(positional, 0, 'list', 'putInt32List');
         t.putInt32List(list);
         return null;
       },
       'putInt64List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putInt64List');
         final list = D4.getRequiredArg<Int64List>(positional, 0, 'list', 'putInt64List');
         t.putInt64List(list);
         return null;
       },
       'putFloat32List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putFloat32List');
         final list = D4.getRequiredArg<Float32List>(positional, 0, 'list', 'putFloat32List');
         t.putFloat32List(list);
         return null;
       },
       'putFloat64List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         D4.requireMinArgs(positional, 1, 'putFloat64List');
         final list = D4.getRequiredArg<Float64List>(positional, 0, 'list', 'putFloat64List');
         t.putFloat64List(list);
         return null;
       },
       'done': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.WriteBuffer>(target, 'WriteBuffer');
+        final t = D4.validateTarget<$flutter_21.WriteBuffer>(target, 'WriteBuffer');
         return t.done();
       },
     },
@@ -7059,76 +7046,76 @@ BridgedClass _createWriteBufferBridge() {
 
 BridgedClass _createReadBufferBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.ReadBuffer,
+    nativeType: $flutter_21.ReadBuffer,
     name: 'ReadBuffer',
-    isAssignable: (v) => v is $flutter_22.ReadBuffer,
+    isAssignable: (v) => v is $flutter_21.ReadBuffer,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadBuffer');
         final data = D4.getRequiredArg<ByteData>(positional, 0, 'data', 'ReadBuffer');
-        return $flutter_22.ReadBuffer(data);
+        return $flutter_21.ReadBuffer(data);
       },
     },
     getters: {
-      'data': (visitor, target) => D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer').data,
-      'hasRemaining': (visitor, target) => D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer').hasRemaining,
+      'data': (visitor, target) => D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer').data,
+      'hasRemaining': (visitor, target) => D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer').hasRemaining,
     },
     methods: {
       'getUint8': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         return t.getUint8();
       },
       'getUint16': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
         return t.getUint16(endian: endian);
       },
       'getUint32': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
         return t.getUint32(endian: endian);
       },
       'getInt32': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
         return t.getInt32(endian: endian);
       },
       'getInt64': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
         return t.getInt64(endian: endian);
       },
       'getFloat64': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         final endian = D4.getOptionalNamedArg<Endian?>(named, 'endian');
         return t.getFloat64(endian: endian);
       },
       'getUint8List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         D4.requireMinArgs(positional, 1, 'getUint8List');
         final length = D4.getRequiredArg<int>(positional, 0, 'length', 'getUint8List');
         return t.getUint8List(length);
       },
       'getInt32List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         D4.requireMinArgs(positional, 1, 'getInt32List');
         final length = D4.getRequiredArg<int>(positional, 0, 'length', 'getInt32List');
         return t.getInt32List(length);
       },
       'getInt64List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         D4.requireMinArgs(positional, 1, 'getInt64List');
         final length = D4.getRequiredArg<int>(positional, 0, 'length', 'getInt64List');
         return t.getInt64List(length);
       },
       'getFloat32List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         D4.requireMinArgs(positional, 1, 'getFloat32List');
         final length = D4.getRequiredArg<int>(positional, 0, 'length', 'getFloat32List');
         return t.getFloat32List(length);
       },
       'getFloat64List': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.ReadBuffer>(target, 'ReadBuffer');
+        final t = D4.validateTarget<$flutter_21.ReadBuffer>(target, 'ReadBuffer');
         D4.requireMinArgs(positional, 1, 'getFloat64List');
         final length = D4.getRequiredArg<int>(positional, 0, 'length', 'getFloat64List');
         return t.getFloat64List(length);
@@ -7163,9 +7150,9 @@ BridgedClass _createReadBufferBridge() {
 
 BridgedClass _createSynchronousFutureBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.SynchronousFuture,
+    nativeType: $flutter_24.SynchronousFuture,
     name: 'SynchronousFuture',
-    isAssignable: (v) => v is $flutter_25.SynchronousFuture,
+    isAssignable: (v) => v is $flutter_24.SynchronousFuture,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -7173,95 +7160,95 @@ BridgedClass _createSynchronousFutureBridge() {
         final value = D4.getRequiredArg<dynamic>(positional, 0, '_value', 'SynchronousFuture');
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_25.SynchronousFuture<double>(value);
-          case int _: return $flutter_25.SynchronousFuture<int>(value);
-          case String _: return $flutter_25.SynchronousFuture<String>(value);
-          case bool _: return $flutter_25.SynchronousFuture<bool>(value);
-          case $flutter_2.FlutterError _: return $flutter_25.SynchronousFuture<$flutter_2.FlutterError>(value);
-          case $flutter_12.PercentProperty _: return $flutter_25.SynchronousFuture<$flutter_12.PercentProperty>(value);
-          case $flutter_12.DoubleProperty _: return $flutter_25.SynchronousFuture<$flutter_12.DoubleProperty>(value);
-          case $flutter_2.ErrorDescription _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorDescription>(value);
-          case $flutter_2.ErrorHint _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorHint>(value);
-          case $flutter_2.ErrorSummary _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorSummary>(value);
-          case $flutter_12.IntProperty _: return $flutter_25.SynchronousFuture<$flutter_12.IntProperty>(value);
-          case $flutter_7.ValueNotifier _: return $flutter_25.SynchronousFuture<$flutter_7.ValueNotifier>(value);
-          case $flutter_12.DiagnosticableTreeMixin _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTreeMixin>(value);
-          case $flutter_12.DiagnosticableTreeNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTreeNode>(value);
-          case $flutter_2.DiagnosticsStackTrace _: return $flutter_25.SynchronousFuture<$flutter_2.DiagnosticsStackTrace>(value);
-          case $flutter_12.EnumProperty _: return $flutter_25.SynchronousFuture<$flutter_12.EnumProperty>(value);
-          case $flutter_2.ErrorSpacer _: return $flutter_25.SynchronousFuture<$flutter_2.ErrorSpacer>(value);
-          case $flutter_12.FlagProperty _: return $flutter_25.SynchronousFuture<$flutter_12.FlagProperty>(value);
-          case $flutter_12.FlagsSummary _: return $flutter_25.SynchronousFuture<$flutter_12.FlagsSummary>(value);
-          case $flutter_12.IterableProperty _: return $flutter_25.SynchronousFuture<$flutter_12.IterableProperty>(value);
-          case $flutter_12.MessageProperty _: return $flutter_25.SynchronousFuture<$flutter_12.MessageProperty>(value);
-          case $flutter_12.ObjectFlagProperty _: return $flutter_25.SynchronousFuture<$flutter_12.ObjectFlagProperty>(value);
-          case $flutter_12.StringProperty _: return $flutter_25.SynchronousFuture<$flutter_12.StringProperty>(value);
-          case $flutter_14.UniqueKey _: return $flutter_25.SynchronousFuture<$flutter_14.UniqueKey>(value);
-          case $flutter_14.ValueKey _: return $flutter_25.SynchronousFuture<$flutter_14.ValueKey>(value);
-          case $flutter_3.CachingIterable _: return $flutter_25.SynchronousFuture<$flutter_3.CachingIterable>(value);
-          case $flutter_7.ChangeNotifier _: return $flutter_25.SynchronousFuture<$flutter_7.ChangeNotifier>(value);
-          case $flutter_12.DiagnosticableNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableNode>(value);
-          case $flutter_12.DiagnosticableTree _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticableTree>(value);
-          case $flutter_12.DiagnosticsBlock _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsBlock>(value);
-          case $flutter_12.DiagnosticsProperty _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsProperty>(value);
-          case $flutter_2.FlutterErrorDetails _: return $flutter_25.SynchronousFuture<$flutter_2.FlutterErrorDetails>(value);
-          case $flutter_18.HashedObserverList _: return $flutter_25.SynchronousFuture<$flutter_18.HashedObserverList>(value);
-          case $flutter_15.LicenseEntryWithLineBreaks _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseEntryWithLineBreaks>(value);
-          case $flutter_14.LocalKey _: return $flutter_25.SynchronousFuture<$flutter_14.LocalKey>(value);
-          case $flutter_16.ObjectCreated _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectCreated>(value);
-          case $flutter_16.ObjectDisposed _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectDisposed>(value);
-          case $flutter_18.ObserverList _: return $flutter_25.SynchronousFuture<$flutter_18.ObserverList>(value);
-          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_25.SynchronousFuture<$flutter_2.RepetitiveStackFrameFilter>(value);
-          case $flutter_7.ValueListenable _: return $flutter_25.SynchronousFuture<$flutter_7.ValueListenable>(value);
-          case $flutter_26.AggregatedTimedBlock _: return $flutter_25.SynchronousFuture<$flutter_26.AggregatedTimedBlock>(value);
-          case $flutter_26.AggregatedTimings _: return $flutter_25.SynchronousFuture<$flutter_26.AggregatedTimings>(value);
-          case $flutter_4.BindingBase _: return $flutter_25.SynchronousFuture<$flutter_4.BindingBase>(value);
-          case $flutter_5.BitField _: return $flutter_25.SynchronousFuture<$flutter_5.BitField>(value);
-          case $flutter_1.Category _: return $flutter_25.SynchronousFuture<$flutter_1.Category>(value);
-          case $flutter_12.DiagnosticPropertiesBuilder _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticPropertiesBuilder>(value);
-          case $flutter_12.Diagnosticable _: return $flutter_25.SynchronousFuture<$flutter_12.Diagnosticable>(value);
-          case $flutter_12.DiagnosticsNode _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsNode>(value);
-          case $flutter_12.DiagnosticsSerializationDelegate _: return $flutter_25.SynchronousFuture<$flutter_12.DiagnosticsSerializationDelegate>(value);
-          case $flutter_1.DocumentationIcon _: return $flutter_25.SynchronousFuture<$flutter_1.DocumentationIcon>(value);
-          case $flutter_3.Factory _: return $flutter_25.SynchronousFuture<$flutter_3.Factory>(value);
-          case $flutter_16.FlutterMemoryAllocations _: return $flutter_25.SynchronousFuture<$flutter_16.FlutterMemoryAllocations>(value);
-          case $flutter_26.FlutterTimeline _: return $flutter_25.SynchronousFuture<$flutter_26.FlutterTimeline>(value);
-          case $meta_1.Immutable _: return $flutter_25.SynchronousFuture<$meta_1.Immutable>(value);
-          case $flutter_14.Key _: return $flutter_25.SynchronousFuture<$flutter_14.Key>(value);
-          case $flutter_15.LicenseEntry _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseEntry>(value);
-          case $flutter_15.LicenseParagraph _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseParagraph>(value);
-          case $flutter_15.LicenseRegistry _: return $flutter_25.SynchronousFuture<$flutter_15.LicenseRegistry>(value);
-          case $flutter_7.Listenable _: return $flutter_25.SynchronousFuture<$flutter_7.Listenable>(value);
-          case $flutter_16.ObjectEvent _: return $flutter_25.SynchronousFuture<$flutter_16.ObjectEvent>(value);
-          case $flutter_2.PartialStackFrame _: return $flutter_25.SynchronousFuture<$flutter_2.PartialStackFrame>(value);
-          case $flutter_19.PersistentHashMap _: return $flutter_25.SynchronousFuture<$flutter_19.PersistentHashMap>(value);
-          case $flutter_22.ReadBuffer _: return $flutter_25.SynchronousFuture<$flutter_22.ReadBuffer>(value);
-          case $flutter_2.StackFilter _: return $flutter_25.SynchronousFuture<$flutter_2.StackFilter>(value);
-          case $flutter_24.StackFrame _: return $flutter_25.SynchronousFuture<$flutter_24.StackFrame>(value);
-          case $flutter_1.Summary _: return $flutter_25.SynchronousFuture<$flutter_1.Summary>(value);
-          case $flutter_12.TextTreeConfiguration _: return $flutter_25.SynchronousFuture<$flutter_12.TextTreeConfiguration>(value);
-          case $flutter_12.TextTreeRenderer _: return $flutter_25.SynchronousFuture<$flutter_12.TextTreeRenderer>(value);
-          case $flutter_26.TimedBlock _: return $flutter_25.SynchronousFuture<$flutter_26.TimedBlock>(value);
-          case $flutter_27.Unicode _: return $flutter_25.SynchronousFuture<$flutter_27.Unicode>(value);
-          case $flutter_22.WriteBuffer _: return $flutter_25.SynchronousFuture<$flutter_22.WriteBuffer>(value);
-          default: return $flutter_25.SynchronousFuture(value);
+          case double _: return $flutter_24.SynchronousFuture<double>(value);
+          case int _: return $flutter_24.SynchronousFuture<int>(value);
+          case String _: return $flutter_24.SynchronousFuture<String>(value);
+          case bool _: return $flutter_24.SynchronousFuture<bool>(value);
+          case $flutter_2.FlutterError _: return $flutter_24.SynchronousFuture<$flutter_2.FlutterError>(value);
+          case $flutter_11.PercentProperty _: return $flutter_24.SynchronousFuture<$flutter_11.PercentProperty>(value);
+          case $flutter_11.DoubleProperty _: return $flutter_24.SynchronousFuture<$flutter_11.DoubleProperty>(value);
+          case $flutter_2.ErrorDescription _: return $flutter_24.SynchronousFuture<$flutter_2.ErrorDescription>(value);
+          case $flutter_2.ErrorHint _: return $flutter_24.SynchronousFuture<$flutter_2.ErrorHint>(value);
+          case $flutter_2.ErrorSummary _: return $flutter_24.SynchronousFuture<$flutter_2.ErrorSummary>(value);
+          case $flutter_11.IntProperty _: return $flutter_24.SynchronousFuture<$flutter_11.IntProperty>(value);
+          case $flutter_7.ValueNotifier _: return $flutter_24.SynchronousFuture<$flutter_7.ValueNotifier>(value);
+          case $flutter_11.DiagnosticableTreeMixin _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticableTreeMixin>(value);
+          case $flutter_11.DiagnosticableTreeNode _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticableTreeNode>(value);
+          case $flutter_2.DiagnosticsStackTrace _: return $flutter_24.SynchronousFuture<$flutter_2.DiagnosticsStackTrace>(value);
+          case $flutter_11.EnumProperty _: return $flutter_24.SynchronousFuture<$flutter_11.EnumProperty>(value);
+          case $flutter_2.ErrorSpacer _: return $flutter_24.SynchronousFuture<$flutter_2.ErrorSpacer>(value);
+          case $flutter_11.FlagProperty _: return $flutter_24.SynchronousFuture<$flutter_11.FlagProperty>(value);
+          case $flutter_11.FlagsSummary _: return $flutter_24.SynchronousFuture<$flutter_11.FlagsSummary>(value);
+          case $flutter_11.IterableProperty _: return $flutter_24.SynchronousFuture<$flutter_11.IterableProperty>(value);
+          case $flutter_11.MessageProperty _: return $flutter_24.SynchronousFuture<$flutter_11.MessageProperty>(value);
+          case $flutter_11.ObjectFlagProperty _: return $flutter_24.SynchronousFuture<$flutter_11.ObjectFlagProperty>(value);
+          case $flutter_11.StringProperty _: return $flutter_24.SynchronousFuture<$flutter_11.StringProperty>(value);
+          case $flutter_13.UniqueKey _: return $flutter_24.SynchronousFuture<$flutter_13.UniqueKey>(value);
+          case $flutter_13.ValueKey _: return $flutter_24.SynchronousFuture<$flutter_13.ValueKey>(value);
+          case $flutter_3.CachingIterable _: return $flutter_24.SynchronousFuture<$flutter_3.CachingIterable>(value);
+          case $flutter_7.ChangeNotifier _: return $flutter_24.SynchronousFuture<$flutter_7.ChangeNotifier>(value);
+          case $flutter_11.DiagnosticableNode _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticableNode>(value);
+          case $flutter_11.DiagnosticableTree _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticableTree>(value);
+          case $flutter_11.DiagnosticsBlock _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticsBlock>(value);
+          case $flutter_11.DiagnosticsProperty _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticsProperty>(value);
+          case $flutter_2.FlutterErrorDetails _: return $flutter_24.SynchronousFuture<$flutter_2.FlutterErrorDetails>(value);
+          case $flutter_17.HashedObserverList _: return $flutter_24.SynchronousFuture<$flutter_17.HashedObserverList>(value);
+          case $flutter_14.LicenseEntryWithLineBreaks _: return $flutter_24.SynchronousFuture<$flutter_14.LicenseEntryWithLineBreaks>(value);
+          case $flutter_13.LocalKey _: return $flutter_24.SynchronousFuture<$flutter_13.LocalKey>(value);
+          case $flutter_15.ObjectCreated _: return $flutter_24.SynchronousFuture<$flutter_15.ObjectCreated>(value);
+          case $flutter_15.ObjectDisposed _: return $flutter_24.SynchronousFuture<$flutter_15.ObjectDisposed>(value);
+          case $flutter_17.ObserverList _: return $flutter_24.SynchronousFuture<$flutter_17.ObserverList>(value);
+          case $flutter_2.RepetitiveStackFrameFilter _: return $flutter_24.SynchronousFuture<$flutter_2.RepetitiveStackFrameFilter>(value);
+          case $flutter_7.ValueListenable _: return $flutter_24.SynchronousFuture<$flutter_7.ValueListenable>(value);
+          case $flutter_25.AggregatedTimedBlock _: return $flutter_24.SynchronousFuture<$flutter_25.AggregatedTimedBlock>(value);
+          case $flutter_25.AggregatedTimings _: return $flutter_24.SynchronousFuture<$flutter_25.AggregatedTimings>(value);
+          case $flutter_4.BindingBase _: return $flutter_24.SynchronousFuture<$flutter_4.BindingBase>(value);
+          case $flutter_5.BitField _: return $flutter_24.SynchronousFuture<$flutter_5.BitField>(value);
+          case $flutter_1.Category _: return $flutter_24.SynchronousFuture<$flutter_1.Category>(value);
+          case $flutter_11.DiagnosticPropertiesBuilder _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticPropertiesBuilder>(value);
+          case $flutter_11.Diagnosticable _: return $flutter_24.SynchronousFuture<$flutter_11.Diagnosticable>(value);
+          case $flutter_11.DiagnosticsNode _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticsNode>(value);
+          case $flutter_11.DiagnosticsSerializationDelegate _: return $flutter_24.SynchronousFuture<$flutter_11.DiagnosticsSerializationDelegate>(value);
+          case $flutter_1.DocumentationIcon _: return $flutter_24.SynchronousFuture<$flutter_1.DocumentationIcon>(value);
+          case $flutter_3.Factory _: return $flutter_24.SynchronousFuture<$flutter_3.Factory>(value);
+          case $flutter_15.FlutterMemoryAllocations _: return $flutter_24.SynchronousFuture<$flutter_15.FlutterMemoryAllocations>(value);
+          case $flutter_25.FlutterTimeline _: return $flutter_24.SynchronousFuture<$flutter_25.FlutterTimeline>(value);
+          case $meta_1.Immutable _: return $flutter_24.SynchronousFuture<$meta_1.Immutable>(value);
+          case $flutter_13.Key _: return $flutter_24.SynchronousFuture<$flutter_13.Key>(value);
+          case $flutter_14.LicenseEntry _: return $flutter_24.SynchronousFuture<$flutter_14.LicenseEntry>(value);
+          case $flutter_14.LicenseParagraph _: return $flutter_24.SynchronousFuture<$flutter_14.LicenseParagraph>(value);
+          case $flutter_14.LicenseRegistry _: return $flutter_24.SynchronousFuture<$flutter_14.LicenseRegistry>(value);
+          case $flutter_7.Listenable _: return $flutter_24.SynchronousFuture<$flutter_7.Listenable>(value);
+          case $flutter_15.ObjectEvent _: return $flutter_24.SynchronousFuture<$flutter_15.ObjectEvent>(value);
+          case $flutter_2.PartialStackFrame _: return $flutter_24.SynchronousFuture<$flutter_2.PartialStackFrame>(value);
+          case $flutter_18.PersistentHashMap _: return $flutter_24.SynchronousFuture<$flutter_18.PersistentHashMap>(value);
+          case $flutter_21.ReadBuffer _: return $flutter_24.SynchronousFuture<$flutter_21.ReadBuffer>(value);
+          case $flutter_2.StackFilter _: return $flutter_24.SynchronousFuture<$flutter_2.StackFilter>(value);
+          case $flutter_23.StackFrame _: return $flutter_24.SynchronousFuture<$flutter_23.StackFrame>(value);
+          case $flutter_1.Summary _: return $flutter_24.SynchronousFuture<$flutter_1.Summary>(value);
+          case $flutter_11.TextTreeConfiguration _: return $flutter_24.SynchronousFuture<$flutter_11.TextTreeConfiguration>(value);
+          case $flutter_11.TextTreeRenderer _: return $flutter_24.SynchronousFuture<$flutter_11.TextTreeRenderer>(value);
+          case $flutter_25.TimedBlock _: return $flutter_24.SynchronousFuture<$flutter_25.TimedBlock>(value);
+          case $flutter_26.Unicode _: return $flutter_24.SynchronousFuture<$flutter_26.Unicode>(value);
+          case $flutter_21.WriteBuffer _: return $flutter_24.SynchronousFuture<$flutter_21.WriteBuffer>(value);
+          default: return $flutter_24.SynchronousFuture(value);
         }
       },
     },
     methods: {
       'asStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
+        final t = D4.validateTarget<$flutter_24.SynchronousFuture>(target, 'SynchronousFuture');
         return t.asStream();
       },
       'catchError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
+        final t = D4.validateTarget<$flutter_24.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'catchError');
         final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
         final testRaw = named['test'];
         return t.catchError(onError, test: testRaw == null ? null : ((Object p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(Object));
       },
       'then': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
+        final t = D4.validateTarget<$flutter_24.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'then');
         if (positional.isEmpty) {
           throw ArgumentError('then: Missing required argument "onValue" at position 0');
@@ -7271,14 +7258,14 @@ BridgedClass _createSynchronousFutureBridge() {
         return (t as dynamic).then(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [p0])); }) as FutureOr<Object?> Function(dynamic), onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
+        final t = D4.validateTarget<$flutter_24.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'timeout');
         final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
         final onTimeoutRaw = named['onTimeout'];
         return (t as dynamic).timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : (() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, [])); }) as FutureOr<Object?> Function());
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
+        final t = D4.validateTarget<$flutter_24.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'whenComplete');
         if (positional.isEmpty) {
           throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
@@ -7306,15 +7293,15 @@ BridgedClass _createSynchronousFutureBridge() {
 
 BridgedClass _createFlutterTimelineBridge() {
   return BridgedClass(
-    nativeType: $flutter_26.FlutterTimeline,
+    nativeType: $flutter_25.FlutterTimeline,
     name: 'FlutterTimeline',
-    isAssignable: (v) => v is $flutter_26.FlutterTimeline,
+    isAssignable: (v) => v is $flutter_25.FlutterTimeline,
     isAbstract: true,
     constructors: {
     },
     staticGetters: {
-      'debugCollectionEnabled': (visitor) => $flutter_26.FlutterTimeline.debugCollectionEnabled,
-      'now': (visitor) => $flutter_26.FlutterTimeline.now,
+      'debugCollectionEnabled': (visitor) => $flutter_25.FlutterTimeline.debugCollectionEnabled,
+      'now': (visitor) => $flutter_25.FlutterTimeline.now,
     },
     staticMethods: {
       'startSync': (visitor, positional, named, typeArgs) {
@@ -7322,16 +7309,16 @@ BridgedClass _createFlutterTimelineBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'startSync');
         final arguments = D4.coerceMapOrNull<String, Object?>(named['arguments'], 'arguments');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return $flutter_26.FlutterTimeline.startSync(name, arguments: arguments, flow: flow);
+        return $flutter_25.FlutterTimeline.startSync(name, arguments: arguments, flow: flow);
       },
       'finishSync': (visitor, positional, named, typeArgs) {
-        return $flutter_26.FlutterTimeline.finishSync();
+        return $flutter_25.FlutterTimeline.finishSync();
       },
       'instantSync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'instantSync');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'instantSync');
         final arguments = D4.coerceMapOrNull<String, Object?>(named['arguments'], 'arguments');
-        return $flutter_26.FlutterTimeline.instantSync(name, arguments: arguments);
+        return $flutter_25.FlutterTimeline.instantSync(name, arguments: arguments);
       },
       'timeSync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'timeSync');
@@ -7343,18 +7330,18 @@ BridgedClass _createFlutterTimelineBridge() {
         final function = () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, functionRaw, [])); };
         final arguments = D4.coerceMapOrNull<String, Object?>(named['arguments'], 'arguments');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return $flutter_26.FlutterTimeline.timeSync(name, function, arguments: arguments, flow: flow);
+        return $flutter_25.FlutterTimeline.timeSync(name, function, arguments: arguments, flow: flow);
       },
       'debugCollect': (visitor, positional, named, typeArgs) {
-        return $flutter_26.FlutterTimeline.debugCollect();
+        return $flutter_25.FlutterTimeline.debugCollect();
       },
       'debugReset': (visitor, positional, named, typeArgs) {
-        return $flutter_26.FlutterTimeline.debugReset();
+        return $flutter_25.FlutterTimeline.debugReset();
       },
     },
     staticSetters: {
       'debugCollectionEnabled': (visitor, value) => 
-        $flutter_26.FlutterTimeline.debugCollectionEnabled = D4.extractBridgedArg<bool>(value, 'debugCollectionEnabled'),
+        $flutter_25.FlutterTimeline.debugCollectionEnabled = D4.extractBridgedArg<bool>(value, 'debugCollectionEnabled'),
     },
     staticMethodSignatures: {
       'startSync': 'void startSync(String name, {Map<String, Object?>? arguments, Flow? flow})',
@@ -7380,26 +7367,26 @@ BridgedClass _createFlutterTimelineBridge() {
 
 BridgedClass _createTimedBlockBridge() {
   return BridgedClass(
-    nativeType: $flutter_26.TimedBlock,
+    nativeType: $flutter_25.TimedBlock,
     name: 'TimedBlock',
-    isAssignable: (v) => v is $flutter_26.TimedBlock,
+    isAssignable: (v) => v is $flutter_25.TimedBlock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'TimedBlock');
         final start = D4.getRequiredNamedArg<double>(named, 'start', 'TimedBlock');
         final end = D4.getRequiredNamedArg<double>(named, 'end', 'TimedBlock');
-        return $flutter_26.TimedBlock(name: name, start: start, end: end);
+        return $flutter_25.TimedBlock(name: name, start: start, end: end);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_26.TimedBlock>(target, 'TimedBlock').name,
-      'start': (visitor, target) => D4.validateTarget<$flutter_26.TimedBlock>(target, 'TimedBlock').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_26.TimedBlock>(target, 'TimedBlock').end,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_26.TimedBlock>(target, 'TimedBlock').duration,
+      'name': (visitor, target) => D4.validateTarget<$flutter_25.TimedBlock>(target, 'TimedBlock').name,
+      'start': (visitor, target) => D4.validateTarget<$flutter_25.TimedBlock>(target, 'TimedBlock').start,
+      'end': (visitor, target) => D4.validateTarget<$flutter_25.TimedBlock>(target, 'TimedBlock').end,
+      'duration': (visitor, target) => D4.validateTarget<$flutter_25.TimedBlock>(target, 'TimedBlock').duration,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.TimedBlock>(target, 'TimedBlock');
+        final t = D4.validateTarget<$flutter_25.TimedBlock>(target, 'TimedBlock');
         return t.toString();
       },
     },
@@ -7424,26 +7411,26 @@ BridgedClass _createTimedBlockBridge() {
 
 BridgedClass _createAggregatedTimingsBridge() {
   return BridgedClass(
-    nativeType: $flutter_26.AggregatedTimings,
+    nativeType: $flutter_25.AggregatedTimings,
     name: 'AggregatedTimings',
-    isAssignable: (v) => v is $flutter_26.AggregatedTimings,
+    isAssignable: (v) => v is $flutter_25.AggregatedTimings,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AggregatedTimings');
         if (positional.isEmpty) {
           throw ArgumentError('AggregatedTimings: Missing required argument "timedBlocks" at position 0');
         }
-        final timedBlocks = D4.coerceList<$flutter_26.TimedBlock>(positional[0], 'timedBlocks');
-        return $flutter_26.AggregatedTimings(timedBlocks);
+        final timedBlocks = D4.coerceList<$flutter_25.TimedBlock>(positional[0], 'timedBlocks');
+        return $flutter_25.AggregatedTimings(timedBlocks);
       },
     },
     getters: {
-      'timedBlocks': (visitor, target) => D4.validateTarget<$flutter_26.AggregatedTimings>(target, 'AggregatedTimings').timedBlocks,
-      'aggregatedBlocks': (visitor, target) => D4.validateTarget<$flutter_26.AggregatedTimings>(target, 'AggregatedTimings').aggregatedBlocks,
+      'timedBlocks': (visitor, target) => D4.validateTarget<$flutter_25.AggregatedTimings>(target, 'AggregatedTimings').timedBlocks,
+      'aggregatedBlocks': (visitor, target) => D4.validateTarget<$flutter_25.AggregatedTimings>(target, 'AggregatedTimings').aggregatedBlocks,
     },
     methods: {
       'getAggregated': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AggregatedTimings>(target, 'AggregatedTimings');
+        final t = D4.validateTarget<$flutter_25.AggregatedTimings>(target, 'AggregatedTimings');
         D4.requireMinArgs(positional, 1, 'getAggregated');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getAggregated');
         return t.getAggregated(name);
@@ -7468,25 +7455,25 @@ BridgedClass _createAggregatedTimingsBridge() {
 
 BridgedClass _createAggregatedTimedBlockBridge() {
   return BridgedClass(
-    nativeType: $flutter_26.AggregatedTimedBlock,
+    nativeType: $flutter_25.AggregatedTimedBlock,
     name: 'AggregatedTimedBlock',
-    isAssignable: (v) => v is $flutter_26.AggregatedTimedBlock,
+    isAssignable: (v) => v is $flutter_25.AggregatedTimedBlock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'AggregatedTimedBlock');
         final duration = D4.getRequiredNamedArg<double>(named, 'duration', 'AggregatedTimedBlock');
         final count = D4.getRequiredNamedArg<int>(named, 'count', 'AggregatedTimedBlock');
-        return $flutter_26.AggregatedTimedBlock(name: name, duration: duration, count: count);
+        return $flutter_25.AggregatedTimedBlock(name: name, duration: duration, count: count);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_26.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').name,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_26.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').duration,
-      'count': (visitor, target) => D4.validateTarget<$flutter_26.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').count,
+      'name': (visitor, target) => D4.validateTarget<$flutter_25.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').name,
+      'duration': (visitor, target) => D4.validateTarget<$flutter_25.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').duration,
+      'count': (visitor, target) => D4.validateTarget<$flutter_25.AggregatedTimedBlock>(target, 'AggregatedTimedBlock').count,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AggregatedTimedBlock>(target, 'AggregatedTimedBlock');
+        final t = D4.validateTarget<$flutter_25.AggregatedTimedBlock>(target, 'AggregatedTimedBlock');
         return t.toString();
       },
     },
@@ -7510,25 +7497,25 @@ BridgedClass _createAggregatedTimedBlockBridge() {
 
 BridgedClass _createUnicodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.Unicode,
+    nativeType: $flutter_26.Unicode,
     name: 'Unicode',
-    isAssignable: (v) => v is $flutter_27.Unicode,
+    isAssignable: (v) => v is $flutter_26.Unicode,
     isAbstract: true,
     constructors: {
     },
     staticGetters: {
-      'LRE': (visitor) => $flutter_27.Unicode.LRE,
-      'RLE': (visitor) => $flutter_27.Unicode.RLE,
-      'PDF': (visitor) => $flutter_27.Unicode.PDF,
-      'LRO': (visitor) => $flutter_27.Unicode.LRO,
-      'RLO': (visitor) => $flutter_27.Unicode.RLO,
-      'LRI': (visitor) => $flutter_27.Unicode.LRI,
-      'RLI': (visitor) => $flutter_27.Unicode.RLI,
-      'FSI': (visitor) => $flutter_27.Unicode.FSI,
-      'PDI': (visitor) => $flutter_27.Unicode.PDI,
-      'LRM': (visitor) => $flutter_27.Unicode.LRM,
-      'RLM': (visitor) => $flutter_27.Unicode.RLM,
-      'ALM': (visitor) => $flutter_27.Unicode.ALM,
+      'LRE': (visitor) => $flutter_26.Unicode.LRE,
+      'RLE': (visitor) => $flutter_26.Unicode.RLE,
+      'PDF': (visitor) => $flutter_26.Unicode.PDF,
+      'LRO': (visitor) => $flutter_26.Unicode.LRO,
+      'RLO': (visitor) => $flutter_26.Unicode.RLO,
+      'LRI': (visitor) => $flutter_26.Unicode.LRI,
+      'RLI': (visitor) => $flutter_26.Unicode.RLI,
+      'FSI': (visitor) => $flutter_26.Unicode.FSI,
+      'PDI': (visitor) => $flutter_26.Unicode.PDI,
+      'LRM': (visitor) => $flutter_26.Unicode.LRM,
+      'RLM': (visitor) => $flutter_26.Unicode.RLM,
+      'ALM': (visitor) => $flutter_26.Unicode.ALM,
     },
     staticGetterSignatures: {
       'LRE': 'String get LRE',
