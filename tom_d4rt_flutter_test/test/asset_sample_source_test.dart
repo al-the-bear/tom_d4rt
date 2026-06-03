@@ -11,7 +11,7 @@
 library;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tom_d4rt_flutter_test/src/sample_source.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -64,9 +64,9 @@ import 'package:flutter/src/services/text_formatter.dart' as $flutter_49;
 import 'package:flutter/src/services/text_input.dart' as $flutter_50;
 import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_51;
 import 'package:flutter/src/services/undo_manager.dart' as $flutter_52;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 
 /// Bridge class for flutter_services module.

@@ -11,9 +11,9 @@ library;
 
 import 'package:flutter/foundation.dart';
 
-import 'sample_source.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
-export 'sample_source.dart'
+export 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart'
     show SampleAppEntry, SampleProgram, SampleLoadException, isMobileRuntime;
 
 /// Observable sample list + selection, backed by a [SampleSource].

@@ -14,7 +14,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../source_flutter_d4rt.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
+
 import '../test_runner.dart';
 import '../test_script_loader.dart';
 

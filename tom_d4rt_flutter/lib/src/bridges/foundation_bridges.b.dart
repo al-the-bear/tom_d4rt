@@ -41,9 +41,9 @@ import 'package:flutter/src/foundation/synchronous_future.dart' as $flutter_25;
 import 'package:flutter/src/foundation/timeline.dart' as $flutter_26;
 import 'package:flutter/src/foundation/unicode.dart' as $flutter_27;
 import 'package:meta/meta.dart' as $meta_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 
 /// Bridge class for flutter_foundation module.
 class FlutterFoundationBridge {

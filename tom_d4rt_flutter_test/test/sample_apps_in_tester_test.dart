@@ -27,7 +27,7 @@ import 'package:flutter/services.dart'
     show LogicalKeyboardKey; // for tester.sendKey*Event in tron tests
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
-import 'package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
 /// Reusable interpreter instance — bridge registration is the most
 /// expensive part of the setup, so we share it across tests.

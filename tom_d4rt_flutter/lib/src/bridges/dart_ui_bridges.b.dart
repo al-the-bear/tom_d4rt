@@ -12,9 +12,9 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 
 /// Bridge class for dart_ui module.
 class DartUiBridge {

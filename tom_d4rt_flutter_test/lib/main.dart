@@ -18,9 +18,10 @@ import 'package:flutter/services.dart';
 
 import 'src/generator/generator_notifier.dart';
 import 'src/generator/prefs_store.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
+
 import 'src/sample_apps_notifier.dart';
 import 'src/script_root_notifier.dart';
-import 'src/source_flutter_d4rt.dart';
 import 'src/test_runner.dart';
 import 'src/widgets/control_bar.dart';
 import 'src/widgets/d4rt_script_view.dart';

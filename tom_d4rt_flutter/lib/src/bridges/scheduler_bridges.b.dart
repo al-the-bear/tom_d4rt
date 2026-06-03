@@ -19,9 +19,9 @@ import 'package:flutter/src/scheduler/debug.dart' as $flutter_5;
 import 'package:flutter/src/scheduler/priority.dart' as $flutter_6;
 import 'package:flutter/src/scheduler/service_extensions.dart' as $flutter_7;
 import 'package:flutter/src/scheduler/ticker.dart' as $flutter_8;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 
 /// Bridge class for flutter_scheduler module.
 class FlutterSchedulerBridge {

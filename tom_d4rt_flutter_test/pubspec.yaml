@@ -1,5 +1,5 @@
 name: tom_d4rt_flutter_test
-description: "Interactive D4rt test runner — executes tom_d4rt_flutter_ast test scripts via tom_d4rt source-based interpreter."
+description: "Test & demo app for tom_d4rt_flutter — interactive D4rt sample-app runner, script playback, and AI-assisted Flutter UI generator."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tom_d4rt:
-    path: ../tom_d4rt
+  tom_d4rt_flutter:
+    path: ../tom_d4rt_flutter  # provides SourceFlutterD4rt + all Flutter bridges + sample-source loaders
   path: ^1.9.0
   file_picker: ^8.0.0
   http: ^1.2.0
@@ -21,8 +21,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  tom_d4rt_generator:
-    path: ../tom_d4rt_generator
 
 flutter:
   uses-material-design: true

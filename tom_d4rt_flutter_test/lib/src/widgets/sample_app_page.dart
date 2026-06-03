@@ -11,8 +11,7 @@ library;
 
 import 'package:flutter/material.dart';
 
-import '../sample_apps_notifier.dart';
-import '../source_flutter_d4rt.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
 class SampleAppPage extends StatefulWidget {
   final SampleAppEntry sample;

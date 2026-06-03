@@ -48,7 +48,7 @@ class SourceFlutterD4rt {
     registerD4rtRuntimeExtensions();
     FlutterMaterialBridges.register(_interpreter);
     _interpreter.registerExtensions(
-      'tom_d4rt_flutter_test',
+      'tom_d4rt_flutter',
       registerD4rtInterfaceProxyOverrides,
     );
     _interpreter.finalizeBridges();

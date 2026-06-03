@@ -16,9 +16,9 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_4;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_5;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_6;
 import 'package:flutter/src/physics/utils.dart' as $flutter_7;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter_test/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
 
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {

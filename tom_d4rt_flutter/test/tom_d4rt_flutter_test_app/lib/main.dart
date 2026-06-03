@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tom_d4rt_flutter_test/tom_d4rt_flutter_test.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
 import 'interaction_controller.dart';
 
