@@ -95,6 +95,16 @@ d4rtgen:
     - name: dart_ui
       barrelImport: dart:ui
       outputPath: lib/src/bridges/dart_ui_bridges.b.dart
+      # Web-safety: SemanticsFlags has a VM↔web API skew — `SemanticsFlags.none`
+      # is a settable static field on the VM but a const (no setter) on web, so
+      # the generated static setter fails dart2js. SemanticsFlags is an
+      # engine-internal semantics type that no corpus script references, so
+      # excluding the whole class costs no coverage while keeping the bridge
+      # set web-buildable. (SceneBuilder has a related skew on `pushOpacity`
+      # but IS used by scene_builder_test.dart, so it stays bridged and is
+      # web-patched via SceneBuilderUserBridge instead of being excluded.)
+      excludeClasses:
+        - SemanticsFlags
     # --- Layer 1: Base libraries ---
     - name: flutter_painting
       barrelImport: package:flutter/painting.dart

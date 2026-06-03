@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-03T17:06:45.371736
+// Generated: 2026-06-03T22:35:40.356611
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -13,8 +13,9 @@ import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_ast_1;
-import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
-import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_ast_3;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/scene_builder_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_3;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_ast_4;
 
 /// Bridge class for dart_ui module.
 class DartUiBridge {
@@ -96,7 +97,6 @@ class DartUiBridge {
       _createPointerDataPacketBridge(),
       _createSemanticsActionBridge(),
       _createSemanticsFlagBridge(),
-      _createSemanticsFlagsBridge(),
       _createStringAttributeBridge(),
       _createSpellOutStringAttributeBridge(),
       _createLocaleStringAttributeBridge(),
@@ -207,7 +207,6 @@ class DartUiBridge {
       'PointerDataPacket': 'dart:ui',
       'SemanticsAction': 'dart:ui',
       'SemanticsFlag': 'dart:ui',
-      'SemanticsFlags': 'dart:ui',
       'StringAttribute': 'dart:ui',
       'SpellOutStringAttribute': 'dart:ui',
       'LocaleStringAttribute': 'dart:ui',
@@ -1366,14 +1365,7 @@ BridgedClass _createSceneBuilderBridge() {
         final oldLayer = D4.getOptionalNamedArg<$dart_ui.ClipPathEngineLayer?>(named, 'oldLayer');
         return t.pushClipPath(path, clipBehavior: clipBehavior, oldLayer: oldLayer);
       },
-      'pushOpacity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
-        D4.requireMinArgs(positional, 1, 'pushOpacity');
-        final alpha = D4.getRequiredArg<int>(positional, 0, 'alpha', 'pushOpacity');
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset?>(named, 'offset', $dart_ui.Offset.zero);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.OpacityEngineLayer?>(named, 'oldLayer');
-        return t.pushOpacity(alpha, offset: offset, oldLayer: oldLayer);
-      },
+      'pushOpacity': $tom_d4rt_flutter_ast_2.SceneBuilderUserBridge.overrideMethodPushOpacity,
       'pushColorFilter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushColorFilter');
@@ -6822,184 +6814,6 @@ BridgedClass _createSemanticsFlagBridge() {
 }
 
 // =============================================================================
-// SemanticsFlags Bridge
-// =============================================================================
-
-BridgedClass _createSemanticsFlagsBridge() {
-  return BridgedClass(
-    nativeType: $dart_ui.SemanticsFlags,
-    name: 'SemanticsFlags',
-    isAssignable: (v) => v is $dart_ui.SemanticsFlags,
-    hierarchyDepth: 1,
-    constructors: {
-      '': (visitor, positional, named) {
-        final isChecked = D4.getNamedArgWithDefault<$dart_ui.CheckedState>(named, 'isChecked', $dart_ui.CheckedState.none);
-        final isSelected = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isSelected', $dart_ui.Tristate.none);
-        final isEnabled = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isEnabled', $dart_ui.Tristate.none);
-        final isToggled = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isToggled', $dart_ui.Tristate.none);
-        final isExpanded = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isExpanded', $dart_ui.Tristate.none);
-        final isRequired = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isRequired', $dart_ui.Tristate.none);
-        final isFocused = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isFocused', $dart_ui.Tristate.none);
-        final isButton = D4.getNamedArgWithDefault<bool>(named, 'isButton', false);
-        final isTextField = D4.getNamedArgWithDefault<bool>(named, 'isTextField', false);
-        final isInMutuallyExclusiveGroup = D4.getNamedArgWithDefault<bool>(named, 'isInMutuallyExclusiveGroup', false);
-        final isHeader = D4.getNamedArgWithDefault<bool>(named, 'isHeader', false);
-        final isObscured = D4.getNamedArgWithDefault<bool>(named, 'isObscured', false);
-        final scopesRoute = D4.getNamedArgWithDefault<bool>(named, 'scopesRoute', false);
-        final namesRoute = D4.getNamedArgWithDefault<bool>(named, 'namesRoute', false);
-        final isHidden = D4.getNamedArgWithDefault<bool>(named, 'isHidden', false);
-        final isImage = D4.getNamedArgWithDefault<bool>(named, 'isImage', false);
-        final isLiveRegion = D4.getNamedArgWithDefault<bool>(named, 'isLiveRegion', false);
-        final hasImplicitScrolling = D4.getNamedArgWithDefault<bool>(named, 'hasImplicitScrolling', false);
-        final isMultiline = D4.getNamedArgWithDefault<bool>(named, 'isMultiline', false);
-        final isReadOnly = D4.getNamedArgWithDefault<bool>(named, 'isReadOnly', false);
-        final isLink = D4.getNamedArgWithDefault<bool>(named, 'isLink', false);
-        final isSlider = D4.getNamedArgWithDefault<bool>(named, 'isSlider', false);
-        final isKeyboardKey = D4.getNamedArgWithDefault<bool>(named, 'isKeyboardKey', false);
-        final isAccessibilityFocusBlocked = D4.getNamedArgWithDefault<bool>(named, 'isAccessibilityFocusBlocked', false);
-        return $dart_ui.SemanticsFlags(isChecked: isChecked, isSelected: isSelected, isEnabled: isEnabled, isToggled: isToggled, isExpanded: isExpanded, isRequired: isRequired, isFocused: isFocused, isButton: isButton, isTextField: isTextField, isInMutuallyExclusiveGroup: isInMutuallyExclusiveGroup, isHeader: isHeader, isObscured: isObscured, scopesRoute: scopesRoute, namesRoute: namesRoute, isHidden: isHidden, isImage: isImage, isLiveRegion: isLiveRegion, hasImplicitScrolling: hasImplicitScrolling, isMultiline: isMultiline, isReadOnly: isReadOnly, isLink: isLink, isSlider: isSlider, isKeyboardKey: isKeyboardKey, isAccessibilityFocusBlocked: isAccessibilityFocusBlocked);
-      },
-    },
-    getters: {
-      'isChecked': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isChecked,
-      'isSelected': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isSelected,
-      'isEnabled': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isEnabled,
-      'isToggled': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isToggled,
-      'isExpanded': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isExpanded,
-      'isRequired': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isRequired,
-      'isFocused': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isFocused,
-      'isAccessibilityFocusBlocked': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isAccessibilityFocusBlocked,
-      'isButton': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isButton,
-      'isTextField': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isTextField,
-      'isInMutuallyExclusiveGroup': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isInMutuallyExclusiveGroup,
-      'isHeader': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isHeader,
-      'isObscured': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isObscured,
-      'scopesRoute': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').scopesRoute,
-      'namesRoute': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').namesRoute,
-      'isHidden': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isHidden,
-      'isImage': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isImage,
-      'isLiveRegion': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isLiveRegion,
-      'hasImplicitScrolling': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').hasImplicitScrolling,
-      'isMultiline': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isMultiline,
-      'isReadOnly': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isReadOnly,
-      'isLink': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isLink,
-      'isSlider': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isSlider,
-      'isKeyboardKey': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').isKeyboardKey,
-      'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags').hashCode,
-    },
-    methods: {
-      'merge': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        D4.requireMinArgs(positional, 1, 'merge');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'merge');
-        return t.merge(other);
-      },
-      'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        final isChecked = D4.getOptionalNamedArg<$dart_ui.CheckedState?>(named, 'isChecked');
-        final isSelected = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isSelected');
-        final isEnabled = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isEnabled');
-        final isToggled = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isToggled');
-        final isExpanded = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isExpanded');
-        final isRequired = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isRequired');
-        final isFocused = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isFocused');
-        final isButton = D4.getOptionalNamedArg<bool?>(named, 'isButton');
-        final isTextField = D4.getOptionalNamedArg<bool?>(named, 'isTextField');
-        final isInMutuallyExclusiveGroup = D4.getOptionalNamedArg<bool?>(named, 'isInMutuallyExclusiveGroup');
-        final isHeader = D4.getOptionalNamedArg<bool?>(named, 'isHeader');
-        final isObscured = D4.getOptionalNamedArg<bool?>(named, 'isObscured');
-        final scopesRoute = D4.getOptionalNamedArg<bool?>(named, 'scopesRoute');
-        final namesRoute = D4.getOptionalNamedArg<bool?>(named, 'namesRoute');
-        final isHidden = D4.getOptionalNamedArg<bool?>(named, 'isHidden');
-        final isImage = D4.getOptionalNamedArg<bool?>(named, 'isImage');
-        final isLiveRegion = D4.getOptionalNamedArg<bool?>(named, 'isLiveRegion');
-        final hasImplicitScrolling = D4.getOptionalNamedArg<bool?>(named, 'hasImplicitScrolling');
-        final isMultiline = D4.getOptionalNamedArg<bool?>(named, 'isMultiline');
-        final isReadOnly = D4.getOptionalNamedArg<bool?>(named, 'isReadOnly');
-        final isLink = D4.getOptionalNamedArg<bool?>(named, 'isLink');
-        final isSlider = D4.getOptionalNamedArg<bool?>(named, 'isSlider');
-        final isKeyboardKey = D4.getOptionalNamedArg<bool?>(named, 'isKeyboardKey');
-        final isAccessibilityFocusBlocked = D4.getOptionalNamedArg<bool?>(named, 'isAccessibilityFocusBlocked');
-        return t.copyWith(isChecked: isChecked, isSelected: isSelected, isEnabled: isEnabled, isToggled: isToggled, isExpanded: isExpanded, isRequired: isRequired, isFocused: isFocused, isButton: isButton, isTextField: isTextField, isInMutuallyExclusiveGroup: isInMutuallyExclusiveGroup, isHeader: isHeader, isObscured: isObscured, scopesRoute: scopesRoute, namesRoute: namesRoute, isHidden: isHidden, isImage: isImage, isLiveRegion: isLiveRegion, hasImplicitScrolling: hasImplicitScrolling, isMultiline: isMultiline, isReadOnly: isReadOnly, isLink: isLink, isSlider: isSlider, isKeyboardKey: isKeyboardKey, isAccessibilityFocusBlocked: isAccessibilityFocusBlocked);
-      },
-      'toStrings': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        return t.toStrings();
-      },
-      'hasRepeatedFlags': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        D4.requireMinArgs(positional, 1, 'hasRepeatedFlags');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'hasRepeatedFlags');
-        return t.hasRepeatedFlags(other);
-      },
-      'hasConflictingFlags': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        D4.requireMinArgs(positional, 1, 'hasConflictingFlags');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'hasConflictingFlags');
-        return t.hasConflictingFlags(other);
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        // GEN-103: Dart spec — non-null == null is always false.
-        if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    staticGetters: {
-      'none': (visitor) => $dart_ui.SemanticsFlags.none,
-    },
-    staticSetters: {
-      'none': (visitor, value) => 
-        $dart_ui.SemanticsFlags.none = D4.extractBridgedArg<$dart_ui.SemanticsFlags>(value, 'none'),
-    },
-    constructorSignatures: {
-      '': 'SemanticsFlags({CheckedState isChecked = CheckedState.none, Tristate isSelected = Tristate.none, Tristate isEnabled = Tristate.none, Tristate isToggled = Tristate.none, Tristate isExpanded = Tristate.none, Tristate isRequired = Tristate.none, Tristate isFocused = Tristate.none, bool isButton = false, bool isTextField = false, bool isInMutuallyExclusiveGroup = false, bool isHeader = false, bool isObscured = false, bool scopesRoute = false, bool namesRoute = false, bool isHidden = false, bool isImage = false, bool isLiveRegion = false, bool hasImplicitScrolling = false, bool isMultiline = false, bool isReadOnly = false, bool isLink = false, bool isSlider = false, bool isKeyboardKey = false, bool isAccessibilityFocusBlocked = false})',
-    },
-    methodSignatures: {
-      'merge': 'SemanticsFlags merge(SemanticsFlags other)',
-      'copyWith': 'SemanticsFlags copyWith({CheckedState? isChecked, Tristate? isSelected, Tristate? isEnabled, Tristate? isToggled, Tristate? isExpanded, Tristate? isRequired, Tristate? isFocused, bool? isButton, bool? isTextField, bool? isInMutuallyExclusiveGroup, bool? isHeader, bool? isObscured, bool? scopesRoute, bool? namesRoute, bool? isHidden, bool? isImage, bool? isLiveRegion, bool? hasImplicitScrolling, bool? isMultiline, bool? isReadOnly, bool? isLink, bool? isSlider, bool? isKeyboardKey, bool? isAccessibilityFocusBlocked})',
-      'toStrings': 'List<String> toStrings()',
-      'hasRepeatedFlags': 'bool hasRepeatedFlags(SemanticsFlags other)',
-      'hasConflictingFlags': 'bool hasConflictingFlags(SemanticsFlags other)',
-    },
-    getterSignatures: {
-      'isChecked': 'CheckedState get isChecked',
-      'isSelected': 'Tristate get isSelected',
-      'isEnabled': 'Tristate get isEnabled',
-      'isToggled': 'Tristate get isToggled',
-      'isExpanded': 'Tristate get isExpanded',
-      'isRequired': 'Tristate get isRequired',
-      'isFocused': 'Tristate get isFocused',
-      'isAccessibilityFocusBlocked': 'bool get isAccessibilityFocusBlocked',
-      'isButton': 'bool get isButton',
-      'isTextField': 'bool get isTextField',
-      'isInMutuallyExclusiveGroup': 'bool get isInMutuallyExclusiveGroup',
-      'isHeader': 'bool get isHeader',
-      'isObscured': 'bool get isObscured',
-      'scopesRoute': 'bool get scopesRoute',
-      'namesRoute': 'bool get namesRoute',
-      'isHidden': 'bool get isHidden',
-      'isImage': 'bool get isImage',
-      'isLiveRegion': 'bool get isLiveRegion',
-      'hasImplicitScrolling': 'bool get hasImplicitScrolling',
-      'isMultiline': 'bool get isMultiline',
-      'isReadOnly': 'bool get isReadOnly',
-      'isLink': 'bool get isLink',
-      'isSlider': 'bool get isSlider',
-      'isKeyboardKey': 'bool get isKeyboardKey',
-      'hashCode': 'int get hashCode',
-    },
-    staticGetterSignatures: {
-      'none': 'SemanticsFlags get none',
-    },
-    staticSetterSignatures: {
-      'none': 'set none(dynamic value)',
-    },
-  );
-}
-
-// =============================================================================
 // StringAttribute Bridge
 // =============================================================================
 
@@ -7139,7 +6953,7 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
       'updateNode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsUpdateBuilder>(target, 'SemanticsUpdateBuilder');
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'updateNode');
-        final flags = D4.getRequiredNamedArg<$dart_ui.SemanticsFlags>(named, 'flags', 'updateNode');
+        final flags = D4.getRequiredNamedArg<SemanticsFlags>(named, 'flags', 'updateNode');
         final actions = D4.getRequiredNamedArg<int>(named, 'actions', 'updateNode');
         final maxValueLength = D4.getRequiredNamedArg<int>(named, 'maxValueLength', 'updateNode');
         final currentValueLength = D4.getRequiredNamedArg<int>(named, 'currentValueLength', 'updateNode');
@@ -7897,7 +7711,7 @@ BridgedClass _createStrutStyleBridge() {
     name: 'StrutStyle',
     isAssignable: (v) => v is $dart_ui.StrutStyle,
     constructors: {
-      '': $tom_d4rt_flutter_ast_3.StrutStyleUserBridge.overrideConstructor,
+      '': $tom_d4rt_flutter_ast_4.StrutStyleUserBridge.overrideConstructor,
     },
     getters: {
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.StrutStyle>(target, 'StrutStyle').hashCode,
