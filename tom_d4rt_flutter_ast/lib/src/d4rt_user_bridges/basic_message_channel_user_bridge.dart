@@ -17,7 +17,7 @@
 library;
 
 import 'package:flutter/services.dart';
-import 'package:tom_d4rt_exec/tom_d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 
 /// Bypasses `BasicMessageChannel<T>.setMessageHandler`'s typed signature
 /// by installing the handler at the `BinaryMessenger` layer.

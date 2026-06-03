@@ -19,11 +19,10 @@ library;
 export 'src/flutter_d4rt.dart';
 export 'src/bridges/material_bridges.b.dart' show FlutterMaterialBridges;
 
-// Re-export key runtime types for convenience
-export 'package:tom_d4rt_exec/d4rt.dart'
+// Re-export key runtime types for convenience. These resolve entirely within
+// the analyzer-free `tom_d4rt_ast` core — this package has no dependency on
+// `tom_d4rt_exec`. `D4rt` is the alias for `D4rtRunner` exposed by
+// `tom_d4rt_ast/d4rt.dart`.
+export 'package:tom_d4rt_ast/d4rt.dart'
     show D4rt, D4rtRunner, AstBundle, BridgedInstance, BridgedEnumValue;
-
-// Re-export key types from tom_d4rt_ast
-export 'package:tom_d4rt_ast/runtime.dart'
-    show D4rtRunner, AstBundle, BridgedInstance, BridgedEnumValue;
 

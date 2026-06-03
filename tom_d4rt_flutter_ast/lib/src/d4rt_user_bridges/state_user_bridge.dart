@@ -27,7 +27,7 @@ library;
 
 import 'package:flutter/scheduler.dart' show SchedulerBinding, SchedulerPhase;
 import 'package:flutter/widgets.dart' show State, WidgetsBinding;
-import 'package:tom_d4rt_exec/tom_d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 
 /// Replaces the auto-generated `State.setState` adapter with a scheduler-phase
 /// aware variant that defers via `addPostFrameCallback` when called mid-frame.

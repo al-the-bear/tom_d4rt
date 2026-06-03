@@ -7,7 +7,16 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+// Host-side source→bundle compiler (test-only; keeps the analyzer toolchain
+// out of the runtime). The runtime executes the resulting AstBundle.
+import 'package:tom_ast_generator/tom_ast_generator.dart' show AstBundler;
 import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
+
+/// Compiles [source] into an [AstBundle], skipping the libraries already
+/// bridged on [d4rt]'s runner (handled natively at runtime).
+Future<AstBundle> _bundle(FlutterD4rt d4rt, String source) =>
+    AstBundler(bridgedLibraries: d4rt.interpreter.bridgedLibraryUris)
+        .createFromSource(source);
 
 void main() {
   group('FlutterD4rt bridge execution', () {
@@ -19,7 +28,7 @@ void main() {
 
     test('can create a Color from D4rt code', () async {
       // dart:ui types are bridged through flutter/painting.dart re-exports
-      final bundle = await d4rt.interpreter.createBundleFromSource('''
+      final bundle = await _bundle(d4rt, '''
 import 'package:flutter/painting.dart';
 
 Color main() {
@@ -39,7 +48,7 @@ Color main() {
     });
 
     test('can create EdgeInsets from D4rt code', () async {
-      final bundle = await d4rt.interpreter.createBundleFromSource('''
+      final bundle = await _bundle(d4rt, '''
 import 'package:flutter/painting.dart';
 
 EdgeInsets main() {
@@ -59,7 +68,7 @@ EdgeInsets main() {
 
     testWidgets('can build a Container widget from D4rt code', (tester) async {
       // Return dynamic to avoid type checking issues
-      final bundle = await d4rt.interpreter.createBundleFromSource('''
+      final bundle = await _bundle(d4rt, '''
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -86,7 +95,7 @@ dynamic build(BuildContext context) {
 
     testWidgets('can build a Text widget from D4rt code', (tester) async {
       // Return dynamic to avoid type checking issues
-      final bundle = await d4rt.interpreter.createBundleFromSource('''
+      final bundle = await _bundle(d4rt, '''
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {

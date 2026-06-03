@@ -217,6 +217,35 @@ class D4rtRunner {
   /// Registered library setters keyed by library URI.
   List<Map<String, LibrarySetter>> get librarySetters => _librarySetters;
 
+  /// The set of library URIs that have at least one registered bridge
+  /// (class, enum, extension, function, variable, getter, or setter).
+  ///
+  /// This is the public-barrel set the host-side `AstBundler` needs in order
+  /// to *skip* bridged imports when compiling a script's source into an
+  /// [AstBundle] (those libraries are handled natively at runtime, not
+  /// bundled). The runner already records the library URI as the map key on
+  /// every registration, so this getter simply aggregates those keys — no
+  /// extra bookkeeping is required. Lives here (zero-dependency core) so the
+  /// host parser can be any analyzer front-end without coupling the runtime
+  /// to it.
+  Set<String> get bridgedLibraryUris {
+    final uris = <String>{};
+    void addKeys<V>(List<Map<String, V>> registries) {
+      for (final entry in registries) {
+        uris.addAll(entry.keys);
+      }
+    }
+
+    addKeys(_bridgedClasses);
+    addKeys(_bridgedEnumDefinitions);
+    addKeys(_bridgedExtensions);
+    addKeys(_libraryFunctions);
+    addKeys(_libraryVariables);
+    addKeys(_libraryGetters);
+    addKeys(_librarySetters);
+    return uris;
+  }
+
   // =========================================================================
   // Bridge Registration
   // =========================================================================
@@ -345,6 +374,29 @@ class D4rtRunner {
     );
     _libraryFunctions.add({library: libFunc});
   }
+
+  /// Lower-case alias for [registerTopLevelFunction].
+  ///
+  /// The D4rt bridge generator emits `interpreter.registertopLevelFunction(...)`
+  /// (note the lower-case `t`). The analyzer-based `D4rt` front-ends in
+  /// `tom_d4rt` and `tom_d4rt_exec` carry the same alias so generated bridge
+  /// files compile against them. This alias lets the generated Flutter bridges
+  /// target `D4rtRunner` directly (via `package:tom_d4rt_ast/d4rt.dart`),
+  /// keeping `tom_d4rt_ast` free of any dependency on `tom_d4rt_exec`.
+  void registertopLevelFunction(
+    String? name,
+    NativeFunctionImpl function,
+    String library, {
+    String? sourceUri,
+    String? signature,
+  }) =>
+      registerTopLevelFunction(
+        name,
+        function,
+        library,
+        sourceUri: sourceUri,
+        signature: signature,
+      );
 
   /// Registers a global variable.
   void registerGlobalVariable(

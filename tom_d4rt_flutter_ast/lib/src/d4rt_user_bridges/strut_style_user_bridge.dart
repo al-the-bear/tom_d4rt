@@ -12,7 +12,7 @@ library;
 import 'dart:ui' as ui;
 
 import 'package:flutter/painting.dart' as painting;
-import 'package:tom_d4rt_exec/tom_d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 
 /// Overrides the dart:ui StrutStyle default constructor to create
 /// painting.StrutStyle instead, providing full getter support for D4rt scripts.

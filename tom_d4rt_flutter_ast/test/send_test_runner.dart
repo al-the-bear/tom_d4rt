@@ -28,6 +28,11 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
+// Host-side analyzer front-end: parses script source into an AstBundle.
+// This is the one allowed coupling to the analyzer toolchain — it lives only
+// in the test driver. The runtime (FlutterD4rt / tom_d4rt_ast) executes the
+// resulting bundle with no analyzer dependency.
+import 'package:tom_ast_generator/tom_ast_generator.dart' show AstBundler;
 import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 /// Result of sending a D4rt script to the test app.
@@ -149,6 +154,10 @@ class SendTestRunner {
   static const String testAppPath = 'test/tom_d4rt_flutter_ast_app';
 
   static FlutterD4rt? _d4rt;
+  /// Host-side source→bundle compiler, lazily built from the [FlutterD4rt]
+  /// runner's bridged-library set so that bridged Flutter/dart imports are
+  /// skipped during bundling (handled natively at runtime).
+  static AstBundler? _bundler;
   static HttpClient? _client;
   static Process? _testAppProcess;
   static bool _startedByRunner = false;
@@ -305,6 +314,9 @@ class SendTestRunner {
     String? suite,
   }) async {
     _d4rt = FlutterD4rt();
+    // Drop any cached bundler so it rebuilds from the fresh runner's
+    // bridged-library set.
+    _bundler = null;
     _client = HttpClient();
     _startedByRunner = false;
     _vmServiceUri = null;
@@ -1049,7 +1061,10 @@ class SendTestRunner {
     readDuration = readStopwatch.elapsed;
 
     final bundleStopwatch = Stopwatch()..start();
-    var bundle = await d4rt.interpreter.createBundleFromSource(source);
+    final bundler = _bundler ??= AstBundler(
+      bridgedLibraries: d4rt.interpreter.bridgedLibraryUris,
+    );
+    var bundle = await bundler.createFromSource(source);
 
     // Optionally include source code alongside the AST
     if (includeSource) {

@@ -1,11 +1,11 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-05-23T11:03:28.372330
+// Generated: 2026-06-03T14:47:41.717931
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 import 'dart_ui_bridges.b.dart' as dart_ui_bridges;
 import 'painting_bridges.b.dart' as flutter_painting_bridges;
 import 'foundation_bridges.b.dart' as flutter_foundation_bridges;

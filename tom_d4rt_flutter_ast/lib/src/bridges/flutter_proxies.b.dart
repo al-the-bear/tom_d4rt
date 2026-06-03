@@ -14,7 +14,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 
 /// D4rt proxy for [CustomPainter].
 ///

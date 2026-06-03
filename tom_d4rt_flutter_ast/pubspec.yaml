@@ -13,10 +13,6 @@ dependencies:
     sdk: flutter
   tom_d4rt_ast:
     path: ../tom_d4rt_ast
-  tom_d4rt_exec:
-    path: ../tom_d4rt_exec
-  tom_ast_generator:
-    path: ../tom_ast_generator
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -30,6 +26,15 @@ dev_dependencies:
   path: ^1.9.0
   tom_d4rt_generator:
     path: ../tom_d4rt_generator
+  # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
+  # regeneration tool (tool/regenerate_bridges.dart) and the test
+  # driver — never by lib/ runtime code. The bridges and FlutterD4rt
+  # resolve entirely within tom_d4rt_ast, keeping the runtime
+  # analyzer-free and web-safe.
+  tom_d4rt_exec:
+    path: ../tom_d4rt_exec
+  tom_ast_generator:
+    path: ../tom_ast_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

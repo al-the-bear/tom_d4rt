@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_ast/d4rt.dart';
 
 import 'bridges/material_bridges.b.dart';
 import 'bridges/flutter_relaxers.b.dart';
@@ -27,7 +27,7 @@ class FlutterD4rt {
   final D4rt _interpreter;
 
   /// Creates a new [FlutterD4rt] instance with Flutter bridges registered.
-  FlutterD4rt() : _interpreter = D4rt() {
+  FlutterD4rt() : _interpreter = D4rtRunner() {
     _registerBridges();
   }
 
