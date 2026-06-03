@@ -303,6 +303,7 @@ Future<void> _generateBridges(
       excludeClasses: module.excludeClasses,
       excludeEnums: module.excludeEnums,
       excludeFunctions: module.excludeFunctions,
+      excludeConstructors: module.excludeConstructors,
       excludeVariables: module.excludeVariables,
       excludeSourcePatterns: module.excludeSourcePatterns,
       followAllReExports: module.followAllReExports,

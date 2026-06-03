@@ -1164,6 +1164,15 @@ class BridgeGenerator {
   /// to tag extraction sites with their source module.
   String? _currentModuleName;
 
+  /// Constructors to drop during emission, qualified as `ClassName.ctorName`
+  /// (with `ClassName.new` for the default constructor).
+  ///
+  /// Set at the start of [generateBridges] / [generateBridgesWithWriter] from
+  /// the module's `excludeConstructors` config and consulted in
+  /// [_emitClassBridge] so a single constructor can be pruned while the class
+  /// is otherwise bridged. See [ModuleConfig.excludeConstructors].
+  Set<String> _excludeConstructors = const {};
+
   /// Cache for resolved type arguments to prevent redundant resolution.
   /// Key is the full type string, value is the resolved result.
   /// This cache is cleared at the start of each bridge file generation.
@@ -2243,6 +2252,7 @@ class BridgeGenerator {
     List<String>? excludeClasses,
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
+    List<String>? excludeConstructors,
     List<String>? excludeVariables,
     List<String>? excludeSourcePatterns,
     bool followAllReExports = true,
@@ -2321,6 +2331,7 @@ class BridgeGenerator {
       excludeClasses: excludeClasses,
       excludeEnums: excludeEnums,
       excludeFunctions: excludeFunctions,
+      excludeConstructors: excludeConstructors,
       excludeVariables: excludeVariables,
       excludeSourcePatterns: excludeSourcePatterns,
       exportInfo: exports,
@@ -2358,6 +2369,7 @@ class BridgeGenerator {
     List<String>? excludeClasses,
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
+    List<String>? excludeConstructors,
     List<String>? excludeVariables,
     List<String>? excludeSourcePatterns,
     bool followAllReExports = true,
@@ -2434,6 +2446,7 @@ class BridgeGenerator {
       excludeClasses: excludeClasses,
       excludeEnums: excludeEnums,
       excludeFunctions: excludeFunctions,
+      excludeConstructors: excludeConstructors,
       excludeVariables: excludeVariables,
       excludeSourcePatterns: excludeSourcePatterns,
       exportInfo: exports,
@@ -2453,6 +2466,7 @@ class BridgeGenerator {
     List<String>? excludeClasses,
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
+    List<String>? excludeConstructors,
     List<String>? excludeVariables,
     List<String>? excludeSourcePatterns,
     Map<String, ExportInfo>? exportInfo,
@@ -2466,6 +2480,7 @@ class BridgeGenerator {
 
     // GEN-079: Track module name for recording generic extraction sites
     _currentModuleName = moduleName;
+    _excludeConstructors = (excludeConstructors ?? const <String>[]).toSet();
 
     // Build dynamic source file to barrel mapping from exportInfo
     _dynamicSourceFileToBarrel.clear();
@@ -3157,6 +3172,7 @@ class BridgeGenerator {
     List<String>? excludeClasses,
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
+    List<String>? excludeConstructors,
     List<String>? excludeVariables,
     List<String>? excludeSourcePatterns,
     Map<String, ExportInfo>? exportInfo,
@@ -3165,6 +3181,7 @@ class BridgeGenerator {
     List<String> importHideClause = const [],
   }) async {
     _skipReports.clear();
+    _excludeConstructors = (excludeConstructors ?? const <String>[]).toSet();
     final allClasses = <ClassInfo>[];
     final errors = <String>[];
     final warnings = <String>[];
@@ -4857,6 +4874,17 @@ class BridgeGenerator {
     if (verbose) {
       print(report);
     }
+  }
+
+  /// Whether the constructor [ctorName] on [className] is excluded by config.
+  ///
+  /// Matches against [_excludeConstructors], where the default (unnamed)
+  /// constructor is addressed as `ClassName.new` and named constructors as
+  /// `ClassName.ctorName` (e.g. `Image.file`).
+  bool _isConstructorExcluded(String className, String ctorName) {
+    if (_excludeConstructors.isEmpty) return false;
+    final qualified = '$className.${ctorName.isEmpty ? 'new' : ctorName}';
+    return _excludeConstructors.contains(qualified);
   }
 
   /// Checks if a type name is exported from the barrel file.
@@ -7835,6 +7863,17 @@ class BridgeGenerator {
       }
       final ctorName = ctor.name ?? '';
 
+      // Drop constructors explicitly excluded via config (e.g. `Image.file`,
+      // which drags dart:io into an otherwise web-safe bridge).
+      if (_isConstructorExcluded(cls.name, ctorName)) {
+        _recordSkip(
+          'constructor',
+          '${cls.name}.${ctorName.isEmpty ? 'new' : ctorName}',
+          'excluded by configuration',
+        );
+        continue;
+      }
+
       // Check for constructor override
       final ctorOverride = userBridge?.getConstructorOverride(ctorName);
       if (ctorOverride != null) {
@@ -8271,6 +8310,7 @@ class BridgeGenerator {
     if (cls.constructors.isNotEmpty) {
       final validCtors = cls.constructors
           .where((ctor) => !cls.isAbstract || ctor.isFactory)
+          .where((ctor) => !_isConstructorExcluded(cls.name, ctor.name ?? ''))
           .toList();
       if (validCtors.isNotEmpty) {
         buffer.writeln('    constructorSignatures: {');
@@ -14383,6 +14423,12 @@ class BridgeGenerator {
     for (final cls in classes) {
       // Check constructor parameters
       for (final ctor in cls.constructors) {
+        // Excluded constructors are never emitted, so their parameter types
+        // must not drag imports (e.g. `Image.file`'s dart:io File) into the
+        // generated header. See [_isConstructorExcluded].
+        if (_isConstructorExcluded(cls.name, ctor.name ?? '')) {
+          continue;
+        }
         for (final param in ctor.parameters) {
           imports.addAll(param.typeImportUris);
           // Also collect from typeToUri in case typeImportUris is incomplete

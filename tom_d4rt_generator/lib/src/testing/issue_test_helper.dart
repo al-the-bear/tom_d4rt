@@ -131,6 +131,10 @@ class TestModuleConfig {
   /// Classes to exclude from generation.
   final List<String> excludeClasses;
 
+  /// Constructors to exclude, qualified as `ClassName.ctorName`
+  /// (`ClassName.new` for the default constructor).
+  final List<String> excludeConstructors;
+
   /// Source patterns to exclude.
   final List<String> excludeSourcePatterns;
 
@@ -139,6 +143,7 @@ class TestModuleConfig {
     this.barrelFile = 'lib/test_pkg.dart',
     this.outputPath = 'lib/src/bridges/test_bridges.b.dart',
     this.excludeClasses = const [],
+    this.excludeConstructors = const [],
     this.excludeSourcePatterns = const [],
   });
 }
@@ -283,6 +288,7 @@ class IssueTestHelper {
         outputPath: outputPath,
         moduleName: moduleConfig.name,
         excludeClasses: moduleConfig.excludeClasses,
+        excludeConstructors: moduleConfig.excludeConstructors,
         excludeSourcePatterns: moduleConfig.excludeSourcePatterns,
       );
 

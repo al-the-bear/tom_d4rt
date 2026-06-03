@@ -32,6 +32,17 @@ class ModuleConfig {
   /// Specific global function names to exclude from processing.
   final List<String> excludeFunctions;
 
+  /// Specific constructors to exclude from processing, qualified by class.
+  ///
+  /// Each entry is `ClassName.constructorName` (e.g. `Image.file`). Use
+  /// `ClassName.new` to target the unnamed/default constructor. The class
+  /// itself is still bridged — only the listed constructor is dropped.
+  ///
+  /// This is the mechanism for keeping a widely-used class while pruning a
+  /// single constructor that drags in an unwanted dependency (e.g. dropping
+  /// `Image.file`, which takes a `dart:io` `File`, from the web-safe bridges).
+  final List<String> excludeConstructors;
+
   /// Specific global variable names to exclude from processing.
   final List<String> excludeVariables;
 
@@ -118,6 +129,7 @@ class ModuleConfig {
     this.excludeClasses = const [],
     this.excludeEnums = const [],
     this.excludeFunctions = const [],
+    this.excludeConstructors = const [],
     this.excludeVariables = const [],
     this.excludeSourcePatterns = const [],
     this.followAllReExports = true,
@@ -146,6 +158,8 @@ class ModuleConfig {
       excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
       excludeFunctions:
           (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
+      excludeConstructors:
+          (json['excludeConstructors'] as List?)?.cast<String>() ?? [],
       excludeVariables:
           (json['excludeVariables'] as List?)?.cast<String>() ?? [],
       excludeSourcePatterns:
@@ -172,6 +186,8 @@ class ModuleConfig {
       if (excludeClasses.isNotEmpty) 'excludeClasses': excludeClasses,
       if (excludeEnums.isNotEmpty) 'excludeEnums': excludeEnums,
       if (excludeFunctions.isNotEmpty) 'excludeFunctions': excludeFunctions,
+      if (excludeConstructors.isNotEmpty)
+        'excludeConstructors': excludeConstructors,
       if (excludeVariables.isNotEmpty) 'excludeVariables': excludeVariables,
       if (excludeSourcePatterns.isNotEmpty)
         'excludeSourcePatterns': excludeSourcePatterns,

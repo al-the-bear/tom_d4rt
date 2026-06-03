@@ -237,6 +237,7 @@ class PerPackageBridgeOrchestrator {
       _moduleExclusions[module.name] = _ModuleExclusions(
         excludeClasses: module.excludeClasses.toSet(),
         excludeFunctions: module.excludeFunctions.toSet(),
+        excludeConstructors: module.excludeConstructors.toSet(),
         excludeVariables: module.excludeVariables.toSet(),
         excludeSourcePatterns: module.excludeSourcePatterns.toSet(),
       );
@@ -504,6 +505,7 @@ class PerPackageBridgeOrchestrator {
         fileWriter: fileWriter,
         excludeClasses: exclusions.excludeClasses.toList(),
         excludeFunctions: exclusions.excludeFunctions.toList(),
+        excludeConstructors: exclusions.excludeConstructors.toList(),
         excludeVariables: exclusions.excludeVariables.toList(),
         excludeSourcePatterns: exclusions.excludeSourcePatterns.toList(),
       );
@@ -728,6 +730,7 @@ class PerPackageBridgeOrchestrator {
   _ModuleExclusions _getExclusionsForPackage(String packageName) {
     final excludeClasses = <String>{};
     final excludeFunctions = <String>{};
+    final excludeConstructors = <String>{};
     final excludeVariables = <String>{};
     final excludeSourcePatterns = <String>{};
 
@@ -738,6 +741,7 @@ class PerPackageBridgeOrchestrator {
         if (moduleExclusions != null) {
           excludeClasses.addAll(moduleExclusions.excludeClasses);
           excludeFunctions.addAll(moduleExclusions.excludeFunctions);
+          excludeConstructors.addAll(moduleExclusions.excludeConstructors);
           excludeVariables.addAll(moduleExclusions.excludeVariables);
           excludeSourcePatterns.addAll(moduleExclusions.excludeSourcePatterns);
         }
@@ -747,6 +751,7 @@ class PerPackageBridgeOrchestrator {
     return _ModuleExclusions(
       excludeClasses: excludeClasses,
       excludeFunctions: excludeFunctions,
+      excludeConstructors: excludeConstructors,
       excludeVariables: excludeVariables,
       excludeSourcePatterns: excludeSourcePatterns,
     );
@@ -787,16 +792,19 @@ class PerPackageBridgeOrchestrator {
 class _ModuleExclusions {
   final Set<String> excludeClasses;
   final Set<String> excludeFunctions;
+  final Set<String> excludeConstructors;
   final Set<String> excludeVariables;
   final Set<String> excludeSourcePatterns;
 
   _ModuleExclusions({
     Set<String>? excludeClasses,
     Set<String>? excludeFunctions,
+    Set<String>? excludeConstructors,
     Set<String>? excludeVariables,
     Set<String>? excludeSourcePatterns,
   }) : excludeClasses = excludeClasses ?? {},
        excludeFunctions = excludeFunctions ?? {},
+       excludeConstructors = excludeConstructors ?? {},
        excludeVariables = excludeVariables ?? {},
        excludeSourcePatterns = excludeSourcePatterns ?? {};
 }
