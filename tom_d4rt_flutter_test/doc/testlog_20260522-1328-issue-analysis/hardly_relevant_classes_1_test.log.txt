@@ -1,0 +1,917 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_1_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: animation/ animation_behavior_test.dart
+[METRIC] script=animation/animation_behavior_test.dart sourceChars=25739 clearMs=88 httpMs=2057 totalMs=2156 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:12 +2: animation/ animation_eager_listener_mixin_test.dart
+[METRIC] script=animation/animation_eager_listener_mixin_test.dart sourceChars=27346 clearMs=88 httpMs=1710 totalMs=1802 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:14 +3: animation/ animation_lazy_listener_mixin_test.dart
+[METRIC] script=animation/animation_lazy_listener_mixin_test.dart sourceChars=34198 clearMs=39 httpMs=1604 totalMs=1644 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:15 +4: animation/ animation_local_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_listeners_mixin_test.dart sourceChars=43550 clearMs=66 httpMs=1596 totalMs=1667 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:17 +5: animation/ animation_local_status_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_status_listeners_mixin_test.dart sourceChars=45571 clearMs=66 httpMs=1681 totalMs=1755 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:19 +6: animation/ animation_status_test.dart
+[METRIC] script=animation/animation_status_test.dart sourceChars=27233 clearMs=65 httpMs=1639 totalMs=1706 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:20 +7: animation/ catmull_rom_curve_test.dart
+[METRIC] script=animation/catmull_rom_curve_test.dart sourceChars=43295 clearMs=90 httpMs=1585 totalMs=1676 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:22 +8: animation/ catmull_rom_spline_test.dart
+[METRIC] script=animation/catmull_rom_spline_test.dart sourceChars=44819 clearMs=75 httpMs=1569 totalMs=1646 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +9: animation/ class_test.dart
+[METRIC] script=animation/class_test.dart sourceChars=45204 clearMs=77 httpMs=1436 totalMs=1515 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +10: animation/ color_tween_test.dart
+[METRIC] script=animation/color_tween_test.dart sourceChars=42279 clearMs=85 httpMs=1732 totalMs=1818 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:27 +11: animation/ constant_tween_test.dart
+[METRIC] script=animation/constant_tween_test.dart sourceChars=43616 clearMs=118 httpMs=2841 totalMs=2969 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +12: animation/ cubic_test.dart
+[METRIC] script=animation/cubic_test.dart sourceChars=63416 clearMs=73 httpMs=2249 totalMs=2324 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in animation/cubic_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+00:32 +13: animation/ curve2_d_sample_test.dart
+[METRIC] script=animation/curve2_d_sample_test.dart sourceChars=47840 clearMs=58 httpMs=1649 totalMs=1709 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:34 +14: animation/ curve2_d_test.dart
+[METRIC] script=animation/curve2_d_test.dart sourceChars=40888 clearMs=72 httpMs=1684 totalMs=1758 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:36 +15: animation/ curve_tween_test.dart
+[METRIC] script=animation/curve_tween_test.dart sourceChars=46097 clearMs=38 httpMs=1845 totalMs=1884 status=success httpStatus=200 outputLines=237 frameworkErrors=0
+00:38 +16: animation/ curves_test.dart
+[METRIC] script=animation/curves_test.dart sourceChars=58023 clearMs=51 httpMs=3351 totalMs=3404 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:41 +17: animation/ elastic_in_curve_test.dart
+[METRIC] script=animation/elastic_in_curve_test.dart sourceChars=44327 clearMs=85 httpMs=1717 totalMs=1804 status=success httpStatus=200 outputLines=252 frameworkErrors=0
+00:43 +18: animation/ elastic_in_out_curve_test.dart
+[METRIC] script=animation/elastic_in_out_curve_test.dart sourceChars=46327 clearMs=77 httpMs=1661 totalMs=1739 status=success httpStatus=200 outputLines=243 frameworkErrors=0
+00:45 +19: animation/ elastic_out_curve_test.dart
+[METRIC] script=animation/elastic_out_curve_test.dart sourceChars=49513 clearMs=91 httpMs=1643 totalMs=1735 status=success httpStatus=200 outputLines=248 frameworkErrors=0
+00:46 +20: animation/ flipped_curve_test.dart
+[METRIC] script=animation/flipped_curve_test.dart sourceChars=44585 clearMs=91 httpMs=1623 totalMs=1716 status=success httpStatus=200 outputLines=236 frameworkErrors=0
+00:48 +21: animation/ int_tween_test.dart
+[METRIC] script=animation/int_tween_test.dart sourceChars=43827 clearMs=89 httpMs=1588 totalMs=1679 status=success httpStatus=200 outputLines=271 frameworkErrors=0
+00:50 +22: animation/ interval_test.dart
+[METRIC] script=animation/interval_test.dart sourceChars=37930 clearMs=90 httpMs=1513 totalMs=1604 status=success httpStatus=200 outputLines=250 frameworkErrors=0
+00:52 +23: animation/ parametric_curve_test.dart
+[METRIC] script=animation/parametric_curve_test.dart sourceChars=37481 clearMs=46 httpMs=1623 totalMs=1671 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+00:53 +24: animation/ rect_tween_test.dart
+[METRIC] script=animation/rect_tween_test.dart sourceChars=35737 clearMs=105 httpMs=1513 totalMs=1620 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:55 +25: animation/ reverse_tween_test.dart
+[METRIC] script=animation/reverse_tween_test.dart sourceChars=36500 clearMs=59 httpMs=1596 totalMs=1656 status=success httpStatus=200 outputLines=230 frameworkErrors=0
+00:56 +26: animation/ saw_tooth_test.dart
+[METRIC] script=animation/saw_tooth_test.dart sourceChars=31353 clearMs=89 httpMs=1568 totalMs=1659 status=success httpStatus=200 outputLines=264 frameworkErrors=0
+00:58 +27: animation/ size_tween_test.dart
+[METRIC] script=animation/size_tween_test.dart sourceChars=34449 clearMs=35 httpMs=1511 totalMs=1547 status=success httpStatus=200 outputLines=233 frameworkErrors=0
+01:00 +28: animation/ split_test.dart
+[METRIC] script=animation/split_test.dart sourceChars=34495 clearMs=28 httpMs=1546 totalMs=1576 status=success httpStatus=200 outputLines=216 frameworkErrors=0
+01:01 +29: animation/ step_tween_test.dart
+[METRIC] script=animation/step_tween_test.dart sourceChars=29243 clearMs=50 httpMs=1567 totalMs=1619 status=success httpStatus=200 outputLines=247 frameworkErrors=0
+01:03 +30: animation/ three_point_cubic_test.dart
+[METRIC] script=animation/three_point_cubic_test.dart sourceChars=32796 clearMs=87 httpMs=1598 totalMs=1687 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+01:05 +31: animation/ threshold_test.dart
+[METRIC] script=animation/threshold_test.dart sourceChars=32188 clearMs=62 httpMs=1526 totalMs=1590 status=success httpStatus=200 outputLines=246 frameworkErrors=0
+01:06 +32: cupertino/ class_test.dart
+[METRIC] script=cupertino/class_test.dart sourceChars=70095 clearMs=92 httpMs=4668 totalMs=4761 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:11 +33: cupertino/ cupertino_button_size_test.dart
+[METRIC] script=cupertino/cupertino_button_size_test.dart sourceChars=24908 clearMs=31 httpMs=1540 totalMs=1573 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+01:13 +34: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+[METRIC] script=cupertino/cupertino_desktop_text_selection_controls_test.dart sourceChars=87413 clearMs=51 httpMs=2372 totalMs=2425 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:15 +35: cupertino/ cupertino_expansion_tile_test.dart
+[METRIC] script=cupertino/cupertino_expansion_tile_test.dart sourceChars=82958 clearMs=63 httpMs=3249 totalMs=3313 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+01:18 +36: cupertino/ cupertino_focus_halo_test.dart
+[METRIC] script=cupertino/cupertino_focus_halo_test.dart sourceChars=58724 clearMs=63 httpMs=2103 totalMs=2167 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:20 +37: cupertino/ cupertino_linear_activity_indicator_test.dart
+[METRIC] script=cupertino/cupertino_linear_activity_indicator_test.dart sourceChars=69032 clearMs=50 httpMs=3123 totalMs=3175 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:24 +38: cupertino/ cupertino_list_section_type_test.dart
+[METRIC] script=cupertino/cupertino_list_section_type_test.dart sourceChars=23680 clearMs=131 httpMs=1502 totalMs=1634 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+01:25 +39: cupertino/ cupertino_list_tile_chevron_test.dart
+[METRIC] script=cupertino/cupertino_list_tile_chevron_test.dart sourceChars=81448 clearMs=79 httpMs=3204 totalMs=3285 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:29 +40: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceChars=52660 clearMs=57 httpMs=2080 totalMs=2139 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:31 +41: cupertino/ cupertino_thumb_painter_test.dart
+[METRIC] script=cupertino/cupertino_thumb_painter_test.dart sourceChars=60699 clearMs=48 httpMs=1823 totalMs=1872 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+01:33 +42: cupertino/ expansion_tile_transition_mode_test.dart
+[METRIC] script=cupertino/expansion_tile_transition_mode_test.dart sourceChars=26773 clearMs=32 httpMs=1545 totalMs=1579 status=success httpStatus=200 outputLines=220 frameworkErrors=0
+01:34 +43: cupertino/ inherited_cupertino_theme_test.dart
+[METRIC] script=cupertino/inherited_cupertino_theme_test.dart sourceChars=39775 clearMs=26 httpMs=1991 totalMs=2019 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:36 +44: cupertino/ navigation_bar_bottom_mode_test.dart
+[METRIC] script=cupertino/navigation_bar_bottom_mode_test.dart sourceChars=25781 clearMs=102 httpMs=1507 totalMs=1611 status=success httpStatus=200 outputLines=227 frameworkErrors=0
+01:38 +45: cupertino/ overlay_visibility_mode_test.dart
+[METRIC] script=cupertino/overlay_visibility_mode_test.dart sourceChars=49726 clearMs=30 httpMs=1977 totalMs=2009 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:40 +46: cupertino/ restorable_cupertino_tab_controller_test.dart
+[METRIC] script=cupertino/restorable_cupertino_tab_controller_test.dart sourceChars=77751 clearMs=80 httpMs=5337 totalMs=5419 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:45 +47: dart_ui/ app_exit_response_test.dart
+[METRIC] script=dart_ui/app_exit_response_test.dart sourceChars=48339 clearMs=102 httpMs=1819 totalMs=1922 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:47 +48: dart_ui/ app_exit_type_test.dart
+[METRIC] script=dart_ui/app_exit_type_test.dart sourceChars=55667 clearMs=51 httpMs=1725 totalMs=1778 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+01:49 +49: dart_ui/ app_lifecycle_state_test.dart
+[METRIC] script=dart_ui/app_lifecycle_state_test.dart sourceChars=46341 clearMs=53 httpMs=1480 totalMs=1534 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/app_lifecycle_state_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:50 +49 -1: dart_ui/ app_lifecycle_state_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 377:7      main.<fn>.<fn>
+  
+01:50 +49 -1: dart_ui/ backdrop_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/backdrop_filter_engine_layer_test.dart sourceChars=75262 clearMs=92 httpMs=1501 totalMs=1594 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/backdrop_filter_engine_layer_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:52 +49 -2: dart_ui/ backdrop_filter_engine_layer_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 384:7      main.<fn>.<fn>
+  
+01:52 +49 -2: dart_ui/ blend_mode_test.dart
+[METRIC] script=dart_ui/blend_mode_test.dart sourceChars=58540 clearMs=102 httpMs=1471 totalMs=1574 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/blend_mode_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:54 +49 -3: dart_ui/ blend_mode_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 389:7      main.<fn>.<fn>
+  
+01:54 +49 -3: dart_ui/ blur_style_test.dart
+[METRIC] script=dart_ui/blur_style_test.dart sourceChars=52218 clearMs=86 httpMs=1493 totalMs=1581 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/blur_style_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:55 +49 -4: dart_ui/ blur_style_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 394:7      main.<fn>.<fn>
+  
+01:55 +49 -4: dart_ui/ box_height_style_test.dart
+[METRIC] script=dart_ui/box_height_style_test.dart sourceChars=19491 clearMs=27 httpMs=1601 totalMs=1630 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+01:57 +50 -4: dart_ui/ box_width_style_test.dart
+[METRIC] script=dart_ui/box_width_style_test.dart sourceChars=56967 clearMs=54 httpMs=1483 totalMs=1538 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/box_width_style_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:58 +50 -5: dart_ui/ box_width_style_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 408:7      main.<fn>.<fn>
+  
+01:58 +50 -5: dart_ui/ callback_handle_test.dart
+[METRIC] script=dart_ui/callback_handle_test.dart sourceChars=83325 clearMs=32 httpMs=2067 totalMs=2101 status=success httpStatus=200 outputLines=0 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/callback_handle_test.dart (6 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:01 +51 -5: dart_ui/ channel_buffers_test.dart
+[METRIC] script=dart_ui/channel_buffers_test.dart sourceChars=68799 clearMs=48 httpMs=1469 totalMs=1518 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/channel_buffers_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+02:02 +51 -6: dart_ui/ channel_buffers_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 422:7      main.<fn>.<fn>
+  
+02:02 +51 -6: dart_ui/ checked_state_test.dart
+[METRIC] script=dart_ui/checked_state_test.dart sourceChars=20205 clearMs=81 httpMs=1546 totalMs=1629 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:04 +52 -6: dart_ui/ class_test.dart
+[METRIC] script=dart_ui/class_test.dart sourceChars=108658 clearMs=46 httpMs=1450 totalMs=1498 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in dart_ui/class_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+02:05 +52 -7: dart_ui/ class_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 434:7      main.<fn>.<fn>
+  
+02:05 +52 -7: dart_ui/ clip_op_test.dart
+[METRIC] script=dart_ui/clip_op_test.dart sourceChars=19371 clearMs=25 httpMs=1514 totalMs=1541 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+02:07 +53 -7: dart_ui/ clip_path_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_path_engine_layer_test.dart sourceChars=98902 clearMs=53 httpMs=4115 totalMs=4170 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:11 +54 -7: dart_ui/ clip_r_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_rect_engine_layer_test.dart sourceChars=62636 clearMs=50 httpMs=1856 totalMs=1907 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:13 +55 -7: dart_ui/ clip_r_superellipse_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_superellipse_engine_layer_test.dart sourceChars=31132 clearMs=75 httpMs=1555 totalMs=1631 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:14 +56 -7: dart_ui/ clip_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_rect_engine_layer_test.dart sourceChars=26309 clearMs=49 httpMs=1640 totalMs=1690 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:16 +57 -7: dart_ui/ clip_test.dart
+[METRIC] script=dart_ui/clip_test.dart sourceChars=44242 clearMs=90 httpMs=1726 totalMs=1817 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:18 +58 -7: dart_ui/ color_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/color_filter_engine_layer_test.dart sourceChars=23430 clearMs=79 httpMs=1559 totalMs=1640 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:20 +59 -7: dart_ui/ color_space_test.dart
+[METRIC] script=dart_ui/color_space_test.dart sourceChars=25399 clearMs=40 httpMs=1627 totalMs=1669 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:21 +60 -7: dart_ui/ dart_performance_mode_test.dart
+[METRIC] script=dart_ui/dart_performance_mode_test.dart sourceChars=22889 clearMs=101 httpMs=1603 totalMs=1705 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+02:23 +61 -7: dart_ui/ dart_plugin_registrant_test.dart
+[METRIC] script=dart_ui/dart_plugin_registrant_test.dart sourceChars=25342 clearMs=61 httpMs=1523 totalMs=1585 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:25 +62 -7: dart_ui/ display_feature_state_test.dart
+[METRIC] script=dart_ui/display_feature_state_test.dart sourceChars=27353 clearMs=35 httpMs=1608 totalMs=1645 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:26 +63 -7: dart_ui/ display_feature_type_test.dart
+[METRIC] script=dart_ui/display_feature_type_test.dart sourceChars=30764 clearMs=37 httpMs=1691 totalMs=1730 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:28 +64 -7: dart_ui/ engine_layer_test.dart
+[METRIC] script=dart_ui/engine_layer_test.dart sourceChars=23415 clearMs=48 httpMs=1601 totalMs=1650 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:30 +65 -7: dart_ui/ filter_quality_test.dart
+[METRIC] script=dart_ui/filter_quality_test.dart sourceChars=23236 clearMs=100 httpMs=1700 totalMs=1802 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:31 +66 -7: dart_ui/ font_style_test.dart
+[METRIC] script=dart_ui/font_style_test.dart sourceChars=25784 clearMs=47 httpMs=1628 totalMs=1676 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:33 +67 -7: dart_ui/ fragment_program_test.dart
+[METRIC] script=dart_ui/fragment_program_test.dart sourceChars=24767 clearMs=103 httpMs=1538 totalMs=1642 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:35 +68 -7: dart_ui/ fragment_shader_test.dart
+[METRIC] script=dart_ui/fragment_shader_test.dart sourceChars=27260 clearMs=48 httpMs=1689 totalMs=1738 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+02:36 +69 -7: dart_ui/ frame_phase_test.dart
+[METRIC] script=dart_ui/frame_phase_test.dart sourceChars=30771 clearMs=79 httpMs=1547 totalMs=1627 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:38 +70 -7: dart_ui/ image_byte_format_test.dart
+[METRIC] script=dart_ui/image_byte_format_test.dart sourceChars=39819 clearMs=94 httpMs=1682 totalMs=1778 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:40 +71 -7: dart_ui/ image_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/image_filter_engine_layer_test.dart sourceChars=24245 clearMs=45 httpMs=1634 totalMs=1680 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:42 +72 -7: dart_ui/ image_sampler_slot_test.dart
+  Skip: D1 — destabilises the test app for subsequent dart_ui/gestures scripts on Linux. Run via bisect_test.dart instead.
+02:42 +72 ~1 -7: dart_ui/ isolate_name_server_test.dart
+  Skip: IsolateNameServer is not supported by the d4rt interpreter (requires real Dart isolate infrastructure)
+02:42 +72 ~2 -7: dart_ui/ key_event_device_type_test.dart
+[METRIC] script=dart_ui/key_event_device_type_test.dart sourceChars=38576 clearMs=85 httpMs=2271 totalMs=2357 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:44 +73 ~2 -7: dart_ui/ key_event_type_test.dart
+[METRIC] script=dart_ui/key_event_type_test.dart sourceChars=37628 clearMs=45 httpMs=1699 totalMs=1745 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:46 +74 ~2 -7: dart_ui/ offset_engine_layer_test.dart
+[METRIC] script=dart_ui/offset_engine_layer_test.dart sourceChars=37068 clearMs=58 httpMs=1563 totalMs=1622 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+02:47 +75 ~2 -7: dart_ui/ opacity_engine_layer_test.dart
+[METRIC] script=dart_ui/opacity_engine_layer_test.dart sourceChars=35462 clearMs=75 httpMs=3975 totalMs=4052 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+02:51 +76 ~2 -7: dart_ui/ painting_style_test.dart
+[METRIC] script=dart_ui/painting_style_test.dart sourceChars=37799 clearMs=107 httpMs=1646 totalMs=1754 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+02:53 +77 ~2 -7: dart_ui/ path_fill_type_test.dart
+[METRIC] script=dart_ui/path_fill_type_test.dart sourceChars=35773 clearMs=95 httpMs=1554 totalMs=1650 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+02:55 +78 ~2 -7: dart_ui/ path_operation_test.dart
+[METRIC] script=dart_ui/path_operation_test.dart sourceChars=38648 clearMs=85 httpMs=1701 totalMs=1787 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:57 +79 ~2 -7: dart_ui/ picture_rasterization_exception_test.dart
+[METRIC] script=dart_ui/picture_rasterization_exception_test.dart sourceChars=31204 clearMs=52 httpMs=1699 totalMs=1753 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:58 +80 ~2 -7: dart_ui/ pixel_format_test.dart
+[METRIC] script=dart_ui/pixel_format_test.dart sourceChars=28804 clearMs=64 httpMs=1589 totalMs=1655 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:00 +81 ~2 -7: dart_ui/ placeholder_alignment_test.dart
+[METRIC] script=dart_ui/placeholder_alignment_test.dart sourceChars=32532 clearMs=58 httpMs=1687 totalMs=1747 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:02 +82 ~2 -7: dart_ui/ plugin_utilities_test.dart
+[METRIC] script=dart_ui/plugin_utilities_test.dart sourceChars=29205 clearMs=84 httpMs=1573 totalMs=1659 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:03 +83 ~2 -7: dart_ui/ point_mode_test.dart
+[METRIC] script=dart_ui/point_mode_test.dart sourceChars=30792 clearMs=61 httpMs=1569 totalMs=1631 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:05 +84 ~2 -7: dart_ui/ pointer_change_test.dart
+[METRIC] script=dart_ui/pointer_change_test.dart sourceChars=41487 clearMs=66 httpMs=1808 totalMs=1876 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:07 +85 ~2 -7: dart_ui/ pointer_device_kind_test.dart
+[METRIC] script=dart_ui/pointer_device_kind_test.dart sourceChars=31233 clearMs=139 httpMs=1699 totalMs=1841 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:09 +86 ~2 -7: dart_ui/ pointer_signal_kind_test.dart
+[METRIC] script=dart_ui/pointer_signal_kind_test.dart sourceChars=35774 clearMs=45 httpMs=1714 totalMs=1761 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:11 +87 ~2 -7: dart_ui/ root_isolate_token_test.dart
+[METRIC] script=dart_ui/root_isolate_token_test.dart sourceChars=66164 clearMs=73 httpMs=1837 totalMs=1912 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+03:12 +88 ~2 -7: dart_ui/ semantics_hit_test_behavior_test.dart
+[METRIC] script=dart_ui/semantics_hit_test_behavior_test.dart sourceChars=26236 clearMs=54 httpMs=1559 totalMs=1615 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:14 +89 ~2 -7: dart_ui/ semantics_input_type_test.dart
+[METRIC] script=dart_ui/semantics_input_type_test.dart sourceChars=32582 clearMs=36 httpMs=1642 totalMs=1679 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:16 +90 ~2 -7: dart_ui/ semantics_role_test.dart
+[METRIC] script=dart_ui/semantics_role_test.dart sourceChars=31727 clearMs=74 httpMs=1771 totalMs=1847 status=success httpStatus=200 outputLines=82 frameworkErrors=0
+03:18 +91 ~2 -7: dart_ui/ semantics_validation_result_test.dart
+[METRIC] script=dart_ui/semantics_validation_result_test.dart sourceChars=32612 clearMs=70 httpMs=1571 totalMs=1642 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:19 +92 ~2 -7: dart_ui/ shader_mask_engine_layer_test.dart
+[METRIC] script=dart_ui/shader_mask_engine_layer_test.dart sourceChars=59209 clearMs=49 httpMs=2228 totalMs=2279 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:22 +93 ~2 -7: dart_ui/ singleton_flutter_window_test.dart
+[METRIC] script=dart_ui/singleton_flutter_window_test.dart sourceChars=40041 clearMs=83 httpMs=1622 totalMs=1706 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+03:23 +94 ~2 -7: dart_ui/ stroke_cap_test.dart
+[METRIC] script=dart_ui/stroke_cap_test.dart sourceChars=45872 clearMs=109 httpMs=1624 totalMs=1734 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+03:25 +95 ~2 -7: dart_ui/ stroke_join_test.dart
+[METRIC] script=dart_ui/stroke_join_test.dart sourceChars=43027 clearMs=89 httpMs=1551 totalMs=1641 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:27 +96 ~2 -7: dart_ui/ system_color_palette_test.dart
+[METRIC] script=dart_ui/system_color_palette_test.dart sourceChars=63558 clearMs=79 httpMs=1725 totalMs=1805 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:28 +97 ~2 -7: dart_ui/ target_pixel_format_test.dart
+[METRIC] script=dart_ui/target_pixel_format_test.dart sourceChars=30410 clearMs=87 httpMs=1574 totalMs=1662 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:30 +98 ~2 -7: dart_ui/ text_affinity_test.dart
+[METRIC] script=dart_ui/text_affinity_test.dart sourceChars=34412 clearMs=46 httpMs=1638 totalMs=1685 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+03:32 +99 ~2 -7: dart_ui/ text_align_test.dart
+[METRIC] script=dart_ui/text_align_test.dart sourceChars=36769 clearMs=47 httpMs=1608 totalMs=1656 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+03:33 +100 ~2 -7: dart_ui/ text_baseline_test.dart
+[METRIC] script=dart_ui/text_baseline_test.dart sourceChars=31968 clearMs=72 httpMs=1568 totalMs=1641 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:35 +101 ~2 -7: dart_ui/ text_decoration_style_test.dart
+[METRIC] script=dart_ui/text_decoration_style_test.dart sourceChars=27581 clearMs=33 httpMs=1641 totalMs=1675 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:37 +102 ~2 -7: dart_ui/ text_direction_test.dart
+[METRIC] script=dart_ui/text_direction_test.dart sourceChars=38400 clearMs=38 httpMs=1615 totalMs=1655 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:38 +103 ~2 -7: dart_ui/ text_leading_distribution_test.dart
+[METRIC] script=dart_ui/text_leading_distribution_test.dart sourceChars=33667 clearMs=155 httpMs=1588 totalMs=1745 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:40 +104 ~2 -7: dart_ui/ tile_mode_test.dart
+[METRIC] script=dart_ui/tile_mode_test.dart sourceChars=40869 clearMs=35 httpMs=1598 totalMs=1634 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:42 +105 ~2 -7: dart_ui/ transform_engine_layer_test.dart
+[METRIC] script=dart_ui/transform_engine_layer_test.dart sourceChars=42279 clearMs=70 httpMs=1626 totalMs=1697 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:44 +106 ~2 -7: dart_ui/ tristate_test.dart
+[METRIC] script=dart_ui/tristate_test.dart sourceChars=27519 clearMs=73 httpMs=1678 totalMs=1753 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:45 +107 ~2 -7: dart_ui/ uniform_float_slot_test.dart
+[METRIC] script=dart_ui/uniform_float_slot_test.dart sourceChars=61180 clearMs=38 httpMs=1798 totalMs=1837 status=success httpStatus=200 outputLines=61 frameworkErrors=0
+03:47 +108 ~2 -7: dart_ui/ uniform_vec2_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec2_slot_test.dart sourceChars=68472 clearMs=125 httpMs=1875 totalMs=2002 status=success httpStatus=200 outputLines=65 frameworkErrors=0
+03:49 +109 ~2 -7: dart_ui/ uniform_vec3_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec3_slot_test.dart sourceChars=68403 clearMs=57 httpMs=1942 totalMs=2001 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:51 +110 ~2 -7: dart_ui/ uniform_vec4_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec4_slot_test.dart sourceChars=53855 clearMs=50 httpMs=1923 totalMs=1974 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:53 +111 ~2 -7: dart_ui/ vertex_mode_test.dart
+[METRIC] script=dart_ui/vertex_mode_test.dart sourceChars=39100 clearMs=62 httpMs=1751 totalMs=1815 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:55 +112 ~2 -7: dart_ui/ view_focus_direction_test.dart
+[METRIC] script=dart_ui/view_focus_direction_test.dart sourceChars=34942 clearMs=79 httpMs=1579 totalMs=1659 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+03:57 +113 ~2 -7: dart_ui/ view_focus_state_test.dart
+[METRIC] script=dart_ui/view_focus_state_test.dart sourceChars=41573 clearMs=94 httpMs=1589 totalMs=1684 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:58 +114 ~2 -7: foundation/ abstract_node_test.dart
+[METRIC] script=foundation/abstract_node_test.dart sourceChars=83177 clearMs=70 httpMs=2235 totalMs=2306 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:01 +115 ~2 -7: foundation/ caching_iterable_test.dart
+[METRIC] script=foundation/caching_iterable_test.dart sourceChars=90451 clearMs=46 httpMs=1968 totalMs=2016 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:03 +116 ~2 -7: foundation/ category_test.dart
+[METRIC] script=foundation/category_test.dart sourceChars=90541 clearMs=122 httpMs=2311 totalMs=2435 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:05 +117 ~2 -7: foundation/ class_test.dart
+[METRIC] script=foundation/class_test.dart sourceChars=91064 clearMs=70 httpMs=2156 totalMs=2228 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:07 +118 ~2 -7: foundation/ diagnostic_level_test.dart
+[METRIC] script=foundation/diagnostic_level_test.dart sourceChars=28423 clearMs=93 httpMs=2312 totalMs=2407 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+04:10 +119 ~2 -7: foundation/ diagnosticable_node_test.dart
+[METRIC] script=foundation/diagnosticable_node_test.dart sourceChars=80025 clearMs=40 httpMs=2340 totalMs=2381 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:12 +120 ~2 -7: foundation/ diagnosticable_test.dart
+[METRIC] script=foundation/diagnosticable_test.dart sourceChars=84724 clearMs=89 httpMs=2449 totalMs=2540 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:15 +121 ~2 -7: foundation/ diagnosticable_tree_mixin_test.dart
+[METRIC] script=foundation/diagnosticable_tree_mixin_test.dart sourceChars=60796 clearMs=52 httpMs=2104 totalMs=2157 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/diagnosticable_tree_mixin_test.dart (1 error(s)):
+       Runtime Error: Instance of '_PrivateNode' has no method named 'toStringDeep'. Error during extension lookup: Instance of '_PrivateNode' has no method named 'toStringDeep' and no suitable extension met…
+04:17 +122 ~2 -7: foundation/ diagnosticable_tree_node_test.dart
+[METRIC] script=foundation/diagnosticable_tree_node_test.dart sourceChars=58017 clearMs=87 httpMs=2079 totalMs=2167 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:19 +123 ~2 -7: foundation/ diagnosticable_tree_test.dart
+[METRIC] script=foundation/diagnosticable_tree_test.dart sourceChars=110651 clearMs=75 httpMs=3068 totalMs=3145 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:22 +124 ~2 -7: foundation/ diagnostics_block_test.dart
+[METRIC] script=foundation/diagnostics_block_test.dart sourceChars=59184 clearMs=79 httpMs=1848 totalMs=1928 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:24 +125 ~2 -7: foundation/ diagnostics_property_test.dart
+[METRIC] script=foundation/diagnostics_property_test.dart sourceChars=60508 clearMs=70 httpMs=2481 totalMs=2553 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+04:27 +126 ~2 -7: foundation/ diagnostics_serialization_delegate_test.dart
+[METRIC] script=foundation/diagnostics_serialization_delegate_test.dart sourceChars=69817 clearMs=65 httpMs=2352 totalMs=2418 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:29 +127 ~2 -7: foundation/ diagnostics_stack_trace_test.dart
+[METRIC] script=foundation/diagnostics_stack_trace_test.dart sourceChars=76521 clearMs=47 httpMs=1874 totalMs=1923 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:31 +128 ~2 -7: foundation/ diagnostics_tree_style_test.dart
+[METRIC] script=foundation/diagnostics_tree_style_test.dart sourceChars=67207 clearMs=70 httpMs=2344 totalMs=2415 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:33 +129 ~2 -7: foundation/ documentation_icon_test.dart
+[METRIC] script=foundation/documentation_icon_test.dart sourceChars=79207 clearMs=72 httpMs=2050 totalMs=2123 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+04:35 +130 ~2 -7: foundation/ double_property_test.dart
+[METRIC] script=foundation/double_property_test.dart sourceChars=43236 clearMs=127 httpMs=1996 totalMs=2124 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:38 +131 ~2 -7: foundation/ enum_property_test.dart
+[METRIC] script=foundation/enum_property_test.dart sourceChars=45280 clearMs=53 httpMs=2013 totalMs=2068 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+04:40 +132 ~2 -7: foundation/ error_spacer_test.dart
+[METRIC] script=foundation/error_spacer_test.dart sourceChars=49299 clearMs=43 httpMs=1824 totalMs=1868 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+04:42 +133 ~2 -7: foundation/ factory_test.dart
+[METRIC] script=foundation/factory_test.dart sourceChars=35665 clearMs=55 httpMs=1652 totalMs=1708 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+04:43 +134 ~2 -7: foundation/ flag_property_test.dart
+[METRIC] script=foundation/flag_property_test.dart sourceChars=49874 clearMs=49 httpMs=1832 totalMs=1882 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+04:45 +135 ~2 -7: foundation/ flags_summary_test.dart
+[METRIC] script=foundation/flags_summary_test.dart sourceChars=34060 clearMs=41 httpMs=1890 totalMs=1932 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+04:47 +136 ~2 -7: foundation/ flutter_memory_allocations_test.dart
+[METRIC] script=foundation/flutter_memory_allocations_test.dart sourceChars=60493 clearMs=100 httpMs=2430 totalMs=2532 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:50 +137 ~2 -7: foundation/ foundation_service_extensions_test.dart
+[METRIC] script=foundation/foundation_service_extensions_test.dart sourceChars=66439 clearMs=351 httpMs=2826 totalMs=3179 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:53 +138 ~2 -7: foundation/ int_property_test.dart
+[METRIC] script=foundation/int_property_test.dart sourceChars=44108 clearMs=700 httpMs=2689 totalMs=3391 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+04:56 +139 ~2 -7: foundation/ iterable_property_test.dart
+[METRIC] script=foundation/iterable_property_test.dart sourceChars=47403 clearMs=497 httpMs=2620 totalMs=3119 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+04:59 +140 ~2 -7: foundation/ message_property_test.dart
+[METRIC] script=foundation/message_property_test.dart sourceChars=72478 clearMs=586 httpMs=3807 totalMs=4395 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:04 +141 ~2 -7: foundation/ object_created_test.dart
+[METRIC] script=foundation/object_created_test.dart sourceChars=69639 clearMs=1023 httpMs=2973 totalMs=3998 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+05:08 +142 ~2 -7: foundation/ object_disposed_test.dart
+[METRIC] script=foundation/object_disposed_test.dart sourceChars=55693 clearMs=568 httpMs=2698 totalMs=3268 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:11 +143 ~2 -7: foundation/ object_event_test.dart
+[METRIC] script=foundation/object_event_test.dart sourceChars=72291 clearMs=280 httpMs=3973 totalMs=4254 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:15 +144 ~2 -7: foundation/ object_flag_property_test.dart
+[METRIC] script=foundation/object_flag_property_test.dart sourceChars=69869 clearMs=806 httpMs=3565 totalMs=4373 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+05:20 +145 ~2 -7: foundation/ percent_property_test.dart
+[METRIC] script=foundation/percent_property_test.dart sourceChars=61000 clearMs=305 httpMs=3019 totalMs=3327 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+05:23 +146 ~2 -7: foundation/ string_property_test.dart
+[METRIC] script=foundation/string_property_test.dart sourceChars=43199 clearMs=526 httpMs=4058 totalMs=4585 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+05:28 +147 ~2 -7: foundation/ summary_test.dart
+[METRIC] script=foundation/summary_test.dart sourceChars=46111 clearMs=407 httpMs=3453 totalMs=3861 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:31 +148 ~2 -7: foundation/ target_platform_test.dart
+[METRIC] script=foundation/target_platform_test.dart sourceChars=51484 clearMs=860 httpMs=13757 totalMs=14618 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+05:46 +149 ~2 -7: foundation/ text_tree_configuration_test.dart
+[METRIC] script=foundation/text_tree_configuration_test.dart sourceChars=60520 clearMs=1274 httpMs=1486 totalMs=2762 status=error httpStatus=400 outputLines=42 frameworkErrors=0
+
+  ✗ BUILD ERROR in foundation/text_tree_configuration_test.dart:
+    Runtime Error: Cannot invoke method 'toStringDeep' on null. Use '?.' for null-aware method invocation.
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:2901:9)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9873:23)
+    #3      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3954:34)
+    #4      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #5      InterpreterVisitor.visitExpressionStatement (package:tom_d4rt/src/interpreter_visitor.dart:213:28)
+    #6      ExpressionStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:8355:50)
+    #7      InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #8      InterpretedFunction._callImpl (package:tom_d4rt/src/callable.dart:1300:38)
+    #9      InterpretedFunction.call.<anonymous closure> (package:tom_d4rt/src/callable.dart:1196:14)
+    #10     D4.withActiveVisitor (package:tom_d4rt/src/generator/d4.dart:113:16)
+    #11     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1195:15)
+    #12     D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1255:43)
+    #13     D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #14     SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #15     SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #16     SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #17     _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #18     _rootRun (dart:async/zone_root.dart:35:13)
+    #19     _CustomZone.run (dart:async/zone.dart:726:19)
+    #20     _runZoned (dart:async/zone_api.dart:166:6)
+    #21     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #22     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #23     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #24     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #25     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #26     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #27     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #28     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #29     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    … 10 more line(s)
+05:49 +149 ~2 -8: foundation/ text_tree_configuration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot invoke method 'toStringDeep' on null. Use '?.' for null-aware method invocation.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1137:7     main.<fn>.<fn>
+  
+05:49 +149 ~2 -8: foundation/ text_tree_renderer_test.dart
+[METRIC] script=foundation/text_tree_renderer_test.dart sourceChars=51411 clearMs=43 httpMs=5553 totalMs=5597 status=success httpStatus=200 outputLines=62 frameworkErrors=0
+05:54 +150 ~2 -8: gestures/ base_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_gesture_recognizer_test.dart sourceChars=43646 clearMs=637 httpMs=3098 totalMs=3736 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+05:58 +151 ~2 -8: gestures/ class_test.dart
+[METRIC] script=gestures/class_test.dart sourceChars=75799 clearMs=212 httpMs=1579 totalMs=1792 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in gestures/class_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+06:00 +151 ~2 -9: gestures/ class_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1161:7     main.<fn>.<fn>
+  
+06:00 +151 ~2 -9: gestures/ drag_down_details_test.dart
+[METRIC] script=gestures/drag_down_details_test.dart sourceChars=82116 clearMs=106 httpMs=3949 totalMs=4056 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+06:04 +152 ~2 -9: gestures/ drag_start_behavior_test.dart
+[METRIC] script=gestures/drag_start_behavior_test.dart sourceChars=48637 clearMs=271 httpMs=3428 totalMs=3701 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+06:08 +153 ~2 -9: gestures/ drag_start_details_test.dart
+[METRIC] script=gestures/drag_start_details_test.dart sourceChars=56279 clearMs=373 httpMs=4439 totalMs=4814 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+06:12 +154 ~2 -9: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart
+[METRIC] script=gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart sourceChars=41403 clearMs=518 httpMs=3443 totalMs=3962 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:16 +155 ~2 -9: gestures/ gesture_disposition_test.dart
+[METRIC] script=gestures/gesture_disposition_test.dart sourceChars=50414 clearMs=422 httpMs=3822 totalMs=4245 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+06:21 +156 ~2 -9: gestures/ gesture_recognizer_state_test.dart
+[METRIC] script=gestures/gesture_recognizer_state_test.dart sourceChars=54693 clearMs=418 httpMs=5508 totalMs=5928 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:27 +157 ~2 -9: gestures/ gesture_recognizer_test.dart
+[METRIC] script=gestures/gesture_recognizer_test.dart sourceChars=57944 clearMs=526 httpMs=5002 totalMs=5530 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+06:32 +158 ~2 -9: gestures/ hit_test_dispatcher_test.dart
+[METRIC] script=gestures/hit_test_dispatcher_test.dart sourceChars=61408 clearMs=585 httpMs=4262 totalMs=4848 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:37 +159 ~2 -9: gestures/ hit_testable_test.dart
+[METRIC] script=gestures/hit_testable_test.dart sourceChars=55168 clearMs=329 httpMs=4395 totalMs=4726 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+06:42 +160 ~2 -9: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart sourceChars=64401 clearMs=241 httpMs=1565 totalMs=1807 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+06:44 +160 ~2 -10: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1234:7     main.<fn>.<fn>
+  
+06:44 +160 ~2 -10: gestures/ least_squares_solver_test.dart
+[METRIC] script=gestures/least_squares_solver_test.dart sourceChars=81488 clearMs=42 httpMs=33194 totalMs=33236 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:17 +161 ~2 -10: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart sourceChars=52254 clearMs=2154 httpMs=4757 totalMs=6913 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:24 +162 ~2 -10: gestures/ multitouch_drag_strategy_test.dart
+[METRIC] script=gestures/multitouch_drag_strategy_test.dart sourceChars=59217 clearMs=534 httpMs=5576 totalMs=6113 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:30 +163 ~2 -10: gestures/ offset_pair_test.dart
+[METRIC] script=gestures/offset_pair_test.dart sourceChars=60719 clearMs=480 httpMs=3647 totalMs=4128 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+07:34 +164 ~2 -10: gestures/ one_sequence_gesture_recognizer_test.dart
+[METRIC] script=gestures/one_sequence_gesture_recognizer_test.dart sourceChars=57302 clearMs=256 httpMs=4484 totalMs=4742 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+07:39 +165 ~2 -10: gestures/ pointer_added_event_test.dart
+[METRIC] script=gestures/pointer_added_event_test.dart sourceChars=53094 clearMs=229 httpMs=7191 totalMs=7421 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+07:46 +166 ~2 -10: gestures/ pointer_cancel_event_test.dart
+[METRIC] script=gestures/pointer_cancel_event_test.dart sourceChars=43397 clearMs=533 httpMs=5689 totalMs=6223 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+07:52 +167 ~2 -10: gestures/ pointer_down_event_test.dart
+[METRIC] script=gestures/pointer_down_event_test.dart sourceChars=42422 clearMs=288 httpMs=5659 totalMs=5949 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:58 +168 ~2 -10: gestures/ pointer_enter_event_test.dart
+[METRIC] script=gestures/pointer_enter_event_test.dart sourceChars=48126 clearMs=625 httpMs=5761 totalMs=6387 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:05 +169 ~2 -10: gestures/ pointer_event_converter_test.dart
+[METRIC] script=gestures/pointer_event_converter_test.dart sourceChars=35554 clearMs=695 httpMs=4947 totalMs=5643 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+08:10 +170 ~2 -10: gestures/ pointer_event_resampler_test.dart
+[METRIC] script=gestures/pointer_event_resampler_test.dart sourceChars=65729 clearMs=489 httpMs=4628 totalMs=5118 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+08:15 +171 ~2 -10: gestures/ pointer_event_test.dart
+[METRIC] script=gestures/pointer_event_test.dart sourceChars=64084 clearMs=385 httpMs=5594 totalMs=5981 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:21 +172 ~2 -10: gestures/ pointer_exit_event_test.dart
+[METRIC] script=gestures/pointer_exit_event_test.dart sourceChars=57876 clearMs=419 httpMs=5592 totalMs=6012 status=success httpStatus=200 outputLines=79 frameworkErrors=0
+08:27 +173 ~2 -10: gestures/ pointer_hover_event_test.dart
+[METRIC] script=gestures/pointer_hover_event_test.dart sourceChars=63037 clearMs=286 httpMs=6031 totalMs=6318 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:34 +174 ~2 -10: gestures/ pointer_move_event_test.dart
+[METRIC] script=gestures/pointer_move_event_test.dart sourceChars=69417 clearMs=468 httpMs=8435 totalMs=8904 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:43 +175 ~2 -10: gestures/ pointer_pan_zoom_end_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_end_event_test.dart sourceChars=66035 clearMs=674 httpMs=5053 totalMs=5729 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:48 +176 ~2 -10: gestures/ pointer_pan_zoom_start_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_start_event_test.dart sourceChars=85640 clearMs=319 httpMs=7144 totalMs=7465 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:56 +177 ~2 -10: gestures/ pointer_pan_zoom_update_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_update_event_test.dart sourceChars=56331 clearMs=425 httpMs=7225 totalMs=7652 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+09:04 +178 ~2 -10: gestures/ pointer_removed_event_test.dart
+[METRIC] script=gestures/pointer_removed_event_test.dart sourceChars=63363 clearMs=346 httpMs=6012 totalMs=6359 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:10 +179 ~2 -10: gestures/ pointer_scale_event_test.dart
+[METRIC] script=gestures/pointer_scale_event_test.dart sourceChars=57636 clearMs=405 httpMs=9261 totalMs=9667 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:20 +180 ~2 -10: gestures/ pointer_scroll_event_test.dart
+[METRIC] script=gestures/pointer_scroll_event_test.dart sourceChars=77710 clearMs=412 httpMs=8710 totalMs=9123 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:29 +181 ~2 -10: gestures/ pointer_scroll_inertia_cancel_event_test.dart
+[METRIC] script=gestures/pointer_scroll_inertia_cancel_event_test.dart sourceChars=74348 clearMs=527 httpMs=5223 totalMs=5752 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:34 +182 ~2 -10: gestures/ pointer_signal_event_test.dart
+[METRIC] script=gestures/pointer_signal_event_test.dart sourceChars=66887 clearMs=416 httpMs=6139 totalMs=6556 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:41 +183 ~2 -10: gestures/ pointer_signal_resolver_test.dart
+[METRIC] script=gestures/pointer_signal_resolver_test.dart sourceChars=70615 clearMs=359 httpMs=4994 totalMs=5355 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:46 +184 ~2 -10: gestures/ pointer_up_event_test.dart
+[METRIC] script=gestures/pointer_up_event_test.dart sourceChars=58646 clearMs=345 httpMs=6343 totalMs=6690 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:53 +185 ~2 -10: gestures/ polynomial_fit_test.dart
+[METRIC] script=gestures/polynomial_fit_test.dart sourceChars=57606 clearMs=568 httpMs=1713 totalMs=2283 status=error httpStatus=400 outputLines=93 frameworkErrors=0
+
+  ✗ BUILD ERROR in gestures/polynomial_fit_test.dart:
+    Runtime Error: Bridged class 'Float64List' has no instance method named 'map'. Error during extension lookup: Bridged class 'Float64List' has no instance method named 'map'.
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3288:13)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:2887:34)
+    #3      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #4      InterpreterVisitor.visitStringInterpolation (package:tom_d4rt/src/interpreter_visitor.dart:7464:42)
+    #5      StringInterpolationImpl.accept (package:analyzer/src/dart/ast/ast.dart:22711:50)
+    #6      InterpreterVisitor.visitReturnStatement (package:tom_d4rt/src/interpreter_visitor.dart:6379:38)
+    #7      ReturnStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:21610:50)
+    #8      InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:143:33)
+    #9      InterpretedFunction._callImpl (package:tom_d4rt/src/callable.dart:1300:38)
+    #10     InterpretedFunction.call.<anonymous closure> (package:tom_d4rt/src/callable.dart:1196:14)
+    #11     D4.withActiveVisitor (package:tom_d4rt/src/generator/d4.dart:113:16)
+    #12     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1195:15)
+    #13     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3738:28)
+    #14     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #15     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9873:23)
+    #16     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3715:32)
+    #17     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #18     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5963:29)
+    #19     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5443:7)
+    #20     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #21     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9856:38)
+    #22     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3809:34)
+    #23     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #24     InterpreterVisitor._processCollectionElement (package:tom_d4rt/src/interpreter_visitor.dart:5963:29)
+    #25     InterpreterVisitor.visitListLiteral (package:tom_d4rt/src/interpreter_visitor.dart:5443:7)
+    #26     ListLiteralImpl.accept (package:analyzer/src/dart/ast/ast.dart:15131:50)
+    #27     InterpreterVisitor._evaluateArgumentsAsync (package:tom_d4rt/src/interpreter_visitor.dart:9856:38)
+    #28     InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3809:34)
+    #29     MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    … 62 more line(s)
+09:55 +185 ~2 -11: gestures/ polynomial_fit_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Bridged class 'Float64List' has no instance method named 'map'. Error during extension lookup: Bridged class 'Float64List' has no instance method named 'map'.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1429:7     main.<fn>.<fn>
+  
+09:55 +185 ~2 -11: gestures/ primary_pointer_gesture_recognizer_test.dart
+[METRIC] script=gestures/primary_pointer_gesture_recognizer_test.dart sourceChars=71258 clearMs=102 httpMs=4324 totalMs=4428 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:00 +186 ~2 -11: gestures/ sampling_clock_test.dart
+[METRIC] script=gestures/sampling_clock_test.dart sourceChars=33016 clearMs=295 httpMs=6007 totalMs=6303 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+10:06 +187 ~2 -11: gestures/ tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_drag_gesture_recognizer_test.dart sourceChars=63334 clearMs=565 httpMs=8023 totalMs=8590 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:15 +188 ~2 -11: gestures/ tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_gesture_recognizer_test.dart sourceChars=46763 clearMs=405 httpMs=5948 totalMs=6355 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+10:21 +189 ~2 -11: gestures/ tap_move_details_test.dart
+[METRIC] script=gestures/tap_move_details_test.dart sourceChars=60577 clearMs=359 httpMs=7960 totalMs=8321 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+10:29 +190 ~2 -11: gestures/ velocity_estimate_test.dart
+[METRIC] script=gestures/velocity_estimate_test.dart sourceChars=75053 clearMs=292 httpMs=7072 totalMs=7365 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:37 +191 ~2 -11: gestures/ velocity_tracker_test.dart
+[METRIC] script=gestures/velocity_tracker_test.dart sourceChars=82846 clearMs=662 httpMs=5919 totalMs=6582 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:43 +192 ~2 -11: (tearDownAll)
+10:44 +192 ~2 -11: Some tests failed.

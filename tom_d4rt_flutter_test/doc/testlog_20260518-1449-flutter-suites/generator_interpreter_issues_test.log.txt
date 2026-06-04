@@ -1,0 +1,170 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/generator_interpreter_issues_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Section 2 - Bridge Generator Issues (80) widgets/render_object_to_widget_adapter_test.dart
+[METRIC] script=widgets/render_object_to_widget_adapter_test.dart sourceChars=42134 clearMs=76 httpMs=1997 totalMs=2086 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:12 +1: Section 2 - Bridge Generator Issues (80) widgets/render_tree_root_element_test.dart
+[METRIC] script=widgets/render_tree_root_element_test.dart sourceChars=11889 clearMs=102 httpMs=2239 totalMs=2343 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:14 +2: Section 2 - Bridge Generator Issues (80) widgets/restorable_enum_n_test.dart
+[METRIC] script=widgets/restorable_enum_n_test.dart sourceChars=45053 clearMs=63 httpMs=1580 totalMs=1648 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:16 +3: Section 2 - Bridge Generator Issues (80) widgets/route_information_test.dart
+[METRIC] script=widgets/route_information_test.dart sourceChars=63080 clearMs=37 httpMs=1575 totalMs=1614 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:18 +4: Section 2 - Bridge Generator Issues (80) widgets/route_pop_disposition_test.dart
+[METRIC] script=widgets/route_pop_disposition_test.dart sourceChars=60018 clearMs=49 httpMs=1532 totalMs=1582 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:19 +5: Section 2 - Bridge Generator Issues (80) widgets/router_config_test.dart
+[METRIC] script=widgets/router_config_test.dart sourceChars=37598 clearMs=51 httpMs=1921 totalMs=1973 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:21 +6: Section 2 - Bridge Generator Issues (80) widgets/scroll_activity_test.dart
+[METRIC] script=widgets/scroll_activity_test.dart sourceChars=39020 clearMs=43 httpMs=1470 totalMs=1519 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:23 +7: Section 2 - Bridge Generator Issues (80) widgets/scroll_position_alignment_policy_test.dart
+[METRIC] script=widgets/scroll_position_alignment_policy_test.dart sourceChars=42033 clearMs=55 httpMs=1498 totalMs=1559 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:24 +8: Section 2 - Bridge Generator Issues (80) widgets/scroll_view_keyboard_dismiss_behavior_test.dart
+[METRIC] script=widgets/scroll_view_keyboard_dismiss_behavior_test.dart sourceChars=55210 clearMs=53 httpMs=1457 totalMs=1512 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:26 +9: Section 2 - Bridge Generator Issues (80) widgets/select_action_test.dart
+[METRIC] script=widgets/select_action_test.dart sourceChars=56158 clearMs=48 httpMs=1451 totalMs=1500 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:27 +10: Section 2 - Bridge Generator Issues (80) widgets/shortcut_registry_entry_test.dart
+[METRIC] script=widgets/shortcut_registry_entry_test.dart sourceChars=55753 clearMs=52 httpMs=1465 totalMs=1518 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:29 +11: Section 2 - Bridge Generator Issues (80) widgets/shortcut_serialization_test.dart
+[METRIC] script=widgets/shortcut_serialization_test.dart sourceChars=52533 clearMs=48 httpMs=1395 totalMs=1446 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +12: Section 2 - Bridge Generator Issues (80) widgets/single_activator_test.dart
+[METRIC] script=widgets/single_activator_test.dart sourceChars=52443 clearMs=50 httpMs=1492 totalMs=1544 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:32 +13: Section 2 - Bridge Generator Issues (80) widgets/toolbar_items_parent_data_test.dart
+[METRIC] script=widgets/toolbar_items_parent_data_test.dart sourceChars=26247 clearMs=50 httpMs=1415 totalMs=1466 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:33 +14: Section 2 - Bridge Generator Issues (80) widgets/toolbar_options_test.dart
+[METRIC] script=widgets/toolbar_options_test.dart sourceChars=18488 clearMs=46 httpMs=1374 totalMs=1422 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:35 +15: Section 2 - Bridge Generator Issues (80) widgets/tooltip_position_context_test.dart
+[METRIC] script=widgets/tooltip_position_context_test.dart sourceChars=16399 clearMs=50 httpMs=1400 totalMs=1451 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:36 +16: Section 2 - Bridge Generator Issues (80) widgets/tooltip_window_controller_delegate_test.dart
+[METRIC] script=widgets/tooltip_window_controller_delegate_test.dart sourceChars=55133 clearMs=44 httpMs=1874 totalMs=1920 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:38 +17: Section 2 - Bridge Generator Issues (80) widgets/tooltip_window_controller_test.dart
+[METRIC] script=widgets/tooltip_window_controller_test.dart sourceChars=16331 clearMs=80 httpMs=1375 totalMs=1457 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:39 +18: Section 2 - Bridge Generator Issues (80) widgets/transition_delegate_test.dart
+[METRIC] script=widgets/transition_delegate_test.dart sourceChars=33755 clearMs=51 httpMs=1848 totalMs=1901 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:41 +19: Section 2 - Bridge Generator Issues (80) widgets/traversal_direction_test.dart
+[METRIC] script=widgets/traversal_direction_test.dart sourceChars=16042 clearMs=30 httpMs=1391 totalMs=1423 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:43 +20: Section 2 - Bridge Generator Issues (80) widgets/traversal_edge_behavior_test.dart
+[METRIC] script=widgets/traversal_edge_behavior_test.dart sourceChars=14751 clearMs=50 httpMs=1392 totalMs=1443 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:44 +21: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_anchor_test.dart
+[METRIC] script=widgets/window_positioner_anchor_test.dart sourceChars=33257 clearMs=48 httpMs=1639 totalMs=1688 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:46 +22: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_constraint_adjustment_test.dart
+[METRIC] script=widgets/window_positioner_constraint_adjustment_test.dart sourceChars=35281 clearMs=45 httpMs=1493 totalMs=1539 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:47 +23: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_test.dart
+[METRIC] script=widgets/window_positioner_test.dart sourceChars=44100 clearMs=54 httpMs=2262 totalMs=2318 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:50 +24: Section 2 - Bridge Generator Issues (80) widgets/window_scope_test.dart
+[METRIC] script=widgets/window_scope_test.dart sourceChars=27119 clearMs=51 httpMs=1519 totalMs=1572 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:51 +25: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_linux_test.dart
+[METRIC] script=widgets/windowing_owner_linux_test.dart sourceChars=33675 clearMs=89 httpMs=1494 totalMs=1588 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:53 +26: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_mac_o_s_test.dart
+[METRIC] script=widgets/windowing_owner_mac_o_s_test.dart sourceChars=99640 clearMs=52 httpMs=2695 totalMs=2749 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:56 +27: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_test.dart
+[METRIC] script=widgets/windowing_owner_test.dart sourceChars=33101 clearMs=93 httpMs=1456 totalMs=1550 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:57 +28: Section 2 - Bridge Generator Issues (80) widgets/slidetransition_test.dart
+[METRIC] script=widgets/slidetransition_test.dart sourceChars=45777 clearMs=95 httpMs=1793 totalMs=1890 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:59 +29: Section 2 - Bridge Generator Issues (80) widgets/nestedscrollview_test.dart
+[METRIC] script=widgets/nestedscrollview_test.dart sourceChars=70655 clearMs=51 httpMs=1778 totalMs=1831 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:01 +30: Section 2 - Bridge Generator Issues (80) animation/tweensequence_test.dart
+[METRIC] script=animation/tweensequence_test.dart sourceChars=11230 clearMs=30 httpMs=1524 totalMs=1555 status=success httpStatus=200 outputLines=58 frameworkErrors=0
+01:03 +31: Section 2 - Bridge Generator Issues (80) services/codecs_test.dart
+[METRIC] script=services/codecs_test.dart sourceChars=8215 clearMs=53 httpMs=1572 totalMs=1626 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+01:04 +32: Section 2 - Bridge Generator Issues (80) services/channels_test.dart
+[METRIC] script=services/channels_test.dart sourceChars=58390 clearMs=22 httpMs=2278 totalMs=2301 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +33: Section 2 - Bridge Generator Issues (80) semantics/semantics_config_test.dart
+[METRIC] script=semantics/semantics_config_test.dart sourceChars=78883 clearMs=74 httpMs=2406 totalMs=2481 status=success httpStatus=200 outputLines=68 frameworkErrors=0
+01:09 +34: Section 2 - Bridge Generator Issues (80) widgets/layout_builder_adv_test.dart
+[METRIC] script=widgets/layout_builder_adv_test.dart sourceChars=46199 clearMs=94 httpMs=1714 totalMs=1810 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:11 +35: Section 2 - Bridge Generator Issues (80) material/scaffold_messenger_test.dart
+[METRIC] script=material/scaffold_messenger_test.dart sourceChars=36533 clearMs=114 httpMs=1434 totalMs=1550 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:12 +36: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart
+[METRIC] script=rendering/box_hit_test_result_test.dart sourceChars=49078 clearMs=42 httpMs=2277 totalMs=2320 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:15 +37: Section 2 - Bridge Generator Issues (80) rendering/custom_painter_semantics_test.dart
+[METRIC] script=rendering/custom_painter_semantics_test.dart sourceChars=39718 clearMs=26 httpMs=1990 totalMs=2018 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:17 +38: Section 2 - Bridge Generator Issues (80) rendering/relayout_when_system_fonts_change_mixin_test.dart
+[METRIC] script=rendering/relayout_when_system_fonts_change_mixin_test.dart sourceChars=60082 clearMs=110 httpMs=2202 totalMs=2314 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:19 +39: Section 2 - Bridge Generator Issues (80) rendering/render_absorb_pointer_test.dart
+[METRIC] script=rendering/render_absorb_pointer_test.dart sourceChars=58210 clearMs=67 httpMs=2178 totalMs=2247 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:21 +40: Section 2 - Bridge Generator Issues (80) rendering/render_aligning_shifted_box_test.dart
+[METRIC] script=rendering/render_aligning_shifted_box_test.dart sourceChars=51396 clearMs=89 httpMs=2340 totalMs=2430 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:24 +41: Section 2 - Bridge Generator Issues (80) rendering/render_box_container_defaults_mixin_test.dart
+[METRIC] script=rendering/render_box_container_defaults_mixin_test.dart sourceChars=65458 clearMs=81 httpMs=2353 totalMs=2436 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:26 +42: Section 2 - Bridge Generator Issues (80) rendering/render_custom_multi_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_multi_child_layout_box_test.dart sourceChars=80285 clearMs=72 httpMs=1399 totalMs=1472 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:28 +43: Section 2 - Bridge Generator Issues (80) rendering/render_custom_paint_test.dart
+[METRIC] script=rendering/render_custom_paint_test.dart sourceChars=60302 clearMs=76 httpMs=2317 totalMs=2395 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:30 +44: Section 2 - Bridge Generator Issues (80) rendering/render_custom_single_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_single_child_layout_box_test.dart sourceChars=71483 clearMs=83 httpMs=2297 totalMs=2382 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:32 +45: Section 2 - Bridge Generator Issues (80) rendering/render_physical_shape_test.dart
+[METRIC] script=rendering/render_physical_shape_test.dart sourceChars=63808 clearMs=79 httpMs=1815 totalMs=1895 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:34 +46: Section 2 - Bridge Generator Issues (80) rendering/render_shrink_wrapping_viewport_test.dart
+[METRIC] script=rendering/render_shrink_wrapping_viewport_test.dart sourceChars=64561 clearMs=83 httpMs=1863 totalMs=1952 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:36 +47: Section 2 - Bridge Generator Issues (80) widgets/android_view_test.dart
+  Skip: AndroidView only renders on Android
+01:36 +47 ~1: Section 2 - Bridge Generator Issues (80) widgets/animated_cross_fade_test.dart
+[METRIC] script=widgets/animated_cross_fade_test.dart sourceChars=53052 clearMs=31 httpMs=1736 totalMs=1768 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:38 +48 ~1: Section 2 - Bridge Generator Issues (80) widgets/animated_switcher_test.dart
+  Skip: W5 (2026-04-28): wedges test app /build for ~60s then "Lost connection to device"; cascades 34 subsequent gii tests. Pre-existing testlog_20260428-1220-issue-analysis gii run aborted at this script (test ID 54). Likely deep-demo widget tree leaving animation tickers / post-frame callbacks scheduled past teardown. Skipping until the structural test-app watchdog (interpreter_issues.md META) lands.
+01:38 +48 ~2: Section 2 - Bridge Generator Issues (80) widgets/autofill_group_test.dart
+[METRIC] script=widgets/autofill_group_test.dart sourceChars=66941 clearMs=90 httpMs=2441 totalMs=2533 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:41 +49 ~2: Section 2 - Bridge Generator Issues (80) widgets/backdrop_filter_test.dart
+[METRIC] script=widgets/backdrop_filter_test.dart sourceChars=44020 clearMs=82 httpMs=1820 totalMs=1903 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:42 +50 ~2: Section 2 - Bridge Generator Issues (80) widgets/composited_transform_follower_test.dart
+[METRIC] script=widgets/composited_transform_follower_test.dart sourceChars=63812 clearMs=60 httpMs=1596 totalMs=1657 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:44 +51 ~2: Section 2 - Bridge Generator Issues (80) widgets/fixed_extent_metrics_test.dart
+[METRIC] script=widgets/fixed_extent_metrics_test.dart sourceChars=48313 clearMs=29 httpMs=1622 totalMs=1653 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+01:46 +52 ~2: Section 2 - Bridge Generator Issues (80) widgets/glowing_overscroll_indicator_test.dart
+[METRIC] script=widgets/glowing_overscroll_indicator_test.dart sourceChars=52718 clearMs=76 httpMs=2250 totalMs=2327 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:48 +53 ~2: Section 2 - Bridge Generator Issues (80) widgets/html_element_view_test.dart
+[METRIC] script=widgets/html_element_view_test.dart sourceChars=59882 clearMs=77 httpMs=2675 totalMs=2754 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:51 +54 ~2: Section 2 - Bridge Generator Issues (80) widgets/image_filtered_test.dart
+[METRIC] script=widgets/image_filtered_test.dart sourceChars=88772 clearMs=81 httpMs=4397 totalMs=4480 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:55 +55 ~2: Section 2 - Bridge Generator Issues (80) widgets/indexed_stack_test.dart
+[METRIC] script=widgets/indexed_stack_test.dart sourceChars=82895 clearMs=76 httpMs=3368 totalMs=3445 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:59 +56 ~2: Section 2 - Bridge Generator Issues (80) widgets/inherited_theme_test.dart
+[METRIC] script=widgets/inherited_theme_test.dart sourceChars=93998 clearMs=118 httpMs=2930 totalMs=3050 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:02 +57 ~2: Section 2 - Bridge Generator Issues (80) widgets/inherited_widget_test.dart
+[METRIC] script=widgets/inherited_widget_test.dart sourceChars=88375 clearMs=98 httpMs=2792 totalMs=2891 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:05 +58 ~2: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_scroll_view_test.dart
+[METRIC] script=widgets/list_wheel_scroll_view_test.dart sourceChars=62916 clearMs=78 httpMs=2930 totalMs=3010 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:08 +59 ~2: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_viewport_test.dart
+[METRIC] script=widgets/list_wheel_viewport_test.dart sourceChars=65200 clearMs=94 httpMs=3214 totalMs=3309 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:11 +60 ~2: Section 2 - Bridge Generator Issues (80) widgets/magnifier_decoration_test.dart
+[METRIC] script=widgets/magnifier_decoration_test.dart sourceChars=60367 clearMs=101 httpMs=3428 totalMs=3531 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:15 +61 ~2: Section 2 - Bridge Generator Issues (80) widgets/navigation_toolbar_test.dart
+[METRIC] script=widgets/navigation_toolbar_test.dart sourceChars=65045 clearMs=95 httpMs=2619 totalMs=2716 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:17 +62 ~2: Section 2 - Bridge Generator Issues (80) widgets/overflow_bar_test.dart
+[METRIC] script=widgets/overflow_bar_test.dart sourceChars=70015 clearMs=78 httpMs=2855 totalMs=2935 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:20 +63 ~2: Section 2 - Bridge Generator Issues (80) widgets/overflow_box_test.dart
+[METRIC] script=widgets/overflow_box_test.dart sourceChars=75480 clearMs=90 httpMs=2902 totalMs=2994 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:23 +64 ~2: Section 2 - Bridge Generator Issues (80) widgets/page_storage_bucket_test.dart
+[METRIC] script=widgets/page_storage_bucket_test.dart sourceChars=84402 clearMs=77 httpMs=3118 totalMs=3196 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:26 +65 ~2: Section 2 - Bridge Generator Issues (80) widgets/page_storage_test.dart
+[METRIC] script=widgets/page_storage_test.dart sourceChars=77358 clearMs=91 httpMs=3168 totalMs=3261 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:30 +66 ~2: Section 2 - Bridge Generator Issues (80) widgets/parent_data_widget_test.dart
+[METRIC] script=widgets/parent_data_widget_test.dart sourceChars=51226 clearMs=88 httpMs=1501 totalMs=1591 status=success httpStatus=200 outputLines=456 frameworkErrors=0
+02:31 +67 ~2: Section 2 - Bridge Generator Issues (80) widgets/physical_model_test.dart
+[METRIC] script=widgets/physical_model_test.dart sourceChars=47920 clearMs=76 httpMs=1716 totalMs=1793 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:33 +68 ~2: Section 2 - Bridge Generator Issues (80) widgets/render_object_element_test.dart
+[METRIC] script=widgets/render_object_element_test.dart sourceChars=36294 clearMs=69 httpMs=2095 totalMs=2166 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:35 +69 ~2: Section 2 - Bridge Generator Issues (80) widgets/render_object_widget_test.dart
+[METRIC] script=widgets/render_object_widget_test.dart sourceChars=32809 clearMs=82 httpMs=2019 totalMs=2102 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:37 +70 ~2: Section 2 - Bridge Generator Issues (80) widgets/restorable_enum_test.dart
+[METRIC] script=widgets/restorable_enum_test.dart sourceChars=67101 clearMs=51 httpMs=1447 totalMs=1500 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:39 +71 ~2: Section 2 - Bridge Generator Issues (80) widgets/restorable_text_editing_controller_test.dart
+[METRIC] script=widgets/restorable_text_editing_controller_test.dart sourceChars=50810 clearMs=48 httpMs=1425 totalMs=1475 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:40 +72 ~2: Section 2 - Bridge Generator Issues (80) widgets/root_widget_test.dart
+[METRIC] script=widgets/root_widget_test.dart sourceChars=38283 clearMs=55 httpMs=1419 totalMs=1475 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:42 +73 ~2: Section 2 - Bridge Generator Issues (80) widgets/shader_mask_test.dart
+[METRIC] script=widgets/shader_mask_test.dart sourceChars=42225 clearMs=27 httpMs=1641 totalMs=1670 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:43 +74 ~2: Section 2 - Bridge Generator Issues (80) widgets/single_child_render_object_element_test.dart
+[METRIC] script=widgets/single_child_render_object_element_test.dart sourceChars=55393 clearMs=179 httpMs=1411 totalMs=1592 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:45 +75 ~2: Section 2 - Bridge Generator Issues (80) widgets/single_child_render_object_widget_test.dart
+[METRIC] script=widgets/single_child_render_object_widget_test.dart sourceChars=53857 clearMs=80 httpMs=1393 totalMs=1474 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:47 +76 ~2: Section 2 - Bridge Generator Issues (80) widgets/stateful_element_test.dart
+[METRIC] script=widgets/stateful_element_test.dart sourceChars=34474 clearMs=50 httpMs=1594 totalMs=1646 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:48 +77 ~2: Section 2 - Bridge Generator Issues (80) widgets/stateless_element_test.dart
+[METRIC] script=widgets/stateless_element_test.dart sourceChars=28085 clearMs=43 httpMs=1462 totalMs=1506 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:50 +78 ~2: Section 2 - Interpreter Issues (3) widgets/scrollbar_orientation_test.dart
+[METRIC] script=widgets/scrollbar_orientation_test.dart sourceChars=30200 clearMs=50 httpMs=1796 totalMs=1847 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:52 +79 ~2: Section 2 - Interpreter Issues (3) widgets/sliver_animated_list_state_test.dart
+[METRIC] script=widgets/sliver_animated_list_state_test.dart sourceChars=31069 clearMs=79 httpMs=1541 totalMs=1622 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:53 +80 ~2: Section 2 - Interpreter Issues (3) widgets/sliver_child_builder_delegate_test.dart
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceChars=31529 clearMs=34 httpMs=1688 totalMs=1723 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:55 +81 ~2: (tearDownAll)
+02:56 +81 ~2: All tests passed!

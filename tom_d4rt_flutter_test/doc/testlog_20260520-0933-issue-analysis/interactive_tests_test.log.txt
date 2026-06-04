@@ -1,0 +1,22 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/interactive_tests_test.dart
+00:00 +0: (setUpAll)
+00:08 +0: Interactive tests showDialog - can tap OK button to dismiss
+[METRIC] script=material/showdialog_test.dart sourceChars=73953 clearMs=46 httpMs=2800 totalMs=2857 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:13 +1: Interactive tests showBottomSheet - can tap to select option
+[METRIC] script=material/showbottomsheet_test.dart sourceChars=84246 clearMs=120 httpMs=3241 totalMs=3365 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:18 +2: Interactive tests showMenu - can tap menu item
+[METRIC] script=material/showmenu_test.dart sourceChars=96398 clearMs=100 httpMs=2057 totalMs=2167 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+Interaction result: InteractResult(failed, errors: [Action 2 (tapText) failed: Bad state: Could not find text "Option A" on screen], output: [])
+00:22 +3: Interactive tests interaction - dismiss modal via barrier tap
+[METRIC] script=material/showdialog_test.dart sourceChars=73953 clearMs=133 httpMs=2276 totalMs=2411 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Dismiss result: InteractResult(success, output: [])
+00:26 +4: Interactive tests showDatePicker - can tap Cancel to dismiss
+[METRIC] script=material/showdatepicker_test.dart sourceChars=71430 clearMs=80 httpMs=1997 totalMs=2079 status=success httpStatus=200 outputLines=73 frameworkErrors=0
+Interaction result: InteractResult(failed, errors: [Action 2 (tapText) failed: Bad state: Could not find text "Cancel" on screen], output: [])
+00:30 +5: Interactive tests showTimePicker - can tap Cancel to dismiss
+[METRIC] script=material/showtimepicker_test.dart sourceChars=77141 clearMs=98 httpMs=2048 totalMs=2157 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+Interaction result: InteractResult(failed, errors: [Action 2 (tapText) failed: Bad state: Could not find text "Cancel" on screen], output: [])
+00:35 +6: (tearDownAll)
+00:35 +6: All tests passed!

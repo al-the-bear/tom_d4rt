@@ -1,0 +1,611 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_1_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: animation/ animation_behavior_test.dart
+[METRIC] script=animation/animation_behavior_test.dart sourceChars=25739 clearMs=84 httpMs=2073 totalMs=2166 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:12 +2: animation/ animation_eager_listener_mixin_test.dart
+[METRIC] script=animation/animation_eager_listener_mixin_test.dart sourceChars=27346 clearMs=52 httpMs=1851 totalMs=1908 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:14 +3: animation/ animation_lazy_listener_mixin_test.dart
+[METRIC] script=animation/animation_lazy_listener_mixin_test.dart sourceChars=34198 clearMs=108 httpMs=1767 totalMs=1877 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:16 +4: animation/ animation_local_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_listeners_mixin_test.dart sourceChars=43550 clearMs=110 httpMs=1736 totalMs=1850 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +5: animation/ animation_local_status_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_status_listeners_mixin_test.dart sourceChars=45571 clearMs=69 httpMs=1656 totalMs=1729 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:19 +6: animation/ animation_status_test.dart
+[METRIC] script=animation/animation_status_test.dart sourceChars=27233 clearMs=62 httpMs=1708 totalMs=1771 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:21 +7: animation/ catmull_rom_curve_test.dart
+[METRIC] script=animation/catmull_rom_curve_test.dart sourceChars=43295 clearMs=66 httpMs=1791 totalMs=1858 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:23 +8: animation/ catmull_rom_spline_test.dart
+[METRIC] script=animation/catmull_rom_spline_test.dart sourceChars=44819 clearMs=66 httpMs=1749 totalMs=1816 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +9: animation/ class_test.dart
+[METRIC] script=animation/class_test.dart sourceChars=45204 clearMs=65 httpMs=1602 totalMs=1669 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:26 +10: animation/ color_tween_test.dart
+[METRIC] script=animation/color_tween_test.dart sourceChars=42279 clearMs=66 httpMs=1877 totalMs=1945 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:28 +11: animation/ constant_tween_test.dart
+[METRIC] script=animation/constant_tween_test.dart sourceChars=43616 clearMs=59 httpMs=3022 totalMs=3085 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:31 +12: animation/ cubic_test.dart
+[METRIC] script=animation/cubic_test.dart sourceChars=63416 clearMs=89 httpMs=2187 totalMs=2278 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in animation/cubic_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+00:34 +13: animation/ curve2_d_sample_test.dart
+[METRIC] script=animation/curve2_d_sample_test.dart sourceChars=47840 clearMs=67 httpMs=1700 totalMs=1769 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:35 +14: animation/ curve2_d_test.dart
+[METRIC] script=animation/curve2_d_test.dart sourceChars=40888 clearMs=65 httpMs=1790 totalMs=1857 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:37 +15: animation/ curve_tween_test.dart
+[METRIC] script=animation/curve_tween_test.dart sourceChars=46097 clearMs=123 httpMs=1835 totalMs=1961 status=success httpStatus=200 outputLines=237 frameworkErrors=0
+00:39 +16: animation/ curves_test.dart
+[METRIC] script=animation/curves_test.dart sourceChars=58023 clearMs=57 httpMs=8098 totalMs=8157 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +17: animation/ elastic_in_curve_test.dart
+[METRIC] script=animation/elastic_in_curve_test.dart sourceChars=44327 clearMs=64 httpMs=1883 totalMs=1949 status=success httpStatus=200 outputLines=252 frameworkErrors=0
+00:49 +18: animation/ elastic_in_out_curve_test.dart
+[METRIC] script=animation/elastic_in_out_curve_test.dart sourceChars=46327 clearMs=78 httpMs=1805 totalMs=1885 status=success httpStatus=200 outputLines=243 frameworkErrors=0
+00:51 +19: animation/ elastic_out_curve_test.dart
+[METRIC] script=animation/elastic_out_curve_test.dart sourceChars=49513 clearMs=103 httpMs=1855 totalMs=1960 status=success httpStatus=200 outputLines=248 frameworkErrors=0
+00:53 +20: animation/ flipped_curve_test.dart
+[METRIC] script=animation/flipped_curve_test.dart sourceChars=44585 clearMs=45 httpMs=1776 totalMs=1823 status=success httpStatus=200 outputLines=236 frameworkErrors=0
+00:55 +21: animation/ int_tween_test.dart
+[METRIC] script=animation/int_tween_test.dart sourceChars=43827 clearMs=68 httpMs=1735 totalMs=1805 status=success httpStatus=200 outputLines=271 frameworkErrors=0
+00:57 +22: animation/ interval_test.dart
+[METRIC] script=animation/interval_test.dart sourceChars=37930 clearMs=56 httpMs=1652 totalMs=1710 status=success httpStatus=200 outputLines=250 frameworkErrors=0
+00:59 +23: animation/ parametric_curve_test.dart
+[METRIC] script=animation/parametric_curve_test.dart sourceChars=37481 clearMs=70 httpMs=1808 totalMs=1880 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+01:01 +24: animation/ rect_tween_test.dart
+[METRIC] script=animation/rect_tween_test.dart sourceChars=35737 clearMs=29 httpMs=1624 totalMs=1655 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+01:02 +25: animation/ reverse_tween_test.dart
+[METRIC] script=animation/reverse_tween_test.dart sourceChars=36500 clearMs=49 httpMs=1710 totalMs=1760 status=success httpStatus=200 outputLines=230 frameworkErrors=0
+01:04 +26: animation/ saw_tooth_test.dart
+[METRIC] script=animation/saw_tooth_test.dart sourceChars=31353 clearMs=96 httpMs=2072 totalMs=2170 status=success httpStatus=200 outputLines=264 frameworkErrors=0
+01:06 +27: animation/ size_tween_test.dart
+[METRIC] script=animation/size_tween_test.dart sourceChars=34449 clearMs=64 httpMs=1666 totalMs=1731 status=success httpStatus=200 outputLines=233 frameworkErrors=0
+01:08 +28: animation/ split_test.dart
+[METRIC] script=animation/split_test.dart sourceChars=34495 clearMs=32 httpMs=1948 totalMs=1982 status=success httpStatus=200 outputLines=216 frameworkErrors=0
+01:10 +29: animation/ step_tween_test.dart
+[METRIC] script=animation/step_tween_test.dart sourceChars=29243 clearMs=24 httpMs=1760 totalMs=1786 status=success httpStatus=200 outputLines=247 frameworkErrors=0
+01:12 +30: animation/ three_point_cubic_test.dart
+[METRIC] script=animation/three_point_cubic_test.dart sourceChars=32796 clearMs=94 httpMs=1749 totalMs=1844 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+01:13 +31: animation/ threshold_test.dart
+[METRIC] script=animation/threshold_test.dart sourceChars=32188 clearMs=54 httpMs=1660 totalMs=1715 status=success httpStatus=200 outputLines=246 frameworkErrors=0
+01:15 +32: cupertino/ class_test.dart
+[METRIC] script=cupertino/class_test.dart sourceChars=70095 clearMs=88 httpMs=4925 totalMs=5014 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:20 +33: cupertino/ cupertino_button_size_test.dart
+[METRIC] script=cupertino/cupertino_button_size_test.dart sourceChars=24908 clearMs=96 httpMs=1603 totalMs=1700 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+01:22 +34: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+[METRIC] script=cupertino/cupertino_desktop_text_selection_controls_test.dart sourceChars=87413 clearMs=65 httpMs=2410 totalMs=2477 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:24 +35: cupertino/ cupertino_expansion_tile_test.dart
+[METRIC] script=cupertino/cupertino_expansion_tile_test.dart sourceChars=82958 clearMs=85 httpMs=3421 totalMs=3508 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+01:28 +36: cupertino/ cupertino_focus_halo_test.dart
+[METRIC] script=cupertino/cupertino_focus_halo_test.dart sourceChars=58724 clearMs=88 httpMs=2155 totalMs=2245 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:30 +37: cupertino/ cupertino_linear_activity_indicator_test.dart
+[METRIC] script=cupertino/cupertino_linear_activity_indicator_test.dart sourceChars=69032 clearMs=47 httpMs=3277 totalMs=3326 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:33 +38: cupertino/ cupertino_list_section_type_test.dart
+[METRIC] script=cupertino/cupertino_list_section_type_test.dart sourceChars=23680 clearMs=60 httpMs=1576 totalMs=1638 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+01:35 +39: cupertino/ cupertino_list_tile_chevron_test.dart
+[METRIC] script=cupertino/cupertino_list_tile_chevron_test.dart sourceChars=81448 clearMs=105 httpMs=3289 totalMs=3396 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:39 +40: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceChars=52660 clearMs=117 httpMs=2154 totalMs=2273 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:41 +41: cupertino/ cupertino_thumb_painter_test.dart
+[METRIC] script=cupertino/cupertino_thumb_painter_test.dart sourceChars=60699 clearMs=49 httpMs=1923 totalMs=1973 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+01:43 +42: cupertino/ expansion_tile_transition_mode_test.dart
+[METRIC] script=cupertino/expansion_tile_transition_mode_test.dart sourceChars=26773 clearMs=35 httpMs=1579 totalMs=1615 status=success httpStatus=200 outputLines=220 frameworkErrors=0
+01:44 +43: cupertino/ inherited_cupertino_theme_test.dart
+[METRIC] script=cupertino/inherited_cupertino_theme_test.dart sourceChars=39775 clearMs=31 httpMs=2046 totalMs=2079 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:46 +44: cupertino/ navigation_bar_bottom_mode_test.dart
+[METRIC] script=cupertino/navigation_bar_bottom_mode_test.dart sourceChars=25781 clearMs=109 httpMs=1577 totalMs=1688 status=success httpStatus=200 outputLines=227 frameworkErrors=0
+01:48 +45: cupertino/ overlay_visibility_mode_test.dart
+[METRIC] script=cupertino/overlay_visibility_mode_test.dart sourceChars=49726 clearMs=32 httpMs=2055 totalMs=2089 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:50 +46: cupertino/ restorable_cupertino_tab_controller_test.dart
+[METRIC] script=cupertino/restorable_cupertino_tab_controller_test.dart sourceChars=76877 clearMs=76 httpMs=5677 totalMs=5754 status=success httpStatus=200 outputLines=5 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in cupertino/restorable_cupertino_tab_controller_test.dart (1 error(s)):
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+01:56 +47: dart_ui/ app_exit_response_test.dart
+[METRIC] script=dart_ui/app_exit_response_test.dart sourceChars=13333 clearMs=62 httpMs=1601 totalMs=1664 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:58 +48: dart_ui/ app_exit_type_test.dart
+[METRIC] script=dart_ui/app_exit_type_test.dart sourceChars=13825 clearMs=70 httpMs=1539 totalMs=1610 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:59 +49: dart_ui/ app_lifecycle_state_test.dart
+[METRIC] script=dart_ui/app_lifecycle_state_test.dart sourceChars=14958 clearMs=28 httpMs=1598 totalMs=1628 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:01 +50: dart_ui/ backdrop_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/backdrop_filter_engine_layer_test.dart sourceChars=15535 clearMs=38 httpMs=1578 totalMs=1618 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:03 +51: dart_ui/ blend_mode_test.dart
+[METRIC] script=dart_ui/blend_mode_test.dart sourceChars=14160 clearMs=118 httpMs=1653 totalMs=1773 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:04 +52: dart_ui/ blur_style_test.dart
+[METRIC] script=dart_ui/blur_style_test.dart sourceChars=15013 clearMs=60 httpMs=1562 totalMs=1623 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:06 +53: dart_ui/ box_height_style_test.dart
+[METRIC] script=dart_ui/box_height_style_test.dart sourceChars=19491 clearMs=65 httpMs=1645 totalMs=1712 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+02:08 +54: dart_ui/ box_width_style_test.dart
+[METRIC] script=dart_ui/box_width_style_test.dart sourceChars=14371 clearMs=76 httpMs=1507 totalMs=1584 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:09 +55: dart_ui/ callback_handle_test.dart
+[METRIC] script=dart_ui/callback_handle_test.dart sourceChars=9646 clearMs=51 httpMs=1494 totalMs=1546 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:11 +56: dart_ui/ channel_buffers_test.dart
+[METRIC] script=dart_ui/channel_buffers_test.dart sourceChars=13306 clearMs=49 httpMs=1508 totalMs=1559 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:12 +57: dart_ui/ checked_state_test.dart
+[METRIC] script=dart_ui/checked_state_test.dart sourceChars=20205 clearMs=45 httpMs=1571 totalMs=1618 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:14 +58: dart_ui/ class_test.dart
+[METRIC] script=dart_ui/class_test.dart sourceChars=14773 clearMs=78 httpMs=1562 totalMs=1642 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:16 +59: dart_ui/ clip_op_test.dart
+[METRIC] script=dart_ui/clip_op_test.dart sourceChars=19371 clearMs=81 httpMs=1558 totalMs=1640 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+02:17 +60: dart_ui/ clip_path_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_path_engine_layer_test.dart sourceChars=98902 clearMs=32 httpMs=5248 totalMs=5282 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:23 +61: dart_ui/ clip_r_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_rect_engine_layer_test.dart sourceChars=8956 clearMs=87 httpMs=1478 totalMs=1566 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:24 +62: dart_ui/ clip_r_superellipse_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_superellipse_engine_layer_test.dart sourceChars=31132 clearMs=29 httpMs=1833 totalMs=1863 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:26 +63: dart_ui/ clip_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_rect_engine_layer_test.dart sourceChars=26309 clearMs=32 httpMs=1757 totalMs=1790 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:28 +64: dart_ui/ clip_test.dart
+[METRIC] script=dart_ui/clip_test.dart sourceChars=44242 clearMs=80 httpMs=1866 totalMs=1948 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:30 +65: dart_ui/ color_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/color_filter_engine_layer_test.dart sourceChars=23430 clearMs=77 httpMs=1607 totalMs=1686 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:31 +66: dart_ui/ color_space_test.dart
+[METRIC] script=dart_ui/color_space_test.dart sourceChars=25399 clearMs=89 httpMs=1553 totalMs=1644 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:33 +67: dart_ui/ dart_performance_mode_test.dart
+[METRIC] script=dart_ui/dart_performance_mode_test.dart sourceChars=22889 clearMs=81 httpMs=1722 totalMs=1804 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+02:35 +68: dart_ui/ dart_plugin_registrant_test.dart
+[METRIC] script=dart_ui/dart_plugin_registrant_test.dart sourceChars=25342 clearMs=46 httpMs=1598 totalMs=1645 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:37 +69: dart_ui/ display_feature_state_test.dart
+[METRIC] script=dart_ui/display_feature_state_test.dart sourceChars=27353 clearMs=67 httpMs=1607 totalMs=1675 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:38 +70: dart_ui/ display_feature_type_test.dart
+[METRIC] script=dart_ui/display_feature_type_test.dart sourceChars=30764 clearMs=84 httpMs=1643 totalMs=1729 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:40 +71: dart_ui/ engine_layer_test.dart
+[METRIC] script=dart_ui/engine_layer_test.dart sourceChars=23415 clearMs=106 httpMs=1635 totalMs=1743 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:42 +72: dart_ui/ filter_quality_test.dart
+[METRIC] script=dart_ui/filter_quality_test.dart sourceChars=23236 clearMs=49 httpMs=1661 totalMs=1712 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:43 +73: dart_ui/ font_style_test.dart
+[METRIC] script=dart_ui/font_style_test.dart sourceChars=25784 clearMs=37 httpMs=1667 totalMs=1706 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:45 +74: dart_ui/ fragment_program_test.dart
+[METRIC] script=dart_ui/fragment_program_test.dart sourceChars=24767 clearMs=89 httpMs=1585 totalMs=1676 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:47 +75: dart_ui/ fragment_shader_test.dart
+[METRIC] script=dart_ui/fragment_shader_test.dart sourceChars=27260 clearMs=111 httpMs=1663 totalMs=1775 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+02:49 +76: dart_ui/ frame_phase_test.dart
+[METRIC] script=dart_ui/frame_phase_test.dart sourceChars=30771 clearMs=56 httpMs=1610 totalMs=1668 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:50 +77: dart_ui/ image_byte_format_test.dart
+[METRIC] script=dart_ui/image_byte_format_test.dart sourceChars=39819 clearMs=97 httpMs=1716 totalMs=1814 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:52 +78: dart_ui/ image_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/image_filter_engine_layer_test.dart sourceChars=24245 clearMs=76 httpMs=1694 totalMs=1771 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:54 +79: dart_ui/ image_sampler_slot_test.dart
+  Skip: D1 — destabilises the test app for subsequent dart_ui/gestures scripts on Linux. Run via bisect_test.dart instead.
+02:54 +79 ~1: dart_ui/ isolate_name_server_test.dart
+  Skip: IsolateNameServer is not supported by the d4rt interpreter (requires real Dart isolate infrastructure)
+02:54 +79 ~2: dart_ui/ key_event_device_type_test.dart
+[METRIC] script=dart_ui/key_event_device_type_test.dart sourceChars=38576 clearMs=42 httpMs=2357 totalMs=2400 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:56 +80 ~2: dart_ui/ key_event_type_test.dart
+[METRIC] script=dart_ui/key_event_type_test.dart sourceChars=37628 clearMs=111 httpMs=1731 totalMs=1842 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:58 +81 ~2: dart_ui/ offset_engine_layer_test.dart
+[METRIC] script=dart_ui/offset_engine_layer_test.dart sourceChars=37068 clearMs=56 httpMs=1995 totalMs=2052 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:00 +82 ~2: dart_ui/ opacity_engine_layer_test.dart
+[METRIC] script=dart_ui/opacity_engine_layer_test.dart sourceChars=35462 clearMs=97 httpMs=7005 totalMs=7103 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+03:07 +83 ~2: dart_ui/ painting_style_test.dart
+[METRIC] script=dart_ui/painting_style_test.dart sourceChars=37799 clearMs=73 httpMs=1734 totalMs=1808 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+03:09 +84 ~2: dart_ui/ path_fill_type_test.dart
+[METRIC] script=dart_ui/path_fill_type_test.dart sourceChars=35773 clearMs=88 httpMs=1687 totalMs=1776 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:11 +85 ~2: dart_ui/ path_operation_test.dart
+[METRIC] script=dart_ui/path_operation_test.dart sourceChars=38648 clearMs=87 httpMs=1828 totalMs=1917 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+03:13 +86 ~2: dart_ui/ picture_rasterization_exception_test.dart
+[METRIC] script=dart_ui/picture_rasterization_exception_test.dart sourceChars=31204 clearMs=86 httpMs=1697 totalMs=1784 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:15 +87 ~2: dart_ui/ pixel_format_test.dart
+[METRIC] script=dart_ui/pixel_format_test.dart sourceChars=28804 clearMs=62 httpMs=1657 totalMs=1720 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:16 +88 ~2: dart_ui/ placeholder_alignment_test.dart
+[METRIC] script=dart_ui/placeholder_alignment_test.dart sourceChars=32532 clearMs=38 httpMs=1817 totalMs=1856 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:18 +89 ~2: dart_ui/ plugin_utilities_test.dart
+[METRIC] script=dart_ui/plugin_utilities_test.dart sourceChars=29205 clearMs=83 httpMs=1626 totalMs=1711 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:20 +90 ~2: dart_ui/ point_mode_test.dart
+[METRIC] script=dart_ui/point_mode_test.dart sourceChars=30792 clearMs=55 httpMs=1692 totalMs=1748 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:22 +91 ~2: dart_ui/ pointer_change_test.dart
+[METRIC] script=dart_ui/pointer_change_test.dart sourceChars=41487 clearMs=63 httpMs=1934 totalMs=1999 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:24 +92 ~2: dart_ui/ pointer_device_kind_test.dart
+[METRIC] script=dart_ui/pointer_device_kind_test.dart sourceChars=31233 clearMs=73 httpMs=1763 totalMs=1838 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:25 +93 ~2: dart_ui/ pointer_signal_kind_test.dart
+[METRIC] script=dart_ui/pointer_signal_kind_test.dart sourceChars=35774 clearMs=93 httpMs=1721 totalMs=1816 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:27 +94 ~2: dart_ui/ root_isolate_token_test.dart
+[METRIC] script=dart_ui/root_isolate_token_test.dart sourceChars=66164 clearMs=121 httpMs=1981 totalMs=2103 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+03:29 +95 ~2: dart_ui/ semantics_hit_test_behavior_test.dart
+[METRIC] script=dart_ui/semantics_hit_test_behavior_test.dart sourceChars=26236 clearMs=56 httpMs=1664 totalMs=1722 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:31 +96 ~2: dart_ui/ semantics_input_type_test.dart
+[METRIC] script=dart_ui/semantics_input_type_test.dart sourceChars=32582 clearMs=30 httpMs=1698 totalMs=1730 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:33 +97 ~2: dart_ui/ semantics_role_test.dart
+[METRIC] script=dart_ui/semantics_role_test.dart sourceChars=31727 clearMs=39 httpMs=1923 totalMs=1964 status=success httpStatus=200 outputLines=82 frameworkErrors=0
+03:35 +98 ~2: dart_ui/ semantics_validation_result_test.dart
+[METRIC] script=dart_ui/semantics_validation_result_test.dart sourceChars=32612 clearMs=44 httpMs=1670 totalMs=1716 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:37 +99 ~2: dart_ui/ shader_mask_engine_layer_test.dart
+[METRIC] script=dart_ui/shader_mask_engine_layer_test.dart sourceChars=57743 clearMs=115 httpMs=2487 totalMs=2603 status=success httpStatus=200 outputLines=0 frameworkErrors=36
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/shader_mask_engine_layer_test.dart (36 error(s)):
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=7). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'radial' for class 'Gradient': Invalid argument(s): Gradient.radial requires colors.length == 2 when colorStops is null (got colors.length=6). Pa…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'sweep' for class 'Gradient': Invalid argument(s): Gradient.sweep requires colors.length == 2 when colorStops is null (got colors.length=8). Pass…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+       Runtime Error: Native error during bridged constructor 'linear' for class 'Gradient': Invalid argument(s): Gradient.linear requires colors.length == 2 when colorStops is null (got colors.length=4). Pa…
+03:39 +100 ~2: dart_ui/ singleton_flutter_window_test.dart
+[METRIC] script=dart_ui/singleton_flutter_window_test.dart sourceChars=40041 clearMs=35 httpMs=1746 totalMs=1783 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+03:41 +101 ~2: dart_ui/ stroke_cap_test.dart
+[METRIC] script=dart_ui/stroke_cap_test.dart sourceChars=45872 clearMs=44 httpMs=1735 totalMs=1781 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+03:43 +102 ~2: dart_ui/ stroke_join_test.dart
+[METRIC] script=dart_ui/stroke_join_test.dart sourceChars=43027 clearMs=130 httpMs=1620 totalMs=1751 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:44 +103 ~2: dart_ui/ system_color_palette_test.dart
+[METRIC] script=dart_ui/system_color_palette_test.dart sourceChars=63558 clearMs=67 httpMs=1826 totalMs=1894 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:46 +104 ~2: dart_ui/ target_pixel_format_test.dart
+[METRIC] script=dart_ui/target_pixel_format_test.dart sourceChars=30410 clearMs=67 httpMs=1622 totalMs=1691 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:48 +105 ~2: dart_ui/ text_affinity_test.dart
+[METRIC] script=dart_ui/text_affinity_test.dart sourceChars=34412 clearMs=81 httpMs=1640 totalMs=1722 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+03:50 +106 ~2: dart_ui/ text_align_test.dart
+[METRIC] script=dart_ui/text_align_test.dart sourceChars=36769 clearMs=86 httpMs=1609 totalMs=1697 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+03:51 +107 ~2: dart_ui/ text_baseline_test.dart
+[METRIC] script=dart_ui/text_baseline_test.dart sourceChars=31968 clearMs=86 httpMs=1576 totalMs=1664 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:53 +108 ~2: dart_ui/ text_decoration_style_test.dart
+[METRIC] script=dart_ui/text_decoration_style_test.dart sourceChars=27581 clearMs=72 httpMs=1680 totalMs=1754 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:55 +109 ~2: dart_ui/ text_direction_test.dart
+[METRIC] script=dart_ui/text_direction_test.dart sourceChars=38400 clearMs=85 httpMs=1653 totalMs=1739 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:57 +110 ~2: dart_ui/ text_leading_distribution_test.dart
+[METRIC] script=dart_ui/text_leading_distribution_test.dart sourceChars=33667 clearMs=62 httpMs=1676 totalMs=1739 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:58 +111 ~2: dart_ui/ tile_mode_test.dart
+[METRIC] script=dart_ui/tile_mode_test.dart sourceChars=40869 clearMs=32 httpMs=1986 totalMs=2020 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+04:00 +112 ~2: dart_ui/ transform_engine_layer_test.dart
+[METRIC] script=dart_ui/transform_engine_layer_test.dart sourceChars=42279 clearMs=56 httpMs=1705 totalMs=1762 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:02 +113 ~2: dart_ui/ tristate_test.dart
+[METRIC] script=dart_ui/tristate_test.dart sourceChars=27519 clearMs=89 httpMs=1759 totalMs=1849 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+04:04 +114 ~2: dart_ui/ uniform_float_slot_test.dart
+[METRIC] script=dart_ui/uniform_float_slot_test.dart sourceChars=60673 clearMs=80 httpMs=1895 totalMs=1976 status=success httpStatus=200 outputLines=61 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/uniform_float_slot_test.dart (1 error(s)):
+       A RenderFlex overflowed by 2491 pixels on the bottom.
+04:06 +115 ~2: dart_ui/ uniform_vec2_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec2_slot_test.dart sourceChars=68073 clearMs=61 httpMs=2281 totalMs=2343 status=success httpStatus=200 outputLines=65 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/uniform_vec2_slot_test.dart (1 error(s)):
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+04:08 +116 ~2: dart_ui/ uniform_vec3_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec3_slot_test.dart sourceChars=67305 clearMs=77 httpMs=2028 totalMs=2106 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/uniform_vec3_slot_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+04:10 +117 ~2: dart_ui/ uniform_vec4_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec4_slot_test.dart sourceChars=53855 clearMs=87 httpMs=2095 totalMs=2183 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+04:13 +118 ~2: dart_ui/ vertex_mode_test.dart
+[METRIC] script=dart_ui/vertex_mode_test.dart sourceChars=39100 clearMs=66 httpMs=1789 totalMs=1856 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+04:15 +119 ~2: dart_ui/ view_focus_direction_test.dart
+[METRIC] script=dart_ui/view_focus_direction_test.dart sourceChars=34942 clearMs=85 httpMs=1681 totalMs=1768 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+04:16 +120 ~2: dart_ui/ view_focus_state_test.dart
+[METRIC] script=dart_ui/view_focus_state_test.dart sourceChars=41573 clearMs=90 httpMs=1771 totalMs=1863 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+04:18 +121 ~2: foundation/ abstract_node_test.dart
+[METRIC] script=foundation/abstract_node_test.dart sourceChars=82717 clearMs=88 httpMs=2504 totalMs=2593 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/abstract_node_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+04:21 +122 ~2: foundation/ caching_iterable_test.dart
+[METRIC] script=foundation/caching_iterable_test.dart sourceChars=89582 clearMs=60 httpMs=2022 totalMs=2084 status=success httpStatus=200 outputLines=0 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in foundation/caching_iterable_test.dart (3 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+04:23 +123 ~2: foundation/ category_test.dart
+[METRIC] script=foundation/category_test.dart sourceChars=90541 clearMs=83 httpMs=2389 totalMs=2474 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:25 +124 ~2: foundation/ class_test.dart
+[METRIC] script=foundation/class_test.dart sourceChars=91064 clearMs=70 httpMs=2326 totalMs=2398 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:28 +125 ~2: foundation/ diagnostic_level_test.dart
+[METRIC] script=foundation/diagnostic_level_test.dart sourceChars=28423 clearMs=85 httpMs=2442 totalMs=2529 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+04:30 +126 ~2: foundation/ diagnosticable_node_test.dart
+[METRIC] script=foundation/diagnosticable_node_test.dart sourceChars=79159 clearMs=93 httpMs=2437 totalMs=2531 status=success httpStatus=200 outputLines=0 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in foundation/diagnosticable_node_test.dart (9 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+04:33 +127 ~2: foundation/ diagnosticable_test.dart
+[METRIC] script=foundation/diagnosticable_test.dart sourceChars=84724 clearMs=67 httpMs=2501 totalMs=2570 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:35 +128 ~2: foundation/ diagnosticable_tree_mixin_test.dart
+[METRIC] script=foundation/diagnosticable_tree_mixin_test.dart sourceChars=60796 clearMs=78 httpMs=2594 totalMs=2673 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:38 +129 ~2: foundation/ diagnosticable_tree_node_test.dart
+[METRIC] script=foundation/diagnosticable_tree_node_test.dart sourceChars=56482 clearMs=58 httpMs=2183 totalMs=2242 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in foundation/diagnosticable_tree_node_test.dart (2 error(s)):
+       Runtime Error: Cannot invoke method 'getChildren' on null. Use '?.' for null-aware method invocation.
+       Runtime Error: Cannot access property 'name' on target of type null.
+04:40 +130 ~2: foundation/ diagnosticable_tree_test.dart
+[METRIC] script=foundation/diagnosticable_tree_test.dart sourceChars=110025 clearMs=69 httpMs=3197 totalMs=3268 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/diagnosticable_tree_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+04:44 +131 ~2: foundation/ diagnostics_block_test.dart
+[METRIC] script=foundation/diagnostics_block_test.dart sourceChars=59184 clearMs=61 httpMs=1940 totalMs=2003 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:46 +132 ~2: foundation/ diagnostics_property_test.dart
+[METRIC] script=foundation/diagnostics_property_test.dart sourceChars=60508 clearMs=83 httpMs=2631 totalMs=2715 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+04:48 +133 ~2: foundation/ diagnostics_serialization_delegate_test.dart
+[METRIC] script=foundation/diagnostics_serialization_delegate_test.dart sourceChars=69817 clearMs=84 httpMs=4983 totalMs=5069 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:53 +134 ~2: foundation/ diagnostics_stack_trace_test.dart
+[METRIC] script=foundation/diagnostics_stack_trace_test.dart sourceChars=76521 clearMs=85 httpMs=1893 totalMs=1980 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:55 +135 ~2: foundation/ diagnostics_tree_style_test.dart
+[METRIC] script=foundation/diagnostics_tree_style_test.dart sourceChars=67207 clearMs=102 httpMs=2538 totalMs=2641 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:58 +136 ~2: foundation/ documentation_icon_test.dart
+[METRIC] script=foundation/documentation_icon_test.dart sourceChars=79207 clearMs=77 httpMs=2218 totalMs=2297 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+05:00 +137 ~2: foundation/ double_property_test.dart
+[METRIC] script=foundation/double_property_test.dart sourceChars=43236 clearMs=92 httpMs=2072 totalMs=2166 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:02 +138 ~2: foundation/ enum_property_test.dart
+[METRIC] script=foundation/enum_property_test.dart sourceChars=45280 clearMs=89 httpMs=2110 totalMs=2201 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+05:05 +139 ~2: foundation/ error_spacer_test.dart
+[METRIC] script=foundation/error_spacer_test.dart sourceChars=48755 clearMs=86 httpMs=2053 totalMs=2140 status=success httpStatus=200 outputLines=23 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/error_spacer_test.dart (1 error(s)):
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+05:07 +140 ~2: foundation/ factory_test.dart
+[METRIC] script=foundation/factory_test.dart sourceChars=35665 clearMs=84 httpMs=1707 totalMs=1792 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+05:09 +141 ~2: foundation/ flag_property_test.dart
+[METRIC] script=foundation/flag_property_test.dart sourceChars=49874 clearMs=86 httpMs=1931 totalMs=2019 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+05:11 +142 ~2: foundation/ flags_summary_test.dart
+[METRIC] script=foundation/flags_summary_test.dart sourceChars=34060 clearMs=87 httpMs=1947 totalMs=2035 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+05:13 +143 ~2: foundation/ flutter_memory_allocations_test.dart
+[METRIC] script=foundation/flutter_memory_allocations_test.dart sourceChars=60493 clearMs=85 httpMs=2440 totalMs=2527 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+05:15 +144 ~2: foundation/ foundation_service_extensions_test.dart
+[METRIC] script=foundation/foundation_service_extensions_test.dart sourceChars=66439 clearMs=388 httpMs=2908 totalMs=3297 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:18 +145 ~2: foundation/ int_property_test.dart
+[METRIC] script=foundation/int_property_test.dart sourceChars=44108 clearMs=649 httpMs=2790 totalMs=3440 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+05:22 +146 ~2: foundation/ iterable_property_test.dart
+[METRIC] script=foundation/iterable_property_test.dart sourceChars=47403 clearMs=436 httpMs=2670 totalMs=3107 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+05:25 +147 ~2: foundation/ message_property_test.dart
+[METRIC] script=foundation/message_property_test.dart sourceChars=72478 clearMs=504 httpMs=4046 totalMs=4551 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:30 +148 ~2: foundation/ object_created_test.dart
+[METRIC] script=foundation/object_created_test.dart sourceChars=69639 clearMs=968 httpMs=3040 totalMs=4009 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+05:34 +149 ~2: foundation/ object_disposed_test.dart
+[METRIC] script=foundation/object_disposed_test.dart sourceChars=55693 clearMs=466 httpMs=2765 totalMs=3233 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:37 +150 ~2: foundation/ object_event_test.dart
+[METRIC] script=foundation/object_event_test.dart sourceChars=71066 clearMs=270 httpMs=4255 totalMs=4526 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/object_event_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+05:41 +151 ~2: foundation/ object_flag_property_test.dart
+[METRIC] script=foundation/object_flag_property_test.dart sourceChars=69869 clearMs=722 httpMs=3647 totalMs=4371 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+05:46 +152 ~2: foundation/ percent_property_test.dart
+[METRIC] script=foundation/percent_property_test.dart sourceChars=61000 clearMs=284 httpMs=3102 totalMs=3388 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+05:49 +153 ~2: foundation/ string_property_test.dart
+[METRIC] script=foundation/string_property_test.dart sourceChars=42668 clearMs=535 httpMs=4166 totalMs=4702 status=success httpStatus=200 outputLines=33 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/string_property_test.dart (1 error(s)):
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+05:54 +154 ~2: foundation/ summary_test.dart
+[METRIC] script=foundation/summary_test.dart sourceChars=46111 clearMs=416 httpMs=3675 totalMs=4092 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:58 +155 ~2: foundation/ target_platform_test.dart
+[METRIC] script=foundation/target_platform_test.dart sourceChars=51484 clearMs=756 httpMs=14430 totalMs=15187 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+06:13 +156 ~2: foundation/ text_tree_configuration_test.dart
+[METRIC] script=foundation/text_tree_configuration_test.dart sourceChars=3783 clearMs=1219 httpMs=1564 totalMs=2784 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:16 +157 ~2: foundation/ text_tree_renderer_test.dart
+[METRIC] script=foundation/text_tree_renderer_test.dart sourceChars=51411 clearMs=78 httpMs=5780 totalMs=5859 status=success httpStatus=200 outputLines=62 frameworkErrors=0
+06:22 +158 ~2: gestures/ base_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_gesture_recognizer_test.dart sourceChars=43646 clearMs=625 httpMs=3249 totalMs=3876 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:26 +159 ~2: gestures/ class_test.dart
+[METRIC] script=gestures/class_test.dart sourceChars=18732 clearMs=203 httpMs=2525 totalMs=2730 status=success httpStatus=200 outputLines=83 frameworkErrors=0
+06:28 +160 ~2: gestures/ drag_down_details_test.dart
+[METRIC] script=gestures/drag_down_details_test.dart sourceChars=82116 clearMs=102 httpMs=4155 totalMs=4259 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+06:33 +161 ~2: gestures/ drag_start_behavior_test.dart
+[METRIC] script=gestures/drag_start_behavior_test.dart sourceChars=48637 clearMs=270 httpMs=3525 totalMs=3797 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+06:36 +162 ~2: gestures/ drag_start_details_test.dart
+[METRIC] script=gestures/drag_start_details_test.dart sourceChars=56279 clearMs=335 httpMs=4589 totalMs=4926 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+06:41 +163 ~2: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart
+[METRIC] script=gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart sourceChars=41403 clearMs=587 httpMs=3684 totalMs=4272 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:46 +164 ~2: gestures/ gesture_disposition_test.dart
+[METRIC] script=gestures/gesture_disposition_test.dart sourceChars=50414 clearMs=403 httpMs=4180 totalMs=4584 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+06:50 +165 ~2: gestures/ gesture_recognizer_state_test.dart
+[METRIC] script=gestures/gesture_recognizer_state_test.dart sourceChars=54693 clearMs=404 httpMs=5984 totalMs=6390 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:57 +166 ~2: gestures/ gesture_recognizer_test.dart
+[METRIC] script=gestures/gesture_recognizer_test.dart sourceChars=57944 clearMs=525 httpMs=5215 totalMs=5742 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+07:02 +167 ~2: gestures/ hit_test_dispatcher_test.dart
+[METRIC] script=gestures/hit_test_dispatcher_test.dart sourceChars=61408 clearMs=482 httpMs=4472 totalMs=4956 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:07 +168 ~2: gestures/ hit_testable_test.dart
+[METRIC] script=gestures/hit_testable_test.dart sourceChars=54050 clearMs=258 httpMs=4367 totalMs=4626 status=success httpStatus=200 outputLines=16 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in gestures/hit_testable_test.dart (4 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+07:12 +169 ~2: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart sourceChars=18900 clearMs=230 httpMs=2669 totalMs=2900 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+07:15 +170 ~2: gestures/ least_squares_solver_test.dart
+[METRIC] script=gestures/least_squares_solver_test.dart sourceChars=81488 clearMs=112 httpMs=39802 totalMs=39915 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:55 +171 ~2: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart sourceChars=52254 clearMs=2073 httpMs=4788 totalMs=6862 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:02 +172 ~2: gestures/ multitouch_drag_strategy_test.dart
+[METRIC] script=gestures/multitouch_drag_strategy_test.dart sourceChars=59217 clearMs=467 httpMs=5752 totalMs=6221 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:08 +173 ~2: gestures/ offset_pair_test.dart
+[METRIC] script=gestures/offset_pair_test.dart sourceChars=60719 clearMs=482 httpMs=3811 totalMs=4295 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+08:12 +174 ~2: gestures/ one_sequence_gesture_recognizer_test.dart
+[METRIC] script=gestures/one_sequence_gesture_recognizer_test.dart sourceChars=56349 clearMs=271 httpMs=4453 totalMs=4726 status=success httpStatus=200 outputLines=25 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in gestures/one_sequence_gesture_recognizer_test.dart (6 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+08:17 +175 ~2: gestures/ pointer_added_event_test.dart
+[METRIC] script=gestures/pointer_added_event_test.dart sourceChars=53094 clearMs=233 httpMs=7315 totalMs=7549 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+08:24 +176 ~2: gestures/ pointer_cancel_event_test.dart
+[METRIC] script=gestures/pointer_cancel_event_test.dart sourceChars=43397 clearMs=356 httpMs=5621 totalMs=5979 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+08:30 +177 ~2: gestures/ pointer_down_event_test.dart
+[METRIC] script=gestures/pointer_down_event_test.dart sourceChars=42422 clearMs=276 httpMs=6006 totalMs=6283 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:37 +178 ~2: gestures/ pointer_enter_event_test.dart
+[METRIC] script=gestures/pointer_enter_event_test.dart sourceChars=48126 clearMs=610 httpMs=6186 totalMs=6798 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:44 +179 ~2: gestures/ pointer_event_converter_test.dart
+[METRIC] script=gestures/pointer_event_converter_test.dart sourceChars=35554 clearMs=653 httpMs=5284 totalMs=5938 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:49 +180 ~2: gestures/ pointer_event_resampler_test.dart
+[METRIC] script=gestures/pointer_event_resampler_test.dart sourceChars=65729 clearMs=476 httpMs=4936 totalMs=5414 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+08:55 +181 ~2: gestures/ pointer_event_test.dart
+[METRIC] script=gestures/pointer_event_test.dart sourceChars=64084 clearMs=375 httpMs=5841 totalMs=6218 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:01 +182 ~2: gestures/ pointer_exit_event_test.dart
+[METRIC] script=gestures/pointer_exit_event_test.dart sourceChars=57375 clearMs=463 httpMs=5797 totalMs=6262 status=success httpStatus=200 outputLines=79 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in gestures/pointer_exit_event_test.dart (1 error(s)):
+       A RenderFlex overflowed by 4707 pixels on the bottom.
+09:07 +183 ~2: gestures/ pointer_hover_event_test.dart
+[METRIC] script=gestures/pointer_hover_event_test.dart sourceChars=63037 clearMs=204 httpMs=6397 totalMs=6602 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:14 +184 ~2: gestures/ pointer_move_event_test.dart
+[METRIC] script=gestures/pointer_move_event_test.dart sourceChars=68488 clearMs=435 httpMs=8506 totalMs=8943 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in gestures/pointer_move_event_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+09:23 +185 ~2: gestures/ pointer_pan_zoom_end_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_end_event_test.dart sourceChars=66035 clearMs=53 httpMs=5407 totalMs=5461 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:28 +186 ~2: gestures/ pointer_pan_zoom_start_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_start_event_test.dart sourceChars=82370 clearMs=325 httpMs=7597 totalMs=7924 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in gestures/pointer_pan_zoom_start_event_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+09:36 +187 ~2: gestures/ pointer_pan_zoom_update_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_update_event_test.dart sourceChars=56331 clearMs=55 httpMs=8332 totalMs=8389 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+09:45 +188 ~2: gestures/ pointer_removed_event_test.dart
+[METRIC] script=gestures/pointer_removed_event_test.dart sourceChars=63363 clearMs=334 httpMs=6289 totalMs=6624 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+09:51 +189 ~2: gestures/ pointer_scale_event_test.dart
+[METRIC] script=gestures/pointer_scale_event_test.dart sourceChars=57636 clearMs=330 httpMs=9555 totalMs=9886 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:01 +190 ~2: gestures/ pointer_scroll_event_test.dart
+[METRIC] script=gestures/pointer_scroll_event_test.dart sourceChars=76396 clearMs=381 httpMs=8050 totalMs=8433 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in gestures/pointer_scroll_event_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+10:10 +191 ~2: gestures/ pointer_scroll_inertia_cancel_event_test.dart
+[METRIC] script=gestures/pointer_scroll_inertia_cancel_event_test.dart sourceChars=74348 clearMs=94 httpMs=5494 totalMs=5589 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:15 +192 ~2: gestures/ pointer_signal_event_test.dart
+[METRIC] script=gestures/pointer_signal_event_test.dart sourceChars=66887 clearMs=98 httpMs=6457 totalMs=6557 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:22 +193 ~2: gestures/ pointer_signal_resolver_test.dart
+[METRIC] script=gestures/pointer_signal_resolver_test.dart sourceChars=70615 clearMs=60 httpMs=5525 totalMs=5587 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:27 +194 ~2: gestures/ pointer_up_event_test.dart
+[METRIC] script=gestures/pointer_up_event_test.dart sourceChars=58646 clearMs=100 httpMs=6607 totalMs=6709 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:34 +195 ~2: gestures/ polynomial_fit_test.dart
+[METRIC] script=gestures/polynomial_fit_test.dart sourceChars=57606 clearMs=61 httpMs=13483 totalMs=13546 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:48 +196 ~2: gestures/ primary_pointer_gesture_recognizer_test.dart
+[METRIC] script=gestures/primary_pointer_gesture_recognizer_test.dart sourceChars=71258 clearMs=98 httpMs=4580 totalMs=4679 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:52 +197 ~2: gestures/ sampling_clock_test.dart
+[METRIC] script=gestures/sampling_clock_test.dart sourceChars=33016 clearMs=98 httpMs=5965 totalMs=6064 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+10:58 +198 ~2: gestures/ tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_drag_gesture_recognizer_test.dart sourceChars=63334 clearMs=92 httpMs=8493 totalMs=8587 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+11:07 +199 ~2: gestures/ tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_gesture_recognizer_test.dart sourceChars=46763 clearMs=3011 httpMs=6274 totalMs=9287 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+11:16 +200 ~2: gestures/ tap_move_details_test.dart
+[METRIC] script=gestures/tap_move_details_test.dart sourceChars=59008 clearMs=349 httpMs=7789 totalMs=8140 status=success httpStatus=200 outputLines=32 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in gestures/tap_move_details_test.dart (6 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+11:24 +201 ~2: gestures/ velocity_estimate_test.dart
+[METRIC] script=gestures/velocity_estimate_test.dart sourceChars=72216 clearMs=285 httpMs=6017 totalMs=6305 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in gestures/velocity_estimate_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+11:31 +202 ~2: gestures/ velocity_tracker_test.dart
+[METRIC] script=gestures/velocity_tracker_test.dart sourceChars=82846 clearMs=61 httpMs=6969 totalMs=7032 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+11:38 +203 ~2: (tearDownAll)
+11:39 +203 ~2: All tests passed!

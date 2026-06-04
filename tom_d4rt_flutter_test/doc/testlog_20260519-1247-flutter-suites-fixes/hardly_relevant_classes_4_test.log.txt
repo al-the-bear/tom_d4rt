@@ -1,0 +1,474 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_4_test.dart
+00:00 +0: (setUpAll)
+00:08 +0: Test App Health app is running
+00:08 +1: widgets/ abstract_layout_builder_test.dart
+[METRIC] script=widgets/abstract_layout_builder_test.dart sourceChars=65805 clearMs=171 httpMs=2103 totalMs=2284 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:10 +2: widgets/ action_dispatcher_test.dart
+[METRIC] script=widgets/action_dispatcher_test.dart sourceChars=60653 clearMs=118 httpMs=2305 totalMs=2429 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+00:13 +3: widgets/ action_listener_test.dart
+[METRIC] script=widgets/action_listener_test.dart sourceChars=64029 clearMs=128 httpMs=2653 totalMs=2786 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:15 +4: widgets/ activate_action_test.dart
+[METRIC] script=widgets/activate_action_test.dart sourceChars=46141 clearMs=82 httpMs=2343 totalMs=2427 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:18 +5: widgets/ activate_intent_test.dart
+[METRIC] script=widgets/activate_intent_test.dart sourceChars=47923 clearMs=74 httpMs=2053 totalMs=2129 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:20 +6: widgets/ align_transition_test.dart
+[METRIC] script=widgets/align_transition_test.dart sourceChars=87446 clearMs=68 httpMs=2632 totalMs=2703 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:23 +7: widgets/ android_overscroll_indicator_test.dart
+[METRIC] script=widgets/android_overscroll_indicator_test.dart sourceChars=55279 clearMs=111 httpMs=2021 totalMs=2134 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +8: widgets/ android_view_surface_test.dart
+[METRIC] script=widgets/android_view_surface_test.dart sourceChars=59828 clearMs=107 httpMs=2411 totalMs=2520 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:27 +9: widgets/ animated_grid_state_test.dart
+[METRIC] script=widgets/animated_grid_state_test.dart sourceChars=47673 clearMs=73 httpMs=2124 totalMs=2199 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:30 +10: widgets/ animated_list_state_test.dart
+[METRIC] script=widgets/animated_list_state_test.dart sourceChars=44584 clearMs=63 httpMs=1992 totalMs=2056 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+00:32 +11: widgets/ animated_positioned_directional_test.dart
+[METRIC] script=widgets/animated_positioned_directional_test.dart sourceChars=57162 clearMs=65 httpMs=2445 totalMs=2511 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:34 +12: widgets/ animated_widget_base_state_test.dart
+[METRIC] script=widgets/animated_widget_base_state_test.dart sourceChars=41718 clearMs=60 httpMs=1975 totalMs=2036 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:36 +13: widgets/ annotated_region_test.dart
+[METRIC] script=widgets/annotated_region_test.dart sourceChars=46458 clearMs=85 httpMs=2305 totalMs=2393 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:39 +14: widgets/ app_kit_view_test.dart
+[METRIC] script=widgets/app_kit_view_test.dart sourceChars=59441 clearMs=84 httpMs=2090 totalMs=2176 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+00:41 +15: widgets/ app_lifecycle_listener_test.dart
+[METRIC] script=widgets/app_lifecycle_listener_test.dart sourceChars=43520 clearMs=77 httpMs=1958 totalMs=2036 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+00:43 +16: widgets/ async_snapshot_test.dart
+[METRIC] script=widgets/async_snapshot_test.dart sourceChars=48960 clearMs=61 httpMs=2074 totalMs=2136 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+00:45 +17: widgets/ autocomplete_first_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_first_option_intent_test.dart sourceChars=40242 clearMs=70 httpMs=1991 totalMs=2062 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+00:47 +18: widgets/ autocomplete_highlighted_option_test.dart
+[METRIC] script=widgets/autocomplete_highlighted_option_test.dart sourceChars=95516 clearMs=76 httpMs=2080 totalMs=2158 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:49 +19: widgets/ autocomplete_last_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_last_option_intent_test.dart sourceChars=45919 clearMs=109 httpMs=1977 totalMs=2087 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:51 +20: widgets/ autocomplete_next_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_next_option_intent_test.dart sourceChars=53395 clearMs=93 httpMs=1991 totalMs=2085 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:53 +21: widgets/ autocomplete_next_page_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_next_page_option_intent_test.dart sourceChars=59617 clearMs=95 httpMs=2021 totalMs=2118 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:55 +22: widgets/ autocomplete_previous_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_previous_option_intent_test.dart sourceChars=52546 clearMs=62 httpMs=2098 totalMs=2161 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:58 +23: widgets/ autocomplete_previous_page_option_intent_test.dart
+[METRIC] script=widgets/autocomplete_previous_page_option_intent_test.dart sourceChars=53717 clearMs=66 httpMs=2000 totalMs=2068 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:00 +24: widgets/ autofill_context_action_test.dart
+[METRIC] script=widgets/autofill_context_action_test.dart sourceChars=43570 clearMs=91 httpMs=2012 totalMs=2105 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+01:02 +25: widgets/ autofill_group_state_test.dart
+[METRIC] script=widgets/autofill_group_state_test.dart sourceChars=77766 clearMs=71 httpMs=2490 totalMs=2562 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:04 +26: widgets/ automatic_keep_alive_client_mixin_test.dart
+[METRIC] script=widgets/automatic_keep_alive_client_mixin_test.dart sourceChars=80586 clearMs=138 httpMs=2274 totalMs=2414 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:07 +27: widgets/ autovalidate_mode_test.dart
+[METRIC] script=widgets/autovalidate_mode_test.dart sourceChars=48901 clearMs=50 httpMs=2058 totalMs=2110 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:09 +28: widgets/ back_button_listener_test.dart
+[METRIC] script=widgets/back_button_listener_test.dart sourceChars=66155 clearMs=75 httpMs=2829 totalMs=2906 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:12 +29: widgets/ backdrop_group_test.dart
+[METRIC] script=widgets/backdrop_group_test.dart sourceChars=78979 clearMs=114 httpMs=2190 totalMs=2306 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:14 +30: widgets/ ballistic_scroll_activity_test.dart
+[METRIC] script=widgets/ballistic_scroll_activity_test.dart sourceChars=37451 clearMs=73 httpMs=1892 totalMs=1967 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+01:16 +31: widgets/ banner_location_test.dart
+[METRIC] script=widgets/banner_location_test.dart sourceChars=38905 clearMs=64 httpMs=1956 totalMs=2022 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:18 +32: widgets/ banner_painter_test.dart
+[METRIC] script=widgets/banner_painter_test.dart sourceChars=44916 clearMs=69 httpMs=1981 totalMs=2051 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:20 +33: widgets/ base_window_controller_test.dart
+[METRIC] script=widgets/base_window_controller_test.dart sourceChars=45968 clearMs=100 httpMs=1958 totalMs=2060 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:22 +34: widgets/ border_radius_tween_test.dart
+[METRIC] script=widgets/border_radius_tween_test.dart sourceChars=40506 clearMs=67 httpMs=1952 totalMs=2020 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:24 +35: widgets/ border_tween_test.dart
+[METRIC] script=widgets/border_tween_test.dart sourceChars=71109 clearMs=68 httpMs=2065 totalMs=2135 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:26 +36: widgets/ bottom_navigation_bar_item_test.dart
+[METRIC] script=widgets/bottom_navigation_bar_item_test.dart sourceChars=70422 clearMs=137 httpMs=3685 totalMs=3823 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:30 +37: widgets/ bouncing_scroll_simulation_test.dart
+[METRIC] script=widgets/bouncing_scroll_simulation_test.dart sourceChars=55620 clearMs=47 httpMs=2615 totalMs=2663 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:33 +38: widgets/ box_constraints_tween_test.dart
+[METRIC] script=widgets/box_constraints_tween_test.dart sourceChars=35704 clearMs=47 httpMs=1936 totalMs=1985 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+01:35 +39: widgets/ box_scroll_view_test.dart
+[METRIC] script=widgets/box_scroll_view_test.dart sourceChars=80886 clearMs=44 httpMs=3151 totalMs=3197 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:38 +40: widgets/ button_activate_intent_test.dart
+[METRIC] script=widgets/button_activate_intent_test.dart sourceChars=45357 clearMs=122 httpMs=1931 totalMs=2054 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:40 +41: widgets/ callback_shortcuts_test.dart
+[METRIC] script=widgets/callback_shortcuts_test.dart sourceChars=90550 clearMs=67 httpMs=2915 totalMs=2987 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:43 +42: widgets/ captured_themes_test.dart
+[METRIC] script=widgets/captured_themes_test.dart sourceChars=43935 clearMs=96 httpMs=1928 totalMs=2026 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:45 +43: widgets/ change_reporting_behavior_test.dart
+[METRIC] script=widgets/change_reporting_behavior_test.dart sourceChars=41832 clearMs=56 httpMs=2147 totalMs=2205 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:47 +44: widgets/ character_activator_test.dart
+[METRIC] script=widgets/character_activator_test.dart sourceChars=46747 clearMs=77 httpMs=1924 totalMs=2003 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:49 +45: widgets/ child_back_button_dispatcher_test.dart
+[METRIC] script=widgets/child_back_button_dispatcher_test.dart sourceChars=75309 clearMs=92 httpMs=2024 totalMs=2118 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:51 +46: widgets/ child_vicinity_test.dart
+[METRIC] script=widgets/child_vicinity_test.dart sourceChars=51282 clearMs=38 httpMs=2098 totalMs=2137 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:54 +47: widgets/ clamping_scroll_simulation_test.dart
+[METRIC] script=widgets/clamping_scroll_simulation_test.dart sourceChars=45141 clearMs=79 httpMs=1994 totalMs=2074 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+01:56 +48: widgets/ class_test.dart
+[METRIC] script=widgets/class_test.dart sourceChars=40463 clearMs=48 httpMs=2025 totalMs=2074 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:58 +49: widgets/ clip_r_superellipse_test.dart
+[METRIC] script=widgets/clip_r_superellipse_test.dart sourceChars=70488 clearMs=67 httpMs=2310 totalMs=2378 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:00 +50: widgets/ clipboard_status_notifier_test.dart
+[METRIC] script=widgets/clipboard_status_notifier_test.dart sourceChars=42947 clearMs=94 httpMs=1864 totalMs=1960 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:02 +51: widgets/ clipboard_status_test.dart
+[METRIC] script=widgets/clipboard_status_test.dart sourceChars=50014 clearMs=72 httpMs=1997 totalMs=2071 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:04 +52: widgets/ connection_state_test.dart
+[METRIC] script=widgets/connection_state_test.dart sourceChars=48363 clearMs=67 httpMs=2018 totalMs=2086 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:06 +53: widgets/ constrained_layout_builder_test.dart
+[METRIC] script=widgets/constrained_layout_builder_test.dart sourceChars=81776 clearMs=98 httpMs=2345 totalMs=2445 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:09 +54: widgets/ constraints_transform_box_test.dart
+[METRIC] script=widgets/constraints_transform_box_test.dart sourceChars=67199 clearMs=89 httpMs=2427 totalMs=2517 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:11 +55: widgets/ context_action_test.dart
+[METRIC] script=widgets/context_action_test.dart sourceChars=77214 clearMs=78 httpMs=2315 totalMs=2395 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:14 +56: widgets/ context_menu_button_type_test.dart
+[METRIC] script=widgets/context_menu_button_type_test.dart sourceChars=47013 clearMs=161 httpMs=1988 totalMs=2150 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:16 +57: widgets/ copy_selection_text_intent_test.dart
+[METRIC] script=widgets/copy_selection_text_intent_test.dart sourceChars=44338 clearMs=74 httpMs=1906 totalMs=1982 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:18 +58: widgets/ cross_fade_state_test.dart
+[METRIC] script=widgets/cross_fade_state_test.dart sourceChars=37441 clearMs=108 httpMs=1991 totalMs=2101 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:20 +59: widgets/ debug_creator_test.dart
+[METRIC] script=widgets/debug_creator_test.dart sourceChars=44438 clearMs=98 httpMs=1899 totalMs=1998 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:22 +60: widgets/ decorated_sliver_test.dart
+[METRIC] script=widgets/decorated_sliver_test.dart sourceChars=72233 clearMs=90 httpMs=2036 totalMs=2128 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:24 +61: widgets/ decoration_tween_test.dart
+[METRIC] script=widgets/decoration_tween_test.dart sourceChars=45965 clearMs=91 httpMs=1950 totalMs=2042 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+02:26 +62: widgets/ default_platform_menu_delegate_test.dart
+[METRIC] script=widgets/default_platform_menu_delegate_test.dart sourceChars=38112 clearMs=66 httpMs=1974 totalMs=2042 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:28 +63: widgets/ default_selection_style_test.dart
+[METRIC] script=widgets/default_selection_style_test.dart sourceChars=95062 clearMs=104 httpMs=1940 totalMs=2045 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:30 +64: widgets/ default_text_editing_shortcuts_test.dart
+[METRIC] script=widgets/default_text_editing_shortcuts_test.dart sourceChars=76153 clearMs=101 httpMs=2455 totalMs=2558 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:33 +65: widgets/ default_text_style_transition_test.dart
+[METRIC] script=widgets/default_text_style_transition_test.dart sourceChars=72911 clearMs=78 httpMs=2120 totalMs=2200 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:35 +66: widgets/ default_transition_delegate_test.dart
+[METRIC] script=widgets/default_transition_delegate_test.dart sourceChars=52209 clearMs=97 httpMs=1981 totalMs=2080 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:37 +67: widgets/ delete_character_intent_test.dart
+[METRIC] script=widgets/delete_character_intent_test.dart sourceChars=46649 clearMs=102 httpMs=1932 totalMs=2036 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:39 +68: widgets/ delete_to_line_break_intent_test.dart
+[METRIC] script=widgets/delete_to_line_break_intent_test.dart sourceChars=47402 clearMs=100 httpMs=1950 totalMs=2051 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:41 +69: widgets/ delete_to_next_word_boundary_intent_test.dart
+[METRIC] script=widgets/delete_to_next_word_boundary_intent_test.dart sourceChars=45052 clearMs=91 httpMs=1922 totalMs=2015 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:43 +70: widgets/ desktop_text_selection_toolbar_layout_delegate_test.dart
+[METRIC] script=widgets/desktop_text_selection_toolbar_layout_delegate_test.dart sourceChars=41164 clearMs=90 httpMs=1883 totalMs=1974 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:45 +71: widgets/ dev_tools_deep_link_property_test.dart
+[METRIC] script=widgets/dev_tools_deep_link_property_test.dart sourceChars=40378 clearMs=90 httpMs=1933 totalMs=2025 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:47 +72: widgets/ device_orientation_builder_test.dart
+[METRIC] script=widgets/device_orientation_builder_test.dart sourceChars=40443 clearMs=93 httpMs=1968 totalMs=2062 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:49 +73: widgets/ diagonal_drag_behavior_test.dart
+[METRIC] script=widgets/diagonal_drag_behavior_test.dart sourceChars=46513 clearMs=96 httpMs=2050 totalMs=2147 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:51 +74: widgets/ dialog_window_controller_delegate_test.dart
+[METRIC] script=widgets/dialog_window_controller_delegate_test.dart sourceChars=38267 clearMs=115 httpMs=2210 totalMs=2326 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+02:54 +75: widgets/ dialog_window_controller_linux_test.dart
+[METRIC] script=widgets/dialog_window_controller_linux_test.dart sourceChars=46832 clearMs=52 httpMs=2007 totalMs=2060 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:56 +76: widgets/ dialog_window_controller_mac_o_s_test.dart
+[METRIC] script=widgets/dialog_window_controller_mac_o_s_test.dart sourceChars=45704 clearMs=47 httpMs=2003 totalMs=2052 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+02:58 +77: widgets/ dialog_window_controller_test.dart
+[METRIC] script=widgets/dialog_window_controller_test.dart sourceChars=43145 clearMs=82 httpMs=1950 totalMs=2033 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+03:00 +78: widgets/ dialog_window_controller_win32_test.dart
+[METRIC] script=widgets/dialog_window_controller_win32_test.dart sourceChars=54069 clearMs=63 httpMs=1917 totalMs=1981 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:02 +79: widgets/ dialog_window_test.dart
+[METRIC] script=widgets/dialog_window_test.dart sourceChars=49908 clearMs=150 httpMs=1885 totalMs=2036 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:04 +80: widgets/ directional_caret_movement_intent_test.dart
+[METRIC] script=widgets/directional_caret_movement_intent_test.dart sourceChars=48040 clearMs=89 httpMs=1870 totalMs=1960 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:06 +81: widgets/ directional_focus_action_test.dart
+[METRIC] script=widgets/directional_focus_action_test.dart sourceChars=49248 clearMs=86 httpMs=1907 totalMs=1994 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:08 +82: widgets/ directional_focus_intent_test.dart
+[METRIC] script=widgets/directional_focus_intent_test.dart sourceChars=44429 clearMs=65 httpMs=1906 totalMs=1973 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:10 +83: widgets/ directional_focus_traversal_policy_mixin_test.dart
+[METRIC] script=widgets/directional_focus_traversal_policy_mixin_test.dart sourceChars=41184 clearMs=74 httpMs=2195 totalMs=2270 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:12 +84: widgets/ directional_text_editing_intent_test.dart
+[METRIC] script=widgets/directional_text_editing_intent_test.dart sourceChars=55270 clearMs=60 httpMs=1919 totalMs=1980 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:14 +85: widgets/ disable_widget_inspector_scope_test.dart
+[METRIC] script=widgets/disable_widget_inspector_scope_test.dart sourceChars=48433 clearMs=96 httpMs=1900 totalMs=1997 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:16 +86: widgets/ dismiss_action_test.dart
+[METRIC] script=widgets/dismiss_action_test.dart sourceChars=45082 clearMs=98 httpMs=1874 totalMs=1973 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:18 +87: widgets/ dismiss_direction_test.dart
+[METRIC] script=widgets/dismiss_direction_test.dart sourceChars=48493 clearMs=91 httpMs=1989 totalMs=2082 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:20 +88: widgets/ dismiss_intent_test.dart
+[METRIC] script=widgets/dismiss_intent_test.dart sourceChars=77445 clearMs=70 httpMs=2486 totalMs=2557 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:23 +89: widgets/ dismiss_menu_action_test.dart
+[METRIC] script=widgets/dismiss_menu_action_test.dart sourceChars=41456 clearMs=118 httpMs=1870 totalMs=1989 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:25 +90: widgets/ dismiss_update_details_test.dart
+[METRIC] script=widgets/dismiss_update_details_test.dart sourceChars=49316 clearMs=69 httpMs=1927 totalMs=1998 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:27 +91: widgets/ dismissible_test.dart
+[METRIC] script=widgets/dismissible_test.dart sourceChars=71054 clearMs=99 httpMs=2276 totalMs=2376 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:29 +92: widgets/ disposable_build_context_test.dart
+[METRIC] script=widgets/disposable_build_context_test.dart sourceChars=43156 clearMs=91 httpMs=1877 totalMs=1970 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:31 +93: widgets/ do_nothing_action_test.dart
+[METRIC] script=widgets/do_nothing_action_test.dart sourceChars=75352 clearMs=100 httpMs=2183 totalMs=2284 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:33 +94: widgets/ do_nothing_and_stop_propagation_intent_test.dart
+[METRIC] script=widgets/do_nothing_and_stop_propagation_intent_test.dart sourceChars=76374 clearMs=289 httpMs=2516 totalMs=2807 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:36 +95: widgets/ do_nothing_and_stop_propagation_text_intent_test.dart
+[METRIC] script=widgets/do_nothing_and_stop_propagation_text_intent_test.dart sourceChars=40605 clearMs=62 httpMs=1878 totalMs=1942 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:38 +96: widgets/ do_nothing_intent_test.dart
+[METRIC] script=widgets/do_nothing_intent_test.dart sourceChars=39198 clearMs=69 httpMs=1896 totalMs=1966 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:40 +97: widgets/ drag_boundary_delegate_test.dart
+[METRIC] script=widgets/drag_boundary_delegate_test.dart sourceChars=37767 clearMs=91 httpMs=1866 totalMs=1958 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:42 +98: widgets/ drag_boundary_test.dart
+[METRIC] script=widgets/drag_boundary_test.dart sourceChars=44404 clearMs=96 httpMs=1939 totalMs=2036 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:44 +99: widgets/ drag_scroll_activity_test.dart
+[METRIC] script=widgets/drag_scroll_activity_test.dart sourceChars=44837 clearMs=48 httpMs=1950 totalMs=1999 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:46 +100: widgets/ drag_target_details_test.dart
+[METRIC] script=widgets/drag_target_details_test.dart sourceChars=73031 clearMs=48 httpMs=2461 totalMs=2511 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:49 +101: widgets/ draggable_details_test.dart
+[METRIC] script=widgets/draggable_details_test.dart sourceChars=48203 clearMs=77 httpMs=1960 totalMs=2038 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:51 +102: widgets/ draggable_scrollable_actuator_test.dart
+[METRIC] script=widgets/draggable_scrollable_actuator_test.dart sourceChars=60641 clearMs=100 httpMs=1781 totalMs=1883 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:52 +103: widgets/ draggable_scrollable_controller_test.dart
+[METRIC] script=widgets/draggable_scrollable_controller_test.dart sourceChars=38416 clearMs=73 httpMs=1910 totalMs=1984 status=success httpStatus=200 outputLines=52 frameworkErrors=0
+03:54 +104: widgets/ draggable_scrollable_notification_test.dart
+[METRIC] script=widgets/draggable_scrollable_notification_test.dart sourceChars=47480 clearMs=30 httpMs=1955 totalMs=1987 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:56 +105: widgets/ driven_scroll_activity_test.dart
+[METRIC] script=widgets/driven_scroll_activity_test.dart sourceChars=44924 clearMs=99 httpMs=1913 totalMs=2014 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:58 +106: widgets/ edge_dragging_auto_scroller_test.dart
+[METRIC] script=widgets/edge_dragging_auto_scroller_test.dart sourceChars=50584 clearMs=43 httpMs=1945 totalMs=1990 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:00 +107: widgets/ edge_insets_geometry_tween_test.dart
+[METRIC] script=widgets/edge_insets_geometry_tween_test.dart sourceChars=49788 clearMs=72 httpMs=2071 totalMs=2144 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+04:03 +108: widgets/ edge_insets_tween_test.dart
+[METRIC] script=widgets/edge_insets_tween_test.dart sourceChars=51845 clearMs=69 httpMs=1982 totalMs=2053 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+04:05 +109: widgets/ editable_text_tap_outside_intent_test.dart
+[METRIC] script=widgets/editable_text_tap_outside_intent_test.dart sourceChars=35731 clearMs=94 httpMs=1847 totalMs=1942 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:07 +110: widgets/ editable_text_tap_up_outside_intent_test.dart
+[METRIC] script=widgets/editable_text_tap_up_outside_intent_test.dart sourceChars=42895 clearMs=93 httpMs=1868 totalMs=1962 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:09 +111: widgets/ empty_text_selection_controls_test.dart
+[METRIC] script=widgets/empty_text_selection_controls_test.dart sourceChars=44617 clearMs=70 httpMs=1889 totalMs=1961 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:11 +112: widgets/ enable_widget_inspector_scope_test.dart
+[METRIC] script=widgets/enable_widget_inspector_scope_test.dart sourceChars=56762 clearMs=87 httpMs=1989 totalMs=2077 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+04:13 +113: widgets/ exclude_focus_test.dart
+[METRIC] script=widgets/exclude_focus_test.dart sourceChars=51534 clearMs=100 httpMs=1963 totalMs=2064 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:15 +114: widgets/ exclude_focus_traversal_test.dart
+[METRIC] script=widgets/exclude_focus_traversal_test.dart sourceChars=52054 clearMs=97 httpMs=1966 totalMs=2065 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:17 +115: widgets/ expand_selection_to_document_boundary_intent_test.dart
+[METRIC] script=widgets/expand_selection_to_document_boundary_intent_test.dart sourceChars=45193 clearMs=97 httpMs=1932 totalMs=2031 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:19 +116: widgets/ expand_selection_to_line_break_intent_test.dart
+[METRIC] script=widgets/expand_selection_to_line_break_intent_test.dart sourceChars=40513 clearMs=90 httpMs=1943 totalMs=2034 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+04:21 +117: widgets/ expansible_controller_test.dart
+[METRIC] script=widgets/expansible_controller_test.dart sourceChars=49811 clearMs=49 httpMs=1972 totalMs=2022 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:23 +118: widgets/ expansible_test.dart
+[METRIC] script=widgets/expansible_test.dart sourceChars=72956 clearMs=67 httpMs=1781 totalMs=1849 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:25 +119: widgets/ extend_selection_by_character_intent_test.dart
+[METRIC] script=widgets/extend_selection_by_character_intent_test.dart sourceChars=37740 clearMs=70 httpMs=2053 totalMs=2125 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:27 +120: widgets/ extend_selection_by_page_intent_test.dart
+[METRIC] script=widgets/extend_selection_by_page_intent_test.dart sourceChars=40891 clearMs=64 httpMs=2070 totalMs=2135 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:29 +121: widgets/ extend_selection_to_document_boundary_intent_test.dart
+[METRIC] script=widgets/extend_selection_to_document_boundary_intent_test.dart sourceChars=38923 clearMs=74 httpMs=1929 totalMs=2005 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:31 +122: widgets/ extend_selection_to_next_paragraph_boundary_intent_test.dart
+[METRIC] script=widgets/extend_selection_to_next_paragraph_boundary_intent_test.dart sourceChars=41706 clearMs=92 httpMs=1870 totalMs=1963 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:33 +123: widgets/ extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart
+[METRIC] script=widgets/extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart sourceChars=42262 clearMs=88 httpMs=1854 totalMs=1943 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:35 +124: widgets/ extend_selection_to_next_word_boundary_intent_test.dart
+[METRIC] script=widgets/extend_selection_to_next_word_boundary_intent_test.dart sourceChars=44651 clearMs=92 httpMs=1913 totalMs=2006 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:37 +125: widgets/ extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart
+[METRIC] script=widgets/extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart sourceChars=28348 clearMs=92 httpMs=1874 totalMs=1968 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:39 +126: widgets/ extend_selection_vertically_to_adjacent_line_intent_test.dart
+[METRIC] script=widgets/extend_selection_vertically_to_adjacent_line_intent_test.dart sourceChars=28825 clearMs=90 httpMs=1879 totalMs=1970 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:41 +127: widgets/ extend_selection_vertically_to_adjacent_page_intent_test.dart
+[METRIC] script=widgets/extend_selection_vertically_to_adjacent_page_intent_test.dart sourceChars=26036 clearMs=96 httpMs=1869 totalMs=1967 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:43 +128: widgets/ feedback_test.dart
+[METRIC] script=widgets/feedback_test.dart sourceChars=45148 clearMs=93 httpMs=1890 totalMs=1984 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:45 +129: widgets/ fixed_scroll_metrics_test.dart
+[METRIC] script=widgets/fixed_scroll_metrics_test.dart sourceChars=50218 clearMs=62 httpMs=1967 totalMs=2031 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+04:47 +130: widgets/ flex_test.dart
+[METRIC] script=widgets/flex_test.dart sourceChars=90907 clearMs=48 httpMs=1821 totalMs=1871 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:49 +131: widgets/ floating_header_snap_mode_test.dart
+[METRIC] script=widgets/floating_header_snap_mode_test.dart sourceChars=51905 clearMs=24 httpMs=1979 totalMs=2004 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:51 +132: widgets/ focus_attachment_test.dart
+[METRIC] script=widgets/focus_attachment_test.dart sourceChars=47486 clearMs=68 httpMs=1915 totalMs=1985 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:53 +133: widgets/ focus_highlight_mode_test.dart
+[METRIC] script=widgets/focus_highlight_mode_test.dart sourceChars=49813 clearMs=94 httpMs=1944 totalMs=2040 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:55 +134: widgets/ focus_highlight_strategy_test.dart
+[METRIC] script=widgets/focus_highlight_strategy_test.dart sourceChars=52735 clearMs=96 httpMs=1946 totalMs=2043 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:57 +135: widgets/ focus_order_test.dart
+[METRIC] script=widgets/focus_order_test.dart sourceChars=49331 clearMs=94 httpMs=1916 totalMs=2012 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:59 +136: widgets/ focus_scope_node_test.dart
+[METRIC] script=widgets/focus_scope_node_test.dart sourceChars=43813 clearMs=93 httpMs=2065 totalMs=2159 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:01 +137: widgets/ focus_traversal_order_test.dart
+[METRIC] script=widgets/focus_traversal_order_test.dart sourceChars=45320 clearMs=94 httpMs=1880 totalMs=1974 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:03 +138: widgets/ fractional_translation_test.dart
+[METRIC] script=widgets/fractional_translation_test.dart sourceChars=96905 clearMs=88 httpMs=1841 totalMs=1931 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:05 +139: widgets/ gesture_recognizer_factory_test.dart
+[METRIC] script=widgets/gesture_recognizer_factory_test.dart sourceChars=47316 clearMs=77 httpMs=1930 totalMs=2009 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:07 +140: widgets/ gesture_recognizer_factory_with_handlers_test.dart
+[METRIC] script=widgets/gesture_recognizer_factory_with_handlers_test.dart sourceChars=45185 clearMs=80 httpMs=1944 totalMs=2026 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:09 +141: widgets/ global_object_key_test.dart
+[METRIC] script=widgets/global_object_key_test.dart sourceChars=49712 clearMs=45 httpMs=1969 totalMs=2015 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:11 +142: widgets/ hero_controller_scope_test.dart
+[METRIC] script=widgets/hero_controller_scope_test.dart sourceChars=72330 clearMs=42 httpMs=2145 totalMs=2188 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:13 +143: widgets/ hero_controller_test.dart
+[METRIC] script=widgets/hero_controller_test.dart sourceChars=86706 clearMs=73 httpMs=1816 totalMs=1891 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:15 +144: widgets/ hero_flight_direction_test.dart
+[METRIC] script=widgets/hero_flight_direction_test.dart sourceChars=51421 clearMs=39 httpMs=2047 totalMs=2087 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:17 +145: widgets/ hold_scroll_activity_test.dart
+[METRIC] script=widgets/hold_scroll_activity_test.dart sourceChars=44940 clearMs=58 httpMs=1953 totalMs=2012 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+05:19 +146: widgets/ i_o_s_system_context_menu_item_copy_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_copy_test.dart sourceChars=47176 clearMs=62 httpMs=1989 totalMs=2053 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:21 +147: widgets/ i_o_s_system_context_menu_item_custom_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_custom_test.dart sourceChars=31366 clearMs=72 httpMs=1912 totalMs=1985 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:23 +148: widgets/ i_o_s_system_context_menu_item_cut_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_cut_test.dart sourceChars=71408 clearMs=58 httpMs=2161 totalMs=2221 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:25 +149: widgets/ i_o_s_system_context_menu_item_live_text_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_live_text_test.dart sourceChars=25643 clearMs=76 httpMs=1891 totalMs=1968 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:27 +150: widgets/ i_o_s_system_context_menu_item_look_up_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_look_up_test.dart sourceChars=25433 clearMs=58 httpMs=1900 totalMs=1960 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:29 +151: widgets/ i_o_s_system_context_menu_item_paste_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_paste_test.dart sourceChars=27444 clearMs=61 httpMs=1887 totalMs=1949 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:31 +152: widgets/ i_o_s_system_context_menu_item_search_web_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_search_web_test.dart sourceChars=22849 clearMs=64 httpMs=1909 totalMs=1975 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:33 +153: widgets/ i_o_s_system_context_menu_item_select_all_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_select_all_test.dart sourceChars=23616 clearMs=61 httpMs=1865 totalMs=1927 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:35 +154: widgets/ i_o_s_system_context_menu_item_share_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_share_test.dart sourceChars=23164 clearMs=69 httpMs=1953 totalMs=2023 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:37 +155: widgets/ i_o_s_system_context_menu_item_test.dart
+[METRIC] script=widgets/i_o_s_system_context_menu_item_test.dart sourceChars=27025 clearMs=64 httpMs=1877 totalMs=1942 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:39 +156: widgets/ icon_data_property_test.dart
+[METRIC] script=widgets/icon_data_property_test.dart sourceChars=25946 clearMs=62 httpMs=1872 totalMs=1935 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:41 +157: widgets/ icon_data_test.dart
+[METRIC] script=widgets/icon_data_test.dart sourceChars=82217 clearMs=67 httpMs=1782 totalMs=1851 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:43 +158: widgets/ icon_theme_data_test.dart
+[METRIC] script=widgets/icon_theme_data_test.dart sourceChars=76829 clearMs=45 httpMs=1820 totalMs=1866 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:45 +159: widgets/ idle_scroll_activity_test.dart
+[METRIC] script=widgets/idle_scroll_activity_test.dart sourceChars=28514 clearMs=48 httpMs=1857 totalMs=1907 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:47 +160: widgets/ ignore_baseline_test.dart
+[METRIC] script=widgets/ignore_baseline_test.dart sourceChars=94109 clearMs=60 httpMs=1781 totalMs=1843 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:49 +161: widgets/ image_icon_test.dart
+[METRIC] script=widgets/image_icon_test.dart sourceChars=64788 clearMs=40 httpMs=1788 totalMs=1829 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:50 +162: widgets/ img_element_platform_view_test.dart
+[METRIC] script=widgets/img_element_platform_view_test.dart sourceChars=75934 clearMs=52 httpMs=2465 totalMs=2519 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:53 +163: widgets/ indexed_slot_test.dart
+[METRIC] script=widgets/indexed_slot_test.dart sourceChars=26590 clearMs=79 httpMs=1906 totalMs=1986 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:55 +164: widgets/ inherited_model_element_test.dart
+[METRIC] script=widgets/inherited_model_element_test.dart sourceChars=39919 clearMs=64 httpMs=2321 totalMs=2387 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+05:57 +165: widgets/ inspector_button_test.dart
+[METRIC] script=widgets/inspector_button_test.dart sourceChars=34763 clearMs=70 httpMs=2271 totalMs=2342 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:00 +166: widgets/ inspector_button_variant_test.dart
+[METRIC] script=widgets/inspector_button_variant_test.dart sourceChars=41407 clearMs=75 httpMs=2205 totalMs=2281 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:02 +167: widgets/ inspector_reference_data_test.dart
+[METRIC] script=widgets/inspector_reference_data_test.dart sourceChars=33139 clearMs=141 httpMs=2254 totalMs=2396 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:04 +168: widgets/ inspector_selection_test.dart
+[METRIC] script=widgets/inspector_selection_test.dart sourceChars=40080 clearMs=59 httpMs=2205 totalMs=2266 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:07 +169: widgets/ inspector_serialization_delegate_test.dart
+[METRIC] script=widgets/inspector_serialization_delegate_test.dart sourceChars=33868 clearMs=74 httpMs=2226 totalMs=2301 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:09 +170: widgets/ keep_alive_handle_test.dart
+[METRIC] script=widgets/keep_alive_handle_test.dart sourceChars=70961 clearMs=69 httpMs=2252 totalMs=2323 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:11 +171: widgets/ keep_alive_notification_test.dart
+[METRIC] script=widgets/keep_alive_notification_test.dart sourceChars=33945 clearMs=83 httpMs=2169 totalMs=2253 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:14 +172: widgets/ key_event_result_test.dart
+[METRIC] script=widgets/key_event_result_test.dart sourceChars=33882 clearMs=68 httpMs=2143 totalMs=2212 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:16 +173: widgets/ key_set_test.dart
+[METRIC] script=widgets/key_set_test.dart sourceChars=36066 clearMs=67 httpMs=2403 totalMs=2471 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+06:18 +174: widgets/ keyboard_listener_test.dart
+[METRIC] script=widgets/keyboard_listener_test.dart sourceChars=85572 clearMs=65 httpMs=2206 totalMs=2272 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:20 +175: widgets/ labeled_global_key_test.dart
+[METRIC] script=widgets/labeled_global_key_test.dart sourceChars=33197 clearMs=41 httpMs=1952 totalMs=1995 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+06:22 +176: widgets/ layout_id_test.dart
+[METRIC] script=widgets/layout_id_test.dart sourceChars=65118 clearMs=65 httpMs=1852 totalMs=1919 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:24 +177: widgets/ lexical_focus_order_test.dart
+[METRIC] script=widgets/lexical_focus_order_test.dart sourceChars=37171 clearMs=49 httpMs=2027 totalMs=2078 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+06:26 +178: widgets/ live_text_input_status_notifier_test.dart
+[METRIC] script=widgets/live_text_input_status_notifier_test.dart sourceChars=45599 clearMs=60 httpMs=2197 totalMs=2259 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+06:29 +179: widgets/ live_text_input_status_test.dart
+[METRIC] script=widgets/live_text_input_status_test.dart sourceChars=88240 clearMs=59 httpMs=1794 totalMs=1855 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:31 +180: widgets/ local_history_entry_test.dart
+[METRIC] script=widgets/local_history_entry_test.dart sourceChars=45889 clearMs=43 httpMs=2047 totalMs=2091 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+06:33 +181: widgets/ localizations_resolver_test.dart
+[METRIC] script=widgets/localizations_resolver_test.dart sourceChars=45890 clearMs=56 httpMs=2033 totalMs=2090 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+06:35 +182: widgets/ lock_state_test.dart
+[METRIC] script=widgets/lock_state_test.dart sourceChars=76272 clearMs=58 httpMs=1804 totalMs=1864 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:37 +183: widgets/ logical_key_set_test.dart
+[METRIC] script=widgets/logical_key_set_test.dart sourceChars=79967 clearMs=38 httpMs=2173 totalMs=2213 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:39 +184: widgets/ lookup_boundary_test.dart
+[METRIC] script=widgets/lookup_boundary_test.dart sourceChars=79437 clearMs=39 httpMs=1774 totalMs=1814 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:41 +185: widgets/ matrix4_tween_test.dart
+[METRIC] script=widgets/matrix4_tween_test.dart sourceChars=44497 clearMs=41 httpMs=2032 totalMs=2074 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+06:43 +186: widgets/ matrix_transition_test.dart
+[METRIC] script=widgets/matrix_transition_test.dart sourceChars=79693 clearMs=64 httpMs=1910 totalMs=1976 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:45 +187: widgets/ menu_controller_test.dart
+[METRIC] script=widgets/menu_controller_test.dart sourceChars=49681 clearMs=40 httpMs=1998 totalMs=2039 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+06:47 +188: widgets/ menu_serializable_shortcut_test.dart
+[METRIC] script=widgets/menu_serializable_shortcut_test.dart sourceChars=49747 clearMs=55 httpMs=2517 totalMs=2574 status=success httpStatus=200 outputLines=34 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in widgets/menu_serializable_shortcut_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:49 +189: widgets/ meta_data_test.dart
+[METRIC] script=widgets/meta_data_test.dart sourceChars=80576 clearMs=54 httpMs=1773 totalMs=1828 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:51 +190: widgets/ modal_barrier_test.dart
+[METRIC] script=widgets/modal_barrier_test.dart sourceChars=76551 clearMs=37 httpMs=1772 totalMs=1810 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:53 +191: widgets/ multi_selectable_selection_container_delegate_test.dart
+[METRIC] script=widgets/multi_selectable_selection_container_delegate_test.dart sourceChars=47152 clearMs=38 httpMs=2011 totalMs=2051 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:55 +192: widgets/ navigation_mode_test.dart
+[METRIC] script=widgets/navigation_mode_test.dart sourceChars=46863 clearMs=61 httpMs=2014 totalMs=2076 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:57 +193: widgets/ navigation_notification_test.dart
+[METRIC] script=widgets/navigation_notification_test.dart sourceChars=49002 clearMs=59 httpMs=1933 totalMs=1994 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:59 +194: widgets/ navigator_pop_handler_test.dart
+[METRIC] script=widgets/navigator_pop_handler_test.dart sourceChars=91479 clearMs=55 httpMs=1753 totalMs=1809 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:01 +195: widgets/ nested_scroll_view_state_test.dart
+[METRIC] script=widgets/nested_scroll_view_state_test.dart sourceChars=50408 clearMs=46 httpMs=1938 totalMs=1986 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:03 +196: widgets/ nested_scroll_view_viewport_test.dart
+[METRIC] script=widgets/nested_scroll_view_viewport_test.dart sourceChars=67664 clearMs=75 httpMs=1818 totalMs=1895 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:05 +197: widgets/ next_focus_action_test.dart
+[METRIC] script=widgets/next_focus_action_test.dart sourceChars=49705 clearMs=55 httpMs=1968 totalMs=2024 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+07:07 +198: widgets/ next_focus_intent_test.dart
+[METRIC] script=widgets/next_focus_intent_test.dart sourceChars=75282 clearMs=56 httpMs=1733 totalMs=1790 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:09 +199: widgets/ notifiable_element_mixin_test.dart
+[METRIC] script=widgets/notifiable_element_mixin_test.dart sourceChars=83471 clearMs=40 httpMs=1776 totalMs=1817 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:11 +200: widgets/ notification_test.dart
+[METRIC] script=widgets/notification_test.dart sourceChars=51711 clearMs=40 httpMs=2026 totalMs=2067 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+07:13 +201: widgets/ numeric_focus_order_test.dart
+[METRIC] script=widgets/numeric_focus_order_test.dart sourceChars=49720 clearMs=68 httpMs=2025 totalMs=2095 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+07:15 +202: widgets/ object_key_test.dart
+[METRIC] script=widgets/object_key_test.dart sourceChars=76589 clearMs=61 httpMs=2019 totalMs=2082 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:17 +203: widgets/ options_view_open_direction_test.dart
+[METRIC] script=widgets/options_view_open_direction_test.dart sourceChars=50674 clearMs=38 httpMs=1957 totalMs=1996 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+07:19 +204: widgets/ ordered_traversal_policy_test.dart
+[METRIC] script=widgets/ordered_traversal_policy_test.dart sourceChars=59872 clearMs=62 httpMs=2001 totalMs=2064 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+07:21 +205: widgets/ orientation_builder_test.dart
+[METRIC] script=widgets/orientation_builder_test.dart sourceChars=91612 clearMs=69 httpMs=1873 totalMs=1944 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:23 +206: widgets/ orientation_test.dart
+[METRIC] script=widgets/orientation_test.dart sourceChars=57200 clearMs=57 httpMs=2074 totalMs=2132 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:25 +207: widgets/ overflow_bar_alignment_test.dart
+[METRIC] script=widgets/overflow_bar_alignment_test.dart sourceChars=59899 clearMs=64 httpMs=2009 totalMs=2075 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+07:27 +208: widgets/ overlay_child_layout_info_test.dart
+[METRIC] script=widgets/overlay_child_layout_info_test.dart sourceChars=56770 clearMs=64 httpMs=2012 totalMs=2078 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+07:29 +209: widgets/ overlay_child_location_test.dart
+[METRIC] script=widgets/overlay_child_location_test.dart sourceChars=85742 clearMs=65 httpMs=1822 totalMs=1889 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:31 +210: widgets/ overlay_portal_controller_test.dart
+[METRIC] script=widgets/overlay_portal_controller_test.dart sourceChars=51459 clearMs=38 httpMs=2057 totalMs=2097 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+07:33 +211: widgets/ overlay_portal_test.dart
+[METRIC] script=widgets/overlay_portal_test.dart sourceChars=63667 clearMs=64 httpMs=2047 totalMs=2113 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:35 +212: widgets/ overlay_route_test.dart
+[METRIC] script=widgets/overlay_route_test.dart sourceChars=59269 clearMs=54 httpMs=2026 totalMs=2081 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+07:37 +213: widgets/ overlay_state_test.dart
+[METRIC] script=widgets/overlay_state_test.dart sourceChars=84060 clearMs=60 httpMs=1798 totalMs=1860 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:39 +214: widgets/ overscroll_indicator_notification_test.dart
+[METRIC] script=widgets/overscroll_indicator_notification_test.dart sourceChars=56979 clearMs=40 httpMs=1977 totalMs=2018 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+07:41 +215: widgets/ overscroll_notification_test.dart
+[METRIC] script=widgets/overscroll_notification_test.dart sourceChars=53631 clearMs=60 httpMs=1970 totalMs=2031 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+07:43 +216: widgets/ page_metrics_test.dart
+[METRIC] script=widgets/page_metrics_test.dart sourceChars=57680 clearMs=59 httpMs=2107 totalMs=2168 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+07:45 +217: widgets/ page_route_builder_test.dart
+[METRIC] script=widgets/page_route_builder_test.dart sourceChars=65942 clearMs=55 httpMs=2219 totalMs=2276 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+07:48 +218: widgets/ page_test.dart
+[METRIC] script=widgets/page_test.dart sourceChars=48303 clearMs=56 httpMs=1895 totalMs=1953 status=success httpStatus=200 outputLines=589 frameworkErrors=0
+07:50 +219: widgets/ pan_axis_test.dart
+[METRIC] script=widgets/pan_axis_test.dart sourceChars=42542 clearMs=36 httpMs=1858 totalMs=1895 status=success httpStatus=200 outputLines=531 frameworkErrors=0
+07:51 +220: widgets/ paste_text_intent_test.dart
+[METRIC] script=widgets/paste_text_intent_test.dart sourceChars=44479 clearMs=40 httpMs=1818 totalMs=1859 status=success httpStatus=200 outputLines=385 frameworkErrors=0
+07:53 +221: widgets/ platform_menu_delegate_test.dart
+[METRIC] script=widgets/platform_menu_delegate_test.dart sourceChars=38768 clearMs=47 httpMs=1777 totalMs=1826 status=success httpStatus=200 outputLines=361 frameworkErrors=0
+07:55 +222: widgets/ platform_provided_menu_item_type_test.dart
+[METRIC] script=widgets/platform_provided_menu_item_type_test.dart sourceChars=37077 clearMs=49 httpMs=1802 totalMs=1852 status=success httpStatus=200 outputLines=369 frameworkErrors=0
+07:57 +223: widgets/ platform_route_information_provider_test.dart
+[METRIC] script=widgets/platform_route_information_provider_test.dart sourceChars=40728 clearMs=46 httpMs=1830 totalMs=1877 status=success httpStatus=200 outputLines=334 frameworkErrors=0
+07:59 +224: widgets/ platform_selectable_region_context_menu_test.dart
+[METRIC] script=widgets/platform_selectable_region_context_menu_test.dart sourceChars=39846 clearMs=47 httpMs=1832 totalMs=1881 status=success httpStatus=200 outputLines=288 frameworkErrors=0
+08:01 +225: widgets/ platform_view_creation_params_test.dart
+[METRIC] script=widgets/platform_view_creation_params_test.dart sourceChars=38199 clearMs=48 httpMs=1780 totalMs=1830 status=success httpStatus=200 outputLines=372 frameworkErrors=0
+08:03 +226: widgets/ pop_entry_test.dart
+[METRIC] script=widgets/pop_entry_test.dart sourceChars=44111 clearMs=45 httpMs=2040 totalMs=2087 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+08:05 +227: (tearDownAll)
+08:06 +227: All tests passed!

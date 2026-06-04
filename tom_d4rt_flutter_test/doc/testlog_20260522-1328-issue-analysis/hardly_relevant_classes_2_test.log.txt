@@ -1,0 +1,810 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_2_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: material/ selection_area_test.dart
+[METRIC] script=material/selection_area_test.dart sourceChars=47572 clearMs=44 httpMs=2133 totalMs=2191 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:12 +1: Test App Health app is running
+00:12 +2: material/ adaptation_test.dart
+[METRIC] script=material/adaptation_test.dart sourceChars=30434 clearMs=96 httpMs=1925 totalMs=2022 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+00:14 +3: material/ animated_icon_data_test.dart
+[METRIC] script=material/animated_icon_data_test.dart sourceChars=26315 clearMs=125 httpMs=1833 totalMs=1960 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+00:16 +4: material/ animated_theme_test.dart
+[METRIC] script=material/animated_theme_test.dart sourceChars=26047 clearMs=82 httpMs=2446 totalMs=2530 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:18 +5: material/ autocomplete_test.dart
+[METRIC] script=material/autocomplete_test.dart sourceChars=24340 clearMs=129 httpMs=1527 totalMs=1658 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:20 +6: material/ back_button_icon_test.dart
+[METRIC] script=material/back_button_icon_test.dart sourceChars=24110 clearMs=42 httpMs=1538 totalMs=1582 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:22 +7: material/ back_button_test.dart
+[METRIC] script=material/back_button_test.dart sourceChars=27206 clearMs=93 httpMs=1611 totalMs=1706 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:23 +8: material/ bottom_navigation_bar_landscape_layout_test.dart
+[METRIC] script=material/bottom_navigation_bar_landscape_layout_test.dart sourceChars=83438 clearMs=94 httpMs=2084 totalMs=2179 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:26 +9: material/ bottom_navigation_bar_theme_data_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_data_test.dart sourceChars=22964 clearMs=51 httpMs=1893 totalMs=1946 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:28 +10: material/ bottom_navigation_bar_theme_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_test.dart sourceChars=28106 clearMs=87 httpMs=1576 totalMs=1664 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:29 +11: material/ bottom_navigation_bar_type_test.dart
+[METRIC] script=material/bottom_navigation_bar_type_test.dart sourceChars=62876 clearMs=100 httpMs=1736 totalMs=1845 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:31 +12: material/ button_bar_layout_behavior_test.dart
+[METRIC] script=material/button_bar_layout_behavior_test.dart sourceChars=54742 clearMs=87 httpMs=1677 totalMs=1766 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:33 +13: material/ button_bar_test.dart
+[METRIC] script=material/button_bar_test.dart sourceChars=23842 clearMs=84 httpMs=1526 totalMs=1612 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:34 +14: material/ button_bar_theme_data_test.dart
+[METRIC] script=material/button_bar_theme_data_test.dart sourceChars=23005 clearMs=82 httpMs=1698 totalMs=1781 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:36 +15: material/ button_bar_theme_test.dart
+[METRIC] script=material/button_bar_theme_test.dart sourceChars=33481 clearMs=109 httpMs=1496 totalMs=1607 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+00:38 +16: material/ button_text_theme_test.dart
+[METRIC] script=material/button_text_theme_test.dart sourceChars=51180 clearMs=85 httpMs=1500 totalMs=1586 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:39 +17: material/ carousel_controller_test.dart
+[METRIC] script=material/carousel_controller_test.dart sourceChars=57526 clearMs=88 httpMs=1606 totalMs=1696 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:41 +18: material/ carousel_scroll_physics_test.dart
+[METRIC] script=material/carousel_scroll_physics_test.dart sourceChars=44167 clearMs=98 httpMs=1787 totalMs=1886 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+00:43 +19: material/ carousel_view_test.dart
+[METRIC] script=material/carousel_view_test.dart sourceChars=34722 clearMs=95 httpMs=1773 totalMs=1870 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:45 +20: material/ carousel_view_theme_data_test.dart
+[METRIC] script=material/carousel_view_theme_data_test.dart sourceChars=33413 clearMs=78 httpMs=1701 totalMs=1780 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:47 +21: material/ carousel_view_theme_test.dart
+[METRIC] script=material/carousel_view_theme_test.dart sourceChars=39516 clearMs=96 httpMs=1527 totalMs=1624 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:48 +22: material/ checked_popup_menu_item_test.dart
+[METRIC] script=material/checked_popup_menu_item_test.dart sourceChars=26970 clearMs=88 httpMs=1516 totalMs=1606 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:50 +23: material/ class_test.dart
+[METRIC] script=material/class_test.dart sourceChars=33978 clearMs=73 httpMs=1452 totalMs=1526 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:51 +24: material/ close_button_icon_test.dart
+[METRIC] script=material/close_button_icon_test.dart sourceChars=29835 clearMs=97 httpMs=1457 totalMs=1555 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:53 +25: material/ close_button_test.dart
+[METRIC] script=material/close_button_test.dart sourceChars=29525 clearMs=63 httpMs=1481 totalMs=1545 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:55 +26: material/ collapse_mode_test.dart
+[METRIC] script=material/collapse_mode_test.dart sourceChars=60334 clearMs=92 httpMs=1898 totalMs=1992 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:57 +27: material/ cupertino_based_material_theme_data_test.dart
+[METRIC] script=material/cupertino_based_material_theme_data_test.dart sourceChars=28379 clearMs=117 httpMs=2585 totalMs=2704 status=success httpStatus=200 outputLines=211 frameworkErrors=0
+00:59 +28: material/ date_picker_entry_mode_test.dart
+[METRIC] script=material/date_picker_entry_mode_test.dart sourceChars=43125 clearMs=57 httpMs=1591 totalMs=1654 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:01 +29: material/ date_picker_mode_test.dart
+[METRIC] script=material/date_picker_mode_test.dart sourceChars=54009 clearMs=131 httpMs=1546 totalMs=1679 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:03 +30: material/ day_period_test.dart
+[METRIC] script=material/day_period_test.dart sourceChars=53055 clearMs=122 httpMs=1574 totalMs=1697 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:04 +31: material/ dialog_route_test.dart
+[METRIC] script=material/dialog_route_test.dart sourceChars=26623 clearMs=129 httpMs=1570 totalMs=1700 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+01:06 +32: material/ drawer_alignment_test.dart
+[METRIC] script=material/drawer_alignment_test.dart sourceChars=49449 clearMs=58 httpMs=1482 totalMs=1542 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +33: material/ drawer_button_icon_test.dart
+[METRIC] script=material/drawer_button_icon_test.dart sourceChars=25866 clearMs=119 httpMs=1486 totalMs=1605 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+01:09 +34: material/ drawer_button_test.dart
+[METRIC] script=material/drawer_button_test.dart sourceChars=62496 clearMs=69 httpMs=1280 totalMs=1351 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/drawer_button_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:11 +34 -1: material/ drawer_button_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 274:7      main.<fn>.<fn>
+  
+01:11 +34 -1: material/ drawer_controller_state_test.dart
+[METRIC] script=material/drawer_controller_state_test.dart sourceChars=74747 clearMs=44 httpMs=1673 totalMs=1719 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:12 +35 -1: material/ drawer_controller_test.dart
+[METRIC] script=material/drawer_controller_test.dart sourceChars=29159 clearMs=41 httpMs=1554 totalMs=1596 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:14 +36 -1: material/ drop_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_range_slider_value_indicator_shape_test.dart sourceChars=68848 clearMs=62 httpMs=1602 totalMs=1665 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:16 +37 -1: material/ drop_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_slider_value_indicator_shape_test.dart sourceChars=25821 clearMs=98 httpMs=1481 totalMs=1580 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+01:17 +38 -1: material/ dropdown_button_hide_underline_test.dart
+[METRIC] script=material/dropdown_button_hide_underline_test.dart sourceChars=25785 clearMs=122 httpMs=2008 totalMs=2131 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:19 +39 -1: material/ dropdown_menu_close_behavior_test.dart
+[METRIC] script=material/dropdown_menu_close_behavior_test.dart sourceChars=64717 clearMs=70 httpMs=2209 totalMs=2281 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:22 +40 -1: material/ dropdown_menu_entry_test.dart
+[METRIC] script=material/dropdown_menu_entry_test.dart sourceChars=25055 clearMs=101 httpMs=1555 totalMs=1658 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:23 +41 -1: material/ dropdown_menu_form_field_test.dart
+[METRIC] script=material/dropdown_menu_form_field_test.dart sourceChars=26502 clearMs=78 httpMs=1661 totalMs=1741 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:25 +42 -1: material/ dropdown_menu_item_test.dart
+[METRIC] script=material/dropdown_menu_item_test.dart sourceChars=25807 clearMs=172 httpMs=1452 totalMs=1625 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:27 +43 -1: material/ durations_test.dart
+[METRIC] script=material/durations_test.dart sourceChars=24114 clearMs=75 httpMs=1522 totalMs=1599 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+01:28 +44 -1: material/ dynamic_scheme_variant_test.dart
+[METRIC] script=material/dynamic_scheme_variant_test.dart sourceChars=58302 clearMs=77 httpMs=1306 totalMs=1385 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/dynamic_scheme_variant_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+01:30 +44 -2: material/ dynamic_scheme_variant_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 349:7      main.<fn>.<fn>
+  
+01:30 +44 -2: material/ easing_test.dart
+[METRIC] script=material/easing_test.dart sourceChars=20063 clearMs=100 httpMs=1787 totalMs=1888 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+01:31 +45 -2: material/ elevation_overlay_test.dart
+[METRIC] script=material/elevation_overlay_test.dart sourceChars=19901 clearMs=78 httpMs=1481 totalMs=1560 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+01:33 +46 -2: material/ end_drawer_button_icon_test.dart
+[METRIC] script=material/end_drawer_button_icon_test.dart sourceChars=28005 clearMs=85 httpMs=1415 totalMs=1501 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:35 +47 -2: material/ end_drawer_button_test.dart
+[METRIC] script=material/end_drawer_button_test.dart sourceChars=53648 clearMs=88 httpMs=1475 totalMs=1564 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:36 +48 -2: material/ expand_icon_test.dart
+[METRIC] script=material/expand_icon_test.dart sourceChars=31324 clearMs=71 httpMs=1482 totalMs=1554 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:38 +49 -2: material/ expansion_panel_radio_test.dart
+[METRIC] script=material/expansion_panel_radio_test.dart sourceChars=39339 clearMs=75 httpMs=1431 totalMs=1508 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:39 +50 -2: material/ fab_center_offset_x_test.dart
+[METRIC] script=material/fab_center_offset_x_test.dart sourceChars=36872 clearMs=110 httpMs=1413 totalMs=1524 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:41 +51 -2: material/ fab_contained_offset_y_test.dart
+[METRIC] script=material/fab_contained_offset_y_test.dart sourceChars=43395 clearMs=98 httpMs=1474 totalMs=1573 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:42 +52 -2: material/ fab_docked_offset_y_test.dart
+[METRIC] script=material/fab_docked_offset_y_test.dart sourceChars=46004 clearMs=90 httpMs=1475 totalMs=1566 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:44 +53 -2: material/ fab_end_offset_x_test.dart
+[METRIC] script=material/fab_end_offset_x_test.dart sourceChars=46168 clearMs=67 httpMs=1471 totalMs=1539 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:45 +54 -2: material/ fab_float_offset_y_test.dart
+[METRIC] script=material/fab_float_offset_y_test.dart sourceChars=46932 clearMs=87 httpMs=1459 totalMs=1547 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:47 +55 -2: material/ fab_mini_offset_adjustment_test.dart
+[METRIC] script=material/fab_mini_offset_adjustment_test.dart sourceChars=38723 clearMs=89 httpMs=1452 totalMs=1542 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:48 +56 -2: material/ fab_start_offset_x_test.dart
+[METRIC] script=material/fab_start_offset_x_test.dart sourceChars=49194 clearMs=99 httpMs=1456 totalMs=1557 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:50 +57 -2: material/ fab_top_offset_y_test.dart
+[METRIC] script=material/fab_top_offset_y_test.dart sourceChars=49109 clearMs=66 httpMs=1460 totalMs=1528 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+01:52 +58 -2: material/ fade_forwards_page_transitions_builder_test.dart
+[METRIC] script=material/fade_forwards_page_transitions_builder_test.dart sourceChars=77773 clearMs=97 httpMs=1822 totalMs=1920 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+01:53 +59 -2: material/ flexible_space_bar_settings_test.dart
+[METRIC] script=material/flexible_space_bar_settings_test.dart sourceChars=36768 clearMs=89 httpMs=1575 totalMs=1664 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:55 +60 -2: material/ floating_label_alignment_test.dart
+[METRIC] script=material/floating_label_alignment_test.dart sourceChars=63702 clearMs=67 httpMs=1612 totalMs=1680 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:57 +61 -2: material/ floating_label_behavior_test.dart
+[METRIC] script=material/floating_label_behavior_test.dart sourceChars=41852 clearMs=146 httpMs=1613 totalMs=1760 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+01:59 +62 -2: material/ gapped_range_slider_track_shape_test.dart
+[METRIC] script=material/gapped_range_slider_track_shape_test.dart sourceChars=57541 clearMs=107 httpMs=1495 totalMs=1604 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:00 +63 -2: material/ gapped_slider_track_shape_test.dart
+[METRIC] script=material/gapped_slider_track_shape_test.dart sourceChars=70912 clearMs=69 httpMs=1362 totalMs=1432 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+02:02 +64 -2: material/ gregorian_calendar_delegate_test.dart
+[METRIC] script=material/gregorian_calendar_delegate_test.dart sourceChars=37639 clearMs=92 httpMs=2125 totalMs=2218 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:04 +65 -2: material/ grid_tile_bar_test.dart
+[METRIC] script=material/grid_tile_bar_test.dart sourceChars=38407 clearMs=92 httpMs=1407 totalMs=1500 status=success httpStatus=200 outputLines=60 frameworkErrors=0
+02:05 +66 -2: material/ grid_tile_test.dart
+[METRIC] script=material/grid_tile_test.dart sourceChars=50712 clearMs=48 httpMs=1486 totalMs=1536 status=success httpStatus=200 outputLines=58 frameworkErrors=0
+02:07 +67 -2: material/ handle_range_slider_thumb_shape_test.dart
+[METRIC] script=material/handle_range_slider_thumb_shape_test.dart sourceChars=36873 clearMs=80 httpMs=1613 totalMs=1694 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+02:09 +68 -2: material/ handle_thumb_shape_test.dart
+[METRIC] script=material/handle_thumb_shape_test.dart sourceChars=53901 clearMs=127 httpMs=1559 totalMs=1687 status=success httpStatus=200 outputLines=63 frameworkErrors=0
+02:10 +69 -2: material/ hour_format_test.dart
+[METRIC] script=material/hour_format_test.dart sourceChars=49485 clearMs=57 httpMs=2242 totalMs=2301 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:13 +70 -2: material/ icon_alignment_test.dart
+[METRIC] script=material/icon_alignment_test.dart sourceChars=39812 clearMs=74 httpMs=1558 totalMs=1634 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+02:14 +71 -2: material/ icons_test.dart
+[METRIC] script=material/icons_test.dart sourceChars=39794 clearMs=94 httpMs=2352 totalMs=2447 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+02:17 +72 -2: material/ ink_decoration_test.dart
+[METRIC] script=material/ink_decoration_test.dart sourceChars=54284 clearMs=99 httpMs=1527 totalMs=1628 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+02:18 +73 -2: material/ ink_sparkle_test.dart
+[METRIC] script=material/ink_sparkle_test.dart sourceChars=50347 clearMs=48 httpMs=1600 totalMs=1650 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+02:20 +74 -2: material/ input_date_picker_form_field_test.dart
+[METRIC] script=material/input_date_picker_form_field_test.dart sourceChars=50909 clearMs=83 httpMs=1735 totalMs=1819 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:22 +75 -2: material/ input_decoration_theme_data_test.dart
+[METRIC] script=material/input_decoration_theme_data_test.dart sourceChars=45874 clearMs=124 httpMs=1734 totalMs=1860 status=success httpStatus=200 outputLines=81 frameworkErrors=0
+02:24 +76 -2: material/ input_decorator_test.dart
+[METRIC] script=material/input_decorator_test.dart sourceChars=34460 clearMs=91 httpMs=1486 totalMs=1578 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:25 +77 -2: material/ interactive_ink_feature_factory_test.dart
+[METRIC] script=material/interactive_ink_feature_factory_test.dart sourceChars=46681 clearMs=99 httpMs=1455 totalMs=1555 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:27 +78 -2: material/ list_tile_control_affinity_test.dart
+[METRIC] script=material/list_tile_control_affinity_test.dart sourceChars=41187 clearMs=101 httpMs=1895 totalMs=1998 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+02:29 +79 -2: material/ list_tile_style_test.dart
+[METRIC] script=material/list_tile_style_test.dart sourceChars=100489 clearMs=103 httpMs=1432 totalMs=1536 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:30 +80 -2: material/ list_tile_title_alignment_test.dart
+[METRIC] script=material/list_tile_title_alignment_test.dart sourceChars=54683 clearMs=59 httpMs=1536 totalMs=1597 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+02:32 +81 -2: material/ magnifier_test.dart
+[METRIC] script=material/magnifier_test.dart sourceChars=40789 clearMs=106 httpMs=1577 totalMs=1684 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:34 +82 -2: material/ material_banner_closed_reason_test.dart
+[METRIC] script=material/material_banner_closed_reason_test.dart sourceChars=56275 clearMs=101 httpMs=1613 totalMs=1715 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:35 +83 -2: material/ material_point_arc_tween_test.dart
+[METRIC] script=material/material_point_arc_tween_test.dart sourceChars=31931 clearMs=53 httpMs=2166 totalMs=2220 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:38 +84 -2: material/ material_rect_arc_tween_test.dart
+[METRIC] script=material/material_rect_arc_tween_test.dart sourceChars=29723 clearMs=105 httpMs=1762 totalMs=1868 status=success httpStatus=200 outputLines=70 frameworkErrors=0
+02:39 +85 -2: material/ material_rect_center_arc_tween_test.dart
+[METRIC] script=material/material_rect_center_arc_tween_test.dart sourceChars=42386 clearMs=76 httpMs=2182 totalMs=2258 status=success httpStatus=200 outputLines=75 frameworkErrors=0
+02:42 +86 -2: material/ material_scroll_behavior_test.dart
+[METRIC] script=material/material_scroll_behavior_test.dart sourceChars=29731 clearMs=92 httpMs=1794 totalMs=1887 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:44 +87 -2: material/ material_state_mixin_test.dart
+[METRIC] script=material/material_state_mixin_test.dart sourceChars=52977 clearMs=95 httpMs=1790 totalMs=1887 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:45 +88 -2: material/ material_state_outline_input_border_test.dart
+[METRIC] script=material/material_state_outline_input_border_test.dart sourceChars=41971 clearMs=123 httpMs=1540 totalMs=1664 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:47 +89 -2: material/ material_state_underline_input_border_test.dart
+[METRIC] script=material/material_state_underline_input_border_test.dart sourceChars=48797 clearMs=125 httpMs=1511 totalMs=1637 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:49 +90 -2: material/ material_tap_target_size_test.dart
+[METRIC] script=material/material_tap_target_size_test.dart sourceChars=79270 clearMs=130 httpMs=1322 totalMs=1453 status=error httpStatus=400 outputLines=30 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/material_tap_target_size_test.dart:
+    Runtime Error: Undefined variable: build
+
+  Stack trace (remote):
+    #0      Environment.get (package:tom_d4rt/src/environment.dart:672:5)
+    #1      D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1228:53)
+    #2      D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #3      SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #4      SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #5      SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #6      _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #7      _rootRun (dart:async/zone_root.dart:35:13)
+    #8      _CustomZone.run (dart:async/zone.dart:726:19)
+    #9      _runZoned (dart:async/zone_api.dart:166:6)
+    #10     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #11     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #12     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #13     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #14     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #15     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #16     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #17     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #18     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #19     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    #20     WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1302:21)
+    #21     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+    #22     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+    #23     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+    #24     SchedulerBinding._handleDrawFrame (package:flutter/src/scheduler/binding.dart:1198:5)
+    #25     _invoke (dart:ui/hooks.dart:356:13)
+    #26     PlatformDispatcher._drawFrame (dart:ui/platform_dispatcher.dart:444:5)
+    #27     _drawFrame (dart:ui/hooks.dart:328:31)
+    
+02:50 +90 -3: material/ material_tap_target_size_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: build
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 670:7      main.<fn>.<fn>
+  
+02:50 +90 -3: material/ material_text_selection_handle_controls_test.dart
+[METRIC] script=material/material_text_selection_handle_controls_test.dart sourceChars=45900 clearMs=89 httpMs=1598 totalMs=1688 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:52 +91 -3: material/ menu_accelerator_callback_binding_test.dart
+[METRIC] script=material/menu_accelerator_callback_binding_test.dart sourceChars=46456 clearMs=59 httpMs=1489 totalMs=1549 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:53 +92 -3: material/ menu_accelerator_label_test.dart
+[METRIC] script=material/menu_accelerator_label_test.dart sourceChars=32377 clearMs=50 httpMs=1584 totalMs=1636 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:55 +93 -3: material/ menu_button_theme_data_test.dart
+[METRIC] script=material/menu_button_theme_data_test.dart sourceChars=45263 clearMs=74 httpMs=1621 totalMs=1697 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:57 +94 -3: material/ menu_button_theme_test.dart
+[METRIC] script=material/menu_button_theme_test.dart sourceChars=46376 clearMs=104 httpMs=1580 totalMs=1685 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:59 +95 -3: material/ mergeable_material_item_test.dart
+[METRIC] script=material/mergeable_material_item_test.dart sourceChars=37204 clearMs=99 httpMs=1590 totalMs=1691 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:00 +96 -3: material/ modal_bottom_sheet_route_test.dart
+[METRIC] script=material/modal_bottom_sheet_route_test.dart sourceChars=39758 clearMs=125 httpMs=1589 totalMs=1715 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+03:02 +97 -3: material/ navigation_destination_label_behavior_test.dart
+[METRIC] script=material/navigation_destination_label_behavior_test.dart sourceChars=57302 clearMs=73 httpMs=1816 totalMs=1891 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+03:04 +98 -3: material/ navigation_drawer_theme_test.dart
+[METRIC] script=material/navigation_drawer_theme_test.dart sourceChars=49466 clearMs=84 httpMs=1870 totalMs=1955 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+03:06 +99 -3: material/ navigation_indicator_test.dart
+[METRIC] script=material/navigation_indicator_test.dart sourceChars=41690 clearMs=87 httpMs=1477 totalMs=1565 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+03:07 +100 -3: material/ navigation_rail_label_type_test.dart
+[METRIC] script=material/navigation_rail_label_type_test.dart sourceChars=63425 clearMs=86 httpMs=1689 totalMs=1776 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+03:09 +101 -3: material/ no_splash_test.dart
+[METRIC] script=material/no_splash_test.dart sourceChars=46800 clearMs=93 httpMs=1335 totalMs=1429 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:11 +102 -3: material/ paddle_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/paddle_range_slider_value_indicator_shape_test.dart sourceChars=34041 clearMs=48 httpMs=1541 totalMs=1590 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+03:12 +103 -3: material/ paddle_slider_value_indicator_shape_test.dart
+[METRIC] script=material/paddle_slider_value_indicator_shape_test.dart sourceChars=37844 clearMs=83 httpMs=1546 totalMs=1630 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+03:14 +104 -3: material/ paginated_data_table_state_test.dart
+[METRIC] script=material/paginated_data_table_state_test.dart sourceChars=47402 clearMs=75 httpMs=1635 totalMs=1712 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:16 +105 -3: material/ persistent_bottom_sheet_controller_test.dart
+[METRIC] script=material/persistent_bottom_sheet_controller_test.dart sourceChars=40587 clearMs=92 httpMs=1543 totalMs=1636 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+03:17 +106 -3: material/ platform_adaptive_icons_test.dart
+[METRIC] script=material/platform_adaptive_icons_test.dart sourceChars=43848 clearMs=88 httpMs=3091 totalMs=3180 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+03:20 +107 -3: material/ popup_menu_button_state_test.dart
+[METRIC] script=material/popup_menu_button_state_test.dart sourceChars=44992 clearMs=100 httpMs=1891 totalMs=1992 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:22 +108 -3: material/ popup_menu_divider_test.dart
+[METRIC] script=material/popup_menu_divider_test.dart sourceChars=61161 clearMs=120 httpMs=1609 totalMs=1730 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+03:24 +109 -3: material/ popup_menu_entry_test.dart
+[METRIC] script=material/popup_menu_entry_test.dart sourceChars=42069 clearMs=95 httpMs=1611 totalMs=1707 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+03:26 +110 -3: material/ popup_menu_item_state_test.dart
+[METRIC] script=material/popup_menu_item_state_test.dart sourceChars=52471 clearMs=90 httpMs=1663 totalMs=1754 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+03:28 +111 -3: material/ popup_menu_item_test.dart
+[METRIC] script=material/popup_menu_item_test.dart sourceChars=56032 clearMs=92 httpMs=1783 totalMs=1876 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+03:29 +112 -3: material/ popup_menu_position_test.dart
+[METRIC] script=material/popup_menu_position_test.dart sourceChars=99210 clearMs=97 httpMs=1683 totalMs=1782 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+03:31 +113 -3: material/ predictive_back_fullscreen_page_transitions_builder_test.dart
+[METRIC] script=material/predictive_back_fullscreen_page_transitions_builder_test.dart sourceChars=58587 clearMs=126 httpMs=1652 totalMs=1779 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+03:33 +114 -3: material/ progress_indicator_test.dart
+[METRIC] script=material/progress_indicator_test.dart sourceChars=57863 clearMs=85 httpMs=1486 totalMs=1573 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:35 +115 -3: material/ raw_chip_test.dart
+[METRIC] script=material/raw_chip_test.dart sourceChars=54007 clearMs=73 httpMs=1533 totalMs=1608 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+03:36 +116 -3: material/ rectangular_range_slider_track_shape_test.dart
+[METRIC] script=material/rectangular_range_slider_track_shape_test.dart sourceChars=71326 clearMs=77 httpMs=1499 totalMs=1577 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:38 +117 -3: material/ rectangular_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rectangular_range_slider_value_indicator_shape_test.dart sourceChars=72484 clearMs=55 httpMs=1499 totalMs=1555 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:39 +118 -3: material/ rectangular_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rectangular_slider_value_indicator_shape_test.dart sourceChars=36262 clearMs=54 httpMs=1583 totalMs=1638 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+03:41 +119 -3: material/ refresh_indicator_state_test.dart
+[METRIC] script=material/refresh_indicator_state_test.dart sourceChars=37674 clearMs=87 httpMs=1591 totalMs=1679 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:43 +120 -3: material/ refresh_indicator_status_test.dart
+[METRIC] script=material/refresh_indicator_status_test.dart sourceChars=20458 clearMs=75 httpMs=1367 totalMs=1443 status=success httpStatus=200 outputLines=109 frameworkErrors=0
+03:44 +121 -3: material/ refresh_indicator_trigger_mode_test.dart
+[METRIC] script=material/refresh_indicator_trigger_mode_test.dart sourceChars=22609 clearMs=105 httpMs=1469 totalMs=1575 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+03:46 +122 -3: material/ refresh_progress_indicator_test.dart
+[METRIC] script=material/refresh_progress_indicator_test.dart sourceChars=42929 clearMs=40 httpMs=1669 totalMs=1710 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+03:47 +123 -3: material/ restorable_time_of_day_test.dart
+[METRIC] script=material/restorable_time_of_day_test.dart sourceChars=45042 clearMs=74 httpMs=1709 totalMs=1784 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:49 +124 -3: material/ round_range_slider_thumb_shape_test.dart
+[METRIC] script=material/round_range_slider_thumb_shape_test.dart sourceChars=40361 clearMs=85 httpMs=1624 totalMs=1710 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:51 +125 -3: material/ round_range_slider_tick_mark_shape_test.dart
+[METRIC] script=material/round_range_slider_tick_mark_shape_test.dart sourceChars=40857 clearMs=76 httpMs=1602 totalMs=1679 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:53 +126 -3: material/ rounded_rect_range_slider_track_shape_test.dart
+[METRIC] script=material/rounded_rect_range_slider_track_shape_test.dart sourceChars=40682 clearMs=73 httpMs=1596 totalMs=1673 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:54 +127 -3: material/ rounded_rect_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rounded_rect_range_slider_value_indicator_shape_test.dart sourceChars=40071 clearMs=74 httpMs=1574 totalMs=1649 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+03:56 +128 -3: material/ rounded_rect_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rounded_rect_slider_value_indicator_shape_test.dart sourceChars=40041 clearMs=110 httpMs=1624 totalMs=1735 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:58 +129 -3: material/ scaffold_geometry_test.dart
+[METRIC] script=material/scaffold_geometry_test.dart sourceChars=44554 clearMs=78 httpMs=1523 totalMs=1603 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+03:59 +130 -3: material/ scaffold_prelayout_geometry_test.dart
+[METRIC] script=material/scaffold_prelayout_geometry_test.dart sourceChars=53268 clearMs=54 httpMs=1671 totalMs=1726 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:01 +131 -3: material/ script_category_test.dart
+[METRIC] script=material/script_category_test.dart sourceChars=60434 clearMs=79 httpMs=1766 totalMs=1846 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+04:03 +132 -3: material/ scrollbar_theme_data_test.dart
+[METRIC] script=material/scrollbar_theme_data_test.dart sourceChars=46239 clearMs=70 httpMs=3066 totalMs=3138 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+04:06 +133 -3: material/ search_controller_test.dart
+[METRIC] script=material/search_controller_test.dart sourceChars=62399 clearMs=90 httpMs=1673 totalMs=1764 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:08 +134 -3: material/ search_delegate_test.dart
+[METRIC] script=material/search_delegate_test.dart sourceChars=49716 clearMs=92 httpMs=1532 totalMs=1625 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+04:09 +135 -3: material/ segmented_button_state_test.dart
+[METRIC] script=material/segmented_button_state_test.dart sourceChars=47355 clearMs=91 httpMs=1550 totalMs=1642 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:11 +136 -3: material/ selection_area_state_test.dart
+[METRIC] script=material/selection_area_state_test.dart sourceChars=29297 clearMs=69 httpMs=1688 totalMs=1759 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:13 +137 -3: material/ shape_border_tween_test.dart
+[METRIC] script=material/shape_border_tween_test.dart sourceChars=36948 clearMs=92 httpMs=1589 totalMs=1682 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+04:14 +138 -3: material/ show_value_indicator_test.dart
+[METRIC] script=material/show_value_indicator_test.dart sourceChars=46253 clearMs=100 httpMs=1495 totalMs=1596 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+04:16 +139 -3: material/ simple_dialog_option_test.dart
+[METRIC] script=material/simple_dialog_option_test.dart sourceChars=37420 clearMs=89 httpMs=1454 totalMs=1545 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+04:18 +140 -3: material/ slider_interaction_test.dart
+[METRIC] script=material/slider_interaction_test.dart sourceChars=47295 clearMs=97 httpMs=1570 totalMs=1668 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+04:19 +141 -3: material/ snack_bar_theme_data_test.dart
+[METRIC] script=material/snack_bar_theme_data_test.dart sourceChars=49126 clearMs=68 httpMs=1891 totalMs=1960 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+04:21 +142 -3: material/ spell_check_suggestions_toolbar_layout_delegate_test.dart
+[METRIC] script=material/spell_check_suggestions_toolbar_layout_delegate_test.dart sourceChars=69093 clearMs=83 httpMs=1475 totalMs=1560 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:23 +143 -3: material/ standard_fab_location_test.dart
+[METRIC] script=material/standard_fab_location_test.dart sourceChars=54228 clearMs=88 httpMs=1824 totalMs=1913 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+04:25 +144 -3: material/ step_style_test.dart
+[METRIC] script=material/step_style_test.dart sourceChars=40444 clearMs=109 httpMs=1600 totalMs=1710 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:26 +145 -3: material/ stretch_mode_test.dart
+[METRIC] script=material/stretch_mode_test.dart sourceChars=48930 clearMs=79 httpMs=1740 totalMs=1820 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+04:28 +146 -3: material/ tab_alignment_test.dart
+[METRIC] script=material/tab_alignment_test.dart sourceChars=43873 clearMs=80 httpMs=1629 totalMs=1710 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+04:30 +147 -3: material/ tab_indicator_animation_test.dart
+[METRIC] script=material/tab_indicator_animation_test.dart sourceChars=43406 clearMs=84 httpMs=1536 totalMs=1622 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+04:32 +148 -3: material/ tab_page_selector_indicator_test.dart
+[METRIC] script=material/tab_page_selector_indicator_test.dart sourceChars=46043 clearMs=87 httpMs=1434 totalMs=1522 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:33 +149 -3: material/ tab_page_selector_test.dart
+[METRIC] script=material/tab_page_selector_test.dart sourceChars=37715 clearMs=85 httpMs=1571 totalMs=1657 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+04:35 +150 -3: material/ table_row_ink_well_test.dart
+[METRIC] script=material/table_row_ink_well_test.dart sourceChars=55303 clearMs=95 httpMs=1471 totalMs=1568 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:36 +151 -3: material/ tappable_chip_attributes_test.dart
+[METRIC] script=material/tappable_chip_attributes_test.dart sourceChars=68261 clearMs=86 httpMs=1537 totalMs=1624 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:38 +152 -3: material/ text_magnifier_test.dart
+[METRIC] script=material/text_magnifier_test.dart sourceChars=48999 clearMs=61 httpMs=1391 totalMs=1453 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:39 +153 -3: material/ theme_data_tween_test.dart
+[METRIC] script=material/theme_data_tween_test.dart sourceChars=48658 clearMs=72 httpMs=2074 totalMs=2148 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+04:42 +154 -3: material/ theme_extension_test.dart
+[METRIC] script=material/theme_extension_test.dart sourceChars=66040 clearMs=84 httpMs=2059 totalMs=2145 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+04:44 +155 -3: material/ theme_mode_test.dart
+[METRIC] script=material/theme_mode_test.dart sourceChars=61729 clearMs=130 httpMs=1887 totalMs=2019 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+04:46 +156 -3: material/ thumb_test.dart
+[METRIC] script=material/thumb_test.dart sourceChars=79828 clearMs=106 httpMs=1584 totalMs=1692 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+04:47 +157 -3: material/ time_of_day_format_test.dart
+[METRIC] script=material/time_of_day_format_test.dart sourceChars=69768 clearMs=69 httpMs=3158 totalMs=3228 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+04:51 +158 -3: material/ time_picker_entry_mode_test.dart
+[METRIC] script=material/time_picker_entry_mode_test.dart sourceChars=75555 clearMs=92 httpMs=1626 totalMs=1720 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+04:52 +159 -3: material/ toggle_buttons_theme_data_test.dart
+[METRIC] script=material/toggle_buttons_theme_data_test.dart sourceChars=77068 clearMs=74 httpMs=2469 totalMs=2544 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+04:55 +160 -3: material/ toggle_buttons_theme_test.dart
+[METRIC] script=material/toggle_buttons_theme_test.dart sourceChars=59425 clearMs=96 httpMs=1733 totalMs=1829 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+04:57 +161 -3: material/ tooltip_state_test.dart
+[METRIC] script=material/tooltip_state_test.dart sourceChars=103422 clearMs=76 httpMs=1759 totalMs=1836 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+04:59 +162 -3: material/ underline_tab_indicator_test.dart
+[METRIC] script=material/underline_tab_indicator_test.dart sourceChars=41656 clearMs=88 httpMs=1637 totalMs=1726 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:00 +163 -3: material/ vertical_divider_test.dart
+[METRIC] script=material/vertical_divider_test.dart sourceChars=35951 clearMs=79 httpMs=1630 totalMs=1710 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+05:02 +164 -3: material/ widget_state_input_border_test.dart
+[METRIC] script=material/widget_state_input_border_test.dart sourceChars=47560 clearMs=76 httpMs=1554 totalMs=1632 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+05:04 +165 -3: painting/ accumulator_test.dart
+[METRIC] script=painting/accumulator_test.dart sourceChars=52985 clearMs=90 httpMs=1497 totalMs=1588 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+05:05 +166 -3: painting/ asset_bundle_image_key_test.dart
+[METRIC] script=painting/asset_bundle_image_key_test.dart sourceChars=57988 clearMs=50 httpMs=1683 totalMs=1734 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+05:07 +167 -3: painting/ asset_bundle_image_provider_test.dart
+[METRIC] script=painting/asset_bundle_image_provider_test.dart sourceChars=68556 clearMs=81 httpMs=1739 totalMs=1822 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:09 +168 -3: painting/ axis_direction_test.dart
+[METRIC] script=painting/axis_direction_test.dart sourceChars=82461 clearMs=37 httpMs=2329 totalMs=2368 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+05:11 +169 -3: painting/ axis_test.dart
+[METRIC] script=painting/axis_test.dart sourceChars=62155 clearMs=105 httpMs=1664 totalMs=1770 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:13 +170 -3: painting/ border_style_test.dart
+[METRIC] script=painting/border_style_test.dart sourceChars=39104 clearMs=82 httpMs=1612 totalMs=1695 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+05:15 +171 -3: painting/ box_fit_test.dart
+[METRIC] script=painting/box_fit_test.dart sourceChars=43298 clearMs=74 httpMs=1745 totalMs=1820 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+05:17 +172 -3: painting/ box_shape_test.dart
+[METRIC] script=painting/box_shape_test.dart sourceChars=46234 clearMs=124 httpMs=1611 totalMs=1737 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+05:18 +173 -3: painting/ class_test.dart
+[METRIC] script=painting/class_test.dart sourceChars=32876 clearMs=64 httpMs=1461 totalMs=1528 status=success httpStatus=200 outputLines=116 frameworkErrors=0
+05:20 +174 -3: painting/ clip_context_test.dart
+[METRIC] script=painting/clip_context_test.dart sourceChars=43581 clearMs=98 httpMs=1639 totalMs=1738 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+05:22 +175 -3: painting/ color_property_test.dart
+[METRIC] script=painting/color_property_test.dart sourceChars=43696 clearMs=75 httpMs=1877 totalMs=1954 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+05:23 +176 -3: painting/ fitted_sizes_test.dart
+[METRIC] script=painting/fitted_sizes_test.dart sourceChars=48901 clearMs=58 httpMs=2030 totalMs=2089 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+05:26 +177 -3: painting/ flutter_logo_style_test.dart
+[METRIC] script=painting/flutter_logo_style_test.dart sourceChars=41610 clearMs=63 httpMs=25001 totalMs=25076 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+05:51 +177 -4: painting/ flutter_logo_style_test.dart [E]
+  Bad state: Transport failure while running "painting/flutter_logo_style_test.dart"
+  Operation: POST /build?filename=painting%2Fflutter_logo_style_test.dart
+  Error: TimeoutException after 0:00:25.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/send_test_runner.dart:519:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_2_test.dart:1273:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: still running (no exit code observed).
+  
+  Recent app /logs tail:
+    [14:30:16] [script] === Section 3: applyBoxFit cards ===
+    [14:30:16] [script]   applyBoxFit(fill, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 200.0)
+    [14:30:16] [script]   applyBoxFit(contain, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [14:30:16] [script]   applyBoxFit(cover, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(300.0, 300.0) destination=Size(200.0, 200.0)
+    [14:30:16] [script]   applyBoxFit(fitWidth, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [14:30:16] [script]   applyBoxFit(fitHeight, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(300.0, 300.0) destination=Size(200.0, 200.0)
+    [14:30:16] [script]   applyBoxFit(none, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(200.0, 200.0) destination=Size(200.0, 200.0)
+    [14:30:16] [script]   applyBoxFit(scaleDown, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [14:30:16] [script]   applyBoxFit(fill, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 200.0)
+    [14:30:16] [script]   applyBoxFit(contain, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [14:30:16] [script] === Section 4: source-vs-destination grid ===
+    [14:30:16] [script] === Section 5: FittedBox integration ===
+    [14:30:16] [script] === Section 6: cover deep dive ===
+    [14:30:16] [script]   cover deep dive label=wide 4:1 input=Size(400.0, 100.0) -> source=Size(100.0, 100.0) destination=Size(150.0, 150.0)
+    [14:30:16] [script]   cover deep dive label=square 1:1 input=Size(200.0, 200.0) -> source=Size(200.0, 200.0) destination=Size(150.0, 150.0)
+    [14:30:16] [script]   cover deep dive label=tall 1:4 input=Size(80.0, 320.0) -> source=Size(80.0, 80.0) destination=Size(150.0, 150.0)
+    [14:30:16] [script] === Section 7: scaleDown vs contain ===
+    [14:30:16] [script]   scaleDown vs contain (big input (input > output)): same=true  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [14:30:16] [script]   scaleDown vs contain (small input (fits already)): same=false  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [14:30:16] [script]   scaleDown vs contain (mixed (input wider only)): same=true  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [14:30:16] [script] === Section 8: photo carousel mock ===
+    [14:30:16] [script]   Carousel BoxFit.fill -> source=Size(160.0, 90.0) destination=Size(140.0, 105.0)
+    [14:30:16] [script]   Carousel BoxFit.contain -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [14:30:16] [script]   Carousel BoxFit.cover -> source=Size(120.0, 90.0) destination=Size(140.0, 105.0)
+    [14:30:16] [script]   Carousel BoxFit.fitWidth -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [14:30:16] [script]   Carousel BoxFit.fitHeight -> source=Size(120.0, 90.0) destination=Size(140.0, 105.0)
+    [14:30:16] [script]   Carousel BoxFit.none -> source=Size(140.0, 90.0) destination=Size(140.0, 90.0)
+    [14:30:16] [script]   Carousel BoxFit.scaleDown -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [14:30:16] [script] === Section 9: footgun cards ===
+    [14:30:16] [script]   negative input -> Instance of 'FittedSizes'
+    [14:30:16] [script]   zero input -> Instance of 'FittedSizes'
+    [14:30:16] [script]   nan input -> Instance of 'FittedSizes'
+    [14:30:16] [script]   identity check (== on equal Sizes): false
+    [14:30:16] [script] === Section 10: recap ===
+    [14:30:16] [script] === Final assembly ===
+    [14:30:17] Build completed: Scaffold
+    [14:30:17] GET /clear
+    [14:30:17] POST /build
+    [14:30:17] Building widget [painting/flutter_logo_style_test.dart] (41610 chars)
+    [14:30:42] GET /logs
+  
+  Captured app STDOUT tail:
+    [D4rtApp] [script]   strokeAlign: 0.0
+    [D4rtApp] [script] Uniform Border: Border.all(BorderSide(color: MaterialColor(primary value: Color(alpha: 1.0000, red: 0.6118, green: 0.1529, blue: 0.6902, colorSpace: ColorSpace.sRGB)), width: 3.0))
+    [D4rtApp] [script] Directional Border created with different sides
+    [D4rtApp] [script] BorderRadius with mixed corners: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.elliptical(16.0, 8.0), bottomRight: Radius.circular(8.0))
+    [D4rtApp] [script] 
+    --- Section 7: EdgeInsets and Alignment ---
+    [D4rtApp] [script] EdgeInsets.all: EdgeInsets.all(16.0)
+    [D4rtApp] [script] EdgeInsets.symmetric: EdgeInsets(24.0, 12.0, 24.0, 12.0)
+    [D4rtApp] [script] EdgeInsets.only: EdgeInsets(8.0, 16.0, 8.0, 4.0)
+    [D4rtApp] [script] EdgeInsets.fromLTRB: EdgeInsets(10.0, 20.0, 30.0, 40.0)
+    [D4rtApp] [script] Collapsed size: Size(40.0, 60.0)
+    [D4rtApp] [script] Flipped: EdgeInsets(30.0, 40.0, 10.0, 20.0)
+    [D4rtApp] [script] 
+    Alignment values:
+    [D4rtApp] [script]   topLeft: Alignment.topLeft
+    [D4rtApp] [script]   topCenter: Alignment.topCenter
+    [D4rtApp] [script]   center: Alignment.center
+    [D4rtApp] [script]   bottomRight: Alignment.bottomRight
+    [D4rtApp] [script] Custom alignment: Alignment(0.3, -0.8)
+    [D4rtApp] [script] FractionalOffset center: FractionalOffset(0.5, 0.5)
+    [D4rtApp] [script] 
+    --- Section 8: TextStyle Comprehensive ---
+    [D4rtApp] [script] Comprehensive TextStyle created
+    [D4rtApp] [script]   fontSize: 18.0
+    [D4rtApp] [script]   fontWeight: FontWeight.w600
+    [D4rtApp] [script]   letterSpacing: 0.5
+    [D4rtApp] [script]   height: 1.5
+    [D4rtApp] [script] Decorated TextStyle with wavy underline+overline
+    [D4rtApp] [script] TextStyle with multiple shadows
+    [D4rtApp] [script] Copied and modified style: fontSize=20.0
+    [D4rtApp] [script] Merged style: letterSpacing=1.0
+    [D4rtApp] [script] 
+    --- Section 9: StrutStyle ---
+    [D4rtApp] [script] StrutStyle: height=1.8, forceStrutHeight=true
+    [D4rtApp] [script] StrutStyle from TextStyle: fontSize=18.0
+    [D4rtApp] [script] 
+    === Building Visual Demo ===
+    TextPainter metrics:
+      size: Size(280.0, 48.0)
+      width: 280.0
+      height: 48.0
+      didExceedMaxLines: true
+      minIntrinsicWidth: 79.1533203125
+      maxIntrinsicWidth: 1162.0888671875
+    PaintDemoCustomPainter.paint called with size: Size(1870.0, 150.0)
+    CanvasOperationsPainter.paint - demonstrating canvas methods
+    Canvas saved
+    Canvas restored
+    GradientPainter.paint called
+    GradientPainter.paint called
+    GradientPainter.paint called
+    [D4rtApp] Build completed: SingleChildScrollView
+    [D4rtApp] GET /clear
+    [D4rtApp] POST /build
+    [D4rtApp] Building widget [painting/clip_context_test.dart] (43581 chars)
+    [D4rtApp] [script] ClipContext deep demo test executing
+    [D4rtApp] [script] Testing clipping paths and rects functionality
+    [D4rtApp] [script] Building ClipContext overview
+    [D4rtApp] [script] Building ClipRect section
+    [D4rtApp] [script] Building ClipRect demo: Hard Edge Clipping with Clip.hardEdge
+    [D4rtApp] [script] Building ClipRect demo: Anti-Alias Clipping with Clip.antiAlias
+    [D4rtApp] [script] Building ClipRect demo: Anti-Alias With Save Layer with Clip.antiAliasWithSaveLayer
+    [D4rtApp] [script] Building ClipRect demo: No Clipping with Clip.none
+    [D4rtApp] [script] Building ClipPath section
+    [D4rtApp] [script] Building ClipPath demo: Triangle Clip
+    [D4rtApp] [script] Building ClipPath demo: Star Clip
+    [D4rtApp] [script] Building ClipPath demo: Hexagon Clip
+    [D4rtApp] [script] Building ClipPath demo: Wave Clip
+    [D4rtApp] [script] Building ClipRRect section
+    [D4rtApp] [script] Building ClipRRect demo: Uniform Radius
+    [D4rtApp] [script] Building ClipRRect demo: Top Corners Only
+    [D4rtApp] [script] Building ClipRRect demo: Diagonal Corners
+    [D4rtApp] [script] Building ClipRRect demo: Elliptical Radius
+    [D4rtApp] [script] Building ClipRRect demo: Stadium Shape
+    [D4rtApp] [script] Building ClipRRect demo: Mixed Corners
+    [D4rtApp] [script] Building ClipOval section
+    [D4rtApp] [script] Building ClipOval demo: Perfect Circle
+    [D4rtApp] [script] Building ClipOval demo: Wide Ellipse
+    [D4rtApp] [script] Building ClipOval demo: Tall Ellipse
+    [D4rtApp] [script] Building ClipOval demo: Small Circle
+    [D4rtApp] [script] Building ClipOval demo: Extreme Wide
+    [D4rtApp] [script] Building push/pop layer demo
+    [D4rtApp] [script] Building layer stack visualization
+    [D4rtApp] [script] Building layer explanation
+    [D4rtApp] [script] Building nested clip demo
+    [D4rtApp] [script] Building clip behaviors section
+    [D4rtApp] [script] Building clip behavior card: none
+    [D4rtApp] [script] Building clip behavior card: hardEdge
+    [D4rtApp] [script] Building clip behavior card: antiAlias
+    [D4rtApp] [script] Building clip behavior card: antiAliasWithSaveLayer
+    [D4rtApp] [script] Building clip usage table
+    [D4rtApp] [script] Building clip methods reference
+    [D4rtApp] Build completed: SingleChildScrollView
+    [D4rtApp] GET /clear
+    [D4rtApp] POST /build
+    [D4rtApp] Building widget [painting/color_property_test.dart] (43696 chars)
+    [D4rtApp] [script] ColorProperty Deep Demo executing
+    [D4rtApp] [script] === Section 1: Conceptual Introduction ===
+    [D4rtApp] [script] Created intro card
+    [D4rtApp] [script] === Section 2: Basic Construction ===
+    [D4rtApp] [script] Basic: name=primary value=MaterialColor(primary value: Color(alpha: 1.0000, red: 0.1294, green: 0.5882, blue: 0.9529, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Basic: name=accent value=MaterialColor(primary value: Color(alpha: 1.0000, red: 1.0000, green: 0.5961, blue: 0.0000, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Basic: name=background value=Color(alpha: 1.0000, red: 0.9608, green: 0.9608, blue: 0.9608, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Basic: name=overlay value=Color(alpha: 0.5020, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Basic: name=clear value=Color(alpha: 0.0000, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Basic: name=brand value=Color(alpha: 1.0000, red: 0.4157, green: 0.1059, blue: 0.6039, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Created 6 basic property cards
+    [D4rtApp] [script] === Section 3: ifNull Fallback ===
+    [D4rtApp] [script] ifNull tint: name=tint value=null
+    [D4rtApp] [script] ifNull shadow: shadow
+    [D4rtApp] [script] ifNull cursor: cursor
+    [D4rtApp] [script] Created ifNull section
+    [D4rtApp] [script] === Section 4: defaultValue Collapsing ===
+    [D4rtApp] [script] defaultProp value=MaterialColor(primary value: Color(alpha: 1.0000, red: 0.9569, green: 0.2627, blue: 0.2118, colorSpace: ColorSpace.sRGB)) matches default
+    [D4rtApp] [script] nonDefaultProp value=MaterialColor(primary value: Color(alpha: 1.0000, red: 0.1294, green: 0.5882, blue: 0.9529, colorSpace: ColorSpace.sRGB)) differs from default
+    [D4rtApp] [script] Created defaultValue section
+    [D4rtApp] [script] === Section 5: DiagnosticLevel Variants ===
+    [D4rtApp] [script] Level hidden: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Level fine: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Level debug: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Level info: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Level warning: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Level error: tint -> MaterialColor(primary value: Color(alpha: 1.0000, red: 0.4039, green: 0.2275, blue: 0.7176, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Created 6 level cards
+    [D4rtApp] [script] === Section 6: Swatch Grid ===
+    [D4rtApp] [script] Swatch red100 -> Color(alpha: 1.0000, red: 1.0000, green: 0.8039, blue: 0.8235, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch red500 -> Color(alpha: 1.0000, red: 0.9569, green: 0.2627, blue: 0.2118, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch red900 -> Color(alpha: 1.0000, red: 0.7176, green: 0.1098, blue: 0.1098, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch blue100 -> Color(alpha: 1.0000, red: 0.7333, green: 0.8706, blue: 0.9843, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch blue500 -> Color(alpha: 1.0000, red: 0.1294, green: 0.5882, blue: 0.9529, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch blue900 -> Color(alpha: 1.0000, red: 0.0510, green: 0.2784, blue: 0.6314, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch green100 -> Color(alpha: 1.0000, red: 0.7843, green: 0.9020, blue: 0.7882, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch green500 -> Color(alpha: 1.0000, red: 0.2980, green: 0.6863, blue: 0.3137, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch green900 -> Color(alpha: 1.0000, red: 0.1059, green: 0.3686, blue: 0.1255, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch amber300 -> Color(alpha: 1.0000, red: 1.0000, green: 0.8353, blue: 0.3098, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch purple700 -> Color(alpha: 1.0000, red: 0.4824, green: 0.1216, blue: 0.6353, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Swatch teal500 -> Color(alpha: 1.0000, red: 0.0000, green: 0.5882, blue: 0.5333, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Created 12 swatch cells
+    [D4rtApp] [script] === Section 7: Anatomy Diagram ===
+    [D4rtApp] [script] Anatomy property name=background value=Color(alpha: 1.0000, red: 0.2588, green: 0.6471, blue: 0.9608, colorSpace: ColorSpace.sRGB)
+    [D4rtApp] [script] Created anatomy diagram
+    [D4rtApp] [script] === Section 8: Use Cases ===
+    [D4rtApp] [script] Created use-cases panel
+    [D4rtApp] [script] === Section 9: Comparison ===
+    [D4rtApp] [script] Generic: background value=MaterialColor(primary value: Color(alpha: 1.0000, red: 0.1294, green: 0.5882, blue: 0.9529, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Specialised: background value=MaterialColor(primary value: Color(alpha: 1.0000, red: 0.1294, green: 0.5882, blue: 0.9529, colorSpace: ColorSpace.sRGB))
+    [D4rtApp] [script] Created comparison section
+    [D4rtApp] [script] === Section 10: Footguns ===
+    [D4rtApp] [script] Created footguns panel
+    [D4rtApp] [script] === Section 11: Summary ===
+    [D4rtApp] [script] Created summary
+    [D4rtApp] [script] ColorProperty Deep Demo completed successfully
+    [D4rtApp] Build completed: Scaffold
+    [D4rtApp] GET /clear
+    [D4rtApp] POST /build
+    [D4rtApp] Building widget [painting/fitted_sizes_test.dart] (48901 chars)
+    [D4rtApp] [script] FittedSizes Deep Demo executing
+    [D4rtApp] [script] === Section 1: Title banner ===
+    [D4rtApp] [script] === Section 2: Anatomy diagram ===
+    [D4rtApp] [script]   Anatomy: input=Size(200.0, 100.0) output=Size(100.0, 100.0) -> Instance of 'FittedSizes'
+    [D4rtApp] [script] === Section 3: applyBoxFit cards ===
+    [D4rtApp] [script]   applyBoxFit(fill, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 200.0)
+    [D4rtApp] [script]   applyBoxFit(contain, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [D4rtApp] [script]   applyBoxFit(cover, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(300.0, 300.0) destination=Size(200.0, 200.0)
+    [D4rtApp] [script]   applyBoxFit(fitWidth, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [D4rtApp] [script]   applyBoxFit(fitHeight, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(300.0, 300.0) destination=Size(200.0, 200.0)
+    [D4rtApp] [script]   applyBoxFit(none, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(200.0, 200.0) destination=Size(200.0, 200.0)
+    [D4rtApp] [script]   applyBoxFit(scaleDown, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [D4rtApp] [script]   applyBoxFit(fill, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 200.0)
+    [D4rtApp] [script]   applyBoxFit(contain, Size(400.0, 300.0), Size(200.0, 200.0)) -> source=Size(400.0, 300.0) destination=Size(200.0, 150.0)
+    [D4rtApp] [script] === Section 4: source-vs-destination grid ===
+    [D4rtApp] [script] === Section 5: FittedBox integration ===
+    [D4rtApp] [script] === Section 6: cover deep dive ===
+    [D4rtApp] [script]   cover deep dive label=wide 4:1 input=Size(400.0, 100.0) -> source=Size(100.0, 100.0) destination=Size(150.0, 150.0)
+    [D4rtApp] [script]   cover deep dive label=square 1:1 input=Size(200.0, 200.0) -> source=Size(200.0, 200.0) destination=Size(150.0, 150.0)
+    [D4rtApp] [script]   cover deep dive label=tall 1:4 input=Size(80.0, 320.0) -> source=Size(80.0, 80.0) destination=Size(150.0, 150.0)
+    [D4rtApp] [script] === Section 7: scaleDown vs contain ===
+    [D4rtApp] [script]   scaleDown vs contain (big input (input > output)): same=true  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [D4rtApp] [script]   scaleDown vs contain (small input (fits already)): same=false  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [D4rtApp] [script]   scaleDown vs contain (mixed (input wider only)): same=true  contain=Instance of 'FittedSizes'  scaleDown=Instance of 'FittedSizes'
+    [D4rtApp] [script] === Section 8: photo carousel mock ===
+    [D4rtApp] [script]   Carousel BoxFit.fill -> source=Size(160.0, 90.0) destination=Size(140.0, 105.0)
+    [D4rtApp] [script]   Carousel BoxFit.contain -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [D4rtApp] [script]   Carousel BoxFit.cover -> source=Size(120.0, 90.0) destination=Size(140.0, 105.0)
+    [D4rtApp] [script]   Carousel BoxFit.fitWidth -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [D4rtApp] [script]   Carousel BoxFit.fitHeight -> source=Size(120.0, 90.0) destination=Size(140.0, 105.0)
+    [D4rtApp] [script]   Carousel BoxFit.none -> source=Size(140.0, 90.0) destination=Size(140.0, 90.0)
+    [D4rtApp] [script]   Carousel BoxFit.scaleDown -> source=Size(160.0, 90.0) destination=Size(140.0, 78.8)
+    [D4rtApp] [script] === Section 9: footgun cards ===
+    [D4rtApp] [script]   negative input -> Instance of 'FittedSizes'
+    [D4rtApp] [script]   zero input -> Instance of 'FittedSizes'
+    [D4rtApp] [script]   nan input -> Instance of 'FittedSizes'
+    [D4rtApp] [script]   identity check (== on equal Sizes): false
+    [D4rtApp] [script] === Section 10: recap ===
+    [D4rtApp] [script] === Final assembly ===
+    [D4rtApp] Build completed: Scaffold
+    [D4rtApp] GET /clear
+    [D4rtApp] POST /build
+    [D4rtApp] Building widget [painting/flutter_logo_style_test.dart] (41610 chars)
+    [D4rtApp] GET /logs
+  
+  test/send_test_runner.dart 555:7  SendTestRunner.send
+  
+05:51 +177 -4: painting/ image_repeat_test.dart
+[recycle] killing wedged test app (pid=2803570)
+[recycle] starting fresh test app
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=painting/image_repeat_test.dart sourceChars=40719 clearMs=84 httpMs=2332 totalMs=13600 status=success httpStatus=200 outputLines=76 frameworkErrors=0
+06:04 +178 -4: painting/ image_size_info_test.dart
+[METRIC] script=painting/image_size_info_test.dart sourceChars=44039 clearMs=78 httpMs=1800 totalMs=1880 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+06:06 +179 -4: painting/ image_stream_completer_handle_test.dart
+[METRIC] script=painting/image_stream_completer_handle_test.dart sourceChars=51980 clearMs=130 httpMs=1945 totalMs=2076 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+06:08 +180 -4: painting/ inline_span_semantics_information_test.dart
+[METRIC] script=painting/inline_span_semantics_information_test.dart sourceChars=43300 clearMs=78 httpMs=1905 totalMs=1984 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+06:10 +181 -4: painting/ inline_span_test.dart
+[METRIC] script=painting/inline_span_test.dart sourceChars=44887 clearMs=124 httpMs=1834 totalMs=1960 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+06:12 +182 -4: painting/ matrix_utils_test.dart
+[METRIC] script=painting/matrix_utils_test.dart sourceChars=55886 clearMs=53 httpMs=2352 totalMs=2406 status=success httpStatus=200 outputLines=174 frameworkErrors=0
+06:15 +183 -4: painting/ multi_frame_image_stream_completer_test.dart
+[METRIC] script=painting/multi_frame_image_stream_completer_test.dart sourceChars=35866 clearMs=97 httpMs=1782 totalMs=1881 status=success httpStatus=200 outputLines=68 frameworkErrors=0
+06:16 +184 -4: painting/ network_image_load_exception_test.dart
+[METRIC] script=painting/network_image_load_exception_test.dart sourceChars=51833 clearMs=87 httpMs=1790 totalMs=1879 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+06:18 +185 -4: painting/ one_frame_image_stream_completer_test.dart
+[METRIC] script=painting/one_frame_image_stream_completer_test.dart sourceChars=36482 clearMs=63 httpMs=1786 totalMs=1851 status=success httpStatus=200 outputLines=134 frameworkErrors=0
+06:20 +186 -4: painting/ painting_binding_test.dart
+[METRIC] script=painting/painting_binding_test.dart sourceChars=45148 clearMs=66 httpMs=1748 totalMs=1815 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+06:22 +187 -4: painting/ render_comparison_test.dart
+[METRIC] script=painting/render_comparison_test.dart sourceChars=46847 clearMs=108 httpMs=1818 totalMs=1928 status=success httpStatus=200 outputLines=77 frameworkErrors=0
+06:24 +188 -4: painting/ resize_image_policy_test.dart
+[METRIC] script=painting/resize_image_policy_test.dart sourceChars=43396 clearMs=39 httpMs=1687 totalMs=1727 status=success httpStatus=200 outputLines=67 frameworkErrors=0
+06:26 +189 -4: painting/ shader_warm_up_test.dart
+[METRIC] script=painting/shader_warm_up_test.dart sourceChars=56208 clearMs=96 httpMs=1722 totalMs=1819 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+06:28 +190 -4: painting/ text_overflow_test.dart
+[METRIC] script=painting/text_overflow_test.dart sourceChars=40558 clearMs=84 httpMs=1658 totalMs=1743 status=success httpStatus=200 outputLines=69 frameworkErrors=0
+06:29 +191 -4: painting/ text_width_basis_test.dart
+[METRIC] script=painting/text_width_basis_test.dart sourceChars=43749 clearMs=95 httpMs=1593 totalMs=1689 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+06:31 +192 -4: painting/ transform_property_test.dart
+[METRIC] script=painting/transform_property_test.dart sourceChars=42626 clearMs=110 httpMs=2107 totalMs=2218 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+06:33 +193 -4: painting/ vertical_direction_test.dart
+[METRIC] script=painting/vertical_direction_test.dart sourceChars=43651 clearMs=82 httpMs=1631 totalMs=1715 status=success httpStatus=200 outputLines=52 frameworkErrors=0
+06:35 +194 -4: painting/ web_html_element_strategy_test.dart
+[METRIC] script=painting/web_html_element_strategy_test.dart sourceChars=42858 clearMs=88 httpMs=1647 totalMs=1736 status=success httpStatus=200 outputLines=52 frameworkErrors=0
+06:37 +195 -4: painting/ web_image_info_test.dart
+[METRIC] script=painting/web_image_info_test.dart sourceChars=36626 clearMs=84 httpMs=1582 totalMs=1667 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+06:38 +196 -4: physics/ bounded_friction_simulation_test.dart
+[METRIC] script=physics/bounded_friction_simulation_test.dart sourceChars=69562 clearMs=90 httpMs=2303 totalMs=2395 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+06:41 +197 -4: physics/ class_test.dart
+[METRIC] script=physics/class_test.dart sourceChars=48219 clearMs=84 httpMs=1729 totalMs=1814 status=success httpStatus=200 outputLines=65 frameworkErrors=0
+06:43 +198 -4: physics/ spring_type_test.dart
+[METRIC] script=physics/spring_type_test.dart sourceChars=67744 clearMs=60 httpMs=1993 totalMs=2055 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+06:45 +199 -4: (tearDownAll)
+06:45 +199 -4: Some tests failed.

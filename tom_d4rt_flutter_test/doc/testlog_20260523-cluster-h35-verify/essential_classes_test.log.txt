@@ -1,0 +1,280 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: animation/ curve_test.dart
+[METRIC] script=animation/curve_test.dart sourceChars=37738 clearMs=67 httpMs=4493 totalMs=4569 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+00:14 +2: animation/ tween_test.dart
+[METRIC] script=animation/tween_test.dart sourceChars=57964 clearMs=115 httpMs=3519 totalMs=3635 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +3: cupertino/ button_test.dart
+[METRIC] script=cupertino/button_test.dart sourceChars=42735 clearMs=84 httpMs=3453 totalMs=3542 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:21 +4: cupertino/ contextmenu_test.dart
+[METRIC] script=cupertino/contextmenu_test.dart sourceChars=69488 clearMs=69 httpMs=3503 totalMs=3577 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+00:25 +5: cupertino/ controls_test.dart
+[METRIC] script=cupertino/controls_test.dart sourceChars=66195 clearMs=72 httpMs=5140 totalMs=5213 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:30 +6: cupertino/ cupertinoapp_test.dart
+[METRIC] script=cupertino/cupertinoapp_test.dart sourceChars=60170 clearMs=32 httpMs=3264 totalMs=3305 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:34 +7: cupertino/ dialog_test.dart
+[METRIC] script=cupertino/dialog_test.dart sourceChars=50110 clearMs=124 httpMs=3386 totalMs=3511 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+00:37 +8: cupertino/ form_test.dart
+[METRIC] script=cupertino/form_test.dart sourceChars=37209 clearMs=82 httpMs=3884 totalMs=3968 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:41 +9: cupertino/ icons_test.dart
+[METRIC] script=cupertino/icons_test.dart sourceChars=48116 clearMs=81 httpMs=3592 totalMs=3675 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:45 +10: cupertino/ list_test.dart
+[METRIC] script=cupertino/list_test.dart sourceChars=67442 clearMs=41 httpMs=4856 totalMs=4899 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:50 +11: cupertino/ picker_test.dart
+[METRIC] script=cupertino/picker_test.dart sourceChars=52259 clearMs=58 httpMs=3659 totalMs=3719 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+00:53 +12: cupertino/ route_test.dart
+[METRIC] script=cupertino/route_test.dart sourceChars=68105 clearMs=56 httpMs=2420 totalMs=2478 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:56 +13: cupertino/ scaffold_test.dart
+[METRIC] script=cupertino/scaffold_test.dart sourceChars=80777 clearMs=49 httpMs=3436 totalMs=3487 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:59 +14: cupertino/ segmented_test.dart
+[METRIC] script=cupertino/segmented_test.dart sourceChars=64514 clearMs=47 httpMs=4023 totalMs=4073 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:03 +15: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=53 httpMs=2596 totalMs=2651 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:06 +16: cupertino/ theme_test.dart
+[METRIC] script=cupertino/theme_test.dart sourceChars=78285 clearMs=78 httpMs=3459 totalMs=3538 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in cupertino/theme_test.dart (5 error(s)):
+       A RenderFlex overflowed by 56 pixels on the bottom.
+       A RenderFlex overflowed by 56 pixels on the bottom.
+       A RenderFlex overflowed by 56 pixels on the bottom.
+       A RenderFlex overflowed by 56 pixels on the bottom.
+       A RenderFlex overflowed by 56 pixels on the bottom.
+01:10 +17: dart_ui/ color_test.dart
+[METRIC] script=dart_ui/color_test.dart sourceChars=22827 clearMs=90 httpMs=1579 totalMs=1671 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+01:11 +18: dart_ui/ geometry_test.dart
+[METRIC] script=dart_ui/geometry_test.dart sourceChars=20064 clearMs=76 httpMs=1527 totalMs=1604 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:13 +19: dart_ui/ offset_test.dart
+[METRIC] script=dart_ui/offset_test.dart sourceChars=33165 clearMs=190 httpMs=1637 totalMs=1829 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:15 +20: dart_ui/ paint_test.dart
+[METRIC] script=dart_ui/paint_test.dart sourceChars=26251 clearMs=63 httpMs=1652 totalMs=1716 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+01:16 +21: dart_ui/ primitives_test.dart
+[METRIC] script=dart_ui/primitives_test.dart sourceChars=80290 clearMs=41 httpMs=2113 totalMs=2156 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:19 +22: dart_ui/ rect_test.dart
+[METRIC] script=dart_ui/rect_test.dart sourceChars=23680 clearMs=123 httpMs=1584 totalMs=1708 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:20 +23: dart_ui/ size_test.dart
+[METRIC] script=dart_ui/size_test.dart sourceChars=21047 clearMs=34 httpMs=1586 totalMs=1622 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:22 +24: dart_ui/ text_test.dart
+[METRIC] script=dart_ui/text_test.dart sourceChars=74256 clearMs=60 httpMs=1751 totalMs=1813 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+01:24 +25: foundation/ key_test.dart
+[METRIC] script=foundation/key_test.dart sourceChars=54871 clearMs=32 httpMs=1915 totalMs=1949 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:26 +26: foundation/ notifier_test.dart
+[METRIC] script=foundation/notifier_test.dart sourceChars=50814 clearMs=50 httpMs=1876 totalMs=1929 status=success httpStatus=200 outputLines=63 frameworkErrors=0
+01:28 +27: gestures/ details_test.dart
+[METRIC] script=gestures/details_test.dart sourceChars=73297 clearMs=53 httpMs=2110 totalMs=2164 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:30 +28: material/ bottomnavigationbar_test.dart
+[METRIC] script=material/bottomnavigationbar_test.dart sourceChars=78883 clearMs=74 httpMs=2524 totalMs=2600 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:32 +29: material/ buttons_test.dart
+[METRIC] script=material/buttons_test.dart sourceChars=58430 clearMs=77 httpMs=1841 totalMs=1920 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:34 +30: material/ buttonstyle_test.dart
+[METRIC] script=material/buttonstyle_test.dart sourceChars=45919 clearMs=74 httpMs=1838 totalMs=1914 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:36 +31: material/ card_test.dart
+[METRIC] script=material/card_test.dart sourceChars=57725 clearMs=96 httpMs=1801 totalMs=1898 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:38 +32: material/ chips_test.dart
+[METRIC] script=material/chips_test.dart sourceChars=13706 clearMs=72 httpMs=1631 totalMs=1704 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+01:40 +33: material/ datatable_test.dart
+[METRIC] script=material/datatable_test.dart sourceChars=15509 clearMs=77 httpMs=1604 totalMs=1683 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:42 +34: material/ dialog_test.dart
+[METRIC] script=material/dialog_test.dart sourceChars=48078 clearMs=97 httpMs=2000 totalMs=2098 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:44 +35: material/ divider_test.dart
+[METRIC] script=material/divider_test.dart sourceChars=48356 clearMs=134 httpMs=1739 totalMs=1875 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:46 +36: material/ dropdown_test.dart
+[METRIC] script=material/dropdown_test.dart sourceChars=43565 clearMs=52 httpMs=3581 totalMs=3634 status=success httpStatus=200 outputLines=25 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/dropdown_test.dart (1 error(s)):
+       Argument Error: Invalid parameter "callback": expected List<Widget>, got List<Object?>
+01:49 +37: material/ elevated_button_test.dart
+[METRIC] script=material/elevated_button_test.dart sourceChars=47364 clearMs=166 httpMs=1848 totalMs=2015 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:51 +38: material/ expansion_test.dart
+[METRIC] script=material/expansion_test.dart sourceChars=14983 clearMs=110 httpMs=1531 totalMs=1642 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+01:53 +39: material/ floatingactionbutton_test.dart
+[METRIC] script=material/floatingactionbutton_test.dart sourceChars=59797 clearMs=80 httpMs=1797 totalMs=1879 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:55 +40: material/ formcontrols_test.dart
+[METRIC] script=material/formcontrols_test.dart sourceChars=77599 clearMs=81 httpMs=2681 totalMs=2764 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:57 +41: material/ icon_test.dart
+[METRIC] script=material/icon_test.dart sourceChars=77571 clearMs=106 httpMs=2770 totalMs=2877 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:00 +42: material/ icontheme_test.dart
+[METRIC] script=material/icontheme_test.dart sourceChars=64982 clearMs=104 httpMs=1918 totalMs=2023 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:02 +43: material/ inputdecoration_test.dart
+[METRIC] script=material/inputdecoration_test.dart sourceChars=50790 clearMs=74 httpMs=1874 totalMs=1949 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+02:04 +44: material/ listtile_test.dart
+[METRIC] script=material/listtile_test.dart sourceChars=71726 clearMs=114 httpMs=1986 totalMs=2103 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:06 +45: material/ materialapp_test.dart
+[METRIC] script=material/materialapp_test.dart sourceChars=56248 clearMs=86 httpMs=2008 totalMs=2096 status=error httpStatus=400 outputLines=41 frameworkErrors=0
+
+  ✗ BUILD ERROR in material/materialapp_test.dart:
+    Runtime Error: Native error during bridged constructor 'router' for class 'MaterialApp': Argument Error: Invalid parameter "routeInformationParser": expected RouteInformationParser<Object>?, got InterpretedInstance(_SimpleRouteParser)
+
+  Stack trace (remote):
+    #0      InterpreterVisitor.visitMethodInvocation (package:tom_d4rt/src/interpreter_visitor.dart:3495:13)
+    #1      MethodInvocationImpl.accept (package:analyzer/src/dart/ast/ast.dart:16513:50)
+    #2      InterpreterVisitor.visitVariableDeclarationList (package:tom_d4rt/src/interpreter_visitor.dart:5335:44)
+    #3      VariableDeclarationListImpl.accept (package:analyzer/src/dart/ast/ast.dart:25600:15)
+    #4      InterpreterVisitor.visitVariableDeclarationStatement (package:tom_d4rt/src/interpreter_visitor.dart:205:27)
+    #5      VariableDeclarationStatementImpl.accept (package:analyzer/src/dart/ast/ast.dart:25696:15)
+    #6      InterpreterVisitor.executeBlock (package:tom_d4rt/src/interpreter_visitor.dart:136:33)
+    #7      InterpretedFunction._callImpl (package:tom_d4rt/src/callable.dart:1300:38)
+    #8      InterpretedFunction.call.<anonymous closure> (package:tom_d4rt/src/callable.dart:1196:14)
+    #9      D4.withActiveVisitor (package:tom_d4rt/src/generator/d4.dart:113:16)
+    #10     InterpretedFunction.call (package:tom_d4rt/src/callable.dart:1195:15)
+    #11     D4rt._executeInEnvironment (package:tom_d4rt/src/d4rt_base.dart:1255:43)
+    #12     D4rt.execute (package:tom_d4rt/src/d4rt_base.dart:971:12)
+    #13     SourceFlutterD4rt.build.<anonymous closure> (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:68:34)
+    #14     SourceFlutterD4rt._wrapUnwrap (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:143:18)
+    #15     SourceFlutterD4rt.build (package:tom_d4rt_flutter_test/src/source_flutter_d4rt.dart:67:62)
+    #16     _D4rtTestPageState._buildD4rtWidget.<anonymous closure> (package:tom_d4rt_flutter_test_app/main.dart:500:34)
+    #17     _rootRun (dart:async/zone_root.dart:35:13)
+    #18     _CustomZone.run (dart:async/zone.dart:726:19)
+    #19     _runZoned (dart:async/zone_api.dart:166:6)
+    #20     runZonedGuarded (dart:async/zone_api.dart:152:12)
+    #21     _D4rtTestPageState._buildD4rtWidget (package:tom_d4rt_flutter_test_app/main.dart:497:7)
+    #22     _D4rtTestPageState.build (package:tom_d4rt_flutter_test_app/main.dart:758:26)
+    #23     StatefulElement.build (package:flutter/src/widgets/framework.dart:5931:27)
+    #24     ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5817:15)
+    #25     StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+    #26     Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+    #27     BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+    #28     BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+    #29     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+    … 9 more line(s)
+02:09 +45 -1: material/ materialapp_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged constructor 'router' for class 'MaterialApp': Argument Error: Invalid parameter "routeInformationParser": expected RouteInformationParser<Object>?, got InterpretedInstance(_SimpleRouteParser)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 310:7              main.<fn>.<fn>
+  
+02:09 +45 -1: material/ materialbanner_test.dart
+[METRIC] script=material/materialbanner_test.dart sourceChars=63099 clearMs=63 httpMs=1823 totalMs=1887 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:10 +46 -1: material/ materialcolor_test.dart
+[METRIC] script=material/materialcolor_test.dart sourceChars=41242 clearMs=92 httpMs=1874 totalMs=1967 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+02:12 +47 -1: material/ navigation_test.dart
+[METRIC] script=material/navigation_test.dart sourceChars=16162 clearMs=102 httpMs=1555 totalMs=1659 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+02:14 +48 -1: material/ progress_test.dart
+[METRIC] script=material/progress_test.dart sourceChars=61685 clearMs=37 httpMs=1746 totalMs=1785 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:16 +49 -1: material/ scaffold_test.dart
+[METRIC] script=material/scaffold_test.dart sourceChars=79016 clearMs=46 httpMs=3497 totalMs=3545 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:19 +50 -1: material/ search_test.dart
+[METRIC] script=material/search_test.dart sourceChars=48201 clearMs=92 httpMs=1885 totalMs=1981 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+02:21 +51 -1: material/ stepper_test.dart
+[METRIC] script=material/stepper_test.dart sourceChars=82782 clearMs=84 httpMs=2329 totalMs=2414 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:24 +52 -1: material/ tabs_test.dart
+[METRIC] script=material/tabs_test.dart sourceChars=77081 clearMs=108 httpMs=2108 totalMs=2217 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+02:26 +53 -1: material/ text_button_test.dart
+[METRIC] script=material/text_button_test.dart sourceChars=58648 clearMs=89 httpMs=2106 totalMs=2196 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:28 +54 -1: material/ theme_test.dart
+[METRIC] script=material/theme_test.dart sourceChars=46212 clearMs=101 httpMs=1950 totalMs=2054 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+02:30 +55 -1: material/ tooltip_badge_test.dart
+[METRIC] script=material/tooltip_badge_test.dart sourceChars=46482 clearMs=79 httpMs=1698 totalMs=1777 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+02:32 +56 -1: painting/ alignment_test.dart
+[METRIC] script=painting/alignment_test.dart sourceChars=63349 clearMs=95 httpMs=1982 totalMs=2079 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:34 +57 -1: painting/ border_radius_test.dart
+[METRIC] script=painting/border_radius_test.dart sourceChars=59637 clearMs=69 httpMs=1784 totalMs=1855 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:36 +58 -1: painting/ border_test.dart
+[METRIC] script=painting/border_test.dart sourceChars=97782 clearMs=115 httpMs=2068 totalMs=2184 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:38 +59 -1: painting/ box_decoration_test.dart
+[METRIC] script=painting/box_decoration_test.dart sourceChars=58366 clearMs=76 httpMs=1763 totalMs=1840 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:40 +60 -1: painting/ edge_insets_test.dart
+[METRIC] script=painting/edge_insets_test.dart sourceChars=50740 clearMs=113 httpMs=1711 totalMs=1825 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+02:42 +61 -1: painting/ edgeinsets_test.dart
+[METRIC] script=painting/edgeinsets_test.dart sourceChars=43715 clearMs=44 httpMs=1807 totalMs=1853 status=success httpStatus=200 outputLines=63 frameworkErrors=0
+02:44 +62 -1: painting/ gradient_shadow_test.dart
+[METRIC] script=painting/gradient_shadow_test.dart sourceChars=59967 clearMs=56 httpMs=2067 totalMs=2125 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:46 +63 -1: painting/ textstyle_test.dart
+[METRIC] script=painting/textstyle_test.dart sourceChars=62879 clearMs=50 httpMs=1679 totalMs=1730 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in painting/textstyle_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'withOpacity' on MaterialColor: 'dart:ui/painting.dart': Failed assertion: line 342 pos 12: '<optimized out>': is not true.
+02:48 +64 -1: physics/ spring_test.dart
+[METRIC] script=physics/spring_test.dart sourceChars=17999 clearMs=25 httpMs=1448 totalMs=1475 status=success httpStatus=200 outputLines=71 frameworkErrors=0
+02:49 +65 -1: rendering/ boxconstraints_test.dart
+[METRIC] script=rendering/boxconstraints_test.dart sourceChars=50403 clearMs=29 httpMs=1924 totalMs=1955 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+02:51 +66 -1: rendering/ layers_test.dart
+[METRIC] script=rendering/layers_test.dart sourceChars=16958 clearMs=157 httpMs=1898 totalMs=2057 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+02:53 +67 -1: rendering/ textpainter_test.dart
+[METRIC] script=rendering/textpainter_test.dart sourceChars=52880 clearMs=37 httpMs=1988 totalMs=2027 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+02:55 +68 -1: rendering/ viewport_test.dart
+[METRIC] script=rendering/viewport_test.dart sourceChars=43381 clearMs=56 httpMs=2308 totalMs=2365 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+02:58 +69 -1: scheduler/ ticker_test.dart
+[METRIC] script=scheduler/ticker_test.dart sourceChars=44798 clearMs=67 httpMs=1826 totalMs=1894 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:59 +70 -1: semantics/ semantics_test.dart
+[METRIC] script=semantics/semantics_test.dart sourceChars=91793 clearMs=93 httpMs=2023 totalMs=2117 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+03:02 +71 -1: widgets/ align_test.dart
+[METRIC] script=widgets/align_test.dart sourceChars=60247 clearMs=93 httpMs=1789 totalMs=1884 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:03 +72 -1: widgets/ animation_test.dart
+[METRIC] script=widgets/animation_test.dart sourceChars=54120 clearMs=102 httpMs=1556 totalMs=1659 status=success httpStatus=200 outputLines=1 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/animation_test.dart (1 error(s)):
+       Runtime Error: LateInitializationError: Late variable '_meanAnim' without initializer is accessed before being assigned.
+03:05 +73 -1: widgets/ appbar_test.dart
+[METRIC] script=widgets/appbar_test.dart sourceChars=110094 clearMs=49 httpMs=2623 totalMs=2675 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:08 +74 -1: widgets/ center_test.dart
+[METRIC] script=widgets/center_test.dart sourceChars=65974 clearMs=92 httpMs=1628 totalMs=1722 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:09 +75 -1: widgets/ changenotifier_test.dart
+[METRIC] script=widgets/changenotifier_test.dart sourceChars=70729 clearMs=221 httpMs=3205 totalMs=3428 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+03:13 +76 -1: widgets/ cliprrect_test.dart
+[METRIC] script=widgets/cliprrect_test.dart sourceChars=44164 clearMs=29 httpMs=1691 totalMs=1721 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:15 +77 -1: widgets/ column_test.dart
+[METRIC] script=widgets/column_test.dart sourceChars=68623 clearMs=57 httpMs=2410 totalMs=2469 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:17 +78 -1: widgets/ container_test.dart
+[METRIC] script=widgets/container_test.dart sourceChars=44944 clearMs=75 httpMs=1727 totalMs=1804 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+03:19 +79 -1: widgets/ expanded_test.dart
+[METRIC] script=widgets/expanded_test.dart sourceChars=69498 clearMs=119 httpMs=1977 totalMs=2098 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+03:21 +80 -1: widgets/ flexible_test.dart
+[METRIC] script=widgets/flexible_test.dart sourceChars=84314 clearMs=90 httpMs=2101 totalMs=2193 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:23 +81 -1: widgets/ focusnode_test.dart
+[METRIC] script=widgets/focusnode_test.dart sourceChars=75866 clearMs=86 httpMs=3796 totalMs=3884 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+03:27 +82 -1: widgets/ form_test.dart
+[METRIC] script=widgets/form_test.dart sourceChars=68570 clearMs=79 httpMs=1870 totalMs=1951 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:29 +83 -1: widgets/ gesturedetector_test.dart
+[METRIC] script=widgets/gesturedetector_test.dart sourceChars=42418 clearMs=97 httpMs=1843 totalMs=1942 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+03:31 +84 -1: widgets/ gridview_test.dart
+[METRIC] script=widgets/gridview_test.dart sourceChars=77624 clearMs=75 httpMs=2740 totalMs=2817 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:34 +85 -1: widgets/ icon_test.dart
+[METRIC] script=widgets/icon_test.dart sourceChars=76838 clearMs=67 httpMs=2017 totalMs=2086 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+03:36 +86 -1: widgets/ image_test.dart
+[METRIC] script=widgets/image_test.dart sourceChars=115875 clearMs=46 httpMs=7894 totalMs=7942 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+03:44 +87 -1: widgets/ inkwell_test.dart
+[METRIC] script=widgets/inkwell_test.dart sourceChars=83275 clearMs=72 httpMs=2494 totalMs=2569 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:46 +88 -1: widgets/ key_test.dart
+[METRIC] script=widgets/key_test.dart sourceChars=54447 clearMs=81 httpMs=1994 totalMs=2077 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:49 +89 -1: widgets/ listview_test.dart
+[METRIC] script=widgets/listview_test.dart sourceChars=68877 clearMs=105 httpMs=1915 totalMs=2022 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+03:51 +90 -1: widgets/ navigator_test.dart
+[METRIC] script=widgets/navigator_test.dart sourceChars=53989 clearMs=45 httpMs=3620 totalMs=3666 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:54 +91 -1: widgets/ opacity_test.dart
+[METRIC] script=widgets/opacity_test.dart sourceChars=63275 clearMs=53 httpMs=3904 totalMs=3959 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+03:58 +92 -1: widgets/ padding_test.dart
+[METRIC] script=widgets/padding_test.dart sourceChars=74399 clearMs=58 httpMs=2029 totalMs=2089 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:00 +93 -1: widgets/ pageview_test.dart
+[METRIC] script=widgets/pageview_test.dart sourceChars=52374 clearMs=46 httpMs=1825 totalMs=1873 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+04:02 +94 -1: widgets/ positioned_test.dart
+[METRIC] script=widgets/positioned_test.dart sourceChars=74006 clearMs=79 httpMs=2288 totalMs=2369 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+04:05 +95 -1: widgets/ richtext_test.dart
+[METRIC] script=widgets/richtext_test.dart sourceChars=56935 clearMs=49 httpMs=1767 totalMs=1817 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+04:06 +96 -1: widgets/ row_test.dart
+[METRIC] script=widgets/row_test.dart sourceChars=63940 clearMs=46 httpMs=2133 totalMs=2182 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:09 +97 -1: widgets/ scaffold_test.dart
+[METRIC] script=widgets/scaffold_test.dart sourceChars=81318 clearMs=108 httpMs=2319 totalMs=2429 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:11 +98 -1: widgets/ singlechildscrollview_test.dart
+[METRIC] script=widgets/singlechildscrollview_test.dart sourceChars=84239 clearMs=107 httpMs=5538 totalMs=5646 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:17 +99 -1: widgets/ sized_box_test.dart
+[METRIC] script=widgets/sized_box_test.dart sourceChars=56861 clearMs=78 httpMs=1784 totalMs=1863 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+04:18 +100 -1: widgets/ stack_test.dart
+[METRIC] script=widgets/stack_test.dart sourceChars=52869 clearMs=93 httpMs=1794 totalMs=1889 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+04:20 +101 -1: widgets/ statefulwidget_test.dart
+[METRIC] script=widgets/statefulwidget_test.dart sourceChars=129853 clearMs=83 httpMs=2248 totalMs=2333 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:23 +102 -1: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=87 httpMs=1717 totalMs=1805 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+04:25 +103 -1: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceChars=54228 clearMs=31 httpMs=2070 totalMs=2102 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+04:27 +104 -1: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceChars=59856 clearMs=78 httpMs=2363 totalMs=2443 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:29 +105 -1: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceChars=61150 clearMs=97 httpMs=2680 totalMs=2778 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:32 +106 -1: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceChars=48716 clearMs=102 httpMs=1758 totalMs=1861 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:34 +107 -1: (tearDownAll)
+04:35 +107 -1: Some tests failed.

@@ -1,0 +1,402 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/essential_classes_test.dart
+00:00 +0: (setUpAll)
+00:10 +0: Test App Health app is running
+00:10 +1: animation/ curve_test.dart
+[METRIC] script=animation/curve_test.dart sourceChars=14586 clearMs=60 httpMs=1816 totalMs=1886 status=success httpStatus=200 outputLines=82 frameworkErrors=0
+00:12 +2: animation/ tween_test.dart
+[METRIC] script=animation/tween_test.dart sourceChars=16442 clearMs=116 httpMs=1597 totalMs=1719 status=success httpStatus=200 outputLines=90 frameworkErrors=0
+00:13 +3: cupertino/ button_test.dart
+[METRIC] script=cupertino/button_test.dart sourceChars=8353 clearMs=69 httpMs=1444 totalMs=1515 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:15 +4: cupertino/ contextmenu_test.dart
+[METRIC] script=cupertino/contextmenu_test.dart sourceChars=69488 clearMs=54 httpMs=3187 totalMs=3251 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+00:18 +5: cupertino/ controls_test.dart
+[METRIC] script=cupertino/controls_test.dart sourceChars=66195 clearMs=55 httpMs=4737 totalMs=4794 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:23 +6: cupertino/ cupertinoapp_test.dart
+[METRIC] script=cupertino/cupertinoapp_test.dart sourceChars=60170 clearMs=48 httpMs=3064 totalMs=3113 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:26 +7: cupertino/ dialog_test.dart
+[METRIC] script=cupertino/dialog_test.dart sourceChars=13912 clearMs=68 httpMs=1434 totalMs=1504 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+00:27 +8: cupertino/ form_test.dart
+[METRIC] script=cupertino/form_test.dart sourceChars=37209 clearMs=116 httpMs=3467 totalMs=3586 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:31 +9: cupertino/ icons_test.dart
+[METRIC] script=cupertino/icons_test.dart sourceChars=19796 clearMs=75 httpMs=1736 totalMs=1813 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+00:33 +10: cupertino/ list_test.dart
+[METRIC] script=cupertino/list_test.dart sourceChars=67442 clearMs=81 httpMs=4467 totalMs=4551 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:37 +11: cupertino/ picker_test.dart
+[METRIC] script=cupertino/picker_test.dart sourceChars=14197 clearMs=50 httpMs=1508 totalMs=1560 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+00:39 +12: cupertino/ route_test.dart
+[METRIC] script=cupertino/route_test.dart sourceChars=65949 clearMs=46 httpMs=2578 totalMs=2626 status=success httpStatus=200 outputLines=1 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in cupertino/route_test.dart (9 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+00:42 +13: cupertino/ scaffold_test.dart
+[METRIC] script=cupertino/scaffold_test.dart sourceChars=17047 clearMs=49 httpMs=1382 totalMs=1432 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+00:43 +14: cupertino/ segmented_test.dart
+[METRIC] script=cupertino/segmented_test.dart sourceChars=64514 clearMs=37 httpMs=3873 totalMs=3912 status=success httpStatus=200 outputLines=1 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in cupertino/segmented_test.dart (12 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+00:47 +15: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=65 httpMs=2264 totalMs=2330 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:49 +16: cupertino/ theme_test.dart
+[METRIC] script=cupertino/theme_test.dart sourceChars=19130 clearMs=78 httpMs=1330 totalMs=1409 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+00:51 +17: dart_ui/ color_test.dart
+[METRIC] script=dart_ui/color_test.dart sourceChars=22827 clearMs=63 httpMs=1456 totalMs=1520 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+00:52 +18: dart_ui/ geometry_test.dart
+[METRIC] script=dart_ui/geometry_test.dart sourceChars=20064 clearMs=100 httpMs=1437 totalMs=1538 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+00:54 +19: dart_ui/ offset_test.dart
+[METRIC] script=dart_ui/offset_test.dart sourceChars=33165 clearMs=33 httpMs=1450 totalMs=1484 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+00:55 +20: dart_ui/ paint_test.dart
+[METRIC] script=dart_ui/paint_test.dart sourceChars=26251 clearMs=87 httpMs=1487 totalMs=1576 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+00:57 +21: dart_ui/ primitives_test.dart
+[METRIC] script=dart_ui/primitives_test.dart sourceChars=8744 clearMs=42 httpMs=1263 totalMs=1306 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:58 +22: dart_ui/ rect_test.dart
+[METRIC] script=dart_ui/rect_test.dart sourceChars=23680 clearMs=50 httpMs=1428 totalMs=1479 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:00 +23: dart_ui/ size_test.dart
+[METRIC] script=dart_ui/size_test.dart sourceChars=21047 clearMs=55 httpMs=1418 totalMs=1475 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:01 +24: dart_ui/ text_test.dart
+[METRIC] script=dart_ui/text_test.dart sourceChars=74256 clearMs=26 httpMs=1577 totalMs=1605 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+01:03 +25: foundation/ key_test.dart
+[METRIC] script=foundation/key_test.dart sourceChars=8301 clearMs=61 httpMs=1287 totalMs=1350 status=success httpStatus=200 outputLines=38 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in foundation/key_test.dart (1 error(s)):
+       A RenderFlex overflowed by 14 pixels on the bottom.
+01:04 +26: foundation/ notifier_test.dart
+[METRIC] script=foundation/notifier_test.dart sourceChars=11738 clearMs=27 httpMs=1372 totalMs=1400 status=success httpStatus=200 outputLines=52 frameworkErrors=0
+01:06 +27: gestures/ details_test.dart
+[METRIC] script=gestures/details_test.dart sourceChars=17387 clearMs=80 httpMs=1392 totalMs=1474 status=success httpStatus=200 outputLines=86 frameworkErrors=0
+01:07 +28: material/ bottomnavigationbar_test.dart
+[METRIC] script=material/bottomnavigationbar_test.dart sourceChars=8694 clearMs=28 httpMs=1362 totalMs=1392 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:08 +29: material/ buttons_test.dart
+[METRIC] script=material/buttons_test.dart sourceChars=8238 clearMs=35 httpMs=1475 totalMs=1512 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:10 +30: material/ buttonstyle_test.dart
+[METRIC] script=material/buttonstyle_test.dart sourceChars=12934 clearMs=51 httpMs=1404 totalMs=1457 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:11 +31: material/ card_test.dart
+[METRIC] script=material/card_test.dart sourceChars=57725 clearMs=22 httpMs=1653 totalMs=1677 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:13 +32: material/ chips_test.dart
+[METRIC] script=material/chips_test.dart sourceChars=13706 clearMs=54 httpMs=1441 totalMs=1496 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+01:15 +33: material/ datatable_test.dart
+[METRIC] script=material/datatable_test.dart sourceChars=15509 clearMs=30 httpMs=1427 totalMs=1459 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:16 +34: material/ dialog_test.dart
+[METRIC] script=material/dialog_test.dart sourceChars=13458 clearMs=50 httpMs=1381 totalMs=1432 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+01:17 +35: material/ divider_test.dart
+[METRIC] script=material/divider_test.dart sourceChars=10668 clearMs=25 httpMs=1387 totalMs=1413 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:19 +36: material/ dropdown_test.dart
+[METRIC] script=material/dropdown_test.dart sourceChars=12129 clearMs=49 httpMs=3659 totalMs=3709 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+01:23 +37: material/ elevated_button_test.dart
+[METRIC] script=material/elevated_button_test.dart sourceChars=47364 clearMs=63 httpMs=1704 totalMs=1769 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+01:24 +38: material/ expansion_test.dart
+[METRIC] script=material/expansion_test.dart sourceChars=14983 clearMs=55 httpMs=1407 totalMs=1463 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+01:26 +39: material/ floatingactionbutton_test.dart
+[METRIC] script=material/floatingactionbutton_test.dart sourceChars=58979 clearMs=28 httpMs=1659 totalMs=1688 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/floatingactionbutton_test.dart (1 error(s)):
+       A RenderFlex overflowed by 41 pixels on the right.
+01:28 +40: material/ formcontrols_test.dart
+[METRIC] script=material/formcontrols_test.dart sourceChars=9119 clearMs=71 httpMs=2059 totalMs=2131 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+01:30 +41: material/ icon_test.dart
+[METRIC] script=material/icon_test.dart sourceChars=77571 clearMs=63 httpMs=2683 totalMs=2747 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:32 +42: material/ icontheme_test.dart
+[METRIC] script=material/icontheme_test.dart sourceChars=9053 clearMs=70 httpMs=1386 totalMs=1457 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+01:34 +43: material/ inputdecoration_test.dart
+[METRIC] script=material/inputdecoration_test.dart sourceChars=13381 clearMs=55 httpMs=1384 totalMs=1440 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:35 +44: material/ listtile_test.dart
+[METRIC] script=material/listtile_test.dart sourceChars=71726 clearMs=66 httpMs=1855 totalMs=1922 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:37 +45: material/ materialapp_test.dart
+[METRIC] script=material/materialapp_test.dart sourceChars=8235 clearMs=67 httpMs=1326 totalMs=1394 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+01:39 +46: material/ materialbanner_test.dart
+[METRIC] script=material/materialbanner_test.dart sourceChars=63099 clearMs=63 httpMs=1584 totalMs=1649 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:40 +47: material/ materialcolor_test.dart
+[METRIC] script=material/materialcolor_test.dart sourceChars=13729 clearMs=68 httpMs=1318 totalMs=1387 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+01:42 +48: material/ navigation_test.dart
+[METRIC] script=material/navigation_test.dart sourceChars=16162 clearMs=54 httpMs=1395 totalMs=1451 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+01:43 +49: material/ progress_test.dart
+[METRIC] script=material/progress_test.dart sourceChars=12661 clearMs=66 httpMs=1433 totalMs=1501 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+01:45 +50: material/ scaffold_test.dart
+[METRIC] script=material/scaffold_test.dart sourceChars=78554 clearMs=34 httpMs=3220 totalMs=3256 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/scaffold_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+01:48 +51: material/ search_test.dart
+[METRIC] script=material/search_test.dart sourceChars=13895 clearMs=81 httpMs=1418 totalMs=1501 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+01:49 +52: material/ stepper_test.dart
+[METRIC] script=material/stepper_test.dart sourceChars=9271 clearMs=56 httpMs=1415 totalMs=1472 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:51 +53: material/ tabs_test.dart
+[METRIC] script=material/tabs_test.dart sourceChars=77081 clearMs=74 httpMs=1952 totalMs=2028 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:53 +54: material/ text_button_test.dart
+[METRIC] script=material/text_button_test.dart sourceChars=58648 clearMs=92 httpMs=1947 totalMs=2040 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:55 +55: material/ theme_test.dart
+[METRIC] script=material/theme_test.dart sourceChars=14548 clearMs=59 httpMs=1408 totalMs=1468 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+01:56 +56: material/ tooltip_badge_test.dart
+[METRIC] script=material/tooltip_badge_test.dart sourceChars=13826 clearMs=23 httpMs=1375 totalMs=1399 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+01:58 +57: painting/ alignment_test.dart
+[METRIC] script=painting/alignment_test.dart sourceChars=63349 clearMs=91 httpMs=2145 totalMs=2238 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:00 +58: painting/ border_radius_test.dart
+[METRIC] script=painting/border_radius_test.dart sourceChars=58014 clearMs=64 httpMs=1611 totalMs=1677 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in painting/border_radius_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:02 +59: painting/ border_test.dart
+[METRIC] script=painting/border_test.dart sourceChars=10103 clearMs=74 httpMs=1260 totalMs=1335 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+02:03 +60: painting/ box_decoration_test.dart
+[METRIC] script=painting/box_decoration_test.dart sourceChars=57078 clearMs=20 httpMs=1717 totalMs=1738 status=success httpStatus=200 outputLines=24 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in painting/box_decoration_test.dart (9 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:05 +61: painting/ edge_insets_test.dart
+[METRIC] script=painting/edge_insets_test.dart sourceChars=50740 clearMs=40 httpMs=1552 totalMs=1593 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+02:06 +62: painting/ edgeinsets_test.dart
+[METRIC] script=painting/edgeinsets_test.dart sourceChars=10437 clearMs=49 httpMs=1255 totalMs=1306 status=success httpStatus=200 outputLines=54 frameworkErrors=0
+02:08 +63: painting/ gradient_shadow_test.dart
+[METRIC] script=painting/gradient_shadow_test.dart sourceChars=15469 clearMs=25 httpMs=1269 totalMs=1295 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+02:09 +64: painting/ textstyle_test.dart
+[METRIC] script=painting/textstyle_test.dart sourceChars=15636 clearMs=22 httpMs=1264 totalMs=1287 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:10 +65: physics/ spring_test.dart
+[METRIC] script=physics/spring_test.dart sourceChars=17999 clearMs=56 httpMs=1250 totalMs=1307 status=success httpStatus=200 outputLines=71 frameworkErrors=0
+02:12 +66: rendering/ boxconstraints_test.dart
+[METRIC] script=rendering/boxconstraints_test.dart sourceChars=13319 clearMs=21 httpMs=1253 totalMs=1276 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+02:13 +67: rendering/ layers_test.dart
+[METRIC] script=rendering/layers_test.dart sourceChars=16958 clearMs=27 httpMs=1679 totalMs=1707 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+02:15 +68: rendering/ textpainter_test.dart
+[METRIC] script=rendering/textpainter_test.dart sourceChars=11521 clearMs=50 httpMs=1252 totalMs=1304 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+02:16 +69: rendering/ viewport_test.dart
+[METRIC] script=rendering/viewport_test.dart sourceChars=43381 clearMs=48 httpMs=2015 totalMs=2065 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+02:18 +70: scheduler/ ticker_test.dart
+[METRIC] script=scheduler/ticker_test.dart sourceChars=13816 clearMs=56 httpMs=1282 totalMs=1339 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:19 +71: semantics/ semantics_test.dart
+[METRIC] script=semantics/semantics_test.dart sourceChars=91793 clearMs=33 httpMs=1898 totalMs=1933 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+02:21 +72: widgets/ align_test.dart
+[METRIC] script=widgets/align_test.dart sourceChars=60247 clearMs=75 httpMs=1647 totalMs=1723 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:23 +73: widgets/ animation_test.dart
+[METRIC] script=widgets/animation_test.dart sourceChars=7849 clearMs=106 httpMs=1384 totalMs=1492 status=success httpStatus=200 outputLines=52 frameworkErrors=0
+02:25 +74: widgets/ appbar_test.dart
+[METRIC] script=widgets/appbar_test.dart sourceChars=109042 clearMs=37 httpMs=2537 totalMs=2576 status=success httpStatus=200 outputLines=0 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in widgets/appbar_test.dart (6 error(s)):
+       A RenderFlex overflowed by 33 pixels on the bottom.
+       A RenderFlex overflowed by 33 pixels on the bottom.
+       A RenderFlex overflowed by 33 pixels on the bottom.
+       A RenderFlex overflowed by 25 pixels on the bottom.
+       A RenderFlex overflowed by 13 pixels on the bottom.
+       A RenderFlex overflowed by 41 pixels on the bottom.
+02:27 +75: widgets/ center_test.dart
+[METRIC] script=widgets/center_test.dart sourceChars=65974 clearMs=85 httpMs=1513 totalMs=1600 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:29 +76: widgets/ changenotifier_test.dart
+[METRIC] script=widgets/changenotifier_test.dart sourceChars=70729 clearMs=30 httpMs=2912 totalMs=2945 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:32 +77: widgets/ cliprrect_test.dart
+[METRIC] script=widgets/cliprrect_test.dart sourceChars=8091 clearMs=27 httpMs=1370 totalMs=1398 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:33 +78: widgets/ column_test.dart
+[METRIC] script=widgets/column_test.dart sourceChars=68623 clearMs=23 httpMs=2230 totalMs=2255 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:35 +79: widgets/ container_test.dart
+[METRIC] script=widgets/container_test.dart sourceChars=44944 clearMs=80 httpMs=1551 totalMs=1633 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+02:37 +80: widgets/ expanded_test.dart
+[METRIC] script=widgets/expanded_test.dart sourceChars=68195 clearMs=53 httpMs=1904 totalMs=1959 status=success httpStatus=200 outputLines=3 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/expanded_test.dart (1 error(s)):
+       A RenderFlex overflowed by 8.0 pixels on the bottom.
+02:39 +81: widgets/ flexible_test.dart
+[METRIC] script=widgets/flexible_test.dart sourceChars=82515 clearMs=67 httpMs=1993 totalMs=2062 status=success httpStatus=200 outputLines=2 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/flexible_test.dart (2 error(s)):
+       A RenderFlex overflowed by 20 pixels on the right.
+       A RenderFlex overflowed by 48 pixels on the right.
+02:41 +82: widgets/ focusnode_test.dart
+[METRIC] script=widgets/focusnode_test.dart sourceChars=74878 clearMs=60 httpMs=3417 totalMs=3479 status=success httpStatus=200 outputLines=8 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/focusnode_test.dart (1 error(s)):
+       A RenderFlex overflowed by 0.661 pixels on the right.
+02:44 +83: widgets/ form_test.dart
+[METRIC] script=widgets/form_test.dart sourceChars=68570 clearMs=70 httpMs=1741 totalMs=1813 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:46 +84: widgets/ gesturedetector_test.dart
+[METRIC] script=widgets/gesturedetector_test.dart sourceChars=42418 clearMs=98 httpMs=1732 totalMs=1832 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+02:48 +85: widgets/ gridview_test.dart
+[METRIC] script=widgets/gridview_test.dart sourceChars=77079 clearMs=28 httpMs=2730 totalMs=2760 status=success httpStatus=200 outputLines=2 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/gridview_test.dart (2 error(s)):
+       Vertical viewport was given unbounded height.
+Viewports expand in the scrolling direction to fill their container. In this case, a vertical viewport was given an unlimited amount of vertical space in …
+       Null check operator used on a null value
+02:51 +86: widgets/ icon_test.dart
+[METRIC] script=widgets/icon_test.dart sourceChars=75340 clearMs=83 httpMs=1963 totalMs=2048 status=success httpStatus=200 outputLines=31 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/icon_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+02:53 +87: widgets/ image_test.dart
+[METRIC] script=widgets/image_test.dart sourceChars=115875 clearMs=92 httpMs=11278 totalMs=11372 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+03:04 +88: widgets/ inkwell_test.dart
+[METRIC] script=widgets/inkwell_test.dart sourceChars=82506 clearMs=61 httpMs=2517 totalMs=2581 status=success httpStatus=200 outputLines=0 frameworkErrors=11
+
+  ⚠️  FRAMEWORK ERROR in widgets/inkwell_test.dart (11 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:07 +89: widgets/ key_test.dart
+[METRIC] script=widgets/key_test.dart sourceChars=54447 clearMs=70 httpMs=1989 totalMs=2061 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:09 +90: widgets/ listview_test.dart
+[METRIC] script=widgets/listview_test.dart sourceChars=68877 clearMs=56 httpMs=1812 totalMs=1869 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+03:11 +91: widgets/ navigator_test.dart
+[METRIC] script=widgets/navigator_test.dart sourceChars=8334 clearMs=65 httpMs=1739 totalMs=1805 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+03:13 +92: widgets/ opacity_test.dart
+[METRIC] script=widgets/opacity_test.dart sourceChars=63275 clearMs=21 httpMs=3617 totalMs=3640 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+03:16 +93: widgets/ padding_test.dart
+[METRIC] script=widgets/padding_test.dart sourceChars=74399 clearMs=32 httpMs=1969 totalMs=2002 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:18 +94: widgets/ pageview_test.dart
+[METRIC] script=widgets/pageview_test.dart sourceChars=8052 clearMs=51 httpMs=1379 totalMs=1432 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:20 +95: widgets/ positioned_test.dart
+[METRIC] script=widgets/positioned_test.dart sourceChars=74006 clearMs=22 httpMs=3053 totalMs=3077 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:23 +96: widgets/ richtext_test.dart
+[METRIC] script=widgets/richtext_test.dart sourceChars=56935 clearMs=68 httpMs=1599 totalMs=1669 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+03:24 +97: widgets/ row_test.dart
+[METRIC] script=widgets/row_test.dart sourceChars=62852 clearMs=76 httpMs=2068 totalMs=2146 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/row_test.dart (1 error(s)):
+       A RenderFlex overflowed by 6.0 pixels on the right.
+03:27 +98: widgets/ scaffold_test.dart
+[METRIC] script=widgets/scaffold_test.dart sourceChars=79297 clearMs=80 httpMs=2236 totalMs=2318 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/scaffold_test.dart (2 error(s)):
+       A RenderFlex overflowed by 50 pixels on the bottom.
+       A RenderFlex overflowed by 112 pixels on the bottom.
+03:29 +99: widgets/ singlechildscrollview_test.dart
+[METRIC] script=widgets/singlechildscrollview_test.dart sourceChars=84239 clearMs=77 httpMs=5298 totalMs=5377 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:34 +100: widgets/ sized_box_test.dart
+[METRIC] script=widgets/sized_box_test.dart sourceChars=56861 clearMs=94 httpMs=1689 totalMs=1785 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:36 +101: widgets/ stack_test.dart
+[METRIC] script=widgets/stack_test.dart sourceChars=51663 clearMs=45 httpMs=1866 totalMs=1912 status=success httpStatus=200 outputLines=41 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/stack_test.dart (1 error(s)):
+       A Stack requires bounded constraints from its parent. This error commonly occurs when a Stack is placed inside a widget like Column, ListView, or other widgets that do not constrain their children. To…
+03:38 +102: widgets/ statefulwidget_test.dart
+[METRIC] script=widgets/statefulwidget_test.dart sourceChars=9744 clearMs=54 httpMs=1385 totalMs=1441 status=success httpStatus=200 outputLines=80 frameworkErrors=0
+03:39 +103: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=54 httpMs=1574 totalMs=1630 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+03:41 +104: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceChars=54228 clearMs=49 httpMs=1931 totalMs=1981 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:43 +105: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceChars=8710 clearMs=66 httpMs=1309 totalMs=1376 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+03:44 +106: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceChars=8839 clearMs=57 httpMs=1433 totalMs=1491 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:46 +107: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceChars=48716 clearMs=25 httpMs=1707 totalMs=1733 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:48 +108: (tearDownAll)
+03:48 +108: All tests passed!

@@ -1,0 +1,120 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/generator_interpreter_retest_test.dart
+00:00 +0: (setUpAll)
+00:08 +0: Section 1 - Tests with workarounds reverted retest: animation/reverse_tween_test.dart
+[METRIC] script=retest/animation/reverse_tween_test.dart sourceChars=35359 clearMs=51 httpMs=2389 totalMs=2454 status=success httpStatus=200 outputLines=230 frameworkErrors=0
+00:10 +1: Section 1 - Tests with workarounds reverted retest: dart_ui/key_event_type_test.dart
+[METRIC] script=retest/dart_ui/key_event_type_test.dart sourceChars=36897 clearMs=99 httpMs=1949 totalMs=2049 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:12 +2: Section 1 - Tests with workarounds reverted retest: dart_ui/vertex_mode_test.dart
+[METRIC] script=retest/dart_ui/vertex_mode_test.dart sourceChars=39292 clearMs=109 httpMs=1917 totalMs=2031 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:14 +3: Section 1 - Tests with workarounds reverted retest: dart_ui/color_space_test.dart
+[METRIC] script=retest/dart_ui/color_space_test.dart sourceChars=25531 clearMs=91 httpMs=1514 totalMs=1607 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:16 +4: Section 1 - Tests with workarounds reverted retest: dart_ui/system_color_palette_test.dart
+  Skip: SystemColor not supported on Linux
+00:16 +4 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_created_test.dart
+[METRIC] script=retest/foundation/object_created_test.dart sourceChars=81245 clearMs=81 httpMs=2117 totalMs=2200 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +5 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_disposed_test.dart
+[METRIC] script=retest/foundation/object_disposed_test.dart sourceChars=65932 clearMs=140 httpMs=1924 totalMs=2066 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:20 +6 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_event_test.dart
+[METRIC] script=retest/foundation/object_event_test.dart sourceChars=53400 clearMs=97 httpMs=1905 totalMs=2004 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:22 +7 ~1: Section 1 - Tests with workarounds reverted retest: material/bottom_navigation_bar_type_test.dart
+[METRIC] script=retest/material/bottom_navigation_bar_type_test.dart sourceChars=61826 clearMs=60 httpMs=1768 totalMs=1829 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +8 ~1: Section 1 - Tests with workarounds reverted retest: material/button_bar_theme_test.dart
+[METRIC] script=retest/material/button_bar_theme_test.dart sourceChars=26697 clearMs=104 httpMs=1663 totalMs=1768 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:26 +9 ~1: Section 1 - Tests with workarounds reverted retest: material/button_bar_layout_behavior_test.dart
+[METRIC] script=retest/material/button_bar_layout_behavior_test.dart sourceChars=20202 clearMs=118 httpMs=1556 totalMs=1676 status=success httpStatus=200 outputLines=61 frameworkErrors=0
+00:28 +10 ~1: Section 1 - Tests with workarounds reverted retest: material/button_text_theme_test.dart
+[METRIC] script=retest/material/button_text_theme_test.dart sourceChars=20421 clearMs=28 httpMs=1537 totalMs=1567 status=success httpStatus=200 outputLines=72 frameworkErrors=0
+00:29 +11 ~1: Section 1 - Tests with workarounds reverted retest: material/dropdown_menu_close_behavior_test.dart
+[METRIC] script=retest/material/dropdown_menu_close_behavior_test.dart sourceChars=18790 clearMs=23 httpMs=2315 totalMs=2339 status=success httpStatus=200 outputLines=97 frameworkErrors=0
+00:32 +12 ~1: Section 1 - Tests with workarounds reverted retest: material/gapped_range_slider_track_shape_test.dart
+[METRIC] script=retest/material/gapped_range_slider_track_shape_test.dart sourceChars=36884 clearMs=70 httpMs=1658 totalMs=1730 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+00:33 +13 ~1: Section 1 - Tests with workarounds reverted retest: material/hour_format_test.dart
+[METRIC] script=retest/material/hour_format_test.dart sourceChars=47368 clearMs=79 httpMs=2604 totalMs=2685 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:36 +14 ~1: Section 1 - Tests with workarounds reverted retest: material/material_banner_closed_reason_test.dart
+[METRIC] script=retest/material/material_banner_closed_reason_test.dart sourceChars=19229 clearMs=68 httpMs=1607 totalMs=1677 status=success httpStatus=200 outputLines=97 frameworkErrors=0
+00:38 +15 ~1: Section 1 - Tests with workarounds reverted retest: material/navigation_destination_label_behavior_test.dart
+[METRIC] script=retest/material/navigation_destination_label_behavior_test.dart sourceChars=20091 clearMs=32 httpMs=1617 totalMs=1650 status=success httpStatus=200 outputLines=93 frameworkErrors=0
+00:39 +16 ~1: Section 1 - Tests with workarounds reverted retest: material/navigation_rail_label_type_test.dart
+[METRIC] script=retest/material/navigation_rail_label_type_test.dart sourceChars=21222 clearMs=53 httpMs=1592 totalMs=1646 status=success httpStatus=200 outputLines=92 frameworkErrors=0
+00:41 +17 ~1: Section 1 - Tests with workarounds reverted retest: material/popup_menu_position_test.dart
+[METRIC] script=retest/material/popup_menu_position_test.dart sourceChars=21002 clearMs=34 httpMs=1974 totalMs=2010 status=success httpStatus=200 outputLines=75 frameworkErrors=0
+00:43 +18 ~1: Section 1 - Tests with workarounds reverted retest: material/theme_extension_test.dart
+[METRIC] script=retest/material/theme_extension_test.dart sourceChars=48728 clearMs=31 httpMs=1741 totalMs=1773 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:45 +19 ~1: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_data_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_data_test.dart sourceChars=48130 clearMs=59 httpMs=1663 totalMs=1723 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:46 +20 ~1: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_test.dart sourceChars=56958 clearMs=60 httpMs=1616 totalMs=1677 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:48 +21 ~1: Section 1 - Tests with workarounds reverted retest: painting/axis_direction_test.dart
+[METRIC] script=retest/painting/axis_direction_test.dart sourceChars=44099 clearMs=58 httpMs=1836 totalMs=1895 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+00:50 +22 ~1: Section 1 - Tests with workarounds reverted retest: rendering/hit_test_behavior_test.dart
+[METRIC] script=retest/rendering/hit_test_behavior_test.dart sourceChars=31822 clearMs=74 httpMs=1554 totalMs=1629 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:52 +23 ~1: Section 1 - Tests with workarounds reverted retest: rendering/over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=retest/rendering/over_scroll_header_stretch_configuration_test.dart sourceChars=52927 clearMs=90 httpMs=1632 totalMs=1724 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:53 +24 ~1: Section 1 - Tests with workarounds reverted retest: rendering/render_android_view_test.dart
+[METRIC] script=retest/rendering/render_android_view_test.dart sourceChars=60674 clearMs=82 httpMs=2782 totalMs=2865 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:56 +25 ~1: Section 1 - Tests with workarounds reverted retest: rendering/render_animated_size_state_test.dart
+[METRIC] script=retest/rendering/render_animated_size_state_test.dart sourceChars=62341 clearMs=134 httpMs=2360 totalMs=2495 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:59 +26 ~1: Section 1 - Tests with workarounds reverted retest: rendering/render_sliver_box_child_manager_test.dart
+[METRIC] script=retest/rendering/render_sliver_box_child_manager_test.dart sourceChars=66380 clearMs=79 httpMs=1503 totalMs=1584 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:00 +27 ~1: Section 1 - Tests with workarounds reverted retest: services/message_codec_test.dart
+[METRIC] script=retest/services/message_codec_test.dart sourceChars=89125 clearMs=97 httpMs=2154 totalMs=2252 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:03 +28 ~1: Section 1 - Tests with workarounds reverted retest: services/method_codec_test.dart
+[METRIC] script=retest/services/method_codec_test.dart sourceChars=50453 clearMs=80 httpMs=2058 totalMs=2139 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+01:05 +29 ~1: Section 1 - Tests with workarounds reverted retest: widgets/android_view_surface_test.dart
+[METRIC] script=retest/widgets/android_view_surface_test.dart sourceChars=61153 clearMs=97 httpMs=2463 totalMs=2561 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:07 +30 ~1: Section 1 - Tests with workarounds reverted retest: widgets/app_kit_view_test.dart
+[METRIC] script=retest/widgets/app_kit_view_test.dart sourceChars=69754 clearMs=66 httpMs=2503 totalMs=2571 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:10 +31 ~1: Section 1 - Tests with workarounds reverted retest: widgets/back_button_listener_test.dart
+[METRIC] script=retest/widgets/back_button_listener_test.dart sourceChars=78203 clearMs=41 httpMs=1747 totalMs=1789 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:12 +32 ~1: Section 1 - Tests with workarounds reverted retest: widgets/box_scroll_view_test.dart
+[METRIC] script=retest/widgets/box_scroll_view_test.dart sourceChars=60999 clearMs=119 httpMs=1721 totalMs=1842 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:13 +33 ~1: Section 1 - Tests with workarounds reverted retest: widgets/context_action_test.dart
+  Skip: W1: script passes in isolation but wedges app /clear afterward, causing cascade of timeouts in the rest of the run. See doc/interpreter_issues.md.
+01:13 +33 ~2: Section 1 - Tests with workarounds reverted retest: widgets/default_selection_style_test.dart
+[METRIC] script=retest/widgets/default_selection_style_test.dart sourceChars=37575 clearMs=47 httpMs=1748 totalMs=11797 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:25 +34 ~2: Section 1 - Tests with workarounds reverted retest: widgets/default_text_editing_shortcuts_test.dart
+  Skip: W2: /build hangs 30s, wedges app /clear afterward. Cascades into the rest of the run. See doc/interpreter_issues.md.
+01:25 +34 ~3: Section 1 - Tests with workarounds reverted retest: widgets/live_text_input_status_test.dart
+  Skip: W3: cascade victim of W2 in retest runs. Re-evaluate once W2 is fixed. See doc/interpreter_issues.md.
+01:25 +34 ~4: Section 1 - Tests with workarounds reverted retest: widgets/lock_state_test.dart
+  Skip: W4 (2026-04-28): wedges test app /build with "HttpException: Connection closed before full header was received", then test app process dies and cascades 19 subsequent retests with SocketException: Connection refused. Captured in doc/testlog_20260428-1333-issue-analysis/error_analysis.md cluster R and doc/interpreter_issues.md "[WEDGE — Watchlist] W4". Skipping until the structural test-app watchdog (interpreter_issues.md META) lands or the underlying lock-state interpreter shape is diagnosed.
+01:25 +34 ~5: Section 1 - Tests with workarounds reverted retest: widgets/nested_scroll_view_state_test.dart
+[METRIC] script=retest/widgets/nested_scroll_view_state_test.dart sourceChars=54210 clearMs=93 httpMs=1717 totalMs=1812 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+01:27 +35 ~5: Section 1 - Tests with workarounds reverted retest: widgets/next_focus_intent_test.dart
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceChars=49706 clearMs=127 httpMs=1605 totalMs=1734 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+01:29 +36 ~5: Section 1 - Tests with workarounds reverted retest: widgets/object_key_test.dart
+[METRIC] script=retest/widgets/object_key_test.dart sourceChars=47530 clearMs=70 httpMs=1623 totalMs=1695 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:31 +37 ~5: Section 1 - Tests with workarounds reverted retest: widgets/raw_dialog_route_test.dart
+[METRIC] script=retest/widgets/raw_dialog_route_test.dart sourceChars=59630 clearMs=96 httpMs=1852 totalMs=1949 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+01:33 +38 ~5: Section 1 - Tests with workarounds reverted retest: widgets/raw_keyboard_listener_test.dart
+[METRIC] script=retest/widgets/raw_keyboard_listener_test.dart sourceChars=74407 clearMs=78 httpMs=1961 totalMs=2042 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:35 +39 ~5: Section 1 - Tests with workarounds reverted retest: widgets/raw_menu_overlay_info_test.dart
+[METRIC] script=retest/widgets/raw_menu_overlay_info_test.dart sourceChars=30753 clearMs=102 httpMs=1530 totalMs=1634 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+01:36 +40 ~5: Section 1 - Tests with workarounds reverted retest: widgets/raw_radio_test.dart
+[METRIC] script=retest/widgets/raw_radio_test.dart sourceChars=46879 clearMs=86 httpMs=1753 totalMs=1841 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:38 +41 ~5: Section 1 - Tests with workarounds reverted retest: widgets/redo_text_intent_test.dart
+[METRIC] script=retest/widgets/redo_text_intent_test.dart sourceChars=56759 clearMs=95 httpMs=1442 totalMs=1539 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:40 +42 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_delegate_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_delegate_test.dart sourceChars=67980 clearMs=94 httpMs=1440 totalMs=1536 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:41 +43 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_linux_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_linux_test.dart sourceChars=63172 clearMs=33 httpMs=1512 totalMs=1547 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:43 +44 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_mac_o_s_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_mac_o_s_test.dart sourceChars=72928 clearMs=46 httpMs=1564 totalMs=1612 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:44 +45 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_test.dart sourceChars=96080 clearMs=56 httpMs=1539 totalMs=1597 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:46 +46 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_win32_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_win32_test.dart sourceChars=56775 clearMs=26 httpMs=1512 totalMs=1540 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:47 +47 ~5: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_test.dart
+[METRIC] script=retest/widgets/regular_window_test.dart sourceChars=53604 clearMs=62 httpMs=1447 totalMs=1510 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:49 +48 ~5: Section 1 - Tests with workarounds reverted retest: widgets/render_abstract_layout_builder_mixin_test.dart
+[METRIC] script=retest/widgets/render_abstract_layout_builder_mixin_test.dart sourceChars=42352 clearMs=70 httpMs=1439 totalMs=1510 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:50 +49 ~5: Section 1 - Tests with workarounds reverted retest: widgets/render_nested_scroll_view_viewport_test.dart
+[METRIC] script=retest/widgets/render_nested_scroll_view_viewport_test.dart sourceChars=10006 clearMs=92 httpMs=1404 totalMs=1497 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:52 +50 ~5: Section 1 - Tests with workarounds reverted retest: widgets/render_tap_region_surface_test.dart
+[METRIC] script=retest/widgets/render_tap_region_surface_test.dart sourceChars=38539 clearMs=57 httpMs=1459 totalMs=1517 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:53 +51 ~5: Section 1 - Tests with workarounds reverted retest: widgets/replace_text_intent_test.dart
+[METRIC] script=retest/widgets/replace_text_intent_test.dart sourceChars=57840 clearMs=55 httpMs=1487 totalMs=1544 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:55 +52 ~5: Section 1 - Tests with workarounds reverted retest: widgets/request_focus_action_test.dart
+[METRIC] script=retest/widgets/request_focus_action_test.dart sourceChars=49789 clearMs=67 httpMs=1506 totalMs=1575 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:57 +53 ~5: (tearDownAll)
+01:57 +53 ~5: All tests passed!
