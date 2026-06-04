@@ -17,6 +17,13 @@
 /// specific bridged constructor/parameter to trigger). Those are recorded as
 /// `skip:` entries with the reason, so this file documents every open issue.
 @TestOn('vm')
+// Cold-start headroom: the first interpret on a freshly-started test app
+// cold-starts the parser (issue B.11) and can exceed the framework's default
+// 30 s per-test timeout. Without this, the first build is killed mid-interpret,
+// leaving the app wedged and cascading every subsequent test into a spurious
+// timeout. 90 s sits above the runner's 55 s inner `_httpBuildTimeout` so the
+// inner budget governs.
+@Timeout(Duration(seconds: 90))
 library;
 
 import 'package:flutter_test/flutter_test.dart';
