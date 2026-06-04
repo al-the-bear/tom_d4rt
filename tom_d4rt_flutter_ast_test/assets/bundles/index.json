@@ -2,19 +2,103 @@
   "generated": "tool/compile_samples_to_bundles.dart",
   "bundles": [
     {
+      "name": "bezier_curve_editor"
+    },
+    {
+      "name": "bottom_nav_shell"
+    },
+    {
+      "name": "bouncing_balls_physics"
+    },
+    {
       "name": "calculator"
+    },
+    {
+      "name": "card_swiper"
+    },
+    {
+      "name": "carousel_pager"
+    },
+    {
+      "name": "chat_ui"
     },
     {
       "name": "clock_face"
     },
     {
+      "name": "color_picker_studio"
+    },
+    {
+      "name": "conway_life"
+    },
+    {
+      "name": "counter2"
+    },
+    {
       "name": "counter_app"
+    },
+    {
+      "name": "drawing_pad"
+    },
+    {
+      "name": "form_wizard"
+    },
+    {
+      "name": "kanban_board"
+    },
+    {
+      "name": "memory_match"
+    },
+    {
+      "name": "note_app"
+    },
+    {
+      "name": "particle_field"
+    },
+    {
+      "name": "photo_gallery_hero"
+    },
+    {
+      "name": "pomodoro_timer"
+    },
+    {
+      "name": "slide_puzzle"
+    },
+    {
+      "name": "snake_game"
+    },
+    {
+      "name": "solitaire"
+    },
+    {
+      "name": "solitaire2"
     },
     {
       "name": "stopwatch_laps"
     },
     {
+      "name": "stpauls"
+    },
+    {
+      "name": "stpeters"
+    },
+    {
+      "name": "sudoku_app"
+    },
+    {
+      "name": "tabbed_dashboard"
+    },
+    {
+      "name": "tic_tac_toe"
+    },
+    {
       "name": "tip_calculator"
+    },
+    {
+      "name": "todo_list"
+    },
+    {
+      "name": "tron"
     }
   ]
 }
