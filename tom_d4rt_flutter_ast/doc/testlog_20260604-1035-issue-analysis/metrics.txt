@@ -1,0 +1,13 @@
+essential_classes_test: exit=0 +105
+important_classes_test: exit=1 +161 -1
+secondary_classes_test: exit=0 +647 ~1
+hardly_relevant_classes_1_test: exit=1 +200 ~1 -4
+hardly_relevant_classes_2_test: exit=0 +201
+hardly_relevant_classes_3_test: exit=0 +200
+hardly_relevant_classes_4_test: exit=1 +220 -7
+hardly_relevant_classes_5_test: exit=0 +229
+timeout_tests_test: exit=0 +56
+blocking_tests_test: exit=1 +15 -3
+generator_interpreter_issues_test: exit=0 +82 ~1
+generator_interpreter_retest_test: exit=0 +57 ~1
+interactive_tests_test: exit=0 +6
