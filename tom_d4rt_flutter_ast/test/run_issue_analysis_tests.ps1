@@ -70,3 +70,6 @@ foreach ($f in $files) {
 
 Write-Host ''
 Write-Host "== done. metrics: $out/metrics.txt =="
+Write-Host ''
+Write-Host "== re-run this exact ID (copy-paste; e.g. in the sibling project) =="
+Write-Host "./test/run_issue_analysis_tests.ps1 -Id $Id"

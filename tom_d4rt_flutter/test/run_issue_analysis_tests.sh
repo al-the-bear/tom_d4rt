@@ -81,3 +81,6 @@ done
 
 echo ""
 echo "== done. metrics: ${OUT}/metrics.txt =="
+echo ""
+echo "== re-run this exact ID (copy-paste; e.g. in the sibling project) =="
+echo "./test/run_issue_analysis_tests.sh ${ID}"
