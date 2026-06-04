@@ -47,6 +47,38 @@ The barrel (`lib/tom_d4rt_flutter.dart`) exports:
 
 ---
 
+## Example applications
+
+The companion **`tom_d4rt_flutter_test`** project holds 33 self-contained
+example apps under `tom_d4rt_flutter_test/example/`, each a multi-file D4rt
+program rendered through `SourceFlutterD4rt`. They double as the broadest
+real-world exercise of the bridge surface:
+
+| | | | |
+|---|---|---|---|
+| `bezier_curve_editor` | `bottom_nav_shell` | `bouncing_balls_physics` | `calculator` |
+| `card_swiper` | `carousel_pager` | `chat_ui` | `clock_face` |
+| `color_picker_studio` | `conway_life` | `counter2` | `counter_app` |
+| `drawing_pad` | `form_wizard` | `kanban_board` | `memory_match` |
+| `note_app` | `particle_field` | `photo_gallery_hero` | `pomodoro_timer` |
+| `slide_puzzle` | `snake_game` | `solitaire` | `solitaire2` |
+| `stopwatch_laps` | `stpauls` | `stpeters` | `sudoku_app` |
+| `tabbed_dashboard` | `tic_tac_toe` | `tip_calculator` | `todo_list` |
+| `tron` | | | |
+
+Run the demo application to browse and execute them interactively:
+
+```bash
+cd ../tom_d4rt_flutter_test
+flutter run
+```
+
+The same sample set is mirrored in the AST sibling
+(`tom_d4rt_flutter_ast_test/example/`), so the source-direct and AST paths can
+be compared app-for-app.
+
+---
+
 ## Regenerating the bridges
 
 The `lib/src/bridges/*.b.dart` files are generated from `buildkit.yaml`. Never

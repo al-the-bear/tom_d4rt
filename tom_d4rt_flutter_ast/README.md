@@ -187,6 +187,45 @@ Each user bridge is a `D4UserBridge` subclass annotated with
 and routes the relevant method or constructor calls through the override instead of
 the auto-generated adapter.
 
+## Example applications
+
+The companion **`tom_d4rt_flutter_ast_test`** project holds 33 self-contained
+example apps under `tom_d4rt_flutter_ast_test/example/`, each a multi-file D4rt
+program compiled to an `AstBundle` and rendered through `FlutterD4rt` on the
+analyzer-free path. They are the broadest real-world exercise of the bridge
+surface and the over-the-air UI scenario:
+
+| | | | |
+|---|---|---|---|
+| `bezier_curve_editor` | `bottom_nav_shell` | `bouncing_balls_physics` | `calculator` |
+| `card_swiper` | `carousel_pager` | `chat_ui` | `clock_face` |
+| `color_picker_studio` | `conway_life` | `counter2` | `counter_app` |
+| `drawing_pad` | `form_wizard` | `kanban_board` | `memory_match` |
+| `note_app` | `particle_field` | `photo_gallery_hero` | `pomodoro_timer` |
+| `slide_puzzle` | `snake_game` | `solitaire` | `solitaire2` |
+| `stopwatch_laps` | `stpauls` | `stpeters` | `sudoku_app` |
+| `tabbed_dashboard` | `tic_tac_toe` | `tip_calculator` | `todo_list` |
+| `tron` | | | |
+
+Run the demo application to browse and execute them interactively:
+
+```bash
+cd ../tom_d4rt_flutter_ast_test
+flutter run            # native target
+./run_web.sh           # dart2js web target
+./run_wasm.sh          # dart2wasm web target (see script header for status)
+```
+
+Recompile the sample bundles after editing any sample:
+
+```bash
+flutter test tool/compile_samples_to_bundles.dart
+```
+
+The same sample set is mirrored in the source-direct sibling
+(`tom_d4rt_flutter_test/example/`), so the two execution paths can be compared
+app-for-app.
+
 ## Architecture
 
 ### Generated bridges vs hand-written user bridges
