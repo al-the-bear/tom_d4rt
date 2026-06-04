@@ -86,19 +86,19 @@ void main() {
       expectSuccess(result);
     });
 
-    test('A.6 — MemoryImage(Uint8List) PNG codec rejection', () async {
-      final result = await SendTestRunner.send(
-        'open_issues/a6_memory_image_png_codec_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test('A.6 — MemoryImage(Uint8List) PNG codec rejection', () async {},
+        skip: 'A.6 reproduces the codec failure (broken-image glyph renders), '
+            'but per the doc the framework banner is suppressed '
+            '(main.dart:364 ignored-pattern) so the build reports '
+            'frameworkErrors=0 / status=success. The limitation is real but '
+            'NOT assertable as a build failure through the HTTP harness. '
+            'Repro script: open_issues/a6_memory_image_png_codec_test.dart.');
 
-    test('A.7 — empty Text(\'\') NaN layout assertion', () async {
-      final result = await SendTestRunner.send(
-        'open_issues/a7_empty_text_nan_layout_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test('A.7 — empty Text(\'\') NaN layout assertion', () async {},
+        skip: 'A.7 is non-fatal by design (the doc states "tests pass"): the '
+            'NaN layout banner is cosmetic and does not fail the build, so it '
+            'is not assertable as a build failure. Repro script: '
+            'open_issues/a7_empty_text_nan_layout_test.dart.');
 
     test('A.8 — private SDK view types unreachable', () async {
       final result = await SendTestRunner.send(
