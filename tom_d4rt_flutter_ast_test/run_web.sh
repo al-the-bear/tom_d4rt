@@ -14,8 +14,11 @@ cd "$(dirname "$0")"
 echo "==> Recompiling sample bundles"
 flutter test tool/compile_samples_to_bundles.dart
 
-# --no-tree-shake-icons is required: the interpreter constructs IconData at
-# runtime (non-const), so the release icon tree-shaker cannot prove which
-# glyphs are used. Harmless in debug, mandatory for `flutter build web`.
+# Note: --no-tree-shake-icons is a `flutter build` option and is rejected by
+# `flutter run`. It is only needed for release builds (`flutter build web`),
+# because the interpreter constructs IconData at runtime (non-const) and the
+# release icon tree-shaker cannot prove which glyphs are used. `flutter run`
+# is always a debug build, so no icon tree-shaking happens and the flag is
+# unnecessary here.
 echo "==> flutter run -d chrome"
-exec flutter run -d chrome --no-tree-shake-icons "$@"
+exec flutter run -d chrome "$@"
