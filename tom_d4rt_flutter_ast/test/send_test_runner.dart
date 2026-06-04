@@ -1563,7 +1563,12 @@ class SendTestRunner {
 // send() observe the failure, recycle the app, and the next script runs
 // against a fresh process.
 const Duration _httpClearTimeout = Duration(seconds: 5);
-const Duration _httpBuildTimeout = Duration(seconds: 25);
+// 55s sits just under the outer `flutter test --timeout 60s` (5s headroom), so
+// the inner cap no longer pre-empts the outer timeout. The previous 25s value
+// fired first and recorded heavy-but-progressing builds as transport failures
+// on a loaded host; at 55s a slow build gets nearly the full minute, while a
+// genuinely wedged transport still fails before the outer 60s elapses.
+const Duration _httpBuildTimeout = Duration(seconds: 55);
 
 Future<Map<String, dynamic>> _httpGet(
   HttpClient client,
