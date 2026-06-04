@@ -1,9 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/hardly_relevant_classes_5_test.dart
-00:00 +0: (setUpAll)
-00:10 +0: widgets/ snapshot_mode_test.dart
-[METRIC] script=widgets/snapshot_mode_test.dart sourceChars=62837 clearMs=44 httpMs=1978 totalMs=2034 status=success httpStatus=200 outputLines=0 frameworkErrors=1
-
-  ⚠️  FRAMEWORK ERROR in widgets/snapshot_mode_test.dart (1 error(s)):
-       Runtime Error: Native error during default bridged constructor for 'Scaffold': Argument Error: Invalid parameter "appBar": expected PreferredSizeWidget?, got _InterpretedStatelessWidget
-00:12 +1: (tearDownAll)
-00:13 +1: All tests passed!

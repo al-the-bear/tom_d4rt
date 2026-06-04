@@ -1,8 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/secondary_classes_test.dart
-00:00 +0: (setUpAll)
-00:28 +0: services/ individual default_spell_check_service_test.dart
-[METRIC] script=services/default_spell_check_service_test.dart sourceChars=3145 clearMs=111 httpMs=2152 totalMs=2273 status=success httpStatus=200 outputLines=56 frameworkErrors=0
-00:30 +1: services/ individual spell_check_service_test.dart
-[METRIC] script=services/spell_check_service_test.dart sourceChars=77971 clearMs=61 httpMs=2683 totalMs=2750 status=success httpStatus=200 outputLines=1 frameworkErrors=0
-00:33 +2: (tearDownAll)
-00:34 +2: All tests passed!
