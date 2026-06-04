@@ -6,6 +6,19 @@
 `tom_ai/d4rt` source + commit history (HEAD `2e38dd0b`). Items fixed in the
 meantime are **excluded** (listed in §1 for traceability).
 
+**2026-06-04 re-verification:** the `open_issues/` reproduction corpus was run
+against **both** runtimes — source-direct (`tom_d4rt`, via `tom_d4rt_flutter`)
+and analyzer-free AST (`tom_d4rt_ast`, via `tom_d4rt_flutter_ast`). The two
+runtimes agreed exactly. **9 entries fully removed** (A.8, B.2, B.3, B.4, B.6,
+B.7, B.8, B.10, C.2) — their documented defect no longer reproduces on either
+runtime; they are recorded in §1 and their numbering is **not** reused.
+**2 entries narrowed** (C.5, C.6) — the verified-fixed sub-parts (C.5
+`semanticsBuilder`/idx 310, C.6 `EagerGestureRecognizer.new`/idx 77·79·329) are
+recorded in §1, but each entry **stays open** for the still-uncovered sub-parts.
+The still-open reproductions are A.2, A.3, A.4, A.5, B.1, B.5, B.9, C.1 (plus
+the narrowed C.5/C.6 remainders). A.6 and A.7 still reproduce but are non-fatal
+(suppressed/cosmetic), so they are not assertable as build failures.
+
 The three source logs (`generator_issues.md`, `interpreter_issues.md`,
 `interpreter_unfixable.md`) were **not kept up to date** — their in-doc status
 tags (`[WEDGE — Open]`, `Plan E2 (open)`, "deferred, feature-scale") predate the
@@ -34,6 +47,17 @@ Do not re-file these; evidence in parentheses.
 | Inherited `State.widget` / `setState` exposure | **FIXED** (runtime) | `registerSupplementaryMethod('State','widget')` `:2023`, `('setState')` `:2047`; `StateUserBridge`; generator `c092d361` (GEN-112) |
 | WEDGE W1–W5 (context_action, default_text_editing_shortcuts, live_text_input_status, lock_state, animated_switcher) — as *interpreter* bugs | **FIXED as scripts** — de-skipped, pass in isolation | Cluster R `interpreter_unfixable.md:167-194`; de-skip commits `056743e7`, `89997a53`, relocated to `timeout_tests_test.dart:488-504`. The *transport-cascade* residue is A.1 |
 | [META] watchdog / per-test process restart | **DEFERRED, not a bug** | `50bfc8a8` formally defers; rendered moot once W1–W5 proved isolation-clean |
+| A.8 — private SDK view `_ByteDataView.lengthInBytes` unreachable | **NO LONGER REPRODUCES** (runtime) | 2026-06-04 both runtimes; `ByteData.view(...).lengthInBytes` resolves via the public `ByteData` static type. Repro `open_issues/a8_private_view_type_unreachable_test.dart` |
+| B.2 — C-style `for(;;)` shares one loop variable across closures | **FIXED** (interpreter) | 2026-06-04 both runtimes; closures now capture per-iteration values (`[0, 1, 2]`). Repro `open_issues/b2_cstyle_for_closure_capture_test.dart` |
+| B.3 — `runtimeType.toString()` on interpreted classes | **FIXED** (interpreter) | 2026-06-04 both runtimes; yields the declared class name. Repro `open_issues/b3_runtimetype_tostring_test.dart` |
+| B.4 — `const`-shaped constructor bypasses static-method registration | **FIXED** (interpreter) | 2026-06-04 both runtimes; `const Stream<int>.empty()` constructs. Repro `open_issues/b4_const_stream_empty_static_bypass_test.dart` |
+| B.6 — `switch` over a `BridgedEnum` falls through to null | **FIXED** (interpreter) | 2026-06-04 both runtimes; bridged-enum cases match. Repro `open_issues/b6_switch_over_bridged_enum_test.dart` |
+| B.7 — `_ConstMap` (`const {}`) missing from Map bridge `nativeNames` | **FIXED** (interpreter/stdlib) | 2026-06-04 both runtimes; const-map member access works. Repro `open_issues/b7_const_map_native_name_test.dart` |
+| B.8 — spurious `!` null-check error on nullable static getters | **FIXED** (interpreter) | 2026-06-04 both runtimes; `!` on a static getter no longer raises. Repro `open_issues/b8_null_assert_on_static_getter_test.dart` |
+| B.10 — private script class with a parameterized unnamed constructor | **FIXED** (interpreter) | 2026-06-04 both runtimes; parameterized unnamed ctor on a private interpreted class instantiates. Repro `open_issues/b10_private_class_parameterized_ctor_test.dart` |
+| C.2 — proxies emitted with `<dynamic>` type args | **FIXED** (generator) | 2026-06-04 both runtimes; `LeafRenderObjectWidget` subclass crosses to native. Repro `open_issues/c2_typed_proxy_emission_test.dart` |
+| C.5 (partial) — nullable callback param coercion (`semanticsBuilder`, idx 310) | **FIXED** (generator) | 2026-06-04 both runtimes; nullable function-typed param crosses the bridge. Repro `open_issues/c5_nullable_callback_param_coercion_test.dart`. **C.5 stays open** for the generic-`T` callback signature + `VoidCallback?` (idx 290) parts, which are not yet covered by a repro |
+| C.6 (partial) — static constructor tearoff (`EagerGestureRecognizer.new`, idx 77/79/329) | **FIXED** (generator) | 2026-06-04 both runtimes; static constructor tearoff resolves. Repro `open_issues/c6_eager_gesture_recognizer_tearoff_test.dart`. **C.6 stays open** for `Key.label` (idx 14) and `ByteData` symbol resolution (idx 279), not yet covered by a repro |
 
 ---
 
@@ -134,15 +158,6 @@ a per-character non-Latin `TextSpan` stream (U19).
 **Workaround:** substitute a single space for empty `Text`; avoid per-character
 non-Latin `TextSpan` construction.
 
-### A.8 — Private SDK view types (`_ByteDataView.lengthInBytes`) unreachable
-
-**Symptom:** member access on a private SDK view type (`_ByteDataView`) is
-undefined. (generator_issues idx 71–72.)
-**Root cause:** the runtime type is a *private* SDK view with no bridge mapping;
-it cannot be named or registered.
-**Why unfixable:** private types are outside the bridgeable surface.
-**Workaround:** normalize to the public `ByteData` before access.
-
 ---
 
 ## 3. B — Interpreter-fixable issues
@@ -157,23 +172,6 @@ redirected concrete subclass directly. *Fix:* implement redirecting-factory
 resolution in the constructor evaluator. (Closed script-side in `7b6aed97`, no
 interpreter change.)
 
-### B.2 — C-style `for(;;)` shares one loop variable across closures (I1)
-`_executeClassicFor` reuses a single `loopEnvironment`; closures capture the
-post-loop value instead of the per-iteration value. *Workaround:*
-`List.generate(n, (i) => …)`. *Fix:* fresh per-iteration binding (clone the loop
-var into a new scope each turn), matching Dart semantics.
-
-### B.3 — `runtimeType.toString()` on interpreted classes fails (T1)
-`InterpretedInstance.runtimeType` returns an `InterpretedClass` with no callable
-`toString`. *Workaround:* `is`-check ladder emitting the name. *Fix:* give
-`InterpretedClass` a `toString` returning the declared class name.
-
-### B.4 — `const`-shaped constructor bypasses static-method registration (S1)
-`const Stream<int>.empty()` routes only through `findConstructorAdapter`, never
-`staticMethods`, so factory-as-static registrations are missed. *Workaround:*
-drop `const`/type-arg and call as a method. *Fix:* consult `staticMethods` on the
-const-construction path.
-
 ### B.5 — Bridge-wrapped exceptions escape typed `on` / bare `catch` (U13, U24)
 A native throw is wrapped in `RuntimeError`, discarding the original type, so
 `on PlatformException` never matches (U13); some bridged static getters that
@@ -181,36 +179,11 @@ throw bypass even an untyped `catch` (U24). *Workaround:* pre-check
 preconditions; don't rely on typed catch across the bridge. *Fix:* preserve the
 original native exception type through the wrap so `on`/`catch` clauses match.
 
-### B.6 — `switch` over a `BridgedEnum` falls through to null (P4)
-The equality probe in `visitSwitchStatement` returns false both directions for
-certain bridged-enum values; a String-returning helper falls through to implicit
-null. *Workaround:* `if/else` over `==`, seed a default. *Fix:* correct bridged-
-enum equality in switch-case matching.
-
-### B.7 — `_ConstMap` (`const {}`) missing from Map bridge `nativeNames` (U7)
-The Map `BridgedClass` `nativeNames` omits `_ConstMap` (the runtime type of a
-const map literal), so member access throws. *Workaround:* `Map.from(...)` / drop
-`const`. *Fix:* one-line addition of `_ConstMap` to the Map bridge `nativeNames`.
-
-### B.8 — Spurious `!` null-check error on nullable static getters (step-7 sidebar a)
-`visitPostfixExpression` (`SPostfixExpression`) raises a spurious Runtime Error
-when `!` is applied to a nullable static getter (`static BitField get bf => _bf!`).
-*Workaround:* top-level mutable var + lazy helper. *Fix:* handle the null-assert
-operator on static-getter receivers. (Closed script-side only in `39c37e5d`.)
-
 ### B.9 — Static-field write from a sibling static method not persisting (step-7 sidebar b)
 A static-field write performed inside a sibling static method does not survive
 across calls. Distinct from initializer-ordering (`2b836ca6`). *Workaround:*
 top-level mutable variable. *Fix:* ensure static-field stores from any static
 member persist to the class's static slot.
-
-### B.10 — Private script class with a parameterized unnamed constructor not instantiable
-Script-local private classes (`_FlowStage`, `_Pattern`, `_Playbook`, … ~15
-distinct) with an **argument-taking** unnamed constructor raise "does not have an
-unnamed constructor that accepts arguments." These are interpreted (not bridged)
-classes, so this is an interpreter constructor-resolution gap, not a generator
-gap. *Workaround:* refactor the script to a named ctor or public class.
-*Fix:* resolve parameterized unnamed constructors on private interpreted classes.
 
 ### B.11 — No app-startup / parser warmup (cold-start flakiness) (U25)
 The first script after `setUpAll` flakes under host load because the parser +
@@ -318,14 +291,6 @@ script-defined subclass of a bridged abstract/mixin (the templatable majority;
 the non-templatable residue is A.3). Overlaps
 `manual_code_interventions.md` TODO #2.
 
-### C.2 — Correctly-typed proxy emission (`registerProxyFactories` emits `<dynamic>`)
-The generator's emitted proxies carry `<dynamic>` type args that fail concrete
-type checks, forcing `registerD4rtInterfaceProxyOverrides()` to re-register
-`MultiChildLayoutDelegate`, `SingleChildLayoutDelegate`, `CustomClipper`, etc. by
-hand, and the long tail of widget bases (Gap 3 residue beyond
-Stateless/Stateful). *Fix:* emit proxies with the concrete type arguments read
-from the script's `extends` clause.
-
 ### C.3 — Non-wrappable arithmetic defaults on positional native ctors (U2)
 `BridgeGenerator._wrapDefaultValue` returns null for any default containing an
 operator (`math.pi * 2`), emitting a throwing `getRequiredArgTodoDefault`.
@@ -338,19 +303,21 @@ The helper guards on `!named.containsKey(p) || named[p] == null`, conflating
 overwritten by the bridge default. *Workaround:* avoid passing explicit `null`.
 *Fix:* distinguish absence from explicit-null in the generated default guard.
 
-### C.5 — Generic-`T` callback signature + nullable `VoidCallback` param coercion (Gap 7 residue)
+### C.5 — Generic-`T` callback signature (Gap 7 residue)
 `Future<X>` callback-return wrapping is fixed (`239cf773`) and arity-preserving
 param closures work, but class-generic-`T` callback signatures
 (`BasicMessageChannel<T>.setMessageHandler`) are only worked around by a
-hand-written user bridge, and nullable `VoidCallback?` / `semanticsBuilder`
-param coercion (idx 290, 310) have no landed fix. *Fix:* generate callback
-adapters that preserve the class-level `T` and coerce nullable function params.
+hand-written user bridge. *Fix:* generate callback adapters that preserve the
+class-level `T`. (The nullable `semanticsBuilder` param-coercion sub-part — idx
+310 — was verified fixed 2026-06-04, see §1; the `VoidCallback?` idx 290
+sub-part is not yet covered by a repro.)
 
 ### C.6 — Missing member / static exposure (Gap 8 residue)
-Still undefined: `Key.label` (idx 14), `EagerGestureRecognizer.new` static
-constructor tearoff (idx 77/79/329), `ByteData` symbol resolution (idx 279).
-*Fix:* expose the missing members / emit static constructor tearoffs in the
-bridge. (`_ByteDataView.lengthInBytes` is A.8, not this — private type.)
+Still undefined: `Key.label` (idx 14), `ByteData` symbol resolution (idx 279).
+*Fix:* expose the missing members in the bridge.
+(`_ByteDataView.lengthInBytes` was A.8 — now non-reproducing, see §1.
+`EagerGestureRecognizer.new` static-constructor tearoff — idx 77/79/329 — was
+verified fixed 2026-06-04, see §1.)
 
 ---
 

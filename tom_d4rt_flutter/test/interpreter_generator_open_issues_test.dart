@@ -7,6 +7,15 @@
 /// is fixed, its test here should flip from red to green; that is the signal the
 /// fix landed.
 ///
+/// **2026-06-04 verification:** running this corpus against both runtimes
+/// (source-direct `tom_d4rt` and AST `tom_d4rt_ast`) showed 11 entries no longer
+/// reproduce — A.8, B.2, B.3, B.4, B.6, B.7, B.8, B.10, C.2 (fully) and the
+/// `semanticsBuilder`/`EagerGestureRecognizer.new` sub-parts of C.5/C.6. Their
+/// tests below now PASS and serve as forward regression guards; the doc moved
+/// them to §1 (verified FIXED). The still-red reproductions are A.2, A.3, A.4,
+/// A.5, B.1, B.5, B.9, C.1. A.6/A.7 reproduce but are non-fatal, so they are
+/// `skip:` (not assertable as a build failure).
+///
 /// Reproduction scripts live in the shared corpus under
 /// `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/open_issues/`
 /// so both the AST and source-direct suites run identical scripts.
