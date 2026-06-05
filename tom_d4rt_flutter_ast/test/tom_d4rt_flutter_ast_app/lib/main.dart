@@ -966,8 +966,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     final suite = suiteParam != null
         ? Uri.decodeComponent(suiteParam)
         : null;
-    // testlog_20260528-2206 TODO #5 — per-request build budget override.
-    // Defaults to 30 s (the historical hardcoded value); slow scripts
+    // Per-request build budget override. Defaults to 45 s — the uniform
+    // AST-app build timeout, nested below the runner's 55 s HTTP timeout
+    // and the 60 s per-test flutter timeout (45 < 55 < 60). Slow scripts
     // like `retest/widgets/app_kit_view_test.dart` can override via the
     // test runner's `httpBuildTimeout` parameter, which threads through
     // as `&buildBudgetMs=N`. Capped at 120 s to prevent runaway scripts
@@ -976,7 +977,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         int.tryParse(request.uri.queryParameters['buildBudgetMs'] ?? '');
     final buildBudget = budgetParamMs != null
         ? Duration(milliseconds: budgetParamMs.clamp(1000, 120000))
-        : const Duration(seconds: 30);
+        : const Duration(seconds: 45);
     if (mounted && (filename != null || suite != null)) {
       setState(() {
         if (filename != null) _currentTestFile = filename;
