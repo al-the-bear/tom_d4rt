@@ -741,6 +741,28 @@ class D4rt {
     _maybeEnableUsageLogFromEnv();
   }
 
+  /// OPEN B.11 / U25 — Pre-builds the parser + bridge infrastructure so the
+  /// first real build does not cold-start mid-test under host load.
+  ///
+  /// The first script run after a test harness' `setUpAll` historically
+  /// flaked because the analyzer front-end, the bridge/stdlib registration
+  /// path ([_initModule] → `Stdlib(...).register()` + bridge-type
+  /// registration), and the interpreter all cold-started during that first
+  /// build. This pays the cost up front by parsing and executing a trivial
+  /// throwaway script (`int main() => 0;`), which JIT-warms the analyzer
+  /// parser, the module loader environment, bridge finalization, and the
+  /// interpreter call path in one pass.
+  ///
+  /// **Idempotent and script-neutral:** every real `execute*` rebuilds its
+  /// module loader and environment from scratch, so the throwaway warmup
+  /// state is discarded. Safe to call once after all bridge registration and
+  /// before the first real build. Mirrors `D4rtRunner.warmup` /
+  /// `D4rt.warmup` in `tom_d4rt_ast` / `tom_d4rt_exec`.
+  void warmup() {
+    finalizeBridges();
+    execute(source: 'int main() => 0;');
+  }
+
   /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
   /// a truthy value (`1`, `true`, `yes`, `on`, case-insensitive). Resets the
   /// log so each process run starts fresh, and arms the automatic end-of-run

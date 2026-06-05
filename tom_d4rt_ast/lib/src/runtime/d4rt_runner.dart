@@ -539,6 +539,50 @@ class D4rtRunner {
     }
   }
 
+  /// OPEN B.11 / U25 — Pre-builds the bridge + stdlib infrastructure so the
+  /// first real [execute]/[executeBundle] call does not cold-start mid-test.
+  ///
+  /// ## Why this exists
+  ///
+  /// The first script run after a test harness' `setUpAll` historically
+  /// flaked under host load because the interpreter infrastructure
+  /// (extension finalization, the ~30 stdlib bridges, and the registered
+  /// bridged-class/enum definitions) cold-started during that first build.
+  /// The shipped reset API ([resetScriptDeclarations]) does not warm
+  /// anything — it only evicts script declarations. This method pays that
+  /// cold-start cost *up front*, before the first real build, so the first
+  /// build behaves like a warm one.
+  ///
+  /// ## What it warms
+  ///
+  /// 1. [finalizeBridges] — fires every queued extension callback
+  ///    (relaxers, interface proxies, generic constructors) and freezes the
+  ///    runner. After this the bridge surface is fully wired.
+  /// 2. A throwaway global [Environment] built via [_initEnvironment], which
+  ///    exercises the full `Stdlib(...).register()` + bridged-definition
+  ///    registration path that every build would otherwise pay on first run.
+  ///
+  /// The runner has no Dart source parser (that lives in `tom_d4rt_exec`'s
+  /// `D4rt`, which warms the analyzer front-end in its own `warmup`), so
+  /// this warms only the bridge/stdlib half — which is the portion the
+  /// parser-less Flutter runtime (and the test app's `/warmup` endpoint)
+  /// shares.
+  ///
+  /// **Idempotent and script-neutral:** the warmup environment is discarded;
+  /// it leaves no script declarations behind. The next real
+  /// [execute]/[executeBundle] rebuilds a fresh environment as usual.
+  void warmup() {
+    finalizeBridges();
+    // Build (and discard) an environment to pay the stdlib + bridged
+    // definition registration cost before the first real build. The next
+    // execute*/executeBundle* call constructs its own fresh environment.
+    _initEnvironment();
+    Logger.debug(
+      '[D4rtRunner.warmup] Warmed bridge + stdlib infrastructure '
+      '(${_globalEnvironment?.values.length ?? 0} baseline entries).',
+    );
+  }
+
   // =========================================================================
   // P&R#3 — Public user-registration API
   //
