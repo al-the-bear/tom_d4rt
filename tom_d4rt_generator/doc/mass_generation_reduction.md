@@ -1,6 +1,62 @@
 # Mass-Generation Reduction Proposal
 
+> **Step-0 measured baseline — 2026-06-05** (P&R quest step 0d). Captured
+> from the committed `*.b.dart` of `tom_d4rt_flutter_ast` *before* any
+> reduction work, so steps 4/5 reductions are measurable against it. These
+> numbers **supersede** the April "Current Scale" figures further down (which
+> are kept only as the original analysis context).
+
+### Generated `*.b.dart` size — `tom_d4rt_flutter_ast` (current)
+
+| File | Lines |
+|------|------:|
+| `flutter_relaxers.b.dart` | **181,152** |
+| `widgets_bridges.b.dart` | 104,566 |
+| `rendering_bridges.b.dart` | 100,021 |
+| `material_widgets_bridges.b.dart` | 76,337 |
+| `cupertino_bridges.b.dart` | 18,287 |
+| `gestures_bridges.b.dart` | 13,954 |
+| `painting_bridges.b.dart` | 13,204 |
+| `services_bridges.b.dart` | 11,053 |
+| `dart_ui_bridges.b.dart` | 8,483 |
+| `foundation_bridges.b.dart` | 7,564 |
+| `animation_bridges.b.dart` | 4,918 |
+| `semantics_bridges.b.dart` | 3,444 |
+| `flutter_proxies.b.dart` | 1,585 |
+| `physics_bridges.b.dart` | 856 |
+| `scheduler_bridges.b.dart` | 849 |
+| `material_bridges.b.dart` | 163 |
+| `flutter_bridges_barrel.b.dart` | 16 |
+| **Total (all `*.b.dart`)** | **546,452** |
+
+### Category counts (measured against `flutter_relaxers.b.dart` + `flutter_proxies.b.dart`)
+
+| Category | Artifact | Count | Selection | Combinatorial? |
+|----------|----------|------:|-----------|----------------|
+| A | `$Relaxed*<V>` wrapper classes | **50** | auto (1-type-param, extracted/RC-2) | No |
+| B | `_relax*` factory switches (`registerGenericTypeWrapper`) | **99** | auto + `allConcreteBridgedTypes` injection | **Yes** |
+| C | `_rc2*` ctor factories (`registerGenericConstructor`) | **119** | auto (eligible × ctor) × `allBridgedTypes` | **Yes** |
+| D | `D4rt*` proxy classes (`registerInterfaceProxy`) | **15** | explicit `proxyClasses:` only | No |
+
+The relaxer file alone is 181,152 lines; categories **B + C** (the two
+combinatorial switch families, 99 + 119 = 218 switch sites) account for the
+overwhelming majority. Capping the `allConcreteBridgedTypes` / `allBridgedTypes`
+enumeration (steps 4/5) is the single highest-leverage lever and touches
+neither the 50 wrappers nor the 15 proxies.
+
+> **Measurement commands (reproducible):**
+> `find tom_d4rt_flutter_ast/lib/src/bridges -name '*.b.dart' -exec wc -l {} +`;
+> category counts via `grep -c '^class \$Relaxed'`,
+> `grep -c 'registerGenericTypeWrapper'`, `grep -c 'registerGenericConstructor'`,
+> `grep -cE '^class D4rt'` on the relaxer/proxy files.
+
+---
+
 ## Problem
+
+> **Historical (2026-04 analysis).** The figures in this section predate the
+> 2026-06-05 baseline above and are retained only as original design context;
+> the file has since grown from 135 k to 181 k lines.
 
 `flutter_relaxers.b.dart` is **135,278 lines** — the single largest generated file. The root cause is a combinatorial explosion of unbounded type parameters × all concrete bridged types.
 
