@@ -61,6 +61,11 @@ class InterpretedFunction implements Callable {
   // Factory flag for constructors
   final bool isFactory;
 
+  // OPEN B.1 — for a redirecting factory (`factory X() = Y`), this holds the
+  // redirect target (`Y` / `Y.named`). When set, calling the factory resolves
+  // and instantiates the target instead of executing the (empty) body.
+  final ConstructorName? redirectedFactoryTarget;
+
   final RuntimeType? declaredReturnType; // Store the declared type
 
   final bool isNullable; // Store if the return type is nullable
@@ -160,6 +165,7 @@ class InterpretedFunction implements Callable {
     this.isGenerator = false,
     this.isAsyncGenerator = false,
     this.isFactory = false,
+    this.redirectedFactoryTarget,
     this.declaredReturnType,
     this.isNullable = false,
     this.typeParameterNames = const [],
@@ -248,6 +254,8 @@ class InterpretedFunction implements Callable {
           isAsync: false, // Constructors cannot be async
           isFactory:
               declaration.factoryKeyword != null, // Detect factory constructors
+          // OPEN B.1 — capture the redirect target for `factory X() = Y`.
+          redirectedFactoryTarget: declaration.redirectedConstructor,
           // Constructors don't have their own type parameters - they inherit from their class
           typeParameterNames: const [],
           typeParameterBounds: const {},
@@ -415,6 +423,7 @@ class InterpretedFunction implements Callable {
       isGenerator: isGenerator,
       isAsyncGenerator: isAsyncGenerator,
       isFactory: isFactory, // Copy the factory flag
+      redirectedFactoryTarget: redirectedFactoryTarget, // Copy redirect target
       declaredReturnType: declaredReturnType,
       typeParameterNames: typeParameterNames, // Copy type parameter names
       typeParameterBounds: typeParameterBounds, // Copy type parameter bounds
@@ -1218,6 +1227,15 @@ class InterpretedFunction implements Callable {
     try {
       visitor.currentFunction = this;
 
+      // OPEN B.1 — redirecting factory `factory X(..) = Y(.named)`: resolve the
+      // redirect target and instantiate it, forwarding the call arguments.
+      // The factory body is empty, so this short-circuits normal execution.
+      if (isFactory && redirectedFactoryTarget != null) {
+        // The outer finally restores visitor.currentFunction.
+        return _instantiateRedirectedFactory(
+            visitor, positionalArguments, namedArguments);
+      }
+
       final preparationResult = _prepareExecutionEnvironment(
           visitor, positionalArguments, namedArguments, typeArguments);
 
@@ -1367,6 +1385,97 @@ class InterpretedFunction implements Callable {
       visitor.currentFunction = previousFunction;
       visitor.currentAsyncState = previousAsyncState;
     }
+  }
+
+  /// OPEN B.1 — resolve a redirecting factory's target (`factory X(..) = Y` or
+  /// `= Y.named`) and instantiate it, forwarding the already-evaluated call
+  /// arguments. Supports interpreted and bridged target classes. Generic
+  /// redirect targets (`= Y<int>`) instantiate `Y`; explicit type arguments on
+  /// the redirect target are not separately bound (rare; covered by the target
+  /// class's own type-argument handling).
+  Object? _instantiateRedirectedFactory(
+      InterpreterVisitor visitor,
+      List<Object?> positionalArguments,
+      Map<String, Object?> namedArguments) {
+    final target = redirectedFactoryTarget!;
+    final NamedType typeNode = target.type;
+
+    // Resolve the target class name and optional named-constructor part. The
+    // unresolved parser can place `Y` in importPrefix and the named-ctor part
+    // in name2 for a redirect like `= Circle.r` (mirrors the ambiguity handled
+    // in visitInstanceCreationExpression).
+    String className;
+    String namedCtorPart;
+    if (target.name != null) {
+      className = typeNode.name2.lexeme;
+      namedCtorPart = target.name!.name;
+    } else if (typeNode.importPrefix != null) {
+      final possibleClassName = typeNode.importPrefix!.name.lexeme;
+      Object? possibleType;
+      try {
+        possibleType = _closure.get(possibleClassName);
+      } on RuntimeD4rtException {
+        possibleType = null;
+      }
+      if (possibleType is InterpretedClass || possibleType is BridgedClass) {
+        className = possibleClassName;
+        namedCtorPart = typeNode.name2.lexeme;
+      } else {
+        className = typeNode.name2.lexeme;
+        namedCtorPart = '';
+      }
+    } else {
+      className = typeNode.name2.lexeme;
+      namedCtorPart = '';
+    }
+
+    Object? typeValue;
+    try {
+      typeValue = _closure.get(className);
+    } on RuntimeD4rtException {
+      throw RuntimeD4rtException(
+          "Redirecting factory target '$className' not found for '${_name ?? '<factory>'}'.");
+    }
+
+    if (typeValue is InterpretedClass) {
+      final klass = typeValue;
+      final targetConstructor = klass.findConstructor(namedCtorPart);
+      if (targetConstructor == null) {
+        throw RuntimeD4rtException(
+            "Redirecting factory target '$className' has no constructor named '$namedCtorPart'.");
+      }
+      if (targetConstructor.isFactory) {
+        return targetConstructor.call(
+            visitor, positionalArguments, namedArguments);
+      }
+      final instance = klass.createAndInitializeInstance(visitor, null);
+      final boundConstructor = targetConstructor.bind(instance);
+      boundConstructor.call(visitor, positionalArguments, namedArguments);
+      return instance;
+    } else if (typeValue is BridgedClass) {
+      final bridgedClass = typeValue;
+      final constructorAdapter =
+          bridgedClass.findConstructorAdapter(namedCtorPart);
+      if (constructorAdapter == null) {
+        throw RuntimeD4rtException(
+            "Redirecting factory target bridged class '$className' has no constructor named '$namedCtorPart'.");
+      }
+      final nativeObject = D4.withActiveVisitor(
+        visitor,
+        () => constructorAdapter(visitor, positionalArguments, namedArguments),
+      );
+      if (nativeObject is Future || nativeObject is Stream) {
+        return nativeObject;
+      }
+      if (nativeObject == null) {
+        throw RuntimeD4rtException(
+            "Redirecting factory target bridged constructor for '$className' returned null unexpectedly.");
+      }
+      return BridgedInstance(bridgedClass, nativeObject);
+    }
+
+    throw RuntimeD4rtException(
+        "Redirecting factory target '$className' is not a class.");
   }
 
   // Main engine of the async state machine

@@ -589,11 +589,21 @@ class InterpretedClass implements Callable, RuntimeType {
   Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
       [Map<String, Object?> namedArguments = const {},
       List<RuntimeType>? typeArguments]) {
+    // OPEN B.1 — if the unnamed constructor is a factory, dispatch to it
+    // directly. A factory must not pre-create an instance of (possibly
+    // abstract) this class; it creates and returns its own instance, which is
+    // how redirecting factories (`factory X() = Y`) reach the subclass.
+    final unnamedConstructor = findConstructor('');
+    if (unnamedConstructor != null && unnamedConstructor.isFactory) {
+      return unnamedConstructor.call(
+          visitor, positionalArguments, namedArguments, typeArguments);
+    }
+
     // 1. Create and initialize instance using the new helper
     final instance = createAndInitializeInstance(visitor, typeArguments);
 
     // 2. Find the UNNAMED constructor
-    var constructor = findConstructor(''); // Look for the default constructor
+    var constructor = unnamedConstructor; // Look for the default constructor
 
     // RC-4: If no unnamed constructor found but the class has exactly one
     // constructor (named), use it as fallback. This handles cases like
