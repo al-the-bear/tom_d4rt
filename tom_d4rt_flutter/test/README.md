@@ -67,6 +67,35 @@ cannot hang indefinitely. It is a **per-test** limit; the shell script adds a
 separate ~15 min **per-file** wall-clock backstop (via `timeout`/`gtimeout` when
 available) so a wedged transport cannot stall the entire sequence.
 
+## ⚠️ The idle-output watchdog (fail fast on a wedged run)
+
+Neither the per-test `--timeout 60s` nor the ~15 min per-file backstop helps the
+two failure modes seen most often in practice:
+
+1. the companion-app transport **wedges mid-run** and `flutter test` sits in
+   silence for the rest of the per-file backstop, and
+2. the run **never even reaches the first test** (cold hang) — there is no
+   running test for the per-test timeout to bound.
+
+Both waste up to ~15 minutes per file before the backstop fires. To fail fast,
+each `flutter test` invocation is wrapped by `idle_timeout.sh` (bash) /
+`idle_timeout.ps1` (PowerShell): if the run produces **no output at all for
+`IDLE_TIMEOUT` seconds (default 70)** the wrapper kills the entire process group
+— `flutter test` and any child it spawned — and returns exit code **124**. The
+metrics line for that file is annotated `(IDLE-KILLED after <n>s of no output)`.
+
+70 s = the ~60 s per-test maximum plus margin, so a single slow-but-progressing
+test is never killed while a true stall is caught within ~70 s instead of ~900 s.
+Override with the `IDLE_TIMEOUT` env var (and `IDLE_POLL` for the check cadence):
+
+```bash
+IDLE_TIMEOUT=120 ./test/run_issue_analysis_tests.sh   # more headroom
+```
+
+```powershell
+$env:IDLE_TIMEOUT = 120; ./test/run_issue_analysis_tests.ps1
+```
+
 ## The 13 corpus files (run order)
 
 1. `essential_classes_test.dart`
