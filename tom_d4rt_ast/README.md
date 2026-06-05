@@ -186,6 +186,21 @@ final result = runner.executeBundleAs<Widget>(bundle);
 
 `finalizeBridges` is idempotent — subsequent calls are no-ops. Calling `registerExtensions` after `finalizeBridges` throws `StateError`.
 
+### Warming up: `warmup()` (cold-start flakiness, OPEN B.11 / U25)
+
+The first script run after a test harness' `setUpAll` used to flake under host load because the interpreter infrastructure — extension finalization, the stdlib bridges, and the registered bridged-class/enum definitions — cold-started *during* that first build. `warmup()` pays that cost up front so the first real build behaves like a warm one:
+
+```dart
+final runner = D4rtRunner();
+// ... register all bridges / extensions ...
+runner.warmup();              // finalizeBridges() + build a throwaway environment
+final result = runner.executeBundleAs<Widget>(bundle); // first build, no cold start
+```
+
+`warmup()` runs `finalizeBridges()` and then builds (and discards) a global environment, exercising the full `Stdlib(...).register()` + bridged-definition registration path. It is idempotent and script-neutral — the warmup environment leaves no script declarations behind, and the next `execute*`/`executeBundle*` call rebuilds a fresh environment as usual.
+
+`D4rtRunner` has no Dart source parser (that lives in `tom_d4rt_exec`'s `D4rt`, whose `warmup()` additionally warms the analyzer front-end by parsing + executing a trivial throwaway script), so the runner warms only the bridge/stdlib half — the portion the parser-less Flutter runtime and a test app's `/warmup` endpoint share. The analyzer-based VM twin `tom_d4rt`'s `D4rt.warmup()` mirrors the same contract.
+
 ## Architecture and Key Concepts
 
 ### SAstNode-driven execution
