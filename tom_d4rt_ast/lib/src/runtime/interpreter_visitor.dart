@@ -2033,6 +2033,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
   }
 
+  /// OPEN B.9 — propagate a bare-identifier write that landed on a static-field
+  /// snapshot back to the owner class's authoritative static slot.
+  ///
+  /// Inside a static member, [InterpretedFunction._prepareExecutionEnvironment]
+  /// snapshots the owner class's static fields into the member's top execution
+  /// environment (so they read without a class prefix) and marks that scope via
+  /// [Environment.staticFieldSnapshotOwner]. A bare assignment only mutates that
+  /// snapshot, which is discarded when the call returns — so the write must also
+  /// be mirrored to `InterpretedClass.setStaticField` to survive across calls.
+  ///
+  /// Shadow-safe: a local that shadows a static field lives in a different
+  /// (unmarked) environment, so [definingEnv] is not the snapshot scope and no
+  /// propagation occurs.
+  void _propagateStaticFieldWrite(
+    Environment definingEnv,
+    String variableName,
+    Object? value,
+  ) {
+    final owner = definingEnv.staticFieldSnapshotOwner;
+    if (owner != null && owner.staticFields.containsKey(variableName)) {
+      owner.setStaticField(variableName, value);
+    }
+  }
+
   @override
   Object? visitAssignmentExpression(SAssignmentExpression node) {
     final lhs = node.leftHandSide;
@@ -2083,10 +2107,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else {
           // Regular variable handling
           if (operatorType == '=') {
-            return environment.assign(
+            final assigned = environment.assign(
               variableName,
               rhsValue,
             ); // Use original assign for lexical
+            _propagateStaticFieldWrite(definingEnv, variableName, rhsValue);
+            return assigned;
           } else {
             // Handle compound assignments on lexical variables
             final currentValue = environment.get(
@@ -2097,10 +2123,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               rhsValue,
               operatorType,
             );
-            return environment.assign(
+            final assigned = environment.assign(
               variableName,
               newValue,
             ); // Assign back to lexical scope
+            _propagateStaticFieldWrite(definingEnv, variableName, newValue);
+            return assigned;
           }
         }
       } else {

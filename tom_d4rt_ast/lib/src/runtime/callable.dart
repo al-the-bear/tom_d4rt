@@ -572,6 +572,12 @@ class InterpretedFunction implements Callable {
         Logger.debug(
             "[InterpretedFunction._prepareExecutionEnvironment] Added static field '$fieldName' to execution environment.");
       }
+
+      // OPEN B.9 — mark this scope as the static-field snapshot owner so that a
+      // bare-identifier write to a snapshotted field (`value = value + 1`) is
+      // propagated back to the class's authoritative static slot, not just the
+      // discarded local snapshot. See [Environment.staticFieldSnapshotOwner].
+      executionEnvironment.staticFieldSnapshotOwner = ownerClass;
     }
 
     // Handle type parameters (generics) if provided
