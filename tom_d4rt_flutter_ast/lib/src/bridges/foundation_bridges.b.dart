@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-06-03T22:35:43.288422
+// Generated: 2026-06-05T17:21:31.240537
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -197,6 +197,55 @@ class FlutterFoundationBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'CachingIterable': ['Iterable'],
+      'MessageProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'StringProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'DoubleProperty': ['_NumProperty', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'IntProperty': ['_NumProperty', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'PercentProperty': ['DoubleProperty', '_NumProperty', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'FlagProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'IterableProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'EnumProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'ObjectFlagProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'FlagsSummary': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'DiagnosticsProperty': ['DiagnosticsNode'],
+      'DiagnosticableNode': ['DiagnosticsNode'],
+      'DiagnosticableTreeNode': ['DiagnosticableNode', 'DiagnosticsNode'],
+      'DiagnosticableTree': ['Diagnosticable'],
+      'DiagnosticsBlock': ['DiagnosticsNode'],
+      'DiagnosticableTreeMixin': ['DiagnosticableTree', 'Diagnosticable'],
+      'RepetitiveStackFrameFilter': ['StackFilter'],
+      'ErrorDescription': ['_ErrorDiagnostic', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'ErrorSummary': ['_ErrorDiagnostic', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'ErrorHint': ['_ErrorDiagnostic', 'DiagnosticsProperty', 'DiagnosticsNode'],
+      'ErrorSpacer': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'FlutterErrorDetails': ['Diagnosticable'],
+      'FlutterError': ['Error', 'AssertionError', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'DiagnosticsStackTrace': ['DiagnosticsBlock', 'DiagnosticsNode'],
+      'ValueListenable': ['Listenable'],
+      'ChangeNotifier': ['Listenable'],
+      'ValueNotifier': ['ChangeNotifier', 'Listenable', 'ValueListenable'],
+      'LocalKey': ['Key'],
+      'UniqueKey': ['LocalKey', 'Key'],
+      'ValueKey': ['LocalKey', 'Key'],
+      'LicenseEntryWithLineBreaks': ['LicenseEntry'],
+      'ObjectCreated': ['ObjectEvent'],
+      'ObjectDisposed': ['ObjectEvent'],
+      'ObserverList': ['Iterable'],
+      'HashedObserverList': ['Iterable'],
+      'SynchronousFuture': ['Future'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -346,6 +395,11 @@ class FlutterFoundationBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

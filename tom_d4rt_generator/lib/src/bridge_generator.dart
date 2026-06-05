@@ -6203,6 +6203,47 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // MCI#1 / A1: Generate classSupertypes method — the flattened (transitive)
+    // native supertype table. Replaces the hand-written
+    // `BridgedClass.registerSupertypes({...})` block in
+    // `d4rt_runtime_registrations.dart`. The interpreter feeds this to
+    // `BridgedClass.registerSupertypes` so an interpreted subclass of a
+    // bridged class (e.g. `MyWidget extends StatelessWidget`) passes `is`/
+    // subtype checks against every bridged ancestor (`Widget`,
+    // `DiagnosticableTree`, …) and the interface-proxy supertype walk in
+    // `tryCreateInterfaceProxy` resolves up the chain. The list is the
+    // analyzer's `allSupertypes` (superclass + interfaces + mixins,
+    // transitively, minus `Object`), already captured per class — so the
+    // entries are flattened, matching the two-level walk in
+    // `BridgedClass.isSubtypeOf`.
+    buffer.writeln(
+      '  /// Returns a map of class names to their flattened (transitive)',
+    );
+    buffer.writeln(
+      '  /// native supertype names (superclasses, interfaces and mixins).',
+    );
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses',
+    );
+    buffer.writeln(
+      '  /// of bridged classes pass `is`/subtype checks against bridged',
+    );
+    buffer.writeln(
+      '  /// ancestors and the interface-proxy supertype walk resolves up the',
+    );
+    buffer.writeln('  /// chain (MCI#1 / A1).');
+    buffer.writeln('  static Map<String, List<String>> classSupertypes() {');
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      if (cls.allSupertypeNames.isEmpty) continue;
+      final supers = cls.allSupertypeNames.map((s) => "'$s'").join(', ');
+      buffer.writeln("      '${cls.name}': [$supers],");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // GEN-074: Generate classAliases method for type alias registration
     buffer.writeln(
       '  /// Returns a map of type alias names to their target class names.',
@@ -6563,6 +6604,17 @@ class BridgeGenerator {
       '      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);',
     );
     buffer.writeln('    }');
+    buffer.writeln();
+    buffer.writeln(
+      '    // MCI#1 / A1: Register the flattened native supertype table so',
+    );
+    buffer.writeln(
+      '    // interpreted subclasses pass subtype checks against bridged',
+    );
+    buffer.writeln('    // ancestors. Idempotent — safe to call per barrel.');
+    buffer.writeln(
+      '    BridgedClass.registerSupertypes(classSupertypes());',
+    );
     // Register enums
     if (enums.isNotEmpty) {
       buffer.writeln();

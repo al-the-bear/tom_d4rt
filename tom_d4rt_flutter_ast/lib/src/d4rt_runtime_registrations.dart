@@ -119,7 +119,7 @@ import 'dart:ui'
     show Canvas, Offset, Path, RRect, RSuperellipse, Radius, Rect, Size;
 import 'package:tom_d4rt_ast/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
-    show BridgedClass, BridgedInstance;
+    show BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
     show D4InterpretedProxy, RuntimeType;
@@ -137,7 +137,10 @@ final Set<String> _warnedIntentProxyClasses = {};
 ///
 /// Call this once during bridge setup, alongside [registerRelaxers].
 void registerD4rtRuntimeExtensions() {
-  _registerBridgedSupertypes();
+  // MCI#1 / A1: The bridged supertype table is now generated and registered
+  // by each per-package bridge's `registerBridges` (via
+  // `BridgedClass.registerSupertypes(classSupertypes())`). The former
+  // hand-written `_registerBridgedSupertypes()` block was removed.
   _registerInterfaceProxies();
   _registerTypeCoercions();
   _registerGenericConstructors();
@@ -145,133 +148,6 @@ void registerD4rtRuntimeExtensions() {
   _registerSupplementaryRelaxers();
   _registerGenericWidgetReCreators();
   _registerBridgedMethodInterceptors();
-}
-
-// =============================================================================
-// RC-7b: Bridged Class Supertype Registry
-// =============================================================================
-
-/// Register native Dart/Flutter class hierarchy for BridgedClass.isSubtypeOf.
-/// This enables InterpretedClass instances extending BridgedClass supertypes
-/// to pass return-type checks (e.g., MyWidget extends StatelessWidget → Widget).
-void _registerBridgedSupertypes() {
-  BridgedClass.registerSupertypes({
-    // Widget hierarchy
-    'StatelessWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
-    'StatefulWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
-    'RenderObjectWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
-    'LeafRenderObjectWidget': [
-      'RenderObjectWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'SingleChildRenderObjectWidget': [
-      'RenderObjectWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'MultiChildRenderObjectWidget': [
-      'RenderObjectWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'ProxyWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
-    'InheritedWidget': [
-      'ProxyWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    // Bug-102d: InheritedTheme, InheritedModel, InheritedNotifier are
-    // common InheritedWidget subclasses that scripts subclass. Without
-    // these entries, the transitive supertype walk in
-    // tryCreateInterfaceProxy wouldn't find the InheritedWidget proxy
-    // up the chain.
-    'InheritedTheme': [
-      'InheritedWidget',
-      'ProxyWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'InheritedModel': [
-      'InheritedWidget',
-      'ProxyWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'InheritedNotifier': [
-      'InheritedWidget',
-      'ProxyWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    'ParentDataWidget': [
-      'ProxyWidget',
-      'Widget',
-      'DiagnosticableTree',
-      'Diagnosticable',
-    ],
-    // State hierarchy
-    'State': ['Diagnosticable'],
-    // D2: Concrete State subclasses & their mixins. Without these the
-    // `isAssignable` iteration in `Environment.toBridgedInstance` cannot
-    // disambiguate between e.g. `FormFieldState` and `RestorationMixin`,
-    // both of which match an instance of `FormFieldState<String>`. The
-    // specificity filter drops bridges that are supertypes of another
-    // match, which requires the supertype links recorded here.
-    'FormFieldState': ['State', 'RestorationMixin', 'Diagnosticable'],
-    'RestorationMixin': ['Diagnosticable'],
-    'TickerProviderStateMixin': ['State', 'TickerProvider', 'Diagnosticable'],
-    'SingleTickerProviderStateMixin': [
-      'State',
-      'TickerProvider',
-      'Diagnosticable',
-    ],
-    // D2: BoxConstraints/SliverConstraints disambiguate against the abstract
-    // `Constraints` base. Without these, instances whose runtimeType is a
-    // private impl (e.g. `_BodyBoxConstraints`) get wrapped as `Constraints`
-    // because of LAST-match-wins iteration.
-    'BoxConstraints': ['Constraints'],
-    'SliverConstraints': ['Constraints'],
-    'Constraints': ['Diagnosticable'],
-    // Painting
-    'Decoration': [],
-    'BoxDecoration': ['Decoration'],
-    'ShapeDecoration': ['Decoration'],
-    // Other common types
-    'ChangeNotifier': ['Listenable'],
-    'ValueNotifier': ['ChangeNotifier', 'Listenable'],
-    'Animation': ['Listenable'],
-    'AnimationController': ['Animation', 'Listenable'],
-    // Cluster-12 (priority 3): `_AnimatedEvaluation<T>` (the private class
-    // returned by `Tween.animate(parent)`) extends `Animation<T>` with
-    // `AnimationWithParentMixin<double>`. `Environment.toBridgedInstance`
-    // wraps it as the mixin (leaf), but the mixin bridge only carries
-    // `parent`/`status`. Recording `Animation` as a supertype lets the
-    // property-access supertype-walk fallback (interpreter_visitor.dart)
-    // find the `value` getter declared on the Animation bridge.
-    'AnimationWithParentMixin': ['Animation', 'Listenable'],
-    // Action hierarchy — scripts subclass Action<T> or ContextAction<T> and
-    // pass instances to Actions(actions: <Type, Action<Intent>>{…}).
-    // Without these entries, transitiveSupertypeNames('ContextAction') returns
-    // only 'ContextAction' and never reaches the registered 'Action' proxy,
-    // causing coerceMap to throw "InterpretedInstance is not a subtype of
-    // Action<Intent>".
-    'Action': [],
-    'ContextAction': ['Action'],
-    // ScrollView / BoxScrollView hierarchy — scripts subclass BoxScrollView
-    // and pass instances as Widget children (e.g. SizedBox(child: _MyScroll())).
-    // Without these entries, the proxy walk stops at 'BoxScrollView' with no
-    // registered proxy, and coerce<Widget> throws the same cast error.
-    'ScrollView': ['StatelessWidget', 'Widget'],
-    'BoxScrollView': ['ScrollView', 'StatelessWidget', 'Widget'],
-  });
 }
 
 // =============================================================================

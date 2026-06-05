@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-05-24T17:03:06.334631
+// Generated: 2026-06-05T17:23:01.608317
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -12,9 +12,9 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
 
 /// Bridge class for dart_ui module.
 class DartUiBridge {
@@ -234,6 +234,48 @@ class DartUiBridge {
       'AccessibilityFeatures': 'dart:ui',
       'FrameData': 'dart:ui',
       'GestureSettings': 'dart:ui',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'TransformEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'OffsetEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ClipRectEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ClipRRectEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ClipRSuperellipseEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ClipPathEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'OpacityEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ColorFilterEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ImageFilterEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'BackdropFilterEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'ShaderMaskEngineLayer': ['_EngineLayerWrapper', 'EngineLayer'],
+      'Offset': ['OffsetBase'],
+      'Size': ['OffsetBase'],
+      'RRect': ['_RRectLike'],
+      'RSuperellipse': ['_RRectLike'],
+      'PathMetrics': ['Iterable'],
+      'PathMetricIterator': ['Iterator'],
+      'ColorFilter': ['ImageFilter'],
+      'Shader': ['NativeFieldWrapperClass1'],
+      'Gradient': ['Shader', 'NativeFieldWrapperClass1'],
+      'ImageShader': ['Shader', 'NativeFieldWrapperClass1'],
+      'FragmentProgram': ['NativeFieldWrapperClass1'],
+      'FragmentShader': ['Shader', 'NativeFieldWrapperClass1'],
+      'Vertices': ['NativeFieldWrapperClass1'],
+      'ImmutableBuffer': ['NativeFieldWrapperClass1'],
+      'PictureRasterizationException': ['Exception'],
+      'SemanticsFlags': ['NativeFieldWrapperClass1'],
+      'StringAttribute': ['NativeFieldWrapperClass1'],
+      'SpellOutStringAttribute': ['StringAttribute', 'NativeFieldWrapperClass1'],
+      'LocaleStringAttribute': ['StringAttribute', 'NativeFieldWrapperClass1'],
     };
   }
 
@@ -598,6 +640,11 @@ class DartUiBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
@@ -7897,7 +7944,7 @@ BridgedClass _createStrutStyleBridge() {
     name: 'StrutStyle',
     isAssignable: (v) => v is $dart_ui.StrutStyle,
     constructors: {
-      '': $tom_d4rt_flutter_test_3.StrutStyleUserBridge.overrideConstructor,
+      '': $tom_d4rt_flutter_3.StrutStyleUserBridge.overrideConstructor,
     },
     getters: {
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.StrutStyle>(target, 'StrutStyle').hashCode,

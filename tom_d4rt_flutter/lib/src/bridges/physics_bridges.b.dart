@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-05-24T17:03:09.671864
+// Generated: 2026-06-05T17:23:05.845960
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -16,9 +16,9 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_4;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_5;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_6;
 import 'package:flutter/src/physics/utils.dart' as $flutter_7;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
 
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {
@@ -48,6 +48,24 @@ class FlutterPhysicsBridge {
       'GravitySimulation': 'package:flutter/src/physics/gravity_simulation.dart',
       'SpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
       'ScrollSpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'ClampedSimulation': ['Simulation'],
+      'FrictionSimulation': ['Simulation'],
+      'BoundedFrictionSimulation': ['FrictionSimulation', 'Simulation'],
+      'GravitySimulation': ['Simulation'],
+      'SpringSimulation': ['Simulation'],
+      'ScrollSpringSimulation': ['SpringSimulation', 'Simulation'],
     };
   }
 
@@ -134,6 +152,11 @@ class FlutterPhysicsBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
