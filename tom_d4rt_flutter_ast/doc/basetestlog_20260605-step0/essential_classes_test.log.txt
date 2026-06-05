@@ -1101,3 +1101,36 @@
   test/essential_classes_test.dart 682:7              main.<fn>.<fn>
   
 50:21 +2 -99: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceBytes=54327 sourceChars=54228 bundleJsonBytes=664644 clearMs=210 readMs=46 bundleMs=39 httpMs=30019 totalMs=30315 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=11 appSetStateMs=11 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+50:51 +2 -100: widgets/ text_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 687:7              main.<fn>.<fn>
+  
+50:51 +2 -100: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceBytes=60015 sourceChars=59856 bundleJsonBytes=582927 clearMs=203 readMs=1 bundleMs=13 httpMs=30017 totalMs=30235 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+51:21 +2 -101: widgets/ transform_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 692:7              main.<fn>.<fn>
+  
+51:21 +2 -101: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceBytes=61152 sourceChars=61150 bundleJsonBytes=834514 clearMs=203 readMs=1 bundleMs=18 httpMs=30022 totalMs=30245 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+51:52 +2 -102: widgets/ wrap_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 697:7              main.<fn>.<fn>
+  
+51:52 +2 -102: services/ textformatter_test.dart
