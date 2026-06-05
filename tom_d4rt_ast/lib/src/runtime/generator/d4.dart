@@ -989,6 +989,66 @@ class D4 {
     return null;
   }
 
+  /// P&R#3: Last-resort user-factory resolution, tried immediately before
+  /// [extractBridgedArg] gives up and throws.
+  ///
+  /// The inlined relaxer lookup inside [extractBridgedArg] only consults
+  /// [_genericTypeWrappers] when `T` is itself parameterized (its string form
+  /// contains `<…>`). A relaxer registered for a *non-generic* user type — the
+  /// common case when an embedder calls
+  /// `D4rtRunner.registerRelaxerFactory` / [registerGenericTypeWrapper] for
+  /// one of its own classes — would therefore never be reached. This helper
+  /// closes that gap: it looks the base type name up in [_genericTypeWrappers]
+  /// (passing an empty inner type argument for non-generic `T`) and returns
+  /// the first factory result that satisfies `T`.
+  ///
+  /// Strictly additive — it runs only on the path that would otherwise throw,
+  /// so it can turn a previous failure into a success but can never change the
+  /// result of an argument that already resolved.
+  ///
+  /// Returns the resolved value, or `null` if no user factory matched.
+  static T? _tryUserFactoryResolution<T>(Object? value) {
+    if (value == null || _genericTypeWrappers.isEmpty) return null;
+    final tStr = T.toString();
+    String baseT = tStr;
+    while (baseT.endsWith('?')) {
+      baseT = baseT.substring(0, baseT.length - 1);
+    }
+    final String baseTypeName;
+    final String innerTypeArg;
+    if (baseT.contains('<')) {
+      baseTypeName = baseT.substring(0, baseT.indexOf('<'));
+      innerTypeArg = baseT.substring(
+        baseT.indexOf('<') + 1,
+        baseT.lastIndexOf('>'),
+      );
+    } else {
+      baseTypeName = baseT;
+      innerTypeArg = '';
+    }
+
+    final valueName = value.runtimeType.toString();
+    final valueBaseName = valueName.contains('<')
+        ? valueName.substring(0, valueName.indexOf('<'))
+        : valueName;
+    final typeNamesToTry = <String>{baseTypeName, valueBaseName};
+
+    for (final typeName in typeNamesToTry) {
+      final factories = _genericTypeWrappers[typeName];
+      if (factories == null) continue;
+      for (final factory in factories) {
+        final wrapped = factory(value, innerTypeArg);
+        if (wrapped != null && wrapped is T) {
+          if (usageLogEnabled) {
+            recordUsageHit('relaxer', typeName, innerTypeArg);
+          }
+          return wrapped as T;
+        }
+      }
+    }
+    return null;
+  }
+
   /// Coerce a List from D4rt, returning null if arg is null.
   static List<T>? coerceListOrNull<T>(Object? arg, String paramName) {
     if (arg == null) return null;
@@ -1871,6 +1931,12 @@ class D4 {
         }
       }
     }
+
+    // P&R#3: last-resort lookup against user-registered relaxer factories,
+    // covering non-generic target types the inlined relaxer path skips. Runs
+    // only here on the about-to-throw path, so it is strictly additive.
+    final userResolved = _tryUserFactoryResolution<T>(unwrapped);
+    if (userResolved != null) return userResolved;
 
     if (usageLogEnabled) {
       final tStr = T.toString();

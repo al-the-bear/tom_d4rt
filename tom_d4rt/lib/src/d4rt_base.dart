@@ -765,6 +765,61 @@ class D4rt {
     print(D4.usageLogSummary());
   }
 
+  // =========================================================================
+  // P&R#3 — Public user-registration API
+  //
+  // Thin facade delegates onto the static [D4] sinks, exposed so embedders
+  // and bridge packages can register relaxers, interface proxies, and generic
+  // constructors for their own (user-project) types without touching the
+  // generator. Intended to be called from inside a [registerExtensions] body
+  // so the registration runs once at finalize time, in package order, after
+  // the standard bridges are wired up. They may also be called directly
+  // before the first execute*/eval call.
+  // =========================================================================
+
+  /// Registers a relaxer (generic-type-wrapper) factory for [baseTypeName].
+  ///
+  /// A relaxer converts an interpreted/bridged value into a native instance
+  /// of a parameterized (or plain) bridged type when an argument of that type
+  /// is required. [baseTypeName] is the *base* type name without type
+  /// arguments (e.g. `'ValueListenable'`, `'MyBox'`). Delegates to
+  /// [D4.registerGenericTypeWrapper]; registration is idempotent on factory
+  /// identity and chains new-first.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerRelaxerFactory(
+    String baseTypeName,
+    GenericTypeWrapperFactory factory,
+  ) => D4.registerGenericTypeWrapper(baseTypeName, factory);
+
+  /// Registers an interface-proxy factory for [bridgedTypeName].
+  ///
+  /// A proxy wraps an [InterpretedInstance] that implements a bridged
+  /// abstract interface so it can be passed where the native interface is
+  /// required. Delegates to [D4.registerInterfaceProxy]; registration is
+  /// idempotent on factory identity.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerInterfaceProxy(
+    String bridgedTypeName,
+    InterfaceProxyFactory factory,
+  ) => D4.registerInterfaceProxy(bridgedTypeName, factory);
+
+  /// Registers a generic-constructor factory for [className].[constructorName].
+  ///
+  /// Used by the interpreter's construction path to build a native instance
+  /// of a generic bridged class from interpreted arguments and type
+  /// arguments. Use `''` for the unnamed constructor. Delegates to
+  /// [D4.registerGenericConstructor]; registration is idempotent on factory
+  /// identity and chains new-first.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerGenericConstructor(
+    String className,
+    String constructorName,
+    GenericConstructorFactory factory,
+  ) => D4.registerGenericConstructor(className, constructorName, factory);
+
   /// Checks if a specific permission is granted.
   ///
   /// [permission] The permission to check.
