@@ -869,7 +869,7 @@ class InterpretedFunction implements Callable {
                       "Error during bridged super constructor '$superConstructorName': ${e.message}");
                 } catch (e) {
                   throw RuntimeD4rtException(
-                      "Native error during bridged super constructor '$superConstructorName': $e");
+                      "Native error during bridged super constructor '$superConstructorName': $e", originalException: e);
                 }
               } else {
                 // Should be impossible given the check at the start
@@ -1017,7 +1017,7 @@ class InterpretedFunction implements Callable {
                   "Error during implicit bridged super constructor: ${e.message}");
             } catch (e) {
               throw RuntimeD4rtException(
-                  "Native error during implicit bridged super constructor: $e");
+                  "Native error during implicit bridged super constructor: $e", originalException: e);
             }
           }
         }
@@ -4666,7 +4666,7 @@ class BridgedMethodCallable implements Callable {
       Logger.error(
           "[BridgedMethodCallable] Native exception during call to '${_instance.bridgedClass.name}.$_methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged method '${_instance.bridgedClass.name}.$_methodName': $e");
+          "Native error in bridged method '${_instance.bridgedClass.name}.$_methodName': $e", originalException: e);
     }
   }
 
@@ -4707,7 +4707,7 @@ class BridgedStaticMethodCallable implements Callable {
       Logger.error(
           "[BridgedStaticMethodCallable] Native exception during call to '${_bridgedClass.name}.$_methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged static method '${_bridgedClass.name}.$_methodName': $e");
+          "Native error in bridged static method '${_bridgedClass.name}.$_methodName': $e", originalException: e);
     }
   }
 

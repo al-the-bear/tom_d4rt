@@ -134,8 +134,18 @@ abstract class D4rtException implements Exception {
 /// during code execution, such as accessing undefined variables,
 /// calling non-existent methods, or type mismatches.
 class RuntimeD4rtException extends D4rtException {
-  /// Creates a new runtime error with the given message.
-  RuntimeD4rtException(super.message);
+  /// When this runtime error wraps a *native* exception thrown from a bridged
+  /// adapter (method, static method, getter, setter, operator, constructor),
+  /// the original exception object is preserved here. This lets a typed
+  /// `on NativeType` / bare `catch` clause in interpreted code dispatch against
+  /// the real exception type rather than this `RuntimeError` wrapper.
+  /// (OPEN B.5 — U13/U24.)
+  final Object? originalException;
+
+  /// Creates a new runtime error with the given message. When
+  /// [originalException] is supplied, the wrapped native exception stays
+  /// catchable by type.
+  RuntimeD4rtException(super.message, {this.originalException});
 
   @override
   String toString() => 'Runtime Error: $message';
