@@ -1134,3 +1134,15 @@
   test/essential_classes_test.dart 697:7              main.<fn>.<fn>
   
 51:52 +2 -102: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceBytes=53063 sourceChars=48716 bundleJsonBytes=601205 clearMs=202 readMs=0 bundleMs=13 httpMs=30014 totalMs=30231 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+52:22 +2 -103: services/ textformatter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 709:7              main.<fn>.<fn>
+  
+52:22 +2 -103: (tearDownAll)
+52:23 +2 -103: Some tests failed.

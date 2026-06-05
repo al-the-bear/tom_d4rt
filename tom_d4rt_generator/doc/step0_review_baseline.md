@@ -149,3 +149,52 @@ baseline that supersedes the April figures. No substantive rewrite of the five
 component guides was warranted by the review; they are the accurate baseline
 that **step 7** later extends with worked samples. This doc + the refreshed
 metrics doc are the authoritative step-0 baseline.
+
+---
+
+## 0f — Base-test runner
+
+Created `test/run_base_tests.{sh,ps1}` in **both** Flutter components
+(`tom_d4rt_flutter` and `tom_d4rt_flutter_ast`), the short sibling of
+`run_issue_analysis_tests.*`. It runs ONLY the two heaviest corpus files
+(`essential_classes_test.dart`, `important_classes_test.dart`) **strictly
+serial**, file by file, into `doc/basetestlog_<ID>/` — the fast regression
+gate after any bridge/proxy/relaxer regen. The runners wrap each
+`flutter test` in an **idle-output watchdog** (`idle_timeout.{sh,ps1}`,
+default 70 s) that kills a wedged transport fast (exit 124, noted
+`IDLE-KILLED`), so an A.1 transport wedge fails the file instead of hanging
+the whole run. Both components' scripts are byte-identical.
+
+## 0g — Green-starting-point baseline (2026-06-05)
+
+Base-test run on both components. **Both are fully green** — the two
+combinatorial generators have a clean starting point before any reduction
+work:
+
+| Component | essential | important |
+|-----------|-----------|-----------|
+| `tom_d4rt_flutter_ast` (AST / pre-bundled) | **+105** (104 scripts, 0 fail) | **+162** (161 scripts, 0 fail) |
+| `tom_d4rt_flutter` (source-direct) | **+105** (104 scripts, 0 fail) | **+162** (161 scripts, 0 fail) |
+
+**A.1 cold-start wedge caveat (load-induced flakiness, not a regression).**
+The *first* run of each component's pair showed one file wedged while the
+other was clean (AST: essential `+2 −103`, important `+162`; non-ast:
+essential `+105`, important `+39 −123`). Per-script `[METRIC]` logs trace
+every failure to the documented A.1 transport-wedge cascade: one script
+hitting the in-app 30 s build timeout (`httpStatus=400`) poisons the shared
+HTTP companion app and cascade-fails the rest of that file
+(`appInterpretStartMs=-1`). Re-running each wedged file **alone** produced a
+clean all-pass (AST essential `+105`, non-ast important `+162`,
+`status=success` for every script, `httpMs` in the normal 1–3 s band). No
+generator/runtime/bridge code changed during step 0, so the wedge is the
+pre-existing A.1/B.11/B.14 cold-start transport transient — load noise, not a
+step-0 regression. Logs: `doc/basetestlog_20260605-step0/` in each component
+(wedged `*_classes_test.*` + clean `*_rerun.*`).
+
+**Full reference pass (`run_issue_analysis_tests.*`, 13 files × 2
+components) — deferred.** The base-test pair is the green gate that gates the
+reduction work; the full 13-file reference sweep is a multi-hour serial run
+and is **not** required to establish the step-0 starting point. It is the
+complete reference pass to run once at the *end* of the reduction work (and
+after any large regen) to catch corpus-wide regressions beyond
+essential+important. Deferred to that point rather than burned now.
