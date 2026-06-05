@@ -226,12 +226,23 @@ belt-and-braces fallback.
   +2308/−1 — only the pre-existing `I-BUG-14a` "Won't Fix"). `requestRecycle()`
   kept; the §U28 audit note updated. `dart analyze` clean on all touched files.
 
-### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent)
+### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent) — ✅ ASSESSED / GUARDED
 Interpreted `InheritedElement` dependents leak across `/clear`; currently **no
 observable failure** (the one reproducing script was rewritten, `da4b3234`), so
-this is latent. *Workaround:* none needed today. *Fix (deferred):* clear
-interpreted-element dependent registrations / track interpreted-element lifecycle
-on `/clear`. Keep on the radar so the leak doesn't resurface.
+this is latent. §U30 is **FULLY CLOSED** — the historical reproducer is
+non-reproducible and the `'check that it really is our descendant'` entry was
+**removed** from both test apps' `ignoredPatterns` (the removal is itself the
+active guard: a returning cascade now surfaces in `_frameworkErrors` and fails
+the flutter suite instead of being silenced). The concern lives **entirely in
+the Flutter bridge layer** — the core interpreter has no element/dependent
+tracking. *Workaround:* none needed today. *Fix (deferred):* track
+interpreted-element lifecycle and clear interpreted-element dependent
+registrations on `/clear` — stays deferred until the cascade resurfaces.
+- a. ✅ **Keep-on-radar** — no code change until it resurfaces.
+- b. ✅ **Guard added** — `test/b13_inherited_dependent_leak_test.dart` pins the
+  suppression-removal (pure source-level check; fails if the descendant-check
+  string is re-added as a live `ignoredPatterns` entry). A repro that fails when
+  the leak itself returns stays deferred with the fix.
 
 ### B.14 — Interpreter starves the embedder's input/frame pump during long sync runs (cooperative yielding)
 

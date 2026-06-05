@@ -7758,6 +7758,19 @@ sweep produces a non-zero `'check that it really is our descendant'`
 count; the deep fix in the "Real fix (deferred)" section below remains
 the path forward in that scenario.
 
+**2026-06-05 — OPEN B.13 guard added (cleanup_todos #12).** The
+suppression-removal that closed §U30 is now pinned by a source-level guard
+test in both flutter packages:
+`tom_d4rt_flutter/test/b13_inherited_dependent_leak_test.dart` and
+`tom_d4rt_flutter_ast/test/b13_inherited_dependent_leak_test.dart`. Each reads
+the respective test-app `main.dart` and fails if the
+`'check that it really is our descendant'` phrase ever reappears on a
+non-comment line (i.e. is re-added as a live `ignoredPatterns` entry), which
+would silently re-hide a returning §U30 cascade. Pure source check — no app
+spawn, no HTTP server, exempt from the serial `flutter test` rule. The deep
+fix (track interpreted-element lifecycles / unregister dependents on
+deactivate) stays deferred per OPEN B.13 step (a) until the cascade resurfaces.
+
 ---
 
 ## U30 — 2026-05-29 update (retained for reference, superseded by 2026-05-30)
