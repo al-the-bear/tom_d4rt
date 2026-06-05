@@ -709,30 +709,36 @@ class D4rtRunner {
   /// in [_baselineValueKeys] (the snapshot captured at the end of the
   /// last [_initEnvironment]). Bridge registrations (`_bridgedClasses`,
   /// `_bridgedClassesLookupByType`, `_bridgedEnums`) are NOT touched.
-  /// The [D4._nativeToInterpreted] Expando is NOT touched.
   ///
-  /// ## Architectural caveat
+  /// It additionally clears the process-global native-side accumulator via
+  /// [D4.resetNativeAccumulators] — the [D4] `_nativeToInterpreted` Expando
+  /// and its registration counter. That Expando is the genuine cross-build
+  /// accumulator (OPEN B.12 / §U28): its entries are pinned by framework
+  /// objects the embedder keeps alive across `/build` cycles, so unlike the
+  /// per-call-fresh `_values` map it does NOT self-clear. Dropping it here is
+  /// what makes the reset API more than a no-op for the §U28 wedge.
+  ///
+  /// ## Architectural note
   ///
   /// As of the 2026‑05‑28 audit (interpreter_unfixable.md §U28),
   /// [executeBundle] and [execute] already call [_initEnvironment] on
   /// every invocation, which constructs a brand-new [Environment]. The
   /// previous environment is dropped on the floor by the next build,
   /// so script declarations do NOT accumulate across `/build` cycles
-  /// in `_values`. This API therefore acts as a forward-compatibility
-  /// hook for embedders that want to:
+  /// in `_values`. The `_values` eviction below is therefore a
+  /// forward-compatibility hook (frees GC roots earlier; survives any
+  /// future change to the per-call fresh-environment invariant). The
+  /// native-accumulator clear, by contrast, addresses real cross-build
+  /// state — see OPEN B.12.
   ///
-  /// 1. Free GC roots held by the previous build's interpreted classes
-  ///    / functions between `/clear` and the next `/build`.
-  /// 2. Get a stable "reset" surface that survives any future change
-  ///    to the per-call fresh-environment invariant.
-  ///
-  /// The §U28 wedge (position-dependent failures in flutter_ast's
-  /// secondary-class sweep) is NOT addressed by this method — that
-  /// wedge originates from state outside the script-declaration map.
-  ///
-  /// No-op if no execution has happened yet (no global environment
-  /// to walk) or if no baseline was captured.
+  /// No-op on the `_values` half if no execution has happened yet (no
+  /// global environment to walk) or if no baseline was captured; the
+  /// native-accumulator clear runs unconditionally.
   void resetScriptDeclarations() {
+    // Cross-build native state (OPEN B.12): clear unconditionally — it is
+    // process-global and not tied to this runner's environment lifecycle.
+    D4.resetNativeAccumulators();
+
     final env = _globalEnvironment;
     final baseline = _baselineValueKeys;
     if (env == null || baseline == null) return;
@@ -748,7 +754,7 @@ class D4rtRunner {
     Logger.debug(
       "[D4rtRunner.resetScriptDeclarations] Removed ${toRemove.length} "
       "script-declared entries; ${env.values.length} bridge/stdlib "
-      "entries preserved.",
+      "entries preserved; native accumulator cleared.",
     );
   }
 

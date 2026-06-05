@@ -7325,6 +7325,26 @@ None of (1) – (4) is touched by walking `_values`. A real U28 fix
 would have to identify which of these actually accumulates,
 instrument a counter on `/clear`, and add a targeted reset path.
 
+**Update (2026-06-05) — OPEN B.12 fix landed.** Candidate #1 (the
+`D4._nativeToInterpreted` Expando) is now cleared. `D4` gained
+`resetNativeAccumulators()` — it swaps in a fresh `Expando` (the only
+way to bulk-drop entries, as `Expando` has no `clear()`/iterator) and
+zeroes a new `D4.nativeRegistrationCount` instrumentation counter that
+ticks on every `registerInterpretedForNative`. Both runtime reset APIs
+(`D4rtRunner.resetScriptDeclarations` in `tom_d4rt_ast`,
+`D4rt.resetScriptDeclarations` in `tom_d4rt`; `tom_d4rt_exec` inherits
+via its runner forward) now call it unconditionally, so an embedder's
+`/clear` frees the native→interpreted entries pinned by the previous
+build's framework objects. Candidate #2 (the D4 generator static
+*registration* caches) is deliberately **left intact** — those are
+populated once at bridge finalization and must persist across builds;
+clearing them would break every bridge on the next cycle. Candidates
+#3 (Flutter framework state) and #4 (bridge-registered globals) remain
+out of scope (the former is the embedder app's teardown responsibility,
+the latter is intended-persistent). Regression coverage:
+`tom_d4rt_ast/test/runtime/native_accumulator_reset_test.dart` and
+`tom_d4rt/test/open_issues/b12_native_accumulator_reset_test.dart`.
+
 **Why this API still ships:**
 
 - **Forward compatibility.** Embedders that want a stable "reset"

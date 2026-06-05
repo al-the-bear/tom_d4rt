@@ -532,28 +532,35 @@ class D4rt {
   /// (`_bridgedClasses`, `_bridgedClassesLookupByType`, `_bridgedEnums`)
   /// are NOT touched.
   ///
-  /// ## Architectural caveat
+  /// It additionally clears the process-global native-side accumulator via
+  /// [D4.resetNativeAccumulators] — the [D4] `_nativeToInterpreted` Expando
+  /// and its registration counter. That Expando is the genuine cross-build
+  /// accumulator (OPEN B.12 / §U28): its entries are pinned by framework
+  /// objects the embedder keeps alive across `/build` cycles, so unlike the
+  /// per-call-fresh `_values` map it does NOT self-clear. Dropping it here is
+  /// what makes the reset API more than a no-op for the §U28 wedge.
+  ///
+  /// ## Architectural note
   ///
   /// As of the 2026‑05‑28 audit (interpreter_unfixable.md §U28),
   /// `execute*` already calls [_initModule] on every invocation, which
   /// constructs a brand-new [ModuleLoader] backed by a brand-new
   /// [Environment]. The previous environment is dropped on the floor
   /// by the next call, so script declarations do NOT accumulate
-  /// across executes in `_values`. This API therefore acts as a
-  /// forward-compatibility hook for embedders that want to:
+  /// across executes in `_values`. The `_values` eviction below is
+  /// therefore a forward-compatibility hook (frees GC roots earlier;
+  /// survives any future change to the per-call fresh-loader invariant).
+  /// The native-accumulator clear, by contrast, addresses real
+  /// cross-build state — see OPEN B.12.
   ///
-  /// 1. Free GC roots held by the previous execute's interpreted
-  ///    classes / functions between executions.
-  /// 2. Get a stable "reset" surface that survives any future change
-  ///    to the per-call fresh-loader invariant.
-  ///
-  /// The §U28 wedge (position-dependent failures in flutter_ast's
-  /// secondary-class sweep) is NOT addressed by this method — that
-  /// wedge originates from state outside the script-declaration map.
-  ///
-  /// No-op if [_moduleLoader] has not been initialised yet
-  /// ([_hasExecutedOnce] is false) or if no baseline was captured.
+  /// No-op on the `_values` half if [_moduleLoader] has not been
+  /// initialised yet ([_hasExecutedOnce] is false) or if no baseline was
+  /// captured; the native-accumulator clear runs unconditionally.
   void resetScriptDeclarations() {
+    // Cross-build native state (OPEN B.12): clear unconditionally — it is
+    // process-global and not tied to this instance's module lifecycle.
+    D4.resetNativeAccumulators();
+
     if (!_hasExecutedOnce) return;
     final baseline = _baselineValueKeys;
     if (baseline == null) return;
@@ -570,7 +577,7 @@ class D4rt {
     Logger.debug(
       "[D4rt.resetScriptDeclarations] Removed ${toRemove.length} "
       "script-declared entries; ${env.values.length} stdlib entries "
-      "preserved.",
+      "preserved; native accumulator cleared.",
     );
   }
 

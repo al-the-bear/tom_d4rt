@@ -192,14 +192,24 @@ warm anything. *Workaround:* re-run the first-after-setup script individually.
 *Fix:* an interpreter warmup pass (or `/warmup` endpoint) that pre-builds parser
 + bridge infrastructure before the first real build.
 
-### B.12 — Framework/runtime state accumulates across `/build` cycles; reset API is a no-op (U28)
-Repeated `/build` cycles accumulate native-side state (Expando
-`D4._nativeToInterpreted`, D4 static caches, Flutter framework state). The shipped
-`resetScriptDeclarations`/`resetScript` API is architecturally a **no-op** (a
-fresh `Environment` is already built per build — audit `interpreter_unfixable.md:7272`).
-*Workaround:* `SendTestRunner.requestRecycle()` kills+respawns the app process.
-*Fix:* instrument and clear the actual native accumulator (ranked but
-uninvestigated at `:7304-7326`).
+### B.12 — Framework/runtime state accumulates across `/build` cycles; reset API is a no-op (U28) — ✅ FIXED (2026-06-05)
+Repeated `/build` cycles accumulated native-side state. The audit
+(`interpreter_unfixable.md:7304-7326`) ranked the `D4._nativeToInterpreted`
+**Expando** as the #1 genuine cross-build accumulator: its entries are weak, but
+they are pinned by framework objects (Flutter Elements / RenderObjects /
+animations) the embedder keeps alive across `/build` cycles, so they do NOT
+self-clear the way the per-call-fresh `_values` environment map does. The shipped
+`resetScriptDeclarations`/`resetScript` API walked only `_values` and never touched
+the Expando — hence the no-op.
+
+**Fix:** added `D4.resetNativeAccumulators()` (swaps in a fresh Expando + zeroes a
+new `D4.nativeRegistrationCount` counter) and wired it into
+`resetScriptDeclarations()` on both runtimes (`tom_d4rt_exec` inherits via its
+runner forward). The D4 static *registration* caches are deliberately not cleared
+(they must persist past bridge finalization). *Workaround retained:*
+`SendTestRunner.requestRecycle()` stays as the belt-and-braces fallback. Tests:
+`tom_d4rt_ast/test/runtime/native_accumulator_reset_test.dart` +
+`tom_d4rt/test/open_issues/b12_native_accumulator_reset_test.dart`.
 
 ### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent)
 Interpreted `InheritedElement` dependents leak across `/clear`; currently **no
