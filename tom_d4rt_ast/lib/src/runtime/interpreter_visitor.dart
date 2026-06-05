@@ -1332,6 +1332,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
         throw RuntimeD4rtException(
           "Native error during bridged enum property get '$memberName' on $bridgedEnumValue: $e",
+          originalException: e,
         );
       }
     } else if (prefixValue is Callable) {
@@ -1677,6 +1678,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
           throw RuntimeD4rtException(
             "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+            originalException: e,
           );
         }
       }
@@ -1988,6 +1990,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
           throw RuntimeD4rtException(
             "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+            originalException: e,
           );
         }
       }
@@ -2031,6 +2034,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     throw RuntimeD4rtException(
       'Unsupported target for indexing: ${targetValue?.runtimeType}',
     );
+  }
+
+  /// OPEN B.9 — propagate a bare-identifier write that landed on a static-field
+  /// snapshot back to the owner class's authoritative static slot.
+  ///
+  /// Inside a static member, [InterpretedFunction._prepareExecutionEnvironment]
+  /// snapshots the owner class's static fields into the member's top execution
+  /// environment (so they read without a class prefix) and marks that scope via
+  /// [Environment.staticFieldSnapshotOwner]. A bare assignment only mutates that
+  /// snapshot, which is discarded when the call returns — so the write must also
+  /// be mirrored to `InterpretedClass.setStaticField` to survive across calls.
+  ///
+  /// Shadow-safe: a local that shadows a static field lives in a different
+  /// (unmarked) environment, so [definingEnv] is not the snapshot scope and no
+  /// propagation occurs.
+  void _propagateStaticFieldWrite(
+    Environment definingEnv,
+    String variableName,
+    Object? value,
+  ) {
+    final owner = definingEnv.staticFieldSnapshotOwner;
+    if (owner != null && owner.staticFields.containsKey(variableName)) {
+      owner.setStaticField(variableName, value);
+    }
   }
 
   @override
@@ -2083,10 +2110,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else {
           // Regular variable handling
           if (operatorType == '=') {
-            return environment.assign(
+            final assigned = environment.assign(
               variableName,
               rhsValue,
             ); // Use original assign for lexical
+            _propagateStaticFieldWrite(definingEnv, variableName, rhsValue);
+            return assigned;
           } else {
             // Handle compound assignments on lexical variables
             final currentValue = environment.get(
@@ -2097,10 +2126,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               rhsValue,
               operatorType,
             );
-            return environment.assign(
+            final assigned = environment.assign(
               variableName,
               newValue,
             ); // Assign back to lexical scope
+            _propagateStaticFieldWrite(definingEnv, variableName, newValue);
+            return assigned;
           }
         }
       } else {
@@ -2702,6 +2733,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Native error during super assignment to bridged setter '$propertyName': $e",
+                originalException: e,
               );
             }
           } else {
@@ -2751,6 +2783,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
             throw RuntimeD4rtException(
               "Native error during compound super assignment to bridged property '$propertyName': $e",
+              originalException: e,
             );
           }
         }
@@ -3184,6 +3217,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 );
                 throw RuntimeD4rtException(
                   "Native error during bridged operator '$operatorName' read on ${bridgedClass.name}: $e",
+                  originalException: e,
                 );
               }
             } else {
@@ -3332,6 +3366,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+                originalException: e,
               );
             }
           }
@@ -3759,6 +3794,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Catch potential errors from the native code/adapter
             throw RuntimeD4rtException(
               "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e",
+              originalException: e,
             );
           }
         } else {
@@ -4038,6 +4074,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
           throw RuntimeD4rtException(
             "Native error during bridged enum method call '$methodName' on $targetValue: $e",
+            originalException: e,
           );
         }
       } else if (targetValue is BridgedClass) {
@@ -4103,6 +4140,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
             throw RuntimeD4rtException(
               "Native error during bridged constructor '$methodName' for class '${bridgedClass.name}': $e",
+              originalException: e,
             );
           }
         } else {
@@ -4160,6 +4198,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e",
+                originalException: e,
               );
             }
           } else {
@@ -4263,6 +4302,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
             throw RuntimeD4rtException(
               "Native error during super call to bridged method '$methodName': $e",
+              originalException: e,
             );
           }
         } else {
@@ -4456,6 +4496,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             if (nativeObject is Future || nativeObject is Stream) {
               return nativeObject;
             }
+            if (D4.usageLogEnabled) {
+              D4.recordUsageHit(
+                'ctor',
+                bridgedClass.name,
+                evaluatedTypeArguments?.map((t) => t.toString()).join(',') ?? '',
+              );
+            }
             final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
             Logger.debug(
               "[visitMethodInvocation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
@@ -4523,6 +4570,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
           throw RuntimeD4rtException(
             "Native error during default bridged constructor for '${bridgedClass.name}': $e",
+            originalException: e,
           );
         }
       } else {
@@ -5268,6 +5316,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
           throw RuntimeD4rtException(
             "Native error during super access to bridged getter '$propertyName': $e",
+            originalException: e,
           );
         }
       }
@@ -7599,6 +7648,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Native error during bridged unary operator '-' on ${bridgedClass.name}: $e",
+                originalException: e,
               );
             }
           }
@@ -7687,6 +7737,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Native error during bridged unary operator '~' on ${bridgedClass.name}: $e",
+                originalException: e,
               );
             }
           }
@@ -9942,8 +9993,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[STryStatement] Caught unexpected non-InternalInterpreterException in TRY: $userException",
       );
+      // OPEN B.5: a bridged adapter that threw a native/user exception wraps it
+      // in a RuntimeError carrying the original object. Recover the original so
+      // `on <NativeType>` / bare `catch` dispatch matches the real exception
+      // type rather than the RuntimeError wrapper.
+      final thrownValue = (userException is RuntimeD4rtException &&
+              userException.originalException != null)
+          ? userException.originalException
+          : userException;
       // Encapsulate the user/native exception in our internal type
-      caughtInternalException = InternalInterpreterD4rtException(userException);
+      caughtInternalException = InternalInterpreterD4rtException(thrownValue);
       caughtStackTrace = userStack;
       returnValue = null;
     }
@@ -10954,6 +11013,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               if (nativeObject is Future || nativeObject is Stream) {
                 return nativeObject;
               }
+              if (D4.usageLogEnabled) {
+                D4.recordUsageHit(
+                  'ctor',
+                  constructorName,
+                  evaluatedTypeArguments?.map((t) => t.toString()).join(',') ??
+                      '',
+                );
+              }
               final bridgedInstance = BridgedInstance(
                 bridgedClass,
                 nativeObject,
@@ -11077,7 +11144,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
         // Encapsulate the native error in a RuntimeError for propagation
         throw RuntimeD4rtException(
-          "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': \$e",
+          "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e",
+          originalException: e,
         );
       }
     } else {
@@ -12891,6 +12959,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
       throw RuntimeD4rtException(
         "Native error during super constructor call '$constructorName': $e",
+        originalException: e,
       );
     }
 

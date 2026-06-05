@@ -28,10 +28,17 @@ param(
 )
 
 $ErrorActionPreference = 'Continue'
+$scriptDir = $PSScriptRoot
 Set-Location (Join-Path $PSScriptRoot '..')
 $project = Split-Path -Leaf (Get-Location)
 $out = "doc/testlog_$Id"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
+
+# Idle-output watchdog: kill a test file that produces NO output for this many
+# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
+# "never reaches the first test" hangs so a wedged transport fails fast.
+# Override with $env:IDLE_TIMEOUT.
+$idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 70 }
 
 # Spec order: heaviest/most-relevant first, interactive last.
 $files = @(
@@ -58,14 +65,17 @@ foreach ($f in $files) {
   $base = [IO.Path]::GetFileNameWithoutExtension($f)
   Write-Host ''
   Write-Host "---- $f ----"
-  & flutter test "test/$f" --timeout 60s --file-reporter "json:$out/$base.result.json" 2>&1 |
-    Tee-Object -FilePath "$out/$base.log.txt"
+  # The idle watchdog wraps the run: it streams output to the log and kills the
+  # whole process tree (returning 124) after $idle seconds of silence.
+  & "$scriptDir/idle_timeout.ps1" $idle "$out/$base.log.txt" `
+    flutter test "test/$f" --timeout 60s --file-reporter "json:$out/$base.result.json"
   $rc = $LASTEXITCODE
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
   $m = Select-String -Path "$out/$base.log.txt" -Pattern '\+\d+( ~\d+)?( -\d+)?' |
     Select-Object -Last 1
   $summary = if ($m) { $m.Matches[0].Value } else { '<no summary>' }
-  Add-Content -Path "$out/metrics.txt" -Value "${base}: exit=$rc $summary"
+  $note = if ($rc -eq 124) { " (IDLE-KILLED after ${idle}s of no output)" } else { '' }
+  Add-Content -Path "$out/metrics.txt" -Value "${base}: exit=$rc $summary$note"
 }
 
 Write-Host ''

@@ -353,97 +353,64 @@ The D4 class provides several registration mechanisms for extending bridge behav
 | RC-3: Type Coercions | Convert between equivalent types from different packages |
 | RC-5: Supplementary Methods | Add methods not included in generated bridges (e.g., @protected methods) |
 | RC-8: Enum Static Getters | Register non-constant enum static members |
-| RC-9: Property Interceptors | Intercept property access on bridged instances |
+| RC-9: State-proxy field fallbacks | Resolve `widget`/getter access on interpreted `State` subclasses through proxy fields (no registration call) |
 
-### RC-9: Property Interceptors
+> **Historical note.** RC-9 was once a registration API
+> (`D4.registerPropertyInterceptor` + `InterceptedValue`) that let a bridge
+> package intercept property access on `InterpretedInstance` objects. That API
+> was **removed**. The same use-case is now handled automatically by the
+> interpreter through instance fields and a duck-typed proxy getter — there is
+> nothing to register. The text below describes the current mechanism.
 
-Property interceptors allow external packages to intercept property access on `InterpretedInstance` objects before the normal getter adapter is called. This is useful for abstract class adapters where the native proxy needs to return interpreted instances instead of native wrapper objects.
+### RC-9: State-proxy field fallbacks
 
-#### Use Case: Abstract Class Adapters
+When a D4rt script class extends an abstract bridged class (like `State<T>`),
+the interpreter creates a native adapter proxy instead of a
+`bridgedSuperObject`. For properties like `widget`, the normal getter adapter
+would return the native wrapper object, but the script needs the original
+`InterpretedInstance` of its widget class. Two `InterpretedInstance` fields
+plus one duck-typed getter cover this — all resolved inside
+`runtime_types.dart` (`Instance.get`), with no external registration:
 
-When a D4rt script class extends an abstract bridged class (like `State<T>`), the interpreter creates a native adapter proxy instead of a `bridgedSuperObject`. For properties like `widget`, the normal getter adapter would return the native wrapper object, but we need to return the original `InterpretedInstance` of the script's widget class.
+| Hook | Where set | Effect |
+|------|-----------|--------|
+| `interpretedStatefulWidget` field | set by the State proxy when it adopts an interpreted widget | `widget` getter returns this field directly, short-circuiting the bridged getter (avoids routing `setState` through Flutter and looping rebuilds) |
+| `nativeProxy.interpretedWidget` (duck-typed, RC-6b) | implemented by the native `_InterpretedState` proxy | when `widget` is read and `bridgedSuperObject == null`, the interpreter duck-types `nativeProxy.interpretedWidget`; if it yields an `InterpretedInstance`, that value is returned |
+| `nativeStateProxy` field | set when an interpreted `State<T>` owns a native `_InterpretedState` proxy | getter-only fallback target (`context`, `mounted`) and the GEN-112 method-routing target so `setState`/`initState` fire on the real Flutter element |
 
-#### Registration
+#### How it works
 
-```dart
-import 'package:tom_d4rt_exec/d4rt.dart' show D4, InterceptedValue;
+1. On `widget` access, `Instance.get` first checks the
+   `interpretedStatefulWidget` field; if set, it is returned immediately.
+2. Otherwise, for `bridgedSuperObject == null` with a `nativeProxy`, the
+   interpreter duck-types `nativeProxy.interpretedWidget` (RC-6b) and returns
+   it when it is an `InterpretedInstance`.
+3. For other getters, `nativeStateProxy` acts as a read-only fallback target
+   so members like `context`/`mounted` resolve on plain interpreted `State`
+   subclasses.
+4. For methods, `nativeStateProxy` is the GEN-112 routing target — `setState`,
+   `initState`, etc. dispatch onto the real Flutter element rather than a
+   no-op.
 
-void registerPropertyInterceptors() {
-  D4.registerPropertyInterceptor('State', (
-    instance,      // The InterpretedInstance being accessed
-    propertyName,  // The property name (e.g., 'widget')
-    nativeProxy,   // The native adapter proxy (e.g., _InterpretedState)
-    bridgedSuperObject, // null for abstract class adapters
-    visitor,       // The InterpreterVisitor
-  ) {
-    // Only intercept 'widget' property
-    if (propertyName != 'widget') {
-      return null; // Fall through to normal handling
-    }
+#### Adapter interface pattern
 
-    // Only intercept when bridgedSuperObject is null (abstract class)
-    // and nativeProxy implements our interface
-    if (bridgedSuperObject == null && nativeProxy is InterpretedStateProxy) {
-      return InterceptedValue(nativeProxy.interpretedWidget);
-    }
-
-    return null; // Fall through to normal handling
-  });
-}
-```
-
-#### How It Works
-
-1. When property access occurs on an `InterpretedInstance`, the interpreter checks each bridged superclass in the hierarchy
-2. Before calling the normal getter adapter, it calls `D4.interceptPropertyAccess()`
-3. Registered interceptors for the bridged class are called in registration order
-4. If an interceptor returns `InterceptedValue(value)`, that value is returned immediately
-5. If an interceptor returns `null`, the next interceptor is tried, then normal handling proceeds
-
-#### The InterceptedValue Wrapper
-
-Since `null` can be a valid property value, interceptors return `InterceptedValue?`:
-
-- `InterceptedValue(null)` — The property was handled, the value is `null`
-- `InterceptedValue(someValue)` — The property was handled, return `someValue`
-- `null` — This interceptor doesn't handle this property, try the next one
-
-#### Example: Adapter Interface Pattern
-
-When creating native adapters for abstract bridged classes, define an interface that the adapter implements:
+The native adapter exposes `interpretedWidget`; the interpreter finds it by
+duck-typing, so the adapter does not have to implement a registered interface:
 
 ```dart
-/// Interface for native State proxies that need to return interpreted widgets.
-abstract class InterpretedStateProxy {
-  InterpretedInstance get interpretedWidget;
-}
-
 /// The native adapter for interpreted State subclasses.
-class _InterpretedState extends State<_InterpretedStatefulWidget>
-    implements InterpretedStateProxy {
+class _InterpretedState extends State<_InterpretedStatefulWidget> {
   final InterpretedInstance _stateInstance;
 
-  @override
+  /// Duck-typed by the interpreter (RC-6b) to satisfy `widget` access.
   InterpretedInstance get interpretedWidget => super.widget._instance;
 
   // ... build(), initState(), etc. delegate to _stateInstance
 }
 ```
 
-Then register the property interceptor to use this interface:
-
-```dart
-D4.registerPropertyInterceptor('State', (instance, propertyName, nativeProxy, bridgedSuperObject, visitor) {
-  if (propertyName == 'widget' && 
-      bridgedSuperObject == null && 
-      nativeProxy is InterpretedStateProxy) {
-    return InterceptedValue(nativeProxy.interpretedWidget);
-  }
-  return null;
-});
-```
-
-This pattern keeps the special handling logic externalized to the bridge package that understands the specific native types involved.
+This keeps the special handling inside the interpreter and the bridge
+package's proxy class, with no process-global registration to manage.
 
 ## Best Practices
 

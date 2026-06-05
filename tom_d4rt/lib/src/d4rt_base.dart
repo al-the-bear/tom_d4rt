@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/error/error.dart';
@@ -200,6 +202,14 @@ class D4rt {
 
   /// Step 6: whether [finalizeBridges] has run on this runner.
   bool _bridgesFinalized = false;
+
+  /// P&R#1: set when the `D4RT_LOG_RELAXER_USAGE` environment variable enabled
+  /// [D4.usageLogEnabled] at finalize time. Gates the automatic end-of-run
+  /// summary so embedders that flip the flag programmatically manage their own
+  /// reporting. This env-var convenience is the VM-only twin divergence — the
+  /// web-capable `tom_d4rt_ast` runner has no `dart:io` and enables the flag
+  /// directly.
+  bool _usageLogFromEnv = false;
 
   /// Gets the current interpreter visitor instance.
   ///
@@ -728,7 +738,87 @@ class D4rt {
       );
       entry.value();
     }
+    _maybeEnableUsageLogFromEnv();
   }
+
+  /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
+  /// a truthy value (`1`, `true`, `yes`, `on`, case-insensitive). Resets the
+  /// log so each process run starts fresh, and arms the automatic end-of-run
+  /// summary. No-op if the env var is unset or the flag is already on.
+  void _maybeEnableUsageLogFromEnv() {
+    if (_usageLogFromEnv) return;
+    final raw = Platform.environment['D4RT_LOG_RELAXER_USAGE'];
+    if (raw == null) return;
+    const truthy = {'1', 'true', 'yes', 'on'};
+    if (!truthy.contains(raw.trim().toLowerCase())) return;
+    D4.usageLogEnabled = true;
+    D4.resetUsageLog();
+    _usageLogFromEnv = true;
+  }
+
+  /// P&R#1: print the [D4.usageLogSummary] at run end when the usage log was
+  /// auto-enabled via the environment variable. Embedders that enable the flag
+  /// programmatically do their own reporting and are not affected.
+  void _maybeEmitUsageLog() {
+    if (!_usageLogFromEnv) return;
+    // ignore: avoid_print
+    print(D4.usageLogSummary());
+  }
+
+  // =========================================================================
+  // P&R#3 — Public user-registration API
+  //
+  // Thin facade delegates onto the static [D4] sinks, exposed so embedders
+  // and bridge packages can register relaxers, interface proxies, and generic
+  // constructors for their own (user-project) types without touching the
+  // generator. Intended to be called from inside a [registerExtensions] body
+  // so the registration runs once at finalize time, in package order, after
+  // the standard bridges are wired up. They may also be called directly
+  // before the first execute*/eval call.
+  // =========================================================================
+
+  /// Registers a relaxer (generic-type-wrapper) factory for [baseTypeName].
+  ///
+  /// A relaxer converts an interpreted/bridged value into a native instance
+  /// of a parameterized (or plain) bridged type when an argument of that type
+  /// is required. [baseTypeName] is the *base* type name without type
+  /// arguments (e.g. `'ValueListenable'`, `'MyBox'`). Delegates to
+  /// [D4.registerGenericTypeWrapper]; registration is idempotent on factory
+  /// identity and chains new-first.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerRelaxerFactory(
+    String baseTypeName,
+    GenericTypeWrapperFactory factory,
+  ) => D4.registerGenericTypeWrapper(baseTypeName, factory);
+
+  /// Registers an interface-proxy factory for [bridgedTypeName].
+  ///
+  /// A proxy wraps an [InterpretedInstance] that implements a bridged
+  /// abstract interface so it can be passed where the native interface is
+  /// required. Delegates to [D4.registerInterfaceProxy]; registration is
+  /// idempotent on factory identity.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerInterfaceProxy(
+    String bridgedTypeName,
+    InterfaceProxyFactory factory,
+  ) => D4.registerInterfaceProxy(bridgedTypeName, factory);
+
+  /// Registers a generic-constructor factory for [className].[constructorName].
+  ///
+  /// Used by the interpreter's construction path to build a native instance
+  /// of a generic bridged class from interpreted arguments and type
+  /// arguments. Use `''` for the unnamed constructor. Delegates to
+  /// [D4.registerGenericConstructor]; registration is idempotent on factory
+  /// identity and chains new-first.
+  ///
+  /// Intended for use inside a [registerExtensions] body.
+  void registerGenericConstructor(
+    String className,
+    String constructorName,
+    GenericConstructorFactory factory,
+  ) => D4.registerGenericConstructor(className, constructorName, factory);
 
   /// Checks if a specific permission is granted.
   ///
@@ -1357,8 +1447,11 @@ class D4rt {
     if (resultValue is Future) {
       try {
         _hasExecutedOnce = true;
-        return resultValue
-            .then((value) => _bridgeInterpreterValueToNative(value));
+        return resultValue.then((value) {
+          final native = _bridgeInterpreterValueToNative(value);
+          _maybeEmitUsageLog();
+          return native;
+        });
       } on InternalInterpreterD4rtException catch (e) {
         if (e.originalThrownValue is RuntimeD4rtException) {
           throw e.originalThrownValue as RuntimeD4rtException;
@@ -1374,6 +1467,7 @@ class D4rt {
       }
     }
     _hasExecutedOnce = true;
+    _maybeEmitUsageLog();
     return resultValue;
   }
 

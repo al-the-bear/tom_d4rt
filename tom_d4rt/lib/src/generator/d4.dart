@@ -365,6 +365,187 @@ class D4 {
   }
 
   // ==========================================================================
+  // Usage logging + miss-tracking (P&R#1 / request h)
+  // ==========================================================================
+
+  /// Opt-in instrumentation toggle. When `true`, [extractBridgedArg] and the
+  /// interpreter's generic-constructor path record each relaxer /
+  /// interface-proxy / type-coercion / generic-constructor *hit* and each
+  /// unresolved *miss*, keyed by category + base type + type-argument. The
+  /// accumulated data drives the mass-generation reduction work (P&R steps
+  /// 4–5): it reveals which generated cases real scripts actually exercise.
+  ///
+  /// Defaults to `false`. Every instrumentation call site guards on this flag
+  /// *before* composing any log key, so the log is completely silent and
+  /// zero-overhead when disabled.
+  ///
+  /// Web note: this flag is purely programmatic here (no `dart:io`). The VM
+  /// `D4rt` facade additionally defaults it from the `D4RT_LOG_RELAXER_USAGE`
+  /// environment variable; the web-capable `tom_d4rt_ast` twin cannot read
+  /// environment variables, so callers enable it directly. This is the only
+  /// deliberate twin divergence for this feature.
+  static bool usageLogEnabled = false;
+
+  static final Map<String, int> _usageHits = <String, int>{};
+  static final Map<String, int> _usageMisses = <String, int>{};
+
+  static String _usageKey(String category, String base, String typeArg) =>
+      '$category|$base|$typeArg';
+
+  /// Parse the base type name from a type string, e.g. `List<int>?` → `List`,
+  /// `Color` → `Color`. Used to key usage records by base type.
+  static String _baseTypeName(String typeStr) {
+    var s = typeStr;
+    while (s.endsWith('?')) {
+      s = s.substring(0, s.length - 1);
+    }
+    final lt = s.indexOf('<');
+    return lt < 0 ? s : s.substring(0, lt);
+  }
+
+  /// Parse the inner type-argument from a generic type string, e.g.
+  /// `List<int>` → `int`; returns `` (empty) for a non-generic type.
+  static String _innerTypeArg(String typeStr) {
+    var s = typeStr;
+    while (s.endsWith('?')) {
+      s = s.substring(0, s.length - 1);
+    }
+    final lt = s.indexOf('<');
+    final gt = s.lastIndexOf('>');
+    return (lt < 0 || gt < 0 || gt <= lt) ? '' : s.substring(lt + 1, gt);
+  }
+
+  /// Record a successful resolution of [category] (`relaxer`, `proxy`,
+  /// `coercion`, or `ctor`) for [base] with [typeArg]. No-op unless
+  /// [usageLogEnabled]; call sites still guard the flag to avoid key allocation
+  /// when logging is off.
+  static void recordUsageHit(String category, String base, String typeArg) {
+    if (!usageLogEnabled) return;
+    final key = _usageKey(category, base, typeArg);
+    _usageHits[key] = (_usageHits[key] ?? 0) + 1;
+  }
+
+  /// Record an unresolved [extractBridgedArg] miss for [base]/[typeArg].
+  static void recordUsageMiss(String base, String typeArg) {
+    if (!usageLogEnabled) return;
+    final key = _usageKey('miss', base, typeArg);
+    _usageMisses[key] = (_usageMisses[key] ?? 0) + 1;
+  }
+
+  /// Hits accumulated so far, keyed `category|base|typeArg`. Read-only copy.
+  static Map<String, int> get usageHits =>
+      Map<String, int>.unmodifiable(_usageHits);
+
+  /// Misses accumulated so far, keyed `miss|base|typeArg`. Read-only copy.
+  static Map<String, int> get usageMisses =>
+      Map<String, int>.unmodifiable(_usageMisses);
+
+  /// Total hit events recorded across all categories.
+  static int get usageHitCount => _usageHits.values.fold(0, (a, b) => a + b);
+
+  /// Total miss events recorded.
+  static int get usageMissCount => _usageMisses.values.fold(0, (a, b) => a + b);
+
+  /// Clear all accumulated usage data so the next run starts fresh.
+  static void resetUsageLog() {
+    _usageHits.clear();
+    _usageMisses.clear();
+  }
+
+  /// A human-readable end-of-run summary of recorded hits and misses, grouped
+  /// into Hits/Misses and sorted by descending count. Embedders print this at
+  /// run end (the VM CLI does so automatically when the env var is set).
+  /// Returns a short "(no … recorded)" line when nothing was captured.
+  static String usageLogSummary() {
+    final buffer = StringBuffer();
+    buffer.writeln('=== D4 relaxer/proxy/ctor usage log ===');
+    if (_usageHits.isEmpty && _usageMisses.isEmpty) {
+      buffer.writeln('(no relaxer/proxy/ctor lookups recorded)');
+      return buffer.toString();
+    }
+    _writeUsageSection(buffer, 'Hits', _usageHits);
+    _writeUsageSection(buffer, 'Misses', _usageMisses);
+    return buffer.toString();
+  }
+
+  static void _writeUsageSection(
+    StringBuffer buffer,
+    String title,
+    Map<String, int> data,
+  ) {
+    final total = data.values.fold(0, (a, b) => a + b);
+    buffer.writeln('$title: $total event(s), ${data.length} distinct');
+    final entries = data.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    for (final e in entries) {
+      buffer.writeln('  ${e.value}× ${e.key}');
+    }
+  }
+
+  /// Build an enriched diagnostic message for an unresolved
+  /// [extractBridgedArg] resolution (P&R#2 / request g).
+  ///
+  /// Beyond the bare "expected/got" line, it reports:
+  /// - the **base type** (`expectedType` stripped of nullability + type args),
+  /// - the **unmatched type-argument** (if `expectedType` is generic),
+  /// - the **registration state** — whether a relaxer (generic-type wrapper),
+  ///   interface-proxy, or generic-constructor factory is registered for the
+  ///   *base* type even though none matched *this* argument, and
+  /// - the concrete **remedy** (add the inner type to `additionalRelaxerTypes:`
+  ///   in the bridge config, or register a factory programmatically).
+  ///
+  /// The first line preserves the historical
+  /// `Invalid parameter "<name>": expected <T>, got <actual>` prefix so callers
+  /// that match on it keep working; the diagnostics follow on indented lines.
+  static String _missingBridgeResolutionMessage(
+    String paramName,
+    String expectedType,
+    Object? actualType,
+  ) {
+    final base = _baseTypeName(expectedType);
+    final typeArg = _innerTypeArg(expectedType);
+    final hasRelaxer = _genericTypeWrappers.containsKey(base);
+    final hasProxy = _interfaceProxies.containsKey(base);
+    final hasCtor = _genericConstructors.keys.any((k) => k.startsWith('$base.'));
+
+    final buffer = StringBuffer()
+      ..write('Invalid parameter "$paramName": expected $expectedType, '
+          'got $actualType')
+      ..write('\n  base type: $base');
+    if (typeArg.isNotEmpty) {
+      buffer.write('\n  unmatched type-argument: $typeArg');
+    }
+
+    final registered = <String>[
+      if (hasRelaxer) 'relaxer',
+      if (hasProxy) 'interface-proxy',
+      if (hasCtor) 'generic-constructor factory',
+    ];
+    if (registered.isEmpty) {
+      buffer
+        ..write('\n  registration: no relaxer / interface-proxy / '
+            'generic-constructor factory is registered for "$base".')
+        ..write('\n  remedy: add "$base" to `additionalRelaxerTypes:` in the '
+            'bridge config and regenerate, or register one at runtime via '
+            'D4.registerGenericTypeWrapper("$base", ...) / '
+            'D4.registerInterfaceProxy("$base", ...).');
+    } else {
+      final verb = registered.length == 1 ? 'is' : 'are';
+      final argDesc =
+          typeArg.isEmpty ? 'this argument' : 'type-argument "$typeArg"';
+      buffer
+        ..write('\n  registration: a ${registered.join(' / ')} $verb '
+            'registered for "$base", but $argDesc did not match.')
+        ..write('\n  remedy: extend the registered factory to cover '
+            '${typeArg.isEmpty ? 'this argument' : '"$base<$typeArg>"'} — add '
+            '"$typeArg" to `additionalRelaxerTypes:` for "$base" and '
+            'regenerate, or register an additional factory via '
+            'D4.registerGenericTypeWrapper("$base", ...).');
+    }
+    return buffer.toString();
+  }
+
+  // ==========================================================================
   // RC-5: Supplementary Method Adapters
   // ==========================================================================
 
@@ -754,7 +935,10 @@ class D4 {
         // Only accept non-null results: null means "not handled by this
         // factory" and the next factory should be tried.
         final wrapped = factory(value, innerTypeArg);
-        if (wrapped != null && wrapped is T) return wrapped as T;
+        if (wrapped != null && wrapped is T) {
+          if (usageLogEnabled) recordUsageHit('relaxer', typeName, innerTypeArg);
+          return wrapped as T;
+        }
         // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
         // the non-nullable form (e.g., 'Color'). The wrapper created with
         // non-nullable T will still be assignable to the nullable target.
@@ -762,7 +946,72 @@ class D4 {
           final nonNullableArg =
               innerTypeArg.substring(0, innerTypeArg.length - 1);
           final wrapped2 = factory(value, nonNullableArg);
-          if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
+          if (wrapped2 != null && wrapped2 is T) {
+            if (usageLogEnabled) {
+              recordUsageHit('relaxer', typeName, nonNullableArg);
+            }
+            return wrapped2 as T;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  /// P&R#3: Last-resort user-factory resolution, tried immediately before
+  /// [extractBridgedArg] gives up and throws.
+  ///
+  /// The inlined relaxer lookup inside [extractBridgedArg] only consults
+  /// [_genericTypeWrappers] when `T` is itself parameterized (its string form
+  /// contains `<…>`). A relaxer registered for a *non-generic* user type — the
+  /// common case when an embedder calls
+  /// `D4rt.registerRelaxerFactory` / [registerGenericTypeWrapper] for one of
+  /// its own classes — would therefore never be reached. This helper closes
+  /// that gap: it looks the base type name up in [_genericTypeWrappers]
+  /// (passing an empty inner type argument for non-generic `T`) and returns
+  /// the first factory result that satisfies `T`.
+  ///
+  /// Strictly additive — it runs only on the path that would otherwise throw,
+  /// so it can turn a previous failure into a success but can never change the
+  /// result of an argument that already resolved.
+  ///
+  /// Returns the resolved value, or `null` if no user factory matched.
+  static T? _tryUserFactoryResolution<T>(Object? value) {
+    if (value == null || _genericTypeWrappers.isEmpty) return null;
+    final tStr = T.toString();
+    String baseT = tStr;
+    while (baseT.endsWith('?')) {
+      baseT = baseT.substring(0, baseT.length - 1);
+    }
+    final String baseTypeName;
+    final String innerTypeArg;
+    if (baseT.contains('<')) {
+      baseTypeName = baseT.substring(0, baseT.indexOf('<'));
+      innerTypeArg = baseT.substring(
+        baseT.indexOf('<') + 1,
+        baseT.lastIndexOf('>'),
+      );
+    } else {
+      baseTypeName = baseT;
+      innerTypeArg = '';
+    }
+
+    final valueName = value.runtimeType.toString();
+    final valueBaseName = valueName.contains('<')
+        ? valueName.substring(0, valueName.indexOf('<'))
+        : valueName;
+    final typeNamesToTry = <String>{baseTypeName, valueBaseName};
+
+    for (final typeName in typeNamesToTry) {
+      final factories = _genericTypeWrappers[typeName];
+      if (factories == null) continue;
+      for (final factory in factories) {
+        final wrapped = factory(value, innerTypeArg);
+        if (wrapped != null && wrapped is T) {
+          if (usageLogEnabled) {
+            recordUsageHit('relaxer', typeName, innerTypeArg);
+          }
+          return wrapped as T;
         }
       }
     }
@@ -1372,7 +1621,12 @@ class D4 {
             // Only accept non-null results: null means "not handled by this
             // factory, keep trying the next one".
             final wrapped = factory(unwrapped, innerTypeArg);
-            if (wrapped != null && wrapped is T) return wrapped as T;
+            if (wrapped != null && wrapped is T) {
+              if (usageLogEnabled) {
+                recordUsageHit('relaxer', typeName, innerTypeArg);
+              }
+              return wrapped as T;
+            }
             // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
             // the non-nullable form. The wrapper created with non-nullable T
             // will still be assignable to the nullable target.
@@ -1382,7 +1636,12 @@ class D4 {
                 innerTypeArg.length - 1,
               );
               final wrapped2 = factory(unwrapped, nonNullableArg);
-              if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
+              if (wrapped2 != null && wrapped2 is T) {
+                if (usageLogEnabled) {
+                  recordUsageHit('relaxer', typeName, nonNullableArg);
+                }
+                return wrapped2 as T;
+              }
             }
           }
         }
@@ -1602,7 +1861,12 @@ class D4 {
       if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
         final proxyResult =
             tryCreateInterfaceProxyWithVisitor<T>(arg, effectiveVisitor);
-        if (proxyResult != null) return proxyResult;
+        if (proxyResult != null) {
+          if (usageLogEnabled) {
+            recordUsageHit('proxy', _baseTypeName(T.toString()), arg.klass.name);
+          }
+          return proxyResult;
+        }
       }
     }
 
@@ -1615,18 +1879,37 @@ class D4 {
       for (final entry in _typeCoercionsByType.entries) {
         if (entry.key.sourceType == sourceType) {
           final coerced = entry.value(unwrapped);
-          if (coerced is T) return coerced;
+          if (coerced is T) {
+            if (usageLogEnabled) {
+              recordUsageHit(
+                'coercion',
+                _baseTypeName(T.toString()),
+                sourceType.toString(),
+              );
+            }
+            return coerced;
+          }
         }
       }
     }
 
+    // P&R#3: last-resort lookup against user-registered relaxer factories,
+    // covering non-generic target types the inlined relaxer path skips. Runs
+    // only here on the about-to-throw path, so it is strictly additive.
+    final userResolved = _tryUserFactoryResolution<T>(unwrapped);
+    if (userResolved != null) return userResolved;
+
+    if (usageLogEnabled) {
+      final tStr = T.toString();
+      recordUsageMiss(_baseTypeName(tStr), _innerTypeArg(tStr));
+    }
     final actualType = arg is BridgedInstance
         ? arg.nativeObject.runtimeType
         : arg is InterpretedInstance
             ? 'InterpretedInstance(${arg.klass.name})'
             : arg.runtimeType;
     throw ArgumentD4rtException(
-      'Invalid parameter "$paramName": expected $T, got $actualType',
+      _missingBridgeResolutionMessage(paramName, T.toString(), actualType),
     );
   }
 

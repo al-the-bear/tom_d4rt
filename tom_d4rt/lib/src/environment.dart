@@ -88,6 +88,19 @@ class Environment {
       []; // Store unnamed extensions
   final Map<String, Environment> _prefixedImports = {}; // For prefixed imports
 
+  /// OPEN B.9 — when this environment is the top execution scope of a static
+  /// member, it holds *snapshots* of the owner class's static fields so that
+  /// bare-identifier reads resolve without a class prefix. This marker records
+  /// the owning class so that a bare-identifier *write* to one of those
+  /// snapshotted fields can be propagated back to the class's authoritative
+  /// static slot (`InterpretedClass.setStaticField`). Without it, the write
+  /// would only mutate the discarded local snapshot and never survive the call.
+  ///
+  /// Only set on the static-member execution environment itself; a shadowing
+  /// local declared in a nested block lives in a different (unmarked)
+  /// environment, so the propagation stays shadow-safe.
+  InterpretedClass? staticFieldSnapshotOwner;
+
   /// Creates a new environment, optionally with an enclosing (parent) environment.
   ///
   /// [enclosing] The parent environment for lexical scoping. If null, this becomes a root environment.

@@ -31,8 +31,18 @@
 # the remaining files; every file is always attempted.
 set -uo pipefail
 
+# Absolute path to this script's dir (captured BEFORE the cd) so the idle
+# watchdog wrapper can be located after we change into the project root.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 cd "$(dirname "$0")/.."
 PROJECT="$(basename "$PWD")"
+
+# Idle-output watchdog: kill a test file that produces NO output for this many
+# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
+# "never reaches the first test" hangs so a wedged transport fails fast instead
+# of burning the timeout-900 backstop. Override with IDLE_TIMEOUT=<seconds>.
+IDLE_TIMEOUT="${IDLE_TIMEOUT:-70}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-base}"
 OUT="doc/basetestlog_${ID}"
@@ -63,14 +73,21 @@ for f in "${FILES[@]}"; do
   # Guard the array expansion: under `set -u` on bash 3.2 (macOS), expanding an
   # empty array with "${arr[@]}" aborts as an unbound variable. The +-form makes
   # an empty TIMEOUT_BIN expand to nothing instead of erroring.
-  "${TIMEOUT_BIN[@]+"${TIMEOUT_BIN[@]}"}" flutter test "test/${f}" \
+  #
+  # The idle watchdog wraps the run: it streams output to the log (tee-like) and
+  # kills the whole process group (returning 124) after IDLE_TIMEOUT seconds of
+  # silence. The timeout-900 below remains the chatty-but-stuck wall-clock cap.
+  IDLE_TIMEOUT="$IDLE_TIMEOUT" "$SCRIPT_DIR/idle_timeout.sh" \
+    "$IDLE_TIMEOUT" "${OUT}/${base}.log.txt" -- \
+    "${TIMEOUT_BIN[@]+"${TIMEOUT_BIN[@]}"}" flutter test "test/${f}" \
     --timeout 60s \
-    --file-reporter "json:${OUT}/${base}.result.json" \
-    2>&1 | tee "${OUT}/${base}.log.txt"
-  rc=${PIPESTATUS[0]}
+    --file-reporter "json:${OUT}/${base}.result.json"
+  rc=$?
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
   summary="$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?' "${OUT}/${base}.log.txt" | tail -1)"
-  echo "${base}: exit=${rc} ${summary:-<no summary>}" | tee -a "$OUT/metrics.txt"
+  note=""
+  [ "$rc" = "124" ] && note=" (IDLE-KILLED after ${IDLE_TIMEOUT}s of no output)"
+  echo "${base}: exit=${rc} ${summary:-<no summary>}${note}" | tee -a "$OUT/metrics.txt"
 done
 
 echo ""

@@ -1,0 +1,7 @@
+essential_classes_test: exit=1 +2 -103
+important_classes_test: exit=0 +162
+
+# --- 0g clean baseline (A.1 cold-start wedge re-run, isolated) ---
+# essential_classes_test: +105 (104 scripts, 0 fail)   [essential_rerun.* — first pass +2 -103 was an A.1 transport wedge]
+# important_classes_test: +162 (161 scripts, 0 fail)   [first pass clean]
+# Conclusion: green starting point. No step-0 code changed; wedge = pre-existing A.1 transport transient.
