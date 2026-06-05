@@ -1856,38 +1856,30 @@ class _InterpretedRestorationMixinState
 // Supplementary Methods
 // =============================================================================
 
-/// Register supplementary method adapters for @protected or otherwise missing
-/// methods that the bridge generator skips but interpreted subclasses need.
+/// Register supplementary method adapters that fill genuine interpreter-glue
+/// gaps for interpreted subclasses of bridged classes.
+///
+/// MCI#4 / A6 correction: the bridge generator does **not** skip `@protected` /
+/// `@visibleForTesting` members — it emits them into the bridge `methods` /
+/// `getters` maps, and the runtime dispatch (`Instance.get` in
+/// `runtime_types.dart`) consults the generated bridge adapter *before* this
+/// supplementary registry. So plain `@protected` members
+/// (e.g. `ChangeNotifier.notifyListeners` / `hasListeners`) need no
+/// supplementary adapter — the generated bridge already covers them; those
+/// redundant registrations were removed. The registrations that remain below
+/// are NOT plain `@protected` adapters; each performs interpreter-specific glue
+/// the generator cannot synthesize:
+///   • `State.widget`   — unwraps `_InterpretedStatefulWidget` to the script's
+///     own interpreted instance.
+///   • `State.setState` — pairs with the C20d scheduler-phase guard in
+///     `StateUserBridge`; fallback for `findSupplementaryMethod` resolution.
+///   • `State.mounted` / `State.context` — lenient `nativeStateProxy`-tolerant
+///     fallbacks (the generated getter `validateTarget`-throws off-proxy).
+///   • `MultiChildLayoutDelegate.hasChild`/`layoutChild`/`positionChild` —
+///     target the `D4rt…Delegate` native proxy and extract bridged args.
+///   • `SingleChildLayoutDelegate.hasChild` — a *synthetic* method with no
+///     native counterpart (scripts assume it; we answer `true`).
 void _registerSupplementaryMethods() {
-  // ChangeNotifier.notifyListeners — @protected, not in generated bridge
-  D4.registerSupplementaryMethod('ChangeNotifier', 'notifyListeners', (
-    visitor,
-    target,
-    positionalArgs,
-    namedArgs,
-    typeArgs,
-  ) {
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    final cn = target as ChangeNotifier;
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    cn.notifyListeners();
-    return null;
-  });
-
-  // ChangeNotifier.hasListeners — @protected getter
-  D4.registerSupplementaryMethod('ChangeNotifier', 'hasListeners', (
-    visitor,
-    target,
-    positionalArgs,
-    namedArgs,
-    typeArgs,
-  ) {
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    final cn = target as ChangeNotifier;
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    return cn.hasListeners;
-  });
-
   // ---------------------------------------------------------------------------
   // RC-7: State<T> supplementary methods
   // ---------------------------------------------------------------------------
