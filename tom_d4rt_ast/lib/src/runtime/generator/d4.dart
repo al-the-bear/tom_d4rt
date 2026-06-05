@@ -509,6 +509,69 @@ class D4 {
     }
   }
 
+  /// Build an enriched diagnostic message for an unresolved
+  /// [extractBridgedArg] resolution (P&R#2 / request g).
+  ///
+  /// Beyond the bare "expected/got" line, it reports:
+  /// - the **base type** (`expectedType` stripped of nullability + type args),
+  /// - the **unmatched type-argument** (if `expectedType` is generic),
+  /// - the **registration state** — whether a relaxer (generic-type wrapper),
+  ///   interface-proxy, or generic-constructor factory is registered for the
+  ///   *base* type even though none matched *this* argument, and
+  /// - the concrete **remedy** (add the inner type to `additionalRelaxerTypes:`
+  ///   in the bridge config, or register a factory programmatically).
+  ///
+  /// The first line preserves the historical
+  /// `Invalid parameter "<name>": expected <T>, got <actual>` prefix so callers
+  /// that match on it keep working; the diagnostics follow on indented lines.
+  static String _missingBridgeResolutionMessage(
+    String paramName,
+    String expectedType,
+    Object? actualType,
+  ) {
+    final base = _baseTypeName(expectedType);
+    final typeArg = _innerTypeArg(expectedType);
+    final hasRelaxer = _genericTypeWrappers.containsKey(base);
+    final hasProxy = _interfaceProxies.containsKey(base);
+    final hasCtor = _genericConstructors.keys.any((k) => k.startsWith('$base.'));
+
+    final buffer = StringBuffer()
+      ..write('Invalid parameter "$paramName": expected $expectedType, '
+          'got $actualType')
+      ..write('\n  base type: $base');
+    if (typeArg.isNotEmpty) {
+      buffer.write('\n  unmatched type-argument: $typeArg');
+    }
+
+    final registered = <String>[
+      if (hasRelaxer) 'relaxer',
+      if (hasProxy) 'interface-proxy',
+      if (hasCtor) 'generic-constructor factory',
+    ];
+    if (registered.isEmpty) {
+      buffer
+        ..write('\n  registration: no relaxer / interface-proxy / '
+            'generic-constructor factory is registered for "$base".')
+        ..write('\n  remedy: add "$base" to `additionalRelaxerTypes:` in the '
+            'bridge config and regenerate, or register one at runtime via '
+            'D4.registerGenericTypeWrapper("$base", ...) / '
+            'D4.registerInterfaceProxy("$base", ...).');
+    } else {
+      final verb = registered.length == 1 ? 'is' : 'are';
+      final argDesc =
+          typeArg.isEmpty ? 'this argument' : 'type-argument "$typeArg"';
+      buffer
+        ..write('\n  registration: a ${registered.join(' / ')} $verb '
+            'registered for "$base", but $argDesc did not match.')
+        ..write('\n  remedy: extend the registered factory to cover '
+            '${typeArg.isEmpty ? 'this argument' : '"$base<$typeArg>"'} — add '
+            '"$typeArg" to `additionalRelaxerTypes:` for "$base" and '
+            'regenerate, or register an additional factory via '
+            'D4.registerGenericTypeWrapper("$base", ...).');
+    }
+    return buffer.toString();
+  }
+
   // ==========================================================================
   // RC-5: Supplementary Method Adapters
   // ==========================================================================
@@ -1819,7 +1882,7 @@ class D4 {
         ? 'InterpretedInstance(${arg.klass.name})'
         : arg.runtimeType;
     throw ArgumentD4rtException(
-      'Invalid parameter "$paramName": expected $T, got $actualType',
+      _missingBridgeResolutionMessage(paramName, T.toString(), actualType),
     );
   }
 
