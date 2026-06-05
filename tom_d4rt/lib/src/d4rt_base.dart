@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/error/error.dart';
@@ -200,6 +202,14 @@ class D4rt {
 
   /// Step 6: whether [finalizeBridges] has run on this runner.
   bool _bridgesFinalized = false;
+
+  /// P&R#1: set when the `D4RT_LOG_RELAXER_USAGE` environment variable enabled
+  /// [D4.usageLogEnabled] at finalize time. Gates the automatic end-of-run
+  /// summary so embedders that flip the flag programmatically manage their own
+  /// reporting. This env-var convenience is the VM-only twin divergence — the
+  /// web-capable `tom_d4rt_ast` runner has no `dart:io` and enables the flag
+  /// directly.
+  bool _usageLogFromEnv = false;
 
   /// Gets the current interpreter visitor instance.
   ///
@@ -728,6 +738,31 @@ class D4rt {
       );
       entry.value();
     }
+    _maybeEnableUsageLogFromEnv();
+  }
+
+  /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
+  /// a truthy value (`1`, `true`, `yes`, `on`, case-insensitive). Resets the
+  /// log so each process run starts fresh, and arms the automatic end-of-run
+  /// summary. No-op if the env var is unset or the flag is already on.
+  void _maybeEnableUsageLogFromEnv() {
+    if (_usageLogFromEnv) return;
+    final raw = Platform.environment['D4RT_LOG_RELAXER_USAGE'];
+    if (raw == null) return;
+    const truthy = {'1', 'true', 'yes', 'on'};
+    if (!truthy.contains(raw.trim().toLowerCase())) return;
+    D4.usageLogEnabled = true;
+    D4.resetUsageLog();
+    _usageLogFromEnv = true;
+  }
+
+  /// P&R#1: print the [D4.usageLogSummary] at run end when the usage log was
+  /// auto-enabled via the environment variable. Embedders that enable the flag
+  /// programmatically do their own reporting and are not affected.
+  void _maybeEmitUsageLog() {
+    if (!_usageLogFromEnv) return;
+    // ignore: avoid_print
+    print(D4.usageLogSummary());
   }
 
   /// Checks if a specific permission is granted.
@@ -1357,8 +1392,11 @@ class D4rt {
     if (resultValue is Future) {
       try {
         _hasExecutedOnce = true;
-        return resultValue
-            .then((value) => _bridgeInterpreterValueToNative(value));
+        return resultValue.then((value) {
+          final native = _bridgeInterpreterValueToNative(value);
+          _maybeEmitUsageLog();
+          return native;
+        });
       } on InternalInterpreterD4rtException catch (e) {
         if (e.originalThrownValue is RuntimeD4rtException) {
           throw e.originalThrownValue as RuntimeD4rtException;
@@ -1374,6 +1412,7 @@ class D4rt {
       }
     }
     _hasExecutedOnce = true;
+    _maybeEmitUsageLog();
     return resultValue;
   }
 

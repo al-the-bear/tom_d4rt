@@ -4456,6 +4456,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             if (nativeObject is Future || nativeObject is Stream) {
               return nativeObject;
             }
+            if (D4.usageLogEnabled) {
+              D4.recordUsageHit(
+                'ctor',
+                bridgedClass.name,
+                evaluatedTypeArguments?.map((t) => t.toString()).join(',') ?? '',
+              );
+            }
             final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
             Logger.debug(
               "[visitMethodInvocation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
@@ -10953,6 +10960,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             if (nativeObject != null) {
               if (nativeObject is Future || nativeObject is Stream) {
                 return nativeObject;
+              }
+              if (D4.usageLogEnabled) {
+                D4.recordUsageHit(
+                  'ctor',
+                  constructorName,
+                  evaluatedTypeArguments?.map((t) => t.toString()).join(',') ??
+                      '',
+                );
               }
               final bridgedInstance = BridgedInstance(
                 bridgedClass,

@@ -392,6 +392,124 @@ class D4 {
   }
 
   // ==========================================================================
+  // Usage logging + miss-tracking (P&R#1 / request h)
+  // ==========================================================================
+
+  /// Opt-in instrumentation toggle. When `true`, [extractBridgedArg] and the
+  /// interpreter's generic-constructor path record each relaxer /
+  /// interface-proxy / type-coercion / generic-constructor *hit* and each
+  /// unresolved *miss*, keyed by category + base type + type-argument. The
+  /// accumulated data drives the mass-generation reduction work (P&R steps
+  /// 4–5): it reveals which generated cases real scripts actually exercise.
+  ///
+  /// Defaults to `false`. Every instrumentation call site guards on this flag
+  /// *before* composing any log key, so the log is completely silent and
+  /// zero-overhead when disabled.
+  ///
+  /// Web note: this flag is purely programmatic here (no `dart:io`). The VM
+  /// `D4rt` facade additionally defaults it from the `D4RT_LOG_RELAXER_USAGE`
+  /// environment variable; the web-capable `tom_d4rt_ast` twin cannot read
+  /// environment variables, so callers enable it directly. This is the only
+  /// deliberate twin divergence for this feature.
+  static bool usageLogEnabled = false;
+
+  static final Map<String, int> _usageHits = <String, int>{};
+  static final Map<String, int> _usageMisses = <String, int>{};
+
+  static String _usageKey(String category, String base, String typeArg) =>
+      '$category|$base|$typeArg';
+
+  /// Parse the base type name from a type string, e.g. `List<int>?` → `List`,
+  /// `Color` → `Color`. Used to key usage records by base type.
+  static String _baseTypeName(String typeStr) {
+    var s = typeStr;
+    while (s.endsWith('?')) {
+      s = s.substring(0, s.length - 1);
+    }
+    final lt = s.indexOf('<');
+    return lt < 0 ? s : s.substring(0, lt);
+  }
+
+  /// Parse the inner type-argument from a generic type string, e.g.
+  /// `List<int>` → `int`; returns `` (empty) for a non-generic type.
+  static String _innerTypeArg(String typeStr) {
+    var s = typeStr;
+    while (s.endsWith('?')) {
+      s = s.substring(0, s.length - 1);
+    }
+    final lt = s.indexOf('<');
+    final gt = s.lastIndexOf('>');
+    return (lt < 0 || gt < 0 || gt <= lt) ? '' : s.substring(lt + 1, gt);
+  }
+
+  /// Record a successful resolution of [category] (`relaxer`, `proxy`,
+  /// `coercion`, or `ctor`) for [base] with [typeArg]. No-op unless
+  /// [usageLogEnabled]; call sites still guard the flag to avoid key allocation
+  /// when logging is off.
+  static void recordUsageHit(String category, String base, String typeArg) {
+    if (!usageLogEnabled) return;
+    final key = _usageKey(category, base, typeArg);
+    _usageHits[key] = (_usageHits[key] ?? 0) + 1;
+  }
+
+  /// Record an unresolved [extractBridgedArg] miss for [base]/[typeArg].
+  static void recordUsageMiss(String base, String typeArg) {
+    if (!usageLogEnabled) return;
+    final key = _usageKey('miss', base, typeArg);
+    _usageMisses[key] = (_usageMisses[key] ?? 0) + 1;
+  }
+
+  /// Hits accumulated so far, keyed `category|base|typeArg`. Read-only copy.
+  static Map<String, int> get usageHits =>
+      Map<String, int>.unmodifiable(_usageHits);
+
+  /// Misses accumulated so far, keyed `miss|base|typeArg`. Read-only copy.
+  static Map<String, int> get usageMisses =>
+      Map<String, int>.unmodifiable(_usageMisses);
+
+  /// Total hit events recorded across all categories.
+  static int get usageHitCount => _usageHits.values.fold(0, (a, b) => a + b);
+
+  /// Total miss events recorded.
+  static int get usageMissCount => _usageMisses.values.fold(0, (a, b) => a + b);
+
+  /// Clear all accumulated usage data so the next run starts fresh.
+  static void resetUsageLog() {
+    _usageHits.clear();
+    _usageMisses.clear();
+  }
+
+  /// A human-readable end-of-run summary of recorded hits and misses, grouped
+  /// into Hits/Misses and sorted by descending count. Embedders print this at
+  /// run end (the VM CLI does so automatically when the env var is set).
+  /// Returns a short "(no … recorded)" line when nothing was captured.
+  static String usageLogSummary() {
+    final buffer = StringBuffer();
+    buffer.writeln('=== D4 relaxer/proxy/ctor usage log ===');
+    if (_usageHits.isEmpty && _usageMisses.isEmpty) {
+      buffer.writeln('(no relaxer/proxy/ctor lookups recorded)');
+      return buffer.toString();
+    }
+    _writeUsageSection(buffer, 'Hits', _usageHits);
+    _writeUsageSection(buffer, 'Misses', _usageMisses);
+    return buffer.toString();
+  }
+
+  static void _writeUsageSection(
+    StringBuffer buffer,
+    String title,
+    Map<String, int> data,
+  ) {
+    final total = data.values.fold(0, (a, b) => a + b);
+    buffer.writeln('$title: $total event(s), ${data.length} distinct');
+    final entries = data.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    for (final e in entries) {
+      buffer.writeln('  ${e.value}× ${e.key}');
+    }
+  }
+
+  // ==========================================================================
   // RC-5: Supplementary Method Adapters
   // ==========================================================================
 
@@ -783,7 +901,10 @@ class D4 {
         // Only accept non-null results: null means "not handled by this
         // factory" and the next factory should be tried.
         final wrapped = factory(value, innerTypeArg);
-        if (wrapped != null && wrapped is T) return wrapped as T;
+        if (wrapped != null && wrapped is T) {
+          if (usageLogEnabled) recordUsageHit('relaxer', typeName, innerTypeArg);
+          return wrapped as T;
+        }
         // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
         // the non-nullable form (e.g., 'Color'). The wrapper created with
         // non-nullable T will still be assignable to the nullable target.
@@ -793,7 +914,12 @@ class D4 {
             innerTypeArg.length - 1,
           );
           final wrapped2 = factory(value, nonNullableArg);
-          if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
+          if (wrapped2 != null && wrapped2 is T) {
+            if (usageLogEnabled) {
+              recordUsageHit('relaxer', typeName, nonNullableArg);
+            }
+            return wrapped2 as T;
+          }
         }
       }
     }
@@ -1407,7 +1533,12 @@ class D4 {
             // Only accept non-null results: null means "not handled by this
             // factory, keep trying the next one".
             final wrapped = factory(unwrapped, innerTypeArg);
-            if (wrapped != null && wrapped is T) return wrapped as T;
+            if (wrapped != null && wrapped is T) {
+              if (usageLogEnabled) {
+                recordUsageHit('relaxer', typeName, innerTypeArg);
+              }
+              return wrapped as T;
+            }
             // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
             // the non-nullable form. The wrapper created with non-nullable T
             // will still be assignable to the nullable target.
@@ -1417,7 +1548,12 @@ class D4 {
                 innerTypeArg.length - 1,
               );
               final wrapped2 = factory(unwrapped, nonNullableArg);
-              if (wrapped2 != null && wrapped2 is T) return wrapped2 as T;
+              if (wrapped2 != null && wrapped2 is T) {
+                if (usageLogEnabled) {
+                  recordUsageHit('relaxer', typeName, nonNullableArg);
+                }
+                return wrapped2 as T;
+              }
             }
           }
         }
@@ -1641,7 +1777,12 @@ class D4 {
           arg,
           effectiveVisitor,
         );
-        if (proxyResult != null) return proxyResult;
+        if (proxyResult != null) {
+          if (usageLogEnabled) {
+            recordUsageHit('proxy', _baseTypeName(T.toString()), arg.klass.name);
+          }
+          return proxyResult;
+        }
       }
     }
 
@@ -1654,11 +1795,24 @@ class D4 {
       for (final entry in _typeCoercionsByType.entries) {
         if (entry.key.sourceType == sourceType) {
           final coerced = entry.value(unwrapped);
-          if (coerced is T) return coerced;
+          if (coerced is T) {
+            if (usageLogEnabled) {
+              recordUsageHit(
+                'coercion',
+                _baseTypeName(T.toString()),
+                sourceType.toString(),
+              );
+            }
+            return coerced;
+          }
         }
       }
     }
 
+    if (usageLogEnabled) {
+      final tStr = T.toString();
+      recordUsageMiss(_baseTypeName(tStr), _innerTypeArg(tStr));
+    }
     final actualType = arg is BridgedInstance
         ? arg.nativeObject.runtimeType
         : arg is InterpretedInstance
