@@ -149,8 +149,25 @@ class D4 {
   /// associated InterpretedInstance (the last extracted one wins —
   /// extractBridgedArg is idempotent within one interpreter session, so
   /// re-extractions of the same arg overwrite with the same value).
-  static final Expando<Object> _nativeToInterpreted =
+  ///
+  /// Non-`final` so [resetNativeAccumulators] can swap in a fresh [Expando]:
+  /// although individual entries are weak, the framework (Flutter Elements /
+  /// RenderObjects / animations) keeps the *native keys* alive across `/build`
+  /// cycles, so the entries pinned by them survive too. That is the genuine
+  /// cross-build accumulator identified in OPEN B.12 / §U28.
+  static Expando<Object> _nativeToInterpreted =
       Expando<Object>('d4rt:nativeToInterpreted');
+
+  /// Cumulative count of [registerInterpretedForNative] calls since the last
+  /// [resetNativeAccumulators]. The [Expando] itself exposes no length, so
+  /// this counter is the observable proxy for "how much native→interpreted
+  /// state has built up" — it lets embedders and tests detect accumulation
+  /// across `/build` cycles and verify a reset returns it to baseline.
+  static int _nativeRegistrationCount = 0;
+
+  /// Number of native→interpreted registrations recorded since the last
+  /// [resetNativeAccumulators] (OPEN B.12 / §U28 instrumentation).
+  static int get nativeRegistrationCount => _nativeRegistrationCount;
 
   /// Records that [nativeObject] is the bridged-super of [interpretedInstance].
   /// No-op for non-Object keys (Expandos require Object keys).
@@ -159,6 +176,7 @@ class D4 {
     Object interpretedInstance,
   ) {
     _nativeToInterpreted[nativeObject] = interpretedInstance;
+    _nativeRegistrationCount++;
   }
 
   /// Returns the [InterpretedInstance] previously registered for
@@ -168,6 +186,28 @@ class D4 {
   static Object? interpretedForNative(Object? nativeObject) {
     if (nativeObject == null) return null;
     return _nativeToInterpreted[nativeObject];
+  }
+
+  /// Clears the cross-build native-side accumulator (OPEN B.12 / §U28).
+  ///
+  /// Replaces the [_nativeToInterpreted] [Expando] with a fresh instance —
+  /// the only way to bulk-drop its entries, since [Expando] exposes neither a
+  /// `clear()` nor an iterator — and zeroes [nativeRegistrationCount]. Any
+  /// native object previously mapped reads back as `null` afterwards.
+  ///
+  /// Wired into the runtime reset API (`D4rt.resetScriptDeclarations` here /
+  /// `D4rtRunner.resetScriptDeclarations` on the AST twin) so an embedder's
+  /// `/clear` actually frees the native→interpreted entries pinned by the
+  /// previous build's framework objects, instead of leaking them until
+  /// process recycle.
+  ///
+  /// NOTE: this state is **process-global** (static on [D4]), shared by every
+  /// live interpreter. It does not touch the registration caches
+  /// ([_interfaceProxies], [_genericConstructors], [_typeCoercions], …) — those
+  /// are populated once at bridge finalization and must persist across builds.
+  static void resetNativeAccumulators() {
+    _nativeToInterpreted = Expando<Object>('d4rt:nativeToInterpreted');
+    _nativeRegistrationCount = 0;
   }
 
   // ==========================================================================

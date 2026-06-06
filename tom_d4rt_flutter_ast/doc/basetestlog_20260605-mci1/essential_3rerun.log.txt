@@ -1,0 +1,45 @@
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/essential_classes_test.dart
+00:00 +0: (setUpAll)
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:52045/skoCdgKSiTY=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:52045/skoCdgKSiTY=/devtools/?uri=ws://127.0.0.1:52045/skoCdgKSiTY=/ws
+=================================================================
+00:17 +0: cupertino/ list_test.dart
+[METRIC] script=cupertino/list_test.dart sourceBytes=67446 sourceChars=67442 bundleJsonBytes=750943 clearMs=247 readMs=7 bundleMs=281 httpMs=45090 totalMs=45628 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=11 appParseMs=72 appSetStateMs=72 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+01:03 +0 -1: cupertino/ list_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 112:7              main.<fn>.<fn>
+  
+01:03 +0 -1: material/ icon_test.dart
+[METRIC] script=material/icon_test.dart sourceBytes=77571 sourceChars=77571 bundleJsonBytes=935929 clearMs=203 readMs=52 bundleMs=111 httpMs=45031 totalMs=45399 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=23 appSetStateMs=23 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+01:48 +0 -2: material/ icon_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 327:7              main.<fn>.<fn>
+  
+01:48 +0 -2: material/ tooltip_badge_test.dart
+[METRIC] script=material/tooltip_badge_test.dart sourceBytes=46482 sourceChars=46482 bundleJsonBytes=613401 clearMs=203 readMs=2 bundleMs=53 httpMs=45027 totalMs=45287 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+02:34 +0 -3: material/ tooltip_badge_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 414:7              main.<fn>.<fn>
+  
+02:34 +0 -3: (tearDownAll)
+02:35 +0 -3: Some tests failed.

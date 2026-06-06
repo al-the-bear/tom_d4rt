@@ -192,21 +192,57 @@ warm anything. *Workaround:* re-run the first-after-setup script individually.
 *Fix:* an interpreter warmup pass (or `/warmup` endpoint) that pre-builds parser
 + bridge infrastructure before the first real build.
 
-### B.12 — Framework/runtime state accumulates across `/build` cycles; reset API is a no-op (U28)
-Repeated `/build` cycles accumulate native-side state (Expando
-`D4._nativeToInterpreted`, D4 static caches, Flutter framework state). The shipped
-`resetScriptDeclarations`/`resetScript` API is architecturally a **no-op** (a
-fresh `Environment` is already built per build — audit `interpreter_unfixable.md:7272`).
-*Workaround:* `SendTestRunner.requestRecycle()` kills+respawns the app process.
-*Fix:* instrument and clear the actual native accumulator (ranked but
-uninvestigated at `:7304-7326`).
+### B.12 — Framework/runtime state accumulates across `/build` cycles; reset API is a no-op (U28) — ✅ FIXED (2026-06-05)
+Repeated `/build` cycles accumulated native-side state. The audit
+(`interpreter_unfixable.md:7304-7326`) ranked the `D4._nativeToInterpreted`
+**Expando** as the #1 genuine cross-build accumulator: its entries are weak, but
+they are pinned by framework objects (Flutter Elements / RenderObjects /
+animations) the embedder keeps alive across `/build` cycles, so they do NOT
+self-clear the way the per-call-fresh `_values` environment map does. The shipped
+`resetScriptDeclarations`/`resetScript` API walked only `_values` and never
+touched the Expando — hence the no-op.
 
-### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent)
+**Fix:** added `D4.resetNativeAccumulators()` (swaps in a fresh Expando — the only
+way to bulk-drop entries, since Expando exposes no `clear()`/iterator — and zeroes
+a new `D4.nativeRegistrationCount` instrumentation counter) and wired it into
+`resetScriptDeclarations()` on both runtimes. The D4 static *registration* caches
+(`_interfaceProxies`, `_genericConstructors`, `_typeCoercions`, …) are deliberately
+**not** cleared — they are populated once at bridge finalization and must persist.
+*Workaround retained:* `SendTestRunner.requestRecycle()` stays as the
+belt-and-braces fallback.
+- a. ✅ Added `D4.resetNativeAccumulators()` + `nativeRegistrationCount` getter in
+  `tom_d4rt_ast/lib/src/runtime/generator/d4.dart`; **mirrored** in
+  `tom_d4rt/lib/src/generator/d4.dart`. Wired into
+  `D4rtRunner.resetScriptDeclarations()` (AST) and `D4rt.resetScriptDeclarations()`
+  (VM); `tom_d4rt_exec` inherits it via its runner forward. Docstrings updated
+  (the old "Expando is NOT touched" note replaced).
+- b. ✅ **Unit/integration test (both runtimes):** N repeated build cycles without
+  a reset grow the counter (the bug); with a reset between cycles the accumulator
+  returns to baseline and previously-mapped keys read back `null` even while still
+  reachable; the runner/facade reset API clears the native state too.
+  `tom_d4rt_ast/test/runtime/native_accumulator_reset_test.dart` (6 cases) +
+  `tom_d4rt/test/open_issues/b12_native_accumulator_reset_test.dart` (6 cases).
+- c. ✅ **Base-test gate** both (tom_d4rt +1826/−1, tom_d4rt_ast +147, tom_d4rt_exec
+  +2308/−1 — only the pre-existing `I-BUG-14a` "Won't Fix"). `requestRecycle()`
+  kept; the §U28 audit note updated. `dart analyze` clean on all touched files.
+
+### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent) — ✅ ASSESSED / GUARDED
 Interpreted `InheritedElement` dependents leak across `/clear`; currently **no
 observable failure** (the one reproducing script was rewritten, `da4b3234`), so
-this is latent. *Workaround:* none needed today. *Fix (deferred):* clear
-interpreted-element dependent registrations / track interpreted-element lifecycle
-on `/clear`. Keep on the radar so the leak doesn't resurface.
+this is latent. §U30 is **FULLY CLOSED** — the historical reproducer is
+non-reproducible and the `'check that it really is our descendant'` entry was
+**removed** from both test apps' `ignoredPatterns` (the removal is itself the
+active guard: a returning cascade now surfaces in `_frameworkErrors` and fails
+the flutter suite instead of being silenced). The concern lives **entirely in
+the Flutter bridge layer** — the core interpreter has no element/dependent
+tracking. *Workaround:* none needed today. *Fix (deferred):* track
+interpreted-element lifecycle and clear interpreted-element dependent
+registrations on `/clear` — stays deferred until the cascade resurfaces.
+- a. ✅ **Keep-on-radar** — no code change until it resurfaces.
+- b. ✅ **Guard added** — `test/b13_inherited_dependent_leak_test.dart` pins the
+  suppression-removal (pure source-level check; fails if the descendant-check
+  string is re-added as a live `ignoredPatterns` entry). A repro that fails when
+  the leak itself returns stays deferred with the fix.
 
 ### B.14 — Interpreter starves the embedder's input/frame pump during long sync runs (cooperative yielding)
 

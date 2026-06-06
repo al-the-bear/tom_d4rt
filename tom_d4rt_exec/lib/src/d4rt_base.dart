@@ -533,6 +533,30 @@ class D4rt {
   /// **Idempotent:** repeat calls return without re-running anything.
   void finalizeBridges() => _runner.finalizeBridges();
 
+  /// OPEN B.11 / U25 — Pre-builds the parser + bridge infrastructure so the
+  /// first real build does not cold-start mid-test under host load.
+  ///
+  /// The first script run after a test harness' `setUpAll` historically
+  /// flaked because the analyzer front-end, the AST converter, and the
+  /// bridge/stdlib registration path all cold-started during that first
+  /// build. This pays the cost up front:
+  ///
+  /// 1. [D4rtRunner.warmup] on the inner runner — finalizes bridge
+  ///    extensions and warms the stdlib + bridged-definition registration
+  ///    used by the [executeBundle] path.
+  /// 2. A trivial throwaway [execute] of `int main() => 0;`, which JIT-warms
+  ///    the analyzer parser, the [AstConverter], the classic module-loader
+  ///    environment, and the interpreter call path.
+  ///
+  /// **Idempotent and script-neutral:** every real [execute]/[executeBundle]
+  /// rebuilds its environment from scratch, so the throwaway warmup state is
+  /// discarded. Safe to call once after all bridge registration and before
+  /// the first real build.
+  void warmup() {
+    _runner.warmup();
+    execute(source: 'int main() => 0;');
+  }
+
   /// §U28 / TODO #14 — Evict script-declared entries from the inner
   /// [D4rtRunner]'s global environment so a follower `executeBundle`
   /// call starts with the same name-set the first build saw.

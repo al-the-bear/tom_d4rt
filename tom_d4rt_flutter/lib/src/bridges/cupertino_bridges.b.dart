@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 110 files
-// Generated: 2026-05-24T17:03:25.346470
+// Generated: 2026-06-05T17:23:25.866026
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -174,9 +174,9 @@ import 'package:flutter/src/widgets/transitions.dart' as $flutter_160;
 import 'package:flutter/src/widgets/undo_history.dart' as $flutter_161;
 import 'package:flutter/src/widgets/widget_inspector.dart' as $flutter_162;
 import 'package:flutter/src/widgets/widget_state.dart' as $flutter_163;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
 import 'package:flutter/src/widgets/inherited_theme.dart' as $aux_flutter_3;
 import 'package:flutter/src/widgets/platform_view.dart' as $aux_flutter_10;
 import 'package:flutter/src/widgets/restoration_properties.dart' as $aux_flutter_2;
@@ -364,6 +364,93 @@ class FlutterCupertinoBridge {
       'TextEditingValue': 'package:flutter/src/services/text_input.dart',
       'TextStyle': 'package:flutter/src/painting/text_style.dart',
       'SpellCheckResults': 'package:flutter/src/services/spell_check.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'CupertinoActivityIndicator': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoLinearActivityIndicator': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoAdaptiveTextSelectionToolbar': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoApp': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoScrollBehavior': ['ScrollBehavior'],
+      'CupertinoTabBar': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable', 'PreferredSizeWidget'],
+      'CupertinoButton': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoCheckbox': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoDynamicColor': ['Color', 'Diagnosticable'],
+      'CupertinoContextMenu': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoContextMenuAction': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoFocusHalo': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoDatePicker': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTimerPicker': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoDesktopTextSelectionControls': ['TextSelectionControls'],
+      'CupertinoDesktopTextSelectionToolbar': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoDesktopTextSelectionToolbarButton': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoAlertDialog': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPopupSurface': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoActionSheet': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoActionSheetAction': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoDialogAction': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoExpansionTile': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoFormRow': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoFormSection': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoIconThemeData': ['IconThemeData', 'Diagnosticable'],
+      'CupertinoUserInterfaceLevel': ['InheritedWidget', 'ProxyWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoListSection': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoListTile': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoListTileChevron': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'DefaultCupertinoLocalizations': ['CupertinoLocalizations'],
+      'CupertinoTextMagnifier': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoMagnifier': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoNavigationBar': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable', 'ObstructingPreferredSizeWidget', 'PreferredSizeWidget'],
+      'CupertinoSliverNavigationBar': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoNavigationBarBackButton': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPageScaffold': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPageScaffoldBackgroundColor': ['InheritedWidget', 'ProxyWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'ObstructingPreferredSizeWidget': ['PreferredSizeWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPicker': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPickerDefaultSelectionOverlay': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoRadio': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSliverRefreshControl': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoPageRoute': ['PageRoute', 'ModalRoute', 'TransitionRoute', 'OverlayRoute', 'Route', '_RoutePlaceholder', 'PredictiveBackRoute', 'LocalHistoryRoute', 'CupertinoRouteTransitionMixin'],
+      'CupertinoPage': ['Page', 'RouteSettings'],
+      'CupertinoPageTransition': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoFullscreenDialogTransition': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoModalPopupRoute': ['PopupRoute', 'ModalRoute', 'TransitionRoute', 'OverlayRoute', 'Route', '_RoutePlaceholder', 'PredictiveBackRoute', 'LocalHistoryRoute'],
+      'CupertinoDialogRoute': ['RawDialogRoute', 'PopupRoute', 'ModalRoute', 'TransitionRoute', 'OverlayRoute', 'Route', '_RoutePlaceholder', 'PredictiveBackRoute', 'LocalHistoryRoute'],
+      'CupertinoRouteTransitionMixin': ['PageRoute', 'ModalRoute', 'TransitionRoute', 'OverlayRoute', 'Route', '_RoutePlaceholder', 'PredictiveBackRoute', 'LocalHistoryRoute'],
+      'CupertinoScrollbar': ['RawScrollbar', 'StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSearchTextField': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSegmentedControl': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSheetTransition': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSheetRoute': ['PageRoute', 'ModalRoute', 'TransitionRoute', 'OverlayRoute', 'Route', '_RoutePlaceholder', 'PredictiveBackRoute', 'LocalHistoryRoute', '_CupertinoSheetRouteTransitionMixin'],
+      'CupertinoSlider': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSlidingSegmentedControl': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSpellCheckSuggestionsToolbar': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoSwitch': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTabController': ['ChangeNotifier', 'Listenable'],
+      'CupertinoTabScaffold': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'RestorableCupertinoTabController': ['RestorableChangeNotifier', 'RestorableListenable', 'RestorableProperty', 'ChangeNotifier', 'Listenable'],
+      'CupertinoTabView': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTextField': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTextFormFieldRow': ['FormField', 'StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTextSelectionControls': ['TextSelectionControls'],
+      'CupertinoTextSelectionToolbar': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTextSelectionToolbarButton': ['StatefulWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoTextThemeData': ['Diagnosticable'],
+      'CupertinoTheme': ['StatelessWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'InheritedCupertinoTheme': ['InheritedTheme', 'InheritedWidget', 'ProxyWidget', 'Widget', 'DiagnosticableTree', 'Diagnosticable'],
+      'CupertinoThemeData': ['NoDefaultCupertinoThemeData', 'Diagnosticable'],
+      'DiagnosticsProperty': ['DiagnosticsNode'],
+      'TextSpan': ['InlineSpan', 'DiagnosticableTree', 'Diagnosticable', 'HitTestTarget', 'MouseTrackerAnnotation'],
+      'TextStyle': ['Diagnosticable'],
     };
   }
 
@@ -1358,6 +1445,11 @@ class FlutterCupertinoBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

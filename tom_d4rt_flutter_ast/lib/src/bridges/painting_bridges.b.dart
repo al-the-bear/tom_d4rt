@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-06-03T22:35:42.665911
+// Generated: 2026-06-05T17:21:30.557886
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -274,6 +274,73 @@ class FlutterPaintingBridge {
       'TextSpan': 'package:flutter/src/painting/text_span.dart',
       'TextStyle': 'package:flutter/src/painting/text_style.dart',
       'Matrix4': 'package:vector_math/vector_math_64.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'Alignment': ['AlignmentGeometry'],
+      'AlignmentDirectional': ['AlignmentGeometry'],
+      'BeveledRectangleBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'PaintingBinding': ['BindingBase', 'ServicesBinding', 'SchedulerBinding'],
+      'BorderRadius': ['BorderRadiusGeometry'],
+      'BorderRadiusDirectional': ['BorderRadiusGeometry'],
+      'BorderSide': ['Diagnosticable'],
+      'OutlinedBorder': ['ShapeBorder'],
+      'BoxBorder': ['ShapeBorder'],
+      'Border': ['BoxBorder', 'ShapeBorder'],
+      'BorderDirectional': ['BoxBorder', 'ShapeBorder'],
+      'BoxDecoration': ['Decoration', 'Diagnosticable'],
+      'BoxShadow': ['Shadow'],
+      'CircleBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'ColorSwatch': ['Color'],
+      'ColorProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'ContinuousRectangleBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'Decoration': ['Diagnosticable'],
+      'EdgeInsets': ['EdgeInsetsGeometry'],
+      'EdgeInsetsDirectional': ['EdgeInsetsGeometry'],
+      'FlutterLogoDecoration': ['Decoration', 'Diagnosticable'],
+      'FractionalOffset': ['Alignment', 'AlignmentGeometry'],
+      'GradientRotation': ['GradientTransform'],
+      'LinearGradient': ['Gradient'],
+      'RadialGradient': ['Gradient'],
+      'SweepGradient': ['Gradient'],
+      'AssetBundleImageProvider': ['ImageProvider'],
+      'ResizeImage': ['ImageProvider'],
+      'NetworkImage': ['ImageProvider'],
+      'MemoryImage': ['ImageProvider'],
+      'ExactAssetImage': ['AssetBundleImageProvider', 'ImageProvider'],
+      'NetworkImageLoadException': ['Exception'],
+      'AssetImage': ['AssetBundleImageProvider', 'ImageProvider'],
+      'ImageChunkEvent': ['Diagnosticable'],
+      'ImageStream': ['Diagnosticable'],
+      'ImageStreamCompleter': ['Diagnosticable'],
+      'OneFrameImageStreamCompleter': ['ImageStreamCompleter', 'Diagnosticable'],
+      'MultiFrameImageStreamCompleter': ['ImageStreamCompleter', 'Diagnosticable'],
+      'InlineSpan': ['DiagnosticableTree', 'Diagnosticable'],
+      'LinearBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'TransformProperty': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'CircularNotchedRectangle': ['NotchedShape'],
+      'AutomaticNotchedShape': ['NotchedShape'],
+      'OvalBorder': ['CircleBorder', 'OutlinedBorder', 'ShapeBorder'],
+      'PlaceholderSpan': ['InlineSpan', 'DiagnosticableTree', 'Diagnosticable'],
+      'RoundedRectangleBorder': ['OutlinedBorder', 'ShapeBorder', '_RRectLikeBorder'],
+      'RoundedSuperellipseBorder': ['OutlinedBorder', 'ShapeBorder', '_RRectLikeBorder'],
+      'ShapeDecoration': ['Decoration', 'Diagnosticable'],
+      'StadiumBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'StarBorder': ['OutlinedBorder', 'ShapeBorder'],
+      'StrutStyle': ['Diagnosticable'],
+      'TextSelection': ['TextRange'],
+      'WordBoundary': ['TextBoundary'],
+      'TextSpan': ['InlineSpan', 'DiagnosticableTree', 'Diagnosticable', 'HitTestTarget', 'MouseTrackerAnnotation'],
+      'TextStyle': ['Diagnosticable'],
     };
   }
 
@@ -800,6 +867,11 @@ class FlutterPaintingBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-06-03T22:35:43.686996
+// Generated: 2026-06-05T17:21:31.759854
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -151,6 +151,57 @@ class FlutterAnimationBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'TickerFuture': ['Future'],
+      'TickerCanceled': ['Exception'],
+      'Animation': ['Listenable', 'ValueListenable'],
+      'Curve': ['ParametricCurve'],
+      'SawTooth': ['Curve', 'ParametricCurve'],
+      'Interval': ['Curve', 'ParametricCurve'],
+      'Split': ['Curve', 'ParametricCurve'],
+      'Threshold': ['Curve', 'ParametricCurve'],
+      'Cubic': ['Curve', 'ParametricCurve'],
+      'ThreePointCubic': ['Curve', 'ParametricCurve'],
+      'Curve2D': ['ParametricCurve'],
+      'CatmullRomSpline': ['Curve2D', 'ParametricCurve'],
+      'CatmullRomCurve': ['Curve', 'ParametricCurve'],
+      'FlippedCurve': ['Curve', 'ParametricCurve'],
+      'ElasticInCurve': ['Curve', 'ParametricCurve'],
+      'ElasticOutCurve': ['Curve', 'ParametricCurve'],
+      'ElasticInOutCurve': ['Curve', 'ParametricCurve'],
+      'Tween': ['Animatable'],
+      'ReverseTween': ['Tween', 'Animatable'],
+      'ColorTween': ['Tween', 'Animatable'],
+      'SizeTween': ['Tween', 'Animatable'],
+      'RectTween': ['Tween', 'Animatable'],
+      'IntTween': ['Tween', 'Animatable'],
+      'StepTween': ['Tween', 'Animatable'],
+      'ConstantTween': ['Tween', 'Animatable'],
+      'CurveTween': ['Animatable'],
+      'AnimationController': ['Animation', 'Listenable', 'ValueListenable', 'AnimationEagerListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'AnimationStyle': ['Diagnosticable'],
+      'AlwaysStoppedAnimation': ['Animation', 'Listenable', 'ValueListenable'],
+      'ProxyAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'ReverseAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalStatusListenersMixin'],
+      'CurvedAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationWithParentMixin'],
+      'TrainHoppingAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationEagerListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'CompoundAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'AnimationMean': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'AnimationMax': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'AnimationMin': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'TweenSequence': ['Animatable'],
+      'FlippedTweenSequence': ['TweenSequence', 'Animatable'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -292,6 +343,11 @@ class FlutterAnimationBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

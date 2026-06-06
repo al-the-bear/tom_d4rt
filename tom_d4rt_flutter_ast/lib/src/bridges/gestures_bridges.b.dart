@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-06-03T22:35:46.172207
+// Generated: 2026-06-05T17:21:34.939834
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -246,6 +246,84 @@ class FlutterGesturesBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'PointerAddedEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerAddedEvent'],
+      'PointerRemovedEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerRemovedEvent'],
+      'PointerHoverEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerHoverEvent'],
+      'PointerEnterEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerEnterEvent'],
+      'PointerExitEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerExitEvent'],
+      'PointerDownEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerDownEvent'],
+      'PointerMoveEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerMoveEvent'],
+      'PointerUpEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerUpEvent'],
+      'PointerSignalEvent': ['PointerEvent', 'Diagnosticable', '_RespondablePointerEvent'],
+      'PointerScrollEvent': ['PointerSignalEvent', 'PointerEvent', 'Diagnosticable', '_RespondablePointerEvent', '_PointerEventDescription', '_CopyPointerScrollEvent'],
+      'PointerScrollInertiaCancelEvent': ['PointerSignalEvent', 'PointerEvent', 'Diagnosticable', '_RespondablePointerEvent', '_PointerEventDescription', '_CopyPointerScrollInertiaCancelEvent'],
+      'PointerScaleEvent': ['PointerSignalEvent', 'PointerEvent', 'Diagnosticable', '_RespondablePointerEvent', '_PointerEventDescription', '_CopyPointerScaleEvent'],
+      'PointerPanZoomStartEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerPanZoomStartEvent'],
+      'PointerPanZoomUpdateEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerPanZoomUpdateEvent'],
+      'PointerPanZoomEndEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerPanZoomEndEvent'],
+      'PointerCancelEvent': ['PointerEvent', 'Diagnosticable', '_PointerEventDescription', '_CopyPointerCancelEvent'],
+      'FlutterErrorDetailsForPointerEventDispatcher': ['FlutterErrorDetails', 'Diagnosticable'],
+      'GestureBinding': ['BindingBase', 'HitTestable', 'HitTestDispatcher', 'HitTestTarget'],
+      'IOSScrollViewFlingVelocityTracker': ['VelocityTracker'],
+      'MacOSScrollViewFlingVelocityTracker': ['IOSScrollViewFlingVelocityTracker', 'VelocityTracker'],
+      'DragDownDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'DragStartDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'DragUpdateDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'DragEndDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'EagerGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ForcePressDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'ForcePressGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'LongPressDownDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'LongPressStartDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'LongPressMoveUpdateDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'LongPressEndDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'LongPressGestureRecognizer': ['PrimaryPointerGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'GestureRecognizer': ['GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'OneSequenceGestureRecognizer': ['GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PrimaryPointerGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'DragGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'VerticalDragGestureRecognizer': ['DragGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'HorizontalDragGestureRecognizer': ['DragGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PanGestureRecognizer': ['DragGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'MultiDragGestureRecognizer': ['GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ImmediateMultiDragGestureRecognizer': ['MultiDragGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'HorizontalMultiDragGestureRecognizer': ['MultiDragGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'VerticalMultiDragGestureRecognizer': ['MultiDragGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'DelayedMultiDragGestureRecognizer': ['MultiDragGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TapDownDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'TapUpDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'BaseTapGestureRecognizer': ['PrimaryPointerGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TapGestureRecognizer': ['BaseTapGestureRecognizer', 'PrimaryPointerGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'DoubleTapGestureRecognizer': ['GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'MultiTapGestureRecognizer': ['GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'SerialTapDownDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'SerialTapCancelDetails': ['Diagnosticable'],
+      'SerialTapUpDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'SerialTapGestureRecognizer': ['GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ScaleStartDetails': ['Diagnosticable'],
+      'ScaleUpdateDetails': ['Diagnosticable'],
+      'ScaleEndDetails': ['Diagnosticable'],
+      'ScaleGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TapDragDownDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'TapDragUpDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'TapDragStartDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'TapDragUpdateDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'TapDragEndDetails': ['PositionedGestureDetails', 'Diagnosticable'],
+      'BaseTapAndDragGestureRecognizer': ['OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', '_TapStatusTrackerMixin'],
+      'TapAndHorizontalDragGestureRecognizer': ['BaseTapAndDragGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', '_TapStatusTrackerMixin'],
+      'TapAndPanGestureRecognizer': ['BaseTapAndDragGestureRecognizer', 'OneSequenceGestureRecognizer', 'GestureRecognizer', 'GestureArenaMember', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', '_TapStatusTrackerMixin'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -480,6 +558,11 @@ class FlutterGesturesBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

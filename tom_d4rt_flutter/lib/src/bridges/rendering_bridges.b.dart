@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-05-24T17:03:13.113466
+// Generated: 2026-06-05T17:23:09.283351
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -113,9 +113,9 @@ import 'package:flutter/src/services/platform_views.dart' as $flutter_99;
 import 'package:flutter/src/services/restoration.dart' as $flutter_100;
 import 'package:flutter/src/services/text_editing.dart' as $flutter_101;
 import 'package:flutter/src/services/text_input.dart' as $flutter_102;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_test_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_test_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_test_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 import 'package:flutter/animation.dart' as $aux_flutter;
 import 'package:flutter/src/painting/clip.dart' as $aux_flutter_3;
@@ -625,6 +625,227 @@ class FlutterRenderingBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'RenderAnimatedSize': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderingFlutterBinding': ['BindingBase', 'GestureBinding', 'HitTestable', 'HitTestDispatcher', 'HitTestTarget', 'SchedulerBinding', 'ServicesBinding', 'SemanticsBinding', 'PaintingBinding', 'RendererBinding'],
+      'RendererBinding': ['BindingBase', 'ServicesBinding', 'SchedulerBinding', 'GestureBinding', 'HitTestable', 'HitTestDispatcher', 'HitTestTarget', 'SemanticsBinding'],
+      'BoxConstraints': ['Constraints'],
+      'BoxHitTestResult': ['HitTestResult'],
+      'BoxHitTestEntry': ['HitTestEntry'],
+      'BoxParentData': ['ParentData'],
+      'ContainerBoxParentData': ['BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderBox': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderBoxContainerDefaultsMixin': ['ContainerRenderObjectMixin', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'MultiChildLayoutParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderCustomMultiChildLayoutBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+      'CustomPainter': ['Listenable'],
+      'RenderCustomPaint': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'DebugOverflowIndicatorMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderDecoratedSliver': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'VerticalCaretMovementRun': ['Iterator'],
+      'RenderEditable': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'TextLayoutMetrics', 'RelayoutWhenSystemFontsChangeMixin', 'ContainerRenderObjectMixin', 'RenderInlineChildrenContainerDefaults'],
+      'RenderEditablePainter': ['ChangeNotifier', 'Listenable'],
+      'RenderErrorBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'FlexParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderFlex': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin', 'DebugOverflowIndicatorMixin'],
+      'FlowParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderFlow': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'FlowPaintingContext', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+      'RenderImage': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'Layer': ['DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PictureLayer': ['Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TextureLayer': ['Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PlatformViewLayer': ['Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PerformanceOverlayLayer': ['Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ContainerLayer': ['Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'OffsetLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ClipRectLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ClipRRectLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ClipRSuperellipseLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ClipPathLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ColorFilterLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ImageFilterLayer': ['OffsetLayer', 'ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TransformLayer': ['OffsetLayer', 'ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'OpacityLayer': ['OffsetLayer', 'ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ShaderMaskLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'BackdropFilterLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'LeaderLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'FollowerLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'AnnotatedRegionLayer': ['ContainerLayer', 'Layer', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ListBodyParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderListBody': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+      'ListWheelParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderListWheelViewport': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderAbstractViewport', 'ContainerRenderObjectMixin'],
+      'MouseTracker': ['ChangeNotifier', 'Listenable'],
+      'PaintingContext': ['ClipContext'],
+      'PipelineOwner': ['DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PipelineManifold': ['Listenable'],
+      'RenderObject': ['HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'DiagnosticsDebugCreator': ['DiagnosticsProperty', 'DiagnosticsNode'],
+      'RenderObjectWithChildMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderObjectWithLayoutCallbackMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'ContainerParentDataMixin': ['ParentData'],
+      'ContainerRenderObjectMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RelayoutWhenSystemFontsChangeMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'SemanticsAnnotationsMixin': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PlaceholderSpanIndexSemanticsTag': ['SemanticsTag'],
+      'TextParentData': ['ParentData', 'ContainerParentDataMixin'],
+      'RenderParagraph': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderInlineChildrenContainerDefaults', 'RelayoutWhenSystemFontsChangeMixin'],
+      'RenderInlineChildrenContainerDefaults': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin'],
+      'RenderPerformanceOverlay': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderAndroidView': ['PlatformViewRenderBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', '_PlatformViewGestureMixin', 'MouseTrackerAnnotation'],
+      'RenderDarwinPlatformView': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderUiKitView': ['RenderDarwinPlatformView', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderAppKitView': ['RenderDarwinPlatformView', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'PlatformViewRenderBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', '_PlatformViewGestureMixin', 'MouseTrackerAnnotation'],
+      'RenderProxyBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderProxyBoxWithHitTestBehavior': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderConstrainedBox': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderLimitedBox': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderAspectRatio': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderIntrinsicWidth': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderIntrinsicHeight': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderIgnoreBaseline': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderOpacity': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderAnimatedOpacity': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin', 'RenderAnimatedOpacityMixin'],
+      'RenderShaderMask': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderBackdropFilter': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'CustomClipper': ['Listenable'],
+      'ShapeBorderClipper': ['CustomClipper', 'Listenable'],
+      'RenderClipRect': ['_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderClipRRect': ['_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderClipRSuperellipse': ['_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderClipOval': ['_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderClipPath': ['_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderPhysicalModel': ['_RenderPhysicalModelBase', '_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderPhysicalShape': ['_RenderPhysicalModelBase', '_RenderCustomClip', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderDecoratedBox': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderTransform': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderFittedBox': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderFractionalTranslation': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderPointerListener': ['RenderProxyBoxWithHitTestBehavior', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderMouseRegion': ['RenderProxyBoxWithHitTestBehavior', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin', 'MouseTrackerAnnotation'],
+      'RenderRepaintBoundary': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderIgnorePointer': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderOffstage': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderAbsorbPointer': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderMetaData': ['RenderProxyBoxWithHitTestBehavior', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderSemanticsGestureHandler': ['RenderProxyBoxWithHitTestBehavior', 'RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderSemanticsAnnotations': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin', 'SemanticsAnnotationsMixin'],
+      'RenderBlockSemantics': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderMergeSemantics': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderExcludeSemantics': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderIndexedSemantics': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderLeaderLayer': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderFollowerLayer': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderAnnotatedRegion': ['RenderProxyBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
+      'RenderProxyBoxMixin': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderAnimatedOpacityMixin': ['RenderObjectWithChildMixin', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderProxySliver': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverOpacity': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverIgnorePointer': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverOffstage': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverAnimatedOpacity': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderAnimatedOpacityMixin'],
+      'RenderSliverConstrainedCrossAxis': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverSemanticsAnnotations': ['RenderProxySliver', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'SemanticsAnnotationsMixin'],
+      'RenderRotatedBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'SelectionHandler': ['ValueListenable', 'Listenable'],
+      'SelectedContentRange': ['Diagnosticable'],
+      'SelectedContent': ['Diagnosticable'],
+      'SelectAllSelectionEvent': ['SelectionEvent'],
+      'ClearSelectionEvent': ['SelectionEvent'],
+      'SelectWordSelectionEvent': ['SelectionEvent'],
+      'SelectParagraphSelectionEvent': ['SelectionEvent'],
+      'SelectionEdgeUpdateEvent': ['SelectionEvent'],
+      'GranularlyExtendSelectionEvent': ['SelectionEvent'],
+      'DirectionallyExtendSelectionEvent': ['SelectionEvent'],
+      'SelectionGeometry': ['Diagnosticable'],
+      'SelectionPoint': ['Diagnosticable'],
+      'Selectable': ['SelectionHandler', 'ValueListenable', 'Listenable'],
+      'SelectionRegistrant': ['Selectable', 'SelectionHandler', 'ValueListenable', 'Listenable'],
+      'RenderShiftedBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderPadding': ['RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderAligningShiftedBox': ['RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderPositionedBox': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderConstrainedOverflowBox': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderConstraintsTransformBox': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'DebugOverflowIndicatorMixin'],
+      'RenderSizedOverflowBox': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderFractionallySizedOverflowBox': ['RenderAligningShiftedBox', 'RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderCustomSingleChildLayoutBox': ['RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderBaseline': ['RenderShiftedBox', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'SliverConstraints': ['Constraints'],
+      'SliverGeometry': ['Diagnosticable'],
+      'SliverHitTestResult': ['HitTestResult'],
+      'SliverHitTestEntry': ['HitTestEntry'],
+      'SliverLogicalParentData': ['ParentData'],
+      'SliverLogicalContainerParentData': ['SliverLogicalParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'SliverPhysicalParentData': ['ParentData'],
+      'SliverPhysicalContainerParentData': ['SliverPhysicalParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderSliver': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderSliverSingleBoxAdapter': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverToBoxAdapter': ['RenderSliverSingleBoxAdapter', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverHelpers': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderSliverFillViewport': ['RenderSliverFixedExtentBoxAdaptor', 'RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'RenderSliverFillRemainingWithScrollable': ['RenderSliverSingleBoxAdapter', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverFillRemaining': ['RenderSliverSingleBoxAdapter', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverFillRemainingAndOverscroll': ['RenderSliverSingleBoxAdapter', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverFixedExtentBoxAdaptor': ['RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'RenderSliverFixedExtentList': ['RenderSliverFixedExtentBoxAdaptor', 'RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'RenderSliverVariedExtentList': ['RenderSliverFixedExtentBoxAdaptor', 'RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'SliverGridRegularTileLayout': ['SliverGridLayout'],
+      'SliverGridDelegateWithFixedCrossAxisCount': ['SliverGridDelegate'],
+      'SliverGridDelegateWithMaxCrossAxisExtent': ['SliverGridDelegate'],
+      'SliverGridParentData': ['SliverMultiBoxAdaptorParentData', 'SliverLogicalParentData', 'ParentData', 'ContainerParentDataMixin', 'KeepAliveParentDataMixin'],
+      'RenderSliverGrid': ['RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'RenderSliverCrossAxisGroup': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin'],
+      'RenderSliverMainAxisGroup': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin'],
+      'RenderSliverList': ['RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'SliverMultiBoxAdaptorParentData': ['SliverLogicalParentData', 'ParentData', 'ContainerParentDataMixin', 'KeepAliveParentDataMixin'],
+      'RenderSliverMultiBoxAdaptor': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'KeepAliveParentDataMixin': ['ParentData'],
+      'RenderSliverWithKeepAliveMixin': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderSliverEdgeInsetsPadding': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverPadding': ['RenderSliverEdgeInsetsPadding', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderSliverPersistentHeader': ['RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverScrollingPersistentHeader': ['RenderSliverPersistentHeader', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverPinnedPersistentHeader': ['RenderSliverPersistentHeader', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverFloatingPersistentHeader': ['RenderSliverPersistentHeader', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'RenderSliverFloatingPinnedPersistentHeader': ['RenderSliverFloatingPersistentHeader', 'RenderSliverPersistentHeader', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin', 'RenderSliverHelpers'],
+      'TreeSliverNodeParentData': ['SliverMultiBoxAdaptorParentData', 'SliverLogicalParentData', 'ParentData', 'ContainerParentDataMixin', 'KeepAliveParentDataMixin'],
+      'RenderTreeSliver': ['RenderSliverVariedExtentList', 'RenderSliverFixedExtentBoxAdaptor', 'RenderSliverMultiBoxAdaptor', 'RenderSliver', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderSliverHelpers', 'RenderSliverWithKeepAliveMixin'],
+      'StackParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderStack': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+      'RenderIndexedStack': ['RenderStack', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+      'TableCellParentData': ['BoxParentData', 'ParentData'],
+      'IntrinsicColumnWidth': ['TableColumnWidth'],
+      'FixedColumnWidth': ['TableColumnWidth'],
+      'FractionColumnWidth': ['TableColumnWidth'],
+      'FlexColumnWidth': ['TableColumnWidth'],
+      'MaxColumnWidth': ['TableColumnWidth'],
+      'MinColumnWidth': ['TableColumnWidth'],
+      'RenderTable': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'TextureBox': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'FractionalOffsetTween': ['Tween', 'Animatable'],
+      'AlignmentTween': ['Tween', 'Animatable'],
+      'AlignmentGeometryTween': ['Tween', 'Animatable'],
+      'RenderView': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderObjectWithChildMixin'],
+      'RenderAbstractViewport': ['RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable'],
+      'RenderViewportBase': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderAbstractViewport', 'ContainerRenderObjectMixin'],
+      'RenderViewport': ['RenderViewportBase', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderAbstractViewport', 'ContainerRenderObjectMixin'],
+      'RenderShrinkWrappingViewport': ['RenderViewportBase', 'RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'RenderAbstractViewport', 'ContainerRenderObjectMixin'],
+      'ViewportOffset': ['ChangeNotifier', 'Listenable'],
+      'WrapParentData': ['ContainerBoxParentData', 'BoxParentData', 'ParentData', 'ContainerParentDataMixin'],
+      'RenderWrap': ['RenderBox', 'RenderObject', 'HitTestTarget', 'DiagnosticableTreeMixin', 'DiagnosticableTree', 'Diagnosticable', 'ContainerRenderObjectMixin', 'RenderBoxContainerDefaultsMixin'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -928,6 +1149,11 @@ class FlutterRenderingBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

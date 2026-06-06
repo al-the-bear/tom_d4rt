@@ -1,0 +1,4 @@
+# Generated analyzer cache produced by tool/regenerate_bridges.dart.
+# Mirrors the tom_d4rt_flutter_ast sibling's ignore so the cache stays
+# out of version control.
+.tom/
