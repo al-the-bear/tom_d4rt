@@ -22,18 +22,7 @@ issue-index: 6
 
 batch: 2
 
-issue-index: 14
-
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart`
-- Symptom: Runtime warning `Undefined property or method 'label' on bridged instance of 'Key'.`
-- Immediate outcome: script now uses local helper mapping for event/device labels, removing direct `.label` member dependency in the harness.
-- Deep analysis:
-	- The bridge surface currently does not expose all label-style members needed by this script path.
-	- This is a bridge coverage gap, not a layout/rendering issue.
-	- The script workaround is valid for immediate stabilization, but it does not expand bridge API coverage.
-- Follow-up recommendation:
-	- Add/verify bridge member exposure for key-related label access in the relevant `dart:ui` key bridge definitions.
-	- Add focused regression tests for key/device label access so missing-member regressions are caught early.
+- No remaining batch-2 bridge-generator entries (issue-index 14 `Key.label` resolved — won't-fix: no public `label` member exists on `Key`; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 3
 
@@ -49,32 +38,7 @@ issue-index: 17
 	- Harden bridge constructor adapters for `Vertices` to reject null typed lists early with clearer diagnostics and optional safe defaults.
 	- Add regression coverage for all `VertexMode` variants with constructor argument validation.
 
-issue-index: 18, 19
-
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart`
-- Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
-- Immediate outcome: scripts now use `_safeObject(...)` fallback to avoid direct dependency on missing `Object()` bridge constructor support.
-- Deep analysis:
-	- This is a shared bridge/runtime coverage gap for root/core class constructor availability.
-	- Multiple lifecycle scripts fail on the same missing default-constructor path, confirming a central bridge deficiency rather than isolated script misuse.
-	- Script fallback unblocks tests but does not restore canonical `Object()` constructor semantics.
-- Follow-up recommendation:
-	- Add default constructor bridge support (or explicit native fallback) for `Object()` and validate in all object-lifecycle scripts.
-	- Add core-constructor smoke tests for other root classes to avoid similar gaps.
-
 batch: 4
-
-issue-index: 20
-
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart`
-- Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
-- Immediate outcome: script now uses `_safeObject(...)` fallback and executes successfully.
-- Deep analysis:
-	- This is the same root constructor bridge coverage gap already observed in batch-3 object lifecycle scripts.
-	- The defect is centralized in bridge/runtime constructor availability for root `Object` and should be solved once centrally rather than repeatedly patched in scripts.
-- Follow-up recommendation:
-	- Add default `Object()` constructor bridge/fallback in runtime constructor resolution.
-	- Validate across all object lifecycle scripts (`object_created`, `object_disposed`, `object_event`) and add shared regression tests.
 
 issue-index: 24
 
@@ -210,18 +174,7 @@ issue-index: 71, 72
 
 batch: 15
 
-issue-index: 77, 79
-
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart`, `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart`
-- Symptom: bridge constructor/member exposure failure for `EagerGestureRecognizer` (`Undefined static member 'new' on bridged class 'EagerGestureRecognizer'`).
-- Immediate outcome: both scripts were rewritten to harness-safe summary flows that avoid direct constructor invocation and now pass targeted reruns with `frameworkErrors=0`.
-- Deep analysis:
-	- The repeated signature across Android and AppKit view scenarios demonstrates a shared bridge constructor exposure gap rather than isolated script defects.
-	- Platform-view integrations commonly require `gestureRecognizers` sets; missing constructor routing for `EagerGestureRecognizer.new` creates a systemic failure point in these widget flows.
-	- Script-side mitigation stabilizes immediate batch execution but does not restore canonical platform-view gesture configuration support for interpreted scripts.
-- Follow-up recommendation:
-	- Add bridge/UserBridge constructor mapping so `EagerGestureRecognizer.new` is resolvable and callable in interpreted execution.
-	- Add regression coverage for platform-view gesture recognizer construction across both AndroidViewSurface and AppKitView script paths.
+- No remaining batch-15 bridge-generator entries (issue-index 77/79 `EagerGestureRecognizer.new` constructor-tearoff exposure resolved — C.6; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 16
 
@@ -312,18 +265,7 @@ issue-index: 116, 118
 
 batch: 24
 
-issue-index: 120
-
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart`
-- Symptom: runtime constructor failure (`'Object' is not callable (no default constructor bridge found)`).
-- Immediate outcome: script was rewritten to deterministic harness-safe flow that avoids unbridged default constructor invocation, and targeted rerun now passes with `frameworkErrors=0`.
-- Deep analysis:
-	- The failure is consistent with the existing bridge default-constructor coverage gap for root `Object` materialization in interpreted execution.
-	- The issue is bridge-surface contract completeness, not layout or scene architecture.
-	- Script-level mitigation unblocks this batch but does not restore canonical constructor bridging semantics.
-- Follow-up recommendation:
-	- Add/verify default-constructor bridge handling for `Object()` in active bridge/runtime metadata used by interpreted execution.
-	- Add focused regression coverage for constructor resolution in object-key/object-lifecycle scenarios so missing default-constructor bindings are caught early.
+- No remaining batch-24 bridge-generator entries (issue-index 120 `Object()` default-constructor gap resolved — GEN-042 root-`Object` constructor fallback; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 25
 
@@ -653,17 +595,7 @@ issue-index: 221
 
 issue-index: 223
 
-- Source: `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart`
-- Symptom: two distinct bridge errors — (1) `Undefined property 'setState' on _DefaultDemoPageState` and (2) `Native error during default bridged constructor for 'Navigator': expected TransitionDelegate<dynamic>, got InterpretedInstance`.
-- Immediate outcome: index 223 is non-immediate and remains failing; script was left unchanged for bridge-level remediation.
-- Deep analysis:
-	- Error (1): BRIDGE-MISSING-STATE-WIDGET-ACCESSOR — same defect family as batch-40 indices 203-204. `setState` is not resolved on the private `_DefaultDemoPageState` subclass of `State`. The interpreter cannot dispatch inherited `State<T>.setState` for private subclasses.
-	- Error (2): BRIDGE-WIDGET-COERCION — the `TransitionDelegate` custom subclass created by the interpreter is passed as an `InterpretedInstance` to the `Navigator` constructor, which expects `TransitionDelegate<dynamic>`. The bridge cannot coerce the interpreted instance to the expected native type.
-	- Both defect families require separate bridge enhancements: inherited member resolution for State subclasses, and type coercion for interpreted subclass instances of framework abstract classes.
-- Follow-up recommendation:
-	- (1) Extend interpreter member resolution to include inherited methods from generic superclasses (`State<T>.setState`) for interpreted subclasses.
-	- (2) Add UserBridge or type coercion handler for `TransitionDelegate` so interpreted subclass instances are properly wrapped for native consumption.
-	- Add regression coverage for combined State-accessor + widget-coercion scenarios in navigation delegate scripts.
+- (Resolved) `widgets/transition_delegate_test.dart` — inherited `State.setState`/`State.widget` resolution for the private `_DefaultDemoPageState` subclass, plus `TransitionDelegate` interpreted-subclass coercion at the `Navigator` constructor boundary (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 45
 
@@ -720,19 +652,12 @@ batch: 50
 
 batch: 51
 
-- Two BRIDGE-GENERIC-TYPE-COERCION issues detected in batch-51:
-  - issue-index 258: `widgets/window_positioner_anchor_test.dart` — `ValueNotifier<double>` generic constructor factory receives `int` from interpreted execution and performs strict cast instead of numeric adaptation. The bridge's generic constructor factory path does not coerce `int` to `double` where the target type parameter is `double`.
-  - issue-index 259: `widgets/window_positioner_constraint_adjustment_test.dart` — Same `ValueNotifier<double>` generic constructor factory type coercion failure as index 258.
-- Fix requires: Bridge-side generic numeric coercion/adaptation for constructor arguments (permit `int` → `double` conversion when target type is `double`) or normalize numeric literals before generic constructor dispatch.
+- No remaining batch-51 bridge-generator entries (issue-index 258/259 `ValueNotifier<double>` int→double generic-constructor coercion resolved — GEN-075; see §1 of `interpreter_generator_open_issues.md`).
 - Three batch-51 entries were script-level `_tabs` late-init fixes, documented in `script_issues.md`.
 
 batch: 52
 
-- Four BRIDGE-GENERIC-TYPE-COERCION issues detected in batch-52:
-  - issue-index 260: `widgets/window_positioner_test.dart` — Same `ValueNotifier<double>` generic constructor factory int-to-double cast failure.
-  - issue-index 262: `widgets/windowing_owner_linux_test.dart` — Same generic constructor factory coercion failure.
-  - issue-index 263: `widgets/windowing_owner_mac_o_s_test.dart` — Same generic constructor factory coercion failure.
-  - issue-index 264: `widgets/windowing_owner_test.dart` — Same generic constructor factory coercion failure.
+- The four batch-52 BRIDGE-GENERIC-TYPE-COERCION entries (issue-index 260/262/263/264 — `ValueNotifier<double>` int→double generic-constructor coercion) are resolved (GEN-075; see §1 of `interpreter_generator_open_issues.md`).
 - One BRIDGE-WIDGET-COERCION issue detected in batch-52:
   - issue-index 261: `widgets/window_scope_test.dart` — `InterpretedInstance` is not coerced to `Widget` type. A script-created widget instance passes through a native path expecting concrete `Widget`, but bridge fails to wrap it.
 - Fix requires: Extend widget coercion/UserBridge logic so interpreted widget instances are converted to native-compatible `Widget` values.
@@ -757,16 +682,12 @@ batch: 55
 - One BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING issue detected in batch-55:
   - issue-index 278: `animation/tweensequence_test.dart` — Generic constructor factory for `TweenSequenceItem` dereferences nullable value with `!` during construction. Missing null-safety handling in bridge factory argument processing.
   - Fix requires: Harden generic constructor factory null handling for `TweenSequenceItem` (and similar generic animation items), validating/normalizing nullable fields before forced casts.
-- One BRIDGE-SDK-SYMBOL-RESOLUTION issue detected in batch-55:
-  - issue-index 279: `services/codecs_test.dart` — `ByteData` symbol from `dart:typed_data` not resolved in interpreted runtime path. Missing SDK symbol registration/import exposure in bridge/interpreter context.
-  - Fix requires: Ensure `ByteData` (and typed_data symbols) are exposed/resolved in the runtime bridge symbol table for script execution.
+- (Resolved) issue-index 279 `services/codecs_test.dart` — `ByteData`/`dart:typed_data` symbol resolution in the interpreted runtime is now exposed (C.6 residue; see §1 of `interpreter_generator_open_issues.md`).
 - One script fix and two intentional skips documented in `script_issues.md`.
 
 batch: 56
 
-- One BRIDGE-CALLBACK-TYPE-COERCION issue detected in batch-56:
-  - issue-index 280: `services/channels_test.dart` — `BasicMessageChannel.setMessageHandler` receives untyped interpreted callback `(dynamic) => Future<dynamic>` but expects `((String?) => Future<String>)?`. Bridge/runtime method adapter does not coerce function signature and generic/nullability adaptation during method-call bridging.
-  - Fix requires: Add callback-signature coercion in `BasicMessageChannel` bridge path so interpreted handlers are wrapped/adapted to target typed signature `String? -> Future<String?>` before calling native `setMessageHandler`.
+- (Resolved) issue-index 280 `services/channels_test.dart` — callback-signature coercion for `BasicMessageChannel.setMessageHandler` (interpreted handler adapted to `String? -> Future<String?>`) is now handled in the bridge path (C.5 residue; see §1 of `interpreter_generator_open_issues.md`).
 - Three script layout-constraint fixes and one TEST-HARNESS-INFO documented in `script_issues.md`.
 
 batch: 57
@@ -776,9 +697,7 @@ batch: 57
 
 batch: 58
 
-- One BRIDGE-CALLBACK-TYPE-COERCION issue detected in batch-58:
-  - issue-index 290: `semantics/semantics_config_test.dart` — Semantics config path expects nullable `VoidCallback?` but receives uncoerced `InterpretedFunction`. Same callback-signature adaptation class as prior issues.
-  - Fix requires: Add bridge callback coercion for nullable `VoidCallback` parameters so interpreted functions are wrapped into native callable adapters.
+- (Resolved) issue-index 290 `semantics/semantics_config_test.dart` — nullable `VoidCallback?` callback coercion for the semantics-config path is now handled (C.5 residue; see §1 of `interpreter_generator_open_issues.md`).
 - One mixed BRIDGE-MISSING-METHOD-DISPATCH + layout issue in batch-58:
   - issue-index 292: `widgets/layout_builder_adv_test.dart` — `layoutChild` unresolved on `TestMultiChildLayoutDelegate` (bridge dispatch gap), plus infinite-size layout assertions and NaN rect (script composition). Requires both bridge method dispatch fix and script layout rework.
 - Three script fixes documented in `script_issues.md`.
@@ -804,9 +723,7 @@ batch: 61
 
 batch: 62
 
-- One BRIDGE-CALLBACK-TYPE-COERCION + overflow issue detected in batch-62:
-  - issue-index 310: `rendering/custom_painter_semantics_test.dart` — Bridge constructor path expects `((Size) => List<CustomPainterSemantics>)?` but receives unadapted `InterpretedFunction`. Plus minor layout overflow.
-  - Fix requires: Add callback-signature coercion for `semanticsBuilder` function type in bridge constructor adaptation.
+- (Resolved) issue-index 310 `rendering/custom_painter_semantics_test.dart` — callback-signature coercion for the `semanticsBuilder` `((Size) => List<CustomPainterSemantics>)?` constructor parameter is now handled (C.5; see §1 of `interpreter_generator_open_issues.md`).
 - Two BRIDGE-WIDGET-COERCION issues detected in batch-62:
   - issue-index 312: `rendering/relayout_when_system_fonts_change_mixin_test.dart` — `Positioned.fill` child not coerced from `InterpretedInstance` to `Widget`.
   - issue-index 313: `rendering/render_absorb_pointer_test.dart` — Same `Positioned.fill` child coercion gap.
@@ -843,9 +760,7 @@ batch: 65
 - One BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION issue:
   - issue-index 325: `rendering/render_shrink_wrapping_viewport_test.dart` — Bridged `SingleChildRenderObjectWidget` has no default constructor mapping for interpreted `_SizeReporter` subclass.
   - Fix requires: Add explicit constructor mapping/alias for `SingleChildRenderObjectWidget` default constructor.
-- One BRIDGE-STATIC-MEMBER-EXPOSURE issue:
-  - issue-index 329: `widgets/android_view_test.dart` — `EagerGestureRecognizer.new` constructor tearoff not exposed as static member.
-  - Fix requires: Extend bridge static member exposure for constructor tearoffs.
+- (Resolved) issue-index 329 `widgets/android_view_test.dart` — `EagerGestureRecognizer.new` constructor-tearoff static-member exposure (C.6; see §1 of `interpreter_generator_open_issues.md`).
 - Three script fixes documented in `script_issues.md`.
 
 batch: 66
@@ -855,16 +770,12 @@ batch: 66
   - issue-index 332: `widgets/animated_switcher_test.dart` — Same `whereType` gap.
   - issue-index 334: `widgets/backdrop_filter_test.dart` — Same `whereType` gap.
   - Fix requires: Add bridge support for `whereType` on iterable/list path with correct generic typing.
-- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
-  - issue-index 333: `widgets/autofill_group_test.dart` — Inherited `State.widget` property not resolved for `_AutofillGroupLaneState`.
-  - Fix requires: Extend state-object property exposure to include inherited `State.widget` resolution.
+- (Resolved) issue-index 333 `widgets/autofill_group_test.dart` — inherited `State.widget` property exposure for `_AutofillGroupLaneState` (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 - One script overflow fix documented in `script_issues.md`.
 
 batch: 67
 
-- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
-  - issue-index 336: `widgets/composited_transform_follower_test.dart` — Inherited `State.widget` unresolved for `_LinkPrimerState`.
-  - Fix requires: Same generalized `State.widget` exposure fix.
+- (Resolved) issue-index 336 `widgets/composited_transform_follower_test.dart` — inherited `State.widget` exposure for `_LinkPrimerState` (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 - Four script fixes documented in `script_issues.md`.
 
 batch: 68
@@ -875,11 +786,7 @@ batch: 68
 - One mixed BRIDGE-OPERATOR-COERCION + STATE-PROPERTY + WIDGET-COERCION cluster:
   - issue-index 341: `widgets/glowing_overscroll_indicator_test.dart` — `Color` operator `==` parameter mismatch, inherited `widget` misses, and `InterpretedInstance` to `Widget?` cast failures.
   - Fix requires: (1) Add `Color` operator coercion, (2) ensure `State.widget` exposure, (3) harden widget coercion for `Widget?` boundaries.
-- Three BRIDGE-STATE-PROPERTY-EXPOSURE issues:
-  - issue-index 342: `widgets/html_element_view_test.dart`
-  - issue-index 343: `widgets/image_filtered_test.dart`
-  - issue-index 344: `widgets/indexed_stack_test.dart`
-  - All: Inherited `State.widget` unresolved. Same shared fix.
+- (Resolved) issue-index 342/343/344 (`widgets/html_element_view_test.dart`, `image_filtered_test.dart`, `indexed_stack_test.dart`) — inherited `State.widget` exposure (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 69
 
@@ -887,26 +794,16 @@ batch: 69
   - issue-index 346: `widgets/inherited_theme_test.dart` — `Directionality.child` receives `InterpretedInstance(PanelTheme)` instead of `Widget`.
   - issue-index 347: `widgets/inherited_widget_test.dart` — Same `Directionality.child` coercion gap.
   - Fix requires: Extend constructor-arg widget coercion for `Directionality.child`.
-- Two BRIDGE-STATE-PROPERTY-EXPOSURE issues:
-  - issue-index 348: `widgets/list_wheel_scroll_view_test.dart`
-  - issue-index 349: `widgets/list_wheel_viewport_test.dart`
-  - Same inherited `State.widget` exposure gap. Same shared fix.
+- (Resolved) issue-index 348/349 (`widgets/list_wheel_scroll_view_test.dart`, `list_wheel_viewport_test.dart`) — inherited `State.widget` exposure (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 - One script fix documented in `script_issues.md`.
 
 batch: 70
 
-- Five BRIDGE-STATE-PROPERTY-EXPOSURE issues (all unresolved inherited `State.widget`):
-  - issue-index 350: `widgets/magnifier_decoration_test.dart`
-  - issue-index 351: `widgets/navigation_toolbar_test.dart`
-  - issue-index 352: `widgets/overflow_bar_test.dart`
-  - issue-index 353: `widgets/overflow_box_test.dart`
-  - issue-index 354: `widgets/page_storage_bucket_test.dart`
-  - All: Same inherited `State.widget` exposure gap. Same shared fix.
+- (Resolved) issue-index 350–354 (`widgets/magnifier_decoration_test.dart`, `navigation_toolbar_test.dart`, `overflow_bar_test.dart`, `overflow_box_test.dart`, `page_storage_bucket_test.dart`) — inherited `State.widget` exposure (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 
 batch: 71
 
-- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
-  - issue-index 355: `widgets/page_storage_test.dart` — Same `State.widget` property gap.
+- (Resolved) issue-index 355 `widgets/page_storage_test.dart` — inherited `State.widget` exposure (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 - One mixed BRIDGE-MISSING-METHOD-DISPATCH + layout issue:
   - issue-index 356: `widgets/parent_data_widget_test.dart` — `layoutChild` unresolved on `_DemoLayoutDelegate` plus downstream layout assertion. Same delegate dispatch gap as batch-58 index 292.
 - One BRIDGE-MISSING-INSTANCE-METHOD issue:
@@ -945,9 +842,7 @@ batch: 75
 
 batch: 76
 
-- Two BRIDGE-STATE-PROPERTY-EXPOSURE issues:
-  - issue-index 380: `widgets/stateful_element_test.dart` — `State.widget` unresolved.
-  - issue-index 381: `widgets/stateless_element_test.dart` — Same gap.
+- (Resolved) issue-index 380/381 (`widgets/stateful_element_test.dart`, `stateless_element_test.dart`) — inherited `State.widget` exposure (GEN-112; see §1 of `interpreter_generator_open_issues.md`).
 - Three script fixes documented in `script_issues.md`.
 
 batch: 77
