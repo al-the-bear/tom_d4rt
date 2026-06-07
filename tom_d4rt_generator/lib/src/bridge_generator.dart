@@ -1273,6 +1273,11 @@ class BridgeGenerator {
   /// Set this before calling generate methods if needed.
   bool generateDeprecatedElements = false;
 
+  /// A.5: per-symbol opt-in for deprecated elements. A deprecated element is
+  /// emitted when [generateDeprecatedElements] is true OR its simple name is in
+  /// this set. Empty by default ⇒ historical behaviour (all deprecated skipped).
+  Set<String> deprecatedAllowlist = {};
+
   /// Counter for skipped deprecated elements (for reporting).
   int skippedDeprecatedCount = 0;
 
@@ -4085,6 +4090,7 @@ class BridgeGenerator {
     final extractor = ElementModeExtractor(
       skipPrivate: skipPrivate,
       generateDeprecatedElements: generateDeprecatedElements,
+      deprecatedAllowlist: deprecatedAllowlist,
     );
     extractor.extract(libraryElement, normalizedPath);
 
@@ -4160,6 +4166,7 @@ class BridgeGenerator {
     final extractor = ElementModeExtractor(
       skipPrivate: skipPrivate,
       generateDeprecatedElements: generateDeprecatedElements,
+      deprecatedAllowlist: deprecatedAllowlist,
     );
     extractor.extract(libraryElement, normalizedPath);
 

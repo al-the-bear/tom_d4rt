@@ -120,6 +120,15 @@ class ModuleConfig {
   /// The generated file will include `deprecated_member_use` in ignore_for_file.
   final bool generateDeprecatedElements;
 
+  /// A.5: per-symbol opt-in for `@Deprecated` elements.
+  ///
+  /// When [generateDeprecatedElements] is false (the default), a deprecated
+  /// element is still emitted if its simple name appears in this list. This
+  /// allows whitelisting a handful of deprecated SDK symbols a script depends
+  /// on without flipping the whole module to include every deprecated member.
+  /// Empty by default ⇒ no symbols opted in (fully back-compatible).
+  final List<String> deprecatedAllowlist;
+
   const ModuleConfig({
     required this.name,
     required this.barrelFiles,
@@ -138,6 +147,7 @@ class ModuleConfig {
     this.importShowClause = const [],
     this.importHideClause = const [],
     this.generateDeprecatedElements = false,
+    this.deprecatedAllowlist = const [],
   });
 
   factory ModuleConfig.fromJson(Map<String, dynamic> json) {
@@ -173,6 +183,8 @@ class ModuleConfig {
           (json['importHideClause'] as List?)?.cast<String>() ?? [],
       generateDeprecatedElements:
           json['generateDeprecatedElements'] as bool? ?? false,
+      deprecatedAllowlist:
+          (json['deprecatedAllowlist'] as List?)?.cast<String>() ?? [],
     );
   }
 
@@ -198,6 +210,8 @@ class ModuleConfig {
       if (importHideClause.isNotEmpty) 'importHideClause': importHideClause,
       if (generateDeprecatedElements)
         'generateDeprecatedElements': generateDeprecatedElements,
+      if (deprecatedAllowlist.isNotEmpty)
+        'deprecatedAllowlist': deprecatedAllowlist,
     };
   }
 }

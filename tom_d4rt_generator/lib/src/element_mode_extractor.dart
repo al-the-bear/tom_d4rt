@@ -49,6 +49,14 @@ class ElementModeExtractor {
   final bool skipPrivate;
   final bool generateDeprecatedElements;
 
+  /// A.5: per-symbol opt-in for `@Deprecated` elements. When
+  /// [generateDeprecatedElements] is `false` (the default policy) a deprecated
+  /// element is still emitted if its simple name is in this set. This lets an
+  /// app surface a handful of specific deprecated symbols (e.g. one Flutter
+  /// API a script still needs) without flipping the whole library's policy on.
+  /// Empty by default ⇒ fully inert (no symbols opted in).
+  final Set<String> deprecatedAllowlist;
+
   /// Plan Phase 1 / B4: when true, declared class members are emitted in
   /// source order (sorted by `firstFragment.nameOffset`) before inherited
   /// members are appended. OFF by default — the emitter and signature-maps
@@ -82,6 +90,7 @@ class ElementModeExtractor {
   ElementModeExtractor({
     this.skipPrivate = true,
     this.generateDeprecatedElements = false,
+    this.deprecatedAllowlist = const {},
     this.sortDeclaredMembersBySourceOrder = false,
   });
 
@@ -174,6 +183,19 @@ class ElementModeExtractor {
       if (annotation.isDeprecated) return true;
     }
     return false;
+  }
+
+  /// A.5: decides whether a `@Deprecated` [element] must be skipped from the
+  /// bridge surface. The policy is: include deprecated elements only when
+  /// [generateDeprecatedElements] is set, OR when the element's simple [name]
+  /// is in the per-symbol [deprecatedAllowlist]. With both off/empty (the
+  /// default), every deprecated symbol is excluded — preserving the historical
+  /// behaviour byte-for-byte.
+  bool _isDeprecatedExcluded(Element element, String? name) {
+    if (generateDeprecatedElements) return false;
+    if (!_hasDeprecatedAnnotation(element)) return false;
+    if (name != null && deprecatedAllowlist.contains(name)) return false;
+    return true;
   }
 
   /// Matches `_hasInternalAnnotation` for AnnotatedNode (AST). Same predicate,
@@ -465,8 +487,7 @@ class ElementModeExtractor {
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(alias)) return;
 
-    final isDeprecated =
-        !generateDeprecatedElements && _hasDeprecatedAnnotation(alias);
+    final isDeprecated = _isDeprecatedExcluded(alias, name);
 
     final aliased = alias.aliasedType;
     if (aliased is FunctionType) {
@@ -497,7 +518,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(enumEl)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(enumEl)) {
+    if (_isDeprecatedExcluded(enumEl, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -651,7 +672,7 @@ class ElementModeExtractor {
     if (name == null || name.isEmpty) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(ext)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(ext)) {
+    if (_isDeprecatedExcluded(ext, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -738,7 +759,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(func)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(func)) {
+    if (_isDeprecatedExcluded(func, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -778,7 +799,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(getter)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(getter)) {
+    if (_isDeprecatedExcluded(getter, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -805,7 +826,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(setter)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(setter)) {
+    if (_isDeprecatedExcluded(setter, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -818,7 +839,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(variable)) return;
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(variable)) {
+    if (_isDeprecatedExcluded(variable, name)) {
       skippedDeprecatedCount++;
       return;
     }
@@ -847,8 +868,7 @@ class ElementModeExtractor {
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(classElement)) return;
-    if (!generateDeprecatedElements &&
-        _hasDeprecatedAnnotation(classElement)) {
+    if (_isDeprecatedExcluded(classElement, name)) {
       skippedDeprecatedCount++;
       return;
     }

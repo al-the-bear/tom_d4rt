@@ -40,13 +40,19 @@ class PackageInfo {
   /// If any contributing module has this enabled, it will be true.
   bool generateDeprecatedElements;
 
+  /// A.5: per-symbol opt-in for deprecated elements. The union of every
+  /// contributing module's `deprecatedAllowlist`.
+  final Set<String> deprecatedAllowlist;
+
   PackageInfo({
     required this.packageName,
     required this.sourceFiles,
     required this.exportInfo,
     Map<String, String>? sourceFileToBarrel,
     this.generateDeprecatedElements = false,
-  }) : sourceFileToBarrel = sourceFileToBarrel ?? {};
+    Set<String>? deprecatedAllowlist,
+  }) : sourceFileToBarrel = sourceFileToBarrel ?? {},
+       deprecatedAllowlist = deprecatedAllowlist ?? {};
 
   /// Returns all unique barrel file URIs that export classes in this package.
   Set<String> get barrelFiles => sourceFileToBarrel.values.toSet();
@@ -346,6 +352,13 @@ class PerPackageBridgeOrchestrator {
           _packageInfoMap[pkgName]!.generateDeprecatedElements = true;
         }
 
+        // A.5: union the per-symbol deprecated allowlists across modules.
+        if (module.deprecatedAllowlist.isNotEmpty) {
+          _packageInfoMap[pkgName]!.deprecatedAllowlist.addAll(
+            module.deprecatedAllowlist,
+          );
+        }
+
         // Track which barrel this source file came from
         // Preference order:
         // 1. Primary barrel (sourceImport) - always preferred for consistency
@@ -488,6 +501,8 @@ class PerPackageBridgeOrchestrator {
 
       // Set per-package option for deprecated element generation
       generator.generateDeprecatedElements = pkgInfo.generateDeprecatedElements;
+      // A.5: per-symbol allowlist union for this package.
+      generator.deprecatedAllowlist = pkgInfo.deprecatedAllowlist;
 
       // Pass global class lookup for cross-package inheritance resolution
       generator.externalClassLookup = Map.of(_globalClassLookup);
