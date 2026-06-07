@@ -334,19 +334,36 @@ suite. Do **not** async-fy the entire visitor (option 5.4) — the per-node
 microtask overhead would measurably slow CLI/build scripting, the main d4rt use
 case.
 
-**Partial generator mitigation (cheaper, available, not landed):** have the
-bridge generator wrap *every void* bridged callback in an async closure with a
-trailing `await Future.delayed(Duration.zero)` — emitter
+**Partial generator mitigation (switch SHIPPED; config flip landed, regen/
+validation gated):** the bridge generator can wrap *every void* bridged callback
+in an `async` closure with a trailing
+`await Future.delayed(const Duration(milliseconds: 1))` — emitter
 `_rc2GenerateFunctionWrapper`
 (`tom_d4rt_generator/lib/src/relaxer_generator.dart:2664`); the choke point
 `D4.callInterpreterCallback` (`tom_d4rt/lib/src/generator/d4.dart:1889`) returns
 `Object?` today so it can't await inside, hence the wrapper must do it. Native
 APIs accepting `void Function(...)` accept `Future<void> Function(...)` too.
 Covers KeyEvent/gesture/`onChanged`/listener callbacks but **not** the three
-blockers above. ~3–5 LOC + bridge regen + ~5–10 hand-written proxy edits.
+blockers above.
+- **Switch:** `yieldVoidCallbacks` (default off), plumbed through
+  `BridgeConfig` and pinned by `tom_d4rt_generator/test/yield_void_callbacks_test.dart`
+  (G-B14-1…5). Off ⇒ byte-identical historical synchronous wrappers; on ⇒ void
+  wrappers become `async` + 1 ms yield, non-void wrappers untouched.
+- **Config flip landed (2026-06-07):** `yieldVoidCallbacks: true` set under
+  `d4rtgen:` in **both** `tom_d4rt_flutter/buildkit.yaml` and
+  `tom_d4rt_flutter_ast/buildkit.yaml`.
+- **No hand-written proxy yield-edits to remove:** an audit found **zero**
+  `Future.delayed`/`async`-yield edits in either twin's non-generated `lib/` or
+  in `flutter_proxies.b.dart`; the "~5–10 hand-written proxy edits" in the
+  original cost estimate were never committed as a stopgap.
+- **Gated tail (blocked):** activating the switch needs a bridge regen (stale
+  committed `.b.dart` baseline gates the scoped diff) and the snake/tron
+  keyboard-not-starved integration check needs the serial flutter base-test
+  sweep — see `todo_impossible.md` #13.
 
 **Workaround in use:** widen the tick interval until the embedder gets idle time
-between firings (stopgap, not a fix).
+between firings (stopgap, not a fix; e.g. tron `_tickRate = 250 ms`). Narrowing
+the tick back to verify input is no longer starved is part of the gated tail.
 
 ---
 

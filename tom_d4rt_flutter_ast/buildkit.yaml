@@ -16,6 +16,17 @@ d4rtgen:
   proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart
   # GEN-079: Auto-generated generic type relaxer wrappers
   relaxerOutputPath: lib/src/bridges/flutter_relaxers.b.dart
+  # B.14: cooperative-yield for void bridged callbacks. The interpreter is a
+  # synchronous visitor, so KeyEvent/gesture/onChanged/listener callbacks run
+  # straight through to completion and never return control to the embedder —
+  # queued input is starved during long interpreted runs (snake/tron). With this
+  # on, void callback wrappers become async closures that
+  # `await Future.delayed(const Duration(milliseconds: 1))` after invoking the
+  # interpreted callback, giving the event loop a chance to pump input. Non-void
+  # callbacks (whose return value the framework consumes) are left synchronous.
+  # Covers the void-callback class only; paint/build, non-void callbacks, and
+  # recursive game logic remain the three accepted-out-of-scope blockers.
+  yieldVoidCallbacks: true
   proxyClasses:
     - CustomPainter
     - CustomClipper
