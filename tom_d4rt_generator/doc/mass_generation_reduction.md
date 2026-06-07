@@ -302,6 +302,66 @@ integration gate — are recorded in the deferred completion step.
 
 ---
 
+### MCI#7 / B2 — super-constructor-argument capture folded into the generator (2026-06-07)
+
+A bridged base with **required** super-constructor formals loses its abstract
+ctor at bridge time, so when a script declares
+`class _MyScroll extends BoxScrollView { _MyScroll() : super(scrollDirection: …); }`
+the `super(...)` call has nowhere to land natively. The fix is a native proxy
+whose static `create(visitor, instance)` factory re-reads each captured
+`super(...)` named arg off the `InterpretedInstance`
+(`_readSuperArg<T>(instance, 'name', visitor)`) and forwards it to the real
+native super-constructor, defaulting any required formal the script omitted.
+Four proxies followed this pattern (`_InterpretedBoxScrollView`,
+`_InterpretedTwoDimensionalScrollView`, `_InterpretedTwoDimensionalViewport`,
+`_InterpretedRenderTwoDimensionalViewport`), each with one
+`_readSuperArg<T>(...) ?? default` line per super-formal hand-written in both
+twins' `d4rt_runtime_registrations.dart`.
+
+| Field (`ProxyClassConfig`) | Default | Effect |
+|----------------------------|---------|--------|
+| `superArgDefaults` | `{}` | `name → default-expr` map for the **required** super-formals. The generator derives the super-formal list + types from the analyzer; this map is the only human input (a sane default for each required formal a script might omit, e.g. `scrollDirection: Axis.vertical`). Script-supplied `super(...)` args always win — the default only applies when the captured arg is null. |
+
+`superarg_proxy_generator.dart` emits the factory from a `SuperArgFormal` list
+(`{name, type, isRequired, defaultExpr}` — the first three analyzer-derived,
+`defaultExpr` merged from `superArgDefaults` via `applySuperArgDefaults`):
+
+- `generateSuperArgEntry` emits one ctor-call entry: the `key` formal always
+  falls back to `_readKey(instance, visitor)`; a defaulted formal gets a
+  trailing `?? defaultExpr`; a bare optional formal forwards the nullable read
+  as-is.
+- `generateSuperArgCaptureFactory` reads each **required-without-default**
+  formal into a local, emits one combined null-check `StateError` preamble
+  naming them, then the proxy ctor call and the canonical
+  `instance.nativeProxy ??= proxy; return proxy;` tail.
+- `generateReadSuperArgHelper` emits the shared `_readSuperArg<T>` helper
+  (script-arg-wins-over-default semantics live here: a missing or
+  non-coercible capture returns `null` so the caller's `?? default` applies).
+
+Pinned by `G-SAC-1` (all-optional `BoxScrollView` factory), `G-SAC-2`
+(`TwoDimensionalViewport` required-validation preamble), `G-SAC-8` (the helper),
+plus entry/merge/round-trip tests `G-SAC-3..7`, `G-SAC-9..12`.
+
+**Canonical-normalization nuance** (as in MCI#3/MCI#6): the emitter produces a
+canonical form (one un-wrapped line per formal, a single combined null-check);
+the golden pins it, and the regen-time base-test gate validates behavioural
+equivalence with the hand code, whose only differences are cosmetic dartfmt
+line-wrap and a per-proxy `StateError` message. The dormant default (`{}`)
+keeps committed bridge output unchanged.
+
+**Deferred (override-hook wrapping + heavy tail).** Each proxy also forwards a
+bespoke virtual hook back into the interpreter (`buildViewport`,
+`buildChildLayout`, `createRenderObject`/`updateRenderObject`,
+`layoutChildSequence`) — these are **not** derivable from the annotation, so the
+full proxy class (its `extends`/`implements` clause, the `._(...)`
+super-forwarding ctor, and the override body) stays hand-written for now; only
+the `create()` capture factory is emitted. Wrapping the bespoke hooks, wiring
+`superArgDefaults` into both twins' `buildkit.yaml`, regen, removing the
+hand-written factories, and the serial base-test + scrolling-view integration
+gate are recorded in the deferred completion step.
+
+---
+
 ## Problem
 
 > **Historical (2026-04 analysis).** The figures in this section predate the

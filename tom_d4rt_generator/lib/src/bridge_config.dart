@@ -298,11 +298,40 @@ class ProxyClassConfig {
   /// ```
   final List<TypeArgProxyVariant> typeArgVariants;
 
+  /// Default value expressions for *required* super-constructor formals, keyed
+  /// by formal name (MCI#7 / B2).
+  ///
+  /// Some bridged base classes (`BoxScrollView`, `TwoDimensionalScrollView`,
+  /// `TwoDimensionalViewport`, `RenderTwoDimensionalViewport`) have **required**
+  /// super-constructor parameters. The generator strips the abstract ctor, so a
+  /// script subclass's `super(...)` call has nowhere to land natively — the
+  /// proxy must re-read the captured `super(...)` args off the
+  /// `InterpretedInstance` (`_readSuperArg<T>(instance, 'name', visitor)`) and
+  /// forward them to the real native super-constructor. The generator already
+  /// knows the super-formal list and types from the analyzer; the only human
+  /// input is a sane **default** for each required formal the script might omit
+  /// (e.g. `scrollDirection` → `Axis.vertical`). Script-supplied `super(...)`
+  /// args always win — the default is only used when the captured arg is null.
+  /// The empty default keeps the feature dormant.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   proxyClasses:
+  ///     - className: BoxScrollView
+  ///       superArgDefaults:
+  ///         scrollDirection: Axis.vertical
+  ///         reverse: 'false'
+  ///         clipBehavior: Clip.hardEdge
+  /// ```
+  final Map<String, String> superArgDefaults;
+
   const ProxyClassConfig({
     required this.className,
     this.proxyName,
     this.mixinVariants = const [],
     this.typeArgVariants = const [],
+    this.superArgDefaults = const {},
   });
 
   factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
@@ -316,6 +345,9 @@ class ProxyClassConfig {
                 ?.map((e) => TypeArgProxyVariant.fromYaml(e as Object))
                 .toList() ??
             const [],
+        superArgDefaults: (json['superArgDefaults'] as Map?)
+                ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+            const {},
       );
     }
     throw ArgumentError('ProxyClassConfig requires className: $json');
@@ -341,6 +373,7 @@ class ProxyClassConfig {
       if (mixinVariants.isNotEmpty) 'mixinVariants': mixinVariants,
       if (typeArgVariants.isNotEmpty)
         'typeArgVariants': typeArgVariants.map((v) => v.toJson()).toList(),
+      if (superArgDefaults.isNotEmpty) 'superArgDefaults': superArgDefaults,
     };
   }
 
