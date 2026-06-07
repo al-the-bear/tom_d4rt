@@ -5057,6 +5057,21 @@ thumb-positioning maths.
 
 ## U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting (bridge/interpreter text-layout gap)
 
+> **2026-06-07 — OPEN A.7 control confirms this is a genuine bridge bug, not a
+> Flutter restriction.** A native, non-interpreted `testWidgets` control
+> (`tom_d4rt_flutter/test/a7_empty_text_nan_control_test.dart`) renders
+> `Column[Text(''), Text('foo')]` and the same under `IntrinsicHeight` with
+> **native** Flutter widgets and throws **no** NaN `Offset` / "forces an
+> infinite height" assertion. So plain Flutter does short-circuit the empty
+> paragraph — only the bridged render path NaNs. Corollary: because native
+> `Text('')` paints fine, the bridge must build a render input that diverges
+> from native; the "fix belongs in the native paragraph painter" note below is
+> therefore incomplete — the divergence is upstream in the bridge. Precise
+> root-cause and the fix (candidate: a `@D4rtUserBridge` for `Text` normalising
+> the degenerate input, validated against the live render — not shipped as an
+> unverified mask) are deferred to a serial interpreter+flutter run; see
+> `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
+
 **Category.** Bridge / interpreter text-layout gap. Rendering a
 `Text` widget whose `data` argument is the empty string `''`
 through the bridged Flutter pipeline produces — once per painted
@@ -5671,6 +5686,17 @@ in "What a real fix would look like" item 1 remains the path.
 ---
 
 ## U19 — Per-character `TextSpan` stream of non-Latin glyphs triggers a NaN `Rect` assertion in `dart:ui` painting (bridge/interpreter text-layout gap)
+
+> **2026-06-07 — OPEN A.7 control confirms this is a genuine bridge bug, not a
+> Flutter restriction.** The same native control
+> (`tom_d4rt_flutter/test/a7_empty_text_nan_control_test.dart`) renders the
+> per-char non-Latin `TextSpan` stream (`'こんにちは'` with dashed underline)
+> with **native** Flutter widgets and throws **no** NaN `Rect` assertion. Only
+> the bridged render path NaNs. Unlike U16, a `Text`-level UserBridge cannot
+> reach a `RichText`/`TextSpan` tree, so the fix here likely needs a
+> `TextSpan`/`RichText` normalisation or a deeper bridged-paragraph trace.
+> Deferred to a serial interpreter+flutter root-cause run; see
+> `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
 
 **Category.** Bridge / interpreter text-layout gap, sibling of
 U16. When a `RichText` is built from a sequence of per-character
