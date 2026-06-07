@@ -1278,6 +1278,18 @@ class BridgeGenerator {
   /// this set. Empty by default ⇒ historical behaviour (all deprecated skipped).
   Set<String> deprecatedAllowlist = {};
 
+  /// B.14: when true, void bridged callbacks are emitted as `async` closures
+  /// that `await Future.delayed(const Duration(milliseconds: 1))` after invoking
+  /// the interpreted callback. This hands a slice of the event loop back to the
+  /// embedder during long synchronous interpreted runs (e.g. `Timer.periodic`
+  /// game ticks), so queued keyboard/gesture input is no longer starved. A
+  /// `Future<void> Function(...)` is assignable to a `void Function(...)` slot,
+  /// so native APIs still accept the wrapped callback. Off by default ⇒ the
+  /// historical synchronous wrapper (generated output is byte-identical), so
+  /// flip it on for the `tom_d4rt_flutter*` configs only — CLI/build scripting
+  /// keeps its sync throughput.
+  bool yieldVoidCallbacks = false;
+
   /// Counter for skipped deprecated elements (for reporting).
   int skippedDeprecatedCount = 0;
 
@@ -1287,6 +1299,27 @@ class BridgeGenerator {
 
   /// Expose user bridge scanner for testing.
   UserBridgeScanner get userBridgeScanner => _userBridgeScanner;
+
+  /// B.14: builds a closure literal that invokes an interpreted callback whose
+  /// return value is discarded (a void bridged callback).
+  ///
+  /// [params] is the comma-joined typed parameter list (without surrounding
+  /// parentheses); [callExpr] is the `D4.callInterpreterCallback(...)`
+  /// expression. When [yieldVoidCallbacks] is on and [isVoidCallback] is true,
+  /// the closure is `async` and yields 1 ms after the call so the embedder can
+  /// pump input/frames; otherwise the historical synchronous closure is emitted
+  /// (byte-identical output).
+  String _voidCallbackClosure(
+    String params,
+    String callExpr, {
+    required bool isVoidCallback,
+  }) {
+    if (yieldVoidCallbacks && isVoidCallback) {
+      return '($params) async { $callExpr; '
+          'await Future.delayed(const Duration(milliseconds: 1)); }';
+    }
+    return '($params) { $callExpr; }';
+  }
 
   /// Types to use for runtime dispatch when handling recursive type bounds.
   ///
@@ -9289,12 +9322,12 @@ class BridgeGenerator {
           buffer.writeln("            dynamic $localName;");
           buffer.writeln("            if ($rawVarName != null) {");
           buffer.writeln(
-            "              $localName = (${typedParams.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}]); };",
+            "              $localName = ${_voidCallbackClosure(typedParams.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
           );
           buffer.writeln("            }");
         } else {
           buffer.writeln(
-            "            final $localName = (${typedParams.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}]); };",
+            "            final $localName = ${_voidCallbackClosure(typedParams.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
           );
         }
         positionalArgs.add(localName);
@@ -9360,7 +9393,7 @@ class BridgeGenerator {
         }
 
         buffer.writeln(
-          "              wrappedNamed[#${param.name}] = (${typedParamsNamed.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNamesNamed.join(', ')}]); };",
+          "              wrappedNamed[#${param.name}] = ${_voidCallbackClosure(typedParamsNamed.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNamesNamed.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
         );
         buffer.writeln("            }");
       } else {
@@ -14123,7 +14156,14 @@ class BridgeGenerator {
     String wrapperBody;
     String? wrapperReturnCastType;
     if (funcInfo.isVoid) {
-      wrapperBody = '{ $callExpr; }';
+      // B.14: when cooperative yielding is on, emit the void callback as an
+      // `async` closure (see the `async` modifier at wrapper assembly below)
+      // that yields 1 ms after the call so the embedder can pump input/frames
+      // during long synchronous interpreted runs. Off (default) ⇒ the
+      // historical synchronous wrapper (byte-identical output).
+      wrapperBody = yieldVoidCallbacks
+          ? '{ $callExpr; await Future.delayed(const Duration(milliseconds: 1)); }'
+          : '{ $callExpr; }';
     } else {
       // GEN-061 fix: FutureOr<dynamic> is not assignable to FutureOr<T> where T is bounded.
       // When the return type is FutureOr<dynamic> (from unresolved type parameter),
@@ -14257,8 +14297,13 @@ class BridgeGenerator {
       }
     }
 
-    // Build complete wrapper
-    var wrapper = '$genericTypeParamsDecl($paramsStr) $wrapperBody';
+    // Build complete wrapper. B.14: the yielded void wrapper body uses `await`,
+    // so the closure must be `async`. Every other wrapper stays synchronous
+    // (byte-identical output). A `Future<void> Function(...)` is assignable to a
+    // `void Function(...)` slot, so native APIs still accept the wrapper.
+    final asyncModifier =
+        (yieldVoidCallbacks && funcInfo.isVoid) ? 'async ' : '';
+    var wrapper = '$genericTypeParamsDecl($paramsStr) $asyncModifier$wrapperBody';
 
     // Cluster FLP (G-FLP-28): for non-generic, non-void wrappers, append an
     // explicit function-type cast `as <ReturnType> Function(<paramTypes>)`

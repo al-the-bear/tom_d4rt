@@ -891,6 +891,31 @@ class BridgeConfig {
   /// classes.
   final List<RecreatorClassConfig> recreatorClasses;
 
+  /// B.14: wrap every *void* bridged callback in an `async` closure that yields
+  /// 1 ms (`await Future.delayed(const Duration(milliseconds: 1))`) after
+  /// invoking the interpreted callback.
+  ///
+  /// The interpreter is a synchronous visitor: Timer/`KeyEvent`/gesture/
+  /// `onChanged` callbacks run straight through to completion, never returning
+  /// control to the embedder, so queued input is starved during long
+  /// synchronous interpreted runs (e.g. `Timer.periodic` game ticks). When this
+  /// is on, the generator emits void callback wrappers as `async` closures that
+  /// hand a slice of the event loop back. A `Future<void> Function(...)` is
+  /// assignable to a `void Function(...)` slot, so native APIs still accept the
+  /// wrapper. **Non-void callbacks are left untouched** (async-wrapping would
+  /// change their return type to `Future`, which the framework can't consume).
+  ///
+  /// Default `false` ⇒ generated output is byte-identical to the historical
+  /// synchronous wrappers. Turn it on for the `tom_d4rt_flutter*` configs only;
+  /// CLI/build scripting keeps its synchronous throughput.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   yieldVoidCallbacks: true
+  /// ```
+  final bool yieldVoidCallbacks;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -915,6 +940,7 @@ class BridgeConfig {
     this.relaxerClasses = const [],
     this.additionalRelaxerTypes = const [],
     this.recreatorClasses = const [],
+    this.yieldVoidCallbacks = false,
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -968,6 +994,7 @@ class BridgeConfig {
               ?.map((e) => RecreatorClassConfig.fromYaml(e as Object))
               .toList() ??
           const [],
+      yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
     );
   }
 
@@ -1053,6 +1080,7 @@ class BridgeConfig {
         'additionalRelaxerTypes': additionalRelaxerTypes,
       if (recreatorClasses.isNotEmpty)
         'recreatorClasses': recreatorClasses.map((r) => r.toJson()).toList(),
+      if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
     };
   }
 
@@ -1081,6 +1109,7 @@ class BridgeConfig {
     List<RelaxerClassConfig>? relaxerClasses,
     List<String>? additionalRelaxerTypes,
     List<RecreatorClassConfig>? recreatorClasses,
+    bool? yieldVoidCallbacks,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -1107,6 +1136,7 @@ class BridgeConfig {
       additionalRelaxerTypes:
           additionalRelaxerTypes ?? this.additionalRelaxerTypes,
       recreatorClasses: recreatorClasses ?? this.recreatorClasses,
+      yieldVoidCallbacks: yieldVoidCallbacks ?? this.yieldVoidCallbacks,
     );
   }
 

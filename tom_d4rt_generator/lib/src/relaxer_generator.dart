@@ -332,6 +332,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     inScopePackagePrefixes,
     warn,
     reducedTypeArgAllowlist,
+    yieldVoidCallbacks: config.yieldVoidCallbacks,
   );
 
   // -------------------------------------------------------------------------
@@ -2086,8 +2087,9 @@ int _writeGenericConstructorSection(
   Map<String, ClassInfo> globalClassLookup,
   Set<String> inScopePackagePrefixes,
   void Function(String) warn,
-  Set<String>? reducedTypeArgAllowlist,
-) {
+  Set<String>? reducedTypeArgAllowlist, {
+  bool yieldVoidCallbacks = false,
+}) {
   // Find all eligible generic classes: single type param, non-abstract,
   // non-sealed, has at least one non-factory constructor.
   // GEN-095: Also require the class to be importable via the relaxer's
@@ -2163,6 +2165,7 @@ int _writeGenericConstructorSection(
         funcName,
         allBridgedTypes,
         globalClassLookup,
+        yieldVoidCallbacks: yieldVoidCallbacks,
       );
       registrations.add((
         className: className,
@@ -2206,8 +2209,9 @@ void _writeGenericConstructorFactory(
   String className,
   String funcName,
   List<String> allBridgedTypes,
-  Map<String, ClassInfo> globalClassLookup,
-) {
+  Map<String, ClassInfo> globalClassLookup, {
+  bool yieldVoidCallbacks = false,
+}) {
   final typeParamName = cls.typeParameters.keys.first;
   final typeParamBound = cls.typeParameters.values.first;
   final ctorSuffix = ctor.name != null ? '.${ctor.name}' : '';
@@ -2412,6 +2416,7 @@ void _writeGenericConstructorFactory(
       positionalParams,
       namedParams,
       typeParamName,
+      yieldVoidCallbacks: yieldVoidCallbacks,
     );
     for (final prim in _rc2PrimitiveTypes) {
       _writeRC2Case(
@@ -2423,6 +2428,7 @@ void _writeGenericConstructorFactory(
         positionalParams,
         namedParams,
         typeParamName,
+        yieldVoidCallbacks: yieldVoidCallbacks,
       );
     }
   }
@@ -2447,6 +2453,7 @@ void _writeGenericConstructorFactory(
       positionalParams,
       namedParams,
       typeParamName,
+      yieldVoidCallbacks: yieldVoidCallbacks,
     );
   }
 
@@ -2465,8 +2472,9 @@ void _writeRC2Case(
   String casePattern,
   List<ParameterInfo> positionalParams,
   List<ParameterInfo> namedParams,
-  String typeParamName,
-) {
+  String typeParamName, {
+  bool yieldVoidCallbacks = false,
+}) {
   final args = <String>[];
 
   // Helper: check if type exactly matches or contains the type param
@@ -2572,6 +2580,7 @@ void _writeRC2Case(
             isTypeNullable,
             typeParamName,
             typeArg,
+            yieldVoidCallbacks: yieldVoidCallbacks,
           ),
         );
       } else if (isInlineFunctionType(p.type)) {
@@ -2629,6 +2638,7 @@ void _writeRC2Case(
           isTypeNullable,
           '__none__',
           '__none__',
+          yieldVoidCallbacks: yieldVoidCallbacks,
         ),
       );
     } else {
@@ -2723,7 +2733,7 @@ void _writeRC2Case(
         // element-mode type-renderer keeps typedef aliases intact so the
         // `Function(` regex no longer fires on `ValueChanged<T?>?` etc.
         namedArgParts.add(
-          '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg)}',
+          '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg, yieldVoidCallbacks: yieldVoidCallbacks)}',
         );
       } else if (isInlineFunctionType(p.type)) {
         // Inline function type without signature info → cast to dynamic (fallback)
@@ -2758,7 +2768,7 @@ void _writeRC2Case(
       // GEN-075 / Phase 2: Non-type-param function type → generate wrapper.
       // Accepts inline `Function(...)` shapes and typedef aliases alike.
       namedArgParts.add(
-        '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__')}',
+        '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__', yieldVoidCallbacks: yieldVoidCallbacks)}',
       );
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
@@ -3024,8 +3034,9 @@ String _rc2GenerateFunctionWrapper(
   FunctionTypeInfo funcInfo,
   bool isNullable,
   String typeParamName,
-  String typeArg,
-) {
+  String typeArg, {
+  bool yieldVoidCallbacks = false,
+}) {
   // Substitute type param with concrete type arg
   String substitute(String type) {
     return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
@@ -3079,7 +3090,14 @@ String _rc2GenerateFunctionWrapper(
   final returnType = substitute(funcInfo.returnType);
   String wrapperBody;
   if (funcInfo.isVoid) {
-    wrapperBody = '{ $callExpr; }';
+    // B.14: when cooperative yielding is on, emit the void callback as an
+    // `async` closure that yields 1 ms after the call so the embedder can pump
+    // input/frames during long synchronous interpreted runs. Off (default) ⇒
+    // the historical synchronous wrapper (byte-identical output). A
+    // `Future<void> Function(...)` is assignable to a `void Function(...)` slot.
+    wrapperBody = yieldVoidCallbacks
+        ? '{ $callExpr; await Future.delayed(const Duration(milliseconds: 1)); }'
+        : '{ $callExpr; }';
   } else {
     // GEN-081b: route the callback result through extractBridgedArg so an
     // InterpretedInstance of a script subclass (e.g. script's
@@ -3091,7 +3109,10 @@ String _rc2GenerateFunctionWrapper(
         "{ return D4.extractBridgedArg<$returnType>($callExpr, 'callback', visitor); }";
   }
 
-  final wrapper = '($paramsStr) $wrapperBody';
+  // B.14: the yielded void wrapper body uses `await`, so the closure must be
+  // `async`. Every other wrapper stays synchronous (byte-identical output).
+  final asyncModifier = (yieldVoidCallbacks && funcInfo.isVoid) ? 'async ' : '';
+  final wrapper = '($paramsStr) $asyncModifier$wrapperBody';
 
   if (isNullable) {
     return '$safeName == null ? null : $wrapper';

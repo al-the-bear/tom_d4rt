@@ -503,6 +503,9 @@ class PerPackageBridgeOrchestrator {
       generator.generateDeprecatedElements = pkgInfo.generateDeprecatedElements;
       // A.5: per-symbol allowlist union for this package.
       generator.deprecatedAllowlist = pkgInfo.deprecatedAllowlist;
+      // B.14: cooperative-yield switch for void bridged callbacks (global,
+      // off by default — only the tom_d4rt_flutter* configs turn it on).
+      generator.yieldVoidCallbacks = config.yieldVoidCallbacks;
 
       // Pass global class lookup for cross-package inheritance resolution
       generator.externalClassLookup = Map.of(_globalClassLookup);
