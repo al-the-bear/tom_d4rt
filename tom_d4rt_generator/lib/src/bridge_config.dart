@@ -275,6 +275,51 @@ class ProxyClassConfig {
   String get effectiveProxyName => proxyName ?? 'D4rt$className';
 }
 
+/// Configuration for a class to include in reduced relaxer/RC-2 generation.
+///
+/// Used only when [BridgeConfig.generateAllRelaxers] is `false`. Each entry
+/// names a concrete bridged class that should remain an eligible generic
+/// type-argument in the reduced relaxer factory and RC-2 constructor switches,
+/// on top of the type-args discovered from real extraction sites.
+///
+/// Accepts a bare string (just the class name) or a map, mirroring
+/// [ProxyClassConfig.fromYaml]:
+/// ```yaml
+/// d4rtgen:
+///   generateAllRelaxers: false
+///   relaxerClasses:
+///     - AlertDialog
+///     - className: SnackBar
+/// ```
+class RelaxerClassConfig {
+  /// The class name to keep as an eligible relaxer/RC-2 type argument.
+  final String className;
+
+  const RelaxerClassConfig({required this.className});
+
+  factory RelaxerClassConfig.fromJson(Map<String, dynamic> json) {
+    if (json case {'className': final String name}) {
+      return RelaxerClassConfig(className: name);
+    }
+    throw ArgumentError('RelaxerClassConfig requires className: $json');
+  }
+
+  /// Parse from a simple string (just the class name) or a map.
+  factory RelaxerClassConfig.fromYaml(Object value) {
+    if (value is String) {
+      return RelaxerClassConfig(className: value);
+    }
+    if (value is Map<String, dynamic>) {
+      return RelaxerClassConfig.fromJson(value);
+    }
+    throw ArgumentError(
+      'RelaxerClassConfig expects String or Map, got: $value',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'className': className};
+}
+
 /// Complete bridge configuration for a project.
 class BridgeConfig {
   final String name;
@@ -419,6 +464,46 @@ class BridgeConfig {
   /// ```
   final List<String> priorRelaxerModules;
 
+  /// Whether to generate the full combinatorial relaxer/RC-2 surface.
+  ///
+  /// When `true` (the **default** — keeps generate-everything behaviour), the
+  /// relaxer factory switches (Category B) and the RC-2 generic constructor
+  /// switches (Category C) enumerate *every* concrete bridged class as a
+  /// candidate generic type-argument. This is what produces the ~181 k-line
+  /// `flutter_relaxers.b.dart`.
+  ///
+  /// When `false`, the candidate type-argument enumeration is reduced to the
+  /// union of (1) the type-args discovered from real generic extraction sites
+  /// during bridge generation, (2) [relaxerClasses], and (3)
+  /// [additionalRelaxerTypes]. This collapses the bulk of the generated file
+  /// while keeping every actually-used type covered. The wrapper classes
+  /// (Category A) and proxies (Category D) are unaffected.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   generateAllRelaxers: false
+  /// ```
+  final bool generateAllRelaxers;
+
+  /// Extra classes to keep as eligible relaxer/RC-2 type-args when
+  /// [generateAllRelaxers] is `false`.
+  ///
+  /// Each entry is a bare class name or a `{className: ...}` map (see
+  /// [RelaxerClassConfig.fromYaml]). Ignored when [generateAllRelaxers] is
+  /// `true` (everything is already generated).
+  final List<RelaxerClassConfig> relaxerClasses;
+
+  /// Extra type names to keep as eligible relaxer/RC-2 type-args when
+  /// [generateAllRelaxers] is `false`.
+  ///
+  /// Each entry may be a bare type name (`'Duration'`) or a package-qualified
+  /// `'package:my_pkg/types.dart:MyType'` form (the bare type name after the
+  /// final `:` is used for matching), mirroring [recursiveBoundTypes]. This is
+  /// the field the corpus scanner (P&R step 5) emits an allowlist into.
+  /// Ignored when [generateAllRelaxers] is `true`.
+  final List<String> additionalRelaxerTypes;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -439,6 +524,9 @@ class BridgeConfig {
     this.proxyClasses = const [],
     this.relaxerOutputPath = 'lib/src/relaxers.b.dart',
     this.priorRelaxerModules = const [],
+    this.generateAllRelaxers = true,
+    this.relaxerClasses = const [],
+    this.additionalRelaxerTypes = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -479,6 +567,14 @@ class BridgeConfig {
           _defaultRelaxerOutputPath(modules),
       priorRelaxerModules:
           (json['priorRelaxerModules'] as List?)?.cast<String>() ?? const [],
+      generateAllRelaxers: json['generateAllRelaxers'] as bool? ?? true,
+      relaxerClasses:
+          (json['relaxerClasses'] as List?)
+              ?.map((e) => RelaxerClassConfig.fromYaml(e as Object))
+              .toList() ??
+          const [],
+      additionalRelaxerTypes:
+          (json['additionalRelaxerTypes'] as List?)?.cast<String>() ?? const [],
     );
   }
 
@@ -557,6 +653,11 @@ class BridgeConfig {
       'relaxerOutputPath': relaxerOutputPath,
       if (priorRelaxerModules.isNotEmpty)
         'priorRelaxerModules': priorRelaxerModules,
+      if (!generateAllRelaxers) 'generateAllRelaxers': generateAllRelaxers,
+      if (relaxerClasses.isNotEmpty)
+        'relaxerClasses': relaxerClasses.map((r) => r.toJson()).toList(),
+      if (additionalRelaxerTypes.isNotEmpty)
+        'additionalRelaxerTypes': additionalRelaxerTypes,
     };
   }
 
@@ -581,6 +682,9 @@ class BridgeConfig {
     List<ProxyClassConfig>? proxyClasses,
     String? relaxerOutputPath,
     List<String>? priorRelaxerModules,
+    bool? generateAllRelaxers,
+    List<RelaxerClassConfig>? relaxerClasses,
+    List<String>? additionalRelaxerTypes,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -602,6 +706,10 @@ class BridgeConfig {
       proxyClasses: proxyClasses ?? this.proxyClasses,
       relaxerOutputPath: relaxerOutputPath ?? this.relaxerOutputPath,
       priorRelaxerModules: priorRelaxerModules ?? this.priorRelaxerModules,
+      generateAllRelaxers: generateAllRelaxers ?? this.generateAllRelaxers,
+      relaxerClasses: relaxerClasses ?? this.relaxerClasses,
+      additionalRelaxerTypes:
+          additionalRelaxerTypes ?? this.additionalRelaxerTypes,
     );
   }
 

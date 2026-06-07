@@ -159,12 +159,22 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
+  // P&R#4 reduction knob: when `generateAllRelaxers` is false, restrict the
+  // combinatorial `allConcreteBridgedTypes`/`allBridgedTypes` enumerations
+  // (Categories B and C) to the union of the type-args discovered from real
+  // extraction sites, the explicit `relaxerClasses`, and
+  // `additionalRelaxerTypes`. A null allowlist means "generate everything"
+  // (the default) and the enumerations are left untouched.
+  final Set<String>? reducedTypeArgAllowlist =
+      config.generateAllRelaxers ? null : _buildReducedTypeArgAllowlist(config, genericExtractionSites);
+
   final targets = _buildRelaxerTargets(
     genericExtractionSites,
     globalClassLookup,
     gen075Classes,
     inScopePackagePrefixes,
     warn,
+    reducedTypeArgAllowlist,
   );
 
   if (targets.isEmpty) {
@@ -298,6 +308,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     globalClassLookup,
     inScopePackagePrefixes,
     warn,
+    reducedTypeArgAllowlist,
   );
 
   // -------------------------------------------------------------------------
@@ -381,12 +392,44 @@ Future<RelaxerGenerationResult> generateRelaxers({
 ///
 /// [inScopePackagePrefixes] limits type args in Step 2b/2c to types whose
 /// sourceFile matches a module barrel package (e.g., 'package:flutter/').
+/// Builds the reduced type-arg allowlist used when
+/// `BridgeConfig.generateAllRelaxers` is `false`.
+///
+/// The allowlist is the union of: the bare type-arg names discovered from real
+/// generic extraction sites (excluding `dynamic`), the configured
+/// [BridgeConfig.relaxerClasses] class names, and the bare type names parsed
+/// from [BridgeConfig.additionalRelaxerTypes] (which may be package-qualified
+/// `package:uri:Type` entries).
+Set<String> _buildReducedTypeArgAllowlist(
+  BridgeConfig config,
+  List<GenericExtractionSite> extractions,
+) {
+  return <String>{
+    for (final site in extractions)
+      if (site.typeArg != 'dynamic') site.typeArg,
+    for (final rc in config.relaxerClasses) rc.className,
+    for (final t in config.additionalRelaxerTypes) _bareRelaxerTypeName(t),
+  };
+}
+
+/// Extracts the bare type name from an `additionalRelaxerTypes` entry.
+///
+/// Accepts a plain name (`'Duration'` → `'Duration'`) or a package-qualified
+/// `'package:my_pkg/types.dart:MyType'` form (→ `'MyType'`), matching the
+/// `recursiveBoundTypes` syntax.
+String _bareRelaxerTypeName(String entry) {
+  final lastColon = entry.lastIndexOf(':');
+  if (lastColon < 0) return entry;
+  return entry.substring(lastColon + 1);
+}
+
 List<_RelaxerTarget> _buildRelaxerTargets(
   List<GenericExtractionSite> extractions,
   Map<String, ClassInfo> globalClassLookup,
   Set<String> gen075Classes,
   Set<String> inScopePackagePrefixes,
   void Function(String) warn,
+  Set<String>? reducedTypeArgAllowlist,
 ) {
   // Group by base type → module → Set<typeArg>
   final grouped = <String, Map<String, Set<String>>>{};
@@ -437,10 +480,16 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   final existingTargetNames = targets.map((t) => t.baseTypeName).toSet();
   // GEN-095: Restrict type args to classes reachable via the barrel
   // imports (excludes `package:<pkg>/src/` private types).
+  // P&R#4: when reduced, restrict the injected candidate type-args to the
+  // allowlist (discovered extraction sites ∪ relaxerClasses ∪
+  // additionalRelaxerTypes). Null allowlist ⇒ generate-everything (default).
   final allConcreteBridgedTypes =
       globalClassLookup.entries
           .where((e) => !e.value.isAbstract && !e.value.isSealed)
           .where((e) => _isReachableViaBarrels(e.value, inScopePackagePrefixes))
+          .where((e) =>
+              reducedTypeArgAllowlist == null ||
+              reducedTypeArgAllowlist.contains(e.key))
           .map((e) => e.key)
           .toList()
         ..sort();
@@ -1851,6 +1900,7 @@ int _writeGenericConstructorSection(
   Map<String, ClassInfo> globalClassLookup,
   Set<String> inScopePackagePrefixes,
   void Function(String) warn,
+  Set<String>? reducedTypeArgAllowlist,
 ) {
   // Find all eligible generic classes: single type param, non-abstract,
   // non-sealed, has at least one non-factory constructor.
@@ -1877,6 +1927,8 @@ int _writeGenericConstructorSection(
   // Collect all concrete bridged class names for type dispatches.
   // GEN-095: Exclude types from a package's private `lib/src/` (not reachable
   // via the barrel import) and types from packages not imported at all.
+  // P&R#4: reduce the per-factory case enumeration to the allowlist when
+  // `generateAllRelaxers` is false. Null allowlist ⇒ generate-everything.
   final allBridgedTypes =
       globalClassLookup.entries
           .where(
@@ -1884,7 +1936,9 @@ int _writeGenericConstructorSection(
                 !e.value.isAbstract &&
                 !e.value.isSealed &&
                 !_rc2SkipTypes.contains(e.key) &&
-                _isReachableViaBarrels(e.value, inScopePackagePrefixes),
+                _isReachableViaBarrels(e.value, inScopePackagePrefixes) &&
+                (reducedTypeArgAllowlist == null ||
+                    reducedTypeArgAllowlist.contains(e.key)),
           )
           .map((e) => e.key)
           .toList()

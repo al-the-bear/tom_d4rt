@@ -280,5 +280,161 @@ void main() {
       expect(config.modules[1].excludeVariables, equals(['kConstB']));
     });
   });
+
+  group('BridgeConfig relaxer reduction knobs (P&R#4)', () {
+    Map<String, dynamic> baseJson() => {
+          'name': 'reduction_project',
+          'modules': [
+            {
+              'name': 'm',
+              'barrelFiles': ['lib/m.dart'],
+              'outputPath': 'lib/bridges/m.dart',
+            },
+          ],
+        };
+
+    group('fromJson', () {
+      test('G-CFG-17: generateAllRelaxers defaults to true when absent. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(baseJson());
+
+        expect(config.generateAllRelaxers, isTrue);
+        expect(config.relaxerClasses, isEmpty);
+        expect(config.additionalRelaxerTypes, isEmpty);
+      });
+
+      test('G-CFG-18: Parses generateAllRelaxers false. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(baseJson()..['generateAllRelaxers'] = false);
+
+        expect(config.generateAllRelaxers, isFalse);
+      });
+
+      test('G-CFG-19: Parses relaxerClasses from bare strings. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(
+          baseJson()..['relaxerClasses'] = ['AlertDialog', 'SnackBar'],
+        );
+
+        expect(config.relaxerClasses.map((r) => r.className),
+            equals(['AlertDialog', 'SnackBar']));
+      });
+
+      test('G-CFG-20: Parses relaxerClasses from maps. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(
+          baseJson()
+            ..['relaxerClasses'] = [
+              {'className': 'AlertDialog'},
+            ],
+        );
+
+        expect(config.relaxerClasses.single.className, equals('AlertDialog'));
+      });
+
+      test('G-CFG-21: Parses mixed bare-string and map relaxerClasses. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(
+          baseJson()
+            ..['relaxerClasses'] = [
+              'AlertDialog',
+              {'className': 'SnackBar'},
+            ],
+        );
+
+        expect(config.relaxerClasses.map((r) => r.className),
+            equals(['AlertDialog', 'SnackBar']));
+      });
+
+      test('G-CFG-22: Parses additionalRelaxerTypes. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(
+          baseJson()
+            ..['additionalRelaxerTypes'] = [
+              'Duration',
+              'package:my_pkg/types.dart:MyType',
+            ],
+        );
+
+        expect(config.additionalRelaxerTypes,
+            equals(['Duration', 'package:my_pkg/types.dart:MyType']));
+      });
+    });
+
+    group('toJson', () {
+      test('G-CFG-23: Omits generateAllRelaxers when true (default). [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(baseJson());
+
+        final json = config.toJson();
+
+        expect(json.containsKey('generateAllRelaxers'), isFalse);
+        expect(json.containsKey('relaxerClasses'), isFalse);
+        expect(json.containsKey('additionalRelaxerTypes'), isFalse);
+      });
+
+      test('G-CFG-24: Serializes generateAllRelaxers when false. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(baseJson()..['generateAllRelaxers'] = false);
+
+        final json = config.toJson();
+
+        expect(json['generateAllRelaxers'], isFalse);
+      });
+
+      test('G-CFG-25: Serializes relaxerClasses as className maps. [2026-06-07 00:00] (PASS)', () {
+        final config = BridgeConfig.fromJson(
+          baseJson()..['relaxerClasses'] = ['AlertDialog'],
+        );
+
+        final json = config.toJson();
+
+        expect(json['relaxerClasses'], equals([
+          {'className': 'AlertDialog'},
+        ]));
+      });
+
+      test('G-CFG-26: Round-trip preserves reduction knobs. [2026-06-07 00:00] (PASS)', () {
+        final original = BridgeConfig.fromJson(
+          baseJson()
+            ..['generateAllRelaxers'] = false
+            ..['relaxerClasses'] = [
+              'AlertDialog',
+              {'className': 'SnackBar'},
+            ]
+            ..['additionalRelaxerTypes'] = ['Duration'],
+        );
+
+        final restored = BridgeConfig.fromJson(original.toJson());
+
+        expect(restored.generateAllRelaxers, isFalse);
+        expect(restored.relaxerClasses.map((r) => r.className),
+            equals(['AlertDialog', 'SnackBar']));
+        expect(restored.additionalRelaxerTypes, equals(['Duration']));
+      });
+    });
+
+    group('copyWith', () {
+      test('G-CFG-27: copyWith overrides reduction knobs. [2026-06-07 00:00] (PASS)', () {
+        final original = BridgeConfig.fromJson(baseJson());
+
+        final updated = original.copyWith(
+          generateAllRelaxers: false,
+          relaxerClasses: const [RelaxerClassConfig(className: 'AlertDialog')],
+          additionalRelaxerTypes: const ['Duration'],
+        );
+
+        expect(updated.generateAllRelaxers, isFalse);
+        expect(updated.relaxerClasses.single.className, equals('AlertDialog'));
+        expect(updated.additionalRelaxerTypes, equals(['Duration']));
+      });
+
+      test('G-CFG-28: copyWith preserves reduction knobs when not overridden. [2026-06-07 00:00] (PASS)', () {
+        final original = BridgeConfig.fromJson(
+          baseJson()
+            ..['generateAllRelaxers'] = false
+            ..['additionalRelaxerTypes'] = ['Duration'],
+        );
+
+        final updated = original.copyWith(name: 'renamed');
+
+        expect(updated.name, equals('renamed'));
+        expect(updated.generateAllRelaxers, isFalse);
+        expect(updated.additionalRelaxerTypes, equals(['Duration']));
+      });
+    });
+  });
 }
 

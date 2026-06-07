@@ -50,6 +50,31 @@ neither the 50 wrappers nor the 15 proxies.
 > `grep -c 'registerGenericTypeWrapper'`, `grep -c 'registerGenericConstructor'`,
 > `grep -cE '^class D4rt'` on the relaxer/proxy files.
 
+### P&R step 4 — reduction knobs landed (2026-06-07)
+
+The generator now exposes the **reduction lever** as opt-in config
+(`tom_d4rt_generator`, P&R#4):
+
+| Field (`BridgeConfig`) | Default | Effect |
+|------------------------|---------|--------|
+| `generateAllRelaxers` | `true` | When `true`, Categories **B** (`allConcreteBridgedTypes`) and **C** (`allBridgedTypes`) enumerate *every* concrete bridged class — the current 181 k-line surface, unchanged. |
+| `relaxerClasses` | `[]` | Extra class names kept eligible when `generateAllRelaxers: false` (bare string or `{className: …}` map). |
+| `additionalRelaxerTypes` | `[]` | Extra type names kept eligible when reduced (bare or `package:uri:Type`); the field the P&R#5 corpus scanner emits its allowlist into. |
+
+When `generateAllRelaxers: false`, the candidate type-arg enumeration in
+**both** combinatorial switch families collapses to
+`genericExtractionSites ∪ relaxerClasses ∪ additionalRelaxerTypes`.
+Categories **A** (50 wrappers) and **D** (15 proxies) are untouched.
+
+**Reduction realized so far: 0 lines.** The default stays
+generate-everything (request *i*), so this step adds the mechanism without
+changing committed output — a default-config regen of both flutter twins is
+**byte-identical** to the committed `*.b.dart` (only the `// Generated:`
+timestamp header differs). The actual line-count collapse lands when P&R
+step 5 (corpus scanner) supplies a concrete allowlist and flips
+`generateAllRelaxers: false`; the expected magnitude is the ~181 k → low-
+thousands range projected in *Expected Impact* below.
+
 ---
 
 ## Problem
