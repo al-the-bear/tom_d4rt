@@ -114,5 +114,33 @@ void main() {
       expect(code, isNot(contains('legacyGetter')));
       expect(code, isNot(contains('legacyConstant')));
     });
+
+    test(
+        'G-DEP-4: the default policy (flag off + empty allowlist) is '
+        'content-identical across repeated generations', () async {
+      // The "byte-identical regen" guarantee (OPEN A.5 step d) rests on the
+      // deprecated-exclusion path being deterministic: adding the
+      // `deprecatedAllowlist` field at its empty default must not perturb
+      // output. Generating the same fixture twice under the default policy must
+      // yield identical source — modulo the `// Generated:` header timestamp,
+      // which is wall-clock and not part of the bridge content.
+      final first = stripGeneratedTimestamp(await generateWith(
+        generateDeprecatedElements: false,
+        outName: 'dep_default_a.dart',
+      ));
+      final second = stripGeneratedTimestamp(await generateWith(
+        generateDeprecatedElements: false,
+        deprecatedAllowlist: const {},
+        outName: 'dep_default_b.dart',
+      ));
+      expect(second, equals(first));
+    });
   });
 }
+
+/// Removes the wall-clock `// Generated: <timestamp>` header line so two
+/// generation runs can be compared for content identity.
+String stripGeneratedTimestamp(String code) => code
+    .split('\n')
+    .where((line) => !line.startsWith('// Generated:'))
+    .join('\n');

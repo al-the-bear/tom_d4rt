@@ -145,14 +145,28 @@ while recording the bridge-size delta — tracked in
 fallback (drop the import; use `Matrix4.storage` / indexable accessors) remains
 safe but is no longer mandatory.
 
-### A.5 — `@Deprecated` SDK symbols absent from the bridge surface
+### A.5 — `@Deprecated` SDK symbols absent from the bridge surface — per-symbol allowlist shipped (regen/integration gate pending)
 
 **Symptom:** deprecated Flutter/Dart symbols are "undefined" in scripts. (U12.)
 **Root cause:** `ElementModeExtractor.generateDeprecatedElements = false` skips
-every `@Deprecated` element by design, to keep the bridge aligned with the
+every `@Deprecated` element by default, to keep the bridge aligned with the
 non-deprecated API.
-**Why unfixable (policy):** intentional generator policy.
-**Workaround:** declare a local stand-in, or swap to the modern symbol name.
+**Resolution (generator core — done).** The all-or-nothing boolean now has a
+fine-grained companion: `ModuleConfig.deprecatedAllowlist` (a per-module list of
+simple symbol names → `PackageInfo` union → `BridgeGenerator.deprecatedAllowlist`
+→ `ElementModeExtractor._isDeprecatedExcluded`). A module can opt **one**
+deprecated top-level symbol back in without flipping the whole module to
+`generateDeprecatedElements: true`. Empty default ⇒ byte-identical to the
+historical policy. Unit tests `G-DEP-1..4` (incl. the content-identical default)
+are green; the knob is documented in
+`tom_d4rt_generator/doc/deprecated_allowlist.md`. Granularity is top-level
+simple-name only — a deprecated *member* on a live class still needs a
+`@D4rtUserBridge` override.
+**Remaining tail (deferred):** the byte-identical both-twin regen + the
+end-to-end integration of one allowlisted deprecated symbol under the serial
+flutter base-test gate — tracked in `_ai/quests/d4rt/todo_impossible.md` (#10).
+**Workaround (until a symbol is allowlisted):** declare a local stand-in, or swap
+to the modern symbol name.
 
 ### A.6 — `MemoryImage(Uint8List)` PNG codec rejection (U29)
 

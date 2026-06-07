@@ -80,6 +80,17 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
   P&R#6 / MCI#3 / MCI#6; the **annotation-driven emission** and worked
   examples are part of the deferred tail (see Status below).
 
+### Deprecated-symbol allowlist (`@Deprecated` opt-in)
+
+- [deprecated_allowlist.md](deprecated_allowlist.md) — the per-symbol
+  `ModuleConfig.deprecatedAllowlist` knob (A.5 / MCI#32). The generator skips
+  every `@Deprecated` element by default; this list opts **one** deprecated
+  top-level symbol back in by simple name without flipping the whole module to
+  `generateDeprecatedElements: true`. The doc covers the config knob, the
+  `_isDeprecatedExcluded` decision site, the byte-identical empty default,
+  granularity (top-level simple names only → `@D4rtUserBridge` for members), the
+  unit tests (`G-DEP-1..4`), and the deferred both-twin regen / integration tail.
+
 ### Web-divergence registry (VM↔web signature skew)
 
 - [vm_web_skew_coercion.md](vm_web_skew_coercion.md) — the full reference:
