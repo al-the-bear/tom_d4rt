@@ -1093,6 +1093,16 @@ class BridgeGenerator {
   /// Whether to output verbose information.
   final bool verbose;
 
+  /// Whether to emit `?? default` coercion for known VM↔web signature-skew
+  /// parameters (B5/R6). See [_vmWebSkewNonNullParams].
+  ///
+  /// Defaults to `false` so committed `*.b.dart` output stays byte-identical
+  /// until a deliberate regeneration enables it. The hand-written
+  /// `SceneBuilderUserBridge.overrideMethodPushOpacity` currently covers the
+  /// only concrete skew; flipping this flag on (and regenerating) retires that
+  /// override.
+  final bool enableVmWebSkewCoercion;
+
   /// External types that require wrapper classes (detected during generation).
   final List<ExternalTypeWarning> externalTypeWarnings = [];
 
@@ -1815,6 +1825,7 @@ class BridgeGenerator {
     this.readOnly = false,
     this.skipPrivate = true,
     this.verbose = false,
+    this.enableVmWebSkewCoercion = false,
     this.followPackages = const [],
     this.librarySummaryPaths,
     this.sdkSummaryPath,
@@ -9834,6 +9845,7 @@ class BridgeGenerator {
         warnings: warnings,
         classTypeParams: effectiveTypeParams,
         callExpressions: callExpressions,
+        skewClassName: cls.name,
       )) {
         return false;
       }
@@ -10212,6 +10224,7 @@ class BridgeGenerator {
         sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: effectiveTypeParams,
+        skewClassName: cls.name,
       )) {
         return false;
       }
@@ -10931,6 +10944,46 @@ class BridgeGenerator {
   /// If [callExpressions] is provided and this is a function-type parameter,
   /// the wrapper expression will be stored in the map. Otherwise the local
   /// variable name will be stored.
+  /// Known VM↔web signature-skew parameters (B5/R6) — the web-divergence
+  /// registry.
+  ///
+  /// Some Flutter `dart:ui` members declare a named parameter as **nullable**
+  /// in the VM SDK but **non-nullable** in the web (dart2js) SDK. The analyzer
+  /// summary the generator reads comes from the VM, so the standard extraction
+  /// emits `getNamedArgWithDefault<T?>(…)`, whose nullable result cannot be
+  /// forwarded to the web's non-nullable parameter — dart2js then fails with
+  /// "The argument type 'T?' can't be assigned to the parameter type 'T'".
+  ///
+  /// For each entry the generator appends a `?? <default>` coercion so the
+  /// local infers the non-null `T`, which satisfies both SDKs. The default
+  /// reused is the parameter's own (already prefixed) default value, so only
+  /// the *identity* of the skewed parameter needs recording here.
+  ///
+  /// Key format: `'<className>.<methodName>.<paramName>'`. Extend this set when
+  /// a new VM↔web skew is discovered.
+  ///
+  /// Gated behind [enableVmWebSkewCoercion] (default off) so committed bridge
+  /// output stays byte-identical until a deliberate regeneration.
+  static const Set<String> _vmWebSkewNonNullParams = {
+    // SceneBuilder.pushOpacity: VM `{Offset? offset = Offset.zero}` vs web
+    // `{Offset offset = Offset.zero}`.
+    'SceneBuilder.pushOpacity.offset',
+  };
+
+  /// Whether [paramName] of [className].[methodName] is a known VM↔web skew
+  /// parameter that needs `?? default` coercion. Always false unless
+  /// [enableVmWebSkewCoercion] is set.
+  bool _isVmWebSkewParam(
+    String? className,
+    String methodName,
+    String paramName,
+  ) {
+    if (!enableVmWebSkewCoercion || className == null) return false;
+    return _vmWebSkewNonNullParams.contains(
+      '$className.$methodName.$paramName',
+    );
+  }
+
   bool _generateNamedParamExtraction(
     StringBuffer buffer,
     ParameterInfo param,
@@ -10940,6 +10993,7 @@ class BridgeGenerator {
     List<String>? warnings,
     Map<String, String?> classTypeParams = const {},
     Map<String, String>? callExpressions,
+    String? skewClassName,
   }) {
     final isNullable = param.type.endsWith('?');
     final localName = _getSafeLocalName(param.name);
@@ -11532,10 +11586,20 @@ class BridgeGenerator {
         sourceFilePath: sourceFilePath,
       );
       if (prefixedDefault != null) {
-        // Wrappable default - use normal named arg with default
+        // Wrappable default - use normal named arg with default.
+        //
+        // B5/R6: for a known VM↔web signature-skew parameter the VM-derived
+        // type is nullable (`T?`) but the web parameter is non-nullable (`T`).
+        // Append `?? default` so the local infers the non-null `T`, which
+        // assigns cleanly under both SDKs.
+        final skewSuffix =
+            isNullable &&
+                _isVmWebSkewParam(skewClassName, contextName, param.name)
+            ? ' ?? $prefixedDefault'
+            : '';
         buffer.writeln(
           "        final $localName = $helperMethod<$typeArg>"
-          "(named, '${param.name}', $prefixedDefault);",
+          "(named, '${param.name}', $prefixedDefault)$skewSuffix;",
         );
       } else {
         // Non-wrappable default - use TODO helper and record warning
