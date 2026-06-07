@@ -407,6 +407,48 @@ proxy/relaxer emitters from single- to N-type-parameter), the component golden,
 the both-twin regen + serial base-test gate, the `TomFormList<TElement, TForm>`
 + wildcard integration tests, the edge-case buffer, and the worked-example docs.
 
+### MCI#8 / B4 — generic interceptor re-dispatch folded into the generator (2026-06-07)
+
+A handful of Flutter lookups are keyed by the *exact* reified type argument —
+`RadioGroup.maybeOf<T>(context)` resolves via
+`dependOnInheritedWidgetOfExactType<_RadioGroupStateScope<T>>()`. The generated
+bridge adapter forwards the call without `<T>`, so the lookup collapses to
+`<dynamic>` and misses (R4). The interpreter already exposes an interceptor hook
+at the top of these adapters
+(`bridge_generator.dart:_bridgedStaticMethodInterceptHooks` →
+`D4.findBridgedStaticMethodInterceptor`); the interceptor *body* was hand-written
+in each twin's `d4rt_runtime_registrations.dart`, and within it the
+**re-dispatch half** — a `switch (typeName)` over an allow-list of common
+type-arg names — was pure boilerplate (~150 lines across the cases).
+
+`generic_interceptor_generator.dart` templates exactly that half from a
+`GenericInterceptorConfig` (`bridge_config.dart`):
+
+```dart
+const cfg = GenericInterceptorConfig(
+  className: 'RadioGroup', methodName: 'maybeOf', isStatic: true,
+  typeArgVariants: ['String', 'int', 'double', 'num', 'bool', 'Object'],
+  fallbackExpr: '_radioGroupMaybeOfFallback(visitor, positional, named, typeArgs)',
+);
+```
+
+`generateGenericInterceptor(cfg)` emits the canonical
+`D4.registerBridgedStaticMethodInterceptor('RadioGroup', 'maybeOf', …)` call with
+the `switch (typeName) { 'String' => RadioGroup.maybeOf<String>(ctx), …, _ =>
+null }` re-dispatch, chaining to the hand-written `fallbackExpr` (the R5
+ancestor-walk half, kept until MCI#11) when the switch returns null. The emitter
+returns the empty string when no type-arg variant is declared — **dormant by
+default**, so committed `*.b.dart` is unchanged until a `buildkit.yaml` declares
+an interceptor. 14 unit tests `G-GMI-1..14` pin the canonical output
+byte-for-byte (instance + static shapes, with/without fallback, config
+round-trip).
+
+**Deferred (completion_steps.d4rt.md, "MCI#8 / B4"):** wiring
+`genericInterceptors` into `BridgeConfig` parse + the registration-file
+generator, the both-twin regen, deleting only the re-dispatch half of the
+hand-written `RadioGroup.maybeOf` (keeping the R5 fallback), the serial
+base-test gate, and the `RadioGroup.maybeOf<String>(ctx)` integration test.
+
 ---
 
 ## Problem

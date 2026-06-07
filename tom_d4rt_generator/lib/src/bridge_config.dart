@@ -429,6 +429,130 @@ class TypeArgProxyVariant {
       };
 }
 
+/// Declarative spec for a generic method/static interceptor whose adapter drops
+/// the script-supplied `<T>` at the bridge boundary (MCI#8 / B4 — R4).
+///
+/// A handful of Flutter lookups (e.g. `RadioGroup.maybeOf<T>(context)`,
+/// `ThemeData.extension<T>()`) are keyed by the *exact* reified type argument.
+/// The generated bridge adapter forwards them without `<T>`, so the native call
+/// resolves to `<dynamic>` and misses. The interpreter exposes an interceptor
+/// hook (`D4.findBridgedMethodInterceptor` / `findBridgedStaticMethodInterceptor`)
+/// at the top of these adapters; the previously **hand-written** interceptor
+/// bodies re-dispatched the generic over an allow-list of common type-arg names:
+///
+/// ```dart
+/// final byType = switch (typeName) {
+///   'String' => RadioGroup.maybeOf<String>(ctx),
+///   'int' => RadioGroup.maybeOf<int>(ctx),
+///   ...
+///   _ => null,
+/// };
+/// ```
+///
+/// This config templates exactly that re-dispatch half. The R5 ancestor-walk
+/// fallback for script-defined `<T>` stays hand-written (retired later by
+/// MCI#11): when [fallbackExpr] is supplied the generated body ends with
+/// `if (byType != null) return byType;` followed by `return $fallbackExpr;`,
+/// otherwise it simply returns the switch result.
+///
+/// YAML form:
+/// ```yaml
+/// d4rtgen:
+///   genericInterceptors:
+///     - className: RadioGroup
+///       methodName: maybeOf
+///       isStatic: true
+///       typeArgVariants: [String, int, double, num, bool, Object]
+///       fallbackExpr: _radioGroupMaybeOfFallback(visitor, positional, named, typeArgs)
+/// ```
+class GenericInterceptorConfig {
+  /// The conceptual owner class — both the runtime registry key and the
+  /// receiver of a static re-dispatch (e.g. `RadioGroup`). For instance
+  /// methods the receiver is the validated `target` instead.
+  final String className;
+
+  /// The intercepted method name (e.g. `maybeOf`).
+  final String methodName;
+
+  /// Whether the method is static. Static interceptors are registered via
+  /// `D4.registerBridgedStaticMethodInterceptor` and receive
+  /// `(visitor, positional, named, typeArgs)`; instance interceptors use
+  /// `D4.registerBridgedMethodInterceptor` and receive
+  /// `(visitor, target, positional, named, typeArgs)`.
+  final bool isStatic;
+
+  /// The allow-list of concrete type-arg names to re-dispatch over, in switch
+  /// order (e.g. `['String', 'int', 'double', 'num', 'bool', 'Object']`). Each
+  /// becomes one `case`/arm calling `receiver.methodName<TypeArg>(ctx)`.
+  final List<String> typeArgVariants;
+
+  /// Zero-based index of the positional argument carrying the `BuildContext`
+  /// (the single argument forwarded to the generic call). Defaults to `0`.
+  final int contextArgIndex;
+
+  /// The expected static type of the forwarded context argument, used for the
+  /// `is!` guard. Defaults to `BuildContext`.
+  final String contextArgType;
+
+  /// Optional hand-written fallback expression evaluated when the re-dispatch
+  /// switch returns null (the R5 ancestor-walk half kept until MCI#11). When
+  /// null the generated body returns the switch result directly.
+  final String? fallbackExpr;
+
+  const GenericInterceptorConfig({
+    required this.className,
+    required this.methodName,
+    this.isStatic = false,
+    this.typeArgVariants = const [],
+    this.contextArgIndex = 0,
+    this.contextArgType = 'BuildContext',
+    this.fallbackExpr,
+  });
+
+  factory GenericInterceptorConfig.fromJson(Map<String, dynamic> json) {
+    final className = json['className'];
+    final methodName = json['methodName'];
+    if (className is! String || methodName is! String) {
+      throw ArgumentError(
+        'GenericInterceptorConfig requires className + methodName: $json',
+      );
+    }
+    return GenericInterceptorConfig(
+      className: className,
+      methodName: methodName,
+      isStatic: json['isStatic'] as bool? ?? false,
+      typeArgVariants: (json['typeArgVariants'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
+      contextArgIndex: json['contextArgIndex'] as int? ?? 0,
+      contextArgType: json['contextArgType'] as String? ?? 'BuildContext',
+      fallbackExpr: json['fallbackExpr'] as String?,
+    );
+  }
+
+  factory GenericInterceptorConfig.fromYaml(Object value) {
+    if (value is Map) {
+      return GenericInterceptorConfig.fromJson(
+        value.map((k, v) => MapEntry(k.toString(), v)),
+      );
+    }
+    throw ArgumentError(
+      'GenericInterceptorConfig expects a Map, got: $value',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'className': className,
+        'methodName': methodName,
+        if (isStatic) 'isStatic': isStatic,
+        if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
+        if (contextArgIndex != 0) 'contextArgIndex': contextArgIndex,
+        if (contextArgType != 'BuildContext') 'contextArgType': contextArgType,
+        if (fallbackExpr != null) 'fallbackExpr': fallbackExpr,
+      };
+}
+
 /// Configuration for a class to include in reduced relaxer/RC-2 generation.
 ///
 /// Used only when [BridgeConfig.generateAllRelaxers] is `false`. Each entry
