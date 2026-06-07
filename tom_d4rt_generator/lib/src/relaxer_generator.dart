@@ -31,6 +31,7 @@ import 'bridge_generator.dart'
         MemberInfo,
         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
+import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
 
 // =============================================================================
 // Result types
@@ -320,8 +321,25 @@ Future<RelaxerGenerationResult> generateRelaxers({
     if (block != null) recreatorBlocks.add(block);
   }
 
+  // MCI#8 / B4: build generic re-dispatch interceptor blocks for the configured
+  // `genericInterceptors`. Each templates the `switch (typeName)` re-dispatch
+  // half of a type-arg-keyed lookup (e.g. `RadioGroup.maybeOf<T>(context)`),
+  // emitted inline into `registerRelaxers()` alongside the re-creators. Dormant
+  // by default — an empty list contributes nothing, so committed output is
+  // unchanged until a buildkit.yaml declares an interceptor.
+  final genericInterceptorBlocks = <String>[];
+  for (final gi in config.genericInterceptors) {
+    final block = generateGenericInterceptor(gi);
+    if (block.isNotEmpty) genericInterceptorBlocks.add(block);
+  }
+
   // Registration function
-  _writeRegistrationFunction(buffer, factoryNames, recreatorBlocks);
+  _writeRegistrationFunction(
+    buffer,
+    factoryNames,
+    recreatorBlocks,
+    genericInterceptorBlocks,
+  );
 
   // -------------------------------------------------------------------------
   // Step 3b: Generate RC-2 generic constructor registrations
@@ -349,6 +367,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
       factoriesGenerated == 0 &&
       userRelaxers.isEmpty &&
       recreatorBlocks.isEmpty &&
+      genericInterceptorBlocks.isEmpty &&
       genericCtorCount == 0) {
     final stub = StringBuffer();
     _writeFileHeader(stub, config);
@@ -1575,6 +1594,7 @@ void _writeRegistrationFunction(
   StringBuffer buffer,
   Map<String, List<String>> factoryNames, [
   List<String> recreatorBlocks = const [],
+  List<String> genericInterceptorBlocks = const [],
 ]) {
   buffer.writeln(
     '// =============================================================================',
@@ -1609,6 +1629,16 @@ void _writeRegistrationFunction(
   // with the script's <T> rather than relaxer-wrapped). Emitted inline inside
   // the registration body, after the factory registrations.
   for (final block in recreatorBlocks) {
+    buffer.writeln();
+    buffer.write(block);
+  }
+
+  // MCI#8 / B4: generic re-dispatch interceptors (templated from
+  // `BridgeConfig.genericInterceptors`). Each block is a single
+  // `D4.registerBridged{,Static}MethodInterceptor(...)` statement, 2-space
+  // indented and ready to drop inside the registration body — emitted after the
+  // re-creators.
+  for (final block in genericInterceptorBlocks) {
     buffer.writeln();
     buffer.write(block);
   }

@@ -443,11 +443,28 @@ an interceptor. 14 unit tests `G-GMI-1..14` pin the canonical output
 byte-for-byte (instance + static shapes, with/without fallback, config
 round-trip).
 
-**Deferred (completion_steps.d4rt.md, "MCI#8 / B4"):** wiring
-`genericInterceptors` into `BridgeConfig` parse + the registration-file
-generator, the both-twin regen, deleting only the re-dispatch half of the
-hand-written `RadioGroup.maybeOf` (keeping the R5 fallback), the serial
-base-test gate, and the `RadioGroup.maybeOf<String>(ctx)` integration test.
+**Wired (2026-06-07):** `genericInterceptors` is now a first-class
+`BridgeConfig` field (declaration / constructor / `fromJson` / `toJson`
+/ `copyWith`), parsed straight from `d4rtgen:` → `genericInterceptors:`
+(the buildkit loader delegates to `BridgeConfig.fromJson`). The
+`relaxer_generator.dart` registration pass emits each configured
+interceptor **inline into `registerRelaxers()`** alongside the MCI#5
+re-creators, and the GEN-095 stub guard treats a non-empty interceptor
+list as emittable. Tests `G-GMI-BC-1..4` pin the config round-trip.
+**Dormant by default** — no `buildkit.yaml` declares an interceptor, so
+committed `*.b.dart` is byte-identical.
+
+**Still deferred (blocked on serial Flutter harness — see
+`_ai/quests/d4rt/todo_impossible.md`):** the both-twin regen, deleting
+only the re-dispatch half of the hand-written `RadioGroup.maybeOf`
+(keeping the R5 fallback), the serial base-test gate, and the
+`RadioGroup.maybeOf<String>(ctx)` integration test. This also needs a
+**public** fallback helper + a new `fallbackImport` config field, since
+the current `_radioGroupMaybeOfFallback` is private to
+`d4rt_runtime_registrations.dart`. **N/A:** the four non-`RadioGroup`
+interceptors named in the original todo have no re-dispatch half — they
+are pure ancestor/proxy walks (the permanent R5 mechanism per
+MCI#11/#36), so there is nothing to template away from them.
 
 ---
 

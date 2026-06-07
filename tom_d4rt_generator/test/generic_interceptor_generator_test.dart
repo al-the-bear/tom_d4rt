@@ -229,4 +229,60 @@ void main() {
           throwsArgumentError);
     });
   });
+
+  group('BridgeConfig genericInterceptors wiring (G-GMI-BC)', () {
+    const radioGroup = GenericInterceptorConfig(
+      className: 'RadioGroup',
+      methodName: 'maybeOf',
+      isStatic: true,
+      typeArgVariants: ['String', 'int', 'double', 'num', 'bool', 'Object'],
+      fallbackExpr:
+          '_radioGroupMaybeOfFallback(visitor, positional, named, typeArgs)',
+    );
+
+    Map<String, dynamic> baseJson() => {
+          'name': 'flutterm',
+          'modules': <dynamic>[],
+        };
+
+    test('G-GMI-BC-1: defaults to an empty list', () {
+      final config = BridgeConfig.fromJson(baseJson());
+      expect(config.genericInterceptors, isEmpty);
+      // Dormant by default: toJson omits the key entirely.
+      expect(config.toJson().containsKey('genericInterceptors'), isFalse);
+    });
+
+    test('G-GMI-BC-2: fromJson parses declared interceptors', () {
+      final config = BridgeConfig.fromJson({
+        ...baseJson(),
+        'genericInterceptors': [radioGroup.toJson()],
+      });
+      expect(config.genericInterceptors, hasLength(1));
+      final gi = config.genericInterceptors.single;
+      expect(gi.className, 'RadioGroup');
+      expect(gi.methodName, 'maybeOf');
+      expect(gi.isStatic, isTrue);
+      expect(gi.typeArgVariants,
+          ['String', 'int', 'double', 'num', 'bool', 'Object']);
+      expect(gi.fallbackExpr, radioGroup.fallbackExpr);
+    });
+
+    test('G-GMI-BC-3: round-trips through BridgeConfig.toJson/fromJson', () {
+      final config = BridgeConfig.fromJson({
+        ...baseJson(),
+        'genericInterceptors': [radioGroup.toJson()],
+      });
+      final restored = BridgeConfig.fromJson(config.toJson());
+      expect(restored.genericInterceptors.single.toJson(), radioGroup.toJson());
+    });
+
+    test('G-GMI-BC-4: copyWith replaces genericInterceptors', () {
+      final base = BridgeConfig.fromJson(baseJson());
+      final updated = base.copyWith(genericInterceptors: [radioGroup]);
+      expect(base.genericInterceptors, isEmpty);
+      expect(updated.genericInterceptors, [radioGroup]);
+      // Omitting the argument preserves the existing list.
+      expect(updated.copyWith().genericInterceptors, [radioGroup]);
+    });
+  });
 }

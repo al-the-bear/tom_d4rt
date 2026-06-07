@@ -891,6 +891,21 @@ class BridgeConfig {
   /// classes.
   final List<RecreatorClassConfig> recreatorClasses;
 
+  /// MCI#8 / B4: generic re-dispatch interceptors templated from
+  /// [GenericInterceptorConfig].
+  ///
+  /// Each entry templates the **re-dispatch half** of a type-arg-keyed Flutter
+  /// lookup (e.g. `RadioGroup.maybeOf<T>(context)`) — the `switch (typeName)`
+  /// over a declared type-arg allow-list that the type-erased bridge boundary
+  /// would otherwise collapse to `<dynamic>`. The generated registrations are
+  /// emitted inline into the relaxer file's `registerRelaxers()` (alongside the
+  /// MCI#5 re-creators), so they are wired up during normal bridge setup.
+  ///
+  /// Dormant by default: with an empty list nothing is emitted and committed
+  /// `*.b.dart` output is byte-identical. See [GenericInterceptorConfig] for the
+  /// per-entry shape and `generic_interceptor_generator.dart` for the emitter.
+  final List<GenericInterceptorConfig> genericInterceptors;
+
   /// B.14: wrap every *void* bridged callback in an `async` closure that yields
   /// 1 ms (`await Future.delayed(const Duration(milliseconds: 1))`) after
   /// invoking the interpreted callback.
@@ -940,6 +955,7 @@ class BridgeConfig {
     this.relaxerClasses = const [],
     this.additionalRelaxerTypes = const [],
     this.recreatorClasses = const [],
+    this.genericInterceptors = const [],
     this.yieldVoidCallbacks = false,
   });
 
@@ -992,6 +1008,11 @@ class BridgeConfig {
       recreatorClasses:
           (json['recreatorClasses'] as List?)
               ?.map((e) => RecreatorClassConfig.fromYaml(e as Object))
+              .toList() ??
+          const [],
+      genericInterceptors:
+          (json['genericInterceptors'] as List?)
+              ?.map((e) => GenericInterceptorConfig.fromYaml(e as Object))
               .toList() ??
           const [],
       yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
@@ -1080,6 +1101,9 @@ class BridgeConfig {
         'additionalRelaxerTypes': additionalRelaxerTypes,
       if (recreatorClasses.isNotEmpty)
         'recreatorClasses': recreatorClasses.map((r) => r.toJson()).toList(),
+      if (genericInterceptors.isNotEmpty)
+        'genericInterceptors':
+            genericInterceptors.map((g) => g.toJson()).toList(),
       if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
     };
   }
@@ -1109,6 +1133,7 @@ class BridgeConfig {
     List<RelaxerClassConfig>? relaxerClasses,
     List<String>? additionalRelaxerTypes,
     List<RecreatorClassConfig>? recreatorClasses,
+    List<GenericInterceptorConfig>? genericInterceptors,
     bool? yieldVoidCallbacks,
   }) {
     return BridgeConfig(
@@ -1136,6 +1161,7 @@ class BridgeConfig {
       additionalRelaxerTypes:
           additionalRelaxerTypes ?? this.additionalRelaxerTypes,
       recreatorClasses: recreatorClasses ?? this.recreatorClasses,
+      genericInterceptors: genericInterceptors ?? this.genericInterceptors,
       yieldVoidCallbacks: yieldVoidCallbacks ?? this.yieldVoidCallbacks,
     );
   }
