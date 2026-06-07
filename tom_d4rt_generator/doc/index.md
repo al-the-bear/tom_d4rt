@@ -82,12 +82,15 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
 
 ### Web-divergence registry (VM↔web signature skew)
 
-- `_vmWebSkewNonNullParams` in `bridge_generator.dart` records parameters that
+- [vm_web_skew_coercion.md](vm_web_skew_coercion.md) — the full reference:
+  `_vmWebSkewNonNullParams` in `bridge_generator.dart` records parameters that
   are nullable on the VM SDK but non-nullable on web (dart2js), so the
   generator can emit a `?? default` coercion. Seeded with
   `SceneBuilder.pushOpacity.offset`. Gated behind the default-off
-  `enableVmWebSkewCoercion` flag (B5/R6, MCI#10 / cleanup_todos #38). Extend
-  the set with a `'<class>.<method>.<param>'` key when a new skew is found.
+  `enableVmWebSkewCoercion` flag (B5/R6, MCI#10 / cleanup_todos #38). The doc
+  covers the mechanism (registry / gate / integration site), the
+  extend-the-registry recipe, the interim `SceneBuilderUserBridge` override and
+  its retirement, the unit tests, and the deferred both-twin regen tail.
 
 ---
 
