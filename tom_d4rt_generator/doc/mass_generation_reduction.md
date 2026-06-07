@@ -29,6 +29,19 @@
 | `flutter_bridges_barrel.b.dart` | 16 |
 | **Total (all `*.b.dart`)** | **546,452** |
 
+> **A.4 / clean_todos #9 addition (2026-06-07) — opt-in `vector_math_64` module.**
+> The above baseline predates the `vector_math_64` opt-in module (A.4). Its
+> generated bridge is **not** in the table; measured separately it adds
+> `vector_math_bridges.b.dart` = **9,684 lines** (`tom_d4rt_flutter_ast`) /
+> **8,699 lines** (`tom_d4rt_flutter`), bridging **19 classes** (Aabb2, Aabb3,
+> Colors, Frustum, IntersectionResult, Matrix2, Matrix3, Matrix4, Obb3, Plane,
+> Quad, Quaternion, Ray, Sphere, Triangle, Vector, Vector2, Vector3, Vector4).
+> This is the **static** bridge-size delta; the runtime-correlated delta (under
+> the serial flutter base-test gate) is the deferred tail in
+> `_ai/quests/d4rt/todo_impossible.md` (#9). It is an opt-in module (present
+> only because `tom_d4rt_flutter*` carries a direct `vector_math` dependency),
+> so it is not part of the combinatorial B/C reduction surface.
+
 ### Category counts (measured against `flutter_relaxers.b.dart` + `flutter_proxies.b.dart`)
 
 | Category | Artifact | Count | Selection | Combinatorial? |

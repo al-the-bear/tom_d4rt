@@ -15,9 +15,12 @@ runtime; they are recorded in §1 and their numbering is **not** reused.
 **2 entries narrowed** (C.5, C.6) — the verified-fixed sub-parts (C.5
 `semanticsBuilder`/idx 310, C.6 `EagerGestureRecognizer.new`/idx 77·79·329) are
 recorded in §1, but each entry **stays open** for the still-uncovered sub-parts.
-The still-open reproductions are A.2, A.3, A.4, A.5, B.1, B.5, B.9, C.1 (plus
+The still-open reproductions are A.2, A.3, A.5, B.1, B.5, B.9, C.1 (plus
 the narrowed C.5/C.6 remainders). A.6 and A.7 still reproduce but are non-fatal
-(suppressed/cosmetic), so they are not assertable as build failures.
+(suppressed/cosmetic), so they are not assertable as build failures. **A.4
+(`vector_math_64` import) no longer reproduces** — the opt-in `vector_math_64`
+module shipped (19 bridged classes on both twins); only its integration +
+serial base-test gate remains (see A.4 below / `todo_impossible.md` #9).
 
 The three source logs (`generator_issues.md`, `interpreter_issues.md`,
 `interpreter_unfixable.md`) were **not kept up to date** — their in-doc status
@@ -117,15 +120,30 @@ cannot be eliminated.
 (today hand-written in `d4rt_runtime_registrations.dart`; see
 `manual_code_interventions.md` for the automation path).
 
-### A.4 — `vector_math_64` types unreachable (Quad / Vector3 / Vector4)
+### A.4 — `vector_math_64` types — opt-in module shipped (generation done; integration/base-test gate pending)
 
-**Symptom:** `import 'package:vector_math/vector_math_64.dart';` is unresolvable;
-only `Matrix4` (re-exported by Flutter) is bridged. (U6, U21.)
-**Root cause:** `vector_math` is deliberately **not** in the bridge's
-`bridgedLibraries`. Adding it would balloon the bridge surface.
-**Why unfixable (policy):** an intentional bridge-size trade-off, not a defect.
-**Workaround:** drop the import; use `Matrix4.storage` / indexable accessors and
-compute matrix·vector products inline.
+**Symptom (historical):** `import 'package:vector_math/vector_math_64.dart';` was
+unresolvable; only `Matrix4` (re-exported by Flutter) was bridged. (U6, U21.)
+**Resolution (generation/config side — done).** The opt-in `vector_math_64`
+module is now in `buildkit.yaml`
+(`barrelImport: package:vector_math/vector_math_64.dart` →
+`lib/src/bridges/vector_math_bridges.b.dart`), bridging **19 classes** (Aabb2,
+Aabb3, Colors, Frustum, IntersectionResult, Matrix2, Matrix3, Matrix4, Obb3,
+Plane, Quad, Quaternion, Ray, Sphere, Triangle, Vector, Vector2, Vector3,
+Vector4) on **both twins**. Scripts can now
+`import 'package:vector_math/vector_math_64.dart'` and compute matrix·vector
+products directly. `Matrix4` is intentionally re-registered here even though the
+Flutter painting barrel also re-exports it (`show Matrix4`): a script importing
+`vector_math_64` directly expects `Matrix4` to resolve from that library. The
+duplicate is harmless — `Environment.defineBridge` is keyed by simple name and is
+last-write-wins (warns, never throws), and both definitions wrap the same native
+`vector_math` `Matrix4`.
+**Remaining tail (deferred):** integration-test the executed matrix·vector path on
+both runtimes + the serial flutter base-test gate (shared HTTP companion app)
+while recording the bridge-size delta — tracked in
+`_ai/quests/d4rt/todo_impossible.md` (#9). Until that gate runs, the script-side
+fallback (drop the import; use `Matrix4.storage` / indexable accessors) remains
+safe but is no longer mandatory.
 
 ### A.5 — `@Deprecated` SDK symbols absent from the bridge surface
 
