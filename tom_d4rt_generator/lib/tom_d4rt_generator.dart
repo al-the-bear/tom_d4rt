@@ -38,6 +38,7 @@ export 'src/render_box_proxy_generator.dart';
 export 'src/state_proxy_generator.dart';
 export 'src/superarg_proxy_generator.dart';
 export 'src/typearg_proxy_generator.dart';
+export 'src/user_proxy_relaxer_scanner.dart';
 export 'src/user_variant_pattern.dart';
 
 // Export builder for build_runner integration

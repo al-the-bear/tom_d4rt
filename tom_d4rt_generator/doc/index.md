@@ -72,13 +72,18 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
 
 ### 4. Annotation patterns — declared variant generation
 
-- `@D4rtUserProxy` / `@D4rtUserRelaxer` declare the concrete type-argument and
-  mixin-set variants the generator should emit for a base class, including the
-  single-`*` wildcard pattern (`$0` full / `$1` captured) and multi-type-param
-  expansion. The parsing/expansion engine
-  (`lib/src/user_variant_pattern.dart`) and the annotations shipped under
-  P&R#6 / MCI#3 / MCI#6; the **annotation-driven emission** and worked
-  examples are part of the deferred tail (see Status below).
+- [user_proxy_relaxer_annotations.md](user_proxy_relaxer_annotations.md) —
+  `@D4rtUserProxy` / `@D4rtUserRelaxer` declare the concrete type-argument
+  variants the generator should emit for a base class, including the single-`*`
+  wildcard pattern (`$0` full / `$1` captured) and multi-type-param expansion.
+  The doc covers the variant syntax, three worked examples
+  (explicit multi-param, wildcard, single-param), the expansion/rendering API,
+  the `UserProxyRelaxerScanner` element-walker, the unit/resolution tests
+  (`G-UVP-*`, `G-UPR-*`, `G-UPS-*`), and the deferred emission/regen/integration
+  tail. The parsing/expansion engine (`lib/src/user_variant_pattern.dart`),
+  annotations, directive core, and scanner shipped under P&R#6 / MCI#3 / MCI#6;
+  the **annotation-driven emission** is part of the deferred tail (see Status
+  below).
 
 ### Deprecated-symbol allowlist (`@Deprecated` opt-in)
 
