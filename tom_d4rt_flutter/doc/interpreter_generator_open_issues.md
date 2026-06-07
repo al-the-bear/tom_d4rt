@@ -193,8 +193,22 @@ companion-app sweep) to confirm zero captured codec banners end-to-end — see
 **Symptom:** non-fatal `Offset`/`Rect` `NaN` banner from an empty `Text` (U16) or
 a per-character non-Latin `TextSpan` stream (U19).
 **Root cause:** a text-layout edge in the bridged paragraph path; non-fatal
-(tests pass) but the underlying bridge bug persists.
-**Why in the limits doc:** longstanding, cosmetic, no clean fix.
+(tests pass) but the underlying bridge bug persists. The control test
+`tom_d4rt_flutter/test/a7_empty_text_nan_control_test.dart` proves native
+(non-interpreted) Flutter lays both cases out cleanly, so the NaN is a genuine
+bridged-paragraph-path defect — the bridge feeds a `NaN` into an `Offset`
+construction for a **zero-glyph** paragraph (U16) and into a `Rect`
+construction for a **per-character non-Latin** span tree (U19).
+**Why in the limits doc:** longstanding, cosmetic, no clean fix yet.
+**Candidate fix (U16, shipped INERT):**
+`@D4rtUserBridge('package:flutter/src/widgets/text.dart','Text')` in
+`lib/src/d4rt_user_bridges/text_user_bridge.dart` normalizes an empty `data` to a
+zero-width space so the paragraph always has a glyph to lay out. It is INERT
+until the bridges are regenerated, and MUST be validated against a live render
+before the script-side workarounds and banner-suppression are removed — see
+`todo_impossible.md` #12. **U19 is not addressed** by a `Text`-level override (it
+cannot reach a `RichText`/`TextSpan` tree); it needs `TextSpan`/`RichText`
+normalization or a deeper bridged-paragraph trace.
 **Workaround:** substitute a single space for empty `Text`; avoid per-character
 non-Latin `TextSpan` construction.
 

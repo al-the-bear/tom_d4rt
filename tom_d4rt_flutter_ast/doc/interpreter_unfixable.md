@@ -4635,6 +4635,18 @@ thumb-positioning maths.
 > the degenerate input, validated against the live render — not shipped as an
 > unverified mask) are deferred to a serial interpreter+flutter run; see
 > `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
+>
+> **2026-06-07 — candidate override shipped INERT (clean_todos #12).** A
+> `@D4rtUserBridge('package:flutter/src/widgets/text.dart', 'Text')` override
+> now exists in both twins' `lib/src/d4rt_user_bridges/text_user_bridge.dart`. It
+> mirrors the generated default-constructor adapter exactly, normalising an empty
+> `data` to a zero-width space (`U+200B`) so the engine always lays out at least
+> one zero-advance glyph. It is INERT until the bridges are regenerated and is
+> deliberately **not** treated as resolved — the "unverified mask" warning above
+> still stands: it must be validated against a live render (and the script-side
+> workarounds removed) in the deferred serial run before §U16 can be closed.
+> Repro extended:
+> `test/.../send_ast_via_http_scripts/open_issues/a7_empty_text_nan_layout_test.dart`.
 
 **Category.** Bridge / interpreter text-layout gap. Rendering a
 `Text` widget whose `data` argument is the empty string `''`
@@ -5261,6 +5273,15 @@ in "What a real fix would look like" item 1 remains the path.
 > `TextSpan`/`RichText` normalisation or a deeper bridged-paragraph trace.
 > Deferred to a serial interpreter+flutter root-cause run; see
 > `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
+>
+> **2026-06-07 — still open after clean_todos #12.** The `Text` candidate
+> override shipped for §U16 (`text_user_bridge.dart`) deliberately does **not**
+> touch U19: a `Text`-level `overrideConstructor` only intercepts the default
+> `Text(data)` path and cannot reach the `RichText`/`TextSpan` tree built by
+> `Text.rich`. U19 still needs a `TextSpan`/`RichText` normalisation (or a deeper
+> bridged-paragraph trace) and remains the harder half of A.7. The shared repro
+> `a7_empty_text_nan_layout_test.dart` now exercises this case via a per-char
+> `Text.rich(TextSpan(children: …))` of `'こんにちは'`.
 
 **Category.** Bridge / interpreter text-layout gap, sibling of
 U16. When a `RichText` is built from a sequence of per-character
