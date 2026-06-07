@@ -121,6 +121,32 @@ void main() {
         () {
       expect(generatedCode, contains("'transform':"));
     });
+
+    // OPEN C.5 / idx-290 lock-in: a bare nullable `VoidCallback?` setter (the
+    // `SemanticsConfiguration.onTap = () {...}` shape from
+    // `semantics/semantics_config_test.dart`). Unlike the class-generic
+    // `BasicMessageChannel<T>.setMessageHandler` case (idx 280, which stays a
+    // hand-written user bridge because a `void Function()` closure cannot be
+    // synthesised to a reified `Future<T> Function(T?)`), a zero-arg
+    // `VoidCallback?` wraps cleanly: the emitted `() {...}` closure is a runtime
+    // subtype of `VoidCallback?`. This pins that the setter-wrapping path emits
+    // a zero-argument, null-guarded adapter so a future refactor cannot regress
+    // the idx-290 sub-part of C.5.
+    test('GEN-C5-290: bare nullable VoidCallback? setter wraps zero-arg, '
+        'null-guarded. [2026-06-07] (PASS)', () {
+      expect(generatedCode, contains("name: 'VoidCallbackSetterMock'"));
+      expect(generatedCode, contains("'onTap':"));
+      // Null-guarded: raw == null ? null : (...)
+      expect(generatedCode, contains('== null ? null :'));
+      // Zero-arg closure dispatching through the interpreter with no params.
+      expect(
+        generatedCode,
+        matches(RegExp(
+            r"onTapRaw == null \? null : \(\) \{ D4\.callInterpreterCallback\(visitor!, onTapRaw, \[\]\);")),
+        reason: 'VoidCallback? setter should emit a zero-arg, null-guarded '
+            'closure that dispatches through D4.callInterpreterCallback',
+      );
+    });
   });
 
   group('ENG-011: Generic Method Callback Return', () {

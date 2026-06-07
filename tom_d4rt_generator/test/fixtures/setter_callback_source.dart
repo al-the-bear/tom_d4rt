@@ -56,6 +56,25 @@ class GestureRecognizerMock {
   }
 }
 
+/// Typedef for a zero-argument callback — mirrors `dart:ui`'s `VoidCallback`.
+typedef VoidCallback = void Function();
+
+/// Class with a bare nullable `VoidCallback?` setter.
+///
+/// Reproduces OPEN C.5 idx 290 (`SemanticsConfiguration.onTap = () {...}`):
+/// a zero-arg `VoidCallback?` setter must wrap the interpreted closure as
+/// `raw == null ? null : () { D4.callInterpreterCallback(...); }`. The closure
+/// has runtime type `void Function()`, a subtype of `VoidCallback?`, so it
+/// crosses the bridge without the strict-subtyping failure that the
+/// class-generic `BasicMessageChannel<T>` case (idx 280) hits.
+class VoidCallbackSetterMock {
+  /// Zero-arg nullable callback setter — the idx 290 shape.
+  VoidCallback? onTap;
+
+  /// Fire the callback if set.
+  void fire() => onTap?.call();
+}
+
 /// Class with animation status callback - simulates AnimationController.
 class AnimationMock {
   /// Status listener callback.
