@@ -33,6 +33,7 @@ export 'src/file_generators.dart';
 export 'src/proxy_generator.dart';
 export 'src/generic_interceptor_generator.dart';
 export 'src/relaxer_generator.dart';
+export 'src/render_box_proxy_generator.dart';
 export 'src/state_proxy_generator.dart';
 export 'src/superarg_proxy_generator.dart';
 export 'src/typearg_proxy_generator.dart';
