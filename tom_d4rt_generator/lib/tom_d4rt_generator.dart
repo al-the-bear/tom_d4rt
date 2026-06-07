@@ -31,6 +31,7 @@ export 'src/bridge_generator.dart';
 export 'src/corpus_type_scanner.dart';
 export 'src/file_generators.dart';
 export 'src/proxy_generator.dart';
+export 'src/generic_constructor_generator.dart';
 export 'src/generic_interceptor_generator.dart';
 export 'src/relaxer_generator.dart';
 export 'src/render_box_proxy_generator.dart';

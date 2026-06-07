@@ -31,6 +31,7 @@ import 'bridge_generator.dart'
         MemberInfo,
         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
+import 'generic_constructor_generator.dart' show generateGenericConstructor;
 import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
 
 // =============================================================================
@@ -351,6 +352,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     warn,
     reducedTypeArgAllowlist,
     yieldVoidCallbacks: config.yieldVoidCallbacks,
+    genericConstructors: config.genericConstructors,
   );
 
   // -------------------------------------------------------------------------
@@ -2119,7 +2121,19 @@ int _writeGenericConstructorSection(
   void Function(String) warn,
   Set<String>? reducedTypeArgAllowlist, {
   bool yieldVoidCallbacks = false,
+  List<GenericConstructorConfig> genericConstructors = const [],
 }) {
+  // MCI#6 / B3: templated RC-2 generic-constructor reifiers for the configured
+  // `genericConstructors`. Each emits a `switch (typeName)` that reifies a
+  // script-supplied `<T>` into a concrete native generic over a declared
+  // type-arg allow-list (e.g. `GlobalKey<NavigatorState>()`). Dormant by
+  // default — an empty list contributes nothing, so committed output is
+  // unchanged until a buildkit.yaml declares a generic constructor.
+  final templatedBlocks = <String>[];
+  for (final gc in genericConstructors) {
+    final block = generateGenericConstructor(gc);
+    if (block.isNotEmpty) templatedBlocks.add(block);
+  }
   // Find all eligible generic classes: single type param, non-abstract,
   // non-sealed, has at least one non-factory constructor.
   // GEN-095: Also require the class to be importable via the relaxer's
@@ -2140,7 +2154,7 @@ int _writeGenericConstructorSection(
     eligible[entry.key] = cls;
   }
 
-  if (eligible.isEmpty) return 0;
+  if (eligible.isEmpty && templatedBlocks.isEmpty) return 0;
 
   // Collect all concrete bridged class names for type dispatches.
   // GEN-095: Exclude types from a package's private `lib/src/` (not reachable
@@ -2225,10 +2239,17 @@ int _writeGenericConstructorSection(
       "  D4.registerGenericConstructor('${r.className}', '${r.ctorName}', ${r.funcName});",
     );
   }
+  // MCI#6 / B3: emit the templated reifier switches after the auto-generated
+  // factory registrations. Each block is a self-contained
+  // `D4.registerGenericConstructor(class, '', (…) {…})` statement.
+  for (var i = 0; i < templatedBlocks.length; i++) {
+    if (registrations.isNotEmpty || i > 0) buffer.writeln();
+    buffer.write(templatedBlocks[i]);
+  }
   buffer.writeln('}');
   buffer.writeln();
 
-  return registrations.length;
+  return registrations.length + templatedBlocks.length;
 }
 
 /// Generates a single generic constructor factory function.

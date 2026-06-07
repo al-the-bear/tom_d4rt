@@ -567,6 +567,157 @@ class GenericInterceptorConfig {
       };
 }
 
+/// Which generated body shape a [GenericConstructorConfig] templates (MCI#6 /
+/// B3). The two real shapes in the flutter-material corpus diverge enough that
+/// a single template can't cover both without a discriminator.
+enum GenericConstructorKind {
+  /// Forwards a fixed set of named arguments to `Class<T>(named…)` for each
+  /// allow-listed `T`; the default arm constructs the unparameterized,
+  /// **non-null** `Class(named…)`. Models `GlobalKey` (the only `debugLabel`
+  /// passthrough case).
+  namedPassthrough,
+
+  /// Reads `positional[0]` as `value` and, for each allow-listed `T`, emits the
+  /// nullable-aware `value is T ? Class<T>(value) : Class<T?>(value as T?)`; the
+  /// default arm returns `null` so the type-erased bridge constructor infers
+  /// `T` from the runtime value. Models `ValueKey` and `ValueNotifier`. With
+  /// [GenericConstructorConfig.includeDynamicArm] a leading
+  /// `'dynamic' || 'Object' || 'Object?' => Class<dynamic>(value)` arm is added.
+  nullableValue,
+}
+
+/// One named argument forwarded by a [GenericConstructorKind.namedPassthrough]
+/// generic constructor (e.g. `debugLabel` of `GlobalKey`).
+class GenericCtorNamedArg {
+  /// The named-parameter name (the `named[...]` key and the forwarded label).
+  final String name;
+
+  /// The extracted Dart type, used for the `D4.extractBridgedArgOrNull<T>`
+  /// type argument (e.g. `String`).
+  final String type;
+
+  const GenericCtorNamedArg({required this.name, required this.type});
+
+  factory GenericCtorNamedArg.fromJson(Map<String, dynamic> json) {
+    final name = json['name'];
+    final type = json['type'];
+    if (name is! String || type is! String) {
+      throw ArgumentError('GenericCtorNamedArg requires name + type: $json');
+    }
+    return GenericCtorNamedArg(name: name, type: type);
+  }
+
+  Map<String, dynamic> toJson() => {'name': name, 'type': type};
+}
+
+/// Configuration for a templated RC-2 generic constructor factory (MCI#6 / B3).
+///
+/// Reifies a script's explicit type argument (`GlobalKey<NavigatorState>()`,
+/// `ValueKey<String>('k')`) into a concrete native generic, which the
+/// interpreter's type-erased constructor boundary otherwise can't do (R3). The
+/// generator emits a `D4.registerGenericConstructor(className, '', …)` whose
+/// body is a `switch (typeName)` over [typeArgVariants]; the body shape is
+/// selected by [kind].
+///
+/// Dormant by default ([BridgeConfig.genericConstructors] is empty), so until a
+/// `buildkit.yaml` declares one the generated `registerGenericConstructors()`
+/// is byte-identical.
+///
+/// YAML form:
+/// ```yaml
+/// d4rtgen:
+///   genericConstructors:
+///     - className: GlobalKey
+///       kind: namedPassthrough
+///       namedArgs:
+///         - name: debugLabel
+///           type: String
+///       typeArgVariants: [NavigatorState, FormState, ScaffoldState]
+///     - className: ValueNotifier
+///       kind: nullableValue
+///       includeDynamicArm: true
+///       typeArgVariants: [String, int, double, bool]
+/// ```
+class GenericConstructorConfig {
+  /// The bridged class whose generic constructor is reified (e.g. `GlobalKey`).
+  final String className;
+
+  /// Which body shape to emit (see [GenericConstructorKind]).
+  final GenericConstructorKind kind;
+
+  /// The allow-list of concrete type-arg names, in switch order. For
+  /// [GenericConstructorKind.namedPassthrough] these are the reified subtypes
+  /// (`NavigatorState`); for [GenericConstructorKind.nullableValue] the value
+  /// types (`String`, `int`).
+  final List<String> typeArgVariants;
+
+  /// The named arguments forwarded to every arm. Used only by
+  /// [GenericConstructorKind.namedPassthrough]; empty for `nullableValue`.
+  final List<GenericCtorNamedArg> namedArgs;
+
+  /// Whether to prepend the `'dynamic' || 'Object' || 'Object?'` arm mapping to
+  /// `Class<dynamic>(value)`. Used only by [GenericConstructorKind.nullableValue]
+  /// (true for `ValueNotifier`, false for `ValueKey`).
+  final bool includeDynamicArm;
+
+  const GenericConstructorConfig({
+    required this.className,
+    required this.kind,
+    this.typeArgVariants = const [],
+    this.namedArgs = const [],
+    this.includeDynamicArm = false,
+  });
+
+  factory GenericConstructorConfig.fromJson(Map<String, dynamic> json) {
+    final className = json['className'];
+    if (className is! String) {
+      throw ArgumentError('GenericConstructorConfig requires className: $json');
+    }
+    final kindName = json['kind'] as String? ?? 'nullableValue';
+    final kind = GenericConstructorKind.values.firstWhere(
+      (k) => k.name == kindName,
+      orElse: () => throw ArgumentError(
+        'GenericConstructorConfig unknown kind "$kindName" '
+        '(expected one of ${GenericConstructorKind.values.map((k) => k.name).toList()})',
+      ),
+    );
+    return GenericConstructorConfig(
+      className: className,
+      kind: kind,
+      typeArgVariants: (json['typeArgVariants'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
+      namedArgs: (json['namedArgs'] as List?)
+              ?.map((e) =>
+                  GenericCtorNamedArg.fromJson((e as Map).map(
+                    (k, v) => MapEntry(k.toString(), v),
+                  )))
+              .toList() ??
+          const [],
+      includeDynamicArm: json['includeDynamicArm'] as bool? ?? false,
+    );
+  }
+
+  factory GenericConstructorConfig.fromYaml(Object value) {
+    if (value is Map) {
+      return GenericConstructorConfig.fromJson(
+        value.map((k, v) => MapEntry(k.toString(), v)),
+      );
+    }
+    throw ArgumentError('GenericConstructorConfig expects a Map, got: $value');
+  }
+
+  Map<String, dynamic> toJson() => {
+        'className': className,
+        'kind': kind.name,
+        if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
+        if (namedArgs.isNotEmpty)
+          'namedArgs': namedArgs.map((a) => a.toJson()).toList(),
+        if (includeDynamicArm) 'includeDynamicArm': includeDynamicArm,
+      };
+}
+
 /// Configuration for a class to include in reduced relaxer/RC-2 generation.
 ///
 /// Used only when [BridgeConfig.generateAllRelaxers] is `false`. Each entry
@@ -906,6 +1057,22 @@ class BridgeConfig {
   /// per-entry shape and `generic_interceptor_generator.dart` for the emitter.
   final List<GenericInterceptorConfig> genericInterceptors;
 
+  /// MCI#6 / B3: templated RC-2 generic constructor factories, one per
+  /// [GenericConstructorConfig].
+  ///
+  /// Each reifies a script's explicit type argument (`GlobalKey<NavigatorState>()`,
+  /// `ValueKey<String>('k')`) into a concrete native generic via a
+  /// `switch (typeName)` over a declared type-arg allow-list — work the
+  /// type-erased bridge constructor boundary can't do (R3). The generated
+  /// registrations are appended inside the relaxer file's
+  /// `registerGenericConstructors()`, after the auto-generated `_rc2*`
+  /// factories, so they chain on top during normal bridge setup.
+  ///
+  /// Dormant by default: with an empty list nothing is emitted and committed
+  /// `*.b.dart` output is byte-identical. See [GenericConstructorConfig] for the
+  /// per-entry shape and `generic_constructor_generator.dart` for the emitter.
+  final List<GenericConstructorConfig> genericConstructors;
+
   /// B.14: wrap every *void* bridged callback in an `async` closure that yields
   /// 1 ms (`await Future.delayed(const Duration(milliseconds: 1))`) after
   /// invoking the interpreted callback.
@@ -956,6 +1123,7 @@ class BridgeConfig {
     this.additionalRelaxerTypes = const [],
     this.recreatorClasses = const [],
     this.genericInterceptors = const [],
+    this.genericConstructors = const [],
     this.yieldVoidCallbacks = false,
   });
 
@@ -1013,6 +1181,11 @@ class BridgeConfig {
       genericInterceptors:
           (json['genericInterceptors'] as List?)
               ?.map((e) => GenericInterceptorConfig.fromYaml(e as Object))
+              .toList() ??
+          const [],
+      genericConstructors:
+          (json['genericConstructors'] as List?)
+              ?.map((e) => GenericConstructorConfig.fromYaml(e as Object))
               .toList() ??
           const [],
       yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
@@ -1104,6 +1277,9 @@ class BridgeConfig {
       if (genericInterceptors.isNotEmpty)
         'genericInterceptors':
             genericInterceptors.map((g) => g.toJson()).toList(),
+      if (genericConstructors.isNotEmpty)
+        'genericConstructors':
+            genericConstructors.map((g) => g.toJson()).toList(),
       if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
     };
   }
@@ -1134,6 +1310,7 @@ class BridgeConfig {
     List<String>? additionalRelaxerTypes,
     List<RecreatorClassConfig>? recreatorClasses,
     List<GenericInterceptorConfig>? genericInterceptors,
+    List<GenericConstructorConfig>? genericConstructors,
     bool? yieldVoidCallbacks,
   }) {
     return BridgeConfig(
@@ -1162,6 +1339,7 @@ class BridgeConfig {
           additionalRelaxerTypes ?? this.additionalRelaxerTypes,
       recreatorClasses: recreatorClasses ?? this.recreatorClasses,
       genericInterceptors: genericInterceptors ?? this.genericInterceptors,
+      genericConstructors: genericConstructors ?? this.genericConstructors,
       yieldVoidCallbacks: yieldVoidCallbacks ?? this.yieldVoidCallbacks,
     );
   }
