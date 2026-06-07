@@ -100,4 +100,83 @@ void main() {
           contains("D4.extractBridgedArg<int>(result, 'compareTo', visitor)"));
     });
   });
+
+  /// Quest d4rt / cleanup_todos #8 (MCI#2 (c/d) / OPEN C.1): per-target
+  /// interface-proxy coverage expansion. Four of the five C.1 activation
+  /// targets — `RouteAware` (didPush/didPop/…), `HitTestTarget` (handleEvent),
+  /// `NotchedShape`/`FloatingActionButtonLocation` (single-method) — forward
+  /// **void** members. The `PROXY-A2-01..05` golden only exercises the non-void
+  /// `int compareTo` path, so the void-forwarding path those targets rely on
+  /// was unpinned. This group goldens it against `dart:core`'s `Sink<T>`
+  /// (`void add(T data)` + `void close()`): a void method with an argument and
+  /// a void method with none, plus the generic type parameter — the exact
+  /// shapes `HitTestTarget.handleEvent` and `RouteAware.didPush` introduce.
+  group('A2 void-return forwarding (Sink<T>)', () {
+    late String generatedCode;
+    late ProxyGenerationResult result;
+
+    setUpAll(() async {
+      final projectRoot = Directory.current.path;
+      final tempDir =
+          Directory.systemTemp.createTempSync('proxy_void_test_');
+      final outputFile = p.join(tempDir.path, 'sink_proxy.b.dart');
+
+      final config = BridgeConfig(
+        name: 'proxy_void_template_test',
+        d4rtImport: 'package:tom_d4rt/d4rt.dart',
+        generateProxies: true,
+        proxiesOutputPath: outputFile,
+        proxyClasses: const [ProxyClassConfig(className: 'Sink')],
+        modules: const [
+          ModuleConfig(
+            name: 'dart_core',
+            barrelFiles: ['dart:core'],
+            outputPath: 'unused_bridges.b.dart',
+            barrelImport: 'dart:core',
+          ),
+        ],
+      );
+
+      result = await generateProxies(
+        config: config,
+        projectPath: projectRoot,
+      );
+
+      expect(result.errors, isEmpty,
+          reason: 'Proxy generation should succeed for dart:core Sink');
+      expect(result.outputFile, isNotNull);
+      generatedCode = await File(result.outputFile!).readAsString();
+    });
+
+    test('PROXY-A2-06: emits a proxy class extending the abstract base, '
+        'carrying the generic param. [2026-06-07] (PASS)', () {
+      expect(generatedCode, contains('class D4rtSink<T> extends Sink<T>'));
+    });
+
+    test('PROXY-A2-07: void abstract methods become required void callbacks '
+        '(with and without arguments). [2026-06-07] (PASS)', () {
+      // `void add(T data)` → `final void Function(T) onAdd;`
+      expect(generatedCode, contains('void Function(T) onAdd'));
+      // `void close()` → `final void Function() onClose;`
+      expect(generatedCode, contains('void Function() onClose'));
+    });
+
+    test('PROXY-A2-08: the void overrides forward to their callbacks. '
+        '[2026-06-07] (PASS)', () {
+      expect(generatedCode, contains('void add(T data)'));
+      expect(generatedCode, contains('onAdd(data)'));
+      expect(generatedCode, contains('void close()'));
+      expect(generatedCode, contains('onClose()'));
+    });
+
+    test('PROXY-A2-09: the void factory delegation calls the script method but '
+        'emits no return coercion (the void path). [2026-06-07] (PASS)', () {
+      expect(generatedCode, contains("findInstanceMethod('add')"));
+      expect(generatedCode, contains('.bind(instance).call(visitor,'));
+      // The defining property of the void path: a void return must NOT be
+      // run through `D4.extractBridgedArg` — the delegation calls and returns.
+      expect(generatedCode, isNot(contains('extractBridgedArg<void>')));
+      expect(generatedCode, contains("D4.registerInterfaceProxy('Sink'"));
+    });
+  });
 }

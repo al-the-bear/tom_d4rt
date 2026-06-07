@@ -482,6 +482,48 @@ dart run tom_d4rt_generator:d4rtgen
 
 4. Verify the generated proxy compiles and test with a D4rt script
 
+### C.1 activation targets — per-target templatability triage
+
+The flutter-material twins ship 15+ live proxies. Five further abstract
+bases surfaced as activation candidates from the
+`interpreter_unfixable.md` triage (the **C.1** targets, OPEN C.1 b/c/d ≡
+MCI #2 c/d). They are listed here with a templatability verdict so a
+future activation pass can add them to `proxyClasses:` **one cluster at a
+time** without re-deriving the analysis. The verdicts are grounded in the
+generator's current member-selection behaviour (GEN-118 inherited-abstract
+collection + the void-forwarding delegation path), both of which are pinned
+by the goldens in `test/proxy_generator_test.dart`.
+
+| Target | U-entry | Abstract member shape | Verdict |
+|--------|---------|-----------------------|---------|
+| `NotchedShape` | U5 | `Path getOuterPath(Rect host, Rect? guest)` (single, non-void) | **Clean-templatable** — single abstract method, native return; the `Comparable` golden (`PROXY-A2-01..05`) pins exactly this shape. |
+| `FloatingActionButtonLocation` | U5 | `Offset getOffset(ScaffoldPrelayoutGeometry g)` (single, non-void) | **Clean-templatable** — same single-method non-void shape as `NotchedShape`. |
+| `RouteAware` | U9 | `void didPush()`, `void didPop()`, `void didPushNext()`, `void didPopNext()` (all void, no args) | **Clean-templatable** — pure void-forwarding; pinned by the `Sink<T>` void golden (`PROXY-A2-06..09`, the `void close()` no-arg shape). |
+| `HitTestTarget` | U11 | `void handleEvent(PointerEvent e, HitTestEntry entry)` (void, with args) | **Clean-templatable** — void-with-args forwarding; pinned by the `Sink<T>` golden's `void add(T data)` arm. |
+| `Curve` | U3 | `double transformInternal(double t)` (inherited-abstract from `ParametricCurve`, `@protected`, non-void) | **Likely templatable now.** U3 documents the *old hand-written* proxy as broken because it omitted the inherited `transformInternal`. GEN-118 collects inherited-abstract methods, and the generator does **not** filter `@protected` (consistent with MCI#4), so the template would now emit the `onTransformInternal` callback the hand-written proxy lacked. Verify against U3's fix sketch before marking U3 closed. |
+| `Enum` | U8 | — | **N/A — not subclassable.** `dart:core`'s `Enum` is the implicit superclass of every `enum` declaration and cannot be extended by a generated proxy. No proxy entry applies; scripts needing enum behaviour use a different mechanism. |
+
+Ready-to-paste `proxyClasses:` entries (match the existing buildkit
+comment convention — one comment per entry documenting the abstract
+method(s) and why scripts need it):
+
+```yaml
+proxyClasses:
+  # ... existing entries ...
+  - className: NotchedShape          # Path getOuterPath(Rect, Rect?) — BottomAppBar shape scripts
+  - className: FloatingActionButtonLocation  # Offset getOffset(ScaffoldPrelayoutGeometry) — custom FAB placement
+  - className: RouteAware            # void didPush/didPop/didPushNext/didPopNext — route observers
+  - className: HitTestTarget         # void handleEvent(PointerEvent, HitTestEntry) — custom hit testing
+  - className: Curve                 # double transformInternal(double) — custom animation curves (verify U3)
+```
+
+Add and regenerate **one cluster at a time**, integration-test the
+activating scripts, and run the serial base-test gate per cluster (the
+twins share an HTTP companion app — `flutter test` runs must be serial).
+The activation regen is gated behind the stale committed `.b.dart`
+baseline reconciliation; see the quest tail in
+`_ai/quests/d4rt/todo_impossible.md` (#8).
+
 ## Relationship to Other Systems
 
 ### Proxy Classes vs. Generic Type Relaxers
