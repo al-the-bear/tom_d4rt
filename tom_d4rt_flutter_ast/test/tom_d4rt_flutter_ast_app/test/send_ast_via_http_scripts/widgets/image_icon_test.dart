@@ -9,23 +9,23 @@
 // will render in a visually pleasing way. If the provider is null, the widget
 // reserves a size x size blank space.
 //
-// The demo originally used `MemoryImage(Uint8List.fromList(<inline PNG
-// bytes>))` for every ImageIcon — but the d4rt bridge's
-// `Uint8List` → `MemoryImage._bytes` → `ImmutableBuffer.fromUint8List` →
-// C++ codec path corrupts inline PNG bytes (verified externally with
-// PIL/libpng — bytes decode cleanly outside d4rt; only the in-bridge
-// path fails). Full root cause + repro: `interpreter_unfixable.md` §U29.
-// Per the 20260530 review (1944 TODO A.1) the script-side fix is to use
-// a working ImageProvider that doesn't traverse the corrupting bridge
-// path. The tom_d4rt_flutter_*_app projects already bundle a few real
-// PNG assets in their pubspec.yaml ({assets/checker.png, plaster.png,
-// cartoon.png}); we now build every visible ImageIcon from
-// `AssetImage(...)` of those bundled files. ImageIcon's contract is
-// fully exercised: the ImageProvider parameter, the size+color tint via
-// BlendMode.srcIn, IconTheme inheritance, semanticLabel — all still
-// rendered live. The `Uint8List` + `MemoryImage` constructors are kept
-// below as constants for API documentation but no longer fed into the
-// widget tree.
+// Every visible ImageIcon is built from `MemoryImage(Uint8List.fromList(
+// <inline PNG bytes>))`. An earlier revision claimed the d4rt
+// `Uint8List` → `MemoryImage._bytes` → `ImmutableBuffer.fromUint8List`
+// bridge path corrupted these bytes (tracked as §U29 / OPEN A.6) and
+// routed the live widgets through `AssetImage(...)` instead. That was a
+// misdiagnosis: the inline PNG literals were themselves malformed — the
+// IDAT chunk carried an invalid CRC and the white literal's zlib stream
+// would not even inflate — so "Codec failed to produce an image" was the
+// correct result for invalid input. The bridge preserves `Uint8List`
+// bytes by identity, locked down by the `memory_image_bytes_roundtrip`
+// mirror proof tests in tom_d4rt / tom_d4rt_ast (§U29 RESOLVED 2026-06-07).
+// The literals below are now genuinely valid 1×1 opaque PNGs (IHDR/IDAT/
+// IEND CRCs verified, IDAT inflates cleanly), so the demo feeds
+// `MemoryImage` straight into the widget tree again. ImageIcon's contract
+// is fully exercised: the ImageProvider parameter, the size+color tint via
+// BlendMode.srcIn, IconTheme inheritance, semanticLabel — all rendered
+// live.
 //
 // The demo is deliberately a StatelessWidget. Interactive surfaces are driven
 // by top-level ValueNotifiers and ValueListenableBuilder so we never have to
@@ -58,62 +58,47 @@ final ValueNotifier<bool> kShowDualCompare = ValueNotifier<bool>(true);
 final ValueNotifier<bool> kInheritExplicit = ValueNotifier<bool>(false);
 
 // ---------------------------------------------------------------------------
-// Tiny inline PNG bytes. A 1x1 opaque white pixel, which becomes a solid
-// colour square once BlendMode.srcIn is applied with the tint colour.
-// Because it is only 1x1 the GPU upscales it into a square — perfect for
-// visualising how ImageIcon honours the size argument. For variety the demo
-// also ships a 2x2 "checker" PNG used in a subset of cards.
+// Tiny inline PNG bytes. A 1x1 opaque white pixel and a 1x1 opaque black
+// pixel, each of which becomes a solid colour square once BlendMode.srcIn is
+// applied with the tint colour. Because they are only 1x1 the GPU upscales
+// them into a square — perfect for visualising how ImageIcon honours the size
+// argument. Both literals are genuinely valid PNGs (IHDR/IDAT/IEND CRCs
+// verified, IDAT inflates cleanly), generated fresh after the §U29 / OPEN A.6
+// reclassification proved the previous literals were malformed (bad IDAT CRC;
+// the white one's zlib stream would not inflate). They are fed straight into
+// the widget tree via `MemoryImage`.
 // ---------------------------------------------------------------------------
 
-// API-documentation constants — these PNG byte arrays are kept verbatim
-// from the 2026-05-25 Cluster H investigation. They encode a 1×1 opaque
-// white PNG and a 1×1 opaque black PNG respectively (verified externally
-// with PIL/libpng as valid). They are NOT fed into the widget tree
-// because of the §U29 bridge corruption documented in this file's
-// header — `MemoryImage(Uint8List)` would emit a captured
-// `Exception: Codec failed to produce an image` even though the bytes
-// are byte-for-byte valid. The byte arrays + the commented-out
-// `MemoryImage` constructors are kept here for educational reference so
-// readers see exactly what the original MemoryImage(Uint8List) usage
-// looked like, while the live ImageIcon widgets below use bundled
-// `AssetImage` providers that exercise the same ImageIcon contract
-// without tripping §U29.
-//
-// ignore: unused_element
 final Uint8List _png1x1White = Uint8List.fromList(<int>[
   0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, //
   0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, //
   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, //
   0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, //
-  0x89, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x44, 0x41, //
-  0x54, 0x78, 0x9C, 0x63, 0xFC, 0xCF, 0xC0, 0x50, //
-  0x0F, 0x00, 0x05, 0x01, 0x02, 0x00, 0x1D, 0x8A, //
-  0x82, 0xC5, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, //
-  0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82, //
+  0x89, 0x00, 0x00, 0x00, 0x0B, 0x49, 0x44, 0x41, //
+  0x54, 0x78, 0xDA, 0x63, 0xF8, 0x0F, 0x04, 0x00, //
+  0x09, 0xFB, 0x03, 0xFD, 0x68, 0xFA, 0x1C, 0xCC, //
+  0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, //
+  0xAE, 0x42, 0x60, 0x82, //
 ]);
 
-// ignore: unused_element
 final Uint8List _png1x1Black = Uint8List.fromList(<int>[
   0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, //
   0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52, //
   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, //
   0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, //
   0x89, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x44, 0x41, //
-  0x54, 0x78, 0x9C, 0x63, 0x60, 0x60, 0x60, 0x60, //
-  0x00, 0x00, 0x00, 0x05, 0x00, 0x01, 0x5E, 0xF3, //
-  0x2A, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, //
+  0x54, 0x78, 0xDA, 0x63, 0x60, 0x60, 0x60, 0xF8, //
+  0x0F, 0x00, 0x01, 0x04, 0x01, 0x00, 0x80, 0xBB, //
+  0xD1, 0x5B, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, //
   0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82, //
 ]);
 
-// Live ImageProvider instances actually fed to ImageIcon below.
-// Originally these were `MemoryImage(_png1x1White)` /
-// `MemoryImage(_png1x1Black)` but those trip §U29's codec bridge bug.
-// Both AssetImage variants resolve through the same ImageIcon → BlendMode.srcIn →
-// tint colour code path so the demo's pedagogical content stays intact —
-// only the ImageProvider concrete subclass changed.
-final ImageProvider _glyphImage =
-    const AssetImage('assets/checker.png');
-final ImageProvider _glyphImageBlack = const AssetImage('plaster.png');
+// Live ImageProvider instances actually fed to ImageIcon below. Both are
+// `MemoryImage` over the valid inline PNGs above — the bridge preserves the
+// `Uint8List` bytes by identity (§U29 RESOLVED 2026-06-07), so the codec
+// decodes them and ImageIcon renders the tinted square live.
+final ImageProvider _glyphImage = MemoryImage(_png1x1White);
+final ImageProvider _glyphImageBlack = MemoryImage(_png1x1Black);
 
 // ---------------------------------------------------------------------------
 // Constants / shared data.

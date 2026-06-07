@@ -7150,6 +7150,13 @@ A genuine fix would require either:
 > banner-suppression pattern was already removed 2026-05-30 (1944 TODO A.1). The
 > original analysis below is retained only for historical reference — its bridge-
 > corruption hypothesis is disproven.
+>
+> **2026-06-07 follow-up (clean_todos #11).** The malformed `_png1x1White` /
+> `_png1x1Black` literals in `image_icon_test.dart` were regenerated as valid 1×1
+> opaque PNGs (IHDR/IDAT/IEND CRCs verified, IDAT inflates cleanly) and the live
+> ImageIcon widgets flipped from the interim `AssetImage(...)` workaround back to
+> `MemoryImage(<valid bytes>)`. Analyzer-clean; the gated corpus serial-flutter
+> sweep remains the one deferred check (`todo_impossible.md` #11).
 
 **2026-05-29 update — FIXED (observable side).** Same two-fix mechanism as §U17:
 

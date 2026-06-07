@@ -16,8 +16,11 @@ runtime; they are recorded in §1 and their numbering is **not** reused.
 `semanticsBuilder`/idx 310, C.6 `EagerGestureRecognizer.new`/idx 77·79·329) are
 recorded in §1, but each entry **stays open** for the still-uncovered sub-parts.
 The still-open reproductions are A.2, A.3, A.5, B.1, B.5, B.9, C.1 (plus
-the narrowed C.5/C.6 remainders). A.6 and A.7 still reproduce but are non-fatal
-(suppressed/cosmetic), so they are not assertable as build failures. **A.4
+the narrowed C.5/C.6 remainders). **A.6 no longer reproduces** — the inline PNG
+literals were malformed, not a bridge bug; corrected to valid PNGs + the live
+ImageIcon case flipped back to `MemoryImage` (see A.6 below / `todo_impossible.md`
+#11). A.7 still reproduces but is non-fatal (cosmetic), so it is not assertable
+as a build failure. **A.4
 (`vector_math_64` import) no longer reproduces** — the opt-in `vector_math_64`
 module shipped (19 bridged classes on both twins); only its integration +
 serial base-test gate remains (see A.4 below / `todo_impossible.md` #9).
@@ -168,17 +171,22 @@ flutter base-test gate — tracked in `_ai/quests/d4rt/todo_impossible.md` (#10)
 **Workaround (until a symbol is allowlisted):** declare a local stand-in, or swap
 to the modern symbol name.
 
-### A.6 — `MemoryImage(Uint8List)` PNG codec rejection (U29)
+### A.6 — `MemoryImage(Uint8List)` PNG codec rejection (U29) — ✅ RESOLVED (2026-06-07)
 
-**Symptom:** valid PNG bytes handed to `MemoryImage` raise "Codec failed to
-produce an image"; the broken-image glyph renders.
-**Root cause:** the interpreter↔`ui.ImmutableBuffer` bridge path corrupts/rejects
-the byte buffer; the deep fix is unidentified. Currently only the *observable
-banner* is suppressed (`main.dart:364` ignored-pattern), not the codec failure.
-**Why in the limits doc:** accepted as a standing bridge limitation; no reliable
-fix in interpreter or generator to date.
-**Workaround:** suppress the framework error; don't assert on rendered pixels for
-in-memory images.
+**Resolution:** never a bridge bug. The `image_icon_test.dart` `_png1x1White` /
+`_png1x1Black` literals were **malformed PNGs** — the IDAT chunk carried an
+invalid CRC and the white literal's zlib stream would not inflate — so "Codec
+failed to produce an image" was the *correct* result for invalid input. The
+bridge preserves `Uint8List` bytes by identity (proven by the
+`memory_image_bytes_roundtrip` mirror tests in tom_d4rt / tom_d4rt_ast; §U29 in
+`interpreter_unfixable.md`).
+**Fix shipped:** regenerated both literals as genuinely valid 1×1 opaque PNGs
+(IHDR/IDAT/IEND CRCs verified, IDAT inflates cleanly) and flipped the live
+ImageIcon widgets from the `AssetImage(...)` workaround back to
+`MemoryImage(<valid bytes>)`. Analyzer-clean.
+**Remaining tail (blocked):** the gated corpus integration run (serial flutter
+companion-app sweep) to confirm zero captured codec banners end-to-end — see
+`todo_impossible.md` #11.
 
 ### A.7 — Empty `Text('')` / per-char non-Latin `TextSpan` → NaN layout assertion
 
