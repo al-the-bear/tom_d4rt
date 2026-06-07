@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-06-07T11:18:57.378014
+// Generated: 2026-06-07T15:32:05.982787
 
 // ignore_for_file: avoid_print
 
@@ -31,6 +31,7 @@ import 'package:tom_d4rt_flutter_ast/src/bridges/rendering_bridges.b.dart' as fl
 import 'package:tom_d4rt_flutter_ast/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
 import 'package:tom_d4rt_flutter_ast/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
 import 'package:tom_d4rt_flutter_ast/src/bridges/cupertino_bridges.b.dart' as flutter_cupertino_bridges;
+import 'package:tom_d4rt_flutter_ast/src/bridges/vector_math_bridges.b.dart' as vector_math_64_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''
@@ -46,6 +47,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 void main() {}
 ''';
@@ -103,6 +105,10 @@ void _registerBridges(D4rt d4rt) {
   flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
     d4rt,
     'package:flutter/cupertino.dart',
+  );
+  vector_math_64_bridges.VectorMath64Bridge.registerBridges(
+    d4rt,
+    'package:vector_math/vector_math_64.dart',
   );
 }
 

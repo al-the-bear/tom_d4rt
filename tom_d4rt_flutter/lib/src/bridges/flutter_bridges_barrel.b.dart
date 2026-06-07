@@ -14,3 +14,4 @@ export 'rendering_bridges.b.dart';
 export 'widgets_bridges.b.dart';
 export 'material_widgets_bridges.b.dart';
 export 'cupertino_bridges.b.dart';
+export 'vector_math_bridges.b.dart';

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-06-07T11:19:33.214282
+// Generated: 2026-06-07T15:38:28.825905
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
@@ -19,6 +19,7 @@ import 'rendering_bridges.b.dart' as flutter_rendering_bridges;
 import 'widgets_bridges.b.dart' as flutter_widgets_bridges;
 import 'material_widgets_bridges.b.dart' as flutter_material_bridges;
 import 'cupertino_bridges.b.dart' as flutter_cupertino_bridges;
+import 'vector_math_bridges.b.dart' as vector_math_64_bridges;
 import 'flutter_proxies.b.dart' as proxy_factories;
 import 'flutter_relaxers.b.dart' as relaxer_factories;
 
@@ -132,6 +133,14 @@ class FlutterMaterialBridges {
     for (final barrel in flutter_cupertino_bridges.FlutterCupertinoBridge.subPackageBarrels()) {
       flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(d4rt, barrel);
     }
+    vector_math_64_bridges.VectorMath64Bridge.registerBridges(
+      d4rt,
+      'package:vector_math/vector_math_64.dart',
+    );
+    // Register under sub-package barrels for direct imports
+    for (final barrel in vector_math_64_bridges.VectorMath64Bridge.subPackageBarrels()) {
+      vector_math_64_bridges.VectorMath64Bridge.registerBridges(d4rt, barrel);
+    }
 
     // GEN-092: Register proxy factories for interface proxies
     proxy_factories.registerProxyFactories();
@@ -158,6 +167,7 @@ class FlutterMaterialBridges {
     buffer.writeln(flutter_widgets_bridges.FlutterWidgetsBridge.getImportBlock());
     buffer.writeln(flutter_material_bridges.FlutterMaterialBridge.getImportBlock());
     buffer.writeln(flutter_cupertino_bridges.FlutterCupertinoBridge.getImportBlock());
+    buffer.writeln(vector_math_64_bridges.VectorMath64Bridge.getImportBlock());
     return buffer.toString();
   }
 }

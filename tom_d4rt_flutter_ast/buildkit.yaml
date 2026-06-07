@@ -248,3 +248,18 @@ d4rtgen:
         - package:flutter/rendering.dart
         - package:flutter/widgets.dart
         - package:flutter/material.dart
+    # --- Layer 3: vector_math_64 (A.4 — opt-in linear-algebra types) ---
+    # Brings Quad / Vector3 / Vector4 (plus the rest of vector_math_64:
+    # Matrix2/3/4, Quaternion, Vector2, Aabb2/3, etc.) into the bridge surface
+    # so scripts can `import 'package:vector_math/vector_math_64.dart'` and
+    # compute matrix·vector products. Opt-in: present here because this
+    # project (tom_d4rt_flutter*) carries a direct `vector_math` dependency.
+    # Matrix4 is intentionally bridged here as well even though Flutter's
+    # painting barrel also re-exports it (`export ... show Matrix4`): a script
+    # importing vector_math_64 directly expects Matrix4 to resolve from that
+    # library. The duplicate registration is harmless — Environment.defineBridge
+    # is keyed by simple name and is last-write-wins (warns, never throws), and
+    # both definitions wrap the same native vector_math Matrix4.
+    - name: vector_math_64
+      barrelImport: package:vector_math/vector_math_64.dart
+      outputPath: lib/src/bridges/vector_math_bridges.b.dart

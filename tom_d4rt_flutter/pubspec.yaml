@@ -13,6 +13,10 @@ dependencies:
   tom_d4rt:
     path: ../tom_d4rt
   path: ^1.9.0
+  # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
+  # Direct dependency required so the generated vector_math_bridges.b.dart can
+  # import it; mirrors tom_d4rt_flutter_ast which already carries this dep.
+  vector_math: ^2.2.0
 
 dev_dependencies:
   flutter_test:

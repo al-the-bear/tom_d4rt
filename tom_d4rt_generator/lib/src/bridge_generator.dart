@@ -5935,9 +5935,13 @@ class BridgeGenerator {
     );
     buffer.writeln();
 
-    // Imports
+    // Imports. When d4rtImport and helpersImport resolve to the same library
+    // (e.g. the source-based runner points both at package:tom_d4rt/d4rt.dart),
+    // emit a single import to avoid a `duplicate_import` warning.
     buffer.writeln("import '$d4rtImport';");
-    buffer.writeln("import '$helpersImport';");
+    if (helpersImport != d4rtImport) {
+      buffer.writeln("import '$helpersImport';");
+    }
 
     // Register unprefixed imports in _importPrefixes so type resolution
     // can find types from these packages (they're imported without prefix)
