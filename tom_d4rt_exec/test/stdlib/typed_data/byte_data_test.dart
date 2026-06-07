@@ -121,5 +121,34 @@ void main() {
         throwsA(isA<RuntimeD4rtException>()), // Not enough space for Uint16
       );
     });
+
+    // OPEN C.6 / idx-279 (Gap-8 residue): lock in `ByteData` symbol
+    // resolution along the exact `services/codecs_test.dart` shape that the
+    // generator-issues log flagged — `ByteData` used as a function-parameter
+    // and local type annotation, plus the `ByteData.view(<Uint8List>.buffer)`
+    // static constructor over a byte buffer. This exercises the AST-driven
+    // (`tom_d4rt_ast`) interpreter through the source parser, mirroring the
+    // VM-twin lock-in in `tom_d4rt/test/stdlib/typed_data/byte_data_test.dart`.
+    test('GEN-C6-279: ByteData type annotation + ByteData.view over a '
+        'Uint8List buffer resolves and round-trips', () {
+      final result = executeTestScript('''
+        Uint8List bytesOf(ByteData bd) {
+          return bd.buffer.asUint8List();
+        }
+        var src = Uint8List.fromList([1, 2, 3, 4]);
+        ByteData view = ByteData.view(src.buffer);
+        var out = bytesOf(view);
+        return {
+          'len': view.lengthInBytes,
+          'first': view.getUint8(0),
+          'last': view.getUint8(3),
+          'roundTrip': out.length,
+        };
+      ''');
+      expect(result['len'], 4);
+      expect(result['first'], 1);
+      expect(result['last'], 4);
+      expect(result['roundTrip'], 4);
+    });
   });
 }
