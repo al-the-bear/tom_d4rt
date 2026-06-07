@@ -362,6 +362,53 @@ gate are recorded in the deferred completion step.
 
 ---
 
+### P&R#6 — user-proxy/-relaxer annotations + variant-pattern engine (2026-06-07)
+
+**cleanup_todos #27.** Added the user-extensible proxy/relaxer declaration
+surface plus the analyzer-free variant-expansion engine that the future
+scanner consumes. This unblocks downstream projects declaring proxy/relaxer
+generation for their **own** generics — including multi-type-parameter
+generics, which the auto-generator does not cover — without editing
+`buildkit.yaml`.
+
+- **Engine** — `lib/src/user_variant_pattern.dart` (exported from the barrel):
+  - `WildcardPattern` — parses a single-`*` driver pattern (`*DO` ⇒ `endsWith`,
+    `Customer*` ⇒ `startsWith`); rejects zero, more-than-one, or mid-slot `*`;
+    `match(candidate)` returns the `$0`/`$1` capture or `null`.
+  - `WildcardCapture` — `full` (`$0`, the whole matched name) + `captured`
+    (`$1`, the wildcard substring) + `expandTemplate` (substitutes `$0`/`$1`,
+    leaves literals untouched).
+  - `TypeArgVariantSpec` — parses a comma-separated **multi-slot** variant
+    (one slot per type parameter); exactly one slot may carry the `*`, the rest
+    are literals or `$0`/`$1` templates; rejects `$`-templates with no wildcard
+    source and >1 wildcard slot; `expand(candidates)` yields concrete
+    type-argument tuples (explicit variants ignore the candidate pool).
+  - `expandUserVariants(specs, candidates)` — aggregates multiple specs,
+    order-preserving de-dup, with a cross-spec arity check.
+
+  Confirmed `$0`/`$1` semantics: `'*DO, $1Form'` matched against `CustomerDO`
+  derives `['CustomerDO', 'CustomerForm']`.
+
+- **Annotations** — `@D4rtUserProxy` / `@D4rtUserRelaxer`
+  (`tom_d4rt/lib/src/generator/d4rt_user_proxy_annotation.dart`, exported from
+  `d4rt.dart`), const with string-syntax `variants`, modeled on
+  `@D4rtUserBridge`. Marker base class `D4UserProxy` added next to the existing
+  `D4UserRelaxer` in **both** `d4.dart` twins.
+
+- Tests `G-UVP-1..24` (`test/user_variant_pattern_test.dart`) — all green
+  (full generator suite 769 passed); `dart analyze` clean throughout. The
+  engine is dormant: no folder is scanned and no emission is wired, so
+  committed `*.b.dart` output is unchanged.
+
+**Deferred (completion_steps.d4rt.md, "P&R#6"):** the
+`lib/src/d4rt_user_proxies/` + `…_user_relaxers/` scanner + `bridge_api`
+pre-scan wiring, the annotation-driven proxy/relaxer **emission** (widening the
+proxy/relaxer emitters from single- to N-type-parameter), the component golden,
+the both-twin regen + serial base-test gate, the `TomFormList<TElement, TForm>`
++ wildcard integration tests, the edge-case buffer, and the worked-example docs.
+
+---
+
 ## Problem
 
 > **Historical (2026-04 analysis).** The figures in this section predate the

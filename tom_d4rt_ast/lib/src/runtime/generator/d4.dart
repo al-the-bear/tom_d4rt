@@ -2696,6 +2696,31 @@ abstract class D4UserRelaxer {
   String get baseTypeName;
 }
 
+/// Base class for user-defined proxy-generation directives.
+///
+/// Extend this class (and apply `@D4rtUserProxy`) to drive generation of
+/// `D4rt<Class>` proxy subclasses for a generic base — including
+/// multi-type-parameter generics — over an explicit or wildcard-pattern set of
+/// type-argument variants.
+///
+/// This is a marker class: like [D4UserBridge] / [D4UserRelaxer], classes
+/// extending it are excluded from bridge generation and picked up by the
+/// generator's user-proxy pre-scan.
+///
+/// Example:
+/// ```dart
+/// @D4rtUserProxy(
+///   'package:my_pkg/forms.dart',
+///   'TomFormList',
+///   variants: ['Customer, CustomerDetailForm', '*DO, $1Form'],
+/// )
+/// class TomFormListUserProxy extends D4UserProxy {}
+/// ```
+abstract class D4UserProxy {
+  // Empty marker class — the directive is carried by the @D4rtUserProxy
+  // annotation; subclasses need no members.
+}
+
 // =============================================================================
 // C35: Typed-Cast Iterator helpers used by extractBridgedArg<Iterator<T>>.
 // =============================================================================

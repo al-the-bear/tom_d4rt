@@ -35,6 +35,7 @@ export 'src/relaxer_generator.dart';
 export 'src/state_proxy_generator.dart';
 export 'src/superarg_proxy_generator.dart';
 export 'src/typearg_proxy_generator.dart';
+export 'src/user_variant_pattern.dart';
 
 // Export builder for build_runner integration
 export 'builder.dart' show d4rtBridgeBuilder;
