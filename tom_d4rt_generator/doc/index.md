@@ -122,9 +122,14 @@ and obsolete-code removal). The authoritative live status is in the quest:
 - `_ai/quests/d4rt/completion_steps.d4rt.md` — the deferred regen / integration
   tails, including the worked-samples + executable-docs harness (P&R#7 b/c).
 
-The worked-sample apps that the deferred docs will draw from live under
-`tom_d4rt_flutter_test/example/` (calculator, clock_face, counter_app,
-stopwatch_laps, tip_calculator) — **not** `lib/`, as some older prose states.
+The worked-sample apps live under `tom_d4rt_flutter_test/example/` (calculator,
+clock_face, counter_app, stopwatch_laps, tip_calculator) — **not** `lib/`, as
+some older prose states. [worked_samples.md](worked_samples.md) catalogs them
+against the mechanisms they exercise and points at the in-tester runner harness
+(`sample_apps_in_tester_test.dart`); the `G-WSD-*` drift guard keeps the
+catalog's sample references from rotting. The purpose-built per-fix-path samples
+(missing-relaxer error + the step-4/step-6 fix paths) remain deferred — they
+need the annotation-driven emission (P&R#6 c) live first.
 
 ---
 
