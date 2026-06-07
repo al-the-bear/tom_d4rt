@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-06-05T17:23:04.438419
+// Generated: 2026-06-07T11:19:14.612276
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -7032,6 +7032,7 @@ BridgedClass _createSweepGradientBridge() {
       '': (visitor, positional, named) {
         final center = D4.getNamedArgWithDefault<$flutter_10.AlignmentGeometry>(named, 'center', $flutter_10.Alignment.center);
         final startAngle = D4.getNamedArgWithDefault<double>(named, 'startAngle', 0.0);
+        final endAngle = D4.getNamedArgWithDefault<double>(named, 'endAngle', 3.1415926535897932 * 2);
         if (!named.containsKey('colors') || named['colors'] == null) {
           throw ArgumentError('SweepGradient: Missing required named argument "colors"');
         }
@@ -7039,14 +7040,7 @@ BridgedClass _createSweepGradientBridge() {
         final stops = D4.coerceListOrNull<double>(named['stops'], 'stops');
         final tileMode = D4.getNamedArgWithDefault<TileMode>(named, 'tileMode', $dart_ui.TileMode.clamp);
         final transform = D4.getOptionalNamedArg<$flutter_31.GradientTransform?>(named, 'transform');
-        if (!named.containsKey('endAngle')) {
-          return $flutter_31.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, tileMode: tileMode, transform: transform);
-        }
-        if (named.containsKey('endAngle')) {
-          final endAngle = D4.getRequiredNamedArg<double>(named, 'endAngle', 'SweepGradient');
-          return $flutter_31.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, tileMode: tileMode, transform: transform, endAngle: endAngle);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $flutter_31.SweepGradient(center: center, startAngle: startAngle, endAngle: endAngle, colors: colors, stops: stops, tileMode: tileMode, transform: transform);
       },
     },
     getters: {
@@ -11639,16 +11633,9 @@ BridgedClass _createTextPainterBridge() {
       'layout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
-        if (!named.containsKey('maxWidth')) {
-          t.layout(minWidth: minWidth);
-          return null;
-        }
-        if (named.containsKey('maxWidth')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'layout');
-          t.layout(minWidth: minWidth, maxWidth: maxWidth);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
+        t.layout(minWidth: minWidth, maxWidth: maxWidth);
+        return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter');
@@ -11754,14 +11741,8 @@ BridgedClass _createTextPainterBridge() {
         final textWidthBasis = D4.getNamedArgWithDefault<$flutter_50.TextWidthBasis>(named, 'textWidthBasis', $flutter_50.TextWidthBasis.parent);
         final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
-        if (!named.containsKey('maxWidth')) {
-          return $flutter_50.TextPainter.computeWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
-        }
-        if (named.containsKey('maxWidth')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeWidth');
-          return $flutter_50.TextPainter.computeWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
+        return $flutter_50.TextPainter.computeWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
       },
       'computeMaxIntrinsicWidth': (visitor, positional, named, typeArgs) {
         final text = D4.getRequiredNamedArg<$flutter_37.InlineSpan>(named, 'text', 'computeMaxIntrinsicWidth');
@@ -11776,14 +11757,8 @@ BridgedClass _createTextPainterBridge() {
         final textWidthBasis = D4.getNamedArgWithDefault<$flutter_50.TextWidthBasis>(named, 'textWidthBasis', $flutter_50.TextWidthBasis.parent);
         final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
-        if (!named.containsKey('maxWidth')) {
-          return $flutter_50.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
-        }
-        if (named.containsKey('maxWidth')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeMaxIntrinsicWidth');
-          return $flutter_50.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
+        return $flutter_50.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
       },
       'isHighSurrogate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isHighSurrogate');
@@ -11895,14 +11870,8 @@ BridgedClass _createTextScalerBridge() {
       'clamp': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.TextScaler>(target, 'TextScaler');
         final minScaleFactor = D4.getNamedArgWithDefault<double>(named, 'minScaleFactor', 0);
-        if (!named.containsKey('maxScaleFactor')) {
-          return t.clamp(minScaleFactor: minScaleFactor);
-        }
-        if (named.containsKey('maxScaleFactor')) {
-          final maxScaleFactor = D4.getRequiredNamedArg<double>(named, 'maxScaleFactor', 'clamp');
-          return t.clamp(minScaleFactor: minScaleFactor, maxScaleFactor: maxScaleFactor);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxScaleFactor = D4.getNamedArgWithDefault<double>(named, 'maxScaleFactor', double.infinity);
+        return t.clamp(minScaleFactor: minScaleFactor, maxScaleFactor: maxScaleFactor);
       },
     },
     staticGetters: {

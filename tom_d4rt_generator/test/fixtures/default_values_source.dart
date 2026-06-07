@@ -14,6 +14,8 @@
 //   - const constructor-call defaults
 //   - nested expression defaults
 
+import 'dart:math' as math;
+
 enum TriState { on, off, auto }
 
 class DurationLike {
@@ -49,4 +51,27 @@ class OptionalPositionalDefaults {
   OptionalPositionalDefaults([this.value = 0, this.label = 'x']);
   final int value;
   final String label;
+}
+
+/// OPEN C.3 (U2): operator-bearing constant defaults and built-in numeric
+/// static constants. These were previously classified non-wrappable and
+/// routed to the throwing `getRequiredArgTodoDefault` helper, forcing callers
+/// to supply every preceding positional. They are all const expressions the
+/// generator can emit directly.
+class ArithmeticDefaults {
+  ArithmeticDefaults({
+    this.fullTurn = math.pi * 2,
+    this.maxWidth = double.infinity,
+    this.half = 1.0 / 2,
+  });
+  final double fullTurn;
+  final double maxWidth;
+  final double half;
+}
+
+/// Operator-bearing default on an optional positional parameter — mirrors the
+/// real `Gradient.sweep(..., double endAngle = math.pi * 2, ...)` shape.
+class ArithmeticPositionalDefault {
+  ArithmeticPositionalDefault([this.endAngle = math.pi * 2]);
+  final double endAngle;
 }

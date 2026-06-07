@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-05T17:23:01.608317
+// Generated: 2026-06-07T11:19:12.232498
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -4374,8 +4374,7 @@ BridgedClass _createGradientBridge() {
             : null;
         final tileMode = D4.getOptionalArgWithDefault<$dart_ui.TileMode>(positional, 3, 'tileMode', $dart_ui.TileMode.clamp);
         final startAngle = D4.getOptionalArgWithDefault<double>(positional, 4, 'startAngle', 0.0);
-        // TODO: Non-wrappable default: math.pi * 2
-        final endAngle = D4.getRequiredArgTodoDefault<double>(positional, 5, 'endAngle', 'Gradient', 'math.pi * 2');
+        final endAngle = D4.getOptionalArgWithDefault<double>(positional, 5, 'endAngle', 3.1415926535897932 * 2);
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 6, 'matrix4');
         // Step 4: pre-validate dart:ui Gradient stops/colors contract.
         if (colorStops == null && colors.length != 2) {
@@ -6115,24 +6114,10 @@ BridgedClass _createViewConstraintsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
         final minHeight = D4.getNamedArgWithDefault<double>(named, 'minHeight', 0.0);
-        if (!named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          return $dart_ui.ViewConstraints(minWidth: minWidth, minHeight: minHeight);
-        }
-        if (named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'ViewConstraints');
-          return $dart_ui.ViewConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth);
-        }
-        if (!named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'ViewConstraints');
-          return $dart_ui.ViewConstraints(minWidth: minWidth, minHeight: minHeight, maxHeight: maxHeight);
-        }
-        if (named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'ViewConstraints');
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'ViewConstraints');
-          return $dart_ui.ViewConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxHeight = D4.getNamedArgWithDefault<double>(named, 'maxHeight', double.infinity);
+        return $dart_ui.ViewConstraints(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight);
       },
       'tight': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ViewConstraints');

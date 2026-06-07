@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-06-05T17:21:46.106582
+// Generated: 2026-06-07T11:18:52.930786
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -74404,24 +74404,10 @@ BridgedClass _createBoxConstraintsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
         final minHeight = D4.getNamedArgWithDefault<double>(named, 'minHeight', 0.0);
-        if (!named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          return $flutter_226.BoxConstraints(minWidth: minWidth, minHeight: minHeight);
-        }
-        if (named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'BoxConstraints');
-          return $flutter_226.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth);
-        }
-        if (!named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'BoxConstraints');
-          return $flutter_226.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxHeight: maxHeight);
-        }
-        if (named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'BoxConstraints');
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'BoxConstraints');
-          return $flutter_226.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxHeight = D4.getNamedArgWithDefault<double>(named, 'maxHeight', double.infinity);
+        return $flutter_226.BoxConstraints(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight);
       },
       'tight': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxConstraints');
@@ -74434,23 +74420,9 @@ BridgedClass _createBoxConstraintsBridge() {
         return $flutter_226.BoxConstraints.tightFor(width: width, height: height);
       },
       'tightForFinite': (visitor, positional, named) {
-        if (!named.containsKey('width') && !named.containsKey('height')) {
-          return $flutter_226.BoxConstraints.tightForFinite();
-        }
-        if (named.containsKey('width') && !named.containsKey('height')) {
-          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxConstraints');
-          return $flutter_226.BoxConstraints.tightForFinite(width: width);
-        }
-        if (!named.containsKey('width') && named.containsKey('height')) {
-          final height = D4.getRequiredNamedArg<double>(named, 'height', 'BoxConstraints');
-          return $flutter_226.BoxConstraints.tightForFinite(height: height);
-        }
-        if (named.containsKey('width') && named.containsKey('height')) {
-          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxConstraints');
-          final height = D4.getRequiredNamedArg<double>(named, 'height', 'BoxConstraints');
-          return $flutter_226.BoxConstraints.tightForFinite(width: width, height: height);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final width = D4.getNamedArgWithDefault<double>(named, 'width', double.infinity);
+        final height = D4.getNamedArgWithDefault<double>(named, 'height', double.infinity);
+        return $flutter_226.BoxConstraints.tightForFinite(width: width, height: height);
       },
       'loose': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxConstraints');
@@ -74527,14 +74499,12 @@ BridgedClass _createBoxConstraintsBridge() {
       },
       'constrainWidth': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_226.BoxConstraints>(target, 'BoxConstraints');
-        // TODO: Non-wrappable default: double.infinity
-        final width = D4.getRequiredArgTodoDefault<double>(positional, 0, 'width', 'constrainWidth', 'double.infinity');
+        final width = D4.getOptionalArgWithDefault<double>(positional, 0, 'width', double.infinity);
         return t.constrainWidth(width);
       },
       'constrainHeight': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_226.BoxConstraints>(target, 'BoxConstraints');
-        // TODO: Non-wrappable default: double.infinity
-        final height = D4.getRequiredArgTodoDefault<double>(positional, 0, 'height', 'constrainHeight', 'double.infinity');
+        final height = D4.getOptionalArgWithDefault<double>(positional, 0, 'height', double.infinity);
         return t.constrainHeight(height);
       },
       'constrain': (visitor, target, positional, named, typeArgs) {

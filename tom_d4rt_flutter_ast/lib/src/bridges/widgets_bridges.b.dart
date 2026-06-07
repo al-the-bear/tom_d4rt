@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-06-05T17:21:40.614469
+// Generated: 2026-06-07T11:18:48.651450
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -16578,24 +16578,10 @@ BridgedClass _createLimitedBoxBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
+        final maxHeight = D4.getNamedArgWithDefault<double>(named, 'maxHeight', double.infinity);
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        if (!named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          return $flutter_136.LimitedBox(key: key, child: child);
-        }
-        if (named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'LimitedBox');
-          return $flutter_136.LimitedBox(key: key, child: child, maxWidth: maxWidth);
-        }
-        if (!named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'LimitedBox');
-          return $flutter_136.LimitedBox(key: key, child: child, maxHeight: maxHeight);
-        }
-        if (named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'LimitedBox');
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'LimitedBox');
-          return $flutter_136.LimitedBox(key: key, child: child, maxWidth: maxWidth, maxHeight: maxHeight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $flutter_136.LimitedBox(key: key, maxWidth: maxWidth, maxHeight: maxHeight, child: child);
       },
     },
     getters: {
@@ -50963,15 +50949,9 @@ BridgedClass _createMediaQueryBridge() {
       'withClampedTextScaling': (visitor, positional, named, typeArgs) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final minScaleFactor = D4.getNamedArgWithDefault<double>(named, 'minScaleFactor', 0.0);
+        final maxScaleFactor = D4.getNamedArgWithDefault<double>(named, 'maxScaleFactor', double.infinity);
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'withClampedTextScaling');
-        if (!named.containsKey('maxScaleFactor')) {
-          return $flutter_186.MediaQuery.withClampedTextScaling(key: key, minScaleFactor: minScaleFactor, child: child);
-        }
-        if (named.containsKey('maxScaleFactor')) {
-          final maxScaleFactor = D4.getRequiredNamedArg<double>(named, 'maxScaleFactor', 'withClampedTextScaling');
-          return $flutter_186.MediaQuery.withClampedTextScaling(key: key, minScaleFactor: minScaleFactor, child: child, maxScaleFactor: maxScaleFactor);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $flutter_186.MediaQuery.withClampedTextScaling(key: key, minScaleFactor: minScaleFactor, maxScaleFactor: maxScaleFactor, child: child);
       },
       'of': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'of');
@@ -51363,14 +51343,8 @@ BridgedClass _createSystemTextScalerBridge() {
       'clamp': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_186.SystemTextScaler>(target, 'SystemTextScaler');
         final minScaleFactor = D4.getNamedArgWithDefault<double>(named, 'minScaleFactor', 0);
-        if (!named.containsKey('maxScaleFactor')) {
-          return t.clamp(minScaleFactor: minScaleFactor);
-        }
-        if (named.containsKey('maxScaleFactor')) {
-          final maxScaleFactor = D4.getRequiredNamedArg<double>(named, 'maxScaleFactor', 'clamp');
-          return t.clamp(minScaleFactor: minScaleFactor, maxScaleFactor: maxScaleFactor);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxScaleFactor = D4.getNamedArgWithDefault<double>(named, 'maxScaleFactor', double.infinity);
+        return t.clamp(minScaleFactor: minScaleFactor, maxScaleFactor: maxScaleFactor);
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_186.SystemTextScaler>(target, 'SystemTextScaler');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-06-05T17:21:32.114372
+// Generated: 2026-06-07T11:18:41.771886
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -354,87 +354,11 @@ BridgedClass _createClampedSimulationBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ClampedSimulation');
         final simulation = D4.getRequiredArg<$flutter_4.Simulation>(positional, 0, 'simulation', 'ClampedSimulation');
-        if (!named.containsKey('xMin') && !named.containsKey('xMax') && !named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          return $flutter_1.ClampedSimulation(simulation);
-        }
-        if (named.containsKey('xMin') && !named.containsKey('xMax') && !named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin);
-        }
-        if (!named.containsKey('xMin') && named.containsKey('xMax') && !named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMax: xMax);
-        }
-        if (named.containsKey('xMin') && named.containsKey('xMax') && !named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax);
-        }
-        if (!named.containsKey('xMin') && !named.containsKey('xMax') && named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, dxMin: dxMin);
-        }
-        if (named.containsKey('xMin') && !named.containsKey('xMax') && named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, dxMin: dxMin);
-        }
-        if (!named.containsKey('xMin') && named.containsKey('xMax') && named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMax: xMax, dxMin: dxMin);
-        }
-        if (named.containsKey('xMin') && named.containsKey('xMax') && named.containsKey('dxMin') && !named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax, dxMin: dxMin);
-        }
-        if (!named.containsKey('xMin') && !named.containsKey('xMax') && !named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, dxMax: dxMax);
-        }
-        if (named.containsKey('xMin') && !named.containsKey('xMax') && !named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, dxMax: dxMax);
-        }
-        if (!named.containsKey('xMin') && named.containsKey('xMax') && !named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMax: xMax, dxMax: dxMax);
-        }
-        if (named.containsKey('xMin') && named.containsKey('xMax') && !named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax, dxMax: dxMax);
-        }
-        if (!named.containsKey('xMin') && !named.containsKey('xMax') && named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, dxMin: dxMin, dxMax: dxMax);
-        }
-        if (named.containsKey('xMin') && !named.containsKey('xMax') && named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, dxMin: dxMin, dxMax: dxMax);
-        }
-        if (!named.containsKey('xMin') && named.containsKey('xMax') && named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMax: xMax, dxMin: dxMin, dxMax: dxMax);
-        }
-        if (named.containsKey('xMin') && named.containsKey('xMax') && named.containsKey('dxMin') && named.containsKey('dxMax')) {
-          final xMin = D4.getRequiredNamedArg<double>(named, 'xMin', 'ClampedSimulation');
-          final xMax = D4.getRequiredNamedArg<double>(named, 'xMax', 'ClampedSimulation');
-          final dxMin = D4.getRequiredNamedArg<double>(named, 'dxMin', 'ClampedSimulation');
-          final dxMax = D4.getRequiredNamedArg<double>(named, 'dxMax', 'ClampedSimulation');
-          return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax, dxMin: dxMin, dxMax: dxMax);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final xMin = D4.getNamedArgWithDefault<double>(named, 'xMin', double.negativeInfinity);
+        final xMax = D4.getNamedArgWithDefault<double>(named, 'xMax', double.infinity);
+        final dxMin = D4.getNamedArgWithDefault<double>(named, 'dxMin', double.negativeInfinity);
+        final dxMax = D4.getNamedArgWithDefault<double>(named, 'dxMax', double.infinity);
+        return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax, dxMin: dxMin, dxMax: dxMax);
       },
     },
     getters: {

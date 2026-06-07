@@ -1,0 +1,1445 @@
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/essential_classes_test.dart
+00:00 +0: (setUpAll)
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:49799/L27KlxhUc1c=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:49799/L27KlxhUc1c=/devtools/?uri=ws://127.0.0.1:49799/L27KlxhUc1c=/ws
+=================================================================
+00:36 +0: Test App Health app is running
+00:36 +1: animation/ curve_test.dart
+[METRIC] script=animation/curve_test.dart sourceChars=37738 clearMs=211 httpMs=3736 totalMs=3955 status=success httpStatus=200 outputLines=39 frameworkErrors=0 appBodyMs=6 appParseMs=6 appSetStateMs=6 appInterpretStartMs=17 appInterpretEndMs=3165 appFirstFrameMs=3527 appPumpEndMs=3727
+00:40 +2: animation/ tween_test.dart
+[METRIC] script=animation/tween_test.dart sourceChars=57964 clearMs=222 httpMs=3048 totalMs=3272 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1039 appFirstFrameMs=2844 appPumpEndMs=3045
+00:44 +3: cupertino/ button_test.dart
+[METRIC] script=cupertino/button_test.dart sourceChars=42735 clearMs=204 httpMs=30010 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=3 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/button_test.dart:
+    Build timed out after 30 seconds
+01:14 +3 -1: cupertino/ button_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 62:7               main.<fn>.<fn>
+  
+01:14 +3 -1: cupertino/ contextmenu_test.dart
+[METRIC] script=cupertino/contextmenu_test.dart sourceChars=69488 clearMs=205 httpMs=30014 totalMs=30225 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/contextmenu_test.dart:
+    Build timed out after 30 seconds
+01:44 +3 -2: cupertino/ contextmenu_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 69:7               main.<fn>.<fn>
+  
+01:44 +3 -2: cupertino/ controls_test.dart
+[METRIC] script=cupertino/controls_test.dart sourceChars=66195 clearMs=208 httpMs=30014 totalMs=30226 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/controls_test.dart:
+    Build timed out after 30 seconds
+02:14 +3 -3: cupertino/ controls_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 74:7               main.<fn>.<fn>
+  
+02:14 +3 -3: cupertino/ cupertinoapp_test.dart
+[METRIC] script=cupertino/cupertinoapp_test.dart sourceChars=60170 clearMs=210 httpMs=30021 totalMs=30235 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/cupertinoapp_test.dart:
+    Build timed out after 30 seconds
+02:45 +3 -4: cupertino/ cupertinoapp_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 81:7               main.<fn>.<fn>
+  
+02:45 +3 -4: cupertino/ dialog_test.dart
+[METRIC] script=cupertino/dialog_test.dart sourceChars=50110 clearMs=206 httpMs=30017 totalMs=30228 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/dialog_test.dart:
+    Build timed out after 30 seconds
+03:15 +3 -5: cupertino/ dialog_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 86:7               main.<fn>.<fn>
+  
+03:15 +3 -5: cupertino/ form_test.dart
+[METRIC] script=cupertino/form_test.dart sourceChars=37209 clearMs=204 httpMs=30018 totalMs=30226 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/form_test.dart:
+    Build timed out after 30 seconds
+03:45 +3 -6: cupertino/ form_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 91:7               main.<fn>.<fn>
+  
+03:45 +3 -6: cupertino/ icons_test.dart
+[METRIC] script=cupertino/icons_test.dart sourceChars=48116 clearMs=212 httpMs=30007 totalMs=30223 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/icons_test.dart:
+    Build timed out after 30 seconds
+04:15 +3 -7: cupertino/ icons_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 96:7               main.<fn>.<fn>
+  
+04:15 +3 -7: cupertino/ list_test.dart
+[METRIC] script=cupertino/list_test.dart sourceChars=67442 clearMs=204 httpMs=30011 totalMs=30218 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/list_test.dart:
+    Build timed out after 30 seconds
+04:45 +3 -8: cupertino/ list_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 107:7              main.<fn>.<fn>
+  
+04:45 +3 -8: cupertino/ picker_test.dart
+[METRIC] script=cupertino/picker_test.dart sourceChars=52259 clearMs=203 httpMs=30015 totalMs=30220 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/picker_test.dart:
+    Build timed out after 30 seconds
+05:16 +3 -9: cupertino/ picker_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 121:7              main.<fn>.<fn>
+  
+05:16 +3 -9: cupertino/ route_test.dart
+[METRIC] script=cupertino/route_test.dart sourceChars=68105 clearMs=206 httpMs=30006 totalMs=30215 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/route_test.dart:
+    Build timed out after 30 seconds
+05:46 +3 -10: cupertino/ route_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 126:7              main.<fn>.<fn>
+  
+05:46 +3 -10: cupertino/ scaffold_test.dart
+[METRIC] script=cupertino/scaffold_test.dart sourceChars=80777 clearMs=204 httpMs=30019 totalMs=30225 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/scaffold_test.dart:
+    Build timed out after 30 seconds
+06:16 +3 -11: cupertino/ scaffold_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 135:7              main.<fn>.<fn>
+  
+06:16 +3 -11: cupertino/ segmented_test.dart
+[METRIC] script=cupertino/segmented_test.dart sourceChars=64514 clearMs=207 httpMs=30007 totalMs=30218 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/segmented_test.dart:
+    Build timed out after 30 seconds
+06:46 +3 -12: cupertino/ segmented_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 144:7              main.<fn>.<fn>
+  
+06:46 +3 -12: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=206 httpMs=30019 totalMs=30229 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/textfield_test.dart:
+    Build timed out after 30 seconds
+07:17 +3 -13: cupertino/ textfield_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 155:7              main.<fn>.<fn>
+  
+07:17 +3 -13: cupertino/ theme_test.dart
+[METRIC] script=cupertino/theme_test.dart sourceChars=79051 clearMs=210 httpMs=30014 totalMs=30228 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in cupertino/theme_test.dart:
+    Build timed out after 30 seconds
+07:47 +3 -14: cupertino/ theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 160:7              main.<fn>.<fn>
+  
+07:47 +3 -14: dart_ui/ color_test.dart
+[METRIC] script=dart_ui/color_test.dart sourceChars=22827 clearMs=204 httpMs=30004 totalMs=30211 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/color_test.dart:
+    Build timed out after 30 seconds
+08:17 +3 -15: dart_ui/ color_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 176:7              main.<fn>.<fn>
+  
+08:17 +3 -15: dart_ui/ geometry_test.dart
+[METRIC] script=dart_ui/geometry_test.dart sourceChars=20064 clearMs=204 httpMs=30004 totalMs=30210 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/geometry_test.dart:
+    Build timed out after 30 seconds
+08:47 +3 -16: dart_ui/ geometry_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 181:7              main.<fn>.<fn>
+  
+08:47 +3 -16: dart_ui/ offset_test.dart
+[METRIC] script=dart_ui/offset_test.dart sourceChars=33165 clearMs=203 httpMs=30032 totalMs=30237 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/offset_test.dart:
+    Build timed out after 30 seconds
+09:18 +3 -17: dart_ui/ offset_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 186:7              main.<fn>.<fn>
+  
+09:18 +3 -17: dart_ui/ paint_test.dart
+[METRIC] script=dart_ui/paint_test.dart sourceChars=26251 clearMs=215 httpMs=30009 totalMs=30228 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=3 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/paint_test.dart:
+    Build timed out after 30 seconds
+09:48 +3 -18: dart_ui/ paint_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 191:7              main.<fn>.<fn>
+  
+09:48 +3 -18: dart_ui/ primitives_test.dart
+[METRIC] script=dart_ui/primitives_test.dart sourceChars=80290 clearMs=208 httpMs=30012 totalMs=30223 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/primitives_test.dart:
+    Build timed out after 30 seconds
+10:18 +3 -19: dart_ui/ primitives_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 196:7              main.<fn>.<fn>
+  
+10:18 +3 -19: dart_ui/ rect_test.dart
+[METRIC] script=dart_ui/rect_test.dart sourceChars=23680 clearMs=207 httpMs=30006 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/rect_test.dart:
+    Build timed out after 30 seconds
+10:48 +3 -20: dart_ui/ rect_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 201:7              main.<fn>.<fn>
+  
+10:48 +3 -20: dart_ui/ size_test.dart
+[METRIC] script=dart_ui/size_test.dart sourceChars=21047 clearMs=203 httpMs=30020 totalMs=30225 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/size_test.dart:
+    Build timed out after 30 seconds
+11:18 +3 -21: dart_ui/ size_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 206:7              main.<fn>.<fn>
+  
+11:18 +3 -21: dart_ui/ text_test.dart
+[METRIC] script=dart_ui/text_test.dart sourceChars=74256 clearMs=206 httpMs=30011 totalMs=30220 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in dart_ui/text_test.dart:
+    Build timed out after 30 seconds
+11:49 +3 -22: dart_ui/ text_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 211:7              main.<fn>.<fn>
+  
+11:49 +3 -22: foundation/ key_test.dart
+[METRIC] script=foundation/key_test.dart sourceChars=54871 clearMs=205 httpMs=30009 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in foundation/key_test.dart:
+    Build timed out after 30 seconds
+12:19 +3 -23: foundation/ key_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 221:7              main.<fn>.<fn>
+  
+12:19 +3 -23: foundation/ notifier_test.dart
+[METRIC] script=foundation/notifier_test.dart sourceChars=50814 clearMs=207 httpMs=30016 totalMs=30227 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in foundation/notifier_test.dart:
+    Build timed out after 30 seconds
+12:49 +3 -24: foundation/ notifier_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 226:7              main.<fn>.<fn>
+  
+12:49 +3 -24: gestures/ details_test.dart
+[METRIC] script=gestures/details_test.dart sourceChars=73297 clearMs=205 httpMs=30008 totalMs=30216 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in gestures/details_test.dart:
+    Build timed out after 30 seconds
+13:19 +3 -25: gestures/ details_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 236:7              main.<fn>.<fn>
+  
+13:19 +3 -25: material/ bottomnavigationbar_test.dart
+[METRIC] script=material/bottomnavigationbar_test.dart sourceChars=78883 clearMs=206 httpMs=30018 totalMs=30226 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/bottomnavigationbar_test.dart:
+    Build timed out after 30 seconds
+13:50 +3 -26: material/ bottomnavigationbar_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 248:7              main.<fn>.<fn>
+  
+13:50 +3 -26: material/ buttons_test.dart
+[METRIC] script=material/buttons_test.dart sourceChars=58430 clearMs=213 httpMs=30012 totalMs=30230 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/buttons_test.dart:
+    Build timed out after 30 seconds
+14:20 +3 -27: material/ buttons_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 253:7              main.<fn>.<fn>
+  
+14:20 +3 -27: material/ buttonstyle_test.dart
+[METRIC] script=material/buttonstyle_test.dart sourceChars=45919 clearMs=205 httpMs=30012 totalMs=30219 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/buttonstyle_test.dart:
+    Build timed out after 30 seconds
+14:50 +3 -28: material/ buttonstyle_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 260:7              main.<fn>.<fn>
+  
+14:50 +3 -28: material/ card_test.dart
+[METRIC] script=material/card_test.dart sourceChars=57725 clearMs=207 httpMs=30017 totalMs=30227 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/card_test.dart:
+    Build timed out after 30 seconds
+15:20 +3 -29: material/ card_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 265:7              main.<fn>.<fn>
+  
+15:20 +3 -29: material/ chips_test.dart
+[METRIC] script=material/chips_test.dart sourceChars=13706 clearMs=205 httpMs=30009 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/chips_test.dart:
+    Build timed out after 30 seconds
+15:51 +3 -30: material/ chips_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 270:7              main.<fn>.<fn>
+  
+15:51 +3 -30: material/ datatable_test.dart
+[METRIC] script=material/datatable_test.dart sourceChars=15509 clearMs=203 httpMs=30004 totalMs=30209 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/datatable_test.dart:
+    Build timed out after 30 seconds
+16:21 +3 -31: material/ datatable_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 275:7              main.<fn>.<fn>
+  
+16:21 +3 -31: material/ dialog_test.dart
+[METRIC] script=material/dialog_test.dart sourceChars=48078 clearMs=206 httpMs=30025 totalMs=30234 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/dialog_test.dart:
+    Build timed out after 30 seconds
+16:51 +3 -32: material/ dialog_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 280:7              main.<fn>.<fn>
+  
+16:51 +3 -32: material/ divider_test.dart
+[METRIC] script=material/divider_test.dart sourceChars=48356 clearMs=208 httpMs=30006 totalMs=30216 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/divider_test.dart:
+    Build timed out after 30 seconds
+17:21 +3 -33: material/ divider_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 285:7              main.<fn>.<fn>
+  
+17:21 +3 -33: material/ dropdown_test.dart
+[METRIC] script=material/dropdown_test.dart sourceChars=44152 clearMs=207 httpMs=30005 totalMs=30215 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/dropdown_test.dart:
+    Build timed out after 30 seconds
+17:51 +3 -34: material/ dropdown_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 290:7              main.<fn>.<fn>
+  
+17:51 +3 -34: material/ elevated_button_test.dart
+[METRIC] script=material/elevated_button_test.dart sourceChars=47364 clearMs=203 httpMs=30019 totalMs=30225 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/elevated_button_test.dart:
+    Build timed out after 30 seconds
+18:22 +3 -35: material/ elevated_button_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 297:7              main.<fn>.<fn>
+  
+18:22 +3 -35: material/ expansion_test.dart
+[METRIC] script=material/expansion_test.dart sourceChars=14983 clearMs=207 httpMs=30013 totalMs=30224 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/expansion_test.dart:
+    Build timed out after 30 seconds
+18:52 +3 -36: material/ expansion_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 302:7              main.<fn>.<fn>
+  
+18:52 +3 -36: material/ floatingactionbutton_test.dart
+[METRIC] script=material/floatingactionbutton_test.dart sourceChars=59797 clearMs=206 httpMs=30007 totalMs=30215 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/floatingactionbutton_test.dart:
+    Build timed out after 30 seconds
+19:22 +3 -37: material/ floatingactionbutton_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 309:7              main.<fn>.<fn>
+  
+19:22 +3 -37: material/ formcontrols_test.dart
+[METRIC] script=material/formcontrols_test.dart sourceChars=77599 clearMs=205 httpMs=30015 totalMs=30224 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/formcontrols_test.dart:
+    Build timed out after 30 seconds
+19:52 +3 -38: material/ formcontrols_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 316:7              main.<fn>.<fn>
+  
+19:52 +3 -38: material/ icon_test.dart
+[METRIC] script=material/icon_test.dart sourceChars=77571 clearMs=206 httpMs=30009 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/icon_test.dart:
+    Build timed out after 30 seconds
+20:23 +3 -39: material/ icon_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 321:7              main.<fn>.<fn>
+  
+20:23 +3 -39: material/ icontheme_test.dart
+[METRIC] script=material/icontheme_test.dart sourceChars=64982 clearMs=203 httpMs=30011 totalMs=30216 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/icontheme_test.dart:
+    Build timed out after 30 seconds
+20:53 +3 -40: material/ icontheme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 326:7              main.<fn>.<fn>
+  
+20:53 +3 -40: material/ inputdecoration_test.dart
+[METRIC] script=material/inputdecoration_test.dart sourceChars=50790 clearMs=204 httpMs=30028 totalMs=30233 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/inputdecoration_test.dart:
+    Build timed out after 30 seconds
+21:23 +3 -41: material/ inputdecoration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 333:7              main.<fn>.<fn>
+  
+21:23 +3 -41: material/ listtile_test.dart
+[METRIC] script=material/listtile_test.dart sourceChars=71726 clearMs=206 httpMs=30005 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/listtile_test.dart:
+    Build timed out after 30 seconds
+21:53 +3 -42: material/ listtile_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 338:7              main.<fn>.<fn>
+  
+21:53 +3 -42: material/ materialapp_test.dart
+[METRIC] script=material/materialapp_test.dart sourceChars=56248 clearMs=204 httpMs=30012 totalMs=30218 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/materialapp_test.dart:
+    Build timed out after 30 seconds
+22:23 +3 -43: material/ materialapp_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 345:7              main.<fn>.<fn>
+  
+22:23 +3 -43: material/ materialbanner_test.dart
+[METRIC] script=material/materialbanner_test.dart sourceChars=63099 clearMs=204 httpMs=30030 totalMs=30237 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/materialbanner_test.dart:
+    Build timed out after 30 seconds
+22:54 +3 -44: material/ materialbanner_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 352:7              main.<fn>.<fn>
+  
+22:54 +3 -44: material/ materialcolor_test.dart
+[METRIC] script=material/materialcolor_test.dart sourceChars=41242 clearMs=209 httpMs=30010 totalMs=30223 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=3 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/materialcolor_test.dart:
+    Build timed out after 30 seconds
+23:24 +3 -45: material/ materialcolor_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 359:7              main.<fn>.<fn>
+  
+23:24 +3 -45: material/ navigation_test.dart
+[METRIC] script=material/navigation_test.dart sourceChars=16162 clearMs=202 httpMs=30007 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/navigation_test.dart:
+    Build timed out after 30 seconds
+23:54 +3 -46: material/ navigation_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 364:7              main.<fn>.<fn>
+  
+23:54 +3 -46: material/ progress_test.dart
+[METRIC] script=material/progress_test.dart sourceChars=61685 clearMs=211 httpMs=30025 totalMs=30240 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/progress_test.dart:
+    Build timed out after 30 seconds
+24:24 +3 -47: material/ progress_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 369:7              main.<fn>.<fn>
+  
+24:24 +3 -47: material/ scaffold_test.dart
+[METRIC] script=material/scaffold_test.dart sourceChars=79016 clearMs=205 httpMs=30007 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/scaffold_test.dart:
+    Build timed out after 30 seconds
+24:55 +3 -48: material/ scaffold_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 374:7              main.<fn>.<fn>
+  
+24:55 +3 -48: material/ search_test.dart
+[METRIC] script=material/search_test.dart sourceChars=48201 clearMs=204 httpMs=30017 totalMs=30226 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/search_test.dart:
+    Build timed out after 30 seconds
+25:25 +3 -49: material/ search_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 379:7              main.<fn>.<fn>
+  
+25:25 +3 -49: material/ stepper_test.dart
+[METRIC] script=material/stepper_test.dart sourceChars=82782 clearMs=211 httpMs=30016 totalMs=30230 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/stepper_test.dart:
+    Build timed out after 30 seconds
+25:55 +3 -50: material/ stepper_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 384:7              main.<fn>.<fn>
+  
+25:55 +3 -50: material/ tabs_test.dart
+[METRIC] script=material/tabs_test.dart sourceChars=77081 clearMs=204 httpMs=30016 totalMs=30223 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/tabs_test.dart:
+    Build timed out after 30 seconds
+26:25 +3 -51: material/ tabs_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 389:7              main.<fn>.<fn>
+  
+26:25 +3 -51: material/ text_button_test.dart
+[METRIC] script=material/text_button_test.dart sourceChars=58648 clearMs=207 httpMs=30012 totalMs=30222 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/text_button_test.dart:
+    Build timed out after 30 seconds
+26:56 +3 -52: material/ text_button_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 396:7              main.<fn>.<fn>
+  
+26:56 +3 -52: material/ theme_test.dart
+[METRIC] script=material/theme_test.dart sourceChars=46212 clearMs=205 httpMs=30020 totalMs=30230 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=6 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/theme_test.dart:
+    Build timed out after 30 seconds
+27:26 +3 -53: material/ theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 401:7              main.<fn>.<fn>
+  
+27:26 +3 -53: material/ tooltip_badge_test.dart
+[METRIC] script=material/tooltip_badge_test.dart sourceChars=46482 clearMs=206 httpMs=30006 totalMs=30215 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/tooltip_badge_test.dart:
+    Build timed out after 30 seconds
+27:56 +3 -54: material/ tooltip_badge_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 408:7              main.<fn>.<fn>
+  
+27:56 +3 -54: painting/ alignment_test.dart
+[METRIC] script=painting/alignment_test.dart sourceChars=63349 clearMs=206 httpMs=30021 totalMs=30231 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/alignment_test.dart:
+    Build timed out after 30 seconds
+28:26 +3 -55: painting/ alignment_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 418:7              main.<fn>.<fn>
+  
+28:26 +3 -55: painting/ border_radius_test.dart
+[METRIC] script=painting/border_radius_test.dart sourceChars=59637 clearMs=208 httpMs=30006 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/border_radius_test.dart:
+    Build timed out after 30 seconds
+28:57 +3 -56: painting/ border_radius_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 425:7              main.<fn>.<fn>
+  
+28:57 +3 -56: painting/ border_test.dart
+[METRIC] script=painting/border_test.dart sourceChars=97782 clearMs=208 httpMs=30022 totalMs=30232 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/border_test.dart:
+    Build timed out after 30 seconds
+29:27 +3 -57: painting/ border_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 430:7              main.<fn>.<fn>
+  
+29:27 +3 -57: painting/ box_decoration_test.dart
+[METRIC] script=painting/box_decoration_test.dart sourceChars=58366 clearMs=206 httpMs=30010 totalMs=30218 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/box_decoration_test.dart:
+    Build timed out after 30 seconds
+29:57 +3 -58: painting/ box_decoration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 437:7              main.<fn>.<fn>
+  
+29:57 +3 -58: painting/ edge_insets_test.dart
+[METRIC] script=painting/edge_insets_test.dart sourceChars=50740 clearMs=203 httpMs=30028 totalMs=30234 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/edge_insets_test.dart:
+    Build timed out after 30 seconds
+30:27 +3 -59: painting/ edge_insets_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 444:7              main.<fn>.<fn>
+  
+30:27 +3 -59: painting/ edgeinsets_test.dart
+[METRIC] script=painting/edgeinsets_test.dart sourceChars=43715 clearMs=213 httpMs=30009 totalMs=30223 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/edgeinsets_test.dart:
+    Build timed out after 30 seconds
+30:57 +3 -60: painting/ edgeinsets_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 449:7              main.<fn>.<fn>
+  
+30:57 +3 -60: painting/ gradient_shadow_test.dart
+[METRIC] script=painting/gradient_shadow_test.dart sourceChars=59967 clearMs=203 httpMs=30016 totalMs=30221 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/gradient_shadow_test.dart:
+    Build timed out after 30 seconds
+31:28 +3 -61: painting/ gradient_shadow_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 456:7              main.<fn>.<fn>
+  
+31:28 +3 -61: painting/ textstyle_test.dart
+[METRIC] script=painting/textstyle_test.dart sourceChars=63417 clearMs=206 httpMs=30005 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in painting/textstyle_test.dart:
+    Build timed out after 30 seconds
+31:58 +3 -62: painting/ textstyle_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 461:7              main.<fn>.<fn>
+  
+31:58 +3 -62: physics/ spring_test.dart
+[METRIC] script=physics/spring_test.dart sourceChars=17999 clearMs=211 httpMs=30015 totalMs=30229 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in physics/spring_test.dart:
+    Build timed out after 30 seconds
+32:28 +3 -63: physics/ spring_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 471:7              main.<fn>.<fn>
+  
+32:28 +3 -63: rendering/ boxconstraints_test.dart
+[METRIC] script=rendering/boxconstraints_test.dart sourceChars=50403 clearMs=205 httpMs=30032 totalMs=30240 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in rendering/boxconstraints_test.dart:
+    Build timed out after 30 seconds
+32:58 +3 -64: rendering/ boxconstraints_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 483:7              main.<fn>.<fn>
+  
+32:58 +3 -64: rendering/ layers_test.dart
+[METRIC] script=rendering/layers_test.dart sourceChars=16958 clearMs=208 httpMs=30021 totalMs=30235 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in rendering/layers_test.dart:
+    Build timed out after 30 seconds
+33:29 +3 -65: rendering/ layers_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 488:7              main.<fn>.<fn>
+  
+33:29 +3 -65: rendering/ textpainter_test.dart
+[METRIC] script=rendering/textpainter_test.dart sourceChars=52880 clearMs=205 httpMs=30004 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in rendering/textpainter_test.dart:
+    Build timed out after 30 seconds
+33:59 +3 -66: rendering/ textpainter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 495:7              main.<fn>.<fn>
+  
+33:59 +3 -66: rendering/ viewport_test.dart
+[METRIC] script=rendering/viewport_test.dart sourceChars=43381 clearMs=206 httpMs=30017 totalMs=30225 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in rendering/viewport_test.dart:
+    Build timed out after 30 seconds
+34:29 +3 -67: rendering/ viewport_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 500:7              main.<fn>.<fn>
+  
+34:29 +3 -67: scheduler/ ticker_test.dart
+[METRIC] script=scheduler/ticker_test.dart sourceChars=44798 clearMs=205 httpMs=30006 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in scheduler/ticker_test.dart:
+    Build timed out after 30 seconds
+34:59 +3 -68: scheduler/ ticker_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 510:7              main.<fn>.<fn>
+  
+34:59 +3 -68: semantics/ semantics_test.dart
+[METRIC] script=semantics/semantics_test.dart sourceChars=91793 clearMs=204 httpMs=30020 totalMs=30226 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in semantics/semantics_test.dart:
+    Build timed out after 30 seconds
+35:30 +3 -69: semantics/ semantics_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 520:7              main.<fn>.<fn>
+  
+35:30 +3 -69: widgets/ align_test.dart
+[METRIC] script=widgets/align_test.dart sourceChars=60247 clearMs=205 httpMs=30008 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/align_test.dart:
+    Build timed out after 30 seconds
+36:00 +3 -70: widgets/ align_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 530:7              main.<fn>.<fn>
+  
+36:00 +3 -70: widgets/ animation_test.dart
+[METRIC] script=widgets/animation_test.dart sourceChars=58431 clearMs=204 httpMs=30015 totalMs=30221 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/animation_test.dart:
+    Build timed out after 30 seconds
+36:30 +3 -71: widgets/ animation_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 535:7              main.<fn>.<fn>
+  
+36:30 +3 -71: widgets/ center_test.dart
+[METRIC] script=widgets/center_test.dart sourceChars=66450 clearMs=209 httpMs=30021 totalMs=30233 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/center_test.dart:
+    Build timed out after 30 seconds
+37:00 +3 -72: widgets/ center_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 540:7              main.<fn>.<fn>
+  
+37:00 +3 -72: widgets/ changenotifier_test.dart
+[METRIC] script=widgets/changenotifier_test.dart sourceChars=70729 clearMs=211 httpMs=30023 totalMs=30239 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/changenotifier_test.dart:
+    Build timed out after 30 seconds
+37:31 +3 -73: widgets/ changenotifier_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 547:7              main.<fn>.<fn>
+  
+37:31 +3 -73: widgets/ cliprrect_test.dart
+[METRIC] script=widgets/cliprrect_test.dart sourceChars=44462 clearMs=209 httpMs=30021 totalMs=30231 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/cliprrect_test.dart:
+    Build timed out after 30 seconds
+38:01 +3 -74: widgets/ cliprrect_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 552:7              main.<fn>.<fn>
+  
+38:01 +3 -74: widgets/ column_test.dart
+[METRIC] script=widgets/column_test.dart sourceChars=68623 clearMs=206 httpMs=30043 totalMs=30256 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/column_test.dart:
+    Build timed out after 30 seconds
+38:31 +3 -75: widgets/ column_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 557:7              main.<fn>.<fn>
+  
+38:31 +3 -75: widgets/ container_test.dart
+[METRIC] script=widgets/container_test.dart sourceChars=44944 clearMs=206 httpMs=30024 totalMs=30233 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/container_test.dart:
+    Build timed out after 30 seconds
+39:01 +3 -76: widgets/ container_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 562:7              main.<fn>.<fn>
+  
+39:01 +3 -76: widgets/ expanded_test.dart
+[METRIC] script=widgets/expanded_test.dart sourceChars=69498 clearMs=222 httpMs=30021 totalMs=30246 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/expanded_test.dart:
+    Build timed out after 30 seconds
+39:32 +3 -77: widgets/ expanded_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 567:7              main.<fn>.<fn>
+  
+39:32 +3 -77: widgets/ flexible_test.dart
+[METRIC] script=widgets/flexible_test.dart sourceChars=84314 clearMs=206 httpMs=30019 totalMs=30228 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/flexible_test.dart:
+    Build timed out after 30 seconds
+40:02 +3 -78: widgets/ flexible_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 572:7              main.<fn>.<fn>
+  
+40:02 +3 -78: widgets/ focusnode_test.dart
+[METRIC] script=widgets/focusnode_test.dart sourceChars=75866 clearMs=206 httpMs=30024 totalMs=30232 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/focusnode_test.dart:
+    Build timed out after 30 seconds
+40:32 +3 -79: widgets/ focusnode_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 577:7              main.<fn>.<fn>
+  
+40:32 +3 -79: widgets/ form_test.dart
+[METRIC] script=widgets/form_test.dart sourceChars=68570 clearMs=207 httpMs=30021 totalMs=30231 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/form_test.dart:
+    Build timed out after 30 seconds
+41:02 +3 -80: widgets/ form_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 582:7              main.<fn>.<fn>
+  
+41:02 +3 -80: widgets/ gesturedetector_test.dart
+[METRIC] script=widgets/gesturedetector_test.dart sourceChars=42418 clearMs=213 httpMs=30016 totalMs=30232 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/gesturedetector_test.dart:
+    Build timed out after 30 seconds
+41:33 +3 -81: widgets/ gesturedetector_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 589:7              main.<fn>.<fn>
+  
+41:33 +3 -81: widgets/ gridview_test.dart
+[METRIC] script=widgets/gridview_test.dart sourceChars=77624 clearMs=206 httpMs=30018 totalMs=30227 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/gridview_test.dart:
+    Build timed out after 30 seconds
+42:03 +3 -82: widgets/ gridview_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 594:7              main.<fn>.<fn>
+  
+42:03 +3 -82: widgets/ image_test.dart
+[METRIC] script=widgets/image_test.dart sourceChars=115875 clearMs=208 httpMs=30021 totalMs=30233 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/image_test.dart:
+    Build timed out after 30 seconds
+42:33 +3 -83: widgets/ image_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 599:7              main.<fn>.<fn>
+  
+42:33 +3 -83: widgets/ inkwell_test.dart
+[METRIC] script=widgets/inkwell_test.dart sourceChars=83275 clearMs=205 httpMs=30006 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/inkwell_test.dart:
+    Build timed out after 30 seconds
+43:03 +3 -84: widgets/ inkwell_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 604:7              main.<fn>.<fn>
+  
+43:03 +3 -84: widgets/ key_test.dart
+[METRIC] script=widgets/key_test.dart sourceChars=54447 clearMs=203 httpMs=30004 totalMs=30209 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/key_test.dart:
+    Build timed out after 30 seconds
+43:33 +3 -85: widgets/ key_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 609:7              main.<fn>.<fn>
+  
+43:33 +3 -85: widgets/ listview_test.dart
+[METRIC] script=widgets/listview_test.dart sourceChars=68877 clearMs=203 httpMs=30004 totalMs=30209 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/listview_test.dart:
+    Build timed out after 30 seconds
+44:04 +3 -86: widgets/ listview_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 614:7              main.<fn>.<fn>
+  
+44:04 +3 -86: widgets/ navigator_test.dart
+[METRIC] script=widgets/navigator_test.dart sourceChars=53989 clearMs=203 httpMs=30004 totalMs=30210 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/navigator_test.dart:
+    Build timed out after 30 seconds
+44:34 +3 -87: widgets/ navigator_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 619:7              main.<fn>.<fn>
+  
+44:34 +3 -87: widgets/ opacity_test.dart
+[METRIC] script=widgets/opacity_test.dart sourceChars=63275 clearMs=204 httpMs=30006 totalMs=30212 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/opacity_test.dart:
+    Build timed out after 30 seconds
+45:04 +3 -88: widgets/ opacity_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 624:7              main.<fn>.<fn>
+  
+45:04 +3 -88: widgets/ padding_test.dart
+[METRIC] script=widgets/padding_test.dart sourceChars=74399 clearMs=203 httpMs=30007 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/padding_test.dart:
+    Build timed out after 30 seconds
+45:34 +3 -89: widgets/ padding_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 629:7              main.<fn>.<fn>
+  
+45:34 +3 -89: widgets/ pageview_test.dart
+[METRIC] script=widgets/pageview_test.dart sourceChars=52374 clearMs=203 httpMs=30005 totalMs=30211 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/pageview_test.dart:
+    Build timed out after 30 seconds
+46:05 +3 -90: widgets/ pageview_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 634:7              main.<fn>.<fn>
+  
+46:05 +3 -90: widgets/ positioned_test.dart
+[METRIC] script=widgets/positioned_test.dart sourceChars=74006 clearMs=208 httpMs=30006 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/positioned_test.dart:
+    Build timed out after 30 seconds
+46:35 +3 -91: widgets/ positioned_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 639:7              main.<fn>.<fn>
+  
+46:35 +3 -91: widgets/ richtext_test.dart
+[METRIC] script=widgets/richtext_test.dart sourceChars=56935 clearMs=204 httpMs=30004 totalMs=30210 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/richtext_test.dart:
+    Build timed out after 30 seconds
+47:05 +3 -92: widgets/ richtext_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 644:7              main.<fn>.<fn>
+  
+47:05 +3 -92: widgets/ row_test.dart
+[METRIC] script=widgets/row_test.dart sourceChars=63940 clearMs=204 httpMs=30006 totalMs=30211 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/row_test.dart:
+    Build timed out after 30 seconds
+47:35 +3 -93: widgets/ row_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 649:7              main.<fn>.<fn>
+  
+47:35 +3 -93: widgets/ scaffold_test.dart
+[METRIC] script=widgets/scaffold_test.dart sourceChars=81318 clearMs=204 httpMs=30005 totalMs=30210 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/scaffold_test.dart:
+    Build timed out after 30 seconds
+48:05 +3 -94: widgets/ scaffold_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 654:7              main.<fn>.<fn>
+  
+48:05 +3 -94: widgets/ sized_box_test.dart
+[METRIC] script=widgets/sized_box_test.dart sourceChars=56861 clearMs=203 httpMs=30004 totalMs=30209 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/sized_box_test.dart:
+    Build timed out after 30 seconds
+48:36 +3 -95: widgets/ sized_box_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 659:7              main.<fn>.<fn>
+  
+48:36 +3 -95: widgets/ stack_test.dart
+[METRIC] script=widgets/stack_test.dart sourceChars=52869 clearMs=205 httpMs=30005 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/stack_test.dart:
+    Build timed out after 30 seconds
+49:06 +3 -96: widgets/ stack_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 664:7              main.<fn>.<fn>
+  
+49:06 +3 -96: widgets/ statefulwidget_test.dart
+[METRIC] script=widgets/statefulwidget_test.dart sourceChars=129853 clearMs=204 httpMs=30009 totalMs=30216 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/statefulwidget_test.dart:
+    Build timed out after 30 seconds
+49:36 +3 -97: widgets/ statefulwidget_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 671:7              main.<fn>.<fn>
+  
+49:36 +3 -97: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=207 httpMs=30005 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/textfield_test.dart:
+    Build timed out after 30 seconds
+50:06 +3 -98: widgets/ textfield_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 676:7              main.<fn>.<fn>
+  
+50:06 +3 -98: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceChars=54228 clearMs=203 httpMs=30010 totalMs=30214 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/text_test.dart:
+    Build timed out after 30 seconds
+50:37 +3 -99: widgets/ text_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 681:7              main.<fn>.<fn>
+  
+50:37 +3 -99: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceChars=59856 clearMs=205 httpMs=30006 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/transform_test.dart:
+    Build timed out after 30 seconds
+51:07 +3 -100: widgets/ transform_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 686:7              main.<fn>.<fn>
+  
+51:07 +3 -100: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceChars=61150 clearMs=206 httpMs=30007 totalMs=30217 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/wrap_test.dart:
+    Build timed out after 30 seconds
+51:37 +3 -101: widgets/ wrap_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 691:7              main.<fn>.<fn>
+  
+51:37 +3 -101: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceChars=48716 clearMs=203 httpMs=30008 totalMs=30213 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in services/textformatter_test.dart:
+    Build timed out after 30 seconds
+52:07 +3 -102: services/ textformatter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/essential_classes_test.dart 703:7              main.<fn>.<fn>
+  
+52:07 +3 -102: (tearDownAll)
+52:08 +3 -102: Some tests failed.

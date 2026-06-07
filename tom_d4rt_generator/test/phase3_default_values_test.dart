@@ -140,4 +140,63 @@ void main() {
       expect(generatedCode, contains('getOptionalArg'));
     });
   });
+
+  group('OPEN C.3 / U2: operator-bearing & built-in numeric constant defaults',
+      () {
+    // These const expressions used to be classified non-wrappable and routed
+    // to the throwing getRequiredArgTodoDefault helper. The generator now
+    // emits them as real defaults: dart:math constants are substituted with
+    // their literal value (so `math.pi * 2` becomes a literal arithmetic
+    // expression), built-in numeric constants (double.infinity) are emitted
+    // as-is, and pure literal arithmetic (1.0 / 2) is preserved.
+
+    test('GEN-C3-1: math.pi * 2 named default is wrappable (not TodoDefault)',
+        () {
+      expect(
+        generatedCode,
+        contains("getNamedArgWithDefault<double>(named, 'fullTurn',"),
+        reason: 'math.pi * 2 must emit a real default via the wrappable path.',
+      );
+      expect(
+        generatedCode,
+        isNot(contains(
+            "getRequiredNamedArgTodoDefault<double>(named, 'fullTurn'")),
+        reason: 'fullTurn must not fall back to the throwing TODO helper.',
+      );
+    });
+
+    test('GEN-C3-2: math.pi is substituted with its literal value', () {
+      // The pi constant is emitted as a literal double; the `* 2` arithmetic
+      // is preserved so the const expression evaluates to 2π.
+      expect(generatedCode, contains('3.14159'));
+      expect(generatedCode, contains('* 2'));
+    });
+
+    test('GEN-C3-3: double.infinity built-in constant is emitted as-is', () {
+      expect(
+        generatedCode,
+        contains("getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity)"),
+      );
+    });
+
+    test('GEN-C3-4: pure literal arithmetic 1.0 / 2 is preserved', () {
+      expect(
+        generatedCode,
+        contains("getNamedArgWithDefault<double>(named, 'half', 1.0 / 2)"),
+      );
+    });
+
+    test('GEN-C3-5: operator-bearing positional default is wrappable', () {
+      expect(
+        generatedCode,
+        contains("getOptionalArgWithDefault<double>(positional, 0, 'endAngle',"),
+        reason: 'positional math.pi * 2 must use the indexed wrappable helper.',
+      );
+      expect(
+        generatedCode,
+        isNot(contains(
+            "getRequiredArgTodoDefault<double>(positional, 0, 'endAngle'")),
+      );
+    });
+  });
 }

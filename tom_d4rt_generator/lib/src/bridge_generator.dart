@@ -4620,14 +4620,97 @@ class BridgeGenerator {
       return defaultValue;
     }
 
+    // 5. Built-in numeric static constants (double.infinity, double.nan, …).
+    // `double`/`int`/`num` are dart:core types available in every library, so
+    // these resolve in the generated bridge with no prefix. The uppercase
+    // `ClassName.member` branch above never matches them because the type name
+    // is lowercase. (OPEN C.3 / U2.)
+    if (_builtinNumericConstants.contains(defaultValue)) {
+      return defaultValue;
+    }
+
+    // 6. Operator-bearing constant arithmetic (e.g. `math.pi * 2`, `1.0 / 2`).
+    // Substitute known dart:math constants with their literal value and keep
+    // built-in numeric constants as-is, leaving a literal const expression the
+    // bridge can emit directly instead of the throwing TODO helper.
+    // (OPEN C.3 / U2.)
+    final arithmetic = _tryWrapConstArithmeticDefault(defaultValue);
+    if (arithmetic != null) {
+      return arithmetic;
+    }
+
     // All other cases are non-wrappable:
     // - Const collections with values
     // - Function calls
     // - Class static members (e.g., guestUsername from TomUser)
     // - Private identifiers
-    // - Expressions with operators
     // - Any qualified identifiers (ClassName.member)
     return null;
+  }
+
+  /// Built-in numeric static constants that are valid in any Dart library and
+  /// therefore emittable in a generated bridge with no import prefix.
+  static const Set<String> _builtinNumericConstants = {
+    'double.infinity',
+    'double.negativeInfinity',
+    'double.nan',
+    'double.maxFinite',
+    'double.minPositive',
+  };
+
+  /// `dart:math` top-level constants mapped to their literal `double` source.
+  /// Substituting these lets an operator-bearing default such as `math.pi * 2`
+  /// be emitted as a pure literal const expression (`3.1415926535897932 * 2`)
+  /// without importing `dart:math` into the generated bridge.
+  static const Map<String, String> _dartMathConstants = {
+    'math.pi': '3.1415926535897932',
+    'math.e': '2.718281828459045',
+    'math.ln2': '0.6931471805599453',
+    'math.ln10': '2.302585092994046',
+    'math.log2e': '1.4426950408889634',
+    'math.log10e': '0.4342944819032518',
+    'math.sqrt1_2': '0.7071067811865476',
+    'math.sqrt2': '1.4142135623730951',
+  };
+
+  /// Attempts to rewrite an operator-bearing constant default into a literal
+  /// const expression the generated bridge can emit directly.
+  ///
+  /// Returns the rewritten expression, or `null` if it contains any token that
+  /// cannot be safely emitted (an unknown identifier, function call, etc.) —
+  /// in which case the caller keeps the existing non-wrappable behaviour.
+  String? _tryWrapConstArithmeticDefault(String defaultValue) {
+    // Only handle expressions that actually contain a binary arithmetic
+    // operator; bare literals/identifiers are covered by the other branches.
+    if (!RegExp(r'[+*/%]|\w\s*-\s*\w|\)\s*-').hasMatch(defaultValue)) {
+      return null;
+    }
+
+    // Substitute known dart:math constants with their literal value.
+    var expr = defaultValue;
+    _dartMathConstants.forEach((token, literal) {
+      expr = expr.replaceAll(RegExp('(?<![\\w.])${RegExp.escape(token)}(?![\\w])'),
+          literal);
+    });
+
+    // Mask out built-in numeric constants (kept verbatim in the output) so the
+    // validation pass sees only literal-arithmetic characters.
+    var masked = expr;
+    for (final constant in _builtinNumericConstants) {
+      masked = masked.replaceAll(constant, '0');
+    }
+
+    // After substitution the expression must be pure literal arithmetic:
+    // digits, decimal point, exponent marker, operators, parens, whitespace.
+    if (!RegExp(r'^[0-9eE.+\-*/%()\s]+$').hasMatch(masked)) {
+      return null;
+    }
+    // Require at least one digit so a degenerate match (e.g. a lone operator)
+    // is rejected.
+    if (!RegExp(r'[0-9]').hasMatch(masked)) {
+      return null;
+    }
+    return expr;
   }
 
   String? _resolveDefaultTypePrefix(

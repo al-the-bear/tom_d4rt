@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-06-05T17:21:36.235216
+// Generated: 2026-06-07T11:18:45.129751
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -3758,24 +3758,10 @@ BridgedClass _createBoxConstraintsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
         final minHeight = D4.getNamedArgWithDefault<double>(named, 'minHeight', 0.0);
-        if (!named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          return $flutter_42.BoxConstraints(minWidth: minWidth, minHeight: minHeight);
-        }
-        if (named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'BoxConstraints');
-          return $flutter_42.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth);
-        }
-        if (!named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'BoxConstraints');
-          return $flutter_42.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxHeight: maxHeight);
-        }
-        if (named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'BoxConstraints');
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'BoxConstraints');
-          return $flutter_42.BoxConstraints(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxHeight = D4.getNamedArgWithDefault<double>(named, 'maxHeight', double.infinity);
+        return $flutter_42.BoxConstraints(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight);
       },
       'tight': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxConstraints');
@@ -3788,23 +3774,9 @@ BridgedClass _createBoxConstraintsBridge() {
         return $flutter_42.BoxConstraints.tightFor(width: width, height: height);
       },
       'tightForFinite': (visitor, positional, named) {
-        if (!named.containsKey('width') && !named.containsKey('height')) {
-          return $flutter_42.BoxConstraints.tightForFinite();
-        }
-        if (named.containsKey('width') && !named.containsKey('height')) {
-          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxConstraints');
-          return $flutter_42.BoxConstraints.tightForFinite(width: width);
-        }
-        if (!named.containsKey('width') && named.containsKey('height')) {
-          final height = D4.getRequiredNamedArg<double>(named, 'height', 'BoxConstraints');
-          return $flutter_42.BoxConstraints.tightForFinite(height: height);
-        }
-        if (named.containsKey('width') && named.containsKey('height')) {
-          final width = D4.getRequiredNamedArg<double>(named, 'width', 'BoxConstraints');
-          final height = D4.getRequiredNamedArg<double>(named, 'height', 'BoxConstraints');
-          return $flutter_42.BoxConstraints.tightForFinite(width: width, height: height);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final width = D4.getNamedArgWithDefault<double>(named, 'width', double.infinity);
+        final height = D4.getNamedArgWithDefault<double>(named, 'height', double.infinity);
+        return $flutter_42.BoxConstraints.tightForFinite(width: width, height: height);
       },
       'loose': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxConstraints');
@@ -3887,14 +3859,12 @@ BridgedClass _createBoxConstraintsBridge() {
       },
       'constrainWidth': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxConstraints>(target, 'BoxConstraints');
-        // TODO: Non-wrappable default: double.infinity
-        final width = D4.getRequiredArgTodoDefault<double>(positional, 0, 'width', 'constrainWidth', 'double.infinity');
+        final width = D4.getOptionalArgWithDefault<double>(positional, 0, 'width', double.infinity);
         return t.constrainWidth(width);
       },
       'constrainHeight': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxConstraints>(target, 'BoxConstraints');
-        // TODO: Non-wrappable default: double.infinity
-        final height = D4.getRequiredArgTodoDefault<double>(positional, 0, 'height', 'constrainHeight', 'double.infinity');
+        final height = D4.getOptionalArgWithDefault<double>(positional, 0, 'height', double.infinity);
         return t.constrainHeight(height);
       },
       'constrain': (visitor, target, positional, named, typeArgs) {
@@ -32777,23 +32747,9 @@ BridgedClass _createRenderLimitedBoxBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
-        if (!named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          return $flutter_63.RenderLimitedBox(child: child);
-        }
-        if (named.containsKey('maxWidth') && !named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'RenderLimitedBox');
-          return $flutter_63.RenderLimitedBox(child: child, maxWidth: maxWidth);
-        }
-        if (!named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'RenderLimitedBox');
-          return $flutter_63.RenderLimitedBox(child: child, maxHeight: maxHeight);
-        }
-        if (named.containsKey('maxWidth') && named.containsKey('maxHeight')) {
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'RenderLimitedBox');
-          final maxHeight = D4.getRequiredNamedArg<double>(named, 'maxHeight', 'RenderLimitedBox');
-          return $flutter_63.RenderLimitedBox(child: child, maxWidth: maxWidth, maxHeight: maxHeight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final maxWidth = D4.getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity);
+        final maxHeight = D4.getNamedArgWithDefault<double>(named, 'maxHeight', double.infinity);
+        return $flutter_63.RenderLimitedBox(child: child, maxWidth: maxWidth, maxHeight: maxHeight);
       },
     },
     getters: {
@@ -72998,15 +72954,9 @@ BridgedClass _createSliverConstraintsBridge() {
       'asBoxConstraints': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverConstraints>(target, 'SliverConstraints');
         final minExtent = D4.getNamedArgWithDefault<double>(named, 'minExtent', 0.0);
+        final maxExtent = D4.getNamedArgWithDefault<double>(named, 'maxExtent', double.infinity);
         final crossAxisExtent = D4.getOptionalNamedArg<double?>(named, 'crossAxisExtent');
-        if (!named.containsKey('maxExtent')) {
-          return t.asBoxConstraints(minExtent: minExtent, crossAxisExtent: crossAxisExtent);
-        }
-        if (named.containsKey('maxExtent')) {
-          final maxExtent = D4.getRequiredNamedArg<double>(named, 'maxExtent', 'asBoxConstraints');
-          return t.asBoxConstraints(minExtent: minExtent, crossAxisExtent: crossAxisExtent, maxExtent: maxExtent);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return t.asBoxConstraints(minExtent: minExtent, maxExtent: maxExtent, crossAxisExtent: crossAxisExtent);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverConstraints>(target, 'SliverConstraints');
@@ -86710,23 +86660,9 @@ BridgedClass _createPersistentHeaderShowOnScreenConfigurationBridge() {
     isAssignable: (v) => v is $flutter_77.PersistentHeaderShowOnScreenConfiguration,
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('minShowOnScreenExtent') && !named.containsKey('maxShowOnScreenExtent')) {
-          return $flutter_77.PersistentHeaderShowOnScreenConfiguration();
-        }
-        if (named.containsKey('minShowOnScreenExtent') && !named.containsKey('maxShowOnScreenExtent')) {
-          final minShowOnScreenExtent = D4.getRequiredNamedArg<double>(named, 'minShowOnScreenExtent', 'PersistentHeaderShowOnScreenConfiguration');
-          return $flutter_77.PersistentHeaderShowOnScreenConfiguration(minShowOnScreenExtent: minShowOnScreenExtent);
-        }
-        if (!named.containsKey('minShowOnScreenExtent') && named.containsKey('maxShowOnScreenExtent')) {
-          final maxShowOnScreenExtent = D4.getRequiredNamedArg<double>(named, 'maxShowOnScreenExtent', 'PersistentHeaderShowOnScreenConfiguration');
-          return $flutter_77.PersistentHeaderShowOnScreenConfiguration(maxShowOnScreenExtent: maxShowOnScreenExtent);
-        }
-        if (named.containsKey('minShowOnScreenExtent') && named.containsKey('maxShowOnScreenExtent')) {
-          final minShowOnScreenExtent = D4.getRequiredNamedArg<double>(named, 'minShowOnScreenExtent', 'PersistentHeaderShowOnScreenConfiguration');
-          final maxShowOnScreenExtent = D4.getRequiredNamedArg<double>(named, 'maxShowOnScreenExtent', 'PersistentHeaderShowOnScreenConfiguration');
-          return $flutter_77.PersistentHeaderShowOnScreenConfiguration(minShowOnScreenExtent: minShowOnScreenExtent, maxShowOnScreenExtent: maxShowOnScreenExtent);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final minShowOnScreenExtent = D4.getNamedArgWithDefault<double>(named, 'minShowOnScreenExtent', double.negativeInfinity);
+        final maxShowOnScreenExtent = D4.getNamedArgWithDefault<double>(named, 'maxShowOnScreenExtent', double.infinity);
+        return $flutter_77.PersistentHeaderShowOnScreenConfiguration(minShowOnScreenExtent: minShowOnScreenExtent, maxShowOnScreenExtent: maxShowOnScreenExtent);
       },
     },
     getters: {
