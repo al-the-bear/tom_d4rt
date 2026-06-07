@@ -246,6 +246,60 @@ keeps committed bridge output unchanged until the buildkit knob is set and both
 twins are regenerated — see the deferred completion step (which also carries the
 A4 RenderBox family and the KeepAlive web-twin gap closure).
 
+### MCI#6 / B1 — generic-type-arg proxy variants folded into the generator (2026-06-07)
+
+An **invariant** generic delegate cannot be backed by a single concrete-arg
+proxy. `CustomClipper<T>` is invariant, so a `CustomClipper<Path>` proxy handed
+to a script that declared `extends CustomClipper<RRect>` blows up downstream in
+Flutter at `_RenderCustomClip<RRect>._clip = clipper.getClip(size)` with
+`_NativePath is not a subtype of RRect`. The fix is one **typed** proxy per
+concrete type argument, each returning a non-null fallback of its own `T`, plus
+a `registerInterfaceProxy` selector that picks the variant matching the script's
+reified bridged-super type argument (`bridgedSuperTypeArgNames[0]`):
+
+| Variant class | `extends` | `getClip` fallback |
+|---------------|-----------|--------------------|
+| `_InterpretedCustomClipperPath` | `CustomClipper<Path>` | `Path()` |
+| `_InterpretedCustomClipperRect` | `CustomClipper<Rect>` | `Offset.zero & size` |
+| `_InterpretedCustomClipperRRect` | `CustomClipper<RRect>` | `RRect.fromRectAndCorners(Offset.zero & size)` |
+| `_InterpretedCustomClipperRSuperellipse` | `CustomClipper<RSuperellipse>` | `RSuperellipse.fromRectAndRadius(Offset.zero & size, Radius.zero)` |
+
+These four classes were hand-written near-verbatim in each twin's
+`d4rt_runtime_registrations.dart`. The emitter replaces them with one template.
+
+| Field (`ProxyClassConfig`) | Default | Effect |
+|----------------------------|---------|--------|
+| `typeArgVariants` | `[]` | Generic type-args to emit a typed proxy variant for. Each entry is `{typeArg, defaultExpr}` — `typeArg` is analyzer-validatable, `defaultExpr` is the non-null fallback (the only extra human input; there is no generic non-null default for an arbitrary `T`). |
+
+`generateTypeArgProxyVariant` / `generateTypeArgProxyClasses` /
+`generateTypeArgProxySelector` (in `typearg_proxy_generator.dart`) emit the
+classes in declaration order plus the selector switch. The **first** listed
+variant is the selector's `default:` arm (matched when the script gives no type
+argument or an unlisted one); the rest become `case` arms in order. The
+per-variant pieces are just the type argument `T` and the `defaultExpr` (which
+substitutes into both the null-method early return and the catch/non-match
+fallthrough). The abstract method shape is `CustomClipper`'s
+(`T getClip(Size size)` + `bool shouldReclip(covariant CustomClipper<T>)`),
+which is the sole B1 case.
+
+**Canonical-normalization nuance** (as in MCI#3): the emitter produces a
+canonical form — the golden (`G-TAV-1`/`G-TAV-5`) pins it; the regen-time
+base-test gate validates behavioural equivalence with the hand code, whose only
+differences are cosmetic doc-comment drift and switch-arm ordering (the hand
+form lists `RRect, Rect, RSuperellipse, default→Path`; the canonical form lists
+config order `Rect, RRect, RSuperellipse, default→Path`). The dormant default
+(`[]`) keeps committed bridge output unchanged.
+
+**Deferred (B3 + heavy tail).** The B3 generic-**constructor** switches
+(`GlobalKey`, `ValueKey`, `ValueNotifier`) named in the same `typeArgVariants`
+todo are **not** folded here: their shapes diverge (named-arg passthrough with a
+typed default for `GlobalKey`; positional-value nullable-aware arms with a
+`null` default for `ValueKey`/`ValueNotifier`), so they are not a single
+byte-for-byte template. They — plus wiring `typeArgVariants` into both twins'
+`buildkit.yaml`, regen, removing the hand-written classes/switches, and the
+serial base-test + `CustomClipper<RRect>` / `GlobalKey<NavigatorState>()`
+integration gate — are recorded in the deferred completion step.
+
 ---
 
 ## Problem

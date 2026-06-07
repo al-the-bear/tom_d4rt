@@ -267,10 +267,42 @@ class ProxyClassConfig {
   /// ```
   final List<String> mixinVariants;
 
+  /// Generic type-argument variants for which a typed native proxy class
+  /// should be generated, plus a `registerInterfaceProxy` selector switch
+  /// that picks the variant matching the script's reified bridged-super type
+  /// argument (MCI#6 / B1).
+  ///
+  /// An invariant generic delegate such as `CustomClipper<T>` cannot be
+  /// satisfied by a single `CustomClipper<Path>` proxy: Flutter's downstream
+  /// `clipper.getClip(size) as RRect` cast fails when the script declared
+  /// `extends CustomClipper<RRect>`. So one typed proxy per concrete type
+  /// argument is needed, each returning a non-null fallback of its own `T`.
+  /// Rather than hand-write four near-verbatim classes plus the selector,
+  /// the generator emits them from this allow-list. The type-arg name is
+  /// analyzer-validatable; the per-variant [TypeArgProxyVariant.defaultExpr]
+  /// is the only extra human input (there is no generic non-null default for
+  /// an arbitrary `T`). The empty default keeps the feature dormant.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   proxyClasses:
+  ///     - className: CustomClipper
+  ///       typeArgVariants:
+  ///         - typeArg: Path           # first entry is the default arm
+  ///           defaultExpr: Path()
+  ///         - typeArg: Rect
+  ///           defaultExpr: Offset.zero & size
+  ///         - typeArg: RRect
+  ///           defaultExpr: RRect.fromRectAndCorners(Offset.zero & size)
+  /// ```
+  final List<TypeArgProxyVariant> typeArgVariants;
+
   const ProxyClassConfig({
     required this.className,
     this.proxyName,
     this.mixinVariants = const [],
+    this.typeArgVariants = const [],
   });
 
   factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
@@ -280,6 +312,10 @@ class ProxyClassConfig {
         proxyName: json['proxyName'] as String?,
         mixinVariants:
             (json['mixinVariants'] as List?)?.cast<String>() ?? const [],
+        typeArgVariants: (json['typeArgVariants'] as List?)
+                ?.map((e) => TypeArgProxyVariant.fromYaml(e as Object))
+                .toList() ??
+            const [],
       );
     }
     throw ArgumentError('ProxyClassConfig requires className: $json');
@@ -303,11 +339,61 @@ class ProxyClassConfig {
       'className': className,
       if (proxyName != null) 'proxyName': proxyName,
       if (mixinVariants.isNotEmpty) 'mixinVariants': mixinVariants,
+      if (typeArgVariants.isNotEmpty)
+        'typeArgVariants': typeArgVariants.map((v) => v.toJson()).toList(),
     };
   }
 
   /// The name of the generated proxy class.
   String get effectiveProxyName => proxyName ?? 'D4rt$className';
+}
+
+/// A single generic type-argument variant of a [ProxyClassConfig].
+///
+/// Drives one typed native proxy class (e.g. `_InterpretedCustomClipperRRect`)
+/// and one arm of the `registerInterfaceProxy` selector switch (MCI#6 / B1).
+class TypeArgProxyVariant {
+  /// The concrete type argument this variant specialises for (e.g. `RRect`).
+  /// Analyzer-validatable — must name a real type reachable from the proxy
+  /// file's imports.
+  final String typeArg;
+
+  /// The non-null fallback expression returned when the script does not
+  /// implement the abstract method (or it throws). There is no generic
+  /// non-null default for an arbitrary `T`, so this is supplied per variant
+  /// (e.g. `Path()`, `Offset.zero & size`,
+  /// `RRect.fromRectAndCorners(Offset.zero & size)`). The expression may
+  /// reference the abstract method's parameter (`size`).
+  final String defaultExpr;
+
+  const TypeArgProxyVariant({required this.typeArg, required this.defaultExpr});
+
+  factory TypeArgProxyVariant.fromJson(Map<String, dynamic> json) {
+    if (json
+        case {
+          'typeArg': final String typeArg,
+          'defaultExpr': final String defaultExpr,
+        }) {
+      return TypeArgProxyVariant(typeArg: typeArg, defaultExpr: defaultExpr);
+    }
+    throw ArgumentError(
+      'TypeArgProxyVariant requires typeArg + defaultExpr: $json',
+    );
+  }
+
+  factory TypeArgProxyVariant.fromYaml(Object value) {
+    if (value is Map) {
+      return TypeArgProxyVariant.fromJson(
+        value.map((k, v) => MapEntry(k.toString(), v)),
+      );
+    }
+    throw ArgumentError('TypeArgProxyVariant expects a Map, got: $value');
+  }
+
+  Map<String, dynamic> toJson() => {
+        'typeArg': typeArg,
+        'defaultExpr': defaultExpr,
+      };
 }
 
 /// Configuration for a class to include in reduced relaxer/RC-2 generation.
