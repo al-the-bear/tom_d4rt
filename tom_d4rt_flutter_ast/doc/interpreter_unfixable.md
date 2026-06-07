@@ -7523,7 +7523,27 @@ A genuine fix would require either:
 
 ---
 
-## U29 — `MemoryImage(Uint8List)` codec rejects externally-valid PNG bytes when constructed inside a d4rt script (interpreter ↔ ui.ImmutableBuffer bridge gap) — **✅ FIXED in 2206 baseline (observable side; architectural bridge gap intact)**
+## U29 — `MemoryImage(Uint8List)` codec rejects PNG bytes — **RESOLVED 2026-06-07: NOT a bridge bug — the script's PNG literal was malformed**
+
+> **2026-06-07 reclassification (OPEN A.6).** This was never an interpreter ↔
+> `ui.ImmutableBuffer` bridge gap. The inline `_png1x1White` / `_png1x1Black`
+> literals in `image_icon_test.dart` are **malformed PNGs**: the IDAT chunk has
+> an invalid CRC (white: stored `1d8a82c5` ≠ computed `c3e29aeb`), zlib
+> decompression fails ("incorrect data check" / bad adler32), and PIL/libpng
+> reject them ("broken data stream"). The earlier claim in the analysis below
+> that external decoders accept the bytes is **wrong**. "Codec failed to produce
+> an image" is the **correct** result for invalid input.
+>
+> The bridge preserves `Uint8List` bytes exactly: `MemoryImage`'s constructor
+> extracts its argument via `D4.getRequiredArg<Uint8List>` →
+> `D4.extractBridgedArg<Uint8List>`, which returns the native `Uint8List`
+> **by identity** (deep-unwrap only fires for `dynamic`/`Object`). Locked down by
+> mirror proof tests (IDs I-U29-1..3):
+> `tom_d4rt/test/stdlib/typed_data/memory_image_bytes_roundtrip_test.dart` and
+> `tom_d4rt_ast/test/runtime/memory_image_bytes_roundtrip_test.dart`. The
+> banner-suppression pattern was already removed 2026-05-30 (1944 TODO A.1). The
+> original analysis below is retained only for historical reference — its bridge-
+> corruption hypothesis is disproven.
 
 **2026-05-29 update — FIXED (observable side).** Same two-fix mechanism as §U17:
 
