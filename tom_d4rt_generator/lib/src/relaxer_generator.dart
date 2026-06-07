@@ -297,8 +297,31 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
+  // MCI#5 / A5: build generic-widget re-creator blocks for the configured
+  // `recreatorClasses`. These reconstruct immutable widgets with the script's
+  // <T> (instead of relaxer-wrapping them). Independent of generateAllRelaxers.
+  final recreatorBlocks = <String>[];
+  for (final rc in config.recreatorClasses) {
+    final info = globalClassLookup[rc.className];
+    if (info == null) {
+      warn(
+        'Re-creator ${rc.className}: no ClassInfo in bridge analysis — '
+        'skipping',
+      );
+      continue;
+    }
+    final block = generateWidgetReCreator(
+      rc.className,
+      info,
+      rc.innerTypes,
+      globalClassLookup,
+      warn,
+    );
+    if (block != null) recreatorBlocks.add(block);
+  }
+
   // Registration function
-  _writeRegistrationFunction(buffer, factoryNames);
+  _writeRegistrationFunction(buffer, factoryNames, recreatorBlocks);
 
   // -------------------------------------------------------------------------
   // Step 3b: Generate RC-2 generic constructor registrations
@@ -324,6 +347,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
   if (wrappersGenerated == 0 &&
       factoriesGenerated == 0 &&
       userRelaxers.isEmpty &&
+      recreatorBlocks.isEmpty &&
       genericCtorCount == 0) {
     final stub = StringBuffer();
     _writeFileHeader(stub, config);
@@ -1548,8 +1572,9 @@ String _factoryFunctionName(String baseTypeName, String moduleName) {
 /// Writes the `registerRelaxers()` function.
 void _writeRegistrationFunction(
   StringBuffer buffer,
-  Map<String, List<String>> factoryNames,
-) {
+  Map<String, List<String>> factoryNames, [
+  List<String> recreatorBlocks = const [],
+]) {
   buffer.writeln(
     '// =============================================================================',
   );
@@ -1579,8 +1604,169 @@ void _writeRegistrationFunction(
     }
   }
 
+  // MCI#5 / A5: generic-widget re-creators (immutable widgets reconstructed
+  // with the script's <T> rather than relaxer-wrapped). Emitted inline inside
+  // the registration body, after the factory registrations.
+  for (final block in recreatorBlocks) {
+    buffer.writeln();
+    buffer.write(block);
+  }
+
   buffer.writeln('}');
   buffer.writeln();
+}
+
+/// Emits a `D4.registerGenericTypeWrapper` re-creator block for a single
+/// type-parameter immutable widget [className] (MCI#5 / A5).
+///
+/// Some Flutter widgets (`DropdownMenuItem<T>`, `DropdownMenuEntry<T>`,
+/// `ButtonSegment<T>`) cannot be wrapped by a `$Relaxed` subclass — they are
+/// immutable and drive complex rendering. Instead they are RE-CONSTRUCTED with
+/// the correct `<T>` by reading each constructor parameter back from its
+/// same-named instance getter. This replaces the hand-written re-creators in
+/// `d4rt_runtime_registrations.dart`.
+///
+/// The emitted block is 2-space-indented, ready to drop inside
+/// `registerRelaxers()`. The switch has a leading `dynamic`/`Object`/`Object?`
+/// arm (no value cast), one arm per [innerTypes] entry (the single type-param
+/// constructor parameter cast to that type), and a `_ => null` fallthrough.
+///
+/// Returns `null` (and calls [warn]) when the class cannot be safely
+/// re-created: not exactly one type parameter, no default constructor, a
+/// constructor parameter without a matching instance getter, more than one
+/// parameter referencing the type parameter, or a parameter that references
+/// the type parameter in a non-bare form (e.g. `List<T>`).
+String? generateWidgetReCreator(
+  String className,
+  ClassInfo info,
+  List<String> innerTypes,
+  Map<String, ClassInfo> globalClassLookup,
+  void Function(String) warn,
+) {
+  if (info.typeParameters.length != 1) {
+    warn(
+      'Re-creator $className: expected exactly 1 type parameter, found '
+      '${info.typeParameters.length} — skipping',
+    );
+    return null;
+  }
+  final typeParam = info.typeParameters.keys.first;
+
+  ConstructorInfo? ctor;
+  for (final c in info.constructors) {
+    if (c.name == null) {
+      ctor = c;
+      break;
+    }
+  }
+  if (ctor == null) {
+    warn('Re-creator $className: no default (unnamed) constructor — skipping');
+    return null;
+  }
+
+  final getterNames =
+      info.allInstanceGetters(globalClassLookup).map((m) => m.name).toSet();
+
+  String? typeParamField;
+  var typeParamNullable = false;
+  for (final p in ctor.parameters) {
+    if (!getterNames.contains(p.name)) {
+      warn(
+        'Re-creator $className: constructor parameter "${p.name}" has no '
+        'matching instance getter — skipping',
+      );
+      return null;
+    }
+    final stripped = _stripNullableSuffix(p.type).trim();
+    if (stripped == typeParam) {
+      if (typeParamField != null) {
+        warn(
+          'Re-creator $className: multiple parameters reference type '
+          'parameter $typeParam — skipping',
+        );
+        return null;
+      }
+      typeParamField = p.name;
+      typeParamNullable = p.type.trim().endsWith('?');
+    } else if (_referencesTypeParam(p.type, typeParam)) {
+      warn(
+        'Re-creator $className: parameter "${p.name}" references type '
+        'parameter $typeParam in a non-bare form (${p.type}) — skipping',
+      );
+      return null;
+    }
+  }
+
+  final b = StringBuffer();
+  b.writeln("  D4.registerGenericTypeWrapper('$className', (");
+  b.writeln('    Object value,');
+  b.writeln('    String innerTypeArg,');
+  b.writeln('  ) {');
+  b.writeln('    if (value is! $className) return null;');
+  b.writeln('    final v = value;');
+  b.writeln('    return switch (innerTypeArg) {');
+  _writeReCreatorArm(
+    b,
+    className,
+    'dynamic',
+    "'dynamic' || 'Object' || 'Object?'",
+    ctor.parameters,
+    typeParamField,
+    null,
+  );
+  for (final inner in innerTypes) {
+    _writeReCreatorArm(
+      b,
+      className,
+      inner,
+      "'$inner'",
+      ctor.parameters,
+      typeParamField,
+      typeParamNullable ? '$inner?' : inner,
+    );
+  }
+  b.writeln('      _ => null,');
+  b.writeln('    };');
+  b.writeln('  });');
+  return b.toString();
+}
+
+/// Writes one `switch` arm of a widget re-creator (see [generateWidgetReCreator]).
+///
+/// [innerGeneric] is the type argument placed in `Class<...>`; [pattern] is the
+/// arm's match expression (e.g. `'String'`). When [castType] is non-null the
+/// [typeParamField] parameter is emitted as `name: v.name as <castType>`,
+/// otherwise as a plain `name: v.name`.
+void _writeReCreatorArm(
+  StringBuffer b,
+  String className,
+  String innerGeneric,
+  String pattern,
+  List<ParameterInfo> params,
+  String? typeParamField,
+  String? castType,
+) {
+  b.writeln('      $pattern => $className<$innerGeneric>(');
+  for (final p in params) {
+    if (p.name == typeParamField && castType != null) {
+      b.writeln('        ${p.name}: v.${p.name} as $castType,');
+    } else {
+      b.writeln('        ${p.name}: v.${p.name},');
+    }
+  }
+  b.writeln('      ),');
+}
+
+/// Strips a single trailing `?` (nullable suffix) from a type string.
+String _stripNullableSuffix(String type) {
+  final t = type.trim();
+  return t.endsWith('?') ? t.substring(0, t.length - 1) : t;
+}
+
+/// Whether [type] references the type parameter [tp] anywhere as a whole word
+/// (e.g. `List<T>`, `ValueChanged<T>`, `Map<String, T>`).
+bool _referencesTypeParam(String type, String tp) {
+  return RegExp('\\b${RegExp.escape(tp)}\\b').hasMatch(type);
 }
 
 // =============================================================================

@@ -436,5 +436,112 @@ void main() {
       });
     });
   });
+
+  group('BridgeConfig.recreatorClasses (MCI#5)', () {
+    Map<String, dynamic> baseJson() => {
+          'name': 'recreator_project',
+          'modules': [
+            {
+              'name': 'm',
+              'barrelFiles': ['lib/m.dart'],
+              'outputPath': 'lib/bridges/m.dart',
+            },
+          ],
+        };
+
+    test('G-CFG-29: recreatorClasses defaults to empty when absent. [2026-06-07 00:00] (PASS)', () {
+      final config = BridgeConfig.fromJson(baseJson());
+      expect(config.recreatorClasses, isEmpty);
+    });
+
+    test('G-CFG-30: Parses recreatorClasses from bare strings with default inner types. [2026-06-07 00:00] (PASS)', () {
+      final config = BridgeConfig.fromJson(
+        baseJson()..['recreatorClasses'] = ['DropdownMenuItem', 'ButtonSegment'],
+      );
+      expect(config.recreatorClasses.map((r) => r.className),
+          equals(['DropdownMenuItem', 'ButtonSegment']));
+      expect(config.recreatorClasses.first.innerTypes,
+          equals(RecreatorClassConfig.defaultInnerTypes));
+    });
+
+    test('G-CFG-31: Parses recreatorClasses from maps with custom inner types. [2026-06-07 00:00] (PASS)', () {
+      final config = BridgeConfig.fromJson(
+        baseJson()
+          ..['recreatorClasses'] = [
+            {
+              'className': 'ButtonSegment',
+              'innerTypes': ['String', 'int'],
+            },
+          ],
+      );
+      final entry = config.recreatorClasses.single;
+      expect(entry.className, equals('ButtonSegment'));
+      expect(entry.innerTypes, equals(['String', 'int']));
+    });
+
+    test('G-CFG-32: toJson omits recreatorClasses when empty. [2026-06-07 00:00] (PASS)', () {
+      final json = BridgeConfig.fromJson(baseJson()).toJson();
+      expect(json.containsKey('recreatorClasses'), isFalse);
+    });
+
+    test('G-CFG-33: toJson emits bare className map when inner types are default. [2026-06-07 00:00] (PASS)', () {
+      final config = BridgeConfig.fromJson(
+        baseJson()..['recreatorClasses'] = ['DropdownMenuItem'],
+      );
+      expect(config.toJson()['recreatorClasses'], equals([
+        {'className': 'DropdownMenuItem'},
+      ]));
+    });
+
+    test('G-CFG-34: toJson includes innerTypes only when non-default. [2026-06-07 00:00] (PASS)', () {
+      final config = BridgeConfig.fromJson(
+        baseJson()
+          ..['recreatorClasses'] = [
+            {
+              'className': 'ButtonSegment',
+              'innerTypes': ['String'],
+            },
+          ],
+      );
+      expect(config.toJson()['recreatorClasses'], equals([
+        {
+          'className': 'ButtonSegment',
+          'innerTypes': ['String'],
+        },
+      ]));
+    });
+
+    test('G-CFG-35: Round-trip preserves recreatorClasses. [2026-06-07 00:00] (PASS)', () {
+      final original = BridgeConfig.fromJson(
+        baseJson()
+          ..['recreatorClasses'] = [
+            'DropdownMenuItem',
+            {
+              'className': 'ButtonSegment',
+              'innerTypes': ['String', 'int'],
+            },
+          ],
+      );
+      final restored = BridgeConfig.fromJson(original.toJson());
+      expect(restored.recreatorClasses.map((r) => r.className),
+          equals(['DropdownMenuItem', 'ButtonSegment']));
+      expect(restored.recreatorClasses[0].innerTypes,
+          equals(RecreatorClassConfig.defaultInnerTypes));
+      expect(restored.recreatorClasses[1].innerTypes, equals(['String', 'int']));
+    });
+
+    test('G-CFG-36: copyWith overrides and preserves recreatorClasses. [2026-06-07 00:00] (PASS)', () {
+      final original = BridgeConfig.fromJson(baseJson());
+      final updated = original.copyWith(
+        recreatorClasses: const [RecreatorClassConfig(className: 'DropdownMenuItem')],
+      );
+      expect(updated.recreatorClasses.single.className,
+          equals('DropdownMenuItem'));
+
+      final renamed = updated.copyWith(name: 'renamed');
+      expect(renamed.recreatorClasses.single.className,
+          equals('DropdownMenuItem'));
+    });
+  });
 }
 

@@ -158,6 +158,45 @@ with logging enabled — recorded as a deferred completion step (it is
 co-located with the step-4 `generateAllRelaxers: false` production flip, since
 both share the same heavyweight serial base-test gate on both twins).
 
+### MCI#5 / A5 — generic-widget re-creators folded into the generator (2026-06-07)
+
+Some immutable Flutter widgets cannot be relaxer-wrapped at all: a `$Relaxed`
+subclass works by overriding/forwarding, but widgets are immutable and drive
+complex rendering, so the relaxer must instead **re-construct** the widget with
+the script's `<T>`. When a script writes `DropdownMenuItem(value: 'a')` without
+type args, the bridge constructor produces `DropdownMenuItem<dynamic>`, which
+then fails assignment into `DropdownButton<String>.items` (invariant generics).
+The re-creator reads each constructor parameter back from its same-named
+instance getter and rebuilds `DropdownMenuItem<String>`.
+
+These three re-creators (`DropdownMenuItem<T>`, `DropdownMenuEntry<T>`,
+`ButtonSegment<T>`) were previously **hand-written** in each twin's
+`d4rt_runtime_registrations.dart` (`_registerGenericWidgetReCreators()`). They
+are now emitted by the generator:
+
+| Field (`BridgeConfig`) | Default | Effect |
+|------------------------|---------|--------|
+| `recreatorClasses` | `[]` | Single-type-parameter widgets to emit a `D4.registerGenericTypeWrapper` re-creator for. Entry is a bare class name (default inner types `String, int, double, bool, num`) or `{className: …, innerTypes: […]}`. Independent of `generateAllRelaxers`. |
+
+`generateWidgetReCreator` (in `relaxer_generator.dart`) emits the re-creator
+inline inside `registerRelaxers()`, after the factory registrations. It reads
+the class's single type parameter, its default constructor, and the instance
+getters (including inherited), then emits a `switch (innerTypeArg)` with a
+leading `dynamic`/`Object`/`Object?` arm (no value cast), one arm per inner
+type (the lone type-parameter constructor parameter cast to that type —
+nullable when the parameter type is `T?`, as for `DropdownMenuItem.value`,
+non-null when `T`, as for `DropdownMenuEntry`/`ButtonSegment`), and a
+`_ => null` fallthrough. The emitter **bails conservatively** (warns, emits
+nothing) when the class is not exactly one type parameter, has no default
+constructor, has a constructor parameter without a matching getter, or has a
+parameter that references the type parameter in a non-bare form (e.g.
+`List<T>`) that cannot be safely cast.
+
+The emitted output is **byte-for-byte identical** to the hand-written
+re-creators (pinned by unit test `G-RCR-1`), so the obsolete hand-written
+`_registerGenericWidgetReCreators()` in both twins can be deleted once the
+generator is wired and regenerated — see the deferred completion step.
+
 ---
 
 ## Problem

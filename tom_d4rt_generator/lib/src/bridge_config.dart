@@ -320,6 +320,91 @@ class RelaxerClassConfig {
   Map<String, dynamic> toJson() => {'className': className};
 }
 
+/// Configuration for a single-type-parameter widget that must be **re-created**
+/// (rather than relaxer-wrapped) with a script-supplied type argument.
+///
+/// Some immutable Flutter widgets — `DropdownMenuItem<T>`,
+/// `DropdownMenuEntry<T>`, `ButtonSegment<T>` — cannot be wrapped by a
+/// `$Relaxed` subclass (they are immutable and drive complex rendering).
+/// Instead the generator emits a `D4.registerGenericTypeWrapper` re-creator
+/// that reconstructs the widget with the correct `<T>` by reading the
+/// constructor parameters back from the same-named instance getters.
+///
+/// Each entry lists the [className] and the concrete [innerTypes] for which a
+/// `switch` arm is emitted (in addition to the always-present
+/// `dynamic`/`Object` arm). Used by the relaxer generator's re-creator
+/// emitter (MCI#5 / A5).
+///
+/// Example in buildkit.yaml:
+/// ```yaml
+/// d4rtgen:
+///   recreatorClasses:
+///     - DropdownMenuItem
+///     - className: ButtonSegment
+///       innerTypes: [String, int]
+/// ```
+class RecreatorClassConfig {
+  /// The widget class name to emit a re-creator for.
+  final String className;
+
+  /// The concrete inner type arguments to emit `switch` arms for.
+  final List<String> innerTypes;
+
+  /// Default inner types when none are specified — mirrors the hand-written
+  /// re-creators they replace.
+  static const List<String> defaultInnerTypes = [
+    'String',
+    'int',
+    'double',
+    'bool',
+    'num',
+  ];
+
+  const RecreatorClassConfig({
+    required this.className,
+    this.innerTypes = defaultInnerTypes,
+  });
+
+  factory RecreatorClassConfig.fromJson(Map<String, dynamic> json) {
+    if (json case {'className': final String name}) {
+      final inner = (json['innerTypes'] as List?)?.cast<String>();
+      return RecreatorClassConfig(
+        className: name,
+        innerTypes: inner ?? defaultInnerTypes,
+      );
+    }
+    throw ArgumentError('RecreatorClassConfig requires className: $json');
+  }
+
+  /// Parse from a simple string (just the class name) or a map.
+  factory RecreatorClassConfig.fromYaml(Object value) {
+    if (value is String) {
+      return RecreatorClassConfig(className: value);
+    }
+    if (value is Map) {
+      return RecreatorClassConfig.fromJson(
+        value.map((k, v) => MapEntry(k.toString(), v)),
+      );
+    }
+    throw ArgumentError(
+      'RecreatorClassConfig expects String or Map, got: $value',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'className': className,
+        if (!_isDefaultInnerTypes) 'innerTypes': innerTypes,
+      };
+
+  bool get _isDefaultInnerTypes {
+    if (innerTypes.length != defaultInnerTypes.length) return false;
+    for (var i = 0; i < innerTypes.length; i++) {
+      if (innerTypes[i] != defaultInnerTypes[i]) return false;
+    }
+    return true;
+  }
+}
+
 /// Complete bridge configuration for a project.
 class BridgeConfig {
   final String name;
@@ -504,6 +589,16 @@ class BridgeConfig {
   /// Ignored when [generateAllRelaxers] is `true`.
   final List<String> additionalRelaxerTypes;
 
+  /// Single-type-parameter widgets to emit `D4.registerGenericTypeWrapper`
+  /// re-creators for (MCI#5 / A5).
+  ///
+  /// Unlike relaxer wrappers, these are immutable widgets reconstructed with
+  /// the script's `<T>` by reading constructor params back from same-named
+  /// instance getters. See [RecreatorClassConfig]. Independent of
+  /// [generateAllRelaxers] — the re-creators are always emitted for listed
+  /// classes.
+  final List<RecreatorClassConfig> recreatorClasses;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -527,6 +622,7 @@ class BridgeConfig {
     this.generateAllRelaxers = true,
     this.relaxerClasses = const [],
     this.additionalRelaxerTypes = const [],
+    this.recreatorClasses = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -575,6 +671,11 @@ class BridgeConfig {
           const [],
       additionalRelaxerTypes:
           (json['additionalRelaxerTypes'] as List?)?.cast<String>() ?? const [],
+      recreatorClasses:
+          (json['recreatorClasses'] as List?)
+              ?.map((e) => RecreatorClassConfig.fromYaml(e as Object))
+              .toList() ??
+          const [],
     );
   }
 
@@ -658,6 +759,8 @@ class BridgeConfig {
         'relaxerClasses': relaxerClasses.map((r) => r.toJson()).toList(),
       if (additionalRelaxerTypes.isNotEmpty)
         'additionalRelaxerTypes': additionalRelaxerTypes,
+      if (recreatorClasses.isNotEmpty)
+        'recreatorClasses': recreatorClasses.map((r) => r.toJson()).toList(),
     };
   }
 
@@ -685,6 +788,7 @@ class BridgeConfig {
     bool? generateAllRelaxers,
     List<RelaxerClassConfig>? relaxerClasses,
     List<String>? additionalRelaxerTypes,
+    List<RecreatorClassConfig>? recreatorClasses,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -710,6 +814,7 @@ class BridgeConfig {
       relaxerClasses: relaxerClasses ?? this.relaxerClasses,
       additionalRelaxerTypes:
           additionalRelaxerTypes ?? this.additionalRelaxerTypes,
+      recreatorClasses: recreatorClasses ?? this.recreatorClasses,
     );
   }
 
