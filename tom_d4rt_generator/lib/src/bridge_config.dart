@@ -241,13 +241,45 @@ class ProxyClassConfig {
   /// Defaults to 'D4rt{className}' (e.g., 'D4rtCustomPainter').
   final String? proxyName;
 
-  const ProxyClassConfig({required this.className, this.proxyName});
+  /// Bridged mixin names for which a *declared-variant* native proxy class
+  /// should be generated in addition to the plain proxy (MCI#3 / A3+A4).
+  ///
+  /// Some bridged base classes (notably `State` and `RenderBox`) need a
+  /// native proxy that *actually mixes in* a real Flutter mixin
+  /// (`SingleTickerProviderStateMixin`, `RestorationMixin`,
+  /// `AutomaticKeepAliveClientMixin`, …) because the mixin's overrides must
+  /// run natively — Dart cannot add a mixin to a class at runtime. Rather
+  /// than hand-writing one near-verbatim proxy class per mixin, the generator
+  /// emits one variant per name here from a single parameterized template
+  /// (the re-entrancy-guarded lifecycle set plus a per-mixin extra-override
+  /// slot). The empty default keeps the feature dormant.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   proxyClasses:
+  ///     - className: State
+  ///       mixinVariants:
+  ///         - SingleTickerProviderStateMixin
+  ///         - TickerProviderStateMixin
+  ///         - RestorationMixin
+  ///         - AutomaticKeepAliveClientMixin
+  /// ```
+  final List<String> mixinVariants;
+
+  const ProxyClassConfig({
+    required this.className,
+    this.proxyName,
+    this.mixinVariants = const [],
+  });
 
   factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
     if (json case {'className': final String name}) {
       return ProxyClassConfig(
         className: name,
         proxyName: json['proxyName'] as String?,
+        mixinVariants:
+            (json['mixinVariants'] as List?)?.cast<String>() ?? const [],
       );
     }
     throw ArgumentError('ProxyClassConfig requires className: $json');
@@ -258,8 +290,10 @@ class ProxyClassConfig {
     if (value is String) {
       return ProxyClassConfig(className: value);
     }
-    if (value is Map<String, dynamic>) {
-      return ProxyClassConfig.fromJson(value);
+    if (value is Map) {
+      return ProxyClassConfig.fromJson(
+        value.map((k, v) => MapEntry(k.toString(), v)),
+      );
     }
     throw ArgumentError('ProxyClassConfig expects String or Map, got: $value');
   }
@@ -268,6 +302,7 @@ class ProxyClassConfig {
     return {
       'className': className,
       if (proxyName != null) 'proxyName': proxyName,
+      if (mixinVariants.isNotEmpty) 'mixinVariants': mixinVariants,
     };
   }
 

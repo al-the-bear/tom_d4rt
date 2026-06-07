@@ -32,6 +32,7 @@ export 'src/corpus_type_scanner.dart';
 export 'src/file_generators.dart';
 export 'src/proxy_generator.dart';
 export 'src/relaxer_generator.dart';
+export 'src/state_proxy_generator.dart';
 
 // Export builder for build_runner integration
 export 'builder.dart' show d4rtBridgeBuilder;

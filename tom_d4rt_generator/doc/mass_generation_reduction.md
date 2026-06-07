@@ -197,6 +197,55 @@ re-creators (pinned by unit test `G-RCR-1`), so the obsolete hand-written
 `_registerGenericWidgetReCreators()` in both twins can be deleted once the
 generator is wired and regenerated — see the deferred completion step.
 
+### MCI#3 / A3 — State-proxy mixin variants folded into the generator (2026-06-07)
+
+An interpreted `State` subclass cannot have a Flutter mixin grafted onto it at
+runtime (R2: Dart mixins are resolved at compile time), and `State` is abstract
+(R1). So every `State` subclass that declares a real Flutter state mixin needs a
+**native proxy that actually mixes in** the corresponding mixin, so the mixin's
+native overrides (`createTicker`, `restoreState`/`registerForRestoration`,
+`updateKeepAlive`, …) run. These were hand-written in each twin's
+`d4rt_runtime_registrations.dart` as five near-verbatim copies of one skeleton:
+
+| Variant class | `with` clause | Extra-override slot |
+|---------------|---------------|---------------------|
+| `_InterpretedState` | — | — |
+| `_InterpretedSingleTickerProviderState` | `SingleTickerProviderStateMixin` | — |
+| `_InterpretedMultiTickerProviderState` | `TickerProviderStateMixin` | — |
+| `_InterpretedRestorationMixinState` | `RestorationMixin<_InterpretedStatefulWidget>` | `restorationId` getter + guarded `restoreState` |
+| `_InterpretedKeepAliveState` | `AutomaticKeepAliveClientMixin` | `wantKeepAlive` getter + `super.build(context)` build prefix |
+
+The web (`tom_d4rt_flutter_ast`) twin had **drifted** — it was missing the
+`_InterpretedKeepAliveState` variant entirely (accidental, flagged in
+`open_step0_review_baseline.md` D1 / `mci_step0_review_baseline.md` D1). The
+emitter closes that gap by emitting all five for both twins from one template.
+
+| Field (`ProxyClassConfig`) | Default | Effect |
+|----------------------------|---------|--------|
+| `mixinVariants` | `[]` | State mixins to emit a native proxy variant for. Each entry is a Flutter state-mixin name; unknown names warn-and-skip. Independent of the abstract-delegate `proxyClasses` mechanism. |
+
+`generateStateProxyFamily` (in `state_proxy_generator.dart`) emits the plain
+`_InterpretedState` followed by one variant per recognised mixin, in declaration
+order. `generateStateProxyVariant` emits a single class: the canonical
+lifecycle skeleton (`initState`/`didChangeDependencies` super-first,
+`deactivate`/`dispose` interpreted-first, full `build` delegation and
+`didUpdateWidget`), each lifecycle override wrapped in the **Bug-46 re-entrancy
+guard** (`_lifecycleInProgress` enter/try/finally-remove so a script
+`super.initState()` short-circuits), plus the per-mixin extra-override slot.
+`stateProxyVariantSpecFor` maps a mixin name to its spec (returns `null` for
+unknowns, driving the warn-and-skip).
+
+**Canonical-normalization nuance.** Unlike the MCI#5 re-creators, the
+hand-written State variants carry cosmetic inconsistencies (comment-period
+drift, the KeepAlive copy's abbreviated `didUpdateWidget`). The emitter produces
+one **canonical** form; the golden test (`G-SPX-1`) pins that canonical contract
+rather than byte-parity with the current messy code. Behavioural equivalence
+with the hand code is validated by the serial base-test gate at regen time — the
+differences are cosmetic / behaviour-preserving. The dormant default (`[]`)
+keeps committed bridge output unchanged until the buildkit knob is set and both
+twins are regenerated — see the deferred completion step (which also carries the
+A4 RenderBox family and the KeepAlive web-twin gap closure).
+
 ---
 
 ## Problem
