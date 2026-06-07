@@ -75,6 +75,89 @@ step 5 (corpus scanner) supplies a concrete allowlist and flips
 `generateAllRelaxers: false`; the expected magnitude is the ~181 k → low-
 thousands range projected in *Expected Impact* below.
 
+### P&R step 5 — corpus type-combination scanner (2026-06-07)
+
+The reduced enumeration of step 4 needs a concrete `additionalRelaxerTypes`
+allowlist that captures every type-argument the real corpus exercises, so
+flipping `generateAllRelaxers: false` does not silently drop coverage. The
+scanner produces that allowlist.
+
+**Tool.** `tom_d4rt_generator:scan_corpus_types`
+(lib: `CorpusTypeScanner` in `lib/src/corpus_type_scanner.dart`; CLI:
+`bin/scan_corpus_types.dart`). It statically parses every `.dart` script
+under a corpus directory (`parseString`, recovery mode — no resolution, so
+scripts that don't type-check in isolation still scan) and collects the bare
+name of every type that appears inside any `TypeArgumentList`, at any nesting
+depth. `Map<String, List<Color>>` yields `String`, `List`, `Color`;
+`extractBridgedArg<Tween<Offset>>` yields `Tween`, `Offset`. `dynamic`,
+`void`, and `Never` are dropped (never bridged class keys). The emitter
+renders a sorted, de-duplicated `additionalRelaxerTypes:` YAML block.
+
+```sh
+dart run tom_d4rt_generator:scan_corpus_types \
+  --corpus ../tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts \
+  --output doc/corpus_relaxer_allowlist.yaml
+```
+
+**Committed artifact:** `doc/corpus_relaxer_allowlist.yaml` —
+**2,733 distinct type-args** scanned from **2,083 corpus scripts**
+(2026-06-07). The list intentionally over-approximates: it includes
+user-defined classes the scripts declare locally (e.g. `AnimatedGridState`)
+and generic type *parameters* (`T`). Over-approximation is **inert** — at
+generation time the allowlist is intersected with the real
+`globalClassLookup` keys (only actual bridged classes survive), so a
+type-arg that is not a bridged class simply never produces a switch case.
+The list is therefore a safe superset; the cost of an extra name is zero.
+
+**Effective-allowlist measurement (2026-06-07).** Intersecting the 2,733
+scanned type-args with the **2,201** distinct bridged-class names registered
+across `tom_d4rt_flutter_ast/lib/src/bridges/*_bridges.b.dart` leaves **341**
+names that actually produce switch cases. So under
+`generateAllRelaxers: false` each combinatorial B/C switch enumerates ~341
+corpus-driven candidate type-args (before unioning `genericExtractionSites`)
+instead of all 2,201 — an **~85 % reduction in candidate types per switch**.
+The remaining 2,392 scanned names are inert (user-declared classes / generic
+type parameters). Reproduce with:
+
+```sh
+grep -ohE "name: '[A-Za-z_][A-Za-z0-9_]*'" \
+  tom_d4rt_flutter_ast/lib/src/bridges/*_bridges.b.dart \
+  | sed -E "s/name: '([^']+)'/\1/" | sort -u > /tmp_ws/bclasses.txt
+grep -E '^  - ' tom_d4rt_generator/doc/corpus_relaxer_allowlist.yaml \
+  | sed -E 's/^  - //' | sort -u > /tmp_ws/scanargs.txt
+comm -12 /tmp_ws/bclasses.txt /tmp_ws/scanargs.txt | wc -l   # → 341
+```
+
+**The "scan → reduce → verify" workflow:**
+
+1. **Scan** — run `scan_corpus_types` over the corpus → `additionalRelaxerTypes`
+   allowlist (the committed `corpus_relaxer_allowlist.yaml`).
+2. **Reduce** — paste the block into the flutter twin's `buildkit.yaml`
+   `d4rtgen:` section, set `generateAllRelaxers: false`, and regenerate
+   bridges + proxies for **both** `tom_d4rt_flutter` and
+   `tom_d4rt_flutter_ast`. The combinatorial B/C switch families now
+   enumerate only `genericExtractionSites ∪ relaxerClasses ∪
+   additionalRelaxerTypes`.
+3. **Verify** — run the **base-test** on both twins (fast gate), then the
+   relevant corpus subset with `D4RT_LOG_RELAXER_USAGE=1` (P&R step 1) and
+   assert the end-of-run `D4.usageLogSummary()` reports **zero misses**
+   (`miss|base|typeArg`). A miss means a runtime type-arg the static scan did
+   not surface (only possible via inference where the type-arg is never
+   written syntactically) — reconcile by adding that name to the allowlist or
+   confirming it is already covered by `genericExtractionSites`.
+
+**Cross-validation (step-1 log vs. step-5 scan).** The scanner is a static
+superset of every type-argument *written* in the corpus. The runtime usage
+log (`D4.usageLogEnabled` / `D4RT_LOG_RELAXER_USAGE`) records type-args
+*observed* at extraction time. The only way a runtime hit can be absent from
+the static scan is a type-arg supplied purely by inference (never written
+`<...>`); those correspond to bridge extraction sites and are already covered
+by `genericExtractionSites`, which the reduced gating unions in independently
+of the scan. A full empirical reconciliation requires one serial corpus run
+with logging enabled — recorded as a deferred completion step (it is
+co-located with the step-4 `generateAllRelaxers: false` production flip, since
+both share the same heavyweight serial base-test gate on both twins).
+
 ---
 
 ## Problem
