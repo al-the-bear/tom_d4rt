@@ -1050,6 +1050,13 @@ class SendTestRunner {
         // continues running but the next test has already entered send() and
         // checked the flag. Setting first guarantees the flag is visible.
         _appNeedsRecycle = true;
+        // A /clear that times out means the app's event loop is wedged — a
+        // prior build's runaway interpret is still churning. Handle it the
+        // same way as a /build build-timeout: kill the process NOW so it stops
+        // burning CPU and so _buildSendDiagnostics' /logs probe fails fast
+        // instead of hanging on the dead-locked app. The deferred recycle then
+        // boots a fresh app at the start of the next test.
+        await _killExistingProcess();
         final diagnostics = await _buildSendDiagnostics(
           operation: 'GET /clear',
           scriptPath: scriptPath,
@@ -1142,6 +1149,11 @@ class SendTestRunner {
       // next test sees the flag even when our catch handler is racing with
       // flutter_test's test-level timeout.
       _appNeedsRecycle = true;
+      // A client-side /build timeout means the app is still churning the
+      // runaway interpret (the server hasn't returned). Same wedge as a
+      // server-side build-timeout 400: kill the process NOW so it stops
+      // burning CPU and the /logs probe below fails fast instead of hanging.
+      await _killExistingProcess();
       final diagnostics = await _buildSendDiagnostics(
         operation: 'POST $buildUrl',
         scriptPath: scriptPath,
