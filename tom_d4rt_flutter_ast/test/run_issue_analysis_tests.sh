@@ -68,6 +68,15 @@ FILES=(
   interactive_tests_test.dart
 )
 
+# Optional targeted re-run: FILES_OVERRIDE="a_test.dart b_test.dart" runs only
+# the named files (still serial, still through the idle watchdog), e.g. to
+# double-check a subset that failed in a prior full run. Default is the full
+# corpus above.
+if [ -n "${FILES_OVERRIDE:-}" ]; then
+  # shellcheck disable=SC2206  # word-splitting is intentional here.
+  FILES=( ${FILES_OVERRIDE} )
+fi
+
 echo "== ${PROJECT} :: issue-analysis run ${ID} =="
 echo "== output: ${OUT} =="
 : > "$OUT/metrics.txt"
