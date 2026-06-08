@@ -40,22 +40,14 @@ New-Item -ItemType Directory -Force -Path $out | Out-Null
 # Override with $env:IDLE_TIMEOUT.
 $idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 70 }
 
-# Spec order: heaviest/most-relevant first, interactive last.
-$files = @(
-  'essential_classes_test.dart',
-  'important_classes_test.dart',
-  'secondary_classes_test.dart',
-  'hardly_relevant_classes_1_test.dart',
-  'hardly_relevant_classes_2_test.dart',
-  'hardly_relevant_classes_3_test.dart',
-  'hardly_relevant_classes_4_test.dart',
-  'hardly_relevant_classes_5_test.dart',
-  'timeout_tests_test.dart',
-  'blocking_tests_test.dart',
-  'generator_interpreter_issues_test.dart',
-  'generator_interpreter_retest_test.dart',
-  'interactive_tests_test.dart'
-)
+# Full corpus: the flutter_base_NN then flutter_extended_NN split files, in
+# numeric order (base before extended, interactive is the last extended file).
+# Globbed so the list auto-tracks the generated files; each runs its own app.
+$files = @()
+$files += Get-ChildItem -Path 'test' -Filter 'flutter_base_*_test.dart' |
+  Sort-Object Name | ForEach-Object { $_.Name }
+$files += Get-ChildItem -Path 'test' -Filter 'flutter_extended_*_test.dart' |
+  Sort-Object Name | ForEach-Object { $_.Name }
 
 Write-Host "== $project :: issue-analysis run $Id =="
 Write-Host "== output: $out =="

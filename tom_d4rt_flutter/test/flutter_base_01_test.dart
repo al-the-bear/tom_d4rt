@@ -1,16 +1,7 @@
-/// Tests for essential Flutter bridge classes — source-based interpreter.
+/// Auto-split base bridge tests (file 01).
 ///
-/// Runs the same 107 scripts as the AST-based essential_classes_test.dart in
-/// tom_d4rt_flutter_ast, but sends raw Dart source to SourceFlutterD4rt on
-/// port 4248 instead of a pre-compiled AstBundle.
-///
-/// Scripts live in:
-///   ../tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/
-///
-/// The test app is started automatically in setUpAll and stopped in tearDownAll.
-///
-/// IMPORTANT: never run this file concurrently with other test files that use
-/// the same port — see dart_test.yaml (concurrency: 1).
+/// Generated from essential/important/secondary corpus; groups kept verbatim,
+/// duplicates removed, ~50 tests per file. Each file runs its own test app.
 @TestOn('vm')
 library;
 
@@ -115,9 +106,7 @@ void main() {
     test('picker_test.dart', () async {
       // 1944 TODO C.8 (2026-05-31): wrapper REMOVED. Script runs in
       // ~2.7 s under normal load (httpMs=2652). TEST mirror of C.2.
-      final result = await SendTestRunner.send(
-        'cupertino/picker_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/picker_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -129,18 +118,14 @@ void main() {
     test('scaffold_test.dart', () async {
       // 1944 TODO C.9 (2026-05-31): wrapper REMOVED. Script runs in
       // ~2.8 s under normal load (httpMs=2789). TEST mirror of C.3.
-      final result = await SendTestRunner.send(
-        'cupertino/scaffold_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/scaffold_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
     test('segmented_test.dart', () async {
       // 1944 TODO C.10 (2026-05-31): wrapper REMOVED. Script runs in
       // ~3.2 s under normal load (httpMs=3167). TEST mirror of C.4.
-      final result = await SendTestRunner.send(
-        'cupertino/segmented_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/segmented_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -149,9 +134,7 @@ void main() {
       // ~1.9 s under normal load (httpMs=1938). TEST mirror of C.5.
       // Last of the TEST §6/T1/§6/E1-E4 cluster (C.7-C.11 closed
       // the TEST mirrors of the AST cupertino cold-start cluster).
-      final result = await SendTestRunner.send(
-        'cupertino/textfield_test.dart',
-      );
+      final result = await SendTestRunner.send('cupertino/textfield_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -507,199 +490,6 @@ void main() {
   group('scheduler/', () {
     test('ticker_test.dart', () async {
       final result = await SendTestRunner.send('scheduler/ticker_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-  });
-
-  // ============================================================
-  // SEMANTICS PACKAGE TESTS (1 file)
-  // ============================================================
-  group('semantics/', () {
-    test('semantics_test.dart', () async {
-      final result = await SendTestRunner.send('semantics/semantics_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-  });
-
-  // ============================================================
-  // WIDGETS PACKAGE TESTS (35 files)
-  // ============================================================
-  group('widgets/', () {
-    test('align_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/align_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('animation_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/animation_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('center_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/center_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('changenotifier_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/changenotifier_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('cliprrect_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/cliprrect_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('column_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/column_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('container_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/container_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('expanded_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/expanded_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('flexible_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/flexible_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('focusnode_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/focusnode_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('form_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/form_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('gesturedetector_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/gesturedetector_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('gridview_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/gridview_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('image_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/image_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('inkwell_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/inkwell_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('key_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/key_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('listview_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/listview_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('navigator_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/navigator_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('opacity_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/opacity_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('padding_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/padding_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('pageview_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/pageview_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('positioned_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/positioned_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('richtext_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/richtext_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('row_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/row_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('scaffold_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/scaffold_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sized_box_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/sized_box_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('stack_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/stack_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('statefulwidget_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/statefulwidget_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('textfield_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/textfield_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('text_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/text_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('transform_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/transform_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('wrap_test.dart', () async {
-      final result = await SendTestRunner.send('widgets/wrap_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    });
-  });
-
-  // ============================================================
-  // SERVICES PACKAGE TESTS (1 file)
-  // ============================================================
-  group('services/', () {
-    test('textformatter_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/textformatter_test.dart',
-      );
       expect(result.success, isTrue, reason: result.error);
     });
   });
