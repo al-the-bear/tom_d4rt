@@ -766,11 +766,25 @@ class SendTestRunner {
     final effectiveTimeout = profileMode && timeout < const Duration(minutes: 5)
         ? const Duration(minutes: 5)
         : timeout;
-    final deadline = DateTime.now().add(effectiveTimeout);
+    final start = DateTime.now();
+    final deadline = start.add(effectiveTimeout);
     var ready = false;
+    var probes = 0;
+    var lastHeartbeat = start;
 
+    // Probe /health *immediately* and then poll at a short cadence: the app
+    // usually answers within a few seconds, so waiting a full 2s before the
+    // first probe (and 2s between probes) just adds dead time. A fast app is
+    // now picked up within ~0.5s of becoming ready.
+    //
+    // While we wait, emit a heartbeat every few seconds. The boot phase is
+    // otherwise silent (no test events, no app output once the VM-service
+    // banner has printed), which makes a perfectly healthy ~20s launch look
+    // like a wedged run — and, on a loaded host, a boot longer than the
+    // runner's idle-output watchdog window would be killed as a false stall.
+    // The heartbeat both reassures a human watcher and keeps the watchdog fed.
     while (DateTime.now().isBefore(deadline)) {
-      await Future<void>.delayed(const Duration(seconds: 2));
+      probes++;
       try {
         // Try to connect to health endpoint
         final tempClient = HttpClient();
@@ -791,6 +805,16 @@ class SendTestRunner {
       } catch (_) {
         // Not ready yet, keep waiting
       }
+      final now = DateTime.now();
+      if (now.difference(lastHeartbeat) >= const Duration(seconds: 3)) {
+        lastHeartbeat = now;
+        // ignore: avoid_print
+        print(
+          '[test-app] waiting for /health on port $port '
+          '(${now.difference(start).inSeconds}s elapsed, $probes probes)…',
+        );
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 500));
     }
 
     if (!ready) {
