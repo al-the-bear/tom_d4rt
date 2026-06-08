@@ -45,11 +45,11 @@ New-Item -ItemType Directory -Force -Path $out | Out-Null
 # Override with $env:IDLE_TIMEOUT.
 $idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 70 }
 
-# Base subset only: essential + important (heaviest/most-relevant first).
-$files = @(
-  'essential_classes_test.dart',
-  'important_classes_test.dart'
-)
+# Base subset only: the flutter_base_NN split files (essential + important +
+# secondary corpus, ~50 tests each, own test app per file). Globbed in numeric
+# order so the run stays serial and reproducible.
+$files = Get-ChildItem -Path 'test' -Filter 'flutter_base_*_test.dart' |
+  Sort-Object Name | ForEach-Object { $_.Name }
 
 Write-Host "== $project :: base-test run $Id =="
 Write-Host "== output: $out =="

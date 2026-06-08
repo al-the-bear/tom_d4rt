@@ -56,11 +56,13 @@ TIMEOUT_BIN=()
 if command -v timeout >/dev/null 2>&1; then TIMEOUT_BIN=(timeout 900)
 elif command -v gtimeout >/dev/null 2>&1; then TIMEOUT_BIN=(gtimeout 900); fi
 
-# Base subset only: essential + important (heaviest/most-relevant first).
-FILES=(
-  essential_classes_test.dart
-  important_classes_test.dart
-)
+# Base subset only: the flutter_base_NN split files (essential + important +
+# secondary corpus, ~50 tests each, own test app per file). Globbed in numeric
+# order so the run stays serial and reproducible.
+FILES=()
+for f in test/flutter_base_*_test.dart; do
+  [ -e "$f" ] && FILES+=("$(basename "$f")")
+done
 
 echo "== ${PROJECT} :: base-test run ${ID} =="
 echo "== output: ${OUT} =="

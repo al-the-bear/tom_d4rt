@@ -51,22 +51,13 @@ TIMEOUT_BIN=()
 if command -v timeout >/dev/null 2>&1; then TIMEOUT_BIN=(timeout 900)
 elif command -v gtimeout >/dev/null 2>&1; then TIMEOUT_BIN=(gtimeout 900); fi
 
-# Spec order: heaviest/most-relevant first, interactive last.
-FILES=(
-  essential_classes_test.dart
-  important_classes_test.dart
-  secondary_classes_test.dart
-  hardly_relevant_classes_1_test.dart
-  hardly_relevant_classes_2_test.dart
-  hardly_relevant_classes_3_test.dart
-  hardly_relevant_classes_4_test.dart
-  hardly_relevant_classes_5_test.dart
-  timeout_tests_test.dart
-  blocking_tests_test.dart
-  generator_interpreter_issues_test.dart
-  generator_interpreter_retest_test.dart
-  interactive_tests_test.dart
-)
+# Full corpus: the flutter_base_NN then flutter_extended_NN split files, in
+# numeric order (base before extended, interactive is the last extended file).
+# Globbed so the list auto-tracks the generated files; each runs its own app.
+FILES=()
+for f in test/flutter_base_*_test.dart test/flutter_extended_*_test.dart; do
+  [ -e "$f" ] && FILES+=("$(basename "$f")")
+done
 
 # Optional targeted re-run: FILES_OVERRIDE="a_test.dart b_test.dart" runs only
 # the named files (still serial, still through the idle watchdog), e.g. to

@@ -1,12 +1,17 @@
 # D4rt Flutter bridge corpus — running the tests
 
-This folder holds the D4rt Flutter bridge test corpus. Each test in the
-13 "corpus" files sends a D4rt script to a **single, long-lived companion app**
-over a **local HTTP server** and asserts on the rendered result. Two helper
-scripts run the whole corpus reproducibly for issue analysis:
+This folder holds the D4rt Flutter bridge test corpus. The corpus is split into
+`flutter_base_NN_test.dart` and `flutter_extended_NN_test.dart` files (~50 tests
+each). Each test sends a D4rt script to a **freshly-spawned companion app** over
+a **local HTTP server** and asserts on the rendered result; every file launches
+and tears down its own app. Helper scripts run the corpus reproducibly:
 
-- `run_issue_analysis_tests.sh` — macOS / Linux (bash)
-- `run_issue_analysis_tests.ps1` — Windows (PowerShell / pwsh)
+- `run_issue_analysis_tests.sh` / `.ps1` — the **full** corpus (base + extended)
+- `run_base_tests.sh` / `.ps1` — the **base** subset only (fast regression gate)
+
+The `.sh` variants are macOS / Linux (bash); the `.ps1` variants are Windows
+(PowerShell / pwsh). Each globs its file list in numeric order, so adding or
+regenerating split files needs no script edit.
 
 ## Usage
 
@@ -43,7 +48,7 @@ went from **108 / 0 / 0** (pass/skip/fail) when run serially to **40 / 2 / 66**
 (66 errors) when run concurrently with `important_classes_test`. The runner
 scripts therefore:
 
-- run the 13 files **one at a time**, in sequence, and
+- run the split files **one at a time**, in sequence, and
 - **must not** be launched for both projects simultaneously. Even though the AST
   app and the source-direct app bind **different ports**, running both at once
   overloads the host and the shared-resource contention reintroduces the same
@@ -96,17 +101,26 @@ IDLE_TIMEOUT=120 ./test/run_issue_analysis_tests.sh   # more headroom
 $env:IDLE_TIMEOUT = 120; ./test/run_issue_analysis_tests.ps1
 ```
 
-## The 13 corpus files (run order)
+## The split corpus files (run order)
 
-1. `essential_classes_test.dart`
-2. `important_classes_test.dart`
-3. `secondary_classes_test.dart`
-4. `hardly_relevant_classes_1_test.dart` … `hardly_relevant_classes_5_test.dart`
-5. `timeout_tests_test.dart`
-6. `blocking_tests_test.dart`
-7. `generator_interpreter_issues_test.dart`
-8. `generator_interpreter_retest_test.dart`
-9. `interactive_tests_test.dart`
+The corpus is packed into ordered, ~50-test files. The runners glob them in
+numeric order: all `flutter_base_*` first, then all `flutter_extended_*`.
 
-Other `*_test.dart` files in this folder (bisect, cluster repros, probes) are
-ad-hoc investigation harnesses and are **not** part of the issue-analysis run.
+- `flutter_base_01_test.dart` … `flutter_base_17_test.dart` — the essential +
+  important + secondary tiers (groups kept verbatim, duplicates removed).
+- `flutter_extended_01_test.dart` … `flutter_extended_23_test.dart` — the
+  hardly-relevant / timeout / blocking / generator tiers.
+- `flutter_extended_24_test.dart` — the **interactive** suite (its custom
+  `setUpAll` and `/interact` behaviour are preserved verbatim in its own file).
+
+Each file opens with a `Test App Health` group (`app is running`) that is **not**
+counted toward the ~50-test target; it is a per-file smoke check.
+
+The files are generated from the legacy tier corpus by `ztmp/split_tests.py`
+(brace-aware parser → dedup → group-slice → pack). Re-run that generator if the
+underlying tier sources change.
+
+Other `*_test.dart` files in this folder (e.g. `bridge_execution_test.dart`,
+`interpreter_generator_open_issues_test.dart`, `sync_shared_user_bridges_test.dart`)
+are standalone suites with their own purpose and are **not** part of the
+base/extended corpus run.
