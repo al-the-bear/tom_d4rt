@@ -558,23 +558,18 @@ class SendTestRunner {
     // LISTEN socket on [defaultPort], then wait for the kernel to release
     // the bind before launching a replacement.
     await _killExistingProcess();
-    // testlog_20260608 FIX #2 — bounded recovery. The recycle runs INSIDE
-    // the next test's send(), so its cost is charged to that test's per-test
-    // budget. A healthy boot is ~17-21s (see the /health heartbeat in
-    // _startTestApp); 12s for the kernel to release the bind is ample, and
-    // any longer means a true zombie that a longer wait won't fix. The old
-    // 20s ceiling left the recycling test stalling for minutes.
-    await _waitForPortFree(timeout: const Duration(seconds: 12));
+    // 1401-TODO #10 (H1) — bumped from 10s to 20s. The kernel can take
+    // several seconds to fully reclaim the TCP bind after SIGKILL of
+    // a wedged Flutter wrapper + its desktop child; 20s is still well
+    // below the test-level 30s budget but doubles the safety margin.
+    await _waitForPortFree(timeout: const Duration(seconds: 20));
     _testAppProcess = null;
     // ignore: avoid_print
     print('[recycle] starting fresh test app');
-    // testlog_20260608 FIX #2 — bounded from 120s to 40s. The 120s ceiling
-    // was the root cause of the multi-minute "stuck in POST /build" stall:
-    // a wedged app made the next test recycle, and the recycle then waited
-    // up to two minutes for a fresh boot. 40s is double the observed healthy
-    // boot time; past that the host is wedged and failing fast (so the next
-    // test re-arms the recycle flag) beats hanging the whole file.
-    await _startTestApp(timeout: const Duration(seconds: 40));
+    // 1401-TODO #10 (H1) — bumped from 60s to 120s, matching the
+    // [setUp] default. See setUp's comment for the cascade-failure
+    // rationale.
+    await _startTestApp(timeout: const Duration(seconds: 120));
     // /health is synchronous and only proves the HTTP server is up; it does
     // not exercise the widget tree. Confirm the new app's event loop is
     // actually responsive by doing a real /clear roundtrip.
@@ -670,17 +665,13 @@ class SendTestRunner {
     // the recycle's cost is paid once — by this test, which then also has its
     // full 30s budget for the actual work.
     if (_appNeedsRecycle) {
+      _appNeedsRecycle = false;
       try {
         await _recycleTestApp();
-        // testlog_20260608 FIX #2 — clear the flag only AFTER a successful
-        // recycle. If flutter_test's per-test timeout fires mid-recycle and
-        // abandons this future, the flag stays armed so the NEXT test retries
-        // the recycle against a fresh process instead of running against a
-        // half-booted app (which would reintroduce the cascade).
-        _appNeedsRecycle = false;
       } catch (error, stackTrace) {
-        // Recycle didn't produce a healthy app — flag stays armed so the
+        // Recycle didn't produce a healthy app — re-arm the flag so the
         // next test tries again, and surface the failure to flutter_test.
+        _appNeedsRecycle = true;
         // ignore: avoid_print
         print('[recycle] FAILED: $error');
         Error.throwWithStackTrace(

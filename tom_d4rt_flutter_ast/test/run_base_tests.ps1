@@ -11,7 +11,7 @@
 # Like the full runner, this runs FILE BY FILE, strictly SERIAL. The corpus
 # drives a single long-lived companion app over one local HTTP server, so
 # concurrent `flutter test` invocations corrupt each other's results. See
-# README.md in this folder for the full rationale (serial-only + 70s timeout).
+# README.md in this folder for the full rationale (serial-only + 60s timeout).
 #
 # Usage:
 #   ./run_base_tests.ps1 [-Id <id>]
@@ -40,7 +40,7 @@ $out = "doc/basetestlog_$Id"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
 # Idle-output watchdog: kill a test file that produces NO output for this many
-# seconds (default 70; above the ~55s build max-silence). Catches mid-run stalls AND
+# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
 # "never reaches the first test" hangs so a wedged transport fails fast.
 # Override with $env:IDLE_TIMEOUT.
 $idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 70 }
@@ -62,7 +62,7 @@ foreach ($f in $files) {
   # The idle watchdog wraps the run: it streams output to the log and kills the
   # whole process tree (returning 124) after $idle seconds of silence.
   & "$scriptDir/idle_timeout.ps1" $idle "$out/$base.log.txt" `
-    flutter test "test/$f" --timeout 70s --file-reporter "json:$out/$base.result.json"
+    flutter test "test/$f" --timeout 60s --file-reporter "json:$out/$base.result.json"
   $rc = $LASTEXITCODE
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
   $m = Select-String -Path "$out/$base.log.txt" -Pattern '\+\d+( ~\d+)?( -\d+)?' |

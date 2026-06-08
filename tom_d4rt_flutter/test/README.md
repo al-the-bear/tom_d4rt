@@ -57,27 +57,24 @@ scripts therefore:
 Do **not** add `-j`/concurrency flags, and do **not** background (`&`) multiple
 invocations.
 
-## ⚠️ Why the per-test timeout is 70 s
+## ⚠️ Why the per-test timeout is 60 s
 
-Every `flutter test` command in the scripts passes `--timeout 70s`. The corpus
+Every `flutter test` command in the scripts passes `--timeout 60s`. The corpus
 tests include a cold-start cost (parser + interpreter + bridge warmup on the
 first script after `setUpAll`) and real widget pump/settle cycles. Flutter's
 default per-test timeout (~30 s, scaled) is **too tight on a busy host** — under
 CI load or a loaded developer machine, an otherwise-passing test can blow the
 default timeout purely because the host was busy, producing a spurious failure.
 
-The 70 s ceiling gives enough headroom that a momentarily busy host does not
+The 60 s ceiling gives enough headroom that a momentarily busy host does not
 turn green tests red, while still bounding genuinely wedged tests so the run
-cannot hang indefinitely. The driver itself fails a wedged build fast — the
-in-process `/build` HTTP call caps at ~55 s, and a test that wedged the app
-recycles it (bounded to ~40 s boot) on the *next* test, so one wedge costs at
-most one test and never cascades. It is a **per-test** limit; the shell script
-adds a separate ~15 min **per-file** wall-clock backstop (via `timeout`/`gtimeout`
-when available) so a wedged transport cannot stall the entire sequence.
+cannot hang indefinitely. It is a **per-test** limit; the shell script adds a
+separate ~15 min **per-file** wall-clock backstop (via `timeout`/`gtimeout` when
+available) so a wedged transport cannot stall the entire sequence.
 
 ## ⚠️ The idle-output watchdog (fail fast on a wedged run)
 
-Neither the per-test `--timeout 70s` nor the ~15 min per-file backstop helps the
+Neither the per-test `--timeout 60s` nor the ~15 min per-file backstop helps the
 two failure modes seen most often in practice:
 
 1. the companion-app transport **wedges mid-run** and `flutter test` sits in
@@ -92,9 +89,8 @@ each `flutter test` invocation is wrapped by `idle_timeout.sh` (bash) /
 — `flutter test` and any child it spawned — and returns exit code **124**. The
 metrics line for that file is annotated `(IDLE-KILLED after <n>s of no output)`.
 
-70 s sits above the ~55 s in-process `/build` cap (the longest a healthy test
-goes without producing output), so a single slow-but-progressing test is never
-killed while a true stall is caught within ~70 s instead of ~900 s.
+70 s = the ~60 s per-test maximum plus margin, so a single slow-but-progressing
+test is never killed while a true stall is caught within ~70 s instead of ~900 s.
 Override with the `IDLE_TIMEOUT` env var (and `IDLE_POLL` for the check cadence):
 
 ```bash
