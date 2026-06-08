@@ -1223,25 +1223,32 @@ class SendTestRunner {
     } else {
       final errorText = response['error'] as String?;
       // A build-timeout is fundamentally different from a normal D4rt
-      // compile/runtime failure. The server's 45 s build budget fires on the
+      // compile/runtime failure. The server's build budget fires on the
       // HTTP-handler's `completer.future.timeout`, but the runaway
       // `_d4rt.build()` it was waiting on is STILL churning inside the app's
       // single event loop. The app is therefore wedged: every subsequent
       // request queues behind that interpret and times out identically — the
-      // 45 s "Build timed out" cascade that stalls a whole file for minutes.
-      // Arm a recycle so the NEXT test kills + restarts the app and the run
-      // continues healthily. A plain compile/runtime error also returns 400
-      // but does so promptly and leaves the app responsive, so we key off the
-      // timeout signal specifically rather than recycling on every non-200.
+      // "Build timed out" cascade that stalls a whole file for minutes. A
+      // plain compile/runtime error also returns 400 but does so promptly and
+      // leaves the app responsive, so we key off the timeout signal
+      // specifically rather than reacting to every non-200.
       final isBuildTimeout =
           httpStatus == 400 && (errorText?.contains('Build timed out') ?? false);
       if (isBuildTimeout) {
-        _appNeedsRecycle = true;
+        // Kill the wedged process NOW so its runaway interpret stops burning
+        // CPU between tests — a SIGKILL is cheap (~<1 s) and safe to pay on
+        // this already-failed test's clock. The expensive ~20 s reboot is
+        // deferred to the next test via _appNeedsRecycle: _recycleTestApp()
+        // runs at the very start of the next send() (before that test builds
+        // anything), so the boot cost lands on the next test's fresh per-test
+        // budget instead of this one's already-exhausted ~45 s.
         // ignore: avoid_print
         print(
           '[recycle] build-timeout in $scriptPath — app event loop is wedged; '
-          'arming recycle so the next test restarts it (no cascade)',
+          'killing it now, restarting before the next test (no cascade)',
         );
+        await _killExistingProcess();
+        _appNeedsRecycle = true;
       }
       return SendResult(
         success: false,
