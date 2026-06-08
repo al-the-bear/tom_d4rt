@@ -6,7 +6,7 @@
 # Runs the 13-file corpus FILE BY FILE, strictly SERIAL. The corpus drives a
 # single long-lived companion app over one local HTTP server, so concurrent
 # `flutter test` invocations corrupt each other's results. See README.md in
-# this folder for the full rationale (serial-only + the 60s per-test timeout).
+# this folder for the full rationale (serial-only + the 70s per-test timeout).
 #
 # Usage:
 #   ./run_issue_analysis_tests.sh [ID]
@@ -34,7 +34,7 @@ cd "$(dirname "$0")/.."
 PROJECT="$(basename "$PWD")"
 
 # Idle-output watchdog: kill a test file that produces NO output for this many
-# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
+# seconds (default 70; above the ~55s build max-silence). Catches mid-run stalls AND
 # "never reaches the first test" hangs so a wedged transport fails fast instead
 # of burning the timeout-900 backstop. Override with IDLE_TIMEOUT=<seconds>.
 IDLE_TIMEOUT="${IDLE_TIMEOUT:-70}"
@@ -44,7 +44,7 @@ OUT="doc/testlog_${ID}"
 mkdir -p "$OUT"
 
 # Per-FILE wall-clock backstop so a wedged transport can't hang the whole run.
-# (The --timeout 60s below is the PER-TEST limit; this caps an entire file.)
+# (The --timeout 70s below is the PER-TEST limit; this caps an entire file.)
 # Uses coreutils `timeout` (Linux) or `gtimeout` (macOS+coreutils) if present;
 # otherwise relies on the per-test timeout alone.
 TIMEOUT_BIN=()
@@ -86,7 +86,7 @@ for f in "${FILES[@]}"; do
   IDLE_TIMEOUT="$IDLE_TIMEOUT" "$SCRIPT_DIR/idle_timeout.sh" \
     "$IDLE_TIMEOUT" "${OUT}/${base}.log.txt" -- \
     "${TIMEOUT_BIN[@]+"${TIMEOUT_BIN[@]}"}" flutter test "test/${f}" \
-    --timeout 60s \
+    --timeout 70s \
     --file-reporter "json:${OUT}/${base}.result.json"
   rc=$?
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."

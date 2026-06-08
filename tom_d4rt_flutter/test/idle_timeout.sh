@@ -5,12 +5,12 @@
 # Why: the D4rt Flutter corpus drives a long-lived companion app over a local
 # HTTP server. When that transport wedges, `flutter test` can sit in silence
 # for the full per-file backstop (timeout 900) — and sometimes it never even
-# reaches the first test. The per-test `--timeout 60s` doesn't help when no
+# reaches the first test. The per-test `--timeout 70s` doesn't help when no
 # test is running yet. This watchdog watches the *output* itself: if the
 # command produces NO new output for IDLE seconds, the whole run is killed so
 # the file fails fast instead of burning the wall-clock backstop.
 #
-# IDLE defaults to 70s — the ~60s per-test maximum plus margin — so a single
+# IDLE defaults to 70s — above the ~55s build-timeout max-silence — so a single
 # slow-but-progressing test is never killed, but a true stall (or a cold hang
 # before the first test) is caught quickly.
 #
