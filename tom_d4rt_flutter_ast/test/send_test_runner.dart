@@ -1221,9 +1221,31 @@ class SendTestRunner {
         judgment: judgment,
       );
     } else {
+      final errorText = response['error'] as String?;
+      // A build-timeout is fundamentally different from a normal D4rt
+      // compile/runtime failure. The server's 45 s build budget fires on the
+      // HTTP-handler's `completer.future.timeout`, but the runaway
+      // `_d4rt.build()` it was waiting on is STILL churning inside the app's
+      // single event loop. The app is therefore wedged: every subsequent
+      // request queues behind that interpret and times out identically — the
+      // 45 s "Build timed out" cascade that stalls a whole file for minutes.
+      // Arm a recycle so the NEXT test kills + restarts the app and the run
+      // continues healthily. A plain compile/runtime error also returns 400
+      // but does so promptly and leaves the app responsive, so we key off the
+      // timeout signal specifically rather than recycling on every non-200.
+      final isBuildTimeout =
+          httpStatus == 400 && (errorText?.contains('Build timed out') ?? false);
+      if (isBuildTimeout) {
+        _appNeedsRecycle = true;
+        // ignore: avoid_print
+        print(
+          '[recycle] build-timeout in $scriptPath — app event loop is wedged; '
+          'arming recycle so the next test restarts it (no cascade)',
+        );
+      }
       return SendResult(
         success: false,
-        error: response['error'] as String?,
+        error: errorText,
         output: output,
         statusCode: httpStatus,
         frameworkErrors: frameworkErrors,
