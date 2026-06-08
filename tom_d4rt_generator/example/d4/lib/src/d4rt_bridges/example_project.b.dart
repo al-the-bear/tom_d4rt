@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-06-05T11:08:43.797601
+// Generated: 2026-06-07T15:53:30.656160
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -76,6 +76,23 @@ class ExampleProjectBridge {
       'Vector2D': 'package:d4_example/src/example_project/operator_classes.dart',
       'Matrix': 'package:d4_example/src/example_project/operator_classes.dart',
       'Dictionary': 'package:d4_example/src/example_project/operator_classes.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'Entity': ['Identifiable'],
+      'Circle': ['Shape'],
+      'Rectangle': ['Shape'],
+      'Point': ['Serializable', 'Cloneable'],
+      'ColoredRectangle': ['Rectangle', 'Shape', 'Serializable'],
     };
   }
 
@@ -220,6 +237,11 @@ class ExampleProjectBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

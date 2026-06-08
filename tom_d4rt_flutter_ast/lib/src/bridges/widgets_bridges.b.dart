@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-06-07T15:31:57.427728
+// Generated: 2026-06-07T20:19:03.617213
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -304,6 +304,7 @@ import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/scene_builder_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_3;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_ast_4;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/text_user_bridge.dart' as $tom_d4rt_flutter_ast_5;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 import 'package:flutter/animation.dart' as $aux_flutter_2;
 import 'package:flutter/rendering.dart' as $aux_flutter;
@@ -91521,27 +91522,7 @@ BridgedClass _createTextBridge() {
     isAssignable: (v) => v is $flutter_264.Text,
     hierarchyDepth: 4,
     constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Text');
-        final data = D4.getRequiredArg<String>(positional, 0, 'data', 'Text');
-        final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final style = D4.getOptionalNamedArg<$flutter_51.TextStyle?>(named, 'style');
-        final strutStyle = D4.getOptionalNamedArg<$flutter_47.StrutStyle?>(named, 'strutStyle');
-        final textAlign = D4.getOptionalNamedArg<TextAlign?>(named, 'textAlign');
-        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
-        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
-        final softWrap = D4.getOptionalNamedArg<bool?>(named, 'softWrap');
-        final overflow = D4.getOptionalNamedArg<$flutter_48.TextOverflow?>(named, 'overflow');
-        final textScaleFactor = D4.getOptionalNamedArg<double?>(named, 'textScaleFactor');
-        final textScaler = D4.getOptionalNamedArg<$flutter_49.TextScaler?>(named, 'textScaler');
-        final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
-        final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
-        final semanticsIdentifier = D4.getOptionalNamedArg<String?>(named, 'semanticsIdentifier');
-        final textWidthBasis = D4.getOptionalNamedArg<$flutter_48.TextWidthBasis?>(named, 'textWidthBasis');
-        final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
-        final selectionColor = D4.getOptionalNamedArg<Color?>(named, 'selectionColor');
-        return $flutter_264.Text(data, key: key, style: style, strutStyle: strutStyle, textAlign: textAlign, textDirection: textDirection, locale: locale, softWrap: softWrap, overflow: overflow, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, semanticsLabel: semanticsLabel, semanticsIdentifier: semanticsIdentifier, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, selectionColor: selectionColor);
-      },
+      '': $tom_d4rt_flutter_ast_5.TextUserBridge.overrideConstructor,
       'rich': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Text');
         final textSpan = D4.getRequiredArg<$flutter_46.InlineSpan>(positional, 0, 'textSpan', 'Text');

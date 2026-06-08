@@ -1,0 +1,2917 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (101.0.0 available)
+  analyzer 8.4.1 (13.1.0 available)
+  file_picker 8.3.7 (11.0.2 available)
+  flutter_plugin_android_lifecycle 2.0.34 (2.0.35 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  shared_preferences_android 2.4.23 (2.4.25 available)
+  test_api 0.7.10 (0.7.12 available)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+10 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/sample_apps_in_tester_test.dart
+00:00 +0: (setUpAll)
+00:01 +0: counter_app (multi-file user-defined State) FAB tap increments the displayed count
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/counter_app/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/counter_app/main.dart
+──── end trail ────
+
+00:03 +1: sudoku_app (multi-file user-defined State) cell tap selects + digit tap sets value
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/sudoku_app/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/sudoku_app/main.dart
+──── end trail ────
+
+00:07 +2: user-defined State.setState (GEN-112) FAB tap rebuilds via script-side setState
+build n=0
+FAB pressed; before setState n=0
+FAB pressed; after  setState n=1
+build n=1
+
+──── captured script trail (4 lines) ────
+build n=0
+FAB pressed; before setState n=0
+FAB pressed; after  setState n=1
+build n=1
+──── end trail ────
+
+00:10 +3: stopwatch_laps (example #2 — Timer.periodic + AnimationController + ListView) Start → wait → Stop accumulates elapsed time
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/stopwatch_laps/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/stopwatch_laps/main.dart
+──── end trail ────
+
+00:14 +4: stopwatch_laps (example #2 — Timer.periodic + AnimationController + ListView) Lap button appends entries to the history
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/stopwatch_laps/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/stopwatch_laps/main.dart
+──── end trail ────
+
+00:18 +5: tic_tac_toe (example #1 — AnimationController + AnimatedSwitcher + CustomPainter) X plays a top-row win → headline + scoreboard update
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tic_tac_toe/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tic_tac_toe/main.dart
+──── end trail ────
+
+00:23 +6: tic_tac_toe (example #1 — AnimationController + AnimatedSwitcher + CustomPainter) Filling all 9 cells without a winner records a draw
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tic_tac_toe/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tic_tac_toe/main.dart
+──── end trail ────
+
+00:27 +7: pomodoro_timer (example #3 — Timer.periodic + ChangeNotifier + ListenableBuilder + AnimatedTheme) boots into the focus phase with the work countdown
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+──── end trail ────
+
+00:30 +8: pomodoro_timer (example #3 — Timer.periodic + ChangeNotifier + ListenableBuilder + AnimatedTheme) Start flips toggle label and one tick advances countdown
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+──── end trail ────
+
+00:34 +9: pomodoro_timer (example #3 — Timer.periodic + ChangeNotifier + ListenableBuilder + AnimatedTheme) Skip flips phase to Break, surfaces phase-end chip, auto-dismisses
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+──── end trail ────
+
+00:37 +10: pomodoro_timer (example #3 — Timer.periodic + ChangeNotifier + ListenableBuilder + AnimatedTheme) Reset returns to the initial state
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/pomodoro_timer/main.dart
+──── end trail ────
+
+00:41 +11: calculator (example #4 — GridView.count + setState + history + long-press) boots showing 0 and no history
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+00:44 +12: calculator (example #4 — GridView.count + setState + history + long-press) digit entry: 1 + 2 = 3
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+00:48 +13: calculator (example #4 — GridView.count + setState + history + long-press) operator precedence: 2 + 3 × 4 = 14 (× binds tighter than +)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+00:52 +14: calculator (example #4 — GridView.count + setState + history + long-press) division by zero surfaces "Error"
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+00:55 +15: calculator (example #4 — GridView.count + setState + history + long-press) AC clears, then 7 × 8 = 56 works on a fresh expression
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+00:59 +16: calculator (example #4 — GridView.count + setState + history + long-press) long-press backspace deletes multiple digits in one hold
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+01:03 +17: calculator (example #4 — GridView.count + setState + history + long-press) clear-history empties the strip
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/calculator/main.dart
+──── end trail ────
+
+01:07 +18: drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo) boots with empty canvas and disabled undo/redo/clear
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+──── end trail ────
+
+01:10 +19: drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo) dragging on the canvas fires onPanStart/Update/End
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 15 points; strokes=1 redo=0
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 15 points; strokes=1 redo=0
+──── end trail ────
+
+01:14 +20: drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo) undo / redo round-trip restores the stroke history
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 14 points; strokes=1 redo=0
+drawingpad.undo: strokes=0 redo=1
+drawingpad.redo: strokes=1 redo=0
+drawingpad.panStart at Offset(438.0, 591.0)
+drawingpad.panEnd: commit 14 points; strokes=2 redo=0
+drawingpad.undo: strokes=1 redo=1
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 14 points; strokes=1 redo=0
+drawingpad.undo: strokes=0 redo=1
+drawingpad.redo: strokes=1 redo=0
+drawingpad.panStart at Offset(438.0, 591.0)
+drawingpad.panEnd: commit 14 points; strokes=2 redo=0
+drawingpad.undo: strokes=1 redo=1
+──── end trail ────
+
+01:19 +21: drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo) clear empties everything and disables undo/redo
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 14 points; strokes=1 redo=0
+drawingpad.panStart at Offset(438.0, 581.0)
+drawingpad.panEnd: commit 14 points; strokes=2 redo=0
+drawingpad.clear
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.panStart at Offset(438.0, 551.0)
+drawingpad.panEnd: commit 14 points; strokes=1 redo=0
+drawingpad.panStart at Offset(438.0, 581.0)
+drawingpad.panEnd: commit 14 points; strokes=2 redo=0
+drawingpad.clear
+──── end trail ────
+
+01:23 +22: drawing_pad (example #5 — CustomPainter + GestureDetector + undo/redo) tapping a colour swatch records the colour change
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.color=Color(alpha: 1.0000, red: 0.8627, green: 0.1490, blue: 0.1490, colorSpace: ColorSpace.sRGB)
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/drawing_pad/main.dart
+drawingpad.color=Color(alpha: 1.0000, red: 0.8627, green: 0.1490, blue: 0.1490, colorSpace: ColorSpace.sRGB)
+──── end trail ────
+
+01:27 +23: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) boots on Easy with 16 face-down cards and an empty score panel
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+──── end trail ────
+
+01:30 +24: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) switching to Hard re-deals the deck at 36 cards
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.deal difficulty=hard cards=36 faces=[13,6,3,1,17,14,11,10,11,0,5,10,3,2,16,2,8,8,15,16,14,17,6,5,7,4,15,12,12,13,9,0,4,1,7,9]
+memmatch.difficulty=hard
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.deal difficulty=hard cards=36 faces=[13,6,3,1,17,14,11,10,11,0,5,10,3,2,16,2,8,8,15,16,14,17,6,5,7,4,15,12,12,13,9,0,4,1,7,9]
+memmatch.difficulty=hard
+──── end trail ────
+
+01:34 +25: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) tapping a single card reveals it without changing the move count
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+──── end trail ────
+
+01:37 +26: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) mismatched pair increments moves then hides both cards after the resolve delay
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=1 face=5 firstSlot=0 match=false moves=1
+memmatch.resolve match=false matches=0 moves=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=1 face=5 firstSlot=0 match=false moves=1
+memmatch.resolve match=false matches=0 moves=1
+──── end trail ────
+
+01:41 +27: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) matched pair stays face-up, advances matches, and emits one resolve line
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=4 face=4
+memmatch.flipSecond slot=5 face=4 firstSlot=4 match=true moves=1
+memmatch.resolve match=true matches=1 moves=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=4 face=4
+memmatch.flipSecond slot=5 face=4 firstSlot=4 match=true moves=1
+memmatch.resolve match=true matches=1 moves=1
+──── end trail ────
+
+01:45 +28: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) reset button mid-game returns to zero moves without dropping the deck size
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=1 face=5 firstSlot=0 match=false moves=1
+memmatch.resolve match=false matches=0 moves=1
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.reset difficulty=easy
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=1 face=5 firstSlot=0 match=false moves=1
+memmatch.resolve match=false matches=0 moves=1
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.reset difficulty=easy
+──── end trail ────
+
+01:48 +29: memory_match (example #6 — TweenAnimationBuilder flip + pair matching) solving every pair on easy records the move count as the new best
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=2 face=6 firstSlot=0 match=true moves=1
+memmatch.resolve match=true matches=1 moves=1
+memmatch.flipFirst slot=1 face=5
+memmatch.flipSecond slot=14 face=5 firstSlot=1 match=true moves=2
+memmatch.resolve match=true matches=2 moves=2
+memmatch.flipFirst slot=3 face=1
+memmatch.flipSecond slot=6 face=1 firstSlot=3 match=true moves=3
+memmatch.resolve match=true matches=3 moves=3
+memmatch.flipFirst slot=4 face=4
+memmatch.flipSecond slot=5 face=4 firstSlot=4 match=true moves=4
+memmatch.resolve match=true matches=4 moves=4
+memmatch.flipFirst slot=7 face=2
+memmatch.flipSecond slot=12 face=2 firstSlot=7 match=true moves=5
+memmatch.resolve match=true matches=5 moves=5
+memmatch.flipFirst slot=8 face=7
+memmatch.flipSecond slot=15 face=7 firstSlot=8 match=true moves=6
+memmatch.resolve match=true matches=6 moves=6
+memmatch.flipFirst slot=9 face=3
+memmatch.flipSecond slot=10 face=3 firstSlot=9 match=true moves=7
+memmatch.resolve match=true matches=7 moves=7
+memmatch.flipFirst slot=11 face=0
+memmatch.flipSecond slot=13 face=0 firstSlot=11 match=true moves=8
+memmatch.resolve match=true matches=8 moves=8
+memmatch.newBest difficulty=easy moves=8
+memmatch.solved difficulty=easy moves=8 best=8
+
+──── captured script trail (28 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/memory_match/main.dart
+memmatch.deal difficulty=easy cards=16 faces=[6,5,6,1,4,4,1,2,7,3,3,0,2,0,5,7]
+memmatch.flipFirst slot=0 face=6
+memmatch.flipSecond slot=2 face=6 firstSlot=0 match=true moves=1
+memmatch.resolve match=true matches=1 moves=1
+memmatch.flipFirst slot=1 face=5
+memmatch.flipSecond slot=14 face=5 firstSlot=1 match=true moves=2
+memmatch.resolve match=true matches=2 moves=2
+memmatch.flipFirst slot=3 face=1
+memmatch.flipSecond slot=6 face=1 firstSlot=3 match=true moves=3
+memmatch.resolve match=true matches=3 moves=3
+memmatch.flipFirst slot=4 face=4
+memmatch.flipSecond slot=5 face=4 firstSlot=4 match=true moves=4
+memmatch.resolve match=true matches=4 moves=4
+memmatch.flipFirst slot=7 face=2
+memmatch.flipSecond slot=12 face=2 firstSlot=7 match=true moves=5
+memmatch.resolve match=true matches=5 moves=5
+memmatch.flipFirst slot=8 face=7
+memmatch.flipSecond slot=15 face=7 firstSlot=8 match=true moves=6
+memmatch.resolve match=true matches=6 moves=6
+memmatch.flipFirst slot=9 face=3
+memmatch.flipSecond slot=10 face=3 firstSlot=9 match=true moves=7
+memmatch.resolve match=true matches=7 moves=7
+memmatch.flipFirst slot=11 face=0
+memmatch.flipSecond slot=13 face=0 firstSlot=11 match=true moves=8
+memmatch.resolve match=true matches=8 moves=8
+memmatch.newBest difficulty=easy moves=8
+memmatch.solved difficulty=easy moves=8 best=8
+──── end trail ────
+
+01:54 +30: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) boots paused with a length-3 snake and the seeded food pellet
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+──── end trail ────
+
+02:01 +31: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) Step button moves the head one cell right
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+──── end trail ────
+
+02:08 +32: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) tapping a direction queues it for the next step
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.dir queued=down
+snake.poll keys=0 [∅]
+snake.tick dir=down head=(10,11) body=3
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.dir queued=down
+snake.poll keys=0 [∅]
+snake.tick dir=down head=(10,11) body=3
+──── end trail ────
+
+02:15 +33: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) reverse direction is rejected as a 180° turn
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.dir ignored=left reason=reverse
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.dir ignored=left reason=reverse
+──── end trail ────
+
+02:22 +34: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) eating food grows the snake and bumps the score
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(14,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(15,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(16,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(17,10) body=3
+snake.dir queued=down
+snake.poll keys=0 [∅]
+snake.tick dir=down head=(17,11) body=3
+snake.poll keys=0 [∅]
+snake.eat score=1 body=4 food=(14,16)
+
+──── captured script trail (22 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(14,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(15,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(16,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(17,10) body=3
+snake.dir queued=down
+snake.poll keys=0 [∅]
+snake.tick dir=down head=(17,11) body=3
+snake.poll keys=0 [∅]
+snake.eat score=1 body=4 food=(14,16)
+──── end trail ────
+
+02:32 +35: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) walking off the right edge ends the game with reason=wall
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(14,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(15,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(16,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(17,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(18,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(19,10) body=3
+snake.poll keys=0 [∅]
+snake.over reason=wall score=0 body=3
+
+──── captured script trail (23 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(14,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(15,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(16,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(17,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(18,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(19,10) body=3
+snake.poll keys=0 [∅]
+snake.over reason=wall score=0 body=3
+──── end trail ────
+
+02:40 +36: snake_game (example #7 — KeyboardListener + Timer.periodic + CustomPainter) Reset button restores the initial position
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.reset body=3 food=(17,12) dir=right
+
+──── captured script trail (10 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/snake_game/main.dart
+snake.init body=3 food=(17,12) dir=right
+snake.focus -> true
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(11,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(12,10) body=3
+snake.poll keys=0 [∅]
+snake.tick dir=right head=(13,10) body=3
+snake.reset body=3 food=(17,12) dir=right
+──── end trail ────
+
+02:49 +37: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) boots paused, empty, with gen=0 and the slider readout
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+──── end trail ────
+
+02:53 +38: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) blinker preset rotates between horizontal and vertical
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Blinker alive=3
+life.step gen=1 alive=3
+life.step gen=2 alive=3
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Blinker alive=3
+life.step gen=1 alive=3
+life.step gen=2 alive=3
+──── end trail ────
+
+02:56 +39: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) block preset is a still life — alive count never changes
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Block alive=4
+life.step gen=1 alive=4
+life.step gen=2 alive=4
+life.step gen=3 alive=4
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Block alive=4
+life.step gen=1 alive=4
+life.step gen=2 alive=4
+life.step gen=3 alive=4
+──── end trail ────
+
+03:00 +40: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) glider returns to same shape shifted by (+1,+1) after 4 gens
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Glider alive=5
+life.step gen=1 alive=5
+life.step gen=2 alive=5
+life.step gen=3 alive=5
+life.step gen=4 alive=5
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Glider alive=5
+life.step gen=1 alive=5
+life.step gen=2 alive=5
+life.step gen=3 alive=5
+life.step gen=4 alive=5
+──── end trail ────
+
+03:04 +41: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) clear button resets gen and live count
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Glider alive=5
+life.step gen=1 alive=5
+life.clear gen=0 alive=0
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Glider alive=5
+life.step gen=1 alive=5
+life.clear gen=0 alive=0
+──── end trail ────
+
+03:08 +42: conway_life (example #8 — Set<Cell> equality + Timer.periodic + CustomPainter + PopupMenuButton) play/pause toggle starts and stops the ticker
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Blinker alive=3
+life.play interval=200ms
+life.step gen=1 alive=3
+life.pause
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/conway_life/main.dart
+life.init w=60 h=40 gen=0 alive=0
+life.preset name=Blinker alive=3
+life.play interval=200ms
+life.step gen=1 alive=3
+life.pause
+──── end trail ────
+
+03:12 +43: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) boots paused, empty, with default gravity / elasticity / dims
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+──── end trail ────
+
+03:15 +44: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) spawn button adds a ball with id=0 inside the world
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+──── end trail ────
+
+03:19 +45: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) step makes the ball fall (topY strictly increases)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.step dt=0.05 balls=1 topY=26.0
+physics.step dt=0.05 balls=1 topY=30.0
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.step dt=0.05 balls=1 topY=26.0
+physics.step dt=0.05 balls=1 topY=30.0
+──── end trail ────
+
+03:22 +46: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) ball stays inside the world after many steps (bounces)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.step dt=0.05 balls=1 topY=26.0
+physics.step dt=0.05 balls=1 topY=30.0
+physics.step dt=0.05 balls=1 topY=36.0
+physics.step dt=0.05 balls=1 topY=44.0
+physics.step dt=0.05 balls=1 topY=54.0
+physics.step dt=0.05 balls=1 topY=66.0
+physics.step dt=0.05 balls=1 topY=80.0
+physics.step dt=0.05 balls=1 topY=96.0
+physics.step dt=0.05 balls=1 topY=114.0
+physics.step dt=0.05 balls=1 topY=134.0
+physics.step dt=0.05 balls=1 topY=156.0
+physics.step dt=0.05 balls=1 topY=180.0
+physics.step dt=0.05 balls=1 topY=206.0
+physics.step dt=0.05 balls=1 topY=234.0
+physics.step dt=0.05 balls=1 topY=264.0
+physics.step dt=0.05 balls=1 topY=288.0
+physics.step dt=0.05 balls=1 topY=262.8
+physics.step dt=0.05 balls=1 topY=239.6
+physics.step dt=0.05 balls=1 topY=218.4
+physics.step dt=0.05 balls=1 topY=199.2
+physics.step dt=0.05 balls=1 topY=182.0
+physics.step dt=0.05 balls=1 topY=166.8
+physics.step dt=0.05 balls=1 topY=153.6
+physics.step dt=0.05 balls=1 topY=142.4
+physics.step dt=0.05 balls=1 topY=133.2
+physics.step dt=0.05 balls=1 topY=126.0
+physics.step dt=0.05 balls=1 topY=120.8
+physics.step dt=0.05 balls=1 topY=117.6
+physics.step dt=0.05 balls=1 topY=116.4
+physics.step dt=0.05 balls=1 topY=117.2
+
+──── captured script trail (33 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.step dt=0.05 balls=1 topY=26.0
+physics.step dt=0.05 balls=1 topY=30.0
+physics.step dt=0.05 balls=1 topY=36.0
+physics.step dt=0.05 balls=1 topY=44.0
+physics.step dt=0.05 balls=1 topY=54.0
+physics.step dt=0.05 balls=1 topY=66.0
+physics.step dt=0.05 balls=1 topY=80.0
+physics.step dt=0.05 balls=1 topY=96.0
+physics.step dt=0.05 balls=1 topY=114.0
+physics.step dt=0.05 balls=1 topY=134.0
+physics.step dt=0.05 balls=1 topY=156.0
+physics.step dt=0.05 balls=1 topY=180.0
+physics.step dt=0.05 balls=1 topY=206.0
+physics.step dt=0.05 balls=1 topY=234.0
+physics.step dt=0.05 balls=1 topY=264.0
+physics.step dt=0.05 balls=1 topY=288.0
+physics.step dt=0.05 balls=1 topY=262.8
+physics.step dt=0.05 balls=1 topY=239.6
+physics.step dt=0.05 balls=1 topY=218.4
+physics.step dt=0.05 balls=1 topY=199.2
+physics.step dt=0.05 balls=1 topY=182.0
+physics.step dt=0.05 balls=1 topY=166.8
+physics.step dt=0.05 balls=1 topY=153.6
+physics.step dt=0.05 balls=1 topY=142.4
+physics.step dt=0.05 balls=1 topY=133.2
+physics.step dt=0.05 balls=1 topY=126.0
+physics.step dt=0.05 balls=1 topY=120.8
+physics.step dt=0.05 balls=1 topY=117.6
+physics.step dt=0.05 balls=1 topY=116.4
+physics.step dt=0.05 balls=1 topY=117.2
+──── end trail ────
+
+03:27 +47: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) spawn multiple balls then clear
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.spawn id=1 x=247.5 y=24.0 vx=-7.8 vy=0.0 balls=2
+physics.spawn id=2 x=296.5 y=24.0 vx=64.6 vy=0.0 balls=3
+physics.clear balls=0
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.spawn id=1 x=247.5 y=24.0 vx=-7.8 vy=0.0 balls=2
+physics.spawn id=2 x=296.5 y=24.0 vx=64.6 vy=0.0 balls=3
+physics.clear balls=0
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+──── end trail ────
+
+03:31 +48: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) play/pause toggle starts and stops the auto-play ticker
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.play
+physics.pause
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.spawn id=0 x=205.7 y=24.0 vx=36.4 vy=0.0 balls=1
+physics.play
+physics.pause
+──── end trail ────
+
+03:34 +49: bouncing_balls_physics (example #9 — AnimationController-driven sim + Ball.copyWith + CustomPainter + Slider) tap on the canvas spawns a ball at the tap location
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.tap id=0 x=200.0 y=150.0 balls=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bouncing_balls_physics/main.dart
+physics.init w=400 h=300 balls=0 gravity=800 elasticity=0.85
+physics.tap id=0 x=200.0 y=150.0 balls=1
+──── end trail ────
+
+03:38 +50: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) boots paused with attractor at world centre and 20 particles
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+──── end trail ────
+
+03:42 +51: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) attract mode contracts: meanR strictly decreases over 20 steps
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.step dt=0.05 mode=Attract centroidX=250.5 centroidY=219.0 meanR=222.1
+field.step dt=0.05 mode=Attract centroidX=251.1 centroidY=218.7 meanR=219.2
+field.step dt=0.05 mode=Attract centroidX=252.0 centroidY=218.3 meanR=214.9
+field.step dt=0.05 mode=Attract centroidX=253.1 centroidY=217.7 meanR=209.2
+field.step dt=0.05 mode=Attract centroidX=254.6 centroidY=217.1 meanR=202.1
+field.step dt=0.05 mode=Attract centroidX=256.3 centroidY=216.3 meanR=193.7
+field.step dt=0.05 mode=Attract centroidX=258.3 centroidY=215.3 meanR=184.0
+field.step dt=0.05 mode=Attract centroidX=260.5 centroidY=214.3 meanR=173.0
+field.step dt=0.05 mode=Attract centroidX=263.0 centroidY=213.1 meanR=160.8
+field.step dt=0.05 mode=Attract centroidX=265.7 centroidY=211.8 meanR=147.7
+field.step dt=0.05 mode=Attract centroidX=268.8 centroidY=210.5 meanR=134.3
+field.step dt=0.05 mode=Attract centroidX=272.1 centroidY=209.1 meanR=120.6
+field.step dt=0.05 mode=Attract centroidX=275.5 centroidY=207.8 meanR=106.8
+field.step dt=0.05 mode=Attract centroidX=279.0 centroidY=206.5 meanR=93.9
+field.step dt=0.05 mode=Attract centroidX=282.4 centroidY=205.2 meanR=82.7
+field.step dt=0.05 mode=Attract centroidX=285.9 centroidY=204.0 meanR=72.1
+field.step dt=0.05 mode=Attract centroidX=289.3 centroidY=202.7 meanR=61.9
+field.step dt=0.05 mode=Attract centroidX=292.7 centroidY=201.4 meanR=52.4
+field.step dt=0.05 mode=Attract centroidX=295.9 centroidY=200.2 meanR=44.4
+field.step dt=0.05 mode=Attract centroidX=299.1 centroidY=199.0 meanR=37.2
+
+──── captured script trail (22 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.step dt=0.05 mode=Attract centroidX=250.5 centroidY=219.0 meanR=222.1
+field.step dt=0.05 mode=Attract centroidX=251.1 centroidY=218.7 meanR=219.2
+field.step dt=0.05 mode=Attract centroidX=252.0 centroidY=218.3 meanR=214.9
+field.step dt=0.05 mode=Attract centroidX=253.1 centroidY=217.7 meanR=209.2
+field.step dt=0.05 mode=Attract centroidX=254.6 centroidY=217.1 meanR=202.1
+field.step dt=0.05 mode=Attract centroidX=256.3 centroidY=216.3 meanR=193.7
+field.step dt=0.05 mode=Attract centroidX=258.3 centroidY=215.3 meanR=184.0
+field.step dt=0.05 mode=Attract centroidX=260.5 centroidY=214.3 meanR=173.0
+field.step dt=0.05 mode=Attract centroidX=263.0 centroidY=213.1 meanR=160.8
+field.step dt=0.05 mode=Attract centroidX=265.7 centroidY=211.8 meanR=147.7
+field.step dt=0.05 mode=Attract centroidX=268.8 centroidY=210.5 meanR=134.3
+field.step dt=0.05 mode=Attract centroidX=272.1 centroidY=209.1 meanR=120.6
+field.step dt=0.05 mode=Attract centroidX=275.5 centroidY=207.8 meanR=106.8
+field.step dt=0.05 mode=Attract centroidX=279.0 centroidY=206.5 meanR=93.9
+field.step dt=0.05 mode=Attract centroidX=282.4 centroidY=205.2 meanR=82.7
+field.step dt=0.05 mode=Attract centroidX=285.9 centroidY=204.0 meanR=72.1
+field.step dt=0.05 mode=Attract centroidX=289.3 centroidY=202.7 meanR=61.9
+field.step dt=0.05 mode=Attract centroidX=292.7 centroidY=201.4 meanR=52.4
+field.step dt=0.05 mode=Attract centroidX=295.9 centroidY=200.2 meanR=44.4
+field.step dt=0.05 mode=Attract centroidX=299.1 centroidY=199.0 meanR=37.2
+──── end trail ────
+
+03:48 +52: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) mode tap (Attract → Repel) emits trail and updates chip
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Repel
+field.step dt=0.05 mode=Repel centroidX=249.9 centroidY=219.2 meanR=225.0
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Repel
+field.step dt=0.05 mode=Repel centroidX=249.9 centroidY=219.2 meanR=225.0
+──── end trail ────
+
+03:52 +53: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) mode tap (Attract → Orbit) emits trail and updates chip
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Orbit
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Orbit
+──── end trail ────
+
+03:56 +54: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) reset re-seeds the field and restores Attract defaults
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Repel
+field.step dt=0.05 mode=Repel centroidX=249.9 centroidY=219.2 meanR=225.0
+field.step dt=0.05 mode=Repel centroidX=249.3 centroidY=219.5 meanR=227.9
+field.step dt=0.05 mode=Repel centroidX=248.5 centroidY=219.9 meanR=232.2
+field.reset particles=20
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.mode mode=Repel
+field.step dt=0.05 mode=Repel centroidX=249.9 centroidY=219.2 meanR=225.0
+field.step dt=0.05 mode=Repel centroidX=249.3 centroidY=219.5 meanR=227.9
+field.step dt=0.05 mode=Repel centroidX=248.5 centroidY=219.9 meanR=232.2
+field.reset particles=20
+──── end trail ────
+
+04:00 +55: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) tap on canvas repositions the attractor
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.tap x=300.0 y=200.0
+field.step dt=0.05 mode=Attract centroidX=250.5 centroidY=219.0 meanR=222.1
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.tap x=300.0 y=200.0
+field.step dt=0.05 mode=Attract centroidX=250.5 centroidY=219.0 meanR=222.1
+──── end trail ────
+
+04:05 +56: particle_field (example #10 — raw Ticker + MouseRegion + SegmentedButton + CustomPainter) play/pause toggle drives the raw Ticker
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.play
+field.pause
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/particle_field/main.dart
+field.init w=600 h=400 particles=20 mode=Attract attractorX=300.0 attractorY=200.0
+field.play
+field.pause
+──── end trail ────
+
+04:09 +57: color_picker_studio (example #11 — ValueNotifier<Color> + ValueListenableBuilder + TextField + Slider) boots with kInitialColor and seeded recents
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+──── end trail ────
+
+04:12 +58: color_picker_studio (example #11 — ValueNotifier<Color> + ValueListenableBuilder + TextField + Slider) hex field accepts a new colour and pushes onto recents
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.hex hex=#FF0080 r=255 g=0 b=128
+picker.recent hex=#FF0080 count=8 source=hex
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.hex hex=#FF0080 r=255 g=0 b=128
+picker.recent hex=#FF0080 count=8 source=hex
+──── end trail ────
+
+04:16 +59: color_picker_studio (example #11 — ValueNotifier<Color> + ValueListenableBuilder + TextField + Slider) invalid hex is rejected and does not mutate state
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.hex.invalid raw=NOTHEX
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.hex.invalid raw=NOTHEX
+──── end trail ────
+
+04:19 +60: color_picker_studio (example #11 — ValueNotifier<Color> + ValueListenableBuilder + TextField + Slider) tapping a seeded swatch swaps the active colour
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.swatch hex=#1E88E5 r=30 g=136 b=229
+picker.recent hex=#1E88E5 count=8 source=swatch
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+picker.swatch hex=#1E88E5 r=30 g=136 b=229
+picker.recent hex=#1E88E5 count=8 source=swatch
+──── end trail ────
+
+04:22 +61: color_picker_studio (example #11 — ValueNotifier<Color> + ValueListenableBuilder + TextField + Slider) same-colour hex submit is a no-op (no trail churn)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/color_picker_studio/main.dart
+picker.init hex=#5599FF r=85 g=153 b=255 recents=8
+──── end trail ────
+
+04:26 +62: tip_calculator (example #12 — TextField + FocusNode + Slider + IconButton stepper + DropdownButton) boots with USD defaults and an initial tip.compute
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+──── end trail ────
+
+04:30 +63: tip_calculator (example #12 — TextField + FocusNode + Slider + IconButton stepper + DropdownButton) submitting a bill emits tip.bill + tip.compute and updates summary
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill raw=100 parsed=100.00
+tip.compute bill=100.00 tip=15.00 grand=115.00 each=115.00 currency=USD
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill raw=100 parsed=100.00
+tip.compute bill=100.00 tip=15.00 grand=115.00 each=115.00 currency=USD
+──── end trail ────
+
+04:33 +64: tip_calculator (example #12 — TextField + FocusNode + Slider + IconButton stepper + DropdownButton) invalid bill is rejected without mutating state
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill.invalid raw=oops
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill.invalid raw=oops
+──── end trail ────
+
+04:37 +65: tip_calculator (example #12 — TextField + FocusNode + Slider + IconButton stepper + DropdownButton) party stepper: + grows the party and clamps - at 1
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=2
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=3
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=4
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=3
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+
+──── captured script trail (11 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=2
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=3
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=4
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.party value=3
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+──── end trail ────
+
+04:40 +66: tip_calculator (example #12 — TextField + FocusNode + Slider + IconButton stepper + DropdownButton) changing currency updates the summary symbol
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill raw=50 parsed=50.00
+tip.compute bill=50.00 tip=7.50 grand=57.50 each=57.50 currency=USD
+tip.currency value=EUR
+tip.compute bill=50.00 tip=7.50 grand=57.50 each=57.50 currency=EUR
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tip_calculator/main.dart
+tip.init bill=0.00 tip=15 party=1 currency=USD
+tip.compute bill=0.00 tip=0.00 grand=0.00 each=0.00 currency=USD
+tip.bill raw=50 parsed=50.00
+tip.compute bill=50.00 tip=7.50 grand=57.50 each=57.50 currency=USD
+tip.currency value=EUR
+tip.compute bill=50.00 tip=7.50 grand=57.50 each=57.50 currency=EUR
+──── end trail ────
+
+04:44 +67: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) boots empty with init trail and empty-state placeholder
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+──── end trail ────
+
+04:47 +68: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) adding a task via the composer appends a tile
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="buy milk"
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="buy milk"
+──── end trail ────
+
+04:51 +69: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) toggling done strikes through the text and updates count
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="write report"
+todo.toggle id=1 done=true
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="write report"
+todo.toggle id=1 done=true
+──── end trail ────
+
+04:54 +70: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) swipe-to-delete + bottom-sheet confirm removes the task
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="delete me"
+todo.remove id=1
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="delete me"
+todo.remove id=1
+──── end trail ────
+
+04:58 +71: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) filter bar restricts the visible list
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="task A"
+todo.add id=2 text="task B"
+todo.toggle id=2 done=true
+todo.filter value=active
+todo.filter value=completed
+todo.filter value=all
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="task A"
+todo.add id=2 text="task B"
+todo.toggle id=2 done=true
+todo.filter value=active
+todo.filter value=completed
+todo.filter value=all
+──── end trail ────
+
+05:02 +72: todo_list (example #13 — ChangeNotifier + ListenableBuilder + ReorderableListView + Dismissible + SegmentedButton) reorder via drag handle moves the tile
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="alpha"
+todo.add id=2 text="beta"
+todo.add id=3 text="gamma"
+todo.reorder old=0 new=2 id=1
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/todo_list/main.dart
+todo.init n=0
+todo.add id=1 text="alpha"
+todo.add id=2 text="beta"
+todo.add id=3 text="gamma"
+todo.reorder old=0 new=2 id=1
+──── end trail ────
+
+05:06 +73: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) boots empty with init trail and empty-pane placeholder
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+──── end trail ────
+
+05:09 +74: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) FAB creates a blank note and selects it (wide)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+──── end trail ────
+
+05:13 +75: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) typing in title updates the list preview row
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="Groceries" body.len=0
+note.save id=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="Groceries" body.len=0
+note.save id=1
+──── end trail ────
+
+05:16 +76: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) debounced save emits a "Saved" SnackBar
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="" body.len=16
+note.save id=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="" body.len=16
+note.save id=1
+──── end trail ────
+
+05:20 +77: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) delete via AlertDialog confirm removes the note
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="doomed" body.len=0
+note.save id=1
+note.delete id=1 remaining=0 next_selected=null
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="doomed" body.len=0
+note.save id=1
+note.delete id=1 remaining=0 next_selected=null
+──── end trail ────
+
+05:24 +78: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) share via bottom-sheet pops "Shared" SnackBar
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="shareable" body.len=0
+note.save id=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="shareable" body.len=0
+note.save id=1
+──── end trail ────
+
+05:27 +79: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) selecting a different note swaps the editor controllers
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="note one" body.len=0
+note.save id=1
+note.add id=2
+editor.swap note=2
+note.update id=2 title="note two" body.len=0
+note.select id=1
+editor.swap note=1
+
+──── captured script trail (10 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+note.update id=1 title="note one" body.len=0
+note.save id=1
+note.add id=2
+editor.swap note=2
+note.update id=2 title="note two" body.len=0
+note.select id=1
+editor.swap note=1
+──── end trail ────
+
+05:31 +80: note_app (example #14 — master/detail + dialogs + sheets + debounced SnackBar) narrow layout pushes editor via Navigator.push
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/note_app/main.dart
+note.init n=0
+note.add id=1
+──── end trail ────
+
+05:35 +81: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) boots on step 0 with the account form visible
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+──── end trail ────
+
+05:38 +82: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) Next on an empty form blocks advance with validators
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.validate.fail step=0
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.validate.fail step=0
+──── end trail ────
+
+05:41 +83: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) valid account input advances to the profile step
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+──── end trail ────
+
+05:45 +84: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) Back button restores the previous step without losing data
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.prev step=0
+progress.animate from=0.375 to=0.125
+
+──── captured script trail (9 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.prev step=0
+progress.animate from=0.375 to=0.125
+──── end trail ────
+
+05:48 +85: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) progress bar animates whenever the step changes
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+──── end trail ────
+
+05:51 +86: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) reaching the review step shows collected entries
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.update key="name" len=8
+wizard.update key="phone" len=0
+wizard.validate.ok step=1
+wizard.next step=2
+progress.animate from=0.375 to=0.625
+wizard.update key="color" len=4
+wizard.validate.ok step=2
+wizard.next step=3
+progress.animate from=0.625 to=0.875
+
+──── captured script trail (16 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.update key="name" len=8
+wizard.update key="phone" len=0
+wizard.validate.ok step=1
+wizard.next step=2
+progress.animate from=0.375 to=0.625
+wizard.update key="color" len=4
+wizard.validate.ok step=2
+wizard.next step=3
+progress.animate from=0.625 to=0.875
+──── end trail ────
+
+05:55 +87: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) Submit shows the overlay, awaits Future.delayed, then the done banner
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.update key="name" len=8
+wizard.update key="phone" len=0
+wizard.validate.ok step=1
+wizard.next step=2
+progress.animate from=0.375 to=0.625
+wizard.update key="color" len=4
+wizard.validate.ok step=2
+wizard.next step=3
+progress.animate from=0.625 to=0.875
+wizard.validate.ok step=3
+wizard.submit.start
+wizard.submit.done
+progress.animate from=0.875 to=1.0
+
+──── captured script trail (20 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.update key="email" len=16
+wizard.update key="password" len=11
+wizard.validate.ok step=0
+wizard.next step=1
+progress.animate from=0.125 to=0.375
+wizard.update key="name" len=8
+wizard.update key="phone" len=0
+wizard.validate.ok step=1
+wizard.next step=2
+progress.animate from=0.375 to=0.625
+wizard.update key="color" len=4
+wizard.validate.ok step=2
+wizard.next step=3
+progress.animate from=0.625 to=0.875
+wizard.validate.ok step=3
+wizard.submit.start
+wizard.submit.done
+progress.animate from=0.875 to=1.0
+──── end trail ────
+
+05:59 +88: form_wizard (example #15 — multi-step Form + validators + AnimatedSwitcher + AnimationController + Future.delayed submit) bad email format keeps the user on step 0
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.validate.fail step=0
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/form_wizard/main.dart
+wizard.init
+wizard.validate.fail step=0
+──── end trail ────
+
+06:02 +89: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) boots with a 2-column grid of Hero-wrapped tiles
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+──── end trail ────
+
+06:05 +90: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) every grid tile is wrapped in a Hero with matched tag
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+──── end trail ────
+
+06:08 +91: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) tapping a tile pushes the viewer route
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+──── end trail ────
+
+06:12 +92: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) viewer mounts an InteractiveViewer for the tapped photo
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+──── end trail ────
+
+06:15 +93: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) swiping the PageView advances to the next photo
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+viewer.page id=2
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=1
+gallery.open id=1 index=1
+viewer.open id=1
+viewer.page id=2
+──── end trail ────
+
+06:19 +94: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) closing the viewer pops back to the grid
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=0
+gallery.open id=0 index=0
+viewer.open id=0
+viewer.close id=0
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+gallery.tap id=0
+gallery.open id=0 index=0
+viewer.open id=0
+viewer.close id=0
+──── end trail ────
+
+06:22 +95: photo_gallery_hero (example #16 — Hero + PageRouteBuilder + InteractiveViewer + PageView + gradient CustomPaint) Photo tile paints a gradient via CustomPaint
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/photo_gallery_hero/main.dart
+gallery.init n=6
+──── end trail ────
+
+06:25 +96: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) boots with the top card visible and counter at 0/0
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+──── end trail ────
+
+06:29 +97: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) like button flies the top card right and bumps the liked counter
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+──── end trail ────
+
+06:32 +98: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) pass button flies the top card left and bumps the passed counter
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=left
+swipe.fly id=0 dir=left
+swipe.done id=0 dir=left liked=0 passed=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=left
+swipe.fly id=0 dir=left
+swipe.done id=0 dir=left liked=0 passed=1
+──── end trail ────
+
+06:36 +99: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) dragging the top card past the threshold commits a swipe
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=20.0
+swipe.release dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=20.0
+swipe.release dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+──── end trail ────
+
+06:40 +100: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) short drag is cancelled and the original card stays on top
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=20.0
+swipe.release dir=none
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=20.0
+swipe.release dir=none
+──── end trail ────
+
+06:43 +101: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) three button taps advance through three cards
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+swipe.button dir=left
+swipe.fly id=1 dir=left
+swipe.done id=1 dir=left liked=1 passed=1
+swipe.button dir=right
+swipe.fly id=2 dir=right
+swipe.done id=2 dir=right liked=2 passed=1
+
+──── captured script trail (11 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+swipe.button dir=left
+swipe.fly id=1 dir=left
+swipe.done id=1 dir=left liked=1 passed=1
+swipe.button dir=right
+swipe.fly id=2 dir=right
+swipe.done id=2 dir=right liked=2 passed=1
+──── end trail ────
+
+06:47 +102: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) deck shows the empty placeholder after all cards swiped
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+swipe.button dir=right
+swipe.fly id=1 dir=right
+swipe.done id=1 dir=right liked=2 passed=0
+swipe.button dir=right
+swipe.fly id=2 dir=right
+swipe.done id=2 dir=right liked=3 passed=0
+swipe.button dir=right
+swipe.fly id=3 dir=right
+swipe.done id=3 dir=right liked=4 passed=0
+swipe.button dir=right
+swipe.fly id=4 dir=right
+swipe.done id=4 dir=right liked=5 passed=0
+swipe.button dir=right
+swipe.fly id=5 dir=right
+swipe.done id=5 dir=right liked=6 passed=0
+
+──── captured script trail (20 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.button dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+swipe.button dir=right
+swipe.fly id=1 dir=right
+swipe.done id=1 dir=right liked=2 passed=0
+swipe.button dir=right
+swipe.fly id=2 dir=right
+swipe.done id=2 dir=right liked=3 passed=0
+swipe.button dir=right
+swipe.fly id=3 dir=right
+swipe.done id=3 dir=right liked=4 passed=0
+swipe.button dir=right
+swipe.fly id=4 dir=right
+swipe.done id=4 dir=right liked=5 passed=0
+swipe.button dir=right
+swipe.fly id=5 dir=right
+swipe.done id=5 dir=right liked=6 passed=0
+──── end trail ────
+
+06:52 +103: card_swiper (example #17 — drag/fly stack + AnimationController + Transform.rotate + AnimatedPositioned) top card has a Transform.rotate driven by drag offset
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=120.0
+swipe.release dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/card_swiper/main.dart
+swipe.init n=6
+swipe.drag dx=120.0
+swipe.release dir=right
+swipe.fly id=0 dir=right
+swipe.done id=0 dir=right liked=1 passed=0
+──── end trail ────
+
+06:56 +104: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) boots with three columns and the seed cards visible
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+──── end trail ────
+
+06:59 +105: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) composer adds a new card to the To do column
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.add col=0 id=4 title=Plan sprint
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.add col=0 id=4 title=Plan sprint
+──── end trail ────
+
+07:03 +106: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) tapping a card opens the edit dialog pre-filled
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+──── end trail ────
+
+07:07 +107: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) Save in the dialog renames the card and dismisses
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.rename id=0 new=Write spec
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.rename id=0 new=Write spec
+──── end trail ────
+
+07:11 +108: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) Cancel in the dialog preserves the card title
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+──── end trail ────
+
+07:15 +109: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) Delete in the dialog removes the card from its column
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.remove col=0 id=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.remove col=0 id=1
+──── end trail ────
+
+07:19 +110: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) right-arrow button moves a card to the next column
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.move id=0 from=0 to=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.move id=0 from=0 to=1
+──── end trail ────
+
+07:23 +111: kanban_board (example #18 — multi-column ChangeNotifier + ReorderableListView + LongPressDraggable/DragTarget + showDialog) down-arrow reorders a card within its column
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.reorder col=0 from=0 to=1
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/kanban_board/main.dart
+kanban.init cols=3 cards=4
+kanban.reorder col=0 from=0 to=1
+──── end trail ────
+
+07:27 +112: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) boots with four handles and the painter in the tree
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+──── end trail ────
+
+07:31 +113: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) dragging a handle calls setPoint on the model
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.drag.start i=1
+bezier.point i=1 x=0.33 y=0.05
+bezier.point i=1 x=0.35 y=0.00
+bezier.drag.end i=1
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.drag.start i=1
+bezier.point i=1 x=0.33 y=0.05
+bezier.point i=1 x=0.35 y=0.00
+bezier.drag.end i=1
+──── end trail ────
+
+07:34 +114: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) resolution slider updates the model
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.resolution=25
+bezier.resolution=26
+bezier.resolution=45
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.resolution=25
+bezier.resolution=26
+bezier.resolution=45
+──── end trail ────
+
+07:38 +115: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) construction switch toggles the overlay flag
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.toggle=false
+bezier.toggle=true
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.toggle=false
+bezier.toggle=true
+──── end trail ────
+
+07:42 +116: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) play runs the preview animation to completion
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+──── end trail ────
+
+07:46 +117: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) reset returns the preview to t=0 after a full play
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+bezier.play reset
+bezier.preview t=0.00
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+bezier.play reset
+bezier.preview t=0.00
+──── end trail ────
+
+07:51 +118: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) dragging different handles emits non-cross-talking trails
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.drag.start i=0
+bezier.point i=0 x=0.13 y=0.50
+bezier.drag.end i=0
+bezier.drag.start i=3
+bezier.point i=3 x=0.87 y=0.50
+bezier.drag.end i=3
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.drag.start i=0
+bezier.point i=0 x=0.13 y=0.50
+bezier.drag.end i=0
+bezier.drag.start i=3
+bezier.point i=3 x=0.87 y=0.50
+bezier.drag.end i=3
+──── end trail ────
+
+07:54 +119: bezier_curve_editor (example #19 — CustomPainter cubicTo + per-point GestureDetector + AnimationController + elastic preview) pointAt(0)=p0 and pointAt(1)=p3 in the painter math
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+bezier.play reset
+bezier.preview t=0.00
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bezier_curve_editor/main.dart
+bezier.init points=4 resolution=16 construction=true
+bezier.play start
+bezier.preview t=1.00
+bezier.play complete
+bezier.play reset
+bezier.preview t=0.00
+──── end trail ────
+
+07:59 +120: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) boots on the Chart tab with all three tabs present
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+──── end trail ────
+
+08:02 +121: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) Add button grows the chart point list
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+chart.add value=8.0
+chart.points n=6
+chart.add value=3.0
+chart.points n=7
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+chart.add value=8.0
+chart.points n=6
+chart.add value=3.0
+chart.points n=7
+──── end trail ────
+
+08:05 +122: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) Clear button resets the chart to zero points
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+chart.add value=8.0
+chart.points n=6
+chart.cleared
+chart.points n=0
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+chart.add value=8.0
+chart.points n=6
+chart.cleared
+chart.points n=0
+──── end trail ────
+
+08:09 +123: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) switching tabs emits a single tab.switch line per move
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+log.tick i=0 msg=event #0
+tab.switch from=1 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+tab.switch from=2 to=0
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+log.tick i=0 msg=event #0
+tab.switch from=1 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+tab.switch from=2 to=0
+──── end trail ────
+
+08:12 +124: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) threshold slider on the Settings tab updates the label
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+settings.threshold=0.47
+settings.threshold=0.22
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+settings.threshold=0.47
+settings.threshold=0.22
+──── end trail ────
+
+08:16 +125: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) AutomaticKeepAliveClientMixin preserves Settings state across tab switches
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+settings.threshold=0.47
+settings.threshold=0.22
+tab.switch from=1 to=0
+tab.switch from=0 to=1
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+tab.switch from=0 to=1
+settings.threshold=0.47
+settings.threshold=0.22
+tab.switch from=1 to=0
+tab.switch from=0 to=1
+──── end trail ────
+
+08:19 +126: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) Log tab streams entries via Stream.periodic
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+log.tick i=0 msg=event #0
+tab.switch from=0 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+log.tick i=3 msg=event #3
+log.tick i=4 msg=event #4
+log.tick i=5 msg=event #5
+
+──── captured script trail (9 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+log.tick i=0 msg=event #0
+tab.switch from=0 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+log.tick i=3 msg=event #3
+log.tick i=4 msg=event #4
+log.tick i=5 msg=event #5
+──── end trail ────
+
+08:22 +127: tabbed_dashboard (example #20 — DefaultTabController + AutomaticKeepAliveClientMixin + AnimatedList + Stream.periodic) Pause toggle freezes the log stream
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+log.tick i=0 msg=event #0
+tab.switch from=0 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+log.tick i=3 msg=event #3
+log.tick i=4 msg=event #4
+log.pause=true
+
+──── captured script trail (9 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tabbed_dashboard/main.dart
+tab.init labels=[Chart,Settings,Log]
+log.tick i=0 msg=event #0
+tab.switch from=0 to=2
+log.tick i=1 msg=event #1
+log.tick i=2 msg=event #2
+log.tick i=3 msg=event #3
+log.tick i=4 msg=event #4
+log.pause=true
+──── end trail ────
+
+08:26 +128: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) boots on Home with all three nav destinations
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+──── end trail ────
+
+08:32 +129: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) bottom-nav tap switches the active tab
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+──── end trail ────
+
+08:39 +130: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) IndexedStack preserves search field text across tab switches
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+nav.switch from=search to=home
+nav.switch from=home to=search
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+nav.switch from=search to=home
+nav.switch from=home to=search
+──── end trail ────
+
+08:45 +131: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) search counter increments and renders results
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+search.run q="flutter" total=1
+search.run q="flutter" total=2
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+nav.switch from=home to=search
+search.run q="flutter" total=1
+search.run q="flutter" total=2
+──── end trail ────
+
+08:52 +132: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) Home theme toggle propagates to Profile via ThemeScope
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+theme.toggle source=Home dark=true
+nav.switch from=home to=profile
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+theme.toggle source=Home dark=true
+nav.switch from=home to=profile
+──── end trail ────
+
+08:58 +133: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) tapping a Home list item pushes a detail page on the tab's own Navigator
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=3
+route.gen tab=home name=/detail
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=3
+route.gen tab=home name=/detail
+──── end trail ────
+
+09:05 +134: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) PopScope routes system back to the active tab's nested Navigator
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=2
+route.gen tab=home name=/detail
+nav.innerpop tab=home
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=2
+route.gen tab=home name=/detail
+nav.innerpop tab=home
+──── end trail ────
+
+09:11 +135: bottom_nav_shell (example #21 — BottomNavigationBar + IndexedStack + per-tab Navigators + InheritedNotifier-style ThemeScope + PopScope) tapping the active tab pops its Navigator to root
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=4
+route.gen tab=home name=/detail
+nav.poproot tab=home
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/bottom_nav_shell/main.dart
+route.gen tab=home name=/
+route.gen tab=search name=/
+route.gen tab=profile name=/
+home.tap item=4
+route.gen tab=home name=/detail
+nav.poproot tab=home
+──── end trail ────
+
+09:17 +136: diagnostics — AnimatedSwitcher across user-State setState headline swap does NOT trip duplicate-keys
+demo.build n=0 label=even
+demo.build n=1 label=odd
+demo.build n=2 label=even
+
+──── captured script trail (3 lines) ────
+demo.build n=0 label=even
+demo.build n=1 label=odd
+demo.build n=2 label=even
+──── end trail ────
+
+09:21 +137: diagnostics — type inference for generic constructors ValueKey("foo") should produce ValueKey<String>
+implicit ValueKey rt=ValueKey<String>
+explicit ValueKey rt=ValueKey<String>
+implicit == explicit ? true
+TEST observed: implicit ValueKey rt=ValueKey<String> / explicit ValueKey rt=ValueKey<String>
+
+──── captured script trail (4 lines) ────
+implicit ValueKey rt=ValueKey<String>
+explicit ValueKey rt=ValueKey<String>
+implicit == explicit ? true
+TEST observed: implicit ValueKey rt=ValueKey<String> / explicit ValueKey rt=ValueKey<String>
+──── end trail ────
+
+09:24 +138: closure capture in for-loops three-button reproducer prints captured i
+TAP i=1
+
+──── captured script trail (1 lines) ────
+TAP i=1
+──── end trail ────
+
+09:27 +139: tron (KeyboardListener + CustomPainter) boots with the arena focused and KEYS ACTIVE shown
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+──── end trail ────
+
+09:31 +140: tron (KeyboardListener + CustomPainter) arrow-left key queues a LEFT turn
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+──── end trail ────
+
+09:36 +141: tron (KeyboardListener + CustomPainter) letter A also turns LEFT (alternate binding)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Key A
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Key A (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Key A
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Key A (up)
+──── end trail ────
+
+09:41 +142: tron (KeyboardListener + CustomPainter) arrow-right key queues a RIGHT turn
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Right
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Arrow Right (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Right
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Arrow Right (up)
+──── end trail ────
+
+09:45 +143: tron (KeyboardListener + CustomPainter) letter D also turns RIGHT (alternate binding)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Key D
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Key D (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Key D
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Key D (up)
+──── end trail ────
+
+09:50 +144: tron (KeyboardListener + CustomPainter) space key toggles pause once the game has started
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+[tron] key=Space
+[tron] paused=true
+[tron] key=Space (up)
+[tron] key=Space
+[tron] paused=false
+[tron] key=Space (up)
+
+──── captured script trail (13 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+[tron] key=Space
+[tron] paused=true
+[tron] key=Space (up)
+[tron] key=Space
+[tron] paused=false
+[tron] key=Space (up)
+──── end trail ────
+
+09:54 +145: tron (KeyboardListener + CustomPainter) boots armed-but-idle until the first key arms the ticker
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Right
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Arrow Right (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Right
+[tron] started
+[tron] RIGHT -> pending=2
+[tron] key=Arrow Right (up)
+──── end trail ────
+
+09:59 +146: tron (KeyboardListener + CustomPainter) holding a key across multiple ticks fires exactly once
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] key=Arrow Left
+[tron] started
+[tron] LEFT  -> pending=0
+[tron] key=Arrow Left (up)
+──── end trail ────
+
+10:04 +147: tron (KeyboardListener + CustomPainter) LEFT button (UI fallback) also queues a turn
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] started
+[tron] LEFT  -> pending=0
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/tron/main.dart
+[tron] init
+[tron] focus changed -> true
+[tron] started
+[tron] LEFT  -> pending=0
+──── end trail ────
+
+10:08 +148: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) boots with empty list and an idle composer
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+──── end trail ────
+
+10:11 +149: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) disabled send button before any text is typed
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+──── end trail ────
+
+10:14 +150: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) tapping send appends a user bubble + starts typing
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="hello bot"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: hello bot"
+chat.scroll target=bottom messages=2
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="hello bot"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: hello bot"
+chat.scroll target=bottom messages=2
+──── end trail ────
+
+10:18 +151: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) bot reply arrives, typing flips off, bubble appears
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="ping"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: ping"
+chat.scroll target=bottom messages=2
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="ping"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: ping"
+chat.scroll target=bottom messages=2
+──── end trail ────
+
+10:21 +152: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) send via Enter (onSubmitted) — composer keyboard path
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="from enter"
+chat.typing on
+chat.typing off
+chat.bot.append id=2 text="echo: from enter"
+chat.scroll target=bottom messages=2
+chat.scroll target=bottom messages=2
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="from enter"
+chat.typing on
+chat.typing off
+chat.bot.append id=2 text="echo: from enter"
+chat.scroll target=bottom messages=2
+chat.scroll target=bottom messages=2
+──── end trail ────
+
+10:24 +153: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) whitespace-only text is rejected even via Enter
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+
+──── captured script trail (1 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+──── end trail ────
+
+10:28 +154: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) multi-turn conversation grows in order
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="hi"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: hi"
+chat.scroll target=bottom messages=2
+chat.user.append id=3 text="how are you"
+chat.typing on
+chat.scroll target=bottom messages=3
+chat.typing off
+chat.bot.append id=4 text="echo: how are you"
+chat.scroll target=bottom messages=4
+
+──── captured script trail (13 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="hi"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: hi"
+chat.scroll target=bottom messages=2
+chat.user.append id=3 text="how are you"
+chat.typing on
+chat.scroll target=bottom messages=3
+chat.typing off
+chat.bot.append id=4 text="echo: how are you"
+chat.scroll target=bottom messages=4
+──── end trail ────
+
+10:31 +155: chat_ui (example #22 — AnimatedList + slide/fade bubbles + multiline composer + Stream.fromFuture bot reply) auto-scroll fires after each message append
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="one"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: one"
+chat.scroll target=bottom messages=2
+chat.user.append id=3 text="two"
+chat.typing on
+chat.scroll target=bottom messages=3
+chat.typing off
+chat.bot.append id=4 text="echo: two"
+chat.scroll target=bottom messages=4
+
+──── captured script trail (13 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/chat_ui/main.dart
+chat.user.append id=1 text="one"
+chat.typing on
+chat.scroll target=bottom messages=1
+chat.typing off
+chat.bot.append id=2 text="echo: one"
+chat.scroll target=bottom messages=2
+chat.user.append id=3 text="two"
+chat.typing on
+chat.scroll target=bottom messages=3
+chat.typing off
+chat.bot.append id=4 text="echo: two"
+chat.scroll target=bottom messages=4
+──── end trail ────
+
+10:35 +156: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) boots on page 0 with all carousel chrome
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+──── end trail ────
+
+10:38 +157: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) next button advances to the following page
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+──── end trail ────
+
+10:41 +158: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) prev button on page 0 is a no-op (clamped)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+──── end trail ────
+
+10:45 +159: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) autoplay switch toggles trail lines + advances pages
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+autoplay on
+autoplay.tick to=1
+autoplay off
+parallax bg=0.19
+parallax bg=0.50
+page.change from=0 to=1
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+autoplay on
+autoplay.tick to=1
+autoplay off
+parallax bg=0.19
+parallax bg=0.50
+page.change from=0 to=1
+──── end trail ────
+
+10:48 +160: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) tapping a page card opens the detail view
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+detail.open page=Aurora index=0
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+detail.open page=Aurora index=0
+──── end trail ────
+
+10:52 +161: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) detail view back button returns to the carousel
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+detail.open page=Aurora index=0
+detail.close index=0
+
+──── captured script trail (4 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+detail.open page=Aurora index=0
+detail.close index=0
+──── end trail ────
+
+10:55 +162: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) navigating then tapping opens detail for the new page
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+parallax bg=1.00
+page.change from=1 to=2
+detail.open page=Ocean index=2
+
+──── captured script trail (7 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+parallax bg=1.00
+page.change from=1 to=2
+detail.open page=Ocean index=2
+──── end trail ────
+
+10:59 +163: carousel_pager (example #23 — PageView.builder + parallax + autoplay + AnimatedSwitcher to detail) parallax bg lines accompany every page change
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+parallax bg=1.00
+page.change from=1 to=2
+
+──── captured script trail (6 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/carousel_pager/main.dart
+pager.boot pages=8 page=0
+parallax bg=0.50
+page.change from=0 to=1
+parallax bg=1.00
+page.change from=1 to=2
+──── end trail ────
+
+11:02 +164: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) boots in solved state with 15 numbered tiles + chrome
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+──── end trail ────
+
+11:06 +165: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) shuffle button scrambles the board + resets the counter
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+puzzle.shuffle moves=4 seed=42
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+puzzle.shuffle moves=4 seed=42
+──── end trail ────
+
+11:09 +166: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) tapping a tile adjacent to the gap accepts the move + bumps the counter
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+──── end trail ────
+
+11:13 +167: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) tapping a tile not adjacent to the gap is rejected
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+tile.reject cell=0
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+tile.reject cell=0
+──── end trail ────
+
+11:17 +168: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) first valid tap starts the elapsed-time timer
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=1
+puzzle.solve moves=2 elapsed=1
+confetti.start particles=36
+confetti.end
+
+──── captured script trail (11 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=1
+puzzle.solve moves=2 elapsed=1
+confetti.start particles=36
+confetti.end
+──── end trail ────
+
+11:24 +169: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) undoing the single-move scramble triggers puzzle.solve
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=0
+puzzle.solve moves=2 elapsed=0
+confetti.start particles=36
+confetti.end
+
+──── captured script trail (11 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=0
+puzzle.solve moves=2 elapsed=0
+confetti.start particles=36
+confetti.end
+──── end trail ────
+
+11:31 +170: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) solve emits a confetti.start trail line + paints overlay
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=0
+puzzle.solve moves=2 elapsed=0
+confetti.start particles=36
+confetti.end
+
+──── captured script trail (11 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+timer.start
+tile.tap cell=14 value=15
+move.count=1
+tile.tap cell=15 value=15
+move.count=2
+timer.stop elapsed=0
+puzzle.solve moves=2 elapsed=0
+confetti.start particles=36
+confetti.end
+──── end trail ────
+
+11:38 +171: slide_puzzle (example #24 — 4×4 sliding tile, AnimatedPositioned + BFS solver + confetti CustomPainter) solver button auto-solves a shuffled board
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+puzzle.shuffle moves=4 seed=42
+puzzle.solver moves=4
+puzzle.solver.step cell=6
+move.count=1
+puzzle.solver.step cell=10
+move.count=2
+puzzle.solver.step cell=14
+move.count=3
+puzzle.solver.step cell=15
+move.count=4
+puzzle.solve moves=4 elapsed=0
+confetti.start particles=36
+confetti.end
+
+──── captured script trail (15 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/slide_puzzle/main.dart
+puzzle.boot tiles=16 gap=15
+puzzle.shuffle moves=4 seed=42
+puzzle.solver moves=4
+puzzle.solver.step cell=6
+move.count=1
+puzzle.solver.step cell=10
+move.count=2
+puzzle.solver.step cell=14
+move.count=3
+puzzle.solver.step cell=15
+move.count=4
+puzzle.solve moves=4 elapsed=0
+confetti.start particles=36
+confetti.end
+──── end trail ────
+
+11:47 +172: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) boots paused at 12:00:00 with both clocks + dial
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+
+──── captured script trail (2 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+──── end trail ────
+
+11:50 +173: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) play button starts the controller + emits ticks
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+clock.play
+clock.tick second=1
+clock.pause
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+clock.play
+clock.tick second=1
+clock.pause
+──── end trail ────
+
+11:54 +174: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) pausing freezes the second hand at the last whole second
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+clock.play
+clock.tick second=2
+clock.pause
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+clock.play
+clock.tick second=2
+clock.pause
+──── end trail ────
+
+11:58 +175: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) dial-plus button advances the offset by +60 minutes
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+──── end trail ────
+
+12:01 +176: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) dial-minus button rolls the offset negative
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=-60
+
+──── captured script trail (3 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=-60
+──── end trail ────
+
+12:05 +177: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) repeated dial-plus stacks the offset (quantised snap)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+
+──── captured script trail (5 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+──── end trail ────
+
+12:09 +178: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) offset clamps at +14h (no further dial.rotate beyond that)
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+dial.rotate offsetMin=240
+dial.rotate offsetMin=300
+dial.rotate offsetMin=360
+dial.rotate offsetMin=420
+dial.rotate offsetMin=480
+dial.rotate offsetMin=540
+dial.rotate offsetMin=600
+dial.rotate offsetMin=660
+dial.rotate offsetMin=720
+dial.rotate offsetMin=780
+dial.rotate offsetMin=840
+
+──── captured script trail (16 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+dial.rotate offsetMin=240
+dial.rotate offsetMin=300
+dial.rotate offsetMin=360
+dial.rotate offsetMin=420
+dial.rotate offsetMin=480
+dial.rotate offsetMin=540
+dial.rotate offsetMin=600
+dial.rotate offsetMin=660
+dial.rotate offsetMin=720
+dial.rotate offsetMin=780
+dial.rotate offsetMin=840
+──── end trail ────
+
+12:20 +179: clock_face (example #25 — AnalogClock CustomPainter + AnimationController seconds sweep + rotary timezone dial) AnimatedRotation receives turns matching the offset
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+dial.rotate offsetMin=240
+dial.rotate offsetMin=300
+dial.rotate offsetMin=360
+
+──── captured script trail (8 lines) ────
+[host] interpreted /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/example/clock_face/main.dart
+clock.boot base=2026-05-21T12:00:00.000 offsetMin=0
+dial.rotate offsetMin=60
+dial.rotate offsetMin=120
+dial.rotate offsetMin=180
+dial.rotate offsetMin=240
+dial.rotate offsetMin=300
+dial.rotate offsetMin=360
+──── end trail ────
+
+12:26 +180: (tearDownAll)
+12:26 +180: All tests passed!

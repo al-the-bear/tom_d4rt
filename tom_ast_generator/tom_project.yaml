@@ -2,3 +2,4 @@ project_id: ASTG
 name: astgen
 description: >-
   D4rt AST generator.
+license: BSD-3-Clause

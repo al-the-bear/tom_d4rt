@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-07T15:31:48.053033
+// Generated: 2026-06-07T20:18:51.921641
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -16,6 +16,7 @@ import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/scene_builder_user_bridge.dart' as $tom_d4rt_flutter_ast_2;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_ast_3;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_ast_4;
+import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/text_user_bridge.dart' as $tom_d4rt_flutter_ast_5;
 
 /// Bridge class for dart_ui module.
 class DartUiBridge {

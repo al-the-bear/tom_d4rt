@@ -2,3 +2,4 @@ project_id: D4G
 name: d4rtgen
 description: >-
   D4rt bridge generator.
+license: BSD-3-Clause

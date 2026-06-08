@@ -2,3 +2,4 @@ project_id: D4X
 name: d4_exec
 description: >-
   D4rt Exec - Analyzer-free D4rt interpreter (migration target).
+license: MIT
