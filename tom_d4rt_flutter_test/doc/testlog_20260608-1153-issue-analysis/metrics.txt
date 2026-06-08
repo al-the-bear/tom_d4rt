@@ -1,0 +1,2 @@
+asset_sample_source_test: exit=0 +2
+sample_apps_in_tester_test: exit=0 +180
