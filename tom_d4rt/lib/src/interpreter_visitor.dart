@@ -6690,21 +6690,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         if (eDecl is FunctionDeclaration) {
           functionName = eDecl.name.lexeme;
-          // Cluster C29 FIX: A nested return statement may resolve
-          // `functionName` to a shadowing local of a different type
-          // (e.g. a String variable parameter). The hard cast
-          // `as InterpretedFunction?` then throws
-          // `type 'String' is not a subtype of type 'InterpretedFunction?'`
-          // even though the AST does point at a real function. Fall back
-          // to the visitor's currentFunction when the environment binding
-          // is not a function — this mirrors tom_d4rt_ast's visitor which
-          // uses currentFunction directly.
-          final fromEnv = environment.get(functionName);
-          if (fromEnv is InterpretedFunction) {
-            currentCallable = fromEnv;
-          } else {
-            currentCallable = currentFunction;
-          }
+          // Use the visitor's currentFunction directly (set by
+          // InterpretedFunction.call) rather than looking the name up in the
+          // environment on every return. A function declaration is a final
+          // binding, so `environment.get(name)` always resolves to the same
+          // InterpretedFunction that is currently executing — the per-return
+          // lookup was redundant. This also mirrors tom_d4rt_ast's visitor and
+          // sidesteps the old Cluster C29 shadowing hazard (a same-named local
+          // of a different type can no longer be mistaken for the function).
+          currentCallable = currentFunction;
         } else if (eDecl is FunctionExpression) {
           // For anonymous functions (closures), use currentFunction from visitor
           currentCallable = currentFunction;
