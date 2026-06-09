@@ -1,0 +1,11 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":26365,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/asset_sample_source_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/asset_sample_source_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":5}
+{"count":1,"time":22,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":6495}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":2,"line":null,"column":null,"url":null},"type":"group","time":6498}
+{"test":{"id":3,"name":"manifest lists the bundled samples","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":19,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/asset_sample_source_test.dart"},"type":"testStart","time":6498}
+{"testID":3,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6565}
+{"test":{"id":4,"name":"loadProgram pre-resolves relative imports into the source map","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":27,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_test/test/asset_sample_source_test.dart"},"type":"testStart","time":6565}
+{"testID":4,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6580}
+{"success":true,"type":"done","time":6620}
