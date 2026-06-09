@@ -626,122 +626,135 @@ class Environment {
   /// Searches the current environment, then recursively searches parent environments.
   /// Returns `null` if the name is not found in the entire chain.
   dynamic get(String name) {
-    // Env.get is the single hottest interpreter path; building these
-    // interpolated diagnostics (name + hashCode) on every lookup dominates
-    // call-heavy execution. Guard so nothing is interpolated when debug is off.
-    if (Logger.isDebug) {
-      Logger.debug(
-        '[Env.get] Attempting to get "$name" in env: $hashCode',
-      ); // Log attempt + env hash
-    }
-
-    // Prefixed-import resolution only applies when this environment actually
-    // holds prefixed imports — true only at import scopes (typically the
-    // global env), never at the function/block/loop scopes walked on the hot
-    // path. The `isNotEmpty` length-check is O(1) and lets us skip a
-    // `containsKey` hash plus a `name.contains('.')` scan on every lookup.
-    if (_prefixedImports.isNotEmpty) {
-      // Check first if the name directly corresponds to a prefixed import.
-      if (_prefixedImports.containsKey(name)) {
-        if (Logger.isDebug) {
-          Logger.debug(
-            "[Env.get] Name '$name' corresponds to a prefixed import. Returning the prefixed environment.",
-          );
-        }
-        return _prefixedImports[name]; // Return the Environment itself.
+    // Env.get is the single hottest interpreter path (perf plan round 2, T1).
+    // Two structural choices keep it cheap:
+    //   1. Walk the enclosing chain ITERATIVELY rather than via `get` recursion,
+    //      so each scope level costs one loop turn instead of a virtual call
+    //      plus re-entry of the per-level guards below.
+    //   2. Probe `_values` ONCE on the local-hit path: read the value first and
+    //      only fall back to `containsKey` when the read is null (to tell a key
+    //      mapped to null from an absent key). The common non-null hit pays a
+    //      single hash instead of `containsKey` + `[]`.
+    Environment? env = this;
+    while (env != null) {
+      if (Logger.isDebug) {
+        Logger.debug(
+          '[Env.get] Attempting to get "$name" in env: ${env.hashCode}',
+        ); // Log attempt + env hash
       }
 
-      // Check if it's a prefixed access (ex: math.pi)
-      if (name.contains('.')) {
-        final parts = name.split('.');
-        if (parts.length == 2) {
-          final prefix = parts[0];
-          final identifier = parts[1];
-          if (_prefixedImports.containsKey(prefix)) {
-            if (Logger.isDebug) {
-              Logger.debug(
-                "[Env.get] Prefixed access for '$name'. Searching for '$identifier' in the prefixed environment '$prefix'.",
-              );
-            }
-            // Recursive call on the stored environment for the prefix.
-            // No need to check _enclosing here, the prefixed environment will do that.
-            try {
-              return _prefixedImports[prefix]!.get(identifier);
-            } on RuntimeD4rtException catch (e) {
-              // If the identifier is not found in the prefixed environment, we want the original error to be propagated.
-              // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
-              throw RuntimeD4rtException(
-                "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}",
-              );
+      // Prefixed-import resolution only applies when this environment actually
+      // holds prefixed imports — true only at import scopes (typically the
+      // global env), never at the function/block/loop scopes walked on the hot
+      // path. The `isNotEmpty` length-check is O(1) and lets us skip a
+      // `containsKey` hash plus a `name.contains('.')` scan on every lookup.
+      if (env._prefixedImports.isNotEmpty) {
+        // Check first if the name directly corresponds to a prefixed import.
+        if (env._prefixedImports.containsKey(name)) {
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Env.get] Name '$name' corresponds to a prefixed import. Returning the prefixed environment.",
+            );
+          }
+          return env._prefixedImports[name]; // Return the Environment itself.
+        }
+
+        // Check if it's a prefixed access (ex: math.pi)
+        if (name.contains('.')) {
+          final parts = name.split('.');
+          if (parts.length == 2) {
+            final prefix = parts[0];
+            final identifier = parts[1];
+            if (env._prefixedImports.containsKey(prefix)) {
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Env.get] Prefixed access for '$name'. Searching for '$identifier' in the prefixed environment '$prefix'.",
+                );
+              }
+              // Recursive call on the stored environment for the prefix.
+              // No need to check _enclosing here, the prefixed environment will do that.
+              try {
+                return env._prefixedImports[prefix]!.get(identifier);
+              } on RuntimeD4rtException catch (e) {
+                // If the identifier is not found in the prefixed environment, we want the original error to be propagated.
+                // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
+                throw RuntimeD4rtException(
+                  "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}",
+                );
+              }
+            } else {
+              // The prefix itself is not found as a prefixed import.
+              // We could fall into the normal search if 'prefix.identifier' is a valid variable name.
+              // However, in Dart, an identifier cannot contain a '.' except for access.
+              // So, if the prefix is not in _prefixedImports, it's an error.
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Env.get] Prefix '$prefix' for '$name' not found in prefixed imports.",
+                );
+              }
             }
           } else {
-            // The prefix itself is not found as a prefixed import.
-            // We could fall into the normal search if 'prefix.identifier' is a valid variable name.
-            // However, in Dart, an identifier cannot contain a '.' except for access.
-            // So, if the prefix is not in _prefixedImports, it's an error.
-            if (Logger.isDebug) {
-              Logger.debug(
-                "[Env.get] Prefix '$prefix' for '$name' not found in prefixed imports.",
-              );
-            }
+            // Handle the case of multiple points, for example a.b.c. For now, we only support prefix.identifier.
+            Logger.warn(
+              "[Env.get] Name '$name' contains multiple points, not supported for simple prefixed access.",
+            );
+            // Falling into the normal search could be an option, but let's raise an error for now
+            // because it probably indicates an unexpected usage or an invalid variable name.
+            throw RuntimeD4rtException(
+              "Complex prefixed access not supported: $name. Use the form prefix.identifier.",
+            );
           }
-        } else {
-          // Handle the case of multiple points, for example a.b.c. For now, we only support prefix.identifier.
-          Logger.warn(
-            "[Env.get] Name '$name' contains multiple points, not supported for simple prefixed access.",
-          );
-          // Falling into the normal search could be an option, but let's raise an error for now
-          // because it probably indicates an unexpected usage or an invalid variable name.
-          throw RuntimeD4rtException(
-            "Complex prefixed access not supported: $name. Use the form prefix.identifier.",
-          );
         }
       }
-    }
 
-    // Normal search if there's no valid prefixed access or if the prefix is not resolved
-    if (_values.containsKey(name)) {
-      if (Logger.isDebug) {
-        Logger.debug('[Env.get] Found \'$name\' locally in env: $hashCode');
+      // Normal search. Single probe: read once, only re-check `containsKey`
+      // when the read returned null (key-mapped-to-null vs absent).
+      final localValue = env._values[name];
+      if (localValue != null || env._values.containsKey(name)) {
+        if (Logger.isDebug) {
+          Logger.debug(
+            '[Env.get] Found \'$name\' locally in env: ${env.hashCode}',
+          );
+        }
+        // Unwrap GlobalGetter for lazy evaluation
+        if (localValue is GlobalGetter) {
+          return localValue();
+        }
+        return localValue;
       }
-      final value = _values[name];
-      // Unwrap GlobalGetter for lazy evaluation
-      if (value is GlobalGetter) {
-        return value();
-      }
-      return value;
-    }
 
-    // Bridged classes/enums are registered only at import/global scopes, so
-    // these maps are empty at the function/block/loop scopes traversed on the
-    // hot chain walk. The O(1) `isNotEmpty` guard skips a `containsKey` hash
-    // at every such intermediate level.
-    if (_bridgedClasses.isNotEmpty && _bridgedClasses.containsKey(name)) {
-      if (Logger.isDebug) {
+      // Bridged classes/enums are registered only at import/global scopes, so
+      // these maps are empty at the function/block/loop scopes traversed on the
+      // hot chain walk. The O(1) `isNotEmpty` guard skips a `containsKey` hash
+      // at every such intermediate level.
+      if (env._bridgedClasses.isNotEmpty &&
+          env._bridgedClasses.containsKey(name)) {
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [Env.get] Found bridged class '$name' locally in env: ${env.hashCode}",
+          );
+        }
+        return env._bridgedClasses[name];
+      }
+
+      // Check for bridged enums
+      if (env._bridgedEnums.isNotEmpty && env._bridgedEnums.containsKey(name)) {
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [Env.get] Found bridged enum '$name' locally in env: ${env.hashCode}",
+          );
+        }
+        return env._bridgedEnums[name];
+      }
+
+      // Move up the lexical scope chain (iterative — no recursion).
+      final parent = env._enclosing;
+      if (Logger.isDebug && parent != null) {
         Logger.debug(
-          " [Env.get] Found bridged class '$name' locally in env: $hashCode",
+          '[Env.get] Looking for \'$name\' in parent env: ${parent.hashCode}',
         );
       }
-      return _bridgedClasses[name];
-    }
-
-    // Check for bridged enums
-    if (_bridgedEnums.isNotEmpty && _bridgedEnums.containsKey(name)) {
-      if (Logger.isDebug) {
-        Logger.debug(
-          " [Env.get] Found bridged enum '$name' locally in env: $hashCode",
-        );
-      }
-      return _bridgedEnums[name];
-    }
-
-    if (_enclosing != null) {
-      if (Logger.isDebug) {
-        Logger.debug(
-          '[Env.get] Looking for \'$name\' in parent env: ${_enclosing.hashCode}',
-        );
-      }
-      return _enclosing.get(name); // Recurse
+      env = parent;
     }
 
     if (Logger.isDebug) {
