@@ -6,17 +6,31 @@
 /// Errors can be revoked if they are caught and handled gracefully,
 /// preventing them from causing test failures.
 class ErrorReporter {
-  static final List<D4rtException> _errors = [];
-  static final Map<D4rtException, StackTrace> _stackTraces = {};
-  static bool _trackingEnabled = true;
+  /// Identity set of tracked errors.
+  ///
+  /// An identity [Set] makes [revokeError] an O(1) `remove` instead of the
+  /// O(n) linear scan a `List.remove` performed — that scan was the dominant
+  /// interpreter CPU cost (see the perf analysis). Exceptions are unique
+  /// objects, so identity membership matches the prior list semantics exactly.
+  /// Insertion order is preserved (identity sets are linked), so [report]
+  /// ordering is unchanged.
+  static final Set<D4rtException> _errors = Set<D4rtException>.identity();
+
+  /// Tracking is **off by default**. It is an opt-in debugging/test aid:
+  /// capturing `StackTrace.current` plus bookkeeping on every exception during
+  /// normal execution is pure overhead. Test harnesses and the REPL call
+  /// [enableTracking] when they need the report.
+  static bool _trackingEnabled = false;
 
   /// Reports an error to the reporter (only if tracking is enabled).
   ///
-  /// This is called automatically by the [D4rtException] constructor.
+  /// This is called automatically by the [D4rtException] constructor. The stack
+  /// trace is stored on the exception instance itself (not in a side map), so
+  /// no parallel `Map.remove` is needed on revoke.
   static void reportError(D4rtException error, [StackTrace? stackTrace]) {
     if (_trackingEnabled) {
       _errors.add(error);
-      _stackTraces[error] = stackTrace ?? StackTrace.current;
+      error.trackedStackTrace = stackTrace ?? StackTrace.current;
     }
   }
 
@@ -28,19 +42,22 @@ class ErrorReporter {
     _trackingEnabled = false;
   }
 
-  /// Re-enables error tracking.
+  /// Enables error tracking. Off by default; opt in from tests/REPL.
   static void enableTracking() {
     _trackingEnabled = true;
   }
+
+  /// Whether error tracking is currently enabled.
+  static bool get isTrackingEnabled => _trackingEnabled;
 
   /// Revokes (removes) an error from the reporter.
   ///
   /// This should be called when an exception has been caught and handled
   /// gracefully, and should not count as a test failure.
-  /// 
+  ///
   /// Returns true if the error was found and removed, false otherwise.
   static bool revokeError(D4rtException error) {
-    _stackTraces.remove(error);
+    error.trackedStackTrace = null;
     return _errors.remove(error);
   }
 
@@ -51,7 +68,6 @@ class ErrorReporter {
   /// and all those errors should be discarded.
   static void revokeAll() {
     _errors.clear();
-    _stackTraces.clear();
   }
 
   /// Returns an unmodifiable list of all reported errors.
@@ -60,7 +76,6 @@ class ErrorReporter {
   /// Clears all reported errors.
   static void clear() {
     _errors.clear();
-    _stackTraces.clear();
   }
 
   /// Returns true if any errors have been reported.
@@ -70,7 +85,7 @@ class ErrorReporter {
   static String get report {
     if (_errors.isEmpty) return 'No errors reported.';
     return _errors.map((e) {
-      final stackTrace = _stackTraces[e];
+      final stackTrace = e.trackedStackTrace;
       if (stackTrace != null) {
         return '$e\nStack trace:\n$stackTrace';
       }
@@ -93,6 +108,13 @@ class ErrorReporter {
 abstract class D4rtException implements Exception {
   /// The error message.
   final String message;
+
+  /// Stack trace captured by [ErrorReporter] when tracking is enabled.
+  ///
+  /// Stored on the instance (rather than in a side map) so revoking an error
+  /// is a single O(1) set removal with no parallel map bookkeeping. Null when
+  /// tracking was off at construction time or after the error was revoked.
+  StackTrace? trackedStackTrace;
 
   /// Creates a [D4rtException] and registers it with the [ErrorReporter].
   D4rtException(this.message) {

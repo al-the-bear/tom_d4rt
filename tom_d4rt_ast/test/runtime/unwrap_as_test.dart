@@ -180,6 +180,8 @@ void main() {
 
   group('D4UnwrapException', () {
     test('registers itself with ErrorReporter and can be revoked', () {
+      // Tracking is off by default (perf); opt in for this assertion.
+      ErrorReporter.enableTracking();
       ErrorReporter.clear();
       try {
         D4.unwrapAs<int>('boom');
@@ -189,6 +191,7 @@ void main() {
         expect(ErrorReporter.errors, isNot(contains(e)));
       }
       ErrorReporter.clear();
+      ErrorReporter.disableTracking();
     });
   });
 }
