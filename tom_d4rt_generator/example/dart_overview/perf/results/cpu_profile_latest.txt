@@ -1,0 +1,75 @@
+
+=== D4rt CPU profile run ===
+budget=1500ms warmup=300ms benchmarks=12 top=25
+
+benchmark                    ns/op     us/call    calls          ops
+arithmetic                   27954   1397688.5        2       100000
+string_interp                18515    370304.0        5       100000
+list_ops                   4546913   9093826.0        1         2000
+map_ops                     424955    849910.0        2         4000
+method_dispatch              56630   1132605.5        2        40000
+polymorphism               1082947  21658947.0        1        20000
+closures                     53281   1065624.0        2        40000
+recursion_fib            229340208   5504165.0        1           24
+pattern_switch              113018   2260367.0        1        20000
+exceptions                   51739    517387.8        4        40000
+wrap_collections         437673640  10941841.0        1           25
+wrap_classes             832909400  20822735.0        1           25
+
+total CPU samples in window: 165121
+
+--- hottest functions by EXCLUSIVE (self) ticks ---
+   ticks     pct  function
+  103561   62.7%  _GrowableList.remove
+   11430    6.9%  __Map&_HashVMBase&MapMixin&_HashBase&_OperatorEqualsAndHashCode&_LinkedHashMapMixin.remove
+    7866    4.8%  Environment.get
+    6704    4.1%  StackTrace.current
+    4912    3.0%  _OneByteString._concatAll
+    4453    2.7%  _StringBase._interpolate
+    3919    2.4%  _AbstractType.toString
+    3477    2.1%  InterpreterVisitor.visitReturnStatement
+    2443    1.5%  allocateOneByteString
+    1563    0.9%  InterpreterVisitor._matchAndBind
+    1074    0.7%  InterpreterVisitor.visitMethodInvocation
+     819    0.5%  _OneByteString.hashCode
+     743    0.4%  _Smi.toString
+     603    0.4%  Environment.toBridgedInstance
+     578    0.4%  __Map&_HashVMBase&MapMixin&_HashBase&_OperatorEqualsAndHashCode&_LinkedHashMapMixin._getValueOrData
+     546    0.3%  _OneByteString.==
+     468    0.3%  Logger.log
+     439    0.3%  InterpreterVisitor.visitBinaryExpression
+     378    0.2%  Object.runtimeType
+     318    0.2%  InterpreterVisitor.visitSimpleIdentifier
+     313    0.2%  InterpreterVisitorExtension.toBridgedInstance
+     286    0.2%  InterpreterVisitor.executeBlock
+     286    0.2%  <anonymous closure>
+     284    0.2%  _StringBase._concatRangeNative
+     270    0.2%  __Map&_HashVMBase&MapMixin&_HashBase&_OperatorEqualsAndHashCode&_LinkedHashMapMixin._findValueOrInsertPoint
+
+--- hottest functions by INCLUSIVE (self+callees) ticks ---
+   ticks     pct  function
+  488371  295.8%  <anonymous closure>
+  165003   99.9%  MethodInvocationImpl.accept
+  165003   99.9%  InterpreterVisitor.visitMethodInvocation
+  165000   99.9%  InterpreterVisitor.executeBlock
+  165000   99.9%  D4.withActiveVisitor
+  165000   99.9%  InterpretedFunction.call
+  164721   99.8%  InterpretedFunction._callImpl
+  153089   92.7%  _rootRun
+  153066   92.7%  _CustomZone.run
+  153049   92.7%  _runZoned
+  153009   92.7%  runZoned
+  152978   92.6%  runSilently
+  152954   92.6%  runFileBenchmark
+  152949   92.6%  main
+  152931   92.6%  handleValueCallback
+  152923   92.6%  _Future._propagateToListeners
+  152909   92.6%  _Future._completeWithValue
+  152877   92.6%  _microtaskLoop
+  152871   92.6%  _startMicrotaskLoop
+  152864   92.6%  _runPendingImmediateCallback
+  152864   92.6%  _RawReceivePort._handleMessage
+  152675   92.5%  InterpreterVisitor.visitForStatement
+  152675   92.5%  ForStatementImpl.accept
+  149459   90.5%  InterpreterVisitor._executeClassicFor
+  147509   89.3%  InterpreterVisitor.visitBlock

@@ -1,5 +1,13 @@
 include: package:lints/recommended.yaml
 
+analyzer:
+  exclude:
+    # D4rt interpreter benchmark fixtures: these are *interpreted*, not
+    # compiled. They deliberately use relative imports (the only kind
+    # `executeFile` resolves) and minimal idioms so the measured loop body
+    # reflects the feature under test, not analyzer-preferred rewrites.
+    - perf/scripts/**
+
 linter:
   rules:
     dangling_library_doc_comments: false
