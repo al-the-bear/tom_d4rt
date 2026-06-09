@@ -10736,34 +10736,46 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// Throws [PatternMatchD4rtException] on failure.
   void _matchAndBind(
       DartPattern pattern, Object? value, Environment environment) {
-    Logger.debug(
-        "[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value?.runtimeType}");
+    if (Logger.isDebug) {
+      Logger.debug(
+          "[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value?.runtimeType}");
+    }
 
     if (pattern is DeclaredVariablePattern) {
       // Handles: var x, final T x, int x
       final name = pattern.name.lexeme;
       if (name == '_') {
         // Wildcard name in declaration: match succeeds, no binding
-        Logger.debug("[_matchAndBind] Wildcard (declared) match success.");
+        if (Logger.isDebug) {
+          Logger.debug("[_matchAndBind] Wildcard (declared) match success.");
+        }
         return;
       }
       environment.define(name, value);
-      Logger.debug("[_matchAndBind] Bound variable '$name' = $value");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] Bound variable '$name' = $value");
+      }
     } else if (pattern is WildcardPattern) {
       // Handles: _ when used as a standalone sub-pattern
-      Logger.debug("[_matchAndBind] Wildcard (sub-pattern) match success.");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] Wildcard (sub-pattern) match success.");
+      }
       return; // Match succeeds, no binding
     } else if (pattern is AssignedVariablePattern) {
       // Handles assignment patterns like: (a, _) = record;
       final name = pattern.name.lexeme;
       if (name == '_') {
         // Wildcard name in assignment: match succeeds, no binding
-        Logger.debug("[_matchAndBind] Wildcard (assigned) match success.");
+        if (Logger.isDebug) {
+          Logger.debug("[_matchAndBind] Wildcard (assigned) match success.");
+        }
         return;
       }
       try {
         environment.assign(name, value);
-        Logger.debug("[_matchAndBind] Assigned variable '$name' = $value");
+        if (Logger.isDebug) {
+          Logger.debug("[_matchAndBind] Assigned variable '$name' = $value");
+        }
       } on RuntimeD4rtException catch (e) {
         // Convert assignment errors (e.g., variable not defined) to PatternMatchException
         throw PatternMatchD4rtException(
@@ -10785,8 +10797,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw PatternMatchD4rtException(
             "Constant pattern value $patternValue does not match switch value $value");
       }
-      Logger.debug(
-          "[_matchAndBind] Constant pattern matched: $value == $patternValue");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] Constant pattern matched: $value == $patternValue");
+      }
       // No binding needed for constant patterns
     } else if (pattern is ListPattern) {
       // Handles: [p1, p2, ...], including rest elements like [p1, ...rest]
@@ -10820,8 +10834,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Unexpected ListPatternElement type: ${element.runtimeType}");
           }
 
-          Logger.debug(
-              "[_matchAndBind]   Matching list element $i: ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          if (Logger.isDebug) {
+            Logger.debug(
+                "[_matchAndBind]   Matching list element $i: ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          }
           _matchAndBind(subPattern, subValue, environment);
         }
       } else {
@@ -10850,8 +10866,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Unexpected ListPatternElement type before rest: ${element.runtimeType}");
           }
 
-          Logger.debug(
-              "[_matchAndBind]   Matching list element $i (before rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          if (Logger.isDebug) {
+            Logger.debug(
+                "[_matchAndBind]   Matching list element $i (before rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          }
           _matchAndBind(subPattern, subValue, environment);
         }
 
@@ -10862,8 +10880,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         if (restElement.pattern != null) {
           // Rest element has a pattern (e.g., ...rest), bind the sublist
-          Logger.debug(
-              "[_matchAndBind]   Matching rest element: ${restElement.pattern!.runtimeType} against List of ${restValues.length} elements");
+          if (Logger.isDebug) {
+            Logger.debug(
+                "[_matchAndBind]   Matching rest element: ${restElement.pattern!.runtimeType} against List of ${restValues.length} elements");
+          }
           _matchAndBind(restElement.pattern!, restValues, environment);
         }
         // If restElement.pattern is null, it's just "..." (anonymous rest), no binding needed
@@ -10883,12 +10903,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Unexpected ListPatternElement type after rest: ${element.runtimeType}");
           }
 
-          Logger.debug(
-              "[_matchAndBind]   Matching list element $valueIndex (after rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          if (Logger.isDebug) {
+            Logger.debug(
+                "[_matchAndBind]   Matching list element $valueIndex (after rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
+          }
           _matchAndBind(subPattern, subValue, environment);
         }
       }
-      Logger.debug("[_matchAndBind] List pattern matched successfully.");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] List pattern matched successfully.");
+      }
     } else if (pattern is MapPattern) {
       // Handles: {'key': p1, 'key2': p2, ...}, including rest elements like {'key': p1, ...rest}
       if (value is! Map) {
@@ -10914,8 +10938,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
 
           final subValue = value[keyToLookup];
-          Logger.debug(
-              "[_matchAndBind]   Matching map entry '$keyToLookup': ${valuePattern.runtimeType} against ${subValue?.runtimeType}");
+          if (Logger.isDebug) {
+            Logger.debug(
+                "[_matchAndBind]   Matching map entry '$keyToLookup': ${valuePattern.runtimeType} against ${subValue?.runtimeType}");
+          }
           _matchAndBind(valuePattern, subValue, environment);
           matchedKeys.add(keyToLookup);
         } else if (element is RestPatternElement) {
@@ -10929,8 +10955,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           if (element.pattern != null) {
             // Rest element has a pattern (e.g., ...rest), bind the remaining map
-            Logger.debug(
-                "[_matchAndBind]   Matching rest element: ${element.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
+            if (Logger.isDebug) {
+              Logger.debug(
+                  "[_matchAndBind]   Matching rest element: ${element.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
+            }
             _matchAndBind(element.pattern!, remainingEntries, environment);
           }
           // If element.pattern is null, it's just "..." (anonymous rest), no binding needed
@@ -10940,13 +10968,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
-      Logger.debug("[_matchAndBind] Map pattern matched successfully.");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] Map pattern matched successfully.");
+      }
     } else if (pattern is RecordPattern) {
-      Logger.debug(
-          '[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value.runtimeType}');
-      if (value is! InterpretedRecord) {
+      if (Logger.isDebug) {
         Logger.debug(
-            'DEBUG [_matchAndBind] Mismatch: Value is not an InterpretedRecord.');
+            '[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value.runtimeType}');
+      }
+      if (value is! InterpretedRecord) {
+        if (Logger.isDebug) {
+          Logger.debug(
+              'DEBUG [_matchAndBind] Mismatch: Value is not an InterpretedRecord.');
+        }
         // Failure case handled by throwing or returning normally if not exhaustive
         // Depending on context (declaration vs refutable)
         // For now, let's assume declaration context (must match or throw)
@@ -10959,14 +10993,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final namedPatternFieldsNodes =
           pattern.fields.where((f) => f.name != null).toList();
 
-      Logger.debug(
-          '[_matchAndBind]   Pattern positional fields count: ${positionalPatternFields.length}');
-      Logger.debug(
-          '[_matchAndBind]   Value positional fields count: ${value.positionalFields.length}');
-      Logger.debug(
-          '[_matchAndBind]   Pattern named fields count: ${namedPatternFieldsNodes.length}');
-      Logger.debug(
-          '[_matchAndBind]   Value named fields count: ${value.namedFields.length}');
+      if (Logger.isDebug) {
+        Logger.debug(
+            '[_matchAndBind]   Pattern positional fields count: ${positionalPatternFields.length}');
+      }
+      if (Logger.isDebug) {
+        Logger.debug(
+            '[_matchAndBind]   Value positional fields count: ${value.positionalFields.length}');
+      }
+      if (Logger.isDebug) {
+        Logger.debug(
+            '[_matchAndBind]   Pattern named fields count: ${namedPatternFieldsNodes.length}');
+      }
+      if (Logger.isDebug) {
+        Logger.debug(
+            '[_matchAndBind]   Value named fields count: ${value.namedFields.length}');
+      }
 
       // Check positional fields count FIRST
       if (positionalPatternFields.length > value.positionalFields.length) {
@@ -10979,8 +11021,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       for (int i = 0; i < positionalPatternFields.length; i++) {
         final fieldPatternNode = positionalPatternFields[i];
         final fieldValue = value.positionalFields[i];
-        Logger.debug(
-            'DEBUG [_matchAndBind]   Matching record positional field $i: ${fieldPatternNode.runtimeType} against ${fieldValue?.runtimeType ?? 'null'}');
+        if (Logger.isDebug) {
+          Logger.debug(
+              'DEBUG [_matchAndBind]   Matching record positional field $i: ${fieldPatternNode.runtimeType} against ${fieldValue?.runtimeType ?? 'null'}');
+        }
 
         // Assume fieldPatternNode IS a RecordPatternField because it came from pattern.fields
         // We need the actual pattern nested within the field.
@@ -10989,8 +11033,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         // Recursive call, rely on exceptions for failure
         _matchAndBind(fieldPattern, fieldValue, environment);
-        Logger.debug(
-            'DEBUG [_matchAndBind]     Positional field $i match success.');
+        if (Logger.isDebug) {
+          Logger.debug(
+              'DEBUG [_matchAndBind]     Positional field $i match success.');
+        }
       }
 
       // Match named fields
@@ -11016,8 +11062,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               'Internal error: Named field detected but name lexeme is null.');
         }
 
-        Logger.debug(
-            'DEBUG [_matchAndBind]   Matching record named field \'$fieldName\': ${fieldPatternNode.pattern.runtimeType} against value type ${value.namedFields[fieldName]?.runtimeType ?? 'null'}');
+        if (Logger.isDebug) {
+          Logger.debug(
+              'DEBUG [_matchAndBind]   Matching record named field \'$fieldName\': ${fieldPatternNode.pattern.runtimeType} against value type ${value.namedFields[fieldName]?.runtimeType ?? 'null'}');
+        }
 
         if (!value.namedFields.containsKey(fieldName)) {
           throw PatternMatchD4rtException(
@@ -11028,16 +11076,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Recursive match on the pattern inside the field
         final fieldSubPattern = (fieldPatternNode as dynamic).pattern;
         _matchAndBind(fieldSubPattern, fieldValue, environment);
-        Logger.debug(
-            'DEBUG [_matchAndBind]     Named field \'$fieldName\' match success.');
+        if (Logger.isDebug) {
+          Logger.debug(
+              'DEBUG [_matchAndBind]     Named field \'$fieldName\' match success.');
+        }
       }
 
-      Logger.debug('[_matchAndBind] Record pattern matched successfully.');
+      if (Logger.isDebug) {
+        Logger.debug('[_matchAndBind] Record pattern matched successfully.');
+      }
       // Success: function completes normally
     } else if (pattern is ObjectPattern) {
       // Handles: ClassName(field1: pattern1, field2: pattern2)
-      Logger.debug(
-          '[_matchAndBind] Matching object pattern ${pattern.type.name2.lexeme} against value ${value?.runtimeType}');
+      if (Logger.isDebug) {
+        Logger.debug(
+            '[_matchAndBind] Matching object pattern ${pattern.type.name2.lexeme} against value ${value?.runtimeType}');
+      }
 
       // Get the expected type name
       final expectedTypeName = pattern.type.name2.lexeme;
@@ -11151,18 +11205,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "Object pattern field access '$fieldNameStr' is not supported for type '${value?.runtimeType}'");
         }
 
-        Logger.debug(
-            "[_matchAndBind]   Matching object field '$fieldNameStr': ${fieldPattern.runtimeType} against ${fieldValue?.runtimeType}");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[_matchAndBind]   Matching object field '$fieldNameStr': ${fieldPattern.runtimeType} against ${fieldValue?.runtimeType}");
+        }
         _matchAndBind(fieldPattern, fieldValue, environment);
       }
 
-      Logger.debug("[_matchAndBind] Object pattern matched successfully.");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] Object pattern matched successfully.");
+      }
     } else if (pattern is RelationalPattern) {
       // G-DOV-3/4 FIX: Handle relational patterns (>= x, <= x, > x, < x, == x, != x)
       final operand = pattern.operand.accept<Object?>(this);
       final operator = pattern.operator.type;
-      Logger.debug(
-          "[_matchAndBind] RelationalPattern: comparing $value $operator $operand");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] RelationalPattern: comparing $value $operator $operand");
+      }
       bool matches = false;
       if (value is Comparable && operand is Comparable) {
         final cmp = value.compareTo(operand);
@@ -11198,37 +11258,53 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else if (pattern is LogicalOrPattern) {
       // Lim-8, Bug-13, Bug-68 FIX: Handle Logical OR patterns (pattern1 || pattern2)
       // Try matching the left operand first, if that fails, try the right operand
-      Logger.debug(
-          "[_matchAndBind] LogicalOrPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] LogicalOrPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      }
       try {
         _matchAndBind(pattern.leftOperand, value, environment);
-        Logger.debug("[_matchAndBind] LogicalOrPattern: left operand matched");
+        if (Logger.isDebug) {
+          Logger.debug("[_matchAndBind] LogicalOrPattern: left operand matched");
+        }
         return; // Left matched, done
       } on PatternMatchD4rtException {
         // Left didn't match, try right
-        Logger.debug(
-            "[_matchAndBind] LogicalOrPattern: left failed, trying right operand ${pattern.rightOperand.runtimeType}");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[_matchAndBind] LogicalOrPattern: left failed, trying right operand ${pattern.rightOperand.runtimeType}");
+        }
         _matchAndBind(pattern.rightOperand, value, environment);
-        Logger.debug("[_matchAndBind] LogicalOrPattern: right operand matched");
+        if (Logger.isDebug) {
+          Logger.debug("[_matchAndBind] LogicalOrPattern: right operand matched");
+        }
         // If right also throws, the exception propagates up
       }
     } else if (pattern is LogicalAndPattern) {
       // G-DOV-3/4 FIX: Handle Logical AND patterns (pattern1 && pattern2)
       // Both operands must match for the pattern to match
-      Logger.debug(
-          "[_matchAndBind] LogicalAndPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] LogicalAndPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      }
       _matchAndBind(pattern.leftOperand, value, environment);
-      Logger.debug(
-          "[_matchAndBind] LogicalAndPattern: left matched, trying right operand ${pattern.rightOperand.runtimeType}");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] LogicalAndPattern: left matched, trying right operand ${pattern.rightOperand.runtimeType}");
+      }
       _matchAndBind(pattern.rightOperand, value, environment);
-      Logger.debug("[_matchAndBind] LogicalAndPattern: both operands matched");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] LogicalAndPattern: both operands matched");
+      }
     } else if (pattern is CastPattern) {
       // G-DOV2-5 FIX: Handle cast patterns (var x as Type)
       // The cast pattern matches if the value can be cast to the specified type,
       // then binds the casted value to the sub-pattern
       final targetType = pattern.type;
-      Logger.debug(
-          "[_matchAndBind] CastPattern: casting value to ${targetType.toSource()}");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[_matchAndBind] CastPattern: casting value to ${targetType.toSource()}");
+      }
 
       // Try to perform the cast - reuse visitAsExpression logic
       // Create a synthetic AsExpression node to evaluate the cast
@@ -11279,7 +11355,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       // Cast succeeded, now match the sub-pattern
       _matchAndBind(pattern.pattern, value, environment);
-      Logger.debug("[_matchAndBind] CastPattern: matched successfully");
+      if (Logger.isDebug) {
+        Logger.debug("[_matchAndBind] CastPattern: matched successfully");
+      }
     } else {
       throw UnimplementedD4rtException(
           "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}");
