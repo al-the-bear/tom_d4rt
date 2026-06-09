@@ -43,6 +43,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// multi-class declaration pass and then drains the queue.
   bool deferStaticFieldInits = false;
 
+  /// T3 (perf, plan_2 §6 / F4): canonicalization cache for `const` set/map
+  /// literals. A const collection literal is a compile-time constant whose
+  /// value is environment-independent and immutable, so re-visiting the same
+  /// node must yield the identical canonical instance (matching real Dart's
+  /// const canonicalization). Without this, every evaluation re-ran the full
+  /// type-inference + element walk and allocated a fresh
+  /// `UnmodifiableSetView` / `UnmodifiableMapView` — surfacing as the F4
+  /// `UnmodifiableSetView.UnmodifiableSetView` constructor hotspot. The cache
+  /// is keyed by AST node identity and is only populated for const literals;
+  /// non-const literals must still allocate fresh each time. The returned
+  /// views are unmodifiable, so sharing one instance across hits is safe.
+  final Map<SetOrMapLiteral, Object> _constCollectionCache =
+      <SetOrMapLiteral, Object>{};
+
   /// Execute and clear all pending static-field initializers. Intended to be
   /// called by the top-level runner after every class declaration has been
   /// visited, so that forward-referenced class constructors are available.
@@ -9547,6 +9561,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitSetOrMapLiteral(SetOrMapLiteral node) {
+    // T3 (perf, F4): a const set/map literal is canonical — return the cached
+    // instance instead of re-inferring the type, re-evaluating elements and
+    // re-allocating an unmodifiable view on every visit.
+    if (node.constKeyword != null) {
+      final cached = _constCollectionCache[node];
+      if (cached != null) return cached;
+    }
+
     bool isMap;
     bool typeExplicit = false;
 
@@ -9639,13 +9661,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    // If this is a const collection, return an unmodifiable version
+    // If this is a const collection, return an unmodifiable version and cache
+    // it (T3): the same literal node must canonicalize to one instance.
     if (node.constKeyword != null) {
-      if (isMap) {
-        return Map.unmodifiable(collection as Map<Object?, Object?>);
-      } else {
-        return Set.unmodifiable(collection as Set<Object?>);
-      }
+      final Object canonical = isMap
+          ? Map.unmodifiable(collection as Map<Object?, Object?>)
+          : Set.unmodifiable(collection as Set<Object?>);
+      _constCollectionCache[node] = canonical;
+      return canonical;
     }
 
     return collection;
