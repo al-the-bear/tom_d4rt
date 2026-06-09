@@ -1,6 +1,15 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/d4rt.dart';
 import 'bridge/bridged_types.dart' as bridge;
+import 'frozen_name_map.dart';
+
+/// Compacts [table] into its read-only form when it is a [FrozenNameMap].
+/// Member/declaration tables are populated once during declaration wiring and
+/// never mutated afterwards (perf T6, plan_2 §6), so freezing them at the end
+/// of the wiring loop swaps the `LinkedHashMap` for a sorted parallel layout.
+void _freezeTable(Map<String, Object?> table) {
+  if (table is FrozenNameMap) table.freeze();
+}
 
 /// Represents a class definition at runtime.
 class InterpretedClass implements Callable, RuntimeType {
@@ -184,6 +193,22 @@ class InterpretedClass implements Callable, RuntimeType {
   @override
   String toString() {
     return '<class $name>';
+  }
+
+  /// Freezes the per-class function tables once declaration wiring is done
+  /// (perf T6). Call this at the end of the Pass-2 member loop, after every
+  /// method/getter/setter/operator/static/constructor has been registered.
+  /// `staticFields` is intentionally excluded — static-field initialization is
+  /// deferred (Bug-43 forward references) and mutates that map after this call.
+  void freezeMemberTables() {
+    _freezeTable(methods);
+    _freezeTable(getters);
+    _freezeTable(setters);
+    _freezeTable(operators);
+    _freezeTable(staticMethods);
+    _freezeTable(staticGetters);
+    _freezeTable(staticSetters);
+    _freezeTable(constructors);
   }
 
   // Finders for different member types
@@ -1955,15 +1980,21 @@ class InterpretedEnum implements RuntimeType {
   /// The list of fully resolved enum value instances for the `values` getter.
   List<InterpretedEnumValue>? _valuesListCache;
 
-  final Map<String, InterpretedFunction> methods = {};
-  final Map<String, InterpretedFunction> getters = {};
+  final Map<String, InterpretedFunction> methods =
+      FrozenNameMap<InterpretedFunction>();
+  final Map<String, InterpretedFunction> getters =
+      FrozenNameMap<InterpretedFunction>();
   final Map<String, InterpretedFunction> setters =
-      {}; // Though unlikely for enums?
-  final Map<String, InterpretedFunction> staticMethods = {};
-  final Map<String, InterpretedFunction> staticGetters = {};
-  final Map<String, InterpretedFunction> staticSetters = {};
+      FrozenNameMap<InterpretedFunction>(); // Though unlikely for enums?
+  final Map<String, InterpretedFunction> staticMethods =
+      FrozenNameMap<InterpretedFunction>();
+  final Map<String, InterpretedFunction> staticGetters =
+      FrozenNameMap<InterpretedFunction>();
+  final Map<String, InterpretedFunction> staticSetters =
+      FrozenNameMap<InterpretedFunction>();
   final Map<String, Object?> staticFields = {};
-  final Map<String, InterpretedFunction> constructors = {};
+  final Map<String, InterpretedFunction> constructors =
+      FrozenNameMap<InterpretedFunction>();
 
   final List<FieldDeclaration> fieldDeclarations = [];
 
@@ -1993,6 +2024,19 @@ class InterpretedEnum implements RuntimeType {
 
   @override
   String toString() => '<enum $name>';
+
+  /// Freezes the enum's function tables once declaration wiring is done
+  /// (perf T6). Call at the end of the Pass-2 enum member loop. `staticFields`
+  /// is excluded for the same deferred-initialization reason as classes.
+  void freezeMemberTables() {
+    _freezeTable(methods);
+    _freezeTable(getters);
+    _freezeTable(setters);
+    _freezeTable(staticMethods);
+    _freezeTable(staticGetters);
+    _freezeTable(staticSetters);
+    _freezeTable(constructors);
+  }
 
   /// Returns the list of enum values for the static `values` getter.
   /// Populates the cache on first access during interpretation pass.

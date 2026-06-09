@@ -8261,6 +8261,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
     }
+    // Perf T6: all function tables are fully populated; compact them into
+    // their read-only form. staticFields is excluded (deferred init).
+    klass.freezeMemberTables();
+
     Logger.debug("[Visitor.visitClassDeclaration] END for '$className'");
     // No need to define/assign klass in the environment here, it was done in Pass 1.
     return null; // Class declaration statement doesn't return a value
@@ -8433,6 +8437,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       environment = originalVisitorEnv;
     }
 
+    // Perf T6: compact the mixin's function tables now that wiring is done.
+    mixinClass.freezeMemberTables();
+
     Logger.debug("[Visitor.visitMixinDeclaration] END for '$mixinName'");
     return null; // Mixin declaration doesn't return a value
   }
@@ -8581,6 +8588,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } finally {
       environment = originalVisitorEnv; // Restore environment
     }
+
+    // Perf T6: function tables are populated; freeze before value
+    // instantiation (which only reads constructors).
+    enumObj.freezeMemberTables();
 
     // Instantiate Enum Values
     Logger.debug(

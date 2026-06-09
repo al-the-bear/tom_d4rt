@@ -1,5 +1,7 @@
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import 'frozen_name_map.dart';
+
 /// Visitor for the first pass: Declares class and mixin placeholders.
 ///
 /// This visitor traverses top-level declarations and creates empty
@@ -55,15 +57,17 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
       null, // superclass (initialized to null)
       environment, // classDefinitionEnvironment
       <SFieldDeclaration>[], // fieldDeclarations (initially empty)
-      <String, InterpretedFunction>{}, // methods
-      <String, InterpretedFunction>{}, // getters
-      <String, InterpretedFunction>{}, // setters
-      <String, InterpretedFunction>{}, // staticMethods
-      <String, InterpretedFunction>{}, // staticGetters
-      <String, InterpretedFunction>{}, // staticSetters
-      <String, Object?>{}, // staticFields
-      <String, InterpretedFunction>{}, // constructors
-      <String, InterpretedFunction>{}, // operators
+      // Member tables use FrozenNameMap (perf T6): mutable while wiring, then
+      // frozen via klass.freezeMemberTables() at the end of the Pass-2 loop.
+      FrozenNameMap<InterpretedFunction>(), // methods
+      FrozenNameMap<InterpretedFunction>(), // getters
+      FrozenNameMap<InterpretedFunction>(), // setters
+      FrozenNameMap<InterpretedFunction>(), // staticMethods
+      FrozenNameMap<InterpretedFunction>(), // staticGetters
+      FrozenNameMap<InterpretedFunction>(), // staticSetters
+      <String, Object?>{}, // staticFields (deferred init — left mutable)
+      FrozenNameMap<InterpretedFunction>(), // constructors
+      FrozenNameMap<InterpretedFunction>(), // operators
       // Named parameters
       isAbstract: node.isAbstract,
       isMixin: node.isMixin, // 'mixin class' declaration
@@ -96,15 +100,17 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
       null, // superclass (null for pure mixins)
       environment, // classDefinitionEnvironment
       <SFieldDeclaration>[], // fieldDeclarations (initially empty)
-      <String, InterpretedFunction>{}, // methods
-      <String, InterpretedFunction>{}, // getters
-      <String, InterpretedFunction>{}, // setters
-      <String, InterpretedFunction>{}, // staticMethods
-      <String, InterpretedFunction>{}, // staticGetters
-      <String, InterpretedFunction>{}, // staticSetters
-      <String, Object?>{}, // staticFields
-      <String, InterpretedFunction>{}, // constructors (empty for mixins)
-      <String, InterpretedFunction>{}, // operators
+      // Member tables use FrozenNameMap (perf T6): mutable while wiring, then
+      // frozen via klass.freezeMemberTables() at the end of the Pass-2 loop.
+      FrozenNameMap<InterpretedFunction>(), // methods
+      FrozenNameMap<InterpretedFunction>(), // getters
+      FrozenNameMap<InterpretedFunction>(), // setters
+      FrozenNameMap<InterpretedFunction>(), // staticMethods
+      FrozenNameMap<InterpretedFunction>(), // staticGetters
+      FrozenNameMap<InterpretedFunction>(), // staticSetters
+      <String, Object?>{}, // staticFields (deferred init — left mutable)
+      FrozenNameMap<InterpretedFunction>(), // constructors (empty for mixins)
+      FrozenNameMap<InterpretedFunction>(), // operators
       // Named parameters
       isAbstract: false, // Mixins are not abstract
       isMixin: true,
