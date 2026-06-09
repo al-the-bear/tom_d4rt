@@ -393,22 +393,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitSimpleIdentifier(SSimpleIdentifier node) {
     final name = node.name;
 
-    Logger.debug(
-      "[visitSimpleIdentifier] Looking for '$name'. Visitor env: ${environment.hashCode}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[visitSimpleIdentifier] Looking for '$name'. Visitor env: ${environment.hashCode}",
+      );
+    }
 
     // Lexical search & Bridges
     try {
       // Use environment.get() which handles strings and bridges
       final value = environment.get(name);
       // If get() succeeds, the value is found (variable or bridge)
-      Logger.debug(
-        "[visitSimpleIdentifier] Found '$name' via environment.get() -> ${value?.runtimeType}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[visitSimpleIdentifier] Found '$name' via environment.get() -> ${value?.runtimeType}",
+        );
+      }
 
       // Handle late variables
       if (value is LateVariable) {
-        Logger.debug("[visitSimpleIdentifier] Accessing late variable '$name'");
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[visitSimpleIdentifier] Accessing late variable '$name'",
+          );
+        }
         return value
             .value; // This will trigger lazy initialization or throw if uninitialized
       }
@@ -6213,10 +6221,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } else {
               // Sync initializer: Use the computed value
               initValue = result;
-              Logger.debugLazy(
-                () =>
-                    "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",
+                );
+              }
               environment.define(variableName, initValue);
             }
           } else {

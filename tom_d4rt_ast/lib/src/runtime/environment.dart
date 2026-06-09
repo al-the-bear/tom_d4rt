@@ -765,17 +765,22 @@ class Environment {
   }
 
   Object? assign(String name, Object? value) {
-    Logger.debugLazy(
-      () =>
-          "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode",
+      );
+    }
     if (_values.containsKey(name)) {
       final existing = _values[name];
 
       // Handle GlobalGetter with setter - call the native setter instead of replacing
       if (existing is GlobalGetter) {
         if (existing.hasSetter) {
-          Logger.debug(" [Env.assign] Calling setter for GlobalGetter '$name'");
+          if (Logger.isDebug) {
+            Logger.debug(
+              " [Env.assign] Calling setter for GlobalGetter '$name'",
+            );
+          }
           // Unwrap BridgedEnumValue to its native value before calling the setter.
           // GEN-054: This ensures bridged enum values can be assigned to native setters.
           final unwrappedValue = _unwrapForSetter(value);
@@ -790,7 +795,11 @@ class Environment {
         }
       }
 
-      Logger.debug(" [Env.assign] Assigned '$name' locally in env: $hashCode");
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [Env.assign] Assigned '$name' locally in env: $hashCode",
+        );
+      }
       _values[name] = value;
       return value;
     }
@@ -809,9 +818,11 @@ class Environment {
     }
 
     if (_enclosing != null) {
-      Logger.debug(
-        " [Env.assign] '$name' not found locally, assigning in parent env: ${_enclosing.hashCode}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [Env.assign] '$name' not found locally, assigning in parent env: ${_enclosing.hashCode}",
+        );
+      }
       return _enclosing.assign(
         name,
         value,

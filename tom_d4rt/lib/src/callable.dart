@@ -453,16 +453,20 @@ class InterpretedFunction implements Callable {
 
     if (ownerType is InterpretedClass && !isInitializer && !hasThis) {
       final ownerClass = ownerType as InterpretedClass;
-      Logger.debug(
-          "[InterpretedFunction._prepareExecutionEnvironment] Adding static members of class '${ownerClass.name}' to execution environment.");
+      if (Logger.isDebug) {
+        Logger.debug(
+            "[InterpretedFunction._prepareExecutionEnvironment] Adding static members of class '${ownerClass.name}' to execution environment.");
+      }
 
       // Add all static methods
       for (final entry in ownerClass.staticMethods.entries) {
         final methodName = entry.key;
         final method = entry.value;
         executionEnvironment.define(methodName, method);
-        Logger.debug(
-            "[InterpretedFunction._prepareExecutionEnvironment] Added static method '$methodName' to execution environment.");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[InterpretedFunction._prepareExecutionEnvironment] Added static method '$methodName' to execution environment.");
+        }
       }
 
       // Add all static getters
@@ -470,8 +474,10 @@ class InterpretedFunction implements Callable {
         final getterName = entry.key;
         final getter = entry.value;
         executionEnvironment.define(getterName, getter);
-        Logger.debug(
-            "[InterpretedFunction._prepareExecutionEnvironment] Added static getter '$getterName' to execution environment.");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[InterpretedFunction._prepareExecutionEnvironment] Added static getter '$getterName' to execution environment.");
+        }
       }
 
       // Add all static setters
@@ -479,8 +485,10 @@ class InterpretedFunction implements Callable {
         final setterName = entry.key;
         final setter = entry.value;
         executionEnvironment.define(setterName, setter);
-        Logger.debug(
-            "[InterpretedFunction._prepareExecutionEnvironment] Added static setter '$setterName' to execution environment.");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[InterpretedFunction._prepareExecutionEnvironment] Added static setter '$setterName' to execution environment.");
+        }
       }
 
       // Add all static fields
@@ -488,8 +496,10 @@ class InterpretedFunction implements Callable {
         final fieldName = entry.key;
         final fieldValue = entry.value;
         executionEnvironment.define(fieldName, fieldValue);
-        Logger.debug(
-            "[InterpretedFunction._prepareExecutionEnvironment] Added static field '$fieldName' to execution environment.");
+        if (Logger.isDebug) {
+          Logger.debug(
+              "[InterpretedFunction._prepareExecutionEnvironment] Added static field '$fieldName' to execution environment.");
+        }
       }
 
       // OPEN B.9 — mark this scope as the static-field snapshot owner so that a
