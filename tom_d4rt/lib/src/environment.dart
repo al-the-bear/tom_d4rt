@@ -83,6 +83,18 @@ class Environment {
   // bridge. Invalidated on every mutation of [_bridgedClassesLookupByType]
   // via [_invalidateResolutionCache].
   final Map<Type, BridgedClass> _resolvedTypeCache = {};
+  // T4 (perf, plan_2 §6 / F3): negative resolution cache — the set of
+  // runtimeTypes that have NO bridge (the full step-1/2/3 walk found nothing
+  // and [toBridgedClass] threw). Without it, every wrap of a common unbridged
+  // native — `InterpretedInstance` operands in `==`, scalar values with no
+  // registered bridge, … — re-walks the whole env chain, iterates every
+  // registered bridge's `isAssignable`, runs the name-fallback `toString`
+  // scans in [toBridgedClass], then throws and is caught at the call
+  // boundary, on EVERY call. Caching the miss collapses all of that to a
+  // single set probe. Cleared together with [_resolvedTypeCache] on any
+  // bridge-type mutation, so a later registration can still turn a cached
+  // miss into a hit.
+  final Set<Type> _unbridgedTypeCache = {};
   final Map<String, BridgedEnum> _bridgedEnums = {}; // Store bridged enums
   final List<InterpretedExtension> _unnamedExtensions =
       []; // Store unnamed extensions
@@ -185,6 +197,7 @@ class Environment {
   /// change the most-specific resolution for previously-cached runtimeTypes.
   void _invalidateResolutionCache() {
     if (_resolvedTypeCache.isNotEmpty) _resolvedTypeCache.clear();
+    if (_unbridgedTypeCache.isNotEmpty) _unbridgedTypeCache.clear();
   }
 
   /// Looks up a bridged class by name, walking the enclosing scope chain.
@@ -322,6 +335,14 @@ class Environment {
       if (cached != null) {
         return BridgedInstance(cached, nativeObject);
       }
+      // T4 (perf, F3): negative-cache hit — a previous call already proved this
+      // runtimeType has no bridge. Re-throw the same miss without re-walking the
+      // chain, iterating every bridge, or running the name-fallback toString.
+      if (current._unbridgedTypeCache.contains(runtimeType)) {
+        throw RuntimeD4rtException(
+            'Cannot bridge native object: No registered bridged class found '
+            'for native type $runtimeType.');
+      }
       current = current._enclosing;
     }
 
@@ -356,8 +377,15 @@ class Environment {
     }
 
     // 3) Name-based fallbacks (private impl, generic suffix, *Impl prefix).
-    //    [toBridgedClass] will throw if no bridge matches — propagate.
-    final bridgedClass = toBridgedClass(runtimeType);
+    //    [toBridgedClass] will throw if no bridge matches — propagate, but
+    //    negative-cache the miss first so repeats short-circuit (T4, F3).
+    final BridgedClass bridgedClass;
+    try {
+      bridgedClass = toBridgedClass(runtimeType);
+    } on RuntimeD4rtException {
+      _unbridgedTypeCache.add(runtimeType);
+      rethrow;
+    }
     _resolvedTypeCache[runtimeType] = bridgedClass;
     return BridgedInstance(bridgedClass, nativeObject);
   }
