@@ -86,6 +86,29 @@ class D4 {
   D4._();
 
   // ==========================================================================
+  // T5 (plan_2 §6 / 5b): memoized type-name cache
+  // ==========================================================================
+
+  /// Memoized `Type.toString()` results.
+  ///
+  /// The generic coercion helpers below repeatedly render a type parameter
+  /// (`T`, `V`) or `value.runtimeType` to its string form purely to inspect
+  /// it for control flow (`startsWith('List<')`, `== 'double?'`, etc.).
+  /// `Type.toString()` showed up as a ~3.5% self-time hotspot
+  /// (`_AbstractType.toString`) in the CPU profile because it was recomputed
+  /// on every call.
+  ///
+  /// For a fixed `Type` the rendered name is invariant, and `Type` objects are
+  /// canonical per type in the VM (identity-stable), so memoizing by the `Type`
+  /// key is a pure optimization with zero semantic change and never needs
+  /// invalidation. Only HOT inspection sites are routed through here; cold
+  /// error-message interpolation keeps calling `toString()` directly.
+  static final Map<Type, String> _typeNameCache = <Type, String>{};
+
+  /// Returns the (memoized) `toString()` of [t]. See [_typeNameCache].
+  static String typeName(Type t) => _typeNameCache[t] ??= t.toString();
+
+  // ==========================================================================
   // Active Visitor (for interface proxy creation in bridge constructor helpers)
   // ==========================================================================
 
@@ -825,15 +848,15 @@ class D4 {
     // Check non-nullable double
     if (T == double) return true;
     // Check nullable double by examining type string
-    final typeName = T.toString();
-    return typeName == 'double?' || typeName == 'double?';
+    final tName = typeName(T);
+    return tName == 'double?' || tName == 'double?';
   }
 
   /// Check if T is num or num? (nullable num)
   static bool _isNumType<T>() {
     if (T == num) return true;
-    final typeName = T.toString();
-    return typeName == 'num?' || typeName == 'num?';
+    final tName = typeName(T);
+    return tName == 'num?' || tName == 'num?';
   }
 
   /// GEN-075: Unwrap a single element from BridgedInstance/BridgedEnumValue.
@@ -1317,7 +1340,7 @@ class D4 {
 
     // If V is a function type and v is an InterpretedFunction, wrap it
     // We detect function types by checking the type name string
-    final vTypeName = V.toString();
+    final vTypeName = typeName(V);
     if (_looksLikeFunctionType(vTypeName) &&
         (v is InterpretedFunction || v is NativeFunction || v is Callable)) {
       if (visitor == null) {
@@ -1355,7 +1378,7 @@ class D4 {
     InterpreterVisitor visitor,
   ) {
     // Extract function signature info from V
-    final vType = V.toString();
+    final vType = typeName(V);
 
     // Check for common single-argument patterns like "Widget Function(BuildContext)"
     // Pattern: "ReturnType Function(ArgType)" or "(ArgType) => ReturnType"
@@ -1543,7 +1566,7 @@ class D4 {
       // BridgedInstance wrappers and reject them with `Invalid argument`.
       // Typed parameters (e.g. `Map<String, Widget>`) take a different
       // path via `coerceMap` and are unaffected by this branch.
-      final tName = T.toString();
+      final tName = typeName(T);
       if (tName == 'dynamic' ||
           tName == 'Object' ||
           tName == 'Object?') {
@@ -1571,8 +1594,8 @@ class D4 {
     // false even when v's runtimeType matches the non-nullable base of T.
     // This check compares type names as strings as a last resort.
     if (null is T && unwrapped != null) {
-      final tStr = T.toString();
-      final unwrappedTypeStr = unwrapped.runtimeType.toString();
+      final tStr = typeName(T);
+      final unwrappedTypeStr = typeName(unwrapped.runtimeType);
       // Check if T is "SomeType?" and unwrapped is "SomeType"
       if (tStr.endsWith('?') &&
           tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
@@ -1606,7 +1629,7 @@ class D4 {
     // wrap it in a native closure so it can be assigned to typed function
     // properties. Uses the same pattern as _wrapCallableForMap.
     if (unwrapped is Callable) {
-      final tStr = T.toString();
+      final tStr = typeName(T);
       if (tStr.contains('Function')) {
         final effectiveVisitor = visitor ?? _activeVisitor;
         if (effectiveVisitor != null) {
@@ -1632,7 +1655,7 @@ class D4 {
     // null`, masking valid null-for-nullable returns and falling through to a
     // spurious ArgumentD4rtException.
     if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
-      final tStr = T.toString();
+      final tStr = typeName(T);
       // Strip trailing '?' for nullable generic types
       String baseT = tStr;
       while (baseT.endsWith('?')) {
@@ -1648,7 +1671,7 @@ class D4 {
         // Try with the target base type name first, then with the value's
         // runtime base type name (e.g., WidgetStatePropertyAll when target is
         // WidgetStateProperty).
-        final valueName = unwrapped.runtimeType.toString();
+        final valueName = typeName(unwrapped.runtimeType);
         final valueBaseName = valueName.contains('<')
             ? valueName.substring(0, valueName.indexOf('<'))
             : valueName;
@@ -1700,7 +1723,7 @@ class D4 {
 
     // INTER-004: Collection type casting
     // GEN-075: Unwrap BridgedInstance/BridgedEnumValue elements first
-    final tStr = T.toString();
+    final tStr = typeName(T);
 
     // List<Object?> → List<T> (also handles Iterable<T>)
     if (unwrapped is List &&
@@ -2392,7 +2415,7 @@ class D4 {
     InterpreterVisitor? visitor,
     String? expectedDescription,
   }) {
-    final expected = expectedDescription ?? T.toString();
+    final expected = expectedDescription ?? typeName(T);
 
     if (value == null) {
       if (null is T) return null as T;
