@@ -1344,11 +1344,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final leftOperandValue = node.leftOperand.accept<Object?>(this);
     final rightOperandValue = node.rightOperand.accept<Object?>(this);
 
-    Logger.debug("[BinaryExpression DEBUG] Operator: ${operator.lexeme}");
-    Logger.debug("  Left operand type: ${leftOperandValue?.runtimeType}");
-    Logger.debug("  Left operand value: $leftOperandValue");
-    Logger.debug("  Right operand type: ${rightOperandValue?.runtimeType}");
-    Logger.debug("  Right operand value: $rightOperandValue");
+    if (Logger.isDebug) {
+      Logger.debug("[BinaryExpression DEBUG] Operator: ${operator.lexeme}");
+      Logger.debug("  Left operand type: ${leftOperandValue?.runtimeType}");
+      Logger.debug("  Left operand value: $leftOperandValue");
+      Logger.debug("  Right operand type: ${rightOperandValue?.runtimeType}");
+      Logger.debug("  Right operand value: $rightOperandValue");
+    }
 
     if (leftOperandValue is AsyncSuspensionRequest) {
       return leftOperandValue;
@@ -3009,9 +3011,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Object? targetValue; // Keep track of the target object/class
     // Argument lists - declared here, evaluated later if needed
 
-    // Determine if this is a conditional call by inspecting the source
-    final isNullAware = node.toSource().contains('?.');
-
     if (node.target == null) {
       // Simple function call (or class constructor call)
       calleeValue = node.methodName.accept<Object?>(this);
@@ -3021,9 +3020,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       targetValue = node.target!.accept<Object?>(this);
       final methodName = node.methodName.name;
 
-      // Null safety support: if the target is null and the call is null-aware, return null
+      // Null safety support: if the target is null and the call is null-aware, return null.
+      // Determine null-awareness by inspecting the source only on this rare
+      // null-target path — `toSource()` is expensive and was previously built
+      // on every invocation just for this check.
       if (targetValue == null) {
-        if (isNullAware) {
+        if (node.toSource().contains('?.')) {
           return null;
         }
         // C21 — Dart null-shorting: when an inner selector in this chain
@@ -4155,13 +4157,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return target;
     }
 
-    // Determine if this is a conditional access by inspecting the source
-    final isNullAware = node.toSource().contains('?.');
     final propertyName = node.propertyName.name;
 
-    // Null safety support: if the target is null and the access is null-aware, return null
+    // Null safety support: if the target is null and the access is null-aware,
+    // return null. `toSource()` is expensive, so only build it on this rare
+    // null-target path rather than on every property access.
     if (target == null) {
-      if (isNullAware) {
+      if (node.toSource().contains('?.')) {
         return null;
       }
       // C21 — Dart null-shorting: when an inner selector in this chain
@@ -6719,39 +6721,45 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         valueRuntimeType = environment.getRuntimeType(returnValue);
 
-        String declaredTypeDetails = "N/A";
-        if (declaredType != null) {
-          declaredTypeDetails =
-              "Name: ${declaredType.name}, Hash: ${declaredType.hashCode}";
-          if (declaredType is BridgedClass) {
-            declaredTypeDetails +=
-                ", NativeType: ${declaredType.nativeType}, NativeHash: ${declaredType.nativeType.hashCode}";
+        // Debug diagnostics: building these details (type-name lookups,
+        // hashCodes, and an extra `isSubtypeOf` evaluation) is pure logging
+        // work that otherwise runs on every return. Guard it so nothing is
+        // interpolated or computed when debug logging is off.
+        if (Logger.isDebug) {
+          String declaredTypeDetails = "N/A";
+          if (declaredType != null) {
+            declaredTypeDetails =
+                "Name: ${declaredType.name}, Hash: ${declaredType.hashCode}";
+            if (declaredType is BridgedClass) {
+              declaredTypeDetails +=
+                  ", NativeType: ${declaredType.nativeType}, NativeHash: ${declaredType.nativeType.hashCode}";
+            }
           }
-        }
 
-        String valueRuntimeTypeDetails = "N/A";
-        if (valueRuntimeType != null) {
-          valueRuntimeTypeDetails =
-              "Name: ${valueRuntimeType.name}, Hash: ${valueRuntimeType.hashCode}";
-          if (valueRuntimeType is BridgedClass) {
-            valueRuntimeTypeDetails +=
-                ", NativeType: ${valueRuntimeType.nativeType}, NativeHash: ${valueRuntimeType.nativeType.hashCode}";
+          String valueRuntimeTypeDetails = "N/A";
+          if (valueRuntimeType != null) {
+            valueRuntimeTypeDetails =
+                "Name: ${valueRuntimeType.name}, Hash: ${valueRuntimeType.hashCode}";
+            if (valueRuntimeType is BridgedClass) {
+              valueRuntimeTypeDetails +=
+                  ", NativeType: ${valueRuntimeType.nativeType}, NativeHash: ${valueRuntimeType.nativeType.hashCode}";
+            }
           }
-        }
 
-        Logger.debug("[visitReturnStatement] Function: '$functionName'");
-        Logger.debug(
-            "[visitReturnStatement]   Declared Type: $declaredTypeDetails");
-        Logger.debug(
-            "[visitReturnStatement]   Value Runtime Type: $valueRuntimeTypeDetails");
-        Logger.debug(
-            "[visitReturnStatement]   Return Value: $returnValue (Type: ${returnValue?.runtimeType})");
-        Logger.debug(
-            "[visitReturnStatement]   Is Declared Type Nullable: $isNullable");
-
-        if (declaredType != null && valueRuntimeType != null) {
+          Logger.debug("[visitReturnStatement] Function: '$functionName'");
           Logger.debug(
-              "[visitReturnStatement]   valueRuntimeType.isSubtypeOf(declaredType) = ${valueRuntimeType.isSubtypeOf(declaredType)}");
+              "[visitReturnStatement]   Declared Type: $declaredTypeDetails");
+          Logger.debug(
+              "[visitReturnStatement]   Value Runtime Type: $valueRuntimeTypeDetails");
+          Logger.debug(
+              "[visitReturnStatement]   Return Value: $returnValue (Type: ${returnValue?.runtimeType})");
+          Logger.debug(
+              "[visitReturnStatement]   Is Declared Type Nullable: $isNullable");
+
+          if (declaredType != null && valueRuntimeType != null) {
+            Logger.debug(
+                "[visitReturnStatement]   valueRuntimeType.isSubtypeOf(declaredType) = ${valueRuntimeType.isSubtypeOf(declaredType)}");
+          }
         }
 
         // Cluster RETURNTYPE / I-MISC-212: Returning `null` from a function

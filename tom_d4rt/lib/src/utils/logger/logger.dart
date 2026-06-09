@@ -75,6 +75,13 @@ class Logger {
         level: D4LogLevel.error, error: error, stackTrace: stackTrace);
   }
 
+  /// True when a `Logger.debug(...)` call would actually emit output.
+  ///
+  /// Hot interpreter paths use this to skip building interpolated debug
+  /// strings (and any work done solely to produce them) when debug logging is
+  /// off — the eager interpolation otherwise dominates call-heavy execution.
+  static bool get isDebug => _shouldLog(D4LogLevel.debug);
+
   static bool _shouldLog(D4LogLevel level) {
     if (!debugEnabled) return false;
     return level.index >= minLevel.index;

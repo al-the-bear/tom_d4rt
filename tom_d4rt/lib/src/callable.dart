@@ -1218,8 +1218,10 @@ class InterpretedFunction implements Callable {
       List<Object?> positionalArguments,
       Map<String, Object?> namedArguments,
       List<RuntimeType>? typeArguments) {
-    Logger.debug(
-        "[InterpretedFunction.call] Called '${_name ?? 'anonymous'}' with ${positionalArguments.length} positional, ${namedArguments.length} named arguments.");
+    if (Logger.isDebug) {
+      Logger.debug(
+          "[InterpretedFunction.call] Called '${_name ?? 'anonymous'}' with ${positionalArguments.length} positional, ${namedArguments.length} named arguments.");
+    }
 
     final previousFunction = visitor.currentFunction;
     final previousAsyncState = visitor.currentAsyncState;
@@ -1375,8 +1377,10 @@ class InterpretedFunction implements Callable {
 
         // Restaurer l'état asynchrone précédent au lieu de l'écraser
         visitor.currentAsyncState = previousAsyncState;
-        Logger.debug(
-            " [InterpretedFunction.call FINALLY] Restored currentFunction and currentAsyncState. AsyncState is now: ${visitor.currentAsyncState?.hashCode}");
+        if (Logger.isDebug) {
+          Logger.debug(
+              " [InterpretedFunction.call FINALLY] Restored currentFunction and currentAsyncState. AsyncState is now: ${visitor.currentAsyncState?.hashCode}");
+        }
       }
     } on ReturnException catch (e) {
       // Catch return from asynchronous functions

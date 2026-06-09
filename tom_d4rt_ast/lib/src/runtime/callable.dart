@@ -1366,8 +1366,10 @@ class InterpretedFunction implements Callable {
       List<RuntimeType>? typeArguments) {
     // Build parent map for AST navigation (SAstNode has no .parent)
     _buildParentMap(_body);
-    Logger.debug(
-        "[InterpretedFunction.call] Called '${_name ?? 'anonymous'}' with ${positionalArguments.length} positional, ${namedArguments.length} named arguments.");
+    if (Logger.isDebug) {
+      Logger.debug(
+          "[InterpretedFunction.call] Called '${_name ?? 'anonymous'}' with ${positionalArguments.length} positional, ${namedArguments.length} named arguments.");
+    }
 
     final previousFunction = visitor.currentFunction;
     final previousAsyncState = visitor.currentAsyncState;
@@ -1523,8 +1525,10 @@ class InterpretedFunction implements Callable {
 
         // Restaurer l'état asynchrone précédent au lieu de l'écraser
         visitor.currentAsyncState = previousAsyncState;
-        Logger.debug(
-            " [InterpretedFunction.call FINALLY] Restored currentFunction and currentAsyncState. AsyncState is now: ${visitor.currentAsyncState?.hashCode}");
+        if (Logger.isDebug) {
+          Logger.debug(
+              " [InterpretedFunction.call FINALLY] Restored currentFunction and currentAsyncState. AsyncState is now: ${visitor.currentAsyncState?.hashCode}");
+        }
       }
     } on ReturnException catch (e) {
       // Catch return from asynchronous functions

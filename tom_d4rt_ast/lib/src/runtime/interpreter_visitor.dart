@@ -1509,11 +1509,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final leftOperandValue = node.leftOperand!.accept<Object?>(this);
     final rightOperandValue = node.rightOperand!.accept<Object?>(this);
 
-    Logger.debug("[SBinaryExpression DEBUG] Operator: $operator");
-    Logger.debug("  Left operand type: ${leftOperandValue?.runtimeType}");
-    Logger.debug("  Left operand value: $leftOperandValue");
-    Logger.debug("  Right operand type: ${rightOperandValue?.runtimeType}");
-    Logger.debug("  Right operand value: $rightOperandValue");
+    if (Logger.isDebug) {
+      Logger.debug("[SBinaryExpression DEBUG] Operator: $operator");
+      Logger.debug("  Left operand type: ${leftOperandValue?.runtimeType}");
+      Logger.debug("  Left operand value: $leftOperandValue");
+      Logger.debug("  Right operand type: ${rightOperandValue?.runtimeType}");
+      Logger.debug("  Right operand value: $rightOperandValue");
+    }
 
     if (leftOperandValue is AsyncSuspensionRequest) {
       return leftOperandValue;
@@ -7456,10 +7458,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final currentCallable = currentFunction;
     if (currentCallable != null) {
       bool isNullable = currentCallable.isNullable;
-      String functionName = currentCallable.toString();
-      // Extract function name from the callable's toString, or use a default
-      // InterpretedFunction.toString returns '<fn name>'
+      // Extract function name from the callable's toString, or use a default.
+      // InterpretedFunction.toString returns '<fn name>'.
       final fnStr = currentCallable.toString();
+      String functionName = fnStr;
       if (fnStr.startsWith('<fn ') && fnStr.endsWith('>')) {
         functionName = fnStr.substring(4, fnStr.length - 1);
       }
@@ -7474,19 +7476,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         valueRuntimeType = environment.getRuntimeType(returnValue);
 
-        Logger.debug("[visitReturnStatement] Function: '$functionName'");
-        Logger.debug(
-          "[visitReturnStatement]   Declared Type: ${declaredType?.name ?? 'N/A'}",
-        );
-        Logger.debug(
-          "[visitReturnStatement]   Value Runtime Type: ${valueRuntimeType?.name ?? 'N/A'}",
-        );
-        Logger.debug(
-          "[visitReturnStatement]   Return Value: $returnValue (Type: ${returnValue?.runtimeType})",
-        );
-        Logger.debug(
-          "[visitReturnStatement]   Is Declared Type Nullable: $isNullable",
-        );
+        // Guard: skip building these interpolated diagnostics on every return
+        // when debug logging is off.
+        if (Logger.isDebug) {
+          Logger.debug("[visitReturnStatement] Function: '$functionName'");
+          Logger.debug(
+            "[visitReturnStatement]   Declared Type: ${declaredType?.name ?? 'N/A'}",
+          );
+          Logger.debug(
+            "[visitReturnStatement]   Value Runtime Type: ${valueRuntimeType?.name ?? 'N/A'}",
+          );
+          Logger.debug(
+            "[visitReturnStatement]   Return Value: $returnValue (Type: ${returnValue?.runtimeType})",
+          );
+          Logger.debug(
+            "[visitReturnStatement]   Is Declared Type Nullable: $isNullable",
+          );
+        }
 
         // Check null return value against non-nullable declared type
         if (returnValue == null &&
