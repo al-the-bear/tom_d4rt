@@ -63,6 +63,20 @@ class InterpretedClass implements Callable, RuntimeType {
   /// arguments.
   List<String>? bridgedSuperTypeArgNames;
 
+  // T2 (perf, plan_2 §6): memoized POSITIVE results of the instance-member
+  // hierarchy walk (`findInstanceMethod`/`Getter`/`Setter`/`findOperator`).
+  // Only successful resolutions are cached: a hit can only happen once the
+  // member exists in the class hierarchy, and members are never removed after
+  // declaration completes, so cached hits never go stale and need no
+  // invalidation. Misses are deliberately NOT cached, so a lookup during the
+  // class-wiring window (before superclass/mixins are linked) cannot poison
+  // the cache with a stale null. Collapses the repeated mixin+superclass walk
+  // that dominated `visitMethodInvocation` self-time.
+  final Map<String, InterpretedFunction> _methodResolutionCache = {};
+  final Map<String, InterpretedFunction> _getterResolutionCache = {};
+  final Map<String, InterpretedFunction> _setterResolutionCache = {};
+  final Map<String, InterpretedFunction> _operatorResolutionCache = {};
+
   // Helper methods to extract type parameter information from AST (similar to InterpretedFunction)
   static List<String> extractTypeParameterNames(
       TypeParameterList? typeParameters) {
@@ -174,24 +188,26 @@ class InterpretedClass implements Callable, RuntimeType {
 
   // Finders for different member types
   InterpretedFunction? findInstanceMethod(String name) {
-    if (methods.containsKey(name)) {
-      return methods[name];
-    }
+    final cached = _methodResolutionCache[name];
+    if (cached != null) return cached;
+
+    // Single-probe local hit (map value type is non-nullable, so a null read
+    // means absent).
+    final local = methods[name];
+    if (local != null) return _methodResolutionCache[name] = local;
 
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
-      final mixinMethod =
-          mixins[i].findInstanceMethod(name); // Recursive call on mixin
-      if (mixinMethod != null) {
-        // We found the method in a mixin.
-        // Note: Mixins don't change the 'this' binding context,
-        // the method returned here will be bound later if needed.
-        return mixinMethod;
-      }
+      // Recursive call on mixin. Mixins don't change the 'this' binding
+      // context; the method returned here will be bound later if needed.
+      final mixinMethod = mixins[i].findInstanceMethod(name);
+      if (mixinMethod != null) return _methodResolutionCache[name] = mixinMethod;
     }
 
     if (superclass != null) {
-      return superclass!.findInstanceMethod(name);
+      final superMethod = superclass!.findInstanceMethod(name);
+      if (superMethod != null) return _methodResolutionCache[name] = superMethod;
+      return null;
     }
 
     // If not found in Dart hierarchy, check bridged superclass
@@ -210,20 +226,22 @@ class InterpretedClass implements Callable, RuntimeType {
   }
 
   InterpretedFunction? findInstanceGetter(String name) {
-    if (getters.containsKey(name)) {
-      return getters[name];
-    }
+    final cached = _getterResolutionCache[name];
+    if (cached != null) return cached;
+
+    final local = getters[name];
+    if (local != null) return _getterResolutionCache[name] = local;
 
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
       final mixinGetter = mixins[i].findInstanceGetter(name);
-      if (mixinGetter != null) {
-        return mixinGetter;
-      }
+      if (mixinGetter != null) return _getterResolutionCache[name] = mixinGetter;
     }
 
     if (superclass != null) {
-      return superclass!.findInstanceGetter(name);
+      final superGetter = superclass!.findInstanceGetter(name);
+      if (superGetter != null) return _getterResolutionCache[name] = superGetter;
+      return null;
     }
 
     // If not found in Dart hierarchy, check bridged superclass
@@ -238,20 +256,22 @@ class InterpretedClass implements Callable, RuntimeType {
   }
 
   InterpretedFunction? findInstanceSetter(String name) {
-    if (setters.containsKey(name)) {
-      return setters[name];
-    }
+    final cached = _setterResolutionCache[name];
+    if (cached != null) return cached;
+
+    final local = setters[name];
+    if (local != null) return _setterResolutionCache[name] = local;
 
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
       final mixinSetter = mixins[i].findInstanceSetter(name);
-      if (mixinSetter != null) {
-        return mixinSetter;
-      }
+      if (mixinSetter != null) return _setterResolutionCache[name] = mixinSetter;
     }
 
     if (superclass != null) {
-      return superclass!.findInstanceSetter(name);
+      final superSetter = superclass!.findInstanceSetter(name);
+      if (superSetter != null) return _setterResolutionCache[name] = superSetter;
+      return null;
     }
 
     // If not found in Dart hierarchy, check bridged superclass
@@ -271,20 +291,26 @@ class InterpretedClass implements Callable, RuntimeType {
 
   // Find operator methods (supports inheritance)
   InterpretedFunction? findOperator(String operatorSymbol) {
-    if (operators.containsKey(operatorSymbol)) {
-      return operators[operatorSymbol];
-    }
+    final cached = _operatorResolutionCache[operatorSymbol];
+    if (cached != null) return cached;
+
+    final local = operators[operatorSymbol];
+    if (local != null) return _operatorResolutionCache[operatorSymbol] = local;
 
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
       final mixinOperator = mixins[i].findOperator(operatorSymbol);
       if (mixinOperator != null) {
-        return mixinOperator;
+        return _operatorResolutionCache[operatorSymbol] = mixinOperator;
       }
     }
 
     if (superclass != null) {
-      return superclass!.findOperator(operatorSymbol);
+      final superOperator = superclass!.findOperator(operatorSymbol);
+      if (superOperator != null) {
+        return _operatorResolutionCache[operatorSymbol] = superOperator;
+      }
+      return null;
     }
 
     return null;
