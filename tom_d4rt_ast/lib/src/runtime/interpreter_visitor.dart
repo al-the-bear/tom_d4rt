@@ -4,6 +4,25 @@ import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 
+/// Detects whether any `SFunctionExpression` (closure) appears in a subtree.
+/// Used by the classic-for loop optimization (T8/F5) to decide whether a
+/// single reused `Environment` is safe. Mirrors `_ChildCollectorVisitor`'s
+/// `visitNode` + `visitChildren` recursion; short-circuits once a closure is
+/// found.
+class _SClosurePresenceVisitor extends SAstVisitor<void> {
+  bool found = false;
+
+  @override
+  void visitNode(SAstNode node) {
+    if (found) return;
+    if (node is SFunctionExpression) {
+      found = true;
+      return;
+    }
+    node.visitChildren(this);
+  }
+}
+
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
 class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
@@ -5782,6 +5801,56 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return null; // For loops don't produce a value
   }
 
+  // T8/F5 — per-classic-for cache of "does the loop body / condition /
+  // updaters contain a closure (SFunctionExpression)?", keyed by the body
+  // node's identity. The subtree walk runs once per for-statement, not per
+  // execution. Mirror of the analyzer-based version in `tom_d4rt`.
+  final Expando<bool> _classicForHasClosure = Expando<bool>();
+
+  bool _subtreeContainsClosure(SAstNode node) {
+    final v = _SClosurePresenceVisitor();
+    v.visitNode(node);
+    return v.found;
+  }
+
+  /// True when any closure may capture this classic-for's per-iteration loop
+  /// binding (closure present in the body, condition, or updaters). When
+  /// false, a single reused `Environment` is observably identical to a fresh
+  /// per-iteration one — letting us skip two `Environment` allocations per
+  /// iteration. Result is cached on the `body` node (one per for-statement).
+  bool _classicForCapturesClosure(
+      SAstNode? condition, List<SAstNode>? updaters, SAstNode body) {
+    final cached = _classicForHasClosure[body];
+    if (cached != null) return cached;
+    var result = _subtreeContainsClosure(body);
+    if (!result && condition != null) {
+      result = _subtreeContainsClosure(condition);
+    }
+    if (!result && updaters != null) {
+      for (final u in updaters) {
+        if (_subtreeContainsClosure(u)) {
+          result = true;
+          break;
+        }
+      }
+    }
+    _classicForHasClosure[body] = result;
+    return result;
+  }
+
+  /// Evaluate a `for`-loop condition to a `bool`, unwrapping a bridged bool.
+  bool _evalForCondition(SAstNode condition) {
+    final evalResult = condition.accept<Object?>(this);
+    if (evalResult is bool) return evalResult;
+    final bridgedInstance = toBridgedInstance(evalResult);
+    if (bridgedInstance.$2 && bridgedInstance.$1?.nativeObject is bool) {
+      return bridgedInstance.$1!.nativeObject as bool;
+    }
+    throw RuntimeD4rtException(
+      "The condition of a 'for' loop must be a boolean, but was ${evalResult?.runtimeType}.",
+    );
+  }
+
   // Helper method to execute the logic of a classic for loop.
   //
   // GEN-111 — per-iteration scope (mirror of `tom_d4rt`). Each iteration
@@ -5816,6 +5885,50 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       for (final name in loopVarNames) name: scratchEnv.get(name),
     };
 
+    // T8/F5 fast path — no closure can capture the loop binding, so reuse a
+    // single environment across all iterations instead of allocating a fresh
+    // `iterEnv` + `updateEnv` per iteration.
+    if (!_classicForCapturesClosure(condition, updaters, body)) {
+      final loopEnv = Environment(enclosing: outerEnv);
+      for (final name in loopVarNames) {
+        loopEnv.define(name, currentValues[name]);
+      }
+      environment = loopEnv;
+      try {
+        while (true) {
+          if (condition != null && !_evalForCondition(condition)) break;
+
+          try {
+            body.accept<Object?>(this);
+          } on BreakException catch (e) {
+            if (e.label == null || _currentStatementLabels.contains(e.label)) {
+              break;
+            }
+            rethrow;
+          } on ContinueException catch (e) {
+            if (e.label != null &&
+                !_currentStatementLabels.contains(e.label)) {
+              rethrow;
+            }
+            // Fall through to updaters.
+          }
+
+          if (updaters != null && updaters.isNotEmpty) {
+            try {
+              for (final updater in updaters) {
+                updater.accept<Object?>(this);
+              }
+            } on BreakException {
+              break;
+            }
+          }
+        }
+      } finally {
+        environment = outerEnv;
+      }
+      return;
+    }
+
     try {
       while (true) {
         final iterEnv = Environment(enclosing: outerEnv);
@@ -5826,18 +5939,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         bool conditionResult = true;
         if (condition != null) {
-          final evalResult = condition.accept<Object?>(this);
-          final bridgedInstance = toBridgedInstance(evalResult);
-          if (evalResult is bool) {
-            conditionResult = evalResult;
-          } else if (bridgedInstance.$2 &&
-              bridgedInstance.$1?.nativeObject is bool) {
-            conditionResult = bridgedInstance.$1!.nativeObject as bool;
-          } else {
-            throw RuntimeD4rtException(
-              "The condition of a 'for' loop must be a boolean, but was ${evalResult?.runtimeType}.",
-            );
-          }
+          conditionResult = _evalForCondition(condition);
         }
         if (!conditionResult) break;
 

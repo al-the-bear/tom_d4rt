@@ -5082,6 +5082,58 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   // Helper method to execute the logic of a classic for loop.
   //
+  // T8/F5 — per-classic-for cache of "does the loop body / condition /
+  // updaters contain a FunctionExpression (closure)?", keyed by the body
+  // node's identity. The subtree walk runs once per for-statement, not per
+  // execution, so repeated executions of the same loop (e.g. a for-loop in a
+  // hot function) pay the scan only once.
+  final Expando<bool> _classicForHasClosure = Expando<bool>();
+
+  bool _subtreeContainsClosure(AstNode node) {
+    if (node is FunctionExpression) return true;
+    for (final child in node.childEntities) {
+      if (child is AstNode && _subtreeContainsClosure(child)) return true;
+    }
+    return false;
+  }
+
+  /// True when any closure may capture this classic-for's per-iteration loop
+  /// binding (closure present in the body, condition, or updaters). When
+  /// false, a single reused `Environment` is observably identical to a fresh
+  /// per-iteration one — letting us skip two `Environment` allocations per
+  /// iteration. Result is cached on the `body` node (one per for-statement).
+  bool _classicForCapturesClosure(
+      Expression? condition, List<Expression>? updaters, Statement body) {
+    final cached = _classicForHasClosure[body];
+    if (cached != null) return cached;
+    var result = _subtreeContainsClosure(body);
+    if (!result && condition != null) {
+      result = _subtreeContainsClosure(condition);
+    }
+    if (!result && updaters != null) {
+      for (final u in updaters) {
+        if (_subtreeContainsClosure(u)) {
+          result = true;
+          break;
+        }
+      }
+    }
+    _classicForHasClosure[body] = result;
+    return result;
+  }
+
+  /// Evaluate a `for`-loop condition to a `bool`, unwrapping a bridged bool.
+  bool _evalForCondition(Expression condition) {
+    final evalResult = condition.accept<Object?>(this);
+    if (evalResult is bool) return evalResult;
+    final bridgedInstance = toBridgedInstance(evalResult);
+    if (bridgedInstance.$2 && bridgedInstance.$1?.nativeObject is bool) {
+      return bridgedInstance.$1!.nativeObject as bool;
+    }
+    throw RuntimeD4rtException(
+        "The condition of a 'for' loop must be a boolean, but was ${evalResult?.runtimeType}.");
+  }
+
   // GEN-111 — per-iteration scope. Each iteration of a classic
   // `for (var i = 0; …; …)` introduces a fresh binding of every loop
   // variable (Dart spec). Closures created in the body must capture
@@ -5115,6 +5167,50 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       for (final name in loopVarNames) name: scratchEnv.get(name),
     };
 
+    // T8/F5 fast path — no closure can capture the loop binding, so reuse a
+    // single environment across all iterations instead of allocating a fresh
+    // `iterEnv` + `updateEnv` per iteration.
+    if (!_classicForCapturesClosure(condition, updaters, body)) {
+      final loopEnv = Environment(enclosing: outerEnv);
+      for (final name in loopVarNames) {
+        loopEnv.define(name, currentValues[name]);
+      }
+      environment = loopEnv;
+      try {
+        while (true) {
+          if (condition != null && !_evalForCondition(condition)) break;
+
+          try {
+            body.accept<Object?>(this);
+          } on BreakException catch (e) {
+            if (e.label == null || _currentStatementLabels.contains(e.label)) {
+              break;
+            }
+            rethrow;
+          } on ContinueException catch (e) {
+            if (e.label != null &&
+                !_currentStatementLabels.contains(e.label)) {
+              rethrow;
+            }
+            // Fall through to updaters.
+          }
+
+          if (updaters != null && updaters.isNotEmpty) {
+            try {
+              for (final updater in updaters) {
+                updater.accept<Object?>(this);
+              }
+            } on BreakException {
+              break;
+            }
+          }
+        }
+      } finally {
+        environment = outerEnv;
+      }
+      return;
+    }
+
     try {
       while (true) {
         // Fresh env per iteration; closures in the body capture this.
@@ -5126,17 +5222,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         bool conditionResult = true;
         if (condition != null) {
-          final evalResult = condition.accept<Object?>(this);
-          final bridgedInstance = toBridgedInstance(evalResult);
-          if (evalResult is bool) {
-            conditionResult = evalResult;
-          } else if (bridgedInstance.$2 &&
-              bridgedInstance.$1?.nativeObject is bool) {
-            conditionResult = bridgedInstance.$1!.nativeObject as bool;
-          } else {
-            throw RuntimeD4rtException(
-                "The condition of a 'for' loop must be a boolean, but was ${evalResult?.runtimeType}.");
-          }
+          conditionResult = _evalForCondition(condition);
         }
         if (!conditionResult) break;
 
