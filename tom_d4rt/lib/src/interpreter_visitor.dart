@@ -57,24 +57,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   final Map<SetOrMapLiteral, Object> _constCollectionCache =
       <SetOrMapLiteral, Object>{};
 
-  /// T9 (perf, plan_2 §6 — bounded realization of 4b indexed lexical access):
-  /// inline depth cache for [visitSimpleIdentifier]. After a name's first
-  /// resolution, the scope depth (enclosing-hops to its declaring frame) is
-  /// recorded keyed by the identifier-use node, so subsequent reads of a plain
-  /// lexical local skip the per-level name-hashing the full chain walk pays at
-  /// every intermediate scope — reading at the fixed depth via pointer-hops + a
-  /// single terminal hash instead. Names that resolve via a non-local path
-  /// (bridge / prefixed import / enum) get no entry and always take the full
-  /// [Environment.get] walk. The fast path is self-validating (see
-  /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
-  final Expando<int> _identifierDepthCache = Expando<int>();
-
-  /// S1 (plan_3 §9.1): per-identifier-use static lexical coordinates produced
-  /// by [StaticResolver]. Read **only** inside a debug `assert` in
-  /// [visitSimpleIdentifier] to validate the static scope model against live
-  /// resolution — never consulted on the production hot path, so it is fully
-  /// stripped in `--release`/AOT. Empty until [resolveStaticCoordinates] runs;
-  /// nodes with no entry simply fall through to the existing name-keyed path.
+  /// S1/S3c (plan_3 §9.1 / §9.3): per-identifier-use static lexical coordinates
+  /// produced by [StaticResolver]. A coordinate is emitted only for an eligible
+  /// innermost-block local (depth 0); [visitSimpleIdentifier] reads such a use
+  /// straight from the current frame's slot array via [Environment.getSlot]
+  /// (one Expando hop + one list index, no name hashing — note-6 §10.4). Empty
+  /// until [resolveStaticCoordinates] runs; nodes with no entry take the
+  /// name-keyed [Environment.get] walk.
   final Expando<StaticCoord> staticCoords = Expando<StaticCoord>();
 
   /// S3b (plan_3 §4.6 / §9.3): per-declaration-node slot index produced by
@@ -418,36 +407,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? visitSimpleIdentifier(SimpleIdentifier node) {
     final name = node.name;
 
-    // S1 (plan_3 §9.1) — validate the static resolver against live resolution.
-    // Debug-only: the whole block is stripped in `--release`/AOT and never
-    // touches the production hot path. A coordinate is emitted only for an
-    // innermost-block local (depth 0), which is at live depth 0 by construction;
-    // a mismatch means the resolver's scope model diverged from the interpreter
-    // (risk R1) and must be fixed before S3 relies on slots.
-    assert(() {
-      final coord = staticCoords[node];
-      if (coord != null) {
-        final live = environment.resolveDepthOf(name);
-        if (coord.depth != live) {
-          throw StateError(
-              'S1 static-resolver depth mismatch for "$name": '
-              'static=${coord.depth} live=$live');
-        }
-        // S3b parity (plan_3 §9.3): the slot view must agree with the live name
-        // view. A coordinate is emitted only for an eligible depth-0 local, so
-        // `defineSlot` ran in this frame before the read; `getSlot` and `get`
-        // must return the identical binding. Divergence means the additive
-        // dual-write (define/assign sync) leaked — fix before S3c flips reads.
-        if (!identical(environment.getSlot(coord.slot), environment.get(name))) {
-          throw StateError(
-              'S3b slot/name parity mismatch for "$name" at slot '
-              '${coord.slot}: getSlot=${environment.getSlot(coord.slot)} '
-              'get=${environment.get(name)}');
-        }
-      }
-      return true;
-    }());
-
     if (Logger.isDebug) {
       Logger.debug(
           "[visitSimpleIdentifier] Looking for '$name'. Visitor env: ${environment.hashCode}");
@@ -455,28 +414,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     // Lexical search & Bridges
     try {
-      // T9 inline depth cache: after first resolution, read a plain lexical
-      // local at its fixed scope depth (pointer-hops + one terminal hash),
-      // skipping the per-level hashing the full chain walk pays. Re-validated
-      // each read and re-resolved on any miss, so it cannot return a stale or
-      // wrong binding. Non-local hits (bridge/prefixed/enum) cache no depth and
-      // always take the full [environment.get] walk.
+      // S3c (plan_3 §9.3 / §4.6): an eligible innermost-block local carries a
+      // static coordinate; read it straight from the current frame's slot array
+      // — one Expando hop + one list index, no name hashing and no chain walk
+      // (note-6 §10.4). Eligibility (the resolver) guarantees the matching
+      // `defineSlot` ran in this same frame before any read, and that the local
+      // is never assigned or captured, so the slot is the sole live binding.
+      // Every other use (bridge / prefixed / enum / non-local) carries no
+      // coordinate and takes the full name-based [environment.get] walk.
       Object? value;
-      final cachedDepth = _identifierDepthCache[node];
-      if (cachedDepth != null) {
-        final fast = environment.getAtDepthOrMiss(name, cachedDepth);
-        if (!identical(fast, Environment.slotMiss)) {
-          value = fast;
-        } else {
-          value = environment.get(name);
-          final d = environment.resolveDepthOf(name);
-          if (d >= 0) _identifierDepthCache[node] = d;
-        }
+      final coord = staticCoords[node];
+      if (coord != null) {
+        value = environment.getSlot(coord.slot);
       } else {
-        // Use environment.get() which handles strings and bridges
+        // Handles strings, bridges, and the full lexical chain.
         value = environment.get(name);
-        final d = environment.resolveDepthOf(name);
-        if (d >= 0) _identifierDepthCache[node] = d;
       }
       // If get() succeeds, the value is found (variable or bridge)
       if (Logger.isDebug) {
@@ -494,7 +446,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             .value; // This will trigger lazy initialization or throw if uninitialized
       }
 
-      if (name == 'initialValue') {
+      // note-6 (§10.4): keep the resolved-read return path free of any String
+      // `==`/hash — the `name` comparison only runs when debug logging is on, so
+      // a production read is just the slot index + LateVariable check above.
+      if (Logger.isDebug && name == 'initialValue') {
         Logger.debug(
             "[visitSimpleIdentifier] Returning '$name' = $value (from lexical/bridge)");
       }
@@ -5650,11 +5605,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final isFinal = node.keyword?.lexeme == 'final';
         final variableName = variable.name.lexeme;
 
-        // S3b additive (plan_3 §4.6 / §9.3): if the resolver slotted this local,
-        // dual-write the value into the frame's slot array alongside the name
-        // binding. Production still reads via name; a debug parity assert in
-        // [visitSimpleIdentifier] validates the two views agree. `declSlot` is
-        // null for every non-slotted declaration → plain `define`.
+        // S3c (plan_3 §4.6 / §9.3): a slotted local dual-writes into BOTH the
+        // frame's slot array and the name map [_values]. Resolved reads go
+        // through [Environment.getSlot] (see [visitSimpleIdentifier]) — the hot
+        // path that previously paid the per-level name hash — while name-based
+        // resolution paths the interpreter still uses for the SAME local (the
+        // function-invocation callee lookup `environment.get(name)` for
+        // tear-offs / bridged-static / extension-call values) keep working
+        // against [_values]. Full demotion out of [_values] is deferred until
+        // every name-read site is audited (plan_3 §11). `declSlot` is null for
+        // every non-slotted declaration → plain `define`.
         final declSlot = declSlots[variable];
         void def(Object? v) {
           environment.define(variableName, v);

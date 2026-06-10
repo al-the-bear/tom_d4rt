@@ -8,9 +8,9 @@ import 'package:analyzer/dart/ast/visitor.dart';
 /// `SimpleIdentifier` is sealed/immutable, so a field cannot be added — see
 /// plan_3 §4.3). [depth] is the number of enclosing `Environment` hops from the
 /// use's runtime scope to the declaring scope; [slot] is the declaration index
-/// within that scope (declaration order). In S1 only [depth] is validated at
-/// runtime (against [Environment.resolveDepthOf]); [slot] is computed now so
-/// that S3 can index per-frame slot arrays without re-resolving.
+/// within that scope (declaration order). A coordinate is emitted only for an
+/// eligible depth-0 local, so [depth] is always 0; S3c (plan_3 §9.3) indexes
+/// the current frame's slot array by [slot] directly on the read path.
 class StaticCoord {
   /// Enclosing-hop distance from the use to its declaring scope.
   final int depth;

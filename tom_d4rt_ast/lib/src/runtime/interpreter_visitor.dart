@@ -72,29 +72,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   final Map<SSetOrMapLiteral, Object> _constCollectionCache =
       <SSetOrMapLiteral, Object>{};
 
-  /// T9 (perf, plan_2 §6 — bounded realization of 4b indexed lexical access):
-  /// inline depth cache for [visitSimpleIdentifier]. After a name's first
-  /// resolution, the scope depth (enclosing-hops to its declaring frame) is
-  /// recorded keyed by the identifier-use node, so subsequent reads of a plain
-  /// lexical local skip the per-level name-hashing the full chain walk pays at
-  /// every intermediate scope — reading at the fixed depth via pointer-hops + a
-  /// single terminal hash instead. Names that resolve via a non-local path
-  /// (bridge / prefixed import / enum) get no entry and always take the full
-  /// [Environment.get] walk. The fast path is self-validating (see
-  /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
-  final Expando<int> _identifierDepthCache = Expando<int>();
-
-  /// Run the static lexical resolver over [declarations] (perf plan_3 §9, S2
-  /// step c). The resolver writes (depth, slot) coordinates directly onto the
-  /// mirror [SSimpleIdentifier] nodes ([SSimpleIdentifier.resolvedDepth] /
-  /// [SSimpleIdentifier.resolvedSlot]), so they also survive serialization for
+  /// Run the static lexical resolver over [declarations] (perf plan_3 §9). The
+  /// resolver writes slot coordinates directly onto the mirror
+  /// [SSimpleIdentifier] nodes ([SSimpleIdentifier.resolvedSlot]) and slot
+  /// carriers onto blocks/declarations, so they also survive serialization for
   /// the analyzer-free Flutter precompute target. Bundles produced via
   /// `tom_ast_generator` already carry these coordinates; this execute-time
   /// pass covers hand-built / deserialized units and is idempotent (it
-  /// recomputes identical coordinates). In S1/S2 the coordinates are consumed
-  /// solely by the validation assert in [visitSimpleIdentifier] — they do not
-  /// yet change any read. S3 will switch the read path onto these coordinates
-  /// and retire the T9 [_identifierDepthCache].
+  /// recomputes identical coordinates). S3c consumes [SSimpleIdentifier.resolvedSlot]
+  /// directly on the read path in [visitSimpleIdentifier] (current-frame
+  /// [Environment.getSlot]).
   void resolveStaticCoordinates(Iterable<SAstNode> declarations) {
     StaticResolver().resolve(declarations);
   }
@@ -453,40 +440,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitSimpleIdentifier(SSimpleIdentifier node) {
     final name = node.name;
 
-    // S1/S2 (perf plan_3 §9) validation: if the static resolver assigned a
-    // coordinate to this use, its depth must equal what the live environment
-    // resolves. The coordinate now lives on the node itself
-    // ([SSimpleIdentifier.resolvedDepth]) rather than an Expando side-table, so
-    // it survives serialization. Asserts only — no behaviour change. Proves the
-    // resolver's scope model against the real interpreter before S3 routes
-    // reads onto it.
-    assert(() {
-      final staticDepth = node.resolvedDepth;
-      if (staticDepth != null) {
-        final live = environment.resolveDepthOf(name);
-        if (staticDepth != live) {
-          throw StateError(
-            'static-resolver depth mismatch for "$name": '
-            'static=$staticDepth live=$live',
-          );
-        }
-        // S3b parity (plan_3 §9.3): the slot view must agree with the live name
-        // view. A coordinate is emitted only for an eligible depth-0 local, so
-        // `defineSlot` ran in this frame before the read; `getSlot` and `get`
-        // must return the identical binding. Divergence means the additive
-        // dual-write (define/assign sync) leaked — fix before S3c flips reads.
-        final slot = node.resolvedSlot;
-        if (slot != null &&
-            !identical(environment.getSlot(slot), environment.get(name))) {
-          throw StateError(
-            'S3b slot/name parity mismatch for "$name" at slot $slot: '
-            'getSlot=${environment.getSlot(slot)} get=${environment.get(name)}',
-          );
-        }
-      }
-      return true;
-    }());
-
     if (Logger.isDebug) {
       Logger.debug(
         "[visitSimpleIdentifier] Looking for '$name'. Visitor env: ${environment.hashCode}",
@@ -495,28 +448,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Lexical search & Bridges
     try {
-      // T9 inline depth cache: after first resolution, read a plain lexical
-      // local at its fixed scope depth (pointer-hops + one terminal hash),
-      // skipping the per-level hashing the full chain walk pays. Re-validated
-      // each read and re-resolved on any miss, so it cannot return a stale or
-      // wrong binding. Non-local hits (bridge/prefixed/enum) cache no depth and
-      // always take the full [environment.get] walk.
+      // S3c (plan_3 §9.3 / §4.6): an eligible innermost-block local carries a
+      // resolved slot directly on the node ([SSimpleIdentifier.resolvedSlot]);
+      // read it straight from the current frame's slot array — one field read +
+      // one list index, no name hashing and no chain walk (note-6 §10.4).
+      // Eligibility (the resolver) guarantees the matching `defineSlot` ran in
+      // this same frame before any read, and that the local is never assigned or
+      // captured, so the slot is the sole live binding. Every other use (bridge
+      // / prefixed / enum / non-local) carries no slot and takes the full
+      // name-based [environment.get] walk. The slot field also survives
+      // serialization, so analyzer-free bundles take this fast path too.
       Object? value;
-      final cachedDepth = _identifierDepthCache[node];
-      if (cachedDepth != null) {
-        final fast = environment.getAtDepthOrMiss(name, cachedDepth);
-        if (!identical(fast, Environment.slotMiss)) {
-          value = fast;
-        } else {
-          value = environment.get(name);
-          final d = environment.resolveDepthOf(name);
-          if (d >= 0) _identifierDepthCache[node] = d;
-        }
+      final slot = node.resolvedSlot;
+      if (slot != null) {
+        value = environment.getSlot(slot);
       } else {
         // Use environment.get() which handles strings and bridges
         value = environment.get(name);
-        final d = environment.resolveDepthOf(name);
-        if (d >= 0) _identifierDepthCache[node] = d;
       }
       // If get() succeeds, the value is found (variable or bridge)
       if (Logger.isDebug) {
@@ -536,7 +484,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             .value; // This will trigger lazy initialization or throw if uninitialized
       }
 
-      if (name == 'initialValue') {
+      // note-6 (§10.4): keep the resolved-read return path free of any String
+      // `==`/hash — the `name` comparison only runs when debug logging is on, so
+      // a production read is just the slot index + LateVariable check above.
+      if (Logger.isDebug && name == 'initialValue') {
         Logger.debug(
           "[visitSimpleIdentifier] Returning '$name' = $value (from lexical/bridge)",
         );
@@ -6381,12 +6332,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final isFinal = node.isFinal;
         final variableName = variable.name!.name;
 
-        // S3b additive (plan_3 §4.6 / §9.3): if the resolver slotted this local,
-        // dual-write the value into the frame's slot array alongside the name
-        // binding. The slot index lives on the mirror node itself
-        // ([SVariableDeclaration.declSlot]) — no Expando, so it survives
-        // serialization. Production still reads via name; a debug parity assert
-        // in [visitSimpleIdentifier] validates the two views agree.
+        // S3c (plan_3 §4.6 / §9.3): a slotted local dual-writes into BOTH the
+        // frame's slot array and the name map [_values]. Resolved reads go
+        // through [Environment.getSlot] (see [visitSimpleIdentifier]) — the hot
+        // path that previously paid the per-level name hash — while name-based
+        // resolution paths the interpreter still uses for the SAME local (the
+        // function-invocation callee lookup `environment.get(name)` for
+        // tear-offs / bridged-static / extension-call values) keep working
+        // against [_values]. Full demotion out of [_values] is deferred until
+        // every name-read site is audited (plan_3 §11). The slot index lives on
+        // the mirror node itself ([SVariableDeclaration.declSlot]) — no Expando,
+        // so it survives serialization.
         final declSlot = variable.declSlot;
         void def(Object? v) {
           environment.define(variableName, v);
