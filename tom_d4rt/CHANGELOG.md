@@ -1,3 +1,24 @@
+## 1.8.21
+
+### Performance
+- S1–S3 static lexical resolver: depth-0 slot-eligibility analysis with an
+  additive, dual-write slot runtime; resolved reads served from the current
+  frame's `getSlot` instead of repeated name-map chain walks.
+- Lazily-allocated auxiliary `Environment` maps (S2); node-keyed inline depth
+  cache for identifier resolution; single closure-free `Environment` reused
+  per classic for-loop.
+- `FrozenNameMap` for immutable class/mixin/enum member tables; per-class
+  member-resolution cache; negative resolution cache for `toBridgedInstance`;
+  canonicalized const set/map literals.
+- Hot-path debug logging guarded behind `Logger.isDebug`; `ErrorReporter`
+  identity `Set` with default-off tracking; memoized `Type.toString` in `D4`
+  coercion helpers.
+
+### Fixes
+- Redirecting factory constructors resolve correctly.
+- Static-field writes persist from sibling static methods.
+- Clear native-side accumulator on reset.
+
 ## 1.8.20
 
 ### Fixes
