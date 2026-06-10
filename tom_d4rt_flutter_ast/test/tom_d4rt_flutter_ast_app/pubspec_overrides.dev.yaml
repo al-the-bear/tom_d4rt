@@ -1,0 +1,19 @@
+# Override to use local packages during development.
+#
+# To activate locally:
+#   ln -s pubspec_overrides.dev.yaml pubspec_overrides.yaml
+#
+# This driving-test app depends on tom_d4rt_flutter_ast (path ../..), which
+# pulls tom_d4rt_ast from its sibling path checkout. That local tom_d4rt_ast
+# references the serializable mirror AST's slot-resolution members
+# (StaticResolver, resolvedSlot, declSlot) that exist only in the local
+# tom_ast_model checkout, not the hosted 0.1.0. Pub overrides apply only at
+# the root package being resolved, so the package-level override does not
+# carry into this app — it needs its own tom_ast_model path override, or the
+# app fails to compile against the stale hosted API and never starts.
+#
+# This is the standard local multi-package dev pattern, not an API-shim
+# override; remove once tom_ast_model is republished with the slot members.
+dependency_overrides:
+  tom_ast_model:
+    path: ../../../tom_ast_model

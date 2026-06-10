@@ -23,3 +23,10 @@ dependency_overrides:
     path: ../tom_d4rt_exec
   tom_ast_generator:
     path: ../tom_ast_generator
+  # tom_ast_model is the serializable mirror AST shared by the path-overridden
+  # siblings above. They reference members (StaticResolver, resolvedSlot,
+  # declSlot) that only exist in the local checkout, so it must resolve to the
+  # sibling path too — otherwise it falls back to the hosted version and the
+  # path-overridden packages fail to compile against the stale API.
+  tom_ast_model:
+    path: ../tom_ast_model
