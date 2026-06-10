@@ -28,25 +28,56 @@ bool opensLexicalFrame(SAstNode node) {
       node is SConstructorDeclaration;
 }
 
+/// One modelled local declaration on a resolver frame.
+///
+/// A declaration is a **slot candidate** iff [node] is non-null (only plain
+/// `var`/`final` locals declared directly in a slottable [SBlock] qualify; local
+/// function names are recorded with a null [node] so they correctly *shadow*
+/// outer same-named locals but are never themselves slotted). A candidate stays
+/// [eligible] until a depth>0 use (escape) or an assignment-target use demotes
+/// it; only eligible candidates receive a compacted slot on block exit.
+class _Decl {
+  final String name;
+
+  /// The declaration node to annotate with `declSlot`, or `null` for non-slot
+  /// kinds (function names) which are tracked only for shadowing.
+  final SVariableDeclaration? node;
+
+  bool eligible;
+
+  /// Depth-0 reads awaiting commit; annotated with `resolvedSlot` on block exit
+  /// iff the declaration turns out eligible.
+  final List<SSimpleIdentifier> pendingReads = [];
+
+  _Decl(this.name, this.node) : eligible = node != null;
+
+  bool get isCandidate => node != null;
+}
+
 /// One modelled lexical scope on the resolver's stack.
 class _ScopeFrame {
-  /// True only for [SBlock] frames. Declarations are slotted **only** into the
-  /// innermost slottable frame; declarations whose innermost frame is opaque
-  /// (e.g. a bare `var` directly inside a `switch` case with no block) are left
-  /// unslotted — hence unresolved — which is conservative but always sound.
+  /// True only for [SBlock] frames — the only frames that can hold slots.
+  /// Declarations are recorded **only** into the innermost slottable frame;
+  /// declarations whose innermost frame is opaque (e.g. a bare `var` directly
+  /// inside a `switch` case with no block) are left untracked — hence
+  /// unresolved — which is conservative but always sound.
   final bool slottable;
 
-  /// name → slot index, in declaration order. Empty for opaque frames.
-  final Map<String, int> slots = {};
+  /// Declarations in lexical order (drives compacted slot assignment).
+  final List<_Decl> decls = [];
 
-  int _nextSlot = 0;
+  /// name → declaration (first wins on same-frame shadowing).
+  final Map<String, _Decl> byName = {};
 
   _ScopeFrame(this.slottable);
 
-  int? slotOf(String name) => slots[name];
+  _Decl? declOf(String name) => byName[name];
 
-  void declare(String name) {
-    slots.putIfAbsent(name, () => _nextSlot++);
+  void declare(String name, SVariableDeclaration? node) {
+    if (byName.containsKey(name)) return;
+    final decl = _Decl(name, node);
+    decls.add(decl);
+    byName[name] = decl;
   }
 }
 
@@ -101,19 +132,40 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
     _stack.removeLast();
   }
 
-  /// Slots [name] into the innermost frame **iff** that frame is slottable.
+  /// Records [name] in the innermost frame **iff** that frame is slottable.
   /// A declaration whose innermost frame is opaque is intentionally dropped
   /// (left unresolved) rather than leaked into an outer frame, which would risk
-  /// a false depth-0.
-  void _declareLocal(String name) {
+  /// a false depth-0. [node] is the slot-carrier (`null` for non-slot kinds,
+  /// e.g. function names, which are tracked only for shadowing).
+  void _declareLocal(String name, SVariableDeclaration? node) {
     if (name == '_') return;
     if (_stack.isEmpty) return;
     final top = _stack.last;
-    if (top.slottable) top.declare(name);
+    if (top.slottable) top.declare(name, node);
   }
 
+  /// Resolve a block frame, then commit compacted slots (perf plan_3 §4.6):
+  /// eligible candidate decls get dense indices `0..k-1` in lexical order, their
+  /// pending depth-0 reads get `resolvedSlot`, and the block records `slotCount`.
   @override
-  void visitBlock(SBlock node) => _pushAndDescend(node, slottable: true);
+  void visitBlock(SBlock node) {
+    final frame = _ScopeFrame(true);
+    _stack.add(frame);
+    node.visitChildren(this);
+    _stack.removeLast();
+
+    var slot = 0;
+    for (final decl in frame.decls) {
+      if (!decl.isCandidate || !decl.eligible) continue;
+      decl.node!.declSlot = slot;
+      for (final use in decl.pendingReads) {
+        use.resolvedDepth = 0;
+        use.resolvedSlot = slot;
+      }
+      slot++;
+    }
+    node.slotCount = slot;
+  }
 
   @override
   void visitForStatement(SForStatement node) =>
@@ -164,37 +216,95 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
     for (final v in node.variables?.variables ?? const []) {
       v.initializer?.accept(this);
       final name = v.name?.name;
-      if (name != null) _declareLocal(name);
+      if (name != null) _declareLocal(name, v);
     }
   }
 
   @override
   void visitFunctionDeclarationStatement(SFunctionDeclarationStatement node) {
     // Local function names are defined in declaration order by executeBlock.
+    // Tracked with a null carrier (non-slot kind) so they shadow correctly but
+    // are never slotted (a recursive/closed-over function reference is a
+    // depth>0 use anyway → would be ineligible).
     final name = node.functionDeclaration.name?.name;
-    if (name != null) _declareLocal(name);
+    if (name != null) _declareLocal(name, null);
     node.functionDeclaration.accept(this);
   }
 
   @override
+  void visitAssignmentExpression(SAssignmentExpression node) {
+    // An assignment target (`x = …`, `x += …`) demotes the local out of slot
+    // eligibility in this read-only first cut (S3d widens to `setSlot`). A
+    // complex target (`a.b = …`, `a[i] = …`) is descended normally.
+    final lhs = node.leftHandSide;
+    if (lhs is SSimpleIdentifier) {
+      _useAssignTarget(lhs.name);
+    } else {
+      lhs?.accept(this);
+    }
+    node.rightHandSide?.accept(this);
+  }
+
+  @override
+  void visitPrefixExpression(SPrefixExpression node) {
+    final operand = node.operand;
+    if ((node.operator == '++' || node.operator == '--') &&
+        operand is SSimpleIdentifier) {
+      _useAssignTarget(operand.name);
+    } else {
+      operand?.accept(this);
+    }
+  }
+
+  @override
+  void visitPostfixExpression(SPostfixExpression node) {
+    final operand = node.operand;
+    if ((node.operator == '++' || node.operator == '--') &&
+        operand is SSimpleIdentifier) {
+      _useAssignTarget(operand.name);
+    } else {
+      operand?.accept(this);
+    }
+  }
+
+  @override
   void visitSimpleIdentifier(SSimpleIdentifier node) {
-    if (!node.inDeclarationContext) {
-      final name = node.name;
-      for (var depth = 0; depth < _stack.length; depth++) {
-        final frame = _stack[_stack.length - 1 - depth];
-        final slot = frame.slotOf(name);
-        if (slot != null) {
-          // Only the innermost scope (depth 0) is emitted in S1/S2 — sound by
-          // construction. Stop either way so an outer same-name declaration
-          // never produces a spurious coordinate.
-          if (depth == 0) {
-            node.resolvedDepth = 0;
-            node.resolvedSlot = slot;
-          }
-          break;
+    if (!node.inDeclarationContext) _useRead(node);
+    // SSimpleIdentifier has no children worth descending into for resolution.
+  }
+
+  /// Classify a bare identifier *read* against the frame stack. A depth-0 read
+  /// of a candidate is queued for commit; a depth>0 read *escapes* the
+  /// candidate (used from a nested frame → ineligible). Stops at the first
+  /// declaring frame (shadowing); names not declared in any modelled frame
+  /// (params, globals, bridged/enum/prefixed) stay unresolved → name path.
+  void _useRead(SSimpleIdentifier node) {
+    final name = node.name;
+    for (var depth = 0; depth < _stack.length; depth++) {
+      final frame = _stack[_stack.length - 1 - depth];
+      final decl = frame.declOf(name);
+      if (decl == null) continue;
+      if (decl.isCandidate) {
+        if (depth == 0) {
+          decl.pendingReads.add(node);
+        } else {
+          decl.eligible = false; // escaped: read from a nested frame
         }
       }
+      return;
     }
-    // SSimpleIdentifier has no children worth descending into for resolution.
+  }
+
+  /// Classify a bare identifier *assignment target*: demote the matching
+  /// candidate to ineligible (read-only cut). Stops at the first declaring
+  /// frame (shadowing).
+  void _useAssignTarget(String name) {
+    for (var depth = 0; depth < _stack.length; depth++) {
+      final frame = _stack[_stack.length - 1 - depth];
+      final decl = frame.declOf(name);
+      if (decl == null) continue;
+      if (decl.isCandidate) decl.eligible = false;
+      return;
+    }
   }
 }

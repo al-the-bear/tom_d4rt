@@ -15,6 +15,17 @@ class SBlock extends SStatement {
 
   final List<SStatement> statements;
 
+  /// S3 (perf plan_3 §4.6): number of **slot-eligible** locals this block frame
+  /// declares directly — the size of the per-frame `_slots` array the
+  /// interpreter pre-allocates on entry. Populated by [StaticResolver] (a
+  /// block-local is slot-eligible iff every occurrence is a depth-0,
+  /// non-escaped, non-assignment access; ineligible locals stay name-based in
+  /// `_values` and are not counted). `null` = not yet resolved → no slot array.
+  /// Mutable because the resolver assigns it on block exit. Emitted into
+  /// [toJson] only when non-null, so an unresolved block serializes identically
+  /// to the pre-S3 format.
+  int? slotCount;
+
   SBlock({
     required this.offset,
     required this.length,
@@ -30,6 +41,7 @@ class SBlock extends SStatement {
     'offset': offset,
     'length': length,
     'statements': statements.map((s) => s.toJson()).toList(),
+    if (slotCount != null) 'slotCount': slotCount,
   };
 
   factory SBlock.fromJson(Map<String, dynamic> json) {
@@ -39,7 +51,7 @@ class SBlock extends SStatement {
       statements: SAstNodeFactory.listFromJson<SStatement>(
         json['statements'] as List?,
       ),
-    );
+    )..slotCount = json['slotCount'] as int?;
   }
 
   @override

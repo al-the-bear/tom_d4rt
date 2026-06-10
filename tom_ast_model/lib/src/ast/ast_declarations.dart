@@ -759,6 +759,17 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
   /// Whether declared with `late`
   final bool isLate;
 
+  /// S3 (perf plan_3 §4.6): this declaration's **slot index** within its
+  /// enclosing block frame's `_slots` array, assigned by [StaticResolver] when
+  /// the variable is slot-eligible (every occurrence is a depth-0, non-escaped,
+  /// non-assignment access). `null` = ineligible → the variable lives in
+  /// `_values` and is accessed by name (status quo). Mutable because the
+  /// resolver assigns it on block exit; the index is consulted by *both* the
+  /// runtime `define` (writing the slot) and the resolved use's `resolvedSlot`
+  /// (reading it), so they address the same cell by construction. Emitted into
+  /// [toJson] only when non-null (backward compatible).
+  int? declSlot;
+
   SVariableDeclaration({
     required this.offset,
     required this.length,
@@ -784,6 +795,7 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
         'isConst': isConst,
         'isFinal': isFinal,
         'isLate': isLate,
+        if (declSlot != null) 'declSlot': declSlot,
       };
 
   factory SVariableDeclaration.fromJson(Map<String, dynamic> json) {
@@ -802,7 +814,7 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
       isConst: json['isConst'] as bool? ?? false,
       isFinal: json['isFinal'] as bool? ?? false,
       isLate: json['isLate'] as bool? ?? false,
-    );
+    )..declSlot = json['declSlot'] as int?;
   }
 
   @override

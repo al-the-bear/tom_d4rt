@@ -145,6 +145,89 @@ void main() {
       expect(json.contains('resolvedSlot'), isFalse);
     });
   });
+
+  group('Static resolver slot carriers + eligibility (perf plan_3 §4.6 S3b)', () {
+    SAstNode convert(String dartCode) => AstConverter().convertCompilationUnit(
+          parseString(content: dartCode).unit,
+        );
+
+    List<T> collect<T extends SAstNode>(SAstNode root) {
+      final c = _NodeCollector<T>();
+      root.accept(c);
+      return c.found;
+    }
+
+    /// The function-body block of `main` is the outermost (first in pre-order)
+    /// block in these single-function fixtures.
+    SBlock mainBlock(SAstNode root) => collect<SBlock>(root).first;
+
+    SVariableDeclaration declNamed(SAstNode root, String name) =>
+        collect<SVariableDeclaration>(root)
+            .firstWhere((d) => d.name?.name == name);
+
+    test('block carries slotCount and declarations carry declSlot', () {
+      final ast = convert('''
+void main() {
+  var a = 1;
+  var b = 2;
+  print(a);
+  print(b);
+}
+''');
+      expect(mainBlock(ast).slotCount, equals(2));
+      expect(declNamed(ast, 'a').declSlot, equals(0));
+      expect(declNamed(ast, 'b').declSlot, equals(1));
+    });
+
+    test('a local escaping into a nested block is ineligible (no slot)', () {
+      final ast = convert('''
+void main() {
+  var a = 1;
+  {
+    print(a);
+  }
+}
+''');
+      // `a` is read from a nested block (depth 1) → escaped → not slotted.
+      expect(mainBlock(ast).slotCount, equals(0));
+      expect(declNamed(ast, 'a').declSlot, isNull);
+      final use = collect<SSimpleIdentifier>(ast)
+          .where((id) => id.name == 'a' && !id.inDeclarationContext)
+          .single;
+      expect(use.resolvedSlot, isNull);
+    });
+
+    test('an assigned local is ineligible in the read-only cut', () {
+      final ast = convert('''
+void main() {
+  var a = 1;
+  a = 2;
+  print(a);
+}
+''');
+      // `a = 2` demotes `a` out of slot eligibility (read-only first cut).
+      expect(mainBlock(ast).slotCount, equals(0));
+      expect(declNamed(ast, 'a').declSlot, isNull);
+    });
+
+    test('eligible siblings compact around an ineligible local', () {
+      final ast = convert('''
+void main() {
+  var a = 1;
+  var b = 2;
+  var c = 3;
+  b = 9;
+  print(a);
+  print(c);
+}
+''');
+      // `b` is assigned → ineligible; `a` and `c` compact to dense 0,1.
+      expect(mainBlock(ast).slotCount, equals(2));
+      expect(declNamed(ast, 'a').declSlot, equals(0));
+      expect(declNamed(ast, 'b').declSlot, isNull);
+      expect(declNamed(ast, 'c').declSlot, equals(1));
+    });
+  });
 }
 
 /// Collects every [SSimpleIdentifier] reachable from a node, descending through
@@ -158,4 +241,16 @@ class _IdentifierCollector extends GeneralizingSAstVisitor<void> {
 
   @override
   void visitSimpleIdentifier(SSimpleIdentifier node) => found.add(node);
+}
+
+/// Collects every node of type [T] reachable from a root, in pre-order
+/// (parents before children), descending through all children.
+class _NodeCollector<T extends SAstNode> extends GeneralizingSAstVisitor<void> {
+  final List<T> found = [];
+
+  @override
+  void visitNode(SAstNode node) {
+    if (node is T) found.add(node);
+    node.visitChildren(this);
+  }
 }
