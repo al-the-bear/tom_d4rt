@@ -16,6 +16,7 @@ import 'src/build_runner_file_writer.dart';
 import 'src/file_generators.dart';
 import 'src/file_writer.dart';
 import 'src/per_package_orchestrator.dart';
+import 'src/relaxer_generator.dart';
 
 /// Default library path for per-package bridge files.
 ///
@@ -129,6 +130,30 @@ class D4rtBridgeBuilder implements Builder {
       log.info(
         '  Generated ${config!.modules.length} delegating barrel files',
       );
+
+      // RC-2 / GEN-079: Generate the relaxer file. The dartscript.b.dart
+      // template unconditionally imports `relaxers.b.dart` and calls
+      // registerGenericConstructors() / registerRelaxers() whenever the config
+      // has modules, so the build_runner path must emit it too (the standalone
+      // CLI path already does). generateRelaxers emits a no-op stub when no
+      // relaxers are reachable, so the import always resolves and compiles.
+      if (config!.modules.isNotEmpty) {
+        await generateRelaxers(
+          config: config!,
+          projectPath: projectRoot,
+          globalClassLookup: orchestrator.relaxerClassLookup,
+          genericExtractionSites: orchestrator.genericExtractionSites,
+          gen075Classes: orchestrator.gen075Classes,
+          onWarning: (msg) => log.info('  $msg'),
+          writeFile: (relativePath, content) async {
+            await fileWriter.writeFile(
+              FileId(packageName, ensureBDartExtension(relativePath)),
+              content,
+            );
+            outputFiles.add(relativePath);
+          },
+        );
+      }
 
       // Count total classes from package files (approximate)
       totalClasses = packageFiles.length * 10; // Approximation for now

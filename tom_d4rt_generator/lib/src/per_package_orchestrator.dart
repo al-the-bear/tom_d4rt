@@ -117,6 +117,32 @@ class PerPackageBridgeOrchestrator {
   /// Key is class name, value is ClassInfo.
   final Map<String, ClassInfo> _globalClassLookup = {};
 
+  /// Generic extraction sites accumulated across every per-package generator
+  /// run by [generatePerPackageFiles]. Consumed by `generateRelaxers` on the
+  /// build_runner path so the orchestrator emits the same `relaxers.b.dart`
+  /// the standalone/CLI path produces.
+  final List<GenericExtractionSite> _genericExtractionSites = [];
+
+  /// GEN-075 classes accumulated across per-package generators (relaxer input).
+  final Set<String> _gen075Classes = {};
+
+  /// Class lookup accumulated across per-package generators, seeded from
+  /// [_globalClassLookup]. Used as the relaxer generator's class lookup.
+  final Map<String, ClassInfo> _relaxerClassLookup = {};
+
+  /// Generic extraction sites collected during per-package generation.
+  /// Empty until [generatePerPackageFiles] has run.
+  List<GenericExtractionSite> get genericExtractionSites =>
+      List.unmodifiable(_genericExtractionSites);
+
+  /// GEN-075 classes collected during per-package generation.
+  Set<String> get gen075Classes => Set.unmodifiable(_gen075Classes);
+
+  /// Class lookup for relaxer generation (global lookup plus per-package
+  /// contributions). Empty until [generatePerPackageFiles] has run.
+  Map<String, ClassInfo> get relaxerClassLookup =>
+      Map.unmodifiable(_relaxerClassLookup);
+
   /// Counter for deprecated elements skipped during generation.
   int skippedDeprecatedCount = 0;
 
@@ -467,6 +493,10 @@ class PerPackageBridgeOrchestrator {
 
     final generatedFiles = <String, String>{};
 
+    // Seed the relaxer class lookup with the cross-package global lookup;
+    // per-package contributions are merged in as each generator runs.
+    _relaxerClassLookup.addAll(_globalClassLookup);
+
     for (final entry in _packageInfoMap.entries) {
       final pkgName = entry.key;
       final pkgInfo = entry.value;
@@ -531,6 +561,12 @@ class PerPackageBridgeOrchestrator {
       // Accumulate skipped deprecated count
       skippedDeprecatedCount += generator.skippedDeprecatedCount;
 
+      // Accumulate relaxer inputs (GEN-079 / RC-2) so the build_runner path
+      // can emit the same `relaxers.b.dart` the standalone/CLI path produces.
+      _genericExtractionSites.addAll(generator.genericExtractionSites);
+      _gen075Classes.addAll(generator.gen075Classes);
+      _relaxerClassLookup.addAll(generator.classLookup);
+
       // Only include packages that have actual content
       final hasContent =
           result.classesGenerated > 0 ||
@@ -564,6 +600,16 @@ class PerPackageBridgeOrchestrator {
       );
     }
   }
+
+  /// Test-only seam exposing [_generateDelegatingBarrelContent] so the
+  /// build_runner compile regression test can assemble and analyze the
+  /// delegating barrel ↔ dartscript ↔ relaxer contract without driving the
+  /// full multi-package build pipeline.
+  String generateDelegatingBarrelContentForTest(
+    BarrelPackageMapping mapping,
+    Map<String, String> packageFiles,
+  ) =>
+      _generateDelegatingBarrelContent(mapping, packageFiles);
 
   /// Generates content for a delegating barrel file.
   String _generateDelegatingBarrelContent(
@@ -698,10 +744,49 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln('  static String getImportBlock() {');
     buffer.writeln("    return \"import '${mapping.barrelImport}';\\n\";");
     buffer.writeln('  }');
+    buffer.writeln();
+
+    // subPackageBarrels() — must match the API surface of the standalone
+    // module bridge (bridge_generator.dart) because the generated
+    // dartscript.b.dart unconditionally calls `<Module>Bridge.subPackageBarrels()`.
+    // Returns barrel URIs for the module's required sub-packages that have
+    // bridged content (every package other than the module's primary package),
+    // mirroring the standalone path so registration behaviour is identical.
+    final primaryPackage = _packageNameFromBarrelUri(mapping.barrelImport);
+    final subPackageBarrels = sortedPackages
+        .where((pkg) =>
+            packageFiles.containsKey(pkg) && pkg != primaryPackage)
+        .map((pkg) => 'package:$pkg/$pkg.dart')
+        .toList()
+      ..sort();
+    buffer.writeln(
+      '  /// Returns barrel import URIs for sub-packages with bridged content.',
+    );
+    buffer.writeln('  static List<String> subPackageBarrels() {');
+    if (subPackageBarrels.isEmpty) {
+      buffer.writeln('    return const [];');
+    } else {
+      buffer.writeln('    return const [');
+      for (final barrel in subPackageBarrels) {
+        buffer.writeln("      '$barrel',");
+      }
+      buffer.writeln('    ];');
+    }
+    buffer.writeln('  }');
 
     buffer.writeln('}');
 
     return buffer.toString();
+  }
+
+  /// Extracts the package name from a `package:<pkg>/<path>` barrel URI.
+  /// Returns null for non-package URIs (e.g. `dart:ui`, relative paths).
+  String? _packageNameFromBarrelUri(String barrelUri) {
+    const prefix = 'package:';
+    if (!barrelUri.startsWith(prefix)) return null;
+    final rest = barrelUri.substring(prefix.length);
+    final slash = rest.indexOf('/');
+    return slash > 0 ? rest.substring(0, slash) : rest;
   }
 
   /// Extracts package name from a source file path.

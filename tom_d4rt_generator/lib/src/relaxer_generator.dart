@@ -108,6 +108,10 @@ class _RelaxerTarget {
 /// - [genericExtractionSites]: Pre-collected generic extraction sites from bridge generation.
 /// - [gen075Classes]: Class names with GEN-075 type-dispatch constructor switches.
 /// - [onWarning]: Optional callback for non-fatal warnings.
+/// - [writeFile]: Optional sink that receives `(relativePath, content)` instead
+///   of writing directly to the filesystem. The build_runner path passes this
+///   so relaxer output is written through the build asset writer rather than
+///   `dart:io`. When null, the file is written directly under [projectPath].
 Future<RelaxerGenerationResult> generateRelaxers({
   required BridgeConfig config,
   required String projectPath,
@@ -115,10 +119,12 @@ Future<RelaxerGenerationResult> generateRelaxers({
   List<GenericExtractionSite> genericExtractionSites = const [],
   Set<String> gen075Classes = const {},
   void Function(String)? onWarning,
+  Future<void> Function(String relativePath, String content)? writeFile,
 }) async {
   // relaxerOutputPath always has a value (auto-derived default), but guard
   // for programmatic callers who pass a config with the constructor default.
   final outputPath = config.relaxerOutputPath;
+  final relaxerRelPath = ensureBDartExtension(outputPath);
 
   final errors = <String>[];
   final warnings = <String>[];
@@ -128,12 +134,51 @@ Future<RelaxerGenerationResult> generateRelaxers({
     onWarning?.call(msg);
   }
 
+  // Writes [content] to the relaxer output, honouring the [writeFile] sink
+  // when provided (build_runner) and falling back to direct `dart:io` writes.
+  Future<String> emit(String content) async {
+    if (writeFile != null) {
+      await writeFile(relaxerRelPath, content);
+      return relaxerRelPath;
+    }
+    final outputFilePath = p.join(projectPath, relaxerRelPath);
+    final outputDir = Directory(p.dirname(outputFilePath));
+    if (!outputDir.existsSync()) {
+      outputDir.createSync(recursive: true);
+    }
+    await File(outputFilePath).writeAsString(content);
+    return outputFilePath;
+  }
+
+  // Emits a no-op stub so the dartscript.b.dart import of `relaxers.b.dart`
+  // (and its `registerGenericConstructors()` / `registerRelaxers()` calls)
+  // always resolves, even when nothing relaxer-worthy was discovered.
+  Future<RelaxerGenerationResult> emitStub(String reason) async {
+    final stub = StringBuffer();
+    _writeFileHeader(stub, config);
+    stub.writeln();
+    stub.writeln('// $reason');
+    stub.writeln('// Emitting empty stubs so the dartscript registration calls');
+    stub.writeln('// to registerRelaxers() / registerGenericConstructors() resolve.');
+    stub.writeln();
+    stub.writeln('/// No-op: no GEN-079 relaxer wrappers for this package.');
+    stub.writeln('void registerRelaxers() {}');
+    stub.writeln();
+    stub.writeln(
+      '/// No-op: no RC-2 generic constructor factories for this package.',
+    );
+    stub.writeln('void registerGenericConstructors() {}');
+    final outputFilePath = await emit(stub.toString());
+    print('  RELAXER: Generated empty stub ($reason) → $outputFilePath');
+    return RelaxerGenerationResult(outputFile: outputFilePath, warnings: warnings);
+  }
+
   // -------------------------------------------------------------------------
   // Step 1: Use pre-collected generic extraction sites from bridge generator
   // -------------------------------------------------------------------------
   if (genericExtractionSites.isEmpty) {
     warn('No generic extraction sites collected during bridge generation');
-    return RelaxerGenerationResult(warnings: warnings);
+    return emitStub('No generic extraction sites collected');
   }
 
   // -------------------------------------------------------------------------
@@ -181,7 +226,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
 
   if (targets.isEmpty) {
     warn('No relaxer targets identified after filtering');
-    return RelaxerGenerationResult(warnings: warnings);
+    return emitStub('No relaxer targets after filtering');
   }
 
   // -------------------------------------------------------------------------
@@ -371,46 +416,12 @@ Future<RelaxerGenerationResult> generateRelaxers({
       recreatorBlocks.isEmpty &&
       genericInterceptorBlocks.isEmpty &&
       genericCtorCount == 0) {
-    final stub = StringBuffer();
-    _writeFileHeader(stub, config);
-    stub.writeln();
-    stub.writeln(
-      '// GEN-095: No relaxers or RC-2 generic constructors are reachable',
+    return emitStub(
+      'GEN-095: No relaxers or RC-2 generic constructors reachable via barrels',
     );
-    stub.writeln(
-      '// via this package\'s barrel imports. Emitting empty stubs so the',
-    );
-    stub.writeln(
-      '// orchestrator\'s `registerRelaxers()` / `registerGenericConstructors()`',
-    );
-    stub.writeln('// calls still resolve.');
-    stub.writeln();
-    stub.writeln('/// No-op: no GEN-079 relaxer wrappers for this package.');
-    stub.writeln('void registerRelaxers() {}');
-    stub.writeln();
-    stub.writeln(
-      '/// No-op: no RC-2 generic constructor factories for this package.',
-    );
-    stub.writeln('void registerGenericConstructors() {}');
-    final outputFilePath = p.join(projectPath, ensureBDartExtension(outputPath));
-    final outputDir = Directory(p.dirname(outputFilePath));
-    if (!outputDir.existsSync()) {
-      outputDir.createSync(recursive: true);
-    }
-    await File(outputFilePath).writeAsString(stub.toString());
-    print(
-      '  RELAXER: Generated empty stub (no reachable relaxers) → '
-      '$outputFilePath',
-    );
-    return RelaxerGenerationResult(warnings: warnings);
   }
 
-  final outputFilePath = p.join(projectPath, ensureBDartExtension(outputPath));
-  final outputDir = Directory(p.dirname(outputFilePath));
-  if (!outputDir.existsSync()) {
-    outputDir.createSync(recursive: true);
-  }
-  await File(outputFilePath).writeAsString(buffer.toString());
+  final outputFilePath = await emit(buffer.toString());
 
   print(
     '  RELAXER: Generated $wrappersGenerated wrapper classes, '
